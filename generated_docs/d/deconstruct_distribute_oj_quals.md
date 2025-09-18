@@ -27,16 +27,16 @@ When commutation is possible, the function creates different versions of the joi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_union, bms_add_member, bms_del_member, bms_make_singleton (bitmap operations)
-  - remove_nulling_relids
-  - add_nulling_relids
-  - distribute_quals_to_rels
-  - bms_copy
-  - bms_equal
-  - bms_is_member
+  - [bms_union](../b/bms_union.md), bms_add_member, bms_del_member, bms_make_singleton (bitmap operations)
+  - [remove_nulling_relids](../r/remove_nulling_relids.md)
+  - [add_nulling_relids](../a/add_nulling_relids.md)
+  - [distribute_quals_to_rels](distribute_quals_to_rels.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [bms_is_member](../b/bms_is_member.md)
   - bms_is_empty
 - Called from (representative examples):
-  - deconstruct_jointree
+  - [deconstruct_jointree](deconstruct_jointree.md)
 
 ## Notes and Other Information
 - The function only processes joins where lhs_strict is true, as indicated by the assertion

@@ -20,7 +20,7 @@ The  function serves as an error callback mechanism specifically designed for PL
   - errcontext
   - PERL_VERSION_LT (conditional compilation macro)
 - Called from (representative examples):
-  - plperl_inline_handler
+  - [plperl_inline_handler](plperl_inline_handler.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within the plperl.c compilation unit

@@ -21,7 +21,7 @@ This function implements the greater-than-or-equal-to comparison operator (>=) b
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMPTZ - Extracts timestamptz argument
   - PG_GETARG_DATEADT - Extracts date argument
-  - date_cmp_timestamptz_internal - Performs the actual comparison logic
+  - [date_cmp_timestamptz_internal](../d/date_cmp_timestamptz_internal.md) - Performs the actual comparison logic
   - DateADT - Date abstract data type
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through SQL operator dispatch)

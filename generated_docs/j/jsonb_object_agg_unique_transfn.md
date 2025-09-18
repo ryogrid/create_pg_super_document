@@ -23,7 +23,7 @@ The function is part of PostgreSQL's JSONB aggregate functionality, which allows
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_object_agg_transfn_worker
+  - [jsonb_object_agg_transfn_worker](jsonb_object_agg_transfn_worker.md)
 - Called from (representative examples):
   - PostgreSQL aggregate execution engine during jsonb_object_agg_unique operations
 

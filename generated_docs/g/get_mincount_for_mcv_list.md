@@ -30,9 +30,9 @@ The mathematical foundation assumes sampling without replacement and applies fin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MCVList (referenced in context)
+  - [MCVList](../M/MCVList.md) (referenced in context)
 - Called from (representative examples):
-  - statext_mcv_build
+  - [statext_mcv_build](../s/statext_mcv_build.md)
 
 ## Notes and Other Information
 - Returns 0.0 if division by zero would occur (when n = N = 1)

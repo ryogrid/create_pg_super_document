@@ -42,12 +42,12 @@ The structure plays a crucial role in determining when predicate locks can be sa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head
+  - [dlist_head](../d/dlist_head.md)
   - TransactionId
   - SerCommitSeqNo
-  - SERIALIZABLEXACT
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
 - Called from (representative examples):
-  - PredXactList (typedef)
+  - [PredXactList](PredXactList.md) (typedef)
   - PredXactListDataSize (size calculation)
 
 ## Notes and Other Information

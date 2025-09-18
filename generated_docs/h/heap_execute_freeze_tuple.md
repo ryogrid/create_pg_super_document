@@ -33,9 +33,9 @@ This function assumes that all validation and safety checks were performed durin
   - XLH_FREEZE_XVAC
   - XLH_INVALID_XVAC
 - Called from:
-  - heap_freeze_prepared_tuples
-  - heap_freeze_tuple
-  - heap_xlog_prune_freeze
+  - [heap_freeze_prepared_tuples](heap_freeze_prepared_tuples.md)
+  - [heap_freeze_tuple](heap_freeze_tuple.md)
+  - [heap_xlog_prune_freeze](heap_xlog_prune_freeze.md)
 
 ## Notes and Other Information
 - **Concurrency Safety**: Caller must ensure exclusive access to the tuple storage (via buffer lock or private storage)

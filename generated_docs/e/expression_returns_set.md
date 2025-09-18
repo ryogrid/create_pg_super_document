@@ -19,20 +19,20 @@ This function serves as a convenient wrapper around `expression_returns_set_walk
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_returns_set_walker (performs the actual tree walking and analysis)
+  - [expression_returns_set_walker](expression_returns_set_walker.md) (performs the actual tree walking and analysis)
 
 - Called from (representative examples):
-  - ExecInitProjectSet (executor initialization for projection sets)
-  - check_output_expressions (optimizer path analysis)
-  - remove_unused_subquery_outputs (subquery optimization)
-  - get_eclass_for_sort_expr (equivalence class sorting)
-  - relation_can_be_sorted_early (early sorting optimization)
-  - subquery_planner (subquery planning)
-  - make_sort_input_target (sort target creation)
-  - is_simple_values (VALUES clause analysis)
-  - coerce_to_boolean (type coercion)
-  - make_row_comparison_op (row comparison operations)
-  - transformJsonBehavior (JSON expression transformation)
+  - [ExecInitProjectSet](../E/ExecInitProjectSet.md) (executor initialization for projection sets)
+  - [check_output_expressions](../c/check_output_expressions.md) (optimizer path analysis)
+  - [remove_unused_subquery_outputs](../r/remove_unused_subquery_outputs.md) (subquery optimization)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md) (equivalence class sorting)
+  - [relation_can_be_sorted_early](../r/relation_can_be_sorted_early.md) (early sorting optimization)
+  - [subquery_planner](../s/subquery_planner.md) (subquery planning)
+  - [make_sort_input_target](../m/make_sort_input_target.md) (sort target creation)
+  - [is_simple_values](../i/is_simple_values.md) (VALUES clause analysis)
+  - [coerce_to_boolean](../c/coerce_to_boolean.md) (type coercion)
+  - [make_row_comparison_op](../m/make_row_comparison_op.md) (row comparison operations)
+  - [transformJsonBehavior](../t/transformJsonBehavior.md) (JSON expression transformation)
 
 ## Notes and Other Information
 - This function is built on PostgreSQL's expression tree walker framework, which provides efficient recursive traversal of expression trees

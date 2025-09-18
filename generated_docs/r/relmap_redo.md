@@ -22,11 +22,11 @@ This function processes  records during recovery, extracting the new mapping dat
   - XLogRecGetInfo
   - XLogRecHasAnyBlockRefs  
   - XLogRecGetData
-  - GetDatabasePath
+  - [GetDatabasePath](../G/GetDatabasePath.md)
   - LWLockAcquire
-  - write_relmap_file
+  - [write_relmap_file](../w/write_relmap_file.md)
   - LWLockRelease
-  - pfree
+  - [pfree](../p/pfree.md)
   - elog
 - Called from (representative examples):
   - MinSizeOfRelmapUpdate (referenced in header)

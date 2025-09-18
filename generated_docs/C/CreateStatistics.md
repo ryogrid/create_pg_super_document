@@ -26,17 +26,17 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_openrv (opens the target relation)
-  - ChooseExtendedStatisticName (generates automatic names)
-  - SearchSysCacheAttName (validates column references)
-  - compare_int16 (sorts column attribute numbers)
-  - buildint2vector (creates column number array)
-  - CatalogTupleInsert (inserts into pg_statistic_ext)
-  - recordDependencyOn (tracks object dependencies)
-  - CreateComments (adds optional comments)
+  - [relation_openrv](../r/relation_openrv.md) (opens the target relation)
+  - [ChooseExtendedStatisticName](ChooseExtendedStatisticName.md) (generates automatic names)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (validates column references)
+  - [compare_int16](../c/compare_int16.md) (sorts column attribute numbers)
+  - [buildint2vector](../b/buildint2vector.md) (creates column number array)
+  - [CatalogTupleInsert](CatalogTupleInsert.md) (inserts into pg_statistic_ext)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (tracks object dependencies)
+  - [CreateComments](CreateComments.md) (adds optional comments)
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1902)
-  - ATExecAddStatistics (src/backend/commands/tablecmds.c:9252)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1902)
+  - [ATExecAddStatistics](../A/ATExecAddStatistics.md) (src/backend/commands/tablecmds.c:9252)
 
 ## Notes and Other Information
 - Supports statistics on regular tables, materialized views, foreign tables, and partitioned tables

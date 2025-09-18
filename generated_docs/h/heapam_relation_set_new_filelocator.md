@@ -31,11 +31,11 @@ The function includes special handling for unlogged tables by creating an INIT_F
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetOldestMultiXactId
-  - RelationCreateStorage
-  - smgrcreate
-  - log_smgrcreate
-  - smgrclose
+  - [GetOldestMultiXactId](../G/GetOldestMultiXactId.md)
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)
+  - [smgrcreate](../s/smgrcreate.md)
+  - [log_smgrcreate](../l/log_smgrcreate.md)
+  - [smgrclose](../s/smgrclose.md)
 - Types and constants:
   - SMgrRelation, MultiXactId, TransactionId
   - RELPERSISTENCE_UNLOGGED

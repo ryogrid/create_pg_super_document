@@ -27,17 +27,17 @@ The function handles parameter validation, type conversion, and ensures proper S
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call (establishes SPI execution context)
-  - _SPI_convert_params (converts parameter values to internal format)
-  - _SPI_execute_plan (performs the actual plan execution)
+  - [_SPI_convert_params](_SPI_convert_params.md) (converts parameter values to internal format)
+  - [_SPI_execute_plan](_SPI_execute_plan.md) (performs the actual plan execution)
   - _SPI_end_call (cleanup SPI execution context)
-  - SPIPlanPtr (prepared plan type)
-  - SPIExecuteOptions (execution options structure)
+  - [SPIPlanPtr](SPIPlanPtr.md) (prepared plan type)
+  - [SPIExecuteOptions](SPIExecuteOptions.md) (execution options structure)
 - Called from (representative examples):
-  - SPI_execp (wrapper function)
-  - pg_get_ruledef_worker (rule definition retrieval)
-  - pg_get_viewdef_worker (view definition retrieval)
-  - plperl_spi_exec_prepared (PL/Perl prepared statement execution)
-  - PLy_spi_execute_plan (PL/Python plan execution)
+  - [SPI_execp](SPI_execp.md) (wrapper function)
+  - [pg_get_ruledef_worker](../p/pg_get_ruledef_worker.md) (rule definition retrieval)
+  - [pg_get_viewdef_worker](../p/pg_get_viewdef_worker.md) (view definition retrieval)
+  - [plperl_spi_exec_prepared](../p/plperl_spi_exec_prepared.md) (PL/Perl prepared statement execution)
+  - [PLy_spi_execute_plan](../P/PLy_spi_execute_plan.md) (PL/Python plan execution)
 
 ## Notes and Other Information
 - Returns SPI_ERROR_ARGUMENT if plan is NULL, has invalid magic number, or tcount is negative

@@ -37,15 +37,15 @@ The function intentionally focuses on simple TidEqual clauses, as more complex e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restriction_is_securely_promotable
-  - IsTidEqualClause
-  - join_clause_is_movable_to
-  - bms_union
-  - bms_del_member
-  - add_path
-  - create_tidscan_path
+  - [restriction_is_securely_promotable](../r/restriction_is_securely_promotable.md)
+  - [IsTidEqualClause](../I/IsTidEqualClause.md)
+  - [join_clause_is_movable_to](../j/join_clause_is_movable_to.md)
+  - [bms_union](../b/bms_union.md)
+  - [bms_del_member](../b/bms_del_member.md)
+  - [add_path](../a/add_path.md)
+  - [create_tidscan_path](../c/create_tidscan_path.md)
 - Called from (representative examples):
-  - create_tidscan_paths
+  - [create_tidscan_paths](../c/create_tidscan_paths.md)
 
 ## Notes and Other Information
 - Static function accessible only within tidpath.c

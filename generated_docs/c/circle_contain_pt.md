@@ -19,13 +19,13 @@ This function determines if a point lies within a circle by calculating the dist
 ## Dependencies
 - Functions called/Symbols referenced:
   - CIRCLE (type definition)
-  - Point (type definition)
+  - [Point](../P/Point.md) (type definition)
   - PG_GETARG_CIRCLE_P (parameter extraction macro)
   - PG_GETARG_POINT_P (parameter extraction macro)
-  - point_dt (distance between two points)
+  - [point_dt](../p/point_dt.md) (distance between two points)
   - PG_RETURN_BOOL (boolean return value macro)
 - Called from (representative examples):
-  - gist_point_consistent (in src/backend/access/gist/gistproc.c:1438)
+  - [gist_point_consistent](../g/gist_point_consistent.md) (in src/backend/access/gist/gistproc.c:1438)
 
 ## Notes and Other Information
 - Returns true if the point is exactly on the circle's boundary (distance equals radius)

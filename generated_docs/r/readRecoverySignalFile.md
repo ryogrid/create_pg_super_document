@@ -20,14 +20,14 @@ readRecoverySignalFile is a static function that scans for PostgreSQL recovery s
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
-  - stat (checks file existence)
+  - [stat](../s/stat.md) (checks file existence)
   - unlink (removes recovery.done file)
   - BasicOpenFilePerm (opens signal files)
   - pg_fsync (synchronizes signal files to disk)
   - close (closes file descriptors)
   - RECOVERY_COMMAND_FILE, STANDBY_SIGNAL_FILE, RECOVERY_SIGNAL_FILE (file path constants)
 - Called from (representative examples):
-  - InitWalRecovery (during WAL recovery initialization at line 540)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization at line 540)
 
 ## Notes and Other Information
 - Static function, only accessible within xlogrecovery.c

@@ -26,19 +26,19 @@ The structure leverages WAL summaries to determine what has changed rather than 
 - Functions called/Symbols referenced:
   - BlockRefTable
   - JsonManifestParseIncrementalState
-  - manifest_process_version
-  - manifest_process_system_identifier
-  - manifest_process_file
-  - manifest_process_wal_range
-  - JsonManifestParseContext
+  - [manifest_process_version](../m/manifest_process_version.md)
+  - [manifest_process_system_identifier](../m/manifest_process_system_identifier.md)
+  - [manifest_process_file](../m/manifest_process_file.md)
+  - [manifest_process_wal_range](../m/manifest_process_wal_range.md)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md)
   - pg_checksum_type
 - Called from (representative examples):
-  - perform_base_backup
-  - SendBaseBackup
-  - PrepareForIncrementalBackup
-  - GetFileBackupMethod
-  - AppendIncrementalManifestData
-  - FinalizeIncrementalManifest
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [SendBaseBackup](../S/SendBaseBackup.md)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [GetFileBackupMethod](../G/GetFileBackupMethod.md)
+  - [AppendIncrementalManifestData](../A/AppendIncrementalManifestData.md)
+  - [FinalizeIncrementalManifest](../F/FinalizeIncrementalManifest.md)
 
 ## Notes and Other Information
 The structure is designed with memory efficiency in mind, but the authors acknowledge that storing the entire block-reference table in memory could potentially be problematic for very large databases on memory-constrained systems. The current implementation is optimized for most common use cases.

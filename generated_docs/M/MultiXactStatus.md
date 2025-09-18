@@ -26,12 +26,12 @@ The enum values are carefully ordered and designed to work with PostgreSQL's loc
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - heap_update (src/backend/access/heap/heapam.c:3220)
-  - heap_lock_tuple (src/backend/access/heap/heapam.c:4919)
-  - compute_new_xmax_infomask (src/backend/access/heap/heapam.c:5341)
-  - MultiXactIdCreate (src/backend/access/transam/multixact.c:433)
-  - mxstatus_to_string (src/backend/access/transam/multixact.c:1746)
-  - MultiXactMember struct (src/include/access/multixact.h:59)
+  - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3220)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (src/backend/access/heap/heapam.c:4919)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (src/backend/access/heap/heapam.c:5341)
+  - [MultiXactIdCreate](MultiXactIdCreate.md) (src/backend/access/transam/multixact.c:433)
+  - [mxstatus_to_string](../m/mxstatus_to_string.md) (src/backend/access/transam/multixact.c:1746)
+  - [MultiXactMember](MultiXactMember.md) struct (src/include/access/multixact.h:59)
 
 ## Notes and Other Information
 - The enum values are used in the MultiXactMember structure to track what type of lock each transaction holds

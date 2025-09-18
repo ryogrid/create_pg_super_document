@@ -27,7 +27,7 @@ This abstraction allows the same code to work across different operating systems
   - fileno (Unix - gets file descriptor from FILE*)
   - _fileno/_get_osfhandle (Windows - gets OS handle from FILE*)
 - Called from (representative examples):
-  - SysLogger_Start (used three times to get descriptors for syslogFile, csvlogFile, jsonlogFile)
+  - [SysLogger_Start](../S/SysLogger_Start.md) (used three times to get descriptors for syslogFile, csvlogFile, jsonlogFile)
 
 ## Notes and Other Information
 - This is a static function only used within the syslogger.c module

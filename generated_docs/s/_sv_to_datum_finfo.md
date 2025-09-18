@@ -25,11 +25,11 @@ The function is designed to be called before performing actual data conversion t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTypeInputInfo (retrieves type input function and parameters)
-  - fmgr_info (initializes function manager info structure)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md) (retrieves type input function and parameters)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager info structure)
 - Called from (representative examples):
-  - plperl_array_to_datum
-  - plperl_sv_to_datum (multiple call sites)
+  - [plperl_array_to_datum](../p/plperl_array_to_datum.md)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (multiple call sites)
 
 ## Notes and Other Information
 - Contains a TODO comment (XXX) suggesting that caching these lookups would improve performance

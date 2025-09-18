@@ -22,20 +22,20 @@ The function implements a sophisticated adaptive strategy that can dynamically s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RevalidateCachedQuery (validates and locks the underlying query tree)
-  - choose_custom_plan (implements the custom vs generic decision logic)
-  - CheckCachedPlan (validates existing generic plans)
-  - BuildCachedPlan (constructs new plans)
-  - cached_plan_cost (calculates plan execution costs)
-  - ReleaseGenericPlan (cleanup invalid generic plans)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (validates and locks the underlying query tree)
+  - [choose_custom_plan](../c/choose_custom_plan.md) (implements the custom vs generic decision logic)
+  - [CheckCachedPlan](../C/CheckCachedPlan.md) (validates existing generic plans)
+  - [BuildCachedPlan](../B/BuildCachedPlan.md) (constructs new plans)
+  - [cached_plan_cost](../c/cached_plan_cost.md) (calculates plan execution costs)
+  - [ReleaseGenericPlan](../R/ReleaseGenericPlan.md) (cleanup invalid generic plans)
   - MemoryContextSetParent (manages plan memory lifecycle)
   - ResourceOwnerEnlarge, ResourceOwnerRememberPlanCacheRef (resource tracking)
   - CACHEDPLANSOURCE_MAGIC, CACHEDPLAN_MAGIC (validation constants)
 - Called from (representative examples):
-  - ExecuteQuery (prepared statement execution)
-  - _SPI_execute_plan (SPI interface)
-  - exec_bind_message (protocol-level execution)
-  - SPI_cursor_open_internal (cursor operations)
+  - [ExecuteQuery](../E/ExecuteQuery.md) (prepared statement execution)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md) (SPI interface)
+  - [exec_bind_message](../e/exec_bind_message.md) (protocol-level execution)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (cursor operations)
 
 ## Notes and Other Information
 - Automatically increments plan reference count and registers with ResourceOwner if provided

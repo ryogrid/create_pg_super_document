@@ -33,14 +33,14 @@ All possible return values from  are handled:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_tuple_update
-  - GetCurrentCommandId
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - elog
   - TM_Result (enum values: TM_SelfModified, TM_Ok, TM_Updated, TM_Deleted)
   - TM_FailureData
-  - LockTupleMode
+  - [LockTupleMode](../L/LockTupleMode.md)
   - InvalidSnapshot
 - Called from (representative examples):
-  - ExecSimpleRelationUpdate
+  - [ExecSimpleRelationUpdate](../E/ExecSimpleRelationUpdate.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

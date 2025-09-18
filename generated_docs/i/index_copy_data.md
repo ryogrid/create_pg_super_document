@@ -20,18 +20,18 @@ The function operates by first flushing any buffered pages to ensure all data is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FlushRelationBuffers
-  - RelationCreateStorage  
-  - RelationCopyStorage
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)  
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
   - RelationGetSmgr
-  - smgrexists
-  - smgrcreate
-  - log_smgrcreate
-  - RelationDropStorage
-  - smgrclose
+  - [smgrexists](../s/smgrexists.md)
+  - [smgrcreate](../s/smgrcreate.md)
+  - [log_smgrcreate](../l/log_smgrcreate.md)
+  - [RelationDropStorage](../R/RelationDropStorage.md)
+  - [smgrclose](../s/smgrclose.md)
   - RelationIsPermanent
 - Called from (representative examples):
-  - ATExecSetTableSpace
+  - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md)
 
 ## Notes and Other Information
 - Requires exclusive lock on the relation to prevent concurrent modifications during copy

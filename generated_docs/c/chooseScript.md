@@ -22,10 +22,10 @@ The algorithm works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getrand (for generating weighted random numbers)
+  - [getrand](../g/getrand.md) (for generating weighted random numbers)
   - TState (thread state structure)
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - This function is critical for load balancing in pgbench when multiple scripts with different weights are used

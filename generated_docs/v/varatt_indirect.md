@@ -21,15 +21,15 @@ Like other TOAST pointer structures, varatt_indirect is stored unaligned within 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (PostgreSQL variable-length data structure)
+  - [varlena](varlena.md) (PostgreSQL variable-length data structure)
 - Called from (representative examples):
-  - detoast_external_attr
-  - detoast_attr
-  - detoast_attr_slice
-  - toast_raw_datum_size
-  - toast_datum_size
-  - ReorderBufferToastReplace
-  - make_tuple_indirect
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [detoast_attr](../d/detoast_attr.md)
+  - [detoast_attr_slice](../d/detoast_attr_slice.md)
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
+  - [toast_datum_size](../t/toast_datum_size.md)
+  - [ReorderBufferToastReplace](../R/ReorderBufferToastReplace.md)
+  - [make_tuple_indirect](../m/make_tuple_indirect.md)
 
 ## Notes and Other Information
 - Used for out-of-line data stored in memory rather than on disk

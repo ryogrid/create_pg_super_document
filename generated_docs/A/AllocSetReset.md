@@ -29,11 +29,11 @@ Memory debugging features ensure freed memory is wiped or marked inaccessible wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetIsValid (context validation)
-  - AllocSetCheck (optional corruption/leak checking)
+  - [AllocSetCheck](AllocSetCheck.md) (optional corruption/leak checking)
   - KeeperBlock (macro to access initial block)
   - IsKeeperBlock (tests if block is the keeper block)
   - MemSetAligned (aligned memory clearing)  
-  - wipe_mem (memory wiping for debugging)
+  - [wipe_mem](../w/wipe_mem.md) (memory wiping for debugging)
   - VALGRIND_MAKE_MEM_NOACCESS (memory debugging support)
   - free (system memory deallocation)
   

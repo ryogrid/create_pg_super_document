@@ -18,9 +18,9 @@ The hashvarlena function provides hash computation for any variable-length (varl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena
+  - [varlena](../v/varlena.md)
   - PG_GETARG_VARLENA_PP
-  - hash_any
+  - [hash_any](hash_any.md)
 
 - Called from (representative examples):
   - No direct references found

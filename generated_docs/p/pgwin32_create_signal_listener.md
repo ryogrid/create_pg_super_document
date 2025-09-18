@@ -22,10 +22,10 @@ The named pipe is created with duplex access, message-type communication, and su
   - CreateNamedPipe (Windows API)
   - snprintf
   - ereport
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - GetLastError (Windows API)
 - Called from (representative examples):
-  - save_backend_variables (in launch_backend.c:768)
+  - [save_backend_variables](../s/save_backend_variables.md) (in launch_backend.c:768)
 
 ## Notes and Other Information
 - The pipe name follows the pattern: 

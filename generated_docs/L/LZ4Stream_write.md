@@ -22,19 +22,19 @@ This static function serves as the primary interface for writing compressed data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LZ4Stream_init (internal initialization function)
+  - [LZ4Stream_init](LZ4Stream_init.md) (internal initialization function)
   - LZ4F_compressUpdate (LZ4 library compression function)
   - LZ4F_isError (LZ4 library error checking function)
   - LZ4F_getErrorName (LZ4 library error message function)
   - fwrite (standard C library I/O function)
-  - pg_fatal (PostgreSQL fatal error function - terminates program)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error function - terminates program)
   - Min (PostgreSQL macro for minimum value)
 - Constants referenced:
   - DEFAULT_IO_BUFFER_SIZE (chunk size limit for processing)
   - ENOSPC (system error code for no space)
 - Types referenced:
-  - CompressFileHandle
-  - LZ4State
+  - [CompressFileHandle](../C/CompressFileHandle.md)
+  - [LZ4State](LZ4State.md)
 
 ## Notes and Other Information
 - This function uses pg_fatal() for error handling, meaning any error (compression failure or I/O error) will terminate the entire program - this is appropriate for pg_dump where data integrity is critical

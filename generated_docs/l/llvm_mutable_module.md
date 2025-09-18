@@ -26,7 +26,7 @@ This function provides access to a mutable LLVM module that can be modified by a
   - llvm_layout (global data layout)
   - llvm_generation (global generation counter)
 - Called from:
-  - slot_compile_deform (tuple deforming compilation)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (tuple deforming compilation)
   - llvm_compile_expr (expression compilation)
 
 ## Notes and Other Information

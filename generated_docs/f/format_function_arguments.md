@@ -23,14 +23,14 @@ The function returns a dynamically allocated string that the caller is responsib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](fmtId.md)
   - initPQExpBuffer
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
-  - PQExpBufferData
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [PQExpBufferData](../P/PQExpBufferData.md)
 - Called from (representative examples):
-  - dumpFunc
-  - dumpAgg
+  - [dumpFunc](../d/dumpFunc.md)
+  - [dumpAgg](../d/dumpAgg.md)
 
 ## Notes and Other Information
 - Returns dynamically allocated memory that must be freed by the caller

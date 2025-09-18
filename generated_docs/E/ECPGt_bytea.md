@@ -21,14 +21,14 @@ As an enumeration constant, ECPGt_bytea has no parameters or member variables. I
 - Functions called/Symbols referenced: None (enumeration constant)
 - Used by (representative examples):
   - ecpg_get_data (src/interfaces/ecpg/ecpglib/data.c:521)
-  - set_desc_attr (src/interfaces/ecpg/ecpglib/descriptor.c:587)
+  - [set_desc_attr](../s/set_desc_attr.md) (src/interfaces/ecpg/ecpglib/descriptor.c:587)
   - ecpg_store_input (src/interfaces/ecpg/ecpglib/execute.c:820)
   - ecpg_build_params (src/interfaces/ecpg/ecpglib/execute.c:1398)
   - IS_SIMPLE_TYPE (src/interfaces/ecpg/include/ecpgtype.h:92)
-  - get_type (src/interfaces/ecpg/preproc/type.c:178)
+  - [get_type](../g/get_type.md) (src/interfaces/ecpg/preproc/type.c:178)
 
 ## Notes and Other Information
-- ECPGt_bytea is included in the IS_SIMPLE_TYPE macro, indicating that bytea data is handled as a simple type rather than a complex type requiring special processing
+- [ECPGt_bytea](ECPGt_bytea.md) is included in the IS_SIMPLE_TYPE macro, indicating that bytea data is handled as a simple type rather than a complex type requiring special processing
 - The symbol is extensively used in ECPG test cases, particularly in sql-bytea.c test file, demonstrating its importance in binary data handling
 - As the last enumeration value in ECPGttype, it represents one of the most recently added or specialized data types in the ECPG type system
 - The bytea type is essential for applications that need to store and retrieve binary data such as images, files, or encrypted data through embedded SQL

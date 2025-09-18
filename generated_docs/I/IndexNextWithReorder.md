@@ -33,24 +33,24 @@ The function ensures that tuples are returned in the correct ORDER BY sequence e
 - Functions called/Symbols referenced:
   - ScanDirectionIsBackward
   - ScanDirectionIsForward  
-  - index_beginscan
-  - index_rescan
+  - [index_beginscan](../i/index_beginscan.md)
+  - [index_rescan](../i/index_rescan.md)
   - pairingheap_is_empty
   - pairingheap_first
-  - cmp_orderbyvals
-  - reorderqueue_pop
-  - ExecForceStoreHeapTuple
+  - [cmp_orderbyvals](../c/cmp_orderbyvals.md)
+  - [reorderqueue_pop](../r/reorderqueue_pop.md)
+  - [ExecForceStoreHeapTuple](../E/ExecForceStoreHeapTuple.md)
   - ExecClearTuple
-  - index_getnext_slot
+  - [index_getnext_slot](../i/index_getnext_slot.md)
   - ExecQualAndReset
   - InstrCountFiltered2
   - ResetExprContext
-  - EvalOrderByExpressions
-  - reorderqueue_push
+  - [EvalOrderByExpressions](../E/EvalOrderByExpressions.md)
+  - [reorderqueue_push](../r/reorderqueue_push.md)
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:59)
-  - ExecIndexScan (nodeIndexscan.c:531)
+  - [ExecIndexScan](../E/ExecIndexScan.md) (nodeIndexscan.c:531)
 
 ## Notes and Other Information
 - This is a static function used internally within the index scan executor

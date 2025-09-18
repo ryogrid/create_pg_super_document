@@ -28,18 +28,18 @@ The function always increments the relation's reference count, requiring callers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
+  - [IsTransactionState](../I/IsTransactionState.md)
   - RelationIdCacheLookup
   - RelationIsValid
-  - RelationIncrementReferenceCount
-  - RelationReloadIndexInfo
-  - RelationClearRelation
-  - RelationBuildDesc
+  - [RelationIncrementReferenceCount](RelationIncrementReferenceCount.md)
+  - [RelationReloadIndexInfo](RelationReloadIndexInfo.md)
+  - [RelationClearRelation](RelationClearRelation.md)
+  - [RelationBuildDesc](RelationBuildDesc.md)
 - Called from (representative examples):
-  - relation_open
-  - try_relation_open
-  - pgoutput_change
-  - RelationGetIdentityKeyBitmap
+  - [relation_open](../r/relation_open.md)
+  - [try_relation_open](../t/try_relation_open.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [RelationGetIdentityKeyBitmap](RelationGetIdentityKeyBitmap.md)
 
 ## Notes and Other Information
 - Requires caller to hold at least AccessShareLock on the relation to avoid race conditions

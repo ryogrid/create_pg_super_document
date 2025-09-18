@@ -21,9 +21,9 @@ This PostgreSQL SQL function provides the interface to drop replication slots fr
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
-  - CheckSlotPermissions
-  - CheckSlotRequirements
-  - ReplicationSlotDrop
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md)
+  - [CheckSlotRequirements](../C/CheckSlotRequirements.md)
+  - [ReplicationSlotDrop](../R/ReplicationSlotDrop.md)
   - PG_RETURN_VOID
 - Called from:
   - This is a SQL-callable function (no direct C callers found)

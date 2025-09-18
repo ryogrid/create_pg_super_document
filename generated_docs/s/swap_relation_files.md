@@ -35,17 +35,17 @@ The function handles the complexity of PostgreSQL's dual approach to relation st
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy1: Retrieves pg_class tuples for both relations
-  - RelationMapOidToFilenumber/RelationMapUpdateMap: Handles mapped relation file swapping
-  - relation_open/relation_close: Opens relations to update subtransaction tracking
-  - RelationAssumeNewRelfilelocator: Marks relation as having new storage in subtransaction
-  - CatalogOpenIndexes/CatalogTupleUpdateWithInfo: Updates pg_class entries with index maintenance
-  - changeDependencyFor: Updates access method dependencies when they differ
-  - deleteDependencyRecordsFor/recordDependencyOn: Manages TOAST table dependencies
-  - toast_get_valid_index: Retrieves TOAST table indexes for content swapping
+  - [RelationMapOidToFilenumber](../R/RelationMapOidToFilenumber.md)/RelationMapUpdateMap: Handles mapped relation file swapping
+  - [relation_open](../r/relation_open.md)/relation_close: Opens relations to update subtransaction tracking
+  - [RelationAssumeNewRelfilelocator](../R/RelationAssumeNewRelfilelocator.md): Marks relation as having new storage in subtransaction
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)/CatalogTupleUpdateWithInfo: Updates pg_class entries with index maintenance
+  - [changeDependencyFor](../c/changeDependencyFor.md): Updates access method dependencies when they differ
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)/recordDependencyOn: Manages TOAST table dependencies
+  - [toast_get_valid_index](../t/toast_get_valid_index.md): Retrieves TOAST table indexes for content swapping
   - InvokeObjectPostAlterHookArg: Fires post-alter hooks for both relations
 - Called from (representative examples):
-  - swap_relation_files: Recursive calls for TOAST tables and indexes
-  - finish_heap_swap: Main heap swapping coordination
+  - [swap_relation_files](swap_relation_files.md): Recursive calls for TOAST tables and indexes
+  - [finish_heap_swap](../f/finish_heap_swap.md): Main heap swapping coordination
 
 ## Notes and Other Information
 - Handles both regular relations (via pg_class updates) and mapped relations (via relation mapper)

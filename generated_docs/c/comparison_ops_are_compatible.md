@@ -29,7 +29,7 @@ Operators within the same btree opfamily have compatible comparison semantics, m
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
-  - op_in_opfamily
+  - [op_in_opfamily](../o/op_in_opfamily.md)
   - ReleaseSysCacheList
   - Form_pg_amop
   - BTREE_AM_OID

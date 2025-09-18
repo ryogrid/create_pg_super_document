@@ -34,16 +34,16 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ShmemInitHash
-  - ShmemInitStruct
-  - ShmemAlloc
-  - hash_search
-  - CreatePredXact
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [ShmemAlloc](../S/ShmemAlloc.md)
+  - [hash_search](../h/hash_search.md)
+  - [CreatePredXact](../C/CreatePredXact.md)
   - LWLockInitialize
   - SetInvalidVirtualTransactionId
   - SerialInit
   - Various dlist_* functions for doubly-linked list management
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This is a public function accessible outside predicate.c

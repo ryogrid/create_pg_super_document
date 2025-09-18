@@ -23,12 +23,12 @@ The function is designed to be called only after CopyConvertBuf has detected an 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - report_invalid_encoding
-  - pg_do_encoding_conversion_buf
-  - GetDatabaseEncoding
+  - [report_invalid_encoding](../r/report_invalid_encoding.md)
+  - [pg_do_encoding_conversion_buf](../p/pg_do_encoding_conversion_buf.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - CopyFromState
 - Called from (representative examples):
-  - CopyLoadInputBuf
+  - [CopyLoadInputBuf](CopyLoadInputBuf.md)
 
 ## Notes and Other Information
 - The function includes assertions to verify that there is data in the raw buffer and that an error was actually detected

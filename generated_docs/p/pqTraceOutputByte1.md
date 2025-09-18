@@ -24,13 +24,13 @@ pqTraceOutputByte1 is a low-level utility function used internally by libpq's pr
   - isprint (checks if character is printable)
   - fprintf (outputs formatted data to stream)
 - Called from (representative examples):
-  - pqTraceOutput_Close (line 261 in fe-trace.c)
-  - pqTraceOutput_Describe (line 294 in fe-trace.c)
-  - pqTraceOutputNR (line 309 in fe-trace.c)
-  - pqTraceOutput_CopyInResponse (line 378 in fe-trace.c)
-  - pqTraceOutput_CopyOutResponse (line 391 in fe-trace.c)
-  - pqTraceOutput_CopyBothResponse (line 497 in fe-trace.c)
-  - pqTraceOutput_ReadyForQuery (line 507 in fe-trace.c)
+  - [pqTraceOutput_Close](pqTraceOutput_Close.md) (line 261 in fe-trace.c)
+  - [pqTraceOutput_Describe](pqTraceOutput_Describe.md) (line 294 in fe-trace.c)
+  - [pqTraceOutputNR](pqTraceOutputNR.md) (line 309 in fe-trace.c)
+  - [pqTraceOutput_CopyInResponse](pqTraceOutput_CopyInResponse.md) (line 378 in fe-trace.c)
+  - [pqTraceOutput_CopyOutResponse](pqTraceOutput_CopyOutResponse.md) (line 391 in fe-trace.c)
+  - [pqTraceOutput_CopyBothResponse](pqTraceOutput_CopyBothResponse.md) (line 497 in fe-trace.c)
+  - [pqTraceOutput_ReadyForQuery](pqTraceOutput_ReadyForQuery.md) (line 507 in fe-trace.c)
 
 ## Notes and Other Information
 - Static function - internal to fe-trace.c module

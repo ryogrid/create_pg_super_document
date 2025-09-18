@@ -24,21 +24,21 @@ The typical usage pattern involves calling ConditionVariablePrepareToSleep (opti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionVariableTimedSleep (performs the actual timed sleep operation)
+  - [ConditionVariableTimedSleep](ConditionVariableTimedSleep.md) (performs the actual timed sleep operation)
 - Called from (representative examples):
-  - _brin_parallel_heapscan
-  - _bt_parallel_seize
-  - _bt_parallel_heapscan
-  - GetMultiXactIdMembers
-  - BitmapShouldInitializeSharedState
+  - [_brin_parallel_heapscan](../b/_brin_parallel_heapscan.md)
+  - [_bt_parallel_seize](../b/_bt_parallel_seize.md)
+  - [_bt_parallel_heapscan](../b/_bt_parallel_heapscan.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [BitmapShouldInitializeSharedState](../B/BitmapShouldInitializeSharedState.md)
   - Checkpointer signal handling
   - replorigin_state_clear
-  - ReplicationSlotAcquire
-  - InvalidatePossiblyObsoleteSlot
-  - ShutdownWalRcv
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
+  - [InvalidatePossiblyObsoleteSlot](../I/InvalidatePossiblyObsoleteSlot.md)
+  - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
   - WaitIO
   - BarrierArriveAndWait
-  - injection_wait
+  - [injection_wait](../i/injection_wait.md)
 
 ## Notes and Other Information
 - Should be used in predicate loops that test exit conditions

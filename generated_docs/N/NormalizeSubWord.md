@@ -27,10 +27,10 @@ The function handles cross-product affixes (combinations of prefix and suffix) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FindAffixes (called 3 times for prefix/suffix tree traversal)
-  - CheckAffix (called 3 times for affix validation and transformation)
-  - addToResult (called 3 times for result collection)
-  - FindWord (called 4 times for dictionary validation)
+  - [FindAffixes](../F/FindAffixes.md) (called 3 times for prefix/suffix tree traversal)
+  - [CheckAffix](../C/CheckAffix.md) (called 3 times for affix validation and transformation)
+  - [addToResult](../a/addToResult.md) (called 3 times for result collection)
+  - [FindWord](../F/FindWord.md) (called 4 times for dictionary validation)
   - strlen, pstrdup, palloc, pfree (utility functions)
 - Called from (representative examples):
   - SplitToVariants (at line 2427)

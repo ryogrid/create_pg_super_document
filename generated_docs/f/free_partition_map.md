@@ -19,11 +19,11 @@ This is a cleanup function that should be called when the PartitionMap is no lon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionMap (data structure)
-  - pfree (memory deallocation)
+  - [PartitionMap](../P/PartitionMap.md) (data structure)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from:
-  - merge_list_bounds
-  - merge_range_bounds
+  - [merge_list_bounds](../m/merge_list_bounds.md)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - The function is static and internal to partbounds.c

@@ -23,14 +23,14 @@ None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_libraries
+  - [load_libraries](../l/load_libraries.md)
   - process_shared_preload_libraries_in_progress (global variable)
   - process_shared_preload_libraries_done (global variable)  
   - shared_preload_libraries_string (global variable)
 - Called from (representative examples):
-  - SubPostmasterMain
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
   - INIT_PG_OVERRIDE_ROLE_LOGIN
 
 ## Notes and Other Information

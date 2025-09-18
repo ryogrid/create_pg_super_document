@@ -32,9 +32,9 @@ The `ArchiveFormat` enum specifies the various output formats that pg_dump can g
 - Functions called/Symbols referenced:
   - None (primitive enum type)
 - Called from (representative examples):
-  - `CreateArchive` and `OpenArchive` functions in pg_backup_archiver.c
-  - `main` function in pg_dump.c
-  - `parseArchiveFormat` function for command-line argument parsing
+  - `[CreateArchive](../C/CreateArchive.md)` and `OpenArchive` functions in pg_backup_archiver.c
+  - `[main](../m/main.md)` function in pg_dump.c
+  - `[parseArchiveFormat](../p/parseArchiveFormat.md)` function for command-line argument parsing
   - `_archiveHandle` struct as a member variable
 
 ## Notes and Other Information

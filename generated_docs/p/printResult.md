@@ -23,7 +23,7 @@ The function prints each row of results showing the values from all three arrays
   - printf (C standard library function for formatted output)
   - References global arrays: f1, f2, f3 (implicitly accessed for printing values)
 - Called from:
-  - execute_test (multiple times at src/interfaces/ecpg/test/expected/sql-declare.c:297, 366, 403, 471)
+  - [execute_test](../e/execute_test.md) (multiple times at src/interfaces/ecpg/test/expected/sql-declare.c:297, 366, 403, 471)
 
 ## Notes and Other Information
 - This function is part of the ECPG test suite infrastructure for result validation and debugging

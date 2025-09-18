@@ -26,18 +26,18 @@ Special handling is provided for page splits: if the update inserts a downlink f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - IndexTupleSize
   - REGBUF_STANDARD
   - RM_GIST_ID
   - XLOG_GIST_PAGE_UPDATE
 - Called from (representative examples):
-  - gistplacetopage
-  - gistvacuumpage
+  - [gistplacetopage](gistplacetopage.md)
+  - [gistvacuumpage](gistvacuumpage.md)
 
 ## Notes and Other Information
 - Both the todelete array and the tuples are marked as belonging to the target buffer, allowing XLogInsert to optimize by logging the whole buffer contents if deemed more efficient

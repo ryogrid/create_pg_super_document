@@ -23,7 +23,7 @@ The function is part of the pluggable callback system used by the statistics col
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common (parameter type)
-  - PgStatShared_Database (cast target type)
+  - [PgStatShared_Database](../P/PgStatShared_Database.md) (cast target type)
   - TimestampTz (parameter type)
 - Called from (representative examples):
   - Statistics collector framework via callback mechanism (registered in pgstat.c:274)

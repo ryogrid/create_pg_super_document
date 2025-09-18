@@ -33,9 +33,9 @@ The depth parameter allows for multi-level nesting scenarios where the eventual 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lcons_int (for managing the grouping stack in JSON and YAML formats)
+  - [lcons_int](../l/lcons_int.md) (for managing the grouping stack in JSON and YAML formats)
 - Called from (representative examples):
-  - ExplainOpenWorker
+  - [ExplainOpenWorker](ExplainOpenWorker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

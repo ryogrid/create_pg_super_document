@@ -28,18 +28,18 @@ The function handles missing columns gracefully by leaving them as NULL, but thr
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading macro)
-  - palloc0/palloc (PostgreSQL memory allocation)
+  - [palloc0](palloc0.md)/palloc (PostgreSQL memory allocation)
   - hv_iterinit/hv_iternext (Perl hash iteration functions)
-  - hek2cstr (convert Perl hash key to C string)
-  - SPI_fnumber (find attribute number by name)
+  - [hek2cstr](../h/hek2cstr.md) (convert Perl hash key to C string)
+  - [SPI_fnumber](../S/SPI_fnumber.md) (find attribute number by name)
   - TupleDescAttr (access tuple descriptor attributes)
-  - plperl_sv_to_datum (convert Perl scalar to PostgreSQL Datum)
-  - heap_form_tuple (create HeapTuple from values array)
-  - pfree (PostgreSQL memory deallocation)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md) (convert Perl scalar to PostgreSQL Datum)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (create HeapTuple from values array)
+  - [pfree](pfree.md) (PostgreSQL memory deallocation)
   - ereport/errcode/errmsg (PostgreSQL error reporting)
 - Called from:
-  - plperl_hash_to_datum (for converting hash to composite type)
-  - plperl_return_next_internal (for returning hash results from set-returning functions)
+  - [plperl_hash_to_datum](plperl_hash_to_datum.md) (for converting hash to composite type)
+  - [plperl_return_next_internal](plperl_return_next_internal.md) (for returning hash results from set-returning functions)
 
 ## Notes and Other Information
 - The function assumes 1-based attribute numbering (attn - 1 for array indexing)

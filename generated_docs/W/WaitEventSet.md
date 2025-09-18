@@ -35,22 +35,22 @@ The implementation uses compile-time conditionals to select the most efficient p
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwner
-  - WaitEvent
-  - Latch
+  - [WaitEvent](WaitEvent.md)
+  - [Latch](../L/Latch.md)
   - WAIT_USE_EPOLL
   - WAIT_USE_KQUEUE
   - WAIT_USE_POLL
   - WAIT_USE_WIN32
 
 - Called from (representative examples):
-  - CreateWaitEventSet
-  - FreeWaitEventSet
-  - AddWaitEventToSet
-  - ModifyWaitEvent
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
   - WaitEventSetWait
   - WaitEventSetWaitBlock
   - GetNumRegisteredWaitEvents
-  - SysLoggerMain
+  - [SysLoggerMain](../S/SysLoggerMain.md)
   - pq_putmessage_noblock
 
 ## Notes and Other Information

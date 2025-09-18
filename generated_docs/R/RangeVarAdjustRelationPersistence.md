@@ -27,14 +27,14 @@ The function prevents creation of relations in temporary namespaces belonging to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isTempOrTempToastNamespace
-  - isAnyTempNamespace
+  - [isTempOrTempToastNamespace](../i/isTempOrTempToastNamespace.md)
+  - [isAnyTempNamespace](../i/isAnyTempNamespace.md)
   - RELPERSISTENCE_TEMP
   - RELPERSISTENCE_PERMANENT
 - Called from (representative examples):
-  - RangeVarGetAndCheckCreationNamespace
-  - DefineCompositeType
-  - generateSerialExtraStmts
+  - [RangeVarGetAndCheckCreationNamespace](RangeVarGetAndCheckCreationNamespace.md)
+  - [DefineCompositeType](../D/DefineCompositeType.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
 
 ## Notes and Other Information
 - Modifies the input RangeVar structure in-place when persistence adjustment is needed

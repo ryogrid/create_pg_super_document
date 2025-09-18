@@ -28,14 +28,14 @@ The function uses backward processing (from end to beginning) and employs condit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions
-  - r_particle_etc
-  - r_possessive
-  - r_case_ending
-  - r_other_endings
-  - r_i_plural
-  - r_t_plural
-  - r_tidy
+  - [r_mark_regions](../r/r_mark_regions.md)
+  - [r_particle_etc](../r/r_particle_etc.md)
+  - [r_possessive](../r/r_possessive.md)
+  - [r_case_ending](../r/r_case_ending.md)
+  - [r_other_endings](../r/r_other_endings.md)
+  - [r_i_plural](../r/r_i_plural.md)
+  - [r_t_plural](../r/r_t_plural.md)
+  - [r_tidy](../r/r_tidy.md)
 - Called from (representative examples):
   - (External callers - this is a public interface function)
 

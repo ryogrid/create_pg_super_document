@@ -44,7 +44,7 @@ The structure is designed to handle various types of trigger events efficiently:
 - Functions called/Symbols referenced:
   - TriggerFlags (for ate_flags member)
 - Called from (representative examples):
-  - AfterTriggerEvent (pointer typedef)
+  - [AfterTriggerEvent](AfterTriggerEvent.md) (pointer typedef)
   - SizeofTriggerEvent (macro for size calculation)
   - AfterTriggerSaveEvent
 

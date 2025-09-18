@@ -24,8 +24,8 @@ The function performs comprehensive validation including length bounds checking 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
-  - pq_copymsgbytes
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_copymsgbytes](../p/pq_copymsgbytes.md)
   - VARBITMAXLEN
   - VARBITTOTALLEN
   - SET_VARSIZE

@@ -23,18 +23,18 @@ The function operates under strict constraints: it can only be called at the end
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (recovery state validation)
-  - GetXLogInsertRecPtr (current WAL position)
-  - WALInsertLockAcquire/WALInsertLockRelease (WAL coordination)
-  - GetXLogBuffer (WAL page buffer access)
-  - XLogBeginInsert/XLogRegisterData/XLogInsert (WAL record creation)
-  - XLogFlush (WAL persistence)
-  - GetCurrentTimestamp (timestamp capture)
-  - xl_overwrite_contrecord (record structure)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state validation)
+  - [GetXLogInsertRecPtr](../G/GetXLogInsertRecPtr.md) (current WAL position)
+  - [WALInsertLockAcquire](../W/WALInsertLockAcquire.md)/WALInsertLockRelease (WAL coordination)
+  - [GetXLogBuffer](../G/GetXLogBuffer.md) (WAL page buffer access)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert (WAL record creation)
+  - [XLogFlush](../X/XLogFlush.md) (WAL persistence)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (timestamp capture)
+  - [xl_overwrite_contrecord](../x/xl_overwrite_contrecord.md) (record structure)
   - XLP_FIRST_IS_OVERWRITE_CONTRECORD (page header flag)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Only callable during recovery mode and validates this constraint strictly

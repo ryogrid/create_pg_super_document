@@ -17,11 +17,11 @@ The  function is responsible for removing a specific relation mapping from the a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapFile (structure)
+  - [RelMapFile](RelMapFile.md) (structure)
   - active_local_updates (global variable)
   - elog (for error reporting)
 - Called from (representative examples):
-  - finish_heap_swap
+  - [finish_heap_swap](../f/finish_heap_swap.md)
   - MinSizeOfRelmapUpdate (referenced in header)
 
 ## Notes and Other Information

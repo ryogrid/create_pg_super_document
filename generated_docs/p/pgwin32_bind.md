@@ -20,7 +20,7 @@ pgwin32_bind is a thin wrapper around the standard Windows socket bind() functio
 ## Dependencies
 - Functions called/Symbols referenced:
   - bind (Windows socket API)
-  - TranslateSocketError
+  - [TranslateSocketError](../T/TranslateSocketError.md)
 - Called from (representative examples):
   - No direct references found in the indexed codebase
 

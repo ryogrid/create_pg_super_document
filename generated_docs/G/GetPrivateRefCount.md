@@ -23,19 +23,19 @@ If no reference count entry exists for the buffer (indicating it's not currently
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
+  - [BufferIsValid](../B/BufferIsValid.md)
   - BufferIsLocal  
-  - GetPrivateRefCountEntry
+  - [GetPrivateRefCountEntry](GetPrivateRefCountEntry.md)
   - PrivateRefCountEntry (struct type)
 - Called from (representative examples):
   - BufferIsPinned
-  - ReadRecentBuffer
-  - InvalidateBuffer
-  - InvalidateVictimBuffer
-  - DebugPrintBufferRefcount
-  - PrintBufferDescs
-  - PrintPinnedBufs
-  - MarkBufferDirtyHint
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
+  - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md)
+  - [PrintBufferDescs](../P/PrintBufferDescs.md)
+  - [PrintPinnedBufs](../P/PrintPinnedBufs.md)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
   - CheckBufferIsPinnedOnce
   - HoldingBufferPinThatDelaysRecovery
   - ConditionalLockBufferForCleanup

@@ -25,13 +25,13 @@ However, the implementation has a known limitation: it is not safe for applicati
 - Functions called/Symbols referenced:
   - fmtIdEncoding (static variable assignment)
 - Called from (representative examples):
-  - processEncodingEntry (pg_backup_archiver.c:2840)
-  - setup_connection (pg_dump.c:1236)
-  - main (pg_dumpall.c:546)
-  - exec_command_encoding (psql command.c:1360)
-  - SyncVariables (psql command.c:4050)
-  - main (createdb.c:201)
-  - main (createuser.c:295)
+  - [processEncodingEntry](../p/processEncodingEntry.md) (pg_backup_archiver.c:2840)
+  - [setup_connection](setup_connection.md) (pg_dump.c:1236)
+  - [main](../m/main.md) (pg_dumpall.c:546)
+  - [exec_command_encoding](../e/exec_command_encoding.md) (psql command.c:1360)
+  - [SyncVariables](../S/SyncVariables.md) (psql command.c:4050)
+  - [main](../m/main.md) (createdb.c:201)
+  - [main](../m/main.md) (createuser.c:295)
 
 ## Notes and Other Information
 - Sets the global fmtIdEncoding static variable which defaults to -1 (uninitialized)

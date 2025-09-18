@@ -26,12 +26,12 @@ The function also provides clear error handling for missing WAL segments, distin
   - XLByteToSeg
   - XLogFilePath
   - BasicOpenFile
-  - XLogFileName
+  - [XLogFileName](../X/XLogFileName.md)
   - ereport
 - Called from (representative examples):
-  - StartReplication
-  - CreateReplicationSlot
-  - StartLogicalReplication
+  - [StartReplication](../S/StartReplication.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
 
 ## Notes and Other Information
 - This function is specifically designed as a callback for XLogReaderRoutine->segment_open

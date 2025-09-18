@@ -21,9 +21,9 @@ This function provides a non-error variant of get_sortgroupref_clause(). It sear
   - SortGroupClause (structure type)
   - Index (type alias)
 - Called from (representative examples):
-  - group_keys_reorder_by_pathkeys
-  - make_group_input_target
-  - make_partial_grouping_target
+  - [group_keys_reorder_by_pathkeys](group_keys_reorder_by_pathkeys.md)
+  - [make_group_input_target](../m/make_group_input_target.md)
+  - [make_partial_grouping_target](../m/make_partial_grouping_target.md)
 
 ## Notes and Other Information
 This function is particularly useful in optimization scenarios where the presence or absence of a sort/group clause affects the chosen strategy, but the absence shouldn't be treated as an error. For example, when reordering group keys by path keys or when constructing partial grouping targets, the optimizer may need to check if certain clauses exist without assuming they must be present. The function follows the same linear search pattern as get_sortgroupref_clause() but provides gentler error handling semantics.

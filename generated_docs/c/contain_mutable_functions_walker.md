@@ -30,14 +30,14 @@ The walker uses `check_functions_in_node` with `contain_mutable_functions_checke
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_functions_in_node
-  - contain_mutable_functions_checker  
-  - to_jsonb_is_immutable
-  - to_json_is_immutable
-  - jspIsMutable
+  - [contain_mutable_functions_checker](contain_mutable_functions_checker.md)  
+  - [to_jsonb_is_immutable](../t/to_jsonb_is_immutable.md)
+  - [to_json_is_immutable](../t/to_json_is_immutable.md)
+  - [jspIsMutable](../j/jspIsMutable.md)
   - query_tree_walker
   - expression_tree_walker
 - Called from (representative examples):
-  - contain_mutable_functions
+  - [contain_mutable_functions](contain_mutable_functions.md)
   - max_parallel_hazard_context (indirectly)
 
 ## Notes and Other Information

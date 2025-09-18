@@ -20,10 +20,10 @@ This function is part of the pg_rewind utility's file operations module. It safe
 - Functions called/Symbols referenced:
   - unlink (system call)
   - snprintf (standard library)
-  - pg_fatal (PostgreSQL error handling)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
 - Called from (representative examples):
-  - remove_target (src/bin/pg_rewind/file_ops.c:142)
-  - process_queued_fetch_requests (src/bin/pg_rewind/libpq_source.c:567)
+  - [remove_target](remove_target.md) (src/bin/pg_rewind/file_ops.c:142)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (src/bin/pg_rewind/libpq_source.c:567)
 
 ## Notes and Other Information
 - The function respects the global dry_run flag and performs no operations when dry_run is enabled

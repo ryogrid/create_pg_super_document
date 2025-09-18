@@ -34,15 +34,15 @@ The recursion continues until either a non-Var node is encountered or a regular 
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (recursion safety)
-  - list_nth (namespace access)
-  - get_tle_by_resno (target list entry retrieval)
-  - bms_union (bitmap set operations for appendparents)
-  - push_child_plan/pop_child_plan (context management)
-  - resolve_special_varno (recursive self-call)
+  - [list_nth](../l/list_nth.md) (namespace access)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md) (target list entry retrieval)
+  - [bms_union](../b/bms_union.md) (bitmap set operations for appendparents)
+  - [push_child_plan](../p/push_child_plan.md)/pop_child_plan (context management)
+  - [resolve_special_varno](resolve_special_varno.md) (recursive self-call)
 - Called from (representative examples):
-  - get_variable
+  - [get_variable](../g/get_variable.md)
   - get_agg_expr_helper
-  - resolve_special_varno (recursive calls)
+  - [resolve_special_varno](resolve_special_varno.md) (recursive calls)
 
 ## Notes and Other Information
 - Implements stack depth checking to prevent infinite recursion

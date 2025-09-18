@@ -21,13 +21,13 @@ The function is designed to be optimistic and may occasionally return false posi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_common_eclass_indexes
-  - bms_next_member
-  - list_nth
-  - bms_overlap
+  - [get_common_eclass_indexes](../g/get_common_eclass_indexes.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth](../l/list_nth.md)
+  - [bms_overlap](../b/bms_overlap.md)
   - list_length
 - Called from (representative examples):
-  - have_relevant_joinclause
+  - [have_relevant_joinclause](have_relevant_joinclause.md)
 
 ## Notes and Other Information
 - Optimistic heuristic that may produce false positives but avoids false negatives

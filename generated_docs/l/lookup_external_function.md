@@ -24,7 +24,7 @@ This function is particularly useful for optimizing performance when working wit
 - Functions called/Symbols referenced:
   - dlsym
 - Called from (representative examples):
-  - fetch_finfo_record
+  - [fetch_finfo_record](../f/fetch_finfo_record.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's dynamic function management system located in src/backend/utils/fmgr/dfmgr.c

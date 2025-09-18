@@ -34,13 +34,13 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos64 (PostgreSQL bit manipulation function)
+  - [pg_leftmost_one_pos64](../p/pg_leftmost_one_pos64.md) (PostgreSQL bit manipulation function)
   - RT_SPAN (constant defining bits per tree level, equals BITS_PER_BYTE = 8)
   - RT_MAKE_NAME (macro name generation)
 - Called from (representative examples):
   - RT_MAX_SHIFT (for calculating maximum possible shift)
-  - RT_EXTEND_UP (when growing tree upward to accommodate larger keys)
-  - RT_SET (during key insertion operations)
+  - [RT_EXTEND_UP](RT_EXTEND_UP.md) (when growing tree upward to accommodate larger keys)
+  - [RT_SET](RT_SET.md) (during key insertion operations)
 
 ## Notes and Other Information
 - The shift value determines the tree height needed to store the key efficiently

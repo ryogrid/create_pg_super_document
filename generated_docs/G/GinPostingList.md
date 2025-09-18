@@ -19,14 +19,14 @@ GinPostingList is a core data structure used in GIN indexes to store compressed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (for the first uncompressed item pointer)
+  - [ItemPointerData](../I/ItemPointerData.md) (for the first uncompressed item pointer)
   - FLEXIBLE_ARRAY_MEMBER (for the variable-length bytes array)
 - Called from (representative examples):
-  - GinDataLeafPageGetItems (src/backend/access/gin/gindatapage.c:141)
-  - ginCompressPostingList (src/backend/access/gin/ginpostinglist.c:203)
-  - ginPostingListDecode (src/backend/access/gin/ginpostinglist.c:284)
-  - ginVacuumEntryPage (src/backend/access/gin/ginvacuum.c:490)
-  - disassembleLeaf (src/backend/access/gin/gindatapage.c:1373)
+  - [GinDataLeafPageGetItems](GinDataLeafPageGetItems.md) (src/backend/access/gin/gindatapage.c:141)
+  - [ginCompressPostingList](../g/ginCompressPostingList.md) (src/backend/access/gin/ginpostinglist.c:203)
+  - [ginPostingListDecode](../g/ginPostingListDecode.md) (src/backend/access/gin/ginpostinglist.c:284)
+  - [ginVacuumEntryPage](../g/ginVacuumEntryPage.md) (src/backend/access/gin/ginvacuum.c:490)
+  - [disassembleLeaf](../d/disassembleLeaf.md) (src/backend/access/gin/gindatapage.c:1373)
 
 ## Notes and Other Information
 - Requires 2-byte alignment as specified in the header comments

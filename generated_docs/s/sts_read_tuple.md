@@ -36,9 +36,9 @@ This internal function reads a single tuple from the shared tuplestore file asso
   - SharedTuplestoreAccessor, SharedTuplestoreChunk (structure types)
   - MinimalTuple (tuple type)
   - BufFileReadExact (function to read exact bytes from buffer file)
-  - MemoryContextAlloc (memory allocation function)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation function)
   - STS_CHUNK_PAGES, STS_CHUNK_HEADER_SIZE (constants)
-  - errdetail_internal (error reporting function)
+  - [errdetail_internal](../e/errdetail_internal.md) (error reporting function)
 - Called from (representative examples):
   - sts_parallel_scan_next (in sharedtuplestore.c:505)
 

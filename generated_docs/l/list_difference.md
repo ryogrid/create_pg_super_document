@@ -27,18 +27,18 @@ Key behavioral characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList (validation)
-  - list_copy (copy entire list when list2 is NIL)
-  - list_member (check membership using equal())
+  - [list_copy](list_copy.md) (copy entire list when list2 is NIL)
+  - [list_member](list_member.md) (check membership using equal())
   - lfirst (extract pointer values)
   - lappend (append pointer values)
-  - check_list_invariants (validation)
+  - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
-  - get_useful_group_keys_orderings (pathkeys.c:534)
-  - create_tidscan_plan (createplan.c:3609)
-  - create_mergejoin_plan (createplan.c:4502)
-  - create_hashjoin_plan (createplan.c:4804)
-  - process_duplicate_ors (prepqual.c:628)
-  - infer_arbiter_indexes (plancat.c:920)
+  - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md) (pathkeys.c:534)
+  - [create_tidscan_plan](../c/create_tidscan_plan.md) (createplan.c:3609)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (createplan.c:4502)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (createplan.c:4804)
+  - [process_duplicate_ors](../p/process_duplicate_ors.md) (prepqual.c:628)
+  - [infer_arbiter_indexes](../i/infer_arbiter_indexes.md) (plancat.c:920)
 
 ## Notes and Other Information
 - Both input lists must contain only pointer values, enforced by assertions

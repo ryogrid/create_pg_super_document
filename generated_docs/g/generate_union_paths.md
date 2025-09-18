@@ -32,21 +32,21 @@ The function handles both UNION and UNION ALL semantics, with UNION requiring de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plan_union_children
-  - generate_append_tlist  
-  - generate_setop_grouplist
-  - grouping_is_sortable
-  - grouping_is_hashable
-  - make_pathkeys_for_sortclauses
-  - build_setop_child_paths
-  - create_append_path
-  - create_gather_path
-  - create_agg_path
-  - create_sort_path
-  - create_upper_unique_path
-  - create_merge_append_path
+  - [plan_union_children](../p/plan_union_children.md)
+  - [generate_append_tlist](generate_append_tlist.md)  
+  - [generate_setop_grouplist](generate_setop_grouplist.md)
+  - [grouping_is_sortable](grouping_is_sortable.md)
+  - [grouping_is_hashable](grouping_is_hashable.md)
+  - [make_pathkeys_for_sortclauses](../m/make_pathkeys_for_sortclauses.md)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)
+  - [create_append_path](../c/create_append_path.md)
+  - [create_gather_path](../c/create_gather_path.md)
+  - [create_agg_path](../c/create_agg_path.md)
+  - [create_sort_path](../c/create_sort_path.md)
+  - [create_upper_unique_path](../c/create_upper_unique_path.md)
+  - [create_merge_append_path](../c/create_merge_append_path.md)
 - Called from (representative examples):
-  - recurse_set_operations
+  - [recurse_set_operations](../r/recurse_set_operations.md)
 
 ## Notes and Other Information
 - For UNION operations, the function assumes worst-case estimates for the number of distinct groups (equal to total input size)

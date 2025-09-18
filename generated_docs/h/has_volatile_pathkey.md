@@ -25,7 +25,7 @@ This check is important for query optimization decisions, particularly when dete
 - Functions called/Symbols referenced:
   - PathKey (structure access)
 - Called from (representative examples):
-  - adjust_group_pathkeys_for_groupagg
+  - [adjust_group_pathkeys_for_groupagg](../a/adjust_group_pathkeys_for_groupagg.md)
 
 ## Notes and Other Information
 - Returns false if the input list is empty or if no PathKeys contain volatile EquivalenceClasses

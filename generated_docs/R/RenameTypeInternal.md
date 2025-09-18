@@ -26,21 +26,21 @@ The function updates the pg_type catalog entry and recursively handles the renam
   - table_open, table_close
   - SearchSysCacheCopy1
   - GetSysCacheOid2
-  - CStringGetDatum, ObjectIdGetDatum
-  - get_typisdefined
-  - moveArrayTypeName
+  - [CStringGetDatum](../C/CStringGetDatum.md), ObjectIdGetDatum
+  - [get_typisdefined](../g/get_typisdefined.md)
+  - [moveArrayTypeName](../m/moveArrayTypeName.md)
   - namestrcpy
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
-  - makeArrayTypeName
-  - pfree
-  - RenameTypeInternal (recursive call)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [makeArrayTypeName](../m/makeArrayTypeName.md)
+  - [pfree](../p/pfree.md)
+  - [RenameTypeInternal](RenameTypeInternal.md) (recursive call)
 - Called from (representative examples):
-  - RenameRelationInternal (src/backend/commands/tablecmds.c:4203)
-  - RenameType (src/backend/commands/typecmds.c:3808)
-  - moveArrayTypeName (src/backend/catalog/pg_type.c:929)
-  - RenameTypeInternal (recursive self-call at src/backend/catalog/pg_type.c:827)
+  - [RenameRelationInternal](RenameRelationInternal.md) (src/backend/commands/tablecmds.c:4203)
+  - [RenameType](RenameType.md) (src/backend/commands/typecmds.c:3808)
+  - [moveArrayTypeName](../m/moveArrayTypeName.md) (src/backend/catalog/pg_type.c:929)
+  - [RenameTypeInternal](RenameTypeInternal.md) (recursive self-call at src/backend/catalog/pg_type.c:827)
 
 ## Notes and Other Information
 - Caller must have already verified privileges before calling this function

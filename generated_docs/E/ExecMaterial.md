@@ -19,15 +19,15 @@ The function handles both forward and backward scan directions. For forward scan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MaterialState
+  - [MaterialState](../M/MaterialState.md)
   - ScanDirection
   - ScanDirectionIsForward
   - tuplestore_begin_heap
   - tuplestore_set_eflags
   - tuplestore_alloc_read_pointer
-  - tuplestore_ateof
-  - tuplestore_advance
-  - tuplestore_gettupleslot
+  - [tuplestore_ateof](../t/tuplestore_ateof.md)
+  - [tuplestore_advance](../t/tuplestore_advance.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - tuplestore_puttupleslot
   - outerPlanState
   - ExecProcNode
@@ -35,7 +35,7 @@ The function handles both forward and backward scan directions. For forward scan
   - ExecCopySlot
   - ExecClearTuple
 - Called from (representative examples):
-  - ExecInitMaterial
+  - [ExecInitMaterial](ExecInitMaterial.md)
 
 ## Notes and Other Information
 - The tuplestore is only initialized when needed (when eflags != 0)

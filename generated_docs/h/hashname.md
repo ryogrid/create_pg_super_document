@@ -19,7 +19,7 @@ This function generates a hash value for a PostgreSQL Name data type. The Name t
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME: Extract Name argument from function call
   - NameStr: Macro to extract string from Name data type
-  - hash_any: Generic hash function for binary data
+  - [hash_any](hash_any.md): Generic hash function for binary data
   - strlen: Calculate string length
 - Called from (representative examples):
   - No direct callers found in the codebase

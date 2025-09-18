@@ -17,17 +17,17 @@ This function is responsible for notifying listening backend processes that new 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocates memory for PID and ProcNumber arrays)
+  - [palloc](../p/palloc.md) (allocates memory for PID and ProcNumber arrays)
   - LWLockAcquire/LWLockRelease (manages NotifyQueueLock in exclusive mode)
   - QUEUE_FIRST_LISTENER, QUEUE_NEXT_LISTENER (iterates through listening backends)
   - QUEUE_BACKEND_PID, QUEUE_BACKEND_POS, QUEUE_BACKEND_DBOID (accesses backend information)
   - QUEUE_POS_EQUAL, QUEUE_POS_PAGE (queue position comparisons)
-  - asyncQueuePageDiff (calculates page distance for lag detection)
-  - SendProcSignal (sends PROCSIG_NOTIFY_INTERRUPT to target backends)
+  - [asyncQueuePageDiff](../a/asyncQueuePageDiff.md) (calculates page distance for lag detection)
+  - [SendProcSignal](SendProcSignal.md) (sends PROCSIG_NOTIFY_INTERRUPT to target backends)
   - notifyInterruptPending (flag set for self-signaling optimization)
-  - pfree (deallocates temporary arrays)
+  - [pfree](../p/pfree.md) (deallocates temporary arrays)
 - Called from:
-  - AtCommit_Notify (signals backends when committing notifications)
+  - [AtCommit_Notify](../A/AtCommit_Notify.md) (signals backends when committing notifications)
   - NotificationHash (context reference in async.c)
 
 ## Notes and Other Information

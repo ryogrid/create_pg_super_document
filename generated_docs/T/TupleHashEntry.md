@@ -20,12 +20,12 @@ TupleHashEntry represents individual entries in PostgreSQL's all-in-memory tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleHashEntryData (the actual struct definition)
+  - [TupleHashEntryData](TupleHashEntryData.md) (the actual struct definition)
   - MinimalTuple (tuple representation type)
 - Called from (representative examples):
   - LookupTupleHashEntry (src/backend/executor/execGrouping.c:307)
-  - lookup_hash_entries (src/backend/executor/nodeAgg.c:2106)
-  - findPartialMatch (src/backend/executor/nodeSubplan.c:750)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md) (src/backend/executor/nodeAgg.c:2106)
+  - [findPartialMatch](../f/findPartialMatch.md) (src/backend/executor/nodeSubplan.c:750)
 
 ## Notes and Other Information
 TupleHashEntry is central to PostgreSQL's hash-based execution strategies. The hash table system it participates in supports sophisticated features like cross-data-type hashing for operations involving different but compatible data types (e.g., int4 = int8 comparisons). The firstTuple member uses MinimalTuple format for memory efficiency, while the additional pointer allows executor nodes to attach node-specific state (like aggregate accumulators). The cached hash value significantly improves performance by avoiding repeated hash computations during table operations.

@@ -25,19 +25,19 @@ The rule system allows PostgreSQL to automatically rewrite queries based on pred
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType
-  - Node
-  - List
+  - [Node](../N/Node.md)
+  - [List](../L/List.md)
   - Oid
 
 - Called from (representative examples):
-  - RelationBuildRuleLock
-  - fireRules
-  - ApplyRetrieveRule
-  - DefineQueryRewrite
-  - get_view_query
+  - [RelationBuildRuleLock](RelationBuildRuleLock.md)
+  - [fireRules](../f/fireRules.md)
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md)
+  - [DefineQueryRewrite](../D/DefineQueryRewrite.md)
+  - [get_view_query](../g/get_view_query.md)
 
 ## Notes and Other Information
-- RewriteRule structures are typically stored within RuleLock structures, which contain arrays of rules for a relation
+- [RewriteRule](RewriteRule.md) structures are typically stored within RuleLock structures, which contain arrays of rules for a relation
 - The rule system is a core component of PostgreSQL's query processing pipeline
 - Views in PostgreSQL are implemented using the rule system with SELECT rules
 - The enabled field supports different replication scenarios where rules may be applied differently on master vs replica servers

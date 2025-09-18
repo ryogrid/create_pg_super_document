@@ -28,17 +28,17 @@ The function performs several important operations:
   - SpinLockRelease
   - ConditionVariableBroadcast
 - Types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque
-  - ParallelIndexScanDesc
-  - BTParallelScanDesc
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md)
+  - [BTParallelScanDesc](../B/BTParallelScanDesc.md)
 - Constants used:
   - BTPARALLEL_NEED_PRIMSCAN
   - BTPARALLEL_DONE
 - Called from:
-  - _bt_first
-  - _bt_readnextpage
-  - _bt_start_prim_scan
+  - [_bt_first](_bt_first.md)
+  - [_bt_readnextpage](_bt_readnextpage.md)
+  - [_bt_start_prim_scan](_bt_start_prim_scan.md)
 
 ## Notes and Other Information
 - The function uses spinlocks and condition variables for thread-safe coordination between parallel workers

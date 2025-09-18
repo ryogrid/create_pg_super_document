@@ -23,15 +23,15 @@ The function conditionally sets up parser error callbacks only when a ParseState
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseCallbackState
-  - setup_parser_errposition_callback
-  - get_collation_oid
-  - cancel_parser_errposition_callback
+  - [ParseCallbackState](../P/ParseCallbackState.md)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
+  - [get_collation_oid](../g/get_collation_oid.md)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)
 - Called from (representative examples):
-  - resolve_unique_index_expr
-  - transformCollateClause
-  - GetColumnDefCollation
-  - transformColumnType
+  - [resolve_unique_index_expr](../r/resolve_unique_index_expr.md)
+  - [transformCollateClause](../t/transformCollateClause.md)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md)
+  - [transformColumnType](../t/transformColumnType.md)
 
 ## Notes and Other Information
 - The function provides a thin wrapper around get_collation_oid() with added error position tracking

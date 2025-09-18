@@ -30,8 +30,8 @@ This function takes no parameters and returns a dynamically allocated string con
   - elog
   - GetLastError (Windows API)
 - Called from (representative examples):
-  - PGSharedMemoryIsInUse
-  - PGSharedMemoryCreate
+  - [PGSharedMemoryIsInUse](../P/PGSharedMemoryIsInUse.md)
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md)
 
 ## Notes and Other Information
 - **Windows-specific**: This function is only compiled and used on Windows platforms (located in win32_shmem.c)

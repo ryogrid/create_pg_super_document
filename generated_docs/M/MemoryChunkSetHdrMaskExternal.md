@@ -31,9 +31,9 @@ Unlike MemoryChunkSetHdrMask, this function doesn't encode block offset or value
   - MEMORYCHUNK_EXTERNAL_BASEBIT
   - MEMORYCHUNK_MAGIC
 - Called from (representative examples):
-  - AllocSetAllocLarge (aset.c:727)
-  - BumpAllocLarge (bump.c:333)
-  - GenerationAllocLarge (generation.c:382)
+  - [AllocSetAllocLarge](../A/AllocSetAllocLarge.md) (aset.c:727)
+  - [BumpAllocLarge](../B/BumpAllocLarge.md) (bump.c:333)
+  - [GenerationAllocLarge](../G/GenerationAllocLarge.md) (generation.c:382)
 
 ## Notes and Other Information
 - This function is used specifically for large allocations that bypass the normal block-based allocation mechanism

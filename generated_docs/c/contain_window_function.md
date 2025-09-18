@@ -17,10 +17,10 @@ This function provides a wrapper to detect the presence of window functions with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_windowfuncs
+  - [contain_windowfuncs](contain_windowfuncs.md)
   - WindowFuncLists
 - Called from (representative examples):
-  - get_eclass_for_sort_expr
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
   - WindowFuncLists
 
 ## Notes and Other Information

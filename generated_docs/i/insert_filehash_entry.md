@@ -20,14 +20,14 @@ The function uses the simplehash library's insertion mechanism and properly init
 ## Dependencies
 - Functions called/Symbols referenced:
   - filehash_insert
-  - pg_strdup
-  - isRelDataFile
+  - [pg_strdup](../p/pg_strdup.md)
+  - [isRelDataFile](isRelDataFile.md)
   - FILE_TYPE_UNDEFINED
   - FILE_ACTION_UNDECIDED
-  - file_entry_t (structure type)
+  - [file_entry_t](../f/file_entry_t.md) (structure type)
 - Called from (representative examples):
-  - process_source_file (src/bin/pg_rewind/filemap.c:300)
-  - process_target_file (src/bin/pg_rewind/filemap.c:333)
+  - [process_source_file](../p/process_source_file.md) (src/bin/pg_rewind/filemap.c:300)
+  - [process_target_file](../p/process_target_file.md) (src/bin/pg_rewind/filemap.c:333)
 
 ## Notes and Other Information
 - This is a static function, only accessible within filemap.c

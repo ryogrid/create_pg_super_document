@@ -21,8 +21,8 @@ The function is defined as a static inline function in the header file, making i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
-  - pg_uuid_t
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [pg_uuid_t](../p/pg_uuid_t.md)
 - Called from (representative examples):
   - PG_RETURN_UUID_P
 

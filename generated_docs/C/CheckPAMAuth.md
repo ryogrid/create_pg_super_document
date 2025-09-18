@@ -31,7 +31,7 @@ The function supports configurable PAM services through pg_hba.conf and can opti
   - pam_strerror (converts PAM error codes to strings)
   - pg_getnameinfo_all (resolves network addresses to hostnames)
   - unconstify (casts away const qualifier)
-  - set_authn_id (sets authenticated identity for the connection)
+  - [set_authn_id](../s/set_authn_id.md) (sets authenticated identity for the connection)
 - Called from (representative examples):
   - HOSTNAME_LOOKUP_DETAIL (referenced in auth.c:609)
 

@@ -24,15 +24,15 @@ It also initializes the nullable_partexprs array as empty lists since base relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - IS_SIMPLE_REL
   - list_head
   - makeVar
   - copyObject
-  - ChangeVarNodes
-  - lnext
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [lnext](../l/lnext.md)
 - Called from (representative examples):
-  - set_relation_partition_info
+  - [set_relation_partition_info](set_relation_partition_info.md)
 
 ## Notes and Other Information
 - This is a static function used internally within plancat.c for partition-related query planning

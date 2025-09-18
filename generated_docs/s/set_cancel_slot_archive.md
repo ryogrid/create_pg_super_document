@@ -20,10 +20,10 @@ The function uses platform-specific synchronization (critical sections on Window
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlot (type)
+  - [ParallelSlot](../P/ParallelSlot.md) (type)
 - Called from (representative examples):
-  - write_stderr
-  - RunWorker
+  - [write_stderr](../w/write_stderr.md)
+  - [RunWorker](../R/RunWorker.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the parallel.c compilation unit

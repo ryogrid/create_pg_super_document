@@ -30,14 +30,14 @@ The function uses different comparison criteria depending on whether the candida
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConsiderSplitContext (structure type)
-  - float4_div (floating-point division)
-  - float8_mi (floating-point subtraction)
-  - float8_div (double-precision floating-point division)
-  - non_negative (utility function to ensure non-negative values)
+  - [ConsiderSplitContext](../C/ConsiderSplitContext.md) (structure type)
+  - [float4_div](../f/float4_div.md) (floating-point division)
+  - [float8_mi](../f/float8_mi.md) (floating-point subtraction)
+  - [float8_div](../f/float8_div.md) (double-precision floating-point division)
+  - [non_negative](../n/non_negative.md) (utility function to ensure non-negative values)
   - LIMIT_RATIO (constant defining acceptable split ratio threshold)
 - Called from (representative examples):
-  - gist_box_picksplit (called at lines 636 and 672)
+  - [gist_box_picksplit](gist_box_picksplit.md) (called at lines 636 and 672)
 
 ## Notes and Other Information
 - The function implements an enhanced version of the R-tree splitting algorithm optimized for PostgreSQL's GiST implementation

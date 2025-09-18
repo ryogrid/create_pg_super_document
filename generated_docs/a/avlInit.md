@@ -27,7 +27,7 @@ This AVL tree implementation is optimized for the specific use case of collectin
   - avl_node (structure type for tree nodes)
   - avl_tree (structure type for the tree container)
 - Called from (representative examples):
-  - PrintResultInCrosstab (src/bin/psql/crosstabview.c:119, 120)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (src/bin/psql/crosstabview.c:119, 120)
 
 ## Notes and Other Information
 - Creates a sentinel end node that acts as a boundary marker for tree operations

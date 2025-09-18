@@ -19,9 +19,9 @@ The `descriptor_destructor` function acts as a destructor callback that is invok
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - descriptor_deallocate_all
+  - [descriptor_deallocate_all](descriptor_deallocate_all.md)
 - Called from (representative examples):
-  - descriptor_key_init
+  - [descriptor_key_init](descriptor_key_init.md)
 
 ## Notes and Other Information
 - This function is declared as static, meaning it has internal linkage and is only accessible within the descriptor.c compilation unit

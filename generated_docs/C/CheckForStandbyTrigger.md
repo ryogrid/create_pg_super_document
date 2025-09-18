@@ -17,19 +17,19 @@ This function takes no parameters and returns a boolean value indicating whether
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsPromoteSignaled
-  - CheckPromoteSignal
+  - [IsPromoteSignaled](../I/IsPromoteSignaled.md)
+  - [CheckPromoteSignal](CheckPromoteSignal.md)
   - ereport
-  - RemovePromoteSignalFiles
-  - ResetPromoteSignaled
-  - SetPromoteIsTriggered
+  - [RemovePromoteSignalFiles](../R/RemovePromoteSignalFiles.md)
+  - [ResetPromoteSignaled](../R/ResetPromoteSignaled.md)
+  - [SetPromoteIsTriggered](../S/SetPromoteIsTriggered.md)
   - LocalPromoteIsTriggered (global variable)
 - Called from (representative examples):
-  - recoveryPausesHere
-  - recoveryApplyDelay
-  - ReadRecord
-  - WaitForWALToBecomeAvailable
-  - RecoveryRequiresIntParameter
+  - [recoveryPausesHere](../r/recoveryPausesHere.md)
+  - [recoveryApplyDelay](../r/recoveryApplyDelay.md)
+  - [ReadRecord](../R/ReadRecord.md)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within the xlogrecovery.c file

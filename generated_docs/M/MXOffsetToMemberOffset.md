@@ -27,13 +27,13 @@ The calculation involves:
 - Functions called/Symbols referenced:
   - MultiXactOffset (type)
   - MULTIXACT_MEMBERS_PER_MEMBERGROUP (constant)
-  - MXOffsetToFlagsOffset (function)
+  - [MXOffsetToFlagsOffset](MXOffsetToFlagsOffset.md) (function)
   - MULTIXACT_FLAGBYTES_PER_GROUP (constant)
   - sizeof(TransactionId) (size calculation)
 - Called from (representative examples):
-  - RecordNewMultiXact
-  - GetMultiXactIdMembers
-  - TrimMultiXact
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [TrimMultiXact](../T/TrimMultiXact.md)
 
 ## Notes and Other Information
 - This is a static inline function optimized for performance during MultiXact member access operations

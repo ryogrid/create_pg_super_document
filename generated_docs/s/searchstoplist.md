@@ -24,9 +24,9 @@ The implementation uses the standard C library  function with PostgreSQL's  comp
   - pg_qsort_strcmp (PostgreSQL string comparison function)
   - StopList (structure definition)
 - Called from (representative examples):
-  - dsnowball_lexize (Snowball dictionary lexization)
-  - dispell_lexize (Ispell dictionary lexization)
-  - dsimple_lexize (Simple dictionary lexization)
+  - [dsnowball_lexize](../d/dsnowball_lexize.md) (Snowball dictionary lexization)
+  - [dispell_lexize](../d/dispell_lexize.md) (Ispell dictionary lexization)
+  - [dsimple_lexize](../d/dsimple_lexize.md) (Simple dictionary lexization)
 
 ## Notes and Other Information
 - Returns true if the word is found in the stop list, false otherwise

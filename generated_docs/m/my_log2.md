@@ -19,16 +19,16 @@ The implementation is platform-aware, using different PostgreSQL utility functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ceil_log2_32 (32-bit ceiling log2 calculation)
-  - pg_ceil_log2_64 (64-bit ceiling log2 calculation)
+  - [pg_ceil_log2_32](../p/pg_ceil_log2_32.md) (32-bit ceiling log2 calculation)
+  - [pg_ceil_log2_64](../p/pg_ceil_log2_64.md) (64-bit ceiling log2 calculation)
   - LONG_MAX (maximum value for long type)
   - SIZEOF_LONG (compile-time size of long type)
 - Called from (representative examples):
-  - hash_choose_num_partitions
+  - [hash_choose_num_partitions](../h/hash_choose_num_partitions.md)
   - ExecHashTableCreate
-  - hash_create
-  - next_pow2_long
-  - next_pow2_int
+  - [hash_create](../h/hash_create.md)
+  - [next_pow2_long](../n/next_pow2_long.md)
+  - [next_pow2_int](../n/next_pow2_int.md)
 
 ## Notes and Other Information
 - Returns an integer representing the number of bits needed

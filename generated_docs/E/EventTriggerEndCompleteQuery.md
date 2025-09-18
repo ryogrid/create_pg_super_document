@@ -27,10 +27,10 @@ The function is designed to be safe for use in error handling contexts (PG_CATCH
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete (bulk memory cleanup)
-  - EventTriggerQueryState (state structure type)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (bulk memory cleanup)
+  - [EventTriggerQueryState](EventTriggerQueryState.md) (state structure type)
 - Called from:
-  - ProcessUtilitySlow (utility command processing cleanup)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing cleanup)
   - CALLED_AS_EVENT_TRIGGER (macro usage)
 
 ## Notes and Other Information

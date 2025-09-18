@@ -21,7 +21,7 @@ The function returns a boolean-style integer value indicating the format type. W
 - Functions called/Symbols referenced:
   - None (accesses res->binary directly)
 - Called from (representative examples):
-  - HandleCopyResult (psql copy operation handling)
+  - [HandleCopyResult](../H/HandleCopyResult.md) (psql copy operation handling)
 
 ## Notes and Other Information
 - Returns 0 if the PGresult pointer is NULL

@@ -21,15 +21,15 @@ BufferGetBlockNumber is a utility function that extracts the block number from a
 - Functions called/Symbols referenced:
   - BufferIsPinned
   - BufferIsLocal
-  - GetLocalBufferDescriptor
-  - GetBufferDescriptor
-  - BufferDesc
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufferDesc](BufferDesc.md)
 - Called from (representative examples):
-  - brinbuild
-  - terminate_brin_buildstate
-  - _bt_doinsert
-  - heap_insert
-  - visibilitymap_clear
+  - [brinbuild](../b/brinbuild.md)
+  - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md)
+  - [_bt_doinsert](../b/_bt_doinsert.md)
+  - [heap_insert](../h/heap_insert.md)
+  - [visibilitymap_clear](../v/visibilitymap_clear.md)
 
 ## Notes and Other Information
 - Requires the buffer to be pinned before calling (enforced by assertion)

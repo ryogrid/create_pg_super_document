@@ -29,7 +29,7 @@ The function initializes all the memoization-specific fields including the hash 
   - Memoize (struct type, created with makeNode())
   - Agg (related type)
 - Called from (representative examples):
-  - create_memoize_plan
+  - [create_memoize_plan](../c/create_memoize_plan.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same source file

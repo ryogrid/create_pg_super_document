@@ -24,13 +24,13 @@ ET_ERROR is one of two enumeration values in the errortype enum used by the ECPG
 - Functions called/Symbols referenced:
   - N/A (enumeration constant)
 - Called from (representative examples):
-  - ECPGnumeric_lvalue (in src/interfaces/ecpg/preproc/descriptor.c:64)
-  - filtered_base_yylex (in src/interfaces/ecpg/preproc/parser.c:190, 198)
-  - get_type (in src/interfaces/ecpg/preproc/type.c:214)
-  - ECPGdump_a_type (in src/interfaces/ecpg/preproc/type.c:263, 277, 291)
-  - ECPGfree_type (in src/interfaces/ecpg/preproc/type.c:685)
-  - get_dtype (in src/interfaces/ecpg/preproc/type.c:744)
-  - check_indicator (in src/interfaces/ecpg/preproc/variable.c:492)
+  - [ECPGnumeric_lvalue](ECPGnumeric_lvalue.md) (in src/interfaces/ecpg/preproc/descriptor.c:64)
+  - [filtered_base_yylex](../f/filtered_base_yylex.md) (in src/interfaces/ecpg/preproc/parser.c:190, 198)
+  - [get_type](../g/get_type.md) (in src/interfaces/ecpg/preproc/type.c:214)
+  - [ECPGdump_a_type](ECPGdump_a_type.md) (in src/interfaces/ecpg/preproc/type.c:263, 277, 291)
+  - [ECPGfree_type](ECPGfree_type.md) (in src/interfaces/ecpg/preproc/type.c:685)
+  - [get_dtype](../g/get_dtype.md) (in src/interfaces/ecpg/preproc/type.c:744)
+  - [check_indicator](../c/check_indicator.md) (in src/interfaces/ecpg/preproc/variable.c:492)
 
 ## Notes and Other Information
 - Defined in src/interfaces/ecpg/preproc/type.h:219

@@ -29,11 +29,11 @@ This optimization is crucial for efficient partition operations, as it can elimi
   - makeNode - Creates NullTest node for NOT NULL constraints  
   - makeVar - Creates Var node representing column reference
   - lappend - Appends constraints to existing constraint list
-  - ConstraintImpliedByRelConstraint - Performs actual implication analysis
+  - [ConstraintImpliedByRelConstraint](../C/ConstraintImpliedByRelConstraint.md) - Performs actual implication analysis
 - Called from (representative examples):
-  - QueuePartitionConstraintValidation (src/backend/commands/tablecmds.c:18422)
-  - DetachAddConstraintIfNeeded (src/backend/commands/tablecmds.c:19692)
-  - check_default_partition_contents (src/backend/partitioning/partbounds.c:3278, 3328)
+  - [QueuePartitionConstraintValidation](../Q/QueuePartitionConstraintValidation.md) (src/backend/commands/tablecmds.c:18422)
+  - [DetachAddConstraintIfNeeded](../D/DetachAddConstraintIfNeeded.md) (src/backend/commands/tablecmds.c:19692)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md) (src/backend/partitioning/partbounds.c:3278, 3328)
 
 ## Notes and Other Information
 - Returns boolean indicating whether existing constraints imply the partition constraint

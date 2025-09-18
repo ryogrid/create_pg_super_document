@@ -20,12 +20,12 @@ This function implements an optimized lookup mechanism for PostgreSQL's search p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheEntry (cache entry structure type)
-  - SearchPathCacheKey (key structure for hash table operations)
+  - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md) (cache entry structure type)
+  - [SearchPathCacheKey](../S/SearchPathCacheKey.md) (key structure for hash table operations)
   - nsphash_lookup (hash table lookup function)
   - strcmp (standard C library string comparison)
 - Called from (representative examples):
-  - check_search_path (for search path validation operations)
+  - [check_search_path](../c/check_search_path.md) (for search path validation operations)
 
 ## Notes and Other Information
 - Implements a performance optimization through LastSearchPathCacheEntry caching

@@ -19,10 +19,10 @@ This function provides a simple and efficient way to determine if a TIDBitmap co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TIDBitmap (structure type)
+  - [TIDBitmap](../T/TIDBitmap.md) (structure type)
 - Called from (representative examples):
-  - startScanEntry (src/backend/access/gin/ginget.c:386)
-  - MultiExecBitmapAnd (src/backend/executor/nodeBitmapAnd.c:155)
+  - [startScanEntry](../s/startScanEntry.md) (src/backend/access/gin/ginget.c:386)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md) (src/backend/executor/nodeBitmapAnd.c:155)
 
 ## Notes and Other Information
 - The function is implemented as a simple comparison of tbm->nentries == 0

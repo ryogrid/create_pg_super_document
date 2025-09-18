@@ -21,13 +21,13 @@ This function provides a centralized mechanism to detect when the PostgreSQL err
 - Functions called/Symbols referenced:
   - recursion_depth (static global variable)
 - Called from (representative examples):
-  - err_gettext
-  - errstart
+  - [err_gettext](../e/err_gettext.md)
+  - [errstart](../e/errstart.md)
   - EVALUATE_MESSAGE
   - EVALUATE_MESSAGE_PLURAL
-  - write_eventlog
-  - write_console
-  - err_sendstring
+  - [write_eventlog](../w/write_eventlog.md)
+  - [write_console](../w/write_console.md)
+  - [err_sendstring](../e/err_sendstring.md)
   - LOG_DESTINATION_JSONLOG
 
 ## Notes and Other Information

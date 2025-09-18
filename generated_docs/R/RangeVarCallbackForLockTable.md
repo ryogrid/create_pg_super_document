@@ -20,21 +20,21 @@ RangeVarCallbackForLockTable serves as a security and validation callback invoke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (structure type)
+  - [RangeVar](RangeVar.md) (structure type)
   - AclResult (enum type)
-  - get_rel_relkind
+  - [get_rel_relkind](../g/get_rel_relkind.md)
   - RELKIND_RELATION
   - RELKIND_PARTITIONED_TABLE
   - RELKIND_VIEW
-  - errdetail_relkind_not_supported
-  - get_rel_persistence
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [get_rel_persistence](../g/get_rel_persistence.md)
   - RELPERSISTENCE_TEMP
   - XACT_FLAGS_ACCESSEDTEMPNAMESPACE
-  - LockTableAclCheck
-  - aclcheck_error
-  - get_relkind_objtype
+  - [LockTableAclCheck](../L/LockTableAclCheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
 - Called from (representative examples):
-  - LockTableCommand (via RangeVarGetRelidExtended)
+  - [LockTableCommand](../L/LockTableCommand.md) (via RangeVarGetRelidExtended)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the lockcmds.c module

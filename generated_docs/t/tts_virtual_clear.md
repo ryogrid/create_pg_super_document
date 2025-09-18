@@ -27,12 +27,12 @@ This function is typically called when a slot needs to be reused for a different
 - Functions called/Symbols referenced:
   - TTS_SHOULDFREE (macro to check if slot should free memory)
   - VirtualTupleTableSlot (cast to specific slot type)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - TTS_FLAG_SHOULDFREE (flag indicating slot owns memory)
   - TTS_FLAG_EMPTY (flag indicating slot is empty)
-  - ItemPointerSetInvalid (function to invalidate tuple identifier)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md) (function to invalidate tuple identifier)
 - Called from (representative examples):
-  - tts_virtual_copyslot (when copying slot contents)
+  - [tts_virtual_copyslot](tts_virtual_copyslot.md) (when copying slot contents)
   - Various slot clearing operations throughout the executor
 
 ## Notes and Other Information

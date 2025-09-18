@@ -22,11 +22,11 @@ The function implements the same efficient two-tier approach:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_WHITE_SPACE (constant/macro)
-  - range_search (function for binary search in Unicode ranges)
+  - [range_search](../r/range_search.md) (function for binary search in Unicode ranges)
   - lengthof (macro to get array length)
 - Called from (representative examples):
-  - icu_test (in test code)
-  - pg_u_isspace (higher-level space checking function)
+  - [icu_test](../i/icu_test.md) (in test code)
+  - [pg_u_isspace](pg_u_isspace.md) (higher-level space checking function)
   - Referenced in pg_unicode_category header
 
 ## Notes and Other Information

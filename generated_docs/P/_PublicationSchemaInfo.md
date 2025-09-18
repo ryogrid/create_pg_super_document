@@ -28,7 +28,7 @@ This structure is part of PostgreSQL's pg_dump utility and is used to maintain t
 - Functions called/Symbols referenced:
   - DumpableObject
   - PublicationInfo
-  - NamespaceInfo
+  - [NamespaceInfo](../N/NamespaceInfo.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

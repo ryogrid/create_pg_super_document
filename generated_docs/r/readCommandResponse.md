@@ -21,17 +21,17 @@ This comprehensive function processes query results returned from PostgreSQL, ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetResult (retrieve query results)
-  - PQresultStatus (check result status)
-  - PQntuples, PQnfields, PQfname, PQgetvalue (result data access)
-  - getSQLErrorStatus (categorize SQL errors)
-  - canRetryError (determine retry eligibility)
-  - putVariable (store values in pgbench variables)
+  - [PQgetResult](../P/PQgetResult.md) (retrieve query results)
+  - [PQresultStatus](../P/PQresultStatus.md) (check result status)
+  - [PQntuples](../P/PQntuples.md), PQnfields, PQfname, PQgetvalue (result data access)
+  - [getSQLErrorStatus](../g/getSQLErrorStatus.md) (categorize SQL errors)
+  - [canRetryError](../c/canRetryError.md) (determine retry eligibility)
+  - [putVariable](../p/putVariable.md) (store values in pgbench variables)
   - PQexitPipelineMode (exit pipeline mode)
-  - commandError (error reporting)
+  - [commandError](../c/commandError.md) (error reporting)
   - Various PGRES_* constants and error status enums
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - Returns true on success, false on any error condition

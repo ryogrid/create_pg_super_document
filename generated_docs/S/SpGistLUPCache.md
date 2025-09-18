@@ -22,11 +22,11 @@ SpGistLUPCache represents a cache structure that holds multiple SpGistLastUsedPa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistLastUsedPage: The structure type used for individual cache entries
+  - [SpGistLastUsedPage](SpGistLastUsedPage.md): The structure type used for individual cache entries
   - SPGIST_CACHED_PAGES: Constant defining the size of the cache array (value: 8)
 - Called from (representative examples):
-  - SpGistMetaPageData (in src/include/access/spgist_private.h)
-  - SpGistCache (in src/include/access/spgist_private.h)
+  - [SpGistMetaPageData](SpGistMetaPageData.md) (in src/include/access/spgist_private.h)
+  - [SpGistCache](SpGistCache.md) (in src/include/access/spgist_private.h)
 
 ## Notes and Other Information
 - The cache provides 8 slots for different types of pages, allowing categorization of cached pages by their intended use

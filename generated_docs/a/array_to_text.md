@@ -21,7 +21,7 @@ This function serves as the main entry point for the array_to_text SQL function 
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (to extract array argument)
   - text_to_cstring (to convert separator text to C string)
-  - array_to_text_internal (performs the actual array-to-text conversion)
+  - [array_to_text_internal](array_to_text_internal.md) (performs the actual array-to-text conversion)
   - PG_RETURN_TEXT_P (to return the result as PostgreSQL text type)
 - Called from:
   - SQL queries using the array_to_text() function

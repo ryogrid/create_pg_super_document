@@ -22,18 +22,18 @@ The function performs extensive validation of option combinations, such as ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NewExplainState
-  - defGetBoolean/defGetString
-  - QueryRewrite
-  - ExplainBeginOutput/ExplainEndOutput
-  - ExplainOneQuery
-  - ExplainResultDesc
-  - begin_tup_output_tupdesc
-  - do_text_output_multiline/do_text_output_oneline
-  - end_tup_output
-  - JumbleQuery
+  - [NewExplainState](../N/NewExplainState.md)
+  - [defGetBoolean](../d/defGetBoolean.md)/defGetString
+  - [QueryRewrite](../Q/QueryRewrite.md)
+  - [ExplainBeginOutput](ExplainBeginOutput.md)/ExplainEndOutput
+  - [ExplainOneQuery](ExplainOneQuery.md)
+  - [ExplainResultDesc](ExplainResultDesc.md)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)
+  - [do_text_output_multiline](../d/do_text_output_multiline.md)/do_text_output_oneline
+  - [end_tup_output](../e/end_tup_output.md)
+  - [JumbleQuery](../J/JumbleQuery.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Supports multiple output formats: TEXT, XML, JSON, YAML

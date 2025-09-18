@@ -25,15 +25,15 @@ HashState represents the runtime state for Hash executor nodes in PostgreSQL. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinTable
-  - SharedHashInfo
-  - HashInstrumentation
+  - [HashJoinTable](HashJoinTable.md)
+  - [SharedHashInfo](../S/SharedHashInfo.md)
+  - [HashInstrumentation](HashInstrumentation.md)
   - ParallelHashJoinState
 - Called from (representative examples):
-  - MultiExecHash
-  - ExecInitHash
+  - [MultiExecHash](../M/MultiExecHash.md)
+  - [ExecInitHash](../E/ExecInitHash.md)
   - ExecEndHash
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - The structure is specifically designed to handle both sequential and parallel hash operations

@@ -25,10 +25,10 @@ The function acts as a wrapper around raw_expression_tree_walker, calling it rec
 ## Dependencies
 - Functions called/Symbols referenced:
   - raw_expression_tree_walker (the main tree walking function being tested)
-  - test_raw_expression_coverage (recursive self-call)
+  - [test_raw_expression_coverage](test_raw_expression_coverage.md) (recursive self-call)
 - Called from (representative examples):
-  - transformStmt (when RAW_EXPRESSION_COVERAGE_TEST is enabled)
-  - test_raw_expression_coverage (recursively during tree traversal)
+  - [transformStmt](transformStmt.md) (when RAW_EXPRESSION_COVERAGE_TEST is enabled)
+  - [test_raw_expression_coverage](test_raw_expression_coverage.md) (recursively during tree traversal)
 
 ## Notes and Other Information
 - Static function only available within analyze.c

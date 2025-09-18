@@ -23,21 +23,21 @@ The function operates by opening the relation, validating the move operation, al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open: Opens relations for access
-  - relation_close: Closes relations and releases locks
-  - CheckRelationTableSpaceMove: Validates whether the move operation is allowed
-  - GetNewRelFileNumber: Allocates a new relfilenumber in the target tablespace
-  - index_copy_data: Copies index data to new storage location
+  - [relation_open](../r/relation_open.md): Opens relations for access
+  - [relation_close](../r/relation_close.md): Closes relations and releases locks
+  - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md): Validates whether the move operation is allowed
+  - [GetNewRelFileNumber](../G/GetNewRelFileNumber.md): Allocates a new relfilenumber in the target tablespace
+  - [index_copy_data](../i/index_copy_data.md): Copies index data to new storage location
   - table_relation_copy_data: Copies table data to new storage location
-  - SetRelationTableSpace: Updates pg_class with new tablespace and relfilenumber
-  - RelationGetIndexList: Gets list of indexes for TOAST relations
-  - RelationAssumeNewRelfilelocator: Updates relation's internal locator information
+  - [SetRelationTableSpace](../S/SetRelationTableSpace.md): Updates pg_class with new tablespace and relfilenumber
+  - [RelationGetIndexList](../R/RelationGetIndexList.md): Gets list of indexes for TOAST relations
+  - [RelationAssumeNewRelfilelocator](../R/RelationAssumeNewRelfilelocator.md): Updates relation's internal locator information
   - InvokeObjectPostAlterHook: Triggers post-alter hooks for dependency tracking
   - CommandCounterIncrement: Makes catalog changes visible to subsequent operations
 
 - Called from (representative examples):
-  - ATRewriteTables: Main table rewriting function during ALTER TABLE
-  - ATExecSetTableSpace: Recursive calls for TOAST tables and indexes
+  - [ATRewriteTables](ATRewriteTables.md): Main table rewriting function during ALTER TABLE
+  - [ATExecSetTableSpace](ATExecSetTableSpace.md): Recursive calls for TOAST tables and indexes
 
 ## Notes and Other Information
 - Recursively processes TOAST tables and their indexes to ensure complete tablespace migration

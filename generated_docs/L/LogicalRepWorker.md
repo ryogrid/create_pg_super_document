@@ -36,17 +36,17 @@ LogicalRepWorker is a shared memory structure that tracks the state and configur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepWorkerType
-  - PGPROC
-  - slock_t
-  - FileSet
+  - [LogicalRepWorkerType](LogicalRepWorkerType.md)
+  - [PGPROC](../P/PGPROC.md)
+  - [slock_t](../s/slock_t.md)
+  - [FileSet](../F/FileSet.md)
   - pid_t
 - Called from (representative examples):
   - logicalrep_worker_find
   - logicalrep_worker_launch
   - logicalrep_worker_stop_internal
   - logicalrep_worker_detach
-  - ApplyLauncherShmemInit
+  - [ApplyLauncherShmemInit](../A/ApplyLauncherShmemInit.md)
 
 ## Notes and Other Information
 This structure is allocated in shared memory and is the primary means of communication and coordination between the logical replication launcher process and individual worker processes. The generation counter mechanism helps prevent race conditions when workers are rapidly started and stopped. The parallel apply functionality allows for improved performance by enabling concurrent processing of changes from different transactions, with proper coordination through the leader_pid mechanism.

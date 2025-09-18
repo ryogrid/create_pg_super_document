@@ -26,13 +26,13 @@ The function ensures proper database name matching and generates file mappings u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gen_db_file_maps
-  - transfer_single_new_db
-  - pg_free
-  - DbInfo, FileNameMap, DbInfoArr
+  - [gen_db_file_maps](../g/gen_db_file_maps.md)
+  - [transfer_single_new_db](transfer_single_new_db.md)
+  - [pg_free](../p/pg_free.md)
+  - [DbInfo](../D/DbInfo.md), FileNameMap, DbInfoArr
 - Called from (representative examples):
-  - parallel_transfer_all_new_dbs
-  - win32_transfer_all_new_dbs
+  - [parallel_transfer_all_new_dbs](../p/parallel_transfer_all_new_dbs.md)
+  - [win32_transfer_all_new_dbs](../w/win32_transfer_all_new_dbs.md)
 
 ## Notes and Other Information
 - The function handles database name mismatches gracefully by advancing through the new database array to find matching names

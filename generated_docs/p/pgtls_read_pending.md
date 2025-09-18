@@ -21,7 +21,7 @@ The function is particularly important in SSL/TLS connections because the SSL la
 - Functions called/Symbols referenced:
   - SSL_pending (OpenSSL function)
 - Called from (representative examples):
-  - pqSocketCheck (in fe-misc.c:1081)
+  - [pqSocketCheck](pqSocketCheck.md) (in fe-misc.c:1081)
   - pgunlock_thread (referenced in libpq-int.h:824)
 
 ## Notes and Other Information

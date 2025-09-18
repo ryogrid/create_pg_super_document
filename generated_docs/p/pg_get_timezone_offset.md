@@ -20,12 +20,12 @@ The function iterates through all timezone type entries in the timezone state an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tz (timezone structure type)
+  - [pg_tz](pg_tz.md) (timezone structure type)
   - struct state (internal timezone state structure)
-  - ttinfo (timezone transition info structure via sp->ttis array)
+  - [ttinfo](../t/ttinfo.md) (timezone transition info structure via sp->ttis array)
 - Called from (representative examples):
-  - DecodeTimeOnly (src/backend/utils/adt/datetime.c:2309)
-  - TimestampTimestampTzRequiresRewrite (src/backend/utils/adt/timestamp.c:6277)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md) (src/backend/utils/adt/datetime.c:2309)
+  - [TimestampTimestampTzRequiresRewrite](../T/TimestampTimestampTzRequiresRewrite.md) (src/backend/utils/adt/timestamp.c:6277)
 
 ## Notes and Other Information
 - Returns true if the timezone uses a single GMT offset, false if it uses multiple offsets

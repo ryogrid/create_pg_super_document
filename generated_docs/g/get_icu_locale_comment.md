@@ -21,11 +21,11 @@ This function obtains a localized display name for a given ICU locale identifier
 - Functions called/Symbols referenced:
   - uloc_getDisplayName (ICU library function)
   - lengthof (PostgreSQL macro)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - U_ZERO_ERROR (ICU constant)
   - U_FAILURE (ICU macro)
 - Called from (representative examples):
-  - pg_import_system_collations
+  - [pg_import_system_collations](../p/pg_import_system_collations.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within collationcmds.c

@@ -19,15 +19,15 @@ For each database, the function determines the appropriate pg_dump options based
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeQuery (executes SQL queries)
-  - simple_string_list_member (checks database exclusion list)
+  - [executeQuery](../e/executeQuery.md) (executes SQL queries)
+  - [simple_string_list_member](../s/simple_string_list_member.md) (checks database exclusion list)
   - pg_log_info (logging utility)
-  - sanitize_line (sanitizes database names for output)
-  - runPgDump (executes pg_dump for individual databases)
+  - [sanitize_line](../s/sanitize_line.md) (sanitizes database names for output)
+  - [runPgDump](../r/runPgDump.md) (executes pg_dump for individual databases)
   - PG_BINARY_A (file mode constant)
   - fopen (file operations)
 - Called from (representative examples):
-  - main (in pg_dumpall.c at line 646)
+  - [main](../m/main.md) (in pg_dumpall.c at line 646)
 
 ## Notes and Other Information
 - Skips databases with datallowconn=false or datconnlimit=-2 to avoid connection failures

@@ -29,19 +29,19 @@ The extension lock mechanism prevents race conditions where this function might 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to access the page from buffer)
-  - PageIsNew (to check if page is uninitialized)
+  - [BufferGetPage](../B/BufferGetPage.md) (to access the page from buffer)
+  - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
   - LockRelationForExtension/UnlockRelationForExtension (for extension lock coordination)
-  - LockBuffer (for buffer locking during initialization)
-  - brin_initialize_empty_new_buffer (to initialize new pages)
+  - [LockBuffer](../L/LockBuffer.md) (for buffer locking during initialization)
+  - [brin_initialize_empty_new_buffer](brin_initialize_empty_new_buffer.md) (to initialize new pages)
   - BRIN_IS_META_PAGE (to check for meta pages)
   - BRIN_IS_REVMAP_PAGE (to check for revmap pages)
-  - BufferGetBlockNumber (to get the page's block number)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (to get the page's block number)
   - RecordPageWithFreeSpace (to update FSM)
-  - br_page_get_freespace (to calculate available free space)
+  - [br_page_get_freespace](br_page_get_freespace.md) (to calculate available free space)
   - ShareLock, BUFFER_LOCK_EXCLUSIVE, BUFFER_LOCK_UNLOCK (lock constants)
 - Called from:
-  - brin_vacuum_scan (in brin.c during vacuum operations)
+  - [brin_vacuum_scan](brin_vacuum_scan.md) (in brin.c during vacuum operations)
 
 ## Notes and Other Information
 - Primarily used during VACUUM operations to handle pages that may have been left uninitialized due to crashes

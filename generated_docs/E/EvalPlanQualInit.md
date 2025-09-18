@@ -30,18 +30,18 @@ The function is designed to minimize overhead by pre-allocating only essential r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EPQState (structure type)
-  - EState (structure type)
-  - Plan (structure type)
+  - [EPQState](EPQState.md) (structure type)
+  - [EState](EState.md) (structure type)
+  - [Plan](../P/Plan.md) (structure type)
   - TupleTableSlot (structure type)
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - NIL
 - Called from (representative examples):
-  - ExecInitLockRows
-  - ExecInitModifyTable
-  - apply_handle_update_internal
-  - apply_handle_delete_internal
-  - apply_handle_tuple_routing
+  - [ExecInitLockRows](ExecInitLockRows.md)
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
+  - [apply_handle_update_internal](../a/apply_handle_update_internal.md)
+  - [apply_handle_delete_internal](../a/apply_handle_delete_internal.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 This function is part of the initialization phase of PostgreSQL's EvalPlanQual system, which provides snapshot-based concurrency control under READ COMMITTED isolation. The early allocation of relsubs_slot array allows EvalPlanQualSlot() to be used for holding tuples that may require EPQ processing without forcing the full overhead of EvalPlanQualBegin(). The function is commonly called during the initialization of plan nodes that may need to handle concurrent modifications, such as ModifyTable and LockRows nodes. The resultRelations parameter helps optimize EPQ processing by identifying which relations are actual targets versus those that should return empty results during EPQ rechecking.

@@ -17,7 +17,7 @@ This function provides a more specific check than WalRcvRunning() by determining
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData
+  - [WalRcvData](WalRcvData.md)
   - WalRcvState
   - pg_time_t
   - WALRCV_STARTING
@@ -27,8 +27,8 @@ This function provides a more specific check than WalRcvRunning() by determining
   - WALRCV_RESTARTING
   - ConditionVariableBroadcast
 - Called from (representative examples):
-  - FinishWalRecovery
-  - WaitForWALToBecomeAvailable
+  - [FinishWalRecovery](../F/FinishWalRecovery.md)
+  - [WaitForWALToBecomeAvailable](WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/walreceiverfuncs.c:126-177

@@ -17,9 +17,9 @@ This function is an internal version of the statistics object definition retriev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_statisticsobj_worker
+  - [pg_get_statisticsobj_worker](pg_get_statisticsobj_worker.md)
 - Called from (representative examples):
-  - RememberStatisticsForRebuilding (in src/backend/commands/tablecmds.c)
+  - [RememberStatisticsForRebuilding](../R/RememberStatisticsForRebuilding.md) (in src/backend/commands/tablecmds.c)
 
 ## Notes and Other Information
 - This is an internal function specifically designed for ALTER TABLE operations

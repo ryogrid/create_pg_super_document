@@ -19,11 +19,11 @@ ExecEndSetOp performs the cleanup operations required when a SetOp execution nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete (conditionally frees the hashtable memory context)
-  - ExecEndNode (recursively ends the outer subplan)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (conditionally frees the hashtable memory context)
+  - [ExecEndNode](ExecEndNode.md) (recursively ends the outer subplan)
   - outerPlanState (macro to access the outer plan state)
 - Called from (representative examples):
-  - ExecEndNode (from src/backend/executor/execProcnode.c:737)
+  - [ExecEndNode](ExecEndNode.md) (from src/backend/executor/execProcnode.c:737)
 
 ## Notes and Other Information
 - This function is part of the PostgreSQL executor's node cleanup framework

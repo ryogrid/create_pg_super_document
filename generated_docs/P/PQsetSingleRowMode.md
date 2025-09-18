@@ -21,11 +21,11 @@ The function validates that it's safe to change the result mode using canChangeR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canChangeResultMode
+  - [canChangeResultMode](../c/canChangeResultMode.md)
 - Called from (representative examples):
-  - process_queued_fetch_requests (in pg_rewind)
-  - test_pipeline_abort (in libpq_pipeline tests)
-  - test_singlerowmode (in libpq_pipeline tests)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (in pg_rewind)
+  - [test_pipeline_abort](../t/test_pipeline_abort.md) (in libpq_pipeline tests)
+  - [test_singlerowmode](../t/test_singlerowmode.md) (in libpq_pipeline tests)
 
 ## Notes and Other Information
 - Returns 1 for success, 0 for failure

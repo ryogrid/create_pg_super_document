@@ -21,20 +21,20 @@ The function initializes the TwoPhaseState global variable, which serves as the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct (shared memory initialization)
-  - TwoPhaseShmemSize (calculates required memory size)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory initialization)
+  - [TwoPhaseShmemSize](TwoPhaseShmemSize.md) (calculates required memory size)
   - GetNumberFromPGProc (maps PGPROC to process number)
   - MAXALIGN (memory alignment macro)
   - offsetof (standard C macro)
 - Types referenced:
   - GlobalTransaction (pointer to transaction data)
-  - TwoPhaseStateData (main state structure)
+  - [TwoPhaseStateData](TwoPhaseStateData.md) (main state structure)
 - Global variables accessed:
   - TwoPhaseState (global state variable)
   - PreparedXactProcs (array of PGPROC entries)
   - max_prepared_xacts (GUC parameter)
 - Called from:
-  - CreateOrAttachShmemStructs (in ipci.c:327)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (in ipci.c:327)
 
 ## Notes and Other Information
 - Only performs full initialization when IsUnderPostmaster is false (i.e., in the main postmaster process)

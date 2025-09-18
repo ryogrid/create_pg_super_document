@@ -20,20 +20,20 @@ The function handles two different serialization strategies depending on whether
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - ArrayBuildState
-  - pq_begintypsend
-  - pq_sendint32
-  - pq_sendint64
-  - pq_sendint16
-  - pq_sendbyte
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [ArrayBuildState](../A/ArrayBuildState.md)
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_sendbyte](../p/pq_sendbyte.md)
   - pq_sendbytes
-  - SerialIOData
-  - MemoryContextAlloc
-  - getTypeBinaryOutputInfo
-  - fmgr_info_cxt
-  - SendFunctionCall
-  - pq_endtypsend
+  - [SerialIOData](../S/SerialIOData.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [SendFunctionCall](../S/SendFunctionCall.md)
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):
   - PostgreSQL parallel aggregate framework (internal)

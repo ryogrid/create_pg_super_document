@@ -28,8 +28,8 @@ This forwarding pattern allows for composition of different backup sink behavior
   - bbsink_manifest_contents
   - bbsink (structure type)
 - Called from (representative examples):
-  - bbsink_server_manifest_contents
-  - bbsink_throttle_manifest_contents
+  - [bbsink_server_manifest_contents](bbsink_server_manifest_contents.md)
+  - [bbsink_throttle_manifest_contents](bbsink_throttle_manifest_contents.md)
 
 ## Notes and Other Information
 - The function expects that buffers are shared between chained sinks, allowing efficient data forwarding without copying

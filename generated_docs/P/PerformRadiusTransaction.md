@@ -37,14 +37,14 @@ Key security features include protection against denial-of-service attacks by va
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_getaddrinfo_all, pg_freeaddrinfo_all (address resolution)
-  - pg_strong_random (cryptographic random number generation)
-  - pg_md5_binary (MD5 hashing for authentication)
+  - [pg_strong_random](../p/pg_strong_random.md) (cryptographic random number generation)
+  - [pg_md5_binary](../p/pg_md5_binary.md) (MD5 hashing for authentication)
   - pg_hton32, pg_hton16, pg_ntoh16 (network byte order conversion)
-  - radius_add_attribute (adding attributes to RADIUS packet)
+  - [radius_add_attribute](../r/radius_add_attribute.md) (adding attributes to RADIUS packet)
   - socket, bind, sendto, recvfrom, closesocket (network operations)
   - select, gettimeofday (timeout and I/O multiplexing)
   - ereport, errmsg (error logging)
-  - palloc, pfree (memory management)
+  - [palloc](../p/palloc.md), pfree (memory management)
 - Constants referenced:
   - RADIUS_ACCESS_REQUEST, RADIUS_ACCESS_ACCEPT, RADIUS_ACCESS_REJECT
   - RADIUS_AUTHENTICATE_ONLY, RADIUS_SERVICE_TYPE, RADIUS_USER_NAME, RADIUS_NAS_IDENTIFIER, RADIUS_PASSWORD
@@ -53,7 +53,7 @@ Key security features include protection against denial-of-service attacks by va
 - Types referenced:
   - radius_packet, pgsocket, socklen_t
 - Called from:
-  - CheckRADIUSAuth at src/backend/libpq/auth.c:2896
+  - [CheckRADIUSAuth](../C/CheckRADIUSAuth.md) at src/backend/libpq/auth.c:2896
 
 ## Notes and Other Information
 - This is a static function, only visible within the auth.c compilation unit

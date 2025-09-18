@@ -25,7 +25,7 @@ This function is particularly useful for converting JSON data into typed Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_record_worker (core implementation function)
+  - [populate_record_worker](../p/populate_record_worker.md) (core implementation function)
 
 - Called from (representative examples):
   - Direct SQL function calls

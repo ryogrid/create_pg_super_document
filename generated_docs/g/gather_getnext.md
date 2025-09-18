@@ -21,14 +21,14 @@ When reading from workers, tuples come as MinimalTuple objects that are stored i
 - Functions called/Symbols referenced:
   - outerPlanState (accesses the child plan state)
   - CHECK_FOR_INTERRUPTS (allows query cancellation)
-  - gather_readnext (reads tuples from worker processes)
+  - [gather_readnext](gather_readnext.md) (reads tuples from worker processes)
   - HeapTupleIsValid (checks if received tuple is valid)
-  - ExecStoreMinimalTuple (stores worker tuple in funnel slot)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md) (stores worker tuple in funnel slot)
   - ExecProcNode (executes child plan locally)
   - TupIsNull (checks for end of local data)
   - ExecClearTuple (returns empty slot when no more data)
 - Called from (representative examples):
-  - ExecGather (main execution function for Gather nodes)
+  - [ExecGather](../E/ExecGather.md) (main execution function for Gather nodes)
 
 ## Notes and Other Information
 - Implements a priority system: worker tuples are processed before local execution

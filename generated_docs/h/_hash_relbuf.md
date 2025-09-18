@@ -18,19 +18,19 @@ This function releases a locked buffer by dropping both its lock and pin (refere
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnlockReleaseBuffer (core buffer management function)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (core buffer management function)
 
 - Called from (representative examples):
-  - hashbulkdelete (bulk deletion operations)
-  - hashbucketcleanup (bucket cleanup during vacuum)
-  - _hash_doinsert (insertion operations)
-  - _hash_addovflpage (overflow page management)
-  - _hash_freeovflpage (overflow page cleanup)
-  - _hash_squeezebucket (bucket reorganization)
-  - _hash_init (index initialization)
-  - _hash_expandtable (table expansion)
-  - _hash_splitbucket (bucket splitting)
-  - _hash_readnext/_hash_readprev (scan operations)
+  - [hashbulkdelete](hashbulkdelete.md) (bulk deletion operations)
+  - [hashbucketcleanup](hashbucketcleanup.md) (bucket cleanup during vacuum)
+  - [_hash_doinsert](_hash_doinsert.md) (insertion operations)
+  - [_hash_addovflpage](_hash_addovflpage.md) (overflow page management)
+  - [_hash_freeovflpage](_hash_freeovflpage.md) (overflow page cleanup)
+  - [_hash_squeezebucket](_hash_squeezebucket.md) (bucket reorganization)
+  - [_hash_init](_hash_init.md) (index initialization)
+  - [_hash_expandtable](_hash_expandtable.md) (table expansion)
+  - [_hash_splitbucket](_hash_splitbucket.md) (bucket splitting)
+  - [_hash_readnext](_hash_readnext.md)/_hash_readprev (scan operations)
 
 ## Notes and Other Information
 - This function is a thin wrapper around  but provides interface consistency across hash index operations

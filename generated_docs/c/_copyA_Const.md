@@ -30,7 +30,7 @@ The function only copies the value if it's not null, and uses different copying 
 
 ## Notes and Other Information
 - This is a static function, only accessible within copyfuncs.c
-- A_Const is used for constants in parse trees before type analysis, while Const is used after type resolution
+- [A_Const](../A/A_Const.md) is used for constants in parse trees before type analysis, while Const is used after type resolution
 - The function handles a union of different value types (Integer, Float, Boolean, String, BitString)
 - Error handling is included for unrecognized node types, making the function robust against corruption
 - The switch statement approach allows for efficient type-specific handling of the polymorphic value field

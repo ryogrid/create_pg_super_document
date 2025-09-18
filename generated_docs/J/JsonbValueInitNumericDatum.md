@@ -18,10 +18,10 @@ This is a static utility function in the JSON path execution module that initial
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetNumeric (PostgreSQL macro to extract Numeric from Datum)
+  - [DatumGetNumeric](../D/DatumGetNumeric.md) (PostgreSQL macro to extract Numeric from Datum)
   - jbvNumeric (JsonbValue type constant for numeric values)
 - Called from (representative examples):
-  - JsonItemFromDatum (multiple locations in jsonpath_exec.c)
+  - [JsonItemFromDatum](JsonItemFromDatum.md) (multiple locations in jsonpath_exec.c)
 
 ## Notes and Other Information
 - This is a static helper function, only accessible within the jsonpath_exec.c module

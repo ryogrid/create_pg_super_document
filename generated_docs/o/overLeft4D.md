@@ -18,11 +18,11 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - overLower2D
+  - [overLower2D](overLower2D.md)
   - RectBox (struct)
   - RangeBox (struct)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. The 'over' prefix indicates that overlapping at the boundary is permitted, distinguishing it from the strict directional predicate left4D. It is part of a comprehensive set of spatial relationship predicates used for efficient geometric indexing and query processing in PostgreSQL's spatial data types.

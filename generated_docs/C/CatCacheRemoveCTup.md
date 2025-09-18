@@ -27,16 +27,16 @@ The function ensures data integrity by requiring zero reference counts, preventi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCacheRemoveCList (for removing associated cache lists)
-  - dlist_delete (for unlinking from doubly-linked list)
-  - CatCacheFreeKeys (for deallocating negative entry keys)
-  - pfree (for memory deallocation)
+  - [CatCacheRemoveCList](CatCacheRemoveCList.md) (for removing associated cache lists)
+  - [dlist_delete](../d/dlist_delete.md) (for unlinking from doubly-linked list)
+  - [CatCacheFreeKeys](CatCacheFreeKeys.md) (for deallocating negative entry keys)
+  - [pfree](../p/pfree.md) (for memory deallocation)
 - Called from (representative examples):
-  - CatCacheRemoveCList
-  - CatCacheInvalidate
-  - ResetCatalogCache
-  - ReleaseCatCacheWithOwner
-  - SearchCatCacheList
+  - [CatCacheRemoveCList](CatCacheRemoveCList.md)
+  - [CatCacheInvalidate](CatCacheInvalidate.md)
+  - [ResetCatalogCache](../R/ResetCatalogCache.md)
+  - [ReleaseCatCacheWithOwner](../R/ReleaseCatCacheWithOwner.md)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md)
 
 ## Notes and Other Information
 - Function is declared as static, making it internal to the catcache.c module

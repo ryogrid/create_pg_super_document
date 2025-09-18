@@ -31,24 +31,24 @@ The function ensures proper privilege checking and maintains referential integri
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - object_ownercheck
-  - aclcheck_error
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
   - check_can_set_role
-  - have_createdb_privilege
-  - LockTuple/UnlockTuple
-  - heap_getattr
-  - aclnewowner
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - changeDependencyOnOwner
+  - [have_createdb_privilege](../h/have_createdb_privilege.md)
+  - [LockTuple](../L/LockTuple.md)/UnlockTuple
+  - [heap_getattr](../h/heap_getattr.md)
+  - [aclnewowner](../a/aclnewowner.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSet
 - Called from (representative examples):
-  - ExecAlterOwnerStmt
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md)
 
 ## Notes and Other Information
 - Requires current database ownership to execute the command

@@ -26,8 +26,8 @@ This function serves as the PostgreSQL SQL function entry point for converting a
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
   - text_to_cstring
-  - schema_to_xmlschema_internal
-  - stringinfo_to_xmltype
+  - [schema_to_xmlschema_internal](schema_to_xmlschema_internal.md)
+  - [stringinfo_to_xmltype](stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - (No direct references found - likely called via SQL function interface)

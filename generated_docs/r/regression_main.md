@@ -31,16 +31,16 @@ The function supports multiple testing modes including single-user mode, bootstr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_logging_init, get_progname, set_pglocale_pgservice
+  - [pg_logging_init](../p/pg_logging_init.md), get_progname, set_pglocale_pgservice
   - getopt_long (command-line parsing)
-  - help (displays usage information)
-  - make_absolute_path, directory_exists, make_directory
-  - spawn_process, PQpingParams (PostgreSQL connection testing)
+  - [help](../h/help.md) (displays usage information)
+  - [make_absolute_path](../m/make_absolute_path.md), directory_exists, make_directory
+  - [spawn_process](../s/spawn_process.md), PQpingParams (PostgreSQL connection testing)
   - bail, note, diag (error handling and logging)
-  - initialize_environment, open_result_files
-  - config_sspi_auth (Windows SSPI authentication setup)
+  - [initialize_environment](../i/initialize_environment.md), open_result_files
+  - [config_sspi_auth](../c/config_sspi_auth.md) (Windows SSPI authentication setup)
 - Called from (representative examples):
-  - main (in pg_regress_main.c, isolation_main.c, pg_regress_ecpg.c)
+  - [main](../m/main.md) (in pg_regress_main.c, isolation_main.c, pg_regress_ecpg.c)
 
 ## Notes and Other Information
 - Supports extensive command-line options for database configuration, connection parameters, test selection, and debugging

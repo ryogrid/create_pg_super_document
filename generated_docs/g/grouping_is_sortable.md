@@ -25,13 +25,13 @@ This check is crucial for the query planner to decide between different grouping
   - OidIsValid (to check validity of sort operators)
   - SortGroupClause (structure type)
 - Called from (representative examples):
-  - standard_qp_callback (src/backend/optimizer/plan/planner.c:3531)
-  - create_grouping_paths (src/backend/optimizer/plan/planner.c:3864)
-  - create_partial_distinct_paths (src/backend/optimizer/plan/planner.c:4948)
-  - create_final_distinct_paths (src/backend/optimizer/plan/planner.c:5135)
-  - make_pathkeys_for_window (src/backend/optimizer/plan/planner.c:6207, 6212)
-  - generate_union_paths (src/backend/optimizer/prep/prepunion.c:749, 891)
-  - choose_hashed_setop (src/backend/optimizer/prep/prepunion.c:1305)
+  - [standard_qp_callback](../s/standard_qp_callback.md) (src/backend/optimizer/plan/planner.c:3531)
+  - [create_grouping_paths](../c/create_grouping_paths.md) (src/backend/optimizer/plan/planner.c:3864)
+  - [create_partial_distinct_paths](../c/create_partial_distinct_paths.md) (src/backend/optimizer/plan/planner.c:4948)
+  - [create_final_distinct_paths](../c/create_final_distinct_paths.md) (src/backend/optimizer/plan/planner.c:5135)
+  - [make_pathkeys_for_window](../m/make_pathkeys_for_window.md) (src/backend/optimizer/plan/planner.c:6207, 6212)
+  - [generate_union_paths](generate_union_paths.md) (src/backend/optimizer/prep/prepunion.c:749, 891)
+  - [choose_hashed_setop](../c/choose_hashed_setop.md) (src/backend/optimizer/prep/prepunion.c:1305)
 
 ## Notes and Other Information
 - Returns true only if all grouping columns have valid sort operators, false otherwise

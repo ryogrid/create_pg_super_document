@@ -24,13 +24,13 @@ The function also includes an interrupt check point to allow for operation cance
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERRUPT (for operation cancellation checks)
-  - createarc (for actual arc creation)
+  - [createarc](../c/createarc.md) (for actual arc creation)
 - Called from (representative examples):
-  - subcolorcvec (color vector processing)
-  - newnfa (NFA initialization)
-  - cparc (arc copying)
-  - makesearch (search pattern creation)
-  - cbracket (bracket expression processing)
+  - [subcolorcvec](../s/subcolorcvec.md) (color vector processing)
+  - [newnfa](newnfa.md) (NFA initialization)
+  - [cparc](../c/cparc.md) (arc copying)
+  - [makesearch](../m/makesearch.md) (search pattern creation)
+  - [cbracket](../c/cbracket.md) (bracket expression processing)
 
 ## Notes and Other Information
 - The function includes a comment noting that RAINBOW arcs are theoretically redundant with plain arcs (except for pseudocolors), but this redundancy is not optimized away due to complexity considerations

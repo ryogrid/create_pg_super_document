@@ -41,11 +41,11 @@ The structure is organized into several logical groups: flex integration state, 
 - Functions called/Symbols referenced:
   - yyscan_t (flex scanner type)
   - PQExpBuffer (PostgreSQL string buffer type)
-  - StackElem (variable expansion stack element)
-  - YY_BUFFER_STATE (flex buffer state)
-  - PsqlScanCallbacks (callback function structure)
+  - [StackElem](../S/StackElem.md) (variable expansion stack element)
+  - [YY_BUFFER_STATE](../Y/YY_BUFFER_STATE.md) (flex buffer state)
+  - [PsqlScanCallbacks](PsqlScanCallbacks.md) (callback function structure)
 - Called from (representative examples):
-  - PsqlScanState (typedef alias for this structure)
+  - [PsqlScanState](PsqlScanState.md) (typedef alias for this structure)
   - psqlscan_create (creates instances)
   - psqlscan_destroy (destroys instances)
 

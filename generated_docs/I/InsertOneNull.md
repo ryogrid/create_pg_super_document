@@ -31,7 +31,7 @@ This function works alongside InsertOneValue and InsertOneTuple to construct com
   - TupleDescAttr (accesses attribute information from tuple descriptor)
   - NameStr (extracts string from Name structure)
   - RelationGetRelationName (gets relation name for error reporting)
-  - PointerGetDatum (converts NULL pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts NULL pointer to Datum)
   - elog (error and debug logging)
   - Assert (bounds checking)
   - MAXATTR (maximum number of attributes constant)

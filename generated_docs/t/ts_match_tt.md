@@ -23,15 +23,15 @@ This function simplifies text search for users who want to perform matching with
 - Functions called/Symbols referenced:
   - DirectFunctionCall1
   - DirectFunctionCall2
-  - to_tsvector
-  - plainto_tsquery
-  - ts_match_vq
-  - DatumGetTSVector
-  - DatumGetTSQuery
-  - DatumGetBool
-  - TSVectorGetDatum
-  - TSQueryGetDatum
-  - pfree
+  - [to_tsvector](to_tsvector.md)
+  - [plainto_tsquery](../p/plainto_tsquery.md)
+  - [ts_match_vq](ts_match_vq.md)
+  - [DatumGetTSVector](../D/DatumGetTSVector.md)
+  - [DatumGetTSQuery](../D/DatumGetTSQuery.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [TSVectorGetDatum](../T/TSVectorGetDatum.md)
+  - [TSQueryGetDatum](../T/TSQueryGetDatum.md)
+  - [pfree](../p/pfree.md)
   - PG_GETARG_DATUM
   - PG_RETURN_BOOL
 - Called from (representative examples):
@@ -39,9 +39,9 @@ This function simplifies text search for users who want to perform matching with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - to_tsvector (converts text to tsvector)
-  - plainto_tsquery (converts text to tsquery)
-  - ts_match_vq (performs actual matching)
+  - [to_tsvector](to_tsvector.md) (converts text to tsvector)
+  - [plainto_tsquery](../p/plainto_tsquery.md) (converts text to tsquery)
+  - [ts_match_vq](ts_match_vq.md) (performs actual matching)
 
 ## Notes and Other Information
 - Automatically handles text-to-tsvector conversion using default text search configuration

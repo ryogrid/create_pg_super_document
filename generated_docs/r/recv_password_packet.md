@@ -23,11 +23,11 @@ One important security feature is that the actual password content is never logg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_startmsgread (start reading a protocol message)
-  - pq_getbyte (read a single byte from client)
+  - [pq_startmsgread](../p/pq_startmsgread.md) (start reading a protocol message)
+  - [pq_getbyte](../p/pq_getbyte.md) (read a single byte from client)
   - pq_getmessage (read the complete message content)
   - initStringInfo (initialize string buffer)
-  - pfree (free allocated memory)
+  - [pfree](../p/pfree.md) (free allocated memory)
   - ereport (send error messages)
   - elog (debug logging)
 - Constants used:
@@ -37,12 +37,12 @@ One important security feature is that the actual password content is never logg
   - ERRCODE_INVALID_PASSWORD (password validation error code)
   - DEBUG5 (logging level)
 - Called from (representative examples):
-  - CheckPasswordAuth (plaintext password authentication)
-  - CheckMD5Auth (MD5 password authentication)
-  - pam_passwd_conv_proc (PAM authentication)
-  - CheckBSDAuth (BSD authentication)
-  - CheckLDAPAuth (LDAP authentication)
-  - CheckRADIUSAuth (RADIUS authentication)
+  - [CheckPasswordAuth](../C/CheckPasswordAuth.md) (plaintext password authentication)
+  - [CheckMD5Auth](../C/CheckMD5Auth.md) (MD5 password authentication)
+  - [pam_passwd_conv_proc](../p/pam_passwd_conv_proc.md) (PAM authentication)
+  - [CheckBSDAuth](../C/CheckBSDAuth.md) (BSD authentication)
+  - [CheckLDAPAuth](../C/CheckLDAPAuth.md) (LDAP authentication)
+  - [CheckRADIUSAuth](../C/CheckRADIUSAuth.md) (RADIUS authentication)
 
 ## Notes and Other Information
 - Returns NULL on failure (EOF or invalid message), otherwise returns palloc'd string containing the password

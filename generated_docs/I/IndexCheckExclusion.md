@@ -26,19 +26,19 @@ The validation process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
-  - ExecDropSingleTupleTableSlot
-  - FreeExecutorState
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
   - GetPerTupleExprContext
-  - ExecPrepareQual
-  - table_beginscan_strat
-  - table_scan_getnextslot
-  - FormIndexDatum
-  - check_exclusion_constraint
-  - ReindexIsCurrentlyProcessingIndex
-  - ResetReindexProcessing
+  - [ExecPrepareQual](../E/ExecPrepareQual.md)
+  - [table_beginscan_strat](../t/table_beginscan_strat.md)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
+  - [FormIndexDatum](../F/FormIndexDatum.md)
+  - [check_exclusion_constraint](../c/check_exclusion_constraint.md)
+  - [ReindexIsCurrentlyProcessingIndex](../R/ReindexIsCurrentlyProcessingIndex.md)
+  - [ResetReindexProcessing](../R/ResetReindexProcessing.md)
 - Called from (representative examples):
-  - index_build
+  - [index_build](../i/index_build.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the index creation process

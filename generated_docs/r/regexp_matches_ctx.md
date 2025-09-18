@@ -26,21 +26,21 @@ This structure serves as a context container for set-returning functions that pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text (PostgreSQL TEXT type)
+  - [text](../t/text.md) (PostgreSQL TEXT type)
   - Datum (PostgreSQL datum type)
   - pg_wchar (PostgreSQL wide character type)
 - Called from (representative examples):
-  - regexp_count
-  - regexp_instr  
-  - regexp_match
-  - regexp_matches
-  - regexp_matches_no_flags
-  - setup_regexp_matches
-  - build_regexp_match_result
-  - regexp_split_to_table
-  - regexp_split_to_array
-  - build_regexp_split_result
-  - regexp_substr
+  - [regexp_count](regexp_count.md)
+  - [regexp_instr](regexp_instr.md)  
+  - [regexp_match](regexp_match.md)
+  - [regexp_matches](regexp_matches.md)
+  - [regexp_matches_no_flags](regexp_matches_no_flags.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
+  - [build_regexp_match_result](../b/build_regexp_match_result.md)
+  - [regexp_split_to_table](regexp_split_to_table.md)
+  - [regexp_split_to_array](regexp_split_to_array.md)
+  - [build_regexp_split_result](../b/build_regexp_split_result.md)
+  - [regexp_substr](regexp_substr.md)
 
 ## Notes and Other Information
 This structure is critical for the efficient implementation of PostgreSQL's set-returning regular expression functions. By pre-computing all matches and storing them in the context, the system avoids repeated regex execution for each returned row. The structure handles both simple matching and complex scenarios with multiple capturing groups. Memory management for this structure is handled through PostgreSQL's memory context system, ensuring proper cleanup when the function completes.

@@ -26,9 +26,9 @@ This function follows the hash table convention where returning 0 indicates the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcmp (for byte-by-byte comparison of notification data)
-  - Notification structure (for accessing channel_len, payload_len, and data fields)
+  - [Notification](../N/Notification.md) structure (for accessing channel_len, payload_len, and data fields)
 - Called from (representative examples):
-  - AddEventToPendingNotifies (as match function parameter for hash table creation)
+  - [AddEventToPendingNotifies](../A/AddEventToPendingNotifies.md) (as match function parameter for hash table creation)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

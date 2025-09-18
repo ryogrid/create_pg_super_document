@@ -29,14 +29,14 @@ The function can optionally enable backup semantics to allow opening directories
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initialize_ntdll
-  - openFlagsToCreateFileFlags
-  - pg_usleep
+  - [initialize_ntdll](../i/initialize_ntdll.md)
+  - [openFlagsToCreateFileFlags](../o/openFlagsToCreateFileFlags.md)
+  - [pg_usleep](pg_usleep.md)
   - _dosmaperr
   - pg_RtlGetLastNtStatus
 - Called from (representative examples):
-  - pgwin32_open
-  - _pglstat64
+  - [pgwin32_open](pgwin32_open.md)
+  - [_pglstat64](_pglstat64.md)
 
 ## Notes and Other Information
 - Returns INVALID_HANDLE_VALUE on failure with errno set appropriately

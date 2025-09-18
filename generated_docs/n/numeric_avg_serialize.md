@@ -21,15 +21,15 @@ The function ensures it's only called within an aggregate context and uses a tem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext: Validates aggregate context
+  - [AggCheckCallContext](../A/AggCheckCallContext.md): Validates aggregate context
   - init_var: Initializes temporary NumericVar
-  - pq_begintypsend: Starts binary serialization buffer
-  - pq_sendint64: Serializes 64-bit integers (N, maxScaleCount, NaNcount, pInfcount, nInfcount)
-  - accum_sum_final: Finalizes the accumulated sum
-  - numericvar_serialize: Serializes the numeric sum value
-  - pq_sendint32: Serializes 32-bit integer (maxScale)
-  - pq_endtypsend: Completes serialization and returns bytea result
-  - free_var: Cleans up temporary variable
+  - [pq_begintypsend](../p/pq_begintypsend.md): Starts binary serialization buffer
+  - [pq_sendint64](../p/pq_sendint64.md): Serializes 64-bit integers (N, maxScaleCount, NaNcount, pInfcount, nInfcount)
+  - [accum_sum_final](../a/accum_sum_final.md): Finalizes the accumulated sum
+  - [numericvar_serialize](numericvar_serialize.md): Serializes the numeric sum value
+  - [pq_sendint32](../p/pq_sendint32.md): Serializes 32-bit integer (maxScale)
+  - [pq_endtypsend](../p/pq_endtypsend.md): Completes serialization and returns bytea result
+  - [free_var](../f/free_var.md): Cleans up temporary variable
   - PG_RETURN_BYTEA_P: Returns the serialized bytea result
 - Called from (representative examples):
   - Not directly referenced by other symbols (used by aggregate framework)

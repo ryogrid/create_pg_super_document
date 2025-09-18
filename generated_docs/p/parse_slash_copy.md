@@ -21,15 +21,15 @@ This function parses the complex syntax of psql's \copy command, which supports 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0, pg_strdup (PostgreSQL memory allocation)
-  - strtokx (PostgreSQL tokenizer)
-  - pg_strcasecmp (PostgreSQL string comparison)
-  - xstrcat (local utility function)
-  - strip_quotes, expand_tilde (path processing)
+  - [strtokx](../s/strtokx.md) (PostgreSQL tokenizer)
+  - [pg_strcasecmp](pg_strcasecmp.md) (PostgreSQL string comparison)
+  - [xstrcat](../x/xstrcat.md) (local utility function)
+  - [strip_quotes](../s/strip_quotes.md), expand_tilde (path processing)
   - pg_log_error (error reporting)
-  - free_copy_options (cleanup function)
-  - standard_strings() (PostgreSQL configuration check)
+  - [free_copy_options](../f/free_copy_options.md) (cleanup function)
+  - [standard_strings](../s/standard_strings.md)() (PostgreSQL configuration check)
 - Called from (representative examples):
-  - do_copy (src/bin/psql/copy.c)
+  - [do_copy](../d/do_copy.md) (src/bin/psql/copy.c)
 
 ## Notes and Other Information
 - Supports both legacy 7.3 syntax (with BINARY keyword) and modern syntax

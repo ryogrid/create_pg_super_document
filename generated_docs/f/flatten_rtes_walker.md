@@ -30,20 +30,20 @@ The function maintains proper context switching to ensure that rtable and rteper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_rte_to_flat_rtable
+  - [add_rte_to_flat_rtable](../a/add_rte_to_flat_rtable.md)
   - query_tree_walker
   - expression_tree_walker
-  - flatten_rtes_walker (recursive call)
+  - [flatten_rtes_walker](flatten_rtes_walker.md) (recursive call)
 - Types used:
   - flatten_rtes_walker_context
 - Constants used:
   - RTE_RELATION
   - RTE_SUBQUERY
-  - QTW_EXAMINE_RTES_BEFORE
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md)
 - Called from (representative examples):
-  - flatten_unplanned_rtes
+  - [flatten_unplanned_rtes](flatten_unplanned_rtes.md)
   - fix_scan_list
-  - flatten_rtes_walker (recursive)
+  - [flatten_rtes_walker](flatten_rtes_walker.md) (recursive)
 
 ## Notes and Other Information
 - Returns false for RangeTblEntry nodes to prevent further traversal into their substructure after processing

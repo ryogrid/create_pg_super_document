@@ -24,13 +24,13 @@ The caller is responsible for ensuring that the str parameter is a palloc'd (Pos
   - makeNode (macro for node allocation and initialization)
   - String (struct type definition)
 - Called from (representative examples):
-  - untransformRelOptions (in reloptions.c)
-  - FunctionIsVisibleExt (in namespace.c)
-  - get_object_address_rv (in objectaddress.c)
-  - buildDefItem (in tsearchcmds.c)
-  - DefineView (in view.c)
+  - [untransformRelOptions](../u/untransformRelOptions.md) (in reloptions.c)
+  - [FunctionIsVisibleExt](../F/FunctionIsVisibleExt.md) (in namespace.c)
+  - [get_object_address_rv](../g/get_object_address_rv.md) (in objectaddress.c)
+  - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c)
+  - [DefineView](../D/DefineView.md) (in view.c)
   - makeSimpleA_Expr (in makefuncs.c)
-  - nodeRead (in read.c for deserialization)
+  - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
   - Various parser functions throughout parse_*.c files
 
 ## Notes and Other Information

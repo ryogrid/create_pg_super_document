@@ -20,11 +20,11 @@ The function is typically used when a relation needs to be fully synchronized, s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdnblocks
-  - _mdfd_openseg
-  - register_dirty_segment
+  - [mdnblocks](mdnblocks.md)
+  - [_mdfd_openseg](_mdfd_openseg.md)
+  - [register_dirty_segment](../r/register_dirty_segment.md)
   - FileClose
-  - _fdvec_resize
+  - [_fdvec_resize](../f/_fdvec_resize.md)
 - Called from (representative examples):
   - Storage manager layer functions (via MD_H interface)
 

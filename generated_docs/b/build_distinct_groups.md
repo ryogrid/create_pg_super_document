@@ -20,14 +20,14 @@ This function processes a sorted array of SortItem objects to identify distinct 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - count_distinct_groups
-  - multi_sort_compare
-  - compare_sort_item_count
+  - [count_distinct_groups](../c/count_distinct_groups.md)
+  - [multi_sort_compare](../m/multi_sort_compare.md)
+  - [compare_sort_item_count](../c/compare_sort_item_count.md)
   - qsort_interruptible
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - SizeOfMCVList
-  - statext_mcv_build
+  - [statext_mcv_build](../s/statext_mcv_build.md)
 
 ## Notes and Other Information
 - The input array must be sorted in ascending order for correct operation

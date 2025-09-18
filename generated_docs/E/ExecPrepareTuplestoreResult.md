@@ -26,15 +26,15 @@ A key responsibility is ensuring that a cleanup callback (ShutdownSetExpr) is re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDescCopy (to copy tuple descriptors when needed)
-  - MakeSingleTupleTableSlot (to create slot for reading tuplestore data)
-  - tupledesc_match (to validate tuple descriptor compatibility)
-  - FreeTupleDesc (to release dynamically-allocated tuple descriptors)
-  - RegisterExprContextCallback (to register cleanup callback)
-  - ShutdownSetExpr (as the cleanup callback function)
-  - MemoryContextSwitchTo (for memory context management)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (to copy tuple descriptors when needed)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (to create slot for reading tuplestore data)
+  - [tupledesc_match](../t/tupledesc_match.md) (to validate tuple descriptor compatibility)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md) (to release dynamically-allocated tuple descriptors)
+  - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md) (to register cleanup callback)
+  - [ShutdownSetExpr](../S/ShutdownSetExpr.md) (as the cleanup callback function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for memory context management)
 - Called from (representative examples):
-  - ExecMakeFunctionResultSet (main caller for set-returning function execution)
+  - [ExecMakeFunctionResultSet](ExecMakeFunctionResultSet.md) (main caller for set-returning function execution)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the execSRF.c compilation unit

@@ -18,15 +18,15 @@ This function checks if a relation is shared across the entire database cluster 
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only OID constant comparisons)
 - Called from (representative examples):
-  - SetLocktagRelationOid (src/backend/storage/lmgr/lmgr.c:93)
-  - CacheInvalidateHeapTuple (src/backend/utils/cache/inval.c:1246)
-  - CacheInvalidateCatalog (src/backend/utils/cache/inval.c:1345)
-  - RelationBuildLocalRelation (src/backend/utils/cache/relcache.c:3575)
-  - get_object_address (src/backend/catalog/objectaddress.c:1157, 1174)
-  - check_lock_if_inplace_updateable_rel (src/backend/access/heap/heapam.c:4218)
-  - pgstat_fetch_stat_tabentry (src/backend/utils/activity/pgstat_relation.c:458)
-  - GetSecurityLabel (src/backend/commands/seclabel.c:283)
-  - SetSecurityLabel (src/backend/commands/seclabel.c:417)
+  - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md) (src/backend/storage/lmgr/lmgr.c:93)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md) (src/backend/utils/cache/inval.c:1246)
+  - [CacheInvalidateCatalog](../C/CacheInvalidateCatalog.md) (src/backend/utils/cache/inval.c:1345)
+  - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md) (src/backend/utils/cache/relcache.c:3575)
+  - [get_object_address](../g/get_object_address.md) (src/backend/catalog/objectaddress.c:1157, 1174)
+  - [check_lock_if_inplace_updateable_rel](../c/check_lock_if_inplace_updateable_rel.md) (src/backend/access/heap/heapam.c:4218)
+  - [pgstat_fetch_stat_tabentry](../p/pgstat_fetch_stat_tabentry.md) (src/backend/utils/activity/pgstat_relation.c:458)
+  - [GetSecurityLabel](../G/GetSecurityLabel.md) (src/backend/commands/seclabel.c:283)
+  - [SetSecurityLabel](../S/SetSecurityLabel.md) (src/backend/commands/seclabel.c:417)
 
 ## Notes and Other Information
 - The function checks three categories of shared relations: shared catalogs (marked with BKI_SHARED_RELATION), their indexes, and their TOAST tables and indexes

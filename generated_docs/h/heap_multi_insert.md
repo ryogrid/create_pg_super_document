@@ -22,18 +22,18 @@ This function is an optimized version of heap_insert() for inserting multiple tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionId
-  - heap_prepare_insert
-  - heap_multi_insert_pages
-  - RelationGetBufferForTuple
-  - RelationPutHeapTuple
-  - CheckForSerializableConflictIn
-  - ExecFetchSlotHeapTuple
-  - visibilitymap_clear
-  - visibilitymap_set
-  - XLogInsert (and related WAL functions)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [heap_prepare_insert](heap_prepare_insert.md)
+  - [heap_multi_insert_pages](heap_multi_insert_pages.md)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md)
+  - [RelationPutHeapTuple](../R/RelationPutHeapTuple.md)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
+  - [visibilitymap_clear](../v/visibilitymap_clear.md)
+  - [visibilitymap_set](../v/visibilitymap_set.md)
+  - [XLogInsert](../X/XLogInsert.md) (and related WAL functions)
 - Called from:
-  - CatalogTuplesMultiInsertWithInfo
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
   - Various bulk insert operations
 
 ## Notes and Other Information

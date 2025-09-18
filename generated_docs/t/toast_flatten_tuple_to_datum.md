@@ -28,10 +28,10 @@ The function reconstructs the tuple as a composite Datum, properly setting datum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_deform_tuple
-  - detoast_attr
-  - heap_compute_data_size
-  - heap_fill_tuple
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [detoast_attr](../d/detoast_attr.md)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md)
+  - [heap_fill_tuple](../h/heap_fill_tuple.md)
   - HeapTupleHeaderSetNatts
   - HeapTupleHeaderSetDatumLength
   - HeapTupleHeaderSetTypeId
@@ -40,8 +40,8 @@ The function reconstructs the tuple as a composite Datum, properly setting datum
   - VARATT_IS_COMPRESSED
   - MaxTupleAttributeNumber
 - Called from (representative examples):
-  - heap_copy_tuple_as_datum
-  - HeapTupleHeaderGetDatum
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md)
+  - [HeapTupleHeaderGetDatum](../H/HeapTupleHeaderGetDatum.md)
 
 ## Notes and Other Information
 - Essential for enforcing the rule that container-type Datums cannot contain external TOAST pointers

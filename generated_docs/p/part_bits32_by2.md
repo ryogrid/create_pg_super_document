@@ -21,7 +21,7 @@ This function implements the bit-spreading operation required for Morton code (Z
 - Functions called/Symbols referenced:
   - UINT64CONST (macro for 64-bit constants)
 - Called from:
-  - point_zorder_internal (used twice for X and Y coordinate bit spreading)
+  - [point_zorder_internal](point_zorder_internal.md) (used twice for X and Y coordinate bit spreading)
 
 ## Notes and Other Information
 - Uses a series of parallel bit manipulation operations with specific bitmasks

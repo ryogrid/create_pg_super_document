@@ -22,10 +22,10 @@ The implementation follows a two-level setup that exists primarily for backwards
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultErrorMessage
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
 - Called from (representative examples):
   - internalPQconninfoOption (fe-connect.c:436)
-  - pqMakeEmptyPGconn (fe-connect.c:4571)
+  - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md) (fe-connect.c:4571)
 
 ## Notes and Other Information
 - This function is marked as static, indicating it's only used within the fe-connect.c file

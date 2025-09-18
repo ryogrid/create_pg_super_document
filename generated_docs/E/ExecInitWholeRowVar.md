@@ -23,9 +23,9 @@ The function determines if a junk filter is needed by examining the parent plan 
 - Functions called/Symbols referenced:
   - nodeTag (to identify parent plan type)
   - ExecInitJunkFilter (to create junk column filter when needed)
-  - ExecInitExtraTupleSlot (to create tuple slot for filtered results)
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md) (to create tuple slot for filtered results)
 - Called from (representative examples):
-  - ExecInitExprRec (during expression initialization)
+  - [ExecInitExprRec](ExecInitExprRec.md) (during expression initialization)
 
 ## Notes and Other Information
 - Sets the opcode to EEOP_WHOLEROW for the evaluation step

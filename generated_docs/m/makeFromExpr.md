@@ -24,15 +24,15 @@ This node type is fundamental in PostgreSQL's query processing, serving as a con
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)  
   - FromExpr (node type being created)
-  - List (PostgreSQL's generic list type)
-  - Node (base node type)
+  - [List](../L/List.md) (PostgreSQL's generic list type)
+  - [Node](../N/Node.md) (base node type)
 - Called from (representative examples):
-  - transformSelectStmt (parser)
-  - transformDeleteStmt (parser) 
-  - transformUpdateStmt (parser)
-  - transformMergeStmt (parser)
-  - pull_up_sublinks (optimizer)
-  - remove_useless_results_recurse (optimizer)
+  - [transformSelectStmt](../t/transformSelectStmt.md) (parser)
+  - [transformDeleteStmt](../t/transformDeleteStmt.md) (parser) 
+  - [transformUpdateStmt](../t/transformUpdateStmt.md) (parser)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (parser)
+  - [pull_up_sublinks](../p/pull_up_sublinks.md) (optimizer)
+  - [remove_useless_results_recurse](../r/remove_useless_results_recurse.md) (optimizer)
 
 ## Notes and Other Information
 - FromExpr nodes are central to representing SQL FROM clauses with associated WHERE conditions

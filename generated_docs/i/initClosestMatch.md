@@ -19,10 +19,10 @@ This function initializes a ClosestMatchState structure that is used to track th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClosestMatchState (struct type)
+  - [ClosestMatchState](../C/ClosestMatchState.md) (struct type)
   - Assert (for parameter validation)
 - Called from:
-  - postgresql_fdw_validator (src/backend/foreign/foreign.c:647)
+  - [postgresql_fdw_validator](../p/postgresql_fdw_validator.md) (src/backend/foreign/foreign.c:647)
 
 ## Notes and Other Information
 - Part of a three-function API: initClosestMatch() → updateClosestMatch() → getClosestMatch()

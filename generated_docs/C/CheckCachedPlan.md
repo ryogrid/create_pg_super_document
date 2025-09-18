@@ -19,13 +19,13 @@ The function assumes that RevalidateCachedQuery has already been called to verif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId (for role validation)
-  - AcquireExecutorLocks (for acquiring and releasing execution locks)
+  - [GetUserId](../G/GetUserId.md) (for role validation)
+  - [AcquireExecutorLocks](../A/AcquireExecutorLocks.md) (for acquiring and releasing execution locks)
   - TransactionIdEquals (for transaction isolation validation)
-  - ReleaseGenericPlan (for cleaning up invalid plans)
+  - [ReleaseGenericPlan](../R/ReleaseGenericPlan.md) (for cleaning up invalid plans)
   - CACHEDPLAN_MAGIC (magic number validation)
 - Called from (representative examples):
-  - GetCachedPlan
+  - [GetCachedPlan](../G/GetCachedPlan.md)
   - StmtPlanRequiresRevalidation
 
 ## Notes and Other Information

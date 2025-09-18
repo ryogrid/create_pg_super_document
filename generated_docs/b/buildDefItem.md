@@ -21,15 +21,15 @@ This function creates a DefElem (Definition Element) structure from a name-value
 - Functions called/Symbols referenced:
   - strtoint
   - makeDefElem
-  - makeInteger
-  - makeFloat
-  - makeBoolean
-  - makeString
-  - pstrdup
+  - [makeInteger](../m/makeInteger.md)
+  - [makeFloat](../m/makeFloat.md)
+  - [makeBoolean](../m/makeBoolean.md)
+  - [makeString](../m/makeString.md)
+  - [pstrdup](../p/pstrdup.md)
   - strtod
   - strcmp
 - Called from (representative examples):
-  - ds_state (multiple calls during parameter parsing)
+  - [ds_state](../d/ds_state.md) (multiple calls during parameter parsing)
   - TSTokenTypeItem
 
 ## Notes and Other Information

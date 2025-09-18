@@ -24,10 +24,10 @@ The function performs a catalog scan on pg_class using the reloftype attribute t
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - table_beginscan_catalog
-  - heap_getnext
-  - table_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [table_endscan](../t/table_endscan.md)
   - table_close
   - lappend_oid
   - ereport
@@ -36,8 +36,8 @@ The function performs a catalog scan on pg_class using the reloftype attribute t
   - DROP_RESTRICT
 - Called from (representative examples):
   - child_dependency_type
-  - renameatt_internal
-  - ATTypedTableRecursion
+  - [renameatt_internal](../r/renameatt_internal.md)
+  - [ATTypedTableRecursion](../A/ATTypedTableRecursion.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the tablecmds.c file

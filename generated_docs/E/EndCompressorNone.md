@@ -18,9 +18,9 @@ This function implements the finalization step for the "none" compression method
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressorState (struct type)
+  - [CompressorState](../C/CompressorState.md) (struct type)
 - Called from (representative examples):
-  - InitCompressorNone
+  - [InitCompressorNone](../I/InitCompressorNone.md)
 
 ## Notes and Other Information
 - This function is part of the compressor API for handling uncompressed data streams

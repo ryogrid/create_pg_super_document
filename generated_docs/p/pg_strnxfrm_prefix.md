@@ -27,7 +27,7 @@ Like its sibling function, it supports different collation providers through the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strnxfrm_prefix_icu
+  - [pg_strnxfrm_prefix_icu](pg_strnxfrm_prefix_icu.md)
   - PGLOCALE_SUPPORT_ERROR
   - COLLPROVIDER_ICU
   - COLLPROVIDER_LIBC

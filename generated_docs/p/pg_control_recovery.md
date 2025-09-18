@@ -23,13 +23,13 @@ The  function extracts and returns recovery-specific information stored in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_result_type: Validates return type
+  - [get_call_result_type](../g/get_call_result_type.md): Validates return type
   - LWLockAcquire/LWLockRelease: Manages concurrent access to control file
   - get_controlfile: Reads and parses the control file
   - LSNGetDatum: Converts LSN values to PostgreSQL Datum format
-  - Int32GetDatum: Converts integer values to Datum format  
-  - BoolGetDatum: Converts boolean values to Datum format
-  - heap_form_tuple: Creates the return tuple
+  - [Int32GetDatum](../I/Int32GetDatum.md): Converts integer values to Datum format  
+  - [BoolGetDatum](../B/BoolGetDatum.md): Converts boolean values to Datum format
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates the return tuple
   - ControlFileData: Structure containing control file data
 - Called from (representative examples):
   - SQL queries via function call mechanism

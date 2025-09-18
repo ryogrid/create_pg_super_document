@@ -33,13 +33,13 @@ This function takes no parameters and operates on global state variables and the
 - Functions called/Symbols referenced:
   - GetLatestSnapshot
   - RegisterSnapshot/UnregisterSnapshot
-  - SimpleLruReadPage_ReadOnly
-  - SimpleLruGetBankLock
-  - asyncQueueProcessPageEntries
+  - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [asyncQueueProcessPageEntries](asyncQueueProcessPageEntries.md)
   - Various queue position macros (QUEUE_POS_PAGE, QUEUE_POS_OFFSET, etc.)
 - Called from (representative examples):
-  - Exec_ListenPreCommit
-  - ProcessIncomingNotify
+  - [Exec_ListenPreCommit](../E/Exec_ListenPreCommit.md)
+  - [ProcessIncomingNotify](../P/ProcessIncomingNotify.md)
 
 ## Notes and Other Information
 - **Transaction Isolation**: Uses snapshots to ensure only committed notifications are processed

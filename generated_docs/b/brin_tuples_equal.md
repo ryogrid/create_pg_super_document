@@ -22,7 +22,7 @@ This function provides a straightforward equality comparison for BRIN tuples by 
 - Functions called/Symbols referenced:
   - memcmp (standard C library function)
 - Called from (representative examples):
-  - brin_doupdate
+  - [brin_doupdate](brin_doupdate.md)
   - BrinTupleIsEmptyRange
 
 ## Notes and Other Information

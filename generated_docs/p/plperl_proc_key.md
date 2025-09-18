@@ -25,9 +25,9 @@ The design carefully avoids struct padding by declaring is_trigger as an Oid rat
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - plperl_proc_ptr (used as hash key in procedure pointer structure)
-  - _PG_init (during hash table initialization)
-  - compile_plperl_function (for function lookup and caching)
+  - [plperl_proc_ptr](plperl_proc_ptr.md) (used as hash key in procedure pointer structure)
+  - [_PG_init](../P/_PG_init.md) (during hash table initialization)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (for function lookup and caching)
 
 ## Notes and Other Information
 - Designed to avoid struct padding for optimal hash table performance

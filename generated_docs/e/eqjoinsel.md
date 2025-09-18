@@ -34,18 +34,18 @@ For SEMI and ANTI joins, the function ensures logical consistency by clamping th
 - Functions called/Symbols referenced:
   - get_join_variables
   - get_variable_numdistinct
-  - get_opcode
-  - get_attstatsslot
+  - [get_opcode](../g/get_opcode.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
   - statistic_proc_security_check
-  - eqjoinsel_inner
-  - eqjoinsel_semi
-  - find_join_input_rel
-  - get_commutator
-  - free_attstatsslot
+  - [eqjoinsel_inner](eqjoinsel_inner.md)
+  - [eqjoinsel_semi](eqjoinsel_semi.md)
+  - [find_join_input_rel](../f/find_join_input_rel.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - ReleaseVariableStats
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - neqjoinsel
+  - [neqjoinsel](../n/neqjoinsel.md)
 
 ## Notes and Other Information
 - The function requires valid statistics tuples from both sides to effectively use MCV (Most Common Values) analysis

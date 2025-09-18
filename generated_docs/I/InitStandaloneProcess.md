@@ -22,19 +22,19 @@ Unlike InitPostmasterChild, this function does not set up postmaster death monit
 ## Dependencies
 - Functions called/Symbols referenced:
   - B_STANDALONE_BACKEND (backend type constant)
-  - pgwin32_signal_initialize (Windows signal handling)
-  - InitProcessGlobals (global process state)
+  - [pgwin32_signal_initialize](../p/pgwin32_signal_initialize.md) (Windows signal handling)
+  - [InitProcessGlobals](InitProcessGlobals.md) (global process state)
   - InitializeLatchSupport (latch infrastructure)
-  - InitProcessLocalLatch (process-local latch)
+  - [InitProcessLocalLatch](InitProcessLocalLatch.md) (process-local latch)
   - InitializeLatchWaitSet (wait event infrastructure)
-  - pqinitmask (signal mask initialization)
+  - [pqinitmask](../p/pqinitmask.md) (signal mask initialization)
   - sigprocmask (apply signal mask)
   - find_my_exec (locate executable path)
-  - get_pkglib_path (determine library path)
+  - [get_pkglib_path](../g/get_pkglib_path.md) (determine library path)
 
 - Called from (representative examples):
-  - BootstrapModeMain
-  - PostgresSingleUserMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
 
 ## Notes and Other Information
 - Asserts that the process is not running in a postmaster environment

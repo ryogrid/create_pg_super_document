@@ -21,11 +21,11 @@ The function follows the standard qsort comparator interface, returning a negati
 ## Dependencies
 - Functions called/Symbols referenced:
   - SplitInterval (struct type)
-  - float8_cmp_internal
+  - [float8_cmp_internal](../f/float8_cmp_internal.md)
 - Called from:
-  - gist_box_picksplit (src/backend/access/gist/gistproc.c:567)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md) (src/backend/access/gist/gistproc.c:567)
   - rangeCopy (src/backend/utils/adt/rangetypes_gist.c:182)
-  - range_gist_double_sorting_split (src/backend/utils/adt/rangetypes_gist.c:1368)
+  - [range_gist_double_sorting_split](../r/range_gist_double_sorting_split.md) (src/backend/utils/adt/rangetypes_gist.c:1368)
 
 ## Notes and Other Information
 - This is a static function used internally within GiST indexing operations

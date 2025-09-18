@@ -25,10 +25,10 @@ The function returns true only if the function is volatile AND is not nextval(),
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `func_volatile`: Retrieves the volatility level of the specified function
+  - `[func_volatile](../f/func_volatile.md)`: Retrieves the volatility level of the specified function
   - `PROVOLATILE_VOLATILE`: Constant representing volatile function level
 - Called from (representative examples):
-  - `contain_volatile_functions_not_nextval_walker` (at clauses.c:692)
+  - `[contain_volatile_functions_not_nextval_walker](contain_volatile_functions_not_nextval_walker.md)` (at clauses.c:692)
 
 ## Notes and Other Information
 - This is a static function, only visible within the clauses.c compilation unit

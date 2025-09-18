@@ -27,12 +27,12 @@ The materialization step is crucial because it ensures the destination slot does
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tts_virtual_clear (function to clear virtual slot)
+  - [tts_virtual_clear](tts_virtual_clear.md) (function to clear virtual slot)
   - slot_getallattrs (function to ensure all source attributes are deformed)
   - TTS_FLAG_EMPTY (flag indicating slot is empty)
-  - tts_virtual_materialize (function to materialize slot data)
+  - [tts_virtual_materialize](tts_virtual_materialize.md) (function to materialize slot data)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (at src/backend/executor/execTuples.c:1117)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (at src/backend/executor/execTuples.c:1117)
 
 ## Notes and Other Information
 - This is a static function only accessible within execTuples.c

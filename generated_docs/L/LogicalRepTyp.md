@@ -23,8 +23,8 @@ The structure captures the remote type's identity and naming information, which 
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - logicalrep_read_typ
-  - apply_handle_type
+  - [logicalrep_read_typ](../l/logicalrep_read_typ.md)
+  - [apply_handle_type](../a/apply_handle_type.md)
 
 ## Notes and Other Information
 - This structure is particularly important when dealing with custom or user-defined types in logical replication

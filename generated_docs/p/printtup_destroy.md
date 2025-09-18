@@ -19,9 +19,9 @@ The function performs only one operation: freeing the memory allocated for the D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree: PostgreSQL memory deallocation function
+  - [pfree](pfree.md): PostgreSQL memory deallocation function
 - Called from (representative examples):
-  - printtup_create_DR: Sets this function as the destroy handler for the DestReceiver
+  - [printtup_create_DR](printtup_create_DR.md): Sets this function as the destroy handler for the DestReceiver
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the printtup.c file

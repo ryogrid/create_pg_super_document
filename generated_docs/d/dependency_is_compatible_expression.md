@@ -29,21 +29,21 @@ The key difference is that instead of requiring a simple Var, this function sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_membership
-  - is_opclause
-  - is_pseudo_constant_clause
-  - get_oprrest
-  - is_orclause
-  - is_notclause
-  - get_notclausearg
-  - equal (for expression comparison)
+  - [bms_membership](../b/bms_membership.md)
+  - [is_opclause](../i/is_opclause.md)
+  - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md)
+  - [get_oprrest](../g/get_oprrest.md)
+  - [is_orclause](../i/is_orclause.md)
+  - [is_notclause](../i/is_notclause.md)
+  - [get_notclausearg](../g/get_notclausearg.md)
+  - [equal](../e/equal.md) (for expression comparison)
 - Types used:
   - StatisticExtInfo
   - STATS_EXT_DEPENDENCIES
 - Called from (representative examples):
   - DependencyGenerator
-  - dependency_is_compatible_expression (recursive call for OR clauses)
-  - dependencies_clauselist_selectivity
+  - [dependency_is_compatible_expression](dependency_is_compatible_expression.md) (recursive call for OR clauses)
+  - [dependencies_clauselist_selectivity](dependencies_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Extends compatibility checking beyond simple Var expressions to complex expressions tracked in extended statistics

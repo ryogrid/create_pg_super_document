@@ -18,10 +18,10 @@ ShutdownInformation is a simple structure designed to pass essential state infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelState (parallel processing state)
-  - Archive (database connection information)
+  - [ParallelState](../P/ParallelState.md) (parallel processing state)
+  - [Archive](../A/Archive.md) (database connection information)
 - Called from (representative examples):
-  - archive_close_connection (as callback parameter)
+  - [archive_close_connection](../a/archive_close_connection.md) (as callback parameter)
   - shutdown_info (static global variable of this type)
 
 ## Notes and Other Information

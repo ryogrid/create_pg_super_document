@@ -35,17 +35,17 @@ The function handles the RECORD type as a special case, treating it as a composi
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Prevents stack overflow in recursive calls
-  - lookup_type_cache: Retrieves type information from PostgreSQL's cache
-  - getBaseType: Gets the base type for arrays
-  - get_transform_tosql: Looks up custom transform functions
-  - getTypeInputInfo: Gets input function information for scalar types
-  - fmgr_info_cxt: Sets up function manager information
+  - [lookup_type_cache](../l/lookup_type_cache.md): Retrieves type information from PostgreSQL's cache
+  - [getBaseType](../g/getBaseType.md): Gets the base type for arrays
+  - [get_transform_tosql](../g/get_transform_tosql.md): Looks up custom transform functions
+  - [getTypeInputInfo](../g/getTypeInputInfo.md): Gets input function information for scalar types
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md): Sets up function manager information
   - Various PLyObject_To* functions: Type-specific conversion functions
 - Called from:
-  - PLy_exec_trigger: Trigger execution setup
-  - PLy_procedure_create: Function procedure creation
-  - PLy_spi_prepare: SPI statement preparation
-  - PLy_output_setup_tuple: Tuple field setup
+  - [PLy_exec_trigger](PLy_exec_trigger.md): Trigger execution setup
+  - [PLy_procedure_create](PLy_procedure_create.md): Function procedure creation
+  - [PLy_spi_prepare](PLy_spi_prepare.md): SPI statement preparation
+  - [PLy_output_setup_tuple](PLy_output_setup_tuple.md): Tuple field setup
   - Itself (recursive calls for complex types)
 
 ## Notes and Other Information

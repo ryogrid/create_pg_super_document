@@ -29,19 +29,19 @@ The function returns one of several path types indicating the coercion method re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType
-  - SearchSysCache2
-  - get_element_type
-  - find_coercion_pathway (recursive call)
-  - TypeCategory
+  - [getBaseType](../g/getBaseType.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [get_element_type](../g/get_element_type.md)
+  - [find_coercion_pathway](find_coercion_pathway.md) (recursive call)
+  - [TypeCategory](../T/TypeCategory.md)
   - Form_pg_cast
   - CoercionContext enums (COERCION_IMPLICIT, COERCION_ASSIGNMENT, COERCION_EXPLICIT, COERCION_PLPGSQL)
-  - CoercionPathType enums (COERCION_PATH_NONE, COERCION_PATH_FUNC, COERCION_PATH_RELABELTYPE, etc.)
+  - [CoercionPathType](../C/CoercionPathType.md) enums (COERCION_PATH_NONE, COERCION_PATH_FUNC, COERCION_PATH_RELABELTYPE, etc.)
 - Called from (representative examples):
-  - coerce_type (src/backend/parser/parse_coerce.c:413)
-  - can_coerce_type (src/backend/parser/parse_coerce.c:596)
-  - func_get_detail (src/backend/parser/parse_func.c:1504)
-  - ri_HashCompareOp (src/backend/utils/adt/ri_triggers.c:2966)
+  - [coerce_type](../c/coerce_type.md) (src/backend/parser/parse_coerce.c:413)
+  - [can_coerce_type](../c/can_coerce_type.md) (src/backend/parser/parse_coerce.c:596)
+  - [func_get_detail](func_get_detail.md) (src/backend/parser/parse_func.c:1504)
+  - [ri_HashCompareOp](../r/ri_HashCompareOp.md) (src/backend/utils/adt/ri_triggers.c:2966)
 
 ## Notes and Other Information
 - Currently handles only scalar types, not polymorphic types or composite type casts

@@ -26,15 +26,15 @@ The validation is essential for maintaining data consistency in logical replicat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationBuildPublicationDesc: Builds publication descriptor containing validity flags and publication actions
-  - RelationGetReplicaIndex: Gets the replica identity index OID for the relation
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md): Builds publication descriptor containing validity flags and publication actions
+  - [RelationGetReplicaIndex](../R/RelationGetReplicaIndex.md): Gets the replica identity index OID for the relation
   - RelationGetRelationName: Gets the relation name for error messages
   - OidIsValid: Checks if the replica identity index OID is valid
 - Called from (representative examples):
-  - CheckValidResultRel: General result relation validation in executor
-  - ExecSimpleRelationInsert: Replica identity validation for INSERT operations
-  - ExecSimpleRelationUpdate: Replica identity validation for UPDATE operations  
-  - ExecSimpleRelationDelete: Replica identity validation for DELETE operations
+  - [CheckValidResultRel](CheckValidResultRel.md): General result relation validation in executor
+  - [ExecSimpleRelationInsert](../E/ExecSimpleRelationInsert.md): Replica identity validation for INSERT operations
+  - [ExecSimpleRelationUpdate](../E/ExecSimpleRelationUpdate.md): Replica identity validation for UPDATE operations  
+  - [ExecSimpleRelationDelete](../E/ExecSimpleRelationDelete.md): Replica identity validation for DELETE operations
   - exec_rt_fetch: Through executor header inclusion
 
 ## Notes and Other Information

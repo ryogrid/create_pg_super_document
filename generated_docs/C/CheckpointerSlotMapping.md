@@ -22,9 +22,9 @@ The structure is used temporarily during the compaction algorithm and is not per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckpointerRequest (as a member type)
-  - hash_create (for creating the temporary hash table)
-  - hash_search (for finding/inserting entries)
+  - [CheckpointerRequest](CheckpointerRequest.md) (as a member type)
+  - [hash_create](../h/hash_create.md) (for creating the temporary hash table)
+  - [hash_search](../h/hash_search.md) (for finding/inserting entries)
   - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT (hash table configuration flags)
 - Called from (representative examples):
   - CompactCheckpointerRequestQueue (the only function that uses this structure)

@@ -20,11 +20,11 @@ This function serves as the primary interface for obtaining the next block numbe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadStream (structure type)
+  - [ReadStream](../R/ReadStream.md) (structure type)
   - VALGRIND_MAKE_MEM_UNDEFINED (memory debugging macro)
-  - callback (function pointer within stream structure)
+  - [callback](../c/callback.md) (function pointer within stream structure)
 - Called from (representative examples):
-  - read_stream_look_ahead
+  - [read_stream_look_ahead](read_stream_look_ahead.md)
   - read_stream_next_buffer
   - read_stream_next_block
 

@@ -24,9 +24,9 @@ The work items are managed through a shared memory array (AutoVacuumShmem->av_wo
   - Used in AutoVacuumRequestWork function
   - Used in AutoVacuumWorkItem structure definition
 - Called from (representative examples):
-  - brininsert (src/backend/access/brin/brin.c:260)
+  - [brininsert](../b/brininsert.md) (src/backend/access/brin/brin.c:260)
   - do_autovacuum_work (src/backend/postmaster/autovacuum.c:3015)
-  - autovac_report_workitem (src/backend/postmaster/autovacuum.c:3080)
+  - [autovac_report_workitem](../a/autovac_report_workitem.md) (src/backend/postmaster/autovacuum.c:3080)
 
 ## Notes and Other Information
 - Located in src/include/postmaster/autovacuum.h:23-26

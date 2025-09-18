@@ -23,7 +23,7 @@ The buildCxt member of the IspellDict structure is set to a newly created AllocS
   - ALLOCSET_DEFAULT_SIZES (macro)
   - IspellDict (struct type)
 - Called from (representative examples):
-  - dispell_init
+  - [dispell_init](../d/dispell_init.md)
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's full-text search functionality, specifically for ISpell dictionary support

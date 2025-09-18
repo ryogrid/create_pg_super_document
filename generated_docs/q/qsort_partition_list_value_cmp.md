@@ -21,13 +21,13 @@ This function serves as a qsort comparison callback for sorting PartitionListVal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionListValue
-  - PartitionKey
-  - DatumGetInt32
-  - FunctionCall2Coll
+  - [PartitionListValue](../P/PartitionListValue.md)
+  - [PartitionKey](../P/PartitionKey.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
   - compare_range_bounds
-  - create_list_bounds
+  - [create_list_bounds](../c/create_list_bounds.md)
 
 ## Notes and Other Information
 - This is a static function internal to partbounds.c

@@ -22,13 +22,13 @@ The function also handles in-progress cache builds, marking them as dead unless 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCacheRemoveCList
-  - CatCacheRemoveCTup
+  - [CatCacheRemoveCList](../C/CatCacheRemoveCList.md)
+  - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md)
   - dlist_container
   - dlist_foreach_modify
 - Called from (representative examples):
-  - ResetCatalogCachesExt
-  - CatalogCacheFlushCatalog
+  - [ResetCatalogCachesExt](ResetCatalogCachesExt.md)
+  - [CatalogCacheFlushCatalog](../C/CatalogCacheFlushCatalog.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within catcache.c

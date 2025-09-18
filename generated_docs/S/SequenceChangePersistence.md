@@ -20,17 +20,17 @@ The function performs a complete sequence state preservation cycle: it reads the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelationOid (with AccessExclusiveLock)
-  - init_sequence
+  - [LockRelationOid](../L/LockRelationOid.md) (with AccessExclusiveLock)
+  - [init_sequence](../i/init_sequence.md)
   - RelationNeedsWAL
-  - GetTopTransactionId
-  - read_seq_tuple
-  - RelationSetNewRelfilenumber
-  - fill_seq_with_data
-  - UnlockReleaseBuffer
-  - sequence_close
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)
+  - [read_seq_tuple](../r/read_seq_tuple.md)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [sequence_close](../s/sequence_close.md)
 - Called from (representative examples):
-  - ATRewriteTables (in tablecmds.c)
+  - [ATRewriteTables](../A/ATRewriteTables.md) (in tablecmds.c)
 
 ## Notes and Other Information
 - Acquires AccessExclusiveLock to prevent concurrent nextval() calls from losing increments during the persistence change

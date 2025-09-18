@@ -20,10 +20,10 @@ The function serves as the counterpart to PreventInTransactionBlock - while Prev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckTransactionBlock (with isTopLevel, false, stmtType parameters)
+  - [CheckTransactionBlock](../C/CheckTransactionBlock.md) (with isTopLevel, false, stmtType parameters)
 - Called from:
-  - standard_ProcessUtility (for transaction control commands)
-  - ExecSetVariableStmt (for SET statements with no persistent effects)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (for transaction control commands)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md) (for SET statements with no persistent effects)
 
 ## Notes and Other Information
 This function implements a 'soft' approach to transaction block validation, using warnings instead of hard errors. It's typically used for commands like transaction control statements (BEGIN/COMMIT/ABORT) and certain SET operations that don't have lasting effects. The warning behavior helps guide users toward better transaction management practices while still allowing the commands to execute successfully.

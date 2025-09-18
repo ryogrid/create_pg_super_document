@@ -37,7 +37,7 @@ The enumeration starts with PGBT_NO_VALUE as 0 to represent uninitialized or emp
 - Called from (representative examples):
   - Expression parser in exprparse.y
   - Value manipulation functions throughout pgbench.c
-  - Variable assignment and retrieval functions
+  - [Variable](../V/Variable.md) assignment and retrieval functions
 
 ## Notes and Other Information
 - The enum is designed to work with a union in PgBenchValue struct, enabling efficient storage of different data types

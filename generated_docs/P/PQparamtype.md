@@ -24,7 +24,7 @@ If the parameter number is invalid, the result pointer is NULL, or no parameter 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_param_number
+  - [check_param_number](../c/check_param_number.md)
   - InvalidOid
 - Called from (representative examples):
   - (Limited direct usage found in codebase - primarily used by client applications)

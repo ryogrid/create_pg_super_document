@@ -26,12 +26,12 @@ None - this function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_get_num_entries
-  - mul_size
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
+  - [mul_size](../m/mul_size.md)
   - pendingSyncHash (global variable)
-  - RelFileLocator (type)
+  - [RelFileLocator](../R/RelFileLocator.md) (type)
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
 
 ## Notes and Other Information
 - Part of the parallel query execution infrastructure

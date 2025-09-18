@@ -27,11 +27,11 @@ The structure is designed to work with PostgreSQL window function framework, spe
   - (None - this is a simple struct definition)
   
 - Called from (representative examples):
-  - rank_up (utility function at line 53, 55, 56)
-  - window_rank (main rank function at line 141, 145, 146)
-  - window_dense_rank (dense rank function at line 203, 207, 208)
-  - window_percent_rank (percent rank function at line 264, 271, 272)
-  - window_cume_dist (cumulative distribution function at line 333, 340, 341)
+  - [rank_up](rank_up.md) (utility function at line 53, 55, 56)
+  - [window_rank](../w/window_rank.md) (main rank function at line 141, 145, 146)
+  - [window_dense_rank](../w/window_dense_rank.md) (dense rank function at line 203, 207, 208)
+  - [window_percent_rank](../w/window_percent_rank.md) (percent rank function at line 264, 271, 272)
+  - [window_cume_dist](../w/window_cume_dist.md) (cumulative distribution function at line 333, 340, 341)
 
 ## Notes and Other Information
 - This structure is allocated using PostgreSQL partition-local memory management (WinGetPartitionLocalMemory), ensuring proper memory lifecycle management within window partitions

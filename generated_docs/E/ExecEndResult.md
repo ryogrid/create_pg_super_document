@@ -24,9 +24,9 @@ Result nodes are relatively lightweight and don't maintain complex state that re
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (to get the outer plan state for cleanup)
-  - ExecEndNode (to recursively shut down child nodes)
+  - [ExecEndNode](ExecEndNode.md) (to recursively shut down child nodes)
 - Called from:
-  - ExecEndNode (the main node termination dispatcher in execProcnode.c)
+  - [ExecEndNode](ExecEndNode.md) (the main node termination dispatcher in execProcnode.c)
   - Declared in nodeResult.h
 
 ## Notes and Other Information

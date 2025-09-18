@@ -34,10 +34,10 @@ The function is fundamental to PostgreSQL's time zone-aware time operations and 
   - SECS_PER_MINUTE (constant) 
   - USECS_PER_SEC (constant)
 - Called from (representative examples):
-  - GetSQLCurrentTime
-  - timetz_in
-  - timestamptz_timetz
-  - parse_datetime
+  - [GetSQLCurrentTime](../G/GetSQLCurrentTime.md)
+  - [timetz_in](timetz_in.md)
+  - [timestamptz_timetz](timestamptz_timetz.md)
+  - [parse_datetime](../p/parse_datetime.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information

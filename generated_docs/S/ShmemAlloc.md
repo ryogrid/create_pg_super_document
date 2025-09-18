@@ -25,12 +25,12 @@ The function assumes that both ShmemLock (for synchronization) and ShmemSegHdr (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemAllocRaw
+  - [ShmemAllocRaw](ShmemAllocRaw.md)
 - Called from (representative examples):
-  - ShmemBackendArrayAllocation
-  - ShmemInitStruct
+  - [ShmemBackendArrayAllocation](ShmemBackendArrayAllocation.md)
+  - [ShmemInitStruct](ShmemInitStruct.md)
   - CreateLWLocks
-  - InitPredicateLocks
+  - [InitPredicateLocks](../I/InitPredicateLocks.md)
   - InitProcGlobal
 
 ## Notes and Other Information

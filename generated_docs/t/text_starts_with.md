@@ -20,19 +20,19 @@ The `text_starts_with` function is a PostgreSQL built-in function that determine
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GET_COLLATION`: Retrieves the collation to use for the operation
-  - `check_collation_set`: Validates that a collation is properly set
-  - `lc_collate_is_c`: Checks if the collation is the C locale
-  - `pg_newlocale_from_collation`: Creates a locale object from collation OID
-  - `pg_locale_deterministic`: Checks if the locale provides deterministic sorting
-  - `toast_raw_datum_size`: Gets the size of a potentially-toasted datum
-  - `text_substring`: Extracts a substring from a text value
+  - `[check_collation_set](../c/check_collation_set.md)`: Validates that a collation is properly set
+  - `[lc_collate_is_c](../l/lc_collate_is_c.md)`: Checks if the collation is the C locale
+  - `[pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)`: Creates a locale object from collation OID
+  - `[pg_locale_deterministic](../p/pg_locale_deterministic.md)`: Checks if the locale provides deterministic sorting
+  - `[toast_raw_datum_size](toast_raw_datum_size.md)`: Gets the size of a potentially-toasted datum
+  - `[text_substring](text_substring.md)`: Extracts a substring from a text value
   - `DatumGetTextPP`: Converts a Datum to text pointer with possible detoasting
   - `VARDATA_ANY`: Macro to get pointer to variable-length data
   - `VARSIZE_ANY_EXHDR`: Macro to get size of variable-length data excluding header
   - `PG_FREE_IF_COPY`: Memory management macro to free copied arguments if necessary
   - `PG_RETURN_BOOL`: Macro to return boolean result as Datum
 - Called from (representative examples):
-  - `spg_text_leaf_consistent`: Used in SP-GiST index operations for text prefix matching
+  - `[spg_text_leaf_consistent](../s/spg_text_leaf_consistent.md)`: Used in SP-GiST index operations for text prefix matching
 
 ## Notes and Other Information
 - This function is used to implement prefix matching operations in PostgreSQL

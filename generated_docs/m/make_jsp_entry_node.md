@@ -19,15 +19,15 @@ This is a fundamental building block in the JSONB GIN indexing system, used to c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - offsetof (C macro to calculate structure member offset)
   - JsonPathGinNode (GIN node structure type)
   - JSP_GIN_ENTRY (constant defining the entry node type)
 
 - Called from:
-  - make_jsp_entry_node_scalar (creates entry nodes for scalar values)
-  - jsonb_ops__extract_nodes (extracts indexable nodes for jsonb_ops operator class)
-  - jsonb_path_ops__extract_nodes (extracts indexable nodes for jsonb_path_ops operator class)
+  - [make_jsp_entry_node_scalar](make_jsp_entry_node_scalar.md) (creates entry nodes for scalar values)
+  - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md) (extracts indexable nodes for jsonb_ops operator class)
+  - [jsonb_path_ops__extract_nodes](../j/jsonb_path_ops__extract_nodes.md) (extracts indexable nodes for jsonb_path_ops operator class)
 
 ## Notes and Other Information
 The function uses offsetof(JsonPathGinNode, args) to allocate only the necessary memory for the base structure without the variable-length args array, which is not needed for simple entry nodes. This is a memory optimization for nodes that don't require additional arguments.

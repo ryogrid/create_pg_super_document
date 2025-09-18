@@ -22,16 +22,16 @@ The function searches through all hash opfamilies that contain the given operato
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
-  - get_opfamily_proc
+  - [get_opfamily_proc](get_opfamily_proc.md)
   - ReleaseSysCacheList
   - HTEqualStrategyNumber
   - HASHSTANDARD_PROC
 - Called from (representative examples):
   - execTuplesHashPrepare
   - ExecHashTableCreate
-  - ExecInitMemoize
-  - ExecInitSubPlan
-  - convert_saop_to_hashed_saop_walker
+  - [ExecInitMemoize](../E/ExecInitMemoize.md)
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
+  - [convert_saop_to_hashed_saop_walker](../c/convert_saop_to_hashed_saop_walker.md)
 
 ## Notes and Other Information
 - Returns true if able to find the requested function(s), false otherwise

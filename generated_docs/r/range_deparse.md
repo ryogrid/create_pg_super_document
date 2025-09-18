@@ -25,13 +25,13 @@ The function returns a palloc'd string that represents the range in standard Pos
   - RANGE_EMPTY_LITERAL (constant for empty range representation)
   - RANGE_LB_INC (macro for lower bound inclusive flag)
   - RANGE_HAS_LBOUND (macro for checking lower bound existence)
-  - range_bound_escape (function for escaping bound strings)
+  - [range_bound_escape](range_bound_escape.md) (function for escaping bound strings)
   - RANGE_HAS_UBOUND (macro for checking upper bound existence)
   - RANGE_UB_INC (macro for upper bound inclusive flag)
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - initStringInfo, appendStringInfoChar, appendStringInfoString (string building functions)
 - Called from (representative examples):
-  - range_out
+  - [range_out](range_out.md)
 
 ## Notes and Other Information
 - This is a static function internal to the rangetypes.c module

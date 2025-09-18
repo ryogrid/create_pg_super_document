@@ -28,11 +28,11 @@ This centralized decision function ensures consistency across various parts of p
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpOptions (struct)
-  - TableInfo (struct)
+  - [TableInfo](../T/TableInfo.md) (struct)
 - Called from (representative examples):
-  - flagInhAttrs
-  - getTableAttrs  
-  - dumpTableSchema
+  - [flagInhAttrs](../f/flagInhAttrs.md)
+  - [getTableAttrs](../g/getTableAttrs.md)  
+  - [dumpTableSchema](../d/dumpTableSchema.md)
 
 ## Notes and Other Information
 - The function exists to centralize this decision logic across multiple scattered locations in pg_dump

@@ -26,13 +26,13 @@ The function ensures that sufficient shared memory is allocated for parallel sca
 - Functions called/Symbols referenced:
   - IsMVCCSnapshot (to check if snapshot needs serialization)
   - EstimateSnapshotSpace (to calculate space needed for snapshot serialization)
-  - add_size (to safely add sizes while checking for overflow)
+  - [add_size](../a/add_size.md) (to safely add sizes while checking for overflow)
   - SnapshotAny (global variable representing a special non-MVCC snapshot)
 
 - Called from (representative examples):
-  - _brin_parallel_estimate_shared
-  - _bt_parallel_estimate_shared
-  - ExecSeqScanEstimate
+  - [_brin_parallel_estimate_shared](../b/_brin_parallel_estimate_shared.md)
+  - [_bt_parallel_estimate_shared](../b/_bt_parallel_estimate_shared.md)
+  - [ExecSeqScanEstimate](../E/ExecSeqScanEstimate.md)
   - table_scan_getnextslot_tidrange
 
 ## Notes and Other Information

@@ -22,9 +22,9 @@ The returned DSA area can be used for managing shared memory allocation and acce
   - Assert
   - TidStoreIsShared
 - Called from (representative examples):
-  - parallel_vacuum_init
-  - parallel_vacuum_reset_dead_items
-  - test_create
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md)
+  - [test_create](../t/test_create.md)
 
 ## Notes and Other Information
 - Only valid for shared TidStores; includes Assert(TidStoreIsShared(ts)) to verify this precondition

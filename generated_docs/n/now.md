@@ -21,7 +21,7 @@ The returned value includes timezone information, making it suitable for applica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionStartTimestamp (retrieves transaction start timestamp)
+  - [GetCurrentTransactionStartTimestamp](../G/GetCurrentTransactionStartTimestamp.md) (retrieves transaction start timestamp)
   - PG_RETURN_TIMESTAMPTZ (macro to return timestamptz value to PostgreSQL)
 - Called from:
   - SQL queries using NOW() function

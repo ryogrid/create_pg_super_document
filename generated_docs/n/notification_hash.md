@@ -24,11 +24,11 @@ The hash is computed over the combined data of channel name and payload to ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any (PostgreSQL's general-purpose hash function)
-  - DatumGetUInt32 (converts hash result to uint32)
-  - Notification structure (for accessing channel_len, payload_len, and data fields)
+  - [hash_any](../h/hash_any.md) (PostgreSQL's general-purpose hash function)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (converts hash result to uint32)
+  - [Notification](../N/Notification.md) structure (for accessing channel_len, payload_len, and data fields)
 - Called from (representative examples):
-  - AddEventToPendingNotifies (as hash function parameter for hash table creation)
+  - [AddEventToPendingNotifies](../A/AddEventToPendingNotifies.md) (as hash function parameter for hash table creation)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

@@ -31,8 +31,8 @@ This is an enumeration constant with no parameters or member variables.
   - Referenced in error reporting via ereport()
   - Works with NameListToString() for error message formatting
 - Called from (representative examples):
-  - ExpandColumnRefStar (src/backend/parser/parse_target.c:1214) - assignment
-  - ExpandColumnRefStar (src/backend/parser/parse_target.c:1263) - case handling
+  - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md) (src/backend/parser/parse_target.c:1214) - [assignment](../a/assignment.md)
+  - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md) (src/backend/parser/parse_target.c:1263) - case handling
 
 ## Notes and Other Information
 - This is a local enumeration defined within the ExpandColumnRefStar() function scope

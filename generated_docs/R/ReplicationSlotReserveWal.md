@@ -26,21 +26,21 @@ The function implements a retry mechanism to handle race conditions where WAL se
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotIsPhysical
-  - GetRedoRecPtr
-  - RecoveryInProgress
-  - GetXLogReplayRecPtr
-  - GetXLogInsertRecPtr
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
+  - [RecoveryInProgress](RecoveryInProgress.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
+  - [GetXLogInsertRecPtr](../G/GetXLogInsertRecPtr.md)
   - SpinLockAcquire/SpinLockRelease
-  - ReplicationSlotsComputeRequiredLSN
+  - [ReplicationSlotsComputeRequiredLSN](ReplicationSlotsComputeRequiredLSN.md)
   - XLByteToSeg
-  - XLogGetLastRemovedSegno
+  - [XLogGetLastRemovedSegno](../X/XLogGetLastRemovedSegno.md)
   - SlotIsLogical
   - LogStandbySnapshot
-  - XLogFlush
+  - [XLogFlush](../X/XLogFlush.md)
 - Called from (representative examples):
   - CreateInitDecodingContext
-  - create_physical_replication_slot
-  - CreateReplicationSlot
+  - [create_physical_replication_slot](../c/create_physical_replication_slot.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 Critical for preventing premature WAL removal that could break replication. The retry loop protects against race conditions with concurrent checkpoints. For logical slots on primary servers, it ensures a consistent snapshot is available for decoding startup by logging and flushing a standby snapshot.

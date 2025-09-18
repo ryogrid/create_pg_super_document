@@ -23,16 +23,16 @@ DbInfo serves as the central repository for database-level information during Po
 - Functions called/Symbols referenced:
   - Oid
   - RelInfoArr
-  - LogicalSlotInfoArr
+  - [LogicalSlotInfoArr](../L/LogicalSlotInfoArr.md)
   - MAXPGPATH
 - Called from (representative examples):
-  - check_for_data_types_usage
-  - check_for_isn_and_int8_passing_mismatch
-  - generate_old_dump
-  - get_db_rel_and_slot_infos
-  - get_db_infos
-  - create_new_objects
-  - transfer_all_new_dbs
+  - [check_for_data_types_usage](../c/check_for_data_types_usage.md)
+  - [check_for_isn_and_int8_passing_mismatch](../c/check_for_isn_and_int8_passing_mismatch.md)
+  - [generate_old_dump](../g/generate_old_dump.md)
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md)
+  - [get_db_infos](../g/get_db_infos.md)
+  - [create_new_objects](../c/create_new_objects.md)
+  - [transfer_all_new_dbs](../t/transfer_all_new_dbs.md)
 
 ## Notes and Other Information
 - This structure is fundamental to the pg_upgrade process and is used extensively throughout the upgrade workflow

@@ -27,7 +27,7 @@ This three-way comparison enables efficient binary search through sorted arrays 
 - Functions called/Symbols referenced:
   - (none - uses only basic comparison operations)
 - Called from (representative examples):
-  - is_code_in_table (via bsearch callback)
+  - [is_code_in_table](../i/is_code_in_table.md) (via bsearch callback)
 
 ## Notes and Other Information
 - This is a static function local to src/common/saslprep.c

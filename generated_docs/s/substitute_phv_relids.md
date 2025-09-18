@@ -25,11 +25,11 @@ This function is typically used during query optimization when append relations 
 - Functions called/Symbols referenced:
   - substitute_phv_relids_context (context structure for walker)
   - query_or_expression_tree_walker (generic tree traversal function)
-  - substitute_phv_relids_walker (performs the actual substitution work)
+  - [substitute_phv_relids_walker](substitute_phv_relids_walker.md) (performs the actual substitution work)
 - Called from (representative examples):
-  - pull_up_simple_subquery (in prepjointree.c:1399)
-  - remove_result_refs (in prepjointree.c:3811) 
-  - fix_append_rel_relids (in prepjointree.c:4064)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md) (in prepjointree.c:1399)
+  - [remove_result_refs](../r/remove_result_refs.md) (in prepjointree.c:3811) 
+  - [fix_append_rel_relids](../f/fix_append_rel_relids.md) (in prepjointree.c:4064)
 
 ## Notes and Other Information
 - This function is static and only used within prepjointree.c

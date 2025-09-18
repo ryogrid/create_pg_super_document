@@ -20,17 +20,17 @@ This function is essential for extracting parts of words during stemming operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slice_check (validates slice boundaries before operation)
-  - lose_s (cleans up buffer memory on error)
+  - [slice_check](slice_check.md) (validates slice boundaries before operation)
+  - [lose_s](../l/lose_s.md) (cleans up buffer memory on error)
   - CAPACITY (macro to get buffer capacity)
-  - increase_size (expands buffer if needed)
+  - [increase_size](../i/increase_size.md) (expands buffer if needed)
   - memmove (copies memory safely)
   - SET_SIZE (macro to set buffer size)
   - symbol (character type used in buffers)
 - Called from (representative examples):
-  - r_undouble (in Danish stemmer)
-  - r_tidy (in Finnish stemmer) 
-  - among (utility function for pattern matching)
+  - [r_undouble](../r/r_undouble.md) (in Danish stemmer)
+  - [r_tidy](../r/r_tidy.md) (in Finnish stemmer) 
+  - [among](../a/among.md) (utility function for pattern matching)
 
 ## Notes and Other Information
 - Returns the destination buffer pointer on success, NULL on error

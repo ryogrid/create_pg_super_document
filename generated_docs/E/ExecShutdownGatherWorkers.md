@@ -17,12 +17,12 @@ ExecShutdownGatherWorkers is a static helper function that handles the shutdown 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecParallelFinish
-  - pfree
+  - [ExecParallelFinish](ExecParallelFinish.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - gather_readnext
-  - ExecShutdownGather  
-  - ExecReScanGather
+  - [gather_readnext](../g/gather_readnext.md)
+  - [ExecShutdownGather](ExecShutdownGather.md)  
+  - [ExecReScanGather](ExecReScanGather.md)
 
 ## Notes and Other Information
 This is a static function internal to nodeGather.c and is not exposed outside the module. It serves as a centralized cleanup routine used by multiple functions that need to shut down parallel workers. The function safely handles null pointers for both the parallel execution info (pei) and reader array, making it safe to call multiple times or when no parallel workers were actually started.

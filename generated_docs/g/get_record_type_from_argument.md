@@ -25,14 +25,14 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype
-  - prepare_column_cache
+  - [get_fn_expr_argtype](get_fn_expr_argtype.md)
+  - [prepare_column_cache](../p/prepare_column_cache.md)
   - TYPECAT_COMPOSITE
   - TYPECAT_COMPOSITE_DOMAIN
   - ereport (for error handling)
 - Called from (representative examples):
-  - populate_record_worker
-  - populate_recordset_worker
+  - [populate_record_worker](../p/populate_record_worker.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
 
 ## Notes and Other Information
 - This is a static helper function used by JSON population functions

@@ -31,15 +31,15 @@ The function uses Unicode category masks for efficient category checking. This d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_isalpha (alphabetic character detection function, used in POSIX mode)
-  - unicode_category (internal Unicode category determination function)
+  - [pg_u_isalpha](pg_u_isalpha.md) (alphabetic character detection function, used in POSIX mode)
+  - [unicode_category](../u/unicode_category.md) (internal Unicode category determination function)
   - PG_U_CATEGORY_MASK (macro for category mask conversion)
   - PG_U_P_MASK (punctuation character category mask)
   - PG_U_S_MASK (symbol character category mask, used in POSIX mode)
 - Called from (representative examples):
-  - pg_wc_ispunct (regex locale wrapper function)
-  - icu_test (test function)
-  - pg_unicode_category (Unicode category interface)
+  - [pg_wc_ispunct](pg_wc_ispunct.md) (regex locale wrapper function)
+  - [icu_test](../i/icu_test.md) (test function)
+  - [pg_unicode_category](pg_unicode_category.md) (Unicode category interface)
 
 ## Notes and Other Information
 - Supports both POSIX and Unicode punctuation classification standards

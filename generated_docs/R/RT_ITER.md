@@ -30,13 +30,13 @@ The structure it represents contains:
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion system)
-  - RT_NODE_ITER (component type for the node iterator stack)
-  - RT_RADIX_TREE (the tree type being iterated)
+  - [RT_NODE_ITER](RT_NODE_ITER.md) (component type for the node iterator stack)
+  - [RT_RADIX_TREE](RT_RADIX_TREE.md) (the tree type being iterated)
 - Called from (representative examples):
-  - RT_BEGIN_ITERATE (initializes RT_ITER)
-  - RT_ITERATE_NEXT (advances RT_ITER)
-  - RT_END_ITERATE (cleans up RT_ITER)
-  - RT_FREE (may reference RT_ITER)
+  - [RT_BEGIN_ITERATE](RT_BEGIN_ITERATE.md) (initializes RT_ITER)
+  - [RT_ITERATE_NEXT](RT_ITERATE_NEXT.md) (advances RT_ITER)
+  - [RT_END_ITERATE](RT_END_ITERATE.md) (cleans up RT_ITER)
+  - [RT_FREE](RT_FREE.md) (may reference RT_ITER)
 
 ## Notes and Other Information
 - Part of PostgreSQL's templated radix tree system enabling multiple type-safe instances

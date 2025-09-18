@@ -29,8 +29,8 @@ This function takes no parameters and operates directly on the filesystem in the
 ## Dependencies
 - Functions called/Symbols referenced:
   - opendir, readdir, closedir (POSIX directory operations)
-  - IsXLogFileName (checks if filename matches WAL segment pattern)
-  - IsPartialXLogFileName (checks if filename matches partial WAL segment pattern)
+  - [IsXLogFileName](../I/IsXLogFileName.md) (checks if filename matches WAL segment pattern)
+  - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (checks if filename matches partial WAL segment pattern)
   - snprintf (formats the full file path)
   - unlink (POSIX function to delete files)
   - XLOGDIR (constant for WAL directory path)
@@ -38,7 +38,7 @@ This function takes no parameters and operates directly on the filesystem in the
   - DIR, dirent (POSIX directory structures)
 
 - Called from:
-  - main (in pg_resetwal.c at line 495)
+  - [main](../m/main.md) (in pg_resetwal.c at line 495)
 
 ## Notes and Other Information
 - This is a static function local to pg_resetwal.c

@@ -22,11 +22,11 @@ This function is responsible for storing a HeapTuple into a HeapTupleTableSlot. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (type cast)
-  - tts_heap_clear
+  - [tts_heap_clear](tts_heap_clear.md)
   - TTS_FLAG_EMPTY
   - TTS_FLAG_SHOULDFREE
 - Called from (representative examples):
-  - ExecStoreHeapTuple
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md)
 
 ## Notes and Other Information
 - This is a static function specific to heap tuple table slot operations

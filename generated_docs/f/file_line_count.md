@@ -24,7 +24,7 @@ This function is part of the PostgreSQL regression testing infrastructure, used 
   - fgetc (standard C library function for reading characters)
   - fclose (standard C library function for closing files)
 - Called from (representative examples):
-  - results_differ (used multiple times to count lines in expected and actual result files during regression testing)
+  - [results_differ](../r/results_differ.md) (used multiple times to count lines in expected and actual result files during regression testing)
 
 ## Notes and Other Information
 - Returns -1 on error (file cannot be opened)

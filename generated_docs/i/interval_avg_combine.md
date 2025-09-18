@@ -21,8 +21,8 @@ This function implements the combine operation for PostgreSQL's parallel aggrega
 - Functions called/Symbols referenced:
   - PG_ARGISNULL (macro for checking NULL arguments)
   - PG_GETARG_POINTER (macro for retrieving pointer arguments)
-  - makeIntervalAggState (creates new aggregation state)
-  - finite_interval_pl (adds two finite intervals)
+  - [makeIntervalAggState](../m/makeIntervalAggState.md) (creates new aggregation state)
+  - [finite_interval_pl](../f/finite_interval_pl.md) (adds two finite intervals)
   - PG_RETURN_POINTER (macro for returning pointer values)
 - Called from (representative examples):
   - PostgreSQL parallel aggregation system (registered as combine function)

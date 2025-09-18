@@ -27,23 +27,23 @@ The function is recursive and handles different behaviors for inheritance childr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ATSimplePermissions
+  - [ATSimplePermissions](ATSimplePermissions.md)
   - check_stack_depth
-  - new_object_addresses
-  - SearchSysCacheAttName
-  - SearchSysCacheCopyAttName
-  - has_partition_attrs
-  - find_inheritance_children
-  - CheckAlterTableIsSafe
-  - CatalogTupleUpdate
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [has_partition_attrs](../h/has_partition_attrs.md)
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - CommandCounterIncrement
-  - add_exact_object_address
-  - performMultipleDeletions
-  - free_object_addresses
-  - heap_freetuple
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ATExecCmd
-  - ATExecDropColumn (recursive)
+  - [ATExecCmd](ATExecCmd.md)
+  - [ATExecDropColumn](ATExecDropColumn.md) (recursive)
   - child_dependency_type
 
 ## Notes and Other Information

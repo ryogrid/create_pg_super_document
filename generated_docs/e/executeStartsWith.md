@@ -20,13 +20,13 @@ The  function implements the STARTS_WITH predicate functionality for JSON path e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getScalar: Converts JsonbValue to scalar string type
+  - [getScalar](../g/getScalar.md): Converts JsonbValue to scalar string type
   - memcmp: Performs binary memory comparison
   - JsonPathItem: JSON path item structure
-  - JsonbValue: JSON binary value structure
+  - [JsonbValue](../J/JsonbValue.md): JSON binary value structure
   - jbvString: String type identifier for JSON values
 - Called from (representative examples):
-  - executeBoolItem: Main boolean item execution function
+  - [executeBoolItem](executeBoolItem.md): Main boolean item execution function
   - RETURN_ERROR: Error handling macro
 
 ## Notes and Other Information

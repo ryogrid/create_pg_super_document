@@ -25,12 +25,12 @@ The function implements PostgreSQL's pipeline protocol requirements where PGRES_
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQpipelineSync
-  - PQgetResult
+  - [PQgetResult](../P/PQgetResult.md)
   - PQexitPipelineMode
-  - PQclear
+  - [PQclear](../P/PQclear.md)
   - pg_log_error
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - This function is part of pgbench's transaction rollback and error recovery mechanism

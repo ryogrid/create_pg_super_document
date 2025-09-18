@@ -27,10 +27,10 @@ The function is crucial in the query rewrite system to determine the correct han
   - foreach_node (macro for iterating over list nodes)
   - MergeAction (structure representing merge actions)
 - Called from (representative examples):
-  - CheckValidResultRel (in src/backend/executor/execMain.c:1055)
-  - rewriteValuesRTE (in src/backend/rewrite/rewriteHandler.c:1461)
-  - rewriteTargetView (in src/backend/rewrite/rewriteHandler.c:3393)
-  - RewriteQuery (in src/backend/rewrite/rewriteHandler.c:4194)
+  - [CheckValidResultRel](../C/CheckValidResultRel.md) (in src/backend/executor/execMain.c:1055)
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md) (in src/backend/rewrite/rewriteHandler.c:1461)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (in src/backend/rewrite/rewriteHandler.c:3393)
+  - [RewriteQuery](../R/RewriteQuery.md) (in src/backend/rewrite/rewriteHandler.c:4194)
 
 ## Notes and Other Information
 - The function returns false for views without triggers, allowing them to be considered for auto-updatable view processing

@@ -27,9 +27,9 @@ Each test maintains the same total data written (16kB) but varies the number and
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf
-  - test_open_sync (called 5 times with different parameters)
+  - [test_open_sync](test_open_sync.md) (called 5 times with different parameters)
 - Called from:
-  - main (in pg_test_fsync.c)
+  - [main](../m/main.md) (in pg_test_fsync.c)
 
 ## Notes and Other Information
 - This function is part of the pg_test_fsync utility which helps optimize PostgreSQL's write-ahead log performance

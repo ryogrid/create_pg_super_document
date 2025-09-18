@@ -18,18 +18,18 @@ This function provides a standardized way for range-related functions to access 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_RANGE_INFO
 - Called from (representative examples):
-  - range_constructor2
-  - range_constructor3
-  - range_lower
-  - range_upper
-  - range_contains_elem
-  - range_eq
-  - range_cmp
-  - hash_range
-  - range_gist_consistent
+  - [range_constructor2](range_constructor2.md)
+  - [range_constructor3](range_constructor3.md)
+  - [range_lower](range_lower.md)
+  - [range_upper](range_upper.md)
+  - [range_contains_elem](range_contains_elem.md)
+  - [range_eq](range_eq.md)
+  - [range_cmp](range_cmp.md)
+  - [hash_range](../h/hash_range.md)
+  - [range_gist_consistent](range_gist_consistent.md)
 
 ## Notes and Other Information
 - This function is part of the support functions section and is not directly exposed in pg_proc

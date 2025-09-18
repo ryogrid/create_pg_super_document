@@ -50,20 +50,20 @@ Key to its operation is the management of function call continuity through setAr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (expression plan nodes)
+  - [Expr](../E/Expr.md) (expression plan nodes)
   - ExprState (argument expression states)
-  - FmgrInfo (function manager info)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
   - Tuplestorestate (result storage)
   - TupleTableSlot (row access interface)
-  - TupleDesc (tuple structure description)
-  - FunctionCallInfo (function call context)
+  - [TupleDesc](../T/TupleDesc.md) (tuple structure description)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (function call context)
 - Called from (representative examples):
-  - ExecInitTableFunctionResult (src/backend/executor/execSRF.c:59)
-  - ExecMakeTableFunctionResult (src/backend/executor/execSRF.c:101)
-  - ExecInitFunctionResultSet (src/backend/executor/execSRF.c:447)
-  - ExecMakeFunctionResultSet (src/backend/executor/execSRF.c:497)
-  - FunctionScanPerFuncState (src/backend/executor/nodeFunctionscan.c:37)
-  - ExecProjectSRF (src/backend/executor/nodeProjectSet.c:177)
+  - [ExecInitTableFunctionResult](../E/ExecInitTableFunctionResult.md) (src/backend/executor/execSRF.c:59)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (src/backend/executor/execSRF.c:101)
+  - [ExecInitFunctionResultSet](../E/ExecInitFunctionResultSet.md) (src/backend/executor/execSRF.c:447)
+  - [ExecMakeFunctionResultSet](../E/ExecMakeFunctionResultSet.md) (src/backend/executor/execSRF.c:497)
+  - [FunctionScanPerFuncState](../F/FunctionScanPerFuncState.md) (src/backend/executor/nodeFunctionscan.c:37)
+  - [ExecProjectSRF](../E/ExecProjectSRF.md) (src/backend/executor/nodeProjectSet.c:177)
 
 ## Notes and Other Information
 - Central to PostgreSQLs set-returning function infrastructure, handling both traditional SRFs and ROWS FROM expressions

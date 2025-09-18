@@ -20,12 +20,12 @@ The function returns a PGresult that indicates whether the close operation was s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendTypedCommand
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendTypedCommand](PQsendTypedCommand.md)
   - PqMsg_Close
-  - PQexecFinish
+  - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - test_prepared (src/test/modules/libpq_pipeline/libpq_pipeline.c:1343)
+  - [test_prepared](../t/test_prepared.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:1343)
 
 ## Notes and Other Information
 - This is a synchronous operation that blocks until the server responds

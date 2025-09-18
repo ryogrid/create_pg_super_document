@@ -21,13 +21,13 @@ The function returns 0 if no blocks with free space are found, indicating that a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext (struct type)
+  - [SlabContext](SlabContext.md) (struct type)
   - SLAB_BLOCKLIST_COUNT (constant)
-  - dlist_is_empty (function to check if doubly-linked list is empty)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (function to check if doubly-linked list is empty)
   - MemoryChunk (struct type)
 - Called from (representative examples):
-  - SlabAlloc
-  - SlabFree
+  - [SlabAlloc](SlabAlloc.md)
+  - [SlabFree](SlabFree.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage

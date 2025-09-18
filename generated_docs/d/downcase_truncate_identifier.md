@@ -21,10 +21,10 @@ The function allocates memory for the result using  and returns a newly allocate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - downcase_identifier (the main workhorse function)
+  - [downcase_identifier](downcase_identifier.md) (the main workhorse function)
 - Called from (representative examples):
-  - extract_date (in date/time processing)
-  - timestamp_trunc (timestamp truncation operations)
+  - [extract_date](../e/extract_date.md) (in date/time processing)
+  - [timestamp_trunc](../t/timestamp_trunc.md) (timestamp truncation operations)
   - SplitIdentifierString (identifier parsing utilities)
   - Various date/time functions for field name processing
 

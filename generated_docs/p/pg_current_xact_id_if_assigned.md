@@ -19,7 +19,7 @@ This function provides a non-intrusive way to check the current toplevel transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTopFullTransactionIdIfAny
+  - [GetTopFullTransactionIdIfAny](../G/GetTopFullTransactionIdIfAny.md)
   - FullTransactionIdIsValid
   - PG_RETURN_FULLTRANSACTIONID
   - PG_RETURN_NULL

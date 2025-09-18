@@ -20,9 +20,9 @@ The `get_includeserver_path` function calculates the absolute path to PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
 - Called from (representative examples):
-  - get_configdata (src/common/config_info.c:78)
+  - [get_configdata](get_configdata.md) (src/common/config_info.c:78)
 
 ## Notes and Other Information
 - This function assumes that the caller has provided a sufficiently large buffer in ret_path to hold the resulting path

@@ -28,12 +28,12 @@ The function handles row count estimation by scaling the partial path rows by th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_gather_path
-  - add_path
-  - create_gather_merge_path
+  - [create_gather_path](../c/create_gather_path.md)
+  - [add_path](../a/add_path.md)
+  - [create_gather_merge_path](../c/create_gather_merge_path.md)
   - GatherMergePath (type)
 - Called from (representative examples):
-  - generate_useful_gather_paths
+  - [generate_useful_gather_paths](generate_useful_gather_paths.md)
 
 ## Notes and Other Information
 - Must be called after all partial paths are created to avoid dangling references

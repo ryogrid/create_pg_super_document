@@ -25,10 +25,10 @@ RT_ALLOC_LEAF is part of PostgreSQL's templated radix tree implementation found 
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
   - dsa_allocate (for shared memory allocation when RT_SHMEM is defined)
-  - MemoryContextAlloc (for regular memory allocation)
-  - RT_PTR_SET_LOCAL (for shared memory pointer setup)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for regular memory allocation)
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md) (for shared memory pointer setup)
 - Called from (representative examples):
-  - RT_SET (when storing values in the radix tree)
+  - [RT_SET](RT_SET.md) (when storing values in the radix tree)
 
 ## Notes and Other Information
 - The function increments the leaf count statistics when RT_DEBUG is enabled

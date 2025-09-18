@@ -27,7 +27,7 @@ Like its generic counterpart, this function has O(n) time complexity proportiona
   - `IsIntegerList`: Validates that the list contains integer elements
   - `insert_new_cell`: Internal helper function to create and position a new list cell
   - `lfirst_int`: Macro to access the integer value of a list cell
-  - `check_list_invariants`: Debug function to verify list structural integrity
+  - `[check_list_invariants](../c/check_list_invariants.md)`: Debug function to verify list structural integrity
 
 - Called from (representative examples):
   - `forfive`: Macro for five-way list iteration

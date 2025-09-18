@@ -25,15 +25,15 @@ This function handles the complex memory management requirements for aggregate t
   - DatumIsReadWriteExpandedObject
   - DatumGetEOHP
   - MemoryContextGetParent
-  - datumCopy
-  - DeleteExpandedObject
-  - MemoryContextSwitchTo
-  - pfree
-  - DatumGetPointer
+  - [datumCopy](../d/datumCopy.md)
+  - [DeleteExpandedObject](../D/DeleteExpandedObject.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [pfree](../p/pfree.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - ExecAggPlainTransByRef
-  - advance_transition_function
-  - FunctionReturningBool (in JIT compilation context)
+  - [ExecAggPlainTransByRef](ExecAggPlainTransByRef.md)
+  - [advance_transition_function](../a/advance_transition_function.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in JIT compilation context)
 
 ## Notes and Other Information
 - Implements sophisticated memory management for expanded objects in aggregation contexts

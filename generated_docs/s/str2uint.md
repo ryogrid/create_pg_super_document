@@ -21,7 +21,7 @@ The function performs no error checking - it relies entirely on the underlying  
 - Functions called/Symbols referenced:
   - strtoul (standard C library function)
 - Called from (representative examples):
-  - get_control_data (used extensively for parsing various control data fields like catalog version, control version, WAL block size, etc.)
+  - [get_control_data](../g/get_control_data.md) (used extensively for parsing various control data fields like catalog version, control version, WAL block size, etc.)
 
 ## Notes and Other Information
 - Located in src/bin/pg_upgrade/util.c:352-355

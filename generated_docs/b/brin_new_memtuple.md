@@ -18,17 +18,17 @@ This function allocates and initializes a complete BrinMemTuple structure for in
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment macro)
-  - palloc0 (PostgreSQL memory allocation)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - AllocSetContextCreate (memory context creation)
-  - brin_memtuple_initialize (tuple initialization)
+  - [brin_memtuple_initialize](brin_memtuple_initialize.md) (tuple initialization)
   - ALLOCSET_DEFAULT_SIZES (default memory allocation sizes)
 - Called from (representative examples):
-  - bringetbitmap
-  - initialize_brin_buildstate
+  - [bringetbitmap](bringetbitmap.md)
+  - [initialize_brin_buildstate](../i/initialize_brin_buildstate.md)
   - brin_parallel_merge
-  - brin_build_empty_tuple
-  - brin_deform_tuple
+  - [brin_build_empty_tuple](brin_build_empty_tuple.md)
+  - [brin_deform_tuple](brin_deform_tuple.md)
   - BrinTupleIsEmptyRange
 
 ## Notes and Other Information

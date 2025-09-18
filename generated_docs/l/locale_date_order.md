@@ -33,13 +33,13 @@ LC_ALL=: A string specifying the locale name to test for date ordering (e.g., "e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - save_global_locale (saves current locale state)
+  - [save_global_locale](../s/save_global_locale.md) (saves current locale state)
   - setlocale (sets the LC_TIME locale temporarily)
-  - my_strftime (formats the test date)
-  - restore_global_locale (restores original locale state)
+  - [my_strftime](../m/my_strftime.md) (formats the test date)
+  - [restore_global_locale](../r/restore_global_locale.md) (restores original locale state)
   - DATEORDER_MDY, DATEORDER_DMY, DATEORDER_YMD (constants for date order types)
 - Called from (representative examples):
-  - setup_config (during database initialization configuration)
+  - [setup_config](../s/setup_config.md) (during database initialization configuration)
 
 ## Notes and Other Information
 - Returns DATEORDER_MDY as the default if locale formatting fails or produces unexpected results

@@ -28,9 +28,9 @@ The `make_tablefuncscan` function is a factory function that constructs a TableF
 - Functions called/Symbols referenced:
   - makeNode (to allocate TableFuncScan node)
   - TableFuncScan (node type)
-  - TableFunc (structure type)
+  - [TableFunc](../T/TableFunc.md) (structure type)
 - Called from (representative examples):
-  - create_tablefuncscan_plan
+  - [create_tablefuncscan_plan](../c/create_tablefuncscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's an internal helper for plan creation

@@ -33,12 +33,12 @@ This logic handles dump/reload scenarios and prevents creation of incomplete ope
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandCounterIncrement
-  - get_opclass_input_type
-  - list_concat_copy
-  - opclass_for_family_datatype
+  - [get_opclass_input_type](../g/get_opclass_input_type.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [opclass_for_family_datatype](../o/opclass_for_family_datatype.md)
   - OidIsValid
 - Called from (representative examples):
-  - hashhandler (in hash access method interface)
+  - [hashhandler](hashhandler.md) (in hash access method interface)
 
 ## Notes and Other Information
 - The function implements caching of opclass lookups to avoid expensive repeated searches for the same data type.

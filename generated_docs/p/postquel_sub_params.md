@@ -18,11 +18,11 @@ postquel_sub_params is responsible for parameter substitution in SQL functions. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeParamList
+  - [makeParamList](../m/makeParamList.md)
   - MakeExpandedObjectReadOnly
-  - get_typlen
+  - [get_typlen](../g/get_typlen.md)
 - Called from (representative examples):
-  - fmgr_sql
+  - [fmgr_sql](../f/fmgr_sql.md)
 
 ## Notes and Other Information
 - Creates or reuses ParamListInfo structures to avoid repeated allocation overhead

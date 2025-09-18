@@ -18,10 +18,10 @@ DisableTimeoutParams serves as a parameter structure for the disable_timeouts() 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimeoutId (enumeration type)
+  - [TimeoutId](../T/TimeoutId.md) (enumeration type)
 - Called from (representative examples):
   - disable_timeouts (timeout.c:718)
-  - LockErrorCleanup (proc.c:738)
+  - [LockErrorCleanup](../L/LockErrorCleanup.md) (proc.c:738)
   - ProcSleep (proc.c:1623)
 
 ## Notes and Other Information

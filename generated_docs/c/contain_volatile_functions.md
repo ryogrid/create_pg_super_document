@@ -29,13 +29,13 @@ The function prevents unsafe optimizations such as:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_volatile_functions_walker
+  - [contain_volatile_functions_walker](contain_volatile_functions_walker.md)
 - Called from (representative examples):
-  - CopyFrom (commands/copyfrom.c)  
-  - ATExecAddColumn (commands/tablecmds.c)
-  - match_opclause_to_indexcol (optimizer/path/indxpath.c)
-  - is_pseudo_constant_clause (optimizer/util/clauses.c)
-  - subquery_planner (optimizer/plan/planner.c)
+  - [CopyFrom](../C/CopyFrom.md) (commands/copyfrom.c)  
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (commands/tablecmds.c)
+  - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md) (optimizer/path/indxpath.c)
+  - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md) (optimizer/util/clauses.c)
+  - [subquery_planner](../s/subquery_planner.md) (optimizer/plan/planner.c)
 
 ## Notes and Other Information
 - Returns `true` if any volatile function is found, `false` otherwise

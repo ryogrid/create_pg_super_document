@@ -32,7 +32,7 @@ This function directly corresponds to the SQL  or  operator when used with BIT o
 - Called from (representative examples):
   - PostgreSQL SQL executor when processing inequality expressions
   - B-tree index operations for bit string types
-  - Query optimization and constraint checking
+  - [Query](../Q/Query.md) optimization and constraint checking
 
 ## Notes and Other Information
 - Returns true if bit strings differ in either content or length

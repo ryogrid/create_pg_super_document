@@ -27,9 +27,9 @@ This variant is particularly useful when connection parameters are already struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpqsrv_connect_prepare
-  - PQconnectStartParams
-  - libpqsrv_connect_internal
+  - [libpqsrv_connect_prepare](libpqsrv_connect_prepare.md)
+  - [PQconnectStartParams](../P/PQconnectStartParams.md)
+  - [libpqsrv_connect_internal](libpqsrv_connect_internal.md)
 - Called from (representative examples):
   - No direct references found in the analyzed codebase
 

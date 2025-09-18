@@ -39,9 +39,9 @@ The spgxlogAddLeaf structure is used in SP-GiST WAL records to capture all the i
   - OffsetNumber (PostgreSQL offset type)
   - uint16 (standard integer type)
 - Called from (representative examples):
-  - spg_desc (in spgdesc.c:29)
-  - addLeafTuple (in spgdoinsert.c:206)
-  - spgRedoAddLeaf (in spgxlog.c:78, 85)
+  - [spg_desc](spg_desc.md) (in spgdesc.c:29)
+  - [addLeafTuple](../a/addLeafTuple.md) (in spgdoinsert.c:206)
+  - [spgRedoAddLeaf](spgRedoAddLeaf.md) (in spgxlog.c:78, 85)
 
 ## Notes and Other Information
 - The structure is designed for WAL replay operations and contains minimal information necessary for reconstructing the add leaf operation

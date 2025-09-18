@@ -24,14 +24,14 @@ The function deliberately ignores certain fields that are not semantically relev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleConstr (constraint structure access)
-  - AttrDefault (default value structures)
+  - [TupleConstr](../T/TupleConstr.md) (constraint structure access)
+  - [AttrDefault](../A/AttrDefault.md) (default value structures)
   - AttrMissing (missing value structures)
-  - datumIsEqual (value comparison for missing values)
-  - ConstrCheck (check constraint structures)
+  - [datumIsEqual](../d/datumIsEqual.md) (value comparison for missing values)
+  - [ConstrCheck](../C/ConstrCheck.md) (check constraint structures)
 - Called from (representative examples):
-  - RelationFindReplTupleSeq (in replication logic)
-  - RelationClearRelation (in relation cache management)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md) (in replication logic)
+  - [RelationClearRelation](../R/RelationClearRelation.md) (in relation cache management)
   - ReleaseTupleDesc (for optimization in release logic)
 
 ## Notes and Other Information

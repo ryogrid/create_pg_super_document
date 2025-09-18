@@ -28,10 +28,10 @@ SummarizerReadLocalXLogPrivate serves as a context structure that carries state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSummarizerData (referenced in the same file context)
+  - [WalSummarizerData](../W/WalSummarizerData.md) (referenced in the same file context)
 - Called from:
-  - SummarizeWAL (creates and uses instances of this structure)
-  - summarizer_read_local_xlog_page (receives this structure as callback data)
+  - [SummarizeWAL](SummarizeWAL.md) (creates and uses instances of this structure)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md) (receives this structure as callback data)
 
 ## Notes and Other Information
 - This structure is specifically designed as private data for XLogReader callback functions

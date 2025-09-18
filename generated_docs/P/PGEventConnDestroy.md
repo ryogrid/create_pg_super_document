@@ -19,7 +19,7 @@ PGEventConnDestroy is used as the event information structure when the libpq eve
 - Functions called/Symbols referenced:
   - PGconn (PostgreSQL connection structure)
 - Called from (representative examples):
-  - freePGconn (creates and passes this structure to event callbacks at fe-connect.c:4639)
+  - [freePGconn](../f/freePGconn.md) (creates and passes this structure to event callbacks at fe-connect.c:4639)
 
 ## Notes and Other Information
 - This structure is specifically used for PGEVT_CONNDESTROY events and is passed to event callback functions as the evtInfo parameter

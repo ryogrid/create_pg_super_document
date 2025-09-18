@@ -19,16 +19,16 @@ This function performs a system catalog lookup to determine the return type of a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure access)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (catalog tuple structure)
   - InvalidOid (null OID constant)
 - Called from (representative examples):
-  - gistvalidate (GiST index validation)
-  - spgproperty (SP-GiST property checking)
-  - spgvalidate (SP-GiST index validation)
+  - [gistvalidate](gistvalidate.md) (GiST index validation)
+  - [spgproperty](../s/spgproperty.md) (SP-GiST property checking)
+  - [spgvalidate](../s/spgvalidate.md) (SP-GiST index validation)
 
 ## Notes and Other Information
 - Returns InvalidOid if the specified operator OID is not found, allowing graceful error handling

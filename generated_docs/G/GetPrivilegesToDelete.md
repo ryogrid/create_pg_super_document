@@ -20,13 +20,13 @@ This function creates a list of privileges that should be removed from a Windows
   - LookupPrivilegeValue (Windows API)
   - GetTokenInformation (Windows API)
   - pg_malloc_extended
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
   - GetLastError (Windows API)
   - memcmp
   - free
   - MCXT_ALLOC_NO_OOM
 - Called from (representative examples):
-  - CreateRestrictedProcess
+  - [CreateRestrictedProcess](../C/CreateRestrictedProcess.md)
 
 ## Notes and Other Information
 - Returns a PTOKEN_PRIVILEGES structure containing privileges to remove, or NULL on failure

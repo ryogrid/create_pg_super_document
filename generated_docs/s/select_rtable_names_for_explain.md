@@ -19,9 +19,9 @@ This function is specifically designed to support the EXPLAIN command by determi
 ## Dependencies
 - Functions called/Symbols referenced:
   - deparse_namespace
-  - set_rtable_names
+  - [set_rtable_names](set_rtable_names.md)
 - Called from (representative examples):
-  - ExplainPrintPlan
+  - [ExplainPrintPlan](../E/ExplainPrintPlan.md)
   - RULE_INDEXDEF_KEYS_ONLY
 
 ## Notes and Other Information

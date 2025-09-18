@@ -19,18 +19,18 @@ This function performs a lookup operation in a shared memory table of contents s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc (structure type)
+  - [shm_toc](shm_toc.md) (structure type)
   - pg_read_barrier (memory barrier function)
   - UINT64_FORMAT (macro for formatting 64-bit integers)
   - elog (error logging function)
 - Called from (representative examples):
-  - _brin_parallel_build_main
-  - _bt_parallel_build_main
-  - ParallelWorkerMain
-  - parallel_vacuum_main
-  - ExecParallelSetupTupleQueues
-  - ParallelQueryMain
-  - ParallelApplyWorkerMain
+  - [_brin_parallel_build_main](../b/_brin_parallel_build_main.md)
+  - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
 
 ## Notes and Other Information
 - This function is designed to be lock-free for performance reasons, using only memory barriers for synchronization

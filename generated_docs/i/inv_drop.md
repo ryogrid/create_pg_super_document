@@ -19,12 +19,12 @@ The function operates at the database level, removing the actual large object fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - performDeletion (performs the actual deletion with dependency handling)
+  - [performDeletion](../p/performDeletion.md) (performs the actual deletion with dependency handling)
   - CommandCounterIncrement (advances command counter for transaction visibility)
   - DROP_CASCADE (deletion mode constant)
   - LargeObjectRelationId (relation identifier for large objects)
 - Called from (representative examples):
-  - be_lo_unlink
+  - [be_lo_unlink](../b/be_lo_unlink.md)
 
 ## Notes and Other Information
 - The caller is expected to have already performed any required permission checks before calling this function

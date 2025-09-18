@@ -43,15 +43,15 @@ Key optimizations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit
-  - pathkeys_contained_in
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
   - estimate_hashagg_tablesize
-  - preprocess_groupclause
-  - remap_to_groupclause_idx
-  - DiscreteKnapsack
-  - create_groupingsets_path
+  - [preprocess_groupclause](../p/preprocess_groupclause.md)
+  - [remap_to_groupclause_idx](../r/remap_to_groupclause_idx.md)
+  - [DiscreteKnapsack](../D/DiscreteKnapsack.md)
+  - [create_groupingsets_path](create_groupingsets_path.md)
 - Called from (representative examples):
-  - add_paths_to_grouping_rel
+  - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md)
 
 ## Notes and Other Information
 - The function can be called multiple times for different input paths and must not modify input data structures

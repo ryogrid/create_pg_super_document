@@ -31,18 +31,18 @@ The `mic2latin_with_table` function converts from PostgreSQL's internal MIC form
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `report_invalid_encoding`: Reports invalid character encoding errors
+  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Reports invalid character encoding errors
   - `PG_MULE_INTERNAL`: Constant identifier for MIC encoding
   - `IS_HIGHBIT_SET`: Macro to check if the high bit (0x80) is set in a character
   - `pg_mule_mblen`: Returns the byte length of a MIC character sequence
   - `HIGHBIT`: Constant representing the high bit value (0x80)
-  - `report_untranslatable_char`: Reports characters that cannot be translated between encodings
+  - `[report_untranslatable_char](../r/report_untranslatable_char.md)`: Reports characters that cannot be translated between encodings
 
 - Called from (representative examples):
-  - `mic_to_iso`: MIC to ISO encoding conversion
-  - `mic_to_win1251`: MIC to Windows-1251 conversion
-  - `mic_to_win866`: MIC to Windows-866 conversion
-  - `mic_to_win1250`: MIC to Windows-1250 conversion
+  - `[mic_to_iso](mic_to_iso.md)`: MIC to ISO encoding conversion
+  - `[mic_to_win1251](mic_to_win1251.md)`: MIC to Windows-1251 conversion
+  - `[mic_to_win866](mic_to_win866.md)`: MIC to Windows-866 conversion
+  - `[mic_to_win1250](mic_to_win1250.md)`: MIC to Windows-1250 conversion
 
 ## Notes and Other Information
 - Returns the number of input bytes consumed, which may be less than input length if `noError` is true and an error occurs

@@ -20,7 +20,7 @@ The `PGTYPESdecimal_new` function serves as the primary constructor for creating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_alloc (allocates memory for the decimal structure)
+  - [pgtypes_alloc](../p/pgtypes_alloc.md) (allocates memory for the decimal structure)
   - memset (zeros out the allocated structure)
 - Called from (representative examples):
   - Various test programs (dec_test.c, num_test2.c)

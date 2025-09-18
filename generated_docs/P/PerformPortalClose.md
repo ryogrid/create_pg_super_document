@@ -33,12 +33,12 @@ The actual portal cleanup and resource deallocation is handled by PortalDrop, wh
   - PortalIsValid
   - PortalDrop
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - When name is NULL, all portals in the portal hash table are deleted via PortalHashTableDeleteAll
 - Empty cursor names are explicitly rejected to avoid conflicts with protocol-level unnamed portals
-- PortalCleanup is automatically called as a side-effect of PortalDrop if not already done
+- [PortalCleanup](PortalCleanup.md) is automatically called as a side-effect of PortalDrop if not already done
 - The function reports appropriate errors for invalid or non-existent cursors
 - The second parameter to PortalDrop (false) indicates this is not an error case cleanup
 - This function is the primary interface for implementing SQL CLOSE commands

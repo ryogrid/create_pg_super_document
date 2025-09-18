@@ -24,12 +24,12 @@ The function maintains a global clause list across multiple calls to identify di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_indexpath_quals
-  - bms_add_member
-  - find_list_position
+  - [find_indexpath_quals](../f/find_indexpath_quals.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [find_list_position](../f/find_list_position.md)
   - PathClauseUsage
 - Called from (representative examples):
-  - choose_bitmap_and
+  - [choose_bitmap_and](choose_bitmap_and.md)
 
 ## Notes and Other Information
 - This is a static function local to indxpath.c

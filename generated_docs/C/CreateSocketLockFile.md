@@ -21,9 +21,9 @@ This function creates a lock file for a Unix domain socket by appending ".lock" 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateLockFile
+  - [CreateLockFile](CreateLockFile.md)
 - Called from (representative examples):
-  - Lock_AF_UNIX
+  - [Lock_AF_UNIX](../L/Lock_AF_UNIX.md)
 
 ## Notes and Other Information
 - Lock file name is created by appending ".lock" to the socket file path

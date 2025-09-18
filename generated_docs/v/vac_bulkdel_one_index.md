@@ -21,14 +21,14 @@ This function executes bulk deletion on a single index relation as part of the v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_bulk_delete
-  - vac_tid_reaped
+  - [index_bulk_delete](../i/index_bulk_delete.md)
+  - [vac_tid_reaped](vac_tid_reaped.md)
   - ereport
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - RelationGetRelationName
 - Called from (representative examples):
-  - lazy_vacuum_one_index
-  - parallel_vacuum_process_one_index
+  - [lazy_vacuum_one_index](../l/lazy_vacuum_one_index.md)
+  - [parallel_vacuum_process_one_index](../p/parallel_vacuum_process_one_index.md)
 
 ## Notes and Other Information
 - Reports operation progress using ereport() with configurable message level

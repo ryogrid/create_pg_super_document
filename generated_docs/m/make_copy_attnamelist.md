@@ -22,12 +22,12 @@ The function uses PostgreSQL's list manipulation functions to build a list of  n
 ## Dependencies
 - Functions called/Symbols referenced:
   - lappend (list manipulation function)
-  - makeString (creates a String node for each column name)
-  - LogicalRepRelMapEntry (structure type)
+  - [makeString](makeString.md) (creates a String node for each column name)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (structure type)
   - NIL (empty list constant)
 
 - Called from (representative examples):
-  - copy_table (uses the returned list for COPY operations during table synchronization)
+  - [copy_table](../c/copy_table.md) (uses the returned list for COPY operations during table synchronization)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:724-743

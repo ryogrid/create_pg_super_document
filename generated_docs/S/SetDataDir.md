@@ -19,12 +19,12 @@ SetDataDir is the canonical function for setting the global DataDir variable in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_absolute_path (converts relative paths to absolute paths)
+  - [make_absolute_path](../m/make_absolute_path.md) (converts relative paths to absolute paths)
   - free (deallocates previously allocated DataDir memory)
   - Assert (validates input parameter)
 - Called from (representative examples):
-  - restore_backend_variables
-  - SelectConfigFiles
+  - [restore_backend_variables](../r/restore_backend_variables.md)
+  - [SelectConfigFiles](SelectConfigFiles.md)
   - AmSpecialWorkerProcess
 
 ## Notes and Other Information

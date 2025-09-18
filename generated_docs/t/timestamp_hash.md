@@ -17,7 +17,7 @@ This function provides hash support for timestamp values in PostgreSQL's hash-ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashint8 (delegates hash computation to this function)
+  - [hashint8](../h/hashint8.md) (delegates hash computation to this function)
 - Called from (representative examples):
   - No direct references found in the codebase
 

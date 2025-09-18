@@ -28,12 +28,12 @@ The function also provides debug output when debug mode is enabled, displaying t
   - pg_malloc (memory allocation)
   - TLHistoryFilePath (constructs timeline history file path)
   - source->fetch_file (fetches file from source system via replication)
-  - slurpFile (reads file from local target directory)
-  - rewind_parseTimeLineHistory (parses timeline history file content)
-  - pg_free (memory deallocation)
+  - [slurpFile](../s/slurpFile.md) (reads file from local target directory)
+  - [rewind_parseTimeLineHistory](../r/rewind_parseTimeLineHistory.md) (parses timeline history file content)
+  - [pg_free](../p/pg_free.md) (memory deallocation)
   - pg_log_debug (debug logging)
 - Called from (representative examples):
-  - main (called twice to get both source and target timeline histories)
+  - [main](../m/main.md) (called twice to get both source and target timeline histories)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

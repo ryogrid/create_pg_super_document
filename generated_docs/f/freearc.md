@@ -21,12 +21,12 @@ The freearc function safely removes an arc from an NFA structure by performing c
 ## Dependencies
 - Functions called/Symbols referenced:
   - COLORED (macro to check if arc is colored)
-  - uncolorchain (removes arc from color chain)
+  - [uncolorchain](../u/uncolorchain.md) (removes arc from color chain)
 - Called from (representative examples):
-  - dropstate (when removing states and their arcs)
-  - moveins (when reorganizing incoming arcs)
-  - moveouts (when reorganizing outgoing arcs)
-  - pull/push operations (during NFA optimization)
+  - [dropstate](../d/dropstate.md) (when removing states and their arcs)
+  - [moveins](../m/moveins.md) (when reorganizing incoming arcs)
+  - [moveouts](../m/moveouts.md) (when reorganizing outgoing arcs)
+  - [pull](../p/pull.md)/push operations (during NFA optimization)
   - fixempties (when fixing empty transitions)
   - optimizebracket (during bracket optimization)
 

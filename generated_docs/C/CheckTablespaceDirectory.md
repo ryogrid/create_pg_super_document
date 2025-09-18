@@ -28,13 +28,13 @@ This function takes no parameters and operates on the global pg_tblspc directory
 - Functions called/Symbols referenced:
   - AllocateDir
   - ReadDir  
-  - get_dirent_type
+  - [get_dirent_type](../g/get_dirent_type.md)
   - snprintf
   - strspn
   - strlen
   - ereport
 - Called from:
-  - CheckRecoveryConsistency (src/backend/access/transam/xlogrecovery.c:2243)
+  - [CheckRecoveryConsistency](CheckRecoveryConsistency.md) (src/backend/access/transam/xlogrecovery.c:2243)
 
 ## Notes and Other Information
 - This is a static function only called from within the xlogrecovery.c module

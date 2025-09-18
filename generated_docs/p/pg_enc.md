@@ -43,15 +43,15 @@ The pg_enc enumeration serves as the central registry for all character encoding
   - None (this is a type definition)
 - Called from (representative examples):
   - pg_encname
-  - pg_enc2name
+  - [pg_enc2name](pg_enc2name.md)
   - encoding_match
-  - stemmer_module
-  - xml_out_internal
+  - [stemmer_module](../s/stemmer_module.md)
+  - [xml_out_internal](../x/xml_out_internal.md)
 
 ## Notes and Other Information
 - PG_SQL_ASCII must always be 0 as it serves as the default encoding
 - When adding new encodings, developers must update pg_enc2name_tbl[], pg_enc2gettext_tbl[], and pg_wchar_table[] arrays
-- Backend encoding IDs are part of libpq's ABI and should not be renumbered for compatibility
+- [Backend](../B/Backend.md) encoding IDs are part of libpq's ABI and should not be renumbered for compatibility
 - The enumeration distinguishes between backend encodings (can be used as server encoding) and client-only encodings
 - PG_ENCODING_BE_LAST macro points to the last backend encoding (PG_KOI8U)
 - Client-only encodings cannot be used as server encodings but are available for client-server communication

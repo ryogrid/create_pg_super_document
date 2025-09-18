@@ -24,7 +24,7 @@ PQsetNoticeReceiver allows applications to install a custom callback function th
 - Functions called/Symbols referenced:
   - PQnoticeReceiver (function pointer type)
 - Called from (representative examples):
-  - ECPGconnect (in ECPG connect.c)
+  - [ECPGconnect](../E/ECPGconnect.md) (in ECPG connect.c)
 
 ## Notes and Other Information
 - Returns the previous notice receiver function pointer, allowing for restoration

@@ -35,7 +35,7 @@ The directory structure created follows the pattern:  with subdirectories for du
   - LOG_OUTPUTDIR (log subdirectory name)
   - INTERNAL_LOG_FILE (internal log filename)
 - Called from:
-  - main (from pg_upgrade.c:124)
+  - [main](main.md) (from pg_upgrade.c:124)
 
 ## Notes and Other Information
 - Uses millisecond precision timestamps to prevent directory name collisions

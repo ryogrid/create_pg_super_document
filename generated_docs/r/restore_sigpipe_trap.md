@@ -26,19 +26,19 @@ This approach is designed for psql's current architecture where nested pipe oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsignal (PostgreSQL's signal handling wrapper)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling wrapper)
   - SIGPIPE (signal constant)
   - SIG_IGN (ignore signal handler)
   - SIG_DFL (default signal handler)
   - always_ignore_sigpipe (global flag determining signal behavior)
 - Called from (representative examples):
-  - exec_command_write (at src/bin/psql/command.c:2838)
-  - do_watch (at src/bin/psql/command.c:5414, 5542)
-  - CloseGOutput (at src/bin/psql/common.c:117)
-  - setQFout (at src/bin/psql/common.c:155)
-  - do_copy (at src/bin/psql/copy.c:395)
-  - PageOutput (at src/fe_utils/print.c:3128)
-  - ClosePager (at src/fe_utils/print.c:3157)
+  - [exec_command_write](../e/exec_command_write.md) (at src/bin/psql/command.c:2838)
+  - [do_watch](../d/do_watch.md) (at src/bin/psql/command.c:5414, 5542)
+  - [CloseGOutput](../C/CloseGOutput.md) (at src/bin/psql/common.c:117)
+  - [setQFout](../s/setQFout.md) (at src/bin/psql/common.c:155)
+  - [do_copy](../d/do_copy.md) (at src/bin/psql/copy.c:395)
+  - [PageOutput](../P/PageOutput.md) (at src/fe_utils/print.c:3128)
+  - [ClosePager](../C/ClosePager.md) (at src/fe_utils/print.c:3157)
 
 ## Notes and Other Information
 - This is a public function (not static), accessible from other modules

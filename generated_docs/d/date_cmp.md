@@ -25,7 +25,7 @@ This function provides a three-way comparison for DATE data types in PostgreSQL,
   - PG_GETARG_DATEADT (macro to extract DateADT from function arguments)
   - PG_RETURN_INT32 (macro to return 32-bit integer result)
 - Called from (representative examples):
-  - compareDatetime (in src/backend/utils/adt/jsonpath_exec.c:3736)
+  - [compareDatetime](../c/compareDatetime.md) (in src/backend/utils/adt/jsonpath_exec.c:3736)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/date.c:437-449

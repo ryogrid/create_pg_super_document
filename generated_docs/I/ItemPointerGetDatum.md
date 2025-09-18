@@ -20,7 +20,7 @@ This function provides a type-safe conversion from an ItemPointer to a Datum (Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (from postgres.h)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (from postgres.h)
 - Called from (representative examples):
   - PG_RETURN_ITEMPOINTER (macro for returning ItemPointer values from functions)
 

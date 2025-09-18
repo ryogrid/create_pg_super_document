@@ -32,26 +32,26 @@ The function validates:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQenterPipelineMode - Enter pipeline mode
-  - PQsendQueryParams - Send parameterized queries
+  - [PQsendQueryParams](../P/PQsendQueryParams.md) - Send parameterized queries
   - PQpipelineSync - Send pipeline synchronization
-  - PQsetSingleRowMode - Enable single-row mode
-  - PQsetChunkedRowsMode - Enable chunked row mode
-  - PQgetResult - Retrieve query results
-  - PQsendFlushRequest - Send flush request
+  - [PQsetSingleRowMode](../P/PQsetSingleRowMode.md) - Enable single-row mode
+  - [PQsetChunkedRowsMode](../P/PQsetChunkedRowsMode.md) - Enable chunked row mode
+  - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
+  - [PQsendFlushRequest](../P/PQsendFlushRequest.md) - Send flush request
   - PQexitPipelineMode - Exit pipeline mode
-  - PQresultStatus - Get result status
-  - PQresStatus - Get status string representation
-  - PQntuples - Get number of tuples in result
-  - PQgetvalue - Get specific field value
-  - PQclear - Free result memory
-  - PQerrorMessage - Get error message
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status
+  - [PQresStatus](../P/PQresStatus.md) - Get status string representation
+  - [PQntuples](../P/PQntuples.md) - Get number of tuples in result
+  - [PQgetvalue](../P/PQgetvalue.md) - Get specific field value
+  - [PQclear](../P/PQclear.md) - Free result memory
+  - [PQerrorMessage](../P/PQerrorMessage.md) - Get error message
   - PGRES_SINGLE_TUPLE - Single tuple result status
   - PGRES_TUPLES_OK - Normal tuples result status
   - PGRES_TUPLES_CHUNK - Chunked tuples result status
   - PGRES_PIPELINE_SYNC - Pipeline sync result status
-  - ExecStatusType - Result status enumeration type
+  - ExecStatusType - [Result](../R/Result.md) status enumeration type
 - Called from (representative examples):
-  - main - Main test driver function
+  - [main](../m/main.md) - Main test driver function
 
 ## Notes and Other Information
 - This is a comprehensive test function for advanced libpq result processing modes

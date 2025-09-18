@@ -18,11 +18,11 @@ The  structure serves as a parameter context for the  function during the proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (structure)
-  - List (structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (structure)
+  - [List](../L/List.md) (structure)
 - Called from (representative examples):
-  - convert_testexpr (src/backend/optimizer/plan/subselect.c:646)
-  - convert_testexpr_mutator (src/backend/optimizer/plan/subselect.c:655)
+  - [convert_testexpr](convert_testexpr.md) (src/backend/optimizer/plan/subselect.c:646)
+  - [convert_testexpr_mutator](convert_testexpr_mutator.md) (src/backend/optimizer/plan/subselect.c:655)
 
 ## Notes and Other Information
 - This context structure is specifically designed for use with PostgreSQL's expression tree mutator pattern

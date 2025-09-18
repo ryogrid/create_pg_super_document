@@ -34,13 +34,13 @@ The insertdata parameter format is tree-specific (entry vs data trees) and is pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinPageIsIncompleteSplit, BufferGetPage
-  - ginFinishOldSplit, ginPlaceToPage, ginFinishSplit
-  - LockBuffer (GIN_UNLOCK)
-  - freeGinBtreeStack
+  - [ginFinishOldSplit](ginFinishOldSplit.md), ginPlaceToPage, ginFinishSplit
+  - [LockBuffer](../L/LockBuffer.md) (GIN_UNLOCK)
+  - [freeGinBtreeStack](../f/freeGinBtreeStack.md)
 - Called from:
-  - ginInsertItemPointers (src/backend/access/gin/gindatapage.c:1928)
-  - ginEntryInsert (src/backend/access/gin/gininsert.c:242)
-  - GinBtreeDataLeafInsertData (src/include/access/gin_private.h:209)
+  - [ginInsertItemPointers](ginInsertItemPointers.md) (src/backend/access/gin/gindatapage.c:1928)
+  - [ginEntryInsert](ginEntryInsert.md) (src/backend/access/gin/gininsert.c:242)
+  - [GinBtreeDataLeafInsertData](../G/GinBtreeDataLeafInsertData.md) (src/include/access/gin_private.h:209)
 
 ## Notes and Other Information
 The function always consumes the passed-in stack structure, freeing it before returning (similar to freeGinBtreeStack behavior). This design simplifies caller resource management but requires callers to not reuse stack pointers after calling this function. The function handles both successful direct insertions and cases requiring splits, providing a unified interface regardless of the underlying complexity.

@@ -42,8 +42,8 @@ The system uses relative pointers throughout to support dynamic shared memory sc
   - RelptrFreePageSpanLeader
 - Called from (representative examples):
   - dsm_shmem_init (DSM shared memory initialization)
-  - dsm_create (DSM segment creation)
-  - dsa_minimum_size (DSA minimum size calculation)
+  - [dsm_create](../d/dsm_create.md) (DSM segment creation)
+  - [dsa_minimum_size](../d/dsa_minimum_size.md) (DSA minimum size calculation)
   - create_internal (DSA area creation)
   - attach_internal (DSA area attachment)
 

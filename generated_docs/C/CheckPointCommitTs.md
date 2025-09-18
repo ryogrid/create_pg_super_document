@@ -19,11 +19,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruWriteAll (CommitTsCtl, true)
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md) (CommitTsCtl, true)
   - CommitTsCtl (SLRU control structure)
 
 - Called from (representative examples):
-  - CheckPointGuts (main checkpoint processing function)
+  - [CheckPointGuts](CheckPointGuts.md) (main checkpoint processing function)
 
 ## Notes and Other Information
 - This is a public function exported via commit_ts.h header file

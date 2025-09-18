@@ -40,18 +40,18 @@ Key design considerations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformWithClause (for WITH/CTE processing)  
-  - setTargetTable (for target table setup)
-  - checkInsertTargets (for column validation)
-  - transformStmt (for SELECT subquery processing)
-  - transformInsertRow (for row expression processing)
-  - transformOnConflictClause (for UPSERT handling)
-  - transformReturningList (for RETURNING clause)
-  - addRangeTableEntryForSubquery/addRangeTableEntryForValues (RTE creation)
-  - assign_query_collations (collation assignment)
+  - [transformWithClause](transformWithClause.md) (for WITH/CTE processing)  
+  - [setTargetTable](../s/setTargetTable.md) (for target table setup)
+  - [checkInsertTargets](../c/checkInsertTargets.md) (for column validation)
+  - [transformStmt](transformStmt.md) (for SELECT subquery processing)
+  - [transformInsertRow](transformInsertRow.md) (for row expression processing)
+  - [transformOnConflictClause](transformOnConflictClause.md) (for UPSERT handling)
+  - [transformReturningList](transformReturningList.md) (for RETURNING clause)
+  - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md)/addRangeTableEntryForValues (RTE creation)
+  - [assign_query_collations](../a/assign_query_collations.md) (collation assignment)
 
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 - Sets pstate->p_is_insert = true to influence subsequent processing

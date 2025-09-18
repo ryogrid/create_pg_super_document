@@ -23,16 +23,16 @@ The function is specifically designed for subplan execution scenarios where cros
 - Functions called/Symbols referenced:
   - InitTupleHashIterator
   - ScanTupleHashTable
-  - ExecStoreMinimalTuple
-  - execTuplesUnequal
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
+  - [execTuplesUnequal](../e/execTuplesUnequal.md)
   - TermTupleHashIterator
   - CHECK_FOR_INTERRUPTS
 - Types used:
-  - TupleHashTable
+  - [TupleHashTable](../T/TupleHashTable.md)
   - TupleHashIterator
-  - TupleHashEntry
+  - [TupleHashEntry](../T/TupleHashEntry.md)
 - Called from (representative examples):
-  - ExecHashSubPlan (multiple calls for different subplan execution scenarios)
+  - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (multiple calls for different subplan execution scenarios)
 
 ## Notes and Other Information
 - This is a static function internal to nodeSubplan.c, used exclusively for subplan hash table operations

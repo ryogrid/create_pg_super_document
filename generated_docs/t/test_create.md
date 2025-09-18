@@ -31,11 +31,11 @@ The tidstore is created in TopMemoryContext to persist across multiple test func
   - PG_GETARG_BOOL
   - LWLockNewTrancheId
   - LWLockRegisterTranche
-  - TidStoreCreateShared
-  - TidStoreGetDSA
-  - dsa_pin_mapping
-  - TidStoreCreateLocal
-  - TidStoreMemoryUsage
+  - [TidStoreCreateShared](../T/TidStoreCreateShared.md)
+  - [TidStoreGetDSA](../T/TidStoreGetDSA.md)
+  - [dsa_pin_mapping](../d/dsa_pin_mapping.md)
+  - [TidStoreCreateLocal](../T/TidStoreCreateLocal.md)
+  - [TidStoreMemoryUsage](../T/TidStoreMemoryUsage.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - This is a SQL-callable function, typically invoked from test scripts

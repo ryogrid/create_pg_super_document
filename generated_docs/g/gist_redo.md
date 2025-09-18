@@ -32,13 +32,13 @@ The function includes a comment noting that GiST indexes do not require conflict
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract record type information
   - XLR_INFO_MASK: Mask for extracting record type bits
-  - gistRedoPageUpdateRecord: Handle page update operations
-  - gistRedoDeleteRecord: Handle tuple deletion operations
-  - gistRedoPageReuse: Handle page reuse conflict resolution
-  - gistRedoPageSplitRecord: Handle page split operations
-  - gistRedoPageDelete: Handle page deletion operations
-  - MemoryContextSwitchTo: Switch to operation memory context
-  - MemoryContextReset: Reset memory context after operation
+  - [gistRedoPageUpdateRecord](gistRedoPageUpdateRecord.md): Handle page update operations
+  - [gistRedoDeleteRecord](gistRedoDeleteRecord.md): Handle tuple deletion operations
+  - [gistRedoPageReuse](gistRedoPageReuse.md): Handle page reuse conflict resolution
+  - [gistRedoPageSplitRecord](gistRedoPageSplitRecord.md): Handle page split operations
+  - [gistRedoPageDelete](gistRedoPageDelete.md): Handle page deletion operations
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switch to operation memory context
+  - [MemoryContextReset](../M/MemoryContextReset.md): Reset memory context after operation
   - elog: Log error messages
 - Called from:
   - WAL replay infrastructure (registered as GiST redo manager)

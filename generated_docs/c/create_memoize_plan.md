@@ -31,14 +31,14 @@ The Memoize node maintains a hash table where keys are parameter value combinati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse (creates the child plan to be memoized)
-  - replace_nestloop_params (processes parameter expressions for the current context)
-  - exprCollation (extracts collation information from parameter expressions)
-  - pull_paramids (extracts parameter IDs from expressions)
-  - make_memoize (creates the Memoize plan node with cache configuration)
-  - copy_generic_path_info (copies common path information to the plan)
+  - [create_plan_recurse](create_plan_recurse.md) (creates the child plan to be memoized)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md) (processes parameter expressions for the current context)
+  - [exprCollation](../e/exprCollation.md) (extracts collation information from parameter expressions)
+  - [pull_paramids](../p/pull_paramids.md) (extracts parameter IDs from expressions)
+  - [make_memoize](../m/make_memoize.md) (creates the Memoize plan node with cache configuration)
+  - [copy_generic_path_info](copy_generic_path_info.md) (copies common path information to the plan)
 - Called from (representative examples):
-  - create_plan_recurse (main recursive plan creation function)
+  - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)
 
 ## Notes and Other Information
 - Memoization is most effective when the same parameter values are likely to be seen multiple times

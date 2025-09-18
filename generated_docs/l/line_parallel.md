@@ -20,7 +20,7 @@ This function checks if two LINE objects are parallel by negating the result of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LINE_P: Extracts LINE arguments from function call
-  - line_interpt_line: Internal helper to test line intersection
+  - [line_interpt_line](line_interpt_line.md): Internal helper to test line intersection
   - PG_RETURN_BOOL: Returns boolean result
 - Called from (representative examples):
   - No direct callers found (likely called via PostgreSQL's function dispatch system)

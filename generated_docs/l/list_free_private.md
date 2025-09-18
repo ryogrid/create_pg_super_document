@@ -22,12 +22,12 @@ This function provides a unified memory management approach for PostgreSQL's lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_list_invariants
-  - pfree
+  - [check_list_invariants](../c/check_list_invariants.md)
+  - [pfree](../p/pfree.md)
   - lfirst
 - Called from (representative examples):
-  - list_free
-  - list_free_deep
+  - [list_free](list_free.md)
+  - [list_free_deep](list_free_deep.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside list.c

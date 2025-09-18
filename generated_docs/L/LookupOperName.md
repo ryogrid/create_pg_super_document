@@ -22,13 +22,13 @@ LookupOperName searches for an operator given its name (possibly schema-qualifie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpernameGetOprid
-  - op_signature_string
+  - [OpernameGetOprid](../O/OpernameGetOprid.md)
+  - [op_signature_string](../o/op_signature_string.md)
 - Called from (representative examples):
-  - AggregateCreate
-  - OperatorLookup
-  - DefineOpClass
-  - LookupOperWithArgs
+  - [AggregateCreate](../A/AggregateCreate.md)
+  - [OperatorLookup](../O/OperatorLookup.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [LookupOperWithArgs](LookupOperWithArgs.md)
 
 ## Notes and Other Information
 - Returns InvalidOid for failed lookups when noError is true

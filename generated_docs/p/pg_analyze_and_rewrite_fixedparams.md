@@ -31,18 +31,18 @@ Performance statistics can be logged if log_parser_stats is enabled, and the fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_analyze_fixedparams
-  - pg_rewrite_query
+  - [parse_analyze_fixedparams](parse_analyze_fixedparams.md)
+  - [pg_rewrite_query](pg_rewrite_query.md)
   - ResetUsage
   - ShowUsage
   - RawStmt (type)
   - QueryEnvironment (type)
 - Called from (representative examples):
-  - exec_simple_query
-  - _SPI_prepare_plan
-  - _SPI_execute_plan
-  - BeginCopyTo
-  - RevalidateCachedQuery
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [BeginCopyTo](../B/BeginCopyTo.md)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md)
 
 ## Notes and Other Information
 - Returns a List of Query nodes since rewriting may expand one query into several

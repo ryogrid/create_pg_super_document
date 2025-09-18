@@ -28,13 +28,13 @@ For recursive operations (Common Table Expressions with UNION), it calls . For n
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - setup_simple_rel_arrays
-  - generate_recursion_path
-  - recurse_set_operations
+  - [setup_simple_rel_arrays](../s/setup_simple_rel_arrays.md)
+  - [generate_recursion_path](../g/generate_recursion_path.md)
+  - [recurse_set_operations](../r/recurse_set_operations.md)
   - SetOperationStmt
   - RangeTblRef
 - Called from (representative examples):
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1377)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1377)
 
 ## Notes and Other Information
 - This function only handles the setOperations tree itself; top-level ORDER BY and LIMIT clauses are handled by the calling function (grouping_planner)

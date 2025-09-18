@@ -22,7 +22,7 @@ This function decides whether a commit timestamp page number is "older" for trun
 - Functions called/Symbols referenced:
   - COMMIT_TS_XACTS_PER_PAGE
   - FirstNormalTransactionId
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
 - Called from (representative examples):
   - CommitTsShmemInit (as a function pointer for SLRU operations)
 

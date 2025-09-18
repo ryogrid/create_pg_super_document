@@ -22,8 +22,8 @@ The function works by scanning backwards from the end of the string, removing '0
   - strlen (standard C library function for string length)
 
 - Called from (representative examples):
-  - EncodeDateTime (multiple calls in src/interfaces/ecpg/pgtypeslib/dt_common.c at lines 781, 819, 866, 914)
-  - AppendSeconds (src/interfaces/ecpg/pgtypeslib/interval.c:748)
+  - [EncodeDateTime](../E/EncodeDateTime.md) (multiple calls in src/interfaces/ecpg/pgtypeslib/dt_common.c at lines 781, 819, 866, 914)
+  - [AppendSeconds](../A/AppendSeconds.md) (src/interfaces/ecpg/pgtypeslib/interval.c:748)
 
 ## Notes and Other Information
 - The function modifies the input string in-place by truncating it

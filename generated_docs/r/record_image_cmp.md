@@ -31,20 +31,20 @@ The function uses caching via `RecordCompareData` to avoid repeated type lookups
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
-  - lookup_rowtype_tupdesc
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - HeapTupleHeaderGetDatumLength
-  - ItemPointerSetInvalid
-  - MemoryContextAlloc
-  - heap_deform_tuple
-  - toast_raw_datum_size
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
   - PG_DETOAST_DATUM_PACKED
   - ReleaseTupleDesc
 - Called from (representative examples):
-  - record_image_lt
-  - record_image_gt
-  - record_image_le
-  - record_image_ge
-  - btrecordimagecmp
+  - [record_image_lt](record_image_lt.md)
+  - [record_image_gt](record_image_gt.md)
+  - [record_image_le](record_image_le.md)
+  - [record_image_ge](record_image_ge.md)
+  - [btrecordimagecmp](../b/btrecordimagecmp.md)
 
 ## Notes and Other Information
 - Returns -1, 0, or 1 for less than, equal, or greater than comparisons respectively

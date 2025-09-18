@@ -25,14 +25,14 @@ If an invalid value is provided, the function calls PsqlVarEnumError to display 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - PsqlVarEnumError
   - PSQL_ECHO_QUERIES
   - PSQL_ECHO_ERRORS
   - PSQL_ECHO_ALL
   - PSQL_ECHO_NONE
 - Called from (representative examples):
-  - EstablishVariableSpace (registers the hook)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (registers the hook)
 
 ## Notes and Other Information
 - This is a static function within src/bin/psql/startup.c, used internally by psql's variable system

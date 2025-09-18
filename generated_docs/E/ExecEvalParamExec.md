@@ -23,12 +23,12 @@ The function accesses parameters through an array index stored in the ExprEvalSt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecSetParamPlan
-  - ParamExecData
+  - [ExecSetParamPlan](ExecSetParamPlan.md)
+  - [ParamExecData](../P/ParamExecData.md)
   - ExprEvalStep
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Part of PostgreSQL's expression evaluation interpreter framework

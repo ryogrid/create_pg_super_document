@@ -21,19 +21,19 @@ The function performs a simple extraction and cast from the internal integer rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (for type checking)
   - intVal (to extract integer values and cast to int32)
   - ereport (for error reporting)
-  - errcode/errmsg (for error handling)
+  - [errcode](../e/errcode.md)/errmsg (for error handling)
   
 - Called from (representative examples):
-  - DefineAggregate (src/backend/commands/aggregatecmds.c:176)
-  - DefineAggregate (src/backend/commands/aggregatecmds.c:180)
-  - createdb (src/backend/commands/dbcommands.c:880)
-  - createdb (src/backend/commands/dbcommands.c:940)
-  - AlterDatabase (src/backend/commands/dbcommands.c:2410)
-  - ATExecSetIdentity (src/backend/commands/tablecmds.c:8201)
+  - [DefineAggregate](../D/DefineAggregate.md) (src/backend/commands/aggregatecmds.c:176)
+  - [DefineAggregate](../D/DefineAggregate.md) (src/backend/commands/aggregatecmds.c:180)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:880)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:940)
+  - [AlterDatabase](../A/AlterDatabase.md) (src/backend/commands/dbcommands.c:2410)
+  - [ATExecSetIdentity](../A/ATExecSetIdentity.md) (src/backend/commands/tablecmds.c:8201)
   - ExecVacuum (src/backend/commands/vacuum.c:268)
 
 ## Notes and Other Information

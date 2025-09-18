@@ -24,11 +24,11 @@ The insertion process involves four pointer updates:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (data structure)
+  - [dlist_node](dlist_node.md) (data structure)
 - Called from (representative examples):
-  - leafRepackItems (src/backend/access/gin/gindatapage.c:1638)
-  - SyncRepQueueInsert (src/backend/replication/syncrep.c:390)
-  - dclist_insert_after (src/include/lib/ilist.h:732)
+  - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1638)
+  - [SyncRepQueueInsert](../S/SyncRepQueueInsert.md) (src/backend/replication/syncrep.c:390)
+  - [dclist_insert_after](dclist_insert_after.md) (src/include/lib/ilist.h:732)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization

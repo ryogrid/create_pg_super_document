@@ -30,17 +30,17 @@ This approach is particularly useful for dynamic SQL scenarios where parameter i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate: Creates parse state structure
-  - setup_parse_variable_parameters: Sets up dynamic parameter handling
-  - transformTopLevelStmt: Performs the main statement transformation
-  - check_variable_parameters: Validates parameter resolution
+  - [make_parsestate](../m/make_parsestate.md): Creates parse state structure
+  - [setup_parse_variable_parameters](../s/setup_parse_variable_parameters.md): Sets up dynamic parameter handling
+  - [transformTopLevelStmt](../t/transformTopLevelStmt.md): Performs the main statement transformation
+  - [check_variable_parameters](../c/check_variable_parameters.md): Validates parameter resolution
   - IsQueryIdEnabled: Checks if query ID generation is enabled
-  - JumbleQuery: Generates query ID for statistics
-  - free_parsestate: Cleanup parse state structure
-  - pgstat_report_query_id: Reports query ID for statistics collection
+  - [JumbleQuery](../J/JumbleQuery.md): Generates query ID for statistics
+  - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
+  - [pgstat_report_query_id](pgstat_report_query_id.md): Reports query ID for statistics collection
 
 - Called from (representative examples):
-  - pg_analyze_and_rewrite_varparams: Main analysis entry point for variable parameters
+  - [pg_analyze_and_rewrite_varparams](pg_analyze_and_rewrite_varparams.md): Main analysis entry point for variable parameters
 
 ## Notes and Other Information
 - This function allows more flexible parameter handling compared to parse_analyze_fixedparams

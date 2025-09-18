@@ -31,7 +31,7 @@ The `make_ctescan` function is a factory function that constructs a CteScan plan
   - makeNode (to allocate CteScan node)
   - CteScan (node type)
 - Called from (representative examples):
-  - create_ctescan_plan
+  - [create_ctescan_plan](../c/create_ctescan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's an internal helper for plan creation

@@ -23,15 +23,15 @@ The function uses the flags set during the TOAST initialization and processing p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - toast_delete_datum
-  - DatumGetPointer
+  - [pfree](../p/pfree.md)
+  - [toast_delete_datum](toast_delete_datum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - TOAST_NEEDS_FREE
   - TOAST_NEEDS_DELETE_OLD
   - TOASTCOL_NEEDS_FREE
   - TOASTCOL_NEEDS_DELETE_OLD
 - Called from (representative examples):
-  - heap_toast_insert_or_update
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md)
 
 ## Notes and Other Information
 - This is the final step in the TOAST process, ensuring proper resource management

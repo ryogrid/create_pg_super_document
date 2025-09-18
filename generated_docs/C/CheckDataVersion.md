@@ -31,7 +31,7 @@ This function takes no parameters.
   - fclose (file closing)
   - exit (program termination)
 - Called from:
-  - main (in pg_resetwal.c:361)
+  - [main](../m/main.md) (in pg_resetwal.c:361)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_resetwal.c source file

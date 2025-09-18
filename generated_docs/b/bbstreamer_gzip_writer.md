@@ -21,13 +21,13 @@ The structure works in conjunction with the bbstreamer framework, implementing t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - gzFile (zlib type)
 - Called from (representative examples):
-  - bbstreamer_gzip_writer_new
-  - bbstreamer_gzip_writer_content
-  - bbstreamer_gzip_writer_finalize
-  - bbstreamer_gzip_writer_free
+  - [bbstreamer_gzip_writer_new](bbstreamer_gzip_writer_new.md)
+  - [bbstreamer_gzip_writer_content](bbstreamer_gzip_writer_content.md)
+  - [bbstreamer_gzip_writer_finalize](bbstreamer_gzip_writer_finalize.md)
+  - [bbstreamer_gzip_writer_free](bbstreamer_gzip_writer_free.md)
 
 ## Notes and Other Information
 - This structure is only available when PostgreSQL is compiled with zlib support (HAVE_LIBZ)

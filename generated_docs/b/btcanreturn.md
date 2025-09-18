@@ -24,7 +24,7 @@ B-tree indexes in PostgreSQL always support index-only scans because they store 
 - Functions called/Symbols referenced:
   - None (trivial implementation)
 - Called from:
-  - bthandler (B-tree index access method handler registration)
+  - [bthandler](bthandler.md) (B-tree index access method handler registration)
   - Various planner and executor components that determine scan strategies
 
 ## Notes and Other Information

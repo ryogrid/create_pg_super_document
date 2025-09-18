@@ -20,11 +20,11 @@ The `relopt_enum_elt_def` structure represents a single valid value for an enume
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - init_enum_reloption (src/backend/access/common/reloptions.c:990)
-  - add_enum_reloption (src/backend/access/common/reloptions.c:1019)
-  - add_local_enum_reloption (src/backend/access/common/reloptions.c:1037)
-  - parse_one_reloption (src/backend/access/common/reloptions.c:1652)
-  - relopt_enum (src/include/access/reloptions.h:126)
+  - [init_enum_reloption](../i/init_enum_reloption.md) (src/backend/access/common/reloptions.c:990)
+  - [add_enum_reloption](../a/add_enum_reloption.md) (src/backend/access/common/reloptions.c:1019)
+  - [add_local_enum_reloption](../a/add_local_enum_reloption.md) (src/backend/access/common/reloptions.c:1037)
+  - [parse_one_reloption](../p/parse_one_reloption.md) (src/backend/access/common/reloptions.c:1652)
+  - [relopt_enum](relopt_enum.md) (src/include/access/reloptions.h:126)
 
 ## Notes and Other Information
 This structure is typically used as part of an array to define all valid values for an enum relation option. The string_val provides the user-facing name while symbol_val provides the internal representation, enabling efficient storage and comparison while maintaining user-friendly interfaces.

@@ -36,20 +36,20 @@ The function sends SIGINT to the target backend, which triggers PostgreSQL's sta
 - Functions called/Symbols referenced:
   - dlist_foreach (non-EXEC_BACKEND)
   - dlist_container (non-EXEC_BACKEND)
-  - MaxLivePostmasterChildren (EXEC_BACKEND)
-  - signal_child
+  - [MaxLivePostmasterChildren](../M/MaxLivePostmasterChildren.md) (EXEC_BACKEND)
+  - [signal_child](../s/signal_child.md)
   - ereport
-  - errmsg_internal
-  - errmsg
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errmsg](../e/errmsg.md)
 - Data structures accessed:
   - BackendList (non-EXEC_BACKEND)
   - ShmemBackendArray (EXEC_BACKEND)
-  - Backend structure fields (pid, cancel_key)
+  - [Backend](../B/Backend.md) structure fields (pid, cancel_key)
 - Constants used:
   - DEBUG2, LOG (logging levels)
   - SIGINT (signal type)
 - Called from:
-  - ProcessStartupPacket
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md)
 
 ## Notes and Other Information
 - The function supports two compilation modes (EXEC_BACKEND and non-EXEC_BACKEND) with different backend list access patterns
@@ -57,5 +57,5 @@ The function sends SIGINT to the target backend, which triggers PostgreSQL's sta
 - The SIGINT signal triggers standard PostgreSQL query cancellation, which sets the QueryCancelPending flag
 - Security is critical - wrong cancel keys are logged as potential security incidents
 - The function provides no feedback to clients, maintaining protocol simplicity
-- Backend processes handle the SIGINT signal through PostgreSQL's standard signal handling infrastructure
+- [Backend](../B/Backend.md) processes handle the SIGINT signal through PostgreSQL's standard signal handling infrastructure
 - This mechanism enables responsive query cancellation without requiring complex protocol extensions

@@ -21,13 +21,13 @@ The function checks if the current JSON string being built already has content b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransformJsonStringValuesState (state structure)
+  - [TransformJsonStringValuesState](../T/TransformJsonStringValuesState.md) (state structure)
   - appendStringInfoCharMacro (macro for appending single characters)
-  - escape_json (function to properly escape JSON strings)
+  - [escape_json](../e/escape_json.md) (function to properly escape JSON strings)
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - transform_json_string_values (main transformation function)
+  - [transform_json_string_values](transform_json_string_values.md) (main transformation function)
   - JsObjectFree (JSON object processing context)
 
 ## Notes and Other Information

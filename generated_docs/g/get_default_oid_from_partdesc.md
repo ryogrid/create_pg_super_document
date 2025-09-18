@@ -21,13 +21,13 @@ The function is a utility for the PostgreSQL partitioning system, providing a sa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDesc (type)
+  - [PartitionDesc](../P/PartitionDesc.md) (type)
   - partition_bound_has_default
 - Called from (representative examples):
-  - StorePartitionBound (src/backend/catalog/heap.c:3604)
-  - DefineRelation (src/backend/commands/tablecmds.c:1090)
-  - ATExecAttachPartition (src/backend/commands/tablecmds.c:18512)
-  - ATExecDetachPartition (src/backend/commands/tablecmds.c:19153)
+  - [StorePartitionBound](../S/StorePartitionBound.md) (src/backend/catalog/heap.c:3604)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:1090)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md) (src/backend/commands/tablecmds.c:18512)
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md) (src/backend/commands/tablecmds.c:19153)
 
 ## Notes and Other Information
 - Located in src/backend/partitioning/partdesc.c:501-508

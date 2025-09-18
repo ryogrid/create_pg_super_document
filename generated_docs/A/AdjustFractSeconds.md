@@ -29,9 +29,9 @@ The function operates by:
   - fsec_t (type definition for fractional seconds)
   - rint (standard math function for rounding)
 - Called from (representative examples):
-  - AdjustFractDays
-  - DecodeISO8601Interval (multiple locations)
-  - DecodeInterval (multiple locations)
+  - [AdjustFractDays](AdjustFractDays.md)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (multiple locations)
+  - [DecodeInterval](../D/DecodeInterval.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the interval.c file

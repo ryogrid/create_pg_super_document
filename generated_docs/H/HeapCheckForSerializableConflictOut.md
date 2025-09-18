@@ -27,18 +27,18 @@ The function uses HeapTupleSatisfiesVacuum to determine the tuple's state and ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckForSerializableConflictOutNeeded (checks if conflict detection is needed)
-  - HeapTupleSatisfiesVacuum (determines tuple visibility state)
+  - [CheckForSerializableConflictOutNeeded](../C/CheckForSerializableConflictOutNeeded.md) (checks if conflict detection is needed)
+  - [HeapTupleSatisfiesVacuum](HeapTupleSatisfiesVacuum.md) (determines tuple visibility state)
   - HeapTupleHeaderGetXmin, HeapTupleHeaderGetUpdateXid (extract transaction IDs)
-  - TransactionIdPrecedes, TransactionIdEquals, TransactionIdFollowsOrEquals (transaction ID comparisons)
-  - GetTopTransactionIdIfAny (gets current transaction ID)
-  - SubTransGetTopmostTransaction (resolves subtransaction to top-level)
-  - CheckForSerializableConflictOut (registers the conflict)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md), TransactionIdEquals, TransactionIdFollowsOrEquals (transaction ID comparisons)
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md) (gets current transaction ID)
+  - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (resolves subtransaction to top-level)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md) (registers the conflict)
 - Called from (representative examples):
-  - heapgettup (during sequential scans)
-  - heap_fetch (during index lookups)
-  - heap_hot_search_buffer (during HOT chain following)
-  - heapam_scan_bitmap_next_block (during bitmap scans)
+  - [heapgettup](../h/heapgettup.md) (during sequential scans)
+  - [heap_fetch](../h/heap_fetch.md) (during index lookups)
+  - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md) (during HOT chain following)
+  - [heapam_scan_bitmap_next_block](../h/heapam_scan_bitmap_next_block.md) (during bitmap scans)
 
 ## Notes and Other Information
 - Essential for maintaining SERIALIZABLE isolation level correctness

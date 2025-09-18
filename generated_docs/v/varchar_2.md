@@ -22,8 +22,8 @@ This particular instance uses  (defined as 8) to set the maximum character array
 - Functions called/Symbols referenced:
   - BUFFERSIZ (defined as 8 in src/interfaces/ecpg/test/expected/preproc-cursor.c:44)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/test/expected/preproc-array_of_struct.c:64)
-  - main (in src/interfaces/ecpg/test/expected/preproc-pointer_to_struct.c:65)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-array_of_struct.c:64)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-pointer_to_struct.c:65)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's ECPG test framework and is used specifically for testing variable-length string handling

@@ -26,17 +26,17 @@ The function includes strict error handling - it must PANIC on failure rather th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - BufferGetBlockNumber  
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)  
   - PageAddItem
-  - PageGetItemId
-  - PageGetItem
-  - ItemPointerSet
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - HeapTupleHeaderIsSpeculative
 - Called from (representative examples):
-  - heap_insert
-  - heap_multi_insert
-  - heap_update
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - Critical constraint: EREPORT(ERROR) is disallowed - must PANIC on failure

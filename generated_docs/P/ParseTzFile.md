@@ -23,7 +23,7 @@ This function is the core parser for PostgreSQL's timezone abbreviation files. I
 - Functions called/Symbols referenced:
   - isalpha
   - GUC_check_errmsg
-  - get_share_path
+  - [get_share_path](../g/get_share_path.md)
   - snprintf
   - AllocateFile
   - AllocateDir
@@ -33,17 +33,17 @@ This function is the core parser for PostgreSQL's timezone abbreviation files. I
   - ferror
   - strlen
   - isspace
-  - pg_strncasecmp
-  - pstrdup
+  - [pg_strncasecmp](../p/pg_strncasecmp.md)
+  - [pstrdup](../p/pstrdup.md)
   - strtok
   - WHITESPACE
-  - splitTzLine
-  - validateTzEntry
-  - addToArray
+  - [splitTzLine](../s/splitTzLine.md)
+  - [validateTzEntry](../v/validateTzEntry.md)
+  - [addToArray](../a/addToArray.md)
   - FreeFile
 - Called from (representative examples):
-  - ParseTzFile (recursive calls)
-  - load_tzoffsets
+  - [ParseTzFile](ParseTzFile.md) (recursive calls)
+  - [load_tzoffsets](../l/load_tzoffsets.md)
 
 ## Notes and Other Information
 The function enforces several security and sanity checks: filenames must contain only alphabetic characters, recursion is limited to 3 levels, and lines cannot exceed the buffer size. Special directives @INCLUDE and @OVERRIDE provide flexibility in organizing timezone data across multiple files. The parser automatically skips empty lines and comments (lines beginning with #).

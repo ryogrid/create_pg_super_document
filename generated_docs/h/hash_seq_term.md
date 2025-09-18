@@ -17,14 +17,14 @@ The hash_seq_term function is responsible for properly cleaning up after a seque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deregister_seq_scan
+  - [deregister_seq_scan](../d/deregister_seq_scan.md)
   - HASH_SEQ_STATUS (structure access)
 - Called from (representative examples):
   - logicalrep_relmap_invalidate_cb
   - logicalrep_partmap_invalidate_cb  
-  - hash_seq_search
+  - [hash_seq_search](hash_seq_search.md)
   - PortalHashTableDeleteAll
-  - PreCommit_Portals
+  - [PreCommit_Portals](../P/PreCommit_Portals.md)
 
 ## Notes and Other Information
 - This function should always be called to properly terminate hash table sequential scans

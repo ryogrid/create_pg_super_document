@@ -21,7 +21,7 @@ The int8gcd function serves as the PostgreSQL-callable wrapper for the GCD opera
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (extracts int64 arguments)
-  - int8gcd_internal (performs actual GCD computation)
+  - [int8gcd_internal](int8gcd_internal.md) (performs actual GCD computation)
   - PG_RETURN_INT64 (returns int64 result)
 - Called from:
   - No direct references found (likely called via PostgreSQL function dispatch system)

@@ -25,9 +25,9 @@ The function uses unsigned arithmetic internally to correctly handle the full ra
   - PG_INT64_MAX (maximum 64-bit signed integer constant)  
   - ereturn (error return macro for soft error handling)
 - Called from (representative examples):
-  - make_const (parser node creation function)
-  - int8in (bigint input function)
-  - pg_strtoint64 (wrapper function without error context)
+  - [make_const](../m/make_const.md) (parser node creation function)
+  - [int8in](../i/int8in.md) (bigint input function)
+  - [pg_strtoint64](pg_strtoint64.md) (wrapper function without error context)
 
 ## Notes and Other Information
 - Uses fast path optimization for common base-10 integers without special formatting

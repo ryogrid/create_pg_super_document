@@ -23,7 +23,7 @@ This function is particularly useful for validating and measuring text data in d
   - PG_GETARG_BYTEA_PP (macro for extracting BYTEA argument)
   - PG_GETARG_NAME (macro for extracting NAME argument)  
   - pg_char_to_encoding (converts encoding name to internal ID)
-  - pg_verify_mbstr_len (validates encoding and returns character length)
+  - [pg_verify_mbstr_len](../p/pg_verify_mbstr_len.md) (validates encoding and returns character length)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)
 

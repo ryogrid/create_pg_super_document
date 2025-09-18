@@ -31,9 +31,9 @@ This function helps ensure the correctness of PostgreSQL's optimization where ce
 - Functions called/Symbols referenced:
   - RelationIsPermanent
   - RELKIND_HAS_STORAGE
-  - RelFileLocatorSkippingWAL
+  - [RelFileLocatorSkippingWAL](../R/RelFileLocatorSkippingWAL.md)
 - Called from (representative examples):
-  - AssertPendingSyncs_RelationCache
+  - [AssertPendingSyncs_RelationCache](AssertPendingSyncs_RelationCache.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relcache.c module

@@ -27,7 +27,7 @@ The function is also used for INSERT ... ON CONFLICT ... UPDATE statements, thou
 - Functions called/Symbols referenced:
   - lappend_int
 - Called from (representative examples):
-  - preprocess_targetlist (src/backend/optimizer/prep/preptlist.c:109, 158)
+  - [preprocess_targetlist](../p/preprocess_targetlist.md) (src/backend/optimizer/prep/preptlist.c:109, 158)
   - make_modifytable (src/backend/optimizer/plan/createplan.c:7091)
 
 ## Notes and Other Information

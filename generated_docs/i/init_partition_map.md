@@ -20,11 +20,11 @@ The function allocates memory for three arrays based on the number of partitions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionMap (data structure)
-  - palloc (memory allocation)
+  - [PartitionMap](../P/PartitionMap.md) (data structure)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from:
-  - merge_list_bounds
-  - merge_range_bounds
+  - [merge_list_bounds](../m/merge_list_bounds.md)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - The function is static and internal to partbounds.c

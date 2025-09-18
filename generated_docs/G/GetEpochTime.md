@@ -19,16 +19,16 @@ The GetEpochTime function initializes a pg_tm structure with the date and time c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tm (PostgreSQL's time structure type)
+  - [pg_tm](../p/pg_tm.md) (PostgreSQL's time structure type)
   - pg_time_t (PostgreSQL's time_t equivalent)
-  - pg_gmtime (PostgreSQL's gmtime equivalent)
+  - [pg_gmtime](../p/pg_gmtime.md) (PostgreSQL's gmtime equivalent)
   - elog (PostgreSQL's logging function)
   - Timestamp (timestamp data type context)
 - Called from (representative examples):
-  - date_in
-  - SetEpochTimestamp
+  - [date_in](../d/date_in.md)
+  - [SetEpochTimestamp](../S/SetEpochTimestamp.md)
   - TimestampTzPlusSeconds
-  - PGTYPESdate_from_asc
+  - [PGTYPESdate_from_asc](../P/PGTYPESdate_from_asc.md)
 
 ## Notes and Other Information
 This function serves as a reference point for timestamp calculations throughout PostgreSQL. The epoch time is fundamental to Unix-based time systems and provides a consistent baseline for temporal computations. The function handles the conversion from the system's time representation to PostgreSQL's internal time structure format, ensuring proper field adjustments for year and month values. Error handling is included to detect failures in the pg_gmtime conversion, which would indicate a serious system-level issue.

@@ -25,7 +25,7 @@ The function ensures type safety by verifying that the requested function exists
   - llvm_types_module (global LLVM module)
 
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
   - llvm_compile_expr (in llvmjit_expr.c)
 
 ## Notes and Other Information

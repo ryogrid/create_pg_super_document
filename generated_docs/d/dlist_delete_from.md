@@ -22,14 +22,14 @@ The function first calls dlist_member_check to validate the node membership (in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (data structure)
-  - dlist_node (data structure)
-  - dlist_member_check (validation function)
-  - dlist_delete (core deletion function)
+  - [dlist_head](dlist_head.md) (data structure)
+  - [dlist_node](dlist_node.md) (data structure)
+  - [dlist_member_check](dlist_member_check.md) (validation function)
+  - [dlist_delete](dlist_delete.md) (core deletion function)
 - Called from (representative examples):
-  - SlabAlloc (src/backend/utils/mmgr/slab.c:685)
-  - SlabFree (src/backend/utils/mmgr/slab.c:755, 781)
-  - dclist_delete_from (src/include/lib/ilist.h:767)
+  - [SlabAlloc](../S/SlabAlloc.md) (src/backend/utils/mmgr/slab.c:685)
+  - [SlabFree](../S/SlabFree.md) (src/backend/utils/mmgr/slab.c:755, 781)
+  - [dclist_delete_from](dclist_delete_from.md) (src/include/lib/ilist.h:767)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization

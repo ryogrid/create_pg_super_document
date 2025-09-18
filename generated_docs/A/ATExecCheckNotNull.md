@@ -30,10 +30,10 @@ This approach ensures that partitioned tables maintain consistency - if the pare
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName (to lookup column in system catalog)
-  - ReleaseSysCache (to release catalog cache entry)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (to lookup column in system catalog)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (to release catalog cache entry)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command execution dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command execution dispatcher)
 
 ## Notes and Other Information
 - This command type (AT_CheckNotNull) is not directly accessible via SQL grammar but is generated internally by the system

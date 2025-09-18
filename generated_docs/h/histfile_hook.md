@@ -23,7 +23,7 @@ The function includes a comment indicating that future implementations might inc
 - Functions called/Symbols referenced:
   - (None - function only returns true)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
 
 ## Notes and Other Information
 - This is a static function within the psql startup module, making it internal to the psql implementation

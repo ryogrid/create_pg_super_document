@@ -21,22 +21,22 @@ The function registers syscache callbacks for both TSDICTOID and TSTEMPLATEOID t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the dictionary cache hash table)
-  - hash_search (searches and inserts entries in the hash table)
-  - CacheRegisterSyscacheCallback (registers cache invalidation callbacks for both dict and template catalogs)
-  - InvalidateTSCacheCallBack (cache invalidation callback function)
-  - CreateCacheMemoryContext (ensures cache memory context exists)
-  - SearchSysCache1 (system catalog lookups for both dictionary and template)
+  - [hash_create](../h/hash_create.md) (creates the dictionary cache hash table)
+  - [hash_search](../h/hash_search.md) (searches and inserts entries in the hash table)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md) (registers cache invalidation callbacks for both dict and template catalogs)
+  - [InvalidateTSCacheCallBack](../I/InvalidateTSCacheCallBack.md) (cache invalidation callback function)
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md) (ensures cache memory context exists)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookups for both dictionary and template)
   - AllocSetContextCreate (creates private memory context for each dictionary)
   - MemoryContextCopyAndSetIdentifier, MemoryContextSetIdentifier, MemoryContextReset (memory context management)
-  - SysCacheGetAttr (retrieves dictionary initialization options)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (retrieves dictionary initialization options)
   - deserialize_deflist (parses dictionary options)
   - OidFunctionCall1 (calls dictionary initialization function)
-  - fmgr_info_cxt (caches function manager information)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (caches function manager information)
 - Called from (representative examples):
-  - ts_lexize (in dict.c)
-  - thesaurus_init, thesaurus_lexize (in dict_thesaurus.c)
-  - LexizeExec (in ts_parse.c)
+  - [ts_lexize](../t/ts_lexize.md) (in dict.c)
+  - [thesaurus_init](../t/thesaurus_init.md), thesaurus_lexize (in dict_thesaurus.c)
+  - [LexizeExec](../L/LexizeExec.md) (in ts_parse.c)
 
 ## Notes and Other Information
 - Each dictionary maintains its own private memory context (dictCtx) for storing initialization data and dictionary-specific information

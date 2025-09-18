@@ -29,22 +29,22 @@ The function handles several important cases:
   - IndexRelationGetNumberOfKeyAttributes  
   - BTreeTupleGetNAtts
   - IndexRelationGetNumberOfAttributes
-  - _bt_metaversion
-  - BTreeTupleGetHeapTID
-  - index_getprocinfo
-  - index_getattr
-  - ScanKeyEntryInitializeWithInfo
-  - BTScanInsertData
+  - [_bt_metaversion](_bt_metaversion.md)
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
+  - [index_getprocinfo](../i/index_getprocinfo.md)
+  - [index_getattr](../i/index_getattr.md)
+  - [ScanKeyEntryInitializeWithInfo](../S/ScanKeyEntryInitializeWithInfo.md)
+  - [BTScanInsertData](../B/BTScanInsertData.md)
   - BTORDER_PROC
   - SK_ISNULL
   - SK_BT_INDOPTION_SHIFT
 
 - Called from (representative examples):
-  - _bt_doinsert (B-tree insertion operations)
-  - _bt_pagedel (Page deletion operations)
-  - _bt_leafbuild (Leaf page building during index creation)
-  - tuplesort_begin_cluster (Cluster sorting operations)
-  - tuplesort_begin_index_btree (B-tree index sorting)
+  - [_bt_doinsert](_bt_doinsert.md) (B-tree insertion operations)
+  - [_bt_pagedel](_bt_pagedel.md) (Page deletion operations)
+  - [_bt_leafbuild](_bt_leafbuild.md) (Leaf page building during index creation)
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md) (Cluster sorting operations)
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md) (B-tree index sorting)
 
 ## Notes and Other Information
 - The function assumes heapkeyspace index behavior when caller passes a NULL tuple, which is useful for index build operations that don't have access to the metapage yet

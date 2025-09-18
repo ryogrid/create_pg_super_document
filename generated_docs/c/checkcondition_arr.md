@@ -29,12 +29,12 @@ When a match is found, the function returns `TS_MAYBE` rather than `TS_YES` beca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `CHKVAL`: Structure type for array bounds
+  - `[CHKVAL](../C/CHKVAL.md)`: Structure type for array bounds
   - `QueryOperand`: Query operand structure
   - `ExecPhraseData`: Execution phrase data structure
   - `TSTernaryValue`: Return type enum (`TS_NO`, `TS_MAYBE`, `TS_YES`)
 - Called from (representative examples):
-  - `gtsvector_consistent`: Main consistency checking function for TSVector GiST operations
+  - `[gtsvector_consistent](../g/gtsvector_consistent.md)`: Main consistency checking function for TSVector GiST operations
 
 ## Notes and Other Information
 - Implements efficient O(log n) binary search for hash lookup

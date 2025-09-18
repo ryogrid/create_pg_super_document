@@ -24,18 +24,18 @@ Error checking ensures that the provided types are actually arrays, ranges, or m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType: Gets the base type of a potentially domain type
-  - get_element_type: Extracts element type from array type
-  - get_range_subtype: Extracts subtype from range type
-  - get_multirange_range: Extracts range type from multirange type
+  - [getBaseType](../g/getBaseType.md): Gets the base type of a potentially domain type
+  - [get_element_type](../g/get_element_type.md): Extracts element type from array type
+  - [get_range_subtype](../g/get_range_subtype.md): Extracts subtype from range type
+  - [get_multirange_range](../g/get_multirange_range.md): Extracts range type from multirange type
   - OidIsValid: Macro to check if an OID is valid
   - ereport/elog: Error reporting functions
-  - format_type_be: Formats type OID as string for error messages
+  - [format_type_be](../f/format_type_be.md): Formats type OID as string for error messages
 
 - Called from (representative examples):
-  - resolve_anyarray_from_others: When resolving anyarray types
-  - resolve_polymorphic_tupdesc: When resolving tuple descriptors with polymorphic types
-  - resolve_polymorphic_argtypes: When resolving function argument types
+  - [resolve_anyarray_from_others](resolve_anyarray_from_others.md): When resolving anyarray types
+  - [resolve_polymorphic_tupdesc](resolve_polymorphic_tupdesc.md): When resolving tuple descriptors with polymorphic types
+  - [resolve_polymorphic_argtypes](resolve_polymorphic_argtypes.md): When resolving function argument types
 
 ## Notes and Other Information
 - This is a static function, only used within funcapi.c

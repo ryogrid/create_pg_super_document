@@ -24,18 +24,18 @@ Unlike insert and update operations, there is no "WithInfo" version of this func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_heap_delete
+  - [simple_heap_delete](../s/simple_heap_delete.md)
 - Called from (representative examples):
-  - ExecGrant_Parameter
-  - DropObjectById
-  - deleteOneObject
-  - DeleteInitPrivs
-  - RelationRemoveInheritance
-  - DeleteRelationTuple
-  - heap_drop_with_catalog
-  - RemoveStatistics
-  - index_drop
-  - deleteDependencyRecordsFor
+  - [ExecGrant_Parameter](../E/ExecGrant_Parameter.md)
+  - [DropObjectById](../D/DropObjectById.md)
+  - [deleteOneObject](../d/deleteOneObject.md)
+  - [DeleteInitPrivs](../D/DeleteInitPrivs.md)
+  - [RelationRemoveInheritance](../R/RelationRemoveInheritance.md)
+  - [DeleteRelationTuple](../D/DeleteRelationTuple.md)
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [RemoveStatistics](../R/RemoveStatistics.md)
+  - [index_drop](../i/index_drop.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
 
 ## Notes and Other Information
 - This function maintains the catalog management abstraction despite currently being a simple wrapper

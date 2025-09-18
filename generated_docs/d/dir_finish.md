@@ -20,10 +20,10 @@ This function is a static implementation of the finish operation for the directo
 ## Dependencies
 - Functions called/Symbols referenced:
   - clear_error (internal function)
-  - fsync_fname (PostgreSQL utility function)
+  - [fsync_fname](../f/fsync_fname.md) (PostgreSQL utility function)
 - Data structures used:
-  - WalWriteMethod
-  - DirectoryMethodData
+  - [WalWriteMethod](../W/WalWriteMethod.md)
+  - [DirectoryMethodData](../D/DirectoryMethodData.md)
 - Called from:
   - Used as a function pointer in WAL writing method operations during cleanup
 

@@ -20,14 +20,14 @@ The function deletes all segments in the range [oldestOffset, newOldestOffset) b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MXOffsetToMemberSegment
-  - SlruDeleteSegment
+  - [MXOffsetToMemberSegment](../M/MXOffsetToMemberSegment.md)
+  - [SlruDeleteSegment](../S/SlruDeleteSegment.md)
   - MultiXactMemberCtl
   - MaxMultiXactOffset
   - DEBUG2
 - Called from (representative examples):
-  - TruncateMultiXact
-  - multixact_redo
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
+  - [multixact_redo](../m/multixact_redo.md)
 
 ## Notes and Other Information
 - Handles segment wraparound by checking against maxsegment and resetting to 0

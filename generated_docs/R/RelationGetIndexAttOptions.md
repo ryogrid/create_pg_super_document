@@ -21,14 +21,14 @@ The function handles memory management carefully, switching to the relation's in
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes
-  - CopyIndexAttOptions
-  - get_attoptions
-  - index_opclass_options
+  - [CopyIndexAttOptions](../C/CopyIndexAttOptions.md)
+  - [get_attoptions](../g/get_attoptions.md)
+  - [index_opclass_options](../i/index_opclass_options.md)
 - Called from (representative examples):
-  - index_getprocinfo
-  - get_relation_info
-  - RelationInitIndexAccessInfo
-  - load_critical_index
+  - [index_getprocinfo](../i/index_getprocinfo.md)
+  - [get_relation_info](../g/get_relation_info.md)
+  - [RelationInitIndexAccessInfo](RelationInitIndexAccessInfo.md)
+  - [load_critical_index](../l/load_critical_index.md)
 
 ## Notes and Other Information
 - Uses criticalRelcachesBuilt flag to avoid circular dependencies during system catalog initialization

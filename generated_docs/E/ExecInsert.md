@@ -32,20 +32,20 @@ The function supports batching for FDWs that can handle multiple rows efficientl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecPrepareTupleRouting (partition routing)
+  - [ExecPrepareTupleRouting](ExecPrepareTupleRouting.md) (partition routing)
   - ExecMaterializeSlot (tuple materialization)
-  - ExecBRInsertTriggers/ExecIRInsertTriggers/ExecARInsertTriggers (trigger handling)
-  - ExecComputeStoredGenerated (generated columns)
-  - ExecBatchInsert (FDW batch processing)
-  - ExecCheckIndexConstraints (conflict detection)
-  - ExecOnConflictUpdate (ON CONFLICT DO UPDATE)
+  - [ExecBRInsertTriggers](ExecBRInsertTriggers.md)/ExecIRInsertTriggers/ExecARInsertTriggers (trigger handling)
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md) (generated columns)
+  - [ExecBatchInsert](ExecBatchInsert.md) (FDW batch processing)
+  - [ExecCheckIndexConstraints](ExecCheckIndexConstraints.md) (conflict detection)
+  - [ExecOnConflictUpdate](ExecOnConflictUpdate.md) (ON CONFLICT DO UPDATE)
   - table_tuple_insert/table_tuple_insert_speculative (heap insertion)
-  - ExecInsertIndexTuples (index maintenance)
-  - ExecProcessReturning (RETURNING clause processing)
+  - [ExecInsertIndexTuples](ExecInsertIndexTuples.md) (index maintenance)
+  - [ExecProcessReturning](ExecProcessReturning.md) (RETURNING clause processing)
 - Called from (representative examples):
-  - ExecModifyTable (main INSERT execution)
-  - ExecMergeNotMatched (MERGE statement INSERT actions)
-  - ExecCrossPartitionUpdate (partition key updates)
+  - [ExecModifyTable](ExecModifyTable.md) (main INSERT execution)
+  - [ExecMergeNotMatched](ExecMergeNotMatched.md) (MERGE statement INSERT actions)
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md) (partition key updates)
 
 ## Notes and Other Information
 - The function may change the active tuple conversion map in mtstate->mt_transition_capture, requiring callers to save the previous value

@@ -27,11 +27,11 @@ This ensures that modifications to the copied options won't affect the original 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - datumCopy
-  - PointerGetDatum/DatumGetPointer
+  - [palloc](../p/palloc.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)/DatumGetPointer
 - Called from (representative examples):
-  - RelationGetIndexAttOptions
+  - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

@@ -29,12 +29,12 @@ This design allows parallel operations to specify worker functions as strings th
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro for array size)
-  - load_external_function (dynamic library loading)
+  - [load_external_function](../l/load_external_function.md) (dynamic library loading)
   - InternalParallelWorkers (global array of core parallel worker functions)
   - strcmp (string comparison)
   - elog (error logging)
 - Called from (representative examples):
-  - ParallelWorkerMain (during worker initialization)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (during worker initialization)
 
 ## Notes and Other Information
 - Declared as `static` - only visible within parallel.c

@@ -25,7 +25,7 @@ The implementation is intentionally simple and mirrors the behavior of the stand
 - Functions called/Symbols referenced:
   - close (system call)
 - Called from (representative examples):
-  - main (assigned as callback to XLogReaderRoutine)
+  - [main](../m/main.md) (assigned as callback to XLogReaderRoutine)
 
 ## Notes and Other Information
 - Implements the segment_close callback interface required by XLogReaderRoutine

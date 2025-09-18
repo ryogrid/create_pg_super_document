@@ -25,18 +25,18 @@ The scan ensures all leaf pages are visited, which is critical for correctness s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initSpGistState
+  - [initSpGistState](../i/initSpGistState.md)
   - GetActiveSnapshot
   - LockRelationForExtension/UnlockRelationForExtension
   - RelationGetNumberOfBlocks
-  - spgvacuumpage
-  - spgprocesspending
-  - SpGistUpdateMetaPage
+  - [spgvacuumpage](spgvacuumpage.md)
+  - [spgprocesspending](spgprocesspending.md)
+  - [SpGistUpdateMetaPage](../S/SpGistUpdateMetaPage.md)
   - IndexFreeSpaceMapVacuum
   - RELATION_IS_LOCAL
 - Called from (representative examples):
-  - spgbulkdelete
-  - spgvacuumcleanup
+  - [spgbulkdelete](spgbulkdelete.md)
+  - [spgvacuumcleanup](spgvacuumcleanup.md)
 
 ## Notes and Other Information
 - Initializes bulk delete statistics and resets counters for multiple scans within a single VACUUM command

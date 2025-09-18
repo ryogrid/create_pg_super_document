@@ -25,9 +25,9 @@ The structure is designed to be used with PostgreSQL's hash table implementation
   - NAMEDATALEN
   - MAX_CACHED_PATH_LEN
 - Called from (representative examples):
-  - OprCacheEntry (as a member)
-  - make_oper_cache_key
-  - find_oper_cache_entry
+  - [OprCacheEntry](OprCacheEntry.md) (as a member)
+  - [make_oper_cache_key](../m/make_oper_cache_key.md)
+  - [find_oper_cache_entry](../f/find_oper_cache_entry.md)
 
 ## Notes and Other Information
 - The structure must be zero-filled before use to ensure stable hashing behavior

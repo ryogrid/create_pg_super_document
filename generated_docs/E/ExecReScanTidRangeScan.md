@@ -21,9 +21,9 @@ The function sets the `trss_inScan` flag to false, indicating that the scan is n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecScanReScan (generic scan rescan functionality)
+  - [ExecScanReScan](ExecScanReScan.md) (generic scan rescan functionality)
 - Called from (representative examples):
-  - ExecReScan (generic plan node rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (generic plan node rescan dispatcher)
 
 ## Notes and Other Information
 - The function implements lazy rescanning - table_rescan_tidrange is not called until TidRangeNext executes

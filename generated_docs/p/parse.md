@@ -28,11 +28,11 @@ The function creates a branching structure in the NFA (Non-deterministic Finite 
 ## Dependencies
 - Functions called/Symbols referenced:
   - subre: Creates new sub-regular expression nodes
-  - newstate: Creates new NFA states
+  - [newstate](../n/newstate.md): Creates new NFA states
   - EMPTYARC: Creates empty transitions between states
-  - parsebranch: Parses individual branches of the alternation
-  - freesrnode: Frees sub-regular expression nodes
-  - freesubreandsiblings: Frees entire chains of sub-expressions
+  - [parsebranch](parsebranch.md): Parses individual branches of the alternation
+  - [freesrnode](../f/freesrnode.md): Frees sub-regular expression nodes
+  - [freesubreandsiblings](../f/freesubreandsiblings.md): Frees entire chains of sub-expressions
   - Various macro utilities: NOERR, EAT, SEE, UP, MESSY, ERR
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

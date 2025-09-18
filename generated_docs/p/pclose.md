@@ -22,13 +22,13 @@ The macro is defined within conditional compilation blocks that handle Windows-s
 ## Dependencies
 - Functions called/Symbols referenced:
   - _pclose (Windows)
-  - pclose (Unix standard library)
+  - [pclose](pclose.md) (Unix standard library)
 - Called from (representative examples):
   - FreeDesc (src/backend/storage/file/fd.c:2750)
   - ClosePipeStream (src/backend/storage/file/fd.c:3006)
-  - pclose_check (src/common/exec.c:415)
-  - CloseGOutput (src/bin/psql/common.c:116)
-  - ClosePager (src/fe_utils/print.c:3156)
+  - [pclose_check](pclose_check.md) (src/common/exec.c:415)
+  - [CloseGOutput](../C/CloseGOutput.md) (src/bin/psql/common.c:116)
+  - [ClosePager](../C/ClosePager.md) (src/fe_utils/print.c:3156)
 
 ## Notes and Other Information
 - This is a preprocessor macro, not a function, defined conditionally for Windows builds

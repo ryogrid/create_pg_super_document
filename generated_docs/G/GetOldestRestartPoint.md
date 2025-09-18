@@ -25,8 +25,8 @@ The function copies the redo pointer and timeline ID from the control file's che
   - ControlFile (global variable)
   - LW_SHARED (lock mode constant)
 - Called from (representative examples):
-  - RestoreArchivedFile (in xlogarchive.c)
-  - ExecuteRecoveryCommand (in xlogarchive.c)
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) (in xlogarchive.c)
+  - [ExecuteRecoveryCommand](../E/ExecuteRecoveryCommand.md) (in xlogarchive.c)
 
 ## Notes and Other Information
 - This function is thread-safe as it properly acquires the ControlFileLock in shared mode

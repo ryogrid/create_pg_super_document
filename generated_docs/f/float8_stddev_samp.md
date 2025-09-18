@@ -19,7 +19,7 @@ This function computes the sample standard deviation from aggregate transition v
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (macro for extracting array argument)
-  - check_float8_array (validates and extracts float8 values from array)
+  - [check_float8_array](../c/check_float8_array.md) (validates and extracts float8 values from array)
 - Called from (representative examples):
   - No direct callers found (likely used through SQL aggregate system)
 

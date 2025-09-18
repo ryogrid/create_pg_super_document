@@ -24,10 +24,10 @@ The function maintains the invariant that constant-containing ECs can be safely 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_membership
-  - distribute_restrictinfo_to_rels
+  - [bms_membership](../b/bms_membership.md)
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md)
 - Called from (representative examples):
-  - generate_base_implied_equalities (src/backend/optimizer/path/equivclass.c:1066)
+  - [generate_base_implied_equalities](generate_base_implied_equalities.md) (src/backend/optimizer/path/equivclass.c:1066)
 
 ## Notes and Other Information
 - This is a static helper function specifically for handling broken EquivalenceClass cleanup

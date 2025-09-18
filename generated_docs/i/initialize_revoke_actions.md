@@ -24,12 +24,12 @@ The resulting array serves as a working space where the system can plan what sho
 ## Dependencies
 - Functions called/Symbols referenced:
   - CatCList
-  - RevokeRoleGrantAction
+  - [RevokeRoleGrantAction](../R/RevokeRoleGrantAction.md)
   - RRG_NOOP
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - AddRoleMems
-  - DelRoleMems
+  - [AddRoleMems](../A/AddRoleMems.md)
+  - [DelRoleMems](../D/DelRoleMems.md)
 
 ## Notes and Other Information
 - Returns NULL if the membership list is empty (no grants exist)

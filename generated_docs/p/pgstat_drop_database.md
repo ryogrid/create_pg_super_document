@@ -20,7 +20,7 @@ This function is responsible for cleaning up statistics tracking data when a dat
   - pgstat_drop_transactional
   - PGSTAT_KIND_DATABASE
 - Called from (representative examples):
-  - dropdb (in src/backend/commands/dbcommands.c:1777)
+  - [dropdb](../d/dropdb.md) (in src/backend/commands/dbcommands.c:1777)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's statistics collection system

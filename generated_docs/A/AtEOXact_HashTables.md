@@ -21,14 +21,14 @@ This function is called at the end of every transaction (both commit and abort) 
 - Functions called/Symbols referenced:
   - None (uses only global variables and elog)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
-  - AbortTransaction
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - pgarch_archiveXlog
-  - WalSummarizerMain
-  - WalWriterMain
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [AbortTransaction](AbortTransaction.md)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [pgarch_archiveXlog](../p/pgarch_archiveXlog.md)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
+  - [WalWriterMain](../W/WalWriterMain.md)
   - HASH_SEQ_STATUS
 
 ## Notes and Other Information

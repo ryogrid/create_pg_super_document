@@ -25,22 +25,22 @@ The function performs different locking strategies depending on the object type:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_relation_by_qualified_name (for relation objects)
-  - get_object_address_attribute (for attributes/columns)
-  - get_object_address_relobject (for relation-dependent objects like triggers, rules)
-  - get_object_address_unqualified (for simple named objects)
-  - get_object_address_type (for types and domains)
-  - LookupFuncWithArgs (for functions/procedures)
-  - LookupOperWithArgs (for operators)
+  - [get_relation_by_qualified_name](get_relation_by_qualified_name.md) (for relation objects)
+  - [get_object_address_attribute](get_object_address_attribute.md) (for attributes/columns)
+  - [get_object_address_relobject](get_object_address_relobject.md) (for relation-dependent objects like triggers, rules)
+  - [get_object_address_unqualified](get_object_address_unqualified.md) (for simple named objects)
+  - [get_object_address_type](get_object_address_type.md) (for types and domains)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md) (for functions/procedures)
+  - [LookupOperWithArgs](../L/LookupOperWithArgs.md) (for operators)
   - Various get_*_oid functions for specific object types
-  - LockSharedObject/LockDatabaseObject (for locking)
+  - [LockSharedObject](../L/LockSharedObject.md)/LockDatabaseObject (for locking)
   - SharedInvalidMessageCounter (for concurrency control)
 - Called from (representative examples):
-  - get_object_address_rv
-  - pg_get_object_address
-  - ExecRenameStmt
-  - CommentObject
-  - RemoveObjects
+  - [get_object_address_rv](get_object_address_rv.md)
+  - [pg_get_object_address](../p/pg_get_object_address.md)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md)
+  - [CommentObject](../C/CommentObject.md)
+  - [RemoveObjects](../R/RemoveObjects.md)
 
 ## Notes and Other Information
 The function uses a sophisticated retry loop to handle race conditions where concurrent DDL operations might change object mappings between lookup and locking. This is particularly important for maintaining consistency in a multi-user environment. The function is designed to be lock-safe and ensures that the returned ObjectAddress corresponds to a properly locked database object. The locking strategy varies by object type, with relation-based objects receiving more granular locking control than standalone objects.

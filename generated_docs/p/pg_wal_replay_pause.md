@@ -27,10 +27,10 @@ This functionality is crucial for maintenance operations, debugging recovery iss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress: Checks if database is in recovery mode
-  - PromoteIsTriggered: Checks if standby promotion is ongoing
-  - SetRecoveryPause: Sets the recovery pause state to true
-  - WakeupRecovery: Signals the recovery process to acknowledge the pause
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if database is in recovery mode
+  - [PromoteIsTriggered](../P/PromoteIsTriggered.md): Checks if standby promotion is ongoing
+  - [SetRecoveryPause](../S/SetRecoveryPause.md): Sets the recovery pause state to true
+  - [WakeupRecovery](../W/WakeupRecovery.md): Signals the recovery process to acknowledge the pause
   - PG_RETURN_VOID: Returns void from SQL function
 
 ## Notes and Other Information

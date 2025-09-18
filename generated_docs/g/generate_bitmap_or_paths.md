@@ -34,16 +34,16 @@ The function handles nested OR structures through recursion and uses both curren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_paths_for_OR
-  - choose_bitmap_and
-  - create_bitmap_or_path
-  - restriction_is_or_clause
-  - is_andclause
-  - list_concat_copy
-  - list_concat
+  - [build_paths_for_OR](../b/build_paths_for_OR.md)
+  - [choose_bitmap_and](../c/choose_bitmap_and.md)
+  - [create_bitmap_or_path](../c/create_bitmap_or_path.md)
+  - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
+  - [is_andclause](../i/is_andclause.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - create_index_paths
-  - generate_bitmap_or_paths (recursive)
+  - [create_index_paths](../c/create_index_paths.md)
+  - [generate_bitmap_or_paths](generate_bitmap_or_paths.md) (recursive)
 
 ## Notes and Other Information
 - Recursively handles nested OR expressions within AND clauses

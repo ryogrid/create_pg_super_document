@@ -26,12 +26,12 @@ The function carefully avoids closing the root partitioned table (index 0 in par
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_close
-  - ExecDropSingleTupleTableSlot
-  - ExecCloseIndices
+  - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md)
+  - [ExecCloseIndices](ExecCloseIndices.md)
 - Called from (representative examples):
-  - CopyFrom (during COPY operations)
-  - ExecEndModifyTable (during modify table cleanup)
-  - finish_edata (during logical replication worker cleanup)
+  - [CopyFrom](../C/CopyFrom.md) (during COPY operations)
+  - [ExecEndModifyTable](ExecEndModifyTable.md) (during modify table cleanup)
+  - [finish_edata](../f/finish_edata.md) (during logical replication worker cleanup)
 
 ## Notes and Other Information
 - The root partitioned table (proute->partition_dispatch_info[0]) is intentionally skipped during cleanup as it will be closed by the calling context

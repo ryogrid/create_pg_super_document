@@ -21,16 +21,16 @@ The function carefully handles memory allocation and ensures proper initializati
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - pqSetResultError  
-  - dupEvents
-  - PQclear
+  - [pqSetResultError](../p/pqSetResultError.md)  
+  - [dupEvents](../d/dupEvents.md)
+  - [PQclear](PQclear.md)
 - Called from (representative examples):
-  - PQcopyResult
-  - pqPrepareAsyncResult
-  - pqInternalNotice
-  - getCopyResult
-  - pqParseInput3
-  - getRowDescriptions
+  - [PQcopyResult](PQcopyResult.md)
+  - [pqPrepareAsyncResult](../p/pqPrepareAsyncResult.md)
+  - [pqInternalNotice](../p/pqInternalNotice.md)
+  - [getCopyResult](../g/getCopyResult.md)
+  - [pqParseInput3](../p/pqParseInput3.md)
+  - [getRowDescriptions](../g/getRowDescriptions.md)
 
 ## Notes and Other Information
 - Returns NULL if memory allocation fails

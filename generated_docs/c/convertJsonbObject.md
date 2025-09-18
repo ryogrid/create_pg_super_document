@@ -29,12 +29,12 @@ The two-phase processing (keys first, then values) ensures that JSONB objects ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - padBufferToInt (aligns buffer to 4-byte boundary)
-  - appendToBuffer (appends data to buffer)
-  - reserveFromBuffer (reserves space in buffer)
-  - convertJsonbScalar (converts object keys, which must be strings)
-  - convertJsonbValue (recursively converts object values)
-  - copyToBuffer (copies data to specific buffer offset)
+  - [padBufferToInt](../p/padBufferToInt.md) (aligns buffer to 4-byte boundary)
+  - [appendToBuffer](../a/appendToBuffer.md) (appends data to buffer)
+  - [reserveFromBuffer](../r/reserveFromBuffer.md) (reserves space in buffer)
+  - [convertJsonbScalar](convertJsonbScalar.md) (converts object keys, which must be strings)
+  - [convertJsonbValue](convertJsonbValue.md) (recursively converts object values)
+  - [copyToBuffer](copyToBuffer.md) (copies data to specific buffer offset)
   - JBE_OFFLENFLD (extracts offset/length from JEntry)
 - Constants used:
   - JB_FOBJECT (object flag)
@@ -44,7 +44,7 @@ The two-phase processing (keys first, then values) ensures that JSONB objects ha
   - JENTRY_HAS_OFF (offset flag)
   - JENTRY_ISCONTAINER (container flag)
 - Called from:
-  - convertJsonbValue (main conversion dispatcher)
+  - [convertJsonbValue](convertJsonbValue.md) (main conversion dispatcher)
 
 ## Notes and Other Information
 - Processes object pairs in two phases: first all keys, then all values, to maintain required binary layout

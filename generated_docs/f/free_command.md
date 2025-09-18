@@ -20,7 +20,7 @@ The function handles the PQExpBuffer for SQL text using the appropriate termPQEx
 ## Dependencies
 - Functions called/Symbols referenced:
   - termPQExpBuffer: Properly deallocates the PQExpBuffer used for SQL text storage
-  - pg_free: PostgreSQL's memory deallocation function for freeing individual memory blocks
+  - [pg_free](../p/pg_free.md): PostgreSQL's memory deallocation function for freeing individual memory blocks
 - Called from (representative examples):
   - Script cleanup functions during pgbench termination or error handling
 

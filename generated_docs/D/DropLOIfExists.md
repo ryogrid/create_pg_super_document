@@ -22,15 +22,15 @@ The function is typically used in pg_restore scenarios where large objects may a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ahprintf
+  - [ahprintf](../a/ahprintf.md)
 - Types referenced:
-  - ArchiveHandle
+  - [ArchiveHandle](../A/ArchiveHandle.md)
   - Oid
 
 - Called from (representative examples):
-  - RestoreArchive
-  - StartRestoreLO
-  - _StartLO
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [StartRestoreLO](../S/StartRestoreLO.md)
+  - [_StartLO](../S/_StartLO.md)
 
 ## Notes and Other Information
 - This is a simple utility function that generates SQL rather than executing it directly

@@ -25,17 +25,17 @@ The function is commonly used in path parsing operations where you need to split
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip_drive (to bypass drive prefixes)
+  - [skip_drive](../s/skip_drive.md) (to bypass drive prefixes)
   - IS_DIR_SEP (macro for checking directory separators)
   - unconstify (macro for casting away const qualifier)
 - Called from (representative examples):
-  - check_valid_extension_name (in src/backend/commands/extension.c)
-  - check_valid_version_name (in src/backend/commands/extension.c)
-  - expand_dynamic_library_name (in src/backend/utils/fmgr/dfmgr.c)
-  - check_restricted_library_name (in src/backend/utils/fmgr/dfmgr.c)
-  - substitute_libpath_macro (in src/backend/utils/fmgr/dfmgr.c)
-  - find_in_dynamic_libpath (in src/backend/utils/fmgr/dfmgr.c)
-  - load_libraries (in src/backend/utils/init/miscinit.c)
+  - [check_valid_extension_name](../c/check_valid_extension_name.md) (in src/backend/commands/extension.c)
+  - [check_valid_version_name](../c/check_valid_version_name.md) (in src/backend/commands/extension.c)
+  - [expand_dynamic_library_name](../e/expand_dynamic_library_name.md) (in src/backend/utils/fmgr/dfmgr.c)
+  - [check_restricted_library_name](../c/check_restricted_library_name.md) (in src/backend/utils/fmgr/dfmgr.c)
+  - [substitute_libpath_macro](../s/substitute_libpath_macro.md) (in src/backend/utils/fmgr/dfmgr.c)
+  - [find_in_dynamic_libpath](find_in_dynamic_libpath.md) (in src/backend/utils/fmgr/dfmgr.c)
+  - [load_libraries](../l/load_libraries.md) (in src/backend/utils/init/miscinit.c)
   - find_my_exec (in src/common/exec.c)
 
 ## Notes and Other Information

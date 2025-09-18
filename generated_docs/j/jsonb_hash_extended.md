@@ -31,15 +31,15 @@ The function maintains the same structural iteration pattern as jsonb_hash but p
   - PG_GETARG_INT64
   - JB_ROOT_COUNT
   - PG_RETURN_UINT64
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - JsonbHashScalarValueExtended (src/backend/utils/adt/jsonb_util.c:1365-1406)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [JsonbHashScalarValueExtended](../J/JsonbHashScalarValueExtended.md) (src/backend/utils/adt/jsonb_util.c:1365-1406)
   - PG_FREE_IF_COPY
   - elog
 - Data types used:
   - Jsonb
   - JsonbIterator
-  - JsonbValue
+  - [JsonbValue](../J/JsonbValue.md)
   - JsonbIteratorToken
   - uint64
 - Constants used:

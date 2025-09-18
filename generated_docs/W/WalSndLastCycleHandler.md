@@ -20,12 +20,12 @@ This function serves as a signal handler for SIGUSR2 that initiates the final ph
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (macro for signal handler parameters)
-  - SetLatch (function to wake up waiting process)
+  - [SetLatch](../S/SetLatch.md) (function to wake up waiting process)
   - got_SIGUSR2 (global flag variable)
   - MyLatch (global latch for current process)
 - Called from (representative examples):
-  - LagTracker
-  - WalSndSignals
+  - [LagTracker](../L/LagTracker.md)
+  - [WalSndSignals](WalSndSignals.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the walsender.c module

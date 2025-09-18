@@ -30,13 +30,13 @@ The function creates a complex control flow graph with basic blocks for each att
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - llvm_mutable_module: Gets mutable LLVM module for code generation
-  - llvm_expand_funcname: Creates unique function name
-  - llvm_copy_attributes: Copies function attributes from template
-  - llvm_pg_func: Gets PostgreSQL function declarations
-  - llvm_pg_var_func_type: Gets function type for variable-length operations
-  - slot_getmissingattrs: Handles missing attributes in sparse tuples
-  - varsize_any: Calculates size of variable-length attributes
+  - [llvm_mutable_module](../l/llvm_mutable_module.md): Gets mutable LLVM module for code generation
+  - [llvm_expand_funcname](../l/llvm_expand_funcname.md): Creates unique function name
+  - [llvm_copy_attributes](../l/llvm_copy_attributes.md): Copies function attributes from template
+  - [llvm_pg_func](../l/llvm_pg_func.md): Gets PostgreSQL function declarations
+  - [llvm_pg_var_func_type](../l/llvm_pg_var_func_type.md): Gets function type for variable-length operations
+  - [slot_getmissingattrs](slot_getmissingattrs.md): Handles missing attributes in sparse tuples
+  - [varsize_any](../v/varsize_any.md): Calculates size of variable-length attributes
   - strlen: Calculates length of null-terminated strings
 - Called from (representative examples):
   - llvm_compile_expr: Uses deformation functions in expression compilation

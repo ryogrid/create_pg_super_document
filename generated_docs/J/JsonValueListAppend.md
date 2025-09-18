@@ -20,13 +20,13 @@ The JsonValueListAppend function adds a JsonbValue to a JsonValueList structure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure type)
+  - [JsonValueList](JsonValueList.md) (structure type)
   - list_make2 (PostgreSQL function to create a two-element list)
   - lappend (PostgreSQL function to append to a list)
 - Called from (representative examples):
-  - executeNextItem (during JSONPath item execution)
-  - executeItemOptUnwrapResult (result unwrapping operations)
-  - executeAnyItem (any-type item execution)
+  - [executeNextItem](../e/executeNextItem.md) (during JSONPath item execution)
+  - [executeItemOptUnwrapResult](../e/executeItemOptUnwrapResult.md) (result unwrapping operations)
+  - [executeAnyItem](../e/executeAnyItem.md) (any-type item execution)
 
 ## Notes and Other Information
 - Implements an optimization where single values are stored without list overhead

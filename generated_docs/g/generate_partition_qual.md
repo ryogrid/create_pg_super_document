@@ -35,18 +35,18 @@ The recursive nature handles complex partition hierarchies where a partition can
 - Functions called/Symbols referenced:
   - check_stack_depth (guards against infinite recursion)
   - copyObject (creates copies for caching and return)
-  - get_partition_parent (finds parent relation OID)
-  - relation_open (opens parent relation)
-  - SysCacheGetAttr (retrieves partition bounds from pg_class)
-  - stringToNode/TextDatumGetCString (parses bound specification)
-  - get_qual_from_partbound (converts bounds to constraint expressions)
-  - list_concat (combines parent and local constraints)
-  - map_partition_varattnos (adjusts variable references)
+  - [get_partition_parent](get_partition_parent.md) (finds parent relation OID)
+  - [relation_open](../r/relation_open.md) (opens parent relation)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (retrieves partition bounds from pg_class)
+  - [stringToNode](../s/stringToNode.md)/TextDatumGetCString (parses bound specification)
+  - [get_qual_from_partbound](get_qual_from_partbound.md) (converts bounds to constraint expressions)
+  - [list_concat](../l/list_concat.md) (combines parent and local constraints)
+  - [map_partition_varattnos](../m/map_partition_varattnos.md) (adjusts variable references)
   - AllocSetContextCreate (creates cache memory context)
 - Called from:
-  - RelationGetPartitionQual (primary entry point)
-  - get_partition_qual_relid (OID-based entry point)
-  - generate_partition_qual (recursive self-call for parent constraints)
+  - [RelationGetPartitionQual](../R/RelationGetPartitionQual.md) (primary entry point)
+  - [get_partition_qual_relid](get_partition_qual_relid.md) (OID-based entry point)
+  - [generate_partition_qual](generate_partition_qual.md) (recursive self-call for parent constraints)
 
 ## Notes and Other Information
 - Function is static (internal to partcache.c)
@@ -57,5 +57,5 @@ The recursive nature handles complex partition hierarchies where a partition can
 - Memory management creates dedicated context only when results are non-NIL
 - Maintains parent relation lock until commit for consistency
 - Returns working copy to caller while caching separate copy in relcache
-- Variable attribute number mapping ensures constraints reference correct columns in target partition
+- [Variable](../V/Variable.md) attribute number mapping ensures constraints reference correct columns in target partition
 - Handles the case where partition bounds may be NULL (no constraints)

@@ -20,13 +20,13 @@ This function serves as a simple iterator wrapper that processes multiple restri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_clause_to_index
-  - IndexOptInfo
+  - [match_clause_to_index](match_clause_to_index.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md)
   - IndexClauseSet
 - Called from (representative examples):
-  - build_paths_for_OR
-  - match_restriction_clauses_to_index
-  - match_eclass_clauses_to_index
+  - [build_paths_for_OR](../b/build_paths_for_OR.md)
+  - [match_restriction_clauses_to_index](match_restriction_clauses_to_index.md)
+  - [match_eclass_clauses_to_index](match_eclass_clauses_to_index.md)
   - ec_member_matches_arg
 
 ## Notes and Other Information

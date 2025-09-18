@@ -21,13 +21,13 @@ This consolidation approach ensures that serializable transaction isolation guar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DropAllPredicateLocksFromTable
+  - [DropAllPredicateLocksFromTable](../D/DropAllPredicateLocksFromTable.md)
 - Called from (representative examples):
-  - index_concurrently_set_dead
-  - index_drop  
-  - reindex_index
-  - cluster_rel
-  - ATRewriteTable
+  - [index_concurrently_set_dead](../i/index_concurrently_set_dead.md)
+  - [index_drop](../i/index_drop.md)  
+  - [reindex_index](../r/reindex_index.md)
+  - [cluster_rel](../c/cluster_rel.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
 
 ## Notes and Other Information
 - Public function - part of the external predicate locking API

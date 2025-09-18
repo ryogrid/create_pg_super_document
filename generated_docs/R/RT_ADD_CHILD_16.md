@@ -26,11 +26,11 @@ This macro expands to a function that typically takes:
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
 - Called from (representative examples):
-  - RT_NODE_INSERT (when handling RT_NODE_KIND_16 case)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (when handling RT_NODE_KIND_16 case)
 
 ## Notes and Other Information
 - Part of the generic radix tree implementation in PostgreSQL
 - Works in conjunction with RT_GROW_NODE_4 when a node-4 needs to be promoted to node-16
 - The actual function implementation is generated through the macro expansion system
-- Node-16 uses a more compact representation than node-48 or node-256 for space efficiency
+- [Node](../N/Node.md)-16 uses a more compact representation than node-48 or node-256 for space efficiency
 - This macro is used in the main insertion logic within RT_NODE_INSERT to handle the specific case of adding children to 16-capacity nodes

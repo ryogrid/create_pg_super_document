@@ -20,23 +20,23 @@ pa_switch_to_partial_serialize implements a deadlock avoidance mechanism in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelApplyWorkerInfo
-  - stream_start_internal
-  - pa_lock_stream
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md)
+  - [stream_start_internal](../s/stream_start_internal.md)
+  - [pa_lock_stream](pa_lock_stream.md)
   - AccessExclusiveLock
-  - pa_set_fileset_state
+  - [pa_set_fileset_state](pa_set_fileset_state.md)
   - FS_SERIALIZE_IN_PROGRESS
   - ereport
   - LOG
-  - errmsg
+  - [errmsg](../e/errmsg.md)
 
 - Called from (representative examples):
-  - handle_streamed_transaction
-  - apply_handle_stream_prepare
-  - apply_handle_stream_start
-  - apply_handle_stream_stop
-  - apply_handle_stream_abort
-  - apply_handle_stream_commit
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - Logs a message indicating the switch to serialization mode for debugging and monitoring purposes

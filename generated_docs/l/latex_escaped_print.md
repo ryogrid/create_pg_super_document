@@ -21,8 +21,8 @@ This function processes input text character by character and converts special L
   - fputs (for outputting escaped character sequences)
   - fputc (for outputting regular characters)
 - Called from (representative examples):
-  - print_latex_text (main LaTeX table printing function)
-  - print_latex_vertical (vertical LaTeX table format)
+  - [print_latex_text](../p/print_latex_text.md) (main LaTeX table printing function)
+  - [print_latex_vertical](../p/print_latex_vertical.md) (vertical LaTeX table format)
   - LONGTABLE_WHITESPACE (macro for longtable formatting)
 
 ## Notes and Other Information

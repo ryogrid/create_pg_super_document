@@ -25,9 +25,9 @@ The  structure contains all the metadata and data required for bidirectional con
 - Functions called/Symbols referenced:
   - (No direct symbol references in the structure definition)
 - Called from (representative examples):
-  - plperl_ref_from_pg_array (converts PostgreSQL arrays to Perl references)
-  - split_array (processes array structure)
-  - make_array_ref (creates Perl array references)
+  - [plperl_ref_from_pg_array](plperl_ref_from_pg_array.md) (converts PostgreSQL arrays to Perl references)
+  - [split_array](../s/split_array.md) (processes array structure)
+  - [make_array_ref](../m/make_array_ref.md) (creates Perl array references)
 
 ## Notes and Other Information
 - This structure is essential for handling PostgreSQL's complex array types in PL/Perl functions

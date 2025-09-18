@@ -23,13 +23,13 @@ The function is typically called for newly created MultiXactIds that are expecte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMultiXactIdMembers
+  - [GetMultiXactIdMembers](GetMultiXactIdMembers.md)
   - TUPLOCK_from_mxstatus
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types used:
   - MultiXactId
-  - MultiXactMember
-  - LockTupleMode
+  - [MultiXactMember](../M/MultiXactMember.md)
+  - [LockTupleMode](../L/LockTupleMode.md)
 - Constants used:
   - HEAP_XMAX_IS_MULTI
   - HEAP_XMAX_EXCL_LOCK
@@ -38,11 +38,11 @@ The function is typically called for newly created MultiXactIds that are expecte
   - HEAP_XMAX_LOCK_ONLY
   - HEAP_KEYS_UPDATED
   - LockTupleKeyShare, LockTupleShare, LockTupleExclusive, LockTupleNoKeyExclusive
-  - MultiXactStatus values
+  - [MultiXactStatus](../M/MultiXactStatus.md) values
 - Called from (representative examples):
-  - heap_update
-  - compute_new_xmax_infomask
-  - heap_prepare_freeze_tuple
+  - [heap_update](../h/heap_update.md)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md)
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
 
 ## Notes and Other Information
 - Static function, only used within heapam.c

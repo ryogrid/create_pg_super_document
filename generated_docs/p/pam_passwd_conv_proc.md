@@ -26,8 +26,8 @@ The implementation includes special handling for Solaris 2.6 where the PAM libra
 ## Dependencies
 - Functions called/Symbols referenced:
   - calloc (standard C library memory allocation)
-  - sendAuthRequest (sends authentication request to client)
-  - recv_password_packet (receives password from client)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (sends authentication request to client)
+  - [recv_password_packet](../r/recv_password_packet.md) (receives password from client)
   - strdup (standard C library string duplication)
   - free (standard C library memory deallocation)
 - Called from (representative examples):

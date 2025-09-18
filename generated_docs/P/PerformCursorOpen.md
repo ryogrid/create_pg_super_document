@@ -33,18 +33,18 @@ The cursor is not actually executed until PerformPortalFetch is called, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RequireTransactionBlock
-  - InSecurityRestrictedOperation
-  - QueryRewrite
-  - pg_plan_query
+  - [RequireTransactionBlock](../R/RequireTransactionBlock.md)
+  - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md)
+  - [QueryRewrite](../Q/QueryRewrite.md)
+  - [pg_plan_query](../p/pg_plan_query.md)
   - CreatePortal
-  - PortalDefineQuery
-  - copyParamList
-  - ExecSupportsBackwardScan
-  - PortalStart
+  - [PortalDefineQuery](PortalDefineQuery.md)
+  - [copyParamList](../c/copyParamList.md)
+  - [ExecSupportsBackwardScan](../E/ExecSupportsBackwardScan.md)
+  - [PortalStart](PortalStart.md)
   - GetActiveSnapshot
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Non-holdable cursors require execution within a transaction block

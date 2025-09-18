@@ -17,23 +17,23 @@ The GetConnection function creates a PostgreSQL database connection with special
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconninfoParse
-  - PQconnectdbParams  
+  - [PQconninfoParse](../P/PQconninfoParse.md)
+  - [PQconnectdbParams](../P/PQconnectdbParams.md)  
   - PQstatus
-  - PQconnectionNeedsPassword
-  - PQfinish
-  - PQexec
+  - [PQconnectionNeedsPassword](../P/PQconnectionNeedsPassword.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [PQexec](../P/PQexec.md)
   - PQparameterStatus
-  - PQserverVersion
-  - RetrieveDataDirCreatePerm
+  - [PQserverVersion](../P/PQserverVersion.md)
+  - [RetrieveDataDirCreatePerm](../R/RetrieveDataDirCreatePerm.md)
   - simple_prompt
   - pg_malloc0
 - Called from (representative examples):
-  - main (in pg_basebackup.c, pg_receivewal.c, pg_recvlogical.c)
-  - StartLogStreamer
-  - StreamLog
-  - StreamLogicalLog
-  - setup_connection (in pg_dump.c)
+  - [main](../m/main.md) (in pg_basebackup.c, pg_receivewal.c, pg_recvlogical.c)
+  - [StartLogStreamer](../S/StartLogStreamer.md)
+  - [StreamLog](../S/StreamLog.md)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md)
+  - [setup_connection](../s/setup_connection.md) (in pg_dump.c)
 
 ## Notes and Other Information
 - Returns NULL on non-permanent errors, calls exit(1) on permanent errors

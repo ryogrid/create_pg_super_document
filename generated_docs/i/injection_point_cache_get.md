@@ -20,10 +20,10 @@ This function performs a lookup in the local injection point cache hash table to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search: Performs hash table lookup with HASH_FIND flag
+  - [hash_search](../h/hash_search.md): Performs hash table lookup with HASH_FIND flag
   - InjectionPointCache: Global hash table variable for the cache
 - Called from (representative examples):
-  - InjectionPointCacheRefresh: Checks if injection points are already cached during refresh operations
+  - [InjectionPointCacheRefresh](../I/InjectionPointCacheRefresh.md): Checks if injection points are already cached during refresh operations
 
 ## Notes and Other Information
 - The function is static (internal to injection_point.c)

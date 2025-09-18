@@ -20,13 +20,13 @@ The `numeric_truncated_divide` function provides a convenient wrapper for perfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericGetDatum: Converts Numeric to Datum
-  - int64_to_numeric: Converts int64 to Numeric
+  - [NumericGetDatum](../N/NumericGetDatum.md): Converts Numeric to Datum
+  - [int64_to_numeric](../i/int64_to_numeric.md): Converts int64 to Numeric
   - DirectFunctionCall2: PostgreSQL function call interface
-  - numeric_div_trunc: Numeric truncated division
-  - DatumGetNumeric: Converts Datum to Numeric
+  - [numeric_div_trunc](numeric_div_trunc.md): Numeric truncated division
+  - [DatumGetNumeric](../D/DatumGetNumeric.md): Converts Datum to Numeric
 - Called from (representative examples):
-  - pg_size_pretty_numeric
+  - [pg_size_pretty_numeric](../p/pg_size_pretty_numeric.md)
 
 ## Notes and Other Information
 This function is designed for use in database size calculations where precise truncated division behavior is required. It's commonly used in size formatting operations where fractional parts need to be discarded rather than rounded. The function is located in src/backend/utils/adt/dbsize.c:660-671.

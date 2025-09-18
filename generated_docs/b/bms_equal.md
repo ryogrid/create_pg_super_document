@@ -24,25 +24,25 @@ The function efficiently determines equality by first checking metadata (word co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation in Assert for both parameters)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation in Assert for both parameters)
 - Called from (representative examples):
-  - AlterPublicationTables
-  - bitmap_match
-  - _equalBitmapset
-  - merge_clump
-  - make_one_rel
-  - set_rel_pathlist
-  - add_paths_to_append_rel
-  - get_cheapest_parameterized_child_path
-  - standard_join_search
-  - choose_bitmap_and
-  - join_is_legal
-  - populate_joinrel_with_paths
-  - try_partitionwise_join
-  - add_path_precheck
-  - create_append_path
-  - create_merge_append_path
-  - find_join_rel
+  - [AlterPublicationTables](../A/AlterPublicationTables.md)
+  - [bitmap_match](bitmap_match.md)
+  - [_equalBitmapset](../e/_equalBitmapset.md)
+  - [merge_clump](../m/merge_clump.md)
+  - [make_one_rel](../m/make_one_rel.md)
+  - [set_rel_pathlist](../s/set_rel_pathlist.md)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md)
+  - [get_cheapest_parameterized_child_path](../g/get_cheapest_parameterized_child_path.md)
+  - [standard_join_search](../s/standard_join_search.md)
+  - [choose_bitmap_and](../c/choose_bitmap_and.md)
+  - [join_is_legal](../j/join_is_legal.md)
+  - [populate_joinrel_with_paths](../p/populate_joinrel_with_paths.md)
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
+  - [add_path_precheck](../a/add_path_precheck.md)
+  - [create_append_path](../c/create_append_path.md)
+  - [create_merge_append_path](../c/create_merge_append_path.md)
+  - [find_join_rel](../f/find_join_rel.md)
 
 ## Notes and Other Information
 - Returns true if both parameters are NULL (empty sets are equal)

@@ -42,12 +42,12 @@ The `infile` function is a comprehensive file parser that processes timezone def
   - eat (error context setting function)
   - inzcont, inrule, inzone, inlink, inleap, inexires (specific line type handlers)
   - byword (keyword lookup function)
-  - close_file (file closing utility)
+  - [close_file](../c/close_file.md) (file closing utility)
   - EXIT_FAILURE (standard exit code)
 - Called from (representative examples):
-  - main (in zic.c for timezone file processing)
-  - AlterSystemSetConfigFile (in guc.c for configuration file processing)
-  - readfile (in initdb.c for initialization file processing)
+  - [main](../m/main.md) (in zic.c for timezone file processing)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md) (in guc.c for configuration file processing)
+  - [readfile](../r/readfile.md) (in initdb.c for initialization file processing)
   - Various test frameworks
 
 ## Notes and Other Information

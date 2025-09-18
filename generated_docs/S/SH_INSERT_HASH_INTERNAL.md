@@ -37,19 +37,19 @@ Return value: Pointer to the hash table element (either existing or newly insert
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
   - insert_hash_internal (base name for the operation)
-  - SH_GROW (for automatic table resizing)
-  - SH_INITIAL_BUCKET (for finding optimal bucket position)
+  - [SH_GROW](SH_GROW.md) (for automatic table resizing)
+  - [SH_INITIAL_BUCKET](SH_INITIAL_BUCKET.md) (for finding optimal bucket position)
   - SH_COMPARE_KEYS (for key comparison)
-  - SH_ENTRY_HASH (for extracting hash from existing entries)
-  - SH_DISTANCE_FROM_OPTIMAL (for calculating Robin Hood distances)
-  - SH_NEXT, SH_PREV (for bucket traversal)
+  - [SH_ENTRY_HASH](SH_ENTRY_HASH.md) (for extracting hash from existing entries)
+  - [SH_DISTANCE_FROM_OPTIMAL](SH_DISTANCE_FROM_OPTIMAL.md) (for calculating Robin Hood distances)
+  - [SH_NEXT](SH_NEXT.md), SH_PREV (for bucket traversal)
   - SH_GET_HASH (for storing hash values when SH_STORE_HASH is defined)
   - memcpy (for efficient element movement)
   - sh_error (for error reporting)
 
 - Called from (representative examples):
-  - SH_INSERT (wrapper function that computes hash)
-  - SH_INSERT_HASH (wrapper function with pre-computed hash)
+  - [SH_INSERT](SH_INSERT.md) (wrapper function that computes hash)
+  - [SH_INSERT_HASH](SH_INSERT_HASH.md) (wrapper function with pre-computed hash)
 
 ## Notes and Other Information
 - The function implements Robin Hood hashing, which minimizes variance in lookup times by ensuring elements are placed close to their optimal positions

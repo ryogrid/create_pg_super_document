@@ -29,16 +29,16 @@ This optimization can significantly improve query performance by enabling more e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_get_singleton_member (checks for single-member bitmapset)
-  - find_base_rel (locates base relation information)
-  - rel_supports_distinctness (checks if relation supports uniqueness analysis)
-  - bms_union (combines bitmapsets)
-  - list_concat (concatenates lists)
-  - generate_join_implied_equalities (creates implied join conditions from equivalence classes)
-  - innerrel_is_unique (tests uniqueness of inner relation for given conditions)
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md) (checks for single-member bitmapset)
+  - [find_base_rel](../f/find_base_rel.md) (locates base relation information)
+  - [rel_supports_distinctness](rel_supports_distinctness.md) (checks if relation supports uniqueness analysis)
+  - [bms_union](../b/bms_union.md) (combines bitmapsets)
+  - [list_concat](../l/list_concat.md) (concatenates lists)
+  - [generate_join_implied_equalities](../g/generate_join_implied_equalities.md) (creates implied join conditions from equivalence classes)
+  - [innerrel_is_unique](../i/innerrel_is_unique.md) (tests uniqueness of inner relation for given conditions)
   - foreach_delete_current (removes current list element during iteration)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - This optimization happens after reduce_outer_joins because sufficient information for uniqueness analysis is not available during that earlier phase

@@ -33,7 +33,7 @@ The function handles both standard time and daylight saving time abbreviations, 
   - RegQueryValueEx: Query registry value
   - RegCloseKey: Close registry handle
 - Called from:
-  - select_default_timezone: Main timezone selection function
+  - [select_default_timezone](../s/select_default_timezone.md): Main timezone selection function
 
 ## Notes and Other Information
 - Windows-specific implementation (uses Windows Registry API)

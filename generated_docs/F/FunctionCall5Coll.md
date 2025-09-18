@@ -31,11 +31,11 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
   - InitFunctionCallInfoData (initializes function call context)
   - FunctionCallInvoke (performs the actual function invocation)
 - Called from (representative examples):
-  - gistindex_keytest (GiST index key testing)
-  - update_frameheadpos (window aggregate frame position updates)
-  - update_frametailpos (window aggregate frame position updates)
+  - [gistindex_keytest](../g/gistindex_keytest.md) (GiST index key testing)
+  - [update_frameheadpos](../u/update_frameheadpos.md) (window aggregate frame position updates)
+  - [update_frametailpos](../u/update_frametailpos.md) (window aggregate frame position updates)
   - scalararraysel (selectivity estimation for scalar array operations)
-  - OidFunctionCall5Coll (OID-based function calling wrapper)
+  - [OidFunctionCall5Coll](../O/OidFunctionCall5Coll.md) (OID-based function calling wrapper)
 
 ## Notes and Other Information
 - This function is part of a family of FunctionCallNColl functions (where N ranges from 0 to 9) that handle different numbers of arguments

@@ -25,28 +25,28 @@ The function manages complex coordination including cost-based vacuum delay shar
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - parallel_vacuum_index_is_parallel_safe
-  - pg_atomic_write_u32
-  - pg_atomic_read_u32
-  - ReinitializeParallelDSM
-  - ReinitializeParallelWorkers
-  - LaunchParallelWorkers
+  - [parallel_vacuum_index_is_parallel_safe](parallel_vacuum_index_is_parallel_safe.md)
+  - [pg_atomic_write_u32](pg_atomic_write_u32.md)
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md)
+  - [ReinitializeParallelWorkers](../R/ReinitializeParallelWorkers.md)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
   - WaitForParallelWorkersToFinish
-  - InstrAccumParallelQuery
-  - parallel_vacuum_process_unsafe_indexes
-  - parallel_vacuum_process_safe_indexes
+  - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
+  - [parallel_vacuum_process_unsafe_indexes](parallel_vacuum_process_unsafe_indexes.md)
+  - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md)
   - PARALLEL_INDVAC_STATUS_NEED_BULKDELETE
   - PARALLEL_INDVAC_STATUS_NEED_CLEANUP
   - PARALLEL_INDVAC_STATUS_INITIAL
   - PARALLEL_INDVAC_STATUS_COMPLETED
 - Called from (representative examples):
-  - parallel_vacuum_bulkdel_all_indexes
-  - parallel_vacuum_cleanup_all_indexes
+  - [parallel_vacuum_bulkdel_all_indexes](parallel_vacuum_bulkdel_all_indexes.md)
+  - [parallel_vacuum_cleanup_all_indexes](parallel_vacuum_cleanup_all_indexes.md)
 
 ## Notes and Other Information
 - Must be called only by the parallel vacuum leader process (enforced by Assert(!IsParallelWorker()))
 - Handles both vacuum and cleanup phases based on the 'vacuum' parameter
-- Manages dynamic worker allocation - cleanup phase may include conditional cleanup indexes only on first scan
+- Manages dynamic worker allocation - [cleanup](../c/cleanup.md) phase may include conditional cleanup indexes only on first scan
 - Implements sophisticated cost-based vacuum delay sharing among workers
 - Processes unsafe indexes sequentially on leader before starting parallel processing of safe indexes
 - Includes comprehensive error checking to ensure all indexes are completed

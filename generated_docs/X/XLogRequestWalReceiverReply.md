@@ -21,7 +21,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - doRequestWalReceiverReply (global variable, set to true)
 - Called from (representative examples):
-  - xact_redo_commit
+  - [xact_redo_commit](../x/xact_redo_commit.md)
   - Referenced in EndOfWalRecoveryInfo
 
 ## Notes and Other Information

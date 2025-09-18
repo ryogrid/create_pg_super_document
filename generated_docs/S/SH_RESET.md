@@ -29,10 +29,10 @@ When the macro expands to the actual function:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
-  - reset (base name for the operation)
+  - [reset](../r/reset.md) (base name for the operation)
   - memset (used in the generated function implementation)
   - SH_ELEMENT_TYPE (for sizing in memset)
-  - SH_TYPE (hash table type)
+  - [SH_TYPE](SH_TYPE.md) (hash table type)
 
 - Called from (representative examples):
   - No direct references found in the current codebase

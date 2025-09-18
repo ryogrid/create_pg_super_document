@@ -21,14 +21,14 @@ The function performs header line validation if configured, ensuring that column
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyReadLine: Reads the next line from input into the line buffer
-  - CopyReadAttributesCSV: Parses CSV-formatted line into individual fields
-  - CopyReadAttributesText: Parses text-formatted line into individual fields  
+  - [CopyReadLine](../C/CopyReadLine.md): Reads the next line from input into the line buffer
+  - [CopyReadAttributesCSV](../C/CopyReadAttributesCSV.md): Parses CSV-formatted line into individual fields
+  - [CopyReadAttributesText](../C/CopyReadAttributesText.md): Parses text-formatted line into individual fields  
   - RelationGetDescr: Gets tuple descriptor for relation validation
   - lfirst_int: Extracts integer values from list cells
   - namestrcmp: Compares PostgreSQL name structures
 - Called from (representative examples):
-  - NextCopyFrom: Higher-level function that processes COPY FROM operations
+  - [NextCopyFrom](NextCopyFrom.md): Higher-level function that processes COPY FROM operations
 
 ## Notes and Other Information
 - Only available for text or CSV input modes (binary mode uses different parsing)

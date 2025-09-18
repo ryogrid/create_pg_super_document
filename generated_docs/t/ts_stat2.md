@@ -22,7 +22,7 @@ This is an enhanced version of the basic ts_stat function that allows filtering 
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Check if this is the first call in SRF execution
-  -  - Initialize SRF context on first call
+  -  - [Initialize](../I/Initialize.md) SRF context on first call
   -  - Connect to SPI for SQL execution
   -  - Execute SQL query and accumulate tsvector statistics
   -  - Free copied varlena arguments if necessary

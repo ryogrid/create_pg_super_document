@@ -20,13 +20,13 @@ This is the counterpart to logicalrep_write_begin and is used by logical replica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64 (reads a 64-bit integer from the input buffer)
-  - pq_getmsgint (reads a 32-bit integer from the input buffer)
-  - LogicalRepBeginData (structure type for storing BEGIN message data)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (reads a 64-bit integer from the input buffer)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (reads a 32-bit integer from the input buffer)
+  - [LogicalRepBeginData](../L/LogicalRepBeginData.md) (structure type for storing BEGIN message data)
   - InvalidXLogRecPtr (constant for invalid LSN values)
   - elog (logging/error reporting function)
 - Called from (representative examples):
-  - apply_handle_begin (in the logical replication worker for processing BEGIN messages)
+  - [apply_handle_begin](../a/apply_handle_begin.md) (in the logical replication worker for processing BEGIN messages)
 
 ## Notes and Other Information
 - This function is part of the logical replication protocol implementation for subscribers

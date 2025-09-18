@@ -26,25 +26,25 @@ This function takes no parameters and operates on the current database (MyDataba
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockDatabaseFrozenIds
-  - GetOldestNonRemovableTransactionId
-  - GetOldestMultiXactId
+  - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
+  - [GetOldestMultiXactId](../G/GetOldestMultiXactId.md)
   - ReadNextTransactionId
-  - ReadNextMultiXactId
-  - systable_beginscan
-  - systable_getnext
-  - systable_inplace_update_begin
-  - systable_inplace_update_finish
-  - systable_inplace_update_cancel
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)
+  - [systable_inplace_update_finish](../s/systable_inplace_update_finish.md)
+  - [systable_inplace_update_cancel](../s/systable_inplace_update_cancel.md)
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
-  - ForceTransactionIdLimitUpdate
-  - vac_truncate_clog
-  - heap_freetuple
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [ForceTransactionIdLimitUpdate](../F/ForceTransactionIdLimitUpdate.md)
+  - [vac_truncate_clog](vac_truncate_clog.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
   - vacuum
-  - do_autovacuum
+  - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information
 - Only considers relations that can hold unfrozen XIDs (RELKIND_RELATION, RELKIND_MATVIEW, RELKIND_TOASTVALUE)

@@ -29,23 +29,23 @@ The function supports type inference between related polymorphic types (e.g., de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_expr_argtype: Extracts actual argument type from call expression
-  - resolve_anyelement_from_others: Resolves ANYELEMENT from other polymorphic types
-  - resolve_anyarray_from_others: Resolves ANYARRAY from other polymorphic types  
-  - resolve_anyrange_from_others: Resolves ANYRANGE from other polymorphic types
-  - resolve_anymultirange_from_others: Resolves ANYMULTIRANGE from other polymorphic types
-  - get_typcollation: Gets collation for a data type
-  - exprInputCollation: Determines input collation from expression
-  - TupleDescInitEntry: Initializes tuple descriptor entry with resolved type
-  - TupleDescInitEntryCollation: Sets collation for tuple descriptor entry
+  - [get_call_expr_argtype](../g/get_call_expr_argtype.md): Extracts actual argument type from call expression
+  - [resolve_anyelement_from_others](resolve_anyelement_from_others.md): Resolves ANYELEMENT from other polymorphic types
+  - [resolve_anyarray_from_others](resolve_anyarray_from_others.md): Resolves ANYARRAY from other polymorphic types  
+  - [resolve_anyrange_from_others](resolve_anyrange_from_others.md): Resolves ANYRANGE from other polymorphic types
+  - [resolve_anymultirange_from_others](resolve_anymultirange_from_others.md): Resolves ANYMULTIRANGE from other polymorphic types
+  - [get_typcollation](../g/get_typcollation.md): Gets collation for a data type
+  - [exprInputCollation](../e/exprInputCollation.md): Determines input collation from expression
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md): Initializes tuple descriptor entry with resolved type
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md): Sets collation for tuple descriptor entry
 
 - Called from (representative examples):
-  - internal_get_result_type: When determining result types for functions with OUT parameters
+  - [internal_get_result_type](../i/internal_get_result_type.md): When determining result types for functions with OUT parameters
 
 ## Notes and Other Information
 - This is a static function, only used within funcapi.c  
 - Returns true if all polymorphic types could be resolved, false if insufficient information is available
 - Handles both traditional polymorphic types (ANY*) and compatible polymorphic types (ANYCOMPATIBLE*)
-- Collation handling differs between type families - range types don't use collations
+- Collation handling differs between type families - [range](range.md) types don't use collations
 - The function assumes the parser has already validated argument type consistency
 - Located in src/backend/utils/fmgr/funcapi.c:744-1063

@@ -20,7 +20,7 @@ This function implements schema-aware tab completion in psql by using a predefin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _complete_from_query
+  - [_complete_from_query](_complete_from_query.md)
 - Called from (representative examples):
   - COMPLETE_WITH_SCHEMA_QUERY_LIST
   - COMPLETE_WITH_SCHEMA_QUERY_VERBATIM

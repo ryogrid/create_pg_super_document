@@ -25,10 +25,10 @@ Finally, it calls SetLatch() to wake up any process that might be waiting on the
 - Functions called/Symbols referenced:
   - InterruptPending (global variable)
   - ParallelApplyMessagePending (global variable)
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - MyLatch (global variable)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler (when PROCSIG_PARALLEL_APPLY_MESSAGE signal is received)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (when PROCSIG_PARALLEL_APPLY_MESSAGE signal is received)
 
 ## Notes and Other Information
 - This is a public function (non-static), callable from the signal handling infrastructure

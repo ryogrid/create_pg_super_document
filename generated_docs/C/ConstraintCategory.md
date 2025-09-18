@@ -25,7 +25,7 @@ This categorization is essential for functions like ConstraintNameIsUsed(), whic
 - Functions called/Symbols referenced:
   - No direct references (enum definition)
 - Called from (representative examples):
-  - ConstraintNameIsUsed function in pg_constraint.c
+  - [ConstraintNameIsUsed](ConstraintNameIsUsed.md) function in pg_constraint.c
   - Various constraint creation and management functions throughout the codebase
   - Index creation functions in index.c
   - Type command functions in typecmds.c

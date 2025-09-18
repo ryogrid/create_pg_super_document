@@ -26,9 +26,9 @@ The caller is responsible for freeing the returned GISTSearchItem using pfree() 
   - pairingheap_is_empty
   - pairingheap_remove_first
 - Called from:
-  - getNextNearest
-  - gistgettuple
-  - gistgetbitmap
+  - [getNextNearest](getNextNearest.md)
+  - [gistgettuple](gistgettuple.md)
+  - [gistgetbitmap](gistgetbitmap.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within gistget.c

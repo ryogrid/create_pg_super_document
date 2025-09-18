@@ -35,13 +35,13 @@ The algorithm uses backtracking markers (m2-m6) to ensure each phase can be atte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude (character preprocessing)
-  - r_mark_regions (morphological region identification)  
-  - r_step_0 (initial suffix processing)
-  - r_standard_suffix (standard suffix removal)
-  - r_verb_suffix (verb suffix processing)
-  - r_vowel_suffix (vowel suffix cleanup)
-  - r_postlude (final transformations)
+  - [r_prelude](r_prelude.md) (character preprocessing)
+  - [r_mark_regions](r_mark_regions.md) (morphological region identification)  
+  - [r_step_0](r_step_0.md) (initial suffix processing)
+  - [r_standard_suffix](r_standard_suffix.md) (standard suffix removal)
+  - [r_verb_suffix](r_verb_suffix.md) (verb suffix processing)
+  - [r_vowel_suffix](r_vowel_suffix.md) (vowel suffix cleanup)
+  - [r_postlude](r_postlude.md) (final transformations)
 - Called from (representative examples):
   - External stemming interface functions
   - Text processing pipelines requiring Romanian stemming

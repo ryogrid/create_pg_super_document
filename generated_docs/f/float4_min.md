@@ -20,7 +20,7 @@ The function performs a simple conditional selection: if val1 is less than val2 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float4_lt (for less-than comparison with NaN handling)
+  - [float4_lt](float4_lt.md) (for less-than comparison with NaN handling)
   - float4 (single-precision floating-point type)
 - Called from (representative examples):
   - Currently no direct references found in the codebase

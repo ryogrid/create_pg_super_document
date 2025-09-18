@@ -26,7 +26,7 @@ The function utilizes the local2local conversion utility function with the iso2k
   - PG_GETARG_INT32 (parameter extraction macro)
   - PG_GETARG_BOOL (parameter extraction macro)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - local2local (core conversion function in src/backend/utils/mb/conv.c:33)
+  - [local2local](../l/local2local.md) (core conversion function in src/backend/utils/mb/conv.c:33)
   - iso2koi (character mapping table at line 66)
   - PG_ISO_8859_5, PG_KOI8R (encoding constants)
   - PG_RETURN_INT32 (return value macro)

@@ -23,7 +23,7 @@ This implementation allows PLyResultObject to behave like a Python sequence or m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (structure type cast)
+  - [PLyResultObject](PLyResultObject.md) (structure type cast)
   - PyObject_GetItem (Python C API function)
 - Called from (representative examples):
   - Used as mp_subscript method in PLyResultAsMapping mapping protocol (indirectly through Python's indexing mechanism)

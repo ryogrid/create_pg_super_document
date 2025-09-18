@@ -20,19 +20,19 @@ AllocSetCheck is a debugging and validation function that thoroughly examines an
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsKeeperBlock
-  - MemoryChunkIsExternal
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
   - MemoryChunkGetPointer
-  - MemoryChunkGetValue
-  - MemoryChunkGetBlock
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - FreeListIdxIsValid
   - GetChunkSizeFromFreeListIdx
-  - sentinel_ok
+  - [sentinel_ok](../s/sentinel_ok.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
   - elog
 - Called from (representative examples):
-  - AllocSetReset
-  - AllocSetDelete
+  - [AllocSetReset](AllocSetReset.md)
+  - [AllocSetDelete](AllocSetDelete.md)
   - BOGUS_MCTX (via function pointer assignment)
   - Referenced in memutils_internal.h
 

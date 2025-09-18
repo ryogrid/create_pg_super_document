@@ -24,8 +24,8 @@ This abstraction allows other gzip writer functions to provide consistent, infor
   - gzerror
   - strerror
 - Called from (representative examples):
-  - bbstreamer_gzip_writer_new (src/bin/pg_basebackup/bbstreamer_gzip.c:112)
-  - bbstreamer_gzip_writer_content (src/bin/pg_basebackup/bbstreamer_gzip.c:144)
+  - [bbstreamer_gzip_writer_new](../b/bbstreamer_gzip_writer_new.md) (src/bin/pg_basebackup/bbstreamer_gzip.c:112)
+  - [bbstreamer_gzip_writer_content](../b/bbstreamer_gzip_writer_content.md) (src/bin/pg_basebackup/bbstreamer_gzip.c:144)
 
 ## Notes and Other Information
 - Handles both system-level errors (Z_ERRNO) and zlib-specific errors

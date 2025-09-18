@@ -18,11 +18,11 @@ The  structure serves as a parameter context for the  function during the proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (structure)
 - Called from (representative examples):
-  - SS_process_sublinks (src/backend/optimizer/plan/subselect.c:1921)
-  - process_sublinks_mutator (src/backend/optimizer/plan/subselect.c:1929)
-  - process_sublinks_mutator (src/backend/optimizer/plan/subselect.c:1931)
+  - [SS_process_sublinks](../S/SS_process_sublinks.md) (src/backend/optimizer/plan/subselect.c:1921)
+  - [process_sublinks_mutator](process_sublinks_mutator.md) (src/backend/optimizer/plan/subselect.c:1929)
+  - [process_sublinks_mutator](process_sublinks_mutator.md) (src/backend/optimizer/plan/subselect.c:1931)
 
 ## Notes and Other Information
 - This context structure is part of PostgreSQL's expression tree mutator pattern for subquery processing

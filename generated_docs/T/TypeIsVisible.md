@@ -17,9 +17,9 @@ TypeIsVisible is a convenience wrapper function that checks if a type is visible
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeIsVisibleExt
+  - [TypeIsVisibleExt](TypeIsVisibleExt.md)
 - Called from (representative examples):
-  - format_type_extended (src/backend/utils/adt/format_type.c:315)
+  - [format_type_extended](../f/format_type_extended.md) (src/backend/utils/adt/format_type.c:315)
   - RangeVarGetRelid (src/include/catalog/namespace.h:98)
 
 ## Notes and Other Information

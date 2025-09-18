@@ -26,19 +26,19 @@ The function implements sophisticated logic to ensure data consistency:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdGetCommitLSN
-  - XLogNeedsFlush
-  - BufferIsPermanent
-  - BufferGetLSNAtomic
-  - MarkBufferDirtyHint
+  - [TransactionIdGetCommitLSN](../T/TransactionIdGetCommitLSN.md)
+  - [XLogNeedsFlush](../X/XLogNeedsFlush.md)
+  - [BufferIsPermanent](../B/BufferIsPermanent.md)
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
 - Called from (representative examples):
-  - HeapTupleSetHintBits
-  - HeapTupleSatisfiesSelf
-  - HeapTupleSatisfiesToast
-  - HeapTupleSatisfiesUpdate
-  - HeapTupleSatisfiesDirty
-  - HeapTupleSatisfiesMVCC
-  - HeapTupleSatisfiesVacuumHorizon
+  - [HeapTupleSetHintBits](../H/HeapTupleSetHintBits.md)
+  - [HeapTupleSatisfiesSelf](../H/HeapTupleSatisfiesSelf.md)
+  - [HeapTupleSatisfiesToast](../H/HeapTupleSatisfiesToast.md)
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)
+  - [HeapTupleSatisfiesDirty](../H/HeapTupleSatisfiesDirty.md)
+  - [HeapTupleSatisfiesMVCC](../H/HeapTupleSatisfiesMVCC.md)
+  - [HeapTupleSatisfiesVacuumHorizon](../H/HeapTupleSatisfiesVacuumHorizon.md)
 
 ## Notes and Other Information
 - This is a static inline function, providing performance optimization for frequently called visibility checks

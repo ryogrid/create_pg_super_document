@@ -21,9 +21,9 @@ This function provides a centralized point for mapping  semantics to executor be
 - Functions called/Symbols referenced:
   - EXEC_FLAG_WITH_NO_DATA
 - Called from (representative examples):
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - ExecuteQuery
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [ExecuteQuery](../E/ExecuteQuery.md)
 
 ## Notes and Other Information
 - This is a public function exported through createas.h for use by other subsystems

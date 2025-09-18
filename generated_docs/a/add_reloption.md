@@ -25,9 +25,9 @@ The use of TopMemoryContext ensures that custom options persist for the lifetime
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc
-  - repalloc
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
   - TopMemoryContext
 - Global variables accessed:
   - custom_options (array of relopt_gen pointers)
@@ -35,11 +35,11 @@ The use of TopMemoryContext ensures that custom options persist for the lifetime
   - max_custom_options (static capacity tracker)
   - need_initialization (flag for parser table rebuild)
 - Called from:
-  - add_bool_reloption
-  - add_int_reloption  
-  - add_real_reloption
-  - add_enum_reloption
-  - add_string_reloption
+  - [add_bool_reloption](add_bool_reloption.md)
+  - [add_int_reloption](add_int_reloption.md)  
+  - [add_real_reloption](add_real_reloption.md)
+  - [add_enum_reloption](add_enum_reloption.md)
+  - [add_string_reloption](add_string_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reloptions.c file

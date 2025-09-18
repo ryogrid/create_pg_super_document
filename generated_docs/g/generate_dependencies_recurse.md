@@ -28,11 +28,11 @@ When a valid dependency is found (last element doesn't match any of the first k-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_dependencies_recurse (recursive self-call)
-  - repalloc (memory reallocation)
+  - [generate_dependencies_recurse](generate_dependencies_recurse.md) (recursive self-call)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
 - Called from (representative examples):
-  - generate_dependencies
-  - generate_dependencies_recurse (recursive calls)
+  - [generate_dependencies](generate_dependencies.md)
+  - [generate_dependencies_recurse](generate_dependencies_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function internal to the dependencies.c module

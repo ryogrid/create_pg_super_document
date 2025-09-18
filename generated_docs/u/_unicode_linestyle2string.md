@@ -21,8 +21,8 @@ The `_unicode_linestyle2string` function serves as a conversion utility that map
 - Functions called/Symbols referenced:
   - UNICODE_LINESTYLE_SINGLE, UNICODE_LINESTYLE_DOUBLE (enum values for line styles)
 - Called from (representative examples):
-  - printPsetInfo (for displaying current Unicode line style settings)
-  - pset_value_string (for getting line style setting values as strings)
+  - [printPsetInfo](../p/printPsetInfo.md) (for displaying current Unicode line style settings)
+  - [pset_value_string](../p/pset_value_string.md) (for getting line style setting values as strings)
 
 ## Notes and Other Information
 - The function is declared as static, limiting its scope to the command.c compilation unit

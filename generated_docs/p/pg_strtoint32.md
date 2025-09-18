@@ -27,14 +27,14 @@ Unlike its safe counterpart, this function will throw an `ereport()` on invalid 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strtoint32_safe
+  - [pg_strtoint32_safe](pg_strtoint32_safe.md)
 - Called from (representative examples):
-  - pq_parse_errornotice
-  - libpqrcv_identify_system
-  - libpqrcv_endstreaming
-  - prsd_headline
-  - ArrayGetIntegerTypmods
-  - text_format
+  - [pq_parse_errornotice](pq_parse_errornotice.md)
+  - [libpqrcv_identify_system](../l/libpqrcv_identify_system.md)
+  - [libpqrcv_endstreaming](../l/libpqrcv_endstreaming.md)
+  - [prsd_headline](prsd_headline.md)
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md)
+  - [text_format](../t/text_format.md)
 
 ## Notes and Other Information
 - This is a thin wrapper that calls `pg_strtoint32_safe(s, NULL)`

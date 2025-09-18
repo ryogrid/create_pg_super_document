@@ -30,12 +30,12 @@ The ginxlogSplit structure is used as part of WAL logging when splitting pages i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator
+  - [RelFileLocator](../R/RelFileLocator.md)
   - BlockNumber
 - Called from (representative examples):
-  - ginPlaceToPage (in src/backend/access/gin/ginbtree.c:460,620)
-  - ginRedoSplit (in src/backend/access/gin/ginxlog.c:404)
-  - gin_desc (in src/backend/access/rmgrdesc/gindesc.c:133,136)
+  - [ginPlaceToPage](ginPlaceToPage.md) (in src/backend/access/gin/ginbtree.c:460,620)
+  - [ginRedoSplit](ginRedoSplit.md) (in src/backend/access/gin/ginxlog.c:404)
+  - [gin_desc](gin_desc.md) (in src/backend/access/rmgrdesc/gindesc.c:133,136)
 
 ## Notes and Other Information
 - This structure is part of the GIN index WAL logging infrastructure (XLOG_GIN_SPLIT operation)

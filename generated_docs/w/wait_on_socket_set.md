@@ -21,7 +21,7 @@ This function uses the select() system call to monitor a set of socket file desc
   - select (system call)
   - timeval (system structure)
 - Called from (representative examples):
-  - threadRun (multiple call sites for socket monitoring in pgbench)
+  - [threadRun](../t/threadRun.md) (multiple call sites for socket monitoring in pgbench)
 
 ## Notes and Other Information
 - Returns the same values as select(): number of ready descriptors, 0 for timeout, or -1 for error

@@ -20,7 +20,7 @@ This function takes no parameters.
   - ErrorData (structure type)
   - CHECK_STACK_DEPTH (macro for stack validation)
 - Called from (representative examples):
-  - pcb_error_callback (in parse_node.c)
+  - [pcb_error_callback](../p/pcb_error_callback.md) (in parse_node.c)
   - errcontext (in elog.h)
 
 ## Notes and Other Information

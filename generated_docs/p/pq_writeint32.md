@@ -26,8 +26,8 @@ This function is commonly used throughout PostgreSQL's protocol handling for wri
   - Assert (macro)
   - memcpy (standard library function)
 - Called from (representative examples):
-  - SendRowDescriptionMessage
-  - pq_sendint32
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
+  - [pq_sendint32](pq_sendint32.md)
 
 ## Notes and Other Information
 - Automatically converts from host byte order to network byte order using pg_hton32

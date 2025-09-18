@@ -19,10 +19,10 @@ The function performs a straightforward memory release operation, freeing the en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinTuple (structure type)
-  - pfree (memory deallocation function)
+  - [BrinTuple](../B/BrinTuple.md) (structure type)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from:
-  - summarize_range (src/backend/access/brin/brin.c:1837, 1838)
+  - [summarize_range](../s/summarize_range.md) (src/backend/access/brin/brin.c:1837, 1838)
   - BrinTupleIsEmptyRange (src/include/access/brin_tuple.h:100)
 
 ## Notes and Other Information

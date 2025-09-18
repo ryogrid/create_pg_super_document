@@ -49,7 +49,7 @@ The function modifies the compilation flags (cflags) in the vars structure based
   - REG_ICASE, REG_NLSTOP, REG_NLANCH, REG_ADVF
   - REG_BADPAT, REG_BADRPT, REG_BADOPT, REG_UNONPOSIX
 - Called from (representative examples):
-  - lexstart (in regc_lex.c)
+  - [lexstart](../l/lexstart.md) (in regc_lex.c)
 
 ## Notes and Other Information
 The function returns early if REG_QUOTE is already set, as literal strings do not support prefix processing. Embedded options are only available in Advanced Regular Expression mode, providing fine-grained control over regex behavior. The function includes error handling for malformed prefix patterns and unsupported option combinations. Non-POSIX features trigger REG_UNONPOSIX notifications for compliance tracking.

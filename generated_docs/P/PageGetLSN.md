@@ -21,7 +21,7 @@ This function is fundamental to PostgreSQL's durability guarantees and is used e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageXLogRecPtrGet (function to properly extract XLogRecPtr from page header)
+  - [PageXLogRecPtrGet](PageXLogRecPtrGet.md) (function to properly extract XLogRecPtr from page header)
   - PageHeader (type cast for accessing page header structure)
 - Called from (representative examples):
   - WAL operations (XLogRecordAssemble, XLogCheckBufferNeedsBackup, XLogReadBufferForRedoExtended)

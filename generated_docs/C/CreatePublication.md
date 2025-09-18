@@ -20,16 +20,16 @@ The function validates permissions (requiring CREATE privilege on the database a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclcheck: Permission checking for database CREATE privilege
-  - parse_publication_options: Parses publication-specific options like publish actions
-  - ObjectsInPublicationToOids: Converts publication objects to relation and schema OID lists
-  - TransformPubWhereClauses: Processes WHERE clauses for publication relations
-  - CheckPubRelationColumnList: Validates column specifications for publication relations
-  - recordDependencyOnOwner: Records ownership dependency for the publication
-  - heap_form_tuple/heap_freetuple: Tuple creation and cleanup
-  - CatalogTupleInsert: Inserts the publication tuple into pg_publication catalog
+  - [object_aclcheck](../o/object_aclcheck.md): Permission checking for database CREATE privilege
+  - [parse_publication_options](../p/parse_publication_options.md): Parses publication-specific options like publish actions
+  - [ObjectsInPublicationToOids](../O/ObjectsInPublicationToOids.md): Converts publication objects to relation and schema OID lists
+  - [TransformPubWhereClauses](../T/TransformPubWhereClauses.md): Processes WHERE clauses for publication relations
+  - [CheckPubRelationColumnList](CheckPubRelationColumnList.md): Validates column specifications for publication relations
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md): Records ownership dependency for the publication
+  - [heap_form_tuple](../h/heap_form_tuple.md)/heap_freetuple: Tuple creation and cleanup
+  - [CatalogTupleInsert](CatalogTupleInsert.md): Inserts the publication tuple into pg_publication catalog
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command processing function
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command processing function
 
 ## Notes and Other Information
 - Requires CREATE privilege on the database for basic publications

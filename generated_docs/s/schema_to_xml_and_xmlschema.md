@@ -30,10 +30,10 @@ This function serves as a comprehensive PostgreSQL SQL function that produces an
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
   - text_to_cstring
-  - LookupExplicitNamespace
-  - schema_to_xmlschema_internal
-  - schema_to_xml_internal
-  - stringinfo_to_xmltype
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [schema_to_xmlschema_internal](schema_to_xmlschema_internal.md)
+  - [schema_to_xml_internal](schema_to_xml_internal.md)
+  - [stringinfo_to_xmltype](stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - (No direct references found - likely called via SQL function interface)

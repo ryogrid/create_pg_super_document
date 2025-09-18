@@ -28,11 +28,11 @@ The function processes the string character by character:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmblen
-  - PQdsplen
+  - [PQmblen](../P/PQmblen.md)
+  - [PQdsplen](../P/PQdsplen.md)
 - Called from (representative examples):
-  - describeOneTableDetails
-  - lineptr (via header include)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md)
+  - [lineptr](../l/lineptr.md) (via header include)
 
 ## Notes and Other Information
 - This is a public function (not static) intended for external use

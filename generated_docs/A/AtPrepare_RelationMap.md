@@ -28,15 +28,15 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 - Global variables accessed:
   - active_shared_updates (static RelMapFile structure)
   - active_local_updates (static RelMapFile structure)
   - pending_shared_updates (static RelMapFile structure)
   - pending_local_updates (static RelMapFile structure)
 - Called from (representative examples):
-  - PrepareTransaction (in src/backend/access/transam/xact.c)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (in src/backend/access/transam/xact.c)
 
 ## Notes and Other Information
 - This function implements a deliberate limitation in PostgreSQL's two-phase commit support

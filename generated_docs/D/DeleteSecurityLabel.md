@@ -24,13 +24,13 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSharedRelation
-  - DeleteSharedSecurityLabel
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [DeleteSharedSecurityLabel](DeleteSharedSecurityLabel.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
 - Called from (representative examples):
-  - deleteOneObject
+  - [deleteOneObject](../d/deleteOneObject.md)
 
 ## Notes and Other Information
 - The function handles both specific sub-object deletion (objectSubId != 0) and wholesale object deletion (objectSubId == 0)

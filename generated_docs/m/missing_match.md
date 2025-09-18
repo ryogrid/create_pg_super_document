@@ -22,10 +22,10 @@ This function serves as a key comparison callback for the missing attribute cach
 ## Dependencies
 - Functions called/Symbols referenced:
   - `missing_cache_key`: Structure type containing value and length fields
-  - `DatumGetPointer`: Macro to extract pointer from Datum value
+  - `[DatumGetPointer](../D/DatumGetPointer.md)`: Macro to extract pointer from Datum value
   - `memcmp`: Standard C library function for memory comparison
 - Called from (representative examples):
-  - `init_missing_cache`: Used as match function callback when initializing the missing attribute cache
+  - `[init_missing_cache](../i/init_missing_cache.md)`: Used as match function callback when initializing the missing attribute cache
 
 ## Notes and Other Information
 - This is a static function with internal linkage within heaptuple.c

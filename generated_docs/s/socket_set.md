@@ -20,14 +20,14 @@ This structure wraps around the standard Unix fd_set mechanism to provide organi
 - Functions called/Symbols referenced:
   - fd_set (system type)
 - Called from (representative examples):
-  - threadRun
-  - setalarm
-  - alloc_socket_set
-  - free_socket_set
-  - clear_socket_set
-  - add_socket_to_set
-  - wait_on_socket_set
-  - socket_has_input
+  - [threadRun](../t/threadRun.md)
+  - [setalarm](setalarm.md)
+  - [alloc_socket_set](../a/alloc_socket_set.md)
+  - [free_socket_set](../f/free_socket_set.md)
+  - [clear_socket_set](../c/clear_socket_set.md)
+  - [add_socket_to_set](../a/add_socket_to_set.md)
+  - [wait_on_socket_set](../w/wait_on_socket_set.md)
+  - [socket_has_input](socket_has_input.md)
 
 ## Notes and Other Information
 This structure is specifically designed for pgbench's multi-threaded benchmark operations where multiple database connections need to be monitored concurrently. The socket_set provides a clean abstraction over the low-level fd_set operations, making the code more maintainable and portable across different Unix-like systems.

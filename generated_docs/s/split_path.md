@@ -22,11 +22,11 @@ The split_path function parses a file path and separates it into its directory a
 ## Dependencies
 - Functions called/Symbols referenced:
   - strrchr (standard C library function to find last occurrence of character)
-  - pnstrdup (PostgreSQL utility function to duplicate a specified number of characters)
-  - pg_strdup (PostgreSQL utility function to duplicate a string)
+  - [pnstrdup](../p/pnstrdup.md) (PostgreSQL utility function to duplicate a specified number of characters)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL utility function to duplicate a string)
 - Called from (representative examples):
-  - main (called in pg_waldump.c:1120)
-  - main (called in pg_waldump.c:1159)
+  - [main](../m/main.md) (called in pg_waldump.c:1120)
+  - [main](../m/main.md) (called in pg_waldump.c:1159)
 
 ## Notes and Other Information
 - The function has known limitations on Windows platforms and may need canonicalize_path() preprocessing

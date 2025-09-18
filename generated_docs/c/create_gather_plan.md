@@ -24,13 +24,13 @@ Key aspects of the implementation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse (with CP_EXACT_TLIST flag)
-  - build_path_tlist
-  - make_gather
-  - assign_special_exec_param
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md) (with CP_EXACT_TLIST flag)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [make_gather](../m/make_gather.md)
+  - [assign_special_exec_param](../a/assign_special_exec_param.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function automatically enables parallel mode by setting 

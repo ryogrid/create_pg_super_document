@@ -29,17 +29,17 @@ Key processing steps include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_ptr
-  - is_redundant_derived_clause
-  - order_qual_clauses
-  - extract_actual_clauses
-  - list_difference
-  - make_orclause
-  - replace_nestloop_params
-  - make_tidscan
-  - copy_generic_path_info
+  - [list_member_ptr](../l/list_member_ptr.md)
+  - [is_redundant_derived_clause](../i/is_redundant_derived_clause.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [list_difference](../l/list_difference.md)
+  - [make_orclause](../m/make_orclause.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_tidscan](../m/make_tidscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - Only works with base relations (RTE_RELATION), not with subqueries or functions

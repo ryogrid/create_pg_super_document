@@ -21,21 +21,21 @@ The function operates in bulk mode, accumulating tuples in memory-buffered pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHasExternal
-  - heap_toast_insert_or_update
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md)
   - RelationGetTargetPageFreeSpace
-  - PageGetHeapFreeSpace
-  - smgr_bulk_write
-  - smgr_bulk_get_buf
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
+  - [smgr_bulk_write](../s/smgr_bulk_write.md)
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
   - PageInit
   - PageAddItem
-  - ItemPointerSet
-  - ItemPointerIsValid
-  - PageGetItemId
-  - PageGetItem
-  - heap_freetuple
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - end_heap_rewrite
-  - rewrite_heap_tuple
+  - [end_heap_rewrite](../e/end_heap_rewrite.md)
+  - [rewrite_heap_tuple](rewrite_heap_tuple.md)
 
 ## Notes and Other Information
 - Operates without WAL logging, FSM updates, or visibility checks for maximum performance during rewrites

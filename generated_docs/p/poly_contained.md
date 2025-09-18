@@ -20,7 +20,7 @@ This function implements the containment test for two polygons where the first p
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (extract polygon arguments)
-  - poly_contain_poly (perform the actual containment test)
+  - [poly_contain_poly](poly_contain_poly.md) (perform the actual containment test)
   - PG_FREE_IF_COPY (memory cleanup for toasted inputs)
   - PG_RETURN_BOOL (return boolean result)
 - Called from (representative examples):

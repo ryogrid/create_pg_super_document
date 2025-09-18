@@ -24,13 +24,13 @@ The function carefully tracks both the character count and remaining byte limit,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_database_encoding_max_length` (checks if encoding is single-byte)
-  - `pg_mblen` (gets byte length of individual characters)
+  - `[pg_database_encoding_max_length](pg_database_encoding_max_length.md)` (checks if encoding is single-byte)
+  - `[pg_mblen](pg_mblen.md)` (gets byte length of individual characters)
 - Called from (representative examples):
-  - `text_length` (calculating text column lengths)
-  - `text_substring` (substring operations with bounds)
-  - `bpchar` and `bpcharlen` (fixed-length character type operations)
-  - `executor_errposition` and `parser_errposition` (error reporting with position)
+  - `[text_length](../t/text_length.md)` (calculating text column lengths)
+  - `[text_substring](../t/text_substring.md)` (substring operations with bounds)
+  - `[bpchar](../b/bpchar.md)` and `bpcharlen` (fixed-length character type operations)
+  - `[executor_errposition](../e/executor_errposition.md)` and `parser_errposition` (error reporting with position)
   - Various text manipulation functions like `lpad`, `rpad`, `text_left`, `text_right`
 
 ## Notes and Other Information

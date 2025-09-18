@@ -20,20 +20,20 @@ The function first checks if serialization is needed for the given relation and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializationNeededForRead
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
   - SET_PREDICATELOCKTARGETTAG_RELATION
-  - PredicateLockAcquire
-  - PREDICATELOCKTARGETTAG (struct)
+  - [PredicateLockAcquire](PredicateLockAcquire.md)
+  - [PREDICATELOCKTARGETTAG](PREDICATELOCKTARGETTAG.md) (struct)
 - Called from (representative examples):
-  - heap_beginscan
-  - index_beginscan_internal
-  - _bt_first
-  - _bt_endpoint
+  - [heap_beginscan](../h/heap_beginscan.md)
+  - [index_beginscan_internal](../i/index_beginscan_internal.md)
+  - [_bt_first](../b/_bt_first.md)
+  - [_bt_endpoint](../b/_bt_endpoint.md)
 
 ## Notes and Other Information
 - This is one of the main public entry points for predicate locking in PostgreSQL
 - Automatically skips locking for non-serializable transactions and temporary tables
-- Relation-level locks provide the coarsest granularity and maximum concurrency reduction but minimum lock table overhead
+- [Relation](../R/Relation.md)-level locks provide the coarsest granularity and maximum concurrency reduction but minimum lock table overhead
 - The function will cause any existing page-level or tuple-level predicate locks on the same relation to be cleaned up
 - Commonly called at the beginning of table scans to establish read dependencies for serializable transactions
 - Part of PostgreSQL's implementation of true serializable isolation level using predicate locking

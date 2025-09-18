@@ -21,12 +21,12 @@ This structure represents a compressed version of the heap tuple header that get
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - heap_insert (records tuple header in WAL)
-  - heap_delete (preserves header information)
-  - log_heap_update (stores both old and new tuple headers)
-  - heap_xlog_insert (reconstructs tuple during WAL replay)
-  - heap_xlog_update (reconstructs updated tuple during replay)
-  - DecodeXLogTuple (logical replication tuple decoding)
+  - [heap_insert](../h/heap_insert.md) (records tuple header in WAL)
+  - [heap_delete](../h/heap_delete.md) (preserves header information)
+  - [log_heap_update](../l/log_heap_update.md) (stores both old and new tuple headers)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md) (reconstructs tuple during WAL replay)
+  - [heap_xlog_update](../h/heap_xlog_update.md) (reconstructs updated tuple during replay)
+  - [DecodeXLogTuple](../D/DecodeXLogTuple.md) (logical replication tuple decoding)
 
 ## Notes and Other Information
 - Optimizes WAL space by storing only essential, non-reconstructible header fields

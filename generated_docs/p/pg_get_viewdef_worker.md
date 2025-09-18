@@ -29,22 +29,22 @@ This internal worker function implements the core logic for retrieving view defi
 - Functions called/Symbols referenced:
   - initStringInfo
   - SPI_connect
-  - SPI_prepare
-  - SPI_keepplan
-  - SPI_execute_plan
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_keepplan](../S/SPI_keepplan.md)
+  - [SPI_execute_plan](../S/SPI_execute_plan.md)
   - SPI_finish
   - DirectFunctionCall1
   - namein
-  - CStringGetDatum
-  - ObjectIdGetDatum
-  - make_viewdef
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [make_viewdef](../m/make_viewdef.md)
   - ViewSelectRuleName
 - Called from (representative examples):
-  - pg_get_viewdef
-  - pg_get_viewdef_ext
-  - pg_get_viewdef_wrap
-  - pg_get_viewdef_name
-  - pg_get_viewdef_name_ext
+  - [pg_get_viewdef](pg_get_viewdef.md)
+  - [pg_get_viewdef_ext](pg_get_viewdef_ext.md)
+  - [pg_get_viewdef_wrap](pg_get_viewdef_wrap.md)
+  - [pg_get_viewdef_name](pg_get_viewdef_name.md)
+  - [pg_get_viewdef_name_ext](pg_get_viewdef_name_ext.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's rule utilities system

@@ -29,15 +29,15 @@ The structure is particularly important for foreign data wrappers and partitione
 ## Dependencies
 - Functions called/Symbols referenced:
   - AggClauseCosts (for cost estimation structures)
-  - PartitionwiseAggregateType (for partitioning strategy)
-  - Node (for HAVING qualifiers)
-  - List (for target list management)
+  - [PartitionwiseAggregateType](../P/PartitionwiseAggregateType.md) (for partitioning strategy)
+  - [Node](../N/Node.md) (for HAVING qualifiers)
+  - [List](../L/List.md) (for target list management)
 
 - Called from (representative examples):
   - standard_qp_extra (in planner.c for setting up extra data)
-  - create_grouping_paths (in planner.c for path generation)
-  - create_ordinary_grouping_paths (for non-partitioned grouping)
-  - create_partitionwise_grouping_paths (for partitioned table grouping)
+  - [create_grouping_paths](../c/create_grouping_paths.md) (in planner.c for path generation)
+  - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md) (for non-partitioned grouping)
+  - [create_partitionwise_grouping_paths](../c/create_partitionwise_grouping_paths.md) (for partitioned table grouping)
   - postgres_fdw foreign data wrapper (for remote aggregation)
 
 ## Notes and Other Information

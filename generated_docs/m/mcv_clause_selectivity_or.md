@@ -31,11 +31,11 @@ It maintains a match bitmap () to track which MCV items have been matched by pre
 ## Dependencies
 - Functions called/Symbols referenced:
   - mcv_get_match_bitmap
-  - palloc0
-  - pfree
+  - [palloc0](../p/palloc0.md)
+  - [pfree](../p/pfree.md)
   - list_make1
 - Called from (representative examples):
-  - statext_mcv_clauselist_selectivity
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's extended statistics framework introduced to improve query planning for correlated columns. It's specifically designed to handle OR clauses more accurately than traditional independence assumptions. The caller must initialize  to NULL on the first call, and the function maintains this bitmap across multiple calls for the same OR expression. The function is located in src/backend/statistics/mcv.c:2126-2175 and works in conjunction with other MCV statistics functions to provide comprehensive selectivity estimation for complex query conditions.

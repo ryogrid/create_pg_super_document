@@ -22,7 +22,7 @@ The function iterates through the provided list, comparing each WindowClause's n
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - transformWindowDefinitions (called twice in same function)
+  - [transformWindowDefinitions](../t/transformWindowDefinitions.md) (called twice in same function)
 
 ## Notes and Other Information
 - Static function internal to parse_clause.c for window function processing

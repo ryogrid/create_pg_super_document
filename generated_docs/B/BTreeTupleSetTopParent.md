@@ -20,13 +20,13 @@ The top parent mechanism is part of PostgreSQL's B-tree deletion algorithm, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSetBlockNumber
-  - BTreeTupleSetNAtts
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)
+  - [BTreeTupleSetNAtts](BTreeTupleSetNAtts.md)
 - Called from (representative examples):
-  - _bt_mark_page_halfdead
-  - _bt_unlink_halfdead_page
-  - btree_xlog_mark_page_halfdead
-  - btree_xlog_unlink_page
+  - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md)
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
+  - [btree_xlog_mark_page_halfdead](../b/btree_xlog_mark_page_halfdead.md)
+  - [btree_xlog_unlink_page](../b/btree_xlog_unlink_page.md)
 
 ## Notes and Other Information
 - This is the counterpart to BTreeTupleGetTopParent, used for setting rather than retrieving top parent information

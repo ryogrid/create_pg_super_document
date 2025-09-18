@@ -26,17 +26,17 @@ This function is essential for preventing memory leaks and managing buffer space
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - Assert (debugging assertion macro)
   - unlikely (branch prediction hint macro)
   - InvalidXLogRecPtr (constant for invalid record pointer)
 - Data structures used:
-  - DecodedXLogRecord
-  - XLogReaderState
+  - [DecodedXLogRecord](../D/DecodedXLogRecord.md)
+  - [XLogReaderState](XLogReaderState.md)
 - Called from (representative examples):
-  - XLogPrefetcherReadRecord
-  - XLogNextRecord  
-  - XLogReadRecord
+  - [XLogPrefetcherReadRecord](XLogPrefetcherReadRecord.md)
+  - [XLogNextRecord](XLogNextRecord.md)  
+  - [XLogReadRecord](XLogReadRecord.md)
 
 ## Notes and Other Information
 - The function safely handles the case where no previous record exists (returns InvalidXLogRecPtr)

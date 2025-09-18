@@ -18,7 +18,7 @@ This function serves as a type-safe wrapper for converting PostgreSQL Datum valu
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (macro for TOAST decompression)
-  - PATH (geometric data type)
+  - [PATH](../P/PATH.md) (geometric data type)
 - Called from (representative examples):
   - PG_GETARG_PATH_P (macro for function argument extraction)
 

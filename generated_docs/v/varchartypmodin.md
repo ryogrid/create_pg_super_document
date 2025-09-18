@@ -18,7 +18,7 @@ This function serves as the type modifier input handler for the VARCHAR data typ
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (macro to extract ArrayType argument)
-  - anychar_typmodin (shared validation logic for character types)
+  - [anychar_typmodin](../a/anychar_typmodin.md) (shared validation logic for character types)
   - PG_RETURN_INT32 (macro to return int32 result)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through PostgreSQL's type system infrastructure)

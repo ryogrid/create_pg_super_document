@@ -24,11 +24,11 @@ This wrapper is specifically designed for the prepare phase of two-phase commit 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
   - LogicalErrorCallbackState
   - output_plugin_error_callback
 - Called from (representative examples):
-  - FilterPrepare
+  - [FilterPrepare](../F/FilterPrepare.md)
 
 ## Notes and Other Information
 - This function is only called when `ctx->fast_forward` is false, ensuring it's not used during fast-forward mode

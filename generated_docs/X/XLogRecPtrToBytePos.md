@@ -28,9 +28,9 @@ This conversion is fundamental to WAL space management and is used extensively i
   - SizeOfXLogShortPHD
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - ReserveXLogInsertLocation
-  - ReserveXLogSwitch
-  - StartupXLOG
+  - [ReserveXLogInsertLocation](../R/ReserveXLogInsertLocation.md)
+  - [ReserveXLogSwitch](../R/ReserveXLogSwitch.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - This is a static function internal to xlog.c

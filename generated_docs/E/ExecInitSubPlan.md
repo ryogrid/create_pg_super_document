@@ -31,22 +31,22 @@ The function includes extensive logic for hash table setup when subplan.useHashT
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create SubPlanState)
-  - list_nth (to access subplan from estate)
-  - ExecInitExpr, ExecInitExprList (for expression initialization)
+  - [list_nth](../l/list_nth.md) (to access subplan from estate)
+  - [ExecInitExpr](ExecInitExpr.md), ExecInitExprList (for expression initialization)
   - AllocSetContextCreate (for memory context creation)
-  - CreateExprContext (for expression evaluation context)
-  - ExecTypeFromTL, ExecInitExtraTupleSlot (for tuple handling)
-  - ExecBuildProjectionInfo, ExecBuildGroupingEqual (for projection setup)
-  - get_compatible_hash_operators, get_op_hash_functions (for hash function setup)
-  - fmgr_info, fmgr_info_set_expr (for function manager setup)
+  - [CreateExprContext](../C/CreateExprContext.md) (for expression evaluation context)
+  - [ExecTypeFromTL](ExecTypeFromTL.md), ExecInitExtraTupleSlot (for tuple handling)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md), ExecBuildGroupingEqual (for projection setup)
+  - [get_compatible_hash_operators](../g/get_compatible_hash_operators.md), get_op_hash_functions (for hash function setup)
+  - [fmgr_info](../f/fmgr_info.md), fmgr_info_set_expr (for function manager setup)
 - Types used:
   - SubPlan, SubPlanState, PlanState, EState
-  - ParamExecData, OpExpr, BoolExpr, TargetEntry
-  - TupleDesc, TupleTableSlot
+  - [ParamExecData](../P/ParamExecData.md), OpExpr, BoolExpr, TargetEntry
+  - [TupleDesc](../T/TupleDesc.md), TupleTableSlot
 - Called from (representative examples):
-  - ExecInitExprRec (during expression tree initialization)
-  - ExecPushExprSetupSteps (for compiled expression setup)
-  - ExecInitNode (during plan node initialization)
+  - [ExecInitExprRec](ExecInitExprRec.md) (during expression tree initialization)
+  - [ExecPushExprSetupSteps](ExecPushExprSetupSteps.md) (for compiled expression setup)
+  - [ExecInitNode](ExecInitNode.md) (during plan node initialization)
 
 ## Notes and Other Information
 - This function does not link the SubPlan into the parent's subPlan list - that's handled by ExecInitExpr()

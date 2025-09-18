@@ -22,10 +22,10 @@ The function handles the case where a replication slot might have been deleted b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_replslot_index
+  - [get_replslot_index](../g/get_replslot_index.md)
   - NameStr (macro)
 - Types/Constants referenced:
-  - NameData
+  - [NameData](../N/NameData.md)
   - PgStat_HashKey
   - PGSTAT_KIND_REPLSLOT
   - InvalidOid

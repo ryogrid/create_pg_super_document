@@ -19,7 +19,7 @@ The function is part of PostgreSQL's pseudotype system that enables polymorphic 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_out
+  - [range_out](../r/range_out.md)
 - Called from (representative examples):
   - No direct references found (used internally by PostgreSQL's type system)
 

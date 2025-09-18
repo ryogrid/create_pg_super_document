@@ -26,19 +26,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetInstallXLogFileSegmentActive: Enables WAL segment creation
+  - [SetInstallXLogFileSegmentActive](../S/SetInstallXLogFileSegmentActive.md): Enables WAL segment creation
   - gettimeofday: Used for system identifier generation
-  - XLogFileInit: Creates the initial XLOG segment file
+  - [XLogFileInit](../X/XLogFileInit.md): Creates the initial XLOG segment file
   - InitControlFile: Initializes the control file structure
   - WriteControlFile: Writes control file to disk
-  - BootStrapCLOG: Initializes commit log
+  - [BootStrapCLOG](BootStrapCLOG.md): Initializes commit log
   - BootStrapCommitTs: Initializes commit timestamp subsystem
   - BootStrapSUBTRANS: Initializes subtransaction subsystem
-  - BootStrapMultiXact: Initializes multitransaction subsystem
+  - [BootStrapMultiXact](BootStrapMultiXact.md): Initializes multitransaction subsystem
   - ReadControlFile: Forces control file validation
 
 - Called from (representative examples):
-  - BootstrapModeMain: Main bootstrap process entry point
+  - [BootstrapModeMain](BootstrapModeMain.md): Main bootstrap process entry point
 
 ## Notes and Other Information
 - This function must be called only once during the lifetime of a PostgreSQL installation

@@ -29,11 +29,11 @@ The function includes assertion checks to verify that the input array is properl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multi_sort_compare
-  - SortItem, MultiSortSupport
+  - [multi_sort_compare](../m/multi_sort_compare.md)
+  - [SortItem](../S/SortItem.md), MultiSortSupport
 - Called from (representative examples):
   - SizeOfMCVList
-  - build_distinct_groups
+  - [build_distinct_groups](../b/build_distinct_groups.md)
 
 ## Notes and Other Information
 - Assumes the input array is pre-sorted; includes assertions to verify this

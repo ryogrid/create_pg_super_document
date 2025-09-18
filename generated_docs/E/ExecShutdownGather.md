@@ -17,11 +17,11 @@ ExecShutdownGather is the primary shutdown function for Gather executor nodes in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecShutdownGatherWorkers
-  - ExecParallelCleanup
+  - [ExecShutdownGatherWorkers](ExecShutdownGatherWorkers.md)
+  - [ExecParallelCleanup](ExecParallelCleanup.md)
 - Called from (representative examples):
-  - ExecShutdownNode_walker
-  - ExecEndGather
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md)
+  - [ExecEndGather](ExecEndGather.md)
 
 ## Notes and Other Information
 This is a public function exposed via nodeGather.h and is part of the executor node interface. It provides the standard shutdown mechanism for Gather nodes and is typically called during query cleanup or when the executor needs to shut down parallel operations. The function safely handles cases where no parallel context was established by checking for null pointers before cleanup.

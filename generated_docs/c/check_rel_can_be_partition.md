@@ -23,14 +23,14 @@ The function is designed to be non-destructive - it returns false for invalid re
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Checks if the relation exists in the system catalog
-  - get_rel_relkind: Retrieves the relation kind (table, index, view, etc.)
-  - get_rel_relispartition: Determines if the relation is already a partition
+  - [get_rel_relkind](../g/get_rel_relkind.md): Retrieves the relation kind (table, index, view, etc.)
+  - [get_rel_relispartition](../g/get_rel_relispartition.md): Determines if the relation is already a partition
   - RELKIND_HAS_PARTITIONS: Macro that checks if the relation kind supports having partitions
 
 - Called from (representative examples):
   - PG_PARTITION_TREE_COLS: Used in partition tree column analysis
-  - pg_partition_root: Called when finding the root of a partition hierarchy
-  - pg_partition_ancestors: Called when traversing partition ancestry
+  - [pg_partition_root](../p/pg_partition_root.md): Called when finding the root of a partition hierarchy
+  - [pg_partition_ancestors](../p/pg_partition_ancestors.md): Called when traversing partition ancestry
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (partitionfuncs.c)

@@ -19,10 +19,10 @@ The `range_constructor2` function constructs a PostgreSQL range type from two in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_fn_expr_rettype` - Gets the return type (range type) from function call info
+  - `[get_fn_expr_rettype](../g/get_fn_expr_rettype.md)` - Gets the return type (range type) from function call info
   - `RangeBound` - Structure representing range boundary information
-  - `range_get_typcache` - Retrieves type cache entry for the range type
-  - `make_range` - Constructs and validates the actual range value
+  - `[range_get_typcache](range_get_typcache.md)` - Retrieves type cache entry for the range type
+  - `[make_range](../m/make_range.md)` - Constructs and validates the actual range value
   - `PG_RETURN_RANGE_P` - Returns the constructed range as a PostgreSQL Datum
 - Called from (representative examples):
   - SQL range constructor functions

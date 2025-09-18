@@ -29,9 +29,9 @@ The function is designed to be safe even when called with potentially stale plan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathMatchesCurrentEnvironment
+  - [SearchPathMatchesCurrentEnvironment](../S/SearchPathMatchesCurrentEnvironment.md)
   - ResourceOwnerEnlarge
-  - ResourceOwnerRememberPlanCacheRef
+  - [ResourceOwnerRememberPlanCacheRef](../R/ResourceOwnerRememberPlanCacheRef.md)
   - CACHEDPLANSOURCE_MAGIC
   - CACHEDPLAN_MAGIC
 - Called from (representative examples):

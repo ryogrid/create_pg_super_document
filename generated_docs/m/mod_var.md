@@ -29,19 +29,19 @@ This approach ensures consistency with PostgreSQL's division behavior and handle
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var (initialize temporary variable)
-  - div_var (perform division with truncation)
-  - mul_var (multiply quotient by divisor)
-  - sub_var (subtract to get remainder)
-  - free_var (deallocate temporary variable memory)
+  - [div_var](../d/div_var.md) (perform division with truncation)
+  - [mul_var](mul_var.md) (multiply quotient by divisor)
+  - [sub_var](../s/sub_var.md) (subtract to get remainder)
+  - [free_var](../f/free_var.md) (deallocate temporary variable memory)
 
 - Called from (representative examples):
-  - numeric_mod_opt_error (modulo operation with error handling)
-  - gcd_var (greatest common divisor calculation)
+  - [numeric_mod_opt_error](../n/numeric_mod_opt_error.md) (modulo operation with error handling)
+  - [gcd_var](../g/gcd_var.md) (greatest common divisor calculation)
 
 ## Notes and Other Information
 - Uses mathematical identity rather than direct modulo implementation for consistency
 - Handles negative numbers according to standard mathematical modulo definition
 - Inherits division-by-zero protection from the underlying div_var function
-- Result scale matches the divisor's display scale for consistency
+- [Result](../R/Result.md) scale matches the divisor's display scale for consistency
 - Employs temporary variable management to avoid memory leaks
 - Provides foundation for higher-level modulo operations and mathematical functions like GCD

@@ -20,13 +20,13 @@ This function creates a deparse context optimized for Plan tree deparsing by usi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (for deparse_namespace allocation)
+  - [palloc0](../p/palloc0.md) (for deparse_namespace allocation)
   - list_length (for determining table count)
   - lfirst_node (for iterating append relations)
-  - set_simple_column_names
-  - AppendRelInfo (structure type)
+  - [set_simple_column_names](../s/set_simple_column_names.md)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)
 - Called from (representative examples):
-  - ExplainPrintPlan (src/backend/commands/explain.c:888)
+  - [ExplainPrintPlan](../E/ExplainPrintPlan.md) (src/backend/commands/explain.c:888)
 
 ## Notes and Other Information
 This function is specifically designed for EXPLAIN output generation where many expressions from the same plan tree need to be deparsed. The expensive column name setup is done once and reused, providing significant performance benefits for complex plans with large range tables. The function handles append relations by creating an array indexed by child relation ID, which is essential for proper variable resolution in partitioned tables. The context remains incomplete until set_deparse_context_plan() is called to specify the current plan node being processed. Join RTEs will produce somewhat bogus column name results, but this doesn't affect correctness since plan trees don't contain join alias Vars.

@@ -20,7 +20,7 @@ The bool_accum_inv function acts as the inverse state transition function for bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolAggState
+  - [BoolAggState](../B/BoolAggState.md)
   - PG_GETARG_BOOL
   - PG_ARGISNULL
   - PG_GETARG_POINTER

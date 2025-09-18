@@ -25,16 +25,16 @@ The memoization system requires both hash and equality operators because it uses
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause (verifies expression is an operator clause)
+  - [is_opclause](../i/is_opclause.md) (verifies expression is an operator clause)
   - exprType (determines expression data type)
-  - lookup_type_cache (retrieves type cache information)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (retrieves type cache information)
   - linitial/lsecond (list element access functions)
   - TYPECACHE_HASH_PROC/TYPECACHE_EQ_OPR (type cache flags)
   - OpExpr (operator expression node type)
-  - TypeCacheEntry (structure containing type-related operators)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (structure containing type-related operators)
 - Called from:
-  - distribute_restrictinfo_to_rels (during restriction info distribution)
-  - build_implied_join_equality (when building implied equality conditions)
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md) (during restriction info distribution)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (when building implied equality conditions)
 
 ## Notes and Other Information
 - This is a static function within initsplan.c, serving as an internal optimization utility

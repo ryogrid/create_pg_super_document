@@ -30,7 +30,7 @@ Like `hash_bytes`, it processes data efficiently in 12-byte chunks with optimize
   - final (final hash value computation)
 - Called from (representative examples):
   - ROTATE_HIGH_AND_LOW_32BITS (src/include/common/hashfn.h:24)
-  - hash_any_extended (src/include/common/hashfn.h:39)
+  - [hash_any_extended](hash_any_extended.md) (src/include/common/hashfn.h:39)
 
 ## Notes and Other Information
 - Provides 64-bit hash values by combining both b and c final values, compared to hash_bytes which only returns c

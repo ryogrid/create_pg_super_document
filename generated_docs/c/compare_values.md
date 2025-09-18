@@ -26,13 +26,13 @@ The comparison is performed using PostgreSQL's function call interface (Function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll (used for performing the actual value comparisons)
-  - DatumGetBool (to extract boolean results from comparison functions)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (used for performing the actual value comparisons)
+  - [DatumGetBool](../D/DatumGetBool.md) (to extract boolean results from comparison functions)
 - Called from (representative examples):
-  - AssertCheckRanges (for validation purposes)
-  - range_deduplicate_values (for sorting during deduplication)
-  - range_contains_value (for binary search operations)
-  - reduce_expanded_ranges (for sorting during range reduction)
+  - [AssertCheckRanges](../A/AssertCheckRanges.md) (for validation purposes)
+  - [range_deduplicate_values](../r/range_deduplicate_values.md) (for sorting during deduplication)
+  - [range_contains_value](../r/range_contains_value.md) (for binary search operations)
+  - [reduce_expanded_ranges](../r/reduce_expanded_ranges.md) (for sorting during range reduction)
 
 ## Notes and Other Information
 - Returns standard comparison function values: -1 (a < b), 0 (a == b), 1 (a > b)

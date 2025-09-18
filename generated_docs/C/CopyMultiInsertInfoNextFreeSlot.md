@@ -24,12 +24,12 @@ The function operates on the assumption that the caller has already verified the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_slot_create
-  - CopyMultiInsertBuffer (struct)
-  - CopyMultiInsertInfo (struct)  
+  - [table_slot_create](../t/table_slot_create.md)
+  - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (struct)
+  - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct)  
   - MAX_BUFFERED_TUPLES (constant)
 - Called from (representative examples):
-  - CopyFrom (at lines 979, 1140)
+  - [CopyFrom](CopyFrom.md) (at lines 979, 1140)
 
 ## Notes and Other Information
 - This is a static inline function for performance, as it's called frequently during COPY operations

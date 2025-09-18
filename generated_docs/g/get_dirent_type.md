@@ -20,18 +20,18 @@ A cross-platform function that determines the file type of a directory entry, wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dirent
-  - PGFileType
+  - [dirent](../d/dirent.md)
+  - [PGFileType](../P/PGFileType.md)
   - DT_REG, DT_DIR, DT_LNK (BSD/Linux dirent type constants)
-  - stat, lstat (system calls)
+  - [stat](../s/stat.md), lstat (system calls)
   - S_ISREG, S_ISDIR, S_ISLNK (POSIX stat macros)
   - pg_log_generic (frontend logging)
   - ereport (backend logging)
 - Called from (representative examples):
   - CheckPointLogicalRewriteHeap
-  - RemoveXlogFile
+  - [RemoveXlogFile](../R/RemoveXlogFile.md)
   - copydir
-  - walkdir
+  - [walkdir](../w/walkdir.md)
   - rmtree
   - process_directory_recursively
 

@@ -26,10 +26,10 @@ This method is typically used when concurrent access is not required or when the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - finish_heap_swap
-  - ReadNextMultiXactId
+  - [finish_heap_swap](../f/finish_heap_swap.md)
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
 - Called from (representative examples):
-  - RefreshMatViewByOid
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)
 
 ## Notes and Other Information
 - This is a simpler but more disruptive refresh method compared to refresh_by_match_merge

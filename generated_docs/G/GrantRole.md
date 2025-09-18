@@ -28,15 +28,15 @@ The function supports flexible role membership management with granular control 
 ## Dependencies
 - Functions called/Symbols referenced:
   - InitGrantRoleOptions: Initialize role grant options structure
-  - defGetString/parse_bool: Parse statement options
+  - [defGetString](../d/defGetString.md)/parse_bool: Parse statement options
   - get_rolespec_oid/get_role_oid: Role name to OID resolution
-  - roleSpecsToIds: Convert role specifications to OID list
-  - check_role_membership_authorization: Permission validation
-  - AddRoleMems: Add role memberships (for grants)
-  - DelRoleMems: Remove role memberships (for revocations)
+  - [roleSpecsToIds](../r/roleSpecsToIds.md): Convert role specifications to OID list
+  - [check_role_membership_authorization](../c/check_role_membership_authorization.md): Permission validation
+  - [AddRoleMems](../A/AddRoleMems.md): Add role memberships (for grants)
+  - [DelRoleMems](../D/DelRoleMems.md): Remove role memberships (for revocations)
   - table_open/table_close: pg_authid catalog access
 - Called from (representative examples):
-  - standard_ProcessUtility: Main utility command processing
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md): Main utility command processing
 
 ## Notes and Other Information
 - Supports three role grant options: admin (administrative rights), inherit (privilege inheritance), and set (ability to SET ROLE)

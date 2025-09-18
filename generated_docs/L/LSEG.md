@@ -26,21 +26,21 @@ The LSEG type is widely used in PostgreSQL's geometric operations for distance c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (endpoint coordinates)
+  - [Point](../P/Point.md) (endpoint coordinates)
   - FLEXIBLE_ARRAY_MEMBER (for PATH structure compatibility)
 
 - Called from (representative examples):
-  - lseg_in/lseg_out (I/O functions)
-  - lseg_distance (distance calculations)
-  - lseg_intersect (intersection tests)
-  - lseg_parallel/lseg_perp (geometric relationship tests)
-  - lseg_construct (constructor function)
-  - PATH operations (as line segments within paths)
-  - BOX operations (diagonal calculations)
-  - POLYGON operations (edge representations)
+  - [lseg_in](../l/lseg_in.md)/lseg_out (I/O functions)
+  - [lseg_distance](../l/lseg_distance.md) (distance calculations)
+  - [lseg_intersect](../l/lseg_intersect.md) (intersection tests)
+  - [lseg_parallel](../l/lseg_parallel.md)/lseg_perp (geometric relationship tests)
+  - [lseg_construct](../l/lseg_construct.md) (constructor function)
+  - [PATH](../P/PATH.md) operations (as line segments within paths)
+  - [BOX](../B/BOX.md) operations (diagonal calculations)
+  - [POLYGON](../P/POLYGON.md) operations (edge representations)
 
 ## Notes and Other Information
-- LSEG represents a finite line segment, distinct from the infinite LINE type
+- [LSEG](LSEG.md) represents a finite line segment, distinct from the infinite LINE type
 - The order of endpoints p[0] and p[1] can be significant for certain operations
 - Supports comprehensive geometric operations including length, slope, intersection, containment, and distance calculations
 - Used extensively in spatial indexing and geometric query processing

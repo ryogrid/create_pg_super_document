@@ -23,9 +23,9 @@ The function uses the shared memory table of contents (TOC) to locate the Shared
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker (src/backend/executor/execParallel.c:1364)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (src/backend/executor/execParallel.c:1364)
 
 ## Notes and Other Information
 - This function is only called in parallel query execution contexts where multiple worker processes cooperate on incremental sorting

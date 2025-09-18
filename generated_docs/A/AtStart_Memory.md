@@ -30,9 +30,9 @@ The function ensures proper memory isolation for transaction operations and prov
   - ALLOCSET_DEFAULT_SIZES (at line 1203)
   - CurrentTransactionState (global variable)
   - TopMemoryContext (global variable)
-  - MemoryContextSwitchTo (implicit)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicit)
 - Called from (representative examples):
-  - StartTransaction (src/backend/access/transam/xact.c:2104)
+  - [StartTransaction](../S/StartTransaction.md) (src/backend/access/transam/xact.c:2104)
 
 ## Notes and Other Information
 - This is a static function, only accessible within xact.c

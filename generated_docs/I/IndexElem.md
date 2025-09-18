@@ -25,13 +25,13 @@ IndexElem is a fundamental structure in PostgreSQL's parser nodes that represent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortByDir (enum for ordering direction)
+  - [SortByDir](../S/SortByDir.md) (enum for ordering direction)
   - SortByNulls (enum for null ordering)
 - Called from (representative examples):
-  - ComputeIndexAttrs (builds index attribute information)
-  - ChooseIndexColumnNames (determines column names for indexes)
-  - transformIndexConstraint (processes index constraints)
-  - transformIndexStmt (transforms CREATE INDEX statements)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md) (builds index attribute information)
+  - [ChooseIndexColumnNames](../C/ChooseIndexColumnNames.md) (determines column names for indexes)
+  - [transformIndexConstraint](../t/transformIndexConstraint.md) (processes index constraints)
+  - [transformIndexStmt](../t/transformIndexStmt.md) (transforms CREATE INDEX statements)
 
 ## Notes and Other Information
 IndexElem is crucial for PostgreSQL's index creation process, serving as the intermediate representation between parsed SQL and the internal index structures. The structure supports both traditional column-based indexes and more complex expression-based indexes. When processing CREATE INDEX statements, the parser creates IndexElem nodes for each indexed element, which are later processed by the index creation subsystem to build the actual index structures.

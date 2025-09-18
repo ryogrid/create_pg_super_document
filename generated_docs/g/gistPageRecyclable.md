@@ -19,14 +19,14 @@ This function implements the safety logic for page recycling in GiST indexes. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsNew (to check if page is uninitialized)
+  - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
   - GistPageIsDeleted (to check if page is marked as deleted)
-  - GistPageGetDeleteXid (to get the transaction ID that deleted the page)
+  - [GistPageGetDeleteXid](../G/GistPageGetDeleteXid.md) (to get the transaction ID that deleted the page)
   - FullTransactionId (transaction ID type)
-  - GlobalVisCheckRemovableFullXid (to check if deletion XID is still visible to any transaction)
+  - [GlobalVisCheckRemovableFullXid](../G/GlobalVisCheckRemovableFullXid.md) (to check if deletion XID is still visible to any transaction)
 - Called from (representative examples):
-  - gistNewBuffer (during page allocation to check if FSM pages can be reused)
-  - gistvacuumpage (during vacuum operations to determine page recyclability)
+  - [gistNewBuffer](gistNewBuffer.md) (during page allocation to check if FSM pages can be reused)
+  - [gistvacuumpage](gistvacuumpage.md) (during vacuum operations to determine page recyclability)
 
 ## Notes and Other Information
 - Critical for maintaining MVCC (Multi-Version Concurrency Control) semantics in GiST indexes

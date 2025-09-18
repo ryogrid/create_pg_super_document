@@ -29,14 +29,14 @@ Special handling includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strtok (tokenizer function for parsing serialized data)
+  - [pg_strtok](../p/pg_strtok.md) (tokenizer function for parsing serialized data)
   - atoui (ASCII to unsigned integer conversion)
   - atoi (ASCII to integer conversion)
-  - palloc (PostgreSQL memory allocator)
-  - PointerGetDatum (macro to convert pointer to Datum)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocator)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (macro to convert pointer to Datum)
   - elog (error logging function)
 - Called from (representative examples):
-  - _readConst (in readfuncs.c:275)
+  - [_readConst](_readConst.md) (in readfuncs.c:275)
 
 ## Notes and Other Information
 - This is a non-static function, making it available to other compilation units

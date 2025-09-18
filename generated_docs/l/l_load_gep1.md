@@ -25,10 +25,10 @@ The "1" in the function name indicates it performs a single-index GEP operation,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - l_gep: Used to compute the pointer arithmetic with the single index
-  - l_load: Used to load the value from the computed pointer
+  - [l_gep](l_gep.md): Used to compute the pointer arithmetic with the single index
+  - [l_load](l_load.md): Used to load the value from the computed pointer
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
   - llvm_compile_expr (extensively in llvmjit_expr.c)
 
 ## Notes and Other Information

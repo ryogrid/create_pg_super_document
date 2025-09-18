@@ -24,8 +24,8 @@ Since IndexTuple is a typedef for a pointer to IndexTupleData, the relevant memb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexTupleData (the underlying structure)
-  - ItemPointerData (for t_tid field)
+  - [IndexTupleData](IndexTupleData.md) (the underlying structure)
+  - [ItemPointerData](ItemPointerData.md) (for t_tid field)
 
 - Called from (representative examples):
   - Various index access method implementations

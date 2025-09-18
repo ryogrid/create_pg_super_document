@@ -28,25 +28,25 @@ If a scale factor was provided via command line but differs from the database co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec (execute SQL queries)
-  - PQresultStatus (check query result status)
+  - [PQexec](../P/PQexec.md) (execute SQL queries)
+  - [PQresultStatus](../P/PQresultStatus.md) (check query result status)
   - PGRES_TUPLES_OK (successful query result constant)
-  - PQresultErrorField (extract error details)
+  - [PQresultErrorField](../P/PQresultErrorField.md) (extract error details)
   - PG_DIAG_SQLSTATE (SQL state error field)
   - ERRCODE_UNDEFINED_TABLE (undefined table error code)
   - pg_log_error (error logging)
   - pg_log_error_hint (error hint logging)
   - pg_log_warning (warning logging)
-  - PQdb (get database name from connection)
-  - PQgetvalue (extract result values)
-  - PQntuples (get number of result rows)
-  - PQgetisnull (check for NULL values)
-  - PQclear (free result memory)
+  - [PQdb](../P/PQdb.md) (get database name from connection)
+  - [PQgetvalue](../P/PQgetvalue.md) (extract result values)
+  - [PQntuples](../P/PQntuples.md) (get number of result rows)
+  - [PQgetisnull](../P/PQgetisnull.md) (check for NULL values)
+  - [PQclear](../P/PQclear.md) (free result memory)
   - atoi (convert string to integer)
   - PART_NONE, PART_RANGE, PART_HASH (partitioning method constants)
   - Assert (debugging assertion)
 - Called from (representative examples):
-  - main (during pgbench setup phase)
+  - [main](../m/main.md) (during pgbench setup phase)
 
 ## Notes and Other Information
 - Sets global variables: , , and 

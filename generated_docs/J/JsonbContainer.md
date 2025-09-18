@@ -38,11 +38,11 @@ The structure supports the flags JB_FSCALAR, JB_FOBJECT, and JB_FARRAY in the he
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)
   - uint32 (standard type)
 - Called from (representative examples):
-  - JsonbToCString
-  - findJsonbValueFromContainer
-  - getIthJsonbValueFromContainer
-  - JsonbIteratorInit
-  - compareJsonbContainers
+  - [JsonbToCString](JsonbToCString.md)
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md)
+  - [getIthJsonbValueFromContainer](../g/getIthJsonbValueFromContainer.md)
+  - [JsonbIteratorInit](JsonbIteratorInit.md)
+  - [compareJsonbContainers](../c/compareJsonbContainers.md)
 
 ## Notes and Other Information
 Access macros are provided for convenient header manipulation: JsonContainerSize(), JsonContainerIsScalar(), JsonContainerIsObject(), and JsonContainerIsArray(). The object key/value layout (keys first, then values) is crucial for efficient key searches and maintains cache locality. The FLEXIBLE_ARRAY_MEMBER allows the structure to accommodate variable numbers of children without additional memory allocation.

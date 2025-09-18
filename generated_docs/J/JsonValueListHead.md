@@ -19,15 +19,15 @@ This function is commonly used when operations need to access the first result f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure type)
+  - [JsonValueList](JsonValueList.md) (structure type)
   - linitial (PostgreSQL list utility function)
 - Called from (representative examples):
-  - jsonb_path_match_internal
-  - jsonb_path_query_first_internal
-  - executeBinaryArithmExpr
-  - getArrayIndex
-  - JsonPathQuery
-  - JsonPathValue
+  - [jsonb_path_match_internal](../j/jsonb_path_match_internal.md)
+  - [jsonb_path_query_first_internal](../j/jsonb_path_query_first_internal.md)
+  - [executeBinaryArithmExpr](../e/executeBinaryArithmExpr.md)
+  - [getArrayIndex](../g/getArrayIndex.md)
+  - [JsonPathQuery](JsonPathQuery.md)
+  - [JsonPathValue](JsonPathValue.md)
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module

@@ -37,7 +37,7 @@ The function organizes buffers into banks (groups of SLRU_BANK_SIZE buffers) to 
 - Functions called/Symbols referenced:
   - SLRU_BANK_SIZE (constant defining buffers per bank)
   - SLRU_MAX_ALLOWED_BUFFERS (maximum allowed buffer slots)
-  - SlruSharedData (main shared data structure type)
+  - [SlruSharedData](SlruSharedData.md) (main shared data structure type)
   - SlruPageStatus (enum for page status values)
   - LWLockPadded (padded lightweight lock structure)
   - MAXALIGN (memory alignment macro)
@@ -48,9 +48,9 @@ The function organizes buffers into banks (groups of SLRU_BANK_SIZE buffers) to 
   - CLOGShmemSize
   - CommitTsShmemSize
   - SUBTRANSShmemSize
-  - SimpleLruInit
-  - PredicateLockShmemSize
-  - AsyncShmemSize
+  - [SimpleLruInit](SimpleLruInit.md)
+  - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md)
+  - [AsyncShmemSize](../A/AsyncShmemSize.md)
 
 ## Notes and Other Information
 - The function includes assertions to validate that nslots is within allowed bounds and properly aligned to bank boundaries

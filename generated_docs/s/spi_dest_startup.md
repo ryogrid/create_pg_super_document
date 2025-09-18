@@ -23,13 +23,13 @@ The function performs several critical setup tasks: creates a new memory context
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_procmem (memory context switching)
+  - [_SPI_procmem](../S/_SPI_procmem.md) (memory context switching)
   - AllocSetContextCreate (memory context creation)
-  - GetCurrentSubTransactionId (transaction tracking)
-  - slist_push_head (list management)
-  - CreateTupleDescCopy (tuple descriptor copying)
-  - palloc0, palloc (memory allocation)
-  - SPITupleTable (tuple table structure)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (transaction tracking)
+  - [slist_push_head](slist_push_head.md) (list management)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (tuple descriptor copying)
+  - [palloc0](../p/palloc0.md), palloc (memory allocation)
+  - [SPITupleTable](../S/SPITupleTable.md) (tuple table structure)
   - DestReceiver (destination interface)
 - Called from (representative examples):
   - Part of the DestReceiver interface (referenced in printtup.h)

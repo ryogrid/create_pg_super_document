@@ -35,9 +35,9 @@ The function includes comprehensive error handling for network operations and pr
   - pg_freeaddrinfo_all (PostgreSQL network utilities)
   - socket/bind/connect/send/recv (socket API)
   - closesocket (socket cleanup)
-  - interpret_ident_response
-  - set_authn_id (PostgreSQL authentication)
-  - check_usermap (PostgreSQL authorization)
+  - [interpret_ident_response](interpret_ident_response.md)
+  - [set_authn_id](../s/set_authn_id.md) (PostgreSQL authentication)
+  - [check_usermap](../c/check_usermap.md) (PostgreSQL authorization)
   - CHECK_FOR_INTERRUPTS (PostgreSQL interrupt handling)
   - ereport (PostgreSQL error reporting)
   - snprintf (C standard library)

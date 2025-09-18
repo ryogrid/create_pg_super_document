@@ -23,15 +23,15 @@ This function provides advanced editing capabilities for PostgreSQL functions an
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - strip_lineno_from_objdesc
-  - resetPQExpBuffer, appendPQExpBufferStr
-  - lookup_object_oid
-  - get_create_object_cmd
-  - do_edit
-  - ignore_slash_whole_line
+  - [strip_lineno_from_objdesc](../s/strip_lineno_from_objdesc.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md), appendPQExpBufferStr
+  - [lookup_object_oid](../l/lookup_object_oid.md)
+  - [get_create_object_cmd](../g/get_create_object_cmd.md)
+  - [do_edit](../d/do_edit.md)
+  - [ignore_slash_whole_line](../i/ignore_slash_whole_line.md)
   - pg_log_error, strncmp, strchr
 - Called from (representative examples):
-  - exec_command (for both \ef and \ev commands)
+  - [exec_command](exec_command.md) (for both \ef and \ev commands)
 
 ## Notes and Other Information
 - Supports syntax: \ef function_name[:line_number] or \ev view_name[:line_number]

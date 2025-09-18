@@ -21,7 +21,7 @@ The function inherits all the validation and behavior characteristics from Buffe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlock (function to get the block pointer)
+  - [BufferGetBlock](BufferGetBlock.md) (function to get the block pointer)
   - Page (return type - PostgreSQL page type)
 - Called from (representative examples):
   - Currently shows no direct references, but likely used throughout PostgreSQL codebase for page-level operations

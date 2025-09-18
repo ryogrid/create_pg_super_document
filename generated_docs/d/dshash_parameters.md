@@ -28,7 +28,7 @@ The dshash_parameters structure encapsulates all the configuration information r
 - Called from (representative examples):
   - dshash_create
   - dshash_attach
-  - shared_record_table_hash
+  - [shared_record_table_hash](../s/shared_record_table_hash.md)
 
 ## Notes and Other Information
 - Function pointers must be provided even when attaching because they cannot be safely shared between backends

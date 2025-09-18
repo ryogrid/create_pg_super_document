@@ -25,7 +25,7 @@ The function serves as the successful completion counterpart to BeginStrongLockA
 - Global variables used:
   - StrongLockInProgress
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within lock.c

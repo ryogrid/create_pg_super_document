@@ -21,15 +21,15 @@ The function is primarily used in regular expression processing and affix parsin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen
-  - char2wchar
+  - [pg_mblen](../p/pg_mblen.md)
+  - [char2wchar](../c/char2wchar.md)
   - isalpha (standard C library)
   - iswalpha (standard C library)
   - TOUCHAR
 - Called from (representative examples):
-  - RS_isRegis (regex processing)
-  - RS_compile (regex compilation)
-  - parse_affentry (affix parsing)
+  - [RS_isRegis](../R/RS_isRegis.md) (regex processing)
+  - [RS_compile](../R/RS_compile.md) (regex compilation)
+  - [parse_affentry](../p/parse_affentry.md) (affix parsing)
   - COPYCHAR
 
 ## Notes and Other Information

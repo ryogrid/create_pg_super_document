@@ -21,11 +21,11 @@ The `remap_groupColIdx` function transforms the grouping column references from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortGroupClause (struct type)
-  - palloc0 (memory allocation)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - list_length (list utility)
   - lfirst (list iteration)
 - Called from (representative examples):
-  - create_groupingsets_plan
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md)
 
 ## Notes and Other Information
 - The function is static, used only within createplan.c

@@ -21,18 +21,18 @@ This function processes ORDER BY clauses for various SQL constructs including SE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTargetlistEntrySQL99
-  - findTargetlistEntrySQL92
-  - addTargetToSortList
-  - SortBy (struct type)
-  - ParseExprKind (enum type)
+  - [findTargetlistEntrySQL99](../f/findTargetlistEntrySQL99.md)
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md)
+  - [addTargetToSortList](../a/addTargetToSortList.md)
+  - [SortBy](../S/SortBy.md) (struct type)
+  - [ParseExprKind](../P/ParseExprKind.md) (enum type)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformValuesClause
-  - transformSetOperationStmt
-  - transformPLAssignStmt
-  - transformAggregateCall
-  - transformWindowDefinitions
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformValuesClause](transformValuesClause.md)
+  - [transformSetOperationStmt](transformSetOperationStmt.md)
+  - [transformPLAssignStmt](transformPLAssignStmt.md)
+  - [transformAggregateCall](transformAggregateCall.md)
+  - [transformWindowDefinitions](transformWindowDefinitions.md)
 
 ## Notes and Other Information
 - This is a public function declared in parse_clause.h

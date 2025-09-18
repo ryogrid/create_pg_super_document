@@ -24,15 +24,15 @@ For both types, it delegates to  to obtain the estimated row count and applies  
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clamp_row_est
-  - get_function_rows
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [get_function_rows](../g/get_function_rows.md)
   - set_opfuncid
   - FuncExpr (node type check)
   - OpExpr (node type check)
 - Called from (representative examples):
-  - set_function_size_estimates
-  - create_set_projection_path
-  - estimate_num_groups
+  - [set_function_size_estimates](../s/set_function_size_estimates.md)
+  - [create_set_projection_path](../c/create_set_projection_path.md)
+  - [estimate_num_groups](estimate_num_groups.md)
 
 ## Notes and Other Information
 - This function should be kept in sync with  in 

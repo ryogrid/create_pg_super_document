@@ -41,9 +41,9 @@ A conversion is considered redundant (no-op) when:
   - SupportRequestSimplify
   - FuncExpr
   - list_length, lsecond, linitial (list operations)
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - exprTypmod
-  - intervaltypmodleastfield (called twice)
+  - [intervaltypmodleastfield](intervaltypmodleastfield.md) (called twice)
   - INTERVAL_FULL_PRECISION
   - INTERVAL_PRECISION  
   - MAX_INTERVAL_PRECISION

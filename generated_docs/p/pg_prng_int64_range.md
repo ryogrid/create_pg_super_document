@@ -29,8 +29,8 @@ The function performs safe type conversions by:
   - PG_INT64_MAX
   - PG_INT64_MIN
 - Called from (representative examples):
-  - int4random (in pseudorandomfuncs.c)
-  - int8random (in pseudorandomfuncs.c)
+  - [int4random](../i/int4random.md) (in pseudorandomfuncs.c)
+  - [int8random](../i/int8random.md) (in pseudorandomfuncs.c)
 
 ## Notes and Other Information
 - Uses the likely() macro for branch prediction optimization when rmax > rmin

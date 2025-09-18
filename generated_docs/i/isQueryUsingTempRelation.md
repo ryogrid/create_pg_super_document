@@ -19,10 +19,10 @@ bool isQueryUsingTempRelation(Query *query)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isQueryUsingTempRelation_walker
+  - [isQueryUsingTempRelation_walker](isQueryUsingTempRelation_walker.md)
 - Called from (representative examples):
-  - DefineView (src/backend/commands/view.c:487)
-  - transformCreateTableAsStmt (src/backend/parser/analyze.c:3040)
+  - [DefineView](../D/DefineView.md) (src/backend/commands/view.c:487)
+  - [transformCreateTableAsStmt](../t/transformCreateTableAsStmt.md) (src/backend/parser/analyze.c:3040)
 
 ## Notes and Other Information
 - This function is declared in src/include/parser/parse_relation.h and is part of the public parser interface

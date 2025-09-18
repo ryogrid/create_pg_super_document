@@ -20,14 +20,14 @@ This function performs the actual concatenation of two bytea values by allocatin
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE_ANY_EXHDR (to get data length excluding header)
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - SET_VARSIZE (to set the variable-length header size)
   - VARDATA (to get data pointer of result)
   - VARDATA_ANY (to get data pointer from input bytea)
   - memcpy (to copy data)
 - Called from (representative examples):
-  - byteacat (primary wrapper function)
-  - bytea_overlay (for string overlay operations)
+  - [byteacat](byteacat.md) (primary wrapper function)
+  - [bytea_overlay](bytea_overlay.md) (for string overlay operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within varlena.c

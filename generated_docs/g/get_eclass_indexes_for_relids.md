@@ -27,15 +27,15 @@ The function includes special handling for outer join relations that may not hav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member (bitmap set iteration function)
-  - bms_is_member (bitmap set membership test)
-  - bms_add_members (bitmap set union operation)
+  - [bms_next_member](../b/bms_next_member.md) (bitmap set iteration function)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test)
+  - [bms_add_members](../b/bms_add_members.md) (bitmap set union operation)
   - RelOptInfo (structure accessed for eclass_indexes field)
 - Called from (representative examples):
-  - generate_join_implied_equalities (src/backend/optimizer/path/equivclass.c:1423)
-  - add_child_join_rel_equivalences (src/backend/optimizer/path/equivclass.c:2767)
-  - has_relevant_eclass_joinclause (src/backend/optimizer/path/equivclass.c:3169)
-  - get_common_eclass_indexes (src/backend/optimizer/path/equivclass.c:3364, 3373)
+  - [generate_join_implied_equalities](generate_join_implied_equalities.md) (src/backend/optimizer/path/equivclass.c:1423)
+  - [add_child_join_rel_equivalences](../a/add_child_join_rel_equivalences.md) (src/backend/optimizer/path/equivclass.c:2767)
+  - [has_relevant_eclass_joinclause](../h/has_relevant_eclass_joinclause.md) (src/backend/optimizer/path/equivclass.c:3169)
+  - [get_common_eclass_indexes](get_common_eclass_indexes.md) (src/backend/optimizer/path/equivclass.c:3364, 3373)
 
 ## Notes and Other Information
 - Static function only used within equivclass.c module

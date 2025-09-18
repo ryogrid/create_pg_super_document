@@ -19,15 +19,15 @@ The iterator is designed to efficiently process bitmap data by pre-allocating an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - palloc
+  - [palloc0](../p/palloc0.md)
+  - [palloc](../p/palloc.md)
   - TidStoreIsShared
   - shared_ts_begin_iterate
   - local_ts_begin_iterate
   - BITS_PER_BITMAPWORD
 - Called from (representative examples):
-  - lazy_vacuum_heap_rel
-  - check_set_block_offsets
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md)
 
 ## Notes and Other Information
 - The TidStoreIter struct is created in the caller's memory context and must be freed using TidStoreEndIterate

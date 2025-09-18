@@ -25,14 +25,14 @@ The function includes safety assertions to ensure it's only called in appropriat
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsSyncingReplicationSlots
-  - GetWalRcvFlushRecPtr
-  - GetXLogReplayRecPtr
+  - [GetWalRcvFlushRecPtr](GetWalRcvFlushRecPtr.md)
+  - [GetXLogReplayRecPtr](GetXLogReplayRecPtr.md)
   - Assert
 - Called from (representative examples):
-  - synchronize_one_slot
-  - IdentifySystem
-  - StartReplication
-  - XLogSendPhysical
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
+  - [IdentifySystem](../I/IdentifySystem.md)
+  - [StartReplication](../S/StartReplication.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
 
 ## Notes and Other Information
 - Should only be called when the server is in recovery mode (standby)

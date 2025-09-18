@@ -19,7 +19,7 @@ This function serves as the standard input conversion function for PostgreSQL's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (extract string argument)
-  - network_in (common parsing function)
+  - [network_in](../n/network_in.md) (common parsing function)
   - PG_RETURN_INET_P (return inet value)
 - Called from (representative examples):
   - No direct references found in the current analysis

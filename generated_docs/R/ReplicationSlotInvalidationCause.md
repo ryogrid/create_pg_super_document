@@ -26,11 +26,11 @@ The invalidation mechanism helps maintain system stability by preventing infinit
   - RS_INVAL_MAX_CAUSES (macro defining the maximum cause value)
 
 - Called from (representative examples):
-  - ReportSlotInvalidation (src/backend/replication/slot.c:1477)
-  - InvalidatePossiblyObsoleteSlot (src/backend/replication/slot.c:1543, 1555, 1562)
-  - InvalidateObsoleteReplicationSlots (src/backend/replication/slot.c:1775)
-  - RestoreSlotFromDisk (src/backend/replication/slot.c:2404)
-  - GetSlotInvalidationCause (src/backend/replication/slot.c:2407, 2408)
+  - [ReportSlotInvalidation](ReportSlotInvalidation.md) (src/backend/replication/slot.c:1477)
+  - [InvalidatePossiblyObsoleteSlot](../I/InvalidatePossiblyObsoleteSlot.md) (src/backend/replication/slot.c:1543, 1555, 1562)
+  - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md) (src/backend/replication/slot.c:1775)
+  - [RestoreSlotFromDisk](RestoreSlotFromDisk.md) (src/backend/replication/slot.c:2404)
+  - [GetSlotInvalidationCause](../G/GetSlotInvalidationCause.md) (src/backend/replication/slot.c:2407, 2408)
   - PG_GET_REPLICATION_SLOTS_COLS (src/backend/replication/slotfuncs.c:266)
 
 ## Notes and Other Information

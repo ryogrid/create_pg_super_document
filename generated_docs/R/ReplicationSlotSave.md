@@ -19,16 +19,16 @@ This is a critical function for ensuring replication slot durability - without p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SaveSlotToPath
+  - [SaveSlotToPath](../S/SaveSlotToPath.md)
 - Called from (representative examples):
   - CreateInitDecodingContext
   - CreateDecodingContext
   - LogicalConfirmReceivedLocation
-  - ReplicationSlotAlter
-  - ReplicationSlotPersist
-  - CreateReplicationSlot
-  - synchronize_one_slot
-  - update_local_synced_slot
+  - [ReplicationSlotAlter](ReplicationSlotAlter.md)
+  - [ReplicationSlotPersist](ReplicationSlotPersist.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
+  - [update_local_synced_slot](../u/update_local_synced_slot.md)
 
 ## Notes and Other Information
 - Requires that MyReplicationSlot is not NULL (verified by Assert)

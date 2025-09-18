@@ -28,13 +28,13 @@ The function first handles NULL values appropriately for each conversion type, t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_format_append_string
-  - OutputFunctionCall
-  - quote_identifier
-  - quote_literal_cstr
-  - pfree
+  - [text_format_append_string](text_format_append_string.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [quote_literal_cstr](../q/quote_literal_cstr.md)
+  - [pfree](../p/pfree.md)
 - Called from:
-  - text_format (src/backend/utils/adt/varlena.c:5876)
+  - [text_format](text_format.md) (src/backend/utils/adt/varlena.c:5876)
 
 ## Notes and Other Information
 - NULL handling varies by conversion type: '%s' converts to empty string, '%L' to "NULL", while '%I' raises an error since NULL cannot be formatted as an SQL identifier

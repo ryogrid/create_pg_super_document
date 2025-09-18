@@ -22,11 +22,11 @@ The operation involves up to 2 backup blocks:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bool (type)
+  - [bool](../b/bool.md) (type)
 - Called from (representative examples):
-  - hashbucketcleanup (hash bucket cleanup function)
-  - hash_xlog_delete (WAL replay function for deletions)
-  - hash_desc (hash WAL record description function)
+  - [hashbucketcleanup](../h/hashbucketcleanup.md) (hash bucket cleanup function)
+  - [hash_xlog_delete](../h/hash_xlog_delete.md) (WAL replay function for deletions)
+  - [hash_desc](../h/hash_desc.md) (hash WAL record description function)
   - SizeOfHashDelete (macro for calculating structure size)
 
 ## Notes and Other Information

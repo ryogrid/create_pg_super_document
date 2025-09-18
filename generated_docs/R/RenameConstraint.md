@@ -26,16 +26,16 @@ The function delegates the actual renaming work to rename_constraint_internal, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameTypeId
+  - [typenameTypeId](../t/typenameTypeId.md)
   - makeTypeNameFromNameList
   - table_open/table_close
-  - checkDomainOwner
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForRenameAttribute
-  - rename_constraint_internal
+  - [checkDomainOwner](../c/checkDomainOwner.md)
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForRenameAttribute](RangeVarCallbackForRenameAttribute.md)
+  - [rename_constraint_internal](../r/rename_constraint_internal.md)
   - ereport/NOTICE
 - Called from (representative examples):
-  - ExecRenameStmt (in src/backend/commands/alter.c)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (in src/backend/commands/alter.c)
 
 ## Notes and Other Information
 - Handles both domain constraints and table/relation constraints in a single function

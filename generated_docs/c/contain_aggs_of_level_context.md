@@ -20,8 +20,8 @@ The context is used in conjunction with  function to determine whether an expres
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)
 - Called from (representative examples):
-  - contain_aggs_of_level (src/backend/rewrite/rewriteManip.c:88)
-  - contain_aggs_of_level_walker (src/backend/rewrite/rewriteManip.c:104)
+  - [contain_aggs_of_level](contain_aggs_of_level.md) (src/backend/rewrite/rewriteManip.c:88)
+  - [contain_aggs_of_level_walker](contain_aggs_of_level_walker.md) (src/backend/rewrite/rewriteManip.c:104)
 
 ## Notes and Other Information
 - Part of PostgreSQL's query rewriting infrastructure in rewriteManip.c

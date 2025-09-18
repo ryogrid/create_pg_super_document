@@ -21,15 +21,15 @@ Type categories help PostgreSQL determine which types can be implicitly converte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_type_category_preferred
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
   - TYPCATEGORY_INVALID
   - TYPCATEGORY (type definition)
 - Called from (representative examples):
-  - GetDefaultOpClass
-  - find_coercion_pathway
-  - func_select_candidate
-  - func_get_detail
-  - transformJsonBehavior
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md)
+  - [find_coercion_pathway](../f/find_coercion_pathway.md)
+  - [func_select_candidate](../f/func_select_candidate.md)
+  - [func_get_detail](../f/func_get_detail.md)
+  - [transformJsonBehavior](../t/transformJsonBehavior.md)
 
 ## Notes and Other Information
 - Located in src/backend/parser/parse_coerce.c:2978-2996

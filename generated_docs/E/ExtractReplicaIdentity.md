@@ -24,23 +24,23 @@ For REPLICA_IDENTITY_FULL, it returns the entire tuple, flattening any external/
 - Functions called/Symbols referenced:
   - RelationGetDescr
   - RelationIsLogicallyLogged
-  - RelationGetIndexAttrBitmap
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
   - HeapTupleHasExternal
-  - toast_flatten_tuple
-  - heap_deform_tuple
-  - heap_form_tuple
-  - heap_freetuple
+  - [toast_flatten_tuple](../t/toast_flatten_tuple.md)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - bms_is_empty
-  - bms_is_member
-  - bms_free
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_free](../b/bms_free.md)
   - REPLICA_IDENTITY_NOTHING
   - REPLICA_IDENTITY_FULL
   - INDEX_ATTR_BITMAP_IDENTITY_KEY
   - MaxHeapAttributeNumber
   - FirstLowInvalidHeapAttributeNumber
 - Called from:
-  - heap_delete
-  - heap_update
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within heapam.c

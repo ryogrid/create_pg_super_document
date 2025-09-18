@@ -19,17 +19,17 @@ The implementation performs an unlocked precheck on each buffer's database OID f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferDescriptor
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - LockBufHdr  
-  - InvalidateBuffer
-  - UnlockBufHdr
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Types used:
-  - BufferDesc
+  - [BufferDesc](../B/BufferDesc.md)
 - Called from (representative examples):
-  - createdb_failure_callback
-  - dropdb
-  - movedb
-  - dbase_redo
+  - [createdb_failure_callback](../c/createdb_failure_callback.md)
+  - [dropdb](../d/dropdb.md)
+  - [movedb](../m/movedb.md)
+  - [dbase_redo](../d/dbase_redo.md)
 
 ## Notes and Other Information
 - This function does not consider local buffers since the target database cannot be the current database by assumption

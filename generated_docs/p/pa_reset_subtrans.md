@@ -22,9 +22,9 @@ The function is typically called during error recovery scenarios or when cleanin
   - NIL (PostgreSQL list constant)
   - subxactlist (global variable)
 - Called from (representative examples):
-  - pa_stream_abort
-  - apply_handle_stream_prepare
-  - apply_handle_stream_commit
+  - [pa_stream_abort](pa_stream_abort.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - The function does not perform explicit memory deallocation, relying instead on PostgreSQL's transaction-scoped memory management

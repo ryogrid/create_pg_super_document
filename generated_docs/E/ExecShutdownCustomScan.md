@@ -19,10 +19,10 @@ The function follows PostgreSQL's established pattern of providing optional meth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (structure type)
-  - CustomExecMethods (structure type)
+  - [CustomScanState](../C/CustomScanState.md) (structure type)
+  - [CustomExecMethods](../C/CustomExecMethods.md) (structure type)
 - Called from (representative examples):
-  - ExecShutdownNode_walker (in src/backend/executor/execProcnode.c:804)
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md) (in src/backend/executor/execProcnode.c:804)
 
 ## Notes and Other Information
 - This function is part of the optional parallel execution support methods in the CustomExecMethods structure

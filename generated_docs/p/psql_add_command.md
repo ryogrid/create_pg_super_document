@@ -28,14 +28,14 @@ The function first uses a variadic argument mechanism to format the query string
   - appendStringInfoVA
   - enlargeStringInfo
   - appendStringInfoChar
-  - pfree
+  - [pfree](pfree.md)
   - strchr (standard C library)
 - Called from (representative examples):
   - psql_command
-  - drop_database_if_exists
-  - create_database
-  - drop_role_if_exists
-  - create_role
+  - [drop_database_if_exists](../d/drop_database_if_exists.md)
+  - [create_database](../c/create_database.md)
+  - [drop_role_if_exists](../d/drop_role_if_exists.md)
+  - [create_role](../c/create_role.md)
 
 ## Notes and Other Information
 - This function must be called after psql_start_command() and before psql_end_command()

@@ -23,10 +23,10 @@ The function includes an optimization to return early if no segments are current
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileClose (closes individual file descriptors)
-  - _fdvec_resize (resizes the file descriptor vector after closing segments)
-  - MdfdVec (structure type for file descriptor vector entries)
+  - [_fdvec_resize](../f/_fdvec_resize.md) (resizes the file descriptor vector after closing segments)
+  - [MdfdVec](../M/MdfdVec.md) (structure type for file descriptor vector entries)
 - Called from (representative examples):
-  - mdexists function
+  - [mdexists](mdexists.md) function
   - Referenced in MD_H header file for external access
 
 ## Notes and Other Information

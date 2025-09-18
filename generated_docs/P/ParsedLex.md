@@ -27,8 +27,8 @@ This structure is used throughout the text search lexization process to store in
   - LPLAddTail (adds ParsedLex to ListParsedLex)
   - LPLRemoveHead (removes ParsedLex from ListParsedLex)
   - LexizeAddLemm (creates and populates ParsedLex structures)
-  - LexizeExec (processes ParsedLex during lexization)
-  - addHLParsedLex (handles ParsedLex in highlighting functionality)
+  - [LexizeExec](../L/LexizeExec.md) (processes ParsedLex during lexization)
+  - [addHLParsedLex](../a/addHLParsedLex.md) (handles ParsedLex in highlighting functionality)
 
 ## Notes and Other Information
 - Part of PostgreSQL's full-text search infrastructure

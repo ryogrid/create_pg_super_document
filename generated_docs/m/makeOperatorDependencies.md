@@ -34,18 +34,18 @@ Notably, it does NOT create dependencies on commutator and negator operators, as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deleteDependencyRecordsFor (clears existing dependencies during updates)  
-  - deleteSharedDependencyRecordsFor (clears shared dependencies)
-  - new_object_addresses/free_object_addresses (manages dependency collection)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md) (clears existing dependencies during updates)  
+  - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md) (clears shared dependencies)
+  - [new_object_addresses](../n/new_object_addresses.md)/free_object_addresses (manages dependency collection)
   - ObjectAddressSet (creates object address structures)
-  - add_exact_object_address (adds dependency to collection)
-  - record_object_address_dependencies (records normal dependencies)
-  - recordDependencyOnOwner (records ownership dependency)
-  - recordDependencyOnCurrentExtension (records extension membership)
+  - [add_exact_object_address](../a/add_exact_object_address.md) (adds dependency to collection)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md) (records normal dependencies)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md) (records ownership dependency)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md) (records extension membership)
 - Called from (representative examples):
-  - OperatorShellMake (at src/backend/catalog/pg_operator.c:265)
-  - OperatorCreate (at src/backend/catalog/pg_operator.c:517)
-  - AlterOperator (at src/backend/commands/operatorcmds.c:691)
+  - [OperatorShellMake](../O/OperatorShellMake.md) (at src/backend/catalog/pg_operator.c:265)
+  - [OperatorCreate](../O/OperatorCreate.md) (at src/backend/catalog/pg_operator.c:517)
+  - [AlterOperator](../A/AlterOperator.md) (at src/backend/commands/operatorcmds.c:691)
 
 ## Notes and Other Information
 - Uses OidIsValid checks throughout to handle shell operators that may have incomplete information

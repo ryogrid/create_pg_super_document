@@ -23,9 +23,9 @@ The function provides diagnostic information by including the hash table name in
   - PANIC (error level constant for system-wide failures)
   - FATAL (error level constant for backend termination)
 - Data structures referenced:
-  - HTAB (hash table structure)
+  - [HTAB](../H/HTAB.md) (hash table structure)
 - Called from (representative examples):
-  - hash_initial_lookup
+  - [hash_initial_lookup](hash_initial_lookup.md)
 
 ## Notes and Other Information
 - Never returns - always terminates the process or entire system

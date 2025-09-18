@@ -20,18 +20,18 @@ This function processes modifications to a row tuple as specified by a PL/Python
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plpython_trigger_error_callback
-  - PLyUnicode_AsString
-  - SPI_fnumber
-  - PLy_output_convert
-  - heap_modify_tuple
+  - [plpython_trigger_error_callback](../p/plpython_trigger_error_callback.md)
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md)
+  - [SPI_fnumber](../S/SPI_fnumber.md)
+  - [PLy_output_convert](PLy_output_convert.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - TupleDescAttr
   - RelationGetDescr
   - PyDict_GetItemString
   - PyDict_Keys
   - PyList_Size
 - Called from (representative examples):
-  - PLy_exec_trigger
+  - [PLy_exec_trigger](PLy_exec_trigger.md)
 
 ## Notes and Other Information
 The function performs extensive validation including:

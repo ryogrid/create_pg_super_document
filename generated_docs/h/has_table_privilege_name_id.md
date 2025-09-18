@@ -31,8 +31,8 @@ The function process:
   - PG_GETARG_OID - to extract OID argument
   - PG_GETARG_TEXT_PP - to extract text argument
   - get_role_oid_or_public - converts role name to OID
-  - convert_table_priv_string - converts privilege string to AclMode
-  - pg_class_aclcheck_ext - performs ACL check with missing table detection
+  - [convert_table_priv_string](../c/convert_table_priv_string.md) - converts privilege string to AclMode
+  - [pg_class_aclcheck_ext](../p/pg_class_aclcheck_ext.md) - performs ACL check with missing table detection
   - PG_RETURN_NULL - returns NULL for missing tables
   - PG_RETURN_BOOL - returns boolean result for existing tables
 - Called from (representative examples):

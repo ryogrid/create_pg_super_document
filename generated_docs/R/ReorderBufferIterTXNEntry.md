@@ -22,14 +22,14 @@ This structure is a key component of PostgreSQL's logical replication system tha
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (PostgreSQL WAL Log Sequence Number type)
-  - ReorderBufferChange (change record structure)
-  - ReorderBufferTXN (transaction state structure)
-  - TXNEntryFile (file management structure)
+  - [ReorderBufferChange](ReorderBufferChange.md) (change record structure)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction state structure)
+  - [TXNEntryFile](../T/TXNEntryFile.md) (file management structure)
   - XLogSegNo (WAL segment number type)
 - Called from (representative examples):
   - ReorderBufferIterTXNState (at src/backend/replication/logical/reorderbuffer.c:172)
-  - ReorderBufferIterTXNInit (at src/backend/replication/logical/reorderbuffer.c:1318)
-  - ReorderBufferIterTXNNext (at src/backend/replication/logical/reorderbuffer.c:1411)
+  - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md) (at src/backend/replication/logical/reorderbuffer.c:1318)
+  - [ReorderBufferIterTXNNext](ReorderBufferIterTXNNext.md) (at src/backend/replication/logical/reorderbuffer.c:1411)
 
 ## Notes and Other Information
 This structure is essential for the k-way merge algorithm used in logical replication decoding. Multiple ReorderBufferIterTXNEntry structures are maintained simultaneously, each representing a different transaction's change stream. The merge algorithm uses the LSN values to determine the correct order for processing changes across all transactions. The file component is particularly important when transactions have been spilled to disk due to memory constraints, allowing the iterator to seamlessly read changes from persistent storage when needed.

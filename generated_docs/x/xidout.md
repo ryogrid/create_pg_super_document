@@ -21,7 +21,7 @@ xidout serves as the output conversion function for the xid data type in Postgre
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TRANSACTIONID
-  - palloc
+  - [palloc](../p/palloc.md)
   - snprintf
   - PG_RETURN_CSTRING
 - Called from (representative examples):

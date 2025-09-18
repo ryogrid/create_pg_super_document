@@ -18,13 +18,13 @@ This function performs a simple but critical check to determine if an object nam
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic character comparisons)
 - Called from (representative examples):
-  - CreateSchemaCommand (src/backend/commands/schemacmds.c:106)
-  - CreateRole (src/backend/commands/user.c:351)
-  - CreateTableSpace (src/backend/commands/tablespace.c:280)
-  - RenameSchema (src/backend/commands/schemacmds.c:286)
-  - RenameRole (src/backend/commands/user.c:1383, 1390)
-  - RenameTableSpace (src/backend/commands/tablespace.c:967)
-  - pg_replication_origin_create (src/backend/replication/logical/origin.c:1282)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md) (src/backend/commands/schemacmds.c:106)
+  - [CreateRole](../C/CreateRole.md) (src/backend/commands/user.c:351)
+  - [CreateTableSpace](../C/CreateTableSpace.md) (src/backend/commands/tablespace.c:280)
+  - [RenameSchema](../R/RenameSchema.md) (src/backend/commands/schemacmds.c:286)
+  - [RenameRole](../R/RenameRole.md) (src/backend/commands/user.c:1383, 1390)
+  - [RenameTableSpace](../R/RenameTableSpace.md) (src/backend/commands/tablespace.c:967)
+  - [pg_replication_origin_create](../p/pg_replication_origin_create.md) (src/backend/replication/logical/origin.c:1282)
   - check_rolespec_name (src/backend/utils/adt/acl.c:5586)
 
 ## Notes and Other Information

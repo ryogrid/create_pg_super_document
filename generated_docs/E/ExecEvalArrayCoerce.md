@@ -32,10 +32,10 @@ The function handles NULL arrays by returning NULL immediately, preserving SQL N
 - Functions called/Symbols referenced:
   - DatumGetArrayTypePCopy: Creates a detoasted copy of the input array
   - ARR_ELEMTYPE: Macro to access/modify array element type
-  - array_map: Applies element-wise transformation to array contents
+  - [array_map](../a/array_map.md): Applies element-wise transformation to array contents
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation context
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation context
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's compiled expression evaluation system, designed for high-performance expression execution

@@ -29,7 +29,7 @@ This function traverses a linked list of free page spans starting from the given
   - appendStringInfo
   - appendStringInfoChar
 - Called from (representative examples):
-  - FreePageManagerDump (multiple calls)
+  - [FreePageManagerDump](FreePageManagerDump.md) (multiple calls)
 
 ## Notes and Other Information
 - This is a static function used only for debugging purposes

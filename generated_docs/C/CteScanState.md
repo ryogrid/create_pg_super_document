@@ -36,16 +36,16 @@ CteScanState implements the execution state for CTE scan operations. CTEs (Commo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
+  - [ScanState](../S/ScanState.md)
   - Tuplestorestate
-  - PlanState
+  - [PlanState](../P/PlanState.md)
 - Called from (representative examples):
-  - ExecCteScan
-  - ExecInitCteScan
-  - ExecEndCteScan
-  - ExecReScanCteScan
-  - CteScanNext
-  - CteScanRecheck
+  - [ExecCteScan](../E/ExecCteScan.md)
+  - [ExecInitCteScan](../E/ExecInitCteScan.md)
+  - [ExecEndCteScan](../E/ExecEndCteScan.md)
+  - [ExecReScanCteScan](../E/ExecReScanCteScan.md)
+  - [CteScanNext](CteScanNext.md)
+  - [CteScanRecheck](CteScanRecheck.md)
 
 ## Notes and Other Information
 - Multiple CteScan nodes can read from the same CTE query through the leader-follower pattern

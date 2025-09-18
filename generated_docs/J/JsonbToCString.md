@@ -19,13 +19,13 @@ This function provides a simple interface for converting JSONB data to its strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbToCStringWorker (the core conversion function with indentation control)
-  - JsonbContainer (JSONB container structure type)
+  - [JsonbToCStringWorker](JsonbToCStringWorker.md) (the core conversion function with indentation control)
+  - [JsonbContainer](JsonbContainer.md) (JSONB container structure type)
 - Called from (representative examples):
-  - jsonb_out (primary JSONB output function)
-  - jsonb_send (binary send function)
-  - JsonbUnquote (for unquoting JSONB strings)
-  - jsonb_get_element, JsonbValueAsText, populate_scalar (various JSONB utility functions)
+  - [jsonb_out](../j/jsonb_out.md) (primary JSONB output function)
+  - [jsonb_send](../j/jsonb_send.md) (binary send function)
+  - [JsonbUnquote](JsonbUnquote.md) (for unquoting JSONB strings)
+  - [jsonb_get_element](../j/jsonb_get_element.md), JsonbValueAsText, populate_scalar (various JSONB utility functions)
 
 ## Notes and Other Information
 - This is a public function (no static keyword) accessible to other modules

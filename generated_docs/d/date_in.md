@@ -19,12 +19,12 @@ This function serves as the input conversion routine for PostgreSQL's DATE data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime (parses date string into field components)
-  - DecodeDateTime (interprets parsed fields into date components)
+  - [ParseDateTime](../P/ParseDateTime.md) (parses date string into field components)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (interprets parsed fields into date components)
   - DateTimeParseError (reports parsing errors)
-  - GetEpochTime (sets time to Unix epoch for DTK_EPOCH)
+  - [GetEpochTime](../G/GetEpochTime.md) (sets time to Unix epoch for DTK_EPOCH)
   - IS_VALID_JULIAN (validates Julian date range)
-  - date2j (converts calendar date to Julian day number)
+  - [date2j](date2j.md) (converts calendar date to Julian day number)
   - IS_VALID_DATE (validates final date range)
   - DATE_NOEND, DATE_NOBEGIN (special infinity values)
   - PG_RETURN_DATEADT (returns DateADT value)

@@ -19,18 +19,18 @@ The function creates an IntegerSet, adds the specified value, and then performs 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntegerSet (data structure)
-  - intset_create
-  - intset_add_member
-  - intset_num_entries
-  - intset_is_member
-  - intset_begin_iterate
-  - intset_iterate_next
+  - [IntegerSet](../I/IntegerSet.md) (data structure)
+  - [intset_create](../i/intset_create.md)
+  - [intset_add_member](../i/intset_add_member.md)
+  - [intset_num_entries](../i/intset_num_entries.md)
+  - [intset_is_member](../i/intset_is_member.md)
+  - [intset_begin_iterate](../i/intset_begin_iterate.md)
+  - [intset_iterate_next](../i/intset_iterate_next.md)
   - PG_UINT64_MAX
   - UINT64_FORMAT
   - NOTICE (logging level)
 - Called from (representative examples):
-  - test_integerset (called multiple times with boundary values: 0, 1, PG_UINT64_MAX-1, PG_UINT64_MAX)
+  - [test_integerset](test_integerset.md) (called multiple times with boundary values: 0, 1, PG_UINT64_MAX-1, PG_UINT64_MAX)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_integerset.c file

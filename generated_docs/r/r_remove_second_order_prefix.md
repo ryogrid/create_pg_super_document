@@ -17,15 +17,15 @@ This function implements the removal of Indonesian second-order prefixes as part
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among (Snowball framework function for forward string matching)
-  - slice_del (Snowball framework function for string deletion)
-  - slice_from_s (Snowball framework function for string replacement)
+  - [find_among](../f/find_among.md) (Snowball framework function for forward string matching)
+  - [slice_del](../s/slice_del.md) (Snowball framework function for string deletion)
+  - [slice_from_s](../s/slice_from_s.md) (Snowball framework function for string replacement)
   - a_4 (array defining 6 second-order prefixes: 'be', 'belajar', 'ber', 'pe', 'pelajar', 'per')
   - s_5, s_6 (string constants containing 'ajar' for root word restoration)
-  - r_KER (validation function for 'be' prefix requiring consonant+'er' pattern)
+  - [r_KER](r_KER.md) (validation function for 'be' prefix requiring consonant+'er' pattern)
 - Called from (representative examples):
-  - indonesian_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:369, 382)
-  - indonesian_UTF_8_stem (src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:369, 382)
+  - [indonesian_ISO_8859_1_stem](../i/indonesian_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:369, 382)
+  - [indonesian_UTF_8_stem](../i/indonesian_UTF_8_stem.md) (src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:369, 382)
 
 ## Notes and Other Information
 - Part of PostgreSQL's full-text search Snowball stemming implementation for Indonesian language

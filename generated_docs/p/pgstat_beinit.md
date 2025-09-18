@@ -24,11 +24,11 @@ This function takes no parameters.
   - NumBackendStatSlots
   - BackendStatusArray
   - MyBEEntry (global variable set)
-  - on_shmem_exit
-  - pgstat_beshutdown_hook
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [pgstat_beshutdown_hook](pgstat_beshutdown_hook.md)
 - Called from:
-  - AuxiliaryProcessMainCommon
-  - InitPostgres
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 The function includes important assertions to ensure MyProcNumber is valid and within the expected range. It's crucial that MyDatabaseId may not be set yet when this function is called, which is why the shutdown hook must be careful about database-specific cleanup. This function is called from both regular backend initialization (InitPostgres) and auxiliary process initialization.

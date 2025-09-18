@@ -25,13 +25,13 @@ The function includes optimizations to avoid creating hash tables when no uncomm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_uncommitted_enum_types (initializes uncommitted enum types hash table)
-  - init_uncommitted_enum_values (initializes uncommitted enum values hash table)
-  - hash_search (adds entries to hash tables)
+  - [init_uncommitted_enum_types](../i/init_uncommitted_enum_types.md) (initializes uncommitted enum types hash table)
+  - [init_uncommitted_enum_values](../i/init_uncommitted_enum_values.md) (initializes uncommitted enum values hash table)
+  - [hash_search](../h/hash_search.md) (adds entries to hash tables)
   - HASH_ENTER (hash table operation flag)
   - OidIsValid (checks if OID is valid/not a terminator)
 - Called from (representative examples):
-  - ParallelWorkerMain (at src/backend/access/transam/parallel.c:1522)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (at src/backend/access/transam/parallel.c:1522)
 
 ## Notes and Other Information
 - Includes assertions to ensure hash tables are initially NULL (not already initialized)

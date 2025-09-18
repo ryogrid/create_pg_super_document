@@ -21,17 +21,17 @@ This function is automatically invoked during transaction commit or abort to ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_assert_is_up
-  - MemoryContextDelete
-  - pgstat_clear_backend_activity_snapshot
+  - [pgstat_assert_is_up](pgstat_assert_is_up.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [pgstat_clear_backend_activity_snapshot](pgstat_clear_backend_activity_snapshot.md)
   - PGSTAT_FETCH_CONSISTENCY_NONE (constant)
 - Called from (representative examples):
-  - pgstat_get_stat_snapshot_timestamp
-  - pgstat_snapshot_fixed
-  - pgstat_prep_snapshot
+  - [pgstat_get_stat_snapshot_timestamp](pgstat_get_stat_snapshot_timestamp.md)
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
+  - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)
   - AtEOXact_PgStat
   - PostPrepare_PgStat
-  - pg_stat_clear_snapshot
+  - [pg_stat_clear_snapshot](pg_stat_clear_snapshot.md)
 
 ## Notes and Other Information
 - This function is automatically called during transaction commit or abort to discard no-longer-wanted snapshots

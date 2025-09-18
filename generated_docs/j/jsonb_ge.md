@@ -24,7 +24,7 @@ The function combines both equality and greater-than comparisons into a single o
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_JSONB_P`: Macro to extract JSONB argument from function call
-  - `compareJsonbContainers`: Core function that performs deep comparison of JSONB containers
+  - `[compareJsonbContainers](../c/compareJsonbContainers.md)`: Core function that performs deep comparison of JSONB containers
   - `PG_FREE_IF_COPY`: Macro to free copied arguments if necessary
   - `PG_RETURN_BOOL`: Macro to return boolean result as Datum
 - Called from (representative examples):

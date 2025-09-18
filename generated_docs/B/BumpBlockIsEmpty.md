@@ -21,7 +21,7 @@ This function provides a simple and efficient way to check if a bump memory bloc
   - Bump_BLOCKHDRSZ (size of block header constant)
 - Called from (representative examples):
   - ExternalChunkGetBlock (to verify block state)
-  - BumpIsEmpty (to check if entire context is empty)
+  - [BumpIsEmpty](BumpIsEmpty.md) (to check if entire context is empty)
 
 ## Notes and Other Information
 - Marked as static inline for optimal performance in frequent checks

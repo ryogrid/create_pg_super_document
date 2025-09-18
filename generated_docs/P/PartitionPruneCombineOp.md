@@ -22,8 +22,8 @@ UNION operations correspond to OR clauses - if any argument step indicates a par
 - Functions called/Symbols referenced: None (enum definition)
 - Used by:
   - PartitionPruneStepCombine struct (as combineOp member)
-  - gen_prune_step_combine() function in partprune.c
-  - perform_pruning_combine_step() function in partprune.c
+  - [gen_prune_step_combine](../g/gen_prune_step_combine.md)() function in partprune.c
+  - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md)() function in partprune.c
 
 ## Notes and Other Information
 - Used specifically for BoolExpr clause processing during partition pruning optimization

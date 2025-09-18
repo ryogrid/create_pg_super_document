@@ -31,7 +31,7 @@ These values act as a floor for vacuum operations, preventing removal of tuple v
   - LWLockAcquire/LWLockRelease (for process array synchronization)
   - elog (for debug logging)
 - Called from (representative examples):
-  - ReplicationSlotsComputeRequiredXmin (in slot.c)
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md) (in slot.c)
 
 ## Notes and Other Information
 - Uses ProcArrayLock in exclusive mode to ensure atomic updates of xmin values

@@ -19,11 +19,11 @@ PresortedKeyData is used in PostgreSQL's incremental sort optimization to track 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfo
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
 - Called from (representative examples):
   - preparePresortedCols
   - isCurrentGroup
-  - IncrementalSortState
+  - [IncrementalSortState](../I/IncrementalSortState.md)
 
 ## Notes and Other Information
 PresortedKeyData is specifically designed for PostgreSQL's incremental sort node, which optimizes sorting when the input is already partially sorted. The structure enables efficient comparison operations on presorted columns while maintaining the necessary function call context. This optimization is particularly beneficial for queries with ORDER BY clauses where the input data already has some ordering that can be leveraged to reduce sorting work.

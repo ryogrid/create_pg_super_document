@@ -24,18 +24,18 @@ The function works within memory limits (max_changes_in_memory) and processes ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferReturnChange (to free existing changes)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (to free existing changes)
   - XLByteToSeg (WAL segment calculation)
-  - ReorderBufferSerializedPath (path generation for spill files)
+  - [ReorderBufferSerializedPath](ReorderBufferSerializedPath.md) (path generation for spill files)
   - PathNameOpenFile (file opening)
-  - ReorderBufferSerializeReserve (buffer management)
-  - FileRead (disk I/O)
+  - [ReorderBufferSerializeReserve](ReorderBufferSerializeReserve.md) (buffer management)
+  - [FileRead](../F/FileRead.md) (disk I/O)
   - FileClose (file cleanup)
-  - ReorderBufferRestoreChange (change deserialization)
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md) (change deserialization)
   - dlist_* functions (doubly-linked list operations)
 - Called from (representative examples):
-  - ReorderBufferIterTXNInit
-  - ReorderBufferIterTXNNext
+  - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md)
+  - [ReorderBufferIterTXNNext](ReorderBufferIterTXNNext.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the reorderbuffer.c module

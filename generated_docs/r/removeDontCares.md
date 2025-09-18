@@ -22,8 +22,8 @@ This utility function processes an array of tuple indices (typically  or  from a
   - OffsetNumber (PostgreSQL type for tuple offsets)
   - No function calls (purely algorithmic processing)
 - Called from:
-  - gistUserPicksplit (at src/backend/access/gist/gistsplit.c:513)
-  - gistUserPicksplit (at src/backend/access/gist/gistsplit.c:514)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md) (at src/backend/access/gist/gistsplit.c:513)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md) (at src/backend/access/gist/gistsplit.c:514)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistsplit.c file

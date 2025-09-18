@@ -20,18 +20,18 @@ RecordIOData serves as a comprehensive cache structure for record-level metadata
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ColumnIOData
+  - [ColumnIOData](../C/ColumnIOData.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - CompositeIOData
+  - [CompositeIOData](../C/CompositeIOData.md)
   - JsObjectFree
-  - populate_record_field
-  - allocate_record_info
-  - populate_record
-  - record_in
-  - record_out
-  - record_recv
-  - record_send
+  - [populate_record_field](../p/populate_record_field.md)
+  - [allocate_record_info](../a/allocate_record_info.md)
+  - [populate_record](../p/populate_record.md)
+  - [record_in](../r/record_in.md)
+  - [record_out](../r/record_out.md)
+  - [record_recv](../r/record_recv.md)
+  - [record_send](../r/record_send.md)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/jsonfuncs.c at lines 227-235

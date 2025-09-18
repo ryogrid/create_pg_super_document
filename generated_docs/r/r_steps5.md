@@ -37,11 +37,11 @@ The function follows the standard snowball stemmer pattern of backward matching 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward pattern matching)
-  - slice_del (slice deletion)
-  - slice_from_s (slice replacement with predefined strings)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching)
+  - [slice_del](../s/slice_del.md) (slice deletion)
+  - [slice_from_s](../s/slice_from_s.md) (slice replacement with predefined strings)
 - Called from (representative examples):
-  - greek_UTF_8_stem (main stemming function)
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md) (main stemming function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the Greek stemmer module

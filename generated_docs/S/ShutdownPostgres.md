@@ -22,8 +22,8 @@ This callback is designed to execute reliably even if user-level cleanup operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbortOutOfAnyTransaction
-  - LockReleaseAll
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
   - USER_LOCKMETHOD
 - Called from (representative examples):
   - Registered as callback in InitPostgres via before_shmem_exit()

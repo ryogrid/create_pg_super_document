@@ -25,17 +25,17 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - should_output_to_server
-  - should_output_to_client  
-  - write_stderr
-  - MemoryContextReset
-  - in_error_recursion_trouble
-  - get_error_stack_entry
-  - set_stack_entry_domain
+  - [should_output_to_server](../s/should_output_to_server.md)
+  - [should_output_to_client](../s/should_output_to_client.md)  
+  - [write_stderr](../w/write_stderr.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [in_error_recursion_trouble](../i/in_error_recursion_trouble.md)
+  - [get_error_stack_entry](../g/get_error_stack_entry.md)
+  - [set_stack_entry_domain](../s/set_stack_entry_domain.md)
 - Called from (representative examples):
-  - errstart_cold
-  - errsave_start
-  - ThrowErrorData
+  - [errstart_cold](errstart_cold.md)
+  - [errsave_start](errsave_start.md)
+  - [ThrowErrorData](../T/ThrowErrorData.md)
   - ereport_domain
 
 ## Notes and Other Information

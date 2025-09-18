@@ -31,14 +31,14 @@ After join reduction, the function removes nulling relation references that are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reduce_outer_joins_pass1
-  - reduce_outer_joins_pass2
+  - [reduce_outer_joins_pass1](reduce_outer_joins_pass1.md)
+  - [reduce_outer_joins_pass2](reduce_outer_joins_pass2.md)
   - bms_is_empty
-  - remove_nulling_relids
-  - bms_make_singleton
+  - [remove_nulling_relids](remove_nulling_relids.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
   - elog
 - Called from (representative examples):
-  - subquery_planner
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
 - Must be run after expression preprocessing (qual canonicalization and JOIN alias-var expansion)

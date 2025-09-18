@@ -23,13 +23,13 @@ Memory management is carefully handled by switching to the per-tuple memory cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - IterateDirectModify (via fdwroutine)
   - IterateForeignScan (via fdwroutine)
   - TupIsNull
   - RelationGetRelid
 - Called from:
-  - ExecForeignScan
+  - [ExecForeignScan](../E/ExecForeignScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeForeignscan.c

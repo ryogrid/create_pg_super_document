@@ -20,13 +20,13 @@ This containment relationship is fundamental in spatial operations and is used e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type structure)
+  - [BOX](../B/BOX.md) (data type structure)
   - PG_GETARG_BOX_P (macro for extracting box arguments)
-  - box_contain_box (internal function that performs the actual containment test)
+  - [box_contain_box](box_contain_box.md) (internal function that performs the actual containment test)
   - PG_RETURN_BOOL (macro for returning boolean results)
 - Called from (representative examples):
-  - gist_box_leaf_consistent (GiST index consistency checking)
-  - spg_box_quad_leaf_consistent (SP-GiST index consistency checking)
+  - [gist_box_leaf_consistent](../g/gist_box_leaf_consistent.md) (GiST index consistency checking)
+  - [spg_box_quad_leaf_consistent](../s/spg_box_quad_leaf_consistent.md) (SP-GiST index consistency checking)
 
 ## Notes and Other Information
 - This function is essentially a wrapper around  with reversed argument order

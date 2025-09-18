@@ -32,8 +32,8 @@ The function includes validation to prevent extremely large offsets (>= HOURSPER
   - DAYSPERWEEK (constant for days per week)
   - sprintf (for formatted string output)
 - Called from (representative examples):
-  - stringrule (in src/timezone/zic.c:2780)
-  - stringzone (in src/timezone/zic.c:2901, 2914)
+  - [stringrule](stringrule.md) (in src/timezone/zic.c:2780)
+  - [stringzone](stringzone.md) (in src/timezone/zic.c:2901, 2914)
 
 ## Notes and Other Information
 - Returns the length of the generated string

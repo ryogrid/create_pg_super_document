@@ -25,20 +25,20 @@ The function handles various edge cases including NULL input values, empty datas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OSAPerGroupState (struct type)
-  - pct_info (struct type)
-  - AggCheckCallContext
+  - [OSAPerGroupState](../O/OSAPerGroupState.md) (struct type)
+  - [pct_info](pct_info.md) (struct type)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_GETARG_ARRAYTYPE_P
-  - deconstruct_array_builtin
-  - construct_empty_array
-  - setup_pct_info
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [setup_pct_info](../s/setup_pct_info.md)
   - tuplesort_performsort
   - tuplesort_rescan
-  - tuplesort_skiptuples  
-  - tuplesort_getdatum
-  - construct_md_array
+  - [tuplesort_skiptuples](../t/tuplesort_skiptuples.md)  
+  - [tuplesort_getdatum](../t/tuplesort_getdatum.md)
+  - [construct_md_array](../c/construct_md_array.md)
   - ARR_NDIM/ARR_DIMS/ARR_LBOUND (array macros)
-  - palloc (memory allocation)
+  - [palloc](palloc.md) (memory allocation)
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework (no direct code references found)
 

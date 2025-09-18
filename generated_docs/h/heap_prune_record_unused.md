@@ -24,9 +24,9 @@ The function tracks unused line pointers in the pruning state's `nowunused` arra
   - PruneState (structure)
   - MaxHeapTuplesPerPage (constant)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
-  - heap_prune_chain
-  - heap_prune_record_dead_or_unused
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
+  - [heap_prune_chain](heap_prune_chain.md)
+  - [heap_prune_record_dead_or_unused](heap_prune_record_dead_or_unused.md)
 
 ## Notes and Other Information
 - Marks the offset as processed to prevent duplicate processing

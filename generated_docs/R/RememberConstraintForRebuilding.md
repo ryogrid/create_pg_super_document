@@ -29,16 +29,16 @@ The deduplication check is critical because:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid
-  - pg_get_constraintdef_command
+  - [list_member_oid](../l/list_member_oid.md)
+  - [pg_get_constraintdef_command](../p/pg_get_constraintdef_command.md)
   - lappend_oid
   - lappend
-  - get_constraint_index
-  - RememberReplicaIdentityForRebuilding
-  - RememberClusterOnForRebuilding
+  - [get_constraint_index](../g/get_constraint_index.md)
+  - [RememberReplicaIdentityForRebuilding](RememberReplicaIdentityForRebuilding.md)
+  - [RememberClusterOnForRebuilding](RememberClusterOnForRebuilding.md)
 - Called from (representative examples):
-  - RememberAllDependentForRebuilding
-  - RememberIndexForRebuilding
+  - [RememberAllDependentForRebuilding](RememberAllDependentForRebuilding.md)
+  - [RememberIndexForRebuilding](RememberIndexForRebuilding.md)
 
 ## Notes and Other Information
 - Essential for maintaining constraint integrity during table schema changes

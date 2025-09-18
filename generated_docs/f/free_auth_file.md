@@ -24,15 +24,15 @@ This function is part of PostgreSQL's authentication configuration file processi
 ## Dependencies
 - Functions called/Symbols referenced:
   - FreeFile
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - CONF_FILE_START_DEPTH
 - Called from (representative examples):
-  - tokenize_include_file
-  - tokenize_expand_file
-  - load_hba
-  - load_ident
-  - fill_hba_view
-  - fill_ident_view
+  - [tokenize_include_file](../t/tokenize_include_file.md)
+  - [tokenize_expand_file](../t/tokenize_expand_file.md)
+  - [load_hba](../l/load_hba.md)
+  - [load_ident](../l/load_ident.md)
+  - [fill_hba_view](fill_hba_view.md)
+  - [fill_ident_view](fill_ident_view.md)
 
 ## Notes and Other Information
 - The depth parameter is crucial for proper memory management - the tokenization context is only deleted when depth equals CONF_FILE_START_DEPTH, indicating the completion of the entire configuration file processing

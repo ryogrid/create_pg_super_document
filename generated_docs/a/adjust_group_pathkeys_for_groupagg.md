@@ -32,24 +32,24 @@ The function ensures that aggregates with volatile functions perform independent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggInfo
+  - [AggInfo](../A/AggInfo.md)
   - Aggref
   - AGGKIND_IS_ORDERED_SET
   - RelabelType
-  - make_pathkeys_for_sortclauses
-  - has_volatile_pathkey
-  - compare_pathkeys
-  - append_pathkeys
-  - bms_add_member
-  - bms_del_member
-  - bms_del_members
-  - bms_next_member
-  - bms_num_members
+  - [make_pathkeys_for_sortclauses](../m/make_pathkeys_for_sortclauses.md)
+  - [has_volatile_pathkey](../h/has_volatile_pathkey.md)
+  - [compare_pathkeys](../c/compare_pathkeys.md)
+  - [append_pathkeys](append_pathkeys.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_del_member](../b/bms_del_member.md)
+  - [bms_del_members](../b/bms_del_members.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_num_members](../b/bms_num_members.md)
   - list_nth_node
   - linitial_node
-  - list_copy
+  - [list_copy](../l/list_copy.md)
 - Called from (representative examples):
-  - standard_qp_callback
+  - [standard_qp_callback](../s/standard_qp_callback.md)
 
 ## Notes and Other Information
 - Only operates when `enable_presorted_aggregate` is enabled and `numOrderedAggs > 0`

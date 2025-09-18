@@ -32,20 +32,20 @@ The function handles non-numeric values gracefully - it skips them when no resul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetArg
-  - executeItemOptUnwrapResult
-  - jspGetNext
-  - JsonValueListInitIterator
-  - JsonValueListNext
-  - getScalar
-  - jspOperationName
+  - [jspGetArg](../j/jspGetArg.md)
+  - [executeItemOptUnwrapResult](executeItemOptUnwrapResult.md)
+  - [jspGetNext](../j/jspGetNext.md)
+  - [JsonValueListInitIterator](../J/JsonValueListInitIterator.md)
+  - [JsonValueListNext](../J/JsonValueListNext.md)
+  - [getScalar](../g/getScalar.md)
+  - [jspOperationName](../j/jspOperationName.md)
   - DirectFunctionCall1
-  - DatumGetNumeric
-  - NumericGetDatum
-  - executeNextItem
+  - [DatumGetNumeric](../D/DatumGetNumeric.md)
+  - [NumericGetDatum](../N/NumericGetDatum.md)
+  - [executeNextItem](executeNextItem.md)
   - jperIsError
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (for unary plus and minus operations)
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md) (for unary plus and minus operations)
 
 ## Notes and Other Information
 - This is a static function used only within the jsonpath_exec.c compilation unit

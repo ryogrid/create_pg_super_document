@@ -41,8 +41,8 @@ Supported attributes include:
   - memcpy (standard C library function for memory copying)
   - conn->ssl (SSL object in PGconn structure)
 - Called from (representative examples):
-  - printSSLInfo (in psql command implementation)
-  - print_ssl_library (in libpq test client)
+  - [printSSLInfo](../p/printSSLInfo.md) (in psql command implementation)
+  - [print_ssl_library](../p/print_ssl_library.md) (in libpq test client)
   - External applications using libpq
 
 ## Notes and Other Information

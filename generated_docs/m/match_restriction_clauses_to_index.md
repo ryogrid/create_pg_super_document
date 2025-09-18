@@ -19,12 +19,12 @@ This function is a specialized wrapper that focuses specifically on restriction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_clauses_to_index
-  - IndexOptInfo
+  - [match_clauses_to_index](match_clauses_to_index.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md)
   - IndexClauseSet
 - Called from (representative examples):
   - ec_member_matches_arg
-  - create_index_paths
+  - [create_index_paths](../c/create_index_paths.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the indxpath.c file

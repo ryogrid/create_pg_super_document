@@ -30,10 +30,10 @@ The function uses PostgreSQL's memory chunk system (CHUNKHDRSZ) to account for m
   - SizeofMinimalTupleHeader
   - AggStatePerGroupData
   - CHUNKHDRSZ
-  - TupleHashEntryData
+  - [TupleHashEntryData](../T/TupleHashEntryData.md)
 - Called from (representative examples):
-  - ExecInitAgg
-  - cost_agg
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [cost_agg](../c/cost_agg.md)
   - estimate_hashagg_tablesize
 
 ## Notes and Other Information

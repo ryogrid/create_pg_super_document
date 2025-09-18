@@ -23,17 +23,17 @@ The process involves converting raw grammar expressions to an array of cstrings,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeNameToString
+  - [TypeNameToString](../T/TypeNameToString.md)
   - intVal
   - strVal
-  - CStringGetDatum
-  - construct_array_builtin
-  - setup_parser_errposition_callback
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
   - OidFunctionCall1
-  - DatumGetInt32
-  - cancel_parser_errposition_callback
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)
 - Called from (representative examples):
-  - LookupTypeNameExtended
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
 
 ## Notes and Other Information
 This is a static function internal to parse_type.c, designed to be called only from within the type resolution process. It performs careful validation of shell types (incomplete type definitions) and provides specific error messages for various failure cases. The function handles memory management for temporary arrays and ensures proper cleanup through pfree calls. Type modifiers are a PostgreSQL extension that allows types like VARCHAR(50) or NUMERIC(10,2) to specify additional constraints or parameters.

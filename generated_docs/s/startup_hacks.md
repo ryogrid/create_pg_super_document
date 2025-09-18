@@ -25,7 +25,7 @@ The comments explicitly note that this function exists as a workaround for platf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - write_stderr (error message output)
+  - [write_stderr](../w/write_stderr.md) (error message output)
   - setvbuf (configure stream buffering, Windows)
   - WSAStartup (initialize Winsock, Windows)
   - SetErrorMode (configure Windows error handling)
@@ -33,7 +33,7 @@ The comments explicitly note that this function exists as a workaround for platf
   - _set_error_mode (redirect C runtime errors, Windows)
   - _CrtSetReportMode/_CrtSetReportFile (configure debug report output, Windows)
 - Called from:
-  - main (during early process initialization)
+  - [main](../m/main.md) (during early process initialization)
 
 ## Notes and Other Information
 - This function is static and only called from within the same source file

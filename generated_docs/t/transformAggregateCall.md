@@ -24,17 +24,17 @@ For ordered-set aggregates (like percentile functions), it splits the argument l
 ## Dependencies
 - Functions called/Symbols referenced:
   - AGGKIND_IS_ORDERED_SET
-  - list_copy_tail
-  - list_truncate
-  - makeTargetEntry
-  - addTargetToSortList
-  - transformSortClause
-  - transformDistinctClause
-  - get_sortgroupclause_expr
-  - check_agglevels_and_constraints
+  - [list_copy_tail](../l/list_copy_tail.md)
+  - [list_truncate](../l/list_truncate.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [addTargetToSortList](../a/addTargetToSortList.md)
+  - [transformSortClause](transformSortClause.md)
+  - [transformDistinctClause](transformDistinctClause.md)
+  - [get_sortgroupclause_expr](../g/get_sortgroupclause_expr.md)
+  - [check_agglevels_and_constraints](../c/check_agglevels_and_constraints.md)
 - Called from (representative examples):
-  - ParseFuncOrColumn
-  - transformJsonAggConstructor
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [transformJsonAggConstructor](transformJsonAggConstructor.md)
 
 ## Notes and Other Information
 - The function validates that DISTINCT aggregates have sortable input types by checking for valid sort operators

@@ -20,11 +20,11 @@ This function is part of the debugging infrastructure (compiled only when  is de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumparcs (for dumping outgoing arcs from this state)
-  - arc (struct type for representing transitions)
-  - flag (state flag indicating special properties)
+  - [dumparcs](dumparcs.md) (for dumping outgoing arcs from this state)
+  - [arc](../a/arc.md) (struct type for representing transitions)
+  - [flag](../f/flag.md) (state flag indicating special properties)
 - Called from (representative examples):
-  - dumpnfa (src/backend/regex/regc_nfa.c:3678)
+  - [dumpnfa](dumpnfa.md) (src/backend/regex/regc_nfa.c:3678)
   - REPLACEARC (src/backend/regex/regcomp.c:237)
 
 ## Notes and Other Information

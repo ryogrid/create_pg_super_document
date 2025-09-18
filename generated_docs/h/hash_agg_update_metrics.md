@@ -25,13 +25,13 @@ The function only operates when the aggregation strategy is either AGG_MIXED or 
   - LogicalTapeSetBlocks
   - HASHAGG_WRITE_BUFFER_SIZE
   - HASHAGG_READ_BUFFER_SIZE
-  - TupleHashEntryData
-  - AggState
+  - [TupleHashEntryData](../T/TupleHashEntryData.md)
+  - [AggState](../A/AggState.md)
   - AGG_MIXED
   - AGG_HASHED
 - Called from (representative examples):
-  - agg_refill_hash_table
-  - hashagg_finish_initial_spills
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [hashagg_finish_initial_spills](hashagg_finish_initial_spills.md)
 
 ## Notes and Other Information
 - The function tracks three main types of memory: metadata context memory, hashkey context memory, and buffer memory for tape operations

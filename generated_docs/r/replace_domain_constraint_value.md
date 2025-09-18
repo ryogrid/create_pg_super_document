@@ -30,7 +30,7 @@ The CoerceToDomainValue node is copied from the parser state's hook context (set
   - strcmp (string comparison)
   - copyObject (create copy of CoerceToDomainValue)
 - Called from:
-  - domainAddCheckConstraint (set as p_pre_columnref_hook during parsing)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md) (set as p_pre_columnref_hook during parsing)
 
 ## Notes and Other Information
 - Installed as p_pre_columnref_hook in ParseState during domain constraint parsing

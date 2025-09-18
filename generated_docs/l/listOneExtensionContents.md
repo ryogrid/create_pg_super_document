@@ -24,15 +24,15 @@ The query workflow:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (data structure)
-  - printQueryOpt (data structure)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
+  - [printQueryOpt](../p/printQueryOpt.md) (data structure)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - PSQLexec
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [PSQLexec](../P/PSQLexec.md)
   - termPQExpBuffer
-  - printQuery
+  - [printQuery](../p/printQuery.md)
 - Called from (representative examples):
-  - listExtensionContents (in src/bin/psql/describe.c:6103)
+  - [listExtensionContents](listExtensionContents.md) (in src/bin/psql/describe.c:6103)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the describe.c source file

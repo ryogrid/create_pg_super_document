@@ -21,17 +21,17 @@ This static function serves as a gatekeeper for attribute rename operations by p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errdetail_relkind_not_supported
-  - object_ownercheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - get_rel_relkind
-  - IsSystemClass
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [IsSystemClass](../I/IsSystemClass.md)
   - RELKIND constants (RELATION, VIEW, MATVIEW, etc.)
 - Called from (representative examples):
-  - renameatt_internal
-  - RangeVarCallbackForRenameAttribute
-  - rename_constraint_internal
+  - [renameatt_internal](renameatt_internal.md)
+  - [RangeVarCallbackForRenameAttribute](../R/RangeVarCallbackForRenameAttribute.md)
+  - [rename_constraint_internal](rename_constraint_internal.md)
 
 ## Notes and Other Information
 - Prevents renaming columns of typed tables except during recursive inheritance operations

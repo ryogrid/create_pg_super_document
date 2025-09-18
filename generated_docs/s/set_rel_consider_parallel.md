@@ -23,14 +23,14 @@ After relation-type-specific checks, the function validates that all base restri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_persistence (checks if relation is temporary)
-  - func_parallel (determines function's parallel safety)
-  - is_parallel_safe (validates expressions for parallel execution)
-  - limit_needed (checks if subquery has LIMIT/OFFSET)
+  - [get_rel_persistence](../g/get_rel_persistence.md) (checks if relation is temporary)
+  - [func_parallel](../f/func_parallel.md) (determines function's parallel safety)
+  - [is_parallel_safe](../i/is_parallel_safe.md) (validates expressions for parallel execution)
+  - [limit_needed](../l/limit_needed.md) (checks if subquery has LIMIT/OFFSET)
   - IS_SIMPLE_REL (macro to validate relation type)
 - Called from:
-  - set_base_rel_sizes (main size estimation phase)
-  - set_append_rel_size (inheritance relation handling)
+  - [set_base_rel_sizes](set_base_rel_sizes.md) (main size estimation phase)
+  - [set_append_rel_size](set_append_rel_size.md) (inheritance relation handling)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c that's part of the parallel query planning infrastructure

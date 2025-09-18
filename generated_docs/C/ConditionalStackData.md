@@ -17,10 +17,10 @@ ConditionalStackData acts as the primary data structure for managing nested cond
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IfStackElem (struct representing individual stack elements)
+  - [IfStackElem](../I/IfStackElem.md) (struct representing individual stack elements)
 - Called from (representative examples):
-  - conditional_stack_create
-  - ConditionalStack (type alias)
+  - [conditional_stack_create](../c/conditional_stack_create.md)
+  - [ConditionalStack](ConditionalStack.md) (type alias)
 
 ## Notes and Other Information
 This structure serves as the foundation for conditional processing in PostgreSQL frontend tools. It provides a clean abstraction over the underlying linked list implementation, allowing for easy stack operations while maintaining the state information necessary for proper conditional block execution and query buffer management.

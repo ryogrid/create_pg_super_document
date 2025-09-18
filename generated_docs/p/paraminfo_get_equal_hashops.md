@@ -32,11 +32,11 @@ When successful, the function returns parallel lists of parameter expressions an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clause_sides_match_join
-  - contain_volatile_functions
-  - lookup_type_cache
-  - list_free
-  - list_member
+  - [clause_sides_match_join](../c/clause_sides_match_join.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [list_free](../l/list_free.md)
+  - [list_member](../l/list_member.md)
   - lappend_oid
   - linitial
   - lsecond
@@ -45,7 +45,7 @@ When successful, the function returns parallel lists of parameter expressions an
   - TYPECACHE_HASH_PROC
   - TYPECACHE_EQ_OPR
 - Called from (representative examples):
-  - get_memoize_path
+  - [get_memoize_path](../g/get_memoize_path.md)
 
 ## Notes and Other Information
 This function is static and used internally within joinpath.c as part of the memoization path generation logic. Binary mode is required when the function cannot guarantee that hash-based equality checking will be sufficient for correctness.

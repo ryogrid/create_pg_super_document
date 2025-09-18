@@ -33,18 +33,18 @@ The algorithm:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `cmp_abs`: Compare absolute values of two `NumericVar` values
-  - `set_var_from_var`: Copy one `NumericVar` to another
+  - `[cmp_abs](../c/cmp_abs.md)`: Compare absolute values of two `NumericVar` values
+  - `[set_var_from_var](../s/set_var_from_var.md)`: Copy one `NumericVar` to another
   - `init_var`: Initialize a new `NumericVar` structure
-  - `mod_var`: Calculate modulo of two `NumericVar` values
-  - `free_var`: Free memory associated with a `NumericVar`
+  - `[mod_var](../m/mod_var.md)`: Calculate modulo of two `NumericVar` values
+  - `[free_var](../f/free_var.md)`: Free memory associated with a `NumericVar`
   - `CHECK_FOR_INTERRUPTS`: Macro to allow interruption of long operations
   - `NUMERIC_POS`: Constant representing positive sign
   - `Max`: Macro to get maximum of two values
 
 - Called from (representative examples):
-  - `numeric_gcd`: SQL-callable GCD function wrapper
-  - `numeric_lcm`: Used internally for least common multiple calculation
+  - `[numeric_gcd](../n/numeric_gcd.md)`: SQL-callable GCD function wrapper
+  - `[numeric_lcm](../n/numeric_lcm.md)`: Used internally for least common multiple calculation
 
 ## Notes and Other Information
 - This is a static function internal to the numeric data type implementation

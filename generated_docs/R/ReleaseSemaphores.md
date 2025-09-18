@@ -26,7 +26,7 @@ The cleanup is designed to be non-fatal - PosixSemaphoreKill() logs errors rathe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PosixSemaphoreKill (destroys individual semaphores)
+  - [PosixSemaphoreKill](../P/PosixSemaphoreKill.md) (destroys individual semaphores)
   - PG_SEM_REF (macro to reference unnamed semaphores)
   - free (deallocates memory for named semaphore pointers)
   - Global variables: numSems, mySemPointers, sharedSemas

@@ -20,13 +20,13 @@ This function creates a new ZSTD compression stream using `ZSTD_createCStream()`
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_createCStream (from ZSTD library)
-  - pg_fatal (PostgreSQL error handling)
-  - _Zstd_CCtx_setParam_or_die (internal helper function)
-  - pg_compress_specification (PostgreSQL compression specification type)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
+  - [_Zstd_CCtx_setParam_or_die](_Zstd_CCtx_setParam_or_die.md) (internal helper function)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (PostgreSQL compression specification type)
   - PG_COMPRESSION_OPTION_LONG_DISTANCE (compression option flag)
 - Called from (representative examples):
-  - InitCompressorZstd
-  - Zstd_write
+  - [InitCompressorZstd](../I/InitCompressorZstd.md)
+  - [Zstd_write](Zstd_write.md)
 
 ## Notes and Other Information
 - This is a static function internal to the compress_zstd.c module

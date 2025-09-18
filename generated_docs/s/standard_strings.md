@@ -24,9 +24,9 @@ This information is important for psql's string processing and command parsing, 
   - PQparameterStatus (libpq function to query server parameters)
   - pset.db (global psql database connection)
 - Called from (representative examples):
-  - get_create_object_cmd (for generating SQL commands)
-  - parse_slash_copy (for COPY command parsing)
-  - MainLoop (in psql main loop for input processing)
+  - [get_create_object_cmd](../g/get_create_object_cmd.md) (for generating SQL commands)
+  - [parse_slash_copy](../p/parse_slash_copy.md) (for COPY command parsing)
+  - [MainLoop](../M/MainLoop.md) (in psql main loop for input processing)
 
 ## Notes and Other Information
 - This function is specific to psql client application, not the PostgreSQL backend

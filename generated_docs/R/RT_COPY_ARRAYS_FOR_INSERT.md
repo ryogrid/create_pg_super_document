@@ -24,8 +24,8 @@ This function copies arrays from source to destination while leaving a gap at th
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
 - Called from (representative examples):
-  - RT_GROW_NODE_16 (at src/include/lib/radixtree.h:1394)
-  - RT_GROW_NODE_4 (at src/include/lib/radixtree.h:1495)
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md) (at src/include/lib/radixtree.h:1394)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md) (at src/include/lib/radixtree.h:1495)
 
 ## Notes and Other Information
 The function uses a clever branch-free computation  to skip the insertion position without conditional branching, improving performance. This is a key utility function for radix tree node growth operations when transitioning from smaller to larger node types (e.g., node4 to node16, node16 to node48).

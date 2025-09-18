@@ -26,7 +26,7 @@ The network byte order is assumed throughout the conversion process, meaning tha
   - EMSGSIZE (error constant for message size errors)
   - Standard C library functions: isxdigit, isupper, tolower, strchr, isdigit
 - Called from (representative examples):
-  - pg_inet_net_pton (src/backend/utils/adt/inet_net_pton.c:69)
+  - [pg_inet_net_pton](../p/pg_inet_net_pton.md) (src/backend/utils/adt/inet_net_pton.c:69)
 
 ## Notes and Other Information
 - Returns the number of bits in the network specification or -1 on failure

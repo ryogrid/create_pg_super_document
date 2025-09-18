@@ -24,12 +24,12 @@ This function is part of PostgreSQL's disciplined resource management system whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GroupState (node parameter type)
-  - PlanState (outer plan reference)
+  - [GroupState](../G/GroupState.md) (node parameter type)
+  - [PlanState](../P/PlanState.md) (outer plan reference)
   - outerPlanState (child plan access macro)
-  - ExecEndNode (recursive cleanup)
+  - [ExecEndNode](ExecEndNode.md) (recursive cleanup)
 - Called from (representative examples):
-  - ExecEndNode (during plan tree cleanup)
+  - [ExecEndNode](ExecEndNode.md) (during plan tree cleanup)
 
 ## Notes and Other Information
 - Follows PostgreSQL's standard bottom-up cleanup pattern

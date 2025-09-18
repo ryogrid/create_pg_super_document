@@ -33,7 +33,7 @@ The function includes proper error handling, translating Windows socket errors t
   - WSA_FLAG_OVERLAPPED (flag for overlapped I/O capability)
   - ioctlsocket (Winsock API for socket I/O control)
   - FIONBIO (I/O control code for non-blocking mode)
-  - TranslateSocketError (error translation function)
+  - [TranslateSocketError](../T/TranslateSocketError.md) (error translation function)
   - closesocket (Winsock API for socket cleanup)
 
 - Called from:

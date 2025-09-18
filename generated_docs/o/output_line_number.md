@@ -19,14 +19,14 @@ This function generates and outputs a C preprocessor line number directive to th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashline_number
+  - [hashline_number](../h/hashline_number.md)
   - fprintf
   - free
   - base_yyout (global output file pointer)
 - Called from:
-  - main (src/interfaces/ecpg/preproc/ecpg.c:480)
-  - output_simple_statement (src/interfaces/ecpg/preproc/output.c:24)
-  - whenever_action (multiple locations)
+  - [main](../m/main.md) (src/interfaces/ecpg/preproc/ecpg.c:480)
+  - [output_simple_statement](output_simple_statement.md) (src/interfaces/ecpg/preproc/output.c:24)
+  - [whenever_action](../w/whenever_action.md) (multiple locations)
 
 ## Notes and Other Information
 - Part of the ECPG (Embedded SQL in C) preprocessor system

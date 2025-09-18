@@ -22,11 +22,11 @@ The function implements standard aggregate behavior by returning NULL when no ro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - catenate_stringinfo_string
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [catenate_stringinfo_string](../c/catenate_stringinfo_string.md)
   - PG_RETURN_TEXT_P
 - Types referenced:
-  - JsonAggState
+  - [JsonAggState](../J/JsonAggState.md)
 - Called from (representative examples):
   - PostgreSQL aggregate framework (no direct callers in source)
 

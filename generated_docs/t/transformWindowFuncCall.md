@@ -29,15 +29,15 @@ The function enforces SQL standard restrictions by rejecting window functions in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_windowfuncs
-  - locate_windowfunc
-  - ParseExprKindName
-  - equal
+  - [contain_windowfuncs](../c/contain_windowfuncs.md)
+  - [locate_windowfunc](../l/locate_windowfunc.md)
+  - [ParseExprKindName](../P/ParseExprKindName.md)
+  - [equal](../e/equal.md)
   - lappend
   - list_length
 - Called from (representative examples):
-  - ParseFuncOrColumn
-  - transformJsonAggConstructor
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [transformJsonAggConstructor](transformJsonAggConstructor.md)
 
 ## Notes and Other Information
 - Unlike aggregates, only the most closely nested pstate level is considered for window functions

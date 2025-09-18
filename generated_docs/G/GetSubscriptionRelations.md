@@ -30,25 +30,25 @@ The returned list is allocated in the current memory context and must be managed
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - palloc
-  - SysCacheGetAttr
+  - [palloc](../p/palloc.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetLSN
   - lappend
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_subscription_rel
   - SubscriptionRelState
   - SUBREL_STATE_READY
-  - CharGetDatum
+  - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):
-  - DropSubscription
-  - FetchTableStates
+  - [DropSubscription](../D/DropSubscription.md)
+  - [FetchTableStates](../F/FetchTableStates.md)
 
 ## Notes and Other Information
 - Returns a palloc'ed List in the current memory context

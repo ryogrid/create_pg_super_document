@@ -29,7 +29,7 @@ This mechanism allows administrators to configure flexible LDAP search filters i
   - LPH_USERNAME: Constant defining the "$username" placeholder string
   - LPH_USERNAME_LEN: Length of the placeholder string
 - Called from (representative examples):
-  - `CheckLDAPAuth` at src/backend/libpq/auth.c:2554
+  - `[CheckLDAPAuth](../C/CheckLDAPAuth.md)` at src/backend/libpq/auth.c:2554
 
 ## Notes and Other Information
 - Returns a newly allocated C string that must be freed by the caller

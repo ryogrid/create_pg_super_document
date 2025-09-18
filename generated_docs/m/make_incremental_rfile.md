@@ -19,16 +19,16 @@ The function performs validation on the magic number and ensures that block coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_rfile
-  - read_bytes
+  - [make_rfile](make_rfile.md)
+  - [read_bytes](../r/read_bytes.md)
   - pg_malloc0
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - INCREMENTAL_MAGIC
   - RELSEG_SIZE
   - BlockNumber
   - BLCKSZ
 - Called from (representative examples):
-  - reconstruct_from_incremental_file
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md)
 
 ## Notes and Other Information
 The function validates the incremental file format using a magic number and enforces PostgreSQL's segment size constraints. Header length is aligned to BLCKSZ boundaries only when the file contains actual block data, optimizing for both alignment requirements and storage efficiency. The resulting rfile structure contains all necessary metadata for subsequent block extraction operations during reconstruction.

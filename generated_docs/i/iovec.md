@@ -30,13 +30,13 @@ PostgreSQL defines its own version of the structure on Windows (where it is not 
 - Functions called/Symbols referenced:
   - IOV_MAX (constant defined in the same header)
 - Used by (representative examples):
-  - pg_preadv
-  - pg_pwritev
+  - [pg_preadv](../p/pg_preadv.md)
+  - [pg_pwritev](../p/pg_pwritev.md)
   - FileReadV
   - FileWriteV
-  - mdreadv
-  - mdwritev
-  - buffers_to_iovec
+  - [mdreadv](../m/mdreadv.md)
+  - [mdwritev](../m/mdwritev.md)
+  - [buffers_to_iovec](../b/buffers_to_iovec.md)
   - pg_pwritev_with_retry
 
 ## Notes and Other Information

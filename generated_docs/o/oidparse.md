@@ -21,12 +21,12 @@ The function handles two cases: T_Integer nodes are processed directly using , w
 - Functions called/Symbols referenced:
   - nodeTag (macro to get node type)
   - intVal (macro to extract integer value)
-  - uint32in_subr (OID parsing function)
+  - [uint32in_subr](../u/uint32in_subr.md) (OID parsing function)
   - castNode (type-safe node casting macro)
   - elog (error logging)
 - Called from (representative examples):
-  - objectNamesToOids (src/backend/catalog/aclchk.c:733)
-  - get_object_address (src/backend/catalog/objectaddress.c:1047)
+  - [objectNamesToOids](objectNamesToOids.md) (src/backend/catalog/aclchk.c:733)
+  - [get_object_address](../g/get_object_address.md) (src/backend/catalog/objectaddress.c:1047)
 
 ## Notes and Other Information
 - Handles the lexer's categorization of large numeric values as Float constants

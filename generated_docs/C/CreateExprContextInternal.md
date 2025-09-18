@@ -33,13 +33,13 @@ Key ExprContext fields initialized:
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - lcons
+  - [lcons](../l/lcons.md)
   - makeNode
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 
 - Called from (representative examples):
-  - CreateExprContext
-  - CreateWorkExprContext
+  - [CreateExprContext](CreateExprContext.md)
+  - [CreateWorkExprContext](CreateWorkExprContext.md)
 
 ## Notes and Other Information
 This is a static (internal) function that provides the flexibility to create ExprContexts with different memory management characteristics. The function uses lcons() to prepend the new ExprContext to the estate's list, which means that shutdown will occur in reverse order of creation during cleanup. The per-tuple memory context created here will be used for temporary allocations during expression evaluation and can be reset between tuple evaluations to reclaim memory. The function ensures proper memory context management by switching to the query context before allocation and restoring the previous context before returning.

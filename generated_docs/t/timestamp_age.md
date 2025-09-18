@@ -35,18 +35,18 @@ The calculation is complex because it maintains calendar semantics - for example
   - Interval (interval data type)  
   - fsec_t (fractional seconds type)
   - pg_itm (interval time structure)
-  - pg_tm (broken-down time structure)
+  - [pg_tm](../p/pg_tm.md) (broken-down time structure)
   - PG_GETARG_TIMESTAMP (PostgreSQL macro)
   - PG_RETURN_INTERVAL_P (PostgreSQL macro)
   - TIMESTAMP_IS_NOBEGIN/TIMESTAMP_IS_NOEND (infinity check macros)
   - INTERVAL_NOBEGIN/INTERVAL_NOEND (infinity interval macros)
-  - timestamp2tm (timestamp to broken-down time conversion)
-  - itm2interval (interval time structure to interval conversion)
+  - [timestamp2tm](timestamp2tm.md) (timestamp to broken-down time conversion)
+  - [itm2interval](../i/itm2interval.md) (interval time structure to interval conversion)
   - Time constants: USECS_PER_SEC, SECS_PER_MINUTE, MINS_PER_HOUR, HOURS_PER_DAY, MONTHS_PER_YEAR
   - day_tab (days per month lookup table)
   - isleap (leap year check function)
   - ereport (error reporting function)
-  - palloc (memory allocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):
   - No direct references found (likely used through PostgreSQL's SQL function infrastructure)
 

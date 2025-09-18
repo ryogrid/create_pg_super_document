@@ -31,9 +31,9 @@ The result is used by the planner to determine parallel execution feasibility an
   - `max_parallel_hazard_context`: Context structure for tracking analysis state
   - `PROPARALLEL_SAFE`: Constant representing safe parallel execution
   - `PROPARALLEL_UNSAFE`: Constant representing unsafe parallel execution  
-  - `max_parallel_hazard_walker`: Performs the actual tree traversal and analysis
+  - `[max_parallel_hazard_walker](max_parallel_hazard_walker.md)`: Performs the actual tree traversal and analysis
 - Called from (representative examples):
-  - `standard_planner` (at planner.c:357)
+  - `[standard_planner](../s/standard_planner.md)` (at planner.c:357)
   - `WindowFuncLists` (referenced in clauses.h:35)
 
 ## Notes and Other Information

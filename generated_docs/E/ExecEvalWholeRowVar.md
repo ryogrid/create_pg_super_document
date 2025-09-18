@@ -38,19 +38,19 @@ The function maintains performance optimizations while ensuring type safety and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecFilterJunk
-  - lookup_rowtype_tupdesc_domain
-  - CreateTupleDescCopy
+  - [lookup_rowtype_tupdesc_domain](../l/lookup_rowtype_tupdesc_domain.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - ReleaseTupleDesc
   - exec_rt_fetch
-  - ExecTypeSetColNames
-  - BlessTupleDesc
+  - [ExecTypeSetColNames](ExecTypeSetColNames.md)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
   - slot_getallattrs
-  - toast_build_flattened_tuple
+  - [toast_build_flattened_tuple](../t/toast_build_flattened_tuple.md)
   - HeapTupleHeaderSetTypeId
   - HeapTupleHeaderSetTypMod
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - ExecInterpExpr (main expression interpreter loop)
+  - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter loop)
 
 ## Notes and Other Information
 - The function uses a "first time through" optimization to cache type compatibility information

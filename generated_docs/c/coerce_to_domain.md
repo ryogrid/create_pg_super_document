@@ -29,19 +29,19 @@ The function automatically determines the base type and typmod if not provided, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseTypeAndTypmod
-  - hide_coercion_node
-  - coerce_type_typmod
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
+  - [hide_coercion_node](../h/hide_coercion_node.md)
+  - [coerce_type_typmod](coerce_type_typmod.md)
   - makeNode
   - CoerceToDomain (node type)
   - CoercionContext (enum)
   - CoercionForm (enum)
   - COERCE_IMPLICIT_CAST
 - Called from (representative examples):
-  - coerce_type
-  - coerce_record_to_complex
-  - coerce_null_to_domain
-  - transformAssignmentIndirection
+  - [coerce_type](coerce_type.md)
+  - [coerce_record_to_complex](coerce_record_to_complex.md)
+  - [coerce_null_to_domain](coerce_null_to_domain.md)
+  - [transformAssignmentIndirection](../t/transformAssignmentIndirection.md)
 
 ## Notes and Other Information
 - Returns input argument unchanged if the target type is not a domain

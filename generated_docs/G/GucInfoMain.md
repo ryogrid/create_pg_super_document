@@ -19,16 +19,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_guc_variables
+  - [build_guc_variables](../b/build_guc_variables.md)
   - get_guc_variables
-  - displayStruct
-  - printMixedStruct
+  - [displayStruct](../d/displayStruct.md)
+  - [printMixedStruct](../p/printMixedStruct.md)
   - exit
 - Types referenced:
   - config_generic
   - mixedStruct
 - Called from (representative examples):
-  - main (from src/backend/main/main.c:194)
+  - [main](../m/main.md) (from src/backend/main/main.c:194)
 
 ## Notes and Other Information
 - Located in src/backend/utils/misc/help_config.c:46-73

@@ -19,11 +19,11 @@ The function is designed to be called from SQL as a PostgreSQL function, returni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_empty
-  - test_huge_distances  
-  - test_single_value
-  - test_single_value_and_filler
-  - test_pattern
+  - [test_empty](test_empty.md)
+  - [test_huge_distances](test_huge_distances.md)  
+  - [test_single_value](test_single_value.md)
+  - [test_single_value_and_filler](test_single_value_and_filler.md)
+  - [test_pattern](test_pattern.md)
   - PG_UINT64_MAX
   - lengthof
   - PG_RETURN_VOID

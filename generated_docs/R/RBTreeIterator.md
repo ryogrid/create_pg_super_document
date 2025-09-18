@@ -20,18 +20,18 @@ RBTreeIterator provides a stateful mechanism for traversing red-black trees in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (tree structure reference)
-  - RBTNode (node type for traversal)
+  - [RBTree](RBTree.md) (tree structure reference)
+  - [RBTNode](RBTNode.md) (node type for traversal)
 - Called from (representative examples):
-  - rbt_left_right_iterator (ascending traversal setup)
-  - rbt_right_left_iterator (descending traversal setup)  
-  - rbt_begin_iterate (iterator initialization)
-  - rbt_iterate (iteration step execution)
+  - [rbt_left_right_iterator](../r/rbt_left_right_iterator.md) (ascending traversal setup)
+  - [rbt_right_left_iterator](../r/rbt_right_left_iterator.md) (descending traversal setup)  
+  - [rbt_begin_iterate](../r/rbt_begin_iterate.md) (iterator initialization)
+  - [rbt_iterate](../r/rbt_iterate.md) (iteration step execution)
   - testleftright (test module usage)
   - testrightleft (test module usage)
 
 ## Notes and Other Information
-- RBTreeIterator must be treated as an opaque structure by callers despite being declared in the header for stack allocation
+- [RBTreeIterator](RBTreeIterator.md) must be treated as an opaque structure by callers despite being declared in the header for stack allocation
 - Supports efficient in-order traversal without recursion or explicit stack management
 - The function pointer design allows the same iterator structure to support multiple traversal strategies
 - Iterator state is maintained across calls, enabling pause-and-resume iteration patterns

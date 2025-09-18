@@ -21,9 +21,9 @@ The int4send function is a PostgreSQL type send function that converts a 32-bit 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_begintypsend
-  - pq_sendint32
-  - pq_endtypsend
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -20,24 +20,24 @@ The function maintains the integrity of the list structure and includes a debug 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_check (for list integrity validation)
+  - [slist_check](slist_check.md) (for list integrity validation)
 - Data types used:
-  - slist_head
-  - slist_node
+  - [slist_head](slist_head.md)
+  - [slist_node](slist_node.md)
 - Called from (representative examples):
-  - EventTriggerSQLDropAddObject (src/backend/commands/event_trigger.c:1385)
-  - spi_dest_startup (src/backend/executor/spi.c:2154)
-  - BackgroundWorkerStateChange (src/backend/postmaster/bgworker.c:416)
-  - RegisterBackgroundWorker (src/backend/postmaster/bgworker.c:956)
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md) (src/backend/commands/event_trigger.c:1385)
+  - [spi_dest_startup](spi_dest_startup.md) (src/backend/executor/spi.c:2154)
+  - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md) (src/backend/postmaster/bgworker.c:416)
+  - [RegisterBackgroundWorker](../R/RegisterBackgroundWorker.md) (src/backend/postmaster/bgworker.c:956)
   - on_dsm_detach (src/backend/storage/ipc/dsm.c:1140)
-  - InitCatCache (src/backend/utils/cache/catcache.c:971)
-  - ResetAllOptions (src/backend/utils/misc/guc.c:2100)
-  - push_old_value (src/backend/utils/misc/guc.c:2208)
-  - AtEOXact_GUC (src/backend/utils/misc/guc.c:2533)
+  - [InitCatCache](../I/InitCatCache.md) (src/backend/utils/cache/catcache.c:971)
+  - [ResetAllOptions](../R/ResetAllOptions.md) (src/backend/utils/misc/guc.c:2100)
+  - [push_old_value](../p/push_old_value.md) (src/backend/utils/misc/guc.c:2208)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (src/backend/utils/misc/guc.c:2533)
 
 ## Notes and Other Information
 - This is an inline function for maximum performance in list operations
 - The function assumes the node being inserted is not already part of another list
-- List integrity is validated through slist_check() in debug builds
+- [List](../L/List.md) integrity is validated through slist_check() in debug builds
 - Part of PostgreSQL's efficient intrusive list implementation that avoids separate memory allocations for list nodes
 - The insertion operation is atomic and does not require any special synchronization for single-threaded use

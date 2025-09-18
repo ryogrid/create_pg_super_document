@@ -24,7 +24,7 @@ Returns:  if the bitmapsets are equal,  otherwise
 - Functions called/Symbols referenced:
   -  (specialized bitmapset comparison function)
 - Called from (representative examples):
-  - Node equality framework (indirectly through function pointers)
+  - [Node](../N/Node.md) equality framework (indirectly through function pointers)
 
 ## Notes and Other Information
 - This function is marked as , meaning it's only accessible within the equalfuncs.c file

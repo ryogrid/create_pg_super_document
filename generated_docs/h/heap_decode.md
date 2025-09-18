@@ -32,14 +32,14 @@ The function handles several types of heap operations:
   - XLogRecGetInfo
   - XLogRecGetXid
   - ReorderBufferProcessXid
-  - SnapBuildCurrentState
-  - SnapBuildProcessChange
-  - DecodeInsert
-  - DecodeUpdate
-  - DecodeDelete
-  - DecodeTruncate
-  - DecodeSpecConfirm
-  - ReorderBufferXidSetCatalogChanges
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
+  - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
+  - [DecodeInsert](../D/DecodeInsert.md)
+  - [DecodeUpdate](../D/DecodeUpdate.md)
+  - [DecodeDelete](../D/DecodeDelete.md)
+  - [DecodeTruncate](../D/DecodeTruncate.md)
+  - [DecodeSpecConfirm](../D/DecodeSpecConfirm.md)
+  - [ReorderBufferXidSetCatalogChanges](../R/ReorderBufferXidSetCatalogChanges.md)
 - Called from (representative examples):
   - Referenced in rmgrlist.h as the decode function for RM_HEAP_ID
   - Used by the logical decoding infrastructure

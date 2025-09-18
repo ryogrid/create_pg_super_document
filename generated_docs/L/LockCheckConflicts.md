@@ -38,14 +38,14 @@ The function uses efficient bitmask operations and iterates through the list of 
   - dlist_foreach (list iteration)
   - dlist_container (list container extraction)
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](LockAcquireExtended.md)
   - ProcSleep
   - ProcLockWakeup
 
 ## Notes and Other Information
 - Returns true if there is a conflict, false if the lock can be granted
 - The algorithm is O(N) in the number of processes holding locks on the object when lock groups are involved
-- Relation extension locks have special conflict semantics even within lock groups to prevent concurrent relation growth issues
+- [Relation](../R/Relation.md) extension locks have special conflict semantics even within lock groups to prevent concurrent relation growth issues
 - Uses efficient bitwise operations for initial conflict detection before falling back to detailed analysis
 - Includes extensive debugging output via PROCLOCK_PRINT macros
 - The complexity of this function reflects PostgreSQL's sophisticated approach to concurrent access control

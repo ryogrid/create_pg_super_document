@@ -27,13 +27,13 @@ The function handles the complexity of parallel execution rescans by ensuring th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecShutdownGatherMergeWorkers
-  - gather_merge_clear_tuples
+  - [ExecShutdownGatherMergeWorkers](ExecShutdownGatherMergeWorkers.md)
+  - [gather_merge_clear_tuples](../g/gather_merge_clear_tuples.md)
   - outerPlanState
-  - bms_add_member
-  - ExecReScan
+  - [bms_add_member](../b/bms_add_member.md)
+  - [ExecReScan](ExecReScan.md)
 - Called from (representative examples):
-  - ExecReScan (generic rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (generic rescan dispatcher)
 
 ## Notes and Other Information
 - The function carefully manages the interaction between parallel workers and the leader process during rescans

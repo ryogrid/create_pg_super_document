@@ -22,8 +22,8 @@ The function works by repeatedly right-shifting the target bits and incrementing
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic arithmetic operations)
 - Called from:
-  - bloom_filter (at src/backend/lib/bloomfilter.c:54)
-  - bloom_create (at src/backend/lib/bloomfilter.c:108)
+  - [bloom_filter](../b/bloom_filter.md) (at src/backend/lib/bloomfilter.c:54)
+  - [bloom_create](../b/bloom_create.md) (at src/backend/lib/bloomfilter.c:108)
 
 ## Notes and Other Information
 - Maximum bitset size is limited to 2^32 bits (512MB) for performance and memory allocation reasons

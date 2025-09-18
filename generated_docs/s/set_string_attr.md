@@ -21,12 +21,12 @@ The function performs proper Python reference counting, incrementing the referen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_FromString
+  - [PLyUnicode_FromString](../P/PLyUnicode_FromString.md)
   - PyObject_SetAttrString (Python C API)
   - Py_INCREF (Python C API)
   - Py_DECREF (Python C API)
 - Called from (representative examples):
-  - PLy_exception_set_with_details (multiple times for setting various error attributes like sqlstate, detail, hint, query, schema_name, table_name, column_name, datatype_name, constraint_name)
+  - [PLy_exception_set_with_details](../P/PLy_exception_set_with_details.md) (multiple times for setting various error attributes like sqlstate, detail, hint, query, schema_name, table_name, column_name, datatype_name, constraint_name)
 
 ## Notes and Other Information
 - This is a static function within the PL/Python error logging module, designed specifically for setting string attributes on Python exception objects

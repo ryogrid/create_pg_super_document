@@ -20,12 +20,12 @@ This function is used within ereport() calls to provide cursor position informat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbstrlen_with_len
-  - errposition
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [errposition](errposition.md)
 - Called from (representative examples):
-  - ExecInitFunc
-  - ExecInitSubscriptingRef
-  - init_sexpr
+  - [ExecInitFunc](../E/ExecInitFunc.md)
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md)
+  - [init_sexpr](../i/init_sexpr.md)
 
 ## Notes and Other Information
 - Designed for use within ereport() error reporting calls

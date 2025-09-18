@@ -21,15 +21,15 @@ The function performs essential validation by checking that it's being called wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - MemoryContextSwitchTo
-  - palloc0
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
   - elog
-  - IntervalAggState (type)
-  - FunctionCallInfo (type)
+  - [IntervalAggState](../I/IntervalAggState.md) (type)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (type)
 - Called from:
-  - interval_avg_accum (in src/backend/utils/adt/timestamp.c:4010)
-  - interval_avg_combine (in src/backend/utils/adt/timestamp.c:4039)
+  - [interval_avg_accum](../i/interval_avg_accum.md) (in src/backend/utils/adt/timestamp.c:4010)
+  - [interval_avg_combine](../i/interval_avg_combine.md) (in src/backend/utils/adt/timestamp.c:4039)
 
 ## Notes and Other Information
 - Static function used internally by interval aggregate functions

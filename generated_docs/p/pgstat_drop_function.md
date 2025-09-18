@@ -23,7 +23,7 @@ This function unregisters a function from PostgreSQL's statistics tracking subsy
   - PGSTAT_KIND_FUNCTION
   - MyDatabaseId
 - Called from (representative examples):
-  - RemoveFunctionById (in src/backend/commands/functioncmds.c:1316)
+  - [RemoveFunctionById](../R/RemoveFunctionById.md) (in src/backend/commands/functioncmds.c:1316)
 
 ## Notes and Other Information
 - This function is called during function removal to ensure proper statistics cleanup

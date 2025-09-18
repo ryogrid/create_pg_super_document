@@ -22,17 +22,17 @@ The function includes several important checks: it ensures the requested transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage (converts transaction ID to page number)
+  - [TransactionIdToPage](../T/TransactionIdToPage.md) (converts transaction ID to page number)
   - TransactionIdToEntry (converts transaction ID to entry within page)
-  - TransactionIdFollowsOrEquals (validates transaction ID is not too old)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md) (validates transaction ID is not too old)
   - TransactionIdIsNormal (checks if transaction ID is a normal user transaction)
-  - SimpleLruReadPage_ReadOnly (reads SLRU page in read-only mode)
-  - SimpleLruGetBankLock (gets lock for SLRU page)
+  - [SimpleLruReadPage_ReadOnly](SimpleLruReadPage_ReadOnly.md) (reads SLRU page in read-only mode)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (gets lock for SLRU page)
   - SubTransCtl (global SLRU control structure for subtransactions)
 - Called from (representative examples):
-  - SubTransGetTopmostTransaction (for traversing to root transaction)
-  - TransactionIdDidCommit (to check parent transaction status)
-  - TransactionIdDidAbort (to check parent transaction status)
+  - [SubTransGetTopmostTransaction](SubTransGetTopmostTransaction.md) (for traversing to root transaction)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md) (to check parent transaction status)
+  - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md) (to check parent transaction status)
 
 ## Notes and Other Information
 - Uses read-only page access for better concurrency compared to exclusive locking

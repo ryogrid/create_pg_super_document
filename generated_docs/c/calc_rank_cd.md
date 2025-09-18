@@ -28,17 +28,17 @@ This function implements the cover density ranking algorithm for PostgreSQL's te
   - lengthof (array length macro)
   - QueryRepresentation (query representation structure)
   - QueryRepresentationOperand (operand data structure)
-  - get_docrep (build document representation)
+  - [get_docrep](../g/get_docrep.md) (build document representation)
   - MemSet (memory initialization)
-  - Cover (find covers algorithm)
+  - [Cover](../C/Cover.md) (find covers algorithm)
   - WEP_GETWEIGHT (extract term weight)
-  - cnt_length (count document length)
+  - [cnt_length](cnt_length.md) (count document length)
   - RANK_NORM_* (normalization method constants)
 - Called from (representative examples):
-  - ts_rankcd_wttf (called at line 961)
-  - ts_rankcd_wtt (called at line 977)
-  - ts_rankcd_ttf (called at line 993)
-  - ts_rankcd_tt (called at line 1007)
+  - [ts_rankcd_wttf](../t/ts_rankcd_wttf.md) (called at line 961)
+  - [ts_rankcd_wtt](../t/ts_rankcd_wtt.md) (called at line 977)
+  - [ts_rankcd_ttf](../t/ts_rankcd_ttf.md) (called at line 993)
+  - [ts_rankcd_tt](../t/ts_rankcd_tt.md) (called at line 1007)
 
 ## Notes and Other Information
 This function is the core implementation of PostgreSQL's cover density ranking algorithm, which is considered more sophisticated than simple term frequency approaches. The algorithm finds minimal text spans containing all query terms and calculates density scores based on cover tightness and term weights. Multiple normalization methods are supported to handle different document characteristics. The function handles edge cases like overlapping covers and missing terms gracefully. Performance is optimized through efficient cover finding and memory management.

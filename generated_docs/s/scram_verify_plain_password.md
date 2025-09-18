@@ -29,14 +29,14 @@ This function is critical for supporting mixed authentication modes where users 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_scram_secret
+  - [parse_scram_secret](../p/parse_scram_secret.md)
   - pg_b64_dec_len
   - pg_b64_decode
-  - pg_saslprep
+  - [pg_saslprep](../p/pg_saslprep.md)
   - scram_SaltedPassword
   - scram_ServerKey
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - memcmp
   - strlen
   - ereport/errmsg
@@ -44,7 +44,7 @@ This function is critical for supporting mixed authentication modes where users 
   - SCRAM_MAX_KEY_LEN
   - SASLPREP_SUCCESS
 - Called from (representative examples):
-  - plain_crypt_verify (src/backend/libpq/crypt.c:237)
+  - [plain_crypt_verify](../p/plain_crypt_verify.md) (src/backend/libpq/crypt.c:237)
 
 ## Notes and Other Information
 - Returns true if password matches the SCRAM secret, false otherwise

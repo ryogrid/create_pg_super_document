@@ -25,16 +25,16 @@ A crash-safe wrapper around the rename(2) system call that ensures the rename op
   - pg_fsync
   - CloseTransientFile
   - rename
-  - fsync_parent_path
+  - [fsync_parent_path](../f/fsync_parent_path.md)
 - Called from (representative examples):
-  - writeTimeLineHistory
-  - writeTimeLineHistoryFile
-  - InstallXLogFileSegment
-  - CleanupAfterArchiveRecovery
-  - StartupXLOG
-  - KeepFileRestoredFromArchive
-  - write_relmap_file
-  - AlterSystemSetConfigFile
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md)
+  - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md)
+  - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
+  - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md)
+  - [write_relmap_file](../w/write_relmap_file.md)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
 
 ## Notes and Other Information
 This function is critical for PostgreSQL's crash recovery and data durability guarantees. It's extensively used in WAL (Write-Ahead Logging) operations, configuration file updates, and other scenarios where file operations must survive system crashes. The function returns 0 on success and -1 on failure, with errno not guaranteed to be valid upon return. There's also a simpler version in src/common/file_utils.c used by client utilities. The careful fsync sequence ensures that the rename operation is atomic from a durability perspective, even though the underlying rename(2) system call itself is not crash-safe without explicit synchronization.

@@ -23,13 +23,13 @@ The AccessShareLock level allows concurrent read operations while preventing des
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockDatabaseObject (acquires lock on database object)
+  - [LockDatabaseObject](LockDatabaseObject.md) (acquires lock on database object)
   - SearchSysCacheExists1 (checks schema existence in system catalog)
   - CHECK_FOR_INTERRUPTS (allows query cancellation)
 - Called from (representative examples):
-  - CreatePublication (src/backend/commands/publicationcmds.c:849)
-  - AlterPublicationSchemas (src/backend/commands/publicationcmds.c:1266)
-  - AlterPublicationSchemas (src/backend/commands/publicationcmds.c:1315)
+  - [CreatePublication](../C/CreatePublication.md) (src/backend/commands/publicationcmds.c:849)
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md) (src/backend/commands/publicationcmds.c:1266)
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md) (src/backend/commands/publicationcmds.c:1315)
 
 ## Notes and Other Information
 - Uses AccessShareLock which permits concurrent reads but prevents schema deletion

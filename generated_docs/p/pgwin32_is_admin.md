@@ -21,14 +21,14 @@ This function is particularly important for PostgreSQL's Windows port as it help
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log_error (for error reporting)
+  - [log_error](../l/log_error.md) (for error reporting)
   - AllocateAndInitializeSid (Windows API)
   - CheckTokenMembership (Windows API)
   - FreeSid (Windows API)
   - GetLastError (Windows API)
   - exit (system call)
 - Called from (representative examples):
-  - check_root (in src/backend/main/main.c)
+  - [check_root](../c/check_root.md) (in src/backend/main/main.c)
   - Referenced in src/include/port/win32_port.h
 
 ## Notes and Other Information

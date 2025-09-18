@@ -19,13 +19,13 @@ This distinction is crucial for proper shared dependency tracking, as it allows 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSharedRelation
+  - [IsSharedRelation](../I/IsSharedRelation.md)
   - MyDatabaseId (global variable)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - shdepAddDependency
-  - shdepDropDependency
-  - shdepChangeDep
+  - [shdepAddDependency](../s/shdepAddDependency.md)
+  - [shdepDropDependency](../s/shdepDropDependency.md)
+  - [shdepChangeDep](../s/shdepChangeDep.md)
   - ShDependObjectInfo
 
 ## Notes and Other Information

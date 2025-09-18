@@ -24,9 +24,9 @@ This function is typically used when the caller wants the raw parsed operands to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushValue
+  - [pushValue](pushValue.md)
 - Called from (representative examples):
-  - tsqueryin
+  - [tsqueryin](../t/tsqueryin.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsquery.c module

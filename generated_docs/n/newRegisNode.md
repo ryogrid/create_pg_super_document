@@ -18,11 +18,11 @@ newRegisNode is a utility function that allocates memory for a new RegisNode str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (zero-initialized memory allocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - RegisNode (structure type)
   - RNHDRSZ (RegisNode header size constant)
 - Called from:
-  - RS_compile (multiple times at lines 102, 104, 112, 114)
+  - [RS_compile](../R/RS_compile.md) (multiple times at lines 102, 104, 112, 114)
 
 ## Notes and Other Information
 - Static function, only accessible within regis.c

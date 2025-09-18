@@ -20,11 +20,11 @@ The function handles memory management by allocating a new string using pnstrdup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pnstrdup
-  - pg_ascii_toupper
+  - [pnstrdup](../p/pnstrdup.md)
+  - [pg_ascii_toupper](../p/pg_ascii_toupper.md)
 - Called from (representative examples):
-  - str_toupper
-  - asc_toupper_z
+  - [str_toupper](../s/str_toupper.md)
+  - [asc_toupper_z](asc_toupper_z.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

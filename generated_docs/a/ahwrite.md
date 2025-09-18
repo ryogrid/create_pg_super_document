@@ -20,20 +20,20 @@ The  function serves as the central output mechanism for the PostgreSQL archiver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dump_lo_buf
-  - RestoringToDB
-  - ExecuteSqlCommandBuf
-  - CompressFileHandle
+  - [dump_lo_buf](../d/dump_lo_buf.md)
+  - [RestoringToDB](../R/RestoringToDB.md)
+  - [ExecuteSqlCommandBuf](../E/ExecuteSqlCommandBuf.md)
+  - [CompressFileHandle](../C/CompressFileHandle.md)
   - WRITE_ERROR_EXIT
 - Called from (representative examples):
-  - ReadDataFromArchiveGzip
-  - ReadDataFromArchiveLZ4
-  - ReadDataFromArchiveNone
-  - ReadDataFromArchiveZstd
-  - ahprintf
+  - [ReadDataFromArchiveGzip](../R/ReadDataFromArchiveGzip.md)
+  - [ReadDataFromArchiveLZ4](../R/ReadDataFromArchiveLZ4.md)
+  - [ReadDataFromArchiveNone](../R/ReadDataFromArchiveNone.md)
+  - [ReadDataFromArchiveZstd](../R/ReadDataFromArchiveZstd.md)
+  - [ahprintf](ahprintf.md)
   - appendByteaLiteralAHX
-  - _PrintFileData
-  - _WriteData
+  - [_PrintFileData](../P/_PrintFileData.md)
+  - [_WriteData](../W/_WriteData.md)
 
 ## Notes and Other Information
 - Handles multiple output modes: LO buffering, custom output, direct database execution, and compressed file output

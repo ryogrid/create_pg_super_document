@@ -24,11 +24,11 @@ The function returns the resulting QueryItem array and sets the length through t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - plainnode (recursive tree traversal and conversion)
+  - [palloc](palloc.md) (memory allocation)
+  - [plainnode](plainnode.md) (recursive tree traversal and conversion)
 - Called from (representative examples):
-  - clean_NOT
-  - cleanup_tsquery_stopwords
+  - [clean_NOT](../c/clean_NOT.md)
+  - [cleanup_tsquery_stopwords](../c/cleanup_tsquery_stopwords.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search query cleanup and optimization system

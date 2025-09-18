@@ -26,10 +26,10 @@ The validation covers multiple aspects:
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_index (struct type)
-  - RelationGetIndexPredicate
+  - [RelationGetIndexPredicate](../R/RelationGetIndexPredicate.md)
 - Called from (representative examples):
-  - RefreshMatViewByOid
-  - refresh_by_match_merge
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md)
 
 ## Notes and Other Information
 - Returns true only if ALL requirements are met; any single failure results in false

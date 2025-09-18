@@ -22,12 +22,12 @@ The function includes an assertion to ensure the reference count is positive bef
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - ResourceOwnerForgetRelationRef
+  - [ResourceOwnerForgetRelationRef](ResourceOwnerForgetRelationRef.md)
 - Called from (representative examples):
-  - heap_endscan
-  - index_endscan
-  - DestroyPartitionDirectory
-  - RelationClose
+  - [heap_endscan](../h/heap_endscan.md)
+  - [index_endscan](../i/index_endscan.md)
+  - [DestroyPartitionDirectory](../D/DestroyPartitionDirectory.md)
+  - [RelationClose](RelationClose.md)
 
 ## Notes and Other Information
 - Contains an assertion (Assert(rel->rd_refcnt > 0)) to catch reference count underflow bugs during development

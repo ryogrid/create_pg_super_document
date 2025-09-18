@@ -23,19 +23,19 @@ The `pg_attribute_aclcheck_all_ext` function is an extended version of column-le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1, SearchSysCache2
+  - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCache2
   - HeapTupleIsValid
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetAclP
-  - aclmask
+  - [aclmask](../a/aclmask.md)
   - ACLMASK_ANY, ACLMASK_ALL
   - Form_pg_class, Form_pg_attribute
   - ACLCHECK_NO_PRIV, ERRCODE_UNDEFINED_TABLE
 - Called from (representative examples):
-  - pg_attribute_aclcheck_all
-  - has_any_column_privilege_name_id
-  - has_any_column_privilege_id
-  - has_any_column_privilege_id_id
+  - [pg_attribute_aclcheck_all](pg_attribute_aclcheck_all.md)
+  - [has_any_column_privilege_name_id](../h/has_any_column_privilege_name_id.md)
+  - [has_any_column_privilege_id](../h/has_any_column_privilege_id.md)
+  - [has_any_column_privilege_id_id](../h/has_any_column_privilege_id_id.md)
 
 ## Notes and Other Information
 - This is the core implementation for checking column privileges across multiple columns

@@ -20,9 +20,9 @@ The print2 function is a simple error handling routine specifically designed for
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard error output)
-  - sqlprint (ECPG function for SQL diagnostics)
+  - [sqlprint](../s/sqlprint.md) (ECPG function for SQL diagnostics)
 - Called from (representative examples):
-  - main (in the same test file at lines 162 and 171)
+  - [main](../m/main.md) (in the same test file at lines 162 and 171)
 
 ## Notes and Other Information
 - This function is specific to ECPG test infrastructure

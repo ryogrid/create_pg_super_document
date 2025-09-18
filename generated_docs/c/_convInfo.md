@@ -20,8 +20,8 @@ The  structure is part of PostgreSQL's pg_dump utility framework, designed to st
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
 - Called from (representative examples):
-  - getConversions (allocation and initialization of conversion arrays)
-  - dumpConversion (for dumping character encoding conversion definitions)
+  - [getConversions](../g/getConversions.md) (allocation and initialization of conversion arrays)
+  - [dumpConversion](../d/dumpConversion.md) (for dumping character encoding conversion definitions)
 
 ## Notes and Other Information
 - This structure is specifically used within the pg_dump utility context for backup and restore operations

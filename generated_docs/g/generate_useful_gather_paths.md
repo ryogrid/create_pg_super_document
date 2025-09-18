@@ -30,20 +30,20 @@ The function intelligently chooses between full and incremental sort based on th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_gather_paths
-  - get_useful_pathkeys_for_relation
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - create_gather_merge_path
-  - add_path
+  - [generate_gather_paths](generate_gather_paths.md)
+  - [get_useful_pathkeys_for_relation](get_useful_pathkeys_for_relation.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](../c/create_sort_path.md)
+  - [create_incremental_sort_path](../c/create_incremental_sort_path.md)
+  - [create_gather_merge_path](../c/create_gather_merge_path.md)
+  - [add_path](../a/add_path.md)
   - GatherMergePath (type)
 - Called from (representative examples):
-  - set_rel_pathlist
-  - standard_join_search
-  - create_partial_distinct_paths
-  - gather_grouping_paths
-  - apply_scanjoin_target_to_paths
+  - [set_rel_pathlist](../s/set_rel_pathlist.md)
+  - [standard_join_search](../s/standard_join_search.md)
+  - [create_partial_distinct_paths](../c/create_partial_distinct_paths.md)
+  - [gather_grouping_paths](gather_grouping_paths.md)
+  - [apply_scanjoin_target_to_paths](../a/apply_scanjoin_target_to_paths.md)
 
 ## Notes and Other Information
 - Requires parallel-safe pathkeys for pushing sorts below Gather Merge nodes

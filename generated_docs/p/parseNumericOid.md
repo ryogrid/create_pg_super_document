@@ -23,13 +23,13 @@ The function performs two main operations: first, it validates that the string c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DirectInputFunctionCallSafe
-  - oidin
-  - DatumGetObjectId
+  - [DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md)
+  - [oidin](../o/oidin.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
 - Called from (representative examples):
-  - regoperin
-  - regoperatorin
-  - parseDashOrOid
+  - [regoperin](../r/regoperin.md)
+  - [regoperatorin](../r/regoperatorin.md)
+  - [parseDashOrOid](parseDashOrOid.md)
 
 ## Notes and Other Information
 - Declared as static, indicating it's a private utility function within regproc.c

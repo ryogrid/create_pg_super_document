@@ -24,12 +24,12 @@ This function serves as an option parser for any relation type that uses the sta
   - StdRdOptions (struct type)
   - AutoVacOpts (struct type)
   - RELOPT_TYPE_INT, RELOPT_TYPE_BOOL, RELOPT_TYPE_REAL, RELOPT_TYPE_ENUM (enum values)
-  - build_reloptions (function)
+  - [build_reloptions](../b/build_reloptions.md) (function)
   - lengthof (macro)
   - offsetof (macro)
 - Called from:
-  - heap_reloptions (src/backend/access/common/reloptions.c:2036)
-  - heap_reloptions (src/backend/access/common/reloptions.c:2047)
+  - [heap_reloptions](../h/heap_reloptions.md) (src/backend/access/common/reloptions.c:2036)
+  - [heap_reloptions](../h/heap_reloptions.md) (src/backend/access/common/reloptions.c:2047)
   - GET_STRING_RELOPTION (src/include/access/reloptions.h:236)
 
 ## Notes and Other Information

@@ -33,12 +33,12 @@ The function employs intelligent memory management, using larger buffers during 
   - PG_GETARG_POINTER/PG_GETARG_DATUM: Extract function arguments
   - PG_GET_OPCLASS_OPTIONS/PG_GET_COLLATION: Get operator class options and collation
   - TupleDescAttr: Access tuple descriptor attributes  
-  - brin_minmax_multi_get_values: Get configured values per range
-  - minmax_multi_init: Initialize new range structures
-  - brin_range_deserialize: Convert serialized ranges to memory format
-  - minmax_multi_get_strategy_procinfo: Get comparison function info
-  - range_add_value: Add value to existing ranges
-  - brin_minmax_multi_serialize: Set serialization function pointer
+  - [brin_minmax_multi_get_values](brin_minmax_multi_get_values.md): Get configured values per range
+  - [minmax_multi_init](../m/minmax_multi_init.md): Initialize new range structures
+  - [brin_range_deserialize](brin_range_deserialize.md): Convert serialized ranges to memory format
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md): Get comparison function info
+  - [range_add_value](../r/range_add_value.md): Add value to existing ranges
+  - [brin_minmax_multi_serialize](brin_minmax_multi_serialize.md): Set serialization function pointer
 - Called from (representative examples):
   - Not directly referenced by other symbols (likely called through function pointer mechanism)
 

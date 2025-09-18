@@ -18,7 +18,7 @@ The pg_node_tree_out function serves as the output function for PostgreSQL's pg_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - textout (PostgreSQL's standard text output function)
+  - [textout](../t/textout.md) (PostgreSQL's standard text output function)
 - Called from (representative examples):
   - (No direct references found in codebase)
 

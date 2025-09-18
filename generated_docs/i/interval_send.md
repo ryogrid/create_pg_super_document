@@ -19,10 +19,10 @@ The `interval_send` function is the binary output conversion function for Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_begintypsend (initialize binary message buffer)
-  - pq_sendint64 (write 64-bit integer to binary buffer)
-  - pq_sendint32 (write 32-bit integer to binary buffer)
-  - pq_endtypsend (finalize binary message buffer)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initialize binary message buffer)
+  - [pq_sendint64](../p/pq_sendint64.md) (write 64-bit integer to binary buffer)
+  - [pq_sendint32](../p/pq_sendint32.md) (write 32-bit integer to binary buffer)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalize binary message buffer)
   - PG_RETURN_BYTEA_P (macro for returning binary data result)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system for binary protocol handling)

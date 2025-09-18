@@ -20,12 +20,12 @@ ExecSubqueryScan serves as the primary execution entry point for subquery scan n
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (safely casts PlanState to SubqueryScanState)
-  - ExecScan (generic scan execution framework)
-  - SubqueryNext (access method for retrieving next tuple)
-  - SubqueryRecheck (recheck method for EvalPlanQual operations)
-  - SubqueryScanState (execution state structure)
+  - [ExecScan](ExecScan.md) (generic scan execution framework)
+  - [SubqueryNext](../S/SubqueryNext.md) (access method for retrieving next tuple)
+  - [SubqueryRecheck](../S/SubqueryRecheck.md) (recheck method for EvalPlanQual operations)
+  - [SubqueryScanState](../S/SubqueryScanState.md) (execution state structure)
 - Called from (representative examples):
-  - ExecInitSubqueryScan (during subquery scan node initialization)
+  - [ExecInitSubqueryScan](ExecInitSubqueryScan.md) (during subquery scan node initialization)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the nodeSubqueryScan.c file

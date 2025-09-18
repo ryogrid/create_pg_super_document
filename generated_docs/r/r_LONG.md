@@ -24,11 +24,11 @@ Unlike more complex morphological functions, r_LONG is a simple predicate that e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function that searches for patterns in a_5 array
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function that searches for patterns in a_5 array
   - a_5: Array containing 7 patterns representing long vowel sequences or phonologically significant patterns
 - Called from (representative examples):
-  - r_case_ending: Finnish case suffix processing function
-  - r_tidy: Finnish word cleanup/normalization function
+  - [r_case_ending](r_case_ending.md): Finnish case suffix processing function
+  - [r_tidy](r_tidy.md): Finnish word cleanup/normalization function
 
 ## Notes and Other Information
 This function is part of the Finnish-specific morphological analysis in the Snowball stemming library. The name 'LONG' likely refers to long vowels or vowel sequences that are phonologically significant in Finnish. Finnish distinguishes between short and long vowels, and this distinction affects morphological processes. The function is used as a condition check in more complex morphological transformations, helping to ensure that stemming rules are applied appropriately based on the phonological context. The 7 patterns in a_5 represent the specific vowel sequences that are considered 'long' or otherwise significant for the Finnish stemming algorithm.

@@ -22,18 +22,18 @@ The function performs several validation checks:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQntuples (checks number of result rows)
-  - PQnfields (gets number of columns in result)
-  - PQfname (retrieves column name)
-  - PQgetisnull (checks if column value is NULL)
-  - PQgetvalue (retrieves column value)
+  - [PQntuples](../P/PQntuples.md) (checks number of result rows)
+  - [PQnfields](../P/PQnfields.md) (gets number of columns in result)
+  - [PQfname](../P/PQfname.md) (retrieves column name)
+  - [PQgetisnull](../P/PQgetisnull.md) (checks if column value is NULL)
+  - [PQgetvalue](../P/PQgetvalue.md) (retrieves column value)
   - VariableHasHook (checks if variable has special treatment)
   - SetVariable (sets psql variable)
   - pg_log_error (logs error messages)
   - pg_log_warning (logs warning messages)
-  - psprintf (formatted string allocation)
+  - [psprintf](../p/psprintf.md) (formatted string allocation)
 - Called from:
-  - PrintQueryResult (in src/bin/psql/common.c:1018)
+  - [PrintQueryResult](../P/PrintQueryResult.md) (in src/bin/psql/common.c:1018)
 
 ## Notes and Other Information
 - This is a static function internal to psql's common.c module

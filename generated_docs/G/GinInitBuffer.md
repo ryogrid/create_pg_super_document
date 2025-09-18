@@ -22,17 +22,17 @@ The function is commonly used during index creation, WAL replay operations, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinInitPage: Core page initialization function
-  - BufferGetPage: PostgreSQL function to get page pointer from buffer
-  - BufferGetPageSize: PostgreSQL function to get page size from buffer
+  - [GinInitPage](GinInitPage.md): Core page initialization function
+  - [BufferGetPage](../B/BufferGetPage.md): PostgreSQL function to get page pointer from buffer
+  - [BufferGetPageSize](../B/BufferGetPageSize.md): PostgreSQL function to get page size from buffer
 
 - Called from (representative examples):
-  - writeListPage: During fast insertion list processing
-  - ginbuild: During initial index construction
-  - ginbuildempty: When creating empty GIN indexes
-  - ginRedoCreatePTree: During WAL replay for posting tree creation
-  - ginRedoInsertListPage: During WAL replay for list page insertion
-  - ginRedoDeleteListPages: During WAL replay for list page deletion
+  - [writeListPage](../w/writeListPage.md): During fast insertion list processing
+  - [ginbuild](../g/ginbuild.md): During initial index construction
+  - [ginbuildempty](../g/ginbuildempty.md): When creating empty GIN indexes
+  - [ginRedoCreatePTree](../g/ginRedoCreatePTree.md): During WAL replay for posting tree creation
+  - [ginRedoInsertListPage](../g/ginRedoInsertListPage.md): During WAL replay for list page insertion
+  - [ginRedoDeleteListPages](../g/ginRedoDeleteListPages.md): During WAL replay for list page deletion
 
 ## Notes and Other Information
 - This function serves as a buffer-aware wrapper around GinInitPage

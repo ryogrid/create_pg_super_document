@@ -18,7 +18,7 @@ This function provides the implementation for Python's item access operation (sq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (cast target type)
+  - [PLyResultObject](PLyResultObject.md) (cast target type)
   - PyList_GetItem (Python list item retrieval)
   - Py_INCREF (Python reference count increment)
 - Called from:

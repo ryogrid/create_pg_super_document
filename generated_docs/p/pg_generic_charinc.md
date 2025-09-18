@@ -25,12 +25,12 @@ The function uses the encoding-specific character verifier from pg_wchar_table t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding - gets the current database encoding ID
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) - gets the current database encoding ID
   - pg_wchar_table - global table containing encoding metadata and function pointers
   - mbverify (via pg_wchar_table) - encoding-specific character verification function
 
 - Called from (representative examples):
-  - pg_database_encoding_character_incrementer - returns this as the default incrementer (src/backend/utils/mb/mbutils.c:1538)
+  - [pg_database_encoding_character_incrementer](pg_database_encoding_character_incrementer.md) - returns this as the default incrementer (src/backend/utils/mb/mbutils.c:1538)
 
 ## Notes and Other Information
 - This is a static function, only used within mbutils.c

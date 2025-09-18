@@ -20,13 +20,13 @@ The function is crucial for the adaptive planning system's cost-based decisions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt (for accessing individual statement plans)
+  - [PlannedStmt](../P/PlannedStmt.md) (for accessing individual statement plans)
   - CMD_UTILITY (to identify and skip utility statements)
   - list_length (to count relations in range table)
   - cpu_operator_cost (PostgreSQL cost parameter for CPU operations)
   - lfirst_node (list iteration macro)
 - Called from (representative examples):
-  - GetCachedPlan
+  - [GetCachedPlan](../G/GetCachedPlan.md)
   - StmtPlanRequiresRevalidation
 
 ## Notes and Other Information

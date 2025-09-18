@@ -27,15 +27,15 @@ The function performs optimization by first scanning for DEFAULT placeholders to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - searchForDefault
-  - matchLocks
-  - view_has_instead_trigger
-  - build_column_default
-  - makeNullConst
-  - coerce_null_to_domain
-  - bms_is_member
+  - [searchForDefault](../s/searchForDefault.md)
+  - [matchLocks](../m/matchLocks.md)
+  - [view_has_instead_trigger](../v/view_has_instead_trigger.md)
+  - [build_column_default](../b/build_column_default.md)
+  - [makeNullConst](../m/makeNullConst.md)
+  - [coerce_null_to_domain](../c/coerce_null_to_domain.md)
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from:
-  - RewriteQuery
+  - [RewriteQuery](../R/RewriteQuery.md)
 
 ## Notes and Other Information
 - Only processes INSERT commands with VALUES RTEs

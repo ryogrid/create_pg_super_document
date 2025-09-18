@@ -21,13 +21,13 @@ The `lseg_send` function is a PostgreSQL binary output function that serializes 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_LSEG_P` - macro to extract LSEG argument
-  - `pq_begintypsend` - initializes binary output buffer
-  - `pq_sendfloat8` - writes a float8 value to the buffer (called 4 times for x1,y1,x2,y2)
-  - `pq_endtypsend` - finalizes binary output buffer and returns bytea
+  - `[pq_begintypsend](../p/pq_begintypsend.md)` - initializes binary output buffer
+  - `[pq_sendfloat8](../p/pq_sendfloat8.md)` - writes a float8 value to the buffer (called 4 times for x1,y1,x2,y2)
+  - `[pq_endtypsend](../p/pq_endtypsend.md)` - finalizes binary output buffer and returns bytea
   - `PG_RETURN_BYTEA_P` - macro to return bytea result
 - Data types used:
-  - `LSEG` - line segment data type
-  - `StringInfoData` - buffer type for binary message construction
+  - `[LSEG](../L/LSEG.md)` - line segment data type
+  - `[StringInfoData](../S/StringInfoData.md)` - buffer type for binary message construction
 
 ## Notes and Other Information
 - This is a standard PostgreSQL binary send function, following the convention of `[typename]_send`

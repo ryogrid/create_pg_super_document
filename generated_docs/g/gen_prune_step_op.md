@@ -31,9 +31,9 @@ The newly created step is added to the context's steps list and returned as a Pa
   - InvalidStrategy (special strategy value for <> operators)
   - list_length (for assertion checking)
 - Called from (representative examples):
-  - gen_partprune_steps_internal (partprune.c:1258, 1275)
-  - get_steps_using_prefix (partprune.c:2458)
-  - get_steps_using_prefix_recurse (partprune.c:2628)
+  - [gen_partprune_steps_internal](gen_partprune_steps_internal.md) (partprune.c:1258, 1275)
+  - [get_steps_using_prefix](get_steps_using_prefix.md) (partprune.c:2458)
+  - [get_steps_using_prefix_recurse](get_steps_using_prefix_recurse.md) (partprune.c:2628)
 
 ## Notes and Other Information
 - Assigns unique step IDs using context->next_step_id++ for proper step sequencing

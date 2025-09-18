@@ -26,17 +26,17 @@ The collected parameter set is stored in root->outer_params and is later used du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - lfirst_int
 - Data types referenced:
-  - Bitmapset
-  - PlannerInfo
+  - [Bitmapset](../B/Bitmapset.md)
+  - [PlannerInfo](../P/PlannerInfo.md)
   - PlannerParamItem
   - SubPlan
   - ListCell
 - Called from (representative examples):
-  - subquery_planner
-  - build_minmax_path
+  - [subquery_planner](../s/subquery_planner.md)
+  - [build_minmax_path](../b/build_minmax_path.md)
 
 ## Notes and Other Information
 - Must be called after SS_replace_correlation_vars and SS_process_sublinks are complete

@@ -29,19 +29,19 @@ Unlike the signed int64 version, this function uses straightforward positive acc
 ## Dependencies
 - Functions called/Symbols referenced:
   - `init_var`: Initialize temporary numeric variable
-  - `set_var_from_var`: Copy numeric variable content
-  - `round_var`: Round to specified decimal places
-  - `strip_var`: Remove leading/trailing zeros
-  - `free_var`: Free numeric variable memory
-  - `pg_mul_u64_overflow`: Overflow-safe 64-bit unsigned multiplication
-  - `pg_add_u64_overflow`: Overflow-safe 64-bit unsigned addition
+  - `[set_var_from_var](../s/set_var_from_var.md)`: Copy numeric variable content
+  - `[round_var](../r/round_var.md)`: Round to specified decimal places
+  - `[strip_var](../s/strip_var.md)`: Remove leading/trailing zeros
+  - `[free_var](../f/free_var.md)`: Free numeric variable memory
+  - `[pg_mul_u64_overflow](../p/pg_mul_u64_overflow.md)`: Overflow-safe 64-bit unsigned multiplication
+  - `[pg_add_u64_overflow](../p/pg_add_u64_overflow.md)`: Overflow-safe 64-bit unsigned addition
   - `NBASE`: Numeric digit base constant
   - `NUMERIC_NEG`: Constant for negative sign
   - `NumericDigit`: Type for individual digits
 
 - Called from (representative examples):
   - `NUMERIC_CAN_BE_SHORT`: Short numeric validation
-  - `numeric_pg_lsn`: PostgreSQL LSN conversion
+  - `[numeric_pg_lsn](numeric_pg_lsn.md)`: PostgreSQL LSN conversion
 
 ## Notes and Other Information
 - Returns `true` on successful conversion, `false` on overflow or negative input (no exceptions thrown)

@@ -24,7 +24,7 @@ The array is terminated with an entry having min_server_version = 0, which can c
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)
 - Called from (representative examples):
-  - complete_from_versioned_query (uses VersionedQuery arrays)
+  - [complete_from_versioned_query](../c/complete_from_versioned_query.md) (uses VersionedQuery arrays)
   - Query_for_list_of_publications (static array of VersionedQuery)
   - Query_for_list_of_subscriptions (static array of VersionedQuery)
 

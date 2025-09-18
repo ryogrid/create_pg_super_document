@@ -21,10 +21,10 @@ The `decmul` function multiplies two decimal numbers (`n1` * `n2`) and stores th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deccall3
-  - PGTYPESnumeric_mul
+  - [deccall3](deccall3.md)
+  - [PGTYPESnumeric_mul](../P/PGTYPESnumeric_mul.md)
 - Called from (representative examples):
-  - main (in test files)
+  - [main](../m/main.md) (in test files)
 - Error constants used:
   - PGTYPES_NUM_OVERFLOW
   - ECPG_INFORMIX_NUM_OVERFLOW

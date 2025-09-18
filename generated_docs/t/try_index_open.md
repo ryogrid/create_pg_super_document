@@ -24,10 +24,10 @@ The function is useful in scenarios where the existence of an index is uncertain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open
-  - validate_relation_kind
+  - [try_relation_open](try_relation_open.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Called from (representative examples):
-  - reindex_index
+  - [reindex_index](../r/reindex_index.md)
   - IndexScanIsValid
 
 ## Notes and Other Information

@@ -23,15 +23,15 @@ The function is essential for implementing proper foreign key semantics where pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - slot_attisnull
-  - RI_ConstraintInfo (structure access)
+  - [RI_ConstraintInfo](../R/RI_ConstraintInfo.md) (structure access)
   - RI_KEYS_ALL_NULL (return constant)
   - RI_KEYS_NONE_NULL (return constant) 
   - RI_KEYS_SOME_NULL (return constant)
 - Called from (representative examples):
-  - ri_Check_Pk_Match
-  - RI_FKey_pk_upd_check_required
-  - RI_FKey_fk_upd_check_required
-  - RI_Initial_Check
+  - [ri_Check_Pk_Match](ri_Check_Pk_Match.md)
+  - [RI_FKey_pk_upd_check_required](../R/RI_FKey_pk_upd_check_required.md)
+  - [RI_FKey_fk_upd_check_required](../R/RI_FKey_fk_upd_check_required.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
 
 ## Notes and Other Information
 - Returns RI_KEYS_ALL_NULL when all key columns are NULL

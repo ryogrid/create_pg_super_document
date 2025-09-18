@@ -17,12 +17,12 @@ ProcessSSLStartup examines the first byte of incoming client data to determine i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_startmsgread
-  - pq_peekbyte  
-  - pq_endmsgread
-  - secure_open_server (SSL builds)
+  - [pq_startmsgread](../p/pq_startmsgread.md)
+  - [pq_peekbyte](../p/pq_peekbyte.md)  
+  - [pq_endmsgread](../p/pq_endmsgread.md)
+  - [secure_open_server](../s/secure_open_server.md) (SSL builds)
 - Called from (representative examples):
-  - BackendInitialize
+  - [BackendInitialize](../B/BackendInitialize.md)
 
 ## Notes and Other Information
 - Returns STATUS_OK if not an SSL request or if SSL connection established successfully

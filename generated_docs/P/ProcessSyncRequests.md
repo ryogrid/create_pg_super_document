@@ -21,17 +21,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbsorbSyncRequests (absorb pending sync requests from other processes)
-  - hash_seq_init/hash_seq_search (iterate through hash table entries)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md) (absorb pending sync requests from other processes)
+  - [hash_seq_init](../h/hash_seq_init.md)/hash_seq_search (iterate through hash table entries)
   - syncsw[].sync_syncfiletag (handler-specific file sync function)
-  - hash_search (remove processed entries from hash table)
+  - [hash_search](../h/hash_search.md) (remove processed entries from hash table)
   - INSTR_TIME_* macros (performance timing instrumentation)
   - data_sync_elevel (get appropriate error level for sync failures)
   - FILE_POSSIBLY_DELETED (check if file deletion error is expected)
   - PendingFsyncEntry (structure representing sync requests)
   - FSYNCS_PER_ABSORB (constant for periodic request absorption)
 - Called from (representative examples):
-  - CheckPointGuts (main checkpoint processing function in xlog.c:7525)
+  - [CheckPointGuts](../C/CheckPointGuts.md) (main checkpoint processing function in xlog.c:7525)
 
 ## Notes and Other Information
 - Only called during checkpoints and requires a valid pendingOps table to function

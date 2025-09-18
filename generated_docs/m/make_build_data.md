@@ -26,12 +26,12 @@ The resulting StatsBuildData structure provides a uniform interface for accessin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_num_members, bms_next_member, examine_expression, heap_getattr
-  - CreateExecutorState, GetPerTupleExprContext, MakeSingleTupleTableSlot
-  - ExecPrepareExprList, ResetExprContext, ExecStoreHeapTuple, ExecEvalExpr
-  - ExecDropSingleTupleTableSlot, FreeExecutorState
+  - [bms_num_members](../b/bms_num_members.md), bms_next_member, examine_expression, heap_getattr
+  - [CreateExecutorState](../C/CreateExecutorState.md), GetPerTupleExprContext, MakeSingleTupleTableSlot
+  - [ExecPrepareExprList](../E/ExecPrepareExprList.md), ResetExprContext, ExecStoreHeapTuple, ExecEvalExpr
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md), FreeExecutorState
 - Called from (representative examples):
-  - BuildRelationExtStatistics
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
 
 ## Notes and Other Information
 - Allocates all memory in a single chunk for efficient cleanup

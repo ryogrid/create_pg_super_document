@@ -22,14 +22,14 @@ The `exec_command_quit` function handles both the `\q` and `\quit` backslash com
 - Functions called/Symbols referenced:
   - `PSQL_CMD_TERMINATE` - Return code indicating psql should terminate
   - `PSQL_CMD_SKIP_LINE` - Return code indicating line should be skipped
-  - `backslashResult` - Enumeration type for command return values
+  - `[backslashResult](../b/backslashResult.md)` - Enumeration type for command return values
 - Called from (representative examples):
-  - `exec_command` - Main command dispatcher in psql
+  - `[exec_command](exec_command.md)` - Main command dispatcher in psql
 
 ## Notes and Other Information
 - Returns `PSQL_CMD_TERMINATE` when `active_branch` is true, causing psql to exit
 - Returns `PSQL_CMD_SKIP_LINE` when `active_branch` is false, allowing conditional execution
-- Does not perform any cleanup operations - cleanup is handled by the main psql loop
+- Does not perform any cleanup operations - [cleanup](../c/cleanup.md) is handled by the main psql loop
 - One of the simplest command implementations, consisting of only a conditional return
 - Supports both `\q` and `\quit` command variants (handled by command dispatcher)
 - Located in `src/bin/psql/command.c:2333-2346`

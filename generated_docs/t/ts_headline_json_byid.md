@@ -22,7 +22,7 @@ This function serves as a wrapper around `ts_headline_json_byid_opt` that allows
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ts_headline_json_byid_opt`: Core function that performs the actual JSON headline generation
+  - `[ts_headline_json_byid_opt](ts_headline_json_byid_opt.md)`: Core function that performs the actual JSON headline generation
   - `DirectFunctionCall3`: PostgreSQL internal function to call another function with 3 arguments
   - `PG_RETURN_DATUM`: PostgreSQL macro for returning a Datum value
   - `PG_GETARG_DATUM`: PostgreSQL macro for extracting function arguments

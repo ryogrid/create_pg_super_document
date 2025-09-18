@@ -28,18 +28,18 @@ The function uses PostgreSQL's generic filter infrastructure (FilterStateData, f
 - Functions called/Symbols referenced:
   - FilterStateData
   - FilterCommandType
-  - FilterObjectType
-  - filter_init
-  - filter_read_item
+  - [FilterObjectType](../F/FilterObjectType.md)
+  - [filter_init](../f/filter_init.md)
+  - [filter_read_item](../f/filter_read_item.md)
   - FILTER_COMMAND_TYPE_INCLUDE
-  - pg_log_filter_error
-  - filter_object_type_name
-  - exit_nicely
+  - [pg_log_filter_error](../p/pg_log_filter_error.md)
+  - [filter_object_type_name](../f/filter_object_type_name.md)
+  - [exit_nicely](../e/exit_nicely.md)
   - FILTER_OBJECT_TYPE_* (various constants)
-  - simple_string_list_append
-  - filter_free
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [filter_free](../f/filter_free.md)
 - Called from (representative examples):
-  - main (pg_dumpall)
+  - [main](../m/main.md) (pg_dumpall)
 
 ## Notes and Other Information
 - This is a static function within pg_dumpall.c for internal use

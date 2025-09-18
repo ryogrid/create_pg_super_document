@@ -26,16 +26,16 @@ The function handles the complex task of mapping table column numbers to index c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - index_open
-  - index_close
-  - SearchSysCacheCopyAttNum
-  - CatalogTupleUpdate
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
+  - [SearchSysCacheCopyAttNum](SearchSysCacheCopyAttNum.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ATExecSetStorage
-  - ATExecSetCompression
+  - [ATExecSetStorage](../A/ATExecSetStorage.md)
+  - [ATExecSetCompression](../A/ATExecSetCompression.md)
 
 ## Notes and Other Information
 - The function only updates index columns that directly correspond to the specified table column

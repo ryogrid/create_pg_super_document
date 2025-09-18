@@ -29,11 +29,11 @@ The function assumes that all supported data types are pass-by-reference, meanin
   - namein (input function for name type)
   - byteain (input function for bytea type)
   - DirectFunctionCall1 (function call infrastructure)
-  - CStringGetDatum (C string to Datum conversion)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (C string to Datum conversion)
   - CStringGetTextDatum (C string to text Datum conversion)
 - Called from (representative examples):
   - Pattern_Prefix_Status
-  - string_to_const
+  - [string_to_const](string_to_const.md)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, used internally for pattern matching support

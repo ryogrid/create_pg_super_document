@@ -21,15 +21,15 @@ This is particularly useful in scenarios where the decision to update a tuple de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_inplace_unlock
-  - systable_endscan
-  - SysScanDesc (type)
+  - [heap_inplace_unlock](../h/heap_inplace_unlock.md)
+  - [systable_endscan](systable_endscan.md)
+  - [SysScanDesc](../S/SysScanDesc.md) (type)
   - BufferHeapTupleTableSlot (type)
 - Called from (representative examples):
-  - index_update_stats
-  - EventTriggerOnLogin
-  - vac_update_relstats
-  - vac_update_datfrozenxid
+  - [index_update_stats](../i/index_update_stats.md)
+  - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md)
+  - [vac_update_relstats](../v/vac_update_relstats.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
 
 ## Notes and Other Information
 - Must be paired with a prior successful call to systable_inplace_update_begin()

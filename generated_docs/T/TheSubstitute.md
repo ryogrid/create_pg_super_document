@@ -27,12 +27,12 @@ TheSubstitute serves as a critical data structure in the thesaurus dictionary fu
 ## Dependencies
 - Functions called/Symbols referenced:
   - TSDictionaryCacheEntry
-  - TheLexeme
-  - TheSubstitute (self-reference)
+  - [TheLexeme](TheLexeme.md)
+  - [TheSubstitute](TheSubstitute.md) (self-reference)
 - Called from (representative examples):
-  - TheSubstitute (recursive structure reference)
-  - addWrd
-  - copyTSLexeme
+  - [TheSubstitute](TheSubstitute.md) (recursive structure reference)
+  - [addWrd](../a/addWrd.md)
+  - [copyTSLexeme](../c/copyTSLexeme.md)
 
 ## Notes and Other Information
 - This structure is defined in src/backend/tsearch/dict_thesaurus.c at lines 45-50

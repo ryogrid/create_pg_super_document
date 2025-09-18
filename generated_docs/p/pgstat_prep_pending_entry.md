@@ -22,17 +22,17 @@ The function validates that the requested statistics kind supports pending data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - AllocSetContextCreate
   - pgstat_get_entry_ref
-  - MemoryContextAllocZero
-  - dlist_push_tail
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - ALLOCSET_SMALL_SIZES
 - Called from (representative examples):
-  - pgstat_prep_database_pending
-  - pgstat_init_function_usage
-  - pgstat_prep_relation_pending
-  - pgstat_report_subscription_error
+  - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
+  - [pgstat_init_function_usage](pgstat_init_function_usage.md)
+  - [pgstat_prep_relation_pending](pgstat_prep_relation_pending.md)
+  - [pgstat_report_subscription_error](pgstat_report_subscription_error.md)
 
 ## Notes and Other Information
 - Creates the PgStat Pending memory context using TopMemoryContext as parent for proper lifetime management

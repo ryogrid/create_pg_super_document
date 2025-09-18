@@ -32,14 +32,14 @@ This function is typically called during the replay of lock operations that occu
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_lock_updated structure from WAL record)
-  - XLogRecGetBlockTag (retrieves block location information)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (retrieves block location information)
   - XLogReadBufferForRedo (reads and locks target buffer for redo operations)
-  - visibilitymap_pin, visibilitymap_clear (visibility map maintenance for frozen status)
-  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem (page-level tuple access functions)
-  - fix_infomask_from_infobits (reconstructs tuple visibility state from logged information)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map maintenance for frozen status)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page-level tuple access functions)
+  - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md) (reconstructs tuple visibility state from logged information)
   - HeapTupleHeaderSetXmax (sets the locking transaction identifier)
 - Called from (representative examples):
-  - heap2_redo (secondary heap WAL replay dispatcher for complex operations)
+  - [heap2_redo](heap2_redo.md) (secondary heap WAL replay dispatcher for complex operations)
 
 ## Notes and Other Information
 - **Update Chain Context**: Specifically designed for locking operations on tuples that are part of update chains, not standalone tuples

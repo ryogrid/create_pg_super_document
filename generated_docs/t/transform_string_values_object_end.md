@@ -21,7 +21,7 @@ The function is part of the semantic action callback system that processes diffe
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro
 - Called from (representative examples):
-  - transform_json_string_values (set as sem->object_end callback)
+  - [transform_json_string_values](transform_json_string_values.md) (set as sem->object_end callback)
 
 ## Notes and Other Information
 - Returns JSON_SUCCESS to indicate successful processing

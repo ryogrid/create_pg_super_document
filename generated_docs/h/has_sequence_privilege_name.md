@@ -30,11 +30,11 @@ The function workflow includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId: Returns the OID of the current session user
-  - convert_sequence_priv_string: Converts privilege string to AclMode for sequences
-  - convert_table_name: Resolves sequence name to OID (shared with table functions)
-  - get_rel_relkind: Retrieves relation kind to validate it's a sequence
-  - pg_class_aclcheck: Performs the actual privilege check on the sequence
+  - [GetUserId](../G/GetUserId.md): Returns the OID of the current session user
+  - [convert_sequence_priv_string](../c/convert_sequence_priv_string.md): Converts privilege string to AclMode for sequences
+  - [convert_table_name](../c/convert_table_name.md): Resolves sequence name to OID (shared with table functions)
+  - [get_rel_relkind](../g/get_rel_relkind.md): Retrieves relation kind to validate it's a sequence
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Performs the actual privilege check on the sequence
   - text_to_cstring: Converts PostgreSQL text to C string for error messages
   - AclResult: Type definition for ACL check results
 - Called from (representative examples):

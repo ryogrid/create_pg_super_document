@@ -20,21 +20,21 @@ This function handles SQL statements that establish or remove dependency relatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_address_rv (resolve object with relation support)
-  - get_object_address (resolve extension object)
-  - check_object_ownership (verify user can modify the object)
+  - [get_object_address_rv](../g/get_object_address_rv.md) (resolve object with relation support)
+  - [get_object_address](../g/get_object_address.md) (resolve extension object)
+  - [check_object_ownership](../c/check_object_ownership.md) (verify user can modify the object)
   - table_close (release relation locks)
-  - deleteDependencyRecordsForSpecific (remove specific dependency records)
-  - getAutoExtensionsOfObject (get existing auto-extension dependencies)
-  - list_member_oid (check for duplicate dependencies)
-  - recordDependencyOn (create new dependency record)
+  - [deleteDependencyRecordsForSpecific](../d/deleteDependencyRecordsForSpecific.md) (remove specific dependency records)
+  - [getAutoExtensionsOfObject](../g/getAutoExtensionsOfObject.md) (get existing auto-extension dependencies)
+  - [list_member_oid](../l/list_member_oid.md) (check for duplicate dependencies)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (create new dependency record)
   - AccessExclusiveLock, NoLock (locking modes)
   - OBJECT_EXTENSION (object type constant)
   - DEPENDENCY_AUTO_EXTENSION (dependency type constant)
 
 - Called from (representative examples):
-  - standard_ProcessUtility (src/backend/tcop/utility.c:1009)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1782)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:1009)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1782)
 
 ## Notes and Other Information
 - Public function (not static), part of the command execution interface

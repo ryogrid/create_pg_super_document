@@ -29,10 +29,10 @@ This caching approach avoids repeated signature extraction and conversion during
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGLENBIT (macro to get bit length of signature)
-  - sizebitvec (function to count set bits in signature)
-  - hemdistsign (function to compute Hamming distance between bit vectors)
+  - [sizebitvec](../s/sizebitvec.md) (function to count set bits in signature)
+  - [hemdistsign](hemdistsign.md) (function to compute Hamming distance between bit vectors)
 - Called from:
-  - gtsvector_picksplit (multiple times during index node splitting operations)
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md) (multiple times during index node splitting operations)
 
 ## Notes and Other Information
 - This is a static helper function used only within tsgistidx.c

@@ -20,8 +20,8 @@ This function performs character validation for GB18030 encoding, the official C
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
 - Called from (representative examples):
-  - pg_gb18030_verifystr
-  - pg_encoding_set_invalid
+  - [pg_gb18030_verifystr](pg_gb18030_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the length of the validated character in bytes (1, 2, or 4) on success, or -1 on failure

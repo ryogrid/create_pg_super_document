@@ -24,15 +24,15 @@ The containment logic follows standard mathematical interval notation: for inclu
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeBound (struct type for representing range bounds)
-  - range_deserialize (function to extract bounds and empty flag from range)
-  - DatumGetInt32 (function to extract int32 from Datum)
-  - FunctionCall2Coll (PostgreSQL function call mechanism with collation support)
+  - [range_deserialize](range_deserialize.md) (function to extract bounds and empty flag from range)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (function to extract int32 from Datum)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (PostgreSQL function call mechanism with collation support)
 - Called from (representative examples):
-  - range_contains_elem (public SQL-callable function)
-  - elem_contained_by_range (symmetric element containment function)
-  - range_gist_consistent_int_element (GiST index support for element queries)
-  - range_gist_consistent_leaf_element (GiST index support for leaf element queries)
-  - spg_range_quad_leaf_consistent (SP-GiST index support)
+  - [range_contains_elem](range_contains_elem.md) (public SQL-callable function)
+  - [elem_contained_by_range](../e/elem_contained_by_range.md) (symmetric element containment function)
+  - [range_gist_consistent_int_element](range_gist_consistent_int_element.md) (GiST index support for element queries)
+  - [range_gist_consistent_leaf_element](range_gist_consistent_leaf_element.md) (GiST index support for leaf element queries)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md) (SP-GiST index support)
 
 ## Notes and Other Information
 - This is an internal function used to implement element-in-range operations

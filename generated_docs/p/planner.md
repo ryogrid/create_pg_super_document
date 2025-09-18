@@ -22,11 +22,11 @@ The function is designed to be the primary interface for converting a parsed que
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - standard_planner (fallback planning function)
+  - [standard_planner](../s/standard_planner.md) (fallback planning function)
   - planner_hook (function pointer for plugin extension)
 - Called from (representative examples):
-  - pg_plan_query
-  - DebugParallelMode
+  - [pg_plan_query](pg_plan_query.md)
+  - [DebugParallelMode](../D/DebugParallelMode.md)
 
 ## Notes and Other Information
 - Plugin authors should note that standard_planner() modifies its Query input, so copying the data structure is necessary for multiple planning attempts

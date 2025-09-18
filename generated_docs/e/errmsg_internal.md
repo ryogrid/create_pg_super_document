@@ -29,7 +29,7 @@ The function operates within PostgreSQL's error handling framework, setting up t
   - ErrorData (error data structure)
   - CHECK_STACK_DEPTH (recursion safety check)
   - EVALUATE_MESSAGE (message processing macro)
-  - MemoryContextSwitchTo (memory management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 
 - Called from (representative examples):
   - Various internal PostgreSQL subsystems when reporting internal errors

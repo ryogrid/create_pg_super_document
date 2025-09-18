@@ -22,13 +22,13 @@ The `log_invalid_page` function is a critical component of PostgreSQL's WAL reco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - report_invalid_page
+  - [report_invalid_page](../r/report_invalid_page.md)
   - elog
-  - message_level_is_interesting
-  - hash_create
-  - hash_search
-  - xl_invalid_page_key
-  - xl_invalid_page
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [xl_invalid_page_key](../x/xl_invalid_page_key.md)
+  - [xl_invalid_page](../x/xl_invalid_page.md)
   - HASHCTL
 - Called from (representative examples):
   - XLogReadBufferExtended

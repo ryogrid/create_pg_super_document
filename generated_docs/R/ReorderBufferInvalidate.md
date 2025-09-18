@@ -25,10 +25,10 @@ The function only processes invalidations if the transaction has a base snapshot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
-  - ReorderBufferImmediateInvalidation
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
+  - [ReorderBufferImmediateInvalidation](ReorderBufferImmediateInvalidation.md)
 - Called from (representative examples):
-  - DecodePrepare (in decode.c)
+  - [DecodePrepare](../D/DecodePrepare.md) (in decode.c)
 
 ## Notes and Other Information
 - Special-purpose function designed for prepared transactions

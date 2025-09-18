@@ -28,20 +28,20 @@ This information enables the query planner to make accurate selectivity estimate
 - Functions called/Symbols referenced:
   - STATS_MAX_DIMENSIONS (maximum dimension limit constant)
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array)
-  - MCVItem (component structure for individual MCV entries)
+  - [MCVItem](MCVItem.md) (component structure for individual MCV entries)
   - STATS_MCV_MAGIC (magic constant)
   - STATS_MCV_TYPE_BASIC (type constant)
   - AttrNumber (PostgreSQL attribute number type)
   - Oid (PostgreSQL object identifier type)
 
 - Called from (representative examples):
-  - statext_mcv_build (constructs MCVList from sample data)
-  - statext_mcv_serialize (serializes MCVList for storage)
-  - statext_mcv_deserialize (deserializes MCVList from storage)
-  - statext_mcv_load (loads MCVList from system catalogs)
+  - [statext_mcv_build](../s/statext_mcv_build.md) (constructs MCVList from sample data)
+  - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (serializes MCVList for storage)
+  - [statext_mcv_deserialize](../s/statext_mcv_deserialize.md) (deserializes MCVList from storage)
+  - [statext_mcv_load](../s/statext_mcv_load.md) (loads MCVList from system catalogs)
   - mcv_clauselist_selectivity (uses for selectivity estimation)
-  - pg_stats_ext_mcvlist_items (exposes through system views)
-  - BuildRelationExtStatistics (part of statistics collection)
+  - [pg_stats_ext_mcvlist_items](../p/pg_stats_ext_mcvlist_items.md) (exposes through system views)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (part of statistics collection)
 
 ## Notes and Other Information
 - Core component of PostgreSQL's extended statistics system for multivariate analysis

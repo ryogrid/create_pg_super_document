@@ -23,12 +23,12 @@ The function prevents whole-row updates by explicitly checking for InvalidAttrNu
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - bms_next_member
-  - pg_attribute_aclcheck_all
-  - pg_attribute_aclcheck
+  - [bms_next_member](../b/bms_next_member.md)
+  - [pg_attribute_aclcheck_all](../p/pg_attribute_aclcheck_all.md)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
   - elog
 - Called from (representative examples):
-  - ExecCheckOneRelPerms (for both INSERT and UPDATE permission checks)
+  - [ExecCheckOneRelPerms](ExecCheckOneRelPerms.md) (for both INSERT and UPDATE permission checks)
 
 ## Notes and Other Information
 - This is a static function only called from within execMain.c

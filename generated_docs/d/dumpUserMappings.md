@@ -31,18 +31,18 @@ The function is typically called after a foreign server has been archived to ens
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQfnumber
-  - PQgetvalue
-  - resetPQExpBuffer
-  - fmtId
-  - createDumpId
-  - ArchiveEntry
-  - PQclear
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [fmtId](../f/fmtId.md)
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpForeignServer
+  - [dumpForeignServer](dumpForeignServer.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

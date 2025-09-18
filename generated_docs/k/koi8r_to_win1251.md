@@ -25,7 +25,7 @@ KOI8-R is a widely used Cyrillic encoding that was popular in Unix and internet 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_ENCODING_CONVERSION_ARGS
-  - local2local
+  - [local2local](../l/local2local.md)
   - PG_GETARG_CSTRING
   - PG_GETARG_INT32
   - PG_GETARG_BOOL

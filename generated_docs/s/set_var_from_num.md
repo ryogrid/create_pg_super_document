@@ -21,16 +21,16 @@ The function performs a direct memory copy of the digit array from the source Nu
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_NDIGITS (macro to get number of digits)
-  - alloc_var (allocates memory for NumericVar digits)
+  - [alloc_var](../a/alloc_var.md) (allocates memory for NumericVar digits)
   - NUMERIC_WEIGHT (macro to extract weight component)
   - NUMERIC_SIGN (macro to extract sign component)  
   - NUMERIC_DSCALE (macro to extract display scale)
   - NUMERIC_DIGITS (macro to get digit array pointer)
   - NumericDigit (typedef for digit storage type)
 - Called from (representative examples):
-  - numeric (main numeric input function)
-  - numeric_round (rounding operations)
-  - numeric_trunc (truncation operations)
+  - [numeric](../n/numeric.md) (main numeric input function)
+  - [numeric_round](../n/numeric_round.md) (rounding operations)
+  - [numeric_trunc](../n/numeric_trunc.md) (truncation operations)
   - generate_series_step_numeric (numeric series generation)
 
 ## Notes and Other Information

@@ -39,8 +39,8 @@ The function provides the foundation for tuple reordering decisions in IndexNext
   - SortSupport comparator functions (accessed via ssup->comparator)
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:62)
-  - IndexNextWithReorder (nodeIndexscan.c:236, 303, 332)
-  - reorderqueue_cmp (nodeIndexscan.c:449)
+  - [IndexNextWithReorder](../I/IndexNextWithReorder.md) (nodeIndexscan.c:236, 303, 332)
+  - [reorderqueue_cmp](../r/reorderqueue_cmp.md) (nodeIndexscan.c:449)
 
 ## Notes and Other Information
 - This is a static function used internally within the index scan executor

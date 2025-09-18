@@ -22,14 +22,14 @@ Additionally, the function ensures that all variables used in member clauses wil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_get_singleton_member
-  - select_equality_operator
-  - process_implied_equality
-  - pull_var_clause
-  - add_vars_to_targetlist
-  - list_free
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [select_equality_operator](../s/select_equality_operator.md)
+  - [process_implied_equality](../p/process_implied_equality.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - generate_base_implied_equalities
+  - [generate_base_implied_equalities](generate_base_implied_equalities.md)
 
 ## Notes and Other Information
 - Uses an array prev_ems to track the last-seen member for each base relation

@@ -20,9 +20,9 @@ This static utility function provides string representations of JsonBehaviorType
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):
-  - ExecEvalJsonCoercionFinish (for error message formatting)
+  - [ExecEvalJsonCoercionFinish](../E/ExecEvalJsonCoercionFinish.md) (for error message formatting)
 
 ## Notes and Other Information
 - Returns one of: "NULL", "ERROR", "EMPTY", "TRUE", "FALSE", "UNKNOWN", "EMPTY ARRAY", "EMPTY OBJECT", "DEFAULT"

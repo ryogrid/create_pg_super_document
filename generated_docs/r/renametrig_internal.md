@@ -28,22 +28,22 @@ The function also includes a notification mechanism that issues a NOTICE when th
   - GETSTRUCT
   - strcmp
   - NameStr
-  - ScanKeyInit
-  - ObjectIdGetDatum
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - RelationGetRelid
-  - PointerGetDatum
-  - systable_beginscan
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
   - HeapTupleIsValid
-  - systable_getnext
-  - systable_endscan
-  - heap_copytuple
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
   - namestrcpy
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - CacheInvalidateRelcache
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
 - Called from (representative examples):
-  - renametrig
-  - renametrig_partition
+  - [renametrig](renametrig.md)
+  - [renametrig_partition](renametrig_partition.md)
 
 ## Notes and Other Information
 - Performs early optimization by checking if the trigger already has the target name

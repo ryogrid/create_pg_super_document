@@ -95,16 +95,16 @@ update_symbol_types.py: ScanDirection specifying the current scan direction (for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_compare_array_skey
+  - [_bt_compare_array_skey](_bt_compare_array_skey.md)
   - ScanDirectionIsNoMovement
   - ScanDirectionIsForward
-  - BTArrayKeyInfo (structure)
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md) (structure)
   - ScanDirection (enum)
   - SK_SEARCHARRAY (flag)
   - SK_BT_REQFWD (flag)
 - Called from (representative examples):
-  - _bt_compare_array_scankey_args
-  - _bt_advance_array_keys
+  - [_bt_compare_array_scankey_args](_bt_compare_array_scankey_args.md)
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
 
 ## Notes and Other Information
 - The function assumes scan key strategy is BTEqualStrategyNumber and SK_SEARCHARRAY flag is set

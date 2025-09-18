@@ -28,10 +28,10 @@ The implementation assumes track_commit_timestamp is a PGC_POSTMASTER parameter,
 - Functions called/Symbols referenced:
   - TransactionIdToCTsEntry (newestXact)
   - TransactionIdEquals (newestXact, FirstNormalTransactionId)
-  - TransactionIdToCTsPage (newestXact)
-  - SimpleLruGetBankLock (CommitTsCtl, pageno)
+  - [TransactionIdToCTsPage](../T/TransactionIdToCTsPage.md) (newestXact)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (CommitTsCtl, pageno)
   - LWLockAcquire (lock, LW_EXCLUSIVE)
-  - ZeroCommitTsPage (pageno, !InRecovery)
+  - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md) (pageno, !InRecovery)
   - LWLockRelease (lock)
   - Assert (!InRecovery)
   - FirstNormalTransactionId (constant)

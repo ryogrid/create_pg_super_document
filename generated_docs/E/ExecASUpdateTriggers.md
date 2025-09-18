@@ -24,13 +24,13 @@ The function also passes information about updated columns and transition captur
 ## Dependencies
 - Functions called/Symbols referenced:
   - AfterTriggerSaveEvent
-  - ExecGetAllUpdatedCols
+  - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
 - Data types referenced:
   - TransitionCaptureState
   - TriggerDesc
   - TRIGGER_EVENT_UPDATE
 - Called from (representative examples):
-  - fireASTriggers (in nodeModifyTable.c)
+  - [fireASTriggers](../f/fireASTriggers.md) (in nodeModifyTable.c)
 
 ## Notes and Other Information
 - Only operates on the root relation (parent table), not on partitions

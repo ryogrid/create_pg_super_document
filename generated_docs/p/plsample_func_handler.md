@@ -32,20 +32,20 @@ This implementation serves as an educational example showing how procedural lang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SearchSysCache1` (lookup function definition in pg_proc)
+  - `[SearchSysCache1](../S/SearchSysCache1.md)` (lookup function definition in pg_proc)
   - `HeapTupleIsValid` (validate system cache results)
   - `GETSTRUCT` (extract structure from heap tuple)
-  - `SysCacheGetAttr` (extract specific attributes from cache)
-  - `DatumGetCString`, `DirectFunctionCall1`, `textout` (text conversion)
+  - `[SysCacheGetAttr](../S/SysCacheGetAttr.md)` (extract specific attributes from cache)
+  - `[DatumGetCString](../D/DatumGetCString.md)`, `DirectFunctionCall1`, `textout` (text conversion)
   - `AllocSetContextCreate` (memory context creation)
-  - `get_func_arg_info` (extract function argument metadata)
-  - `fmgr_info_cxt` (initialize function manager info)
-  - `OutputFunctionCall`, `InputFunctionCall` (type I/O functions)
-  - `getTypeIOParam` (get type I/O parameters)
-  - `ReleaseSysCache` (release system cache entries)
+  - `[get_func_arg_info](../g/get_func_arg_info.md)` (extract function argument metadata)
+  - `[fmgr_info_cxt](../f/fmgr_info_cxt.md)` (initialize function manager info)
+  - `[OutputFunctionCall](../O/OutputFunctionCall.md)`, `InputFunctionCall` (type I/O functions)
+  - `[getTypeIOParam](../g/getTypeIOParam.md)` (get type I/O parameters)
+  - `[ReleaseSysCache](../R/ReleaseSysCache.md)` (release system cache entries)
   - `PG_RETURN_NULL`, `PG_RETURN_DATUM` (return value macros)
 - Called from:
-  - `plsample_call_handler` (when handling regular function calls)
+  - `[plsample_call_handler](plsample_call_handler.md)` (when handling regular function calls)
 
 ## Notes and Other Information
 - Located in `src/test/modules/plsample/plsample.c:93-204`

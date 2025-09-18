@@ -26,21 +26,21 @@ The function follows PostgreSQL's standard pattern for catalog lookups:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens pg_extension catalog)
-  - ScanKeyInit (initializes search key)
-  - systable_beginscan (starts catalog scan)
-  - systable_getnext (retrieves next tuple)
-  - systable_endscan (ends catalog scan)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (initializes search key)
+  - [systable_beginscan](../s/systable_beginscan.md) (starts catalog scan)
+  - [systable_getnext](../s/systable_getnext.md) (retrieves next tuple)
+  - [systable_endscan](../s/systable_endscan.md) (ends catalog scan)
   - table_close (closes catalog relation)
-  - CStringGetDatum (converts C string to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - Form_pg_extension (cast to extension tuple structure)
   - ereport (error reporting)
 
 - Called from (representative examples):
-  - CreateExtension (during extension creation)
-  - get_required_extension (dependency resolution)
+  - [CreateExtension](../C/CreateExtension.md) (during extension creation)
+  - [get_required_extension](get_required_extension.md) (dependency resolution)
   - AlterExtensionNamespace (namespace changes)
-  - get_object_address_unqualified (object addressing)
-  - binary_upgrade_create_empty_extension (pg_upgrade support)
+  - [get_object_address_unqualified](get_object_address_unqualified.md) (object addressing)
+  - [binary_upgrade_create_empty_extension](../b/binary_upgrade_create_empty_extension.md) (pg_upgrade support)
 
 ## Notes and Other Information
 - Assumes at most one matching tuple exists for any given extension name (extensions have unique names)

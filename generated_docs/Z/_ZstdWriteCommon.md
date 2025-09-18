@@ -21,15 +21,15 @@ This function encapsulates the core ZSTD compression loop used by both `WriteDat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ZstdCompressorState (cast target for private_data)
+  - [ZstdCompressorState](ZstdCompressorState.md) (cast target for private_data)
   - ZSTD_compressStream2 (from ZSTD library)
   - ZSTD_isError (from ZSTD library)
-  - pg_fatal (PostgreSQL error handling)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
   - ZSTD_getErrorName (from ZSTD library)
-  - CompressorState (compression state structure)
+  - [CompressorState](../C/CompressorState.md) (compression state structure)
 - Called from (representative examples):
-  - EndCompressorZstd
-  - WriteDataToArchiveZstd
+  - [EndCompressorZstd](../E/EndCompressorZstd.md)
+  - [WriteDataToArchiveZstd](../W/WriteDataToArchiveZstd.md)
 
 ## Notes and Other Information
 - This is a static function internal to the compress_zstd.c module

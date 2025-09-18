@@ -23,20 +23,20 @@ The function extracts type information from both tuple headers, validates column
   - check_stack_depth: Stack overflow protection for recursive calls
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple headers
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple headers  
-  - lookup_rowtype_tupdesc: Retrieves tuple descriptors for both record types
-  - heap_deform_tuple: Extracts individual column values from both tuples
-  - lookup_type_cache: Gets type cache entries with comparison function info
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptors for both record types
+  - [heap_deform_tuple](../h/heap_deform_tuple.md): Extracts individual column values from both tuples
+  - [lookup_type_cache](../l/lookup_type_cache.md): Gets type cache entries with comparison function info
   - FunctionCallInvoke: Invokes type-specific comparison functions
-  - format_type_be: Formats type names for error messages
-  - MemoryContextAlloc: Memory allocation in function context
+  - [format_type_be](../f/format_type_be.md): Formats type names for error messages
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in function context
   - ReleaseTupleDesc: Releases tuple descriptor references
 
 - Called from (representative examples):
-  - record_lt: Less than comparison operator for records (src/backend/utils/adt/rowtypes.c:1291)
-  - record_gt: Greater than comparison operator for records (src/backend/utils/adt/rowtypes.c:1297)
-  - record_le: Less than or equal comparison operator for records (src/backend/utils/adt/rowtypes.c:1303)
-  - record_ge: Greater than or equal comparison operator for records (src/backend/utils/adt/rowtypes.c:1309)
-  - btrecordcmp: B-tree comparison function for records (src/backend/utils/adt/rowtypes.c:1315)
+  - [record_lt](record_lt.md): Less than comparison operator for records (src/backend/utils/adt/rowtypes.c:1291)
+  - [record_gt](record_gt.md): Greater than comparison operator for records (src/backend/utils/adt/rowtypes.c:1297)
+  - [record_le](record_le.md): Less than or equal comparison operator for records (src/backend/utils/adt/rowtypes.c:1303)
+  - [record_ge](record_ge.md): Greater than or equal comparison operator for records (src/backend/utils/adt/rowtypes.c:1309)
+  - [btrecordcmp](../b/btrecordcmp.md): B-tree comparison function for records (src/backend/utils/adt/rowtypes.c:1315)
 
 ## Notes and Other Information
 - Implements lexicographic comparison: compares columns left-to-right until finding unequal values

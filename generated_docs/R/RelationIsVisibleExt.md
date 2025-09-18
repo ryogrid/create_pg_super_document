@@ -24,12 +24,12 @@ The key difference from RelationIsVisible is the optional error handling - if th
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_class
-  - recomputeNamespacePath
-  - list_member_oid
-  - get_relname_relid
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
 - Called from (representative examples):
-  - RelationIsVisible (src/backend/catalog/namespace.c:915)
-  - pg_table_is_visible (src/backend/catalog/namespace.c:4900)
+  - [RelationIsVisible](RelationIsVisible.md) (src/backend/catalog/namespace.c:915)
+  - [pg_table_is_visible](../p/pg_table_is_visible.md) (src/backend/catalog/namespace.c:4900)
 
 ## Notes and Other Information
 This is a static function that implements the core visibility logic. It carefully handles namespace precedence by iterating through the activeSearchPath and checking for name conflicts. The function properly manages system cache lookups and releases. Relations in the system namespace are treated specially as they are always considered visible.

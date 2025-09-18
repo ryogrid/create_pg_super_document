@@ -31,22 +31,22 @@ The function manages the B-tree traversal to locate the appropriate leaf page, h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginPrepareEntryScan: Initialize B-tree scan for entry operations
-  - ginFindLeafPage: Navigate B-tree to find appropriate leaf page
+  - [ginPrepareEntryScan](ginPrepareEntryScan.md): Initialize B-tree scan for entry operations
+  - [ginFindLeafPage](ginFindLeafPage.md): Navigate B-tree to find appropriate leaf page
   - GinIsPostingTree: Check if tuple contains posting tree reference
   - GinGetPostingTree: Extract posting tree block number from tuple
-  - ginInsertItemPointers: Insert items directly into posting tree
-  - addItemPointersToLeafTuple: Add items to existing posting list tuple
-  - buildFreshLeafTuple: Create new leaf tuple from scratch
-  - ginInsertValue: Insert tuple into B-tree page
-  - CheckForSerializableConflictIn: Handle serializable transaction conflicts
-  - freeGinBtreeStack: Clean up B-tree traversal stack
+  - [ginInsertItemPointers](ginInsertItemPointers.md): Insert items directly into posting tree
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md): Add items to existing posting list tuple
+  - [buildFreshLeafTuple](../b/buildFreshLeafTuple.md): Create new leaf tuple from scratch
+  - [ginInsertValue](ginInsertValue.md): Insert tuple into B-tree page
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md): Handle serializable transaction conflicts
+  - [freeGinBtreeStack](../f/freeGinBtreeStack.md): Clean up B-tree traversal stack
 
 - Called from (representative examples):
-  - ginBuildCallback: During index creation from existing data
-  - ginHeapTupleInsert: For regular tuple insertions
-  - ginInsertCleanup: During fast insert cleanup operations
-  - ginbuild: Direct calls during index build process
+  - [ginBuildCallback](ginBuildCallback.md): During index creation from existing data
+  - [ginHeapTupleInsert](ginHeapTupleInsert.md): For regular tuple insertions
+  - [ginInsertCleanup](ginInsertCleanup.md): During fast insert cleanup operations
+  - [ginbuild](ginbuild.md): Direct calls during index build process
 
 ## Notes and Other Information
 - Central coordination function for all GIN index insertions

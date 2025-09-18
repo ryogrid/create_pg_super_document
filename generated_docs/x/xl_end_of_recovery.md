@@ -27,11 +27,11 @@ The record is written with the XLOG_END_OF_RECOVERY record type (0x90) and helps
   - TimestampTz (timestamp with timezone type)
   - TimeLineID (timeline identifier type)
 - Called from (representative examples):
-  - CreateEndOfRecoveryRecord (creates and logs end of recovery records)
-  - xlog_desc (describes end of recovery records for debugging)
-  - xlog_redo (processes end of recovery records during replay)
-  - ApplyWalRecord (applies end of recovery records during recovery)
-  - SummarizeXlogRecord (summarizes end of recovery records in WAL)
+  - [CreateEndOfRecoveryRecord](../C/CreateEndOfRecoveryRecord.md) (creates and logs end of recovery records)
+  - [xlog_desc](xlog_desc.md) (describes end of recovery records for debugging)
+  - [xlog_redo](xlog_redo.md) (processes end of recovery records during replay)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md) (applies end of recovery records during recovery)
+  - [SummarizeXlogRecord](../S/SummarizeXlogRecord.md) (summarizes end of recovery records in WAL)
 
 ## Notes and Other Information
 - Associated with WAL record type XLOG_END_OF_RECOVERY (0x90)

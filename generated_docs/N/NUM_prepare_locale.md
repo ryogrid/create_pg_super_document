@@ -25,11 +25,11 @@ The function addresses specific locale issues, such as broken glibc pt_BR locale
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGLC_localeconv (gets locale conversion information)
+  - [PGLC_localeconv](../P/PGLC_localeconv.md) (gets locale conversion information)
   - IS_LDECIMAL (checks if locale decimal point should be used)
   - strcmp (string comparison for separator validation)
 - Called from (representative examples):
-  - NUM_processor (formatting.c:5987)
+  - [NUM_processor](NUM_processor.md) (formatting.c:5987)
   - DCH_ZONED (formatting.c:1077)
 
 ## Notes and Other Information

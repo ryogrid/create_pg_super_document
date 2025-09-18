@@ -22,11 +22,11 @@ Returns a Python list where each element is a Python long integer representing a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_exception_set() (PL/Python exception handling)
+  - [PLy_exception_set](PLy_exception_set.md)() (PL/Python exception handling)
   - PyList_New() (Python C API)
   - TupleDescAttr() (PostgreSQL tuple descriptor access)
   - PyLong_FromLong() (Python C API)
-  - PLyResultObject (struct type)
+  - [PLyResultObject](PLyResultObject.md) (struct type)
 - Called from (representative examples):
   - Referenced as "coltypes" method in PLy_result_methods at src/pl/plpython/plpy_resultobject.c:40
   - Callable from Python code as result.coltypes()

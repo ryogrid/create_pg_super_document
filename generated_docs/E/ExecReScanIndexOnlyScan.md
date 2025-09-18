@@ -24,11 +24,11 @@ This design integrates runtime key evaluation directly into the rescan process, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext: Clears expression context to prevent memory leaks during key recalculation
-  - ExecIndexEvalRuntimeKeys: Evaluates runtime-dependent scan key expressions
-  - index_rescan: Restarts the underlying index scan with updated keys
-  - ExecScanReScan: Handles generic scan framework rescan operations
+  - [ExecIndexEvalRuntimeKeys](ExecIndexEvalRuntimeKeys.md): Evaluates runtime-dependent scan key expressions
+  - [index_rescan](../i/index_rescan.md): Restarts the underlying index scan with updated keys
+  - [ExecScanReScan](ExecScanReScan.md): Handles generic scan framework rescan operations
 - Called from (representative examples):
-  - ExecReScan: Generic executor rescan dispatcher that calls this function for index-only scan nodes
+  - [ExecReScan](ExecReScan.md): Generic executor rescan dispatcher that calls this function for index-only scan nodes
 
 ## Notes and Other Information
 - Memory management is carefully handled by resetting the expression context before recalculating runtime keys

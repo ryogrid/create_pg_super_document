@@ -31,14 +31,14 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToString
-  - pull_var_clause
-  - CreateConstraintEntry
+  - [nodeToString](../n/nodeToString.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
   - RelationGetNamespace
   - CONSTRAINT_CHECK
 - Called from (representative examples):
-  - StoreConstraints
-  - AddRelationNewConstraints
+  - [StoreConstraints](StoreConstraints.md)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
 
 ## Notes and Other Information
 - The caller is responsible for updating the constraint count in the pg_class entry for the relation

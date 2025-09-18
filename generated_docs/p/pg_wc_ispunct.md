@@ -31,15 +31,15 @@ The function handles six different regex strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_char_properties (character property table)
-  - pg_u_ispunct (PostgreSQL Unicode implementation, called with `true` parameter)
+  - [pg_u_ispunct](pg_u_ispunct.md) (PostgreSQL Unicode implementation, called with `true` parameter)
   - iswpunct (system wide character function)
   - ispunct (standard C library function)
   - iswpunct_l (locale-specific wide character function)
   - ispunct_l (locale-specific single-byte function)
   - u_ispunct (ICU library function)
 - Called from (representative examples):
-  - cclasscvec (regex character class processing)
-  - cclass_column_index (character class indexing)
+  - [cclasscvec](../c/cclasscvec.md) (regex character class processing)
+  - [cclass_column_index](../c/cclass_column_index.md) (character class indexing)
   - REPLACEARC (regex arc replacement macro)
 
 ## Notes and Other Information

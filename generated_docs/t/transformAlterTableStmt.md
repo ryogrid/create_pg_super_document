@@ -46,26 +46,26 @@ The function ensures race condition safety by relying on the passed relid rather
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - make_parsestate
-  - addRangeTableEntryForRelation
-  - addNSItemToQuery
-  - transformColumnDefinition
-  - transformTableConstraint
-  - transformExpr
-  - get_attnum
-  - getIdentitySequence
-  - typenameTypeId
-  - generateSerialExtraStmts
-  - transformPartitionCmd
-  - transformIndexConstraints
-  - transformFKConstraints
-  - transformCheckConstraints
-  - transformIndexStmt
-  - relation_close
+  - [relation_open](../r/relation_open.md)
+  - [make_parsestate](../m/make_parsestate.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
+  - [transformColumnDefinition](transformColumnDefinition.md)
+  - [transformTableConstraint](transformTableConstraint.md)
+  - [transformExpr](transformExpr.md)
+  - [get_attnum](../g/get_attnum.md)
+  - [getIdentitySequence](../g/getIdentitySequence.md)
+  - [typenameTypeId](typenameTypeId.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [transformPartitionCmd](transformPartitionCmd.md)
+  - [transformIndexConstraints](transformIndexConstraints.md)
+  - [transformFKConstraints](transformFKConstraints.md)
+  - [transformCheckConstraints](transformCheckConstraints.md)
+  - [transformIndexStmt](transformIndexStmt.md)
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - ATParseTransformCmd
-  - ATPostAlterTypeParse
+  - [ATParseTransformCmd](../A/ATParseTransformCmd.md)
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
 
 ## Notes and Other Information
 - Central function for ALTER TABLE statement processing in PostgreSQL's utility command system

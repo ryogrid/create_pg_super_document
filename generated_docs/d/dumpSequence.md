@@ -18,18 +18,18 @@ The  function generates SQL CREATE SEQUENCE statements for PostgreSQL sequences.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - ExecuteSqlQuery
-  - findTableByOid
-  - binary_upgrade_set_pg_class_oids
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [findTableByOid](../f/findTableByOid.md)
+  - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
   - createPQExpBuffer/resetPQExpBuffer/destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpTable
+  - [dumpTable](dumpTable.md)
 
 ## Notes and Other Information
 - Supports PostgreSQL version compatibility by using different metadata sources (pg_sequence vs sequence relation)

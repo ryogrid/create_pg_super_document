@@ -32,14 +32,14 @@ This function takes no parameters but operates on several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReadRecord
-  - LogicalDecodingProcessRecord
-  - GetXLogReplayRecPtr
-  - GetFlushRecPtr
+  - [XLogReadRecord](XLogReadRecord.md)
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
   - elog
 - Called from (representative examples):
-  - StartLogicalReplication
-  - WalSndLoop
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
+  - [WalSndLoop](../W/WalSndLoop.md)
 
 ## Notes and Other Information
 - Uses a static variable to cache flush pointer across calls for performance optimization

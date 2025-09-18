@@ -26,10 +26,10 @@ Unlike revmap_get_blkno which returns InvalidBlockNumber for unallocated pages, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_REVMAP_BLK (macro for block number conversion)
-  - revmap_physical_extend
+  - [revmap_physical_extend](revmap_physical_extend.md)
   - CHECK_FOR_INTERRUPTS (macro for interrupt processing)
 - Called from (representative examples):
-  - brinRevmapExtend
+  - [brinRevmapExtend](../b/brinRevmapExtend.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin_revmap.c file

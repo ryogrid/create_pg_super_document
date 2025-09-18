@@ -20,19 +20,19 @@ This function fills in the rtable_names list within a deparse_namespace structur
 ## Dependencies
 - Functions called/Symbols referenced:
   - HASHCTL
-  - HTAB
+  - [HTAB](../H/HTAB.md)
   - NameHashEntry
-  - hash_create
-  - hash_search
-  - hash_destroy
-  - bms_is_member
-  - get_rel_name
-  - pg_mbcliplen
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [hash_destroy](../h/hash_destroy.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md)
 - Called from (representative examples):
-  - select_rtable_names_for_explain
-  - set_deparse_for_query
-  - deparse_context_for
-  - pg_get_triggerdef_worker
+  - [select_rtable_names_for_explain](select_rtable_names_for_explain.md)
+  - [set_deparse_for_query](set_deparse_for_query.md)
+  - [deparse_context_for](../d/deparse_context_for.md)
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
 
 ## Notes and Other Information
 - This function is static and only concerned with relation names, not column names

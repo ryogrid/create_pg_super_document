@@ -31,13 +31,13 @@ The function is implemented as a static inline to minimize function call overhea
   - `HeapTupleNoNulls` - macro to check if tuple has any NULL values
   - `TupleDescAttr` - macro to access attribute metadata from tuple descriptor
   - `fetchatt` - function to extract attribute value at known offset
-  - `nocachegetattr` - fallback function for uncached attribute retrieval
+  - `[nocachegetattr](../n/nocachegetattr.md)` - fallback function for uncached attribute retrieval
   - `att_isnull` - function to check if specific attribute is NULL in bitmap
 - Called from (representative examples):
-  - `heap_getattr` - general attribute access function
-  - `CatalogCacheComputeTupleHashValue` - catalog cache hash computation
-  - `RelationInitIndexAccessInfo` - index access info initialization
-  - `extractRelOptions` - relation option extraction
+  - `[heap_getattr](../h/heap_getattr.md)` - general attribute access function
+  - `[CatalogCacheComputeTupleHashValue](../C/CatalogCacheComputeTupleHashValue.md)` - catalog cache hash computation
+  - `[RelationInitIndexAccessInfo](../R/RelationInitIndexAccessInfo.md)` - index access info initialization
+  - `[extractRelOptions](../e/extractRelOptions.md)` - relation option extraction
 
 ## Notes and Other Information
 - **Performance critical**: This function is called frequently throughout PostgreSQL, hence the inline optimization

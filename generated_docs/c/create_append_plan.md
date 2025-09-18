@@ -21,25 +21,25 @@ The `create_append_plan` function builds an Append execution plan that concatena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist
-  - make_result
-  - makeBoolConst
-  - copy_generic_path_info
-  - prepare_sort_from_pathkeys
-  - create_plan_recurse
-  - pathkeys_contained_in
-  - make_sort
-  - label_sort_with_costsize
-  - mark_async_capable_plan
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_partition_pruneinfo
-  - inject_projection_plan
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [make_result](../m/make_result.md)
+  - [makeBoolConst](../m/makeBoolConst.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [make_sort](../m/make_sort.md)
+  - [label_sort_with_costsize](../l/label_sort_with_costsize.md)
+  - [mark_async_capable_plan](../m/mark_async_capable_plan.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md)
+  - [inject_projection_plan](../i/inject_projection_plan.md)
   - Append (type)
   - AppendPath (type)
   - PartitionPruneInfo (type)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - Generates a dummy Result plan with constant-FALSE gating when no subpaths exist (empty relation case)

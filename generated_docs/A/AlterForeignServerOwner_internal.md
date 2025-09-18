@@ -20,18 +20,18 @@ This internal function handles the core logic for changing the ownership of a fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser: Check if current user has superuser privileges
-  - object_ownercheck: Verify current user owns the foreign server
+  - [object_ownercheck](../o/object_ownercheck.md): Verify current user owns the foreign server
   - check_can_set_role: Validate ability to become the new owner
-  - object_aclcheck: Check new owner has USAGE privilege on FDW
-  - GetForeignDataWrapper: Retrieve FDW information for error reporting
-  - aclnewowner: Update ACL with new owner information
-  - heap_modify_tuple: Create modified tuple with new ownership
-  - CatalogTupleUpdate: Update the catalog record
-  - changeDependencyOnOwner: Update ownership dependency records
+  - [object_aclcheck](../o/object_aclcheck.md): Check new owner has USAGE privilege on FDW
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md): Retrieve FDW information for error reporting
+  - [aclnewowner](../a/aclnewowner.md): Update ACL with new owner information
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Create modified tuple with new ownership
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Update the catalog record
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md): Update ownership dependency records
   - InvokeObjectPostAlterHook: Trigger post-alter hooks
 - Called from (representative examples):
-  - AlterForeignServerOwner: Public interface for ownership changes
-  - AlterForeignServerOwner_oid: OID-based ownership change wrapper
+  - [AlterForeignServerOwner](AlterForeignServerOwner.md): Public interface for ownership changes
+  - [AlterForeignServerOwner_oid](AlterForeignServerOwner_oid.md): OID-based ownership change wrapper
 
 ## Notes and Other Information
 - Only updates ownership if the current and new owners differ

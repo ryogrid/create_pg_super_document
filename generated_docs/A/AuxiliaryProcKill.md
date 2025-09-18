@@ -32,17 +32,17 @@ Key differences from ProcKill:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - LWLockReleaseAll
-  - ConditionVariableCancelSleep
-  - SwitchBackToLocalLatch
-  - pgstat_reset_wait_event_storage
-  - DisownLatch
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [SwitchBackToLocalLatch](../S/SwitchBackToLocalLatch.md)
+  - [pgstat_reset_wait_event_storage](../p/pgstat_reset_wait_event_storage.md)
+  - [DisownLatch](../D/DisownLatch.md)
   - update_spins_per_delay
   - NUM_AUXILIARY_PROCS (constant)
   - INVALID_PROC_NUMBER (constant)
 - Called from (representative examples):
-  - InitAuxiliaryProcess (registered as exit callback)
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (registered as exit callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within proc.c

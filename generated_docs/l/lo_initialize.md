@@ -26,23 +26,23 @@ This initialization approach allows PostgreSQL to support large objects across d
   - pqClearConnErrorState
   - malloc
   - MemSet
-  - PQexec
-  - PQgetvalue
-  - PQntuples
-  - PQclear
-  - libpq_append_conn_error
+  - [PQexec](../P/PQexec.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQclear](../P/PQclear.md)
+  - [libpq_append_conn_error](libpq_append_conn_error.md)
   - strcmp
   - atoi
 - Called from (representative examples):
-  - lo_open
-  - lo_close
-  - lo_truncate
-  - lo_read
-  - lo_write
-  - lo_lseek
-  - lo_creat
-  - lo_tell
-  - lo_unlink
+  - [lo_open](lo_open.md)
+  - [lo_close](lo_close.md)
+  - [lo_truncate](lo_truncate.md)
+  - [lo_read](lo_read.md)
+  - [lo_write](lo_write.md)
+  - [lo_lseek](lo_lseek.md)
+  - [lo_creat](lo_creat.md)
+  - [lo_tell](lo_tell.md)
+  - [lo_unlink](lo_unlink.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

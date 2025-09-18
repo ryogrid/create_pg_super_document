@@ -29,13 +29,13 @@ The retry loop is necessary because `appendPQExpBufferVA` may need to enlarge th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - PQExpBufferBroken
-  - appendPQExpBufferVA
+  - [appendPQExpBufferVA](../a/appendPQExpBufferVA.md)
 - Called from (representative examples):
-  - dumpTableData (pg_dump)
-  - buildACLCommands (pg_dump utilities)
-  - describeOneTableDetails (psql describe functions)
+  - [dumpTableData](../d/dumpTableData.md) (pg_dump)
+  - [buildACLCommands](../b/buildACLCommands.md) (pg_dump utilities)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (psql describe functions)
   - PQchangePassword (libpq authentication)
   - various PostgreSQL client tools for SQL generation
 

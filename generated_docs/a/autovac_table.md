@@ -27,10 +27,10 @@ The  structure serves as a comprehensive descriptor for tables that have passed 
 - Functions called/Symbols referenced:
   - VacuumParams (vacuum operation parameters structure)
 - Called from (representative examples):
-  - do_autovacuum
-  - extract_autovac_opts
-  - table_recheck_autovac
-  - autovacuum_do_vac_analyze
+  - [do_autovacuum](../d/do_autovacuum.md)
+  - [extract_autovac_opts](../e/extract_autovac_opts.md)
+  - [table_recheck_autovac](../t/table_recheck_autovac.md)
+  - [autovacuum_do_vac_analyze](autovacuum_do_vac_analyze.md)
   - autovac_report_activity
 
 ## Notes and Other Information

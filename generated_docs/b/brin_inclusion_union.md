@@ -22,14 +22,14 @@ This function implements the union operation for BRIN inclusion operator classes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inclusion_get_procinfo
-  - FunctionCall2Coll
-  - DatumGetBool
-  - BoolGetDatum
-  - DatumGetPointer
+  - [inclusion_get_procinfo](../i/inclusion_get_procinfo.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - TupleDescAttr
-  - pfree
-  - datumCopy
+  - [pfree](../p/pfree.md)
+  - [datumCopy](../d/datumCopy.md)
   - PG_GET_COLLATION
   - PG_RETURN_VOID
 - Constants:
@@ -39,10 +39,10 @@ This function implements the union operation for BRIN inclusion operator classes
   - PROCNUM_MERGEABLE
   - PROCNUM_MERGE
 - Data structures:
-  - BrinDesc
-  - BrinValues
+  - [BrinDesc](../B/BrinDesc.md)
+  - [BrinValues](../B/BrinValues.md)
   - Form_pg_attribute
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
 - Called from (representative examples):
   - No direct references found (typically called via BRIN framework during summarization)
 

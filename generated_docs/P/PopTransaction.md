@@ -32,13 +32,13 @@ This function takes no parameters and operates on the global CurrentTransactionS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransStateAsString
+  - [TransStateAsString](../T/TransStateAsString.md)
   - elog (for warnings and fatal errors)
-  - MemoryContextSwitchTo
-  - pfree
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CommitSubTransaction
-  - CleanupSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md)
 
 ## Notes and Other Information
 - The function includes a warning that callers must reassign CurrentTransactionState local pointers after calling this function

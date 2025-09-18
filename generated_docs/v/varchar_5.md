@@ -26,10 +26,10 @@ This structure appears in test code that validates ECPG's ability to correctly h
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGt_varchar (ECPG type identifier for varchar)
-  - ECPGdo (ECPG SQL execution function)
-  - ECPGdebug (ECPG debugging function)
-  - ECPGconnect (ECPG database connection function)
-  - ECPGdisconnect (ECPG database disconnection function)
+  - [ECPGdo](../E/ECPGdo.md) (ECPG SQL execution function)
+  - [ECPGdebug](../E/ECPGdebug.md) (ECPG debugging function)
+  - [ECPGconnect](../E/ECPGconnect.md) (ECPG database connection function)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md) (ECPG database disconnection function)
   - ECPG_NOT_FOUND (ECPG constant for SQL not found condition)
 
 - Called from (representative examples):

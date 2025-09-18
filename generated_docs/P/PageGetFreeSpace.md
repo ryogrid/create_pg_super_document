@@ -20,18 +20,18 @@ The function returns 0 if the available space is insufficient to accommodate eve
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header fields)
-  - ItemIdData (sizeof to calculate line pointer space requirement)
+  - [ItemIdData](../I/ItemIdData.md) (sizeof to calculate line pointer space requirement)
 - Called from (representative examples):
-  - terminate_brin_buildstate
-  - br_page_get_freespace
-  - entryIsEnoughSpace
-  - gist_indexsortbuild_levelstate_add
-  - gistnospace
-  - _hash_doinsert
-  - _bt_search_insert
-  - _bt_findinsertloc
-  - _bt_insertonpg
-  - PageGetHeapFreeSpace
+  - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md)
+  - [br_page_get_freespace](../b/br_page_get_freespace.md)
+  - [entryIsEnoughSpace](../e/entryIsEnoughSpace.md)
+  - [gist_indexsortbuild_levelstate_add](../g/gist_indexsortbuild_levelstate_add.md)
+  - [gistnospace](../g/gistnospace.md)
+  - [_hash_doinsert](../h/_hash_doinsert.md)
+  - [_bt_search_insert](../b/_bt_search_insert.md)
+  - [_bt_findinsertloc](../b/_bt_findinsertloc.md)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md)
+  - [PageGetHeapFreeSpace](PageGetHeapFreeSpace.md)
 
 ## Notes and Other Information
 - Primarily intended for index pages; heap pages should use PageGetHeapFreeSpace instead

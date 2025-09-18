@@ -19,9 +19,9 @@ The `box_center` function calculates and returns the center point of a BOX geome
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_BOX_P`: PostgreSQL macro to extract BOX pointer from function arguments
-  - `Point`: PostgreSQL geometric point data type
-  - `palloc`: PostgreSQL memory allocation function
-  - `box_cn`: Helper function that calculates the center coordinates of a box
+  - `[Point](../P/Point.md)`: PostgreSQL geometric point data type
+  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - `[box_cn](box_cn.md)`: Helper function that calculates the center coordinates of a box
   - `PG_RETURN_POINT_P`: PostgreSQL macro to return a Point pointer
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

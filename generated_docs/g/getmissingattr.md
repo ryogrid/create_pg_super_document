@@ -24,18 +24,18 @@ This function retrieves the missing value for a table column (attribute) when th
   - `TupleDescAttr`: Macro to get attribute descriptor from tuple descriptor
   - `AttrMissing`: Structure containing missing value information
   - `missing_cache_key`: Cache key structure for missing value lookup
-  - `init_missing_cache`: Initializes the missing value cache if not already done
+  - `[init_missing_cache](../i/init_missing_cache.md)`: Initializes the missing value cache if not already done
   - `VARSIZE_ANY`: Macro to get size of variable-length data
-  - `hash_search`: Searches or inserts entry in hash table
+  - `[hash_search](../h/hash_search.md)`: Searches or inserts entry in hash table
   - `HASH_ENTER`: Flag for hash search to enter if not found
-  - `datumCopy`: Creates a copy of a Datum value
-  - `MemoryContextSwitchTo`: Switches memory allocation context
+  - `[datumCopy](../d/datumCopy.md)`: Creates a copy of a Datum value
+  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)`: Switches memory allocation context
   - `TopMemoryContext`: Long-lived memory context
-  - `PointerGetDatum`: Converts pointer to Datum
+  - `[PointerGetDatum](../P/PointerGetDatum.md)`: Converts pointer to Datum
 - Called from (representative examples):
-  - `heap_deform_tuple`: Uses this to get missing values during tuple deformation
+  - `[heap_deform_tuple](../h/heap_deform_tuple.md)`: Uses this to get missing values during tuple deformation
   - `HeapTupleClearHeapOnly`: Macro that may need missing attribute values
-  - `heap_getattr`: General attribute getter that handles missing values
+  - `[heap_getattr](../h/heap_getattr.md)`: General attribute getter that handles missing values
 
 ## Notes and Other Information
 - Returns a Datum value that represents the missing attribute value

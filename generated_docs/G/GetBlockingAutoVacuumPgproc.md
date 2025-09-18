@@ -19,7 +19,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGPROC (struct type)
+  - [PGPROC](../P/PGPROC.md) (struct type)
   - blocking_autovacuum_proc (global variable)
 - Called from (representative examples):
   - ProcSleep

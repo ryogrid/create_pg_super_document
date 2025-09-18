@@ -21,12 +21,12 @@ This function performs namespace resolution for relation references in SQL queri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupNamespaceNoError
-  - get_relname_relid
-  - scanNameSpaceForRelid
-  - scanNameSpaceForRefname
+  - [LookupNamespaceNoError](../L/LookupNamespaceNoError.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
+  - [scanNameSpaceForRelid](../s/scanNameSpaceForRelid.md)
+  - [scanNameSpaceForRefname](../s/scanNameSpaceForRefname.md)
 - Called from (representative examples):
-  - errorMissingRTE
+  - [errorMissingRTE](../e/errorMissingRTE.md)
   - Various parser error handling functions in parse_expr.c and parse_target.c
 
 ## Notes and Other Information

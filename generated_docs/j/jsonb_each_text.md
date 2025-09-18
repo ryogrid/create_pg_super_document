@@ -22,7 +22,7 @@ This function is a thin wrapper around the each_worker_jsonb function, specifica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - each_worker_jsonb (called with funcname="jsonb_each_text" and as_text=true)
+  - [each_worker_jsonb](../e/each_worker_jsonb.md) (called with funcname="jsonb_each_text" and as_text=true)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL interface)
 

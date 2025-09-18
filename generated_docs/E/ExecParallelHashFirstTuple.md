@@ -21,14 +21,14 @@ The function operates on shared hash table buckets, which are implemented as arr
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer_atomic_read
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
 - Data types used:
-  - HashJoinTable
-  - HashJoinTuple
+  - [HashJoinTable](../H/HashJoinTable.md)
+  - [HashJoinTuple](../H/HashJoinTuple.md)
   - dsa_pointer
 - Called from (representative examples):
-  - ExecParallelScanHashBucket
-  - ExecParallelScanHashTableForUnmatched
+  - [ExecParallelScanHashBucket](ExecParallelScanHashBucket.md)
+  - [ExecParallelScanHashTableForUnmatched](ExecParallelScanHashTableForUnmatched.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance in tight scanning loops

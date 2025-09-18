@@ -31,11 +31,11 @@ The function uses deflateInit2() instead of deflateInit() to explicitly request 
   - memset (memory initialization)
   - deflateInit2 (zlib compression initialization)
   - ereport/errcode/errmsg (error reporting)
-  - psprintf (formatted string creation)
+  - [psprintf](../p/psprintf.md) (formatted string creation)
   - bbsink_begin_archive (forwards to next sink)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - Assert (assertion checking)
-  - gzip_palloc/gzip_pfree (custom memory allocation functions)
+  - [gzip_palloc](../g/gzip_palloc.md)/gzip_pfree (custom memory allocation functions)
 - Called from (representative examples):
   - Used as callback function in bbsink_gzip_ops structure
 
@@ -43,7 +43,7 @@ The function uses deflateInit2() instead of deflateInit() to explicitly request 
 - This is a static function, only accessible within the compilation unit
 - Uses deflateInit2() with window bits = 15+16 to generate gzip headers instead of zlib headers
 - Compression level comes from the mysink->compresslevel field set during sink creation
-- Archive names get ".gz" extension appended (matches pg_basebackup -z behavior)
+- [Archive](../A/Archive.md) names get ".gz" extension appended (matches pg_basebackup -z behavior)
 - Memory allocation functions are customized for PostgreSQL's memory contexts
 - Raises ERROR if compression library initialization fails
 - Default parameters: Z_DEFLATED method, 8 memory level, Z_DEFAULT_STRATEGY

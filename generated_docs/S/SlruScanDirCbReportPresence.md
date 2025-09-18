@@ -22,10 +22,10 @@ SlruScanDirCbReportPresence is a specialized callback function designed to work 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruMayDeleteSegment
+  - [SlruMayDeleteSegment](SlruMayDeleteSegment.md)
 - Called from (representative examples):
-  - TruncateCLOG
-  - TruncateCommitTs
+  - [TruncateCLOG](../T/TruncateCLOG.md)
+  - [TruncateCommitTs](../T/TruncateCommitTs.md)
 
 ## Notes and Other Information
 - Returns true immediately when finding the first segment eligible for deletion, providing early termination optimization

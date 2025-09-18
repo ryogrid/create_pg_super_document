@@ -29,13 +29,13 @@ The character 0xCE corresponds to 'н' in KOI8-R encoding, which is frequently i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Performs backward matching against suffix array
-  - slice_del: Deletes the substring between bra and ket markers
+  - [find_among_b](../f/find_among_b.md): Performs backward matching against suffix array
+  - [slice_del](../s/slice_del.md): Deletes the substring between bra and ket markers
 - Data structures used:
   - a_7: Array containing 4 cleanup patterns ("ейше", "н", "и", "ейш")
 - Called from (representative examples):
-  - russian_KOI8_R_stem: Main stemming function for KOI8-R
-  - russian_UTF_8_stem: UTF-8 variant of the Russian stemmer
+  - [russian_KOI8_R_stem](russian_KOI8_R_stem.md): Main stemming function for KOI8-R
+  - [russian_UTF_8_stem](russian_UTF_8_stem.md): UTF-8 variant of the Russian stemmer
 
 ## Notes and Other Information
 - This is the final step in the Russian stemming pipeline, performing morphological cleanup

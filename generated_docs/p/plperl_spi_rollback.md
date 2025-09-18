@@ -21,10 +21,10 @@ The function enables explicit transaction control from PL/Perl code, complementi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - SPI_rollback (actual transaction rollback)
-  - CopyErrorData, FlushErrorState (error handling)
-  - croak_cstr (Perl error propagation)
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [SPI_rollback](../S/SPI_rollback.md) (actual transaction rollback)
+  - [CopyErrorData](../C/CopyErrorData.md), FlushErrorState (error handling)
+  - [croak_cstr](../c/croak_cstr.md) (Perl error propagation)
 - Called from (representative examples):
   - PL_PERL_H (header declaration)
 

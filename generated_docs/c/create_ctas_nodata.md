@@ -26,12 +26,12 @@ Once the column definitions are prepared, it delegates to  for the actual relati
   - makeColumnDef
   - exprType
   - exprTypmod
-  - exprCollation
-  - type_is_collatable
-  - create_ctas_internal
+  - [exprCollation](../e/exprCollation.md)
+  - [type_is_collatable](../t/type_is_collatable.md)
+  - [create_ctas_internal](create_ctas_internal.md)
 - Called from (representative examples):
   - DR_intorel
-  - ExecCreateTableAs
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
 
 ## Notes and Other Information
 - This is a static function within createas.c, used specifically for WITH NO DATA scenarios

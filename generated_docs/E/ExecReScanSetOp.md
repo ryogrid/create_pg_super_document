@@ -22,12 +22,12 @@ ExecReScanSetOp prepares a SetOp execution node for re-execution by resetting it
   - outerPlanState (macro to access outer plan state)
   - ExecClearTuple (clears the result tuple slot)
   - ResetTupleHashIterator (resets hash table iterator for re-iteration)
-  - heap_freetuple (frees cached tuple memory)
-  - MemoryContextReset (resets hashtable memory context)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees cached tuple memory)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (resets hashtable memory context)
   - ResetTupleHashTable (clears and reinitializes hash table)
-  - ExecReScan (recursively rescans the outer subplan)
+  - [ExecReScan](ExecReScan.md) (recursively rescans the outer subplan)
 - Called from (representative examples):
-  - ExecReScan (from src/backend/executor/execAmi.c:289)
+  - [ExecReScan](ExecReScan.md) (from src/backend/executor/execAmi.c:289)
 
 ## Notes and Other Information
 - Handles both SETOP_HASHED and non-hashed execution strategies differently

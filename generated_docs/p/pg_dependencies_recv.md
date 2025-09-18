@@ -22,8 +22,8 @@ This restriction ensures that pg_dependencies values can only be created through
 - Functions called/Symbols referenced:
   - PG_RETURN_VOID (PostgreSQL macro for returning void from a function)
   - ereport (error reporting mechanism)
-  - errcode (error code assignment)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code assignment)
+  - [errmsg](../e/errmsg.md) (error message formatting)
 
 - Called from (representative examples):
   - Not directly called (registered as type binary input function in system catalogs)

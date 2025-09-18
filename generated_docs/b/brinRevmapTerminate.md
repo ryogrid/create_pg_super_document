@@ -25,16 +25,16 @@ The cleanup process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReleaseBuffer
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types referenced:
-  - BrinRevmap
+  - [BrinRevmap](../B/BrinRevmap.md)
   - InvalidBuffer
 - Called from:
-  - brininsertcleanup
-  - brinendscan
-  - brinbuild
-  - brinsummarize (multiple locations)
-  - brinRevmapDesummarizeRange (multiple locations)
+  - [brininsertcleanup](brininsertcleanup.md)
+  - [brinendscan](brinendscan.md)
+  - [brinbuild](brinbuild.md)
+  - [brinsummarize](brinsummarize.md) (multiple locations)
+  - [brinRevmapDesummarizeRange](brinRevmapDesummarizeRange.md) (multiple locations)
 
 ## Notes and Other Information
 - This function must be called for every BrinRevmap object created by brinRevmapInitialize to prevent resource leaks

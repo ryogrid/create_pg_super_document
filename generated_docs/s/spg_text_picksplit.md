@@ -21,11 +21,11 @@ This function implements the core partitioning logic for SP-GiST (Space-Partitio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgPickSplitIn, spgPickSplitOut (SP-GiST framework structures)
+  - [spgPickSplitIn](spgPickSplitIn.md), spgPickSplitOut (SP-GiST framework structures)
   - DatumGetTextPP (text datum extraction)
-  - commonPrefix (utility function to find common prefix length)
-  - formTextDatum (creates text datum from raw data)
-  - cmpNodePtr (comparator for sorting node pointers)
+  - [commonPrefix](../c/commonPrefix.md) (utility function to find common prefix length)
+  - [formTextDatum](../f/formTextDatum.md) (creates text datum from raw data)
+  - [cmpNodePtr](../c/cmpNodePtr.md) (comparator for sorting node pointers)
   - qsort (standard library sorting function)
   - Int16GetDatum (converts int16 to Datum)
 - Called from (representative examples):

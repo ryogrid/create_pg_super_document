@@ -19,11 +19,11 @@ This function performs cleanup and finalization operations when the gzip decompr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base streamer type)
-  - bbstreamer_gzip_decompressor (internal decompressor structure)
-  - bbstreamer_content (function to forward remaining data to next streamer)
+  - [bbstreamer](bbstreamer.md) (base streamer type)
+  - [bbstreamer_gzip_decompressor](bbstreamer_gzip_decompressor.md) (internal decompressor structure)
+  - [bbstreamer_content](bbstreamer_content.md) (function to forward remaining data to next streamer)
   - BBSTREAMER_UNKNOWN (context constant indicating unknown/end-of-stream state)
-  - bbstreamer_finalize (function to finalize the next streamer in chain)
+  - [bbstreamer_finalize](bbstreamer_finalize.md) (function to finalize the next streamer in chain)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in ops structure)
 

@@ -21,13 +21,13 @@ The function provides a focused interface for block-level updates without affect
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)
-  - BlockIdSet (sets the block identifier portion)
+  - [BlockIdSet](../B/BlockIdSet.md) (sets the block identifier portion)
 - Called from (representative examples):
-  - gistplacetopage
-  - heap_xlog_delete
+  - [gistplacetopage](../g/gistplacetopage.md)
+  - [heap_xlog_delete](../h/heap_xlog_delete.md)
   - GinItemPointerSetBlockNumber
-  - BTreeTupleSetPosting
-  - BTreeTupleSetDownLink
+  - [BTreeTupleSetPosting](../B/BTreeTupleSetPosting.md)
+  - [BTreeTupleSetDownLink](../B/BTreeTupleSetDownLink.md)
 
 ## Notes and Other Information
 - This is an inline function defined in itemptr.h for optimal performance

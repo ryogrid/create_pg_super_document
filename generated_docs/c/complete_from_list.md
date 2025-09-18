@@ -22,10 +22,10 @@ This function is a core component of PostgreSQL's psql tab completion system tha
 - Functions called/Symbols referenced:
   - strlen (for calculating text length)
   - strncmp (for case-sensitive string comparison)
-  - pg_strncasecmp (for case-insensitive string comparison)
-  - pg_strdup (for duplicating matched strings)
-  - pg_strdup_keyword_case (for case-adjusted string duplication)
-  - complete_from_list (recursive call for case-insensitive retry)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (for case-insensitive string comparison)
+  - [pg_strdup](../p/pg_strdup.md) (for duplicating matched strings)
+  - [pg_strdup_keyword_case](../p/pg_strdup_keyword_case.md) (for case-adjusted string duplication)
+  - [complete_from_list](complete_from_list.md) (recursive call for case-insensitive retry)
 - Global variables used:
   - completion_charpp (the list of completion strings)
   - completion_case_sensitive (case sensitivity flag)

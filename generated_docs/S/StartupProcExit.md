@@ -18,10 +18,10 @@ StartupProcExit serves as an exit callback function for the startup process in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShutdownRecoveryTransactionEnvironment
+  - [ShutdownRecoveryTransactionEnvironment](ShutdownRecoveryTransactionEnvironment.md)
   - STANDBY_DISABLED (constant)
 - Called from (representative examples):
-  - StartupProcessMain (registered as exit handler)
+  - [StartupProcessMain](StartupProcessMain.md) (registered as exit handler)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the startup.c file

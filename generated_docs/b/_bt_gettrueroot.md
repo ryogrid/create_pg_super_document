@@ -29,16 +29,16 @@ The function is primarily used in specialized scenarios where the exact root pag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf: Acquires buffer for specified block number  
-  - _bt_relbuf: Releases buffer
-  - _bt_relandgetbuf: Releases and reacquires buffer for different page
+  - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for specified block number  
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md): Releases and reacquires buffer for different page
   - BTPageGetOpaque: Gets B-tree page opaque area
   - BTPageGetMeta: Gets metadata from metapage
   - P_ISMETA: Checks if page is a metadata page
   - P_IGNORE: Checks if page should be ignored (deleted)
   - P_RIGHTMOST: Checks if page is rightmost on its level
 - Called from (representative examples):
-  - _bt_get_endpoint: When finding leftmost/rightmost pages needs true root
+  - [_bt_get_endpoint](_bt_get_endpoint.md): When finding leftmost/rightmost pages needs true root
 
 ## Notes and Other Information
 - Unlike _bt_getroot(), this function does not use cached metadata and actively flushes the cache

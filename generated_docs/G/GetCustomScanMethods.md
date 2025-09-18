@@ -25,8 +25,8 @@ The returned CustomScanMethods structure contains callback functions that define
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetExtensibleNodeEntry
-  - CustomScanMethods (struct type)
+  - [GetExtensibleNodeEntry](GetExtensibleNodeEntry.md)
+  - [CustomScanMethods](../C/CustomScanMethods.md) (struct type)
 - Called from (representative examples):
   - No direct references found in the current codebase analysis
 

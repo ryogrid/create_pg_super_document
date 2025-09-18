@@ -30,7 +30,7 @@ The interface supports both immediate and deferred execution models through queu
 - Called from (representative examples):
   - libpq_source (remote server implementation)
   - local_source (local filesystem implementation)
-  - perform_rewind (main rewind operation)
+  - [perform_rewind](../p/perform_rewind.md) (main rewind operation)
 
 ## Notes and Other Information
 This struct implements the Strategy pattern, allowing pg_rewind to work with different data sources transparently. Two main implementations exist: local_source for direct filesystem access and libpq_source for remote PostgreSQL connections. The queuing mechanism in queue_fetch_range and queue_fetch_file is designed to optimize batch operations, particularly important for network efficiency with remote sources. The interface ensures that all file operations are properly abstracted, making the rewind logic independent of whether the source is local or remote.

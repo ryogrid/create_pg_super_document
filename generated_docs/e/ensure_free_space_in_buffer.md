@@ -29,20 +29,20 @@ The entire compaction process uses a temporary memory context to prevent memory 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - minmax_multi_get_strategy_procinfo
-  - range_deduplicate_values
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
+  - [range_deduplicate_values](../r/range_deduplicate_values.md)
   - AllocSetContextCreate
-  - build_expanded_ranges
-  - minmax_multi_get_procinfo
-  - build_distances
-  - reduce_expanded_ranges
-  - count_values
-  - store_expanded_ranges
-  - MemoryContextDelete
-  - AssertCheckExpandedRanges
-  - AssertCheckRanges
+  - [build_expanded_ranges](../b/build_expanded_ranges.md)
+  - [minmax_multi_get_procinfo](../m/minmax_multi_get_procinfo.md)
+  - [build_distances](../b/build_distances.md)
+  - [reduce_expanded_ranges](../r/reduce_expanded_ranges.md)
+  - [count_values](../c/count_values.md)
+  - [store_expanded_ranges](../s/store_expanded_ranges.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [AssertCheckExpandedRanges](../A/AssertCheckExpandedRanges.md)
+  - [AssertCheckRanges](../A/AssertCheckRanges.md)
 - Called from:
-  - range_add_value
+  - [range_add_value](../r/range_add_value.md)
 
 ## Notes and Other Information
 - Returns true if the range structure was modified, false if no changes were needed

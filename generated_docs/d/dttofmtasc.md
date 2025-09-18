@@ -22,7 +22,7 @@ The function simply delegates to `PGTYPEStimestamp_fmt_asc`, which handles the a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_fmt_asc (the actual implementation function)
+  - [PGTYPEStimestamp_fmt_asc](../P/PGTYPEStimestamp_fmt_asc.md) (the actual implementation function)
 - Called from (representative examples):
   - Available through ECPG_INFORMIX_EXTRA_CHARS interface
 

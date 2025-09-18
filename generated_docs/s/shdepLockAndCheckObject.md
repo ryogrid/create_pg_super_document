@@ -20,21 +20,21 @@ The locking prevents the object from being dropped while a dependency is being r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockSharedObject
+  - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheExists1
-  - ObjectIdGetDatum
-  - get_tablespace_name
-  - get_database_name
-  - pfree
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [get_tablespace_name](../g/get_tablespace_name.md)
+  - [get_database_name](../g/get_database_name.md)
+  - [pfree](../p/pfree.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - elog
 - Called from (representative examples):
-  - shdepAddDependency
-  - shdepChangeDep
-  - AlterDatabaseSet
-  - AlterRoleSet
+  - [shdepAddDependency](shdepAddDependency.md)
+  - [shdepChangeDep](shdepChangeDep.md)
+  - [AlterDatabaseSet](../A/AlterDatabaseSet.md)
+  - [AlterRoleSet](../A/AlterRoleSet.md)
 
 ## Notes and Other Information
 - This is a public function (not static) accessible from other source files

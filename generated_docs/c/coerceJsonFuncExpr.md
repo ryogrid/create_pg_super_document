@@ -30,18 +30,18 @@ The function respects PostgreSQL's type coercion hierarchy and provides detailed
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType
-  - exprLocation  
+  - [exprLocation](../e/exprLocation.md)  
   - OidIsValid
-  - coerce_to_specific_type
-  - getJsonEncodingConst
+  - [coerce_to_specific_type](coerce_to_specific_type.md)
+  - [getJsonEncodingConst](../g/getJsonEncodingConst.md)
   - makeFuncExpr
   - list_make2
-  - coerce_to_target_type
+  - [coerce_to_target_type](coerce_to_target_type.md)
   - ereport (for error reporting)
-  - format_type_be
-  - parser_coercion_errposition
+  - [format_type_be](../f/format_type_be.md)
+  - [parser_coercion_errposition](../p/parser_coercion_errposition.md)
 - Called from (representative examples):
-  - makeJsonConstructorExpr
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
 
 ## Notes and Other Information
 - This is a static function used internally within PostgreSQL's JSON expression processing

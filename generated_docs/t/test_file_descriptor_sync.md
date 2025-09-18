@@ -37,7 +37,7 @@ By comparing the performance of these two approaches, the test reveals whether t
   - write
   - fsync
   - close
-  - die
+  - [die](../d/die.md)
 - Macros used:
   - LABEL_FORMAT
   - START_TIMER
@@ -45,7 +45,7 @@ By comparing the performance of these two approaches, the test reveals whether t
   - PG_BINARY
   - XLOG_BLCKSZ
 - Called from:
-  - main (in pg_test_fsync.c)
+  - [main](../m/main.md) (in pg_test_fsync.c)
 
 ## Notes and Other Information
 - Critical for understanding multi-process fsync behavior in PostgreSQL environments

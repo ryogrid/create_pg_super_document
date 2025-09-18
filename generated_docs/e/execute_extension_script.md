@@ -52,24 +52,24 @@ This is the core function responsible for executing extension scripts during Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser (checks if current user is superuser)
-  - extension_is_trusted (determines if extension can be installed by non-superuser)
-  - get_extension_script_filename (constructs script file path)
-  - read_extension_script_file (reads and converts script file)
-  - execute_sql_string (executes the processed SQL)
-  - SetUserIdAndSecContext/GetUserIdAndSecContext (security context management)
+  - [extension_is_trusted](extension_is_trusted.md) (determines if extension can be installed by non-superuser)
+  - [get_extension_script_filename](../g/get_extension_script_filename.md) (constructs script file path)
+  - [read_extension_script_file](../r/read_extension_script_file.md) (reads and converts script file)
+  - [execute_sql_string](execute_sql_string.md) (executes the processed SQL)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)/GetUserIdAndSecContext (security context management)
   - set_config_option (configures GUC variables)
-  - DirectFunctionCall3Coll/DirectFunctionCall4Coll (text processing functions)
-  - quote_identifier (SQL identifier quoting)
+  - [DirectFunctionCall3Coll](../D/DirectFunctionCall3Coll.md)/DirectFunctionCall4Coll (text processing functions)
+  - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting)
 - Called from:
-  - CreateExtensionInternal (new extension installation)
-  - ApplyExtensionUpdates (extension updates)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (new extension installation)
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md) (extension updates)
 
 ## Notes and Other Information
 - This is a static function within the extension.c module
 - Implements PostgreSQL's trusted extension security model
 - Uses PG_TRY/PG_FINALLY blocks to ensure proper cleanup on errors
 - The function handles both installation (from_version == NULL) and update scenarios
-- Variable substitution includes security validation to prevent SQL injection
+- [Variable](../V/Variable.md) substitution includes security validation to prevent SQL injection
 - Search path setup ensures extension objects are created in the correct schema
 - GUC variable management reduces noise during script execution
 - The function is critical for the extension system's security and proper operation

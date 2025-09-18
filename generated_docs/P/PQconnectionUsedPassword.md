@@ -21,8 +21,8 @@ This function is useful for client applications that want to understand what aut
 - Functions called/Symbols referenced:
   - None (accesses conn->password_needed directly)
 - Called from (representative examples):
-  - libpqrcv_connect (libpqwalreceiver.c)
-  - ConnectDatabase (pg_backup_db.c)
+  - [libpqrcv_connect](../l/libpqrcv_connect.md) (libpqwalreceiver.c)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (pg_backup_db.c)
 
 ## Notes and Other Information
 - Returns int where non-zero (true) indicates password authentication was used, zero (false) indicates it was not

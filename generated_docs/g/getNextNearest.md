@@ -29,13 +29,13 @@ The function continues processing until it finds a heap tuple or the queue is ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getNextGISTSearchItem
+  - [getNextGISTSearchItem](getNextGISTSearchItem.md)
   - GISTSearchItemIsHeap
-  - index_store_float8_orderby_distances
-  - gistScanPage
+  - [index_store_float8_orderby_distances](../i/index_store_float8_orderby_distances.md)
+  - [gistScanPage](gistScanPage.md)
   - CHECK_FOR_INTERRUPTS
 - Called from:
-  - gistgettuple
+  - [gistgettuple](gistgettuple.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within gistget.c

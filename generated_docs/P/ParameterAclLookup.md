@@ -18,12 +18,12 @@ This function searches for a configuration parameter's ACL entry in the pg_param
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_GUC_name_for_parameter_acl
+  - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)
   - GetSysCacheOid1
   - cstring_to_text
 - Called from (representative examples):
-  - objectNamesToOids
-  - get_object_address_unqualified
+  - [objectNamesToOids](../o/objectNamesToOids.md)
+  - [get_object_address_unqualified](../g/get_object_address_unqualified.md)
 
 ## Notes and Other Information
 - The function performs proper memory management by calling pfree() on the converted parameter name

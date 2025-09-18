@@ -30,11 +30,11 @@ The function performs the following steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - binaryheap_empty (heap validation)
-  - sift_up (heap rebalancing upward)
-  - sift_down (heap rebalancing downward)
+  - [sift_up](../s/sift_up.md) (heap rebalancing upward)
+  - [sift_down](../s/sift_down.md) (heap rebalancing downward)
   - heap->bh_compare (comparison function for heap ordering)
 - Called from (representative examples):
-  - pop_next_work_item (bin/pg_dump/pg_backup_archiver.c:4593)
+  - [pop_next_work_item](../p/pop_next_work_item.md) (bin/pg_dump/pg_backup_archiver.c:4593)
 
 ## Notes and Other Information
 - The caller must ensure there are at least (n + 1) nodes in the heap

@@ -22,19 +22,19 @@ The function constructs the complete CREATE statement by conditionally including
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - pg_strdup
-  - fmtId
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - strcmp
   - strlen
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpACL
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpACL](dumpACL.md)
   - free
 - Called from (representative examples):
-  - dumpDumpableObject (via switch statement for DO_FDW objects)
+  - [dumpDumpableObject](dumpDumpableObject.md) (via switch statement for DO_FDW objects)
 
 ## Notes and Other Information
 - Only executes during schema dumps (skipped when dopt->dataOnly is true)

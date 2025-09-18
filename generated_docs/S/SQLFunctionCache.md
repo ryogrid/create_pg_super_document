@@ -67,16 +67,16 @@ The cache has a limited lifespan tied to the current transaction/subtransaction 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr
-  - ParamListInfo  
+  - [ParamListInfo](../P/ParamListInfo.md)  
   - Tuplestorestate
-  - JunkFilter
-  - List
-  - MemoryContext
+  - [JunkFilter](../J/JunkFilter.md)
+  - [List](../L/List.md)
+  - [MemoryContext](../M/MemoryContext.md)
   - LocalTransactionId
   - SubTransactionId
 - Referenced by:
   - SQLFunctionCachePtr (typedef pointer at src/backend/executor/functions.c:130)
-  - init_sql_fcache (function at src/backend/executor/functions.c:615)
+  - [init_sql_fcache](../i/init_sql_fcache.md) (function at src/backend/executor/functions.c:615)
 
 ## Notes and Other Information
 - Defined in src/backend/executor/functions.c:93-128

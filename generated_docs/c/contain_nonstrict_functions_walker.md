@@ -21,13 +21,13 @@ This function implements a comprehensive tree walker that recursively examines P
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
-  - getSubscriptingRoutines
+  - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md)
   - check_functions_in_node
-  - contain_nonstrict_functions_checker
+  - [contain_nonstrict_functions_checker](contain_nonstrict_functions_checker.md)
   - expression_tree_walker
 - Called from (representative examples):
-  - contain_nonstrict_functions
-  - contain_nonstrict_functions_walker (recursive calls)
+  - [contain_nonstrict_functions](contain_nonstrict_functions.md)
+  - [contain_nonstrict_functions_walker](contain_nonstrict_functions_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Handles numerous node types including Aggref, GroupingFunc, WindowFunc, BoolExpr, SubLink, CaseExpr, CoalesceExpr, and many others

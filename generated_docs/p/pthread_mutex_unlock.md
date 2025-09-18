@@ -20,23 +20,23 @@ The function performs validation to ensure the mutex is properly initialized bef
 ## Dependencies
 - Functions called/Symbols referenced:
   - LeaveCriticalSection (Windows API function)
-  - pthread_mutex_t (struct type)
+  - [pthread_mutex_t](pthread_mutex_t.md) (struct type)
   - EINVAL (error constant)
 - Called from (representative examples):
   - ecpg_get_connection (src/interfaces/ecpg/ecpglib/connect.c:101)
-  - ECPGconnect (src/interfaces/ecpg/ecpglib/connect.c:501, 656, 668)
-  - ECPGdisconnect (src/interfaces/ecpg/ecpglib/connect.c:709, 716)
-  - ECPGdebug (src/interfaces/ecpg/ecpglib/misc.c:223, 228)
-  - ecpg_log (src/interfaces/ecpg/ecpglib/misc.c:284)
+  - [ECPGconnect](../E/ECPGconnect.md) (src/interfaces/ecpg/ecpglib/connect.c:501, 656, 668)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md) (src/interfaces/ecpg/ecpglib/connect.c:709, 716)
+  - [ECPGdebug](../E/ECPGdebug.md) (src/interfaces/ecpg/ecpglib/misc.c:223, 228)
+  - [ecpg_log](../e/ecpg_log.md) (src/interfaces/ecpg/ecpglib/misc.c:284)
   - win32_pthread_once (src/interfaces/ecpg/ecpglib/misc.c:474)
   - ecpg_gettext (src/interfaces/ecpg/ecpglib/misc.c:520)
-  - default_threadlock (src/interfaces/libpq/fe-connect.c:7756)
-  - libpq_binddomain (src/interfaces/libpq/fe-misc.c:1318)
+  - [default_threadlock](../d/default_threadlock.md) (src/interfaces/libpq/fe-connect.c:7756)
+  - [libpq_binddomain](../l/libpq_binddomain.md) (src/interfaces/libpq/fe-misc.c:1318)
   - pq_lockingcallback (src/interfaces/libpq/fe-secure-openssl.c:752)
   - pgtls_init (src/interfaces/libpq/fe-secure-openssl.c:788, 797, 838)
-  - destroy_ssl_system (src/interfaces/libpq/fe-secure-openssl.c:884)
-  - my_BIO_s_socket (src/interfaces/libpq/fe-secure-openssl.c:2021, 2032)
-  - pthread_barrier_wait (src/port/pthread_barrier_wait.c:53, 66)
+  - [destroy_ssl_system](../d/destroy_ssl_system.md) (src/interfaces/libpq/fe-secure-openssl.c:884)
+  - [my_BIO_s_socket](../m/my_BIO_s_socket.md) (src/interfaces/libpq/fe-secure-openssl.c:2021, 2032)
+  - [pthread_barrier_wait](pthread_barrier_wait.md) (src/port/pthread_barrier_wait.c:53, 66)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation that bridges POSIX threading semantics to Windows Critical Sections

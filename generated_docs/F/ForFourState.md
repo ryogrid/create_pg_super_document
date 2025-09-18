@@ -21,7 +21,7 @@ ForFourState is a utility structure designed to support parallel iteration over 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
   - forfour macro (via initialization in src/include/nodes/pg_list.h:576)
 

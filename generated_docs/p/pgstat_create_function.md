@@ -21,7 +21,7 @@ This function registers a new function (identified by its OID) with PostgreSQL's
   - PGSTAT_KIND_FUNCTION
   - MyDatabaseId
 - Called from (representative examples):
-  - ProcedureCreate (in src/backend/catalog/pg_proc.c:711)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (in src/backend/catalog/pg_proc.c:711)
 
 ## Notes and Other Information
 - This function is called during function creation to ensure proper statistics tracking

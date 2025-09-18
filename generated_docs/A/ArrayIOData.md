@@ -19,12 +19,12 @@ ArrayIOData serves as a metadata cache structure specifically designed to optimi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ColumnIOData
+  - [ColumnIOData](../C/ColumnIOData.md)
 - Called from (representative examples):
-  - ColumnIOData (nested reference)
-  - PopulateArrayContext
+  - [ColumnIOData](../C/ColumnIOData.md) (nested reference)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md)
   - JsObjectFree
-  - populate_array
+  - [populate_array](../p/populate_array.md)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/jsonfuncs.c at lines 165-170

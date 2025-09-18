@@ -21,13 +21,13 @@ The function simply calls GrantLockLocal with the global variables awaitedLock a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GrantLockLocal
+  - [GrantLockLocal](GrantLockLocal.md)
 - Global variables used:
   - awaitedLock (LOCALLOCK being waited on)
   - awaitedOwner (ResourceOwner for the awaited lock)
 - Called from (representative examples):
   - ProcSleep (in timeout/interrupt scenarios)
-  - LockErrorCleanup
+  - [LockErrorCleanup](../L/LockErrorCleanup.md)
 
 ## Notes and Other Information
 - This is a non-static function accessible from other modules, particularly proc.c

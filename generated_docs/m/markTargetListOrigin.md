@@ -26,13 +26,13 @@ The function performs different actions based on the RTE (Range Table Entry) typ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRTEByRangeTablePosn
-  - get_tle_by_resno
-  - GetCTEForRTE
+  - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md)
+  - [GetCTEForRTE](../G/GetCTEForRTE.md)
   - GetCTETargetList
   - Constants: RTE_RELATION, RTE_SUBQUERY, RTE_JOIN, RTE_FUNCTION, RTE_VALUES, RTE_TABLEFUNC, RTE_NAMEDTUPLESTORE, RTE_RESULT, RTE_CTE, InvalidAttrNumber
 - Called from:
-  - markTargetListOrigins
+  - [markTargetListOrigins](markTargetListOrigins.md)
 
 ## Notes and Other Information
 - The function is static and only used within parse_target.c

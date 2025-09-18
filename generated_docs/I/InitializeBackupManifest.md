@@ -25,16 +25,16 @@ InitializeBackupManifest prepares the backup manifest system for operation by cl
 - Functions called/Symbols referenced:
   - memset (C standard library)
   - BufFileCreateTemp (PostgreSQL buffer file management)
-  - pg_cryptohash_create (PostgreSQL cryptographic hash functions)
-  - pg_cryptohash_init
-  - pg_cryptohash_error
+  - [pg_cryptohash_create](../p/pg_cryptohash_create.md) (PostgreSQL cryptographic hash functions)
+  - [pg_cryptohash_init](../p/pg_cryptohash_init.md)
+  - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
   - AppendToManifest (internal manifest writing function)
-  - GetSystemIdentifier (PostgreSQL system identification)
+  - [GetSystemIdentifier](../G/GetSystemIdentifier.md) (PostgreSQL system identification)
   - backup_manifest_option (enum type)
   - pg_checksum_type (enum type)
   - PG_SHA256 (cryptographic constant)
 - Called from (representative examples):
-  - perform_base_backup (src/backend/backup/basebackup.c:257)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:257)
 
 ## Notes and Other Information
 - The manifest's own checksum always uses SHA-256, regardless of the checksum type specified for data files

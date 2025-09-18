@@ -23,7 +23,7 @@ The  parameter controls error handling behavior: when , the function throws an e
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Open the pg_database system catalog
-  -  - Initialize scan key for database name lookup
+  -  - [Initialize](../I/Initialize.md) scan key for database name lookup
   -  - Begin system table scan with index
   -  - Get next tuple from system scan
   -  - Check if tuple is valid

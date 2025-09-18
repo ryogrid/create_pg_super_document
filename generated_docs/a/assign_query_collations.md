@@ -19,18 +19,18 @@ This function serves as the main entry point for assigning collation information
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_tree_walker
-  - assign_query_collations_walker
-  - QTW_IGNORE_RANGE_TABLE
-  - QTW_IGNORE_CTE_SUBQUERIES
+  - [assign_query_collations_walker](assign_query_collations_walker.md)
+  - [QTW_IGNORE_RANGE_TABLE](../Q/QTW_IGNORE_RANGE_TABLE.md)
+  - [QTW_IGNORE_CTE_SUBQUERIES](../Q/QTW_IGNORE_CTE_SUBQUERIES.md)
 - Called from (representative examples):
-  - transformDeleteStmt (src/backend/parser/analyze.c:566)
-  - transformInsertStmt (src/backend/parser/analyze.c:992)
-  - transformSelectStmt (src/backend/parser/analyze.c:1463)
-  - transformValuesClause (src/backend/parser/analyze.c:1683)
-  - transformSetOperationStmt (src/backend/parser/analyze.c:1940)
-  - transformReturnStmt (src/backend/parser/analyze.c:2408)
-  - transformUpdateStmt (src/backend/parser/analyze.c:2475)
-  - transformMergeStmt (src/backend/parser/parse_merge.c:409)
+  - [transformDeleteStmt](../t/transformDeleteStmt.md) (src/backend/parser/analyze.c:566)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (src/backend/parser/analyze.c:992)
+  - [transformSelectStmt](../t/transformSelectStmt.md) (src/backend/parser/analyze.c:1463)
+  - [transformValuesClause](../t/transformValuesClause.md) (src/backend/parser/analyze.c:1683)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md) (src/backend/parser/analyze.c:1940)
+  - [transformReturnStmt](../t/transformReturnStmt.md) (src/backend/parser/analyze.c:2408)
+  - [transformUpdateStmt](../t/transformUpdateStmt.md) (src/backend/parser/analyze.c:2475)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (src/backend/parser/parse_merge.c:409)
 
 ## Notes and Other Information
 This function should be applied to each Query after completion of parse analysis for expressions. It deliberately ignores range tables and CTE subqueries during traversal, assuming they have been properly processed during their creation phase. The function is defined in src/backend/parser/parse_collate.c at lines 101-125.

@@ -32,13 +32,13 @@ This function is particularly useful for commands like EXPLAIN that need to outp
 - Functions called/Symbols referenced:
   - strchr
   - strlen
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - cstring_to_text_with_len
-  - do_tup_output
-  - pfree
-  - DatumGetPointer
+  - [do_tup_output](do_tup_output.md)
+  - [pfree](../p/pfree.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - ExplainQuery (explain.c)
+  - [ExplainQuery](../E/ExplainQuery.md) (explain.c)
 
 ## Notes and Other Information
 - Designed specifically for use with single-TEXT-attribute tuple descriptors

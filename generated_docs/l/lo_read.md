@@ -21,16 +21,16 @@ The `lo_read` function is a backend implementation that reads data from a large 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inv_read
+  - [inv_read](../i/inv_read.md)
   - ereport (for error reporting)
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - be_loread
-  - dumpLOs
-  - lo_export
-  - pickout
-  - exportFile
+  - [be_loread](../b/be_loread.md)
+  - [dumpLOs](../d/dumpLOs.md)
+  - [lo_export](lo_export.md)
+  - [pickout](../p/pickout.md)
+  - [exportFile](../e/exportFile.md)
 
 ## Notes and Other Information
 - Returns the number of bytes actually read, which may be less than requested if end of object is reached

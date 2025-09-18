@@ -18,12 +18,12 @@ This function renders tabular data in a simple unaligned text format, primarily 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - print_separator (for field and record separation)
-  - footers_with_default (to get default footers if needed)
+  - [print_separator](print_separator.md) (for field and record separation)
+  - [footers_with_default](../f/footers_with_default.md) (to get default footers if needed)
   - fputs (standard C library function for string output)
   - fputc (standard C library function for character output)
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function)
+  - [printTable](printTable.md) (main table printing dispatcher function)
 
 ## Notes and Other Information
 - Uses configurable field separators (fieldSep) between columns and record separators (recordSep) between rows

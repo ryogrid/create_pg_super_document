@@ -28,12 +28,12 @@ The function ensures that the returned mergeclauses maintain the required sequen
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head
-  - lnext  
+  - [lnext](../l/lnext.md)  
   - PathKey
   - EquivalenceClass
 - Called from (representative examples):
-  - generate_mergejoin_paths (src/backend/optimizer/path/joinpath.c:1619)
-  - generate_mergejoin_paths (src/backend/optimizer/path/joinpath.c:1662)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md) (src/backend/optimizer/path/joinpath.c:1619)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md) (src/backend/optimizer/path/joinpath.c:1662)
 
 ## Notes and Other Information
 - Returns a prefix of the given mergeclauses list, never reordering

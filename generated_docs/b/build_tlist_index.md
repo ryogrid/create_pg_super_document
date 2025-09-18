@@ -32,14 +32,14 @@ This optimization is particularly effective for the common case where targetlist
   - offsetof (for structure size calculation)
 - Called from (representative examples):
   - fix_scan_list (src/backend/optimizer/plan/setrefs.c:168)
-  - set_plan_refs (src/backend/optimizer/plan/setrefs.c:1114, 1167)
-  - set_indexonlyscan_references (src/backend/optimizer/plan/setrefs.c:1345)
-  - set_foreignscan_references (src/backend/optimizer/plan/setrefs.c:1592)
-  - set_customscan_references (src/backend/optimizer/plan/setrefs.c:1678)
-  - set_hash_references (src/backend/optimizer/plan/setrefs.c:1912)
-  - set_join_references (src/backend/optimizer/plan/setrefs.c:2289, 2290)
-  - set_upper_references (src/backend/optimizer/plan/setrefs.c:2438)
-  - set_windowagg_runcondition_references (src/backend/optimizer/plan/setrefs.c:3419)
+  - [set_plan_refs](../s/set_plan_refs.md) (src/backend/optimizer/plan/setrefs.c:1114, 1167)
+  - [set_indexonlyscan_references](../s/set_indexonlyscan_references.md) (src/backend/optimizer/plan/setrefs.c:1345)
+  - [set_foreignscan_references](../s/set_foreignscan_references.md) (src/backend/optimizer/plan/setrefs.c:1592)
+  - [set_customscan_references](../s/set_customscan_references.md) (src/backend/optimizer/plan/setrefs.c:1678)
+  - [set_hash_references](../s/set_hash_references.md) (src/backend/optimizer/plan/setrefs.c:1912)
+  - [set_join_references](../s/set_join_references.md) (src/backend/optimizer/plan/setrefs.c:2289, 2290)
+  - [set_upper_references](../s/set_upper_references.md) (src/backend/optimizer/plan/setrefs.c:2438)
+  - [set_windowagg_runcondition_references](../s/set_windowagg_runcondition_references.md) (src/backend/optimizer/plan/setrefs.c:3419)
 
 ## Notes and Other Information
 - Optimizes the common case of flat targetlists containing mostly Vars

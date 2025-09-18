@@ -23,11 +23,11 @@ The function filters mappings based on the old_tablespace parameter, allowing it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transfer_relfile
+  - [transfer_relfile](transfer_relfile.md)
   - VISIBILITY_MAP_FROZEN_BIT_CAT_VER
   - FileNameMap
 - Called from (representative examples):
-  - transfer_all_new_dbs
+  - [transfer_all_new_dbs](transfer_all_new_dbs.md)
 
 ## Notes and Other Information
 - The function determines if visibility maps need special handling by comparing catalog versions between old and new clusters

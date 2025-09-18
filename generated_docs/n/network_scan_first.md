@@ -20,10 +20,10 @@ The function serves as a boundary function for index scans, helping the planner 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall1 (PostgreSQL function call interface)
-  - network_network (function that extracts network address from network type)
+  - [network_network](network_network.md) (function that extracts network address from network type)
 
 - Called from (representative examples):
-  - match_network_subset (network subset matching function)
+  - [match_network_subset](../m/match_network_subset.md) (network subset matching function)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's network operator optimization infrastructure

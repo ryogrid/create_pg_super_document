@@ -22,7 +22,7 @@ This function performs a specialized conversion from IEEE 754 single-precision f
   - isnan (checks for NaN values)
   - Assert (debugging assertion macro)
 - Called from:
-  - point_zorder_internal (called twice for X and Y coordinates)
+  - [point_zorder_internal](../p/point_zorder_internal.md) (called twice for X and Y coordinates)
 
 ## Notes and Other Information
 - Preserves the natural ordering of floating-point numbers in the integer domain

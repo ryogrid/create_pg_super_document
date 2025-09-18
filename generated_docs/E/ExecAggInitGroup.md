@@ -20,11 +20,11 @@ This function is responsible for initializing an aggregate group when the first 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumCopy
-  - MemoryContextSwitchTo
+  - [datumCopy](../d/datumCopy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (in JIT compilation context)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in JIT compilation context)
 
 ## Notes and Other Information
 - This function assumes the aggregate input type is binary-compatible with its transition type

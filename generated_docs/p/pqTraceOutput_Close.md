@@ -27,10 +27,10 @@ This is a relatively simple message format compared to other protocol messages, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputByte1 (for the object type indicator)
-  - pqTraceOutputString (for the object name)
+  - [pqTraceOutputByte1](pqTraceOutputByte1.md) (for the object type indicator)
+  - [pqTraceOutputString](pqTraceOutputString.md) (for the object name)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message tracing dispatcher)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message tracing dispatcher)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, making it internal to the libpq tracing implementation

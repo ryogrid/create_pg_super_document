@@ -31,16 +31,16 @@ For inner nodes, the function returns a 4-bit bitmap indicating which children t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP: Extracts inet pointer from Datum
+  - [DatumGetInetPP](../D/DatumGetInetPP.md): Extracts inet pointer from Datum
   - ip_family: Gets address family (IPv4/IPv6)
   - ip_bits: Gets network mask length
   - ip_addr: Gets address bytes
   - ip_maxbits: Gets maximum bits for address family
-  - bitncmp: Performs bit-wise comparison of addresses
+  - [bitncmp](../b/bitncmp.md): Performs bit-wise comparison of addresses
   - Various RT strategy constants (RTLessStrategyNumber, RTEqualStrategyNumber, etc.)
 - Called from (representative examples):
-  - inet_spg_inner_consistent: Uses this for inner node consistency checking
-  - inet_spg_leaf_consistent: Uses this for leaf node matching
+  - [inet_spg_inner_consistent](inet_spg_inner_consistent.md): Uses this for inner node consistency checking
+  - [inet_spg_leaf_consistent](inet_spg_leaf_consistent.md): Uses this for leaf node matching
 
 ## Notes and Other Information
 - Supports all network address comparison strategies: \<, \<=, =, \>=, \>, \<\>, subnet (\<\<=), supernet (\>\>=), etc.

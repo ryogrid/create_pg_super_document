@@ -29,14 +29,14 @@ Unlike transition functions which have variable argument lists depending on the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `FuncExpr` (struct type for function call expressions)
-  - `make_agg_arg()` (creates argument nodes for aggregates)
+  - `[make_agg_arg](../m/make_agg_arg.md)()` (creates argument nodes for aggregates)
   - `makeFuncExpr()` (creates function call expression nodes)
   - `COERCE_EXPLICIT_CALL` (constant for function coercion context)
   - `INTERNALOID`, `BYTEAOID` (type constants)
   - `InvalidOid` (constant for invalid OID values)
   - `list_make1()` (creates single-element list)
 - Called from (representative examples):
-  - `build_pertrans_for_aggref` (in nodeAgg.c)
+  - `[build_pertrans_for_aggref](build_pertrans_for_aggref.md)` (in nodeAgg.c)
 
 ## Notes and Other Information
 - Serialization functions always have the signature: serialfn(internal) → bytea

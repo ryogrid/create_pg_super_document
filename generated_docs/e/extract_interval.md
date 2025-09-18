@@ -21,7 +21,7 @@ This function is typically called from SQL queries using the EXTRACT(unit FROM i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - interval_part_common (with retnumeric=true for numeric return type)
+  - [interval_part_common](../i/interval_part_common.md) (with retnumeric=true for numeric return type)
 - Called from:
   - SQL queries using EXTRACT(unit FROM interval) syntax
 

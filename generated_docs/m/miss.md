@@ -33,17 +33,17 @@ The function handles both regular character transitions and complex lookahead co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getvacant (allocates new stateset entries)
-  - lacon (tests Look-Ahead CONstraints)
+  - [getvacant](../g/getvacant.md) (allocates new stateset entries)
+  - [lacon](../l/lacon.md) (tests Look-Ahead CONstraints)
   - BSET, ISBSET (bitvector manipulation macros)
-  - HASH, HIT (hashing and cache lookup macros)
+  - [HASH](../H/HASH.md), HIT (hashing and cache lookup macros)
   - FDEBUG (debugging output macro)
   - INTERRUPT (operation cancellation check)
   - Various flag constants (PSEUDO, RAINBOW, COLORLESS, HASLACONS, etc.)
 - Called from (representative examples):
-  - longest (longest match function)
-  - shortest (shortest match function)
-  - matchuntil (match until function)
+  - [longest](../l/longest.md) (longest match function)
+  - [shortest](../s/shortest.md) (shortest match function)
+  - [matchuntil](matchuntil.md) (match until function)
   - LOFF (regex execution function)
 
 ## Notes and Other Information

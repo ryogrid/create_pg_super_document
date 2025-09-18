@@ -23,7 +23,7 @@ The typical usage pattern is:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (input validation)
+  - [bms_is_valid_set](bms_is_valid_set.md) (input validation)
   - BITNUM (bit position within word calculation)
   - WORDNUM (bit position to word index conversion)
   - BITS_PER_BITMAPWORD (word size constant)
@@ -31,11 +31,11 @@ The typical usage pattern is:
   - bitmapword (bitmap word type)
   
 - Called from (representative examples):
-  - ExecInitAppend/ExecInitMergeAppend (append node initialization)
-  - choose_next_subplan_locally (subplan selection)
-  - generate_base_implied_equalities (equivalence class processing)
-  - grouping_planner (grouping and aggregation planning)
-  - get_matching_partitions (partition matching)
+  - [ExecInitAppend](../E/ExecInitAppend.md)/ExecInitMergeAppend (append node initialization)
+  - [choose_next_subplan_locally](../c/choose_next_subplan_locally.md) (subplan selection)
+  - [generate_base_implied_equalities](../g/generate_base_implied_equalities.md) (equivalence class processing)
+  - [grouping_planner](../g/grouping_planner.md) (grouping and aggregation planning)
+  - [get_matching_partitions](../g/get_matching_partitions.md) (partition matching)
 
 ## Notes and Other Information
 - Returns -2 if no members exist greater than prevbit (not -1)
@@ -46,6 +46,6 @@ The typical usage pattern is:
 - Essential for iterating through sparse bitmap sets efficiently
 - Extensively used throughout PostgreSQL for set iteration, particularly in:
   - Executor node processing and partition handling
-  - Query optimization and equivalence class management
+  - [Query](../Q/Query.md) optimization and equivalence class management
   - Statistics collection and dependency analysis
 - The distinctive -2 return value enables sophisticated iteration control flow

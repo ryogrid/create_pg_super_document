@@ -17,10 +17,10 @@ DeallocateQuery is the main entry point for executing DEALLOCATE statements in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DropPreparedStatement (for deallocating a specific named statement)
-  - DropAllPreparedStatements (for deallocating all prepared statements)
+  - [DropPreparedStatement](DropPreparedStatement.md) (for deallocating a specific named statement)
+  - [DropAllPreparedStatements](DropAllPreparedStatements.md) (for deallocating all prepared statements)
 - Called from (representative examples):
-  - standard_ProcessUtility (main utility command processor)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (main utility command processor)
 
 ## Notes and Other Information
 - Implements the high-level logic for the SQL DEALLOCATE statement

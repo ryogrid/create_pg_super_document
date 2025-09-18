@@ -22,15 +22,15 @@ The function includes an important optimization: if the join domain is the top-l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy (bitmap copy operation)
-  - bms_equal (bitmap equality comparison)
-  - bms_is_member (bitmap membership test)
-  - bms_del_member (remove single member from bitmap)
-  - bms_del_members (remove multiple members from bitmap)
-  - SpecialJoinInfo (structure for outer join information)
+  - [bms_copy](../b/bms_copy.md) (bitmap copy operation)
+  - [bms_equal](../b/bms_equal.md) (bitmap equality comparison)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap membership test)
+  - [bms_del_member](../b/bms_del_member.md) (remove single member from bitmap)
+  - [bms_del_members](../b/bms_del_members.md) (remove multiple members from bitmap)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (structure for outer join information)
   - JOIN_LEFT (enum value for left outer joins)
 - Called from:
-  - process_implied_equality
+  - [process_implied_equality](../p/process_implied_equality.md)
 
 ## Notes and Other Information
 - The result is always freshly palloc'd; the input domain_relids is not modified

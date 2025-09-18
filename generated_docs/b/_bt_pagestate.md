@@ -20,9 +20,9 @@ This function creates and initializes a new BTPageState structure that manages t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTWriteState (parameter type)
-  - BTPageState (return type and structure being initialized)
-  - _bt_blnewpage (to create the initial page buffer)
+  - [BTWriteState](../B/BTWriteState.md) (parameter type)
+  - [BTPageState](../B/BTPageState.md) (return type and structure being initialized)
+  - [_bt_blnewpage](_bt_blnewpage.md) (to create the initial page buffer)
   - P_HIKEY (constant for high key position initialization)
   - BTREE_NONLEAF_FILLFACTOR (fill factor constant for internal pages)
   - BTGetTargetPageFreeSpace (to calculate leaf page fill threshold)

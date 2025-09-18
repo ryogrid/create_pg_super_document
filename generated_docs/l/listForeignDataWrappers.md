@@ -19,18 +19,18 @@ This function queries the pg_foreign_data_wrapper system catalog to display info
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBufferStr
-  - printACLColumn
-  - appendPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [printACLColumn](../p/printACLColumn.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - gettext_noop
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher)
 
 ## Notes and Other Information
 - Returns false if pattern validation fails or query execution fails

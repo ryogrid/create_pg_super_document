@@ -26,14 +26,14 @@ The async execution model allows the database to initiate I/O operations or remo
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward (direction validation)
-  - ExecFindMatchingSubPlans (runtime pruning support)
-  - classify_matching_subplans (async capability classification)
+  - [ExecFindMatchingSubPlans](ExecFindMatchingSubPlans.md) (runtime pruning support)
+  - [classify_matching_subplans](../c/classify_matching_subplans.md) (async capability classification)
   - bms_is_empty (bitmap emptiness check)
-  - bms_num_members (async subplan counting)
-  - bms_next_member (bitmap iteration)
+  - [bms_num_members](../b/bms_num_members.md) (async subplan counting)
+  - [bms_next_member](../b/bms_next_member.md) (bitmap iteration)
   - ExecAsyncRequest (async request submission)
 - Called from (representative examples):
-  - ExecAppend (main append execution function)
+  - [ExecAppend](ExecAppend.md) (main append execution function)
 
 ## Notes and Other Information
 - Only supports forward scans (backward scans not supported for async execution)

@@ -22,12 +22,12 @@ Returns a Python list where each element is a Unicode string representing a colu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_exception_set() (PL/Python exception handling)
+  - [PLy_exception_set](PLy_exception_set.md)() (PL/Python exception handling)
   - PyList_New() (Python C API)
   - TupleDescAttr() (PostgreSQL tuple descriptor access)
-  - PLyUnicode_FromString() (PL/Python Unicode string conversion)
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md)() (PL/Python Unicode string conversion)
   - NameStr() (PostgreSQL name string conversion)
-  - PLyResultObject (struct type)
+  - [PLyResultObject](PLyResultObject.md) (struct type)
 - Called from (representative examples):
   - Referenced as "colnames" method in PLy_result_methods at src/pl/plpython/plpy_resultobject.c:39
   - Callable from Python code as result.colnames()

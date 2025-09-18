@@ -24,28 +24,28 @@ The function handles various types of relations including tables, views, indexes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for relation)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for relation)
   - HeapTupleIsValid (tuple validation)
   - elog (error logging)
   - GETSTRUCT (tuple data extraction)
-  - ObjectIdGetDatum (OID conversion)
-  - get_namespace_name_or_temp (namespace name lookup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID conversion)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md) (namespace name lookup)
   - appendStringInfoString (string buffer operations)
   - quote_qualified_identifier (schema-qualified identifier quoting)
   - NameStr (name extraction from catalog form)
   - list_make2 (two-element list creation)
-  - pstrdup (string duplication)
-  - ReleaseSysCache (cache cleanup)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (relation catalog structure)
   - NIL (empty list constant)
 
 - Called from (representative examples):
-  - getObjectIdentityParts (relation case and attribute handling)
-  - getObjectIdentityParts (constraint on table handling)
-  - getObjectIdentityParts (rule on table handling)
-  - getObjectIdentityParts (trigger on table handling)
-  - getObjectIdentityParts (policy on table handling)
-  - getObjectIdentityParts (publication relation handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (relation case and attribute handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (constraint on table handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (rule on table handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (trigger on table handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (policy on table handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (publication relation handling)
   - object_type_map (object type mapping structure)
 
 ## Notes and Other Information

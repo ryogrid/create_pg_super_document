@@ -21,13 +21,13 @@ This function is critical for ensuring data integrity when working with heap tup
 - Functions called/Symbols referenced:
   - PointerIsValid
 - Called from (representative examples):
-  - heap_get_latest_tid
-  - heap_delete
-  - heap_update
-  - HeapTupleSatisfiesMVCC
-  - index_getnext_tid
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [heap_get_latest_tid](../h/heap_get_latest_tid.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [HeapTupleSatisfiesMVCC](../H/HeapTupleSatisfiesMVCC.md)
+  - [index_getnext_tid](../i/index_getnext_tid.md)
+  - [ItemPointerGetBlockNumber](ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](ItemPointerGetOffsetNumber.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

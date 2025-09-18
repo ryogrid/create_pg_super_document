@@ -21,11 +21,11 @@ The show_item function performs a linear search through a ConfigData array to fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConfigData (structure type for configuration data)
+  - [ConfigData](../C/ConfigData.md) (structure type for configuration data)
   - strcmp (standard C library string comparison function)
   - printf (standard C library output function)
 - Called from (representative examples):
-  - main (src/bin/pg_config/pg_config.c:174)
+  - [main](../m/main.md) (src/bin/pg_config/pg_config.c:174)
 
 ## Notes and Other Information
 - Performs a simple linear search algorithm with O(n) complexity

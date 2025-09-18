@@ -23,7 +23,7 @@ This function handles the execution of the \H (short form) and \html (long form)
   - PSQL_CMD_SKIP_LINE (successful command completion return value)
   - PSQL_CMD_ERROR (error return value)
 - Called from (representative examples):
-  - exec_command (main command dispatcher in psql)
+  - [exec_command](exec_command.md) (main command dispatcher in psql)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure

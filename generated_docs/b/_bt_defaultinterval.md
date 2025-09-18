@@ -25,7 +25,7 @@ The function follows the "Prefix B-Trees" paper methodology, where the split int
   - FindSplitData
   - SplitPoint
 - Called from (representative examples):
-  - _bt_findsplitloc
+  - [_bt_findsplitloc](_bt_findsplitloc.md)
 
 ## Notes and Other Information
 - This is a static function used only within nbtsplitloc.c for default B-tree split strategy

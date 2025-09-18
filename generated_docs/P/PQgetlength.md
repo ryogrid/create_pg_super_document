@@ -23,15 +23,15 @@ For NULL database values, the function returns 0. The length information is stor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_tuple_field_number
+  - [check_tuple_field_number](../c/check_tuple_field_number.md)
   - NULL_LEN
 - Called from (representative examples):
-  - libpqrcv_readtimelinehistoryfile
-  - createViewAsClause
-  - process_queued_fetch_requests
-  - libpq_fetch_file
+  - [libpqrcv_readtimelinehistoryfile](../l/libpqrcv_readtimelinehistoryfile.md)
+  - [createViewAsClause](../c/createViewAsClause.md)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md)
+  - [libpq_fetch_file](../l/libpq_fetch_file.md)
   - ecpg_get_data
-  - ECPGget_desc
+  - [ECPGget_desc](../E/ECPGget_desc.md)
   - ecpg_store_result
   - do_field
 

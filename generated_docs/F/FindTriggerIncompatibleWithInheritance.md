@@ -31,8 +31,8 @@ If any row-level trigger uses transition tables, the function immediately return
   - TriggerDesc (trigger descriptor structure)
   - Trigger (individual trigger structure)
 - Called from (representative examples):
-  - ATExecAddInherit (when adding inheritance relationship)
-  - ATExecAttachPartition (when attaching a partition)
+  - [ATExecAddInherit](../A/ATExecAddInherit.md) (when adding inheritance relationship)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md) (when attaching a partition)
 
 ## Notes and Other Information
 - Returns NULL if no incompatible triggers are found, allowing inheritance to proceed

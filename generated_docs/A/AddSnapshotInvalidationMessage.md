@@ -22,19 +22,19 @@ The function places snapshot invalidation messages into the relcache subgroup fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcessMessageSubGroup (to check for duplicates)
-  - AddInvalidationMessage (to add the message to the group)
+  - [AddInvalidationMessage](AddInvalidationMessage.md) (to add the message to the group)
   - VALGRIND_MAKE_MEM_DEFINED (for memory debugging support)
 - Types referenced:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
   - SHAREDINVALSNAPSHOT_ID (constant for snapshot invalidation type)
   - RelCacheMsgs (message subgroup identifier)
 - Called from:
-  - RegisterSnapshotInvalidation
+  - [RegisterSnapshotInvalidation](../R/RegisterSnapshotInvalidation.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c module
 - The function assumes dbId will never change, so duplicate checking only verifies relId
 - Uses VALGRIND_MAKE_MEM_DEFINED to ensure proper memory initialization for debugging tools
-- Snapshot invalidations are grouped with relcache messages for processing efficiency
+- [Snapshot](../S/Snapshot.md) invalidations are grouped with relcache messages for processing efficiency
 - Part of PostgreSQL's shared invalidation message system for maintaining cache coherency across backends

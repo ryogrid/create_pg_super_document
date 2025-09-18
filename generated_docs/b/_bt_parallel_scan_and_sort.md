@@ -32,19 +32,19 @@ For unique indexes, the function manages two separate tuplesort states - one for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_index_btree
-  - BuildIndexInfo
-  - table_beginscan_parallel
-  - table_index_build_scan
-  - _bt_build_callback
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [table_beginscan_parallel](../t/table_beginscan_parallel.md)
+  - [table_index_build_scan](../t/table_index_build_scan.md)
+  - [_bt_build_callback](_bt_build_callback.md)
   - tuplesort_performsort
-  - pgstat_progress_update_param
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - SpinLockAcquire/SpinLockRelease
   - ConditionVariableSignal
   - tuplesort_end
 - Called from (representative examples):
-  - _bt_parallel_build_main
-  - _bt_leader_participate_as_worker
+  - [_bt_parallel_build_main](_bt_parallel_build_main.md)
+  - [_bt_leader_participate_as_worker](_bt_leader_participate_as_worker.md)
 
 ## Notes and Other Information
 - Function is marked static and only used within the nbtsort.c module

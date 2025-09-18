@@ -29,12 +29,12 @@ The function returns false immediately if any key attribute is NULL in either tu
 ## Dependencies
 - Functions called/Symbols referenced:
   - slot_getattr (retrieves attribute values from tuple slots)
-  - datum_image_eq (performs bytewise comparison for PK attributes)
-  - ri_AttributesEqual (performs semantic equality comparison for FK attributes)
+  - [datum_image_eq](../d/datum_image_eq.md) (performs bytewise comparison for PK attributes)
+  - [ri_AttributesEqual](ri_AttributesEqual.md) (performs semantic equality comparison for FK attributes)
   - RIAttType (gets attribute type information)
 - Called from (representative examples):
-  - RI_FKey_pk_upd_check_required (checks if PK update requires FK constraint checking)
-  - RI_FKey_fk_upd_check_required (checks if FK update requires constraint validation)
+  - [RI_FKey_pk_upd_check_required](../R/RI_FKey_pk_upd_check_required.md) (checks if PK update requires FK constraint checking)
+  - [RI_FKey_fk_upd_check_required](../R/RI_FKey_fk_upd_check_required.md) (checks if FK update requires constraint validation)
 
 ## Notes and Other Information
 - Returns false if any key attribute contains NULL values in either tuple

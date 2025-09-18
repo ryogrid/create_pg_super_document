@@ -23,8 +23,8 @@ ExplainSeparatePlans handles the insertion of separators between multiple execut
   - EXPLAIN_FORMAT_JSON (enum constant)
   - EXPLAIN_FORMAT_YAML (enum constant)
 - Called from (representative examples):
-  - ExplainQuery
-  - ExplainExecuteQuery
+  - [ExplainQuery](ExplainQuery.md)
+  - [ExplainExecuteQuery](ExplainExecuteQuery.md)
 
 ## Notes and Other Information
 This function is primarily useful when explaining multiple statements or when EXPLAIN ANALYZE is used with queries that have multiple execution plans. The TEXT format separator improves readability by providing visual separation between plans, while structured formats rely on their native formatting.

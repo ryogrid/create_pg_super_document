@@ -18,16 +18,16 @@ This function performs a bitwise union operation on two Bitmapsets, creating a n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation macro for input bitmapsets)
-  - bms_copy (creates a copy of a bitmapset)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation macro for input bitmapsets)
+  - [bms_copy](bms_copy.md) (creates a copy of a bitmapset)
 
 - Called from (representative examples):
-  - ExecGetAllUpdatedCols
-  - generate_join_implied_equalities
-  - make_join_rel
-  - join_is_removable
-  - deconstruct_jointree
-  - finalize_plan
+  - [ExecGetAllUpdatedCols](../E/ExecGetAllUpdatedCols.md)
+  - [generate_join_implied_equalities](../g/generate_join_implied_equalities.md)
+  - [make_join_rel](../m/make_join_rel.md)
+  - [join_is_removable](../j/join_is_removable.md)
+  - [deconstruct_jointree](../d/deconstruct_jointree.md)
+  - [finalize_plan](../f/finalize_plan.md)
   - build_join_rel
   - get_joinrel_parampathinfo
 

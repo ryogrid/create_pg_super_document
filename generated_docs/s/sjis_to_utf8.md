@@ -26,7 +26,7 @@ The conversion process validates encoding arguments, performs the character conv
   - PG_GETARG_INT32
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
-  - LocalToUtf
+  - [LocalToUtf](../L/LocalToUtf.md)
   - PG_RETURN_INT32
   - sjis_to_unicode_tree (radix tree data structure)
 - Called from (representative examples):

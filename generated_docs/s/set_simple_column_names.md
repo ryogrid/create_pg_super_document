@@ -20,11 +20,11 @@ This function provides a simplified approach to column name assignment for scena
   - deparse_namespace
   - deparse_columns
   - forboth
-  - set_relation_column_names
+  - [set_relation_column_names](set_relation_column_names.md)
 - Called from (representative examples):
-  - pg_get_triggerdef_worker
-  - deparse_context_for
-  - deparse_context_for_plan_tree
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
+  - [deparse_context_for](../d/deparse_context_for.md)
+  - [deparse_context_for_plan_tree](../d/deparse_context_for_plan_tree.md)
 
 ## Notes and Other Information
 - Designed specifically for EXPLAIN and simple relation-only scenarios

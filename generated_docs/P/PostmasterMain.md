@@ -28,20 +28,20 @@ The function concludes by entering ServerLoop() to handle ongoing postmaster ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitProcessGlobals: Initialize process-global variables
-  - getInstallationPaths: Determine PostgreSQL installation directory paths
-  - InitializeGUCOptions: Initialize Grand Unified Configuration system
-  - SelectConfigFiles: Locate and read postgresql.conf configuration
-  - checkDataDir: Validate data directory accessibility and permissions
-  - checkControlFile: Verify pg_control file exists and is valid
-  - CreateDataDirLockFile: Create postmaster.pid lock file
-  - process_shared_preload_libraries: Load shared_preload_libraries modules
-  - CreateSharedMemoryAndSemaphores: Initialize System V IPC resources
-  - CloseServerPorts: Socket cleanup function registered with on_proc_exit
-  - ServerLoop: Main postmaster event loop
-  - StartChildProcess: Launch background processes (startup, checkpointer, bgwriter)
+  - [InitProcessGlobals](../I/InitProcessGlobals.md): Initialize process-global variables
+  - [getInstallationPaths](../g/getInstallationPaths.md): Determine PostgreSQL installation directory paths
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md): Initialize Grand Unified Configuration system
+  - [SelectConfigFiles](../S/SelectConfigFiles.md): Locate and read postgresql.conf configuration
+  - [checkDataDir](../c/checkDataDir.md): Validate data directory accessibility and permissions
+  - [checkControlFile](../c/checkControlFile.md): Verify pg_control file exists and is valid
+  - [CreateDataDirLockFile](../C/CreateDataDirLockFile.md): Create postmaster.pid lock file
+  - [process_shared_preload_libraries](../p/process_shared_preload_libraries.md): Load shared_preload_libraries modules
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md): Initialize System V IPC resources
+  - [CloseServerPorts](../C/CloseServerPorts.md): Socket cleanup function registered with on_proc_exit
+  - [ServerLoop](../S/ServerLoop.md): Main postmaster event loop
+  - [StartChildProcess](../S/StartChildProcess.md): Launch background processes (startup, checkpointer, bgwriter)
 - Called from (representative examples):
-  - main (in src/backend/main/main.c:199): Primary entry point from main()
+  - [main](../m/main.md) (in src/backend/main/main.c:199): Primary entry point from main()
 
 ## Notes and Other Information
 - This function never returns under normal operation - it either calls ExitPostmaster() for controlled shutdown or abort() for unexpected termination

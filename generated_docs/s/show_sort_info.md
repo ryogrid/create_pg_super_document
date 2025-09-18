@@ -26,17 +26,17 @@ The function only operates during EXPLAIN ANALYZE (when es->analyze is true) and
   - tuplesort_get_stats (retrieves statistics from the tuplesort subsystem)
   - tuplesort_method_name (converts sort method enum to human-readable name)
   - tuplesort_space_type_name (converts space type enum to human-readable name)
-  - ExplainIndentText (adds proper indentation in text format)
-  - ExplainPropertyText (outputs named text properties in structured formats)
-  - ExplainPropertyInteger (outputs named integer properties in structured formats)
-  - ExplainOpenWorker/ExplainCloseWorker (handles parallel worker output formatting)
+  - [ExplainIndentText](../E/ExplainIndentText.md) (adds proper indentation in text format)
+  - [ExplainPropertyText](../E/ExplainPropertyText.md) (outputs named text properties in structured formats)
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md) (outputs named integer properties in structured formats)
+  - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker (handles parallel worker output formatting)
   - appendStringInfo (builds output string)
 - Types referenced:
-  - SortState, ExplainState, Tuplesortstate, TuplesortInstrumentation
+  - [SortState](../S/SortState.md), ExplainState, Tuplesortstate, TuplesortInstrumentation
 - Constants referenced:
   - EXPLAIN_FORMAT_TEXT, SORT_TYPE_STILL_IN_PROGRESS, INT64_FORMAT
 - Called from (representative examples):
-  - ExplainNode (when explaining Sort plan nodes during EXPLAIN ANALYZE)
+  - [ExplainNode](../E/ExplainNode.md) (when explaining Sort plan nodes during EXPLAIN ANALYZE)
 
 ## Notes and Other Information
 - Only executes when es->analyze is true (EXPLAIN ANALYZE mode)

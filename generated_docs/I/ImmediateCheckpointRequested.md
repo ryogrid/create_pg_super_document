@@ -21,10 +21,10 @@ None - the function takes no parameters and returns a boolean indicating the pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckpointerShmemStruct (shared memory structure)
+  - [CheckpointerShmemStruct](../C/CheckpointerShmemStruct.md) (shared memory structure)
   - CHECKPOINT_IMMEDIATE (flag constant)
 - Called from (representative examples):
-  - CheckpointWriteDelay (checkpointer.c:728)
+  - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md) (checkpointer.c:728)
 
 ## Notes and Other Information
 - Uses volatile qualifier for shared memory access to prevent compiler optimizations

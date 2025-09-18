@@ -25,8 +25,8 @@ The function is part of PostgreSQL's frontend utilities printing subsystem, spec
   - fputs (standard C library function)
   - fputc (standard C library function)
 - Called from (representative examples):
-  - print_troff_ms_text (multiple locations: lines 2846, 2873, 2883, 2908)
-  - print_troff_ms_vertical (multiple locations: lines 2940, 2997, 2999, 3015)
+  - [print_troff_ms_text](../p/print_troff_ms_text.md) (multiple locations: lines 2846, 2873, 2883, 2908)
+  - [print_troff_ms_vertical](../p/print_troff_ms_vertical.md) (multiple locations: lines 2940, 2997, 2999, 3015)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (src/fe_utils/print.c)

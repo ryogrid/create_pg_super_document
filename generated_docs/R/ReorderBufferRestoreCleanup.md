@@ -23,13 +23,13 @@ The cleanup process handles the case where files might not exist (ENOENT error i
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg (WAL segment calculation)
-  - ReorderBufferSerializedPath (file path generation)
+  - [ReorderBufferSerializedPath](ReorderBufferSerializedPath.md) (file path generation)
   - unlink (file deletion system call)
   - ereport/ERROR (error reporting)
-  - errcode_for_file_access (error code generation)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (error code generation)
 - Called from (representative examples):
-  - ReorderBufferCleanupTXN
-  - ReorderBufferTruncateTXN
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
+  - [ReorderBufferTruncateTXN](ReorderBufferTruncateTXN.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the reorderbuffer.c module

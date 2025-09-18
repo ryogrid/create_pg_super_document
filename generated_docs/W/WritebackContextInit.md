@@ -29,14 +29,14 @@ This design allows the writeback system to efficiently batch I/O operations whil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WritebackContext (type)
+  - [WritebackContext](WritebackContext.md) (type)
   - WRITEBACK_MAX_PENDING_FLUSHES (constant)
   - Assert (macro)
 - Called from (representative examples):
-  - BackgroundWriterMain (background writer process initialization)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background writer process initialization)
   - InitBufferPool (buffer pool initialization)
   - BufferSync (checkpoint operations)
-  - ResourceOwnerForgetBufferIO (resource cleanup)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md) (resource cleanup)
 
 ## Notes and Other Information
 - The max_pending parameter uses a pointer to enable runtime configuration changes via GUC

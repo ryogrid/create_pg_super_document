@@ -28,16 +28,16 @@ The transformation is essential for parallel aggregation because partial aggrega
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_empty_pathtarget
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md)
   - get_pathtarget_sortgroupref
-  - get_sortgroupref_clause_noerr
-  - add_column_to_pathtarget
-  - pull_var_clause
-  - add_new_columns_to_pathtarget
-  - mark_partial_aggref
-  - set_pathtarget_cost_width
+  - [get_sortgroupref_clause_noerr](../g/get_sortgroupref_clause_noerr.md)
+  - [add_column_to_pathtarget](../a/add_column_to_pathtarget.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [add_new_columns_to_pathtarget](../a/add_new_columns_to_pathtarget.md)
+  - [mark_partial_aggref](mark_partial_aggref.md)
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)
 - Called from:
-  - create_partial_grouping_paths
+  - [create_partial_grouping_paths](../c/create_partial_grouping_paths.md)
 
 ## Notes and Other Information
 - Uses PVC_INCLUDE_AGGREGATES, PVC_RECURSE_WINDOWFUNCS, and PVC_INCLUDE_PLACEHOLDERS flags for comprehensive expression extraction

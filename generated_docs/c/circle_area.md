@@ -20,7 +20,7 @@ The `circle_area` function computes the area of a circle by calling the internal
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P
-  - circle_ar
+  - [circle_ar](circle_ar.md)
   - PG_RETURN_FLOAT8
 - Called from (representative examples):
   - No direct references found in the codebase

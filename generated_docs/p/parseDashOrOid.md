@@ -21,19 +21,19 @@ The function first checks if the input string is exactly "-", and if so, sets th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseNumericOid
+  - [parseNumericOid](parseNumericOid.md)
   - strcmp (standard C library)
   - InvalidOid (PostgreSQL constant)
 - Called from (representative examples):
-  - regprocin
-  - regprocedurein
-  - regclassin
-  - regcollationin
-  - regtypein
-  - regconfigin
-  - regdictionaryin
-  - regrolein
-  - regnamespacein
+  - [regprocin](../r/regprocin.md)
+  - [regprocedurein](../r/regprocedurein.md)
+  - [regclassin](../r/regclassin.md)
+  - [regcollationin](../r/regcollationin.md)
+  - [regtypein](../r/regtypein.md)
+  - [regconfigin](../r/regconfigin.md)
+  - [regdictionaryin](../r/regdictionaryin.md)
+  - [regrolein](../r/regrolein.md)
+  - [regnamespacein](../r/regnamespacein.md)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the regproc.c file

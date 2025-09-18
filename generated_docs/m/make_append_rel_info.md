@@ -21,10 +21,10 @@ This function constructs an AppendRelInfo node that encapsulates the metadata ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create AppendRelInfo structure)
-  - make_inh_translation_list (to build attribute mapping between parent and child)
+  - [make_inh_translation_list](make_inh_translation_list.md) (to build attribute mapping between parent and child)
   - RelationGetRelid (to get relation OID)
 - Called from (representative examples):
-  - expand_single_inheritance_child
+  - [expand_single_inheritance_child](../e/expand_single_inheritance_child.md)
 
 ## Notes and Other Information
 - The function automatically populates the AppendRelInfo with relation type information from both parent and child relations

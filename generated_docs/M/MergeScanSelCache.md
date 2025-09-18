@@ -41,9 +41,9 @@ MergeScanSelCache provides a performance optimization for PostgreSQL's merge joi
   - Oid (for opfamily and collation identifiers)
   - Selectivity (for result fractions)
 - Called from (representative examples):
-  - cached_scansel (costsize.c:3996)
-  - initial_cost_mergejoin (costsize.c:3560)
-  - final_cost_mergejoin (costsize.c:3993)
+  - [cached_scansel](../c/cached_scansel.md) (costsize.c:3996)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md) (costsize.c:3560)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md) (costsize.c:3993)
 
 ## Notes and Other Information
 - Cache entries are stored in the scansel_cache list of mergejoinable RestrictInfo nodes

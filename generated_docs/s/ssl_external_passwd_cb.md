@@ -20,10 +20,10 @@ This function implements OpenSSL's password callback interface to retrieve passp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - run_ssl_passphrase_command (executes external command to get passphrase)
+  - [run_ssl_passphrase_command](../r/run_ssl_passphrase_command.md) (executes external command to get passphrase)
 - Called from (representative examples):
-  - default_openssl_tls_init (src/backend/libpq/be-secure-openssl.c:1752)
-  - default_openssl_tls_init (src/backend/libpq/be-secure-openssl.c:1757)
+  - [default_openssl_tls_init](../d/default_openssl_tls_init.md) (src/backend/libpq/be-secure-openssl.c:1752)
+  - [default_openssl_tls_init](../d/default_openssl_tls_init.md) (src/backend/libpq/be-secure-openssl.c:1757)
 
 ## Notes and Other Information
 - Returns the length of the passphrase retrieved, or -1 on error

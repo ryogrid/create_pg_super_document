@@ -19,7 +19,7 @@ This function serves as a PostgreSQL SQL function entry point for retrieving vie
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PRETTY_FLAGS
-  - pg_get_viewdef_worker
+  - [pg_get_viewdef_worker](pg_get_viewdef_worker.md)
   - string_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

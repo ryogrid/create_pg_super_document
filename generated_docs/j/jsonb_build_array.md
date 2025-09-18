@@ -17,8 +17,8 @@ This function serves as the entry point for the SQL function . It accepts a vari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extract_variadic_args
-  - jsonb_build_array_worker
+  - [extract_variadic_args](../e/extract_variadic_args.md)
+  - [jsonb_build_array_worker](jsonb_build_array_worker.md)
   - PG_RETURN_DATUM
   - PG_RETURN_NULL
 - Called from (representative examples):

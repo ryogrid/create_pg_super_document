@@ -20,16 +20,16 @@ This function generates and executes a SQL query to list aggregate functions fro
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - exec_command_d (in command.c:836)
+  - [exec_command_d](../e/exec_command_d.md) (in command.c:836)
 
 ## Notes and Other Information
 - Part of psql's describe functionality (\da command)

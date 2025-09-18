@@ -28,18 +28,18 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - set_spins_per_delay
   - GetNumberFromPGProc
-  - dlist_node_init
-  - OwnLatch
-  - SwitchToSharedLatch
-  - pgstat_set_wait_event_storage
-  - PGSemaphoreReset
-  - on_shmem_exit
-  - AuxiliaryProcKill
+  - [dlist_node_init](../d/dlist_node_init.md)
+  - [OwnLatch](../O/OwnLatch.md)
+  - [SwitchToSharedLatch](../S/SwitchToSharedLatch.md)
+  - [pgstat_set_wait_event_storage](../p/pgstat_set_wait_event_storage.md)
+  - [PGSemaphoreReset](../P/PGSemaphoreReset.md)
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md)
   - InitLWLockAccess
-  - AttachSharedMemoryStructs (EXEC_BACKEND only)
+  - [AttachSharedMemoryStructs](../A/AttachSharedMemoryStructs.md) (EXEC_BACKEND only)
 
 - Called from (representative examples):
-  - AuxiliaryProcessMainCommon
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
 
 ## Notes and Other Information
 - The function panics if ProcGlobal or AuxiliaryProcs are not initialized

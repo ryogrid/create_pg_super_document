@@ -37,11 +37,11 @@ The all-visible fraction calculation assumes newly added pages since the last VA
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
   - RelationGetFillFactor
-  - get_rel_data_width
-  - clamp_row_est
+  - [get_rel_data_width](../g/get_rel_data_width.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
   - HEAP_DEFAULT_FILLFACTOR
 - Called from (representative examples):
-  - heapam_estimate_rel_size
+  - [heapam_estimate_rel_size](../h/heapam_estimate_rel_size.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

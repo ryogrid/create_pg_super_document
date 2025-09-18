@@ -20,11 +20,11 @@ This function is part of the Informix compatibility layer testing, specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - risnull (Informix compatibility function for null checking)
+  - [risnull](../r/risnull.md) (Informix compatibility function for null checking)
   - printf (standard C library function for formatted output)
 
 - Called from (representative examples):
-  - main (called multiple times from the main test function at lines 221-230 and 261-270)
+  - [main](../m/main.md) (called multiple times from the main test function at lines 221-230 and 261-270)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same compilation unit

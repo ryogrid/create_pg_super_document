@@ -25,7 +25,7 @@ Beyond simply releasing the buffer pin, this function also resets the bulk relat
   - InvalidBuffer (for comparison and assignment)
   - InvalidBlockNumber (for state reset)
 - Called from (representative examples):
-  - CopyFrom
+  - [CopyFrom](../C/CopyFrom.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

@@ -17,15 +17,15 @@ This function serves as a factory method for creating tuplestore destination rec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (allocates and zeroes memory)
+  - [palloc0](../p/palloc0.md) (allocates and zeroes memory)
   - TStoreState (structure type being allocated)
-  - tstoreReceiveSlot_notoast (callback for receiving tuples)
-  - tstoreStartupReceiver (startup callback)
-  - tstoreShutdownReceiver (shutdown callback)
-  - tstoreDestroyReceiver (destroy callback)
+  - [tstoreReceiveSlot_notoast](../t/tstoreReceiveSlot_notoast.md) (callback for receiving tuples)
+  - [tstoreStartupReceiver](../t/tstoreStartupReceiver.md) (startup callback)
+  - [tstoreShutdownReceiver](../t/tstoreShutdownReceiver.md) (shutdown callback)
+  - [tstoreDestroyReceiver](../t/tstoreDestroyReceiver.md) (destroy callback)
   - DestTuplestore (destination type identifier)
 - Called from (representative examples):
-  - CreateDestReceiver (in dest.c as part of the destination receiver factory)
+  - [CreateDestReceiver](CreateDestReceiver.md) (in dest.c as part of the destination receiver factory)
 
 ## Notes and Other Information
 - Returns a DestReceiver pointer that is actually a TStoreState structure cast to the base type

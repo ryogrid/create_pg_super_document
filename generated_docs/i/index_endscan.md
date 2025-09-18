@@ -22,15 +22,15 @@ The function includes validation checks through SCAN_CHECKS and CHECK_SCAN_PROCE
   - SCAN_CHECKS (validation macro)
   - CHECK_SCAN_PROCEDURE (validation macro for amendscan)
   - table_index_fetch_end (releases heap fetch resources)
-  - RelationDecrementReferenceCount (decrements index relation refcount)
+  - [RelationDecrementReferenceCount](../R/RelationDecrementReferenceCount.md) (decrements index relation refcount)
   - UnregisterSnapshot (unregisters temporary snapshots)
-  - IndexScanEnd (deallocates scan descriptor)
+  - [IndexScanEnd](../I/IndexScanEnd.md) (deallocates scan descriptor)
 - Called from (representative examples):
-  - systable_endscan
-  - ExecEndBitmapIndexScan
-  - ExecEndIndexOnlyScan
-  - ExecEndIndexScan
-  - check_exclusion_or_unique_constraint
+  - [systable_endscan](../s/systable_endscan.md)
+  - [ExecEndBitmapIndexScan](../E/ExecEndBitmapIndexScan.md)
+  - [ExecEndIndexOnlyScan](../E/ExecEndIndexOnlyScan.md)
+  - [ExecEndIndexScan](../E/ExecEndIndexScan.md)
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md)
 
 ## Notes and Other Information
 - This function must be called to properly terminate any index scan started with index_beginscan

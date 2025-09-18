@@ -23,9 +23,9 @@ This function is a key component in PostgreSQL's date/time formatting system, us
 - Functions called/Symbols referenced:
   - strcpy (when dest != num)
   - strcat
-  - get_th
+  - [get_th](../g/get_th.md)
 - Called from (representative examples):
-  - DCH_to_char (multiple locations for day/month formatting)
+  - [DCH_to_char](../D/DCH_to_char.md) (multiple locations for day/month formatting)
   - DCH_to_char_fsec
   - DCH_ZONED
 

@@ -18,19 +18,19 @@ The `InitCompressFileHandleNone` function serves as the main initialization entr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (structure type)
-  - pg_compress_specification (structure type)
-  - open_none (function pointer assignment)
-  - open_write_none (function pointer assignment)
-  - read_none (function pointer assignment)
-  - write_none (function pointer assignment)
-  - gets_none (function pointer assignment)
-  - getc_none (function pointer assignment)
-  - close_none (function pointer assignment)
-  - eof_none (function pointer assignment)
-  - get_error_none (function pointer assignment)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (structure type)
+  - [open_none](../o/open_none.md) (function pointer assignment)
+  - [open_write_none](../o/open_write_none.md) (function pointer assignment)
+  - [read_none](../r/read_none.md) (function pointer assignment)
+  - [write_none](../w/write_none.md) (function pointer assignment)
+  - [gets_none](../g/gets_none.md) (function pointer assignment)
+  - [getc_none](../g/getc_none.md) (function pointer assignment)
+  - [close_none](../c/close_none.md) (function pointer assignment)
+  - [eof_none](../e/eof_none.md) (function pointer assignment)
+  - [get_error_none](../g/get_error_none.md) (function pointer assignment)
 - Called from (representative examples):
-  - InitCompressFileHandle (main compression dispatcher)
+  - [InitCompressFileHandle](InitCompressFileHandle.md) (main compression dispatcher)
 
 ## Notes and Other Information
 - This is a public interface function (not static), available to other modules

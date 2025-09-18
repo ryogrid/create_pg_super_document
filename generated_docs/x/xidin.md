@@ -18,7 +18,7 @@ xidin serves as the input conversion function for the xid data type in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - uint32in_subr
+  - [uint32in_subr](../u/uint32in_subr.md)
   - PG_RETURN_TRANSACTIONID
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system infrastructure)

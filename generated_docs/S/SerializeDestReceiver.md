@@ -28,18 +28,18 @@ The SerializeDestReceiver structure extends the base DestReceiver functionality 
   - DestReceiver (base type)
   - ExplainState (explain context)
   - int8 (format specification)
-  - SerializeMetrics (metrics collection)
-  - TupleDesc (tuple descriptor)
-  - FmgrInfo (function manager info)
-  - MemoryContext (memory management)
-  - StringInfoData (buffer management)
+  - [SerializeMetrics](SerializeMetrics.md) (metrics collection)
+  - [TupleDesc](../T/TupleDesc.md) (tuple descriptor)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
+  - [StringInfoData](StringInfoData.md) (buffer management)
 - Called from (representative examples):
-  - serialize_prepare_info
-  - serializeAnalyzeReceive
-  - serializeAnalyzeStartup
-  - serializeAnalyzeShutdown
-  - CreateExplainSerializeDestReceiver
-  - GetSerializationMetrics
+  - [serialize_prepare_info](../s/serialize_prepare_info.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [serializeAnalyzeStartup](../s/serializeAnalyzeStartup.md)
+  - [serializeAnalyzeShutdown](../s/serializeAnalyzeShutdown.md)
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
+  - [GetSerializationMetrics](../G/GetSerializationMetrics.md)
 
 ## Notes and Other Information
 - This struct is defined in src/backend/commands/explain.c at lines 5314-5325

@@ -26,15 +26,15 @@ The function uses PostgreSQL's path manipulation utilities to ensure proper path
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_absolute_path
-  - pstrdup  
+  - [pstrdup](../p/pstrdup.md)  
   - strlcpy
   - get_parent_directory
-  - join_path_components
-  - canonicalize_path
+  - [join_path_components](../j/join_path_components.md)
+  - [canonicalize_path](../c/canonicalize_path.md)
 - Called from (representative examples):
-  - tokenize_include_file (hba.c)
-  - tokenize_expand_file (hba.c)
-  - GetConfFilesInDir
+  - [tokenize_include_file](../t/tokenize_include_file.md) (hba.c)
+  - [tokenize_expand_file](../t/tokenize_expand_file.md) (hba.c)
+  - [GetConfFilesInDir](../G/GetConfFilesInDir.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that the caller is responsible for freeing

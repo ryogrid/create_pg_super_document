@@ -24,14 +24,14 @@ The function carefully manages error context information, temporarily storing th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - RelationGetRelationName
-  - update_vacuum_error_info
-  - vac_bulkdel_one_index
-  - restore_vacuum_error_info
-  - pfree
+  - [update_vacuum_error_info](../u/update_vacuum_error_info.md)
+  - [vac_bulkdel_one_index](../v/vac_bulkdel_one_index.md)
+  - [restore_vacuum_error_info](../r/restore_vacuum_error_info.md)
+  - [pfree](../p/pfree.md)
 - Called from:
-  - lazy_vacuum_all_indexes
+  - [lazy_vacuum_all_indexes](lazy_vacuum_all_indexes.md)
 
 ## Notes and Other Information
 - Returns updated IndexBulkDeleteResult structure containing statistics from the bulk deletion

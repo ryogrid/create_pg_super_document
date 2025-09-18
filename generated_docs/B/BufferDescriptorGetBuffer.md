@@ -19,13 +19,13 @@ This inline function performs the inverse operation of converting a buffer ID to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type containing buf_id field)
+  - [BufferDesc](BufferDesc.md) (structure type containing buf_id field)
   - Buffer (typedef for buffer identifiers)
 - Called from (representative examples):
-  - PinBufferForBlock
-  - InvalidateBuffer
-  - GetVictimBuffer
-  - ExtendBufferedRelShared
+  - [PinBufferForBlock](../P/PinBufferForBlock.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
   - PinBuffer
   - UnpinBuffer
   - StartBufferIO

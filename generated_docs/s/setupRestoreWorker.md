@@ -23,10 +23,10 @@ The function is part of PostgreSQL's parallel restore architecture, where multip
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArchiveHandle: Internal archive structure containing function pointers and state
+  - [ArchiveHandle](../A/ArchiveHandle.md): Internal archive structure containing function pointers and state
   - ReopenPtr: Function pointer in ArchiveHandle for reopening archive connections
 - Called from (representative examples):
-  - OpenArchive: Uses this function to set up restore workers during archive initialization
+  - [OpenArchive](../O/OpenArchive.md): Uses this function to set up restore workers during archive initialization
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the pg_backup_archiver.c file

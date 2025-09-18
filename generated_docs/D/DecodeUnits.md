@@ -23,17 +23,17 @@ The function first checks if there's a cached entry for the given field, and if 
 - Functions called/Symbols referenced:
   - datetkn (structure type for date/time tokens)
   - TOKMAXLEN (maximum token length constant)
-  - datebsearch (binary search function for date tokens)
+  - [datebsearch](../d/datebsearch.md) (binary search function for date tokens)
   - UNKNOWN_FIELD (constant returned when token is not recognized)
   - deltacache (cache array for storing recent lookups)
   - deltatktbl (main lookup table for time interval tokens)
   - szdeltatktbl (size of the deltatktbl array)
 - Called from (representative examples):
-  - extract_date
-  - time_part_common
-  - DecodeInterval
-  - timestamp_trunc
-  - interval_part_common
+  - [extract_date](../e/extract_date.md)
+  - [time_part_common](../t/time_part_common.md)
+  - [DecodeInterval](DecodeInterval.md)
+  - [timestamp_trunc](../t/timestamp_trunc.md)
+  - [interval_part_common](../i/interval_part_common.md)
 
 ## Notes and Other Information
 - Returns the type of the decoded unit (from the datetkn structure) or UNKNOWN_FIELD if not found

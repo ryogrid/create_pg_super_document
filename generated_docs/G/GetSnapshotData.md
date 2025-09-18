@@ -34,16 +34,16 @@ The function also updates global visibility bounds (GlobalVis*Rels) and backend-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSnapshotDataReuse (optimization for snapshot reuse)
-  - GetMaxSnapshotXidCount, GetMaxSnapshotSubxidCount (array sizing)
-  - RecoveryInProgress (determines operational mode)
-  - KnownAssignedXidsGetAndSetXmin (Hot Standby transaction collection)
-  - GetCurrentCommandId (command counter management)
+  - [GetSnapshotDataReuse](GetSnapshotDataReuse.md) (optimization for snapshot reuse)
+  - [GetMaxSnapshotXidCount](GetMaxSnapshotXidCount.md), GetMaxSnapshotSubxidCount (array sizing)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (determines operational mode)
+  - [KnownAssignedXidsGetAndSetXmin](../K/KnownAssignedXidsGetAndSetXmin.md) (Hot Standby transaction collection)
+  - [GetCurrentCommandId](GetCurrentCommandId.md) (command counter management)
   - Various transaction ID manipulation functions
 - Called from (representative examples):
   - GetTransactionSnapshot (primary entry point)
   - GetLatestSnapshot
-  - GetNonHistoricCatalogSnapshot
+  - [GetNonHistoricCatalogSnapshot](GetNonHistoricCatalogSnapshot.md)
   - SetTransactionSnapshot
 
 ## Notes and Other Information

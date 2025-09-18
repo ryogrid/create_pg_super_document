@@ -20,16 +20,16 @@ This function provides a way to update the conditional state at the top of the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_empty (function)
+  - [conditional_stack_empty](conditional_stack_empty.md) (function)
   - ifState (typedef)
-  - ConditionalStack (typedef)
+  - [ConditionalStack](../C/ConditionalStack.md) (typedef)
 - Called from (representative examples):
-  - advanceConnectionState (pgbench)
-  - executeMetaCommand (pgbench)
-  - CheckConditional (pgbench)
-  - exec_command_if (psql)
-  - exec_command_elif (psql)
-  - exec_command_else (psql)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (pgbench)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (pgbench)
+  - [CheckConditional](../C/CheckConditional.md) (pgbench)
+  - [exec_command_if](../e/exec_command_if.md) (psql)
+  - [exec_command_elif](../e/exec_command_elif.md) (psql)
+  - [exec_command_else](../e/exec_command_else.md) (psql)
 
 ## Notes and Other Information
 - Returns false if the stack is empty or NULL, providing clear success/failure indication

@@ -32,14 +32,14 @@ The function analyzes which NULL partitions need consideration (haven't been mer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - merge_partition_with_dummy
-  - merge_matching_partitions
+  - [merge_partition_with_dummy](merge_partition_with_dummy.md)
+  - [merge_matching_partitions](merge_matching_partitions.md)
   - IS_OUTER_JOIN (macro)
   - JOIN_FULL, JOIN_RIGHT (enum values)
-  - PartitionMap, JoinType (data types)
+  - [PartitionMap](../P/PartitionMap.md), JoinType (data types)
 - Called from:
   - compare_range_bounds (src/backend/partitioning/partbounds.c:146)
-  - merge_list_bounds (src/backend/partitioning/partbounds.c:1430)
+  - [merge_list_bounds](merge_list_bounds.md) (src/backend/partitioning/partbounds.c:1430)
 
 ## Notes and Other Information
 - The function returns void but sets *null_index to indicate the merged NULL partition's index

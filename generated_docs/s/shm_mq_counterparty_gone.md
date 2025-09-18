@@ -20,12 +20,12 @@ This function determines if the counterparty process for a shared message queue 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBackgroundWorkerPid
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
   - BGWH_STARTED
   - BGWH_NOT_YET_STARTED
 - Called from (representative examples):
-  - shm_mq_receive
-  - shm_mq_send_bytes
+  - [shm_mq_receive](shm_mq_receive.md)
+  - [shm_mq_send_bytes](shm_mq_send_bytes.md)
 
 ## Notes and Other Information
 - Returns true immediately if the queue is already marked as detached

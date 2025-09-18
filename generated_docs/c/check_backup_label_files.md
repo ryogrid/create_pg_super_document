@@ -32,13 +32,13 @@ The function enforces strict rules about backup chain structure: the first backu
   - makeStringInfo (create expandable string buffer)
   - pg_log_debug (debug logging)
   - open (file opening)
-  - slurp_file (read entire file into buffer)
+  - [slurp_file](../s/slurp_file.md) (read entire file into buffer)
   - close (file closing)
-  - parse_backup_label (parse backup_label file contents)
+  - [parse_backup_label](../p/parse_backup_label.md) (parse backup_label file contents)
   - resetStringInfo (reset string buffer)
   - destroyStringInfo (free string buffer memory)
 - Called from (representative examples):
-  - main (backup processing workflow)
+  - [main](../m/main.md) (backup processing workflow)
 
 ## Notes and Other Information
 - Located in src/bin/pg_combinebackup/pg_combinebackup.c:501-593

@@ -24,7 +24,7 @@ btint2fastcmp is a static helper function that implements an optimized compariso
   - DatumGetInt16: Function to extract 16-bit integer value from a Datum
   - SortSupport: Type representing the sort support context structure
 - Called from (representative examples):
-  - btint2sortsupport: Function that sets up sort support for int16 types
+  - [btint2sortsupport](btint2sortsupport.md): Function that sets up sort support for int16 types
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit (nbtcompare.c)

@@ -29,11 +29,11 @@ The function ensures consistent origin naming across all logical replication com
   - OidIsValid (macro to check if OID is valid)
   - snprintf (standard C library function for safe string formatting)
 - Called from (representative examples):
-  - CreateSubscription (subscription creation)
-  - AlterSubscription (subscription modification)
-  - LogicalRepSyncTableStart (table synchronization)
-  - run_apply_worker (apply worker main loop)
-  - ParallelApplyWorkerMain (parallel apply worker)
+  - [CreateSubscription](../C/CreateSubscription.md) (subscription creation)
+  - [AlterSubscription](../A/AlterSubscription.md) (subscription modification)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md) (table synchronization)
+  - [run_apply_worker](../r/run_apply_worker.md) (apply worker main loop)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (parallel apply worker)
 
 ## Notes and Other Information
 - The function uses a simple but effective naming scheme that prevents conflicts between different types of replication workers

@@ -23,12 +23,12 @@ This adjacency information helps the B-tree split algorithm make better decision
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber  
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)  
   - FirstOffsetNumber
 - Called from (representative examples):
   - FindSplitData
-  - _bt_afternewitemoff
+  - [_bt_afternewitemoff](_bt_afternewitemoff.md)
 
 ## Notes and Other Information
 - This is a static function only used within nbtsplitloc.c for B-tree split optimization

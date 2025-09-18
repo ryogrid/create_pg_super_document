@@ -21,13 +21,13 @@ quote_identifier analyzes a SQL identifier string and determines whether it need
   - ScanKeywords (global keyword list structure)
   - ScanKeywordCategories (array of keyword categories)
   - UNRESERVED_KEYWORD (enum value for unreserved keywords)
-  - palloc (PostgreSQL's memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL's memory allocation function)
 - Global variables accessed:
   - quote_all_identifiers (forces quoting of all identifiers when true)
 - Called from (representative examples):
-  - quote_ident (SQL function wrapper)
-  - pg_get_triggerdef_worker (trigger definition generation)
-  - pg_get_indexdef_worker (index definition generation)
+  - [quote_ident](quote_ident.md) (SQL function wrapper)
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md) (trigger definition generation)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (index definition generation)
   - get_rule_expr (rule expression formatting)
   - get_from_clause_item (FROM clause formatting)
   - Various ruleutils.c functions for SQL reconstruction

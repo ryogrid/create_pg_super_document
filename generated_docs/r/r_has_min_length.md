@@ -19,9 +19,9 @@ The function uses the UTF-8 aware length calculation function  to properly handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - len_utf8 (UTF-8 aware string length function)
+  - [len_utf8](../l/len_utf8.md) (UTF-8 aware string length function)
 - Called from (representative examples):
-  - greek_UTF_8_stem (main Greek stemming function)
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md) (main Greek stemming function)
   - Various stemming rule functions in Tamil stemmer (r_remove_question_suffixes, r_remove_command_suffixes, etc.)
 
 ## Notes and Other Information

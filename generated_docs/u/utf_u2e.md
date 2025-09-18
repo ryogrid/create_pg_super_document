@@ -21,12 +21,12 @@ Note that this function may allocate memory via palloc during conversion, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_any_to_server
+  - [pg_any_to_server](../p/pg_any_to_server.md)
   - PG_UTF8
 - Called from (representative examples):
   - UTF_U2E (macro wrapper)
-  - pltcl_func_handler
-  - pltcl_trigger_handler
+  - [pltcl_func_handler](../p/pltcl_func_handler.md)
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md)
   - throw_tcl_error
   - compile_pltcl_function
   - pltcl_returnnext

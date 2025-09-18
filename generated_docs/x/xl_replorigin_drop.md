@@ -27,8 +27,8 @@ The structure represents a WAL record of type `XLOG_REPLORIGIN_DROP` and contain
   - RepOriginId (type definition)
 
 - Called from (representative examples):
-  - replorigin_desc (WAL record description function)
-  - replorigin_redo (WAL record replay function)
+  - [replorigin_desc](../r/replorigin_desc.md) (WAL record description function)
+  - [replorigin_redo](../r/replorigin_redo.md) (WAL record replay function)
   - replorigin_state_clear (clears replication state during drop operation)
 
 ## Notes and Other Information

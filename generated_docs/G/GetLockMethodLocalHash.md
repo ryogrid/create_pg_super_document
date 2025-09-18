@@ -21,7 +21,7 @@ The function simply returns a pointer to the LockMethodLocalHash, which contains
 - Functions called/Symbols referenced:
   - LockMethodLocalHash: The backend's local lock hash table (returned directly)
 - Called from (representative examples):
-  - AssertPendingSyncs_RelationCache: Used in relation cache for assertion checking
+  - [AssertPendingSyncs_RelationCache](../A/AssertPendingSyncs_RelationCache.md): Used in relation cache for assertion checking
   - LockHashPartitionLockByProc: Used in lock hash partition operations
 
 ## Notes and Other Information

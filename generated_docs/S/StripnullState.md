@@ -28,17 +28,17 @@ The structure works with PostgreSQL's JSON parsing infrastructure to selectively
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (JSON parsing and lexical analysis)
+  - [JsonLexContext](../J/JsonLexContext.md) (JSON parsing and lexical analysis)
   - StringInfo (string buffer management)
 - Called from (representative examples):
-  - sn_object_start (strip nulls object start handler)
-  - sn_object_end (strip nulls object end handler)
-  - sn_array_start (strip nulls array start handler)
-  - sn_array_end (strip nulls array end handler)
-  - sn_object_field_start (strip nulls object field start handler)
-  - sn_array_element_start (strip nulls array element start handler)
-  - sn_scalar (strip nulls scalar value handler)
-  - json_strip_nulls (main function using this state)
+  - [sn_object_start](../s/sn_object_start.md) (strip nulls object start handler)
+  - [sn_object_end](../s/sn_object_end.md) (strip nulls object end handler)
+  - [sn_array_start](../s/sn_array_start.md) (strip nulls array start handler)
+  - [sn_array_end](../s/sn_array_end.md) (strip nulls array end handler)
+  - [sn_object_field_start](../s/sn_object_field_start.md) (strip nulls object field start handler)
+  - [sn_array_element_start](../s/sn_array_element_start.md) (strip nulls array element start handler)
+  - [sn_scalar](../s/sn_scalar.md) (strip nulls scalar value handler)
+  - [json_strip_nulls](../j/json_strip_nulls.md) (main function using this state)
 
 ## Notes and Other Information
 - Specifically designed for the json_strip_nulls functionality in PostgreSQL

@@ -24,7 +24,7 @@ The comparison is performed by `timetz_cmp_internal()`, which normalizes both ti
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TIMETZADT_P`: Extracts TimeTzADT arguments from function call
-  - `timetz_cmp_internal`: Internal comparison function for timetz values
+  - `[timetz_cmp_internal](timetz_cmp_internal.md)`: Internal comparison function for timetz values
   - `PG_RETURN_TIMETZADT_P`: Returns TimeTzADT result to caller
 - Types referenced:
   - `TimeTzADT`: Time-with-timezone abstract data type

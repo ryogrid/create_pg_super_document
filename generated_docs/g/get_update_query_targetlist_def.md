@@ -38,16 +38,16 @@ Key processing steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head, lnext
-  - strip_implicit_coercions
-  - count_nonjunk_tlist_entries
-  - quote_identifier
-  - get_attname
+  - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
+  - [count_nonjunk_tlist_entries](../c/count_nonjunk_tlist_entries.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [get_attname](get_attname.md)
   - processIndirection
   - get_rule_expr
 - Called from:
-  - get_insert_query_def
-  - get_update_query_def
-  - get_merge_query_def
+  - [get_insert_query_def](get_insert_query_def.md)
+  - [get_update_query_def](get_update_query_def.md)
+  - [get_merge_query_def](get_merge_query_def.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, part of PostgreSQL's rule decompilation system

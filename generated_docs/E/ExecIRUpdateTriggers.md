@@ -20,16 +20,16 @@ This function executes INSTEAD OF ROW UPDATE triggers, which are primarily used 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetTriggerOldSlot
-  - ExecForceStoreHeapTuple
-  - TriggerEnabled
-  - ExecFetchSlotHeapTuple
-  - ExecCallTriggerFunc
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
+  - [ExecFetchSlotHeapTuple](ExecFetchSlotHeapTuple.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
   - GetPerTupleMemoryContext
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ExecUpdate
-  - ExecMergeMatched
+  - [ExecUpdate](ExecUpdate.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
 
 ## Notes and Other Information
 - Returns false if any trigger cancels the operation by returning NULL

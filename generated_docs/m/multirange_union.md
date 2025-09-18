@@ -24,11 +24,11 @@ This function implements the union operation for multirange types. It takes two 
   - PG_GETARG_MULTIRANGE_P
   - MultirangeIsEmpty
   - PG_RETURN_MULTIRANGE_P
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeTypeGetOid
-  - multirange_deserialize
-  - make_multirange
-  - palloc0
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [make_multirange](make_multirange.md)
+  - [palloc0](../p/palloc0.md)
   - memcpy
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's operator dispatch system)

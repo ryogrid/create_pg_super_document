@@ -22,15 +22,15 @@ This function should ONLY be used on slots created with MakeSingleTupleTableSlot
   - ExecClearTuple
   - ReleaseTupleDesc
   - TTS_FIXED
-  - pfree
+  - [pfree](../p/pfree.md)
 
 - Called from (representative examples):
-  - systable_endscan
-  - CatalogIndexInsert
-  - ATRewriteTable
-  - afterTriggerInvokeEvents
-  - ExecEndModifyTable
-  - compute_index_stats
+  - [systable_endscan](../s/systable_endscan.md)
+  - [CatalogIndexInsert](../C/CatalogIndexInsert.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
+  - [ExecEndModifyTable](ExecEndModifyTable.md)
+  - [compute_index_stats](../c/compute_index_stats.md)
 
 ## Notes and Other Information
 - WARNING: Should never be used on slots that are part of a tuple table list - only on standalone slots

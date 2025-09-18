@@ -24,16 +24,16 @@ The function ensures error handling consistency between finite and infinite inte
 - Functions called/Symbols referenced:
   - get_float8_infinity
   - ereport (for error handling)
-  - errcode
-  - errmsg
-  - format_type_be
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
 - Constants referenced:
   - UNITS, RESERV (type categories)
   - DTK_MICROSEC, DTK_MILLISEC, DTK_SECOND, DTK_MINUTE, DTK_MONTH, DTK_QUARTER (oscillating units)
   - DTK_HOUR, DTK_DAY, DTK_YEAR, DTK_DECADE, DTK_CENTURY, DTK_MILLENNIUM, DTK_EPOCH (monotonic units)
   - INTERVALOID (for error formatting)
 - Called from:
-  - interval_part_common
+  - [interval_part_common](../i/interval_part_common.md)
 
 ## Notes and Other Information
 The function distinguishes between oscillating units (which have no meaningful infinite value and return 0 to indicate NULL) and monotonically-increasing units (which can meaningfully be infinite). This design choice reflects the mathematical properties of these time units when applied to infinite intervals. Error messages are carefully crafted to match those in calling functions to ensure consistent user experience.

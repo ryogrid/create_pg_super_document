@@ -25,14 +25,14 @@ The function supports five object types for default ACLs: relations (tables), se
   - ObjectAddressSet
   - strVal/linitial/lsecond/lthird (list manipulation and string value extraction)
   - list_length
-  - SearchSysCache1/SearchSysCache3 (AUTHNAME and DEFACLROLENSPOBJ cache lookups)
-  - get_namespace_oid (schema name to OID resolution)
-  - CStringGetDatum/ObjectIdGetDatum/CharGetDatum (datum conversion)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/SearchSysCache3 (AUTHNAME and DEFACLROLENSPOBJ cache lookups)
+  - [get_namespace_oid](get_namespace_oid.md) (schema name to OID resolution)
+  - [CStringGetDatum](../C/CStringGetDatum.md)/ObjectIdGetDatum/CharGetDatum (datum conversion)
   - Form_pg_authid/Form_pg_default_acl (catalog tuple access)
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - DEFACLOBJ_* constants (RELATION, SEQUENCE, FUNCTION, TYPE, NAMESPACE)
 - Called from (representative examples):
-  - get_object_address (main object address resolution dispatcher)
+  - [get_object_address](get_object_address.md) (main object address resolution dispatcher)
   - object_type_map (object type mapping table)
 
 ## Notes and Other Information

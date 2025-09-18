@@ -21,13 +21,13 @@ The function delegates the actual copying to the  stored in the hash table's par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_table (structure accessed)
+  - [dshash_table](../d/dshash_table.md) (structure accessed)
   - hash_table->params.copy_function (function pointer called)
   - hash_table->params.key_size (field accessed)
   - hash_table->arg (field accessed)
 - Called from (representative examples):
   - BUCKET_FOR_HASH (at src/backend/lib/dshash.c:189)
-  - insert_into_bucket (at src/backend/lib/dshash.c:997)
+  - [insert_into_bucket](../i/insert_into_bucket.md) (at src/backend/lib/dshash.c:997)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the dshash.c file and is likely to be inlined by the compiler for performance

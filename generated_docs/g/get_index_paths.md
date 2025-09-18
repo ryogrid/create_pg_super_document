@@ -28,12 +28,12 @@ For ScalarArrayOpExpr clauses that cannot be handled natively by the index AM, t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_index_paths
-  - add_path
-  - list_concat
+  - [build_index_paths](../b/build_index_paths.md)
+  - [add_path](../a/add_path.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - create_index_paths
-  - get_join_index_paths
+  - [create_index_paths](../c/create_index_paths.md)
+  - [get_join_index_paths](get_join_index_paths.md)
 
 ## Notes and Other Information
 - The function handles the complexity of ScalarArrayOpExpr support, which varies by index access method

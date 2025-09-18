@@ -19,7 +19,7 @@ This SQL-callable function provides access to the background writer's throttling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_bgwriter
+  - [pgstat_fetch_stat_bgwriter](pgstat_fetch_stat_bgwriter.md)
   - PG_RETURN_INT64
 - Called from (representative examples):
   - SQL queries via the PostgreSQL function call interface

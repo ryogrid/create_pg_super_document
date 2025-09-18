@@ -20,14 +20,14 @@ The restored snapshot is marked as 'copied' to indicate it was reconstructed fro
 ## Dependencies
 - Functions called/Symbols referenced:
   - SerializedSnapshotData (struct type for deserialization)
-  - SnapshotData (target snapshot structure)
-  - MemoryContextAlloc (for allocating snapshot memory)
+  - [SnapshotData](../S/SnapshotData.md) (target snapshot structure)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for allocating snapshot memory)
   - SNAPSHOT_MVCC (snapshot type constant)
   - memcpy (for copying data from serialized format)
 - Called from (representative examples):
-  - index_beginscan_parallel (parallel index scanning initialization)
-  - table_beginscan_parallel (parallel table scanning initialization)
-  - ParallelWorkerMain (parallel worker process startup)
+  - [index_beginscan_parallel](../i/index_beginscan_parallel.md) (parallel index scanning initialization)
+  - [table_beginscan_parallel](../t/table_beginscan_parallel.md) (parallel table scanning initialization)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel worker process startup)
 
 ## Notes and Other Information
 - Memory is allocated in TopTransactionContext with initial reference counts set to 0

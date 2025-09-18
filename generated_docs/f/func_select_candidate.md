@@ -30,14 +30,14 @@ The function handles domain types by reducing them to base types, ensuring consi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType (reduces domain types to base types)
-  - TypeCategory (determines type category for categorization)
-  - IsPreferredType (checks if a type is preferred in its category)
-  - get_type_category_preferred (gets both category and preference info)
-  - can_coerce_type (validates type coercion compatibility)
+  - [getBaseType](../g/getBaseType.md) (reduces domain types to base types)
+  - [TypeCategory](../T/TypeCategory.md) (determines type category for categorization)
+  - [IsPreferredType](../I/IsPreferredType.md) (checks if a type is preferred in its category)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md) (gets both category and preference info)
+  - [can_coerce_type](../c/can_coerce_type.md) (validates type coercion compatibility)
 - Called from (representative examples):
-  - func_get_detail (from parse_func.c:1562)
-  - oper_select_candidate (from parse_oper.c:342)
+  - [func_get_detail](func_get_detail.md) (from parse_func.c:1562)
+  - [oper_select_candidate](../o/oper_select_candidate.md) (from parse_oper.c:342)
 
 ## Notes and Other Information
 - Returns the selected candidate or NULL if no unique best match exists

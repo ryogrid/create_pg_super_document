@@ -21,13 +21,13 @@ This function retrieves and formats the default value of a function argument bas
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc
-  - get_func_arg_info
-  - is_input_argument (called twice)
-  - SysCacheGetAttr
+  - [get_func_arg_info](../g/get_func_arg_info.md)
+  - [is_input_argument](../i/is_input_argument.md) (called twice)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - TextDatumGetCString
-  - stringToNode
-  - list_nth
-  - deparse_expression
+  - [stringToNode](../s/stringToNode.md)
+  - [list_nth](../l/list_nth.md)
+  - [deparse_expression](../d/deparse_expression.md)
   - string_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

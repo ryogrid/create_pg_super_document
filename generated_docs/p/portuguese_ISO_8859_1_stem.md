@@ -31,15 +31,15 @@ The function uses a state machine approach with backtracking, where different su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude (line 880): Character normalization and preprocessing
-  - r_mark_regions (line 886): Identifies R1, R2, and RV regions
-  - r_standard_suffix (line 895): Main suffix removal logic
-  - r_verb_suffix (line 902): Verb-specific suffix handling
-  - r_RV (line 919): Boundary checking for RV region
-  - r_residual_suffix (line 933): Handles remaining suffix patterns
-  - r_residual_form (line 943): Processes residual word forms
-  - r_postlude (line 950): Final character transformations
-  - slice_del: String deletion utility (called inline)
+  - [r_prelude](../r/r_prelude.md) (line 880): Character normalization and preprocessing
+  - [r_mark_regions](../r/r_mark_regions.md) (line 886): Identifies R1, R2, and RV regions
+  - [r_standard_suffix](../r/r_standard_suffix.md) (line 895): Main suffix removal logic
+  - [r_verb_suffix](../r/r_verb_suffix.md) (line 902): Verb-specific suffix handling
+  - [r_RV](../r/r_RV.md) (line 919): Boundary checking for RV region
+  - [r_residual_suffix](../r/r_residual_suffix.md) (line 933): Handles remaining suffix patterns
+  - [r_residual_form](../r/r_residual_form.md) (line 943): Processes residual word forms
+  - [r_postlude](../r/r_postlude.md) (line 950): Final character transformations
+  - [slice_del](../s/slice_del.md): String deletion utility (called inline)
 - Called from:
   - External stemming interface (not referenced within this codebase)
 

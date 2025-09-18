@@ -21,14 +21,14 @@ Restriction estimators are used by the query planner to estimate what fraction o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName (function lookup with signature verification)
-  - get_func_rettype (return type validation)
-  - object_aclcheck (permission checking)
-  - aclcheck_error (error reporting for permission failures)
-  - NameListToString (function name formatting for error messages)
+  - [LookupFuncName](../L/LookupFuncName.md) (function lookup with signature verification)
+  - [get_func_rettype](../g/get_func_rettype.md) (return type validation)
+  - [object_aclcheck](../o/object_aclcheck.md) (permission checking)
+  - [aclcheck_error](../a/aclcheck_error.md) (error reporting for permission failures)
+  - [NameListToString](../N/NameListToString.md) (function name formatting for error messages)
 - Called from (representative examples):
-  - DefineOperator (during operator creation)
-  - AlterOperator (during operator modification)
+  - [DefineOperator](../D/DefineOperator.md) (during operator creation)
+  - [AlterOperator](../A/AlterOperator.md) (during operator modification)
 
 ## Notes and Other Information
 - The function is static and only used within operatorcmds.c

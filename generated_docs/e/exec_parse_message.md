@@ -25,16 +25,16 @@ The function performs comprehensive validation including transaction state check
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_parse_query (basic SQL parsing)
-  - CreateCachedPlan (creates cached plan source)
-  - pg_analyze_and_rewrite_varparams (semantic analysis and query rewriting)
-  - CompleteCachedPlan (finalizes the cached plan)
-  - StorePreparedStatement (stores named prepared statements)
-  - check_log_duration (duration logging)
-  - start_xact_command (transaction management)
-  - pgstat_report_activity (activity reporting)
+  - [pg_parse_query](../p/pg_parse_query.md) (basic SQL parsing)
+  - [CreateCachedPlan](../C/CreateCachedPlan.md) (creates cached plan source)
+  - [pg_analyze_and_rewrite_varparams](../p/pg_analyze_and_rewrite_varparams.md) (semantic analysis and query rewriting)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md) (finalizes the cached plan)
+  - [StorePreparedStatement](../S/StorePreparedStatement.md) (stores named prepared statements)
+  - [check_log_duration](../c/check_log_duration.md) (duration logging)
+  - [start_xact_command](../s/start_xact_command.md) (transaction management)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (activity reporting)
 - Called from (representative examples):
-  - PostgresMain (main message processing loop)
+  - [PostgresMain](../P/PostgresMain.md) (main message processing loop)
 
 ## Notes and Other Information
 - Only allows single SQL statements per prepared statement to keep the protocol simple

@@ -21,7 +21,7 @@ The function also performs final cleanup of the PostgreSQL XML error context and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - xmlSetStructuredErrorFunc (libxml2)
   - xml_errorHandler
   - xmlXPathFreeCompExpr (libxml2)

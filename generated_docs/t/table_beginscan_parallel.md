@@ -21,7 +21,7 @@ This function creates a TableScanDesc for parallel scanning by coordinating with
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid
-  - RestoreSnapshot  
+  - [RestoreSnapshot](../R/RestoreSnapshot.md)  
   - RegisterSnapshot
   - SO_TYPE_SEQSCAN
   - SO_ALLOW_STRAT
@@ -30,10 +30,10 @@ This function creates a TableScanDesc for parallel scanning by coordinating with
   - SO_TEMP_SNAPSHOT
   - SnapshotAny
 - Called from (representative examples):
-  - _brin_parallel_scan_and_build
-  - _bt_parallel_scan_and_sort
-  - ExecSeqScanInitializeDSM
-  - ExecSeqScanInitializeWorker
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
+  - [ExecSeqScanInitializeDSM](../E/ExecSeqScanInitializeDSM.md)
+  - [ExecSeqScanInitializeWorker](../E/ExecSeqScanInitializeWorker.md)
 
 ## Notes and Other Information
 - The function validates that the relation ID matches the one stored in the parallel scan descriptor

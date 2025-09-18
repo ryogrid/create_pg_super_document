@@ -30,12 +30,12 @@ The function handles multiple SSL error states including:
   - SSL_get_error (OpenSSL function)
   - ERR_get_error (OpenSSL function)
   - ERR_clear_error (OpenSSL function)
-  - SSLerrmessage
+  - [SSLerrmessage](../S/SSLerrmessage.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - secure_write
+  - [secure_write](../s/secure_write.md)
 
 ## Notes and Other Information
 - The function returns the number of bytes written on success, or -1 on error with errno set appropriately

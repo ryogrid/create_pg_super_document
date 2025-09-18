@@ -21,23 +21,23 @@ This function prepares the visibility map for truncation to match a new heap siz
   - HEAPBLK_TO_MAPBLOCK
   - HEAPBLK_TO_MAPBYTE
   - HEAPBLK_TO_OFFSET
-  - smgrexists
+  - [smgrexists](../s/smgrexists.md)
   - RelationGetSmgr
-  - vm_readbuf
-  - PageGetContents
-  - LockBuffer
+  - [vm_readbuf](vm_readbuf.md)
+  - [PageGetContents](../P/PageGetContents.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - MemSet
   - MarkBufferDirty
   - RelationNeedsWAL
   - XLogHintBitIsNeeded
-  - log_newpage_buffer
-  - UnlockReleaseBuffer
+  - [log_newpage_buffer](../l/log_newpage_buffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - smgrnblocks
   - VISIBILITYMAP_FORKNUM
   - MAPSIZE
 - Called from (representative examples):
-  - RelationTruncate
-  - smgr_redo
+  - [RelationTruncate](../R/RelationTruncate.md)
+  - [smgr_redo](../s/smgr_redo.md)
 
 ## Notes and Other Information
 - Returns InvalidBlockNumber if no truncation is needed, otherwise returns the number of blocks in the new visibility map

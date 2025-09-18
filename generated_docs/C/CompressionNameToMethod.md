@@ -22,7 +22,7 @@ This function maps string names of compression methods to their internal numeric
   - NO_LZ4_SUPPORT
   - InvalidCompressionMethod
 - Called from (representative examples):
-  - GetAttributeCompression
+  - [GetAttributeCompression](../G/GetAttributeCompression.md)
   - CompressionMethodIsValid
 
 ## Notes and Other Information

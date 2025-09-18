@@ -28,14 +28,14 @@ The function is designed to be potentially wasteful in terms of initialization (
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for AppendState creation)
-  - ExecInitPartitionPruning (for partition pruning setup)
-  - ExecInitResultTupleSlotTL (for result tuple slot initialization)
-  - ExecInitNode (for recursive subplan initialization)
-  - bms_num_members, bms_add_range, bms_next_member, bms_add_member (bitmap set operations)
-  - classify_matching_subplans (for async plan classification)
-  - choose_next_subplan_locally (default subplan selection strategy)
+  - [ExecInitPartitionPruning](ExecInitPartitionPruning.md) (for partition pruning setup)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (for result tuple slot initialization)
+  - [ExecInitNode](ExecInitNode.md) (for recursive subplan initialization)
+  - [bms_num_members](../b/bms_num_members.md), bms_add_range, bms_next_member, bms_add_member (bitmap set operations)
+  - [classify_matching_subplans](../c/classify_matching_subplans.md) (for async plan classification)
+  - [choose_next_subplan_locally](../c/choose_next_subplan_locally.md) (default subplan selection strategy)
 - Called from (representative examples):
-  - ExecInitNode (main executor initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (main executor initialization dispatcher)
 
 ## Notes and Other Information
 - The function asserts that EXEC_FLAG_MARK is not set, as Append nodes do not support mark/restore functionality

@@ -22,11 +22,11 @@ The function delegates the actual scanning work to ExecScan, passing TidRangeNex
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for casting PlanState to TidRangeScanState)
-  - ExecScan (generic scan execution framework)
-  - TidRangeNext (access method for retrieving next tuple)
-  - TidRangeRecheck (recheck method for EvalPlanQual processing)
+  - [ExecScan](ExecScan.md) (generic scan execution framework)
+  - [TidRangeNext](../T/TidRangeNext.md) (access method for retrieving next tuple)
+  - [TidRangeRecheck](../T/TidRangeRecheck.md) (recheck method for EvalPlanQual processing)
 - Called from (representative examples):
-  - ExecInitTidRangeScan (during plan node initialization)
+  - [ExecInitTidRangeScan](ExecInitTidRangeScan.md) (during plan node initialization)
 
 ## Notes and Other Information
 - This function is declared as static, meaning it's only accessible within the nodeTidrangescan.c file

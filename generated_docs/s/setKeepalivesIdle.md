@@ -31,11 +31,11 @@ The keepalive idle timer is a critical component of TCP's dead connection detect
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqParseIntParam (for parsing integer connection parameters)
+  - [pqParseIntParam](../p/pqParseIntParam.md) (for parsing integer connection parameters)
   - PG_TCP_KEEPALIVE_IDLE (platform-specific socket option constant)
   - PG_TCP_KEEPALIVE_IDLE_STR (string representation for error messages)
   - SOCK_ERRNO, SOCK_STRERROR (error handling macros)
-  - libpq_append_conn_error (for error message reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error message reporting)
 - Called from (representative examples):
   - CONNECTION_FAILED (during connection setup and socket configuration)
 

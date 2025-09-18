@@ -21,16 +21,16 @@ The structure is typically populated once per function call context and reused a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeCacheEntry (type cache system)
-  - FmgrInfo (function manager system)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (type cache system)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager system)
   - Oid (object identifier system)
 
 - Called from (representative examples):
-  - multirange_in
-  - multirange_out  
-  - multirange_recv
-  - multirange_send
-  - get_multirange_io_data
+  - [multirange_in](../m/multirange_in.md)
+  - [multirange_out](../m/multirange_out.md)  
+  - [multirange_recv](../m/multirange_recv.md)
+  - [multirange_send](../m/multirange_send.md)
+  - [get_multirange_io_data](../g/get_multirange_io_data.md)
 
 ## Notes and Other Information
 - This structure is used as a performance optimization in the fn_extra cache mechanism

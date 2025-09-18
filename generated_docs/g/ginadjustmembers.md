@@ -28,7 +28,7 @@ The dependency configuration ensures proper catalog management and prevents issu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpFamilyMember (struct access)
+  - [OpFamilyMember](../O/OpFamilyMember.md) (struct access)
   - GIN_EXTRACTVALUE_PROC
   - GIN_EXTRACTQUERY_PROC
   - GIN_COMPARE_PROC
@@ -38,7 +38,7 @@ The dependency configuration ensures proper catalog management and prevents issu
   - GIN_OPTIONS_PROC
   - ereport
 - Called from (representative examples):
-  - ginhandler (src/backend/access/gin/ginutil.c:76)
+  - [ginhandler](ginhandler.md) (src/backend/access/gin/ginutil.c:76)
 
 ## Notes and Other Information
 - This function modifies OpFamilyMember structures in-place by setting dependency flags

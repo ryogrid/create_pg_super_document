@@ -28,7 +28,7 @@ The function handles error conditions based on the noError parameter and returns
   - PG_GETARG_INT32 (macro for extracting integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validates source and target encodings)
-  - big52euc_tw (performs the actual character conversion)
+  - [big52euc_tw](big52euc_tw.md) (performs the actual character conversion)
   - PG_RETURN_INT32 (macro for returning integer result)
   - PG_BIG5 (encoding constant)
   - PG_EUC_TW (encoding constant)

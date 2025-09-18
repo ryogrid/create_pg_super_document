@@ -26,15 +26,15 @@ RelInfo is a fundamental data structure in pg_upgrade that encapsulates all esse
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid
-  - RelFileNumber
+  - [RelFileNumber](RelFileNumber.md)
 - Called from (representative examples):
-  - gen_db_file_maps
-  - create_rel_filename_map
-  - report_unmatched_relation
-  - get_rel_infos
+  - [gen_db_file_maps](../g/gen_db_file_maps.md)
+  - [create_rel_filename_map](../c/create_rel_filename_map.md)
+  - [report_unmatched_relation](../r/report_unmatched_relation.md)
+  - [get_rel_infos](../g/get_rel_infos.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for pg_upgrade utility and should not be confused with similar structures used in the main PostgreSQL server
 - The memory management flags (nsp_alloc, tblsp_alloc) are important for proper cleanup during the upgrade process
 - The structure handles special relation types like indexes and TOAST tables through the indtable and toastheap fields
-- RelFileNumber type is used instead of plain integers for better type safety in file operations
+- [RelFileNumber](RelFileNumber.md) type is used instead of plain integers for better type safety in file operations

@@ -27,13 +27,13 @@ The threshold-based flushing in pipeline mode allows multiple small commands to 
 - Functions called/Symbols referenced:
   - PQ_PIPELINE_ON (pipeline status constant indicating active pipeline mode)
   - OUTBUFFER_THRESHOLD (buffer size threshold for triggering flush in pipeline mode)
-  - pqFlush (underlying flush function)
+  - [pqFlush](pqFlush.md) (underlying flush function)
 - Called from (representative examples):
-  - PQsendPrepare (when sending prepared statement definitions)
-  - PQsendQueryGuts (core query sending implementation)
-  - PQsendTypedCommand (when sending typed commands)
-  - pqPipelineSyncInternal (internal pipeline synchronization)
-  - PQsendFlushRequest (when explicitly requesting flush)
+  - [PQsendPrepare](../P/PQsendPrepare.md) (when sending prepared statement definitions)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md) (core query sending implementation)
+  - [PQsendTypedCommand](../P/PQsendTypedCommand.md) (when sending typed commands)
+  - [pqPipelineSyncInternal](pqPipelineSyncInternal.md) (internal pipeline synchronization)
+  - [PQsendFlushRequest](../P/PQsendFlushRequest.md) (when explicitly requesting flush)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public libpq API

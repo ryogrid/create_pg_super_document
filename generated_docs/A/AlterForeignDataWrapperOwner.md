@@ -23,14 +23,14 @@ This function serves as the public interface for changing a foreign data wrapper
   - Form_pg_foreign_data_wrapper (structure for catalog tuple data)
   - table_open (opens catalog table with specified lock mode)
   - SearchSysCacheCopy1 (searches system cache and returns copy of tuple)
-  - CStringGetDatum (converts C string to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - HeapTupleIsValid (checks if tuple is valid)
-  - AlterForeignDataWrapperOwner_internal (performs the actual ownership change)
+  - [AlterForeignDataWrapperOwner_internal](AlterForeignDataWrapperOwner_internal.md) (performs the actual ownership change)
   - ObjectAddressSet (sets up ObjectAddress structure)
-  - heap_freetuple (frees memory allocated for tuple)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees memory allocated for tuple)
   - table_close (closes catalog table and releases lock)
 - Called from (representative examples):
-  - ExecAlterOwnerStmt (src/backend/commands/alter.c:844)
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md) (src/backend/commands/alter.c:844)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock to prevent concurrent modifications to the same foreign data wrapper

@@ -34,18 +34,18 @@ Key capabilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClearPgItmIn - initializes the interval structure
+  - [ClearPgItmIn](../C/ClearPgItmIn.md) - initializes the interval structure
   - DecodeTimeForInterval - parses time notation (HH:MM:SS)
   - strtoi64, strtoint - string to integer conversion
   - ParseFraction - parses fractional components
   - AdjustYears, AdjustMonths, AdjustDays, AdjustMicroseconds - adjust interval components
   - AdjustFractYears, AdjustFractDays, AdjustFractMicroseconds - adjust fractional components
-  - DecodeUnits, DecodeSpecial - decode unit names and special keywords
-  - pg_mul_s64_overflow, pg_add_s64_overflow - overflow-safe arithmetic
+  - [DecodeUnits](DecodeUnits.md), DecodeSpecial - decode unit names and special keywords
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md), pg_add_s64_overflow - overflow-safe arithmetic
   - Constants: DTK_DELTA, DTK_TIME, DTK_NUMBER, DTK_STRING, DTK_SPECIAL, USECS_PER_SEC, USECS_PER_MINUTE, USECS_PER_HOUR, USECS_PER_DAY, DAYS_PER_MONTH, MONTHS_PER_YEAR
 - Called from:
-  - interval_in (src/backend/utils/adt/timestamp.c:933)
-  - PGTYPESinterval_from_asc (src/interfaces/ecpg/pgtypeslib/interval.c:1032)
+  - [interval_in](../i/interval_in.md) (src/backend/utils/adt/timestamp.c:933)
+  - [PGTYPESinterval_from_asc](../P/PGTYPESinterval_from_asc.md) (src/interfaces/ecpg/pgtypeslib/interval.c:1032)
 
 ## Notes and Other Information
 - Returns 0 on success, or a DTERR error code for invalid input

@@ -22,9 +22,9 @@ This function serves as a gate-keeper for query logging in PostgreSQL's error an
   - log_min_error_statement (global configuration variable)
   - debug_query_string (global variable containing current query string)
 - Called from (representative examples):
-  - write_csvlog (src/backend/utils/error/csvlog.c:199)
-  - send_message_to_server_log (src/backend/utils/error/elog.c:3279)
-  - write_jsonlog (src/backend/utils/error/jsonlog.c:244)
+  - [write_csvlog](../w/write_csvlog.md) (src/backend/utils/error/csvlog.c:199)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md) (src/backend/utils/error/elog.c:3279)
+  - [write_jsonlog](../w/write_jsonlog.md) (src/backend/utils/error/jsonlog.c:244)
 
 ## Notes and Other Information
 - Returns false if any of the three conditions fail: insufficient log level, hidden statement flag set, or missing query string

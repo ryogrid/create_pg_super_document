@@ -23,19 +23,19 @@ PQconnectStartParams is the foundational function for creating asynchronous Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqMakeEmptyPGconn
-  - conninfo_array_parse
-  - fillPGconn
-  - PQconninfoFree
+  - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)
+  - [conninfo_array_parse](../c/conninfo_array_parse.md)
+  - [fillPGconn](../f/fillPGconn.md)
+  - [PQconninfoFree](PQconninfoFree.md)
   - pqConnectOptions2
-  - pqConnectDBStart
+  - [pqConnectDBStart](../p/pqConnectDBStart.md)
   - CONNECTION_BAD (status constant)
-  - PQconninfoOption (structure type)
+  - [PQconninfoOption](PQconninfoOption.md) (structure type)
 - Called from (representative examples):
-  - libpqrcv_connect (libpqwalreceiver.c)
-  - do_connect (psql command.c)
-  - PQconnectdbParams (fe-connect.c)
-  - PQpingParams (fe-connect.c)
+  - [libpqrcv_connect](../l/libpqrcv_connect.md) (libpqwalreceiver.c)
+  - [do_connect](../d/do_connect.md) (psql command.c)
+  - [PQconnectdbParams](PQconnectdbParams.md) (fe-connect.c)
+  - [PQpingParams](PQpingParams.md) (fe-connect.c)
 
 ## Notes and Other Information
 - Returns immediately - use PQconnectPoll with select() to monitor connection progress

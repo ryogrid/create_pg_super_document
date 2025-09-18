@@ -44,7 +44,7 @@ For special values (NaN, positive/negative infinity), only the sign field matter
 - Primary format for internal arithmetic operations, not for storage
 - Allows extra space between buf and digits for carry operations without reallocation
 - Display scale (dscale) expressed in decimal digits, may need conversion to NBASE digits
-- Variable-level functions support in-place operations where input and output can be the same
+- [Variable](../V/Variable.md)-level functions support in-place operations where input and output can be the same
 - Supports special values (NaN, infinity) through sign field with zero digits
 - More flexible than storage formats but uses more memory per value
 - Critical for PostgreSQL's high-precision decimal arithmetic implementation

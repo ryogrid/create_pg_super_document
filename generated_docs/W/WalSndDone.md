@@ -29,12 +29,12 @@ This careful verification prevents data loss during shutdown by ensuring the cli
   - XLogRecPtrIsInvalid
   - pq_is_send_pending
   - SetQueryCompletion
-  - EndCommand
+  - [EndCommand](../E/EndCommand.md)
   - pq_flush
-  - proc_exit
-  - WalSndKeepalive
+  - [proc_exit](../p/proc_exit.md)
+  - [WalSndKeepalive](WalSndKeepalive.md)
 - Called from (representative examples):
-  - WalSndLoop
+  - [WalSndLoop](WalSndLoop.md)
 
 ## Notes and Other Information
 - Should only be called when a shutdown signal has been received from postmaster

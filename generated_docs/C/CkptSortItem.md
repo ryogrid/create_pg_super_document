@@ -26,12 +26,12 @@ Since this structure is allocated per buffer in shared memory, it is kept as sma
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (type for tablespace ID)
-  - RelFileNumber (type for relation identification)
-  - ForkNumber (type for fork identification)
+  - [RelFileNumber](../R/RelFileNumber.md) (type for relation identification)
+  - [ForkNumber](../F/ForkNumber.md) (type for fork identification)
   - BlockNumber (type for block identification)
 - Called from (representative examples):
   - BufferSync (for checkpoint buffer sorting)
-  - ckpt_buforder_comparator (for comparing and sorting items)
+  - [ckpt_buforder_comparator](../c/ckpt_buforder_comparator.md) (for comparing and sorting items)
   - InitBufferPool (for initialization of sort structures)
   - BufferShmemSize (for shared memory size calculations)
 

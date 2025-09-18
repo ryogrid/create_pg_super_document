@@ -20,11 +20,11 @@ This function adds an ephemeral named relation to a query environment's list of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ENR (to check for duplicate names)
+  - [get_ENR](../g/get_ENR.md) (to check for duplicate names)
   - lappend (PostgreSQL list manipulation function)
   - Assert (for parameter validation)
 - Called from (representative examples):
-  - SPI_register_relation
+  - [SPI_register_relation](../S/SPI_register_relation.md)
 
 ## Notes and Other Information
 - The function includes assertions to validate that enr is not NULL and no duplicate name exists

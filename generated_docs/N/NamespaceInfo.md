@@ -27,10 +27,10 @@ The structure is populated by the getNamespaces() function, which queries the pg
   - DumpableAcl (ACL data structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getNamespaces (creates and populates NamespaceInfo arrays)
-  - findNamespaceByOid (searches for NamespaceInfo by OID)
-  - selectDumpableNamespace (determines if namespace should be dumped)
-  - dumpNamespace (outputs CREATE SCHEMA statements)
+  - [getNamespaces](../g/getNamespaces.md) (creates and populates NamespaceInfo arrays)
+  - [findNamespaceByOid](../f/findNamespaceByOid.md) (searches for NamespaceInfo by OID)
+  - [selectDumpableNamespace](../s/selectDumpableNamespace.md) (determines if namespace should be dumped)
+  - [dumpNamespace](../d/dumpNamespace.md) (outputs CREATE SCHEMA statements)
   - fmtQualifiedDumpable (formats qualified object names)
 
 ## Notes and Other Information

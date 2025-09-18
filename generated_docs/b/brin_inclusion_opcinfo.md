@@ -17,14 +17,14 @@ This function is the opcinfo handler for BRIN inclusion operator classes. It all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
-  - palloc0
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [palloc0](../p/palloc0.md)
   - MAXALIGN
   - SizeofBrinOpcInfo
 - Data structures:
-  - BrinOpcInfo
-  - InclusionOpaque
-  - TypeCacheEntry
+  - [BrinOpcInfo](../B/BrinOpcInfo.md)
+  - [InclusionOpaque](../I/InclusionOpaque.md)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md)
 - Constants:
   - INCLUSION_UNION
   - INCLUSION_UNMERGEABLE 

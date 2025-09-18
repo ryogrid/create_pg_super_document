@@ -22,7 +22,7 @@ The  function calculates the arccosine of a value and returns the result in degr
   - asin_0_5 (cached constant for asin(0.5))
   - acos_0_5 (cached constant for acos(0.5))
 - Called from (representative examples):
-  - dacosd (at src/backend/utils/adt/float.c:2123)
+  - [dacosd](../d/dacosd.md) (at src/backend/utils/adt/float.c:2123)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/float.c:2074-2100

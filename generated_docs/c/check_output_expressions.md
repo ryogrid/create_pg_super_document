@@ -30,12 +30,12 @@ The unsafeFlags array is indexed by column position (resno) and uses bitwise fla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_returns_set: Determines if an expression returns multiple rows/values
-  - contain_volatile_functions: Detects presence of volatile functions in expressions
-  - targetIsInSortList: Checks if a target entry appears in DISTINCT ON clause
-  - targetIsInAllPartitionLists: Verifies target entry appears in all window PARTITION BY clauses
+  - [expression_returns_set](../e/expression_returns_set.md): Determines if an expression returns multiple rows/values
+  - [contain_volatile_functions](contain_volatile_functions.md): Detects presence of volatile functions in expressions
+  - [targetIsInSortList](../t/targetIsInSortList.md): Checks if a target entry appears in DISTINCT ON clause
+  - [targetIsInAllPartitionLists](../t/targetIsInAllPartitionLists.md): Verifies target entry appears in all window PARTITION BY clauses
 - Called from (representative examples):
-  - subquery_is_pushdown_safe: During leaf query safety analysis
+  - [subquery_is_pushdown_safe](../s/subquery_is_pushdown_safe.md): During leaf query safety analysis
 
 ## Notes and Other Information
 - Implements fine-grained column-level safety tracking rather than query-level rejection

@@ -32,12 +32,12 @@ This function is crucial for Russian text processing because adjectives are high
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (pattern matching function using suffix list a_1)
-  - slice_del (removes the identified adjectival suffix)
+  - [find_among_b](../f/find_among_b.md) (pattern matching function using suffix list a_1)
+  - [slice_del](../s/slice_del.md) (removes the identified adjectival suffix)
   - a_1 (array containing 26 Russian adjectival patterns)
 - Called from (representative examples):
-  - r_adjectival (higher-level function that calls this for adjectival processing)
-  - armenian_UTF_8_stem (Armenian stemmer that uses similar adjective logic)
+  - [r_adjectival](r_adjectival.md) (higher-level function that calls this for adjectival processing)
+  - [armenian_UTF_8_stem](../a/armenian_UTF_8_stem.md) (Armenian stemmer that uses similar adjective logic)
 
 ## Notes and Other Information
 - The bit manipulation (z->p[z->c - 1] >> 5 != 6 and 2271009 >> ...) provides optimized character range checking for Cyrillic script

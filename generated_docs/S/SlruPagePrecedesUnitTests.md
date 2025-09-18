@@ -27,11 +27,11 @@ Note that this testing framework does not apply to all SLRU types - specifically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruPagePrecedesTestOffset (called three times with different offsets)
+  - [SlruPagePrecedesTestOffset](SlruPagePrecedesTestOffset.md) (called three times with different offsets)
 - Called from (representative examples):
-  - CLOGShmemInit (CLOG initialization)
+  - [CLOGShmemInit](../C/CLOGShmemInit.md) (CLOG initialization)
   - CommitTsShmemInit (Commit timestamp initialization) 
-  - MultiXactShmemInit (MultiXact initialization)
+  - [MultiXactShmemInit](../M/MultiXactShmemInit.md) (MultiXact initialization)
   - SUBTRANSShmemInit (Subtransaction initialization)
   - SerialInit (Serializable snapshot initialization)
 

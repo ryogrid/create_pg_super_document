@@ -22,13 +22,13 @@ oprid is a utility function that extracts the OID from an operator tuple (HeapTu
   - Form_pg_operator
   - GETSTRUCT
 - Called from (representative examples):
-  - inclusion_get_strategy_procinfo
-  - minmax_get_strategy_procinfo
-  - OperatorIsVisible
-  - compatible_oper_opid
-  - make_op
-  - regoperout
-  - dumpOpr
+  - [inclusion_get_strategy_procinfo](../i/inclusion_get_strategy_procinfo.md)
+  - [minmax_get_strategy_procinfo](../m/minmax_get_strategy_procinfo.md)
+  - [OperatorIsVisible](../O/OperatorIsVisible.md)
+  - [compatible_oper_opid](../c/compatible_oper_opid.md)
+  - [make_op](../m/make_op.md)
+  - [regoperout](../r/regoperout.md)
+  - [dumpOpr](../d/dumpOpr.md)
 
 ## Notes and Other Information
 - Simple accessor function providing abstraction over tuple structure access

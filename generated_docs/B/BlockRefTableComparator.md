@@ -25,7 +25,7 @@ The function returns standard comparator values: negative for a < b, zero for a 
   - BlockRefTableSerializedEntry (structure)
 - Called from (representative examples):
   - BlockRefTableWriter
-  - WriteBlockRefTable
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the blkreftable.c module

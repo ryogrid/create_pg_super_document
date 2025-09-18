@@ -22,7 +22,7 @@ This function implements the SQL standard bit string substring operation as spec
 - Functions called/Symbols referenced:
   - PG_GETARG_VARBIT_P (extracts VarBit argument)
   - PG_GETARG_INT32 (extracts integer arguments)
-  - bitsubstring (performs actual substring extraction with false flag)
+  - [bitsubstring](bitsubstring.md) (performs actual substring extraction with false flag)
   - PG_RETURN_VARBIT_P (returns VarBit result)
 - Called from:
   - No direct references found (likely called via SQL function dispatch)

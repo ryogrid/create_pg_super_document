@@ -24,12 +24,12 @@ The function iterates through the entire list starting from the head's next poin
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Called from (representative examples):
-  - dlist_delete_from
-  - dlist_delete_from_thoroughly
-  - dclist_insert_after
-  - dclist_insert_before
-  - dclist_move_head
-  - dclist_move_tail
+  - [dlist_delete_from](dlist_delete_from.md)
+  - [dlist_delete_from_thoroughly](dlist_delete_from_thoroughly.md)
+  - [dclist_insert_after](dclist_insert_after.md)
+  - [dclist_insert_before](dclist_insert_before.md)
+  - [dclist_move_head](dclist_move_head.md)
+  - [dclist_move_tail](dclist_move_tail.md)
 
 ## Notes and Other Information
 - **Performance**: This is an O(n) operation as it may need to traverse the entire list to find the node or determine it's not present

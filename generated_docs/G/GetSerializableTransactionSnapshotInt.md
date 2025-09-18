@@ -29,16 +29,16 @@ The function includes sophisticated race condition handling, particularly for im
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreatePredXact (creates new SERIALIZABLEXACT structure)
-  - GetSnapshotData (obtains new snapshot data)
-  - ProcArrayInstallImportedXmin (validates imported snapshots)
-  - GetTopTransactionIdIfAny (gets current transaction ID if assigned)
-  - CreateLocalPredicateLockHash (initializes local predicate lock tracking)
+  - [CreatePredXact](../C/CreatePredXact.md) (creates new SERIALIZABLEXACT structure)
+  - [GetSnapshotData](GetSnapshotData.md) (obtains new snapshot data)
+  - [ProcArrayInstallImportedXmin](../P/ProcArrayInstallImportedXmin.md) (validates imported snapshots)
+  - [GetTopTransactionIdIfAny](GetTopTransactionIdIfAny.md) (gets current transaction ID if assigned)
+  - [CreateLocalPredicateLockHash](../C/CreateLocalPredicateLockHash.md) (initializes local predicate lock tracking)
   - Various conflict tracking functions (SetPossibleUnsafeConflict, SxactIsCommitted, etc.)
-  - TransactionIdFollows, TransactionIdEquals (transaction ID comparison utilities)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md), TransactionIdEquals (transaction ID comparison utilities)
 - Called from (representative examples):
-  - GetSerializableTransactionSnapshot (for new snapshots)
-  - SetSerializableTransactionSnapshot (for imported snapshots)
+  - [GetSerializableTransactionSnapshot](GetSerializableTransactionSnapshot.md) (for new snapshots)
+  - [SetSerializableTransactionSnapshot](../S/SetSerializableTransactionSnapshot.md) (for imported snapshots)
   - GetSafeSnapshot (for deferrable read-only transactions)
 
 ## Notes and Other Information

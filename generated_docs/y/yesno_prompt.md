@@ -30,9 +30,9 @@ The prompt format includes the question followed by the localized yes/no options
   - PG_NOLETTER
   - _ (gettext macro for translation)
 - Called from (representative examples):
-  - main (in createuser.c)
-  - main (in dropdb.c) 
-  - main (in dropuser.c)
+  - [main](../m/main.md) (in createuser.c)
+  - [main](../m/main.md) (in dropdb.c) 
+  - [main](../m/main.md) (in dropuser.c)
 
 ## Notes and Other Information
 - The function supports internationalization through gettext translation macros

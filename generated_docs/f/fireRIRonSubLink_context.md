@@ -18,10 +18,10 @@ The  structure provides essential context information when processing RIR (Row-l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - fireRIRonSubLink
-  - fireRIRrules
+  - [fireRIRonSubLink](fireRIRonSubLink.md)
+  - [fireRIRrules](fireRIRrules.md)
 
 ## Notes and Other Information
 - Essential for preventing infinite recursion when RIR rules reference each other

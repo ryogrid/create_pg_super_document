@@ -20,16 +20,16 @@ The function uses a large if-else chain to handle each supported parameter, with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pset_quoted_string (for string parameter formatting)
-  - pset_bool_string (for boolean parameter formatting)
-  - psprintf (for integer formatting)
-  - pstrdup (for string duplication)
-  - _align2string (for format enum conversion)
-  - get_line_style (for line style information)
-  - _unicode_linestyle2string (for Unicode line style conversion)
+  - [pset_quoted_string](pset_quoted_string.md) (for string parameter formatting)
+  - [pset_bool_string](pset_bool_string.md) (for boolean parameter formatting)
+  - [psprintf](psprintf.md) (for integer formatting)
+  - [pstrdup](pstrdup.md) (for string duplication)
+  - [_align2string](../a/_align2string.md) (for format enum conversion)
+  - [get_line_style](../g/get_line_style.md) (for line style information)
+  - [_unicode_linestyle2string](../u/_unicode_linestyle2string.md) (for Unicode line style conversion)
   - snprintf (for custom formatting)
 - Called from (representative examples):
-  - exec_command_pset
+  - [exec_command_pset](../e/exec_command_pset.md)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

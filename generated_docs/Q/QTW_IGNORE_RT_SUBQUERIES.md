@@ -19,8 +19,8 @@ The flag is part of a broader set of QTW (Query Tree Walker) flags that provide 
 
 ## Dependencies
 - Used by: 
-  - range_table_entry_walker_impl (src/backend/nodes/nodeFuncs.c:2831)
-  - range_table_mutator_impl (src/backend/nodes/nodeFuncs.c:3863)
+  - [range_table_entry_walker_impl](../r/range_table_entry_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2831)
+  - [range_table_mutator_impl](../r/range_table_mutator_impl.md) (src/backend/nodes/nodeFuncs.c:3863)
 - Part of the QTW flag system defined in src/include/nodes/nodeFuncs.h
 
 ## Notes and Other Information

@@ -22,14 +22,14 @@ This function performs timestamp arithmetic by adding an interval to a timestamp
 ## Dependencies
 - Functions called/Symbols referenced:
   - TIMESTAMP_NOT_FINITE
-  - timestamp2tm
-  - tm2timestamp
+  - [timestamp2tm](../t/timestamp2tm.md)
+  - [tm2timestamp](../t/tm2timestamp.md)
   - isleap
   - MONTHS_PER_YEAR
   - day_tab
 - Called from (representative examples):
-  - PGTYPEStimestamp_sub_interval
-  - main (in test cases)
+  - [PGTYPEStimestamp_sub_interval](PGTYPEStimestamp_sub_interval.md)
+  - [main](../m/main.md) (in test cases)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

@@ -291,19 +291,19 @@ v_str ESTAB      0      0                                               *:633275
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - TIDBitmap
-  - TBMIterator
+  - [ScanState](../S/ScanState.md)
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [TBMIterator](../T/TBMIterator.md)
   - TBMIterateResult
-  - TBMSharedIterator
-  - ParallelBitmapHeapState
+  - [TBMSharedIterator](../T/TBMSharedIterator.md)
+  - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md)
 - Called from (representative examples):
-  - ExecBitmapHeapScan
-  - ExecInitBitmapHeapScan
-  - ExecEndBitmapHeapScan
-  - ExecReScanBitmapHeapScan
-  - BitmapHeapNext
-  - BitmapHeapRecheck
+  - [ExecBitmapHeapScan](../E/ExecBitmapHeapScan.md)
+  - [ExecInitBitmapHeapScan](../E/ExecInitBitmapHeapScan.md)
+  - [ExecEndBitmapHeapScan](../E/ExecEndBitmapHeapScan.md)
+  - [ExecReScanBitmapHeapScan](../E/ExecReScanBitmapHeapScan.md)
+  - [BitmapHeapNext](BitmapHeapNext.md)
+  - [BitmapHeapRecheck](BitmapHeapRecheck.md)
 
 ## Notes and Other Information
 - Critical component of PostgreSQL's bitmap scan strategy, complementing bitmap index scans

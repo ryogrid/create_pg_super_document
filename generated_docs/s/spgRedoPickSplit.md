@@ -27,23 +27,23 @@ The operation ensures atomicity and consistency during recovery by carefully ord
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - XLogRecHasBlockRef
-  - fillFakeState
+  - [fillFakeState](../f/fillFakeState.md)
   - XLogInitBufferForRedo
   - XLogReadBufferForRedo
-  - SpGistInitBuffer
-  - spgPageIndexMultiDelete
-  - addOrReplaceTuple
-  - spgUpdateNodeLink
-  - PageGetItem
-  - PageGetItemId
-  - PageSetLSN
+  - [SpGistInitBuffer](../S/SpGistInitBuffer.md)
+  - [spgPageIndexMultiDelete](spgPageIndexMultiDelete.md)
+  - [addOrReplaceTuple](../a/addOrReplaceTuple.md)
+  - [spgUpdateNodeLink](spgUpdateNodeLink.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferGetPage
-  - UnlockReleaseBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
-  - spg_redo (main SP-GiST redo dispatcher)
+  - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)
 
 ## Notes and Other Information
 - Handles multiple complex scenarios: root splits, page initialization, tuple redistribution

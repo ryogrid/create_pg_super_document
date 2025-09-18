@@ -29,12 +29,12 @@ The implementation handles cases where OFFSET or LIMIT expressions might not be 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create LimitPath node)
-  - adjust_limit_rows_costs (to adjust costs and row estimates based on limit/offset)
-  - LimitOption (limit behavior option type)
+  - [adjust_limit_rows_costs](../a/adjust_limit_rows_costs.md) (to adjust costs and row estimates based on limit/offset)
+  - [LimitOption](../L/LimitOption.md) (limit behavior option type)
 - Called from (representative examples):
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1815)
-  - create_partial_distinct_paths (src/backend/optimizer/plan/planner.c:5020)
-  - create_final_distinct_paths (src/backend/optimizer/plan/planner.c:5235)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1815)
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md) (src/backend/optimizer/plan/planner.c:5020)
+  - [create_final_distinct_paths](create_final_distinct_paths.md) (src/backend/optimizer/plan/planner.c:5235)
 
 ## Notes and Other Information
 - Preserves pathkeys (sort order) from the subpath since LIMIT/OFFSET don't change ordering

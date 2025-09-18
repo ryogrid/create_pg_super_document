@@ -18,21 +18,21 @@ This function looks up a user name from the PostgreSQL system catalog using the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - AUTHOID (catalog cache identifier)
-  - ObjectIdGetDatum (Oid to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (Oid to Datum conversion)
   - HeapTupleIsValid (tuple validation)
   - ereport (error reporting)
   - Form_pg_authid (pg_authid catalog structure)
   - GETSTRUCT (tuple structure extraction)
   - NameStr (Name to C string conversion)
-  - pstrdup (palloc'd string duplication)
-  - ReleaseSysCache (cache cleanup)
+  - [pstrdup](../p/pstrdup.md) (palloc'd string duplication)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
 - Called from (representative examples):
-  - getObjectDescription (in catalog object descriptions)
-  - current_user and session_user (in name functions)
-  - check_role_membership_authorization (in user commands)
-  - AddRoleMems and DelRoleMems (in role membership management)
+  - [getObjectDescription](../g/getObjectDescription.md) (in catalog object descriptions)
+  - [current_user](../c/current_user.md) and session_user (in name functions)
+  - [check_role_membership_authorization](../c/check_role_membership_authorization.md) (in user commands)
+  - [AddRoleMems](../A/AddRoleMems.md) and DelRoleMems (in role membership management)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

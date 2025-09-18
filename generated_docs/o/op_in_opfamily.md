@@ -20,14 +20,14 @@ This function provides a simple boolean check to determine if an operator identi
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3 (system cache lookup function)
   - AMOP_SEARCH (constant for search operator type)
-  - CharGetDatum (datum conversion function)
+  - [CharGetDatum](../C/CharGetDatum.md) (datum conversion function)
 - Called from (representative examples):
-  - IsBooleanOpfamily (src/backend/optimizer/path/indxpath.c:2285)
-  - match_opclause_to_indexcol (src/backend/optimizer/path/indxpath.c:2438, 2471)
-  - match_saopclause_to_indexcol (src/backend/optimizer/path/indxpath.c:2659)
-  - relation_has_unique_index_for (src/backend/optimizer/path/indxpath.c:3572)
-  - equality_ops_are_compatible (src/backend/utils/cache/lsyscache.c:723)
-  - comparison_ops_are_compatible (src/backend/utils/cache/lsyscache.c:772)
+  - [IsBooleanOpfamily](../I/IsBooleanOpfamily.md) (src/backend/optimizer/path/indxpath.c:2285)
+  - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md) (src/backend/optimizer/path/indxpath.c:2438, 2471)
+  - [match_saopclause_to_indexcol](../m/match_saopclause_to_indexcol.md) (src/backend/optimizer/path/indxpath.c:2659)
+  - [relation_has_unique_index_for](../r/relation_has_unique_index_for.md) (src/backend/optimizer/path/indxpath.c:3572)
+  - [equality_ops_are_compatible](../e/equality_ops_are_compatible.md) (src/backend/utils/cache/lsyscache.c:723)
+  - [comparison_ops_are_compatible](../c/comparison_ops_are_compatible.md) (src/backend/utils/cache/lsyscache.c:772)
 
 ## Notes and Other Information
 - The function only considers search operators, which are used for equality and comparison operations in index scans

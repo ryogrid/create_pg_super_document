@@ -20,15 +20,15 @@ The function respects the read-only status of the current procedure context and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context: Gets current execution context and procedure info
-  - PLy_spi_subtransaction_begin/commit/abort: Manages subtransaction lifecycle
-  - pg_verifymbstr: Validates string encoding
-  - SPI_execute: PostgreSQL SPI function for direct query execution
-  - PLy_spi_execute_fetch_result: Processes execution results into Python objects
-  - PLy_exception_set: Sets Python exceptions for error conditions
-  - SPI_result_code_string: Converts SPI result codes to readable strings
+  - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context and procedure info
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)/commit/abort: Manages subtransaction lifecycle
+  - [pg_verifymbstr](../p/pg_verifymbstr.md): Validates string encoding
+  - [SPI_execute](../S/SPI_execute.md): PostgreSQL SPI function for direct query execution
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md): Processes execution results into Python objects
+  - [PLy_exception_set](PLy_exception_set.md): Sets Python exceptions for error conditions
+  - [SPI_result_code_string](../S/SPI_result_code_string.md): Converts SPI result codes to readable strings
 - Called from (representative examples):
-  - PLy_spi_execute: When executing string queries through plpy.execute()
+  - [PLy_spi_execute](PLy_spi_execute.md): When executing string queries through plpy.execute()
 
 ## Notes and Other Information
 - This is a static function, only used internally within the plpy_spi.c module

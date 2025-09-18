@@ -25,16 +25,16 @@ The algorithm maintains loop invariants based on the nextkey parameter to ensure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetOpaque
   - P_ISLEAF
   - P_FIRSTDATAKEY
-  - PageGetMaxOffsetNumber
-  - _bt_compare
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [_bt_compare](_bt_compare.md)
   - OffsetNumberPrev
 - Called from (representative examples):
-  - _bt_search
-  - _bt_first
+  - [_bt_search](_bt_search.md)
+  - [_bt_first](_bt_first.md)
 
 ## Notes and Other Information
 Key behavioral aspects:

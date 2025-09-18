@@ -18,20 +18,20 @@ ExprEvalPushStep is a utility function responsible for appending evaluation step
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for initial memory allocation)
-  - repalloc (for expanding existing allocation)
+  - [palloc](../p/palloc.md) (for initial memory allocation)
+  - [repalloc](../r/repalloc.md) (for expanding existing allocation)
   - memcpy (for copying step data)
   - ExprEvalStep (structure type)
 - Called from (representative examples):
-  - ExecInitExpr
-  - ExecInitExprWithParams
-  - ExecInitQual
-  - ExecBuildProjectionInfo
-  - ExecBuildUpdateProjection
-  - ExecInitExprRec (extensively, for all expression node types)
-  - ExecBuildAggTrans
-  - ExecBuildGroupingEqual
-  - ExecInitJsonExpr
+  - [ExecInitExpr](ExecInitExpr.md)
+  - [ExecInitExprWithParams](ExecInitExprWithParams.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
+  - [ExecInitExprRec](ExecInitExprRec.md) (extensively, for all expression node types)
+  - [ExecBuildAggTrans](ExecBuildAggTrans.md)
+  - [ExecBuildGroupingEqual](ExecBuildGroupingEqual.md)
+  - [ExecInitJsonExpr](ExecInitJsonExpr.md)
 
 ## Notes and Other Information
 - Uses exponential growth strategy (doubling) for memory allocation efficiency

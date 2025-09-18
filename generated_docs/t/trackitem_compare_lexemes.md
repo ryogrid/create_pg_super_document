@@ -19,11 +19,11 @@ This function serves as a wrapper comparator that sorts TrackItem structures bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TrackItem (struct type)
-  - lexeme_compare (comparison function)
+  - [TrackItem](../T/TrackItem.md) (struct type)
+  - [lexeme_compare](../l/lexeme_compare.md) (comparison function)
   - LexemeHashKey (accessed via TrackItem key field)
 - Called from (representative examples):
-  - compute_tsvector_stats
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
 
 ## Notes and Other Information
 - Returns the result of lexeme_compare on the respective TrackItem keys

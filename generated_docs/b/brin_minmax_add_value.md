@@ -29,13 +29,13 @@ The function uses comparison operators specific to the data type, retrieved thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc (structure type)
-  - BrinValues (structure type) 
-  - datumCopy (function for copying datum values)
-  - minmax_get_strategy_procinfo (function to get comparison procedures)
+  - [BrinDesc](../B/BrinDesc.md) (structure type)
+  - [BrinValues](../B/BrinValues.md) (structure type) 
+  - [datumCopy](../d/datumCopy.md) (function for copying datum values)
+  - [minmax_get_strategy_procinfo](../m/minmax_get_strategy_procinfo.md) (function to get comparison procedures)
   - BTLessStrategyNumber (B-tree strategy constant)
   - BTGreaterStrategyNumber (B-tree strategy constant)
-  - FunctionCall2Coll (function call with collation)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (function call with collation)
   - PG_USED_FOR_ASSERTS_ONLY (debugging macro)
   - PG_GET_COLLATION (macro to get collation)
 

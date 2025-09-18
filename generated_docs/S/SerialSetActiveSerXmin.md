@@ -29,12 +29,12 @@ The function maintains the serial control structure's consistency by properly ma
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease
   - TransactionIdIsValid
-  - RecoveryInProgress
-  - TransactionIdPrecedes
-  - TransactionIdFollows
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
 - Called from (representative examples):
-  - GetSerializableTransactionSnapshotInt
-  - SetNewSxactGlobalXmin
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md)
+  - [SetNewSxactGlobalXmin](SetNewSxactGlobalXmin.md)
   - predicatelock_twophase_recover
 
 ## Notes and Other Information

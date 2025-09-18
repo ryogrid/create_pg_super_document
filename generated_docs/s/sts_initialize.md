@@ -32,7 +32,7 @@ The function supports optional metadata that can be stored alongside tuples (use
   - LWLockInitialize
   - LWTRANCHE_SHARED_TUPLESTORE (constant)
 - Called from (representative examples):
-  - ExecParallelHashJoinSetUpBatches
+  - [ExecParallelHashJoinSetUpBatches](../E/ExecParallelHashJoinSetUpBatches.md)
   - SHARED_TUPLESTORE_SINGLE_PASS
 
 ## Notes and Other Information

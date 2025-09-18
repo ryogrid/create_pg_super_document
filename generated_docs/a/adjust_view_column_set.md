@@ -22,19 +22,19 @@ The mapping process assumes that relevant targetlist entries are plain Var nodes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member (function to iterate through bitmapset members)
+  - [bms_next_member](../b/bms_next_member.md) (function to iterate through bitmapset members)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute number offset calculation)
   - InvalidAttrNumber (constant representing whole-row references)
-  - bms_add_member (function to add member to bitmapset)
-  - get_tle_by_resno (function to find target list entry by result number)
+  - [bms_add_member](../b/bms_add_member.md) (function to add member to bitmapset)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md) (function to find target list entry by result number)
   - AttrNumber (type for attribute numbers)
-  - TargetEntry (structure for target list entries)
+  - [TargetEntry](../T/TargetEntry.md) (structure for target list entries)
   - Var (node type for variable references)
   - lfirst_node (macro to get list cell content with type checking)
   - castNode (macro for safe node type casting)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - rewriteTargetView (in src/backend/rewrite/rewriteHandler.c:3541, 3544)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (in src/backend/rewrite/rewriteHandler.c:3541, 3544)
 
 ## Notes and Other Information
 - Column numbers in bitmapsets are offset by FirstLowInvalidHeapAttributeNumber to handle PostgreSQL internal attribute numbering

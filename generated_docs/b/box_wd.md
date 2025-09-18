@@ -17,11 +17,11 @@ The  function is a static helper function in PostgreSQL's geometric operations m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float8_mi (floating-point subtraction function)
-  - BOX (geometric box data type)
+  - [float8_mi](../f/float8_mi.md) (floating-point subtraction function)
+  - [BOX](../B/BOX.md) (geometric box data type)
 - Called from (representative examples):
-  - box_width (public function to get box width)
-  - box_ar (box area calculation function)
+  - [box_width](box_width.md) (public function to get box width)
+  - [box_ar](box_ar.md) (box area calculation function)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the geo_ops.c file

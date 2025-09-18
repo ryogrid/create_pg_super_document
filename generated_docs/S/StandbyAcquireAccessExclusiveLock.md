@@ -20,18 +20,18 @@ This function is a core component of PostgreSQL's hot standby locking mechanism.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - TransactionIdDidCommit
-  - TransactionIdDidAbort
-  - hash_search
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
+  - [hash_search](../h/hash_search.md)
   - SET_LOCKTAG_RELATION
-  - LockAcquire
-  - RecoveryLockXidEntry
-  - RecoveryLockEntry
-  - xl_standby_lock
+  - [LockAcquire](../L/LockAcquire.md)
+  - [RecoveryLockXidEntry](../R/RecoveryLockXidEntry.md)
+  - [RecoveryLockEntry](../R/RecoveryLockEntry.md)
+  - [xl_standby_lock](../x/xl_standby_lock.md)
   - LOCKTAG
 - Called from (representative examples):
   - standby_redo (src/backend/storage/ipc/standby.c:1176)
-  - lock_twophase_standby_recover (src/backend/storage/lmgr/lock.c:4374)
+  - [lock_twophase_standby_recover](../l/lock_twophase_standby_recover.md) (src/backend/storage/lmgr/lock.c:4374)
 
 ## Notes and Other Information
 - Only tracks AccessExclusive locks, which are held by one transaction on one relation

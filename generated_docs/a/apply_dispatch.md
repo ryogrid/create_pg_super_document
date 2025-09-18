@@ -31,29 +31,29 @@ The function is designed to be recursively callable, which is essential when pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte
-  - apply_handle_begin
-  - apply_handle_commit  
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
-  - apply_handle_truncate
-  - apply_handle_relation
-  - apply_handle_type
-  - apply_handle_origin
-  - apply_handle_stream_start
-  - apply_handle_stream_stop
-  - apply_handle_stream_abort
-  - apply_handle_stream_commit
-  - apply_handle_begin_prepare
-  - apply_handle_prepare
-  - apply_handle_commit_prepared
-  - apply_handle_rollback_prepared
-  - apply_handle_stream_prepare
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [apply_handle_begin](apply_handle_begin.md)
+  - [apply_handle_commit](apply_handle_commit.md)  
+  - [apply_handle_insert](apply_handle_insert.md)
+  - [apply_handle_update](apply_handle_update.md)
+  - [apply_handle_delete](apply_handle_delete.md)
+  - [apply_handle_truncate](apply_handle_truncate.md)
+  - [apply_handle_relation](apply_handle_relation.md)
+  - [apply_handle_type](apply_handle_type.md)
+  - [apply_handle_origin](apply_handle_origin.md)
+  - [apply_handle_stream_start](apply_handle_stream_start.md)
+  - [apply_handle_stream_stop](apply_handle_stream_stop.md)
+  - [apply_handle_stream_abort](apply_handle_stream_abort.md)
+  - [apply_handle_stream_commit](apply_handle_stream_commit.md)
+  - [apply_handle_begin_prepare](apply_handle_begin_prepare.md)
+  - [apply_handle_prepare](apply_handle_prepare.md)
+  - [apply_handle_commit_prepared](apply_handle_commit_prepared.md)
+  - [apply_handle_rollback_prepared](apply_handle_rollback_prepared.md)
+  - [apply_handle_stream_prepare](apply_handle_stream_prepare.md)
 - Called from (representative examples):
-  - LogicalParallelApplyLoop
-  - apply_spooled_messages  
-  - LogicalRepApplyLoop
+  - [LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md)
+  - [apply_spooled_messages](apply_spooled_messages.md)  
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md)
 
 ## Notes and Other Information
 - Supports recursive invocation for processing spooled messages during streaming transactions

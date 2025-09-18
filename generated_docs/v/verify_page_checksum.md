@@ -22,13 +22,13 @@ This function performs checksum verification for database pages during base back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsNew
-  - PageGetLSN
-  - pg_checksum_page
+  - [PageIsNew](../P/PageIsNew.md)
+  - [PageGetLSN](../P/PageGetLSN.md)
+  - [pg_checksum_page](../p/pg_checksum_page.md)
   - PageHeader
 - Called from (representative examples):
-  - read_file_data_into_buffer
-  - basebackup_options
+  - [read_file_data_into_buffer](../r/read_file_data_into_buffer.md)
+  - [basebackup_options](../b/basebackup_options.md)
 
 ## Notes and Other Information
 - Returns true for successful verification or when verification is skipped (new pages, recently modified pages)

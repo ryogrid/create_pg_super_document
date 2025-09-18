@@ -20,13 +20,13 @@ This function is responsible for updating permission checking behavior within Po
 - Functions called/Symbols referenced:
   - lfirst_node (macro for RTEPermissionInfo)
   - lfirst (list iteration)
-  - setRuleCheckAsUser_Query (recursive calls)
+  - [setRuleCheckAsUser_Query](setRuleCheckAsUser_Query.md) (recursive calls)
   - castNode (Query casting)
   - query_tree_walker
-  - setRuleCheckAsUser_walker
+  - [setRuleCheckAsUser_walker](setRuleCheckAsUser_walker.md)
 - Called from (representative examples):
-  - setRuleCheckAsUser_walker
-  - setRuleCheckAsUser_Query (recursive calls)
+  - [setRuleCheckAsUser_walker](setRuleCheckAsUser_walker.md)
+  - [setRuleCheckAsUser_Query](setRuleCheckAsUser_Query.md) (recursive calls)
 
 ## Notes and Other Information
 - Processes three types of query components: RTEPermissionInfos, subquery RTEs, and CTEs

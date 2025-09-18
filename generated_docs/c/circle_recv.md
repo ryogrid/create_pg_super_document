@@ -21,8 +21,8 @@ The function reads three consecutive float8 values from the input buffer: the x 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (retrieves input buffer pointer)
-  - palloc (allocates memory for CIRCLE structure)
-  - pq_getmsgfloat8 (reads float8 values from binary buffer)
+  - [palloc](../p/palloc.md) (allocates memory for CIRCLE structure)
+  - [pq_getmsgfloat8](../p/pq_getmsgfloat8.md) (reads float8 values from binary buffer)
   - ereport (reports validation errors)
   - PG_RETURN_CIRCLE_P (returns the deserialized circle)
 - Types referenced:

@@ -26,7 +26,7 @@ The backtrace_function_list is organized as a sequence of null-terminated string
   - backtrace_function_list (global variable containing configured function names)
 
 - Called from (representative examples):
-  - errfinish (src/backend/utils/error/elog.c:502)
+  - [errfinish](../e/errfinish.md) (src/backend/utils/error/elog.c:502)
 
 ## Notes and Other Information
 - The function is static and only used internally within the error handling subsystem

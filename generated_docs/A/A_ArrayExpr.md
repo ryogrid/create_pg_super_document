@@ -27,14 +27,14 @@ A_ArrayExpr is a parse tree node that represents the ARRAY[] constructor syntax 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)
-  - List (PostgreSQL's list data structure)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
   - ParseLoc (parse location tracking type)
 - Called from (representative examples):
-  - transformExprRecurse (src/backend/parser/parse_expr.c:167)
+  - [transformExprRecurse](../t/transformExprRecurse.md) (src/backend/parser/parse_expr.c:167)
   - transformArrayExpr (src/backend/parser/parse_expr.c:2015, 2041, 2044)
-  - transformTypeCast (src/backend/parser/parse_expr.c:2712, 2730)
-  - exprLocation (src/backend/nodes/nodeFuncs.c:1680)
-  - raw_expression_tree_walker_impl (src/backend/nodes/nodeFuncs.c:4401)
+  - [transformTypeCast](../t/transformTypeCast.md) (src/backend/parser/parse_expr.c:2712, 2730)
+  - [exprLocation](../e/exprLocation.md) (src/backend/nodes/nodeFuncs.c:1680)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:4401)
 
 ## Notes and Other Information
 - Essential for PostgreSQL's array data type support

@@ -26,7 +26,7 @@ The function implements sophisticated lag computation logic including interpolat
   - LAG_TRACKER_BUFFER_SIZE (circular buffer size constant)
   - WalTimeSample (structure for storing LSN/timestamp pairs)
 - Called from (representative examples):
-  - ProcessStandbyReplyMessage (multiple calls for different progress types)
+  - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md) (multiple calls for different progress types)
 
 ## Notes and Other Information
 - Returns -1 when no lag data is available or when clock inconsistencies are detected

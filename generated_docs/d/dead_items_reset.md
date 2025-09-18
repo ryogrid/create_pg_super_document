@@ -22,11 +22,11 @@ The function is essential for vacuum operations that need to process dead items 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParallelVacuumIsActive
-  - parallel_vacuum_reset_dead_items
-  - TidStoreDestroy
-  - TidStoreCreateLocal
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md)
+  - [TidStoreDestroy](../T/TidStoreDestroy.md)
+  - [TidStoreCreateLocal](../T/TidStoreCreateLocal.md)
 - Called from (representative examples):
-  - lazy_vacuum
+  - [lazy_vacuum](../l/lazy_vacuum.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within vacuumlazy.c

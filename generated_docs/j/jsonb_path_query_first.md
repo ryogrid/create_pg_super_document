@@ -23,7 +23,7 @@ The function extracts a JSONB document, JSONPath expression, variable context, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_query_first_internal
+  - [jsonb_path_query_first_internal](jsonb_path_query_first_internal.md)
 - Called from (representative examples):
   - Direct SQL function calls (no internal PostgreSQL callers found)
 

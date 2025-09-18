@@ -19,16 +19,16 @@ This function provides a random floating-point number generator specifically des
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_double
+  - [pg_prng_double](../p/pg_prng_double.md)
   - pg_prng_state (type)
   - ReservoirStateData (type)
 - Called from (representative examples):
-  - acquire_sample_rows
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
   - BlockSampler_Next
   - reservoir_init_selection_state
   - reservoir_get_next_S
-  - anl_random_fract
-  - anl_init_selection_state
+  - [anl_random_fract](../a/anl_random_fract.md)
+  - [anl_init_selection_state](../a/anl_init_selection_state.md)
 
 ## Notes and Other Information
 The function uses a do-while loop with the unlikely() macro to optimize for the common case where pg_prng_double() doesn't return 0.0. This approach ensures mathematical correctness for sampling algorithms while maintaining good performance. The function is widely used throughout PostgreSQL's sampling infrastructure, including table analysis, block sampling, and reservoir sampling algorithms.

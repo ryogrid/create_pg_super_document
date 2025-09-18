@@ -22,8 +22,8 @@ The structure uses a flexible array member to efficiently store a variable numbe
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - log_heap_prune_and_freeze
-  - heap_xlog_deserialize_prune_and_freeze
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md)
+  - [heap_xlog_deserialize_prune_and_freeze](../h/heap_xlog_deserialize_prune_and_freeze.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's WAL logging mechanism for heap page pruning

@@ -31,12 +31,12 @@ This is an internal static inline function designed to be called by the public S
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (for name generation)
-  - SH_INITIAL_BUCKET (calculates starting bucket)
+  - [SH_INITIAL_BUCKET](SH_INITIAL_BUCKET.md) (calculates starting bucket)
   - SH_COMPARE_KEYS (compares keys for equality)
-  - SH_NEXT (moves to next bucket in probe sequence)
+  - [SH_NEXT](SH_NEXT.md) (moves to next bucket in probe sequence)
 - Called from (representative examples):
-  - SH_LOOKUP (public lookup function)
-  - SH_LOOKUP_HASH (public lookup with pre-computed hash)
+  - [SH_LOOKUP](SH_LOOKUP.md) (public lookup function)
+  - [SH_LOOKUP_HASH](SH_LOOKUP_HASH.md) (public lookup with pre-computed hash)
 
 ## Notes and Other Information
 - This is a static inline function to ensure reliable inlining even when SH_SCOPE is extern

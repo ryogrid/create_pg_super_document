@@ -27,12 +27,12 @@ The function handles missing parsers gracefully when the is_missing parameter is
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_ts_parser (struct type)
-  - recomputeNamespacePath
-  - list_member_oid
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
   - SearchSysCacheExists2
 - Called from (representative examples):
-  - TSParserIsVisible
-  - pg_ts_parser_is_visible
+  - [TSParserIsVisible](TSParserIsVisible.md)
+  - [pg_ts_parser_is_visible](../p/pg_ts_parser_is_visible.md)
 
 ## Notes and Other Information
 - Static function, only accessible within namespace.c

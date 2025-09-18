@@ -22,14 +22,14 @@ The function performs several key validations: it rejects operations on partitio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open
-  - BuildIndexInfo
-  - RenameRelationInternal
-  - index_check_primary_key
-  - index_constraint_create
-  - index_close
+  - [index_open](../i/index_open.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [RenameRelationInternal](../R/RenameRelationInternal.md)
+  - [index_check_primary_key](../i/index_check_primary_key.md)
+  - [index_constraint_create](../i/index_constraint_create.md)
+  - [index_close](../i/index_close.md)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Currently does not support partitioned tables and will raise an error if attempted

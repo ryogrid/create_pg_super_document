@@ -28,15 +28,15 @@ The extracted first-column key (datum1) and its null flag (isnull1) are cached i
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - tuplesort_readtup_alloc
+  - [tuplesort_readtup_alloc](../t/tuplesort_readtup_alloc.md)
   - LogicalTapeReadExact
-  - index_getattr
+  - [index_getattr](../i/index_getattr.md)
   - RelationGetDescr
   - TUPLESORT_RANDOMACCESS (flag constant)
 - Called from (representative examples):
-  - tuplesort_begin_index_btree
-  - tuplesort_begin_index_hash
-  - tuplesort_begin_index_gist
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md)
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

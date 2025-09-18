@@ -20,17 +20,17 @@ For each transform found, it creates a  structure containing the type OID, langu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - TransformInfo
   - pg_malloc
   - atooid
-  - AssignDumpId
-  - findTypeByOid
-  - get_language_name
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [findTypeByOid](../f/findTypeByOid.md)
+  - [get_language_name](get_language_name.md)
   - initPQExpBuffer
-  - selectDumpableObject
+  - [selectDumpableObject](../s/selectDumpableObject.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Only available in PostgreSQL 9.5 and later; returns NULL for earlier versions

@@ -29,22 +29,22 @@ The operation requires that the new tuple data has exactly the same length as th
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsInParallelMode
-  - ReadBuffer
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
   - START_CRIT_SECTION/END_CRIT_SECTION
   - RelationNeedsWAL
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - XLogInsert
-  - CacheInvalidateHeapTuple
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
 - Called from:
   - HeapScanIsValid (via header inclusion)
 

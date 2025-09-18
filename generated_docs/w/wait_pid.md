@@ -21,10 +21,10 @@ The  function is a PostgreSQL C function designed for use in regression testing 
   - superuser: Checks if current user has superuser privileges
   - kill: System call used to check process existence (with signal 0)
   - CHECK_FOR_INTERRUPTS: Macro to handle PostgreSQL interrupts during polling loop
-  - pg_usleep: PostgreSQL's microsecond sleep function (sleeps for 50ms)
+  - [pg_usleep](../p/pg_usleep.md): PostgreSQL's microsecond sleep function (sleeps for 50ms)
   - PG_RETURN_VOID: Returns void from PostgreSQL function
 - Called from (representative examples):
-  - regress_setenv: Referenced in the same regression test file
+  - [regress_setenv](../r/regress_setenv.md): Referenced in the same regression test file
 
 ## Notes and Other Information
 - This function is specifically designed for regression testing purposes and should not be used in production environments

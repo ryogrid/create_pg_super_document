@@ -24,16 +24,16 @@ The enum supports both non-streaming and streaming transaction workflows, with d
 ## Dependencies
 - Functions called/Symbols referenced:
   - ApplyErrorCallbackArg
-  - WalReceiverConn
-  - Subscription
+  - [WalReceiverConn](../W/WalReceiverConn.md)
+  - [Subscription](../S/Subscription.md)
 - Called from (representative examples):
-  - handle_streamed_transaction (src/backend/replication/logical/worker.c:565)
-  - apply_handle_stream_prepare (src/backend/replication/logical/worker.c:1277)
-  - apply_handle_stream_start (src/backend/replication/logical/worker.c:1473)
-  - apply_handle_stream_stop (src/backend/replication/logical/worker.c:1631)
-  - apply_handle_stream_abort (src/backend/replication/logical/worker.c:1820)
-  - apply_handle_stream_commit (src/backend/replication/logical/worker.c:2138)
-  - set_apply_error_context_origin (src/backend/replication/logical/worker.c:5125)
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md) (src/backend/replication/logical/worker.c:565)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md) (src/backend/replication/logical/worker.c:1277)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md) (src/backend/replication/logical/worker.c:1473)
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md) (src/backend/replication/logical/worker.c:1631)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md) (src/backend/replication/logical/worker.c:1820)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md) (src/backend/replication/logical/worker.c:2138)
+  - [set_apply_error_context_origin](../s/set_apply_error_context_origin.md) (src/backend/replication/logical/worker.c:5125)
 
 ## Notes and Other Information
 - This enum is specifically designed to handle the complexity of streaming transactions in logical replication

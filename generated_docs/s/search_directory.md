@@ -24,20 +24,20 @@ This is a critical function for the pg_waldump utility as it establishes the cor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - open_file_in_directory
+  - [open_file_in_directory](../o/open_file_in_directory.md)
   - opendir
   - readdir
   - closedir
-  - IsXLogFileName
+  - [IsXLogFileName](../I/IsXLogFileName.md)
   - read
   - close
   - IsValidWalSegSize
   - pg_log_error
   - pg_log_error_detail
   - ngettext
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - identify_target_directory
+  - [identify_target_directory](../i/identify_target_directory.md)
 
 ## Notes and Other Information
 - Returns true if a valid WAL file is found and successfully processed, false otherwise

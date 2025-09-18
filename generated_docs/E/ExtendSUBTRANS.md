@@ -23,15 +23,15 @@ This function is called while holding XidGenLock, so it's optimized for speed. E
 - Functions called/Symbols referenced:
   - TransactionIdToEntry
   - TransactionIdEquals
-  - TransactionIdToPage
-  - SimpleLruGetBankLock
+  - [TransactionIdToPage](../T/TransactionIdToPage.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - ZeroSUBTRANSPage
   - LWLockAcquire/LWLockRelease
   - FirstNormalTransactionId
 - Called from (representative examples):
   - GetNewTransactionId (during normal transaction allocation)
   - ProcArrayApplyRecoveryInfo (during recovery)
-  - RecordKnownAssignedTransactionIds (during recovery)
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md) (during recovery)
 
 ## Notes and Other Information
 - Called while holding XidGenLock, so must be fast

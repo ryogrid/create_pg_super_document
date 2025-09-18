@@ -25,7 +25,7 @@ This internal validation function performs comprehensive checks before allowing 
   - GETSTRUCT (tuple data extraction)
   - NameStr (name string extraction)
 - Called from (representative examples):
-  - AlterPublication
+  - [AlterPublication](../A/AlterPublication.md)
 
 ## Notes and Other Information
 - Only superusers can add or set schemas in publications due to security implications

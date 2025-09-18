@@ -28,14 +28,14 @@ The function includes sophisticated memory management, deferring cleanup of chan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap_first, binaryheap_replace_first, binaryheap_remove_first (binary heap operations)
-  - dlist_is_empty, dlist_has_next, dlist_next_node, dlist_container, dlist_delete, dlist_push_tail, dlist_pop_head_node, dlist_head_element (doubly-linked list operations)
-  - ReorderBufferReturnChange (returns change to memory pool)
-  - ReorderBufferRestoreChanges (restores changes from disk)
-  - DatumGetInt32 (extracts integer from Datum)
+  - [binaryheap_first](../b/binaryheap_first.md), binaryheap_replace_first, binaryheap_remove_first (binary heap operations)
+  - [dlist_is_empty](../d/dlist_is_empty.md), dlist_has_next, dlist_next_node, dlist_container, dlist_delete, dlist_push_tail, dlist_pop_head_node, dlist_head_element (doubly-linked list operations)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (returns change to memory pool)
+  - [ReorderBufferRestoreChanges](ReorderBufferRestoreChanges.md) (restores changes from disk)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (extracts integer from Datum)
   - elog (logging function)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN (during transaction processing)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (during transaction processing)
   - IsInsertOrUpdate (during change processing)
 
 ## Notes and Other Information

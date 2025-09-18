@@ -38,13 +38,13 @@ The staged approach ensures that basic optimizer statistics become available acr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectMaintenanceDatabase (establish connection to maintenance database)
-  - executeQuery (execute catalog query to find databases)
-  - vacuum_one_database (process individual databases)
-  - PQfinish/PQclear (cleanup database connections and results)
+  - [connectMaintenanceDatabase](../c/connectMaintenanceDatabase.md) (establish connection to maintenance database)
+  - [executeQuery](../e/executeQuery.md) (execute catalog query to find databases)
+  - [vacuum_one_database](vacuum_one_database.md) (process individual databases)
+  - [PQfinish](../P/PQfinish.md)/PQclear (cleanup database connections and results)
   - ANALYZE_NUM_STAGES/ANALYZE_NO_STAGE (stage constants)
 - Called from (representative examples):
-  - main (vacuumdb main function when --all flag is used)
+  - [main](../m/main.md) (vacuumdb main function when --all flag is used)
 
 ## Notes and Other Information
 - Queries pg_database to find all databases where datallowconn is true and datconnlimit is not -2 (not disabled)

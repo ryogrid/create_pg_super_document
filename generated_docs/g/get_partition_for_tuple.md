@@ -29,15 +29,15 @@ This function determines which partition should receive a tuple based on its par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_partition_hash_value
+  - [compute_partition_hash_value](../c/compute_partition_hash_value.md)
   - partition_bound_accepts_nulls
-  - FunctionCall2Coll
-  - DatumGetInt32
-  - partition_list_bsearch
-  - partition_rbound_datum_cmp
-  - partition_range_datum_bsearch
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [partition_list_bsearch](../p/partition_list_bsearch.md)
+  - [partition_rbound_datum_cmp](../p/partition_rbound_datum_cmp.md)
+  - [partition_range_datum_bsearch](../p/partition_range_datum_bsearch.md)
 - Called from (representative examples):
-  - ExecFindPartition (the main entry point for partition lookup during tuple routing)
+  - [ExecFindPartition](../E/ExecFindPartition.md) (the main entry point for partition lookup during tuple routing)
 
 ## Notes and Other Information
 - Returns partition index (>= 0 and < partdesc->nparts) if a matching partition is found, or -1 if no match

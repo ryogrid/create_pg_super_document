@@ -29,14 +29,14 @@ By-value types are automatically considered supported since they don't require s
   - `Aggref` (struct type)
   - `Form_pg_type` (struct type for pg_type catalog entries)
   - `exprType()` (extracts type from expression nodes)
-  - `SearchSysCache1()` (catalog cache lookup)
+  - `[SearchSysCache1](../S/SearchSysCache1.md)()` (catalog cache lookup)
   - `HeapTupleIsValid()` (validates tuple)
   - `GETSTRUCT()` (extracts struct from heap tuple)
   - `OidIsValid()` (validates OID)
-  - `ReleaseSysCache()` (cache cleanup)
+  - `[ReleaseSysCache](../R/ReleaseSysCache.md)()` (cache cleanup)
   - `RECORDOID` (constant for RECORD type)
 - Called from (representative examples):
-  - `preprocess_aggref` (in prepagg.c)
+  - `[preprocess_aggref](../p/preprocess_aggref.md)` (in prepagg.c)
 
 ## Notes and Other Information
 - RECORD types are specifically excluded because record_recv requires correct typmod information to identify anonymous record types, which array_agg_deserialize cannot provide

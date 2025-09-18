@@ -22,16 +22,16 @@ The parallel context tracks the library and function name that workers will exec
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsInParallelMode (validates parallel mode is active)
-  - GetCurrentSubTransactionId (tracks transaction context)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md) (tracks transaction context)
   - shm_toc_initialize_estimator (initializes shared memory estimator)
-  - dlist_push_head (adds context to global list)
-  - ParallelContext (structure type being created)
+  - [dlist_push_head](../d/dlist_push_head.md) (adds context to global list)
+  - [ParallelContext](../P/ParallelContext.md) (structure type being created)
 
 - Called from (representative examples):
-  - _brin_begin_parallel (BRIN index operations)
-  - _bt_begin_parallel (B-tree index operations)
-  - parallel_vacuum_init (parallel vacuum operations)
-  - ExecInitParallelPlan (parallel query execution)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (BRIN index operations)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (B-tree index operations)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (parallel vacuum operations)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (parallel query execution)
 
 ## Notes and Other Information
 - Must be called only after entering parallel mode (enforced by assertion)

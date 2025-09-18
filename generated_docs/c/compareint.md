@@ -18,9 +18,9 @@ The compareint function is a comparison function designed to be used with sortin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_s32 (PostgreSQL's signed 32-bit integer comparison function)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's signed 32-bit integer comparison function)
 - Called from (representative examples):
-  - gtsvector_compress (used for sorting during signature compression)
+  - [gtsvector_compress](../g/gtsvector_compress.md) (used for sorting during signature compression)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the tsgistidx.c file

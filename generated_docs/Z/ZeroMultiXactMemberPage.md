@@ -24,15 +24,15 @@ The function assumes that the appropriate control lock (for MultiXactMemberCtl) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruZeroPage
-  - WriteMZeroPageXlogRec
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md)
+  - [WriteMZeroPageXlogRec](../W/WriteMZeroPageXlogRec.md)
   - XLOG_MULTIXACT_ZERO_MEM_PAGE (constant)
 - Global variables accessed:
   - MultiXactMemberCtl
 - Called from:
-  - BootStrapMultiXact
-  - ExtendMultiXactMember
-  - multixact_redo
+  - [BootStrapMultiXact](../B/BootStrapMultiXact.md)
+  - [ExtendMultiXactMember](../E/ExtendMultiXactMember.md)
+  - [multixact_redo](../m/multixact_redo.md)
 
 ## Notes and Other Information
 - Function is static and only accessible within the multixact.c module

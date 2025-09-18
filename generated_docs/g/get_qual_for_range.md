@@ -26,22 +26,22 @@ The function optimizes cases where prefixes of bounds are equal, and handles MIN
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
-  - RelationGetPartitionDesc
-  - get_range_nulltest
-  - get_range_key_properties
-  - CreateExecutorState
-  - make_partition_op_expr
-  - fix_opfuncids
-  - ExecInitExpr
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [get_range_nulltest](get_range_nulltest.md)
+  - [get_range_key_properties](get_range_key_properties.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [make_partition_op_expr](../m/make_partition_op_expr.md)
+  - [fix_opfuncids](../f/fix_opfuncids.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
   - ExecEvalExprSwitchContext
-  - FreeExecutorState
-  - makeBoolExpr
-  - makeBoolConst
+  - [FreeExecutorState](../F/FreeExecutorState.md)
+  - [makeBoolExpr](../m/makeBoolExpr.md)
+  - [makeBoolConst](../m/makeBoolConst.md)
 - Called from (representative examples):
-  - get_qual_from_partbound
-  - check_default_partition_contents
-  - get_qual_for_range (recursive for default partitions)
+  - [get_qual_from_partbound](get_qual_from_partbound.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
+  - [get_qual_for_range](get_qual_for_range.md) (recursive for default partitions)
 
 ## Notes and Other Information
 - Handles both single and multi-column range partitioning with complex lexicographic comparisons

@@ -32,17 +32,17 @@ This setup allows the generic GIN B-tree algorithms to work specifically with po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dataLocateItem
-  - dataGetLeftMostPage
-  - dataIsMoveRight
-  - dataFindChildPtr
-  - dataBeginPlaceToPage
-  - dataExecPlaceToPage
-  - ginDataFillRoot
-  - dataPrepareDownlink
+  - [dataLocateItem](../d/dataLocateItem.md)
+  - [dataGetLeftMostPage](../d/dataGetLeftMostPage.md)
+  - [dataIsMoveRight](../d/dataIsMoveRight.md)
+  - [dataFindChildPtr](../d/dataFindChildPtr.md)
+  - [dataBeginPlaceToPage](../d/dataBeginPlaceToPage.md)
+  - [dataExecPlaceToPage](../d/dataExecPlaceToPage.md)
+  - [ginDataFillRoot](ginDataFillRoot.md)
+  - [dataPrepareDownlink](../d/dataPrepareDownlink.md)
 - Called from (representative examples):
-  - ginInsertItemPointers
-  - ginScanBeginPostingTree
+  - [ginInsertItemPointers](ginInsertItemPointers.md)
+  - [ginScanBeginPostingTree](ginScanBeginPostingTree.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN data page module

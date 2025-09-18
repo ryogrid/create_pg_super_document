@@ -20,8 +20,8 @@ Like its counterpart , this function represents part of PostgreSQL's evolution a
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - PG_RETURN_NULL
   - ERRCODE_FEATURE_NOT_SUPPORTED
 - Called from (representative examples):

@@ -19,15 +19,15 @@ XLogRecoveryShmemInit performs the initialization of shared memory structures us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecoveryShmemSize (calculates required memory size)
-  - ShmemInitStruct (PostgreSQL shared memory initialization)
+  - [XLogRecoveryShmemSize](XLogRecoveryShmemSize.md) (calculates required memory size)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (PostgreSQL shared memory initialization)
   - SpinLockInit (initializes spin lock for info_lck)
-  - InitSharedLatch (initializes recovery wakeup latch)
-  - ConditionVariableInit (initializes recovery pause condition variable)
-  - XLogRecoveryCtlData (struct type being initialized)
+  - [InitSharedLatch](../I/InitSharedLatch.md) (initializes recovery wakeup latch)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md) (initializes recovery pause condition variable)
+  - [XLogRecoveryCtlData](XLogRecoveryCtlData.md) (struct type being initialized)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (during shared memory setup)
-  - RecoveryPauseState (in recovery state management)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during shared memory setup)
+  - [RecoveryPauseState](../R/RecoveryPauseState.md) (in recovery state management)
 
 ## Notes and Other Information
 - Part of PostgreSQL's shared memory initialization sequence

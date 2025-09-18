@@ -34,16 +34,16 @@ The created `BrinOpaque` structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `RelationGetIndexScan()` (creates generic index scan descriptor)
+  - `[RelationGetIndexScan](../R/RelationGetIndexScan.md)()` (creates generic index scan descriptor)
   - `palloc_object()` (allocates BrinOpaque structure)
-  - `brinRevmapInitialize()` (initializes revmap access)
-  - `brin_build_desc()` (creates BRIN descriptor)
-  - `BrinOpaque` (structure type)
-  - `IndexScanDesc` (structure type)
+  - `[brinRevmapInitialize](brinRevmapInitialize.md)()` (initializes revmap access)
+  - `[brin_build_desc](brin_build_desc.md)()` (creates BRIN descriptor)
+  - `[BrinOpaque](../B/BrinOpaque.md)` (structure type)
+  - `[IndexScanDesc](../I/IndexScanDesc.md)` (structure type)
 
 - Called from (representative examples):
   - PostgreSQL index access method infrastructure (via `brinhandler()`)
-  - Query execution when a BRIN index is selected for scanning
+  - [Query](../Q/Query.md) execution when a BRIN index is selected for scanning
 
 ## Notes and Other Information
 - This function is part of the standard PostgreSQL index access method interface

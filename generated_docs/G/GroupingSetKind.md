@@ -23,12 +23,12 @@ GroupingSetKind classifies the various types of grouping sets that can appear in
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - makeGroupingSet (src/backend/nodes/makefuncs.c:864)
+  - [makeGroupingSet](../m/makeGroupingSet.md) (src/backend/nodes/makefuncs.c:864)
   - MAKEFUNC_H (src/include/nodes/makefuncs.h:108)
   - GroupingSet (src/include/nodes/parsenodes.h:1509)
 
 ## Notes and Other Information
-- GroupingSetKind is essential for implementing SQL:1999 GROUP BY extensions
+- [GroupingSetKind](GroupingSetKind.md) is essential for implementing SQL:1999 GROUP BY extensions
 - EMPTY nodes are used when no grouping columns are specified but aggregation is still needed
 - SIMPLE nodes contain integer lists of ressortgroupref values after parse analysis
 - CUBE and ROLLUP nodes contain lists of SIMPLE nodes in their final form

@@ -38,7 +38,7 @@ This multi-level checking ensures that the generated column aliases will not cre
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - make_colname_unique
+  - [make_colname_unique](../m/make_colname_unique.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule decompilation system for ensuring unique column names

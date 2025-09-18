@@ -23,11 +23,11 @@ The function performs a three-part check to ensure the clause is genuinely a con
 - Functions called/Symbols referenced:
   - IsA macro (PostgreSQL type checking)
   - Const struct (constisnull, constvalue fields)
-  - DatumGetBool macro (for extracting boolean value)
+  - [DatumGetBool](../D/DatumGetBool.md) macro (for extracting boolean value)
 - Called from (representative examples):
-  - get_actual_clauses (src/backend/optimizer/util/restrictinfo.c:479)
-  - extract_actual_clauses (src/backend/optimizer/util/restrictinfo.c:505)
-  - extract_actual_join_clauses (src/backend/optimizer/util/restrictinfo.c:539, 546)
+  - [get_actual_clauses](../g/get_actual_clauses.md) (src/backend/optimizer/util/restrictinfo.c:479)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md) (src/backend/optimizer/util/restrictinfo.c:505)
+  - [extract_actual_join_clauses](../e/extract_actual_join_clauses.md) (src/backend/optimizer/util/restrictinfo.c:539, 546)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the restrictinfo.c file and is likely inlined by the compiler for performance

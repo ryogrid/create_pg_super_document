@@ -31,9 +31,9 @@ The function handles four main search strategies:
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P_COPY (macro for getting array argument)
   - PG_GETARG_UINT16 (macro for getting strategy number)
-  - get_typlenbyvalalign (gets type information for array elements)
+  - [get_typlenbyvalalign](get_typlenbyvalalign.md) (gets type information for array elements)
   - ARR_ELEMTYPE (macro to get array element type)
-  - deconstruct_array (decomposes array into elements and null flags)
+  - [deconstruct_array](../d/deconstruct_array.md) (decomposes array into elements and null flags)
   - GinOverlapStrategy, GinContainsStrategy, GinContainedStrategy, GinEqualStrategy (strategy constants)
   - GIN_SEARCH_MODE_DEFAULT, GIN_SEARCH_MODE_ALL, GIN_SEARCH_MODE_INCLUDE_EMPTY (search mode constants)
 - Called from:

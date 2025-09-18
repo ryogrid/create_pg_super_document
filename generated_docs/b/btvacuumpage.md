@@ -26,21 +26,21 @@ The function implements a sophisticated backtracking mechanism to ensure that pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_delay_point
-  - ReadBufferExtended
-  - _bt_lockbuf/_bt_relbuf
-  - _bt_checkpage
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [_bt_lockbuf](_bt_lockbuf.md)/_bt_relbuf
+  - [_bt_checkpage](_bt_checkpage.md)
   - BTPageGetOpaque
-  - BTPageIsRecyclable
+  - [BTPageIsRecyclable](../B/BTPageIsRecyclable.md)
   - RecordFreeIndexPage
-  - _bt_upgradelockbufcleanup
-  - btreevacuumposting
-  - _bt_delitems_vacuum
-  - _bt_pagedel
-  - BTreeTupleIsPosting/BTreeTupleIsPivot
-  - BTreeTupleGetNPosting
+  - [_bt_upgradelockbufcleanup](_bt_upgradelockbufcleanup.md)
+  - [btreevacuumposting](btreevacuumposting.md)
+  - [_bt_delitems_vacuum](_bt_delitems_vacuum.md)
+  - [_bt_pagedel](_bt_pagedel.md)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)/BTreeTupleIsPivot
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
 - Called from:
-  - btvacuumscan (main vacuum scan function)
+  - [btvacuumscan](btvacuumscan.md) (main vacuum scan function)
 
 ## Notes and Other Information
 - Uses a 'goto backtrack' mechanism to handle page splits that occurred during vacuum

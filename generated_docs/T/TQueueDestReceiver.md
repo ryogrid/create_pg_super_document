@@ -27,12 +27,12 @@ The structure encapsulates both the standard DestReceiver interface (`pub` field
 ## Dependencies
 - Functions called/Symbols referenced:
   - DestReceiver
-  - shm_mq_handle
+  - [shm_mq_handle](../s/shm_mq_handle.md)
 - Called from (representative examples):
-  - tqueueReceiveSlot
-  - tqueueShutdownReceiver
-  - tqueueDestroyReceiver
-  - CreateTupleQueueDestReceiver
+  - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md)
+  - [tqueueShutdownReceiver](../t/tqueueShutdownReceiver.md)
+  - [tqueueDestroyReceiver](../t/tqueueDestroyReceiver.md)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md)
 
 ## Notes and Other Information
 - Located in src/backend/executor/tqueue.c:30-34

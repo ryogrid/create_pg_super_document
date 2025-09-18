@@ -23,12 +23,12 @@ The function loads data into four separate vector registers, performs parallel e
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector32 (32-bit vector data type for SIMD operations)
-  - vector32_load (loads 32-bit data into vector registers)
-  - vector32_eq (performs vectorized equality comparison)
-  - vector32_or (performs vectorized logical OR operation)
-  - vector32_is_highbit_set (checks if any comparison result indicates a match)
+  - [vector32_load](../v/vector32_load.md) (loads 32-bit data into vector registers)
+  - [vector32_eq](../v/vector32_eq.md) (performs vectorized equality comparison)
+  - [vector32_or](../v/vector32_or.md) (performs vectorized logical OR operation)
+  - [vector32_is_highbit_set](../v/vector32_is_highbit_set.md) (checks if any comparison result indicates a match)
 - Called from (representative examples):
-  - pg_lfind32 (main 32-bit search function)
+  - [pg_lfind32](pg_lfind32.md) (main 32-bit search function)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for maximum performance optimization

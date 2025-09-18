@@ -19,18 +19,18 @@ This function is the standard way for code to release a catalog cache list when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCatCacheListWithOwner
+  - [ReleaseCatCacheListWithOwner](ReleaseCatCacheListWithOwner.md)
   - CurrentResourceOwner (global variable)
 - Called from (representative examples):
-  - brinvalidate
-  - ginvalidate  
-  - gistvalidate
-  - hashvalidate
-  - btvalidate
-  - spgvalidate
-  - AddEnumLabel
-  - RenameEnumLabel
-  - transformFrameOffset
+  - [brinvalidate](../b/brinvalidate.md)
+  - [ginvalidate](../g/ginvalidate.md)  
+  - [gistvalidate](../g/gistvalidate.md)
+  - [hashvalidate](../h/hashvalidate.md)
+  - [btvalidate](../b/btvalidate.md)
+  - [spgvalidate](../s/spgvalidate.md)
+  - [AddEnumLabel](../A/AddEnumLabel.md)
+  - [RenameEnumLabel](RenameEnumLabel.md)
+  - [transformFrameOffset](../t/transformFrameOffset.md)
   - ReleaseSysCacheList
 
 ## Notes and Other Information

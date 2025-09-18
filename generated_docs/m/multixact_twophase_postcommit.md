@@ -22,12 +22,12 @@ This function is part of PostgreSQL's two-phase commit protocol handling for mul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetDummyProcNumber
+  - [TwoPhaseGetDummyProcNumber](../T/TwoPhaseGetDummyProcNumber.md)
   - ProcNumber (type)
   - MultiXactId (type)
   - InvalidMultiXactId
 - Called from (representative examples):
-  - multixact_twophase_postabort
+  - [multixact_twophase_postabort](multixact_twophase_postabort.md)
   - Referenced in SizeOfMultiXactTruncate
 
 ## Notes and Other Information

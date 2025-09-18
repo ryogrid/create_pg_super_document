@@ -27,8 +27,8 @@ The algorithm includes sophisticated distance calculations that account for the 
 - Functions called/Symbols referenced:
   - codes_t (structure type for code mappings)
 - Called from (representative examples):
-  - BIG5toCNS (at line 310 and 331)
-  - CNStoBIG5 (at line 355 and 358)
+  - [BIG5toCNS](BIG5toCNS.md) (at line 310 and 331)
+  - [CNStoBIG5](../C/CNStoBIG5.md) (at line 355 and 358)
 
 ## Notes and Other Information
 - The function uses complex mathematical calculations to handle the different radix systems of Big5 (0x9d) and CNS (0x5e)

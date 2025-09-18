@@ -35,15 +35,15 @@ For example:
 - Functions called/Symbols referenced:
   - None (uses only standard C string operations)
 - Called from (representative examples):
-  - ri_Check_Pk_Match
-  - ri_restrict
-  - RI_FKey_cascade_del
-  - RI_FKey_cascade_upd
-  - ri_set
-  - RI_Initial_Check
-  - RI_PartitionRemove_Check
-  - quoteRelationName
-  - ri_GenerateQualCollation
+  - [ri_Check_Pk_Match](../r/ri_Check_Pk_Match.md)
+  - [ri_restrict](../r/ri_restrict.md)
+  - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md)
+  - [RI_FKey_cascade_upd](../R/RI_FKey_cascade_upd.md)
+  - [ri_set](../r/ri_set.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
+  - [quoteRelationName](quoteRelationName.md)
+  - [ri_GenerateQualCollation](../r/ri_GenerateQualCollation.md)
 
 ## Notes and Other Information
 - This is a static function local to ri_triggers.c, not exposed in header files

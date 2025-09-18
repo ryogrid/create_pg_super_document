@@ -20,12 +20,12 @@ The dir_realloc function is responsible for expanding the hash table's directory
   - HASHSEGMENT (type and structure access)
   - NO_MAX_DSIZE
   - MemSet
-  - DynaHashAlloc
+  - [DynaHashAlloc](../D/DynaHashAlloc.md)
   - memcpy
-  - pfree
+  - [pfree](../p/pfree.md)
   - CurrentDynaHashCxt (global variable)
 - Called from (representative examples):
-  - expand_table
+  - [expand_table](../e/expand_table.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure (memory allocation failure or max_dsize limit reached)

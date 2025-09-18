@@ -19,10 +19,10 @@ The function ensures that memory is allocated in the appropriate context for SPI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - elog (for error reporting)
 - Called from (representative examples):
-  - _SPI_strdup
+  - [_SPI_strdup](_SPI_strdup.md)
   - Various SPI client functions
 
 ## Notes and Other Information

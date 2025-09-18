@@ -23,7 +23,7 @@ The function starts from the last character of both strings and moves backwards,
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
 - Called from (representative examples):
-  - NISortAffixes
+  - [NISortAffixes](../N/NISortAffixes.md)
 
 ## Notes and Other Information
 - Returns -1 if s1 < s2, 1 if s1 > s2, and 0 if they are equal

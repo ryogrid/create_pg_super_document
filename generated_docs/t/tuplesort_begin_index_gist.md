@@ -21,17 +21,17 @@ This function creates a specialized tuplesort state for GiST index creation oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
   - IndexRelationGetNumberOfKeyAttributes
-  - removeabbrev_index
-  - comparetup_index_btree
-  - comparetup_index_btree_tiebreak
-  - writetup_index
-  - readtup_index
+  - [removeabbrev_index](../r/removeabbrev_index.md)
+  - [comparetup_index_btree](../c/comparetup_index_btree.md)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md)
+  - [writetup_index](../w/writetup_index.md)
+  - [readtup_index](../r/readtup_index.md)
   - PrepareSortSupportFromGistIndexRel
 - Called from (representative examples):
-  - gistbuild (gistbuild.c:267)
+  - [gistbuild](../g/gistbuild.md) (gistbuild.c:267)
 
 ## Notes and Other Information
 - Reuses TuplesortIndexBTreeArg structure but sets enforceUnique and uniqueNullsNotDistinct to false since GiST doesn't support unique constraints

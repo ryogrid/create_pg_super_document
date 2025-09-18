@@ -29,12 +29,12 @@ This is distinct from ReorderBufferAbortOld() which handles implicitly aborted t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - rbtxn_is_streamed
-  - ReorderBufferImmediateInvalidation
-  - ReorderBufferCleanupTXN
+  - [ReorderBufferImmediateInvalidation](ReorderBufferImmediateInvalidation.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
 - Called from (representative examples):
-  - DecodeAbort (in decode.c)
+  - [DecodeAbort](../D/DecodeAbort.md) (in decode.c)
 
 ## Notes and Other Information
 - Only handles transactions that have actively aborted with an abort record

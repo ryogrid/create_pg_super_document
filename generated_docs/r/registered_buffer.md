@@ -32,19 +32,19 @@ The struct is part of a static array  that maintains all currently registered bu
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecData
-  - RelFileLocator
-  - ForkNumber
+  - [RelFileLocator](../R/RelFileLocator.md)
+  - [ForkNumber](../F/ForkNumber.md)
   - BlockNumber
   - Page
   - COMPRESS_BUFSIZE
 
 - Called from (representative examples):
-  - XLogEnsureRecordSpace
-  - XLogRegisterBuffer
-  - XLogRegisterBlock
-  - XLogRegisterBufData
-  - XLogRecordAssemble
-  - InitXLogInsert
+  - [XLogEnsureRecordSpace](../X/XLogEnsureRecordSpace.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBlock](../X/XLogRegisterBlock.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogRecordAssemble](../X/XLogRecordAssemble.md)
+  - [InitXLogInsert](../I/InitXLogInsert.md)
 
 ## Notes and Other Information
 The  structure is central to PostgreSQL's crash recovery mechanism. The REGBUF_* flags provide fine-grained control over how buffers are handled in WAL records, supporting optimizations like avoiding full-page images for newly initialized pages (REGBUF_WILL_INIT) or forcing images for consistency (REGBUF_FORCE_IMAGE). The compressed_page buffer enables space-efficient storage of full-page images using various compression algorithms (PGLZ, LZ4, ZSTD). This structure is instantiated as part of a static array managed by the WAL insertion subsystem and is not directly accessible outside the xloginsert module.

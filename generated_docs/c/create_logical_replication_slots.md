@@ -29,24 +29,24 @@ This function takes no parameters as it operates on global cluster information s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status_progress (progress reporting initiation)
-  - connectToServer (database connection establishment)
-  - pg_log (logging with PG_STATUS level)
+  - [prep_status_progress](../p/prep_status_progress.md) (progress reporting initiation)
+  - [connectToServer](connectToServer.md) (database connection establishment)
+  - [pg_log](../p/pg_log.md) (logging with PG_STATUS level)
   - createPQExpBuffer (query buffer creation)
-  - appendPQExpBuffer (query string construction)
-  - appendStringLiteralConn (safe string literal appending)
-  - executeQueryOrDie (SQL execution)
-  - resetPQExpBuffer (query buffer cleanup between iterations)
-  - PQfinish (connection cleanup)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (query string construction)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md) (safe string literal appending)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL execution)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (query buffer cleanup between iterations)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
   - destroyPQExpBuffer (query buffer destruction)
-  - end_progress_output (progress reporting completion)
-  - check_ok (operation verification)
+  - [end_progress_output](../e/end_progress_output.md) (progress reporting completion)
+  - [check_ok](check_ok.md) (operation verification)
 - Data structures used:
-  - DbInfo (database information structure)
-  - LogicalSlotInfoArr (logical slot information array)
+  - [DbInfo](../D/DbInfo.md) (database information structure)
+  - [LogicalSlotInfoArr](../L/LogicalSlotInfoArr.md) (logical slot information array)
   - LogicalSlotInfo (individual slot information)
 - Called from:
-  - main (in the pg_upgrade main execution flow)
+  - [main](../m/main.md) (in the pg_upgrade main execution flow)
 
 ## Notes and Other Information
 - This function is only called when logical replication slots exist in the old cluster

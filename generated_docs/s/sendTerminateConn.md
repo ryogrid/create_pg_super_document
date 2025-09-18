@@ -22,12 +22,12 @@ The `sendTerminateConn` function is responsible for sending a protocol-level ter
   - PGINVALID_SOCKET (constant)
   - CONNECTION_OK (constant)
   - PqMsg_Terminate (message type constant)
-  - pqPutMsgStart
-  - pqPutMsgEnd
-  - pqFlush
+  - [pqPutMsgStart](../p/pqPutMsgStart.md)
+  - [pqPutMsgEnd](../p/pqPutMsgEnd.md)
+  - [pqFlush](../p/pqFlush.md)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - pqClosePGconn
+  - [pqClosePGconn](../p/pqClosePGconn.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fe-connect.c file

@@ -27,14 +27,14 @@ The datapagemap_iterator_t provides a convenient way to iterate through all the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datapagemap_iterator (references the underlying struct)
-  - datapagemap_t (type used for map member)
+  - [datapagemap_iterator](datapagemap_iterator.md) (references the underlying struct)
+  - [datapagemap_t](datapagemap_t.md) (type used for map member)
   - BlockNumber (type used for nextblkno member)
 - Called from (representative examples):
-  - datapagemap_iterate (creates and returns iterator instances)
-  - datapagemap_next (advances iterator and retrieves next block number)
-  - calculate_totals (uses iterator for calculating rewind statistics)
-  - perform_rewind (uses iterator during actual rewind operations)
+  - [datapagemap_iterate](datapagemap_iterate.md) (creates and returns iterator instances)
+  - [datapagemap_next](datapagemap_next.md) (advances iterator and retrieves next block number)
+  - [calculate_totals](../c/calculate_totals.md) (uses iterator for calculating rewind statistics)
+  - [perform_rewind](../p/perform_rewind.md) (uses iterator during actual rewind operations)
 
 ## Notes and Other Information
 - Part of pg_rewind's page tracking and processing system

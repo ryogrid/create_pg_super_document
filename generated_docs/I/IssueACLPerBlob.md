@@ -26,19 +26,19 @@ This approach ensures that ACL commands are efficiently stored while being corre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTocEntryByDumpId
-  - pg_strdup
+  - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
   - strncmp
   - isdigit
   - isspace
-  - IssueCommandPerBlob
-  - pg_free
+  - [IssueCommandPerBlob](IssueCommandPerBlob.md)
+  - [pg_free](../p/pg_free.md)
 - Types referenced:
-  - ArchiveHandle
-  - TocEntry
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [TocEntry](../T/TocEntry.md)
 
 - Called from (representative examples):
-  - _printTocEntry
+  - [_printTocEntry](../p/_printTocEntry.md)
 
 ## Notes and Other Information
 - This function specifically handles "LARGE OBJECTS" ACL TocEntries and depends on the first dependency being a "BLOB METADATA" entry

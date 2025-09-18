@@ -32,13 +32,13 @@ The function handles expanded objects specially by flattening them during materi
   - DatumGetEOHP (macro to get expanded object header)
   - EOH_get_flat_size (function to get flattened size of expanded object)
   - att_addlength_datum (function to calculate attribute storage length)
-  - MemoryContextAlloc (function to allocate memory)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (function to allocate memory)
   - TTS_FLAG_SHOULDFREE (flag indicating slot owns its data)
-  - ExpandedObjectHeader (type for expanded object headers)
+  - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md) (type for expanded object headers)
   - EOH_flatten_into (function to flatten expanded object)
 - Called from (representative examples):
-  - tts_virtual_copyslot (at src/backend/executor/execTuples.c:287)
-  - slot_deform_heap_tuple (at src/backend/executor/execTuples.c:1115)
+  - [tts_virtual_copyslot](tts_virtual_copyslot.md) (at src/backend/executor/execTuples.c:287)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (at src/backend/executor/execTuples.c:1115)
 
 ## Notes and Other Information
 - Returns early if the slot is already materialized (checked via TTS_SHOULDFREE flag)

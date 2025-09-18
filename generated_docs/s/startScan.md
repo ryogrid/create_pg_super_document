@@ -21,16 +21,16 @@ After handling the fuzzy search logic and obtaining final entry frequency estima
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - startScanEntry
-  - startScanKey
+  - [startScanEntry](startScanEntry.md)
+  - [startScanKey](startScanKey.md)
 - Data types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - GinScanOpaque
-  - GinState
+  - [GinState](../G/GinState.md)
 - Global variables:
   - GinFuzzySearchLimit (configuration parameter)
 - Called from:
-  - gingetbitmap
+  - [gingetbitmap](../g/gingetbitmap.md)
 
 ## Notes and Other Information
 - The fuzzy search reduction is a heuristic optimization that may affect query completeness but significantly improves performance for queries with very common terms

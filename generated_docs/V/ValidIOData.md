@@ -24,7 +24,7 @@ ValidIOData serves as a cache structure to optimize repeated input validation op
 - Functions called/Symbols referenced:
   - Used as a type definition only (no direct function calls)
 - Called from (representative examples):
-  - pg_input_is_valid_common
+  - [pg_input_is_valid_common](../p/pg_input_is_valid_common.md)
 
 ## Notes and Other Information
 This structure is designed for performance optimization in input validation scenarios where the same type validation is performed repeatedly. By caching the type metadata, PostgreSQL avoids expensive type system lookups on subsequent calls. The structure is typically allocated in the function's memory context (`fn_mcxt`) and stored in `fn_extra` for persistence across multiple function invocations. The `typname_constant` field enables further optimization when the type name doesn't change between calls.

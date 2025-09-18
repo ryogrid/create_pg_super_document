@@ -20,11 +20,11 @@ This function provides a concise statistical summary of a GEQO population at a s
 ## Dependencies
 - Functions called/Symbols referenced:
   - Pool (structure type)
-  - avg_pool (calculates average fitness of the pool)
+  - [avg_pool](../a/avg_pool.md) (calculates average fitness of the pool)
   - fprintf (for formatted output)
   - fflush (to ensure output is written)
 - Called from (representative examples):
-  - geqo (main GEQO function)
+  - [geqo](../g/geqo.md) (main GEQO function)
   - GEQO_MISC_H (header declaration)
 
 ## Notes and Other Information

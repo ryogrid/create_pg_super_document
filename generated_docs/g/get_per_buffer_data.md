@@ -18,9 +18,9 @@ This is a utility function that calculates the memory address of per-buffer data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadStream (structure type)
+  - [ReadStream](../R/ReadStream.md) (structure type)
 - Called from (representative examples):
-  - read_stream_look_ahead
+  - [read_stream_look_ahead](../r/read_stream_look_ahead.md)
   - read_stream_next_buffer
 
 ## Notes and Other Information

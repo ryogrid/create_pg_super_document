@@ -24,17 +24,17 @@ The function is designed to work with B-tree index preprocessing, particularly f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opfamily_member
-  - get_opcode
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [get_opcode](../g/get_opcode.md)
   - RegProcedureIsValid
-  - fmgr_info
-  - FunctionCall2Coll
-  - IndexScanDesc
+  - [fmgr_info](../f/fmgr_info.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanKey
   - StrategyNumber
   - RegProcedure
 - Called from (representative examples):
-  - _bt_preprocess_array_keys
+  - [_bt_preprocess_array_keys](_bt_preprocess_array_keys.md)
 
 ## Notes and Other Information
 - The function assumes the opfamily is complete and contains the necessary comparison operators for the element type

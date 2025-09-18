@@ -22,16 +22,16 @@ This function constructs a TupleDesc (tuple descriptor) for a new index by combi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc: Creates the base tuple descriptor structure
-  - GetIndexAmRoutineByAmId: Retrieves access method API structure
+  - [CreateTemplateTupleDesc](CreateTemplateTupleDesc.md): Creates the base tuple descriptor structure
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md): Retrieves access method API structure
   - RelationGetDescr: Gets the heap relation's tuple descriptor
   - RelationGetForm: Gets the heap relation's pg_class form
   - TupleDescAttr: Accesses tuple descriptor attributes
   - list_head/lnext: List manipulation for iterating through column names and expressions
   - exprType/exprTypmod: Determines type and type modifier of expressions
-  - SearchSysCache1: Looks up type and opclass information in system cache
-  - CheckAttributeType: Validates that the attribute type is safe for index storage
-  - get_base_element_type: Handles ANYELEMENT/ANYARRAY type resolution
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up type and opclass information in system cache
+  - [CheckAttributeType](CheckAttributeType.md): Validates that the attribute type is safe for index storage
+  - [get_base_element_type](../g/get_base_element_type.md): Handles ANYELEMENT/ANYARRAY type resolution
   - MemSet: Initializes attribute structures
   - namestrcpy: Copies attribute names
 - Called from (representative examples):

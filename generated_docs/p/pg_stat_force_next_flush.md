@@ -19,7 +19,7 @@ The function is useful in scenarios where immediate visibility of statistics upd
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_force_next_flush (forces the internal statistics flush)
+  - [pgstat_force_next_flush](pgstat_force_next_flush.md) (forces the internal statistics flush)
   - PG_RETURN_VOID (PostgreSQL macro to return void from a function)
 - Called from (representative examples):
   - SQL queries using pg_stat_force_next_flush() function

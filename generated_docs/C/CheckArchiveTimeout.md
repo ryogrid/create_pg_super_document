@@ -25,14 +25,14 @@ None - the function operates on global state variables and configuration setting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - GetLastSegSwitchData
-  - GetLastImportantRecPtr
-  - RequestXLogSwitch
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetLastSegSwitchData](../G/GetLastSegSwitchData.md)
+  - [GetLastImportantRecPtr](../G/GetLastImportantRecPtr.md)
+  - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
   - XLogSegmentOffset
 - Called from (representative examples):
-  - CheckpointerMain (checkpointer.c:520)
-  - CheckpointWriteDelay (checkpointer.c:742)
+  - [CheckpointerMain](CheckpointerMain.md) (checkpointer.c:520)
+  - [CheckpointWriteDelay](CheckpointWriteDelay.md) (checkpointer.c:742)
 
 ## Notes and Other Information
 - Relies on the XLogArchiveTimeout configuration parameter to determine timing

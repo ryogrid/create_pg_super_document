@@ -42,13 +42,13 @@ The design philosophy centers on allowing multiple independent updates to be bat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open (opens the target relation using the provided OID)
-  - CheckAlterTableIsSafe (performs safety checks before allowing ALTER operations)
-  - ATController (orchestrates the three-phase execution process)
+  - [relation_open](../r/relation_open.md) (opens the target relation using the provided OID)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md) (performs safety checks before allowing ALTER operations)
+  - [ATController](ATController.md) (orchestrates the three-phase execution process)
   - AlterTableStmt (structure type for parsed ALTER TABLE statements)
   - AlterTableUtilityContext (context structure for execution state)
 - Called from (representative examples):
-  - ProcessUtilitySlow (in utility.c:1318, during utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in utility.c:1318, during utility command processing)
 
 ## Notes and Other Information
 - The caller is responsible for acquiring an appropriate lock level before calling this function

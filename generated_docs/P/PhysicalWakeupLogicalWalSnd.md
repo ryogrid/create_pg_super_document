@@ -22,13 +22,13 @@ This function takes no parameters and operates on the current process`s replicat
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotIsPhysical (verifies the current slot is a physical replication slot)
-  - RecoveryInProgress (checks if the database is in recovery mode)
-  - SlotExistsInSyncStandbySlots (checks if slot is in synchronized_standby_slots GUC)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (checks if the database is in recovery mode)
+  - [SlotExistsInSyncStandbySlots](../S/SlotExistsInSyncStandbySlots.md) (checks if slot is in synchronized_standby_slots GUC)
   - ConditionVariableBroadcast (wakes up waiting logical WAL senders)
 - Called from (representative examples):
-  - pg_physical_replication_slot_advance (when manually advancing physical slots)
-  - PhysicalConfirmReceivedLocation (when physical replication confirms WAL receipt)
-  - CRSSnapshotAction (in replication slot snapshot handling)
+  - [pg_physical_replication_slot_advance](../p/pg_physical_replication_slot_advance.md) (when manually advancing physical slots)
+  - [PhysicalConfirmReceivedLocation](PhysicalConfirmReceivedLocation.md) (when physical replication confirms WAL receipt)
+  - [CRSSnapshotAction](../C/CRSSnapshotAction.md) (in replication slot snapshot handling)
 
 ## Dependencies
 - Global variables accessed:

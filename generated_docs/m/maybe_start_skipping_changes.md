@@ -32,9 +32,9 @@ The function uses a fast-path optimization with the likely() macro, assuming tha
   - LSN_FORMAT_ARGS (LSN formatting macro)
 
 - Called from:
-  - apply_handle_begin (in worker.c:1005)
-  - apply_handle_begin_prepare (in worker.c:1062)
-  - apply_spooled_messages (in worker.c:2015)
+  - [apply_handle_begin](../a/apply_handle_begin.md) (in worker.c:1005)
+  - [apply_handle_begin_prepare](../a/apply_handle_begin_prepare.md) (in worker.c:1062)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (in worker.c:2015)
 
 ## Notes and Other Information
 - This is a static function, only accessible within worker.c

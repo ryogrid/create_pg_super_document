@@ -27,17 +27,17 @@ The analysis involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varnos
-  - contain_volatile_functions
-  - get_commutator
-  - op_mergejoinable
-  - get_mergejoin_opfamilies
-  - op_hashjoinable
+  - [pull_varnos](../p/pull_varnos.md)
+  - [contain_volatile_functions](contain_volatile_functions.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [op_mergejoinable](../o/op_mergejoinable.md)
+  - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md)
+  - [op_hashjoinable](../o/op_hashjoinable.md)
   - lappend_oid
   - copyObject
   - bms_* (various bitmap set operations)
 - Called from (representative examples):
-  - make_outerjoininfo
+  - [make_outerjoininfo](../m/make_outerjoininfo.md)
 
 ## Notes and Other Information
 - The function only processes semijoins (JOIN_SEMI); other join types are ignored

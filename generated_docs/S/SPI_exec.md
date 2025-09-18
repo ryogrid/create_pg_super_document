@@ -22,10 +22,10 @@ The function exists to maintain compatibility with older code that was written b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_execute (the modern equivalent function)
+  - [SPI_execute](SPI_execute.md) (the modern equivalent function)
 
 - Called from (representative examples):
-  - refresh_by_match_merge (multiple calls in src/backend/commands/matview.c)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (multiple calls in src/backend/commands/matview.c)
 
 ## Notes and Other Information
 - Marked as obsolete in the source code comments

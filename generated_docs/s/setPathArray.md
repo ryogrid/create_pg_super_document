@@ -42,15 +42,15 @@ The function includes special handling for edge cases like empty arrays, prepend
 - Functions called/Symbols referenced:
   - TextDatumGetCString
   - strtoint
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - setPath (recursive call)
-  - push_null_elements
-  - push_path
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [setPath](setPath.md) (recursive call)
+  - [push_null_elements](../p/push_null_elements.md)
+  - [push_path](../p/push_path.md)
   - WJB_ELEM, WJB_BEGIN_ARRAY, WJB_BEGIN_OBJECT, WJB_END_ARRAY, WJB_END_OBJECT
   - JB_PATH_CONSISTENT_POSITION, JB_PATH_FILL_GAPS, JB_PATH_CREATE_OR_INSERT, JB_PATH_INSERT_BEFORE, JB_PATH_INSERT_AFTER, JB_PATH_CREATE, JB_PATH_REPLACE
 - Called from (representative examples):
-  - setPath
+  - [setPath](setPath.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonfuncs.c

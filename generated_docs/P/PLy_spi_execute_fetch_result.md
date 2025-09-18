@@ -23,17 +23,17 @@ The function handles different types of SQL operations appropriately - for non-S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context: Gets current execution context
-  - PLy_result_new: Creates new PLyResultObject instance
-  - SPI_freetuptable: Frees SPI tuple table resources
+  - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context
+  - [PLy_result_new](PLy_result_new.md): Creates new PLyResultObject instance
+  - [SPI_freetuptable](../S/SPI_freetuptable.md): Frees SPI tuple table resources
   - AllocSetContextCreate: Creates temporary memory context for conversions
-  - PLy_input_setup_func/PLy_input_setup_tuple: Sets up tuple-to-Python conversion
-  - PLy_input_from_tuple: Converts individual tuples to Python dictionaries
-  - CreateTupleDescCopy: Creates persistent copy of tuple descriptor
-  - MemoryContextDelete: Cleans up temporary memory context
+  - [PLy_input_setup_func](PLy_input_setup_func.md)/PLy_input_setup_tuple: Sets up tuple-to-Python conversion
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md): Converts individual tuples to Python dictionaries
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md): Creates persistent copy of tuple descriptor
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Cleans up temporary memory context
 - Called from (representative examples):
-  - PLy_spi_execute_plan: After executing prepared plans
-  - PLy_spi_execute_query: After executing direct SQL queries
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md): After executing prepared plans
+  - [PLy_spi_execute_query](PLy_spi_execute_query.md): After executing direct SQL queries
 
 ## Notes and Other Information
 - This is a static function used internally within the plpy_spi.c module

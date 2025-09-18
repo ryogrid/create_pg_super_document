@@ -21,13 +21,13 @@ Importantly, the function intentionally does not clone TOC-entry-local state, al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext (local context structure type)
+  - [lclContext](../l/lclContext.md) (local context structure type)
   - pg_malloc (PostgreSQL memory allocation function)
   - memcpy (standard C library memory copy function)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (custom format initialization)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (custom format initialization)
   - lclTocEntry (directory format TOC entry handling)
-  - InitArchiveFmt_Directory (directory format initialization)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (directory format initialization)
 
 ## Notes and Other Information
 - This is a static function specific to the custom archive format implementation

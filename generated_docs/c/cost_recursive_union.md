@@ -30,9 +30,9 @@ The function acknowledges that the assumptions are "mighty shaky" but represents
   - Max (macro for maximum value comparison)
 - Types referenced:
   - Cost (cost calculation type)
-  - Path (query path structure)
+  - [Path](../P/Path.md) (query path structure)
 - Called from:
-  - create_recursiveunion_path (in pathnode.c:3647)
+  - [create_recursiveunion_path](create_recursiveunion_path.md) (in pathnode.c:3647)
 
 ## Notes and Other Information
 - Uses a hardcoded assumption of 10 recursive iterations, which the code acknowledges as a rough approximation

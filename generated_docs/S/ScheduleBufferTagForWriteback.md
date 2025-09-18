@@ -28,17 +28,17 @@ This batching approach reduces the overhead of individual I/O operations by grou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WritebackContext (type)
-  - IOContext (type)
+  - [WritebackContext](../W/WritebackContext.md) (type)
+  - [IOContext](../I/IOContext.md) (type)
   - BufferTag (type)
-  - PendingWriteback (type)
+  - [PendingWriteback](../P/PendingWriteback.md) (type)
   - IO_DIRECT_DATA (constant)
   - WRITEBACK_MAX_PENDING_FLUSHES (constant)
-  - IssuePendingWritebacks (function)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md) (function)
 - Called from (representative examples):
-  - GetVictimBuffer (buffer replacement operations)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md) (buffer replacement operations)
   - SyncOneBuffer (single buffer synchronization)
-  - ResourceOwnerForgetBufferIO (resource cleanup operations)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md) (resource cleanup operations)
 
 ## Notes and Other Information
 - Skips writeback scheduling when direct I/O is enabled, as it doesn't benefit from batching

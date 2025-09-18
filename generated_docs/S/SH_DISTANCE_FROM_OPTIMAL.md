@@ -24,10 +24,10 @@ This distance metric is used during insertion to implement the "Robin Hood" stra
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
-  - SH_TYPE (hash table type)
+  - [SH_TYPE](SH_TYPE.md) (hash table type)
 - Called from (representative examples):
-  - SH_INSERT_HASH_INTERNAL (during element insertion for Robin Hood algorithm)
-  - SH_STAT (for hash table statistics and analysis)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (during element insertion for Robin Hood algorithm)
+  - [SH_STAT](SH_STAT.md) (for hash table statistics and analysis)
 
 ## Notes and Other Information
 - This is an internal helper function for the simplehash template system

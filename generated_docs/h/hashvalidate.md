@@ -29,21 +29,21 @@ The function reports validation errors as INFO messages and returns false if any
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - SearchSysCacheList1
-  - check_hash_func_signature
-  - check_amoptsproc_signature
-  - check_amop_signature
-  - identify_opfamily_groups
-  - list_append_unique_oid
-  - list_member_oid
-  - format_procedure
-  - format_operator
-  - format_type_be
-  - ReleaseCatCacheList
-  - ReleaseSysCache
+  - [check_hash_func_signature](../c/check_hash_func_signature.md)
+  - [check_amoptsproc_signature](../c/check_amoptsproc_signature.md)
+  - [check_amop_signature](../c/check_amop_signature.md)
+  - [identify_opfamily_groups](../i/identify_opfamily_groups.md)
+  - [list_append_unique_oid](../l/list_append_unique_oid.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [format_procedure](../f/format_procedure.md)
+  - [format_operator](../f/format_operator.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - hashhandler (in hash access method interface)
+  - [hashhandler](hashhandler.md) (in hash access method interface)
 
 ## Notes and Other Information
 - The validation covers the entire operator family, so some checks are redundant when validating multiple operator classes in the same family, but this duplication is accepted to keep the amvalidate API simple.

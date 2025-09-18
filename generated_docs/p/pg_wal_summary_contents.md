@@ -27,23 +27,23 @@ This function reads the contents of a specified WAL summary file identified by t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF (initializes set-returning function)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function)
   - PG_GETARG_INT64, PG_GETARG_LSN (parameter extraction macros)
-  - OpenWalSummaryFile (opens WAL summary file)
-  - CreateBlockRefTableReader (creates block reference table reader)
-  - ReadWalSummary (callback function for reading WAL summary data)
-  - ReportWalSummaryError (error reporting callback)
-  - BlockRefTableReaderNextRelation (iterates over relations)
-  - BlockRefTableReaderGetBlocks (gets modified block numbers)
+  - [OpenWalSummaryFile](../O/OpenWalSummaryFile.md) (opens WAL summary file)
+  - [CreateBlockRefTableReader](../C/CreateBlockRefTableReader.md) (creates block reference table reader)
+  - [ReadWalSummary](../R/ReadWalSummary.md) (callback function for reading WAL summary data)
+  - [ReportWalSummaryError](../R/ReportWalSummaryError.md) (error reporting callback)
+  - [BlockRefTableReaderNextRelation](../B/BlockRefTableReaderNextRelation.md) (iterates over relations)
+  - [BlockRefTableReaderGetBlocks](../B/BlockRefTableReaderGetBlocks.md) (gets modified block numbers)
   - BlockNumberIsValid (validates block numbers)
-  - DestroyBlockRefTableReader (cleanup)
+  - [DestroyBlockRefTableReader](../D/DestroyBlockRefTableReader.md) (cleanup)
   - FileClose (closes file)
   - Various Datum conversion functions (ObjectIdGetDatum, Int16GetDatum, Int64GetDatum, BoolGetDatum)
 - Data types/structures used:
   - WalSummaryFile, WalSummaryIO (WAL summary file handling)
   - BlockRefTableReader (block reference table reader)
-  - RelFileLocator (relation file locator)
-  - ForkNumber (relation fork identifier)
+  - [RelFileLocator](../R/RelFileLocator.md) (relation file locator)
+  - [ForkNumber](../F/ForkNumber.md) (relation fork identifier)
   - MAX_BLOCKS_PER_CALL (constant for batch processing)
 - Called from:
   - Available as SQL system function (no direct code references found)

@@ -26,11 +26,11 @@ This function is essential for worker processes/threads to identify their own co
 - Functions called/Symbols referenced:
   - GetCurrentThreadId (Windows API - on Windows platforms)
   - getpid (POSIX system call - on Unix/Linux platforms)
-  - ParallelState (struct type reference)
+  - [ParallelState](../P/ParallelState.md) (struct type reference)
 
 - Called from (representative examples):
-  - write_stderr (in src/bin/pg_dump/parallel.c:203)
-  - archive_close_connection (in src/bin/pg_dump/parallel.c:346)
+  - [write_stderr](../w/write_stderr.md) (in src/bin/pg_dump/parallel.c:203)
+  - [archive_close_connection](../a/archive_close_connection.md) (in src/bin/pg_dump/parallel.c:346)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the parallel.c file

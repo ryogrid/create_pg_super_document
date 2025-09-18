@@ -27,7 +27,7 @@ An important limitation is that the difference between max and min must not over
   - pg_prng_uint64_range (PostgreSQL PRNG range function)
 - Called from (representative examples):
   - evalStandardFunc (at src/bin/pgbench/pgbench.c:2678)
-  - chooseScript (at src/bin/pgbench/pgbench.c:3055)
+  - [chooseScript](../c/chooseScript.md) (at src/bin/pgbench/pgbench.c:3055)
 
 ## Notes and Other Information
 - Function is declared static, limiting its scope to the pgbench.c file

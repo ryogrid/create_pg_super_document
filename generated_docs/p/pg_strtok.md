@@ -28,15 +28,15 @@ The function uses a global state pointer (pg_strtok_ptr) to track the current pa
 - Functions called/Symbols referenced:
   - pg_strtok_ptr (global state variable)
 - Called from (representative examples):
-  - nodeRead
+  - [nodeRead](../n/nodeRead.md)
   - READ_INT_FIELD
   - READ_UINT_FIELD
   - READ_STRING_FIELD
   - READ_NODE_FIELD
-  - _readBitmapset
-  - _readConst
-  - parseNodeString
-  - readDatum
+  - [_readBitmapset](../r/_readBitmapset.md)
+  - [_readConst](../r/_readConst.md)
+  - [parseNodeString](parseNodeString.md)
+  - [readDatum](../r/readDatum.md)
 
 ## Notes and Other Information
 - Uses global state (pg_strtok_ptr) for parsing position, making it non-reentrant without careful state management

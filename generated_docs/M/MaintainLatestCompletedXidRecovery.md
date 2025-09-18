@@ -22,9 +22,9 @@ The key difference from the regular version is that during recovery, the latestC
   - AmStartupProcess
   - LWLockHeldByMe
   - FullTransactionIdIsValid
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - XidFromFullTransactionId
-  - FullXidRelativeTo
+  - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
   - FullTransactionIdIsNormal
 - Called from (representative examples):
   - ProcArrayApplyRecoveryInfo

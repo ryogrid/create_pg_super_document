@@ -17,21 +17,21 @@ The getExtendedStatistics function queries the pg_statistic_ext system catalog t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatsExtInfo (structure type)
-  - ExecuteSqlQuery
+  - [StatsExtInfo](../S/StatsExtInfo.md) (structure type)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
   - pg_malloc
   - DO_STATSEXT (enum value)
   - atooid
-  - AssignDumpId
-  - findNamespace
-  - getRoleName
-  - findTableByOid
-  - PQgetisnull
-  - selectDumpableStatisticsObject
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
+  - [findTableByOid](../f/findTableByOid.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [selectDumpableStatisticsObject](../s/selectDumpableStatisticsObject.md)
 - Called from (representative examples):
-  - getSchemaData
-  - SubRelInfo (referenced in header)
+  - [getSchemaData](getSchemaData.md)
+  - [SubRelInfo](../S/SubRelInfo.md) (referenced in header)
 
 ## Notes and Other Information
 - Only available for PostgreSQL 10.0000 and later (extended statistics introduction)

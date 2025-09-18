@@ -21,9 +21,9 @@ This function is a PostgreSQL built-in function that checks whether a specific u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_type_name: Converts type name text to type OID
-  - convert_type_priv_string: Converts privilege text to AclMode bitmask
-  - object_aclcheck: Performs the actual access control check
+  - [convert_type_name](../c/convert_type_name.md): Converts type name text to type OID
+  - [convert_type_priv_string](../c/convert_type_priv_string.md): Converts privilege text to AclMode bitmask
+  - [object_aclcheck](../o/object_aclcheck.md): Performs the actual access control check
   - PG_RETURN_BOOL: Returns boolean result of privilege check
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

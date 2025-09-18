@@ -28,9 +28,9 @@ This state management is crucial for maintaining data consistency, especially du
 - Functions called/Symbols referenced:
   - EventTriggerEvent (used in cache entry structure)
 - Called from (representative examples):
-  - EventCacheLookup (checks if cache is valid)
-  - BuildEventTriggerCache (manages state transitions)
-  - InvalidateEventCacheCallback (sets to NEEDS_REBUILD)
+  - [EventCacheLookup](EventCacheLookup.md) (checks if cache is valid)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md) (manages state transitions)
+  - [InvalidateEventCacheCallback](../I/InvalidateEventCacheCallback.md) (sets to NEEDS_REBUILD)
 
 ## Notes and Other Information
 - The state is maintained by a static variable  initialized to 

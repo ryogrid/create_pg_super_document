@@ -27,11 +27,11 @@ The function handles edge cases like empty relations and validates relation arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member (to iterate through relation IDs in the bitmap set)
+  - [bms_next_member](../b/bms_next_member.md) (to iterate through relation IDs in the bitmap set)
   - IS_DUMMY_REL (to check if a relation has been proven empty)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - adjust_rowcount_for_semijoins
+  - [adjust_rowcount_for_semijoins](adjust_rowcount_for_semijoins.md)
 
 ## Notes and Other Information
 - Uses simple multiplicative approach rather than sophisticated join cardinality estimation

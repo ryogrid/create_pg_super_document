@@ -21,7 +21,7 @@ The simplicity of this structure - containing only a single pointer - reflects i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandedObjectHeader
+  - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
 - Called from (representative examples):
   - DatumGetEOHP
   - EOH_init_header

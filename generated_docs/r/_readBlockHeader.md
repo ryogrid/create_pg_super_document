@@ -23,10 +23,10 @@ _readBlockHeader centralizes the logic for reading data block headers from custo
 - Functions called/Symbols referenced:
   - K_VERS_1_3 (version constant for archive format 1.3)
   - BLK_DATA (constant representing data block type)
-  - ReadInt (function to read integer values from archive)
+  - [ReadInt](../R/ReadInt.md) (function to read integer values from archive)
   - getc (standard library function for reading characters)
 - Called from (representative examples):
-  - _PrintTocData (to read block headers during restore operations)
+  - [_PrintTocData](../P/_PrintTocData.md) (to read block headers during restore operations)
 
 ## Notes and Other Information
 - This is a static function internal to pg_backup_custom.c

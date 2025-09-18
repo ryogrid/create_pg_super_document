@@ -52,18 +52,18 @@ The entry includes validation mechanisms to ensure that cached information remai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepRelation
-  - AttrMap
+  - [LogicalRepRelation](LogicalRepRelation.md)
+  - [AttrMap](../A/AttrMap.md)
 - Called from (representative examples):
   - logicalrep_relmap_init
   - logicalrep_relmap_update
   - logicalrep_rel_open
   - logicalrep_rel_close
   - logicalrep_rel_mark_updatable
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
-  - apply_handle_truncate
+  - [apply_handle_insert](../a/apply_handle_insert.md)
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
+  - [apply_handle_truncate](../a/apply_handle_truncate.md)
 
 ## Notes and Other Information
 - This structure is primarily used in src/backend/replication/logical/relation.c for managing relation mappings in logical replication

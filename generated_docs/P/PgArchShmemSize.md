@@ -19,11 +19,11 @@ This function computes the total shared memory size needed by the PostgreSQL arc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size: Safely adds sizes together with overflow checking
-  - PgArchData: Structure containing archiver shared memory data
+  - [add_size](../a/add_size.md): Safely adds sizes together with overflow checking
+  - [PgArchData](PgArchData.md): Structure containing archiver shared memory data
 - Called from (representative examples):
-  - CalculateShmemSize: Main shared memory size calculation function
-  - PgArchShmemInit: Archiver shared memory initialization function
+  - [CalculateShmemSize](../C/CalculateShmemSize.md): Main shared memory size calculation function
+  - [PgArchShmemInit](PgArchShmemInit.md): Archiver shared memory initialization function
 
 ## Notes and Other Information
 - Returns a Size type value representing the number of bytes needed

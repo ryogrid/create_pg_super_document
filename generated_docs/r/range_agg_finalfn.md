@@ -20,16 +20,16 @@ Unlike what the comment suggests about merging touching ranges, this function ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - get_fn_expr_rettype
-  - multirange_get_typcache
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [get_fn_expr_rettype](../g/get_fn_expr_rettype.md)
+  - [multirange_get_typcache](../m/multirange_get_typcache.md)
   - DatumGetRangeTypeP
-  - make_multirange
+  - [make_multirange](../m/make_multirange.md)
   - PG_RETURN_MULTIRANGE_P
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_RETURN_NULL
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - elog
 - Called from:
   - No direct callers found (called through SQL aggregate function interface)

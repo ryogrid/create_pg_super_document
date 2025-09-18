@@ -22,7 +22,7 @@ float8mul is a PostgreSQL built-in function wrapper that implements the multipli
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Macro to extract float8 arguments from function call
-  - float8_mul: Inline helper function that performs the actual multiplication with overflow and underflow checking
+  - [float8_mul](float8_mul.md): Inline helper function that performs the actual multiplication with overflow and underflow checking
   - PG_RETURN_FLOAT8: Macro to return float8 result as Datum
 - Called from (representative examples):
   - No direct references found (likely called through SQL operator dispatch)

@@ -21,11 +21,11 @@ This structure is designed to work with the `pg_foreach_ifaddr` function, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IPCompareMethod (enum type)
-  - SockAddr (type alias for socket address structures)
+  - [IPCompareMethod](../I/IPCompareMethod.md) (enum type)
+  - [SockAddr](../S/SockAddr.md) (type alias for socket address structures)
 - Called from (representative examples):
-  - check_network_callback (uses this structure as callback data)
-  - check_same_host_or_net (initializes and uses this structure)
+  - [check_network_callback](check_network_callback.md) (uses this structure as callback data)
+  - [check_same_host_or_net](check_same_host_or_net.md) (initializes and uses this structure)
 
 ## Notes and Other Information
 - This structure is specifically designed for use with PostgreSQL's host-based authentication system

@@ -24,18 +24,18 @@ This function is the core executor for SQL/JSON path expressions, supporting JSO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetJsonPathP
-  - JsonPathExists (for JSON_EXISTS_OP)
-  - JsonPathQuery (for JSON_QUERY_OP)
-  - JsonPathValue (for JSON_VALUE_OP)
-  - ExecGetJsonValueItemString
-  - JsonbValueToJsonb
+  - [DatumGetJsonPathP](../D/DatumGetJsonPathP.md)
+  - [JsonPathExists](../J/JsonPathExists.md) (for JSON_EXISTS_OP)
+  - [JsonPathQuery](../J/JsonPathQuery.md) (for JSON_QUERY_OP)
+  - [JsonPathValue](../J/JsonPathValue.md) (for JSON_VALUE_OP)
+  - [ExecGetJsonValueItemString](ExecGetJsonValueItemString.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - DirectFunctionCall1 (textin, jsonb_out)
   - FunctionCallInvoke
   - SOFT_ERROR_OCCURRED
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Returns integer indicating next step to execute (jump_error, jump_empty, jump_eval_coercion, or jump_end)

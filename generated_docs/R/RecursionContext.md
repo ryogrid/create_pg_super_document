@@ -38,9 +38,9 @@ The enumeration works in conjunction with a corresponding error message array (`
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - CteState (as a member variable at src/backend/parser/parse_cte.c:82)
-  - checkWellFormedRecursionWalker (context tracking at src/backend/parser/parse_cte.c:1029)
-  - checkWellFormedSelectStmt (context management at src/backend/parser/parse_cte.c:1209)
+  - [CteState](../C/CteState.md) (as a member variable at src/backend/parser/parse_cte.c:82)
+  - [checkWellFormedRecursionWalker](../c/checkWellFormedRecursionWalker.md) (context tracking at src/backend/parser/parse_cte.c:1029)
+  - [checkWellFormedSelectStmt](../c/checkWellFormedSelectStmt.md) (context management at src/backend/parser/parse_cte.c:1209)
 
 ## Notes and Other Information
 - This enumeration is part of PostgreSQL's WITH RECURSIVE implementation and enforces SQL standard compliance

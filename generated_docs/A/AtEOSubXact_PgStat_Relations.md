@@ -26,7 +26,7 @@ For aborts: Applies the attempted actions to the top-level statistics as dead tu
   - save_truncdrop_counters (saves counters before truncate/drop operations)
   - restore_truncdrop_counters (restores counters after aborted truncate/drop)
   - pgstat_get_xact_stack_level (gets transaction stack level for relinking)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - PgStat_SubXactStatus (subtransaction status structure)
   - PgStat_TableXactStatus (transaction-level table statistics)
   - PgStat_TableStatus (base table statistics structure)

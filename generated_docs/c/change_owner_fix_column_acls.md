@@ -25,13 +25,13 @@ The function uses a system catalog scan to iterate through all attributes of the
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close
-  - ScanKeyInit, systable_beginscan, systable_getnext, systable_endscan
-  - heap_getattr, heap_modify_tuple, heap_freetuple
-  - CatalogTupleUpdate
-  - aclnewowner, DatumGetAclP
+  - [ScanKeyInit](../S/ScanKeyInit.md), systable_beginscan, systable_getnext, systable_endscan
+  - [heap_getattr](../h/heap_getattr.md), heap_modify_tuple, heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [aclnewowner](../a/aclnewowner.md), DatumGetAclP
   - Form_pg_attribute, SysScanDesc, Acl
 - Called from:
-  - ATExecChangeOwner
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md)
 
 ## Notes and Other Information
 - Only processes columns with explicit ACLs (non-null attacl values)

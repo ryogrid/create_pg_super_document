@@ -23,7 +23,7 @@ The structure follows PostgreSQL's pattern of embedding base structures at the b
   - DumpableObject (base structure)
   - DumpableAcl (ACL data structure)
 - Called from (representative examples):
-  - getAdditionalACLs (casts objects to this type for ACL processing)
+  - [getAdditionalACLs](../g/getAdditionalACLs.md) (casts objects to this type for ACL processing)
 
 ## Notes and Other Information
 - This structure is used as a casting target rather than being directly instantiated

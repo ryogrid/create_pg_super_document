@@ -23,19 +23,19 @@ The function performs comprehensive validation including permission checks (ACL_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_sequence: Initialize and lock the sequence relation
-  - pg_class_aclcheck: Check UPDATE permissions on the sequence
-  - SearchSysCache1/ReleaseSysCache: Look up sequence metadata
-  - PreventCommandIfReadOnly: Block execution in read-only transactions
-  - PreventCommandIfParallelMode: Block execution in parallel mode
-  - read_seq_tuple: Read the sequence data tuple from storage
+  - [init_sequence](../i/init_sequence.md): Initialize and lock the sequence relation
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Check UPDATE permissions on the sequence
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache: Look up sequence metadata
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md): Block execution in read-only transactions
+  - [PreventCommandIfParallelMode](../P/PreventCommandIfParallelMode.md): Block execution in parallel mode
+  - [read_seq_tuple](../r/read_seq_tuple.md): Read the sequence data tuple from storage
   - RelationNeedsWAL: Check if WAL logging is required
-  - GetTopTransactionId: Ensure transaction ID for WAL
+  - [GetTopTransactionId](../G/GetTopTransactionId.md): Ensure transaction ID for WAL
   - XLog functions: Write-ahead logging for crash recovery
-  - sequence_close: Close and unlock the sequence relation
+  - [sequence_close](../s/sequence_close.md): Close and unlock the sequence relation
 - Called from (representative examples):
-  - setval_oid: 2-argument setval wrapper
-  - setval3_oid: 3-argument setval wrapper
+  - [setval_oid](../s/setval_oid.md): 2-argument setval wrapper
+  - [setval3_oid](../s/setval3_oid.md): 3-argument setval wrapper
 
 ## Notes and Other Information
 - Static function, not directly callable from SQL (accessed via setval_oid/setval3_oid wrappers)

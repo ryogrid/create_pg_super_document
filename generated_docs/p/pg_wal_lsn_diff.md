@@ -29,7 +29,7 @@ Internally, the function delegates the actual computation to the pg_lsn_mi funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_lsn_mi (performs the actual LSN subtraction)
+  - [pg_lsn_mi](pg_lsn_mi.md) (performs the actual LSN subtraction)
   - DirectFunctionCall2 (PostgreSQL function call mechanism)
   - PG_GETARG_DATUM (macro to retrieve function arguments)
   - PG_RETURN_DATUM (macro to return result)

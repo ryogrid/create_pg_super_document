@@ -20,7 +20,7 @@ This function is used to configure the LSN (Log Sequence Number) threshold at wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild (struct type)
+  - [SnapBuild](SnapBuild.md) (struct type)
 - Called from (representative examples):
   - CreateDecodingContext
 

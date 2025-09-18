@@ -34,15 +34,15 @@ The function uses backward matching (find_among_b) to locate suffixes from the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function
-  - in_grouping_b: Backward character group testing
-  - r_R2: Region boundary test function
-  - slice_del: Function to delete the matched substring
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function
+  - [in_grouping_b](../i/in_grouping_b.md): Backward character group testing
+  - [r_R2](r_R2.md): Region boundary test function
+  - [slice_del](../s/slice_del.md): Function to delete the matched substring
   - g_particle_end: Character group defining valid particle endings
   - a_0: Array of particle suffix patterns (10 entries)
 - Called from (representative examples):
-  - finnish_ISO_8859_1_stem: Main Finnish stemming function
-  - finnish_UTF_8_stem: UTF-8 version of Finnish stemming
+  - [finnish_ISO_8859_1_stem](../f/finnish_ISO_8859_1_stem.md): Main Finnish stemming function
+  - [finnish_UTF_8_stem](../f/finnish_UTF_8_stem.md): UTF-8 version of Finnish stemming
 
 ## Notes and Other Information
 This function is specific to Finnish morphology and handles the complex particle system in Finnish language. Finnish has many clitics and particles that can be attached to words, and this function ensures they are properly identified and removed during text normalization. The function returns 1 on successful removal, 0 if no applicable suffix is found, and negative values for errors. The two-case structure reflects different classes of particles with different removal conditions - some require specific preceding characters while others require positioning in deeper morphological regions.

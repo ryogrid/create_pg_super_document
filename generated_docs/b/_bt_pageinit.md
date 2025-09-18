@@ -23,16 +23,16 @@ The function is used throughout the B-tree implementation whenever a fresh page 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageInit
-  - BTPageOpaqueData
+  - [BTPageOpaqueData](../B/BTPageOpaqueData.md)
 
 - Called from (representative examples):
-  - _bt_split
+  - [_bt_split](_bt_split.md)
   - _bt_initmetapage
-  - _bt_allocbuf
-  - _bt_blnewpage
-  - btree_xlog_split
-  - btree_xlog_newroot
-  - btree_xlog_unlink_page
+  - [_bt_allocbuf](_bt_allocbuf.md)
+  - [_bt_blnewpage](_bt_blnewpage.md)
+  - [btree_xlog_split](btree_xlog_split.md)
+  - [btree_xlog_newroot](btree_xlog_newroot.md)
+  - [btree_xlog_unlink_page](btree_xlog_unlink_page.md)
 
 ## Notes and Other Information
 - Simple wrapper around PageInit that provides B-tree-specific initialization parameters

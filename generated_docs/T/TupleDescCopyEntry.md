@@ -23,9 +23,9 @@ This function copies a single attribute definition from a source tuple descripto
   - PointerIsValid
   - ATTRIBUTE_FIXED_PART_SIZE
 - Called from (representative examples):
-  - ExecInitFunctionScan
-  - addRangeTableEntryForFunction
-  - ordered_set_startup
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
+  - [ordered_set_startup](../o/ordered_set_startup.md)
 
 ## Notes and Other Information
 - Performs attribute-level copying rather than full descriptor copying

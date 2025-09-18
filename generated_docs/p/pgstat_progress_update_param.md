@@ -24,16 +24,16 @@ Each command type typically defines its own set of progress parameters (e.g., VA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus (struct type)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (struct type)
   - PGSTAT_NUM_PROGRESS_PARAM (constant)
   - PGSTAT_BEGIN_WRITE_ACTIVITY (macro)
   - PGSTAT_END_WRITE_ACTIVITY (macro)
 - Called from (representative examples):
-  - lazy_scan_heap (VACUUM progress reporting)
-  - acquire_sample_rows (ANALYZE progress reporting)
-  - DefineIndex (CREATE INDEX progress reporting)
-  - CopyFrom/DoCopyTo (COPY progress reporting)
-  - heapam_relation_copy_for_cluster (CLUSTER progress reporting)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (VACUUM progress reporting)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (ANALYZE progress reporting)
+  - [DefineIndex](../D/DefineIndex.md) (CREATE INDEX progress reporting)
+  - [CopyFrom](../C/CopyFrom.md)/DoCopyTo (COPY progress reporting)
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md) (CLUSTER progress reporting)
 
 ## Notes and Other Information
 - Includes an assertion to validate that the index is within the valid range [0, PGSTAT_NUM_PROGRESS_PARAM)

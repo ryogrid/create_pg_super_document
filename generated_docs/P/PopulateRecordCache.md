@@ -21,15 +21,15 @@ The structure is stored in a specific memory context (fn_mcxt) to ensure proper 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ColumnIOData (struct type for column metadata caching)
+  - [ColumnIOData](../C/ColumnIOData.md) (struct type for column metadata caching)
 - Called from (representative examples):
-  - PopulateRecordsetState (contains this as a member)
+  - [PopulateRecordsetState](PopulateRecordsetState.md) (contains this as a member)
   - JsObjectFree (references for cleanup)
-  - get_record_type_from_argument
-  - get_record_type_from_query
-  - populate_record_worker
-  - populate_recordset_record
-  - populate_recordset_worker
+  - [get_record_type_from_argument](../g/get_record_type_from_argument.md)
+  - [get_record_type_from_query](../g/get_record_type_from_query.md)
+  - [populate_record_worker](../p/populate_record_worker.md)
+  - [populate_recordset_record](../p/populate_recordset_record.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
 
 ## Notes and Other Information
 - This cache is essential for performance optimization in JSON-to-record conversion operations

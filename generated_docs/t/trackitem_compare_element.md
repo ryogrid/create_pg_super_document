@@ -21,10 +21,10 @@ The function follows the standard C library qsort comparison interface and is sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - element_compare (performs the actual element value comparison)
-  - TrackItem (structure containing the key values being compared)
+  - [element_compare](../e/element_compare.md) (performs the actual element value comparison)
+  - [TrackItem](../T/TrackItem.md) (structure containing the key values being compared)
 - Called from (representative examples):
-  - compute_array_stats (for sorting array element statistics by value)
+  - [compute_array_stats](../c/compute_array_stats.md) (for sorting array element statistics by value)
 
 ## Notes and Other Information
 - Returns the same comparison values as element_compare: <0, 0, >0 for less than, equal, greater than

@@ -24,20 +24,20 @@ The function determines the length of the untranslatable character using pg_enco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_mblen_or_incomplete (determines character length safely)
+  - [pg_encoding_mblen_or_incomplete](../p/pg_encoding_mblen_or_incomplete.md) (determines character length safely)
   - Min (macro for minimum value calculation)
   - sprintf (standard C library function for string formatting)
   - ereport (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
   - pg_enc2name_tbl (encoding name lookup table)
 - Called from (representative examples):
-  - local2local
-  - mic2latin
-  - latin2mic_with_table
-  - mic2latin_with_table
-  - UtfToLocal
-  - LocalToUtf
+  - [local2local](../l/local2local.md)
+  - [mic2latin](../m/mic2latin.md)
+  - [latin2mic_with_table](../l/latin2mic_with_table.md)
+  - [mic2latin_with_table](../m/mic2latin_with_table.md)
+  - [UtfToLocal](../U/UtfToLocal.md)
+  - [LocalToUtf](../L/LocalToUtf.md)
   - Various encoding-specific conversion functions
 
 ## Notes and Other Information

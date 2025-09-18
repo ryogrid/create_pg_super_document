@@ -33,12 +33,12 @@ Key BRE-specific behaviors include:
   - RETV/RET (macros for returning token values)
   - HAVE/NEXT1/NEXT2 (macros for lookahead)
   - INTOCON (macro for entering lexical contexts)
-  - skip (function for skipping whitespace)
+  - [skip](../s/skip.md) (function for skipping whitespace)
   - ATEOS (macro for end-of-string check)
   - NOTE (macro for recording regex features used)
   - FAILW (macro for error handling)
 - Called from (representative examples):
-  - next (main tokenizer dispatch function)
+  - [next](../n/next.md) (main tokenizer dispatch function)
 
 ## Notes and Other Information
 - Part of PostgreSQL's regex engine implementation in src/backend/regex/regc_lex.c:861-981

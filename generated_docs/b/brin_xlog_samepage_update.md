@@ -21,12 +21,12 @@ This function performs optimized BRIN index update replay operations when the up
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extracts the data portion from the WAL record
   - XLogReadBufferForRedo: Reads buffer for redo operations
-  - XLogRecGetBlockData: Extracts block data from WAL record
-  - PageIndexTupleOverwrite: Overwrites existing tuple in-place
-  - xl_brin_samepage_update: Structure containing same-page update parameters
-  - BrinTuple: BRIN tuple structure
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md): Extracts block data from WAL record
+  - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md): Overwrites existing tuple in-place
+  - [xl_brin_samepage_update](../x/xl_brin_samepage_update.md): Structure containing same-page update parameters
+  - [BrinTuple](../B/BrinTuple.md): BRIN tuple structure
 - Called from (representative examples):
-  - brin_redo: Main BRIN WAL replay dispatcher function
+  - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin_xlog.c file

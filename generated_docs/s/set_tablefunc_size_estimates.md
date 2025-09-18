@@ -22,9 +22,9 @@ The function performs basic validation to ensure it's operating on a valid base 
 - Functions called/Symbols referenced:
   - planner_rt_fetch
   - RTE_TABLEFUNC
-  - set_baserel_size_estimates
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - Uses a hardcoded estimate of 100 rows for all table functions

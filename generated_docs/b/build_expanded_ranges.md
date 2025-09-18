@@ -22,15 +22,15 @@ The expanded representation is essential for range merging algorithms as it prov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fill_expanded_ranges
-  - sort_expanded_ranges
-  - palloc0
+  - [fill_expanded_ranges](../f/fill_expanded_ranges.md)
+  - [sort_expanded_ranges](../s/sort_expanded_ranges.md)
+  - [palloc0](../p/palloc0.md)
 - Types referenced:
-  - Ranges
-  - ExpandedRange
+  - [Ranges](../R/Ranges.md)
+  - [ExpandedRange](../E/ExpandedRange.md)
 - Called from:
-  - ensure_free_space_in_buffer
-  - compactify_ranges
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
 
 ## Notes and Other Information
 - Returns a newly allocated array of ExpandedRange structures

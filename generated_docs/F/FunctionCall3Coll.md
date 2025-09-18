@@ -28,12 +28,12 @@ The function creates a local FunctionCallInfoData structure with space for 3 arg
   - FunctionCallInvoke
   - elog (for error reporting)
 - Called from (representative examples):
-  - bringetbitmap
-  - union_tuples
-  - ginExtractEntries
-  - gistKeyIsEQ
-  - gistpenalty
-  - OidFunctionCall3Coll
+  - [bringetbitmap](../b/bringetbitmap.md)
+  - [union_tuples](../u/union_tuples.md)
+  - [ginExtractEntries](../g/ginExtractEntries.md)
+  - [gistKeyIsEQ](../g/gistKeyIsEQ.md)
+  - [gistpenalty](../g/gistpenalty.md)
+  - [OidFunctionCall3Coll](../O/OidFunctionCall3Coll.md)
 
 ## Notes and Other Information
 - This function explicitly checks for NULL results and throws an ERROR if the called function returns NULL

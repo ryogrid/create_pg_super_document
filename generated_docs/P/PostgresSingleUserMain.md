@@ -29,23 +29,23 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitStandaloneProcess (initialize standalone process environment)
-  - InitializeGUCOptions (set default GUC values)
-  - process_postgres_switches (parse command-line options)
-  - SelectConfigFiles (load configuration files)
-  - checkDataDir/ChangeToDataDir (validate and access data directory)
-  - CreateDataDirLockFile (create directory lock)
-  - LocalProcessControlFile (read control file)
-  - process_shared_preload_libraries (load preload libraries)
-  - InitializeMaxBackends (set up backend limits)
-  - process_shmem_requests (handle shared memory requests)
-  - InitializeShmemGUCs (initialize shared memory dependent GUCs)
-  - InitializeWalConsistencyChecking (initialize WAL consistency checking)
-  - CreateSharedMemoryAndSemaphores (set up IPC)
+  - [InitStandaloneProcess](../I/InitStandaloneProcess.md) (initialize standalone process environment)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md) (set default GUC values)
+  - [process_postgres_switches](../p/process_postgres_switches.md) (parse command-line options)
+  - [SelectConfigFiles](../S/SelectConfigFiles.md) (load configuration files)
+  - [checkDataDir](../c/checkDataDir.md)/ChangeToDataDir (validate and access data directory)
+  - [CreateDataDirLockFile](../C/CreateDataDirLockFile.md) (create directory lock)
+  - [LocalProcessControlFile](../L/LocalProcessControlFile.md) (read control file)
+  - [process_shared_preload_libraries](../p/process_shared_preload_libraries.md) (load preload libraries)
+  - [InitializeMaxBackends](../I/InitializeMaxBackends.md) (set up backend limits)
+  - [process_shmem_requests](../p/process_shmem_requests.md) (handle shared memory requests)
+  - [InitializeShmemGUCs](../I/InitializeShmemGUCs.md) (initialize shared memory dependent GUCs)
+  - [InitializeWalConsistencyChecking](../I/InitializeWalConsistencyChecking.md) (initialize WAL consistency checking)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md) (set up IPC)
   - InitProcess (create backend process structure)
-  - PostgresMain (main query processing function)
+  - [PostgresMain](PostgresMain.md) (main query processing function)
 - Called from (representative examples):
-  - main (in src/backend/main/main.c:196)
+  - [main](../m/main.md) (in src/backend/main/main.c:196)
 
 ## Notes and Other Information
 - Only used in single-user mode (Assert(!IsUnderPostmaster) enforces this)

@@ -21,15 +21,15 @@ This function creates and writes a WAL record to log the truncation of CLOG (com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_clog_truncate
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert (with RM_CLOG_ID, CLOG_TRUNCATE)
-  - XLogFlush
+  - [xl_clog_truncate](../x/xl_clog_truncate.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md) (with RM_CLOG_ID, CLOG_TRUNCATE)
+  - [XLogFlush](../X/XLogFlush.md)
   - CLOG_TRUNCATE
 - Called from (representative examples):
-  - TruncateCLOG
-  - TruncateCommitTs (via XactCtl function pointer)
+  - [TruncateCLOG](../T/TruncateCLOG.md)
+  - [TruncateCommitTs](../T/TruncateCommitTs.md) (via XactCtl function pointer)
 
 ## Notes and Other Information
 - Static function, internal to clog.c

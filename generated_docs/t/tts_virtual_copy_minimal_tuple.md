@@ -28,9 +28,9 @@ The conversion process organizes the virtual slot's separate value and null arra
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro to check if slot is empty)
-  - heap_form_minimal_tuple (function to create MinimalTuple from values and null indicators)
+  - [heap_form_minimal_tuple](../h/heap_form_minimal_tuple.md) (function to create MinimalTuple from values and null indicators)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (at src/backend/executor/execTuples.c:1126)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (at src/backend/executor/execTuples.c:1126)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the slot is not empty before proceeding

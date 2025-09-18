@@ -22,13 +22,13 @@ The serialization check is particularly important because when a leader apply wo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_parallel_apply_worker (assertion check)
-  - pa_get_xact_state (verify transaction state)
-  - hash_search (remove from ParallelApplyTxnHash)
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md) (assertion check)
+  - [pa_get_xact_state](pa_get_xact_state.md) (verify transaction state)
+  - [hash_search](../h/hash_search.md) (remove from ParallelApplyTxnHash)
   - logicalrep_pa_worker_stop (stop the worker process)
-  - pa_free_worker_info (free worker info structure)
+  - [pa_free_worker_info](pa_free_worker_info.md) (free worker info structure)
 - Called from (representative examples):
-  - pa_xact_finish
+  - [pa_xact_finish](pa_xact_finish.md)
 
 ## Notes and Other Information
 - Function contains several assertions to ensure it's called in the correct context (not from a parallel worker, worker is in use, transaction is finished)

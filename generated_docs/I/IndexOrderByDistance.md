@@ -25,15 +25,15 @@ IndexOrderByDistance is used to store distance values computed during index scan
 ## Dependencies
 - Functions called/Symbols referenced:
   - double (built-in type)
-  - bool (built-in type)
+  - [bool](../b/bool.md) (built-in type)
 
 - Called from (representative examples):
-  - gistindex_keytest
-  - gistScanPage  
-  - index_store_float8_orderby_distances
-  - storeGettuple
-  - GISTSearchItem (as member)
-  - GISTScanOpaqueData (as member)
+  - [gistindex_keytest](../g/gistindex_keytest.md)
+  - [gistScanPage](../g/gistScanPage.md)  
+  - [index_store_float8_orderby_distances](../i/index_store_float8_orderby_distances.md)
+  - [storeGettuple](../s/storeGettuple.md)
+  - [GISTSearchItem](../G/GISTSearchItem.md) (as member)
+  - [GISTScanOpaqueData](../G/GISTScanOpaqueData.md) (as member)
   - SpGistScanOpaqueData (as member)
 
 ## Notes and Other Information

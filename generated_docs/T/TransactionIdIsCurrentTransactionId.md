@@ -27,20 +27,20 @@ The function is critical for PostgreSQL's MVCC (Multi-Version Concurrency Contro
   - TransactionState (type)
   - TransactionIdIsNormal
   - TransactionIdEquals
-  - GetTopTransactionIdIfAny
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
   - nParallelCurrentXids, ParallelCurrentXids (parallel processing globals)
   - CurrentTransactionState (global variable)
   - TRANS_ABORT (transaction state constant)
   - FullTransactionIdIsValid, XidFromFullTransactionId
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md)
 - Called from (representative examples):
-  - heap_delete, heap_update, heap_lock_tuple
-  - HeapTupleSatisfiesSelf, HeapTupleSatisfiesUpdate, HeapTupleSatisfiesMVCC
-  - compute_new_xmax_infomask, test_lockmode_for_conflict
-  - FreezeMultiXactId, DoesMultiXactIdConflict
-  - heapam_tuple_lock, heapam_relation_copy_for_cluster
-  - ExecCheckTupleVisible, ExecOnConflictUpdate, ExecMergeMatched
-  - MultiXactIdIsRunning, TransactionIdIsInProgress
+  - [heap_delete](../h/heap_delete.md), heap_update, heap_lock_tuple
+  - [HeapTupleSatisfiesSelf](../H/HeapTupleSatisfiesSelf.md), HeapTupleSatisfiesUpdate, HeapTupleSatisfiesMVCC
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md), test_lockmode_for_conflict
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md), DoesMultiXactIdConflict
+  - [heapam_tuple_lock](../h/heapam_tuple_lock.md), heapam_relation_copy_for_cluster
+  - [ExecCheckTupleVisible](../E/ExecCheckTupleVisible.md), ExecOnConflictUpdate, ExecMergeMatched
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md), TransactionIdIsInProgress
 
 ## Notes and Other Information
 - Essential for PostgreSQL's MVCC implementation and tuple visibility determination

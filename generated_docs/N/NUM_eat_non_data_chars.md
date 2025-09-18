@@ -21,11 +21,11 @@ The function identifies numeric data characters as digits (0-9), decimal points 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NUMProc (structure type)
+  - [NUMProc](NUMProc.md) (structure type)
   - OVERLOAD_TEST (macro for boundary checking)
-  - pg_mblen (function for multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (function for multibyte character length)
 - Called from (representative examples):
-  - NUM_processor (multiple call sites at lines 6123, 6167, 6185, 6206, 6228, 6245)
+  - [NUM_processor](NUM_processor.md) (multiple call sites at lines 6123, 6167, 6185, 6206, 6228, 6245)
 
 ## Notes and Other Information
 - This is a static function, only available within the formatting.c compilation unit

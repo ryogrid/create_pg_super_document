@@ -26,9 +26,9 @@ This function implements PostgreSQL's default scale selection algorithm for divi
   - NUMERIC_MAX_DISPLAY_SCALE (maximum display scale)
   - DEC_DIGITS (digits per numeric base unit)
 - Called from (representative examples):
-  - numeric_div_opt_error (main division function)
-  - compute_bucket (statistical functions)
-  - numeric_stddev_internal (standard deviation calculation)
+  - [numeric_div_opt_error](../n/numeric_div_opt_error.md) (main division function)
+  - [compute_bucket](../c/compute_bucket.md) (statistical functions)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md) (standard deviation calculation)
 
 ## Notes and Other Information
 - Returns the calculated scale as an integer

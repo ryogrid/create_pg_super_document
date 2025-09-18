@@ -25,12 +25,12 @@ This function is essential for implementing holdable cursors in PostgreSQL, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PortalCreateHoldStore
-  - PersistHoldablePortal
-  - PortalReleaseCachedPlan
+  - [PortalCreateHoldStore](../P/PortalCreateHoldStore.md)
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
+  - [PortalReleaseCachedPlan](../P/PortalReleaseCachedPlan.md)
   - InvalidSubTransactionId
 - Called from (representative examples):
-  - PreCommit_Portals
+  - [PreCommit_Portals](../P/PreCommit_Portals.md)
   - HoldPinnedPortals
 
 ## Notes and Other Information

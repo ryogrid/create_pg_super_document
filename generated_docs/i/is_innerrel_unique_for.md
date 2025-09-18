@@ -43,17 +43,17 @@ After filtering suitable clauses, the function passes them to `rel_is_distinct_f
 - Functions called/Symbols referenced:
   - IS_OUTER_JOIN (macro to test if join type is outer)
   - RINFO_IS_PUSHED_DOWN (macro to test if clause is pushed down)
-  - clause_sides_match_join (validates clause structure for join relations)
-  - rel_is_distinct_for (performs final distinctness analysis)
+  - [clause_sides_match_join](../c/clause_sides_match_join.md) (validates clause structure for join relations)
+  - [rel_is_distinct_for](../r/rel_is_distinct_for.md) (performs final distinctness analysis)
   - lappend (appends to PostgreSQL list)
 - Data structures used:
-  - RestrictInfo
-  - PlannerInfo  
+  - [RestrictInfo](../R/RestrictInfo.md)
+  - [PlannerInfo](../P/PlannerInfo.md)  
   - RelOptInfo
   - JoinType
   - Relids
 - Called from:
-  - innerrel_is_unique (src/backend/optimizer/plan/analyzejoins.c:1234)
+  - [innerrel_is_unique](innerrel_is_unique.md) (src/backend/optimizer/plan/analyzejoins.c:1234)
 
 ## Notes and Other Information
 - Declared as static, so only visible within analyzejoins.c

@@ -25,15 +25,15 @@ The makepol function is the core parser for converting tsquery expressions into 
   - OperatorElement (operator stack element)
   - STACKDEPTH (maximum stack depth constant)
   - check_stack_depth (stack overflow protection)
-  - cleanOpStack (operator precedence handling)
-  - pushOpStack (operator stack management)
+  - [cleanOpStack](../c/cleanOpStack.md) (operator precedence handling)
+  - [pushOpStack](../p/pushOpStack.md) (operator stack management)
   - PT_VAL, PT_OPR, PT_OPEN, PT_CLOSE, PT_END, PT_ERR (token type constants)
   - OP_OR (lowest precedence operator)
   - SOFT_ERROR_OCCURRED (error checking macro)
   - errsave (soft error reporting)
 - Called from (representative examples):
-  - makepol (recursive calls for parentheses)
-  - parse_tsquery (main entry point)
+  - [makepol](makepol.md) (recursive calls for parentheses)
+  - [parse_tsquery](../p/parse_tsquery.md) (main entry point)
 
 ## Notes and Other Information
 - Implements recursive descent parsing for tsquery expressions

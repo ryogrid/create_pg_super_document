@@ -22,10 +22,10 @@ This function returns the complete uint64 header that precedes every allocated m
   - VALGRIND_MAKE_MEM_DEFINED (for memory debugging)
   - VALGRIND_MAKE_MEM_NOACCESS (for memory debugging)
 - Called from (representative examples):
-  - BogusFree
-  - BogusRealloc
-  - BogusGetChunkContext
-  - BogusGetChunkSpace
+  - [BogusFree](../B/BogusFree.md)
+  - [BogusRealloc](../B/BogusRealloc.md)
+  - [BogusGetChunkContext](../B/BogusGetChunkContext.md)
+  - [BogusGetChunkSpace](../B/BogusGetChunkSpace.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance efficiency

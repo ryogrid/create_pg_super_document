@@ -19,16 +19,16 @@ This is a specialized wrapper function that validates operator class options sup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_amproc_signature (underlying signature validation function)
+  - [check_amproc_signature](check_amproc_signature.md) (underlying signature validation function)
   - VOIDOID (void type OID constant)
   - INTERNALOID (internal type OID constant)
 - Called from (representative examples):
-  - brinvalidate
-  - ginvalidate
-  - gistvalidate
-  - hashvalidate
-  - btvalidate
-  - spgvalidate
+  - [brinvalidate](../b/brinvalidate.md)
+  - [ginvalidate](../g/ginvalidate.md)
+  - [gistvalidate](../g/gistvalidate.md)
+  - [hashvalidate](../h/hashvalidate.md)
+  - [btvalidate](../b/btvalidate.md)
+  - [spgvalidate](../s/spgvalidate.md)
 
 ## Notes and Other Information
 - Returns true if signature is valid (void(internal)), false otherwise

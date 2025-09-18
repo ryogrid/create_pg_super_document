@@ -18,15 +18,15 @@ The  function generates SQL CREATE TRIGGER statements and associated ALTER TRIGG
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - append_depends_on_extension
+  - [append_depends_on_extension](../a/append_depends_on_extension.md)
   - createPQExpBuffer/resetPQExpBuffer/destroyPQExpBuffer
-  - psprintf
-  - ArchiveEntry
-  - dumpComment
+  - [psprintf](../p/psprintf.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode

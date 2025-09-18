@@ -25,9 +25,9 @@ It uses PostgreSQL's  function to perform the actual comparison, which provides 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_s32 (PostgreSQL's 32-bit signed integer comparison function)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's 32-bit signed integer comparison function)
 - Called from:
-  - tsvector_delete_by_indices (used with qsort to sort index arrays)
+  - [tsvector_delete_by_indices](../t/tsvector_delete_by_indices.md) (used with qsort to sort index arrays)
 
 ## Notes and Other Information
 - Designed specifically for use with qsort and similar sorting functions that require comparator callbacks

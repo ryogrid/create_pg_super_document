@@ -28,15 +28,15 @@ Key processing steps include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan
-  - order_qual_clauses
-  - extract_actual_clauses
-  - process_subquery_nestloop_params
-  - replace_nestloop_params
-  - make_subqueryscan
-  - copy_generic_path_info
+  - [create_plan](create_plan.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [process_subquery_nestloop_params](../p/process_subquery_nestloop_params.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_subqueryscan](../m/make_subqueryscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - Only works with subquery relations (RTE_SUBQUERY), not base tables or functions

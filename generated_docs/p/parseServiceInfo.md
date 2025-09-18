@@ -22,16 +22,16 @@ The function first checks for a service name in the options array or the PGSERVI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conninfo_getval
-  - parseServiceFile
-  - pqGetHomeDirectory
-  - libpq_append_error
+  - [conninfo_getval](../c/conninfo_getval.md)
+  - [parseServiceFile](parseServiceFile.md)
+  - [pqGetHomeDirectory](pqGetHomeDirectory.md)
+  - [libpq_append_error](../l/libpq_append_error.md)
   - strlcpy
   - getenv, stat, snprintf (standard C library functions)
   - MAXPGPATH, SYSCONFDIR (constants)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - conninfo_add_defaults
+  - [conninfo_add_defaults](../c/conninfo_add_defaults.md)
 
 ## Notes and Other Information
 - Returns 0 on success, 3 if the specified service is not found, or other nonzero values on failure

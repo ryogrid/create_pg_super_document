@@ -21,11 +21,11 @@ This function is part of the TAR format implementation and provides a standardiz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tarWrite
+  - [tarWrite](../t/tarWrite.md)
 - Data types used:
-  - lclContext
+  - [lclContext](../l/lclContext.md)
 - Called from (representative examples):
-  - _CloseArchive
+  - [_CloseArchive](../C/_CloseArchive.md)
 
 ## Notes and Other Information
 - This function is specific to the TAR format archiver implementation

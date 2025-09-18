@@ -20,15 +20,15 @@ checkRuleResultList performs comprehensive validation of target lists against re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TargetEntry (struct access)
+  - [TargetEntry](../T/TargetEntry.md) (struct access)
   - TupleDescAttr
   - NameStr
   - exprType
   - exprTypmod
-  - format_type_be
-  - format_type_with_typemod
+  - [format_type_be](../f/format_type_be.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
 - Called from (representative examples):
-  - DefineQueryRewrite (twice - for SELECT rules and RETURNING validation)
+  - [DefineQueryRewrite](../D/DefineQueryRewrite.md) (twice - for SELECT rules and RETURNING validation)
 
 ## Notes and Other Information
 - This is a static function internal to rewriteDefine.c used specifically for rule validation

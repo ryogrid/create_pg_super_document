@@ -26,9 +26,9 @@ NonEmptyRange is a simple but important data structure used in PostgreSQL's GiST
 - Functions called/Symbols referenced:
   - RangeBound (range boundary structure)
 - Called from (representative examples):
-  - range_gist_double_sorting_split (primary usage)
-  - interval_cmp_lower (comparison function)
-  - interval_cmp_upper (comparison function)
+  - [range_gist_double_sorting_split](../r/range_gist_double_sorting_split.md) (primary usage)
+  - [interval_cmp_lower](../i/interval_cmp_lower.md) (comparison function)
+  - [interval_cmp_upper](../i/interval_cmp_upper.md) (comparison function)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/rangetypes_gist.c:94-98

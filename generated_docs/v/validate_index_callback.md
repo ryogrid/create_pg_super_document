@@ -23,11 +23,11 @@ The callback is designed to gather a complete inventory of all tuples currently 
 ## Dependencies
 - Functions called/Symbols referenced:
   - itemptr_encode
-  - Int64GetDatum
-  - tuplesort_putdatum
+  - [Int64GetDatum](../I/Int64GetDatum.md)
+  - [tuplesort_putdatum](../t/tuplesort_putdatum.md)
   - ValidateIndexState
 - Called from (representative examples):
-  - validate_index
+  - [validate_index](validate_index.md)
 
 ## Notes and Other Information
 - This function is static and only used internally during concurrent index validation

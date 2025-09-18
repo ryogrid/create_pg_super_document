@@ -20,13 +20,13 @@ This structure is used to define boolean options that can be set on database obj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relopt_gen
+  - [relopt_gen](relopt_gen.md)
 - Called from (representative examples):
-  - allocate_reloption
-  - init_bool_reloption
-  - add_bool_reloption
-  - add_local_bool_reloption
-  - fillRelOptions
+  - [allocate_reloption](../a/allocate_reloption.md)
+  - [init_bool_reloption](../i/init_bool_reloption.md)
+  - [add_bool_reloption](../a/add_bool_reloption.md)
+  - [add_local_bool_reloption](../a/add_local_bool_reloption.md)
+  - [fillRelOptions](../f/fillRelOptions.md)
 
 ## Notes and Other Information
 This is one of the type-specific structures in the relation options system. The gen field must be the first member to allow casting between relopt_bool* and relopt_gen* for polymorphic handling. The type field in the embedded gen structure will be set to RELOPT_TYPE_BOOL for all instances of this structure.

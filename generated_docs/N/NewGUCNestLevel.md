@@ -26,10 +26,10 @@ This function takes no parameters and returns:
 - Functions called/Symbols referenced:
   - GUCNestLevel (global variable)
 - Called from (representative examples):
-  - PushTransaction (subtransaction management)
-  - fmgr_security_definer (function execution with security context)
-  - execute_extension_script (extension script execution)
-  - DefineIndex (index creation with specific settings)
+  - [PushTransaction](../P/PushTransaction.md) (subtransaction management)
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (function execution with security context)
+  - [execute_extension_script](../e/execute_extension_script.md) (extension script execution)
+  - [DefineIndex](../D/DefineIndex.md) (index creation with specific settings)
   - Various DDL operations requiring transient configuration changes
 
 ## Notes and Other Information

@@ -20,12 +20,12 @@ This callback function is invoked when a transaction begins during logical repli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext (logical decoding context structure)
-  - ReorderBufferTXN (transaction buffer structure)
-  - MemoryContextAllocZero (zero-initialized memory allocation function)
-  - PGOutputTxnData (transaction-specific data structure)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (logical decoding context structure)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (transaction buffer structure)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (zero-initialized memory allocation function)
+  - [PGOutputTxnData](../P/PGOutputTxnData.md) (transaction-specific data structure)
 - Called from:
-  - _PG_output_plugin_init (registered as begin_cb callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as begin_cb callback)
 
 ## Notes and Other Information
 - Implements bandwidth optimization by deferring BEGIN message transmission

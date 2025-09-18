@@ -33,23 +33,23 @@ The function also handles UNKNOWN input literals by deducing their appropriate t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType
-  - get_element_type
-  - get_range_subtype
-  - get_multirange_range
-  - get_range_multirange
-  - get_array_type
-  - select_common_type_from_oids
-  - verify_common_type_from_oids
+  - [getBaseType](../g/getBaseType.md)
+  - [get_element_type](../g/get_element_type.md)
+  - [get_range_subtype](../g/get_range_subtype.md)
+  - [get_multirange_range](../g/get_multirange_range.md)
+  - [get_range_multirange](../g/get_range_multirange.md)
+  - [get_array_type](../g/get_array_type.md)
+  - [select_common_type_from_oids](../s/select_common_type_from_oids.md)
+  - [verify_common_type_from_oids](../v/verify_common_type_from_oids.md)
   - IsPolymorphicTypeFamily1
   - type_is_array_domain
-  - type_is_enum
+  - [type_is_enum](../t/type_is_enum.md)
   - FUNC_MAX_ARGS
 - Called from (representative examples):
-  - ParseFuncOrColumn
-  - lookup_agg_function
-  - make_op
-  - make_scalar_array_op
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [lookup_agg_function](../l/lookup_agg_function.md)
+  - [make_op](../m/make_op.md)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md)
 
 ## Notes and Other Information
 - Located in src/backend/parser/parse_coerce.c:2133-2876

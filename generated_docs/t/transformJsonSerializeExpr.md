@@ -20,12 +20,12 @@ The transformJsonSerializeExpr function handles the transformation of JSON_SERIA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonValueExpr
-  - transformJsonOutput
-  - get_type_category_preferred
-  - makeJsonFormat
-  - makeJsonConstructorExpr
-  - format_type_be
+  - [transformJsonValueExpr](transformJsonValueExpr.md)
+  - [transformJsonOutput](transformJsonOutput.md)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
+  - [makeJsonFormat](../m/makeJsonFormat.md)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
+  - [format_type_be](../f/format_type_be.md)
   - ereport
   - makeNode
   - JS_FORMAT_JSON
@@ -34,7 +34,7 @@ The transformJsonSerializeExpr function handles the transformation of JSON_SERIA
   - TYPCATEGORY_STRING
   - JsonReturning
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's SQL/JSON support implementation. It enforces strict type checking for the RETURNING clause, ensuring only string types or bytea are allowed. The function provides detailed error messages when invalid types are specified in the RETURNING clause, helping users understand the correct usage. Located at src/backend/parser/parse_expr.c:4225-4270.

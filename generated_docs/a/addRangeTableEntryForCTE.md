@@ -29,13 +29,13 @@ This function creates a RangeTblEntry of type RTE_CTE for handling Common Table 
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry creation)
   - copyObject (for alias copying)
-  - makeAlias (for default alias creation)
-  - list_copy (for copying CTE column information)
-  - makeString (for column name creation)
+  - [makeAlias](../m/makeAlias.md) (for default alias creation)
+  - [list_copy](../l/list_copy.md) (for copying CTE column information)
+  - [makeString](../m/makeString.md) (for column name creation)
   - lappend_oid, lappend_int (for column type management)
-  - buildNSItemFromLists (for ParseNamespaceItem construction)
+  - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (for ParseNamespaceItem construction)
 - Called from (representative examples):
-  - getNSItemForSpecialRelationTypes (in parse_clause.c:1027)
+  - [getNSItemForSpecialRelationTypes](../g/getNSItemForSpecialRelationTypes.md) (in parse_clause.c:1027)
 
 ## Notes and Other Information
 - Automatically detects self-references by checking if CTE's parse analysis is completed

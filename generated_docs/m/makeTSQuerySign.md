@@ -30,8 +30,8 @@ The function iterates through all QueryItem elements in the TSQuery, but only pr
   - QI_VAL (query item type for values)
 
 - Called from:
-  - gtsquery_compress (in tsquery_gist.c)
-  - gtsquery_consistent (in tsquery_gist.c)
+  - [gtsquery_compress](../g/gtsquery_compress.md) (in tsquery_gist.c)
+  - [gtsquery_consistent](../g/gtsquery_consistent.md) (in tsquery_gist.c)
   - PG_GETARG_TSQUERYSIGN macro
 
 ## Notes and Other Information

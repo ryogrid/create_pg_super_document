@@ -29,15 +29,15 @@ The function handles EOF gracefully by returning the actual number of bytes read
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyLoadRawBuf
+  - [CopyLoadRawBuf](CopyLoadRawBuf.md)
   - CopyFromState
 - Called from (representative examples):
   - NO_END_OF_COPY_GOTO
-  - ReceiveCopyBinaryHeader
-  - CopyGetInt32
-  - CopyGetInt16
-  - NextCopyFrom
-  - CopyReadBinaryAttribute
+  - [ReceiveCopyBinaryHeader](../R/ReceiveCopyBinaryHeader.md)
+  - [CopyGetInt32](CopyGetInt32.md)
+  - [CopyGetInt16](CopyGetInt16.md)
+  - [NextCopyFrom](../N/NextCopyFrom.md)
+  - [CopyReadBinaryAttribute](CopyReadBinaryAttribute.md)
 
 ## Notes and Other Information
 - The function uses RAW_BUF_BYTES macro to efficiently check available buffer data

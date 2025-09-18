@@ -30,13 +30,13 @@ Unlike some other pattern expansion functions, this function does not have a str
 - Functions called/Symbols referenced:
   - createPQExpBuffer, resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
   - processSQL    ePattern (pattern matching and SQL generation)
-  - GetConnection (database connection retrieval)
-  - ExecuteSqlQuery (query execution)
-  - simple_oid_list_append (OID list management)
+  - [GetConnection](../G/GetConnection.md) (database connection retrieval)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
+  - [simple_oid_list_append](../s/simple_oid_list_append.md) (OID list management)
   - atooid (string to OID conversion)
-  - pg_fatal (error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
 - Called from (representative examples):
-  - main (in pg_dump.c at line 916)
+  - [main](../m/main.md) (in pg_dump.c at line 916)
   - fmtQualifiedDumpable (in pg_dump.c at line 194)
 
 ## Notes and Other Information

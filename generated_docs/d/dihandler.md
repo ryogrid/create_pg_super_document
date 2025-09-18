@@ -20,19 +20,19 @@ The dummy index AM is designed as a minimal test implementation that demonstrate
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for IndexAmRoutine)
-  - dibuild
-  - dibuildempty  
-  - diinsert
-  - dibulkdelete
-  - divacuumcleanup
-  - dicostestimate
-  - dioptions
-  - divalidate
-  - dibeginscan
-  - direscan
-  - diendscan
+  - [dibuild](dibuild.md)
+  - [dibuildempty](dibuildempty.md)  
+  - [diinsert](diinsert.md)
+  - [dibulkdelete](dibulkdelete.md)
+  - [divacuumcleanup](divacuumcleanup.md)
+  - [dicostestimate](dicostestimate.md)
+  - [dioptions](dioptions.md)
+  - [divalidate](divalidate.md)
+  - [dibeginscan](dibeginscan.md)
+  - [direscan](direscan.md)
+  - [diendscan](diendscan.md)
 - Data types used:
-  - IndexAmRoutine
+  - [IndexAmRoutine](../I/IndexAmRoutine.md)
   - Datum
 - Constants used:
   - VACUUM_OPTION_NO_PARALLEL

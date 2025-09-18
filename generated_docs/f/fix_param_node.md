@@ -25,14 +25,14 @@ For all other parameter types, the function simply creates a copy of the origina
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (gets list length for bounds checking)
-  - list_nth (retrieves list elements by index)
+  - [list_nth](../l/list_nth.md) (retrieves list elements by index)
   - copyObject (creates deep copies of nodes)
   - elog (error logging for invalid parameter IDs)
   - PARAM_MULTIEXPR (parameter kind constant)
 - Called from (representative examples):
-  - fix_scan_expr_mutator
-  - fix_join_expr_mutator
-  - fix_upper_expr_mutator
+  - [fix_scan_expr_mutator](fix_scan_expr_mutator.md)
+  - [fix_join_expr_mutator](fix_join_expr_mutator.md)
+  - [fix_upper_expr_mutator](fix_upper_expr_mutator.md)
 
 ## Notes and Other Information
 - Decodes PARAM_MULTIEXPR paramid using bit manipulation: subqueryid = paramid >> 16, colno = paramid & 0xFFFF

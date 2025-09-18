@@ -20,8 +20,8 @@ The function is exposed to Python as `plpy.quote_ident()` and is essential for c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - quote_identifier (PostgreSQL's core identifier quoting function)
-  - PLyUnicode_FromString (converts C string to Python string)
+  - [quote_identifier](../q/quote_identifier.md) (PostgreSQL's core identifier quoting function)
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md) (converts C string to Python string)
   - PyArg_ParseTuple (parses Python arguments)
 - Called from (representative examples):
   - Exposed to Python as `plpy.quote_ident` method in the plpy module

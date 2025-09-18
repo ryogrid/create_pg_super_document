@@ -22,22 +22,22 @@ The function monitors both the summarized_lsn (data written to disk) and pending
   - CHECK_FOR_INTERRUPTS
   - LWLockAcquire
   - LWLockRelease
-  - GetCurrentTimestamp
-  - TimestampDifferenceMilliseconds
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
   - TimestampTzPlusMilliseconds
-  - ConditionVariableTimedSleep
-  - ConditionVariableCancelSleep
+  - [ConditionVariableTimedSleep](../C/ConditionVariableTimedSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - ereport
-  - errcode
-  - errmsg_plural
-  - errdetail
+  - [errcode](../e/errcode.md)
+  - [errmsg_plural](../e/errmsg_plural.md)
+  - [errdetail](../e/errdetail.md)
   - LSN_FORMAT_ARGS
 - Global variables accessed:
   - summarize_wal
   - WalSummarizerCtl
 - Called from (representative examples):
-  - CleanupAfterArchiveRecovery
-  - PrepareForIncrementalBackup
+  - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
 
 ## Notes and Other Information
 - Returns immediately if summarize_wal is disabled during the wait

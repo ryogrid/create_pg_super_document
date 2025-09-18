@@ -89,16 +89,16 @@ update_symbol_types.py: ScanDirection indicating the current scan direction (for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_start_array_keys
+  - [_bt_start_array_keys](_bt_start_array_keys.md)
   - ScanDirectionIsForward
   - ScanDirectionIsBackward
   - BTScanOpaque (structure)
-  - BTArrayKeyInfo (structure)
-  - IndexScanDesc (structure)
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md) (structure)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (structure)
   - ScanDirection (enum)
   - ScanKey (structure)
 - Called from (representative examples):
-  - _bt_advance_array_keys
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
 
 ## Notes and Other Information
 - Returns true if there are more array combinations to process, false if arrays are exhausted

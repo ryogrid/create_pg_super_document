@@ -19,11 +19,11 @@ This function is part of the word parser definition module () which handles the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - p_isspecial (extensively used throughout the function)
-  - _make_compiler_happy
+  - [p_isspecial](p_isspecial.md) (extensively used throughout the function)
+  - [_make_compiler_happy](../m/_make_compiler_happy.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

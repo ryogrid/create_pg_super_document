@@ -26,8 +26,8 @@ The function is designed to handle incremental data writing, where backup conten
 ## Dependencies
 - Functions called/Symbols referenced:
   - gzwrite
-  - get_gz_error
-  - pg_fatal
+  - [get_gz_error](../g/get_gz_error.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
   - Used as callback through bbstreamer_gzip_writer_ops function pointer table
 

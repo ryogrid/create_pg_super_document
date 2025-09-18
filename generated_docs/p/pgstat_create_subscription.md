@@ -24,7 +24,7 @@ The function ensures proper ACID compliance by using the transactional statistic
   - pgstat_reset_entry
   - PGSTAT_KIND_SUBSCRIPTION
 - Called from (representative examples):
-  - CreateSubscription
+  - [CreateSubscription](../C/CreateSubscription.md)
 
 ## Notes and Other Information
 This function is typically called during the execution of a CREATE SUBSCRIPTION SQL command. The transactional nature ensures that incomplete subscription creations don't leave orphaned statistics entries. The function works in conjunction with the overall PostgreSQL statistics system to provide monitoring capabilities for logical replication subscriptions from the moment they are created.

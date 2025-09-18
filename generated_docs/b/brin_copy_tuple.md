@@ -22,15 +22,15 @@ The function performs a simple memory copy operation after ensuring adequate buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinTuple (structure type)
-  - palloc (memory allocation)
-  - repalloc (memory reallocation)
+  - [BrinTuple](../B/BrinTuple.md) (structure type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - memcpy (memory copy operation)
 - Called from:
-  - brininsert (src/backend/access/brin/brin.c:456)
-  - bringetbitmap (src/backend/access/brin/brin.c:746)
-  - summarize_range (src/backend/access/brin/brin.c:1856)
-  - brin_evacuate_page (src/backend/access/brin/brin_pageops.c:591)
+  - [brininsert](brininsert.md) (src/backend/access/brin/brin.c:456)
+  - [bringetbitmap](bringetbitmap.md) (src/backend/access/brin/brin.c:746)
+  - [summarize_range](../s/summarize_range.md) (src/backend/access/brin/brin.c:1856)
+  - [brin_evacuate_page](brin_evacuate_page.md) (src/backend/access/brin/brin_pageops.c:591)
   - BrinTupleIsEmptyRange (src/include/access/brin_tuple.h:101)
 
 ## Notes and Other Information

@@ -28,9 +28,9 @@ The function handles special cases like RAINBOW (match-all) colors and provides 
   - EMPTY (arc type for epsilon transitions)
   - CANTMATCH (arc type for impossible matches)
   - RAINBOW (special color value for match-all)
-  - arc (struct type for representing transitions)
+  - [arc](../a/arc.md) (struct type for representing transitions)
 - Called from (representative examples):
-  - dumparcs (src/backend/regex/regc_nfa.c:3735)
+  - [dumparcs](dumparcs.md) (src/backend/regex/regc_nfa.c:3735)
   - REPLACEARC (src/backend/regex/regcomp.c:239)
 
 ## Notes and Other Information

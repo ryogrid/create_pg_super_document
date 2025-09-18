@@ -24,21 +24,21 @@ The function handles multiple function languages (INTERNAL, C, SQL, and procedur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_isbuiltin (fast builtin function lookup)
-  - SearchSysCache1, ReleaseSysCache (catalog access for pg_proc entries)
-  - heap_attisnull (checking for non-null proconfig values)
+  - [fmgr_isbuiltin](fmgr_isbuiltin.md) (fast builtin function lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (catalog access for pg_proc entries)
+  - [heap_attisnull](../h/heap_attisnull.md) (checking for non-null proconfig values)
   - FmgrHookIsNeeded (checking if function hooks are required)
-  - fmgr_security_definer (security definer call handler)
-  - fmgr_lookupByName (builtin function lookup by name for aliased internals)
-  - fmgr_info_C_lang (C language function setup)
-  - fmgr_sql (SQL language function handler)
-  - fmgr_info_other_lang (procedural language function setup)
+  - [fmgr_security_definer](fmgr_security_definer.md) (security definer call handler)
+  - [fmgr_lookupByName](fmgr_lookupByName.md) (builtin function lookup by name for aliased internals)
+  - [fmgr_info_C_lang](fmgr_info_C_lang.md) (C language function setup)
+  - [fmgr_sql](fmgr_sql.md) (SQL language function handler)
+  - [fmgr_info_other_lang](fmgr_info_other_lang.md) (procedural language function setup)
   - Various constants: TRACK_FUNC_ALL, TRACK_FUNC_PL, TRACK_FUNC_OFF
 - Called from (representative examples):
-  - fmgr_info (convenience wrapper using current memory context)
-  - fmgr_info_cxt (wrapper with explicit memory context)
-  - fmgr_info_other_lang (recursive call for procedural language setup)
-  - fmgr_security_definer (recursive call with security bypass)
+  - [fmgr_info](fmgr_info.md) (convenience wrapper using current memory context)
+  - [fmgr_info_cxt](fmgr_info_cxt.md) (wrapper with explicit memory context)
+  - [fmgr_info_other_lang](fmgr_info_other_lang.md) (recursive call for procedural language setup)
+  - [fmgr_security_definer](fmgr_security_definer.md) (recursive call with security bypass)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fmgr.c file

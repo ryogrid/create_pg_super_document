@@ -33,28 +33,28 @@ The function examines each column pair in the row comparison, checking if additi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_op_opfamily_properties
+  - [get_op_opfamily_properties](../g/get_op_opfamily_properties.md)
   - list_make1_int
   - list_make1_oid
-  - list_nth
-  - list_nth_oid
-  - get_commutator
-  - bms_is_member
-  - pull_varnos
-  - contain_volatile_functions
-  - match_index_to_operand
-  - get_op_opfamily_strategy
+  - [list_nth](../l/list_nth.md)
+  - [list_nth_oid](../l/list_nth_oid.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [pull_varnos](../p/pull_varnos.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [match_index_to_operand](../m/match_index_to_operand.md)
+  - [get_op_opfamily_strategy](../g/get_op_opfamily_strategy.md)
   - IndexCollMatchesExprColl
   - lappend_int
   - lappend_oid
-  - list_truncate
-  - get_opfamily_member
-  - list_copy_head
+  - [list_truncate](../l/list_truncate.md)
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [list_copy_head](../l/list_copy_head.md)
   - make_simple_restrictinfo
   - make_opclause
   - copyObject
 - Called from (representative examples):
-  - match_rowcompare_to_indexcol
+  - [match_rowcompare_to_indexcol](../m/match_rowcompare_to_indexcol.md)
 
 ## Notes and Other Information
 - Performs detailed analysis of multi-column row comparisons for index optimization

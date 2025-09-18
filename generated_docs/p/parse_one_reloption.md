@@ -23,17 +23,17 @@ This function is the core parsing logic for individual relation options, called 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - palloc
+  - [palloc](palloc.md)
   - memcpy
-  - parse_bool
+  - [parse_bool](parse_bool.md)
   - parse_int
   - parse_real
-  - pg_strcasecmp
-  - errdetail_internal
+  - [pg_strcasecmp](pg_strcasecmp.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
   - elog
-  - pfree
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - parseRelOptionsInternal
+  - [parseRelOptionsInternal](parseRelOptionsInternal.md)
 
 ## Notes and Other Information
 - Detects and reports duplicate option specifications when validation is enabled

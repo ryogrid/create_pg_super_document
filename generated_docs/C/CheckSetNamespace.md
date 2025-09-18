@@ -20,13 +20,13 @@ The function specifically prohibits moving objects into or out of temporary name
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isAnyTempNamespace (to check if a namespace is temporary)
+  - [isAnyTempNamespace](../i/isAnyTempNamespace.md) (to check if a namespace is temporary)
   - ereport/ERROR (for error reporting)
   - PG_TOAST_NAMESPACE (constant for TOAST schema OID)
 - Called from (representative examples):
-  - AlterObjectNamespace_internal
-  - AlterTableNamespace  
-  - AlterTypeNamespaceInternal
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)
+  - [AlterTableNamespace](../A/AlterTableNamespace.md)  
+  - [AlterTypeNamespaceInternal](../A/AlterTypeNamespaceInternal.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

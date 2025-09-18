@@ -34,14 +34,14 @@ If any validation fails, the function throws an error with context about which c
   - ARR_DATA_PTR (macro to get pointer to array data)
   - elog (PostgreSQL logging/error function)
 - Called from (representative examples):
-  - float8_combine (multiple calls)
-  - float8_accum
-  - float4_accum
-  - float8_avg
-  - float8_var_pop
-  - float8_var_samp
-  - float8_stddev_pop
-  - float8_stddev_samp
+  - [float8_combine](../f/float8_combine.md) (multiple calls)
+  - [float8_accum](../f/float8_accum.md)
+  - [float4_accum](../f/float4_accum.md)
+  - [float8_avg](../f/float8_avg.md)
+  - [float8_var_pop](../f/float8_var_pop.md)
+  - [float8_var_samp](../f/float8_var_samp.md)
+  - [float8_stddev_pop](../f/float8_stddev_pop.md)
+  - [float8_stddev_samp](../f/float8_stddev_samp.md)
   - Various regression and covariance functions
 
 ## Notes and Other Information

@@ -32,18 +32,18 @@ This function acts as a central coordinator for file path management, ensuring t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_input (PostgreSQL utility for setting file paths)
-  - check_input (PostgreSQL utility for validating file accessibility)
+  - [set_input](set_input.md) (PostgreSQL utility for setting file paths)
+  - [check_input](../c/check_input.md) (PostgreSQL utility for validating file accessibility)
   - fprintf (C standard library)
   - exit (C standard library)
 - Global variables referenced:
   - show_setting (Flag for displaying configuration)
-  - debug (Debug mode flag)
+  - [debug](../d/debug.md) (Debug mode flag)
   - PG_VERSION (PostgreSQL version constant)
   - pg_data, share_path, bin_path (Directory paths)
   - username (Database superuser name)
 - Called from (representative examples):
-  - main (src/bin/initdb/initdb.c:3465)
+  - [main](../m/main.md) (src/bin/initdb/initdb.c:3465)
 
 ## Notes and Other Information
 - The function sets up paths to 10 essential files required for database initialization

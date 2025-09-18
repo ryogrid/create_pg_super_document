@@ -17,14 +17,14 @@ nodeToStringWithLocations is an externally visible entry point for converting Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToStringInternal
+  - [nodeToStringInternal](nodeToStringInternal.md)
 - Called from (representative examples):
-  - print (src/backend/nodes/print.c:41)
+  - [print](../p/print.md) (src/backend/nodes/print.c:41)
   - pprint (src/backend/nodes/print.c:59)
   - elog_node_display (src/backend/nodes/print.c:77)
-  - pg_parse_query (src/backend/tcop/postgres.c:648)
-  - pg_rewrite_query (src/backend/tcop/postgres.c:856)
-  - pg_plan_query (src/backend/tcop/postgres.c:938)
+  - [pg_parse_query](../p/pg_parse_query.md) (src/backend/tcop/postgres.c:648)
+  - [pg_rewrite_query](../p/pg_rewrite_query.md) (src/backend/tcop/postgres.c:856)
+  - [pg_plan_query](../p/pg_plan_query.md) (src/backend/tcop/postgres.c:938)
 
 ## Notes and Other Information
 - This function is primarily used for debugging and development purposes

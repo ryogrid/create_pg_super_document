@@ -22,12 +22,12 @@ The function is part of PostgreSQL's relational operator system for BOX types an
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (retrieves BOX arguments)
-  - point_eq_point (point equality comparison function)
+  - [point_eq_point](../p/point_eq_point.md) (point equality comparison function)
   - PG_RETURN_BOOL (returns boolean result)
-  - BOX (box data structure)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
-  - gist_box_leaf_consistent (GiST index consistency checking)
-  - spg_box_quad_leaf_consistent (SP-GiST index consistency checking)
+  - [gist_box_leaf_consistent](../g/gist_box_leaf_consistent.md) (GiST index consistency checking)
+  - [spg_box_quad_leaf_consistent](../s/spg_box_quad_leaf_consistent.md) (SP-GiST index consistency checking)
 
 ## Notes and Other Information
 - Performs exact floating-point equality comparison, not approximate comparison

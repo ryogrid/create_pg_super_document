@@ -22,7 +22,7 @@ Like its counterpart timestamp_at_local, this wrapper exists to support the gram
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timestamptz_timestamp (actual conversion function)
+  - [timestamptz_timestamp](timestamptz_timestamp.md) (actual conversion function)
 - Called from:
   - SQL queries using the AT LOCAL syntax with timestamptz input
 

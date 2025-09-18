@@ -22,9 +22,9 @@ This function provides an optimized implementation for counting the number of 1-
   - __popcnt64 (Microsoft Visual C++ intrinsic)
   - popcntq (x86-64 assembly instruction)
 - Called from (representative examples):
-  - choose_popcount_functions
-  - pg_popcount_fast
-  - pg_popcount_masked_fast
+  - [choose_popcount_functions](../c/choose_popcount_functions.md)
+  - [pg_popcount_fast](pg_popcount_fast.md)
+  - [pg_popcount_masked_fast](pg_popcount_masked_fast.md)
 
 ## Notes and Other Information
 - Uses conditional compilation for different platforms (MSVC vs GCC/Clang)

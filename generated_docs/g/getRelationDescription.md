@@ -23,16 +23,16 @@ The function automatically qualifies relation names with schema names when the r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup)
-  - RelationIsVisible (visibility checking)
-  - get_namespace_name (schema name retrieval)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
+  - [RelationIsVisible](../R/RelationIsVisible.md) (visibility checking)
+  - [get_namespace_name](get_namespace_name.md) (schema name retrieval)
   - quote_qualified_identifier (safe name quoting)
   - appendStringInfo (string formatting)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class structure and relkind constants (RELKIND_RELATION, RELKIND_INDEX, etc.)
 
 - Called from (representative examples):
-  - getObjectDescription (main object description function, multiple locations)
+  - [getObjectDescription](getObjectDescription.md) (main object description function, multiple locations)
   - object_type_map (object type mapping)
 
 ## Notes and Other Information

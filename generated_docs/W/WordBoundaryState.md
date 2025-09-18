@@ -23,8 +23,8 @@ The WordBoundaryState structure is used by PostgreSQL's text formatting function
 - Functions called/Symbols referenced:
   - init (initialization flag)
 - Called from (representative examples):
-  - initcap_wbnext
-  - str_initcap
+  - [initcap_wbnext](../i/initcap_wbnext.md)
+  - [str_initcap](../s/str_initcap.md)
 
 ## Notes and Other Information
 This structure is specifically designed for text processing operations in PostgreSQL's formatting system (src/backend/utils/adt/formatting.c) that require word boundary detection. It's particularly used by the initcap functionality, which capitalizes the first letter of each word in a string. The structure tracks both the current position in the string and the alphanumeric status of the previous character, which is essential for determining when a new word begins. The init flag ensures proper initialization state management during processing operations.

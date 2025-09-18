@@ -21,11 +21,11 @@ The comment notes that this function's concept of "deep" copying is more thoroug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_list
-  - copyObjectImpl
-  - check_list_invariants
+  - [new_list](../n/new_list.md)
+  - [copyObjectImpl](../c/copyObjectImpl.md)
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - copyObjectImpl (recursive copying within the copy framework)
+  - [copyObjectImpl](../c/copyObjectImpl.md) (recursive copying within the copy framework)
 
 ## Notes and Other Information
 - This is a deep copy operation - both the list structure and all contained data objects are recursively duplicated

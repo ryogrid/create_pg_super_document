@@ -22,8 +22,8 @@ This function is part of PostgreSQL's sort support framework, which provides per
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupport (type cast)
-  - MemoryContextSwitchTo
-  - varstr_sortsupport
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md)
   - PG_GETARG_POINTER
   - PG_RETURN_VOID
 - Called from (representative examples):

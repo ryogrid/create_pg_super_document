@@ -19,9 +19,9 @@ This function serves as the specific entry point for validating PL/PerlU (untrus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_validator
+  - [plperl_validator](plperl_validator.md)
 - Called from (representative examples):
-  - plperlu_inline_handler
+  - [plperlu_inline_handler](plperlu_inline_handler.md)
 
 ## Notes and Other Information
 - This is the validator function specifically registered for PL/PerlU (untrusted Perl) language

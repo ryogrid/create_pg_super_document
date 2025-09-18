@@ -17,18 +17,18 @@ This function implements the core execution engine for pgbench's multi-threaded 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - alloc_socket_set/free_socket_set (socket set management)
-  - pg_time_now/pg_time_now_lazy (timing functions)
+  - [alloc_socket_set](../a/alloc_socket_set.md)/free_socket_set (socket set management)
+  - [pg_time_now](../p/pg_time_now.md)/pg_time_now_lazy (timing functions)
   - doConnect (database connection establishment)
   - THREAD_BARRIER_WAIT (thread synchronization)
-  - advanceConnectionState (state machine progression)
-  - wait_on_socket_set/socket_has_input (socket I/O operations)
-  - printProgressReport (progress tracking)
-  - disconnect_all (connection cleanup)
-  - doLog (transaction logging)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (state machine progression)
+  - [wait_on_socket_set](../w/wait_on_socket_set.md)/socket_has_input (socket I/O operations)
+  - [printProgressReport](../p/printProgressReport.md) (progress tracking)
+  - [disconnect_all](../d/disconnect_all.md) (connection cleanup)
+  - [doLog](../d/doLog.md) (transaction logging)
   - Various CSTATE_* constants (connection states)
 - Called from (representative examples):
-  - main (in pgbench.c at lines 7359 and 7371)
+  - [main](../m/main.md) (in pgbench.c at lines 7359 and 7371)
 
 ## Notes and Other Information
 - Handles multiple client connection states: CSTATE_CHOOSE_SCRIPT, CSTATE_WAIT_RESULT, CSTATE_SLEEP, CSTATE_THROTTLE, etc.

@@ -24,21 +24,21 @@ The function follows a comprehensive workflow: it retrieves existing options, tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformRelOptions: Processes and validates the option list
-  - heap_reloptions: Validates options for heap tables
-  - partitioned_table_reloptions: Validates options for partitioned tables  
-  - view_reloptions: Validates options for views
-  - index_reloptions: Validates options for indexes
-  - get_view_query: Retrieves the query definition for views
-  - view_query_is_auto_updatable: Checks if view supports CHECK OPTION
-  - SearchSysCacheLocked1: Looks up relation tuple in system cache
-  - CatalogTupleUpdate: Updates the pg_class system catalog
-  - heap_modify_tuple: Creates modified version of heap tuple
+  - [transformRelOptions](../t/transformRelOptions.md): Processes and validates the option list
+  - [heap_reloptions](../h/heap_reloptions.md): Validates options for heap tables
+  - [partitioned_table_reloptions](../p/partitioned_table_reloptions.md): Validates options for partitioned tables  
+  - [view_reloptions](../v/view_reloptions.md): Validates options for views
+  - [index_reloptions](../i/index_reloptions.md): Validates options for indexes
+  - [get_view_query](../g/get_view_query.md): Retrieves the query definition for views
+  - [view_query_is_auto_updatable](../v/view_query_is_auto_updatable.md): Checks if view supports CHECK OPTION
+  - [SearchSysCacheLocked1](../S/SearchSysCacheLocked1.md): Looks up relation tuple in system cache
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the pg_class system catalog
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates modified version of heap tuple
   - InvokeObjectPostAlterHook: Triggers post-alter hooks
-  - errdetail_relkind_not_supported: Generates error details for unsupported relation kinds
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md): Generates error details for unsupported relation kinds
 
 - Called from (representative examples):
-  - ATExecCmd: Main ALTER TABLE command execution dispatcher
+  - [ATExecCmd](ATExecCmd.md): Main ALTER TABLE command execution dispatcher
 
 ## Notes and Other Information
 - Supports different relation kinds: regular tables, partitioned tables, materialized views, views, indexes, and TOAST tables

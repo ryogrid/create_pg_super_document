@@ -26,7 +26,7 @@ The conversion process involves translating EUC_TW multibyte characters (which c
   - PG_GETARG_INT32 (macro for extracting integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validates source and target encodings)
-  - euc_tw2big5 (performs the actual character conversion)
+  - [euc_tw2big5](euc_tw2big5.md) (performs the actual character conversion)
   - PG_RETURN_INT32 (macro for returning integer result)
   - PG_EUC_TW (encoding constant)
   - PG_BIG5 (encoding constant)

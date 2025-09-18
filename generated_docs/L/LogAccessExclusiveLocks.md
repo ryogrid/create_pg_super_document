@@ -20,17 +20,17 @@ The function constructs an xl_standby_locks WAL record containing the lock count
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogSetRecordFlags
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - XLOG_MARK_UNIMPORTANT
   - XLOG_STANDBY_LOCK
   - xl_standby_locks
-  - xl_standby_lock
+  - [xl_standby_lock](../x/xl_standby_lock.md)
 - Called from (representative examples):
   - LogStandbySnapshot
-  - LogAccessExclusiveLock
+  - [LogAccessExclusiveLock](LogAccessExclusiveLock.md)
 
 ## Notes and Other Information
 - Only AccessExclusive locks are logged because other lock types do not cause conflicts with read-only queries on standby servers

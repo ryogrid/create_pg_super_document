@@ -29,7 +29,7 @@ The function helps PostgreSQL's collation system decide whether to use optimized
   - COLLPROVIDER_ICU
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - varstr_sortsupport
+  - [varstr_sortsupport](../v/varstr_sortsupport.md)
   - Various sorting and indexing operations
 
 ## Notes and Other Information

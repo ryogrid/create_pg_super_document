@@ -22,13 +22,13 @@ The function includes stack depth checking to prevent stack overflow from overly
   - check_stack_depth (prevents stack overflow during deep recursion)
   - nodeTag (determines the type of the node being copied)
   - copyfuncs.switch.c (auto-generated switch cases for all node types)
-  - list_copy_deep (for deep copying of generic lists)
-  - list_copy (for shallow copying of integer/OID/XID lists)
+  - [list_copy_deep](../l/list_copy_deep.md) (for deep copying of generic lists)
+  - [list_copy](../l/list_copy.md) (for shallow copying of integer/OID/XID lists)
   - elog (for error reporting on unrecognized node types)
 - Called from (representative examples):
   - copyObject (public interface macro/inline function)
   - COPY_NODE_FIELD (macro for copying node fields)
-  - list_copy_deep (for recursive copying within lists)
+  - [list_copy_deep](../l/list_copy_deep.md) (for recursive copying within lists)
 
 ## Notes and Other Information
 - This function is the implementation behind the public  interface

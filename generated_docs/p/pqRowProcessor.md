@@ -22,10 +22,10 @@ The function integrates with the tuple array management through pqAddTuple() and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQcopyResult (for cloning results in partial mode)
-  - pqResultAlloc (for allocating memory within the result context)
+  - [PQcopyResult](../P/PQcopyResult.md) (for cloning results in partial mode)
+  - [pqResultAlloc](pqResultAlloc.md) (for allocating memory within the result context)
   - memcpy (for copying field data)
-  - pqAddTuple (for adding the completed tuple to the result)
+  - [pqAddTuple](pqAddTuple.md) (for adding the completed tuple to the result)
 - Types used:
   - PGdataValue (raw column data structure)
   - PGresAttValue (result attribute value structure)
@@ -35,7 +35,7 @@ The function integrates with the tuple array management through pqAddTuple() and
   - NULL_LEN (marker for NULL field length)
   - PGASYNC_READY_MORE (async status indicating partial results ready)
 - Called from:
-  - getAnotherTuple (in fe-protocol3.c during result processing)
+  - [getAnotherTuple](../g/getAnotherTuple.md) (in fe-protocol3.c during result processing)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 on error (typically memory allocation failure)

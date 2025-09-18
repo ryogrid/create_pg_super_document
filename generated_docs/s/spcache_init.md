@@ -27,11 +27,11 @@ This function takes no parameters but operates on several global variables:
   - SPCACHE_RESET_THRESHOLD (threshold constant for cache reset)
   - AllocSetContextCreate (creates memory context)
   - ALLOCSET_DEFAULT_SIZES (default memory allocation sizes)
-  - MemoryContextReset (resets memory context)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (resets memory context)
   - nsphash_create (creates the hash table with 16 initial elements)
 - Called from (representative examples):
-  - cachedNamespacePath (for namespace path caching)
-  - check_search_path (for search path validation)
+  - [cachedNamespacePath](../c/cachedNamespacePath.md) (for namespace path caching)
+  - [check_search_path](../c/check_search_path.md) (for search path validation)
 
 ## Notes and Other Information
 - Part of PostgreSQL's search path optimization system

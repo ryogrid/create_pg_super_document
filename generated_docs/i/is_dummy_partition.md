@@ -25,9 +25,9 @@ This is an optimization technique used during partition pruning and join plannin
 - Functions called/Symbols referenced:
   - IS_DUMMY_REL (macro for checking if a relation is dummy)
 - Called from:
-  - merge_list_bounds
-  - merge_range_bounds
-  - get_range_partition
+  - [merge_list_bounds](../m/merge_list_bounds.md)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
+  - [get_range_partition](../g/get_range_partition.md)
 
 ## Notes and Other Information
 - The function is static and internal to partbounds.c

@@ -22,7 +22,7 @@ This function implements the SQL LEAST function for arrays by performing lexicog
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_cmp (performs the actual lexicographic comparison between arrays)
+  - [array_cmp](array_cmp.md) (performs the actual lexicographic comparison between arrays)
   - PG_RETURN_DATUM (macro for returning Datum values)
   - PG_GETARG_DATUM (macro for getting function arguments)
 - Called from (representative examples):

@@ -26,13 +26,13 @@ The function returns true only when both conditions are satisfied, providing a c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclcheck (checks user's ACL permissions on database)
+  - [object_aclcheck](../o/object_aclcheck.md) (checks user's ACL permissions on database)
   - MyDatabaseId (global variable for current database OID)
-  - GetUserId (gets current user's OID)
+  - [GetUserId](../G/GetUserId.md) (gets current user's OID)
   - ACL_CREATE (permission flag for CREATE privilege)
   - DatabaseRelationId (system catalog relation ID)
 - Called from:
-  - execute_extension_script
+  - [execute_extension_script](execute_extension_script.md)
 
 ## Notes and Other Information
 - This is a static function within the extension.c module

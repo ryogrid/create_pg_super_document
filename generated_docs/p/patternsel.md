@@ -34,16 +34,16 @@ This design allows the same core selectivity logic to be used by various pattern
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GET_COLLATION`: Retrieves the current collation context
-  - `get_negator`: Finds the positive operator corresponding to a negated operator
-  - `patternsel_common`: Core pattern selectivity estimation function
+  - `[get_negator](../g/get_negator.md)`: Finds the positive operator corresponding to a negated operator
+  - `[patternsel_common](patternsel_common.md)`: Core pattern selectivity estimation function
 - Called from (representative examples):
-  - `regexeqsel`: Selectivity function for regex match operator
-  - `icregexeqsel`: Selectivity for case-insensitive regex
-  - `likesel`: Selectivity function for LIKE operator
-  - `prefixsel`: Selectivity for prefix matching
-  - `iclikesel`: Selectivity for ILIKE operator
-  - `regexnesel`: Selectivity for negated regex
-  - `nlikesel`: Selectivity for NOT LIKE operator
+  - `[regexeqsel](../r/regexeqsel.md)`: Selectivity function for regex match operator
+  - `[icregexeqsel](../i/icregexeqsel.md)`: Selectivity for case-insensitive regex
+  - `[likesel](../l/likesel.md)`: Selectivity function for LIKE operator
+  - `[prefixsel](prefixsel.md)`: Selectivity for prefix matching
+  - `[iclikesel](../i/iclikesel.md)`: Selectivity for ILIKE operator
+  - `[regexnesel](../r/regexnesel.md)`: Selectivity for negated regex
+  - `[nlikesel](../n/nlikesel.md)`: Selectivity for NOT LIKE operator
 
 ## Notes and Other Information
 - This is a static utility function used only within the like_support.c module

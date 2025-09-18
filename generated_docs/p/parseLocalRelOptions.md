@@ -22,12 +22,12 @@ This function handles the parsing of locally-defined relation options that are n
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length
-  - palloc
+  - [palloc](palloc.md)
   - foreach (macro)
   - lfirst (macro)
-  - parseRelOptionsInternal
+  - [parseRelOptionsInternal](parseRelOptionsInternal.md)
 - Called from (representative examples):
-  - build_local_reloptions
+  - [build_local_reloptions](../b/build_local_reloptions.md)
 
 ## Notes and Other Information
 - Designed specifically for handling locally-registered (non-standard) relation options

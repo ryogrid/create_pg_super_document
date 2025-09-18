@@ -18,11 +18,11 @@ The `slice_from_v` function is a convenience wrapper that replaces the current s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slice_from_s
+  - [slice_from_s](slice_from_s.md)
   - SIZE (macro for getting buffer size)
   - symbol (type definition)
 - Called from (representative examples):
-  - among
+  - [among](../a/among.md)
 
 ## Notes and Other Information
 - This is an external function accessible from other modules in the Snowball stemmer

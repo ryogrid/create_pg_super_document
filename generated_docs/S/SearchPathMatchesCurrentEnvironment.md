@@ -17,10 +17,10 @@ This function compares a SearchPathMatcher against the current active search pat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathMatcher (type)
-  - recomputeNamespacePath
+  - [SearchPathMatcher](SearchPathMatcher.md) (type)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - lfirst_oid
   - activeSearchPath (global variable)
   - activePathGeneration (global variable)
@@ -29,9 +29,9 @@ This function compares a SearchPathMatcher against the current active search pat
   - PG_CATALOG_NAMESPACE (constant)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - RevalidateCachedQuery (src/backend/utils/cache/plancache.c:615)
-  - CachedPlanAllowsSimpleValidityCheck (src/backend/utils/cache/plancache.c:1354)
-  - CachedPlanIsSimplyValid (src/backend/utils/cache/plancache.c:1477)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (src/backend/utils/cache/plancache.c:615)
+  - [CachedPlanAllowsSimpleValidityCheck](../C/CachedPlanAllowsSimpleValidityCheck.md) (src/backend/utils/cache/plancache.c:1354)
+  - [CachedPlanIsSimplyValid](../C/CachedPlanIsSimplyValid.md) (src/backend/utils/cache/plancache.c:1477)
   - RangeVarGetRelid (src/include/catalog/namespace.h:170)
 
 ## Notes and Other Information

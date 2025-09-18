@@ -20,19 +20,19 @@ This function serves as a central control point for vacuum operations, providing
   - CHECK_FOR_INTERRUPTS (macro)
   - AmAutoVacuumWorkerProcess
   - ProcessConfigFile
-  - VacuumUpdateCosts
-  - compute_parallel_delay
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md)
+  - [compute_parallel_delay](../c/compute_parallel_delay.md)
   - pgstat_report_wait_start
-  - pg_usleep
+  - [pg_usleep](../p/pg_usleep.md)
   - pgstat_report_wait_end
-  - PostmasterIsAlive
-  - AutoVacuumUpdateCostLimit
+  - [PostmasterIsAlive](../P/PostmasterIsAlive.md)
+  - [AutoVacuumUpdateCostLimit](../A/AutoVacuumUpdateCostLimit.md)
 - Called from (representative examples):
-  - lazy_scan_heap
-  - ginbulkdelete
-  - gistvacuumpage
-  - compute_index_stats
-  - acquire_sample_rows
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
+  - [ginbulkdelete](../g/ginbulkdelete.md)
+  - [gistvacuumpage](../g/gistvacuumpage.md)
+  - [compute_index_stats](../c/compute_index_stats.md)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
 
 ## Notes and Other Information
 - Always checks for interrupts first using CHECK_FOR_INTERRUPTS()

@@ -28,17 +28,17 @@ The conversion process builds arrays of Datum values and null flags, creates a H
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (structure type)
+  - [PLyObToDatum](PLyObToDatum.md) (structure type)
   - PG_TRY/PG_CATCH/PG_RE_THROW/PG_END_TRY (exception handling macros)
-  - heap_form_tuple (creates HeapTuple from values and nulls arrays)
-  - heap_copy_tuple_as_datum (converts HeapTuple to Datum)
-  - heap_freetuple (frees HeapTuple memory)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates HeapTuple from values and nulls arrays)
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md) (converts HeapTuple to Datum)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees HeapTuple memory)
   - PyObject_GetAttrString (Python C API function)
-  - palloc/pfree (PostgreSQL memory management)
+  - [palloc](../p/palloc.md)/pfree (PostgreSQL memory management)
   - ereport (PostgreSQL error reporting)
 
 - Called from (representative examples):
-  - PLyObject_ToComposite (src/pl/plpython/plpy_typeio.c:1010)
+  - [PLyObject_ToComposite](PLyObject_ToComposite.md) (src/pl/plpython/plpy_typeio.c:1010)
 
 ## Notes and Other Information
 - This is a static function internal to the PL/Python type conversion system

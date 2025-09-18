@@ -22,11 +22,11 @@ The offset calculation adds FirstMultiXactId + 1 to account for the base MultiXa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdPrecedes
+  - [MultiXactIdPrecedes](MultiXactIdPrecedes.md)
   - MULTIXACT_OFFSETS_PER_PAGE
   - FirstMultiXactId
 - Called from (representative examples):
-  - MultiXactShmemInit (as function pointer in SLRU control structure)
+  - [MultiXactShmemInit](MultiXactShmemInit.md) (as function pointer in SLRU control structure)
   - debug_elog6 (debugging/logging context)
 
 ## Notes and Other Information

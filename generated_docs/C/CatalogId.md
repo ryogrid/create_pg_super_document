@@ -20,15 +20,15 @@ CatalogId represents a fundamental identification mechanism in PostgreSQL's pg_d
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - findObjectByCatalogId
-  - findTableByOid
-  - findIndexByOid
-  - findTypeByOid
-  - findFuncByOid
-  - recordAdditionalCatalogID
-  - ArchiveEntry
-  - getExtensionMembership
-  - getAdditionalACLs
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
+  - [findTableByOid](../f/findTableByOid.md)
+  - [findIndexByOid](../f/findIndexByOid.md)
+  - [findTypeByOid](../f/findTypeByOid.md)
+  - [findFuncByOid](../f/findFuncByOid.md)
+  - [recordAdditionalCatalogID](../r/recordAdditionalCatalogID.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [getExtensionMembership](../g/getExtensionMembership.md)
+  - [getAdditionalACLs](../g/getAdditionalACLs.md)
 
 ## Notes and Other Information
 CatalogId serves as one of two primary object identification mechanisms in pg_dump, alongside DumpId. While DumpId is a sequential integer counter used internally for efficiency and flexibility, CatalogId provides the authoritative reference to actual database catalog entries. This is essential for interpreting pg_depend entries and maintaining referential integrity during dump operations. The structure's design constraint of containing no unused bytes ensures it can be safely used as a hash key in data structures. CatalogId is particularly important for resolving object dependencies and ensuring correct dump ordering based on PostgreSQL's system catalog relationships.

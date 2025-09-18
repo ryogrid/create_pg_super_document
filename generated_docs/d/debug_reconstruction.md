@@ -23,9 +23,9 @@ The function serves both debugging and validation purposes, ensuring that the re
 - Functions called/Symbols referenced:
   - pg_log_debug
   - fstat
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - reconstruct_from_incremental_file
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md)
 
 ## Notes and Other Information
 This function only processes sources that were actually used (non-NULL and had blocks read). In dry-run mode, it performs file size validation to ensure the source files contain enough data to satisfy the reconstruction requirements. The function helps identify potential issues in backup chains before attempting actual reconstruction.

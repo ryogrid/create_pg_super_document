@@ -27,10 +27,10 @@ This ensures that all dynamically allocated memory associated with the printtup 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree: PostgreSQL memory deallocation function
-  - MemoryContextDelete: Deletes a memory context and all its contents
+  - [pfree](pfree.md): PostgreSQL memory deallocation function
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Deletes a memory context and all its contents
 - Called from (representative examples):
-  - printtup_create_DR: Sets this function as the shutdown handler for the DestReceiver
+  - [printtup_create_DR](printtup_create_DR.md): Sets this function as the shutdown handler for the DestReceiver
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the printtup.c file

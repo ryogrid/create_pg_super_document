@@ -23,30 +23,30 @@ This function performs a critical validation check for logical replication subsc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - initStringInfo
   - appendStringInfoString
-  - get_publications_str
-  - get_namespace_name
-  - get_rel_namespace
-  - get_rel_name
+  - [get_publications_str](../g/get_publications_str.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [get_rel_namespace](../g/get_rel_namespace.md)
+  - [get_rel_name](../g/get_rel_name.md)
   - appendStringInfo
   - walrcv_exec
-  - pfree
+  - [pfree](../p/pfree.md)
   - ereport
-  - MakeSingleTupleTableSlot
-  - tuplestore_gettupleslot
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - slot_getattr
   - TextDatumGetCString
   - ExecClearTuple
-  - list_append_unique
-  - makeString
+  - [list_append_unique](../l/list_append_unique.md)
+  - [makeString](../m/makeString.md)
   - makeStringInfo
-  - errdetail_plural
-  - ExecDropSingleTupleTableSlot
-  - walrcv_clear_result
+  - [errdetail_plural](../e/errdetail_plural.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [walrcv_clear_result](../w/walrcv_clear_result.md)
 - Called from (representative examples):
-  - CreateSubscription
+  - [CreateSubscription](../C/CreateSubscription.md)
 
 ## Notes and Other Information
 - This validation only applies when copy_data=true and origin='none' to prevent silent data corruption issues

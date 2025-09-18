@@ -27,11 +27,11 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - SpinLockAcquire (acquires spin lock for thread-safe access)
   - SpinLockRelease (releases spin lock)
-  - SendProcSignal (sends inter-process signal)
+  - [SendProcSignal](../S/SendProcSignal.md) (sends inter-process signal)
   - PROCSIG_WALSND_INIT_STOPPING (signal type for stopping initialization)
   - INVALID_PROC_NUMBER (used when process number is not applicable)
 - Called from (representative examples):
-  - ShutdownXLOG (during WAL system shutdown)
+  - [ShutdownXLOG](../S/ShutdownXLOG.md) (during WAL system shutdown)
 
 ## Notes and Other Information
 - This function is called during PostgreSQL server shutdown procedures

@@ -22,15 +22,15 @@ The function enforces a critical rule: there must not be any resjunk ORDER BY it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupclause_tle: Retrieves the target entry for a sort/group clause
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md): Retrieves the target entry for a sort/group clause
   - copyObject: Creates a deep copy of a PostgreSQL node structure
-  - addTargetToGroupList: Adds a target entry to the group list using default sort/group semantics
-  - exprLocation: Gets the parse location of an expression for error reporting
+  - [addTargetToGroupList](../a/addTargetToGroupList.md): Adds a target entry to the group list using default sort/group semantics
+  - [exprLocation](../e/exprLocation.md): Gets the parse location of an expression for error reporting
   - SortGroupClause: Structure representing sort/group operations
 - Called from (representative examples):
-  - transformSelectStmt: Main SELECT statement transformation in analyzer
-  - transformAggregateCall: Aggregate function call transformation
-  - transformPLAssignStmt: PL/pgSQL assignment statement transformation
+  - [transformSelectStmt](transformSelectStmt.md): Main SELECT statement transformation in analyzer
+  - [transformAggregateCall](transformAggregateCall.md): Aggregate function call transformation
+  - [transformPLAssignStmt](transformPLAssignStmt.md): PL/pgSQL assignment statement transformation
 
 ## Notes and Other Information
 - The function maintains the invariant that sortClause is always a prefix of distinctClause

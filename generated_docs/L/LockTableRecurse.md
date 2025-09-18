@@ -19,15 +19,15 @@ LockTableRecurse implements the inheritance-aware locking mechanism for LOCK TAB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_all_inheritors
-  - LockRelationOid
-  - ConditionalLockRelationOid
-  - get_rel_name
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [LockRelationOid](LockRelationOid.md)
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md)
+  - [get_rel_name](../g/get_rel_name.md)
   - SearchSysCacheExists1
-  - UnlockRelationOid
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
 - Called from (representative examples):
-  - LockTableCommand
-  - LockViewRecurse_walker
+  - [LockTableCommand](LockTableCommand.md)
+  - [LockViewRecurse_walker](LockViewRecurse_walker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the lockcmds.c module

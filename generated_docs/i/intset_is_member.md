@@ -26,20 +26,20 @@ This approach ensures optimal performance by checking the most likely locations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_binsrch_uint64
-  - intset_binsrch_leaf
-  - simple8b_contains
-  - intset_node
-  - intset_leaf_node
-  - intset_internal_node
-  - leaf_item
+  - [intset_binsrch_uint64](intset_binsrch_uint64.md)
+  - [intset_binsrch_leaf](intset_binsrch_leaf.md)
+  - [simple8b_contains](../s/simple8b_contains.md)
+  - [intset_node](intset_node.md)
+  - [intset_leaf_node](intset_leaf_node.md)
+  - [intset_internal_node](intset_internal_node.md)
+  - [leaf_item](../l/leaf_item.md)
 - Called from (representative examples):
-  - gistvacuum_delete_empty_pages
-  - test_pattern
-  - test_single_value
-  - check_with_filler
-  - test_empty
-  - test_huge_distances
+  - [gistvacuum_delete_empty_pages](../g/gistvacuum_delete_empty_pages.md)
+  - [test_pattern](../t/test_pattern.md)
+  - [test_single_value](../t/test_single_value.md)
+  - [check_with_filler](../c/check_with_filler.md)
+  - [test_empty](../t/test_empty.md)
+  - [test_huge_distances](../t/test_huge_distances.md)
 
 ## Notes and Other Information
 - Returns  if the value is found,  otherwise

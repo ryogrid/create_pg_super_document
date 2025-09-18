@@ -22,16 +22,16 @@ The function uses a heuristic approach to size the requests array - it's set equ
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (for CheckpointerShmemStruct)
-  - add_size
-  - mul_size
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
   - Min
   - NBuffers (global variable)
   - MAX_CHECKPOINT_REQUESTS
-  - CheckpointerRequest (struct type)
-  - CheckpointerShmemStruct (struct type)
+  - [CheckpointerRequest](CheckpointerRequest.md) (struct type)
+  - [CheckpointerShmemStruct](CheckpointerShmemStruct.md) (struct type)
 - Called from (representative examples):
-  - CalculateShmemSize
-  - CheckpointerShmemInit
+  - [CalculateShmemSize](CalculateShmemSize.md)
+  - [CheckpointerShmemInit](CheckpointerShmemInit.md)
 
 ## Notes and Other Information
 - Used during PostgreSQL startup to calculate total shared memory requirements

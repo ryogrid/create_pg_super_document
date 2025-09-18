@@ -30,8 +30,8 @@ The function uses a simple switch statement to map access method OIDs to their c
   - StrategyNumber (type)
 
 - Called from (representative examples):
-  - get_equal_strategy_number
-  - IsIndexUsableForReplicaIdentityFull
+  - [get_equal_strategy_number](get_equal_strategy_number.md)
+  - [IsIndexUsableForReplicaIdentityFull](../I/IsIndexUsableForReplicaIdentityFull.md)
   - exec_rt_fetch
 
 ## Notes and Other Information

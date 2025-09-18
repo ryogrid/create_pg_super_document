@@ -19,20 +19,20 @@ The `generateHeadline` function is responsible for the final stage of headline g
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for initial memory allocation)
-  - repalloc (for expanding output buffer)
+  - [palloc](../p/palloc.md) (for initial memory allocation)
+  - [repalloc](../r/repalloc.md) (for expanding output buffer)
   - memcpy (for copying text content and markup)
-  - pfree (for memory cleanup)
+  - [pfree](../p/pfree.md) (for memory cleanup)
   - SET_VARSIZE (macro to set PostgreSQL text variable size)
 - Data structures used:
-  - HeadlineParsedText
-  - HeadlineWordEntry
-  - text (PostgreSQL text type)
+  - [HeadlineParsedText](../H/HeadlineParsedText.md)
+  - [HeadlineWordEntry](../H/HeadlineWordEntry.md)
+  - [text](../t/text.md) (PostgreSQL text type)
 - Constants/Macros used:
   - VARHDRSZ (variable header size for PostgreSQL text type)
 - Called from (representative examples):
-  - ts_headline_byid_opt
-  - headline_json_value
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md)
+  - [headline_json_value](../h/headline_json_value.md)
 
 ## Notes and Other Information
 - Returns a PostgreSQL text object containing the formatted headline

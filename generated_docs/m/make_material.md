@@ -21,9 +21,9 @@ The Material node acts as a buffer between its child and parent plans, allowing 
 - Functions called/Symbols referenced:
   - Material (struct type, created with makeNode())
 - Called from (representative examples):
-  - create_material_plan
-  - create_mergejoin_plan
-  - materialize_finished_plan
+  - [create_material_plan](../c/create_material_plan.md)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
+  - [materialize_finished_plan](materialize_finished_plan.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same source file

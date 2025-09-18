@@ -19,14 +19,14 @@ This function creates and initializes a new bbstreamer that decompresses gzip-co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (return type)
-  - bbstreamer_gzip_decompressor (internal structure type)
-  - bbstreamer_ops (operations structure)
-  - gzip_palloc (custom memory allocator)
-  - gzip_pfree (custom memory deallocator)
+  - [bbstreamer](bbstreamer.md) (return type)
+  - [bbstreamer_gzip_decompressor](bbstreamer_gzip_decompressor.md) (internal structure type)
+  - [bbstreamer_ops](bbstreamer_ops.md) (operations structure)
+  - [gzip_palloc](../g/gzip_palloc.md) (custom memory allocator)
+  - [gzip_pfree](../g/gzip_pfree.md) (custom memory deallocator)
 - Called from (representative examples):
-  - bbstreamer_buffer_until (in bbstreamer.h:209)
-  - CreateBackupStreamer (in pg_basebackup.c:1267)
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md) (in bbstreamer.h:209)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (in pg_basebackup.c:1267)
 
 ## Notes and Other Information
 - Requires HAVE_LIBZ to be defined, otherwise raises a fatal error

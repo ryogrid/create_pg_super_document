@@ -21,18 +21,18 @@ The function serves as the inverse of make_pathtarget_from_tlist, allowing the o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathTarget (data structure)
-  - makeTargetEntry (TargetEntry creation)
+  - [PathTarget](../P/PathTarget.md) (data structure)
+  - [makeTargetEntry](makeTargetEntry.md) (TargetEntry creation)
   - lappend (list append)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - set_subquery_pathlist
-  - build_setop_child_paths
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)
   - Various optimizer functions needing targetlist representations
 
 ## Notes and Other Information
 - This function performs the inverse operation of make_pathtarget_from_tlist
-- TargetEntry nodes are created with sequential resource numbers starting from 1
+- [TargetEntry](../T/TargetEntry.md) nodes are created with sequential resource numbers starting from 1
 - Column names are set to NULL since PathTarget doesn't preserve original column names
 - All created TargetEntry nodes are marked as not resjunk (false)
 - Sort group references are preserved if present in the source PathTarget

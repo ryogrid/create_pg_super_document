@@ -24,15 +24,15 @@ For records that modify actual data blocks, the function iterates through all bl
   - XLogRecGetRmid
   - XLogRecGetInfo
   - XLogRecMaxBlockId
-  - XLogRecGetBlockTagExtended
+  - [XLogRecGetBlockTagExtended](../X/XLogRecGetBlockTagExtended.md)
   - RmgrName
-  - process_target_wal_block_change
+  - [process_target_wal_block_change](../p/process_target_wal_block_change.md)
   - RmgrId
-  - RelFileLocator
-  - ForkNumber
+  - [RelFileLocator](../R/RelFileLocator.md)
+  - [ForkNumber](../F/ForkNumber.md)
   - BlockNumber
 - Called from (representative examples):
-  - extractPageMap (in src/bin/pg_rewind/parsexlog.c:100)
+  - [extractPageMap](extractPageMap.md) (in src/bin/pg_rewind/parsexlog.c:100)
 
 ## Notes and Other Information
 - Implements selective processing based on WAL record type (rmid and rminfo)

@@ -37,15 +37,15 @@ The function is specifically designed for single-input plan nodes and handles th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index
-  - search_indexed_tlist_for_sortgroupref
-  - fix_upper_expr
-  - flatCopyTargetEntry
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [search_indexed_tlist_for_sortgroupref](search_indexed_tlist_for_sortgroupref.md)
+  - [fix_upper_expr](../f/fix_upper_expr.md)
+  - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
   - NUM_EXEC_TLIST
   - NUM_EXEC_QUAL
 - Called from (representative examples):
   - fix_scan_list
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
 
 ## Notes and Other Information
 - This function is specifically used for single-input plan types (Agg, Group, Result) that have only a left subtree

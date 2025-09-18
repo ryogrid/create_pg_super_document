@@ -18,12 +18,12 @@ ExecReScanWorkTableScan implements the rescan functionality for WorkTableScan pl
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple (clears cached tuple from result slot)
-  - ExecScanReScan (generic scan rescan functionality)
-  - tuplestore_rescan (resets tuplestore position to beginning)
+  - [ExecScanReScan](ExecScanReScan.md) (generic scan rescan functionality)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md) (resets tuplestore position to beginning)
 - Types used:
-  - WorkTableScanState (scan execution state)
+  - [WorkTableScanState](../W/WorkTableScanState.md) (scan execution state)
 - Called from:
-  - ExecReScan (generic plan node rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (generic plan node rescan dispatcher)
 
 ## Notes and Other Information
 - Only rescans the tuplestore if the node has been fully initialized (rustate != NULL)

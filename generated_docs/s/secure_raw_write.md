@@ -25,9 +25,9 @@ Unlike its read counterpart (secure_raw_read), this function does not handle any
 - Functions called/Symbols referenced:
   - send: Standard POSIX socket send function for transmitting data over network socket
 - Called from (representative examples):
-  - secure_write: Higher-level secure write function for non-encrypted connections
+  - [secure_write](secure_write.md): Higher-level secure write function for non-encrypted connections
   - be_gssapi_write: GSS-API write implementation uses this for underlying socket operations
-  - my_sock_write: SSL/TLS socket write operations in OpenSSL backend
+  - [my_sock_write](../m/my_sock_write.md): SSL/TLS socket write operations in OpenSSL backend
 
 ## Notes and Other Information
 - The function uses const void *ptr parameter to indicate that the source data will not be modified during transmission

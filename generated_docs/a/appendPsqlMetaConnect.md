@@ -27,19 +27,19 @@ The function ensures proper handling of special characters by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - appendPQExpBufferStr
-  - appendConnStrVal  
-  - fmtIdEnc
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)
+  - [appendConnStrVal](appendConnStrVal.md)  
+  - [fmtIdEnc](../f/fmtIdEnc.md)
   - termPQExpBuffer
   - appendPQExpBufferChar
   - PG_SQL_ASCII
   - EXIT_FAILURE
-  - PQExpBufferData
+  - [PQExpBufferData](../P/PQExpBufferData.md)
 
 - Called from (representative examples):
-  - _reconnectToDB (src/bin/pg_dump/pg_backup_archiver.c:3382)
-  - old_9_6_invalidate_hash_indexes (src/bin/pg_upgrade/version.c:85)
-  - report_extension_updates (src/bin/pg_upgrade/version.c:183)
+  - [_reconnectToDB](../r/_reconnectToDB.md) (src/bin/pg_dump/pg_backup_archiver.c:3382)
+  - [old_9_6_invalidate_hash_indexes](../o/old_9_6_invalidate_hash_indexes.md) (src/bin/pg_upgrade/version.c:85)
+  - [report_extension_updates](../r/report_extension_updates.md) (src/bin/pg_upgrade/version.c:183)
 
 ## Notes and Other Information
 - Located in src/fe_utils/string_utils.c:743-818

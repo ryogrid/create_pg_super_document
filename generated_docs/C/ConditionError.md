@@ -19,9 +19,9 @@ This is a specialized error reporting function for conditional statement errors 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (implicitly terminates program)
+  - [pg_fatal](../p/pg_fatal.md) (implicitly terminates program)
 - Called from:
-  - CheckConditional (multiple calls at src/bin/pgbench/pgbench.c:5910, 5912, 5916, 5918, 5923, 5932)
+  - [CheckConditional](CheckConditional.md) (multiple calls at src/bin/pgbench/pgbench.c:5910, 5912, 5916, 5918, 5923, 5932)
 
 ## Notes and Other Information
 - This is a fatal error function that does not return to caller

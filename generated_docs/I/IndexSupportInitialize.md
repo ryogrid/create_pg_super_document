@@ -29,13 +29,13 @@ This static function initializes operator class information for an index by iter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupOpclassInfo
+  - [LookupOpclassInfo](../L/LookupOpclassInfo.md)
   - memcpy
   - elog
   - OidIsValid
   - oidvector, RegProcedure, StrategyNumber, AttrNumber, OpClassCacheEnt (types)
 - Called from:
-  - RelationInitIndexAccessInfo
+  - [RelationInitIndexAccessInfo](../R/RelationInitIndexAccessInfo.md)
 
 ## Notes and Other Information
 - This is a static function within relcache.c used during index relation cache initialization

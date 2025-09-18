@@ -20,19 +20,19 @@ The function uses  with the  flag, which means it will return NULL instead of th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocExtended
+  - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md)
   - MCXT_ALLOC_NO_OOM
   - ereport (called when allocation fails)
-  - errcode, errmsg (for error reporting)
+  - [errcode](../e/errcode.md), errmsg (for error reporting)
 
 - Called from (representative examples):
-  - check_wal_consistency_checking
-  - check_recovery_target_lsn
-  - check_temp_tablespaces
-  - guc_strdup
-  - add_placeholder_variable
-  - SelectConfigFiles
-  - init_custom_variable
+  - [check_wal_consistency_checking](../c/check_wal_consistency_checking.md)
+  - [check_recovery_target_lsn](../c/check_recovery_target_lsn.md)
+  - [check_temp_tablespaces](../c/check_temp_tablespaces.md)
+  - [guc_strdup](guc_strdup.md)
+  - [add_placeholder_variable](../a/add_placeholder_variable.md)
+  - [SelectConfigFiles](../S/SelectConfigFiles.md)
+  - [init_custom_variable](../i/init_custom_variable.md)
 
 ## Notes and Other Information
 - Part of the GUC infrastructure for memory management

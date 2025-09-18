@@ -32,18 +32,18 @@ The function optimizes updates by only processing roles that have actually chang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getOidListDiff
+  - [getOidListDiff](../g/getOidListDiff.md)
   - table_open
   - table_close
-  - shdepAddDependency
-  - shdepDropDependency
-  - IsPinnedObject
-  - pfree
+  - [shdepAddDependency](../s/shdepAddDependency.md)
+  - [shdepDropDependency](../s/shdepDropDependency.md)
+  - [IsPinnedObject](../I/IsPinnedObject.md)
+  - [pfree](../p/pfree.md)
   - SHARED_DEPENDENCY_ACL
   - SharedDependencyType
 - Called from (representative examples):
-  - updateAclDependencies
-  - updateInitAclDependencies
+  - [updateAclDependencies](updateAclDependencies.md)
+  - [updateInitAclDependencies](updateInitAclDependencies.md)
 
 ## Notes and Other Information
 - Static function only accessible within pg_shdepend.c

@@ -20,12 +20,12 @@ This static helper function tests for containment relationship in 2D space withi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FPge (floating-point greater-than-or-equal comparison)
-  - FPle (floating-point less-than-or-equal comparison)
+  - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison)
+  - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison)
   - Range (structure type)
   - RangeBox (structure type)
 - Called from (representative examples):
-  - contain4D
+  - [contain4D](contain4D.md)
 
 ## Notes and Other Information
 - This function is part of the SP-GiST implementation for geometric data types

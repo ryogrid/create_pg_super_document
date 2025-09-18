@@ -24,19 +24,19 @@ The function performs several important validation steps: it ensures the input i
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring (converts TEXT to C string)
-  - stringToNode (deserializes string to Node tree)
-  - pull_varnos (extracts variable range table indices)
-  - bms_make_singleton (creates single-element bitmap set)
-  - bms_is_subset (checks bitmap subset relationship)
+  - [stringToNode](../s/stringToNode.md) (deserializes string to Node tree)
+  - [pull_varnos](pull_varnos.md) (extracts variable range table indices)
+  - [bms_make_singleton](../b/bms_make_singleton.md) (creates single-element bitmap set)
+  - [bms_is_subset](../b/bms_is_subset.md) (checks bitmap subset relationship)
   - bms_is_empty (checks if bitmap is empty)
-  - try_relation_open (attempts to open relation with lock)
-  - deparse_context_for (creates deparse context for relation)
-  - deparse_expression_pretty (converts node tree to formatted SQL)
-  - relation_close (closes relation and releases lock)
+  - [try_relation_open](../t/try_relation_open.md) (attempts to open relation with lock)
+  - [deparse_context_for](../d/deparse_context_for.md) (creates deparse context for relation)
+  - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (converts node tree to formatted SQL)
+  - [relation_close](../r/relation_close.md) (closes relation and releases lock)
   - string_to_text (converts C string to TEXT)
 - Called from:
-  - pg_get_expr (standard version without pretty-printing)
-  - pg_get_expr_ext (extended version with pretty-printing)
+  - [pg_get_expr](pg_get_expr.md) (standard version without pretty-printing)
+  - [pg_get_expr_ext](pg_get_expr_ext.md) (extended version with pretty-printing)
 
 ## Notes and Other Information
 - This is a static function, not directly callable from SQL

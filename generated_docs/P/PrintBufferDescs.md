@@ -19,16 +19,16 @@ The function outputs each buffer's information using elog(LOG, ...), making the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferDescriptor
-  - BufferDescriptorGetBuffer
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
   - relpathbackend
-  - BufTagGetRelFileLocator
-  - BufTagGetForkNum
-  - GetPrivateRefCount
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
 - Constants used:
   - INVALID_PROC_NUMBER
 - Types used:
-  - BufferDesc
+  - [BufferDesc](../B/BufferDesc.md)
   - Buffer
 - Called from (representative examples):
   - No references found (likely used for manual debugging)

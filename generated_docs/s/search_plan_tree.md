@@ -32,15 +32,15 @@ The function tracks pending rescans by checking the chgParam field of nodes. If 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine the specific node type)
-  - ScanState (scan node state structure)
-  - AppendState (append node state structure)
-  - SubqueryScanState (subquery scan node state)
+  - [ScanState](../S/ScanState.md) (scan node state structure)
+  - [AppendState](../A/AppendState.md) (append node state structure)
+  - [SubqueryScanState](../S/SubqueryScanState.md) (subquery scan node state)
   - outerPlanState (macro to access outer plan state)
   - RelationGetRelid (to get relation OID from Relation)
-  - search_plan_tree (recursive self-calls)
+  - [search_plan_tree](search_plan_tree.md) (recursive self-calls)
 - Called from (representative examples):
-  - execCurrentOf (to find scan nodes in non-FOR-UPDATE cases)
-  - search_plan_tree (recursive calls within the same function)
+  - [execCurrentOf](../e/execCurrentOf.md) (to find scan nodes in non-FOR-UPDATE cases)
+  - [search_plan_tree](search_plan_tree.md) (recursive calls within the same function)
 
 ## Notes and Other Information
 The function is marked static as it's only used within execCurrent.c. It returns NULL if no candidate is found or if multiple candidates are discovered (indicating ambiguity). The pending_rescan mechanism helps the caller determine if a found scan node's current position should be trusted. The function deliberately does not descend through certain node types like MergeAppend because their multiple active inputs make it impossible to determine which input produced the current output tuple. This conservative approach ensures correctness for CURRENT OF operations while maintaining reasonable performance.

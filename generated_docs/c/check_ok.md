@@ -38,10 +38,10 @@ This function is commonly called after major initialization steps to provide use
   - output_errno (errno value from failed output operation)
 
 - Called from (representative examples):
-  - setup_config (after configuration setup)
-  - bootstrap_template1 (after template1 creation)
-  - create_data_directory (after directory creation)
-  - initialize_data_directory (after various initialization steps)
+  - [setup_config](../s/setup_config.md) (after configuration setup)
+  - [bootstrap_template1](../b/bootstrap_template1.md) (after template1 creation)
+  - [create_data_directory](create_data_directory.md) (after directory creation)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (after various initialization steps)
   - Multiple pg_upgrade functions for validation steps
 
 ## Notes and Other Information

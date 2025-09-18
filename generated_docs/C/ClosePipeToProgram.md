@@ -23,15 +23,15 @@ When the program fails, it provides both a user-friendly error message indicatin
 - Functions called/Symbols referenced:
   - ClosePipeStream (closes the pipe and returns exit status)
   - ereport (error reporting function)
-  - errcode_for_file_access (error code for file access errors)
-  - errcode (generic error code function)
-  - errmsg (error message formatting)
-  - errdetail_internal (internal error details)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (error code for file access errors)
+  - [errcode](../e/errcode.md) (generic error code function)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [errdetail_internal](../e/errdetail_internal.md) (internal error details)
   - wait_result_to_str (converts wait status to string representation)
 - Called from (representative examples):
   - DR_copy
-  - CopySendEndOfRow
-  - EndCopy
+  - [CopySendEndOfRow](CopySendEndOfRow.md)
+  - [EndCopy](../E/EndCopy.md)
 
 ## Notes and Other Information
 - This function is only called when cstate->is_program is true, as verified by the Assert

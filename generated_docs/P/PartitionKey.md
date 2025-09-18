@@ -33,16 +33,16 @@ Type information is comprehensively stored for each partition key attribute, inc
   - PartitionKeyData (underlying structure)
   - PartitionStrategy (partitioning strategy enum)
   - AttrNumber (attribute number type)
-  - List (PostgreSQL list type)
+  - [List](../L/List.md) (PostgreSQL list type)
   - Oid (object identifier type)
-  - FmgrInfo (function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info structure)
 
 - Called from (representative examples):
-  - RelationBuildPartitionKey (partition key construction)
-  - get_partition_for_tuple (tuple routing to partitions)
-  - CreatePartitionPruneState (partition pruning setup)
-  - transformPartitionBound (DDL partition bound parsing)
-  - partition_bounds_create (partition boundary creation)
+  - [RelationBuildPartitionKey](../R/RelationBuildPartitionKey.md) (partition key construction)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md) (tuple routing to partitions)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md) (partition pruning setup)
+  - [transformPartitionBound](../t/transformPartitionBound.md) (DDL partition bound parsing)
+  - [partition_bounds_create](../p/partition_bounds_create.md) (partition boundary creation)
 
 ## Notes and Other Information
 - Cached in relation descriptor for efficient access during operations

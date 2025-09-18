@@ -21,14 +21,14 @@ The function handles the formatting details such as proper comma separation and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_array_builtin (PostgreSQL array deconstruction utility)
+  - [deconstruct_array_builtin](deconstruct_array_builtin.md) (PostgreSQL array deconstruction utility)
   - DatumGetArrayTypeP (macro for extracting array from Datum)
-  - get_attname (system function to retrieve column name by relation OID and attribute number)
+  - [get_attname](../g/get_attname.md) (system function to retrieve column name by relation OID and attribute number)
   - DatumGetInt16 (macro for extracting int16 from Datum)
-  - quote_identifier (utility function for properly quoting SQL identifiers)
+  - [quote_identifier](../q/quote_identifier.md) (utility function for properly quoting SQL identifiers)
   - appendStringInfoString/appendStringInfo (string buffer manipulation functions)
 - Called from (representative examples):
-  - pg_get_constraintdef_worker (multiple times for different constraint types)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md) (multiple times for different constraint types)
   - Used in foreign key constraint generation for both referencing and referenced column lists
   - Used in primary key and unique constraint generation for key column lists
 

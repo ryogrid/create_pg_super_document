@@ -25,13 +25,13 @@ Like `in_grouping`, it uses a bitmask approach where each bit in the array `s` r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_env struct members (z->c, z->lb, z->p)
-  - repeat parameter
+  - [SN_env](../S/SN_env.md) struct members (z->c, z->lb, z->p)
+  - [repeat](../r/repeat.md) parameter
 - Called from (representative examples):
-  - r_main_suffix (in Danish, Norwegian, Swedish stemmers)
-  - r_shortv (in English and Porter stemmers)
-  - r_standard_suffix (in French and German stemmers)
-  - r_vowel_suffix (in Italian stemmer)
+  - [r_main_suffix](../r/r_main_suffix.md) (in Danish, Norwegian, Swedish stemmers)
+  - [r_shortv](../r/r_shortv.md) (in English and Porter stemmers)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (in French and German stemmers)
+  - [r_vowel_suffix](../r/r_vowel_suffix.md) (in Italian stemmer)
   - Various language-specific suffix and tidy functions
 
 ## Notes and Other Information

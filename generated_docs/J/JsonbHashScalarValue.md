@@ -18,17 +18,17 @@ This function generates hash values for JSONB scalar values (null, string, numer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any (for string values)
-  - DatumGetUInt32 (for datum conversion)
+  - [hash_any](../h/hash_any.md) (for string values)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (for datum conversion)
   - DirectFunctionCall1 (for calling hash_numeric)
-  - hash_numeric (for numeric values)
-  - NumericGetDatum (for numeric datum conversion)
-  - pg_rotate_left32 (for hash combination)
+  - [hash_numeric](../h/hash_numeric.md) (for numeric values)
+  - [NumericGetDatum](../N/NumericGetDatum.md) (for numeric datum conversion)
+  - [pg_rotate_left32](../p/pg_rotate_left32.md) (for hash combination)
 - Called from (representative examples):
-  - jsonb_hash
-  - gin_extract_jsonb_path
-  - jsonb_path_ops__add_path_item
-  - jsonb_path_ops__extract_nodes
+  - [jsonb_hash](../j/jsonb_hash.md)
+  - [gin_extract_jsonb_path](../g/gin_extract_jsonb_path.md)
+  - [jsonb_path_ops__add_path_item](../j/jsonb_path_ops__add_path_item.md)
+  - [jsonb_path_ops__extract_nodes](../j/jsonb_path_ops__extract_nodes.md)
 
 ## Notes and Other Information
 The function uses a left-rotate-then-XOR strategy for combining hash values, which provides good hash distribution properties. Callers may independently XOR in JB_FOBJECT and JB_FARRAY flags as needed. The function will throw an ERROR for invalid JSONB scalar types, making it safe to use with validated JsonbValue structures.

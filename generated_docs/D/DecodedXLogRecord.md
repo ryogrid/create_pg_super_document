@@ -28,17 +28,17 @@ DecodedXLogRecord is the fundamental structure representing a fully parsed WAL r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecord (WAL record header structure)
+  - [XLogRecord](../X/XLogRecord.md) (WAL record header structure)
   - RepOriginId (replication origin identifier type)
   - TransactionId (transaction identifier type)
   - DecodedBkpBlock (decoded backup block structure)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member specification)
 - Called from (representative examples):
-  - XLogInsertRecord (record insertion operations)
-  - XLogPrefetcher (WAL prefetching infrastructure)
-  - XLogReadRecord (record reading operations)
-  - XLogDecodeNextRecord (record decoding operations)
-  - XLogReaderState (embedded within reader state for current record)
+  - [XLogInsertRecord](../X/XLogInsertRecord.md) (record insertion operations)
+  - [XLogPrefetcher](../X/XLogPrefetcher.md) (WAL prefetching infrastructure)
+  - [XLogReadRecord](../X/XLogReadRecord.md) (record reading operations)
+  - [XLogDecodeNextRecord](../X/XLogDecodeNextRecord.md) (record decoding operations)
+  - [XLogReaderState](../X/XLogReaderState.md) (embedded within reader state for current record)
   - Various WAL processing and replay functions throughout PostgreSQL
 
 ## Notes and Other Information

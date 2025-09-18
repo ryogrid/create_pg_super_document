@@ -23,12 +23,12 @@ The function also handles partition table attachments by creating TableAttachInf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTableByOid (locates TableInfo by OID)
-  - AssignDumpId (assigns unique dump IDs to objects)
-  - addObjectDependency (establishes dump order dependencies)
+  - [findTableByOid](findTableByOid.md) (locates TableInfo by OID)
+  - [AssignDumpId](../A/AssignDumpId.md) (assigns unique dump IDs to objects)
+  - [addObjectDependency](../a/addObjectDependency.md) (establishes dump order dependencies)
   - pg_realloc_array, pg_malloc_array (memory management)
 - Called from (representative examples):
-  - getSchemaData (src/bin/pg_dump/common.c:227)
+  - [getSchemaData](../g/getSchemaData.md) (src/bin/pg_dump/common.c:227)
 
 ## Notes and Other Information
 The function includes performance optimizations by caching the last-used child and parent TableInfo pointers to avoid repeated hash table lookups when processing consecutive inheritance records for the same tables. Only direct ancestors of target tables are marked as interesting, which is sufficient for pg_dump's needs since inherited attributes don't require special handling beyond ensuring the parent structure exists.

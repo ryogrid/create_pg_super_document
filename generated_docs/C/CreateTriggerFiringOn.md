@@ -35,16 +35,16 @@ CreateTriggerFiringOn is the comprehensive implementation of trigger creation in
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_openrv
-  - errdetail_relkind_not_supported
-  - has_superclass
-  - find_all_inheritors
-  - CreateConstraintEntry
-  - recordDependencyOn
-  - deleteDependencyRecordsFor
-  - map_partition_varattnos
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [has_superclass](../h/has_superclass.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [CreateConstraintEntry](CreateConstraintEntry.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
+  - [map_partition_varattnos](../m/map_partition_varattnos.md)
 - Called from (representative examples):
-  - CreateTrigger
-  - CloneRowTriggersToPartition
+  - [CreateTrigger](CreateTrigger.md)
+  - [CloneRowTriggersToPartition](CloneRowTriggersToPartition.md)
 
 ## Notes and Other Information
 - Performs comprehensive relation type validation (tables, views, foreign tables, partitioned tables)

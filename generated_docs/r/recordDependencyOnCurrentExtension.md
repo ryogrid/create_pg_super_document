@@ -18,23 +18,23 @@ This function manages the relationship between database objects and PostgreSQL e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getExtensionOfObject
-  - getObjectDescription
-  - get_extension_name
-  - recordDependencyOn
+  - [getExtensionOfObject](../g/getExtensionOfObject.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [get_extension_name](../g/get_extension_name.md)
+  - [recordDependencyOn](recordDependencyOn.md)
   - DEPENDENCY_EXTENSION
 - Called from (representative examples):
-  - heap_create_with_catalog
-  - CastCreate
-  - CollationCreate
-  - ConversionCreate
-  - NamespaceCreate
-  - makeOperatorDependencies
-  - ProcedureCreate
-  - GenerateTypeDependencies
-  - CreateAccessMethod
-  - CreateForeignDataWrapper
-  - CreateTransform
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
+  - [CastCreate](../C/CastCreate.md)
+  - [CollationCreate](../C/CollationCreate.md)
+  - [ConversionCreate](../C/ConversionCreate.md)
+  - [NamespaceCreate](../N/NamespaceCreate.md)
+  - [makeOperatorDependencies](../m/makeOperatorDependencies.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)
+  - [CreateAccessMethod](../C/CreateAccessMethod.md)
+  - [CreateForeignDataWrapper](../C/CreateForeignDataWrapper.md)
+  - [CreateTransform](../C/CreateTransform.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/pg_depend.c:194-258

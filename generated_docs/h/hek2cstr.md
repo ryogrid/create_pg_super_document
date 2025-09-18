@@ -21,11 +21,11 @@ This function converts a Perl hash entry key to a properly encoded C string that
   - HeSVKEY_force (Perl macro to get SV from hash entry key)
   - HeUTF8 (Perl macro to check UTF8 flag on hash entry)
   - SvUTF8_on (Perl macro to set UTF8 flag on SV)
-  - sv2cstr (PostgreSQL function to convert SV to C string)
+  - [sv2cstr](../s/sv2cstr.md) (PostgreSQL function to convert SV to C string)
   - ENTER/SAVETMPS/FREETMPS/LEAVE (Perl memory management macros)
 - Called from (representative examples):
-  - plperl_build_tuple_result
-  - plperl_modify_tuple
+  - [plperl_build_tuple_result](../p/plperl_build_tuple_result.md)
+  - [plperl_modify_tuple](../p/plperl_modify_tuple.md)
 
 ## Notes and Other Information
 - This function specifically addresses the "Unicode Bug" in Perl where characters 128-255 may not have correct UTF8 flags

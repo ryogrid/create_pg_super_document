@@ -29,18 +29,18 @@ The function is designed to be lock-free during reads, using atomic operations a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32
-  - pg_atomic_read_u64
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - pg_read_barrier
-  - hash_destroy
-  - injection_point_cache_get
-  - injection_point_cache_remove
-  - injection_point_cache_load
+  - [hash_destroy](../h/hash_destroy.md)
+  - [injection_point_cache_get](../i/injection_point_cache_get.md)
+  - [injection_point_cache_remove](../i/injection_point_cache_remove.md)
+  - [injection_point_cache_load](../i/injection_point_cache_load.md)
 - Types referenced:
-  - InjectionPointEntry
-  - InjectionPointCacheEntry
+  - [InjectionPointEntry](InjectionPointEntry.md)
+  - [InjectionPointCacheEntry](InjectionPointCacheEntry.md)
 - Called from:
-  - InjectionPointRun (src/backend/utils/misc/injection_point.c:531)
+  - [InjectionPointRun](InjectionPointRun.md) (src/backend/utils/misc/injection_point.c:531)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the injection_point.c file

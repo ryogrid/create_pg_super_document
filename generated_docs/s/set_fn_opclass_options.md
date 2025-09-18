@@ -20,14 +20,14 @@ The function creates a Const node containing the options as bytea data, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeConst
-  - PointerGetDatum (macro)
+  - [makeConst](../m/makeConst.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (macro)
 - Constants referenced:
   - BYTEAOID
   - InvalidOid
 - Called from (representative examples):
-  - index_getprocinfo
-  - gincost_pattern
+  - [index_getprocinfo](../i/index_getprocinfo.md)
+  - [gincost_pattern](../g/gincost_pattern.md)
 
 ## Notes and Other Information
 - The fn_expr field is repurposed since opclass support functions are called outside expression contexts

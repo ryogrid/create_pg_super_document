@@ -26,17 +26,17 @@ After setting up the basic state, it calls `tuplesort_begin_batch` to initialize
 ## Dependencies
 - Functions called/Symbols referenced:
   - `AllocSetContextCreate` - Creates memory contexts for sort operations
-  - `tuplesort_begin_batch` - Initializes batch-specific state
-  - `worker_get_identifier` - Gets worker ID for parallel sorts
+  - `[tuplesort_begin_batch](tuplesort_begin_batch.md)` - Initializes batch-specific state
+  - `[worker_get_identifier](../w/worker_get_identifier.md)` - Gets worker ID for parallel sorts
   - `pg_rusage_init` - Initializes resource usage tracking (if TRACE_SORT enabled)
   - `TUPLESORT_RANDOMACCESS` - Sort option constant
   - `INITIAL_MEMTUPSIZE` - Initial memory tuple array size
 - Called from (representative examples):
-  - `tuplesort_begin_heap` - For heap tuple sorting
-  - `tuplesort_begin_cluster` - For cluster operations
-  - `tuplesort_begin_index_btree` - For B-tree index creation
-  - `tuplesort_begin_index_hash` - For hash index creation
-  - `tuplesort_begin_datum` - For single datum sorting
+  - `[tuplesort_begin_heap](tuplesort_begin_heap.md)` - For heap tuple sorting
+  - `[tuplesort_begin_cluster](tuplesort_begin_cluster.md)` - For cluster operations
+  - `[tuplesort_begin_index_btree](tuplesort_begin_index_btree.md)` - For B-tree index creation
+  - `[tuplesort_begin_index_hash](tuplesort_begin_index_hash.md)` - For hash index creation
+  - `[tuplesort_begin_datum](tuplesort_begin_datum.md)` - For single datum sorting
 
 ## Notes and Other Information
 - Serves as the common foundation for all specialized tuplesort variants

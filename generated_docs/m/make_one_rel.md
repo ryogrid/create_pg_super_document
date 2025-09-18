@@ -25,15 +25,15 @@ The function ensures that all base relations and outer-join relations in the que
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_base_rel_consider_startup
-  - set_base_rel_sizes
-  - set_base_rel_pathlists
-  - make_rel_from_joinlist
+  - [set_base_rel_consider_startup](../s/set_base_rel_consider_startup.md)
+  - [set_base_rel_sizes](../s/set_base_rel_sizes.md)
+  - [set_base_rel_pathlists](../s/set_base_rel_pathlists.md)
+  - [make_rel_from_joinlist](make_rel_from_joinlist.md)
   - IS_DUMMY_REL (macro)
   - IS_SIMPLE_REL (macro)
-  - bms_equal
+  - [bms_equal](../b/bms_equal.md)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/allpaths.c:171-246

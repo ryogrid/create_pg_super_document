@@ -20,12 +20,12 @@ This function updates the shared memory slot with the process ID of a background
   - kill (system call for sending signals)
   - SIGUSR1 (signal constant)
 - Data structures used:
-  - RegisteredBgWorker
-  - BackgroundWorkerSlot
+  - [RegisteredBgWorker](RegisteredBgWorker.md)
+  - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md)
   - BackgroundWorkerData (global shared memory structure)
 - Called from (representative examples):
-  - BackgroundWorkerStateChange
-  - do_start_bgworker
+  - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md)
+  - [do_start_bgworker](../d/do_start_bgworker.md)
 
 ## Notes and Other Information
 - This function should only be called from the postmaster process

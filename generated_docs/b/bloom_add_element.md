@@ -25,9 +25,9 @@ Once an element is added to the filter, subsequent calls to `bloom_lacks_element
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `k_hashes`: Computes k independent hash values for the element
+  - `[k_hashes](../k/k_hashes.md)`: Computes k independent hash values for the element
   - `MAX_HASH_FUNCS`: Maximum number of hash functions supported
-  - `bloom_filter`: The filter structure type
+  - `[bloom_filter](bloom_filter.md)`: The filter structure type
 
 - Called from (representative examples):
   - `roles_list_append`: Adding role identifiers to ACL membership filter
@@ -38,4 +38,4 @@ Once an element is added to the filter, subsequent calls to `bloom_lacks_element
 - Uses bit shifting (>> 3) to convert bit address to byte address (divide by 8)
 - Uses bitwise AND with 7 to get bit offset within byte (equivalent to modulo 8)
 - Multiple hash functions ensure good distribution and optimal false positive rate
-- No bounds checking is performed - hash values must be within bitset range
+- No bounds checking is performed - [hash](../h/hash.md) values must be within bitset range

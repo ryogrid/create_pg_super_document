@@ -29,11 +29,11 @@ The transformation ensures that SELECT INTO statements are properly converted to
   - SETOP_NONE (constant for detecting non-set operations)
   - CreateTableAsStmt (node creation via makeNode)
   - OBJECT_TABLE (constant for object type specification)
-  - transformStmt (recursive statement transformation)
+  - [transformStmt](transformStmt.md) (recursive statement transformation)
 
 - Called from (representative examples):
-  - transformTopLevelStmt (main entry point for top-level statement transformation)
-  - transformExplainStmt (for EXPLAIN statement processing)
+  - [transformTopLevelStmt](transformTopLevelStmt.md) (main entry point for top-level statement transformation)
+  - [transformExplainStmt](transformExplainStmt.md) (for EXPLAIN statement processing)
 
 ## Notes and Other Information
 - This transformation only occurs at the top level of the parse tree since utility statements cannot be nested within other statements

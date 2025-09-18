@@ -20,17 +20,17 @@ This function calculates and returns the shared memory size required for the inj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size: Performs safe size addition to avoid arithmetic overflow
-  - InjectionPointsCtl: The main shared memory control structure containing max_inuse counter and entries array
+  - [add_size](../a/add_size.md): Performs safe size addition to avoid arithmetic overflow
+  - [InjectionPointsCtl](InjectionPointsCtl.md): The main shared memory control structure containing max_inuse counter and entries array
   - sizeof: Calculates the size of the InjectionPointsCtl structure
 - Called from (representative examples):
-  - CalculateShmemSize: Used during shared memory initialization to calculate total shared memory requirements
+  - [CalculateShmemSize](../C/CalculateShmemSize.md): Used during shared memory initialization to calculate total shared memory requirements
 
 ## Notes and Other Information
 - The function is conditionally compiled based on USE_INJECTION_POINTS preprocessor macro
-- InjectionPointsCtl structure includes:
-  - pg_atomic_uint32 max_inuse: Optimization counter tracking highest used index + 1
-  - InjectionPointEntry entries[MAX_INJECTION_POINTS]: Array of up to 128 injection point entries
+- [InjectionPointsCtl](InjectionPointsCtl.md) structure includes:
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) max_inuse: Optimization counter tracking highest used index + 1
+  - [InjectionPointEntry](InjectionPointEntry.md) entries[MAX_INJECTION_POINTS]: Array of up to 128 injection point entries
 - Returns 0 when injection points are disabled at compile time
 - Part of the shared memory sizing infrastructure used during PostgreSQL startup
 - The size calculation is straightforward since it's just a single structure with fixed-size array

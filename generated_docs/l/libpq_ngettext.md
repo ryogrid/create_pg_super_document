@@ -21,12 +21,12 @@ The function follows the standard gettext pluralization mechanism, where the app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_binddomain
+  - [libpq_binddomain](libpq_binddomain.md)
   - dngettext (gettext function)
   - PG_TEXTDOMAIN
 - Called from (representative examples):
-  - pqGetNegotiateProtocolVersion3
-  - pq_verify_peer_name_matches_certificate
+  - [pqGetNegotiateProtocolVersion3](../p/pqGetNegotiateProtocolVersion3.md)
+  - [pq_verify_peer_name_matches_certificate](../p/pq_verify_peer_name_matches_certificate.md)
 
 ## Notes and Other Information
 - Essential for proper pluralization in internationalized messages

@@ -22,16 +22,16 @@ When name conflicts arise, the function automatically resolves them by appending
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexElem (structure representing an index column/expression)
+  - [IndexElem](../I/IndexElem.md) (structure representing an index column/expression)
   - NAMEDATALEN (PostgreSQL's maximum name length constant)
-  - pg_mbcliplen (multibyte-aware string clipping function)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (multibyte-aware string clipping function)
   - lfirst (list iteration macro)
   - foreach (list iteration macro)
   - lappend (list append function)
-  - pstrdup (PostgreSQL's string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL's string duplication function)
   - strcmp (string comparison function)
 - Called from:
-  - DefineIndex (src/backend/commands/indexcmds.c:814)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:814)
 
 ## Notes and Other Information
 - This is a static function internal to indexcmds.c

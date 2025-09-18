@@ -23,16 +23,16 @@ ReadBuffer_common serves as the core implementation for all buffer reading opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRel
-  - PinBufferForBlock
-  - ZeroAndLockBuffer
-  - StartReadBuffer
-  - WaitReadBuffers
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
+  - [PinBufferForBlock](../P/PinBufferForBlock.md)
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
+  - [StartReadBuffer](../S/StartReadBuffer.md)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md)
   - BMR_REL
 - Called from (representative examples):
-  - ReadBufferExtended
-  - ReadBufferWithoutRelcache
-  - ExtendBufferedRelTo
+  - [ReadBufferExtended](ReadBufferExtended.md)
+  - [ReadBufferWithoutRelcache](ReadBufferWithoutRelcache.md)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)
   - BufferIsPinned
 
 ## Notes and Other Information

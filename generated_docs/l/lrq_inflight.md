@@ -21,10 +21,10 @@ This counter is maintained internally by the queue management functions and refl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LsnReadQueue (struct type)
+  - [LsnReadQueue](../L/LsnReadQueue.md) (struct type)
 - Called from (representative examples):
-  - XLogPrefetcherComputeStats
-  - XLogPrefetcherReadRecord
+  - [XLogPrefetcherComputeStats](../X/XLogPrefetcherComputeStats.md)
+  - [XLogPrefetcherReadRecord](../X/XLogPrefetcherReadRecord.md)
 
 ## Notes and Other Information
 - Simple accessor function implemented as static inline for efficiency

@@ -21,12 +21,12 @@ The function retrieves the session timezone name and passes it to `timetz_zone` 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM
-  - pg_get_timezone_name
+  - [pg_get_timezone_name](../p/pg_get_timezone_name.md)
   - session_timezone
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - cstring_to_text
   - DirectFunctionCall2
-  - timetz_zone
+  - [timetz_zone](timetz_zone.md)
 - Called from (representative examples):
   - SQL AT LOCAL expressions with TIMETZ values
   - Applications requiring local timezone display of time values

@@ -30,19 +30,19 @@ The function ensures that the parallel worker operates in an environment that is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_attach, dsm_segment_address
+  - [dsm_attach](../d/dsm_attach.md), dsm_segment_address
   - shm_toc_attach, shm_toc_lookup
-  - LookupParallelWorkerFunction
-  - SetParallelStartTimestamps
-  - StartParallelWorkerTransaction, EndParallelWorkerTransaction
-  - AttachSession, DetachSession  
-  - RestorePendingSyncs, RestoreUncommittedEnums
-  - BecomeLockGroupMember
-  - BackgroundWorkerInitializeConnectionByOid
+  - [LookupParallelWorkerFunction](../L/LookupParallelWorkerFunction.md)
+  - [SetParallelStartTimestamps](../S/SetParallelStartTimestamps.md)
+  - [StartParallelWorkerTransaction](../S/StartParallelWorkerTransaction.md), EndParallelWorkerTransaction
+  - [AttachSession](../A/AttachSession.md), DetachSession  
+  - [RestorePendingSyncs](../R/RestorePendingSyncs.md), RestoreUncommittedEnums
+  - [BecomeLockGroupMember](../B/BecomeLockGroupMember.md)
+  - [BackgroundWorkerInitializeConnectionByOid](../B/BackgroundWorkerInitializeConnectionByOid.md)
   - EnterParallelMode, ExitParallelMode
-  - StartTransactionCommand, CommitTransactionCommand
+  - [StartTransactionCommand](../S/StartTransactionCommand.md), CommitTransactionCommand
 - Called from (representative examples):
-  - BackgroundWorkerHandle (via bgworker registration)
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md) (via bgworker registration)
   - IsParallelWorker (helper function)
 
 ## Notes and Other Information

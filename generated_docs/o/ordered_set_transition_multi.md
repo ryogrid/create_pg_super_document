@@ -23,16 +23,16 @@ The complete tuple is then added to the tuplesort object using , and the row cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ordered_set_startup
+  - [ordered_set_startup](ordered_set_startup.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
-  - tuplesort_puttupleslot
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_GETARG_DATUM
   - PG_NARGS
   - PG_RETURN_POINTER
-  - Int32GetDatum
+  - [Int32GetDatum](../I/Int32GetDatum.md)
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework for multi-column ordered-set aggregates
 

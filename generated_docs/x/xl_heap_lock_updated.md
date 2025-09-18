@@ -32,9 +32,9 @@ This record type is crucial for maintaining proper locking semantics in MVCC (Mu
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - heap_lock_updated_tuple_rec
-  - heap_xlog_lock_updated
-  - heap2_desc
+  - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
+  - [heap_xlog_lock_updated](../h/heap_xlog_lock_updated.md)
+  - [heap2_desc](../h/heap2_desc.md)
   - SizeOfHeapLockUpdated
 
 ## Notes and Other Information

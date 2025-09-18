@@ -29,9 +29,9 @@ NameData is PostgreSQL's fundamental structure for storing database object ident
 - Called from (representative examples):
   - All PostgreSQL catalog tables (pg_class, pg_attribute, pg_proc, pg_namespace, etc.)
   - namerecv (input function for Name type)
-  - NameGetDatum (conversion to PostgreSQL Datum type)
-  - CatCacheCopyKeys (catalog cache key copying)
-  - ReplicationSlotPersistentData (replication slot names)
+  - [NameGetDatum](NameGetDatum.md) (conversion to PostgreSQL Datum type)
+  - [CatCacheCopyKeys](../C/CatCacheCopyKeys.md) (catalog cache key copying)
+  - [ReplicationSlotPersistentData](../R/ReplicationSlotPersistentData.md) (replication slot names)
   - Various catalog creation and manipulation functions
 
 ## Notes and Other Information

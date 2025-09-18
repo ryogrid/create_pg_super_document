@@ -34,8 +34,8 @@ The function serves as the implementation for PostgreSQL's `&<` operator for cir
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P: Extracts CIRCLE arguments from function call
-  - float8_pl: Adds floating-point values (center.x + radius for each circle)
-  - FPle: Floating-point less-than-or-equal comparison
+  - [float8_pl](../f/float8_pl.md): Adds floating-point values (center.x + radius for each circle)
+  - [FPle](../F/FPle.md): Floating-point less-than-or-equal comparison
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using the `&<` operator for circles

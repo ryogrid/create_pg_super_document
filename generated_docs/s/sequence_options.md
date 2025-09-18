@@ -27,17 +27,17 @@ All numeric values are converted to string format using INT64_FORMAT and wrapped
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - lappend
   - makeDefElem
-  - makeFloat
-  - psprintf
-  - makeBoolean
-  - ReleaseSysCache
+  - [makeFloat](../m/makeFloat.md)
+  - [psprintf](../p/psprintf.md)
+  - [makeBoolean](../m/makeBoolean.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from:
-  - transformTableLikeClause
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
 
 ## Notes and Other Information
 - The function uses the system cache (SEQRELID) for efficient lookup of sequence metadata

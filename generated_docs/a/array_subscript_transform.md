@@ -31,16 +31,16 @@ For slice operations, non-slice indirection items are converted to slices by tre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr (transforms raw expressions into executable form)
-  - coerce_to_target_type (coerces expressions to INT4OID type)
+  - [transformExpr](../t/transformExpr.md) (transforms raw expressions into executable form)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (coerces expressions to INT4OID type)
   - exprType (determines the type of an expression)
-  - makeConst (creates constant expressions for default lower bounds)
-  - exprLocation (gets source location for error reporting)
+  - [makeConst](../m/makeConst.md) (creates constant expressions for default lower bounds)
+  - [exprLocation](../e/exprLocation.md) (gets source location for error reporting)
   - lappend (appends to PostgreSQL lists)
   - ereport/lfirst_node (error reporting and list manipulation)
 - Called from (representative examples):
-  - array_subscript_handler (main array subscript handler)
-  - raw_array_subscript_handler (raw array subscript handler)
+  - [array_subscript_handler](array_subscript_handler.md) (main array subscript handler)
+  - [raw_array_subscript_handler](../r/raw_array_subscript_handler.md) (raw array subscript handler)
 
 ## Notes and Other Information
 - This is a static function internal to the array subscripting module

@@ -27,18 +27,18 @@ The returned strings are allocated in the current memory context using pstrdup.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - heap_attisnull
+  - [heap_attisnull](../h/heap_attisnull.md)
   - FmgrHookIsNeeded
-  - pstrdup
-  - SysCacheGetAttrNotNull
+  - [pstrdup](../p/pstrdup.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - llvm_function_reference (in JIT compilation)
+  - [llvm_function_reference](../l/llvm_function_reference.md) (in JIT compilation)
   - fmgr_info_set_expr (function info setup)
 
 ## Notes and Other Information

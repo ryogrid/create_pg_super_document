@@ -30,7 +30,7 @@ This function is part of the resource management pattern for radix tree iteratio
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (for name generation)
-  - pfree (for memory deallocation)
+  - [pfree](../p/pfree.md) (for memory deallocation)
 - Called from (representative examples):
   - User code after completing tree traversal
   - Cleanup code in error handling paths

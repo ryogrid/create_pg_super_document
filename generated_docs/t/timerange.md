@@ -23,12 +23,12 @@ The structure supports range-based operations on timezone data, allowing the com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timerange (self-reference in structure definitions)
+  - [timerange](timerange.md) (self-reference in structure definitions)
 
 - Called from (representative examples):
-  - timerange_option (command-line option processing)
-  - limitrange (range limitation function)
-  - writezone (timezone data writing function)
+  - [timerange_option](timerange_option.md) (command-line option processing)
+  - [limitrange](../l/limitrange.md) (range limitation function)
+  - [writezone](../w/writezone.md) (timezone data writing function)
 
 ## Notes and Other Information
 - Used primarily during timezone compilation to optimize output data size

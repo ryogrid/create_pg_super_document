@@ -25,14 +25,14 @@ FPgt implements a fuzzy greater-than comparison for double-precision floating-po
 - Functions called/Symbols referenced:
   - EPSILON (constant defining the tolerance threshold)
 - Called from (representative examples):
-  - gist_point_consistent_internal
-  - spg_kd_inner_consistent
-  - box_right
-  - box_above
-  - point_right
-  - circle_gt
-  - lseg_crossing
-  - higher2D
+  - [gist_point_consistent_internal](../g/gist_point_consistent_internal.md)
+  - [spg_kd_inner_consistent](../s/spg_kd_inner_consistent.md)
+  - [box_right](../b/box_right.md)
+  - [box_above](../b/box_above.md)
+  - [point_right](../p/point_right.md)
+  - [circle_gt](../c/circle_gt.md)
+  - [lseg_crossing](../l/lseg_crossing.md)
+  - [higher2D](../h/higher2D.md)
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL's geometric operations, particularly in spatial indexing (GiST and SP-GiST) and geometric comparisons. The epsilon-adjusted comparison (A > B + EPSILON) means that A must be meaningfully greater than B, not just different due to floating-point precision errors. This ensures stable and consistent ordering behavior that is crucial for geometric algorithms and spatial data structures. The function is the logical complement of FPlt, providing the opposite comparison direction with the same epsilon-based tolerance.

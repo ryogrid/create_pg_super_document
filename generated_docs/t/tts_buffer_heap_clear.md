@@ -19,13 +19,13 @@ tts_buffer_heap_clear is responsible for cleaning up and resetting a buffer-back
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (cast target type)
   - TTS_SHOULDFREE (flag check macro)
-  - heap_freetuple (tuple memory deallocation)
+  - [heap_freetuple](../h/heap_freetuple.md) (tuple memory deallocation)
   - TTS_FLAG_SHOULDFREE (flag manipulation)
   - ReleaseBuffer (buffer reference management)
   - TTS_FLAG_EMPTY (slot state flag)
-  - ItemPointerSetInvalid (tuple ID invalidation)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md) (tuple ID invalidation)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within execTuples.c

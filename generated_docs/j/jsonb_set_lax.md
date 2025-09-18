@@ -27,11 +27,11 @@ The function accepts the same first four parameters as  plus an additional text 
   - PG_RETURN_NULL: Return NULL from function
   - PG_GETARG_TEXT_P: Extract text argument from function call
   - text_to_cstring: Convert PostgreSQL text to C string
-  - jsonb_set: Delegate to regular jsonb_set function
-  - jsonb_delete_path: Delete path when "delete_key" strategy is used
+  - [jsonb_set](jsonb_set.md): Delegate to regular jsonb_set function
+  - [jsonb_delete_path](jsonb_delete_path.md): Delete path when "delete_key" strategy is used
   - DirectFunctionCall1: Call function directly with one argument
-  - jsonb_in: Parse JSON string to create JSONB value
-  - CStringGetDatum: Convert C string to PostgreSQL Datum
+  - [jsonb_in](jsonb_in.md): Parse JSON string to create JSONB value
+  - [CStringGetDatum](../C/CStringGetDatum.md): Convert C string to PostgreSQL Datum
   - PG_GETARG_JSONB_P: Extract JSONB argument from function call
   - PG_RETURN_JSONB_P: Return JSONB value from function
 - Called from (representative examples):

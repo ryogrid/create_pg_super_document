@@ -21,12 +21,12 @@ The function initializes all necessary fields of the MaterialPath structure, cop
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create the MaterialPath node)
-  - cost_material (to calculate the cost of materialization)
+  - [cost_material](cost_material.md) (to calculate the cost of materialization)
   - MaterialPath (the path node type being created)
 - Called from (representative examples):
-  - set_tablesample_rel_pathlist (for table sampling operations)
-  - match_unsorted_outer (in join path planning)
-  - reparameterize_path (when reparameterizing paths)
+  - [set_tablesample_rel_pathlist](../s/set_tablesample_rel_pathlist.md) (for table sampling operations)
+  - [match_unsorted_outer](../m/match_unsorted_outer.md) (in join path planning)
+  - [reparameterize_path](../r/reparameterize_path.md) (when reparameterizing paths)
 
 ## Notes and Other Information
 - The function asserts that the subpath's parent matches the provided rel parameter

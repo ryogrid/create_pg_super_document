@@ -22,16 +22,16 @@ The function operates within the event trigger collection framework and respects
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc0
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
   - ObjectAddressSet
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - copyObject
   - lappend
 - Called from (representative examples):
-  - MakeConfigurationMapping (src/backend/commands/tsearchcmds.c:1484)
-  - DropConfigurationMapping (src/backend/commands/tsearchcmds.c:1552)
+  - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md) (src/backend/commands/tsearchcmds.c:1484)
+  - [DropConfigurationMapping](../D/DropConfigurationMapping.md) (src/backend/commands/tsearchcmds.c:1552)
 
 ## Notes and Other Information
 - Part of the event trigger collection system that tracks DDL commands for event trigger processing

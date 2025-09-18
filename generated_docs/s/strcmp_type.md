@@ -20,8 +20,8 @@ This function serves as a comparison callback for the standard librarys bsearch(
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - lexi (at src/tools/pg_bsd_indent/lexi.c:356)
-  - lexi (at src/tools/pg_bsd_indent/lexi.c:364)
+  - [lexi](../l/lexi.md) (at src/tools/pg_bsd_indent/lexi.c:356)
+  - [lexi](../l/lexi.md) (at src/tools/pg_bsd_indent/lexi.c:364)
 
 ## Notes and Other Information
 - This function follows the standard comparison function interface required by bsearch()

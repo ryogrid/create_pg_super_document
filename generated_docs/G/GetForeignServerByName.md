@@ -18,15 +18,15 @@ GetForeignServerByName is a utility function that retrieves a foreign server obj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_foreign_server_oid
-  - GetForeignServer
+  - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
+  - [GetForeignServer](GetForeignServer.md)
   - OidIsValid (macro)
 - Called from (representative examples):
-  - CreateUserMapping
-  - AlterUserMapping  
-  - RemoveUserMapping
-  - CreateForeignTable
-  - ImportForeignSchema
+  - [CreateUserMapping](../C/CreateUserMapping.md)
+  - [AlterUserMapping](../A/AlterUserMapping.md)  
+  - [RemoveUserMapping](../R/RemoveUserMapping.md)
+  - [CreateForeignTable](../C/CreateForeignTable.md)
+  - [ImportForeignSchema](../I/ImportForeignSchema.md)
 
 ## Notes and Other Information
 This function is commonly used in foreign data wrapper (FDW) operations where server names need to be resolved to their corresponding server objects. The two-step lookup process (name → OID → ForeignServer) follows PostgreSQL's typical pattern for object resolution. The function is located in src/backend/foreign/foreign.c:182-199.

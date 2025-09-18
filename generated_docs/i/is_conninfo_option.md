@@ -21,10 +21,10 @@ The function iterates through the `libpq_conninfo_options` array, which contains
 ## Dependencies
 - Functions called/Symbols referenced:
   - `strcmp`: Standard C string comparison function
-  - `ConnectionOption`: Structure type for connection option definitions
+  - `[ConnectionOption](../C/ConnectionOption.md)`: Structure type for connection option definitions
   - `libpq_conninfo_options`: Array of valid libpq connection options
 - Called from (representative examples):
-  - `postgresql_fdw_validator`: Uses this function to validate connection options
+  - `[postgresql_fdw_validator](../p/postgresql_fdw_validator.md)`: Uses this function to validate connection options
 
 ## Notes and Other Information
 - This is a static function, only accessible within the foreign.c module

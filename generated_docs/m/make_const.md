@@ -34,19 +34,19 @@ The function includes comprehensive error handling using parser error position c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - A_Const (input structure type)
-  - makeConst() (creates the final Const node)
+  - [A_Const](../A/A_Const.md) (input structure type)
+  - [makeConst](makeConst.md)() (creates the final Const node)
   - nodeTag() (determines the type of the constant value)
   - intVal()/boolVal()/strVal() (extracts values from ValUnion)
-  - pg_strtoint64_safe() (safe integer parsing)
+  - [pg_strtoint64_safe](../p/pg_strtoint64_safe.md)() (safe integer parsing)
   - DirectFunctionCall3() (calls type input functions)
-  - numeric_in() (converts string to numeric type)
-  - bit_in() (converts string to bit type)
-  - setup_parser_errposition_callback() (error location reporting)
-  - cancel_parser_errposition_callback() (cleanup error callback)
+  - [numeric_in](../n/numeric_in.md)() (converts string to numeric type)
+  - [bit_in](../b/bit_in.md)() (converts string to bit type)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)() (error location reporting)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)() (cleanup error callback)
   - Various type OID constants (INT4OID, INT8OID, NUMERICOID, etc.)
 - Called from (representative examples):
-  - transformExprRecurse() (during expression transformation)
+  - [transformExprRecurse](../t/transformExprRecurse.md)() (during expression transformation)
 
 ## Notes and Other Information
 - The function implements PostgreSQL's "natural" type inference for uncast constants

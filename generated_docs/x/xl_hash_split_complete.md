@@ -28,9 +28,9 @@ Unlike the allocation phase, this completion phase focuses on finalizing the buc
 - Functions called/Symbols referenced:
   - uint16 (type)
 - Called from (representative examples):
-  - hash_xlog_split_complete (WAL replay function)
-  - _hash_splitbucket (bucket splitting implementation)
-  - hash_desc (WAL record description function)
+  - [hash_xlog_split_complete](../h/hash_xlog_split_complete.md) (WAL replay function)
+  - [_hash_splitbucket](../h/_hash_splitbucket.md) (bucket splitting implementation)
+  - [hash_desc](../h/hash_desc.md) (WAL record description function)
   - SizeOfHashSplitComplete (macro for size calculation)
 
 ## Notes and Other Information

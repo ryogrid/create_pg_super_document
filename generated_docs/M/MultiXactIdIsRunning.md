@@ -26,19 +26,19 @@ The function is used primarily in heap tuple visibility checks and transaction c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMultiXactIdMembers
-  - TransactionIdIsCurrentTransactionId  
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)  
   - TransactionIdIsInProgress
   - debug_elog3, debug_elog2, debug_elog4
 - Called from (representative examples):
-  - compute_new_xmax_infomask (src/backend/access/heap/heapam.c:5375)
-  - FreezeMultiXactId (src/backend/access/heap/heapam.c:6701)
-  - HeapTupleSatisfiesUpdate (multiple locations in src/backend/access/heap/heapam_visibility.c)
-  - HeapTupleSatisfiesVacuumHorizon (src/backend/access/heap/heapam_visibility.c:1323, 1371)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (src/backend/access/heap/heapam.c:5375)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md) (src/backend/access/heap/heapam.c:6701)
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md) (multiple locations in src/backend/access/heap/heapam_visibility.c)
+  - [HeapTupleSatisfiesVacuumHorizon](../H/HeapTupleSatisfiesVacuumHorizon.md) (src/backend/access/heap/heapam_visibility.c:1323, 1371)
 
 ## Notes and Other Information
 - The caller is expected to verify that the MultiXactId does not come from a pg_upgraded share-locked tuple
 - Performance optimization: checks current transaction membership first as a fast path before expensive shared memory lookups
 - Could be optimized further by walking the PGPROC array only once for all members, but current implementation assumes nmembers is typically small
 - Critical for heap tuple visibility determination and vacuum operations
-- Result stability guarantee: a false result will never change to true since no new members can be added to existing MultiXactIds
+- [Result](../R/Result.md) stability guarantee: a false result will never change to true since no new members can be added to existing MultiXactIds

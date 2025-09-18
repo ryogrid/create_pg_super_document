@@ -22,7 +22,7 @@ The function essentially acts as a wrapper that forwards the function call infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_series_step_int8 (the main implementation function)
+  - [generate_series_step_int8](generate_series_step_int8.md) (the main implementation function)
 
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through PostgreSQL's function dispatch system)

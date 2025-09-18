@@ -27,8 +27,8 @@ This function performs a complete file read operation by first checking the file
   - enlargeStringInfo (PostgreSQL function to expand StringInfo capacity)
   - read (system call for file reading)
 - Called from (representative examples):
-  - check_backup_label_files (in src/bin/pg_combinebackup/pg_combinebackup.c:534)
-  - read_pg_version_file (in src/bin/pg_combinebackup/pg_combinebackup.c:1171)
+  - [check_backup_label_files](../c/check_backup_label_files.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:534)
+  - [read_pg_version_file](../r/read_pg_version_file.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:1171)
 
 ## Notes and Other Information
 - This is a static function used specifically within pg_combinebackup utility

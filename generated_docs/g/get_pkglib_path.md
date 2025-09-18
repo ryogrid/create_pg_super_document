@@ -20,13 +20,13 @@ The function is essential for PostgreSQL installations to locate shared librarie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
   - PKGLIBDIR (compile-time constant)
   - PGBINDIR (compile-time constant)
 - Called from (representative examples):
-  - getInstallationPaths (src/backend/postmaster/postmaster.c:1457)
-  - InitStandaloneProcess (src/backend/utils/init/miscinit.c:218)
-  - get_configdata (src/common/config_info.c:90, 120)
+  - [getInstallationPaths](getInstallationPaths.md) (src/backend/postmaster/postmaster.c:1457)
+  - [InitStandaloneProcess](../I/InitStandaloneProcess.md) (src/backend/utils/init/miscinit.c:218)
+  - [get_configdata](get_configdata.md) (src/common/config_info.c:90, 120)
 
 ## Notes and Other Information
 - Part of PostgreSQL's path resolution system for relocatable installations

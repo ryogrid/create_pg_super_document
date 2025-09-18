@@ -24,13 +24,13 @@ A notable design trade-off exists in this function: it uses NoLock when resolvin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (to get text argument)
-  - makeRangeVarFromNameList
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - textToQualifiedNameList  
   - RangeVarGetRelid (with NoLock)
-  - nextval_internal
+  - [nextval_internal](nextval_internal.md)
   - PG_RETURN_INT64
 - Called from (representative examples):
-  - ttdummy (in regress.c for testing)
+  - [ttdummy](../t/ttdummy.md) (in regress.c for testing)
 
 ## Notes and Other Information
 - No longer exported as a pg_proc entry but maintained for C API compatibility

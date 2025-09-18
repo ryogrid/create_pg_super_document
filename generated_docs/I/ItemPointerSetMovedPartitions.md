@@ -20,7 +20,7 @@ This function marks an ItemPointer with special values to indicate that the tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSet
+  - [ItemPointerSet](ItemPointerSet.md)
   - MovedPartitionsBlockNumber
   - MovedPartitionsOffsetNumber
 - Called from (representative examples):

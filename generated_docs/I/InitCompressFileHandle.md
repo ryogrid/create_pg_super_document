@@ -18,22 +18,22 @@ This function acts as a factory method for creating compression file handles in 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0
-  - InitCompressFileHandleNone
-  - InitCompressFileHandleGzip  
-  - InitCompressFileHandleLZ4
-  - InitCompressFileHandleZstd
+  - [InitCompressFileHandleNone](InitCompressFileHandleNone.md)
+  - [InitCompressFileHandleGzip](InitCompressFileHandleGzip.md)  
+  - [InitCompressFileHandleLZ4](InitCompressFileHandleLZ4.md)
+  - [InitCompressFileHandleZstd](InitCompressFileHandleZstd.md)
   - PG_COMPRESSION_NONE
   - PG_COMPRESSION_GZIP
   - PG_COMPRESSION_LZ4
   - PG_COMPRESSION_ZSTD
 - Called from (representative examples):
-  - InitDiscoverCompressFileHandle
-  - SetOutput
-  - _allocAH
-  - _StartData
-  - _CloseArchive
-  - _StartLOs
-  - _StartLO
+  - [InitDiscoverCompressFileHandle](InitDiscoverCompressFileHandle.md)
+  - [SetOutput](../S/SetOutput.md)
+  - [_allocAH](../a/_allocAH.md)
+  - [_StartData](../S/_StartData.md)
+  - [_CloseArchive](../C/_CloseArchive.md)
+  - [_StartLOs](../S/_StartLOs.md)
+  - [_StartLO](../S/_StartLO.md)
 
 ## Notes and Other Information
 The function uses a switch-like pattern based on the compression algorithm to delegate initialization to algorithm-specific functions. The returned CompressFileHandle contains function pointers and state specific to the chosen compression method, enabling polymorphic behavior for compression operations throughout the pg_dump utilities.

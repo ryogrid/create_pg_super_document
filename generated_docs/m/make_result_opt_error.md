@@ -24,21 +24,21 @@ When overflow occurs (weight or dscale values exceed the limits of int16 fields)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - SET_VARSIZE (setting variable-length structure size)
   - memcpy (copying digit data)
-  - dump_numeric (debugging function)
+  - [dump_numeric](../d/dump_numeric.md) (debugging function)
   - elog, ereport (error reporting)
   - NUMERIC_CAN_BE_SHORT (macro for format selection)
   - Various NUMERIC_* constants and macros for bit manipulation
 - Called from (representative examples):
-  - numeric_in
-  - numeric_add_opt_error
-  - numeric_sub_opt_error
-  - numeric_mul_opt_error
-  - numeric_div_opt_error
-  - numeric_mod_opt_error
-  - make_result
+  - [numeric_in](../n/numeric_in.md)
+  - [numeric_add_opt_error](../n/numeric_add_opt_error.md)
+  - [numeric_sub_opt_error](../n/numeric_sub_opt_error.md)
+  - [numeric_mul_opt_error](../n/numeric_mul_opt_error.md)
+  - [numeric_div_opt_error](../n/numeric_div_opt_error.md)
+  - [numeric_mod_opt_error](../n/numeric_mod_opt_error.md)
+  - [make_result](make_result.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c file

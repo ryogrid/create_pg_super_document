@@ -23,8 +23,8 @@ For characters with the high bit set (non-ASCII), the function returns the value
   - IS_HIGHBIT_SET (macro to test if character has high bit set)
   - isalnum (standard C library function)
 - Called from (representative examples):
-  - getid
-  - putid
+  - [getid](../g/getid.md)
+  - [putid](../p/putid.md)
 
 ## Notes and Other Information
 This function addresses a portability issue where older versions used isalnum() on non-ASCII characters, resulting in platform-dependent behavior. The current implementation ensures that dumps created by newer versions remain compatible with older PostgreSQL installations by being more restrictive during output (putid) while remaining permissive during input parsing (getid).

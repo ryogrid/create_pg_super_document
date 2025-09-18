@@ -20,11 +20,11 @@ The structure is specifically designed to support the k-d tree's alternating spl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (geometric point type from utils/geo_decls.h)
+  - [Point](../P/Point.md) (geometric point type from utils/geo_decls.h)
 - Called from (representative examples):
-  - x_cmp (comparison function for x-coordinate sorting)
-  - y_cmp (comparison function for y-coordinate sorting)
-  - spg_kd_picksplit (main split function that uses arrays of SortedPoint)
+  - [x_cmp](../x/x_cmp.md) (comparison function for x-coordinate sorting)
+  - [y_cmp](../y/y_cmp.md) (comparison function for y-coordinate sorting)
+  - [spg_kd_picksplit](../s/spg_kd_picksplit.md) (main split function that uses arrays of SortedPoint)
 
 ## Notes and Other Information
 - This structure is used internally within the SP-GiST k-d tree implementation and is not exposed as a public API

@@ -18,15 +18,15 @@ LockGXact is responsible for finding and securing exclusive access to a prepared
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtProcExit_Twophase
-  - before_shmem_exit
+  - [AtProcExit_Twophase](../A/AtProcExit_Twophase.md)
+  - [before_shmem_exit](../b/before_shmem_exit.md)
   - GlobalTransaction
-  - PGPROC
+  - [PGPROC](../P/PGPROC.md)
   - GetPGProcByNumber
   - INVALID_PROC_NUMBER
   - superuser_arg
 - Called from (representative examples):
-  - FinishPreparedTransaction
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the two-phase commit system

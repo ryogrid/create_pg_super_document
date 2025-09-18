@@ -18,15 +18,15 @@ InstrAccumParallelQuery is the final step in parallel query instrumentation that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferUsageAdd (function to add buffer usage statistics)
-  - WalUsageAdd (function to add WAL usage statistics)
+  - [BufferUsageAdd](../B/BufferUsageAdd.md) (function to add buffer usage statistics)
+  - [WalUsageAdd](../W/WalUsageAdd.md) (function to add WAL usage statistics)
   - pgBufferUsage (global variable for accumulated buffer usage)
   - pgWalUsage (global variable for accumulated WAL usage)
 - Called from (representative examples):
-  - _brin_end_parallel (in brin.c for finalizing parallel BRIN index building)
-  - _bt_end_parallel (in nbtsort.c for finalizing parallel B-tree index building)
-  - parallel_vacuum_process_all_indexes (in vacuumparallel.c for parallel vacuum completion)
-  - ExecParallelFinish (in execParallel.c for general parallel query completion)
+  - [_brin_end_parallel](../b/_brin_end_parallel.md) (in brin.c for finalizing parallel BRIN index building)
+  - [_bt_end_parallel](../b/_bt_end_parallel.md) (in nbtsort.c for finalizing parallel B-tree index building)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md) (in vacuumparallel.c for parallel vacuum completion)
+  - [ExecParallelFinish](../E/ExecParallelFinish.md) (in execParallel.c for general parallel query completion)
 
 ## Notes and Other Information
 - Called by the leader process after parallel workers have completed and reported their resource usage

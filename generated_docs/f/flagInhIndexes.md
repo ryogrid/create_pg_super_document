@@ -21,13 +21,13 @@ The function iterates through all tables, focusing only on partition tables that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findIndexByOid (locates parent index by OID)
-  - AssignDumpId (assigns unique dump IDs to IndexAttachInfo objects)
-  - addObjectDependency (establishes dump order dependencies)
-  - simple_ptr_list_append (adds to parent index's partition list)
+  - [findIndexByOid](findIndexByOid.md) (locates parent index by OID)
+  - [AssignDumpId](../A/AssignDumpId.md) (assigns unique dump IDs to IndexAttachInfo objects)
+  - [addObjectDependency](../a/addObjectDependency.md) (establishes dump order dependencies)
+  - [simple_ptr_list_append](../s/simple_ptr_list_append.md) (adds to parent index's partition list)
   - pg_malloc_object (memory allocation)
 - Called from (representative examples):
-  - getSchemaData (src/bin/pg_dump/common.c:242)
+  - [getSchemaData](../g/getSchemaData.md) (src/bin/pg_dump/common.c:242)
 
 ## Notes and Other Information
 The function only processes partition tables (not regular inheritance), as indicated by the ispartition check. Each partition table can have only one parent, which is verified by an assertion. The dependencies established include not only the indexes themselves but also their underlying tables to prevent parallel restore operations from interfering with each other.

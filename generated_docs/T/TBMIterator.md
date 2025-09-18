@@ -25,20 +25,20 @@ The iterator's state tracking enables efficient resumption of traversal across m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TIDBitmap
+  - [TIDBitmap](TIDBitmap.md)
   - TBMIterateResult
 - Called from (representative examples):
-  - BitmapHeapNext
-  - BitmapAdjustPrefetchIterator
-  - BitmapPrefetch
-  - tbm_begin_iterate
-  - tbm_iterate
-  - tbm_end_iterate
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
+  - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md)
+  - [tbm_begin_iterate](../t/tbm_begin_iterate.md)
+  - [tbm_iterate](../t/tbm_iterate.md)
+  - [tbm_end_iterate](../t/tbm_end_iterate.md)
 
 ## Notes and Other Information
 - The read-only constraint on the TIDBitmap once iteration begins is crucial for maintaining consistency in parallel execution environments
 - The dual pointer system (spageptr, schunkptr) enables efficient merging of exact and lossy entries during sorted traversal
 - The variable-sized output field design optimizes memory usage by accommodating the actual number of tuples found per page
-- TBMIterator is integral to PostgreSQL's bitmap heap scan execution, providing the interface between bitmap index results and heap tuple retrieval
+- [TBMIterator](TBMIterator.md) is integral to PostgreSQL's bitmap heap scan execution, providing the interface between bitmap index results and heap tuple retrieval
 - The iterator state can be used for prefetching optimizations in bitmap heap scans, improving I/O performance
 - Multiple iterators can coexist on the same bitmap, enabling sophisticated parallel scan strategies

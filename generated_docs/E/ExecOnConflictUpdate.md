@@ -31,22 +31,22 @@ The function returns true if processing is complete (with or without an update),
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecUpdateLockMode
+  - [ExecUpdateLockMode](ExecUpdateLockMode.md)
   - table_tuple_lock
   - slot_getsysattr
-  - DatumGetTransactionId
-  - TransactionIdIsCurrentTransactionId
-  - ItemPointerIndicatesMovedPartitions
+  - [DatumGetTransactionId](../D/DatumGetTransactionId.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
+  - [ItemPointerIndicatesMovedPartitions](../I/ItemPointerIndicatesMovedPartitions.md)
   - ExecClearTuple
-  - ExecCheckTupleVisible
+  - [ExecCheckTupleVisible](ExecCheckTupleVisible.md)
   - ExecQual
-  - ExecWithCheckOptions
+  - [ExecWithCheckOptions](ExecWithCheckOptions.md)
   - ExecProject
-  - ExecUpdate
+  - [ExecUpdate](ExecUpdate.md)
   - InstrCountFiltered1
   - IsolationUsesXactSnapshot
 - Called from (representative examples):
-  - ExecInsert (src/backend/executor/nodeModifyTable.c:1078)
+  - [ExecInsert](ExecInsert.md) (src/backend/executor/nodeModifyTable.c:1078)
 
 ## Notes and Other Information
 - The function is static and only used within nodeModifyTable.c for ON CONFLICT DO UPDATE processing

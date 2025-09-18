@@ -23,7 +23,7 @@ The checkpoint_completion_target parameter controls the fraction of the checkpoi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CalculateCheckpointSegments
+  - [CalculateCheckpointSegments](../C/CalculateCheckpointSegments.md)
 - Called from:
   - GUC system (via GUC_HOOKS_H)
 

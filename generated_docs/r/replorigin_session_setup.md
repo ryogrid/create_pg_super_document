@@ -24,16 +24,16 @@ The function also registers a cleanup handler on first use to ensure proper reso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - on_shmem_exit
-  - ReplicationOriginExitCleanup 
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [ReplicationOriginExitCleanup](../R/ReplicationOriginExitCleanup.md) 
   - LWLockAcquire/LWLockRelease
   - ConditionVariableBroadcast
   - ereport/elog
 - Called from (representative examples):
-  - ParallelApplyWorkerMain
-  - pg_replication_origin_session_setup
-  - LogicalRepSyncTableStart
-  - run_apply_worker
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
+  - [pg_replication_origin_session_setup](../p/pg_replication_origin_session_setup.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
+  - [run_apply_worker](run_apply_worker.md)
 
 ## Notes and Other Information
 - Only one cached origin can exist per process in normal usage

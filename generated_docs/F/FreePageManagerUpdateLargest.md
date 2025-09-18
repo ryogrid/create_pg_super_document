@@ -19,11 +19,11 @@ When called, it recomputes the actual largest contiguous page run by calling  an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageManager (struct type)
+  - [FreePageManager](FreePageManager.md) (struct type)
   - FreePageManagerLargestContiguous
 - Called from (representative examples):
   - FreePageManagerGet
-  - FreePageManagerPut
+  - [FreePageManagerPut](FreePageManagerPut.md)
 
 ## Notes and Other Information
 This is an internal static function that implements a lazy evaluation pattern for performance optimization. Rather than recalculating the largest contiguous block size on every page operation, the function only updates when necessary, reducing computational overhead in scenarios with frequent page management operations.

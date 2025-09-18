@@ -25,15 +25,15 @@ Special handling is provided for zero values, which technically don't have a mea
   - DEC_DIGITS (compile-time constant defining digits per NumericDigit)
   - log10 (logarithm base 10 function for exponent calculation)
   - init_var (initializes temporary NumericVar)
-  - power_ten_int (calculates 10^exponent)
-  - div_var (performs division for significand calculation)
-  - get_str_from_var (converts significand to string)
-  - free_var (frees temporary NumericVar)
-  - palloc (allocates memory for result)
-  - pfree (frees temporary string)
+  - [power_ten_int](../p/power_ten_int.md) (calculates 10^exponent)
+  - [div_var](../d/div_var.md) (performs division for significand calculation)
+  - [get_str_from_var](get_str_from_var.md) (converts significand to string)
+  - [free_var](../f/free_var.md) (frees temporary NumericVar)
+  - [palloc](../p/palloc.md) (allocates memory for result)
+  - [pfree](../p/pfree.md) (frees temporary string)
   - snprintf (formats final result string)
 - Called from (representative examples):
-  - numeric_out_sci (main scientific notation output function)
+  - [numeric_out_sci](../n/numeric_out_sci.md) (main scientific notation output function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c module

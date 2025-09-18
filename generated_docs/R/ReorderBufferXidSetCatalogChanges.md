@@ -19,16 +19,16 @@ This function marks a transaction as having made catalog changes, which is cruci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - rbtxn_has_catalog_changes
   - rbtxn_is_subtxn
   - rbtxn_get_toptxn
-  - dclist_push_tail
+  - [dclist_push_tail](../d/dclist_push_tail.md)
   - RBTXN_HAS_CATALOG_CHANGES
 - Called from (representative examples):
-  - xact_decode
-  - heap_decode
-  - SnapBuildProcessNewCid
+  - [xact_decode](../x/xact_decode.md)
+  - [heap_decode](../h/heap_decode.md)
+  - [SnapBuildProcessNewCid](../S/SnapBuildProcessNewCid.md)
 
 ## Notes and Other Information
 - Essential for logical replication to properly handle transactions that modify system catalogs

@@ -28,19 +28,19 @@ This optimization saves memory allocation cycles and is suitable for read-only o
   - NUMERIC_DSCALE (macro to extract display scale)
   - NUMERIC_DIGITS (macro to get digit array pointer)
 - Called from (representative examples):
-  - numeric_out (numeric to string conversion)
-  - numeric_is_integral (integrality testing)
-  - numeric_add_opt_error (arithmetic addition)
-  - numeric_sub_opt_error (arithmetic subtraction)
-  - numeric_mul_opt_error (arithmetic multiplication)
-  - numeric_div_opt_error (arithmetic division)
-  - numeric_power (exponentiation operations)
+  - [numeric_out](../n/numeric_out.md) (numeric to string conversion)
+  - [numeric_is_integral](../n/numeric_is_integral.md) (integrality testing)
+  - [numeric_add_opt_error](../n/numeric_add_opt_error.md) (arithmetic addition)
+  - [numeric_sub_opt_error](../n/numeric_sub_opt_error.md) (arithmetic subtraction)
+  - [numeric_mul_opt_error](../n/numeric_mul_opt_error.md) (arithmetic multiplication)
+  - [numeric_div_opt_error](../n/numeric_div_opt_error.md) (arithmetic division)
+  - [numeric_power](../n/numeric_power.md) (exponentiation operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c module
 - No memory allocation is performed - the digits array is shared with the source Numeric
 - The buf field is explicitly set to NULL to indicate no separate allocation
-- free_var() should not be called on variables initialized this way
+- [free_var](../f/free_var.md)() should not be called on variables initialized this way
 - Suitable for read-only access or when the variable will be completely overwritten
 - Used extensively throughout numeric operations for performance optimization
 - The caller must ensure the source Numeric remains valid for the lifetime of the NumericVar

@@ -19,18 +19,18 @@ This function serves as a support routine for the has_column_privilege family of
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - SearchSysCache2
-  - CStringGetDatum
-  - ObjectIdGetDatum
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
-  - get_rel_name
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [get_rel_name](../g/get_rel_name.md)
   - ereport
-  - pfree
+  - [pfree](../p/pfree.md)
   - InvalidAttrNumber
 - Called from (representative examples):
-  - has_column_privilege_name_name
-  - has_column_privilege_id_name
+  - [has_column_privilege_name_name](../h/has_column_privilege_name_name.md)
+  - [has_column_privilege_id_name](../h/has_column_privilege_id_name.md)
   - Various other has_column_privilege variants
 
 ## Notes and Other Information

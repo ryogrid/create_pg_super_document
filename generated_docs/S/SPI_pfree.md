@@ -19,7 +19,7 @@ The function simplifies memory management for SPI clients by eliminating the nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - Various SPI client functions requiring memory cleanup
 

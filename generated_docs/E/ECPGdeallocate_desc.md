@@ -21,11 +21,11 @@ This function searches for a descriptor with the specified name in the global de
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca: Gets the SQLCA structure for error handling
-  - ecpg_init_sqlca: Initializes the SQLCA structure
-  - get_descriptors: Retrieves the head of the descriptor list
-  - set_descriptors: Updates the head of the descriptor list
-  - descriptor_free: Frees memory associated with a descriptor
-  - ecpg_raise: Raises ECPG errors with appropriate error codes
+  - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md): Initializes the SQLCA structure
+  - [get_descriptors](../g/get_descriptors.md): Retrieves the head of the descriptor list
+  - [set_descriptors](../s/set_descriptors.md): Updates the head of the descriptor list
+  - [descriptor_free](../d/descriptor_free.md): Frees memory associated with a descriptor
+  - [ecpg_raise](../e/ecpg_raise.md): Raises ECPG errors with appropriate error codes
   - ECPG_OUT_OF_MEMORY: Error constant for memory allocation failures
   - ECPG_UNKNOWN_DESCRIPTOR: Error constant for unknown descriptor names
   - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY: SQL state for out-of-memory conditions

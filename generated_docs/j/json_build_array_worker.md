@@ -28,11 +28,11 @@ This function performs the actual work of constructing a JSON array from Postgre
   - cstring_to_text_with_len: Converts the final C string to PostgreSQL text type
   - appendStringInfoChar: Appends a single character to the StringInfo buffer
   - appendStringInfoString: Appends a string to the StringInfo buffer
-  - PointerGetDatum: Converts a pointer to a Datum value
+  - [PointerGetDatum](../P/PointerGetDatum.md): Converts a pointer to a Datum value
 
 - Called from (representative examples):
-  - ExecEvalJsonConstructor: Used in expression evaluation for JSON constructors
-  - json_build_array: Called by the main json_build_array SQL function
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md): Used in expression evaluation for JSON constructors
+  - [json_build_array](json_build_array.md): Called by the main json_build_array SQL function
   - Referenced in JSON_H header file
 
 ## Notes and Other Information

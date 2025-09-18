@@ -33,18 +33,18 @@ The function uses the most conservative (smallest) bucket size estimates across 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_parallel_divisor
-  - clamp_row_est
-  - bms_is_subset
+  - [get_parallel_divisor](../g/get_parallel_divisor.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
   - estimate_hash_bucket_stats
-  - get_rightop
-  - get_leftop
-  - relation_byte_size
-  - get_hash_memory_limit
-  - cost_qual_eval
-  - approx_tuple_count
+  - [get_rightop](../g/get_rightop.md)
+  - [get_leftop](../g/get_leftop.md)
+  - [relation_byte_size](../r/relation_byte_size.md)
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
+  - [cost_qual_eval](../c/cost_qual_eval.md)
+  - [approx_tuple_count](../a/approx_tuple_count.md)
 - Called from (representative examples):
-  - create_hashjoin_path
+  - [create_hashjoin_path](../c/create_hashjoin_path.md)
 
 ## Notes and Other Information
 - Caches bucket size and MCV frequency estimates in RestrictInfo nodes for reuse across similar hash join paths

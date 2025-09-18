@@ -19,14 +19,14 @@ This function assigns temporary namespace OIDs from a leader process to a parall
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidSubTransactionId
-  - SearchPathMatcher
+  - [SearchPathMatcher](SearchPathMatcher.md)
   - myTempNamespace (global variable)
   - myTempToastNamespace (global variable)
   - myTempNamespaceSubID (global variable)
   - baseSearchPathValid (global variable)
   - searchPathCacheValid (global variable)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1503)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1503)
   - RangeVarGetRelid (src/include/catalog/namespace.h:164)
 
 ## Notes and Other Information

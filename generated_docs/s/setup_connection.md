@@ -22,21 +22,21 @@ The function handles both single-process and parallel dump scenarios, with speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetConnection (retrieve database connection from archive)
-  - ExecuteSqlQueryForSingleRow (execute SQL returning single row)
-  - ExecuteSqlStatement (execute SQL statement without return)
-  - PQsetClientEncoding (set client character encoding)
-  - PQclientEncoding (get current client encoding)
-  - setFmtEncoding (set encoding for formatting functions)
+  - [GetConnection](../G/GetConnection.md) (retrieve database connection from archive)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (execute SQL returning single row)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md) (execute SQL statement without return)
+  - [PQsetClientEncoding](../P/PQsetClientEncoding.md) (set client character encoding)
+  - [PQclientEncoding](../P/PQclientEncoding.md) (get current client encoding)
+  - [setFmtEncoding](setFmtEncoding.md) (set encoding for formatting functions)
   - PQparameterStatus (get server parameter value)
-  - fmtId (format identifier with proper quoting)
-  - set_restrict_relation_kind (restrict access to relation types)
-  - get_synchronized_snapshot (obtain synchronized snapshot for parallel dumps)
+  - [fmtId](../f/fmtId.md) (format identifier with proper quoting)
+  - [set_restrict_relation_kind](set_restrict_relation_kind.md) (restrict access to relation types)
+  - [get_synchronized_snapshot](../g/get_synchronized_snapshot.md) (obtain synchronized snapshot for parallel dumps)
   - pg_malloc0 (allocate zero-initialized memory)
-  - pg_strdup (duplicate string)
+  - [pg_strdup](../p/pg_strdup.md) (duplicate string)
 - Called from (representative examples):
-  - main (primary setup for main dump process)
-  - setupDumpWorker (setup for parallel dump worker processes)
+  - [main](../m/main.md) (primary setup for main dump process)
+  - [setupDumpWorker](setupDumpWorker.md) (setup for parallel dump worker processes)
 
 ## Notes and Other Information
 - Function is marked static, limiting scope to pg_dump.c file

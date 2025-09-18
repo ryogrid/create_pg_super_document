@@ -18,8 +18,8 @@ This function implements version-aware tab completion in psql by selecting the a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _complete_from_query
-  - VersionedQuery (struct type)
+  - [_complete_from_query](_complete_from_query.md)
+  - [VersionedQuery](../V/VersionedQuery.md) (struct type)
 - Called from (representative examples):
   - COMPLETE_WITH_VERSIONED_QUERY_LIST
   - THING_NO_SHOW

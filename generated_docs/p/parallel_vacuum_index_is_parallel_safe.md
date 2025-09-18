@@ -34,7 +34,7 @@ The conditional cleanup logic prevents unnecessary worker invocation when parall
   - VACUUM_OPTION_PARALLEL_CLEANUP  
   - VACUUM_OPTION_PARALLEL_COND_CLEANUP
 - Called from (representative examples):
-  - parallel_vacuum_process_all_indexes
+  - [parallel_vacuum_process_all_indexes](parallel_vacuum_process_all_indexes.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the parallel vacuum implementation

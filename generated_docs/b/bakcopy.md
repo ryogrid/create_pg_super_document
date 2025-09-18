@@ -23,7 +23,7 @@ This function is part of the pg_bsd_indent tool and implements in-place file edi
   - fopen (open file streams)
   - unlink (remove backup file on error)
 - Called from (representative examples):
-  - main (in pg_bsd_indent when backup is requested)
+  - [main](../m/main.md) (in pg_bsd_indent when backup is requested)
 
 ## Notes and Other Information
 - Uses a simple filename transformation: appends ".BAK" to the base filename

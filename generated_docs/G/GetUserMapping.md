@@ -20,12 +20,12 @@ GetUserMapping is a core function in PostgreSQL's foreign data wrapper system th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - GetForeignServer
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [GetForeignServer](GetForeignServer.md)
   - MappingUserName
-  - SysCacheGetAttr
-  - untransformRelOptions
-  - palloc
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [untransformRelOptions](../u/untransformRelOptions.md)
+  - [palloc](../p/palloc.md)
   - ereport/errmsg/errcode
 - Called from (representative examples):
   - Foreign data wrapper connection establishment routines

@@ -18,9 +18,9 @@ This is a standard comparison function that implements the comparison logic requ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LocalPgBackendStatus (struct type)
+  - [LocalPgBackendStatus](../L/LocalPgBackendStatus.md) (struct type)
 - Called from (representative examples):
-  - pgstat_get_local_beentry_by_proc_number
+  - [pgstat_get_local_beentry_by_proc_number](../p/pgstat_get_local_beentry_by_proc_number.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the backend_status.c file

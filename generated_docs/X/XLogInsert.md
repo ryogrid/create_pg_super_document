@@ -24,18 +24,18 @@ After successful insertion, the function cleans up all registration state via XL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFullPageWriteInfo (determines full-page write requirements)
-  - XLogRecordAssemble (assembles the complete WAL record)
-  - XLogInsertRecord (physically inserts the record into WAL)
-  - XLogResetInsertion (cleans up insertion state)
+  - [GetFullPageWriteInfo](../G/GetFullPageWriteInfo.md) (determines full-page write requirements)
+  - [XLogRecordAssemble](XLogRecordAssemble.md) (assembles the complete WAL record)
+  - [XLogInsertRecord](XLogInsertRecord.md) (physically inserts the record into WAL)
+  - [XLogResetInsertion](XLogResetInsertion.md) (cleans up insertion state)
   - IsBootstrapProcessingMode (checks for bootstrap mode)
   - RmgrId, XLogRecData, XLogRecPtr (data types)
 - Called from (representative examples):
-  - heap_insert (heap tuple insertions)
-  - _bt_insertonpg (B-tree insertions)
-  - XactLogCommitRecord (transaction commits)
-  - CreateCheckPoint (checkpoint operations)
-  - log_newpage (new page logging)
+  - [heap_insert](../h/heap_insert.md) (heap tuple insertions)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md) (B-tree insertions)
+  - [XactLogCommitRecord](XactLogCommitRecord.md) (transaction commits)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (checkpoint operations)
+  - [log_newpage](../l/log_newpage.md) (new page logging)
 
 ## Notes and Other Information
 - Must be called after XLogBeginInsert() and all XLogRegister* calls

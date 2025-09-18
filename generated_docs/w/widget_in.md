@@ -21,11 +21,11 @@ This function serves as the input converter for the custom WIDGET data type, whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (macro for extracting C-string arguments)
-  - palloc (PostgreSQL's memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL's memory allocation function)
   - atof (standard C function to convert string to double)
   - ereport (PostgreSQL's error reporting function)
-  - errcode (macro for error code specification)
-  - errmsg (macro for error message formatting)
+  - [errcode](../e/errcode.md) (macro for error code specification)
+  - [errmsg](../e/errmsg.md) (macro for error message formatting)
   - PG_RETURN_POINTER (returns pointer value as Datum)
 - Constants used:
   - NARGS (defined as 3, number of expected arguments)
@@ -33,12 +33,12 @@ This function serves as the input converter for the custom WIDGET data type, whi
   - RDELIM (defined as ')', right delimiter) 
   - DELIM (defined as ',', field delimiter)
 - Data types used:
-  - WIDGET (custom struct with Point center and double radius)
-  - Point (geometric point structure)
+  - [WIDGET](../W/WIDGET.md) (custom struct with Point center and double radius)
+  - [Point](../P/Point.md) (geometric point structure)
   - Datum (PostgreSQL's generic data type)
 
 - Called from (representative examples):
-  - WIDGET (referenced in the same file as part of type definition)
+  - [WIDGET](../W/WIDGET.md) (referenced in the same file as part of type definition)
 
 ## Notes and Other Information
 - This function intentionally uses hard error handling (ereport with ERROR) rather than soft errors

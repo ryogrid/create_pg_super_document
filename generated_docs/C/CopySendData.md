@@ -24,10 +24,10 @@ This function is the core data transmission function for COPY TO operations. It 
   - appendBinaryStringInfo (to append binary data to the message buffer)
 - Called from (representative examples):
   - DR_copy (in copyto.c:120)
-  - CopySendInt32 (in copyto.c:270)
-  - CopySendInt16 (in copyto.c:282)
-  - DoCopyTo (in copyto.c:805)
-  - CopyOneRowTo (in copyto.c:966)
+  - [CopySendInt32](CopySendInt32.md) (in copyto.c:270)
+  - [CopySendInt16](CopySendInt16.md) (in copyto.c:282)
+  - [DoCopyTo](../D/DoCopyTo.md) (in copyto.c:805)
+  - [CopyOneRowTo](CopyOneRowTo.md) (in copyto.c:966)
   - DUMPsofar macro (in copyto.c:983)
 
 ## Notes and Other Information

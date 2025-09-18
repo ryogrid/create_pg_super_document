@@ -23,11 +23,11 @@ The function casts the generic PlanState to a NamedTuplestoreScanState and deleg
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode: Safely casts PlanState to NamedTuplestoreScanState with type checking
-  - ExecScan: Generic scan framework that handles the scanning logic using provided access methods
-  - NamedTuplestoreScanNext: Access method function for retrieving the next tuple
-  - NamedTuplestoreScanRecheck: Access method function for tuple rechecking in EvalPlanQual
+  - [ExecScan](ExecScan.md): Generic scan framework that handles the scanning logic using provided access methods
+  - [NamedTuplestoreScanNext](../N/NamedTuplestoreScanNext.md): Access method function for retrieving the next tuple
+  - [NamedTuplestoreScanRecheck](../N/NamedTuplestoreScanRecheck.md): Access method function for tuple rechecking in EvalPlanQual
 - Called from (representative examples):
-  - ExecInitNamedTuplestoreScan: Sets this function as the execution method during node initialization
+  - [ExecInitNamedTuplestoreScan](ExecInitNamedTuplestoreScan.md): Sets this function as the execution method during node initialization
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeNamedtuplestorescan.c

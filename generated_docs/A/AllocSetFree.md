@@ -34,22 +34,22 @@ The function includes extensive error checking and debugging support, including 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkIsExternal
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
   - ExternalChunkGetBlock
   - AllocBlockIsValid
-  - MemoryChunkGetBlock
-  - MemoryChunkGetValue
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
   - FreeListIdxIsValid
   - GetFreeListLink
   - GetChunkSizeFromFreeListIdx
-  - sentinel_ok (when MEMORY_CONTEXT_CHECKING enabled)
-  - wipe_mem (when CLOBBER_FREED_MEMORY enabled)
+  - [sentinel_ok](../s/sentinel_ok.md) (when MEMORY_CONTEXT_CHECKING enabled)
+  - [wipe_mem](../w/wipe_mem.md) (when CLOBBER_FREED_MEMORY enabled)
   - free
   - elog
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from:
-  - AllocSetRealloc
+  - [AllocSetRealloc](AllocSetRealloc.md)
   - BOGUS_MCTX (via function pointer)
   - Various components via the MemoryContext interface
 

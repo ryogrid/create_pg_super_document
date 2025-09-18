@@ -22,18 +22,18 @@ This function is essential for monitoring replication performance and providing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - SpinLockAcquire
   - SpinLockRelease
-  - message_level_is_interesting
-  - timestamptz_to_str
-  - pstrdup
-  - GetReplicationApplyDelay
-  - GetReplicationTransferLatency
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
+  - [timestamptz_to_str](../t/timestamptz_to_str.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [GetReplicationApplyDelay](../G/GetReplicationApplyDelay.md)
+  - [GetReplicationTransferLatency](../G/GetReplicationTransferLatency.md)
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - XLogWalRcvProcessMsg
+  - [XLogWalRcvProcessMsg](../X/XLogWalRcvProcessMsg.md)
 
 ## Notes and Other Information
 - Updates are protected by spinlocks to ensure atomicity in a multi-process environment

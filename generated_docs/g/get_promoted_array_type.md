@@ -26,12 +26,12 @@ This promotion logic is crucial for maintaining type consistency in SQL operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_array_type
-  - get_element_type
+  - [get_array_type](get_array_type.md)
+  - [get_element_type](get_element_type.md)
   - OidIsValid
 - Called from (representative examples):
   - exprType
-  - build_subplan
+  - [build_subplan](../b/build_subplan.md)
 
 ## Notes and Other Information
 - Returns `InvalidOid` if the input type cannot be promoted to an array type

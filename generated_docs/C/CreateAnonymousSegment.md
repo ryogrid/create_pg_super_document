@@ -19,12 +19,12 @@ The function modifies the input size parameter to reflect the actual allocated s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetHugePageSize
-  - SetConfigOption
+  - [GetHugePageSize](../G/GetHugePageSize.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
   - elog
   - ereport
-  - errmsg
-  - errhint
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
 - Constants referenced:
   - MAP_FAILED
   - HUGE_PAGES_ON
@@ -34,7 +34,7 @@ The function modifies the input size parameter to reflect the actual allocated s
   - PGC_INTERNAL
   - PGC_S_DYNAMIC_DEFAULT
 - Called from (representative examples):
-  - PGSharedMemoryCreate
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md)
 
 ## Notes and Other Information
 - Static function only used within sysv_shmem.c

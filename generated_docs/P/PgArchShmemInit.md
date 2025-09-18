@@ -19,14 +19,14 @@ This function is responsible for setting up the shared memory segment for the Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct: Allocates or attaches to named shared memory structure
-  - PgArchShmemSize: Returns the required size for archiver shared memory
+  - [ShmemInitStruct](../S/ShmemInitStruct.md): Allocates or attaches to named shared memory structure
+  - [PgArchShmemSize](PgArchShmemSize.md): Returns the required size for archiver shared memory
   - MemSet: Zeros out memory region
-  - pg_atomic_init_u32: Initializes atomic unsigned 32-bit integer
-  - PgArchData: Structure type for archiver shared memory data
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md): Initializes atomic unsigned 32-bit integer
+  - [PgArchData](PgArchData.md): Structure type for archiver shared memory data
   - INVALID_PROC_NUMBER: Constant indicating invalid process number
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs: Main shared memory initialization function
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md): Main shared memory initialization function
 
 ## Notes and Other Information
 - Sets the global PgArch pointer to the allocated shared memory

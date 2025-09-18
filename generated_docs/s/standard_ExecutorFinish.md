@@ -19,13 +19,13 @@ The function operates within the query's memory context and includes comprehensi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - InstrStartNode
-  - ExecPostprocessPlan
-  - AfterTriggerEndQuery
+  - [ExecPostprocessPlan](../E/ExecPostprocessPlan.md)
+  - [AfterTriggerEndQuery](../A/AfterTriggerEndQuery.md)
   - InstrStopNode
 - Called from (representative examples):
-  - ExecutorFinish
+  - [ExecutorFinish](../E/ExecutorFinish.md)
 
 ## Notes and Other Information
 - Must be called exactly once per Executor instance (enforced by es_finished flag)

@@ -25,8 +25,8 @@ The comparison uses the FullTransactionIdPrecedes() function to determine the or
   - FullTransactionIdPrecedes
   - FullTransactionId (type)
 - Called from (representative examples):
-  - sort_snapshot (for qsort operations)
-  - is_visible_fxid (for bsearch operations)
+  - [sort_snapshot](../s/sort_snapshot.md) (for qsort operations)
+  - [is_visible_fxid](../i/is_visible_fxid.md) (for bsearch operations)
 
 ## Notes and Other Information
 - This is a static function used internally within the xid8funcs.c module

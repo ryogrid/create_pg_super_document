@@ -19,15 +19,15 @@ This function is used in the PostgreSQL query optimizer to handle relations that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_path (path management function)
-  - create_append_path (creates AppendPath with empty subpath list)
-  - set_cheapest (updates cheapest path fields)
+  - [add_path](../a/add_path.md) (path management function)
+  - [create_append_path](../c/create_append_path.md) (creates AppendPath with empty subpath list)
+  - [set_cheapest](set_cheapest.md) (updates cheapest path fields)
   - NIL (empty list constant)
 - Called from (representative examples):
   - pushdown_safe_type
-  - set_rel_size
-  - set_append_rel_size
-  - set_subquery_pathlist
+  - [set_rel_size](set_rel_size.md)
+  - [set_append_rel_size](set_append_rel_size.md)
+  - [set_subquery_pathlist](set_subquery_pathlist.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within allpaths.c

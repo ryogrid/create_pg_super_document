@@ -22,23 +22,23 @@ This function extends the functionality of optionListToArray() by supporting mod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - untransformRelOptions (converts Datum array back to DefElem list)
-  - DefElem (structure representing option definitions)
+  - [untransformRelOptions](../u/untransformRelOptions.md) (converts Datum array back to DefElem list)
+  - [DefElem](../D/DefElem.md) (structure representing option definitions)
   - DEFELEM_DROP, DEFELEM_SET, DEFELEM_ADD, DEFELEM_UNSPEC (action type constants)
-  - list_delete_cell (removes cell from linked list)
-  - optionListToArray (converts final option list back to array format)
-  - construct_empty_array (creates empty array for validator)
+  - [list_delete_cell](../l/list_delete_cell.md) (removes cell from linked list)
+  - [optionListToArray](../o/optionListToArray.md) (converts final option list back to array format)
+  - [construct_empty_array](../c/construct_empty_array.md) (creates empty array for validator)
   - OidFunctionCall2 (calls validator function)
 - Called from (representative examples):
-  - CreateForeignDataWrapper (src/backend/commands/foreigncmds.c:630)
-  - AlterForeignDataWrapper (src/backend/commands/foreigncmds.c:781)
-  - CreateForeignServer (src/backend/commands/foreigncmds.c:941)
-  - AlterForeignServer (src/backend/commands/foreigncmds.c:1049)
-  - CreateUserMapping (src/backend/commands/foreigncmds.c:1185)
-  - AlterUserMapping (src/backend/commands/foreigncmds.c:1299)
-  - CreateForeignTable (src/backend/commands/foreigncmds.c:1462)
-  - ATExecAlterColumnGenericOptions (src/backend/commands/tablecmds.c:14429)
-  - ATExecGenericOptions (src/backend/commands/tablecmds.c:16969)
+  - [CreateForeignDataWrapper](../C/CreateForeignDataWrapper.md) (src/backend/commands/foreigncmds.c:630)
+  - [AlterForeignDataWrapper](../A/AlterForeignDataWrapper.md) (src/backend/commands/foreigncmds.c:781)
+  - [CreateForeignServer](../C/CreateForeignServer.md) (src/backend/commands/foreigncmds.c:941)
+  - [AlterForeignServer](../A/AlterForeignServer.md) (src/backend/commands/foreigncmds.c:1049)
+  - [CreateUserMapping](../C/CreateUserMapping.md) (src/backend/commands/foreigncmds.c:1185)
+  - [AlterUserMapping](../A/AlterUserMapping.md) (src/backend/commands/foreigncmds.c:1299)
+  - [CreateForeignTable](../C/CreateForeignTable.md) (src/backend/commands/foreigncmds.c:1462)
+  - [ATExecAlterColumnGenericOptions](../A/ATExecAlterColumnGenericOptions.md) (src/backend/commands/tablecmds.c:14429)
+  - [ATExecGenericOptions](../A/ATExecGenericOptions.md) (src/backend/commands/tablecmds.c:16969)
 
 ## Notes and Other Information
 - Supports multiple SET/DROP actions on the same option as permitted by SQL standards

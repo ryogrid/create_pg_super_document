@@ -25,17 +25,17 @@ The function uses efficient system cache lookups to resolve dictionary names to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - GetSysCacheOid2
-  - recomputeNamespacePath
-  - NameListToString
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [NameListToString](../N/NameListToString.md)
 - Called from (representative examples):
-  - get_object_address
-  - AlterTSDictionary
-  - MakeConfigurationMapping
-  - thesaurus_init
-  - regdictionaryin
+  - [get_object_address](get_object_address.md)
+  - [AlterTSDictionary](../A/AlterTSDictionary.md)
+  - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md)
+  - [thesaurus_init](../t/thesaurus_init.md)
+  - [regdictionaryin](../r/regdictionaryin.md)
 
 ## Notes and Other Information
 - Returns InvalidOid for non-existent dictionaries when missing_ok is true

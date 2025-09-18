@@ -28,11 +28,11 @@ The structure maintains a reference to the relation to prevent the underlying Pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDesc (partition descriptor type)
+  - [PartitionDesc](PartitionDesc.md) (partition descriptor type)
 - Called from (representative examples):
-  - CreatePartitionDirectory (for hash table entry size calculation)
-  - PartitionDirectoryLookup (for hash table lookups and entry creation)
-  - DestroyPartitionDirectory (for cleanup and reference count management)
+  - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md) (for hash table entry size calculation)
+  - [PartitionDirectoryLookup](PartitionDirectoryLookup.md) (for hash table lookups and entry creation)
+  - [DestroyPartitionDirectory](../D/DestroyPartitionDirectory.md) (for cleanup and reference count management)
 
 ## Notes and Other Information
 - Used exclusively as hash table entries within PartitionDirectoryData's pdir_hash table

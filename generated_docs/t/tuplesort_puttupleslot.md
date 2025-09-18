@@ -22,16 +22,16 @@ This function takes a tuple stored in a TupleTableSlot and prepares it for sorti
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
   - ExecCopySlotMinimalTuple
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - TupleSortUseBumpTupleCxt
   - GetMemoryChunkSpace
   - tuplesort_puttuple_common
 - Called from (representative examples):
-  - ExecEvalAggOrderedTransTuple
-  - fetch_input_tuple
+  - [ExecEvalAggOrderedTransTuple](../E/ExecEvalAggOrderedTransTuple.md)
+  - [fetch_input_tuple](../f/fetch_input_tuple.md)
   - ExecIncrementalSort
-  - ExecSort
-  - ordered_set_transition_multi
+  - [ExecSort](../E/ExecSort.md)
+  - [ordered_set_transition_multi](../o/ordered_set_transition_multi.md)
 
 ## Notes and Other Information
 - Always creates a copy of the input data - caller does not need to preserve the original

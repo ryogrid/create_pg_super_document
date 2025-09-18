@@ -24,7 +24,7 @@ The comparison follows a lexicographic ordering: first by the primary UTF-8 code
 - Functions called/Symbols referenced:
   - pg_utf_to_local_combined (structure type accessed via casting)
 - Called from (representative examples):
-  - UtfToLocal (used as comparison function in bsearch() call)
+  - [UtfToLocal](../U/UtfToLocal.md) (used as comparison function in bsearch() call)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the conv.c translation unit

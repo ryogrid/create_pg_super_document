@@ -32,19 +32,19 @@ The function extends the standard behavior by unwrapping array operands for all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetLeftArg
-  - jspGetRightArg
-  - executeItemOptUnwrapResult
-  - JsonValueListLength
-  - JsonValueListHead
-  - getScalar
-  - jspOperationName
+  - [jspGetLeftArg](../j/jspGetLeftArg.md)
+  - [jspGetRightArg](../j/jspGetRightArg.md)
+  - [executeItemOptUnwrapResult](executeItemOptUnwrapResult.md)
+  - [JsonValueListLength](../J/JsonValueListLength.md)
+  - [JsonValueListHead](../J/JsonValueListHead.md)
+  - [getScalar](../g/getScalar.md)
+  - [jspOperationName](../j/jspOperationName.md)
   - jspThrowErrors
-  - jspGetNext
-  - executeNextItem
+  - [jspGetNext](../j/jspGetNext.md)
+  - [executeNextItem](executeNextItem.md)
   - jperIsError
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (for addition, subtraction, multiplication, division, modulo operations)
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md) (for addition, subtraction, multiplication, division, modulo operations)
 
 ## Notes and Other Information
 - This is a static function used only within the jsonpath_exec.c compilation unit

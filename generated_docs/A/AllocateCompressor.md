@@ -26,20 +26,20 @@ The function supports multiple compression algorithms:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0
-  - InitCompressorNone
-  - InitCompressorGzip
-  - InitCompressorLZ4
-  - InitCompressorZstd
-  - CompressorState
-  - pg_compress_specification
+  - [InitCompressorNone](../I/InitCompressorNone.md)
+  - [InitCompressorGzip](../I/InitCompressorGzip.md)
+  - [InitCompressorLZ4](../I/InitCompressorLZ4.md)
+  - [InitCompressorZstd](../I/InitCompressorZstd.md)
+  - [CompressorState](../C/CompressorState.md)
+  - [pg_compress_specification](../p/pg_compress_specification.md)
   - PG_COMPRESSION_NONE
   - PG_COMPRESSION_GZIP
   - PG_COMPRESSION_LZ4
   - PG_COMPRESSION_ZSTD
 - Called from (representative examples):
-  - _StartData (src/bin/pg_dump/pg_backup_custom.c:297)
-  - _StartLO (src/bin/pg_dump/pg_backup_custom.c:380)
-  - _PrintData (src/bin/pg_dump/pg_backup_custom.c:573)
+  - [_StartData](../S/_StartData.md) (src/bin/pg_dump/pg_backup_custom.c:297)
+  - [_StartLO](../S/_StartLO.md) (src/bin/pg_dump/pg_backup_custom.c:380)
+  - [_PrintData](../P/_PrintData.md) (src/bin/pg_dump/pg_backup_custom.c:573)
 
 ## Notes and Other Information
 - The function allocates memory using pg_malloc0, which zeroes the allocated memory

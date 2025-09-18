@@ -30,12 +30,12 @@ This function performs code optimization on an LLVM module using either the lega
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LLVMJitContext (context structure)
+  - [LLVMJitContext](../L/LLVMJitContext.md) (context structure)
   - PGJIT_OPT3 (optimization flag)
   - PGJIT_INLINE (inlining flag)
   - llvm_error_message (error handling function)
 - Called from (representative examples):
-  - llvm_compile_module
+  - [llvm_compile_module](llvm_compile_module.md)
 
 ## Notes and Other Information
 - The function handles version differences between LLVM < 17 and >= 17 with conditional compilation

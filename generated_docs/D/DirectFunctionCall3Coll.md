@@ -30,7 +30,7 @@ The function uses the `LOCAL_FCINFO` macro to create a local function call info 
   - elog (for error reporting when function returns NULL)
 
 - Called from (representative examples):
-  - execute_extension_script (extension script execution - multiple calls)
+  - [execute_extension_script](../e/execute_extension_script.md) (extension script execution - multiple calls)
   - DirectFunctionCall3 (as a fallback in the macro definition)
 
 ## Notes and Other Information

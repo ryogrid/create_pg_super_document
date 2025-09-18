@@ -30,10 +30,10 @@ The function validates the signal number against defined bounds and ignores inva
   - pg_signal_crit_sec
   - pg_signal_queue
 - Called from (representative examples):
-  - pg_signal_thread (in signal.c:327)
-  - pg_console_handler (in signal.c:384)
-  - pg_timer_thread (in timer.c:68)
-  - pgwin32_deadchild_callback (in postmaster.c:4668)
+  - [pg_signal_thread](pg_signal_thread.md) (in signal.c:327)
+  - [pg_console_handler](pg_console_handler.md) (in signal.c:384)
+  - [pg_timer_thread](pg_timer_thread.md) (in timer.c:68)
+  - [pgwin32_deadchild_callback](pgwin32_deadchild_callback.md) (in postmaster.c:4668)
 
 ## Notes and Other Information
 - Executes exclusively on the signal handler thread, requiring proper synchronization

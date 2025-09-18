@@ -23,7 +23,7 @@ This function serves as the implementation for aggregate functions like MIN() wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enum_cmp_internal: Core enum comparison function that performs the actual comparison logic
+  - [enum_cmp_internal](enum_cmp_internal.md): Core enum comparison function that performs the actual comparison logic
   - PG_GETARG_OID: Macro to extract OID arguments from function call
   - PG_RETURN_OID: Macro to return an OID value as the result
 - Called from (representative examples):

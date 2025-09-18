@@ -17,14 +17,14 @@ This function is called when an archive transmission is complete, but does not e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - pq_beginmessage
-  - pq_sendbyte
-  - pq_sendint64
-  - pq_endmessage
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
   - pq_flush_if_writable
   - PqMsg_CopyData
-  - bbsink_copystream
+  - [bbsink_copystream](bbsink_copystream.md)
   - bbsink_state
 - Called from (representative examples):
   - Referenced by bbsink_copystream_ops structure as the end_archive handler

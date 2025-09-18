@@ -36,17 +36,17 @@ The constructed SQL query uses multiple CTEs:
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - append_rel_pattern_raw_cte
-  - append_rel_pattern_filtered_cte
-  - executeQuery
-  - PQgetisnull
+  - [append_rel_pattern_raw_cte](../a/append_rel_pattern_raw_cte.md)
+  - [append_rel_pattern_filtered_cte](../a/append_rel_pattern_filtered_cte.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
   - atooid
   - pg_malloc0
-  - simple_ptr_list_append
+  - [simple_ptr_list_append](../s/simple_ptr_list_append.md)
   - termPQExpBuffer
-  - disconnectDatabase
+  - [disconnectDatabase](../d/disconnectDatabase.md)
 - Called from:
-  - main (src/bin/pg_amcheck/pg_amcheck.c:634)
+  - [main](../m/main.md) (src/bin/pg_amcheck/pg_amcheck.c:634)
 
 ## Notes and Other Information
 - This function is specific to the  utility and operates within a single database context

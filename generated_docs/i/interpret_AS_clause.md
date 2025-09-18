@@ -41,13 +41,13 @@ The function performs extensive validation including checking for duplicate or m
   - list_length, list_nth, list_nth_oid (list utility functions)
   - SQLFunctionParseInfo (structure type for SQL function parsing)
   - IsPolymorphicType (checks if type is polymorphic)
-  - make_parsestate, free_parsestate (parser state management)
-  - sql_fn_parser_setup (sets up SQL function parsing context)
-  - transformStmt (transforms parsed statements)
-  - GetCommandTagName, CreateCommandTag (command type utilities)
-  - pstrdup (string duplication)
+  - [make_parsestate](../m/make_parsestate.md), free_parsestate (parser state management)
+  - [sql_fn_parser_setup](../s/sql_fn_parser_setup.md) (sets up SQL function parsing context)
+  - [transformStmt](../t/transformStmt.md) (transforms parsed statements)
+  - [GetCommandTagName](../G/GetCommandTagName.md), CreateCommandTag (command type utilities)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
 - Called from (representative examples):
-  - CreateFunction (src/backend/commands/functioncmds.c:1222)
+  - [CreateFunction](../C/CreateFunction.md) (src/backend/commands/functioncmds.c:1222)
 
 ## Notes and Other Information
 - Handles three distinct cases: C language (object files), SQL language with unquoted bodies, and other languages (string bodies)

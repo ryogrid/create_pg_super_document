@@ -23,10 +23,10 @@ The function attempts to acquire locks on all conflicting multixact members, but
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Do_MultiXactIdWait (with nowait=true)
+  - [Do_MultiXactIdWait](../D/Do_MultiXactIdWait.md) (with nowait=true)
   - XLTW_None (for operation context)
 - Called from (representative examples):
-  - heap_lock_tuple (multiple call sites)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (multiple call sites)
 
 ## Notes and Other Information
 This is a static helper function that provides the non-blocking wait interface for multixact synchronization. It's particularly useful in scenarios where the caller needs to handle lock unavailability gracefully, such as in lock acquisition with NOWAIT semantics or when implementing lock escalation strategies. The function returns true when the multixact is completely resolved, false when conflicts remain. Note that the remaining count should not be trusted when the function returns false, as documented in Do_MultiXactIdWait.

@@ -18,10 +18,10 @@ This function is an exported routine that computes the hash value for a key usin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (hash table structure)
+  - [HTAB](../H/HTAB.md) (hash table structure)
   - hashp->hash (hash function pointer stored in the hash table)
 - Called from (representative examples):
-  - BufTableHashCode
+  - [BufTableHashCode](../B/BufTableHashCode.md)
   - LockTagHashCode
   - PredicateLockTargetTagHashCode
 

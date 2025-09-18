@@ -20,8 +20,8 @@ The PQEnvironmentOption structure serves as a mapping template for libpq's autom
 - Functions called/Symbols referenced: None (simple data structure)
 - Used by:
   - internalPQconninfoOption (in fe-connect.c:372)
-  - pqBuildStartupPacket3 (in fe-protocol3.c:2238)
-  - build_startup_packet (in fe-protocol3.c:2261, 2264)
+  - [pqBuildStartupPacket3](../p/pqBuildStartupPacket3.md) (in fe-protocol3.c:2238)
+  - [build_startup_packet](../b/build_startup_packet.md) (in fe-protocol3.c:2261, 2264)
 
 ## Notes and Other Information
 - The structure is defined in libpq-int.h as part of libpq's internal interface

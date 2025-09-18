@@ -21,8 +21,8 @@ If a join relation hash table exists, the function also inserts the join relatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - lappend (appends to list)
-  - JoinHashEntry (hash table entry structure)
-  - hash_search (performs hash table insertion)
+  - [JoinHashEntry](../J/JoinHashEntry.md) (hash table entry structure)
+  - [hash_search](../h/hash_search.md) (performs hash table insertion)
   - HASH_ENTER (hash operation flag for insertion)
   - Assert (debugging assertion)
 - Called from (representative examples):

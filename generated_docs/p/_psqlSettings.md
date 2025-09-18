@@ -66,14 +66,14 @@ The structure is divided into several logical groups: database connection manage
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printQueryOpt (print formatting options structure)
-  - trivalue (three-state enumeration type)
+  - [printQueryOpt](printQueryOpt.md) (print formatting options structure)
+  - [trivalue](../t/trivalue.md) (three-state enumeration type)
   - VariableSpace (shell variable storage system)
   - PSQL_ECHO (command echo enumeration)
   - PSQL_ECHO_HIDDEN (hidden command echo enumeration) 
   - PSQL_ERROR_ROLLBACK (error rollback behavior enumeration)
   - PSQL_COMP_CASE (completion case enumeration)
-  - HistControl (history control enumeration)
+  - [HistControl](../H/HistControl.md) (history control enumeration)
   - PGVerbosity (PostgreSQL error verbosity enumeration)
   - PGContextVisibility (error context visibility enumeration)
 - Called from (representative examples):

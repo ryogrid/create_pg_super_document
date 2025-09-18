@@ -29,20 +29,20 @@ The output format is "(column1, column2, ...) = (value1, value2, ...)" with prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - get_partition_natts
-  - check_enable_rls
-  - pg_class_aclcheck
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
   - get_partition_col_attnum
-  - pg_attribute_aclcheck
-  - pg_get_partkeydef_columns
-  - getTypeOutputInfo
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
+  - [pg_get_partkeydef_columns](../p/pg_get_partkeydef_columns.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
   - get_partition_col_typid
-  - OidOutputFunctionCall
-  - pg_mbcliplen
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md)
   - appendBinaryStringInfo
 - Called from (representative examples):
-  - ExecFindPartition (when generating error messages for partition routing failures)
+  - [ExecFindPartition](ExecFindPartition.md) (when generating error messages for partition routing failures)
 
 ## Notes and Other Information
 - Returns NULL if access control checks fail, preventing information disclosure to unauthorized users

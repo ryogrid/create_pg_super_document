@@ -22,10 +22,10 @@ This function implements the core algorithm for determining the "true" length of
 - Functions called/Symbols referenced:
   - No function calls (uses only basic C operations)
 - Called from (representative examples):
-  - bcTruelen (wrapper function for BpChar structures)
-  - bpcharfastcmp_c (fast comparison function for CHAR types)
-  - varstrfastcmp_locale (locale-aware string comparison)
-  - varstr_abbrev_convert (abbreviated key conversion for sorting)
+  - [bcTruelen](bcTruelen.md) (wrapper function for BpChar structures)
+  - [bpcharfastcmp_c](bpcharfastcmp_c.md) (fast comparison function for CHAR types)
+  - [varstrfastcmp_locale](../v/varstrfastcmp_locale.md) (locale-aware string comparison)
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md) (abbreviated key conversion for sorting)
 
 ## Notes and Other Information
 - The algorithm relies on the assumption that space (' ') is a single-byte character in all supported PostgreSQL multibyte encodings

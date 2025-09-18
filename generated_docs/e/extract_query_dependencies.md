@@ -25,16 +25,16 @@ The function uses a clever hack where  is repurposed to collect row security fla
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet
-  - extract_query_dependencies_walker
+  - [extract_query_dependencies_walker](extract_query_dependencies_walker.md)
   - PlannerGlobal (type)
-  - PlannerInfo (type)
+  - [PlannerInfo](../P/PlannerInfo.md) (type)
   - T_PlannerGlobal
   - T_PlannerInfo
   - NIL
 
 - Called from (representative examples):
-  - CompleteCachedPlan (src/backend/utils/cache/plancache.c:420)
-  - RevalidateCachedQuery (src/backend/utils/cache/plancache.c:773)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md) (src/backend/utils/cache/plancache.c:420)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (src/backend/utils/cache/plancache.c:773)
 
 ## Notes and Other Information
 - This function is crucial for the plan cache system's ability to invalidate cached plans when underlying database objects change

@@ -36,11 +36,11 @@ This approach is particularly important for ACL (Access Control List) error mess
   - OBJECT_FOREIGN_TABLE: ObjectType enumeration value for foreign tables
 
 - Called from (representative examples):
-  - RangeVarGetAndCheckCreationNamespace: Namespace creation checks
-  - get_object_type: General object type identification
-  - ExecCheckPermissions: Permission checking during query execution
-  - ATSimplePermissions: ALTER TABLE permission checks
-  - CreateTriggerFiringOn: Trigger creation permission validation
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md): Namespace creation checks
+  - [get_object_type](get_object_type.md): General object type identification
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md): Permission checking during query execution
+  - [ATSimplePermissions](../A/ATSimplePermissions.md): ALTER TABLE permission checks
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md): Trigger creation permission validation
 
 ## Notes and Other Information
 - Implements defensive programming by defaulting to OBJECT_TABLE for unknown relkind values

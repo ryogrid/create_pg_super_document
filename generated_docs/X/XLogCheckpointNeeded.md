@@ -26,8 +26,8 @@ XLogCheckpointNeeded is a utility function that evaluates whether a checkpoint s
   - CheckPointSegments (configuration parameter)
   - wal_segment_size (WAL segment size configuration)
 - Called from (representative examples):
-  - XLogWrite (in xlog.c:2504, 2507)
-  - XLogPageRead (in xlogrecovery.c:3324, 3327)
+  - [XLogWrite](XLogWrite.md) (in xlog.c:2504, 2507)
+  - [XLogPageRead](XLogPageRead.md) (in xlogrecovery.c:3324, 3327)
 
 ## Notes and Other Information
 - The caller is responsible for ensuring that RedoRecPtr is up-to-date before calling this function

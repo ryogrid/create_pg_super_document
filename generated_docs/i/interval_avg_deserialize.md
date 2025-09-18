@@ -18,15 +18,15 @@ This function reconstructs an IntervalAggState structure from a serialized bytea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate context)
   - PG_GETARG_BYTEA_PP (macro for retrieving bytea arguments)
-  - initReadOnlyStringInfo (initializes read buffer from bytea)
+  - [initReadOnlyStringInfo](initReadOnlyStringInfo.md) (initializes read buffer from bytea)
   - VARDATA_ANY (extracts data from bytea)
   - VARSIZE_ANY_EXHDR (gets bytea size excluding header)
-  - palloc0 (allocates zeroed memory)
-  - pq_getmsgint64 (deserializes 64-bit integers)
-  - pq_getmsgint (deserializes 32-bit integers)
-  - pq_getmsgend (validates complete message consumption)
+  - [palloc0](../p/palloc0.md) (allocates zeroed memory)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (deserializes 64-bit integers)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (deserializes 32-bit integers)
+  - [pq_getmsgend](../p/pq_getmsgend.md) (validates complete message consumption)
   - PG_RETURN_POINTER (macro for returning pointer values)
   - elog (error logging function)
 - Called from (representative examples):

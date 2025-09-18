@@ -26,11 +26,11 @@ The function uses JsonbIteratorNext to traverse the input iterators and pushJson
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbIteratorNext
-  - pushJsonbValue
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
   - WJB_BEGIN_OBJECT, WJB_BEGIN_ARRAY, WJB_END_OBJECT, WJB_END_ARRAY, WJB_ELEM, WJB_DONE (JsonbIteratorToken constants)
 - Called from (representative examples):
-  - jsonb_concat
+  - [jsonb_concat](../j/jsonb_concat.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonfuncs.c

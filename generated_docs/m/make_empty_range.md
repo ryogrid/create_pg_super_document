@@ -17,13 +17,13 @@ The `make_empty_range` function provides a convenient way to create an empty ran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_range
+  - [make_range](make_range.md)
 - Called from (representative examples):
-  - range_minus_internal
-  - range_intersect_internal
-  - multirange_get_union_range
-  - multirange_agg_transfn
-  - range_merge_from_multirange
+  - [range_minus_internal](../r/range_minus_internal.md)
+  - [range_intersect_internal](../r/range_intersect_internal.md)
+  - [multirange_get_union_range](multirange_get_union_range.md)
+  - [multirange_agg_transfn](multirange_agg_transfn.md)
+  - [range_merge_from_multirange](../r/range_merge_from_multirange.md)
 
 ## Notes and Other Information
 - The dummy bound values (both set to 0) are meaningless since the range is marked as empty

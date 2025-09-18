@@ -27,18 +27,18 @@ Note that this approach can be quite slow on large tables since it performs a fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equalTupleDescs: Validates tuple descriptor compatibility
+  - [equalTupleDescs](../e/equalTupleDescs.md): Validates tuple descriptor compatibility
   - InitDirtySnapshot: Initializes snapshot for scanning
-  - table_beginscan: Starts table scan
-  - table_slot_create: Creates scan slot
-  - table_scan_getnextslot: Gets next tuple from scan
-  - tuples_equal: Compares tuples for equality
+  - [table_beginscan](../t/table_beginscan.md): Starts table scan
+  - [table_slot_create](../t/table_slot_create.md): Creates scan slot
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md): Gets next tuple from scan
+  - [tuples_equal](../t/tuples_equal.md): Compares tuples for equality
   - ExecCopySlot: Copies tuple data between slots
   - table_tuple_lock: Locks the found tuple
-  - GetCurrentCommandId: Gets current command ID for locking
-  - ExecDropSingleTupleTableSlot: Cleans up scan slot
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md): Gets current command ID for locking
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md): Cleans up scan slot
 - Called from (representative examples):
-  - FindReplTupleInLocalRel: Logical replication worker function
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md): Logical replication worker function
   - exec_rt_fetch: Through executor header inclusion
 
 ## Notes and Other Information

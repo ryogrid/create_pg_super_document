@@ -20,10 +20,10 @@ This function is part of the tape interface routines used in PostgreSQL sorting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape
+  - [LogicalTape](../L/LogicalTape.md)
   - LogicalTapeRead
 - Called from (representative examples):
-  - tuplesort_gettuple_common
+  - [tuplesort_gettuple_common](../t/tuplesort_gettuple_common.md)
   - mergereadnext
   - tuplestore_gettuple
 

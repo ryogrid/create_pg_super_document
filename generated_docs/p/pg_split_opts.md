@@ -32,10 +32,10 @@ The function is designed to parse option strings that might contain embedded spa
   - resetStringInfo (for clearing string buffer between arguments)
   - isspace (for whitespace detection)
   - appendStringInfoChar (for building argument strings)
-  - pstrdup (for creating permanent copies of arguments)
-  - pfree (for cleaning up temporary storage)
+  - [pstrdup](pstrdup.md) (for creating permanent copies of arguments)
+  - [pfree](pfree.md) (for cleaning up temporary storage)
 - Called from:
-  - process_startup_options (src/backend/utils/init/postinit.c:1291)
+  - [process_startup_options](process_startup_options.md) (src/backend/utils/init/postinit.c:1291)
   - INIT_PG_OVERRIDE_ROLE_LOGIN (src/include/miscadmin.h:487)
 
 ## Notes and Other Information

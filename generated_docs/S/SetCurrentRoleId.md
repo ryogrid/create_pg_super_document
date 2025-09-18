@@ -19,14 +19,14 @@ This function changes the role ID while PostgreSQL is running, implementing the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid (macro for checking valid Oids)
-  - SetOuterUserId
+  - [SetOuterUserId](SetOuterUserId.md)
   - SetRoleIsActive (global variable assignment)
   - SessionUserId (global variable access)
   - SessionUserIsSuperuser (global variable access)
 - Called from (representative examples):
-  - assign_role (in variable command processing)
-  - ParallelWorkerMain (during parallel worker initialization)
-  - InitializeSessionUserIdStandalone (during standalone initialization)
+  - [assign_role](../a/assign_role.md) (in variable command processing)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (during parallel worker initialization)
+  - [InitializeSessionUserIdStandalone](../I/InitializeSessionUserIdStandalone.md) (during standalone initialization)
 
 ## Notes and Other Information
 - Caller must verify role membership permissions before calling this function

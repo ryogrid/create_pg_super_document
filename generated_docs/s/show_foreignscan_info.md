@@ -22,13 +22,13 @@ For SELECT operations, it calls the FDW's ExplainForeignScan routine. For modifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FdwRoutine (via fsstate->fdwroutine)
+  - [FdwRoutine](../F/FdwRoutine.md) (via fsstate->fdwroutine)
   - ExplainDirectModify (FDW callback function)
   - ExplainForeignScan (FDW callback function)
   - CMD_SELECT
   - ForeignScan
 - Called from (representative examples):
-  - ExplainNode
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - The function only calls FDW explain routines if they are implemented (non-NULL function pointers)

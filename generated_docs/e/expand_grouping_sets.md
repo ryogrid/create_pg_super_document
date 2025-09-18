@@ -33,17 +33,17 @@ This function serves as the primary entry point for expanding complex GROUPING S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_groupingset_node: Expands individual GroupingSet nodes
-  - list_union_int: Combines integer lists while removing duplicates
-  - list_sort: Sorts lists using comparator functions
-  - cmp_list_len_asc: Length-based comparator
-  - cmp_list_len_contents_asc: Length and content-based comparator
-  - list_int_cmp: Integer comparison for sorting individual grouping sets
-  - equal: Checks for duplicate grouping sets
+  - [expand_groupingset_node](expand_groupingset_node.md): Expands individual GroupingSet nodes
+  - [list_union_int](../l/list_union_int.md): Combines integer lists while removing duplicates
+  - [list_sort](../l/list_sort.md): Sorts lists using comparator functions
+  - [cmp_list_len_asc](../c/cmp_list_len_asc.md): Length-based comparator
+  - [cmp_list_len_contents_asc](../c/cmp_list_len_contents_asc.md): Length and content-based comparator
+  - [list_int_cmp](../l/list_int_cmp.md): Integer comparison for sorting individual grouping sets
+  - [equal](equal.md): Checks for duplicate grouping sets
   - foreach_delete_current: Removes duplicates during iteration
 - Called from:
-  - parseCheckAggregates: During query parsing for validation
-  - preprocess_grouping_sets: In the planner for optimization
+  - [parseCheckAggregates](../p/parseCheckAggregates.md): During query parsing for validation
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md): In the planner for optimization
 
 ## Notes and Other Information
 - This function implements the complete SQL standard semantics for GROUPING SETS expansion

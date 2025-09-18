@@ -26,8 +26,8 @@ The function is equivalent to the SQL expression (::text || '_' || ::text)::name
   - PG_GETARG_OID: Macro to extract OID argument from function call
   - snprintf: Standard C function to format the OID suffix
   - strlen: Standard C function to get the length of the name string
-  - pg_mbcliplen: PostgreSQL function to safely truncate multibyte strings
-  - palloc0: PostgreSQL memory allocator that zeros the allocated memory
+  - [pg_mbcliplen](../p/pg_mbcliplen.md): PostgreSQL function to safely truncate multibyte strings
+  - [palloc0](../p/palloc0.md): PostgreSQL memory allocator that zeros the allocated memory
   - memcpy: Standard C function to copy memory regions
   - PG_RETURN_NAME: Macro to return a Name from a PostgreSQL function
   - NAMEDATALEN: PostgreSQL constant defining maximum name length

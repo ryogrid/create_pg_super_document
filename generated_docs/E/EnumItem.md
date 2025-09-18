@@ -25,14 +25,14 @@ EnumItem structures are typically stored in arrays within TypeCacheEnumData and 
   - (None - this is a data structure)
   
 - Used by (representative examples):
-  - TypeCacheEnumData (as array member enum_values)
-  - compare_values_of_enum (for enum comparison operations)
-  - load_enum_cache_data (for populating enum cache data)
-  - find_enumitem (for locating specific enum values)
-  - enum_oid_cmp (for sorting and searching operations)
+  - [TypeCacheEnumData](../T/TypeCacheEnumData.md) (as array member enum_values)
+  - [compare_values_of_enum](../c/compare_values_of_enum.md) (for enum comparison operations)
+  - [load_enum_cache_data](../l/load_enum_cache_data.md) (for populating enum cache data)
+  - [find_enumitem](../f/find_enumitem.md) (for locating specific enum values)
+  - [enum_oid_cmp](../e/enum_oid_cmp.md) (for sorting and searching operations)
 
 ## Notes and Other Information
-- EnumItem structures are allocated and managed within CacheMemoryContext to ensure they persist for the lifetime of the backend process
+- [EnumItem](EnumItem.md) structures are allocated and managed within CacheMemoryContext to ensure they persist for the lifetime of the backend process
 - The arrays of EnumItem are kept sorted by enum_oid to enable efficient binary search via bsearch()
 - The sort_order field allows PostgreSQL to support custom enum ordering that can be different from the OID creation order, which is important for ALTER TYPE ... ADD VALUE operations
 - This structure is part of PostgreSQL's optimization strategy to avoid repeated system catalog lookups when performing enum comparisons

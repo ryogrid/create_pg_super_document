@@ -33,12 +33,12 @@ This structure serves as the central control hub for B-tree index scans, contain
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanKey
-  - BTArrayKeyInfo
-  - FmgrInfo
-  - MemoryContext
-  - BTScanPosData
+  - [BTArrayKeyInfo](BTArrayKeyInfo.md)
+  - [FmgrInfo](../F/FmgrInfo.md)
+  - [MemoryContext](../M/MemoryContext.md)
+  - [BTScanPosData](BTScanPosData.md)
 - Called from (representative examples):
-  - btbeginscan
+  - [btbeginscan](../b/btbeginscan.md)
   - BTScanOpaque
 
 ## Notes and Other Information

@@ -35,18 +35,18 @@ The function handles complex scenarios involving inheritance and partitioning, e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitMergeTupleSlots
-  - ExecInitQual
+  - [ExecInitMergeTupleSlots](ExecInitMergeTupleSlots.md)
+  - [ExecInitQual](ExecInitQual.md)
   - ExecAssignExprContext
-  - ExecCheckPlanOutput
-  - ExecBuildProjectionInfo
-  - ExecBuildUpdateProjection
-  - ExecSetupPartitionTupleRouting
-  - table_slot_create
-  - build_attrmap_by_name
-  - map_variable_attnos
+  - [ExecCheckPlanOutput](ExecCheckPlanOutput.md)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
+  - [ExecSetupPartitionTupleRouting](ExecSetupPartitionTupleRouting.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
+  - [map_variable_attnos](../m/map_variable_attnos.md)
 - Called from (representative examples):
-  - ExecInitModifyTable
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
 
 ## Notes and Other Information
 - Handles three types of MERGE actions: MATCHED, NOT MATCHED BY SOURCE, and NOT MATCHED BY TARGET

@@ -21,15 +21,15 @@ static inline void pq_sendint8(StringInfo buf, uint8 i)
 ## Dependencies
 - Functions called/Symbols referenced:
   - enlargeStringInfo
-  - pq_writeint8
+  - [pq_writeint8](pq_writeint8.md)
 - Called from (representative examples):
-  - logicalrep_write_truncate
-  - logicalrep_write_message
-  - jsonb_send
-  - jsonpath_send
-  - tsquerysend
-  - pq_sendbyte
-  - pq_sendint
+  - [logicalrep_write_truncate](../l/logicalrep_write_truncate.md)
+  - [logicalrep_write_message](../l/logicalrep_write_message.md)
+  - [jsonb_send](../j/jsonb_send.md)
+  - [jsonpath_send](../j/jsonpath_send.md)
+  - [tsquerysend](../t/tsquerysend.md)
+  - [pq_sendbyte](pq_sendbyte.md)
+  - [pq_sendint](pq_sendint.md)
 
 ## Notes and Other Information
 - Defined as a static inline function for optimal performance

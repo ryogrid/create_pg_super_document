@@ -24,9 +24,9 @@ This function is intended for use with PostgreSQL's hash table infrastructure, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_hash_value
+  - [bms_hash_value](bms_hash_value.md)
 - Called from (examples):
-  - build_join_rel_hash
+  - [build_join_rel_hash](build_join_rel_hash.md)
   - bms_is_empty (header usage)
 
 ## Notes and Other Information

@@ -19,17 +19,17 @@ This function works in conjunction with heapam_scan_bitmap_next_block to complet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecStoreAllNullTuple (for empty tuple optimization)
-  - BufferGetPage (buffer management)
-  - PageGetItemId (page item access)
+  - [ExecStoreAllNullTuple](../E/ExecStoreAllNullTuple.md) (for empty tuple optimization)
+  - [BufferGetPage](../B/BufferGetPage.md) (buffer management)
+  - [PageGetItemId](../P/PageGetItemId.md) (page item access)
   - ItemIdIsNormal (item validation)
-  - PageGetItem (tuple data retrieval)
+  - [PageGetItem](../P/PageGetItem.md) (tuple data retrieval)
   - ItemIdGetLength (tuple size)
-  - ItemPointerSet (tuple identifier)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (tuple identifier)
   - pgstat_count_heap_fetch (statistics)
-  - ExecStoreBufferHeapTuple (slot population)
+  - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md) (slot population)
 - Called from (representative examples):
-  - SampleHeapTupleVisible (as part of table access method interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (as part of table access method interface)
 
 ## Notes and Other Information
 - Works as the second phase of bitmap scanning after heapam_scan_bitmap_next_block

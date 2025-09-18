@@ -18,10 +18,10 @@ The  function is a simple path construction utility used during PostgreSQL datab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's printf-like memory allocating function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's printf-like memory allocating function)
   - share_path (global variable containing the PostgreSQL share directory path)
 - Called from (representative examples):
-  - setup_data_file_paths (called multiple times to set up various template file paths)
+  - [setup_data_file_paths](setup_data_file_paths.md) (called multiple times to set up various template file paths)
 
 ## Notes and Other Information
 - This is a static function, only accessible within initdb.c

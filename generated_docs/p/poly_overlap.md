@@ -19,7 +19,7 @@ poly_overlap is a PostgreSQL function that implements the overlap operator for p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - poly_overlap_internal: Core overlap detection algorithm
+  - [poly_overlap_internal](poly_overlap_internal.md): Core overlap detection algorithm
   - PG_GETARG_POLYGON_P: Extracts POLYGON argument from function arguments  
   - PG_FREE_IF_COPY: Manages memory for potentially toasted inputs
   - PG_RETURN_BOOL: Returns boolean result following PostgreSQL conventions

@@ -26,22 +26,22 @@ If the  parameter points to an ErrorSaveContext, any failures are reported there
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainIOData (struct type)
-  - UpdateDomainConstraintRef
-  - DomainConstraintState
+  - [DomainIOData](../D/DomainIOData.md) (struct type)
+  - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md)
+  - [DomainConstraintState](../D/DomainConstraintState.md)
   - DOM_CONSTRAINT_NOTNULL
   - errsave
   - errdatatype
   - DOM_CONSTRAINT_CHECK
   - CreateStandaloneExprContext
   - MakeExpandedObjectReadOnly
-  - ExecCheck
+  - [ExecCheck](../E/ExecCheck.md)
   - errdomainconstraint
   - ReScanExprContext
 
 - Called from (representative examples):
-  - domain_in (src/backend/utils/adt/domains.c:275)
-  - domain_recv (src/backend/utils/adt/domains.c:331)
+  - [domain_in](domain_in.md) (src/backend/utils/adt/domains.c:275)
+  - [domain_recv](domain_recv.md) (src/backend/utils/adt/domains.c:331)
   - domain_check_internal (src/backend/utils/adt/domains.c:397)
 
 ## Notes and Other Information

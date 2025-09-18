@@ -25,7 +25,7 @@ The function extracts the netmask length from the source INET address and uses i
   - PG_GETARG_INET_PP: Macro to extract INET argument from function args
   - ip_bits: Function to get the netmask length from an inet address
   - ip_maxbits: Function to get the maximum valid netmask length for the address family
-  - cidr_set_masklen_internal: Internal function that creates a new CIDR with specified mask length
+  - [cidr_set_masklen_internal](../c/cidr_set_masklen_internal.md): Internal function that creates a new CIDR with specified mask length
   - PG_RETURN_INET_P: Macro to return inet result
   - elog: Error logging function for validation failures
 - Called from (representative examples):

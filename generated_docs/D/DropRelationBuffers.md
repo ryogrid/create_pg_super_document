@@ -26,13 +26,13 @@ DropRelationBuffers is a critical buffer management function that forcibly remov
   - DropRelationLocalBuffers
   - smgrnblocks_cached
   - BlockNumberIsValid
-  - FindAndDropRelationBuffers
-  - GetBufferDescriptor
-  - BufTagMatchesRelFileLocator
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
   - LockBufHdr
-  - BufTagGetForkNum
-  - InvalidateBuffer
-  - UnlockBufHdr
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BUF_DROP_FULL_SCAN_THRESHOLD (constant)
 - Called from (representative examples):
   - smgrtruncate2

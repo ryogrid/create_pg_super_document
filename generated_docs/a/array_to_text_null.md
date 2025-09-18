@@ -23,7 +23,7 @@ This function provides an extended version of array_to_text that supports NULL e
   - PG_ARGISNULL (to check for NULL arguments)
   - PG_GETARG_ARRAYTYPE_P (to extract array argument)
   - text_to_cstring (to convert text arguments to C strings)
-  - array_to_text_internal (performs the actual array-to-text conversion)
+  - [array_to_text_internal](array_to_text_internal.md) (performs the actual array-to-text conversion)
   - PG_RETURN_TEXT_P (to return the result as PostgreSQL text type)
   - PG_RETURN_NULL (to return NULL when required arguments are missing)
 - Called from:

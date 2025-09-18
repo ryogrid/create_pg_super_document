@@ -20,7 +20,7 @@ This function provides the binary output protocol for int2vector data types, con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `array_send` (generic array binary output function)
+  - `[array_send](../a/array_send.md)` (generic array binary output function)
 - Called from (representative examples):
   - PostgreSQL binary protocol handlers
   - Network communication and data storage systems

@@ -22,11 +22,11 @@ The `circle_mul_pt` function performs a geometric transformation on a circle by 
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P
   - PG_GETARG_POINT_P
-  - point_mul_point
-  - float8_mul
+  - [point_mul_point](../p/point_mul_point.md)
+  - [float8_mul](../f/float8_mul.md)
   - HYPOT
   - PG_RETURN_CIRCLE_P
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

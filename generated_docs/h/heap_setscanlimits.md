@@ -26,11 +26,11 @@ Once set, the scan will begin at startBlk and process numBlks blocks. If numBlks
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapScanDesc (type cast)
+  - [HeapScanDesc](../H/HeapScanDesc.md) (type cast)
   - SO_ALLOW_SYNC (flag check)
 - Called from (representative examples):
-  - heap_set_tidrange (src/backend/access/heap/heapam.c:1421, 1440)
-  - heapam_index_build_range_scan (src/backend/access/heap/heapam_handler.c:1319)
+  - [heap_set_tidrange](heap_set_tidrange.md) (src/backend/access/heap/heapam.c:1421, 1440)
+  - [heapam_index_build_range_scan](heapam_index_build_range_scan.md) (src/backend/access/heap/heapam_handler.c:1319)
   - HeapScanIsValid (src/include/access/heapam.h:293)
 
 ## Notes and Other Information

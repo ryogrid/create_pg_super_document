@@ -25,15 +25,15 @@ Similar to `make_andclause`, this function allocates a new BoolExpr node, sets i
   - BoolExpr (expression node type)
   - OR_EXPR (boolean operation constant)
 - Called from (representative examples):
-  - create_bitmap_subplan
-  - create_tidscan_plan
-  - process_sublinks_mutator
-  - negate_clause
-  - process_duplicate_ors
-  - eval_const_expressions_mutator
-  - extract_or_clause
-  - make_sub_restrictinfos
-  - pgoutput_row_filter_init
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md)
+  - [create_tidscan_plan](../c/create_tidscan_plan.md)
+  - [process_sublinks_mutator](../p/process_sublinks_mutator.md)
+  - [negate_clause](../n/negate_clause.md)
+  - [process_duplicate_ors](../p/process_duplicate_ors.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [extract_or_clause](../e/extract_or_clause.md)
+  - [make_sub_restrictinfos](make_sub_restrictinfos.md)
+  - [pgoutput_row_filter_init](../p/pgoutput_row_filter_init.md)
 
 ## Notes and Other Information
 - The location field is set to -1, indicating that the clause doesn't correspond to a specific location in the original SQL text

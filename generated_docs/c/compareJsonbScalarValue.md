@@ -18,14 +18,14 @@ This static function implements lexicographic ordering comparison for JsonbValue
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varstr_cmp (for string comparison with collation)
+  - [varstr_cmp](../v/varstr_cmp.md) (for string comparison with collation)
   - DirectFunctionCall2 (for calling numeric_cmp)
   - numeric_cmp (for numeric comparison)
-  - PointerGetDatum (for datum conversion)
-  - DatumGetInt32 (for integer result conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (for datum conversion)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (for integer result conversion)
   - DEFAULT_COLLATION_OID (collation constant)
 - Called from (representative examples):
-  - compareJsonbContainers
+  - [compareJsonbContainers](compareJsonbContainers.md)
 
 ## Notes and Other Information
 The function is declared static and limited to jsonb_util.c scope. It provides consistent ordering semantics required for B-tree indexing and sorting operations on JSONB data. String comparisons respect PostgreSQL's default collation rules, ensuring proper locale-aware sorting. Boolean comparison follows the convention that false (0) is less than true (1). The function will generate ERROR conditions for type mismatches or invalid scalar types, maintaining type safety in comparison operations.

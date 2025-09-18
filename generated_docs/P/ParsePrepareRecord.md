@@ -24,15 +24,15 @@ This function processes prepared transaction records as part of PostgreSQL's two
   - memset
   - strncpy
   - MAXALIGN
-  - xl_xact_prepare
+  - [xl_xact_prepare](../x/xl_xact_prepare.md)
   - xl_xact_parsed_prepare
   - TransactionId
-  - RelFileLocator
+  - [RelFileLocator](../R/RelFileLocator.md)
   - xl_xact_stats_item
   - SharedInvalidationMessage
 - Called from (representative examples):
-  - xact_desc_prepare
-  - xact_decode
+  - [xact_desc_prepare](../x/xact_desc_prepare.md)
+  - [xact_decode](../x/xact_decode.md)
 
 ## Notes and Other Information
 - Specific to two-phase commit (2PC) transactions in distributed environments

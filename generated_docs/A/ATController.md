@@ -31,18 +31,18 @@ The function maintains the relation open during the preparation phase but closes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ATPrepCmd
-  - relation_close
-  - ATRewriteCatalogs
-  - ATRewriteTables
+  - [ATPrepCmd](ATPrepCmd.md)
+  - [relation_close](../r/relation_close.md)
+  - [ATRewriteCatalogs](ATRewriteCatalogs.md)
+  - [ATRewriteTables](ATRewriteTables.md)
 - Called from (representative examples):
-  - AlterTable
-  - AlterTableInternal
+  - [AlterTable](AlterTable.md)
+  - [AlterTableInternal](AlterTableInternal.md)
 
 ## Notes and Other Information
 - Uses a static function scope, indicating it's an internal implementation detail
 - Maintains strict phase separation to ensure transaction safety
 - The work queue (wqueue) serves as the communication mechanism between phases
-- Relation is closed after Phase 1 but lock is retained until commit
+- [Relation](../R/Relation.md) is closed after Phase 1 but lock is retained until commit
 - Event trigger support is maintained through the parsetree parameter
 - The three-phase approach allows for proper dependency handling and rollback capabilities

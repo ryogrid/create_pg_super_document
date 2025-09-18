@@ -20,7 +20,7 @@ This function selects a random int32 uniformly from the full signed 32-bit integ
   - xoroshiro128ss (the core PRNG algorithm)
   - pg_prng_state (state structure type)
 - Called from (representative examples):
-  - prepare_buf (in pg_test_fsync utility)
+  - [prepare_buf](prepare_buf.md) (in pg_test_fsync utility)
 
 ## Notes and Other Information
 - Uses upper 32 bits (v >> 32) from the 64-bit generator, same as pg_prng_uint32

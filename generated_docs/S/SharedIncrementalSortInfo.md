@@ -20,13 +20,13 @@ The structure uses a flexible array member to store a variable number of Increme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IncrementalSortInfo (struct type for the array member)
+  - [IncrementalSortInfo](../I/IncrementalSortInfo.md) (struct type for the array member)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array declaration)
 - Called from (representative examples):
-  - ExecIncrementalSortEstimate (src/backend/executor/nodeIncrementalSort.c:1182)
-  - ExecIncrementalSortInitializeDSM (src/backend/executor/nodeIncrementalSort.c:1202)
-  - ExecIncrementalSortRetrieveInstrumentation (src/backend/executor/nodeIncrementalSort.c:1236, 1241)
-  - IncrementalSortState (src/include/nodes/execnodes.h:2409)
+  - [ExecIncrementalSortEstimate](../E/ExecIncrementalSortEstimate.md) (src/backend/executor/nodeIncrementalSort.c:1182)
+  - [ExecIncrementalSortInitializeDSM](../E/ExecIncrementalSortInitializeDSM.md) (src/backend/executor/nodeIncrementalSort.c:1202)
+  - [ExecIncrementalSortRetrieveInstrumentation](../E/ExecIncrementalSortRetrieveInstrumentation.md) (src/backend/executor/nodeIncrementalSort.c:1236, 1241)
+  - [IncrementalSortState](../I/IncrementalSortState.md) (src/include/nodes/execnodes.h:2409)
 
 ## Notes and Other Information
 - This structure is specifically designed for parallel query execution scenarios where multiple workers contribute to incremental sort operations

@@ -27,13 +27,13 @@ The function uses the EVALUATE_MESSAGE_PLURAL macro to handle the pluralization 
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE_PLURAL (macro)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - GetNewOidWithIndex (in catalog.c)
-  - dropdb (in dbcommands.c)
-  - errdetail_busy_db (in dbcommands.c)
-  - ExecEvalWholeRowVar (in execExprInterp.c)
-  - RegisterBackgroundWorker (in bgworker.c)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (in catalog.c)
+  - [dropdb](../d/dropdb.md) (in dbcommands.c)
+  - [errdetail_busy_db](errdetail_busy_db.md) (in dbcommands.c)
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md) (in execExprInterp.c)
+  - [RegisterBackgroundWorker](../R/RegisterBackgroundWorker.md) (in bgworker.c)
 
 ## Notes and Other Information
 - Returns 0 as the return value does not matter for this function

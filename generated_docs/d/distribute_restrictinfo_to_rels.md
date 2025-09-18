@@ -24,17 +24,17 @@ For join clauses, the function also performs additional optimization preparation
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty (checks if bitmapset is empty)
-  - bms_get_singleton_member (extracts single member from bitmapset)
-  - add_base_clause_to_rel (adds restriction clause to base relation)
-  - check_hashjoinable (analyzes clause for hash join suitability)
-  - check_memoizable (analyzes clause for memoization potential)
-  - add_join_clause_to_rels (distributes join clause to relevant relations)
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md) (extracts single member from bitmapset)
+  - [add_base_clause_to_rel](../a/add_base_clause_to_rel.md) (adds restriction clause to base relation)
+  - [check_hashjoinable](../c/check_hashjoinable.md) (analyzes clause for hash join suitability)
+  - [check_memoizable](../c/check_memoizable.md) (analyzes clause for memoization potential)
+  - [add_join_clause_to_rels](../a/add_join_clause_to_rels.md) (distributes join clause to relevant relations)
 
 - Called from (representative examples):
-  - distribute_qual_to_rels (main qualification distribution function)
-  - process_implied_equality (equivalence class processing)
-  - generate_base_implied_equalities_const (equivalence class constant generation)
-  - reconsider_outer_join_clauses (outer join clause reconsideration)
+  - [distribute_qual_to_rels](distribute_qual_to_rels.md) (main qualification distribution function)
+  - [process_implied_equality](../p/process_implied_equality.md) (equivalence class processing)
+  - [generate_base_implied_equalities_const](../g/generate_base_implied_equalities_const.md) (equivalence class constant generation)
+  - [reconsider_outer_join_clauses](../r/reconsider_outer_join_clauses.md) (outer join clause reconsideration)
 
 ## Notes and Other Information
 - Final step of the qualification distribution pipeline after equivalence class processing

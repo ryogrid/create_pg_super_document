@@ -18,16 +18,16 @@ The  function processes an HBA configuration line and extracts all authenticatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - CStringGetTextDatum
-  - psprintf
-  - construct_array_builtin
+  - [psprintf](../p/psprintf.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
   - Assert
 - Types referenced:
-  - HbaLine
+  - [HbaLine](../H/HbaLine.md)
   - MAX_HBA_OPTIONS
   - uaGSS, uaSSPI, uaLDAP, uaRADIUS (authentication method enums)
   - clientCertOff, clientCertCA (client certificate enums)
 - Called from:
-  - fill_hba_line
+  - [fill_hba_line](../f/fill_hba_line.md)
 
 ## Notes and Other Information
 - The function is static and only used within the hbafuncs.c file

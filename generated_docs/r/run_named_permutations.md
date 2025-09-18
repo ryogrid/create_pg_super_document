@@ -19,11 +19,11 @@ The function iterates through the array of predefined permutations in the test s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TestSpec (struct type)
-  - Permutation (struct type)
-  - run_permutation
+  - [TestSpec](../T/TestSpec.md) (struct type)
+  - [Permutation](../P/Permutation.md) (struct type)
+  - [run_permutation](run_permutation.md)
 - Called from (representative examples):
-  - run_testspec
+  - [run_testspec](run_testspec.md)
 
 ## Notes and Other Information
 - Provides a more targeted testing approach compared to exhaustive permutation generation

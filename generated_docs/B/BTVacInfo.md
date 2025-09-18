@@ -21,11 +21,11 @@ This structure serves as the central coordination mechanism for B-tree vacuum op
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTCycleId (type)
-  - BTOneVacInfo (struct type)
+  - [BTOneVacInfo](BTOneVacInfo.md) (struct type)
   - FLEXIBLE_ARRAY_MEMBER (macro)
 - Called from (representative examples):
-  - BTreeShmemSize
-  - BTreeShmemInit
+  - [BTreeShmemSize](BTreeShmemSize.md)
+  - [BTreeShmemInit](BTreeShmemInit.md)
 
 ## Notes and Other Information
 - Allocated in shared memory during database startup via BTreeShmemInit() and sized by BTreeShmemSize()

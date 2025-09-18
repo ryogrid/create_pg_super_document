@@ -21,25 +21,25 @@ The function uses PostgreSQL's memory management system (palloc) and relies on t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - memcpy (for copying data)
   - VARSIZE (macro for determining variable-length structure size)
   - Numeric (data type)
 - Called from (representative examples):
-  - numeric (conversion functions)
-  - numeric_abs
-  - numeric_uminus
-  - numeric_uplus
-  - numeric_round
-  - numeric_trunc
+  - [numeric](../n/numeric.md) (conversion functions)
+  - [numeric_abs](../n/numeric_abs.md)
+  - [numeric_uminus](../n/numeric_uminus.md)
+  - [numeric_uplus](../n/numeric_uplus.md)
+  - [numeric_round](../n/numeric_round.md)
+  - [numeric_trunc](../n/numeric_trunc.md)
   - numeric_ceil
   - numeric_floor
-  - numeric_mod_opt_error
-  - numeric_inc
-  - numeric_sqrt
-  - numeric_exp
-  - numeric_ln
-  - numeric_trim_scale
+  - [numeric_mod_opt_error](../n/numeric_mod_opt_error.md)
+  - [numeric_inc](../n/numeric_inc.md)
+  - [numeric_sqrt](../n/numeric_sqrt.md)
+  - [numeric_exp](../n/numeric_exp.md)
+  - [numeric_ln](../n/numeric_ln.md)
+  - [numeric_trim_scale](../n/numeric_trim_scale.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c file

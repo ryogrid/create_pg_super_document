@@ -17,7 +17,7 @@ This function serves as the constructor for Lithuanian stemming operations by cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - External stemming library interfaces (not shown in current symbol references)
 

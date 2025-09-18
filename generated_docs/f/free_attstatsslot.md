@@ -17,22 +17,22 @@ The free_attstatsslot function is responsible for properly deallocating memory t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - AttStatsSlot (structure type)
 - Called from (representative examples):
   - ExecHashBuildSkewHash
-  - tsquerysel
-  - scalararraysel_containment
-  - calc_arraycontsel
-  - calc_multirangesel
-  - calc_hist_selectivity
-  - networksel
-  - var_eq_const
+  - [tsquerysel](../t/tsquerysel.md)
+  - [scalararraysel_containment](../s/scalararraysel_containment.md)
+  - [calc_arraycontsel](../c/calc_arraycontsel.md)
+  - [calc_multirangesel](../c/calc_multirangesel.md)
+  - [calc_hist_selectivity](../c/calc_hist_selectivity.md)
+  - [networksel](../n/networksel.md)
+  - [var_eq_const](../v/var_eq_const.md)
   - mcv_selectivity
   - histogram_selectivity
-  - eqjoinsel
+  - [eqjoinsel](../e/eqjoinsel.md)
   - get_variable_range
-  - btcostestimate
+  - [btcostestimate](../b/btcostestimate.md)
 
 ## Notes and Other Information
 - The values[] array was separately allocated by deconstruct_array and requires explicit freeing

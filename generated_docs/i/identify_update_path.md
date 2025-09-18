@@ -23,12 +23,12 @@ The function serves as a high-level interface that combines graph construction a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ext_ver_list
-  - get_ext_ver_info
-  - find_update_path
+  - [get_ext_ver_list](../g/get_ext_ver_list.md)
+  - [get_ext_ver_info](../g/get_ext_ver_info.md)
+  - [find_update_path](../f/find_update_path.md)
   - ereport (for error handling)
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
   - ExecAlterExtensionStmt
 

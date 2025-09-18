@@ -27,16 +27,16 @@ The function calculates space requirements, validates the operation feasibility,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](PageGetItemId.md)
   - ItemIdHasStorage
   - ItemIdGetLength
   - ItemIdGetOffset
-  - PageGetItem
+  - [PageGetItem](PageGetItem.md)
 - Called from (representative examples):
-  - brin_doupdate (BRIN index tuple updates)
-  - gistplacetopage (GiST page tuple placement)
-  - _bt_delitems_vacuum (B-tree vacuum operations)
+  - [brin_doupdate](../b/brin_doupdate.md) (BRIN index tuple updates)
+  - [gistplacetopage](../g/gistplacetopage.md) (GiST page tuple placement)
+  - [_bt_delitems_vacuum](../b/_bt_delitems_vacuum.md) (B-tree vacuum operations)
   - _bt_buildadd (B-tree build process)
 
 ## Notes and Other Information

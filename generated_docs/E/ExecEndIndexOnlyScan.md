@@ -22,13 +22,13 @@ The function follows PostgreSQL's standard cleanup pattern by checking for valid
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReleaseBuffer
-  - index_endscan
-  - index_close
+  - [index_endscan](../i/index_endscan.md)
+  - [index_close](../i/index_close.md)
 - Types used:
-  - IndexOnlyScanState
-  - IndexScanDesc
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [IndexScanDesc](../I/IndexScanDesc.md)
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - This function is part of the standard executor node cleanup protocol

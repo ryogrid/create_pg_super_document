@@ -21,7 +21,7 @@ This function takes no parameters (`void`).
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SN_create_env`: Generic Snowball environment creation function
+  - `[SN_create_env](../S/SN_create_env.md)`: Generic Snowball environment creation function
 - Called from (representative examples):
   - No direct references found in the codebase (likely used through function pointers or dynamic loading)
 

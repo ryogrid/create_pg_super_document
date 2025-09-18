@@ -38,12 +38,12 @@ The remote LSN advancement ensures that after the binary upgrade, logical replic
   - PG_GETARG_TEXT_PP
   - PG_GETARG_LSN
   - table_open
-  - get_subscription_oid
-  - ReplicationOriginNameForLogicalRep
-  - LockRelationOid
+  - [get_subscription_oid](../g/get_subscription_oid.md)
+  - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
   - replorigin_by_name
-  - replorigin_advance
-  - UnlockRelationOid
+  - [replorigin_advance](../r/replorigin_advance.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
   - table_close
   - PG_RETURN_VOID
 - Called from (representative examples):

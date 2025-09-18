@@ -29,11 +29,11 @@ The function outputs a tab-separated trace line starting with 'NotificationRespo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputInt32 (outputs the backend process ID)
-  - pqTraceOutputString (outputs the channel name)
-  - pqTraceOutputString (outputs the notification payload)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (outputs the backend process ID)
+  - [pqTraceOutputString](pqTraceOutputString.md) (outputs the channel name)
+  - [pqTraceOutputString](pqTraceOutputString.md) (outputs the notification payload)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message dispatching function)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message dispatching function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

@@ -30,16 +30,16 @@ The function bypasses the normal relcache and heap scan infrastructure since it'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationMapOidToFilenumberForDatabase: Maps relation OID to file number for specific database
-  - LockRelationId/UnlockRelationId: Acquires and releases relation locks
-  - smgropen/smgrclose/smgrnblocks: Storage manager operations for file access
+  - [RelationMapOidToFilenumberForDatabase](../R/RelationMapOidToFilenumberForDatabase.md): Maps relation OID to file number for specific database
+  - [LockRelationId](../L/LockRelationId.md)/UnlockRelationId: Acquires and releases relation locks
+  - [smgropen](../s/smgropen.md)/smgrclose/smgrnblocks: Storage manager operations for file access
   - GetAccessStrategy: Obtains buffer access strategy for bulk operations
   - GetLatestSnapshot: Gets snapshot that sees all committed transactions
-  - ReadBufferWithoutRelcache: Reads buffer without using relation cache
-  - ScanSourceDatabasePgClassPage: Processes individual pages of pg_class
-  - PageIsNew/PageIsEmpty: Checks page state
+  - [ReadBufferWithoutRelcache](../R/ReadBufferWithoutRelcache.md): Reads buffer without using relation cache
+  - [ScanSourceDatabasePgClassPage](ScanSourceDatabasePgClassPage.md): Processes individual pages of pg_class
+  - [PageIsNew](../P/PageIsNew.md)/PageIsEmpty: Checks page state
 - Called from (representative examples):
-  - CreateDatabaseUsingWalLog: Uses this to get list of relations to copy
+  - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md): Uses this to get list of relations to copy
 
 ## Notes and Other Information
 - This function violates normal PostgreSQL rules about cross-database access, but is safe because the source database has no active connections

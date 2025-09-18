@@ -29,16 +29,16 @@ The expansion process involves calculating the required memory size, allocating 
   - BITMAPLEN (null bitmap size calculation)
   - att_align_datum (data alignment)
   - att_addlength_pointer (length calculation)
-  - palloc0 (zero-initialized memory allocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - HeapTupleHeaderSetNatts (attribute count setting)
   - HeapTupleHeaderSetDatumLength (length setting)
   - HeapTupleHeaderSetTypeId (type ID setting)
   - HeapTupleHeaderSetTypMod (type modifier setting)
-  - ItemPointerSetInvalid (tuple ID initialization)
-  - fill_val (attribute value filling)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md) (tuple ID initialization)
+  - [fill_val](../f/fill_val.md) (attribute value filling)
 - Called from (representative examples):
-  - minimal_expand_tuple
-  - heap_expand_tuple
+  - [minimal_expand_tuple](../m/minimal_expand_tuple.md)
+  - [heap_expand_tuple](../h/heap_expand_tuple.md)
 
 ## Notes and Other Information
 - Static function - not part of the public API

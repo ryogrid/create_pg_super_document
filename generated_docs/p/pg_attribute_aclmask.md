@@ -27,11 +27,11 @@ Unlike many other ACL functions, this function does not include special handling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_attribute_aclmask_ext
+  - [pg_attribute_aclmask_ext](pg_attribute_aclmask_ext.md)
   - AclMaskHow enum
 - Called from (representative examples):
   - InternalDefaultACL
-  - pg_aclmask
+  - [pg_aclmask](pg_aclmask.md)
 
 ## Notes and Other Information
 - This is a static function internal to the aclchk.c module

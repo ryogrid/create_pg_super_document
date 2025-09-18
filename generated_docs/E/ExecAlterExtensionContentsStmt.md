@@ -25,16 +25,16 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_address
-  - object_ownercheck
-  - aclcheck_error
-  - check_object_ownership
-  - ExecAlterExtensionContentsRecurse
+  - [get_object_address](../g/get_object_address.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [check_object_ownership](../c/check_object_ownership.md)
+  - [ExecAlterExtensionContentsRecurse](ExecAlterExtensionContentsRecurse.md)
   - InvokeObjectPostAlterHook
-  - relation_close
-  - makeString
+  - [relation_close](../r/relation_close.md)
+  - [makeString](../m/makeString.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (main utility command processor)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main utility command processor)
 
 ## Notes and Other Information
 - Certain object types (DATABASE, EXTENSION, INDEX, PUBLICATION, ROLE, STATISTIC_EXT, SUBSCRIPTION, TABLESPACE) are explicitly prohibited from being added to extensions

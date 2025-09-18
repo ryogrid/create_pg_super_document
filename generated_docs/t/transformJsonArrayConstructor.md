@@ -21,13 +21,13 @@ This function processes SQL JSON_ARRAY() constructor expressions during the pars
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - transformJsonValueExpr
-  - transformJsonConstructorOutput
-  - makeJsonConstructorExpr
+  - [transformJsonValueExpr](transformJsonValueExpr.md)
+  - [transformJsonConstructorOutput](transformJsonConstructorOutput.md)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
   - lappend
   - lfirst
 - Called from (representative examples):
-  - transformExprRecurse (src/backend/parser/parse_expr.c:340)
+  - [transformExprRecurse](transformExprRecurse.md) (src/backend/parser/parse_expr.c:340)
 
 ## Notes and Other Information
 - The function handles empty arrays (when ctor->exprs is NULL)

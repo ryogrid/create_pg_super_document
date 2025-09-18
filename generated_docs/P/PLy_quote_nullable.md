@@ -21,9 +21,9 @@ This function is exposed to Python as `plpy.quote_nullable()` and is particularl
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple (parses Python arguments with "z" format for nullable string)
-  - PLyUnicode_FromString (converts C string to Python string, called twice)
-  - quote_literal_cstr (PostgreSQL's core literal quoting function)
-  - pfree (frees allocated memory)
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md) (converts C string to Python string, called twice)
+  - [quote_literal_cstr](../q/quote_literal_cstr.md) (PostgreSQL's core literal quoting function)
+  - [pfree](../p/pfree.md) (frees allocated memory)
 - Called from (representative examples):
   - Exposed to Python as `plpy.quote_nullable` method in the plpy module
 

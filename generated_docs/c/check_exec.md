@@ -24,14 +24,14 @@ The function uses pipe_read_line() to capture the executable's version output an
 ## Dependencies
 - Functions called/Symbols referenced:
   - validate_exec
-  - pipe_read_line
+  - [pipe_read_line](../p/pipe_read_line.md)
   - pg_strip_crlf
-  - pg_free
+  - [pg_free](../p/pg_free.md)
   - snprintf
   - strcmp
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - check_bin_dir
+  - [check_bin_dir](check_bin_dir.md)
 
 ## Notes and Other Information
 - Exits the program with a fatal error if the executable is missing, not executable, or fails version validation

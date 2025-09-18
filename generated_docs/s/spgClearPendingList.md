@@ -22,11 +22,11 @@ The function is designed to be called at the end of vacuum processing to clean u
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert: Debugging assertion macro to verify all items are marked as done
-  - pfree: PostgreSQL memory deallocation function
-  - spgBulkDeleteState: Structure containing vacuum state
-  - spgVacPendingItem: Structure representing a pending vacuum item
+  - [pfree](../p/pfree.md): PostgreSQL memory deallocation function
+  - [spgBulkDeleteState](spgBulkDeleteState.md): Structure containing vacuum state
+  - [spgVacPendingItem](spgVacPendingItem.md): Structure representing a pending vacuum item
 - Called from (representative examples):
-  - spgprocesspending: Calls this function to clean up the pending list after processing
+  - [spgprocesspending](spgprocesspending.md): Calls this function to clean up the pending list after processing
 
 ## Notes and Other Information
 - This is a static function, accessible only within the spgvacuum.c file

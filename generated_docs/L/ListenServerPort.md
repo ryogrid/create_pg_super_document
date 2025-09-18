@@ -41,12 +41,12 @@ The function iterates through all resolved addresses and attempts to bind to eac
   - bind
   - listen
   - setsockopt
-  - Lock_AF_UNIX
-  - Setup_AF_UNIX
+  - [Lock_AF_UNIX](Lock_AF_UNIX.md)
+  - [Setup_AF_UNIX](../S/Setup_AF_UNIX.md)
   - UNIXSOCK_PATH
   - closesocket
 - Called from (representative examples):
-  - PostmasterMain
+  - [PostmasterMain](../P/PostmasterMain.md)
 
 ## Notes and Other Information
 - Returns STATUS_OK if at least one socket was successfully created, STATUS_ERROR otherwise

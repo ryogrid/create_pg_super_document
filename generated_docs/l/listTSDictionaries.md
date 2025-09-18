@@ -19,17 +19,17 @@ This function implements the \dFd psql command for listing text search dictionar
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - gettext_noop
 - Called from (representative examples):
-  - exec_command_d (psql command processor)
+  - [exec_command_d](../e/exec_command_d.md) (psql command processor)
 
 ## Notes and Other Information
 - Returns false on error, true on success

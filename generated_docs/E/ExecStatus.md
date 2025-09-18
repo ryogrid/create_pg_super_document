@@ -26,7 +26,7 @@ The enum values represent the three primary phases of function execution:
 - Functions called/Symbols referenced:
   - (None - this is a basic enumeration type)
 - Used by:
-  - execution_state struct (as the status field at src/backend/executor/functions.c:68)
+  - [execution_state](../e/execution_state.md) struct (as the status field at src/backend/executor/functions.c:68)
 
 ## Notes and Other Information
 - Defined in src/backend/executor/functions.c:60-63

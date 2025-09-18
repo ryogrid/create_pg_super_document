@@ -26,19 +26,19 @@ The function advances the cursor by 4 bytes and returns the converted integer va
 - Functions called/Symbols referenced:
   - pg_ntoh32 (network to host byte order conversion for 32-bit integers)
 - Called from (representative examples):
-  - pqTraceOutput_NotificationResponse
-  - pqTraceOutput_Bind
-  - pqTraceOutput_DataRow
-  - pqTraceOutput_Execute
-  - pqTraceOutput_FunctionCall
-  - pqTraceOutput_BackendKeyData
-  - pqTraceOutput_Parse
-  - pqTraceOutput_Authentication
-  - pqTraceOutput_ParameterDescription
-  - pqTraceOutput_RowDescription
-  - pqTraceOutput_NegotiateProtocolVersion
-  - pqTraceOutput_FunctionCallResponse
-  - pqTraceOutputNoTypeByteMessage
+  - [pqTraceOutput_NotificationResponse](pqTraceOutput_NotificationResponse.md)
+  - [pqTraceOutput_Bind](pqTraceOutput_Bind.md)
+  - [pqTraceOutput_DataRow](pqTraceOutput_DataRow.md)
+  - [pqTraceOutput_Execute](pqTraceOutput_Execute.md)
+  - [pqTraceOutput_FunctionCall](pqTraceOutput_FunctionCall.md)
+  - [pqTraceOutput_BackendKeyData](pqTraceOutput_BackendKeyData.md)
+  - [pqTraceOutput_Parse](pqTraceOutput_Parse.md)
+  - [pqTraceOutput_Authentication](pqTraceOutput_Authentication.md)
+  - [pqTraceOutput_ParameterDescription](pqTraceOutput_ParameterDescription.md)
+  - [pqTraceOutput_RowDescription](pqTraceOutput_RowDescription.md)
+  - [pqTraceOutput_NegotiateProtocolVersion](pqTraceOutput_NegotiateProtocolVersion.md)
+  - [pqTraceOutput_FunctionCallResponse](pqTraceOutput_FunctionCallResponse.md)
+  - [pqTraceOutputNoTypeByteMessage](pqTraceOutputNoTypeByteMessage.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

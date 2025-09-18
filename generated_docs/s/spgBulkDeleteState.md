@@ -41,20 +41,20 @@ The structure is initialized during bulk delete operations and contains both the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexVacuumInfo (vacuum parameter structure)
-  - IndexBulkDeleteResult (statistics collection structure)
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md) (vacuum parameter structure)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (statistics collection structure)
   - IndexBulkDeleteCallback (callback function type)
   - SpGistState (SPGiST operational state)
-  - spgVacPendingItem (pending item list structure)
+  - [spgVacPendingItem](spgVacPendingItem.md) (pending item list structure)
   - TransactionId (transaction identifier type)
   - BlockNumber (block number type)
 - Called from (representative examples):
-  - spgvacuumscan (main vacuum scanning function)
-  - spgbulkdelete (bulk delete entry point)
-  - spgvacuumcleanup (vacuum cleanup operations)
-  - vacuumLeafPage (leaf page vacuum processing)
-  - spgvacuumpage (page-level vacuum processing)
-  - spgprocesspending (pending item processing)
+  - [spgvacuumscan](spgvacuumscan.md) (main vacuum scanning function)
+  - [spgbulkdelete](spgbulkdelete.md) (bulk delete entry point)
+  - [spgvacuumcleanup](spgvacuumcleanup.md) (vacuum cleanup operations)
+  - [vacuumLeafPage](../v/vacuumLeafPage.md) (leaf page vacuum processing)
+  - [spgvacuumpage](spgvacuumpage.md) (page-level vacuum processing)
+  - [spgprocesspending](spgprocesspending.md) (pending item processing)
 
 ## Notes and Other Information
 - This structure is allocated and initialized at the start of vacuum operations and passed throughout the vacuum process

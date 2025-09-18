@@ -24,8 +24,8 @@ This function allows worker processes to connect to the shared tuple sorting inf
   - dsm_segment
   - Sharedsort
 - Called from (representative examples):
-  - _brin_parallel_build_main
-  - _bt_parallel_build_main
+  - [_brin_parallel_build_main](../b/_brin_parallel_build_main.md)
+  - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md)
 
 ## Notes and Other Information
 - Must be called by all worker processes after tuplesort_initialize_shared() has been called by the leader

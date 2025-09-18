@@ -32,11 +32,11 @@ When processed by the walsender, this command triggers the AlterReplicationSlot(
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from nodes/nodes.h)
-  - List (from nodes/pg_list.h)
+  - [List](../L/List.md) (from nodes/pg_list.h)
 - Called from (representative examples):
-  - walsender.c:2145 - AlterReplicationSlot((AlterReplicationSlotCmd *) cmd_node)
-  - walsender.c:1418 - ParseAlterReplSlotOptions() parses command options
-  - walsender.c:1448 - ReplicationSlotAlter(cmd->slotname, failover)
+  - walsender.c:2145 - [AlterReplicationSlot](AlterReplicationSlot.md)((AlterReplicationSlotCmd *) cmd_node)
+  - walsender.c:1418 - [ParseAlterReplSlotOptions](../P/ParseAlterReplSlotOptions.md)() parses command options
+  - walsender.c:1448 - [ReplicationSlotAlter](../R/ReplicationSlotAlter.md)(cmd->slotname, failover)
   - Processed in replication command switch statement at walsender.c:2142
 
 ## Notes and Other Information

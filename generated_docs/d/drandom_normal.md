@@ -26,8 +26,8 @@ This transformation preserves the normal distribution properties while scaling a
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_FLOAT8` - Extracts double-precision arguments (mean and stddev)
-  - `initialize_prng` - Ensures PRNG is seeded before use
-  - `pg_prng_double_normal` - Generates standard normal distributed value
+  - `[initialize_prng](../i/initialize_prng.md)` - Ensures PRNG is seeded before use
+  - `[pg_prng_double_normal](../p/pg_prng_double_normal.md)` - Generates standard normal distributed value
 - Called from:
   - No direct callers found in the analyzed codebase (likely called from SQL)
 

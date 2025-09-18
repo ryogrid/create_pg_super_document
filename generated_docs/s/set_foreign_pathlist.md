@@ -24,7 +24,7 @@ The FDW's GetForeignPaths callback is expected to analyze the query context and 
   - GetForeignPaths (FDW callback to generate access paths for the foreign table)
 
 - Called from (representative examples):
-  - set_rel_pathlist (main relation path list builder)
+  - [set_rel_pathlist](set_rel_pathlist.md) (main relation path list builder)
 
 ## Notes and Other Information
 - This function is static and only used within allpaths.c

@@ -27,14 +27,14 @@ The function concludes by flushing stdout to ensure all debug output is immediat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filemap_t (struct type)
-  - file_entry_t (struct type)
+  - [filemap_t](../f/filemap_t.md) (struct type)
+  - [file_entry_t](../f/file_entry_t.md) (struct type)
   - FILE_ACTION_NONE
   - pg_log_debug
-  - action_to_str
-  - datapagemap_print
+  - [action_to_str](../a/action_to_str.md)
+  - [datapagemap_print](../d/datapagemap_print.md)
 - Called from (representative examples):
-  - main (in pg_rewind.c)
+  - [main](../m/main.md) (in pg_rewind.c)
 
 ## Notes and Other Information
 - This is primarily a debugging and informational function used when pg_rewind runs in verbose mode

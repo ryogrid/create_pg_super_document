@@ -20,7 +20,7 @@ The function allows SPI clients to resize memory blocks without needing to worry
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc
+  - [repalloc](../r/repalloc.md)
 - Called from (representative examples):
   - Various SPI client functions requiring memory reallocation
 

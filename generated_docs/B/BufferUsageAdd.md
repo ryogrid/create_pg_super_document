@@ -28,8 +28,8 @@ For each category, it tracks hit counts, read counts, blocks dirtied, blocks wri
   - INSTR_TIME_ADD (macro for adding timing measurements)
   - BufferUsage (struct type definition)
 - Called from (representative examples):
-  - InstrAggNode
-  - InstrAccumParallelQuery
+  - [InstrAggNode](../I/InstrAggNode.md)
+  - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the same compilation unit (instrument.c)

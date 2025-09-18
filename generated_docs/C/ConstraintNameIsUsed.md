@@ -20,21 +20,21 @@ This function checks if a constraint name is already being used on a specific ob
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
   - HeapTupleIsValid
-  - ObjectIdGetDatum
-  - CStringGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [CStringGetDatum](CStringGetDatum.md)
 - Called from (representative examples):
   - index_create
-  - RenameConstraintById
-  - ATExecAddConstraint
-  - addFkConstraint
-  - domainAddCheckConstraint
-  - domainAddNotNullConstraint
+  - [RenameConstraintById](../R/RenameConstraintById.md)
+  - [ATExecAddConstraint](../A/ATExecAddConstraint.md)
+  - [addFkConstraint](../a/addFkConstraint.md)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md)
+  - [domainAddNotNullConstraint](../d/domainAddNotNullConstraint.md)
 
 ## Notes and Other Information
 - Returns true if the constraint name is already used, false otherwise

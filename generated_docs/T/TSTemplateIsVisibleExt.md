@@ -26,15 +26,15 @@ The function follows PostgreSQL's namespace precedence rules where objects in ea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (to look up template in pg_ts_template)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (to look up template in pg_ts_template)
   - Form_pg_ts_template (struct type for template catalog entries)
-  - recomputeNamespacePath (to ensure current search path)
-  - list_member_oid (to check if namespace is in search path)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to ensure current search path)
+  - [list_member_oid](../l/list_member_oid.md) (to check if namespace is in search path)
   - SearchSysCacheExists2 (to check for name conflicts)
-  - ReleaseSysCache (to clean up cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (to clean up cache reference)
 - Called from (representative examples):
-  - TSTemplateIsVisible (wrapper function)
-  - pg_ts_template_is_visible (SQL-callable function)
+  - [TSTemplateIsVisible](TSTemplateIsVisible.md) (wrapper function)
+  - [pg_ts_template_is_visible](../p/pg_ts_template_is_visible.md) (SQL-callable function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within namespace.c

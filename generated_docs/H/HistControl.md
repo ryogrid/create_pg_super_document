@@ -24,7 +24,7 @@ The enumeration uses powers of 2 for its base values (except hctl_none), allowin
 - Functions called/Symbols referenced:
   - None (standalone enumeration)
 - Called from (representative examples):
-  - _psqlSettings (used as histcontrol member field)
+  - [_psqlSettings](../p/_psqlSettings.md) (used as histcontrol member field)
 
 ## Notes and Other Information
 This enumeration is used within the _psqlSettings structure to control command history behavior in psql sessions. The design follows common Unix shell conventions where commands starting with spaces are considered "private" and duplicate commands clutter the history unnecessarily. Users can set the HISTCONTROL psql variable to control this behavior, with the variable value being converted to the appropriate HistControl enumeration value. The bitmask design allows for flexible combinations of filtering rules while maintaining efficiency in implementation.

@@ -23,12 +23,12 @@ The function is used internally by PostgreSQL's function management system to ma
   - lfirst_node (macro for list traversal)
   - VariableSetStmt (structure type)
   - VAR_RESET_ALL (enum constant)
-  - ExtractSetVariableArgs (extracts value string from SET statement)
+  - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md) (extracts value string from SET statement)
   - GUCArrayAdd (adds a GUC parameter to array)
   - GUCArrayDelete (removes a GUC parameter from array)
 - Called from (representative examples):
-  - compute_function_attributes (src/backend/commands/functioncmds.c:817)
-  - AlterFunction (src/backend/commands/functioncmds.c:1483)
+  - [compute_function_attributes](../c/compute_function_attributes.md) (src/backend/commands/functioncmds.c:817)
+  - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1483)
 
 ## Notes and Other Information
 - The function handles the special VAR_RESET_ALL case by setting the entire array to NULL, effectively clearing all configuration

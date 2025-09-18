@@ -19,14 +19,14 @@ This utility function builds PostgreSQL replication protocol commands by appendi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr - Append string to buffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) - Append string to buffer
   - appendPQExpBufferChar - Append single character to buffer
-  - appendPQExpBuffer - Append formatted string to buffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) - Append formatted string to buffer
 - Called from (representative examples):
-  - BaseBackup (pg_basebackup.c:1895, 1903, 1905, 1912, 1919, 1925, 1932, 1955)
-  - CreateReplicationSlot (streamutil.c:685, 691, 701)
-  - AppendStringCommandOption (streamutil.c:836)
-  - AppendIntegerCommandOption (streamutil.c:859)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup.c:1895, 1903, 1905, 1912, 1919, 1925, 1932, 1955)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (streamutil.c:685, 691, 701)
+  - [AppendStringCommandOption](AppendStringCommandOption.md) (streamutil.c:836)
+  - [AppendIntegerCommandOption](AppendIntegerCommandOption.md) (streamutil.c:859)
 
 ## Notes and Other Information
 - Handles two PostgreSQL command syntax formats:

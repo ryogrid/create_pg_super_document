@@ -34,8 +34,8 @@ When processed by the walsender, this command triggers the DropReplicationSlot()
 - Functions called/Symbols referenced:
   - NodeTag (from nodes/nodes.h)
 - Called from (representative examples):
-  - walsender.c:2138 - DropReplicationSlot((DropReplicationSlotCmd *) cmd_node)
-  - walsender.c:1411 - ReplicationSlotDrop(cmd->slotname, !cmd->wait)
+  - walsender.c:2138 - [DropReplicationSlot](DropReplicationSlot.md)((DropReplicationSlotCmd *) cmd_node)
+  - walsender.c:1411 - [ReplicationSlotDrop](../R/ReplicationSlotDrop.md)(cmd->slotname, !cmd->wait)
   - Processed in replication command switch statement at walsender.c:2135
 
 ## Notes and Other Information

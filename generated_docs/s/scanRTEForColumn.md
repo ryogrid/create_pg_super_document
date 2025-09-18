@@ -23,19 +23,19 @@ This static function performs the core column name lookup within a specific Rang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Alias
-  - FuzzyAttrMatchState
+  - [Alias](../A/Alias.md)
+  - [FuzzyAttrMatchState](../F/FuzzyAttrMatchState.md)
   - InvalidAttrNumber
-  - updateFuzzyAttrMatchState
+  - [updateFuzzyAttrMatchState](../u/updateFuzzyAttrMatchState.md)
   - RTE_RELATION
   - RELKIND_COMPOSITE_TYPE
-  - specialAttNum
+  - [specialAttNum](specialAttNum.md)
   - SearchSysCacheExists2
   - Int16GetDatum
 - Called from (representative examples):
   - MAX_FUZZY_DISTANCE
-  - scanNSItemForColumn
-  - searchRangeTableForCol
+  - [scanNSItemForColumn](scanNSItemForColumn.md)
+  - [searchRangeTableForCol](searchRangeTableForCol.md)
 
 ## Notes and Other Information
 - Static function, only accessible within parse_relation.c

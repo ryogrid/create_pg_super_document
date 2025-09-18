@@ -24,14 +24,14 @@ The function performs extensive validation on input parameters, checking array l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_objtype_from_string
-  - textarray_to_strvaluelist
-  - typeStringToTypeName
-  - get_object_address
-  - deconstruct_array_builtin
-  - relation_close
-  - get_call_result_type
-  - heap_form_tuple
+  - [read_objtype_from_string](../r/read_objtype_from_string.md)
+  - [textarray_to_strvaluelist](../t/textarray_to_strvaluelist.md)
+  - [typeStringToTypeName](../t/typeStringToTypeName.md)
+  - [get_object_address](../g/get_object_address.md)
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [relation_close](../r/relation_close.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
 - Called from (representative examples):
   - No direct callers found (SQL-callable function)
 

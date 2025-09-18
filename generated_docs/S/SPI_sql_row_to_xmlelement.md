@@ -27,16 +27,16 @@ This function converts a single row from an SPI result set into XML format. It h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - map_sql_identifier_to_xml_name
-  - xmldata_root_element_start
-  - xmldata_root_element_end
-  - SPI_fname
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
+  - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
+  - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
+  - [SPI_fname](SPI_fname.md)
   - SPI_getbinval
   - SPI_gettypeid
-  - map_sql_value_to_xml_value
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
 - Called from (representative examples):
-  - cursor_to_xml
-  - query_to_xml_internal
+  - [cursor_to_xml](../c/cursor_to_xml.md)
+  - [query_to_xml_internal](../q/query_to_xml_internal.md)
 
 ## Notes and Other Information
 - This is a static function used internally by PostgreSQL's XML processing system

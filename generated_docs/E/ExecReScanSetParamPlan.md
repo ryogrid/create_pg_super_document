@@ -24,15 +24,15 @@ Special handling is provided for CTE (Common Table Expression) subplans, which a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubPlanState
+  - [SubPlanState](../S/SubPlanState.md)
   - SubPlan
   - bms_is_empty
   - lfirst_int
-  - ParamExecData
+  - [ParamExecData](../P/ParamExecData.md)
   - CTE_SUBLINK
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
 - Called from (representative examples):
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 
 ## Notes and Other Information
 - The function performs validation checks to ensure the subplan is properly configured as an initplan (no parParam, has setParam, has extParam)

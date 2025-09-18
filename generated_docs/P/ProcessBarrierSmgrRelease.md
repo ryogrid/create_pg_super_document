@@ -21,9 +21,9 @@ The function always returns true, indicating successful completion of the barrie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrreleaseall (releases all open storage manager files)
+  - [smgrreleaseall](../s/smgrreleaseall.md) (releases all open storage manager files)
 - Called from (representative examples):
-  - ProcessProcSignalBarrier (in procsignal.c at line 542)
+  - [ProcessProcSignalBarrier](ProcessProcSignalBarrier.md) (in procsignal.c at line 542)
 
 ## Notes and Other Information
 - Part of PostgreSQL's ProcSignalBarrier system for coordinated inter-process operations

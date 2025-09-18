@@ -23,7 +23,7 @@ The function is a thin wrapper around the internal `network_send` function, spec
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP: Macro to extract INET argument from function args
-  - network_send: Internal function that performs the actual binary serialization
+  - [network_send](../n/network_send.md): Internal function that performs the actual binary serialization
   - PG_RETURN_BYTEA_P: Macro to return bytea result
 - Called from (representative examples):
   - No direct callers found in codebase (likely called by PostgreSQL type system infrastructure)

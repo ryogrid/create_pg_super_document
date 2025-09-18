@@ -25,7 +25,7 @@ The function validates the input character and returns false for any character t
 - Functions called/Symbols referenced:
   - (none - uses only basic character operations)
 - Called from (representative examples):
-  - conninfo_uri_decode
+  - [conninfo_uri_decode](../c/conninfo_uri_decode.md)
   - internalPQconninfoOption
 
 ## Notes and Other Information

@@ -21,8 +21,8 @@ The unicode_linestyle enumeration specifies different styles of Unicode line dra
 - Functions called/Symbols referenced:
   - None (enumeration type definition)
 - Called from (representative examples):
-  - set_unicode_line_style (src/bin/psql/command.c:4491)
-  - printTableOpt (src/include/fe_utils/print.h:141-143) - used for unicode_border_linestyle, unicode_column_linestyle, and unicode_header_linestyle
+  - [set_unicode_line_style](../s/set_unicode_line_style.md) (src/bin/psql/command.c:4491)
+  - [printTableOpt](../p/printTableOpt.md) (src/include/fe_utils/print.h:141-143) - used for unicode_border_linestyle, unicode_column_linestyle, and unicode_header_linestyle
 
 ## Notes and Other Information
 - This enumeration is used in three different contexts within printTableOpt structure: border lines, column separators, and header lines, allowing independent control of each element's line style

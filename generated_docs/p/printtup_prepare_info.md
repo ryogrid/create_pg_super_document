@@ -21,16 +21,16 @@ This function initializes the PrinttupAttrInfo array that contains cached inform
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation)
-  - palloc0 (zero-initialized memory allocation)
-  - getTypeOutputInfo (text output function lookup)
-  - getTypeBinaryOutputInfo (binary output function lookup)
-  - fmgr_info (function manager info setup)
+  - [pfree](pfree.md) (memory deallocation)
+  - [palloc0](palloc0.md) (zero-initialized memory allocation)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md) (text output function lookup)
+  - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md) (binary output function lookup)
+  - [fmgr_info](../f/fmgr_info.md) (function manager info setup)
   - ereport, errcode, errmsg (error reporting)
   - TupleDescAttr (attribute access macro)
-  - PrinttupAttrInfo (per-attribute information structure)
+  - [PrinttupAttrInfo](../P/PrinttupAttrInfo.md) (per-attribute information structure)
 - Called from (representative examples):
-  - printtup
+  - [printtup](printtup.md)
 
 ## Notes and Other Information
 - Supports two format codes: 0 (text format) and 1 (binary format)

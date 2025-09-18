@@ -21,18 +21,18 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search  
-  - DropCachedPlan
-  - hash_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)  
+  - [DropCachedPlan](DropCachedPlan.md)
+  - [hash_search](../h/hash_search.md)
   - HASH_REMOVE
 - Data structures used:
   - HASH_SEQ_STATUS
   - PreparedStatement
   - prepared_queries (global hash table)
 - Called from (representative examples):
-  - DiscardAll
-  - DeallocateQuery
+  - [DiscardAll](DiscardAll.md)
+  - [DeallocateQuery](DeallocateQuery.md)
 
 ## Notes and Other Information
 - The function uses PostgreSQL's hash table sequential scan mechanism to safely iterate through all entries

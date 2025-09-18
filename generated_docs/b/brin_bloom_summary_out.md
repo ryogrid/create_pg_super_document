@@ -27,8 +27,8 @@ This function serves as the output routine for the brin_bloom_summary data type,
   - appendStringInfo
   - PG_RETURN_CSTRING
 - Data types used:
-  - BloomFilter
-  - StringInfoData
+  - [BloomFilter](../B/BloomFilter.md)
+  - [StringInfoData](../S/StringInfoData.md)
 - Called from (representative examples):
   - PostgreSQL type system (when converting to text representation)
 

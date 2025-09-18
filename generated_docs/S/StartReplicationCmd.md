@@ -24,9 +24,9 @@ StartReplicationCmd represents the START_REPLICATION command used in PostgreSQL'
 - Functions called/Symbols referenced:
   - ReplicationKind
 - Called from (representative examples):
-  - StartReplication (src/backend/replication/walsender.c:823)
-  - StartLogicalReplication (src/backend/replication/walsender.c:1456)
-  - exec_replication_command (src/backend/replication/walsender.c:2151)
+  - [StartReplication](StartReplication.md) (src/backend/replication/walsender.c:823)
+  - [StartLogicalReplication](StartLogicalReplication.md) (src/backend/replication/walsender.c:1456)
+  - [exec_replication_command](../e/exec_replication_command.md) (src/backend/replication/walsender.c:2151)
 
 ## Notes and Other Information
 - This structure is part of the replication protocol command set defined in replnodes.h

@@ -29,16 +29,16 @@ This filtering mechanism is commonly used to:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filter_by_origin_cb_wrapper
+  - [filter_by_origin_cb_wrapper](../f/filter_by_origin_cb_wrapper.md)
 - Called from (representative examples):
-  - logicalmsg_decode
-  - DecodeInsert
-  - DecodeUpdate
-  - DecodeDelete
-  - DecodeTruncate
-  - DecodeMultiInsert
-  - DecodeSpecConfirm
-  - DecodeTXNNeedSkip
+  - [logicalmsg_decode](../l/logicalmsg_decode.md)
+  - [DecodeInsert](../D/DecodeInsert.md)
+  - [DecodeUpdate](../D/DecodeUpdate.md)
+  - [DecodeDelete](../D/DecodeDelete.md)
+  - [DecodeTruncate](../D/DecodeTruncate.md)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md)
+  - [DecodeSpecConfirm](../D/DecodeSpecConfirm.md)
+  - [DecodeTXNNeedSkip](../D/DecodeTXNNeedSkip.md)
 
 ## Notes and Other Information
 - Returns `true` if the change should be filtered out (skipped)

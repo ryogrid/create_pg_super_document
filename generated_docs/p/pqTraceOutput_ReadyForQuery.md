@@ -24,9 +24,9 @@ The message contains a single byte that indicates the current transaction status
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputByte1 (reads and formats the transaction status byte)
+  - [pqTraceOutputByte1](pqTraceOutputByte1.md) (reads and formats the transaction status byte)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message dispatcher for trace output)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message dispatcher for trace output)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, part of the internal tracing infrastructure

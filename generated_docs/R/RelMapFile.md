@@ -32,15 +32,15 @@ The structure is critical for PostgreSQL's bootstrap process and system catalog 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapping (struct type for array elements)
+  - [RelMapping](RelMapping.md) (struct type for array elements)
   - MAX_MAPPINGS (constant defining maximum number of mappings)
   - pg_crc32c (data type for checksum)
 - Called from (representative examples):
-  - RelationMapOidToFilenumber
-  - RelationMapFilenumberToOid
-  - read_relmap_file
-  - write_relmap_file
-  - perform_relmap_update
+  - [RelationMapOidToFilenumber](RelationMapOidToFilenumber.md)
+  - [RelationMapFilenumberToOid](RelationMapFilenumberToOid.md)
+  - [read_relmap_file](../r/read_relmap_file.md)
+  - [write_relmap_file](../w/write_relmap_file.md)
+  - [perform_relmap_update](../p/perform_relmap_update.md)
 
 ## Notes and Other Information
 - This structure serves as both the in-memory representation and the on-disk format for relation mapping files

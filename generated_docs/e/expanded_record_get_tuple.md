@@ -23,7 +23,7 @@ The function is optimized to avoid unnecessary tuple construction when possible.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_form_tuple
+  - [heap_form_tuple](../h/heap_form_tuple.md)
 - Called from (representative examples):
   - No direct references found (likely used by external code accessing expanded records)
 

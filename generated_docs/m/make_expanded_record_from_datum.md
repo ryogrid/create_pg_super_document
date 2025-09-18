@@ -23,19 +23,19 @@ The function detoasts and copies the source record into the expanded object's pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - EOH_init_header
   - DatumGetHeapTupleHeader
   - HeapTupleHeaderGetDatumLength
-  - ItemPointerSetInvalid
-  - heap_copytuple
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
   - HeapTupleHeaderHasExternal
   - EOHPGetRWDatum
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from:
-  - DatumGetExpandedRecord
+  - [DatumGetExpandedRecord](../D/DatumGetExpandedRecord.md)
 
 ## Notes and Other Information
 - Optimizes performance by deferring tuple descriptor lookup until needed, unlike other creation functions

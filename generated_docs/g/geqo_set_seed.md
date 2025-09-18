@@ -23,7 +23,7 @@ The function operates on the GEQO private data structure stored within the plann
   - GeqoPrivateData (struct type)
   - pg_prng_fseed (PostgreSQL's pseudo-random number generator seed function)
 - Called from (representative examples):
-  - geqo (main GEQO entry point in geqo_main.c:106)
+  - [geqo](geqo.md) (main GEQO entry point in geqo_main.c:106)
 
 ## Notes and Other Information
 - Part of the GEQO (Genetic Query Optimizer) subsystem in PostgreSQL

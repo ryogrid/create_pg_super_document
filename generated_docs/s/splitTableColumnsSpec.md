@@ -22,11 +22,11 @@ The function scans through the input string character by character, maintaining 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmblenBounded
-  - pnstrdup
+  - [PQmblenBounded](../P/PQmblenBounded.md)
+  - [pnstrdup](../p/pnstrdup.md)
 - Called from (representative examples):
-  - appendQualifiedRelation
-  - vacuum_one_database
+  - [appendQualifiedRelation](../a/appendQualifiedRelation.md)
+  - [vacuum_one_database](../v/vacuum_one_database.md)
 
 ## Notes and Other Information
 - The caller is responsible for freeing the memory allocated for the table name using pg_free()

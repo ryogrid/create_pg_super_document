@@ -22,12 +22,12 @@ This function creates a MinMaxAggPath node that represents an optimized approach
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - cost_qual_eval
-  - is_parallel_safe
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [is_parallel_safe](../i/is_parallel_safe.md)
   - lfirst
   - cpu_tuple_cost
 - Called from (representative examples):
-  - preprocess_minmax_aggregates (src/backend/optimizer/plan/planagg.c:220)
+  - [preprocess_minmax_aggregates](../p/preprocess_minmax_aggregates.md) (src/backend/optimizer/plan/planagg.c:220)
 
 ## Notes and Other Information
 - The topmost generated Plan node will be a Result node, not an Agg node

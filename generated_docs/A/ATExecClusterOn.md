@@ -23,13 +23,13 @@ The function validates that the index exists in the same namespace as the table,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_relname_relid
+  - [get_relname_relid](../g/get_relname_relid.md)
   - RelationGetRelationName
-  - check_index_is_clusterable
-  - mark_index_clustered
+  - [check_index_is_clusterable](../c/check_index_is_clusterable.md)
+  - [mark_index_clustered](../m/mark_index_clustered.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within tablecmds.c as part of the ALTER TABLE infrastructure

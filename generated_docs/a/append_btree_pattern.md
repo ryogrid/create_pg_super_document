@@ -19,11 +19,11 @@ This function is a specialized wrapper around `append_relation_pattern_helper` t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - append_relation_pattern_helper
-  - PatternInfoArray
+  - [append_relation_pattern_helper](append_relation_pattern_helper.md)
+  - [PatternInfoArray](../P/PatternInfoArray.md)
 - Called from (representative examples):
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:325)
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:329)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:325)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:329)
 
 ## Notes and Other Information
 - This is a static function within pg_amcheck.c, meaning it's only accessible within that compilation unit

@@ -25,9 +25,9 @@ The function is part of PostgreSQL's parallel query execution framework, specifi
   - shm_toc_allocate
   - LWLockInitialize
   - shm_toc_insert
-  - choose_next_subplan_for_leader
+  - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)
 
 ## Notes and Other Information
 - The function allocates shared memory based on the pre-calculated `pstate_len` field in the AppendState

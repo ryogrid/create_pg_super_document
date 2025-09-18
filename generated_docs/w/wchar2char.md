@@ -31,18 +31,18 @@ Key implementation details:
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (PostgreSQL assertion macro)
-  - GetDatabaseEncoding (PostgreSQL function to get current database encoding)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (PostgreSQL function to get current database encoding)
   - WideCharToMultiByte (Windows API function for character conversion)
   - wcstombs (standard C library function for character conversion)
-  - wcstombs_l (locale-specific C library function for character conversion)
+  - [wcstombs_l](wcstombs_l.md) (locale-specific C library function for character conversion)
   - COLLPROVIDER_LIBC (PostgreSQL constant for libc collation provider)
   - PG_UTF8 (PostgreSQL UTF-8 encoding constant)
 - Called from (representative examples):
-  - lowerstr_with_len (src/backend/tsearch/ts_locale.c:308)
-  - str_tolower (src/backend/utils/adt/formatting.c:1747)
-  - str_toupper (src/backend/utils/adt/formatting.c:1895)
-  - str_initcap (src/backend/utils/adt/formatting.c:2109)
-  - get_iso_localename (src/backend/utils/adt/pg_locale.c:1180)
+  - [lowerstr_with_len](../l/lowerstr_with_len.md) (src/backend/tsearch/ts_locale.c:308)
+  - [str_tolower](../s/str_tolower.md) (src/backend/utils/adt/formatting.c:1747)
+  - [str_toupper](../s/str_toupper.md) (src/backend/utils/adt/formatting.c:1895)
+  - [str_initcap](../s/str_initcap.md) (src/backend/utils/adt/formatting.c:2109)
+  - [get_iso_localename](../g/get_iso_localename.md) (src/backend/utils/adt/pg_locale.c:1180)
 
 ## Notes and Other Information
 - Works with libc's wchar_t type, not PostgreSQL's pg_wchar_t type

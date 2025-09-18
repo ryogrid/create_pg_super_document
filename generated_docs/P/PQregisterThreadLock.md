@@ -21,7 +21,7 @@ The default_threadlock function uses pthread mutex operations to provide basic t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - default_threadlock (fallback handler when newhandler is NULL)
+  - [default_threadlock](../d/default_threadlock.md) (fallback handler when newhandler is NULL)
   - pg_g_threadlock (global variable storing the current thread lock handler)
 
 - Called from (representative examples):

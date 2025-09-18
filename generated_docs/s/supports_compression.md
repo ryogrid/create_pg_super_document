@@ -24,17 +24,17 @@ The function supports four compression algorithms:
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_compress_algorithm_name
-  - psprintf
-  - pg_compress_specification
-  - pg_compress_algorithm
+  - [psprintf](../p/psprintf.md)
+  - [pg_compress_specification](../p/pg_compress_specification.md)
+  - [pg_compress_algorithm](../p/pg_compress_algorithm.md)
   - PG_COMPRESSION_NONE
   - PG_COMPRESSION_GZIP
   - PG_COMPRESSION_LZ4
   - PG_COMPRESSION_ZSTD
 - Called from (representative examples):
-  - RestoreArchive (src/bin/pg_dump/pg_backup_archiver.c:374)
-  - ReadHead (src/bin/pg_dump/pg_backup_archiver.c:4050)
-  - main (src/bin/pg_dump/pg_dump.c:806)
+  - [RestoreArchive](../R/RestoreArchive.md) (src/bin/pg_dump/pg_backup_archiver.c:374)
+  - [ReadHead](../R/ReadHead.md) (src/bin/pg_dump/pg_backup_archiver.c:4050)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:806)
 
 ## Notes and Other Information
 - The function returns a malloc'ed string on failure, so the caller is responsible for freeing the memory

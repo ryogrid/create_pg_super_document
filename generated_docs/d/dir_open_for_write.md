@@ -34,11 +34,11 @@ The function supports both synchronous and asynchronous modes, with synchronous 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dir_get_file_name (filename construction)
+  - [dir_get_file_name](dir_get_file_name.md) (filename construction)
   - clear_error (error state initialization)
   - open (file creation)
   - pg_pwrite_zeros (file pre-padding)
-  - fsync_fname, fsync_parent_path (synchronization)
+  - [fsync_fname](../f/fsync_fname.md), fsync_parent_path (synchronization)
   - pg_malloc0, pg_free, pg_strdup (memory management)
   - Compression library functions (gzdopen, LZ4F_createCompressionContext, etc.)
 - Called from (representative examples):

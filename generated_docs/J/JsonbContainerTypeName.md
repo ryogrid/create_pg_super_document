@@ -17,14 +17,14 @@ This function analyzes a JSONB container and returns its type name as a human-re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbExtractScalar
-  - JsonbTypeName
+  - [JsonbExtractScalar](JsonbExtractScalar.md)
+  - [JsonbTypeName](JsonbTypeName.md)
   - JsonContainerIsArray
   - JsonContainerIsObject
   - elog
 - Called from (representative examples):
-  - JsonbTypeName
-  - jsonb_typeof
+  - [JsonbTypeName](JsonbTypeName.md)
+  - [jsonb_typeof](../j/jsonb_typeof.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

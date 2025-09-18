@@ -20,18 +20,18 @@ This function takes no parameters and operates on the current database (MyDataba
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (to open the pg_database relation)
-  - LockSharedObject (to acquire exclusive lock preventing conflicts)
-  - SearchSysCacheLockedCopy1 (to find and lock the database tuple)
+  - [LockSharedObject](../L/LockSharedObject.md) (to acquire exclusive lock preventing conflicts)
+  - [SearchSysCacheLockedCopy1](SearchSysCacheLockedCopy1.md) (to find and lock the database tuple)
   - HeapTupleIsValid (to validate the found tuple)
   - GETSTRUCT (to extract the form structure from the tuple)
-  - CatalogTupleUpdate (to update the catalog tuple)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (to update the catalog tuple)
   - CommandCounterIncrement (to ensure visibility of changes)
-  - UnlockTuple (to release the tuple lock)
+  - [UnlockTuple](../U/UnlockTuple.md) (to release the tuple lock)
   - table_close (to close the relation)
-  - heap_freetuple (to free the tuple memory)
+  - [heap_freetuple](../h/heap_freetuple.md) (to free the tuple memory)
 - Called from (representative examples):
-  - insert_event_trigger_tuple
-  - AlterEventTrigger
+  - [insert_event_trigger_tuple](../i/insert_event_trigger_tuple.md)
+  - [AlterEventTrigger](../A/AlterEventTrigger.md)
 
 ## Notes and Other Information
 - The function uses a custom locking mechanism (LockSharedObject with AccessExclusiveLock) specifically to coordinate with EventTriggerOnLogin()

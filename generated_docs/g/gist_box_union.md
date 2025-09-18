@@ -22,9 +22,9 @@ The function iterates through all entries in the provided vector, starting with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP: Extracts BOX pointer from Datum
-  - adjustBox: Adjusts bounding box to include another box
-  - palloc: PostgreSQL memory allocation function
+  - [DatumGetBoxP](../D/DatumGetBoxP.md): Extracts BOX pointer from Datum
+  - [adjustBox](../a/adjustBox.md): Adjusts bounding box to include another box
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - memcpy: Memory copy function
 - Called from (representative examples):
   - No direct references found in the indexed codebase

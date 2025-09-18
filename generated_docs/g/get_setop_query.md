@@ -35,12 +35,12 @@ Key features:
 - Functions called/Symbols referenced:
   - check_stack_depth (prevent stack overflow in recursive calls)
   - rt_fetch (retrieve range table entry by index)
-  - get_query_def (generate SQL for subqueries)
+  - [get_query_def](get_query_def.md) (generate SQL for subqueries)
   - appendContextKeyword (format keywords with proper indentation)
   - nodeTag (get node type for error checking)
 - Called from (representative examples):
-  - get_select_query_def (src/backend/utils/adt/ruleutils.c:5722)
-  - get_setop_query (recursive calls at lines 6247 and 6297)
+  - [get_select_query_def](get_select_query_def.md) (src/backend/utils/adt/ruleutils.c:5722)
+  - [get_setop_query](get_setop_query.md) (recursive calls at lines 6247 and 6297)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule decompilation system for complex set operations

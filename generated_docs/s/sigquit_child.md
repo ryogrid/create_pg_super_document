@@ -18,12 +18,12 @@ This function is designed to terminate child processes in response to crashes in
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for logging)
-  - signal_child (actual signal sending)
+  - [signal_child](signal_child.md) (actual signal sending)
   - send_abort_for_crash (global variable determining signal type)
   - DEBUG2 (logging level constant)
   - SIGQUIT/SIGABRT (signal constants)
 - Called from (representative examples):
-  - HandleChildCrash (multiple locations for different child process types)
+  - [HandleChildCrash](../H/HandleChildCrash.md) (multiple locations for different child process types)
 
 ## Notes and Other Information
 - This is a static function internal to postmaster.c

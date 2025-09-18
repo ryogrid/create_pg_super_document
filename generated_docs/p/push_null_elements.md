@@ -20,13 +20,13 @@ This function creates and pushes null JSON values as array elements into a JSONB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushJsonbValue
-  - JsonbParseState (type)
+  - [pushJsonbValue](pushJsonbValue.md)
+  - [JsonbParseState](../J/JsonbParseState.md) (type)
   - jbvNull (enum value)
   - WJB_ELEM (enum value)
 - Called from (representative examples):
-  - push_path
-  - setPathArray
+  - [push_path](push_path.md)
+  - [setPathArray](../s/setPathArray.md)
 
 ## Notes and Other Information
 This is a static helper function used internally within jsonfuncs.c for JSONB manipulation operations. It's particularly useful when building arrays where gaps need to be filled with null values or when extending arrays to a specific length.

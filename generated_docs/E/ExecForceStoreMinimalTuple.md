@@ -29,18 +29,18 @@ This approach allows minimal tuples to be stored in any slot type while maintain
 - Functions called/Symbols referenced:
   - MinimalTuple (type)
   - TTS_IS_MINIMALTUPLE (type checking macro)
-  - tts_minimal_store_tuple (optimized minimal tuple storage)
-  - HeapTupleData (temporary heap tuple structure)
+  - [tts_minimal_store_tuple](../t/tts_minimal_store_tuple.md) (optimized minimal tuple storage)
+  - [HeapTupleData](../H/HeapTupleData.md) (temporary heap tuple structure)
   - ExecClearTuple (slot clearing function)
   - MINIMAL_TUPLE_OFFSET (offset constant for conversion)
   - HeapTupleHeader (heap tuple header type)
-  - heap_deform_tuple (tuple deformation function)
-  - ExecStoreVirtualTuple (virtual tuple storage)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md) (tuple deformation function)
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md) (virtual tuple storage)
   - ExecMaterializeSlot (slot materialization)
 - Called from (representative examples):
-  - ExecParallelHashJoinOuterGetTuple
-  - ExecParallelHashJoinNewBatch
-  - ExecHashJoinGetSavedTuple
+  - [ExecParallelHashJoinOuterGetTuple](ExecParallelHashJoinOuterGetTuple.md)
+  - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
+  - [ExecHashJoinGetSavedTuple](ExecHashJoinGetSavedTuple.md)
 
 ## Notes and Other Information
 - This function bridges the gap between minimal tuples and other slot types through format conversion

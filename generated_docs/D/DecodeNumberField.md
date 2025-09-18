@@ -41,9 +41,9 @@ The function returns DTK tokens for successful parsing or DTERR error codes for 
   - struct pg_tm
   - fsec_t
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeTimeOnly
-  - DecodeNumber
+  - [DecodeDateTime](DecodeDateTime.md)
+  - [DecodeTimeOnly](DecodeTimeOnly.md)
+  - [DecodeNumber](DecodeNumber.md)
 
 ## Notes and Other Information
 - This is a static function internal to datetime.c, not part of the public API

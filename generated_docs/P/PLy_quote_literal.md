@@ -20,10 +20,10 @@ The function is exposed to Python as `plpy.quote_literal()` and is essential for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - quote_literal_cstr (PostgreSQL's core literal quoting function)
-  - PLyUnicode_FromString (converts C string back to Python string)
+  - [quote_literal_cstr](../q/quote_literal_cstr.md) (PostgreSQL's core literal quoting function)
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md) (converts C string back to Python string)
   - PyArg_ParseTuple (parses Python arguments)
-  - pfree (frees allocated memory)
+  - [pfree](../p/pfree.md) (frees allocated memory)
 - Called from (representative examples):
   - Exposed to Python as `plpy.quote_literal` method in the plpy module
 

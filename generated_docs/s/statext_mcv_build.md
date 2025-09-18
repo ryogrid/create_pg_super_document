@@ -30,17 +30,17 @@ For each MCV item, the function calculates both the observed frequency and the b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_mss
-  - build_sorted_items
-  - build_distinct_groups
-  - get_mincount_for_mcv_list
-  - build_column_frequencies
+  - [build_mss](../b/build_mss.md)
+  - [build_sorted_items](../b/build_sorted_items.md)
+  - [build_distinct_groups](../b/build_distinct_groups.md)
+  - [get_mincount_for_mcv_list](../g/get_mincount_for_mcv_list.md)
+  - [build_column_frequencies](../b/build_column_frequencies.md)
   - bsearch_arg
-  - multi_sort_compare
-  - MCVList, MCVItem, SortItem, StatsBuildData
+  - [multi_sort_compare](../m/multi_sort_compare.md)
+  - [MCVList](../M/MCVList.md), MCVItem, SortItem, StatsBuildData
   - STATS_MCV_MAGIC, STATS_MCV_TYPE_BASIC
 - Called from (representative examples):
-  - BuildRelationExtStatistics
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
 
 ## Notes and Other Information
 - Returns NULL if no items are available or if sorting fails

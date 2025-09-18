@@ -21,12 +21,12 @@ This function serves as a qsort comparison callback for sorting PartitionRangeBo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionRangeBound
-  - PartitionKey
+  - [PartitionRangeBound](../P/PartitionRangeBound.md)
+  - [PartitionKey](../P/PartitionKey.md)
   - compare_range_bounds
 - Called from (representative examples):
   - compare_range_bounds
-  - create_range_bounds
+  - [create_range_bounds](../c/create_range_bounds.md)
 
 ## Notes and Other Information
 - This is a static function internal to partbounds.c

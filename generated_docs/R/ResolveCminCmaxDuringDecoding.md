@@ -31,17 +31,17 @@ This function is essential for maintaining MVCC (Multi-Version Concurrency Contr
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal
-  - BufferGetTag
-  - ItemPointerGetBlockNumber
-  - ItemPointerCopy
-  - hash_search
-  - UpdateLogicalMappings
-  - ReorderBufferTupleCidKey
-  - ReorderBufferTupleCidEnt
+  - [BufferGetTag](../B/BufferGetTag.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [hash_search](../h/hash_search.md)
+  - [UpdateLogicalMappings](../U/UpdateLogicalMappings.md)
+  - [ReorderBufferTupleCidKey](ReorderBufferTupleCidKey.md)
+  - [ReorderBufferTupleCidEnt](ReorderBufferTupleCidEnt.md)
   - MAIN_FORKNUM
   - HASH_FIND
 - Called from (representative examples):
-  - HeapTupleSatisfiesHistoricMVCC
+  - [HeapTupleSatisfiesHistoricMVCC](../H/HeapTupleSatisfiesHistoricMVCC.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

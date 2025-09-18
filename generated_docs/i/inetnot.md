@@ -23,7 +23,7 @@ The operation iterates through each byte of the IP address and applies the bitwi
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP (PostgreSQL argument retrieval macro)
   - inet (struct type for network addresses)
-  - palloc0 (PostgreSQL zero-initialized memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL zero-initialized memory allocation)
   - ip_addrsize (get size of IP address in bytes)
   - ip_addr (get pointer to IP address bytes)
   - ip_bits (get/set subnet mask bits)

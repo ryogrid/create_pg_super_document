@@ -29,10 +29,10 @@ If insufficient shared memory is available, the function raises an ERROR with an
   - MAXALIGN (macro for memory alignment)
   - Assert (assertion macro)
   - ereport (error reporting function)
-  - errcode/errmsg (error reporting macros)
+  - [errcode](../e/errcode.md)/errmsg (error reporting macros)
 - Called from (representative examples):
-  - PGReserveSemaphores (in posix_sema.c and sysv_sema.c)
-  - InitShmemAllocation
+  - [PGReserveSemaphores](../P/PGReserveSemaphores.md) (in posix_sema.c and sysv_sema.c)
+  - [InitShmemAllocation](../I/InitShmemAllocation.md)
   - SpinlockSemaInit
 
 ## Notes and Other Information

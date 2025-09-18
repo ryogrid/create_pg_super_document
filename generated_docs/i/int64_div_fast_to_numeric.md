@@ -29,20 +29,20 @@ For cases where multiplication might overflow, the function falls back to either
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var
-  - int64_to_numericvar
-  - int128_to_numericvar (when HAVE_INT128 is defined)
-  - mul_var
-  - make_result
-  - free_var
-  - pg_mul_s64_overflow
+  - [int64_to_numericvar](int64_to_numericvar.md)
+  - [int128_to_numericvar](int128_to_numericvar.md) (when HAVE_INT128 is defined)
+  - [mul_var](../m/mul_var.md)
+  - [make_result](../m/make_result.md)
+  - [free_var](../f/free_var.md)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md)
   - StaticAssertDecl
   - DEC_DIGITS (constant)
 - Called from (representative examples):
-  - time_part_common
-  - timetz_part_common
-  - timestamp_part_common
-  - timestamptz_part_common
-  - interval_part_common
+  - [time_part_common](../t/time_part_common.md)
+  - [timetz_part_common](../t/timetz_part_common.md)
+  - [timestamp_part_common](../t/timestamp_part_common.md)
+  - [timestamptz_part_common](../t/timestamptz_part_common.md)
+  - [interval_part_common](interval_part_common.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/numeric.c:4320-4404

@@ -23,8 +23,8 @@ The function uses a void pointer for the source_pgproc parameter to avoid includ
   - SetTransactionSnapshot (core function for installing transaction snapshots)
   - InvalidPid (constant indicating no specific process ID)
 - Called from (representative examples):
-  - ParallelWorkerMain (parallel worker process initialization)
-  - CreateReplicationSlot (replication slot creation)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel worker process initialization)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (replication slot creation)
 
 ## Notes and Other Information
 - This is essentially a thin wrapper around SetTransactionSnapshot with preset parameters

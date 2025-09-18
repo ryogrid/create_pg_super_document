@@ -18,9 +18,9 @@ mb_strchr provides multibyte-aware character searching functionality, acting as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen (get multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (get multibyte character length)
 - Called from:
-  - RS_execute (at lines 242 and 246)
+  - [RS_execute](../R/RS_execute.md) (at lines 242 and 246)
 
 ## Notes and Other Information
 - Static function, only accessible within regis.c

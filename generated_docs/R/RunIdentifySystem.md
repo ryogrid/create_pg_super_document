@@ -21,21 +21,21 @@ This function sends the IDENTIFY_SYSTEM replication protocol command to a Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec - Execute SQL command
-  - PQresultStatus - Get result status
-  - PQntuples - Get number of result rows
-  - PQnfields - Get number of result fields
-  - PQgetvalue - Get field value from result
-  - PQserverVersion - Get server version
-  - PQgetisnull - Check if field is NULL
-  - PQclear - Free result memory
+  - [PQexec](../P/PQexec.md) - Execute SQL command
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status
+  - [PQntuples](../P/PQntuples.md) - Get number of result rows
+  - [PQnfields](../P/PQnfields.md) - Get number of result fields
+  - [PQgetvalue](../P/PQgetvalue.md) - Get field value from result
+  - [PQserverVersion](../P/PQserverVersion.md) - Get server version
+  - [PQgetisnull](../P/PQgetisnull.md) - Check if field is NULL
+  - [PQclear](../P/PQclear.md) - Free result memory
   - pg_log_error - Log error messages
-  - pg_strdup - Duplicate string
+  - [pg_strdup](../p/pg_strdup.md) - Duplicate string
 - Called from (representative examples):
-  - BaseBackup (pg_basebackup.c:1826)
-  - StreamLog (pg_receivewal.c:531)
-  - main (pg_receivewal.c:851, pg_recvlogical.c:952)
-  - ReceiveXlogStream (receivelog.c:500)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup.c:1826)
+  - [StreamLog](../S/StreamLog.md) (pg_receivewal.c:531)
+  - [main](../m/main.md) (pg_receivewal.c:851, pg_recvlogical.c:952)
+  - [ReceiveXlogStream](ReceiveXlogStream.md) (receivelog.c:500)
 
 ## Notes and Other Information
 - The function expects exactly 1 row with at least 3 fields in the result

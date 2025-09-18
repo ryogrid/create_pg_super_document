@@ -23,17 +23,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct
-  - ReplicationSlotsShmemSize
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [ReplicationSlotsShmemSize](ReplicationSlotsShmemSize.md)
   - MemSet
   - SpinLockInit
   - LWLockInitialize
-  - ConditionVariableInit
-  - ReplicationSlotCtlData (struct)
-  - ReplicationSlot (struct)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md)
+  - [ReplicationSlotCtlData](ReplicationSlotCtlData.md) (struct)
+  - [ReplicationSlot](ReplicationSlot.md) (struct)
   - LWTRANCHE_REPLICATION_SLOT_IO (constant)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Returns immediately if max_replication_slots is 0 (replication slots disabled)

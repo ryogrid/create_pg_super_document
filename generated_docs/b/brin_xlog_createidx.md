@@ -19,10 +19,10 @@ This function is responsible for replaying BRIN index creation operations during
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extracts the data portion from the WAL record
   - XLogInitBufferForRedo: Initializes a buffer for redo operations
-  - brin_metapage_init: Initializes the BRIN metapage with specified parameters
-  - xl_brin_createidx: Structure containing BRIN creation parameters (pagesPerRange, version)
+  - [brin_metapage_init](brin_metapage_init.md): Initializes the BRIN metapage with specified parameters
+  - [xl_brin_createidx](../x/xl_brin_createidx.md): Structure containing BRIN creation parameters (pagesPerRange, version)
 - Called from (representative examples):
-  - brin_redo: Main BRIN WAL replay dispatcher function
+  - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin_xlog.c file

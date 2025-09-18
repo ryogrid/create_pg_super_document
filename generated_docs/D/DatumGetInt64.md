@@ -21,13 +21,13 @@ This abstraction allows the same code to work correctly across different platfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (on pass-by-reference platforms)
+  - [DatumGetPointer](DatumGetPointer.md) (on pass-by-reference platforms)
   - USE_FLOAT8_BYVAL (preprocessor flag)
 - Called from (representative examples):
-  - btint8fastcmp (B-tree comparison for int8)
-  - defGetInt64 (option parsing)
-  - recompute_limits (LIMIT/OFFSET processing)
-  - generate_series_int8_support (series generation)
+  - [btint8fastcmp](../b/btint8fastcmp.md) (B-tree comparison for int8)
+  - [defGetInt64](../d/defGetInt64.md) (option parsing)
+  - [recompute_limits](../r/recompute_limits.md) (LIMIT/OFFSET processing)
+  - [generate_series_int8_support](../g/generate_series_int8_support.md) (series generation)
   - PG_GETARG_INT64 (function manager macro)
   - DatumGetTimestamp (timestamp handling)
 

@@ -23,8 +23,8 @@ This function serves as a wrapper around PostgreSQL's pseudo-random number gener
 - Called from (representative examples):
   - BlockSampler_Init
   - reservoir_init_selection_state
-  - anl_random_fract
-  - anl_init_selection_state
+  - [anl_random_fract](../a/anl_random_fract.md)
+  - [anl_init_selection_state](../a/anl_init_selection_state.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's sampling infrastructure and is used by various sampling algorithms including block sampling for table analysis and reservoir sampling. The function provides a consistent interface for initializing random states across different sampling contexts, ensuring reproducible results when the same seed is used.

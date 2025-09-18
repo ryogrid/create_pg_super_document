@@ -21,14 +21,14 @@ PQcmdStatus returns a pointer to the command status string stored in a PGresult 
 - Functions called/Symbols referenced:
   - (None - direct field access)
 - Called from (representative examples):
-  - PrintQueryStatus (src/bin/psql/common.c:960)
-  - ExecQueryAndProcessResults (src/bin/psql/common.c:1589)
+  - [PrintQueryStatus](PrintQueryStatus.md) (src/bin/psql/common.c:960)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1589)
   - ecpg_process_output (src/interfaces/ecpg/ecpglib/execute.c:1866)
-  - test_pipelined_insert (src/test/modules/libpq_pipeline/libpq_pipeline.c:1172, 1174)
+  - [test_pipelined_insert](../t/test_pipelined_insert.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:1172, 1174)
 
 ## Notes and Other Information
 - Returns NULL if the PGresult pointer is NULL
 - The returned string is owned by the PGresult structure and should not be freed by the caller
-- Command status strings follow PostgreSQL's standard format for different SQL command types
+- [Command](../C/Command.md) status strings follow PostgreSQL's standard format for different SQL command types
 - Part of the libpq client interface for PostgreSQL database connectivity
 - Commonly used for logging, debugging, and determining the success/impact of SQL operations

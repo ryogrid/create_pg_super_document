@@ -23,15 +23,15 @@ The function is designed for scenarios where it's important to amortize the cost
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogTupleCheckConstraints
-  - simple_heap_insert
-  - CatalogIndexInsert
+  - [CatalogTupleCheckConstraints](CatalogTupleCheckConstraints.md)
+  - [simple_heap_insert](../s/simple_heap_insert.md)
+  - [CatalogIndexInsert](CatalogIndexInsert.md)
   - TU_All
 - Called from (representative examples):
-  - CopyStatistics
-  - update_attstats
-  - inv_write
-  - inv_truncate
+  - [CopyStatistics](CopyStatistics.md)
+  - [update_attstats](../u/update_attstats.md)
+  - [inv_write](../i/inv_write.md)
+  - [inv_truncate](../i/inv_truncate.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's catalog management infrastructure, specifically designed for performance optimization in bulk operations

@@ -27,13 +27,13 @@ The function validates each column in the fksetcolsattnums array against the for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth
+  - [list_nth](../l/list_nth.md)
   - strVal
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
   - child_dependency_type
 
 ## Notes and Other Information

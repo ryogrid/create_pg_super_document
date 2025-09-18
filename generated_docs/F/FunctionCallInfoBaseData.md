@@ -27,12 +27,12 @@ Called functions are expected to set the  field and potentially modify  or field
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmNodePtr
-  - NullableDatum
+  - [fmNodePtr](../f/fmNodePtr.md)
+  - [NullableDatum](../N/NullableDatum.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - ScalarArrayOpExprHashTable
-  - FunctionCallInfo (typedef pointer)
+  - [ScalarArrayOpExprHashTable](../S/ScalarArrayOpExprHashTable.md)
+  - [FunctionCallInfo](FunctionCallInfo.md) (typedef pointer)
   - SizeForFunctionCallInfo
   - LOCAL_FCINFO
   - pgstat_count_conn_txn_idle_time

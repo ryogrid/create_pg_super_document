@@ -24,9 +24,9 @@ The `hashfloat8` function computes hash values for double-precision floating-poi
   - PG_RETURN_UINT32
   - isnan
   - get_float8_nan
-  - hash_any
+  - [hash_any](hash_any.md)
 - Called from (representative examples):
-  - tablesample_init (at src/backend/executor/nodeSamplescan.c:270)
+  - [tablesample_init](../t/tablesample_init.md) (at src/backend/executor/nodeSamplescan.c:270)
 
 ## Notes and Other Information
 - Handles IEEE floating-point special cases: zero/negative zero are normalized to hash value 0

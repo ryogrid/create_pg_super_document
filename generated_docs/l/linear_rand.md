@@ -25,10 +25,10 @@ The implementation includes safeguards against numerical issues, including handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geqo_rand (provides uniform random numbers between 0.0 and 1.0)
+  - [geqo_rand](../g/geqo_rand.md) (provides uniform random numbers between 0.0 and 1.0)
   - sqrt (standard math library square root function)
 - Called from (representative examples):
-  - geqo_selection (uses this for biased parent selection)
+  - [geqo_selection](../g/geqo_selection.md) (uses this for biased parent selection)
 
 ## Notes and Other Information
 - This is a static function, only accessible within geqo_selection.c

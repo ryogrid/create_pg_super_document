@@ -34,9 +34,9 @@ The function returns NULL if insufficient space is available, allowing callers t
 - Functions called/Symbols referenced:
   - CACHELINEALIGN (macro)
 - Called from (representative examples):
-  - ShmemAlloc
-  - ShmemAllocNoError
-  - ShmemInitStruct
+  - [ShmemAlloc](ShmemAlloc.md)
+  - [ShmemAllocNoError](ShmemAllocNoError.md)
+  - [ShmemInitStruct](ShmemInitStruct.md)
 
 ## Notes and Other Information
 - Static function - only accessible within shmem.c

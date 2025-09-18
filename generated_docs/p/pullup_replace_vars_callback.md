@@ -32,15 +32,15 @@ The function uses sophisticated logic to determine whether expressions need Plac
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject, get_tle_by_resno, expandRTE
-  - make_placeholder_expr, add_nulling_relids
-  - pull_varnos, contain_vars_of_level, contain_nonstrict_functions
+  - [make_placeholder_expr](../m/make_placeholder_expr.md), add_nulling_relids
+  - [pull_varnos](pull_varnos.md), contain_vars_of_level, contain_nonstrict_functions
   - bms_* functions (bitmap set operations)
-  - IncrementVarSublevelsUp, replace_rte_variables_mutator
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md), replace_rte_variables_mutator
   - RowExpr, PlaceHolderVar, InvalidAttrNumber
   - COERCE_IMPLICIT_CAST, nullingrel_info
 - Called from (representative examples):
-  - pullup_replace_vars (via replace_rte_variables)
-  - pullup_replace_vars_subquery (via replace_rte_variables)
+  - [pullup_replace_vars](pullup_replace_vars.md) (via replace_rte_variables)
+  - [pullup_replace_vars_subquery](pullup_replace_vars_subquery.md) (via replace_rte_variables)
 
 ## Notes and Other Information
 - Uses caching in `rcon->rv_cache[]` to avoid creating duplicate PlaceHolderVars with different IDs

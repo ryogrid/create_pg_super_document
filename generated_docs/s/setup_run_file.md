@@ -39,5 +39,5 @@ This approach allows the initdb process to modularize SQL setup scripts and exec
 - The function performs proper memory management by freeing each line after processing and the entire lines array at the end
 - The double newline (\n\n) at the end provides visual separation between different script sections in the generated SQL
 - This function is heavily used during database initialization, being called multiple times from  for different SQL setup files
-- The function assumes the input file exists and is readable - error handling for file access is managed by the  function
+- The function assumes the input file exists and is readable - [error](../e/error.md) handling for file access is managed by the  function
 - The design allows for modular SQL script organization, making the initdb codebase more maintainable by separating SQL logic into external files

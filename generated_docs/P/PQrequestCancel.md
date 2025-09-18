@@ -17,13 +17,13 @@ PQrequestCancel provides a simplified interface for canceling queries on an exis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetCancel (creates PGcancel object from connection)
-  - PQcancel (sends the actual cancel request)
-  - PQfreeCancel (cleans up the cancel object)
+  - [PQgetCancel](PQgetCancel.md) (creates PGcancel object from connection)
+  - [PQcancel](PQcancel.md) (sends the actual cancel request)
+  - [PQfreeCancel](PQfreeCancel.md) (cleans up the cancel object)
   - strlcpy (safe string copying for error messages)
   - strlen (string length calculation)
 - Called from (representative examples):
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:281)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:281)
   - PQsetdb (referenced in src/interfaces/libpq/libpq-fe.h:380)
 
 ## Notes and Other Information

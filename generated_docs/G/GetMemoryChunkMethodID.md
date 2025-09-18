@@ -26,8 +26,8 @@ This function retrieves the MemoryContextMethodID from the uint64 header that pr
   - MEMORY_CONTEXT_METHODID_MASK (for extracting method ID bits)
 - Called from (representative examples):
   - MCXT_METHOD (macro)
-  - pfree
-  - repalloc
+  - [pfree](../p/pfree.md)
+  - [repalloc](../r/repalloc.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance efficiency

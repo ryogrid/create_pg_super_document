@@ -23,7 +23,7 @@ This function implements the multiplication operation between a single-precision
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
   - PG_GETARG_CASH: Extracts Cash argument from function call context
-  - cash_mul_float8: Performs the actual multiplication with float8 precision
+  - [cash_mul_float8](../c/cash_mul_float8.md): Performs the actual multiplication with float8 precision
   - PG_RETURN_CASH: Returns the computed Cash result
 - Called from:
   - SQL operator implementations for float4 * money operations

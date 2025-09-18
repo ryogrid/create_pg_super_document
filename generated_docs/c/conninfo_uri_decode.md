@@ -30,13 +30,13 @@ The function provides comprehensive error handling for malformed percent-encoded
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - get_hexdigit
-  - libpq_append_error
+  - [get_hexdigit](../g/get_hexdigit.md)
+  - [libpq_append_error](../l/libpq_append_error.md)
   - strlen
   - free
 - Called from (representative examples):
-  - conninfo_uri_parse_params
-  - conninfo_storeval
+  - [conninfo_uri_parse_params](conninfo_uri_parse_params.md)
+  - [conninfo_storeval](conninfo_storeval.md)
   - internalPQconninfoOption
 
 ## Notes and Other Information

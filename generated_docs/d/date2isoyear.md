@@ -25,13 +25,13 @@ The function uses similar logic to `date2isoweek` but returns the year component
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j (converts date to Julian day number)
+  - [date2j](date2j.md) (converts date to Julian day number)
   - j2day (converts Julian day to day of week)
 - Called from (representative examples):
-  - extract_date
-  - date2isoyearday
-  - timestamp_part_common
-  - timestamptz_part_common
+  - [extract_date](../e/extract_date.md)
+  - [date2isoyearday](date2isoyearday.md)
+  - [timestamp_part_common](../t/timestamp_part_common.md)
+  - [timestamptz_part_common](../t/timestamptz_part_common.md)
 
 ## Notes and Other Information
 - Returns an integer representing the ISO year, which may differ from the input calendar year

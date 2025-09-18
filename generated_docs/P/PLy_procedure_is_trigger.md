@@ -22,7 +22,7 @@ This function is used internally within the PL/Python language handler to differ
   - Form_pg_proc: PostgreSQL system catalog structure type
   - TRIGGEROID: PostgreSQL built-in type identifier for trigger return type
 - Called from (representative examples):
-  - plpython3_validator: Used during procedure validation to determine trigger vs regular function handling
+  - [plpython3_validator](../p/plpython3_validator.md): Used during procedure validation to determine trigger vs regular function handling
 
 ## Notes and Other Information
 - Located in src/pl/plpython/plpy_main.c:339-344

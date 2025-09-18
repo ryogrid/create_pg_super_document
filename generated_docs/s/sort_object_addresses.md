@@ -22,11 +22,11 @@ The function includes an optimization to only perform sorting when there are mul
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (standard library function)
-  - object_address_comparator (custom comparison function)
+  - [object_address_comparator](../o/object_address_comparator.md) (custom comparison function)
   - ObjectAddresses (struct type)
-  - ObjectAddress (struct type for qsort element type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type for qsort element type)
 - Called from (representative examples):
-  - shdepDropOwned (src/backend/catalog/pg_shdepend.c:1513)
+  - [shdepDropOwned](shdepDropOwned.md) (src/backend/catalog/pg_shdepend.c:1513)
 
 ## Notes and Other Information
 - The sorting is performed in-place, modifying the original ObjectAddresses array

@@ -20,24 +20,24 @@ This static function is responsible for reading visibility map pages from storag
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetSmgr
-  - smgrexists
+  - [smgrexists](../s/smgrexists.md)
   - smgrnblocks
-  - vm_extend
-  - ReadBufferExtended
-  - PageIsNew
-  - LockBuffer
+  - [vm_extend](vm_extend.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [PageIsNew](../P/PageIsNew.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - PageInit
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - SMgrRelation
   - VISIBILITYMAP_FORKNUM
   - RBM_ZERO_ON_ERROR
   - BUFFER_LOCK_EXCLUSIVE
   - BUFFER_LOCK_UNLOCK
 - Called from (representative examples):
-  - visibilitymap_pin
-  - visibilitymap_get_status
-  - visibilitymap_count
-  - visibilitymap_prepare_truncate
+  - [visibilitymap_pin](visibilitymap_pin.md)
+  - [visibilitymap_get_status](visibilitymap_get_status.md)
+  - [visibilitymap_count](visibilitymap_count.md)
+  - [visibilitymap_prepare_truncate](visibilitymap_prepare_truncate.md)
 
 ## Notes and Other Information
 - Static function internal to visibilitymap.c

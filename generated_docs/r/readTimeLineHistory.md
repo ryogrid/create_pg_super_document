@@ -30,19 +30,19 @@ The history file format consists of lines containing: timeline_id, switchpoint_l
 ## Dependencies
 - Functions called/Symbols referenced:
   - TLHistoryFileName - constructs timeline history filename
-  - RestoreArchivedFile - restores archived file during recovery
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) - restores archived file during recovery
   - TLHistoryFilePath - constructs local path to history file
   - AllocateFile - opens the history file for reading
   - FreeFile - closes the file handle
-  - palloc - allocates memory for timeline entries
-  - lcons - prepends entries to the result list
-  - KeepFileRestoredFromArchive - preserves restored archive file
+  - [palloc](../p/palloc.md) - allocates memory for timeline entries
+  - [lcons](../l/lcons.md) - prepends entries to the result list
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md) - preserves restored archive file
   - pgstat_report_wait_start/end - reports wait events for monitoring
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable - during WAL recovery
-  - rescanLatestTimeLine - when rescanning timeline information
-  - XLogFileReadAnyTLI - when reading WAL files across timelines
-  - StartReplication - during replication setup
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) - during WAL recovery
+  - [rescanLatestTimeLine](rescanLatestTimeLine.md) - when rescanning timeline information
+  - [XLogFileReadAnyTLI](../X/XLogFileReadAnyTLI.md) - when reading WAL files across timelines
+  - [StartReplication](../S/StartReplication.md) - during replication setup
   - various backup and WAL summarizer functions
 
 ## Notes and Other Information

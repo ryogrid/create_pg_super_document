@@ -29,11 +29,11 @@ This optimization allows Sort nodes to avoid expensive re-sorting operations whe
   - outerPlanState (macro to get outer plan state)
   - ExecClearTuple (clears result tuple slot)
   - tuplesort_end (terminates tuplesort state)
-  - ExecReScan (rescans outer plan if needed)
+  - [ExecReScan](ExecReScan.md) (rescans outer plan if needed)
   - tuplesort_rescan (rewinds tuplesort to beginning)
   - Tuplesortstate (tuplesort state structure)
 - Called from (representative examples):
-  - ExecReScan (generic rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (generic rescan dispatcher)
 
 ## Notes and Other Information
 - The function optimizes performance by avoiding unnecessary re-sorting when possible

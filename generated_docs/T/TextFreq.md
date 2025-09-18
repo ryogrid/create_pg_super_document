@@ -26,12 +26,12 @@ The structure is designed to work in conjunction with PostgreSQL's ANALYZE stati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text (PostgreSQL text data type)
+  - [text](../t/text.md) (PostgreSQL text data type)
   - float4 (PostgreSQL float4 data type)
 - Called from (representative examples):
-  - mcelem_tsquery_selec
-  - tsquery_opr_selec
-  - compare_lexeme_textfreq
+  - [mcelem_tsquery_selec](../m/mcelem_tsquery_selec.md)
+  - [tsquery_opr_selec](../t/tsquery_opr_selec.md)
+  - [compare_lexeme_textfreq](../c/compare_lexeme_textfreq.md)
 
 ## Notes and Other Information
 - Used specifically in src/backend/tsearch/ts_selfuncs.c for text search selectivity functions

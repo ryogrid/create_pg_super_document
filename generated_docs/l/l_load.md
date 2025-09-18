@@ -27,15 +27,15 @@ The load instruction is one of the most fundamental operations in LLVM, used to 
   - LLVMBuildLoad (LLVM < 16)
   - LLVMBuildLoad2 (LLVM >= 16)
 - Called from (representative examples):
-  - llvm_function_reference (in llvmjit.c)
-  - slot_compile_deform (extensively in llvmjit_deform.c)
+  - [llvm_function_reference](llvm_function_reference.md) (in llvmjit.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (extensively in llvmjit_deform.c)
   - llvm_compile_expr (extensively in llvmjit_expr.c)
   - BuildV1Call
-  - l_load_struct_gep
-  - l_load_gep1
-  - l_mcxt_switch
-  - l_funcnull
-  - l_funcvalue
+  - [l_load_struct_gep](l_load_struct_gep.md)
+  - [l_load_gep1](l_load_gep1.md)
+  - [l_mcxt_switch](l_mcxt_switch.md)
+  - [l_funcnull](l_funcnull.md)
+  - [l_funcvalue](l_funcvalue.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's JIT compilation infrastructure

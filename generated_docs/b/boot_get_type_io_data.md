@@ -32,11 +32,11 @@ The function is designed to support array_in and array_out operations during ear
 - Functions called/Symbols referenced:
   - elog (for error reporting)
   - OidIsValid (to check if OID is valid)
-  - typmap (structure for cached type information)
+  - [typmap](../t/typmap.md) (structure for cached type information)
 
 - Called from:
-  - InsertOneValue (during bootstrap data insertion)
-  - get_type_io_data (as fallback in lsyscache)
+  - [InsertOneValue](../I/InsertOneValue.md) (during bootstrap data insertion)
+  - [get_type_io_data](../g/get_type_io_data.md) (as fallback in lsyscache)
 
 ## Notes and Other Information
 - Exported function (not static) to support array I/O operations during bootstrap

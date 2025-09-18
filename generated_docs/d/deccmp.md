@@ -20,10 +20,10 @@ The `deccmp` function implements decimal comparison for Informix compatibility i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deccall2
-  - PGTYPESnumeric_cmp
+  - [deccall2](deccall2.md)
+  - [PGTYPESnumeric_cmp](../P/PGTYPESnumeric_cmp.md)
 - Called from (representative examples):
-  - main (in test programs)
+  - [main](../m/main.md) (in test programs)
   - ECPG applications using Informix decimal compatibility
 
 ## Notes and Other Information

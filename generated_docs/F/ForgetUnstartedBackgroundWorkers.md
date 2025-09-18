@@ -19,18 +19,18 @@ This function is called during normal ("smart" or "fast") database shutdown to h
 - Functions called/Symbols referenced:
   - slist_foreach_modify (macro for safely iterating and modifying singly-linked lists)
   - slist_container (macro to get container structure from list node)
-  - ForgetBackgroundWorker (removes worker registration)
+  - [ForgetBackgroundWorker](ForgetBackgroundWorker.md) (removes worker registration)
   - kill (system call for sending signals)
   - SIGUSR1 (signal constant)
   - InvalidPid (constant representing invalid process ID)
 - Data structures used:
-  - slist_mutable_iter
-  - RegisteredBgWorker
-  - BackgroundWorkerSlot
+  - [slist_mutable_iter](../s/slist_mutable_iter.md)
+  - [RegisteredBgWorker](../R/RegisteredBgWorker.md)
+  - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md)
   - BackgroundWorkerList (global list of registered background workers)
   - BackgroundWorkerData (global shared memory structure)
 - Called from (representative examples):
-  - PostmasterStateMachine
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md)
 
 ## Notes and Other Information
 - This function should only be called from the postmaster process

@@ -24,8 +24,8 @@ This function is essential for PostgreSQL's transparent handling of large data v
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTENDED (macro to check if data is TOASTed)
-  - detoast_attr (performs the actual decompression/reconstruction)
-  - varlena (variable-length data structure type)
+  - [detoast_attr](../d/detoast_attr.md) (performs the actual decompression/reconstruction)
+  - [varlena](../v/varlena.md) (variable-length data structure type)
 - Called from (representative examples):
   - PG_DETOAST_DATUM (macro for convenient TOAST handling in functions)
   - PG_ARGISNULL (macro for checking null arguments with TOAST support)

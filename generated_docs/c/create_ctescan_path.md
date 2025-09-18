@@ -22,9 +22,9 @@ This function constructs a Path node specifically for CTE scan operations. It in
 - Functions called/Symbols referenced:
   - makeNode
   - get_baserel_parampathinfo
-  - cost_ctescan
+  - [cost_ctescan](cost_ctescan.md)
 - Called from (representative examples):
-  - set_cte_pathlist
+  - [set_cte_pathlist](../s/set_cte_pathlist.md)
 
 ## Notes and Other Information
 - Sets pathtype to T_CteScan to identify this as a CTE scan path

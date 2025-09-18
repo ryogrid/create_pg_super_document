@@ -25,9 +25,9 @@ The function handles all supported TLS protocol versions and provides a fallback
   - PG_TLS1_VERSION (PostgreSQL constant for TLS 1.0)
   - PG_TLS1_1_VERSION (PostgreSQL constant for TLS 1.1)
   - PG_TLS1_2_VERSION (PostgreSQL constant for TLS 1.2)
-  - PG_TLS1_3_VERSION (PostgreSQL constant for TLS 1.3)
+  - [PG_TLS1_3_VERSION](../P/PG_TLS1_3_VERSION.md) (PostgreSQL constant for TLS 1.3)
 - Called from (representative examples):
-  - be_tls_open_server (TLS server connection establishment with logging)
+  - [be_tls_open_server](../b/be_tls_open_server.md) (TLS server connection establishment with logging)
 
 ## Notes and Other Information
 - Static function - only accessible within the be-secure-openssl.c compilation unit

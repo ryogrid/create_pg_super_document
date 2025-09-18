@@ -38,18 +38,18 @@ If the constraints are equivalent, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Look up constraint tuples in system cache
-  - ConstraintSetParentConstraint: Establish parent-child constraint relationship
-  - GetForeignKeyCheckTriggers: Retrieve check trigger OIDs from partition constraint
-  - TriggerSetParentTrigger: Link partition triggers to parent triggers
-  - deleteDependencyRecordsFor/deleteDependencyRecordsForSpecific: Remove dependency records
-  - performDeletion/performMultipleDeletions: Delete redundant triggers and constraints
-  - get_rel_relkind: Check if referenced table is partitioned
+  - [SearchSysCache1](../S/SearchSysCache1.md): Look up constraint tuples in system cache
+  - [ConstraintSetParentConstraint](../C/ConstraintSetParentConstraint.md): Establish parent-child constraint relationship
+  - [GetForeignKeyCheckTriggers](../G/GetForeignKeyCheckTriggers.md): Retrieve check trigger OIDs from partition constraint
+  - [TriggerSetParentTrigger](../T/TriggerSetParentTrigger.md): Link partition triggers to parent triggers
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)/deleteDependencyRecordsForSpecific: Remove dependency records
+  - [performDeletion](../p/performDeletion.md)/performMultipleDeletions: Delete redundant triggers and constraints
+  - [get_rel_relkind](../g/get_rel_relkind.md): Check if referenced table is partitioned
   - CommandCounterIncrement: Make catalog changes visible
 
 - Called from:
-  - CloneFkReferencing: During partition FK constraint cloning process
-  - addFkRecurseReferencing: During recursive FK constraint processing
+  - [CloneFkReferencing](../C/CloneFkReferencing.md): During partition FK constraint cloning process
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md): During recursive FK constraint processing
 
 ## Notes and Other Information
 - Returns true if attachment successful, false if constraints are not compatible

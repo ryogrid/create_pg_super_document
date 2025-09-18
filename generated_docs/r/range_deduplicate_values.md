@@ -28,14 +28,14 @@ The function is designed to be more efficient than full range consolidation beca
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort_arg
-  - compare_values
-  - AssertCheckRanges
+  - [compare_values](../c/compare_values.md)
+  - [AssertCheckRanges](../A/AssertCheckRanges.md)
 - Data structures referenced:
-  - Ranges
-  - compare_context
+  - [Ranges](../R/Ranges.md)
+  - [compare_context](../c/compare_context.md)
 - Called from (representative examples):
-  - brin_range_serialize
-  - ensure_free_space_in_buffer
+  - [brin_range_serialize](../b/brin_range_serialize.md)
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
 
 ## Notes and Other Information
 - Operates only on the values portion, leaving range boundaries untouched

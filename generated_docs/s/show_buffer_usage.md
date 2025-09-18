@@ -27,18 +27,18 @@ The function must stay synchronized with  to ensure consistent buffer usage repo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainIndentText
+  - [ExplainIndentText](../E/ExplainIndentText.md)
   - appendStringInfoString
   - appendStringInfo
   - appendStringInfoChar
-  - ExplainPropertyInteger
-  - ExplainPropertyFloat
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
+  - [ExplainPropertyFloat](../E/ExplainPropertyFloat.md)
   - INSTR_TIME_IS_ZERO
   - INSTR_TIME_GET_MILLISEC
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
   - ExplainPrintSerialize
-  - ExplainNode
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - Only displays positive counter values to avoid cluttering output with zeros

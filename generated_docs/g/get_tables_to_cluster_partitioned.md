@@ -20,15 +20,15 @@ The function is similar to expand_vacuum_rel but is specifically designed for cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_all_inheritors
-  - IndexGetRelation
-  - get_rel_relkind
-  - cluster_is_permitted_for_relation
-  - MemoryContextSwitchTo
-  - palloc
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [IndexGetRelation](../I/IndexGetRelation.md)
+  - [get_rel_relkind](get_rel_relkind.md)
+  - [cluster_is_permitted_for_relation](../c/cluster_is_permitted_for_relation.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
   - lappend
 - Called from (representative examples):
-  - cluster
+  - [cluster](../c/cluster.md)
 
 ## Notes and Other Information
 - This is a static function internal to cluster.c

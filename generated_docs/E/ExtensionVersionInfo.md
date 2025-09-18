@@ -33,15 +33,15 @@ The ExtensionVersionInfo structure serves as a vertex in a directed graph repres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtensionVersionInfo (self-referential for previous field)
+  - [ExtensionVersionInfo](ExtensionVersionInfo.md) (self-referential for previous field)
 - Called from (representative examples):
-  - get_ext_ver_info
-  - get_ext_ver_list
-  - identify_update_path
-  - find_update_path
-  - find_install_path
-  - get_nearest_unprocessed_vertex
-  - CreateExtensionInternal
+  - [get_ext_ver_info](../g/get_ext_ver_info.md)
+  - [get_ext_ver_list](../g/get_ext_ver_list.md)
+  - [identify_update_path](../i/identify_update_path.md)
+  - [find_update_path](../f/find_update_path.md)
+  - [find_install_path](../f/find_install_path.md)
+  - [get_nearest_unprocessed_vertex](../g/get_nearest_unprocessed_vertex.md)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
 
 ## Notes and Other Information
 This structure is essential for extension version management and implements a graph-based approach to finding optimal update paths. The Dijkstra algorithm state fields (distance_known, distance, previous) are temporary working variables used during path-finding calculations. The structure supports both direct installation (installable=true) and update-only versions, enabling flexible extension deployment strategies. The reachable list creates a directed graph where edges represent valid update paths between versions.

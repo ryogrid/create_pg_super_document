@@ -21,7 +21,7 @@ The function delegates the actual parsing work to parse_snapshot(), which handle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_snapshot
+  - [parse_snapshot](parse_snapshot.md)
   - PG_GETARG_CSTRING
   - PG_RETURN_POINTER
 - Called from (representative examples):

@@ -23,13 +23,13 @@ Similar to get_opfamily_oid, this function serves as a higher-level abstraction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpClassCacheLookup
+  - [OpClassCacheLookup](../O/OpClassCacheLookup.md)
   - Form_pg_opclass
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - get_object_address_opcf
-  - findRangeSubOpclass
-  - resolve_unique_index_expr
+  - [get_object_address_opcf](get_object_address_opcf.md)
+  - [findRangeSubOpclass](../f/findRangeSubOpclass.md)
+  - [resolve_unique_index_expr](../r/resolve_unique_index_expr.md)
 
 ## Notes and Other Information
 - This function is exported and can be called from other source files, as evidenced by its declaration in defrem.h

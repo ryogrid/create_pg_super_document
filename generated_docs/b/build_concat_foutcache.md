@@ -18,13 +18,13 @@ This static function builds and caches FmgrInfo structures for the output functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - PG_NARGS
-  - get_fn_expr_argtype
-  - getTypeOutputInfo
-  - fmgr_info_cxt
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
 - Called from (representative examples):
-  - concat_internal
+  - [concat_internal](../c/concat_internal.md)
 
 ## Notes and Other Information
 - The function stores the cache in fcinfo->flinfo->fn_extra for persistence across calls

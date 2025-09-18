@@ -26,17 +26,17 @@ The function implements strict type checking to prevent inappropriate operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck - Verifies user ownership of database objects
-  - aclcheck_error - Reports access control violations
-  - get_relkind_objtype, get_rel_relkind - Relation type utilities
-  - IsSystemClass - System catalog validation
-  - object_aclcheck - Namespace permission checking
-  - get_namespace_name - Namespace name resolution
+  - [object_ownercheck](../o/object_ownercheck.md) - Verifies user ownership of database objects
+  - [aclcheck_error](../a/aclcheck_error.md) - Reports access control violations
+  - [get_relkind_objtype](../g/get_relkind_objtype.md), get_rel_relkind - [Relation](Relation.md) type utilities
+  - [IsSystemClass](../I/IsSystemClass.md) - System catalog validation
+  - [object_aclcheck](../o/object_aclcheck.md) - Namespace permission checking
+  - [get_namespace_name](../g/get_namespace_name.md) - Namespace name resolution
   - nodeTag - Statement type identification
 - Called from (representative examples):
-  - RenameRelation (src/backend/commands/tablecmds.c:4096)
-  - AlterTableLookupRelation (src/backend/commands/tablecmds.c:4344)
-  - AlterTableNamespace (src/backend/commands/tablecmds.c:17219)
+  - [RenameRelation](RenameRelation.md) (src/backend/commands/tablecmds.c:4096)
+  - [AlterTableLookupRelation](../A/AlterTableLookupRelation.md) (src/backend/commands/tablecmds.c:4344)
+  - [AlterTableNamespace](../A/AlterTableNamespace.md) (src/backend/commands/tablecmds.c:17219)
 
 ## Notes and Other Information
 - Static function scope limits visibility to tablecmds.c module

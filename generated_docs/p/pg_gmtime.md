@@ -22,8 +22,8 @@ The `pg_gmtime` function is PostgreSQL's equivalent of the standard C library's 
   - gmtsub
   - pg_time_t
 - Called from (representative examples):
-  - AddFileToBackupManifest
-  - GetEpochTime
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
+  - [GetEpochTime](../G/GetEpochTime.md)
   - Various timezone and timestamp handling functions
 
 ## Notes and Other Information

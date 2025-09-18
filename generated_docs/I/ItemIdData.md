@@ -27,9 +27,9 @@ The line pointer system allows PostgreSQL to efficiently manage variable-length 
   - LP_DEAD (constant)
 - Called from (representative examples):
   - PageAddItemExtended
-  - PageGetFreeSpace
-  - PageIndexTupleDelete
-  - PageIndexMultiDelete
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - BloomMaxFilterSize
   - BrinMaxItemSize
   - GinMaxItemSize

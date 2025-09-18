@@ -21,13 +21,13 @@ Since PostgreSQL doesn't expect pg_subtrans to be valid across crashes, this ini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage
+  - [TransactionIdToPage](../T/TransactionIdToPage.md)
   - XidFromFullTransactionId
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
   - ZeroSUBTRANSPage
   - LWLockAcquire/LWLockRelease
 - Called from (representative examples):
-  - StartupXLOG (during crash recovery and normal startup)
+  - [StartupXLOG](StartupXLOG.md) (during crash recovery and normal startup)
 
 ## Notes and Other Information
 - Must be called exactly once during startup after TransamVariables->nextXid is initialized

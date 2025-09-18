@@ -23,12 +23,12 @@ The function specifically handles partitioned indexes by checking the relation k
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckIndexCompatible
-  - index_open
-  - index_close
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
   - RELKIND_PARTITIONED_INDEX
 - Called from:
-  - ATPostAlterTypeParse
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
 
 ## Notes and Other Information
 - This function is part of the column type alteration optimization process

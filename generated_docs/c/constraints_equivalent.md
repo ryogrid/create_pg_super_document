@@ -27,11 +27,11 @@ If any of these comparisons fail, the constraints are considered non-equivalent.
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (macro)
-  - decompile_conbin (called twice)
+  - [decompile_conbin](../d/decompile_conbin.md) (called twice)
   - strcmp
   - Form_pg_constraint
 - Called from (representative examples):
-  - MergeConstraintsIntoExisting
+  - [MergeConstraintsIntoExisting](../M/MergeConstraintsIntoExisting.md)
 
 ## Notes and Other Information
 - The function assumes both input tuples are from pg_constraint catalog

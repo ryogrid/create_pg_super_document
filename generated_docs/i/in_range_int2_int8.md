@@ -25,10 +25,10 @@ The function uses PostgreSQL's function call interface and returns a Datum resul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_range_int4_int8
+  - [in_range_int4_int8](in_range_int4_int8.md)
   - DirectFunctionCall5
   - PG_GETARG_INT16
-  - Int32GetDatum
+  - [Int32GetDatum](../I/Int32GetDatum.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

@@ -34,10 +34,10 @@ The function also handles the special "DEFAULT" keyword by recursively parsing t
 - Functions called/Symbols referenced:
   - SplitIdentifierString: Parses comma-separated configuration values
   - GUC_check_errdetail: Reports detailed error messages for GUC validation failures
-  - pg_strcasecmp, pg_strncasecmp: Case-insensitive string comparison functions
-  - guc_malloc, guc_free, guc_strdup: GUC memory management functions
-  - GetConfigOptionResetString: Retrieves the default value for recursive DEFAULT parsing
-  - list_free: Frees linked list structures
+  - [pg_strcasecmp](../p/pg_strcasecmp.md), pg_strncasecmp: Case-insensitive string comparison functions
+  - [guc_malloc](../g/guc_malloc.md), guc_free, guc_strdup: GUC memory management functions
+  - [GetConfigOptionResetString](../G/GetConfigOptionResetString.md): Retrieves the default value for recursive DEFAULT parsing
+  - [list_free](../l/list_free.md): Frees linked list structures
   - USE_ISO_DATES, USE_SQL_DATES, USE_GERMAN_DATES, USE_POSTGRES_DATES: Date style constants
   - DATEORDER_YMD, DATEORDER_DMY, DATEORDER_MDY: Date order constants
 

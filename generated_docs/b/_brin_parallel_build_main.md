@@ -20,13 +20,13 @@ This function is executed by each parallel worker process launched during a para
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup: Retrieves shared structures from the table of contents
-  - pgstat_report_activity: Reports worker activity to the statistics collector
+  - [shm_toc_lookup](../s/shm_toc_lookup.md): Retrieves shared structures from the table of contents
+  - [pgstat_report_activity](../p/pgstat_report_activity.md): Reports worker activity to the statistics collector
   - table_open/index_open: Opens heap and index relations
-  - initialize_brin_buildstate: Sets up worker-specific build state
-  - tuplesort_attach_shared: Attaches to shared tuplesort state
-  - InstrStartParallelQuery/InstrEndParallelQuery: Tracks performance metrics
-  - _brin_parallel_scan_and_build: Performs the actual scanning and building work
+  - [initialize_brin_buildstate](../i/initialize_brin_buildstate.md): Sets up worker-specific build state
+  - [tuplesort_attach_shared](../t/tuplesort_attach_shared.md): Attaches to shared tuplesort state
+  - [InstrStartParallelQuery](../I/InstrStartParallelQuery.md)/InstrEndParallelQuery: Tracks performance metrics
+  - [_brin_parallel_scan_and_build](_brin_parallel_scan_and_build.md): Performs the actual scanning and building work
   - table_close/index_close: Closes relations when work is complete
 
 - Called from (representative examples):

@@ -32,24 +32,24 @@ For non-inlined CTEs, the function creates SubPlan nodes, manages parameter assi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_dml
-  - contain_outer_selfref
-  - contain_volatile_functions
-  - inline_cte
+  - [contain_dml](../c/contain_dml.md)
+  - [contain_outer_selfref](../c/contain_outer_selfref.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [inline_cte](../i/inline_cte.md)
   - copyObject
-  - subquery_planner
+  - [subquery_planner](../s/subquery_planner.md)
   - fetch_upper_rel
-  - create_plan
-  - get_first_col_type
-  - assign_special_exec_param
-  - cost_subplan
+  - [create_plan](../c/create_plan.md)
+  - [get_first_col_type](../g/get_first_col_type.md)
+  - [assign_special_exec_param](../a/assign_special_exec_param.md)
+  - [cost_subplan](../c/cost_subplan.md)
   - makeNode
   - lappend
   - lappend_int
   - list_make1_int
-  - psprintf
+  - [psprintf](../p/psprintf.md)
 - Called from (representative examples):
-  - subquery_planner
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
 - Fills in root->cte_plan_ids with parallel list to root->parse->cteList containing subplan IDs or -1 for inlined/ignored CTEs

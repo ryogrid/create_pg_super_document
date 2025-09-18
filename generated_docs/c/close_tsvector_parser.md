@@ -17,11 +17,11 @@ This function performs cleanup operations for a TSVectorParseState object by dea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
   - TSVectorParseState
 - Called from (representative examples):
-  - tsvectorin (src/backend/utils/adt/tsvector.c:260)
-  - parse_tsquery (src/backend/utils/adt/tsquery.c:870)
+  - [tsvectorin](../t/tsvectorin.md) (src/backend/utils/adt/tsvector.c:260)
+  - [parse_tsquery](../p/parse_tsquery.md) (src/backend/utils/adt/tsquery.c:870)
 
 ## Notes and Other Information
 This function should always be called in a try-catch or PG_ENSURE_ERROR_CLEANUP block to guarantee cleanup even when errors occur during parsing. The parser state becomes invalid after calling this function and should not be accessed again.

@@ -21,19 +21,19 @@ If no suitable page is found through FSM recycling, the function falls back to e
 - Functions called/Symbols referenced:
   - GetFreeIndexPage
   - SpGistBlockIsFixed
-  - ReadBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
   - ConditionalLockBuffer
-  - BufferGetPage
-  - PageIsNew
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIsNew](../P/PageIsNew.md)
   - SpGistPageIsDeleted
-  - PageIsEmpty
-  - LockBuffer
+  - [PageIsEmpty](../P/PageIsEmpty.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - ReleaseBuffer
-  - ExtendBufferedRel
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
   - BMR_REL
 - Called from (representative examples):
-  - spgbuild
-  - allocNewBuffer
+  - [spgbuild](../s/spgbuild.md)
+  - [allocNewBuffer](../a/allocNewBuffer.md)
 
 ## Notes and Other Information
 The function includes important concurrency control: it uses ConditionalLockBuffer to avoid blocking when another process might already be recycling the same page. Fixed system pages are explicitly excluded from recycling to maintain index structural integrity. The caller is responsible for initializing the returned buffer page content using SpGistInitBuffer before use.

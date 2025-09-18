@@ -20,15 +20,15 @@ This is the main execution function for psql's \copy command (frontend copy). It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_slash_copy (command parsing)
-  - canonicalize_path_enc (path normalization)
+  - [parse_slash_copy](../p/parse_slash_copy.md) (command parsing)
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md) (path normalization)
   - popen, fopen, fclose, pclose (file operations)
   - fstat, S_ISDIR (file system checks)
   - initPQExpBuffer, printfPQExpBuffer, appendPQExpBufferStr, termPQExpBuffer (query building)
-  - SendQuery (query execution)
-  - free_copy_options (cleanup)
-  - disable_sigpipe_trap, restore_sigpipe_trap (signal handling)
-  - SetShellResultVariables (result handling)
+  - [SendQuery](../S/SendQuery.md) (query execution)
+  - [free_copy_options](../f/free_copy_options.md) (cleanup)
+  - [disable_sigpipe_trap](disable_sigpipe_trap.md), restore_sigpipe_trap (signal handling)
+  - [SetShellResultVariables](../S/SetShellResultVariables.md) (result handling)
   - wait_result_to_str (error reporting)
 - Called from (representative examples):
   - psql command processor (main psql loop)

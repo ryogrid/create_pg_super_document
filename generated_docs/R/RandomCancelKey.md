@@ -19,11 +19,11 @@ The function uses pg_strong_random() to ensure the generated keys are cryptograp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strong_random (cryptographically strong random number generation)
+  - [pg_strong_random](../p/pg_strong_random.md) (cryptographically strong random number generation)
 - Called from (representative examples):
-  - BackendStartup (during new backend process initialization)
-  - StartAutovacuumWorker (for autovacuum worker processes)
-  - assign_backendlist_entry (when assigning backend entries)
+  - [BackendStartup](../B/BackendStartup.md) (during new backend process initialization)
+  - [StartAutovacuumWorker](../S/StartAutovacuumWorker.md) (for autovacuum worker processes)
+  - [assign_backendlist_entry](../a/assign_backendlist_entry.md) (when assigning backend entries)
 
 ## Notes and Other Information
 - Returns boolean indicating success/failure of random number generation

@@ -17,10 +17,10 @@ This function serves as a public interface to retrieve all sequences owned by a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getOwnedSequences_internal
+  - [getOwnedSequences_internal](getOwnedSequences_internal.md)
 - Called from (representative examples):
-  - ExecuteTruncateGuts
-  - ATRewriteTables
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
+  - [ATRewriteTables](../A/ATRewriteTables.md)
 
 ## Notes and Other Information
 This is a convenience function that internally calls getOwnedSequences_internal with parameters (relid, 0, 0), which means it retrieves all owned sequences for the relation without filtering by specific columns or sequence types. The function is part of PostgreSQL's dependency management system and is crucial for maintaining referential integrity when performing table operations that affect dependent sequences.

@@ -25,8 +25,8 @@ The structure is used in PostgreSQL's planner to identify JSONPath expressions t
 - Functions called/Symbols referenced:
   - JsonPathDatatypeStatus (enum used for current field)
 - Called from (representative examples):
-  - jspIsMutable (src/backend/utils/adt/jsonpath.c:1275)
-  - jspIsMutableWalker (src/backend/utils/adt/jsonpath.c:1294)
+  - [jspIsMutable](../j/jspIsMutable.md) (src/backend/utils/adt/jsonpath.c:1275)
+  - [jspIsMutableWalker](../j/jspIsMutableWalker.md) (src/backend/utils/adt/jsonpath.c:1294)
 
 ## Notes and Other Information
 - This structure is specifically designed for internal use within the JSONPath mutability analysis system

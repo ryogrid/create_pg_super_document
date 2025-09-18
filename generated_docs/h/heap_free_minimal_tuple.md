@@ -21,16 +21,16 @@ This function is essential for preventing memory leaks when working with minimal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - tts_minimal_clear
+  - [tts_minimal_clear](../t/tts_minimal_clear.md)
   - ExecHashTableInsert
   - ExecParallelHashTableInsert
   - ExecParallelHashTableInsertCurrentBatch
   - ExecHashSkewTableInsert
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
   - ExecParallelHashJoinPartitionOuter
-  - writetup_heap
+  - [writetup_heap](../w/writetup_heap.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

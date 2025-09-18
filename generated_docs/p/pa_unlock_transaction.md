@@ -23,10 +23,10 @@ This function is the counterpart to pa_lock_transaction in PostgreSQL's logical 
   - UnlockApplyTransactionForSession
   - PARALLEL_APPLY_LOCK_XACT
 - Called from (representative examples):
-  - pa_wait_for_xact_finish
-  - pa_stream_abort
-  - apply_handle_stream_prepare
-  - apply_handle_stream_commit
+  - [pa_wait_for_xact_finish](pa_wait_for_xact_finish.md)
+  - [pa_stream_abort](pa_stream_abort.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - Counterpart function to pa_lock_transaction for releasing transaction locks

@@ -26,10 +26,10 @@ This approach ensures that word character classification follows the same locale
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHR (character conversion macro)
-  - pg_wc_isalnum (alphanumeric character classification)
+  - [pg_wc_isalnum](pg_wc_isalnum.md) (alphanumeric character classification)
 - Called from (representative examples):
-  - cclasscvec (src/backend/regex/regc_locale.c:606)
-  - cclass_column_index (src/backend/regex/regc_locale.c:688)
+  - [cclasscvec](../c/cclasscvec.md) (src/backend/regex/regc_locale.c:606)
+  - [cclass_column_index](../c/cclass_column_index.md) (src/backend/regex/regc_locale.c:688)
   - REPLACEARC (src/backend/regex/regcomp.c:255)
 
 ## Notes and Other Information

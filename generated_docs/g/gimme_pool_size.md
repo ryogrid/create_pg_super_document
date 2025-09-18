@@ -31,7 +31,7 @@ This adaptive sizing ensures that complex queries with many relations get larger
   - Geqo_pool_size: Global configuration variable for explicit pool size
   - Geqo_effort: Global configuration variable controlling optimization effort (1-10)
 - Called from (representative examples):
-  - geqo: Main GEQO function during genetic algorithm setup
+  - [geqo](geqo.md): Main GEQO function during genetic algorithm setup
 
 ## Notes and Other Information
 - Minimum legal pool size is 2 (required for genetic algorithm selection)

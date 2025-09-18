@@ -25,11 +25,11 @@ The validation is intentionally minimal due to the limitations of singly-linked 
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Called from (representative examples):
-  - slist_delete
-  - slist_is_empty
-  - slist_push_head
-  - slist_pop_head_node
-  - slist_has_next
+  - [slist_delete](slist_delete.md)
+  - [slist_is_empty](slist_is_empty.md)
+  - [slist_push_head](slist_push_head.md)
+  - [slist_pop_head_node](slist_pop_head_node.md)
+  - [slist_has_next](slist_has_next.md)
 
 ## Notes and Other Information
 - **Performance**: This is an O(n) operation that must traverse the entire list to completion

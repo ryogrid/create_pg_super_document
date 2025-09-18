@@ -25,11 +25,11 @@ The function works by making a single call to `psql_scan_slash_option()` with th
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option`: Scans for the next slash command option from the input with specified type
   - `OT_FILEPIPE`: Option type constant for file/pipe command arguments
-  - `PsqlScanState`: Scanner state structure type
+  - `[PsqlScanState](../P/PsqlScanState.md)`: Scanner state structure type
 
 - Called from (representative examples):
-  - `exec_command_out`: When \out commands (output redirection) are in inactive branches
-  - `exec_command_write`: When \write commands are in inactive branches
+  - `[exec_command_out](../e/exec_command_out.md)`: When \out commands (output redirection) are in inactive branches
+  - `[exec_command_write](../e/exec_command_write.md)`: When \write commands are in inactive branches
 
 ## Notes and Other Information
 - This function is essential for maintaining parser state consistency in conditional processing

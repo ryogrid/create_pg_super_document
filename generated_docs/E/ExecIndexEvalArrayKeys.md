@@ -29,20 +29,20 @@ If any array is null or empty, the function returns false, indicating that no ma
 - Functions called/Symbols referenced:
   - ExecEvalExpr
   - DatumGetArrayTypeP
-  - get_typlenbyvalalign
-  - deconstruct_array
-  - MemoryContextSwitchTo
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data types used:
-  - IndexArrayKeyInfo
+  - [IndexArrayKeyInfo](../I/IndexArrayKeyInfo.md)
   - ScanKey
   - ExprContext
-  - ArrayType
+  - [ArrayType](../A/ArrayType.md)
 - Constants/Macros used:
   - ARR_ELEMTYPE
   - SK_ISNULL
 
 ## Called From
-- ExecReScanBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:157)
+- [ExecReScanBitmapIndexScan](ExecReScanBitmapIndexScan.md) (src/backend/executor/nodeBitmapIndexscan.c:157)
 
 ## Notes and Other Information
 - Allocates array element data in per-tuple memory context for proper lifecycle management

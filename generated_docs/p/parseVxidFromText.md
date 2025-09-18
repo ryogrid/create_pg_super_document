@@ -35,7 +35,7 @@ The parsed values are stored directly into the provided VirtualTransactionId str
   - sscanf (standard C library)
   - strchr (standard C library)
   - ereport (PostgreSQL error reporting)
-  - VirtualTransactionId (PostgreSQL data structure)
+  - [VirtualTransactionId](../V/VirtualTransactionId.md) (PostgreSQL data structure)
 - Called from (representative examples):
   - ImportSnapshot (for parsing the virtual transaction ID of the snapshot exporter)
 

@@ -25,22 +25,22 @@ The function first checks local cache for performance, then validates the MultiX
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid (validation)
-  - mXactCacheGetById, mXactCachePut (caching operations)
-  - MultiXactIdSetOldestVisible (visibility management)
-  - MultiXactIdPrecedes (wraparound-aware comparison)
+  - [mXactCacheGetById](../m/mXactCacheGetById.md), mXactCachePut (caching operations)
+  - [MultiXactIdSetOldestVisible](../M/MultiXactIdSetOldestVisible.md) (visibility management)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md) (wraparound-aware comparison)
   - LWLockAcquire, LWLockRelease (locking)
-  - SimpleLruGetBankLock, SimpleLruReadPage (SLRU operations)
-  - MultiXactIdToOffsetPage, MultiXactIdToOffsetEntry (page/entry calculation)
-  - MXOffsetToMemberPage, MXOffsetToMemberOffset (member location calculation)
-  - ConditionVariableSleep, ConditionVariableCancelSleep (concurrency coordination)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md), SimpleLruReadPage (SLRU operations)
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md), MultiXactIdToOffsetEntry (page/entry calculation)
+  - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md), MXOffsetToMemberOffset (member location calculation)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md), ConditionVariableCancelSleep (concurrency coordination)
   - TransactionIdIsValid (transaction validation)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - debug_elog3, debug_elog2 (debugging)
 - Called from (representative examples):
-  - heap_lock_tuple (tuple locking operations)
-  - FreezeMultiXactId (vacuum operations)
-  - MultiXactIdIsRunning (visibility checking)
-  - DoesMultiXactIdConflict (conflict detection)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (tuple locking operations)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md) (vacuum operations)
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md) (visibility checking)
+  - [DoesMultiXactIdConflict](../D/DoesMultiXactIdConflict.md) (conflict detection)
 
 ## Notes and Other Information
 - Returns the number of members found, or -1 if none exist or invalid MultiXact

@@ -59,15 +59,15 @@ The structure is typically populated by higher-level replication management func
 - Functions called/Symbols referenced:
   - XLogRecPtr
   - TimeLineID
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - uint32
 
 - Called from (representative examples):
-  - libpqrcv_startstreaming
-  - run_tablesync_worker
-  - set_stream_options
-  - run_apply_worker
-  - WalReceiverMain
+  - [libpqrcv_startstreaming](../l/libpqrcv_startstreaming.md)
+  - [run_tablesync_worker](../r/run_tablesync_worker.md)
+  - [set_stream_options](../s/set_stream_options.md)
+  - [run_apply_worker](../r/run_apply_worker.md)
+  - [WalReceiverMain](WalReceiverMain.md)
 
 ## Notes and Other Information
 - Uses a discriminated union to efficiently handle different replication protocols

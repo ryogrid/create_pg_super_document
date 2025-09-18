@@ -35,7 +35,7 @@ This approach allows Perl modules and user code to clean up resources through EN
   - PERL_UNUSED_VAR (Perl macro to suppress warnings)
   - PL_exit_flags, PL_endav, PL_minus_c, PL_scopestack_ix (Perl global variables)
 - Called from (representative examples):
-  - plperl_fini (during process cleanup)
+  - [plperl_fini](plperl_fini.md) (during process cleanup)
 
 ## Notes and Other Information
 - Implements minimal destruction strategy to avoid perl_destruct() side effects

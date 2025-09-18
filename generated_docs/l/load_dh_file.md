@@ -22,7 +22,7 @@ The function handles errors differently based on the server state - during serve
 - Functions called/Symbols referenced:
   - AllocateFile (opens the DH parameters file)
   - FreeFile (closes the file handle)
-  - SSLerrmessage (formats SSL error messages)
+  - [SSLerrmessage](../S/SSLerrmessage.md) (formats SSL error messages)
   - PEM_read_DHparams (OpenSSL function to read DH parameters)
   - DH_check (OpenSSL function to validate DH parameters)
   - DH_free (OpenSSL function to free DH structure)

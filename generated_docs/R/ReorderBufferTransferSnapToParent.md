@@ -26,13 +26,13 @@ The function ensures that only top-level transactions receive further snapshots 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildSnapDecRefcount (decrements snapshot reference count)
-  - dlist_delete (removes nodes from doubly-linked lists)
-  - dlist_insert_before (inserts nodes into doubly-linked lists)
-  - ReorderBufferTXN (transaction structure type)
+  - [SnapBuildSnapDecRefcount](../S/SnapBuildSnapDecRefcount.md) (decrements snapshot reference count)
+  - [dlist_delete](../d/dlist_delete.md) (removes nodes from doubly-linked lists)
+  - [dlist_insert_before](../d/dlist_insert_before.md) (inserts nodes into doubly-linked lists)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
 - Called from (representative examples):
   - ReorderBufferAssignChild
-  - ReorderBufferStreamTXN
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md)
   - IsInsertOrUpdate
 
 ## Notes and Other Information

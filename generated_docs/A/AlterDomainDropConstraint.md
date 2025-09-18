@@ -21,19 +21,19 @@ This function removes a named constraint from a domain type by scanning the pg_c
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameTypeId
+  - [typenameTypeId](../t/typenameTypeId.md)
   - SearchSysCacheCopy1
-  - checkDomainOwner
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - performDeletion
-  - CatalogTupleUpdate
-  - CacheInvalidateHeapTuple
-  - TypeNameToString
+  - [checkDomainOwner](../c/checkDomainOwner.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [performDeletion](../p/performDeletion.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
+  - [TypeNameToString](../T/TypeNameToString.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Uses a three-key scan on pg_constraint to find the target constraint efficiently

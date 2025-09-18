@@ -24,17 +24,17 @@ RecordTransactionAbortPrepared handles the abort processing for a previously pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdDidCommit
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - START_CRIT_SECTION
-  - XactLogAbortRecord
-  - GetCurrentTimestamp
-  - replorigin_session_advance
-  - XLogFlush
-  - TransactionIdAbortTree
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [replorigin_session_advance](../r/replorigin_session_advance.md)
+  - [XLogFlush](../X/XLogFlush.md)
+  - [TransactionIdAbortTree](../T/TransactionIdAbortTree.md)
   - END_CRIT_SECTION
-  - SyncRepWaitForLSN
+  - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md)
 - Called from (representative examples):
-  - FinishPreparedTransaction
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 
 ## Notes and Other Information
 The function performs a critical safety check by verifying the transaction hasn't already been committed before proceeding with the abort, issuing a PANIC if this invariant is violated. Like prepared commits, prepared aborts cannot be optimized out since they always have at least one WAL entry. The function always flushes WAL records before removing the two-phase state file to ensure durability. It operates within a critical section for atomicity and handles both local and replicated transaction scenarios. Location: src/backend/access/transam/twophase.c:2395-2469

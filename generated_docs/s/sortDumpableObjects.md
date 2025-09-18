@@ -31,12 +31,12 @@ The function handles the complex challenge of dependency loops, which can occur 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (PostgreSQL memory allocation)
-  - TopoSort (topological sorting algorithm)
-  - findDependencyLoops (dependency loop detection and resolution)
+  - [TopoSort](../T/TopoSort.md) (topological sorting algorithm)
+  - [findDependencyLoops](../f/findDependencyLoops.md) (dependency loop detection and resolution)
   - memcpy (standard memory copy)
   - free (standard memory deallocation)
 - Called from (representative examples):
-  - main (src/bin/pg_dump/pg_dump.c:1015)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:1015)
 
 ## Notes and Other Information
 - Returns early if numObjs <= 0, though this condition should not occur in normal operation

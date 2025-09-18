@@ -28,13 +28,13 @@ The function ensures proper resource cleanup regardless of transaction outcome w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - closeLOfd
-  - MemoryContextDelete
-  - close_lo_relation
+  - [closeLOfd](../c/closeLOfd.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [close_lo_relation](../c/close_lo_relation.md)
 - Called from (representative examples):
-  - CommitTransaction (src/backend/access/transam/xact.c:2271)
-  - PrepareTransaction (src/backend/access/transam/xact.c:2527)
-  - AbortTransaction (src/backend/access/transam/xact.c:2859)
+  - [CommitTransaction](../C/CommitTransaction.md) (src/backend/access/transam/xact.c:2271)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2527)
+  - [AbortTransaction](AbortTransaction.md) (src/backend/access/transam/xact.c:2859)
 
 ## Notes and Other Information
 - Only performs cleanup if `lo_cleanup_needed` is true, providing an optimization for transactions that don't use large objects

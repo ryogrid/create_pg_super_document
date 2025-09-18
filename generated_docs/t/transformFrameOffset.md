@@ -35,18 +35,18 @@ The function also validates that the offset expression contains no variables, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr
-  - coerce_to_specific_type
+  - [transformExpr](transformExpr.md)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
   - exprType
   - SearchSysCacheList2
-  - can_coerce_type
-  - ReleaseCatCacheList
-  - checkExprIsVarFree
-  - exprLocation
-  - format_type_be
+  - [can_coerce_type](../c/can_coerce_type.md)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md)
+  - [checkExprIsVarFree](../c/checkExprIsVarFree.md)
+  - [exprLocation](../e/exprLocation.md)
+  - [format_type_be](../f/format_type_be.md)
   - ereport
 - Called from (representative examples):
-  - transformWindowDefinitions
+  - [transformWindowDefinitions](transformWindowDefinitions.md)
 
 ## Notes and Other Information
 - Returns NULL if the clause parameter is NULL (no offset specified)

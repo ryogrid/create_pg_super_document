@@ -24,22 +24,22 @@ This is a convenience function that abstracts the two-step process of determinin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_slot_callbacks (to determine appropriate slot operations)
-  - MakeSingleTupleTableSlot (to create the actual slot)
+  - [table_slot_callbacks](table_slot_callbacks.md) (to determine appropriate slot operations)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (to create the actual slot)
   - RelationGetDescr (macro to get relation's tuple descriptor)
   - lappend (to add slot to registration list)
   - TupleTableSlotOps (structure type)
   - TupleTableSlot (structure type)
 
 - Called from (representative examples):
-  - systable_beginscan
-  - systable_beginscan_ordered
-  - CopyFrom
-  - DoCopyTo
-  - ExecInitModifyTable
-  - ExecInitPartitionInfo
-  - apply_handle_tuple_routing
-  - acquire_sample_rows
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
 
 ## Notes and Other Information
 - The reglist parameter is commonly used in executor contexts where multiple slots need to be tracked and cleaned up together

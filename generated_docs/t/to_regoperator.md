@@ -20,8 +20,8 @@ The function takes a text input in the format "oprname(lefttype,righttype)" or "
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - DirectInputFunctionCallSafe
-  - regoperatorin
+  - [DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md)
+  - [regoperatorin](../r/regoperatorin.md)
   - PG_RETURN_DATUM
   - PG_RETURN_NULL
 - Called from (representative examples):

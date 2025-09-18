@@ -32,8 +32,8 @@ The function includes debug assertions to verify that when direct I/O is enabled
   - TYPEALIGN (alignment checking macro)
   - Assert (debug assertion macro)
 - Called from (representative examples):
-  - mdreadv function for vectored read operations
-  - mdwritev function for vectored write operations
+  - [mdreadv](../m/mdreadv.md) function for vectored read operations
+  - [mdwritev](../m/mdwritev.md) function for vectored write operations
 
 ## Notes and Other Information
 - Static function - only accessible within md.c

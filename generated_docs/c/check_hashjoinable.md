@@ -26,15 +26,15 @@ Unlike merge joins, hash joins don't require sorted input data but do require th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause (verifies expression is an operator clause)
-  - op_hashjoinable (determines if operator supports hash joins)
-  - contain_volatile_functions (checks for volatile function calls)
+  - [is_opclause](../i/is_opclause.md) (verifies expression is an operator clause)
+  - [op_hashjoinable](../o/op_hashjoinable.md) (determines if operator supports hash joins)
+  - [contain_volatile_functions](contain_volatile_functions.md) (checks for volatile function calls)
   - exprType (determines expression data type)
   - linitial (retrieves first list element)
   - OpExpr (operator expression node type)
 - Called from:
-  - distribute_restrictinfo_to_rels (during restriction info distribution)
-  - build_implied_join_equality (when constructing implied equality conditions)
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md) (during restriction info distribution)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (when constructing implied equality conditions)
 
 ## Notes and Other Information
 - This is a static function within initsplan.c, serving as an internal query planning utility

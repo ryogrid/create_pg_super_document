@@ -23,7 +23,7 @@ The function works by delegating to the general  function with specific paramete
   - LOCAL_FCINFO (macro for local function call info)
   - oidvector (data type)
   - InitFunctionCallInfoData (function call setup)
-  - array_recv (general array receive function)
+  - [array_recv](../a/array_recv.md) (general array receive function)
   - ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_LBOUND (array metadata macros)
   - ereport (error reporting)
 - Called from (representative examples):

@@ -22,18 +22,18 @@ The function handles memory management carefully by creating separate memory con
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE_ANY_EXHDR, VARDATA_ANY (text handling macros)
-  - pg_mb2wchar_with_len (character encoding conversion)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (character encoding conversion)
   - AllocSetContextCreate (memory context creation)
   - pg_regcomp (regex compilation)
-  - pg_regerror (error message generation)
+  - [pg_regerror](../p/pg_regerror.md) (error message generation)
   - MemoryContextSetIdentifier, MemoryContextSetParent, MemoryContextDelete (memory management)
-  - cached_re_str (cache entry structure)
+  - [cached_re_str](../c/cached_re_str.md) (cache entry structure)
   - MAX_CACHED_RES (cache size constant)
 - Called from (representative examples):
-  - RE_compile_and_execute
-  - textregexsubstr
-  - setup_regexp_matches
-  - regexp_fixed_prefix
+  - [RE_compile_and_execute](RE_compile_and_execute.md)
+  - [textregexsubstr](../t/textregexsubstr.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
+  - [regexp_fixed_prefix](../r/regexp_fixed_prefix.md)
   - replace_text_regexp
 
 ## Notes and Other Information

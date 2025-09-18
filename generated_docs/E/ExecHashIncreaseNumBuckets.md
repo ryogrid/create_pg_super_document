@@ -29,13 +29,13 @@ This reorganization maintains all tuples in memory while redistributing them acr
 - Functions called/Symbols referenced:
   - repalloc_array (memory reallocation)
   - memset (memory initialization)
-  - ExecHashGetBucketAndBatch (hash-to-bucket mapping)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md) (hash-to-bucket mapping)
   - HASH_CHUNK_DATA, HJTUPLE_MINTUPLE, HJTUPLE_OVERHEAD (tuple access macros)
   - CHECK_FOR_INTERRUPTS (interruption handling)
   - MAXALIGN (memory alignment)
 
 - Called from (representative examples):
-  - MultiExecPrivateHash
+  - [MultiExecPrivateHash](../M/MultiExecPrivateHash.md)
 
 ## Notes and Other Information
 - This function only operates on non-parallel hash joins (uses unshared bucket arrays and chunk pointers)

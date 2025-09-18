@@ -22,10 +22,10 @@ The structure is designed to support transaction rollback scenarios where Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)
 - Called from (representative examples):
-  - PrepareClientEncoding (at src/backend/utils/mb/mbutils.c:142, 157, 158, 190)
-  - SetClientEncoding (at src/backend/utils/mb/mbutils.c:248)
+  - [PrepareClientEncoding](../P/PrepareClientEncoding.md) (at src/backend/utils/mb/mbutils.c:142, 157, 158, 190)
+  - [SetClientEncoding](../S/SetClientEncoding.md) (at src/backend/utils/mb/mbutils.c:248)
 
 ## Notes and Other Information
 - The structure is part of a caching system that maintains conversion function information across the session

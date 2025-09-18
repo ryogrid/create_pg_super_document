@@ -22,13 +22,13 @@ This operation is commonly used in cache management and LRU (Least Recently Used
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_move_head
-  - dclist_head (structure type)  
-  - dlist_node (structure type)
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_move_head](dlist_move_head.md)
+  - [dclist_head](dclist_head.md) (structure type)  
+  - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
-  - mXactCacheGetBySet (src/backend/access/transam/multixact.c:1636)
-  - mXactCacheGetById (src/backend/access/transam/multixact.c:1685)
+  - [mXactCacheGetBySet](../m/mXactCacheGetBySet.md) (src/backend/access/transam/multixact.c:1636)
+  - [mXactCacheGetById](../m/mXactCacheGetById.md) (src/backend/access/transam/multixact.c:1685)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

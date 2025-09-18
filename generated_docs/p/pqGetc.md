@@ -26,12 +26,12 @@ This function is part of the internal protocol parsing infrastructure and is use
   - conn->inCursor (current read position)
   - conn->inEnd (end of available data)
 - Called from (representative examples):
-  - pqParseInput3 (protocol 3 message parsing)
-  - pqGetErrorNotice3 (error/notice message parsing)
-  - getCopyStart (COPY operation message parsing)
-  - getReadyForQuery (ready-for-query message parsing)
-  - getCopyDataMessage (COPY data message parsing)
-  - pqFunctionCall3 (function call result parsing)
+  - [pqParseInput3](pqParseInput3.md) (protocol 3 message parsing)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md) (error/notice message parsing)
+  - [getCopyStart](../g/getCopyStart.md) (COPY operation message parsing)
+  - [getReadyForQuery](../g/getReadyForQuery.md) (ready-for-query message parsing)
+  - [getCopyDataMessage](../g/getCopyDataMessage.md) (COPY data message parsing)
+  - [pqFunctionCall3](pqFunctionCall3.md) (function call result parsing)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF when no more data is available in the buffer

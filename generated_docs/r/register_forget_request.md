@@ -26,7 +26,7 @@ The function creates a FileTag to identify the specific segment and uses Registe
 ## Dependencies
 - Functions called/Symbols referenced:
   - INIT_MD_FILETAG
-  - RegisterSyncRequest
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
   - SYNC_FORGET_REQUEST
 - Called from (representative examples):
   - mdunlinkfork (called twice in different contexts)

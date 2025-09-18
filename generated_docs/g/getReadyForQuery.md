@@ -21,14 +21,14 @@ This message is typically sent after the completion of a command cycle (after Co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetc
+  - [pqGetc](../p/pqGetc.md)
   - PQTRANS_IDLE
   - PQTRANS_INTRANS  
   - PQTRANS_INERROR
   - PQTRANS_UNKNOWN
 - Called from (representative examples):
-  - pqParseInput3 (main message processing loop)
-  - pqFunctionCall3 (function call protocol handling)
+  - [pqParseInput3](../p/pqParseInput3.md) (main message processing loop)
+  - [pqFunctionCall3](../p/pqFunctionCall3.md) (function call protocol handling)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure

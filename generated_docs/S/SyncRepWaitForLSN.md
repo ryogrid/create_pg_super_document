@@ -25,20 +25,20 @@ For non-commit records, the function caps the synchronization level to remote fl
 ## Dependencies
 - Functions called/Symbols referenced:
   - SyncRepRequested
-  - SyncRepQueueInsert
-  - SyncRepQueueIsOrderedByLSN
-  - SyncRepCancelWait
+  - [SyncRepQueueInsert](SyncRepQueueInsert.md)
+  - [SyncRepQueueIsOrderedByLSN](SyncRepQueueIsOrderedByLSN.md)
+  - [SyncRepCancelWait](SyncRepCancelWait.md)
   - SyncStandbysDefined
-  - WaitLatch
-  - ResetLatch
-  - set_ps_display_suffix
-  - set_ps_display_remove_suffix
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [set_ps_display_suffix](../s/set_ps_display_suffix.md)
+  - [set_ps_display_remove_suffix](../s/set_ps_display_remove_suffix.md)
   - pg_read_barrier
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - RecordTransactionCommitPrepared
-  - RecordTransactionAbortPrepared
-  - EndPrepare
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [RecordTransactionCommitPrepared](../R/RecordTransactionCommitPrepared.md)
+  - [RecordTransactionAbortPrepared](../R/RecordTransactionAbortPrepared.md)
+  - [EndPrepare](../E/EndPrepare.md)
 
 ## Notes and Other Information
 This function must be called while holding interrupts during transaction commit to prevent shared memory queue cleanups from being influenced by external interruptions. The function implements careful state management and uses memory barriers to ensure proper synchronization between WAL senders and waiting backends. It gracefully handles process termination requests and query cancellations by issuing appropriate warnings about potentially unreplicated transactions.

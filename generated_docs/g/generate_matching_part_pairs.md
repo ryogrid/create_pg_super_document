@@ -35,16 +35,16 @@ A key feature is handling dummy partitions - when both outer and inner partition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionMap (struct type)
-  - PartitionBoundInfo (struct type)
+  - [PartitionMap](../P/PartitionMap.md) (struct type)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (struct type)
   - lappend (list manipulation)
-  - palloc (memory allocation)
-  - pfree (memory deallocation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - Max (macro for maximum value)
 - Called from (representative examples):
   - compare_range_bounds
-  - merge_list_bounds  
-  - merge_range_bounds
+  - [merge_list_bounds](../m/merge_list_bounds.md)  
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within partbounds.c

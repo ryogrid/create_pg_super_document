@@ -20,15 +20,15 @@ This function handles the \f command which changes the field separator character
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
   - do_pset
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - free
-  - PsqlScanState (type)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
   - OT_NORMAL (constant)
   - PSQL_CMD_SKIP_LINE (return value for success)
   - PSQL_CMD_ERROR (return value for failure)
-  - backslashResult (return type)
+  - [backslashResult](../b/backslashResult.md) (return type)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

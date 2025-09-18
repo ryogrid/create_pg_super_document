@@ -24,11 +24,11 @@ ScanKeyEntryInitializeWithInfo is an optimized version of scan key initializatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info_copy
+  - [fmgr_info_copy](../f/fmgr_info_copy.md)
   - CurrentMemoryContext (global variable)
 - Called from (representative examples):
-  - _bt_first (B-tree index scanning with pre-loaded function info)
-  - _bt_mkscankey (B-tree scan key construction)
+  - [_bt_first](../b/_bt_first.md) (B-tree index scanning with pre-loaded function info)
+  - [_bt_mkscankey](../b/_bt_mkscankey.md) (B-tree scan key construction)
 
 ## Notes and Other Information
 - More efficient than ScanKeyEntryInitialize when FmgrInfo is already available

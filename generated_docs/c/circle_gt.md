@@ -20,8 +20,8 @@ The  function implements the "greater than" comparison operator for PostgreSQL's
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves CIRCLE arguments)
-  - circle_ar (calculates circle area)
-  - FPgt (floating-point greater-than comparison with epsilon tolerance)
+  - [circle_ar](circle_ar.md) (calculates circle area)
+  - [FPgt](../F/FPgt.md) (floating-point greater-than comparison with epsilon tolerance)
   - PG_RETURN_BOOL (returns boolean result)
 - Called from (representative examples):
   - No direct references found in codebase

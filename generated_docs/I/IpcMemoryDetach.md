@@ -23,10 +23,10 @@ The function logs any errors that occur during detachment but does not treat the
 ## Dependencies
 - Functions called/Symbols referenced:
   - shmdt (System V IPC function)
-  - DatumGetPointer (PostgreSQL datum conversion)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (PostgreSQL datum conversion)
   - elog (PostgreSQL logging)
 - Called from (representative examples):
-  - InternalIpcMemoryCreate (via on_shmem_exit registration)
+  - [InternalIpcMemoryCreate](InternalIpcMemoryCreate.md) (via on_shmem_exit registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_shmem.c file

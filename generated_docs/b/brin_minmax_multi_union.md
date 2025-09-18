@@ -28,16 +28,16 @@ The function uses a temporary memory context to manage allocations during the po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_range_deserialize
-  - fill_expanded_ranges
-  - sort_expanded_ranges  
-  - merge_overlapping_ranges
-  - minmax_multi_get_strategy_procinfo
-  - minmax_multi_get_procinfo
-  - build_distances
-  - reduce_expanded_ranges
-  - store_expanded_ranges
-  - brin_range_serialize
+  - [brin_range_deserialize](brin_range_deserialize.md)
+  - [fill_expanded_ranges](../f/fill_expanded_ranges.md)
+  - [sort_expanded_ranges](../s/sort_expanded_ranges.md)  
+  - [merge_overlapping_ranges](../m/merge_overlapping_ranges.md)
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
+  - [minmax_multi_get_procinfo](../m/minmax_multi_get_procinfo.md)
+  - [build_distances](build_distances.md)
+  - [reduce_expanded_ranges](../r/reduce_expanded_ranges.md)
+  - [store_expanded_ranges](../s/store_expanded_ranges.md)
+  - [brin_range_serialize](brin_range_serialize.md)
 - Called from (representative examples):
   - No direct references found (likely called through function manager)
 

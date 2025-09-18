@@ -27,9 +27,9 @@ This dual approach ensures that both cached relations and relations currently be
 - Functions called/Symbols referenced:
   - RelationIdCacheLookup
   - PointerIsValid
-  - RelationFlushRelation
+  - [RelationFlushRelation](RelationFlushRelation.md)
 - Called from (representative examples):
-  - LocalExecuteInvalidationMessage
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's shared invalidation (SI) system for maintaining cache consistency across multiple backends

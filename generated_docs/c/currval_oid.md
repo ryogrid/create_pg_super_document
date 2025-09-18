@@ -20,11 +20,11 @@ The function maintains session-level state through the SeqTable structure, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_sequence: Initialize and lock the sequence relation
-  - pg_class_aclcheck: Check access permissions on the sequence
+  - [init_sequence](../i/init_sequence.md): Initialize and lock the sequence relation
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Check access permissions on the sequence
   - ACL_SELECT: Permission flag for SELECT operations
   - ACL_USAGE: Permission flag for USAGE operations  
-  - sequence_close: Close and unlock the sequence relation
+  - [sequence_close](../s/sequence_close.md): Close and unlock the sequence relation
   - PG_RETURN_INT64: Return the 64-bit integer result
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)

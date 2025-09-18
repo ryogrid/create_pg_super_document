@@ -25,8 +25,8 @@ Like fmtIdEnc(), this function uses a shared buffer, so the returned string is o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtIdEnc (primary formatting function)
-  - getFmtEncoding (to retrieve current encoding setting)
+  - [fmtIdEnc](fmtIdEnc.md) (primary formatting function)
+  - [getFmtEncoding](../g/getFmtEncoding.md) (to retrieve current encoding setting)
 - Called from (representative examples):
   - Extensively used throughout pg_dump utilities (pg_dump.c, pg_dumpall.c, dumputils.c)
   - PostgreSQL client utilities (createdb.c, createuser.c, psql)

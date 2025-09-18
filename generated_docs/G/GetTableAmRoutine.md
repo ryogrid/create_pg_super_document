@@ -20,12 +20,12 @@ The function allocates the TableAmRoutine struct in the caller's memory context 
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidFunctionCall0
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - IsA
   - elog
   - TableAmRoutine (struct type)
 - Called from (representative examples):
-  - InitTableAmRoutine
+  - [InitTableAmRoutine](../I/InitTableAmRoutine.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

@@ -26,20 +26,20 @@ The function sets up the NumericVar structure's buffer pointers correctly, with 
   - digitbuf_alloc
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT
-  - numeric_recv
-  - set_var_from_str
-  - set_var_from_num
-  - numericvar_deserialize
-  - int64_to_numericvar
-  - int128_to_numericvar
-  - mul_var
-  - div_var
-  - div_var_fast
-  - sqrt_var
-  - random_var
-  - PGTYPESnumeric_new
-  - PGTYPESnumeric_from_long
-  - PGTYPESnumeric_copy
+  - [numeric_recv](../n/numeric_recv.md)
+  - [set_var_from_str](../s/set_var_from_str.md)
+  - [set_var_from_num](../s/set_var_from_num.md)
+  - [numericvar_deserialize](../n/numericvar_deserialize.md)
+  - [int64_to_numericvar](../i/int64_to_numericvar.md)
+  - [int128_to_numericvar](../i/int128_to_numericvar.md)
+  - [mul_var](../m/mul_var.md)
+  - [div_var](../d/div_var.md)
+  - [div_var_fast](../d/div_var_fast.md)
+  - [sqrt_var](../s/sqrt_var.md)
+  - [random_var](../r/random_var.md)
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
+  - [PGTYPESnumeric_from_long](../P/PGTYPESnumeric_from_long.md)
+  - [PGTYPESnumeric_copy](../P/PGTYPESnumeric_copy.md)
   - PGTYPESnumeric_from_decimal
 
 ## Notes and Other Information

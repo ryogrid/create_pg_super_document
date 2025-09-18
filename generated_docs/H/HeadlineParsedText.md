@@ -48,13 +48,13 @@ The words array contains all the tokens from the input text, with each HeadlineW
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeadlineWordEntry
+  - [HeadlineWordEntry](HeadlineWordEntry.md)
 - Called from (representative examples):
-  - hladdword (src/backend/tsearch/ts_parse.c:440)
-  - hlparsetext (src/backend/tsearch/ts_parse.c:540)
-  - generateHeadline (src/backend/tsearch/ts_parse.c:607)
-  - ts_headline_byid_opt (src/backend/tsearch/wparser.c:294)
-  - prsd_headline (src/backend/tsearch/wparser_def.c:2618)
+  - [hladdword](../h/hladdword.md) (src/backend/tsearch/ts_parse.c:440)
+  - [hlparsetext](../h/hlparsetext.md) (src/backend/tsearch/ts_parse.c:540)
+  - [generateHeadline](../g/generateHeadline.md) (src/backend/tsearch/ts_parse.c:607)
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md) (src/backend/tsearch/wparser.c:294)
+  - [prsd_headline](../p/prsd_headline.md) (src/backend/tsearch/wparser_def.c:2618)
 
 ## Notes and Other Information
 - The structure uses a two-phase initialization: core code fills word-related fields, then prsheadline functions fill formatting fields

@@ -21,11 +21,11 @@ This function implements the evaluation of "IS NOT NULL" tests for row expressio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalRowNullInt: Internal implementation that performs the actual row null testing
+  - [ExecEvalRowNullInt](ExecEvalRowNullInt.md): Internal implementation that performs the actual row null testing
   - ExprEvalStep: Structure containing evaluation step details
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter loop
-  - FunctionReturningBool: JIT compilation type definitions
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter loop
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type definitions
 
 ## Notes and Other Information
 - This function is part of the step-based expression evaluation framework

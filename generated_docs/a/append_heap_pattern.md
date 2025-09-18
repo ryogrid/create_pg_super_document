@@ -21,11 +21,11 @@ The `append_heap_pattern` function is a specialized wrapper around `append_relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - append_relation_pattern_helper
+  - [append_relation_pattern_helper](append_relation_pattern_helper.md)
 - Types used:
-  - PatternInfoArray
+  - [PatternInfoArray](../P/PatternInfoArray.md)
 - Called from (representative examples):
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:361, 365)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:361, 365)
 
 ## Notes and Other Information
 - Specialized wrapper function for heap table-specific pattern matching

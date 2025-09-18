@@ -24,15 +24,15 @@ The serialization format consists of: a length word (tuple length + sizeof(lengt
 ## Dependencies
 - Functions called/Symbols referenced:
   - Tuplesortstate (sort state management structure)
-  - LogicalTape (tape abstraction for external sorting)
+  - [LogicalTape](../L/LogicalTape.md) (tape abstraction for external sorting)
   - SortTuple (generic sort tuple structure)
   - TuplesortPublic (public sort state structure)
   - TuplesortstateGetPublic (accessor for public sort state)
-  - BrinSortTuple (BRIN-specific tuple structure)
+  - [BrinSortTuple](../B/BrinSortTuple.md) (BRIN-specific tuple structure)
   - LogicalTapeWrite (function to write data to logical tape)
   - TUPLESORT_RANDOMACCESS (flag for random access requirement)
 - Called from (representative examples):
-  - tuplesort_begin_index_brin (BRIN sort initialization)
+  - [tuplesort_begin_index_brin](../t/tuplesort_begin_index_brin.md) (BRIN sort initialization)
   - CLUSTER_SORT (clustering sort operations)
 
 ## Notes and Other Information

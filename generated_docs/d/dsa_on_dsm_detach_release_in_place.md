@@ -22,13 +22,13 @@ The function simply extracts the memory address from the Datum parameter and cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_release_in_place
-  - DatumGetPointer
+  - [dsa_release_in_place](dsa_release_in_place.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - dsa_create_ext (src/backend/utils/mmgr/dsa.c:448)
-  - dsa_create_in_place_ext (src/backend/utils/mmgr/dsa.c:486)
-  - dsa_attach (src/backend/utils/mmgr/dsa.c:528)
-  - dsa_attach_in_place (src/backend/utils/mmgr/dsa.c:556)
+  - [dsa_create_ext](dsa_create_ext.md) (src/backend/utils/mmgr/dsa.c:448)
+  - [dsa_create_in_place_ext](dsa_create_in_place_ext.md) (src/backend/utils/mmgr/dsa.c:486)
+  - [dsa_attach](dsa_attach.md) (src/backend/utils/mmgr/dsa.c:528)
+  - [dsa_attach_in_place](dsa_attach_in_place.md) (src/backend/utils/mmgr/dsa.c:556)
 
 ## Notes and Other Information
 - This callback is automatically registered when a DSM segment is provided to dsa_create_in_place or dsa_attach_in_place

@@ -25,16 +25,16 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid (checks if transaction ID is valid)
-  - AssignTransactionId (assigns a new transaction ID)
+  - [AssignTransactionId](../A/AssignTransactionId.md) (assigns a new transaction ID)
   - XidFromFullTransactionId (converts full XID to regular XID)
 - Called from (representative examples):
-  - log_heap_new_cid
-  - AssignTransactionId
-  - fill_seq_fork_with_data
-  - AlterSequence
-  - SequenceChangePersistence
-  - nextval_internal
-  - do_setval
+  - [log_heap_new_cid](../l/log_heap_new_cid.md)
+  - [AssignTransactionId](../A/AssignTransactionId.md)
+  - [fill_seq_fork_with_data](../f/fill_seq_fork_with_data.md)
+  - [AlterSequence](../A/AlterSequence.md)
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md)
+  - [nextval_internal](../n/nextval_internal.md)
+  - [do_setval](../d/do_setval.md)
 
 ## Notes and Other Information
 - This function should only be called within a valid transaction context

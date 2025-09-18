@@ -23,15 +23,15 @@ The transformation process involves calling the user-provided action function wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransformJsonStringValuesState (state structure containing transformation context)
+  - [TransformJsonStringValuesState](../T/TransformJsonStringValuesState.md) (state structure containing transformation context)
   - JSON_TOKEN_STRING (enum value for string tokens)
-  - escape_json (function to properly escape JSON string literals)
+  - [escape_json](../e/escape_json.md) (function to properly escape JSON string literals)
   - text_to_cstring (function to convert PostgreSQL text to C string)
   - appendStringInfoString (function to append strings to StringInfo buffer)
   - JSON_SUCCESS (return value constant)
-  - JsonTokenType (enum type for token classification)
+  - [JsonTokenType](../J/JsonTokenType.md) (enum type for token classification)
 - Called from (representative examples):
-  - transform_json_string_values (main transformation function)
+  - [transform_json_string_values](transform_json_string_values.md) (main transformation function)
   - JsObjectFree (JSON object processing context)
 
 ## Notes and Other Information

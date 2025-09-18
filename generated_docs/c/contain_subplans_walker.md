@@ -29,11 +29,11 @@ When any of these node types is encountered, the function immediately returns tr
   - SubPlan (node type check)
   - AlternativeSubPlan (node type check) 
   - SubLink (node type check)
-  - contain_subplans_walker (recursive call)
+  - [contain_subplans_walker](contain_subplans_walker.md) (recursive call)
 - Called from (representative examples):
-  - contain_subplans
+  - [contain_subplans](contain_subplans.md)
   - max_parallel_hazard_context
-  - contain_subplans_walker (recursive)
+  - [contain_subplans_walker](contain_subplans_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

@@ -18,14 +18,14 @@ This function handles the OF clause in CREATE TABLE statements, which allows cre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameType
-  - check_of_type
-  - lookup_rowtype_tupdesc
+  - [typenameType](typenameType.md)
+  - [check_of_type](../c/check_of_type.md)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - makeColumnDef
   - ReleaseTupleDesc
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - transformCreateStmt
+  - [transformCreateStmt](transformCreateStmt.md)
 
 ## Notes and Other Information
 - Only works with composite types that pass the check_of_type validation

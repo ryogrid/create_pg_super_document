@@ -28,16 +28,16 @@ The function ensures consistency during recovery by processing pages in the corr
   - XLogRecGetData
   - XLogInitBufferForRedo
   - XLogReadBufferForRedo
-  - SpGistInitBuffer
-  - addOrReplaceTuple
-  - PageIndexTupleDelete
+  - [SpGistInitBuffer](../S/SpGistInitBuffer.md)
+  - [addOrReplaceTuple](../a/addOrReplaceTuple.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - PageAddItem
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferGetPage
-  - UnlockReleaseBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
-  - spg_redo (main SP-GiST redo dispatcher)
+  - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)
 
 ## Notes and Other Information
 - Handles unaligned tuple data by copying headers to aligned structures

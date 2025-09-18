@@ -24,7 +24,7 @@ This function is part of the standard scan interface and must be provided even t
 - Functions called/Symbols referenced:
   - None (function only returns true)
 - Called from:
-  - ExecValuesScan
+  - [ExecValuesScan](../E/ExecValuesScan.md)
 
 ## Notes and Other Information
 - Always returns true since VALUES data is synthetic and cannot be modified by concurrent transactions

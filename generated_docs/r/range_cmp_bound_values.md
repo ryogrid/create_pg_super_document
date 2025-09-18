@@ -19,11 +19,11 @@ The `range_cmp_bound_values` function provides a simplified comparison between t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
-  - FunctionCall2Coll
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
-  - bounds_adjacent
-  - range_serialize
+  - [bounds_adjacent](../b/bounds_adjacent.md)
+  - [range_serialize](range_serialize.md)
 
 ## Notes and Other Information
 - This function is simpler than `range_cmp_bounds` as it ignores inclusive/exclusive semantics

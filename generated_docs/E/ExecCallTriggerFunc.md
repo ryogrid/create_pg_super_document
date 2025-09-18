@@ -38,21 +38,21 @@ Key safety features include protection against uninitialized transition table in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info (function manager info setup)
+  - [fmgr_info](../f/fmgr_info.md) (function manager info setup)
   - InitFunctionCallInfoData (function call preparation)
   - FunctionCallInvoke (actual function execution)
-  - pgstat_init_function_usage / pgstat_end_function_usage (statistics)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) / pgstat_end_function_usage (statistics)
   - InstrStartNode / InstrStopNode (instrumentation)
-  - MemoryContextSwitchTo (memory management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 - Macros used:
   - TRIGGER_FIRED_BY_INSERT/UPDATE/DELETE (event type checking)
   - TRIGGER_FIRED_AFTER (timing checking)
   - LOCAL_FCINFO (function call info declaration)
 - Called from (representative examples):
-  - ExecBSInsertTriggers (before-statement insert triggers)
-  - ExecBRInsertTriggers (before-row insert triggers)
-  - ExecIRInsertTriggers (instead-of insert triggers)
-  - AfterTriggerExecute (deferred trigger execution)
+  - [ExecBSInsertTriggers](ExecBSInsertTriggers.md) (before-statement insert triggers)
+  - [ExecBRInsertTriggers](ExecBRInsertTriggers.md) (before-row insert triggers)
+  - [ExecIRInsertTriggers](ExecIRInsertTriggers.md) (instead-of insert triggers)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md) (deferred trigger execution)
 
 ## Notes and Other Information
 - Uses PG_TRY/PG_FINALLY blocks to ensure MyTriggerDepth is properly decremented even on errors

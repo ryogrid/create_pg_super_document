@@ -23,7 +23,7 @@ The output format follows the pattern: {"attr1, attr2 => attr3": degree, "attr4 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (extract bytea argument)
-  - statext_dependencies_deserialize (convert binary to MVDependencies)
+  - [statext_dependencies_deserialize](../s/statext_dependencies_deserialize.md) (convert binary to MVDependencies)
   - initStringInfo (initialize string buffer)
   - appendStringInfoChar (append single character)
   - appendStringInfoString (append string literal)

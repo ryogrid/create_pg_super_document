@@ -21,11 +21,11 @@ This function fills an edge table data structure that represents the set of expl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gimme_edge (called to add individual edges to the table)
+  - [gimme_edge](gimme_edge.md) (called to add individual edges to the table)
   - Gene (genetic algorithm gene data type)
   - Edge (edge table data structure)
 - Called from (representative examples):
-  - geqo (main genetic algorithm function during crossover operations)
+  - [geqo](geqo.md) (main genetic algorithm function during crossover operations)
 
 ## Notes and Other Information
 - Assumes tours are circular (last city connects back to first city)

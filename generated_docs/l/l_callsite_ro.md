@@ -29,7 +29,7 @@ The function creates a string attribute using LLVM's attribute system and attach
   - `LLVMCreateStringAttribute`: To create the "readonly" string attribute
   - `LLVMAddCallSiteAttribute`: To attach the attribute to the call site
 - Called from (representative examples):
-  - `slot_compile_deform`: Used when calling functions for tuple deformation operations that don't modify global state
+  - `[slot_compile_deform](../s/slot_compile_deform.md)`: Used when calling functions for tuple deformation operations that don't modify global state
 
 ## Notes and Other Information
 - The function uses `LLVMAttributeFunctionIndex` to apply the attribute to the function itself rather than specific parameters

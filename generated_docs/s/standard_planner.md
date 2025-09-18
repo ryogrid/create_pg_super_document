@@ -34,18 +34,18 @@ The function implements sophisticated parallel planning logic, considering facto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subquery_planner (core recursive planning function)
+  - [subquery_planner](subquery_planner.md) (core recursive planning function)
   - fetch_upper_rel (retrieve final relation)
-  - get_cheapest_fractional_path (path selection)
-  - create_plan (path to plan conversion)
-  - ExecSupportsBackwardScan (scrollability check)
-  - materialize_finished_plan (materialization for scrolling)
-  - SS_finalize_plan (parameter finalization)
-  - set_plan_references (reference resolution)
-  - max_parallel_hazard (parallel safety assessment)
+  - [get_cheapest_fractional_path](../g/get_cheapest_fractional_path.md) (path selection)
+  - [create_plan](../c/create_plan.md) (path to plan conversion)
+  - [ExecSupportsBackwardScan](../E/ExecSupportsBackwardScan.md) (scrollability check)
+  - [materialize_finished_plan](../m/materialize_finished_plan.md) (materialization for scrolling)
+  - [SS_finalize_plan](../S/SS_finalize_plan.md) (parameter finalization)
+  - [set_plan_references](set_plan_references.md) (reference resolution)
+  - [max_parallel_hazard](../m/max_parallel_hazard.md) (parallel safety assessment)
 - Called from (representative examples):
-  - planner (main entry point)
-  - delay_execution_planner (test module)
+  - [planner](../p/planner.md) (main entry point)
+  - [delay_execution_planner](../d/delay_execution_planner.md) (test module)
 
 ## Notes and Other Information
 - Modifies the input Query structure, requiring copying for multiple planning attempts

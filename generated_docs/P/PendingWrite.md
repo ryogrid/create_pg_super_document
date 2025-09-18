@@ -27,10 +27,10 @@ The struct plays a crucial role in WAL (Write-Ahead Logging) optimization by all
   - BlockNumber (for block addressing)
 
 - Called from (representative examples):
-  - BulkWriteState (contains an array of PendingWrite structs)
-  - buffer_cmp (comparison function for sorting pending writes)
-  - smgr_bulk_flush (processes pending writes for actual disk I/O)
-  - smgr_bulk_write (creates and queues new PendingWrite entries)
+  - [BulkWriteState](../B/BulkWriteState.md) (contains an array of PendingWrite structs)
+  - [buffer_cmp](../b/buffer_cmp.md) (comparison function for sorting pending writes)
+  - [smgr_bulk_flush](../s/smgr_bulk_flush.md) (processes pending writes for actual disk I/O)
+  - [smgr_bulk_write](../s/smgr_bulk_write.md) (creates and queues new PendingWrite entries)
 
 ## Notes and Other Information
 - The PendingWrite struct is always used as part of an array within BulkWriteState, never as standalone instances

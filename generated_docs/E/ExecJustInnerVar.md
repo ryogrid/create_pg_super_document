@@ -21,10 +21,10 @@ The function is part of PostgreSQL's fast-path expression evaluation system, des
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustVarImpl (core implementation)
+  - [ExecJustVarImpl](ExecJustVarImpl.md) (core implementation)
 - Called from (representative examples):
   - EEO_JUMP (macro expansion for expression evaluation)
-  - ExecReadyInterpretedExpr (expression preparation)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation)
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExprInterp.c:2167-2173

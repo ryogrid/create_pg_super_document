@@ -27,13 +27,13 @@ This approach ensures compatibility across different PostgreSQL installations wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectDatabase (called up to 3 times with different parameters)
-  - ConnParams (parameter structure type)
+  - [connectDatabase](connectDatabase.md) (called up to 3 times with different parameters)
+  - [ConnParams](../C/ConnParams.md) (parameter structure type)
 - Called from (representative examples):
-  - main (in pg_amcheck, createdb, dropdb, createuser, dropuser)
-  - cluster_all_databases
-  - reindex_all_databases
-  - vacuum_all_databases
+  - [main](../m/main.md) (in pg_amcheck, createdb, dropdb, createuser, dropuser)
+  - [cluster_all_databases](cluster_all_databases.md)
+  - [reindex_all_databases](../r/reindex_all_databases.md)
+  - [vacuum_all_databases](../v/vacuum_all_databases.md)
 
 ## Notes and Other Information
 - Modifies the cparams->dbname field during execution to implement fallback logic

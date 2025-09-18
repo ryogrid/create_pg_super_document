@@ -28,7 +28,7 @@ The logging system uses this threshold in conjunction with the pg_log_debug macr
 - Functions called/Symbols referenced:
   - enum pg_log_level (parameter type)
 - Called from (representative examples):
-  - main functions in pg_dump, pg_restore, pg_dumpall, pg_createsubscriber
+  - [main](../m/main.md) functions in pg_dump, pg_restore, pg_dumpall, pg_createsubscriber
 
 ## Notes and Other Information
 - Should typically be called immediately after pg_logging_init() if a non-default log level is desired

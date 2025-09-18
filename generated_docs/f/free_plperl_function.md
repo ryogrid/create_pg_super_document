@@ -17,14 +17,14 @@ This function is responsible for the complete cleanup of a PL/Perl function desc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_proc_desc: Structure type for procedure descriptor
-  - plperl_interp_desc: Structure type for Perl interpreter descriptor
-  - activate_interpreter: Switches to the specified Perl interpreter
-  - SvREFCNT_dec_current: Decrements Perl scalar reference count
-  - MemoryContextDelete: Deletes PostgreSQL memory context and all contained memory
+  - [plperl_proc_desc](../p/plperl_proc_desc.md): Structure type for procedure descriptor
+  - [plperl_interp_desc](../p/plperl_interp_desc.md): Structure type for Perl interpreter descriptor
+  - [activate_interpreter](../a/activate_interpreter.md): Switches to the specified Perl interpreter
+  - [SvREFCNT_dec_current](../S/SvREFCNT_dec_current.md): Decrements Perl scalar reference count
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Deletes PostgreSQL memory context and all contained memory
 - Called from:
   - decrement_prodesc_refcount: Called when reference count reaches zero
-  - compile_plperl_function: Called during error handling/cleanup
+  - [compile_plperl_function](../c/compile_plperl_function.md): Called during error handling/cleanup
 
 ## Notes and Other Information
 - Only called when fn_refcount is zero (enforced by Assert)

@@ -17,7 +17,7 @@ This function implements the hash operation for PostgreSQL's time data type (Tim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashint8
+  - [hashint8](../h/hashint8.md)
 - Called from (representative examples):
   - Used internally by PostgreSQL's hash-based operations on time data types
 

@@ -21,18 +21,18 @@ The bbstreamer architecture follows a chain-of-responsibility pattern where each
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_ops (for operation function pointers)
-  - StringInfoData (for internal buffering)
-  - bbstreamer_archive_context (for data classification)
+  - [bbstreamer_ops](bbstreamer_ops.md) (for operation function pointers)
+  - [StringInfoData](../S/StringInfoData.md) (for internal buffering)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (for data classification)
   - bbstreamer_member (for archive member metadata)
 
 - Called from (representative examples):
-  - bbstreamer_plain_writer_new
-  - bbstreamer_extractor_new
-  - bbstreamer_gzip_writer_new
-  - bbstreamer_tar_parser_new
-  - CreateBackupStreamer
-  - ReceiveTarFile
+  - [bbstreamer_plain_writer_new](bbstreamer_plain_writer_new.md)
+  - [bbstreamer_extractor_new](bbstreamer_extractor_new.md)
+  - [bbstreamer_gzip_writer_new](bbstreamer_gzip_writer_new.md)
+  - [bbstreamer_tar_parser_new](bbstreamer_tar_parser_new.md)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
+  - [ReceiveTarFile](../R/ReceiveTarFile.md)
 
 ## Notes and Other Information
 - The bbstreamer system is designed for frontend environments where memory contexts are not available, requiring explicit memory management through the 'free' callback

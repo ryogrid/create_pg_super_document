@@ -22,15 +22,15 @@ This function implements a selection algorithm to choose the most appropriate st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
-  - stat_covers_expressions
-  - bms_add_members
-  - bms_num_members
-  - bms_free
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [stat_covers_expressions](../s/stat_covers_expressions.md)
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_free](../b/bms_free.md)
   - list_length
   - STATS_MAX_DIMENSIONS
 - Called from (representative examples):
-  - statext_mcv_clauselist_selectivity
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 The selection algorithm uses a greedy approach with clear prioritization: it first seeks to maximize coverage (number of matched attributes and expressions) and only considers the number of keys as a secondary criterion for tie-breaking. If multiple statistics objects tie on both criteria, the selection depends on the order they appear in the stats list, which may warrant additional tiebreakers in future implementations. The function requires at least two matched attributes/expressions as a minimum threshold for consideration.

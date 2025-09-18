@@ -21,8 +21,8 @@ This flag provides a higher-level filtering mechanism compared to the more speci
 
 ## Dependencies
 - Used by:
-  - query_tree_walker_impl (src/backend/nodes/nodeFuncs.c:2775)
-  - assign_query_collations (src/backend/parser/parse_collate.c:112)
+  - [query_tree_walker_impl](../q/query_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2775)
+  - [assign_query_collations](../a/assign_query_collations.md) (src/backend/parser/parse_collate.c:112)
 - Part of the QTW flag system defined in src/include/nodes/nodeFuncs.h
 - Controls the invocation of range_table_walker function
 

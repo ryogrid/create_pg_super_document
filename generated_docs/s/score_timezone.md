@@ -20,21 +20,21 @@ This function assesses the compatibility of a given timezone with the system's l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_load_tz
-  - pg_tz_acceptable  
-  - pg_localtime
-  - compare_tm
+  - [pg_load_tz](../p/pg_load_tz.md)
+  - [pg_tz_acceptable](../p/pg_tz_acceptable.md)  
+  - [pg_localtime](../p/pg_localtime.md)
+  - [compare_tm](../c/compare_tm.md)
   - localtime
   - strftime
   - strcmp
 - Types referenced:
   - tztry
   - pg_time_t
-  - pg_tm
-  - pg_tz
+  - [pg_tm](../p/pg_tm.md)
+  - [pg_tz](../p/pg_tz.md)
 - Called from (representative examples):
-  - perfect_timezone_match
-  - scan_available_timezones
+  - [perfect_timezone_match](../p/perfect_timezone_match.md)
+  - [scan_available_timezones](scan_available_timezones.md)
 
 ## Notes and Other Information
 - Returns -1 for completely unusable timezone settings (unrecognized name, uses leap seconds, etc.)

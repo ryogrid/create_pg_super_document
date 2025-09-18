@@ -23,7 +23,7 @@ The function delegates all its work to PLy_output, passing the NOTICE log level 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_output (the core logging function that handles message formatting and PostgreSQL integration)
+  - [PLy_output](PLy_output.md) (the core logging function that handles message formatting and PostgreSQL integration)
   - NOTICE (log level constant defined as 18 in src/include/utils/elog.h:43)
 - Called from (representative examples):
   - Available to Python code as plpy.notice() when imported in PL/Python functions

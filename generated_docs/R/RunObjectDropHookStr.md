@@ -23,14 +23,14 @@ The function differs from its OID-based counterpart by using object names (strin
 ## Dependencies
 - Functions called/Symbols referenced:
   - object_access_hook_str (global function pointer)
-  - ObjectAccessDrop (structure type)
+  - [ObjectAccessDrop](../O/ObjectAccessDrop.md) (structure type)
   - OAT_DROP (object access type constant)
   - Assert (debugging assertion macro)
   - memset (memory initialization function)
 
 - Called from (representative examples):
   - InvokeObjectDropHookArgStr
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
 
 ## Notes and Other Information
 - This is part of the string-based variant of PostgreSQL's object access hook system for drop operations

@@ -34,14 +34,14 @@ PLyPlanObject is the core data structure used by PL/Python to represent prepared
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr (from executor/spi.h)
-  - PLyObToDatum (from plpy_typeio.h)
+  - [SPIPlanPtr](../S/SPIPlanPtr.md) (from executor/spi.h)
+  - [PLyObToDatum](PLyObToDatum.md) (from plpy_typeio.h)
 - Called from (representative examples):
-  - PLy_plan_new (creates new instances)
-  - PLy_plan_dealloc (deallocates instances)
-  - PLy_spi_prepare (prepares plans)
-  - PLy_spi_execute_plan (executes plans)
-  - PLy_cursor_plan (creates cursors from plans)
+  - [PLy_plan_new](PLy_plan_new.md) (creates new instances)
+  - [PLy_plan_dealloc](PLy_plan_dealloc.md) (deallocates instances)
+  - [PLy_spi_prepare](PLy_spi_prepare.md) (prepares plans)
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md) (executes plans)
+  - [PLy_cursor_plan](PLy_cursor_plan.md) (creates cursors from plans)
 
 ## Notes and Other Information
 - This structure is the foundation of prepared statement functionality in PL/Python, enabling efficient repeated execution of SQL with different parameters

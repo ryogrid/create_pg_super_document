@@ -34,24 +34,24 @@ The function includes sophisticated record type handling that can resolve RECORD
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (prevents stack overflow in recursion)
-  - _sv_to_datum_finfo (sets up type conversion functions)
-  - InputFunctionCall (calls PostgreSQL input functions)
-  - get_transform_tosql (finds custom transform functions)
+  - [_sv_to_datum_finfo](../s/_sv_to_datum_finfo.md) (sets up type conversion functions)
+  - [InputFunctionCall](../I/InputFunctionCall.md) (calls PostgreSQL input functions)
+  - [get_transform_tosql](../g/get_transform_tosql.md) (finds custom transform functions)
   - OidFunctionCall1 (calls transform functions)
-  - get_perl_array_ref (extracts array references)
-  - plperl_array_to_datum (converts arrays)
-  - type_is_rowtype (checks for composite types)
-  - lookup_rowtype_tupdesc_domain (gets composite type descriptors)
-  - get_call_result_type (resolves RECORD types)
-  - plperl_hash_to_datum (converts hashes to composite types)
-  - domain_check (validates domain constraints)
-  - sv2cstr (converts Perl strings to C strings)
+  - [get_perl_array_ref](../g/get_perl_array_ref.md) (extracts array references)
+  - [plperl_array_to_datum](plperl_array_to_datum.md) (converts arrays)
+  - [type_is_rowtype](../t/type_is_rowtype.md) (checks for composite types)
+  - [lookup_rowtype_tupdesc_domain](../l/lookup_rowtype_tupdesc_domain.md) (gets composite type descriptors)
+  - [get_call_result_type](../g/get_call_result_type.md) (resolves RECORD types)
+  - [plperl_hash_to_datum](plperl_hash_to_datum.md) (converts hashes to composite types)
+  - [domain_check](../d/domain_check.md) (validates domain constraints)
+  - [sv2cstr](../s/sv2cstr.md) (converts Perl strings to C strings)
 - Called from (representative examples):
-  - plperl_build_tuple_result
-  - array_to_datum_internal
-  - plperl_sv_to_datum (recursive self-call)
-  - plperl_func_handler
-  - plperl_spi_exec_prepared
+  - [plperl_build_tuple_result](plperl_build_tuple_result.md)
+  - [array_to_datum_internal](../a/array_to_datum_internal.md)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md) (recursive self-call)
+  - [plperl_func_handler](plperl_func_handler.md)
+  - [plperl_spi_exec_prepared](plperl_spi_exec_prepared.md)
 
 ## Notes and Other Information
 - Recursive function that calls check_stack_depth to prevent stack overflow

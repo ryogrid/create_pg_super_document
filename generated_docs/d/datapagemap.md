@@ -20,7 +20,7 @@ The datapagemap structure is a core component of PostgreSQL's pg_rewind utility,
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - datapagemap_t (used as base type for typedef)
+  - [datapagemap_t](datapagemap_t.md) (used as base type for typedef)
 
 ## Notes and Other Information
 - This structure is fundamental to pg_rewind's page-level tracking mechanism

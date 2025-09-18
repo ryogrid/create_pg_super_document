@@ -20,7 +20,7 @@ This function serves as a simple wrapper around the main regexp_matches function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_matches
+  - [regexp_matches](regexp_matches.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

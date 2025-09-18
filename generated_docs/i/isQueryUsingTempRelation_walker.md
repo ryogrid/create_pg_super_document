@@ -28,11 +28,11 @@ static bool isQueryUsingTempRelation_walker(Node *node, void *context)
 - Constants/Enums referenced:
   - RTE_RELATION
   - RELPERSISTENCE_TEMP
-  - QTW_IGNORE_JOINALIASES
+  - [QTW_IGNORE_JOINALIASES](../Q/QTW_IGNORE_JOINALIASES.md)
   - AccessShareLock
 - Called from (representative examples):
-  - isQueryUsingTempRelation
-  - isQueryUsingTempRelation_walker (recursive calls)
+  - [isQueryUsingTempRelation](isQueryUsingTempRelation.md)
+  - [isQueryUsingTempRelation_walker](isQueryUsingTempRelation_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, not part of the public interface

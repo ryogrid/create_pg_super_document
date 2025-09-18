@@ -43,13 +43,13 @@ The spgLeafConsistentIn structure is used as an input parameter for SP-GiST leaf
   - ScanKey (PostgreSQL scan key structure)
   - Datum (PostgreSQL data type)
 - Called from (representative examples):
-  - spg_quad_leaf_consistent (src/backend/access/spgist/spgquadtreeproc.c:409)
-  - spgLeafTest (src/backend/access/spgist/spgscan.c:538)
-  - spg_text_leaf_consistent (src/backend/access/spgist/spgtextproc.c:576)
-  - spg_box_quad_leaf_consistent (src/backend/utils/adt/geo_spgist.c:743)
-  - inet_spg_leaf_consistent (src/backend/utils/adt/network_spgist.c:325)
-  - spg_range_quad_leaf_consistent (src/backend/utils/adt/rangetypes_spgist.c:919)
-  - spgist_name_leaf_consistent (src/test/modules/spgist_name_ops/spgist_name_ops.c:401)
+  - [spg_quad_leaf_consistent](spg_quad_leaf_consistent.md) (src/backend/access/spgist/spgquadtreeproc.c:409)
+  - [spgLeafTest](spgLeafTest.md) (src/backend/access/spgist/spgscan.c:538)
+  - [spg_text_leaf_consistent](spg_text_leaf_consistent.md) (src/backend/access/spgist/spgtextproc.c:576)
+  - [spg_box_quad_leaf_consistent](spg_box_quad_leaf_consistent.md) (src/backend/utils/adt/geo_spgist.c:743)
+  - [inet_spg_leaf_consistent](../i/inet_spg_leaf_consistent.md) (src/backend/utils/adt/network_spgist.c:325)
+  - [spg_range_quad_leaf_consistent](spg_range_quad_leaf_consistent.md) (src/backend/utils/adt/rangetypes_spgist.c:919)
+  - [spgist_name_leaf_consistent](spgist_name_leaf_consistent.md) (src/test/modules/spgist_name_ops/spgist_name_ops.c:401)
 
 ## Notes and Other Information
 - This structure is read-only from the perspective of the leaf_consistent method - it should not modify the provided data

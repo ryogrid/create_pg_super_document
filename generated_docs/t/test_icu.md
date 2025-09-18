@@ -19,15 +19,15 @@ The function tracks statistics including successful tests and skipped mismatches
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category
-  - icu_test_simple
+  - [unicode_category](../u/unicode_category.md)
+  - [icu_test_simple](../i/icu_test_simple.md)
   - u_charType (ICU function)
   - printf
 - Constants/Types referenced:
-  - pg_unicode_category
+  - [pg_unicode_category](../p/pg_unicode_category.md)
   - PG_U_UNASSIGNED
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the case_test.c compilation unit

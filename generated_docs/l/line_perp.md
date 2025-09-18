@@ -21,9 +21,9 @@ This function checks if two LINE objects are perpendicular by analyzing the rela
 - Functions called/Symbols referenced:
   - PG_GETARG_LINE_P: Extracts LINE arguments from function call
   - FPzero: Tests if a floating-point value is zero
-  - FPeq: Tests if two floating-point values are equal
-  - float8_mul: Multiplies two float8 values
-  - float8_div: Divides two float8 values  
+  - [FPeq](../F/FPeq.md): Tests if two floating-point values are equal
+  - [float8_mul](../f/float8_mul.md): Multiplies two float8 values
+  - [float8_div](../f/float8_div.md): Divides two float8 values  
   - PG_RETURN_BOOL: Returns boolean result
 - Called from (representative examples):
   - No direct callers found (likely called via PostgreSQL's function dispatch system)

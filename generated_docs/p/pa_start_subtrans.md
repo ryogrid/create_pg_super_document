@@ -27,21 +27,21 @@ The function handles the complex PostgreSQL transaction state transitions requir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_xid (check if XID exists in list)
-  - pa_savepoint_name (generate unique savepoint name)
-  - IsTransactionBlock (check transaction block state)
-  - IsTransactionState (verify transaction state)
-  - StartTransactionCommand (initiate transaction)
-  - BeginTransactionBlock (start transaction block)
-  - CommitTransactionCommand (commit transaction command)
-  - DefineSavepoint (create named savepoint)
-  - MemoryContextSwitchTo (memory context management)
+  - [list_member_xid](../l/list_member_xid.md) (check if XID exists in list)
+  - [pa_savepoint_name](pa_savepoint_name.md) (generate unique savepoint name)
+  - [IsTransactionBlock](../I/IsTransactionBlock.md) (check transaction block state)
+  - [IsTransactionState](../I/IsTransactionState.md) (verify transaction state)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (initiate transaction)
+  - [BeginTransactionBlock](../B/BeginTransactionBlock.md) (start transaction block)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commit transaction command)
+  - [DefineSavepoint](../D/DefineSavepoint.md) (create named savepoint)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
   - lappend_xid (append XID to list)
   - MySubscription (global subscription info)
   - TopTransactionContext (transaction memory context)
   - subxactlist (global subtransaction list)
 - Called from (representative examples):
-  - handle_streamed_transaction
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
 
 ## Notes and Other Information
 - This function is located in src/backend/replication/logical/applyparallelworker.c:1362-1401

@@ -21,16 +21,16 @@ drop_parent_dependency is a utility function that removes specific dependency en
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from (representative examples):
-  - RemoveInheritance
-  - ATExecAddOf
-  - ATExecDropOf
+  - [RemoveInheritance](../R/RemoveInheritance.md)
+  - [ATExecAddOf](../A/ATExecAddOf.md)
+  - [ATExecDropOf](../A/ATExecDropOf.md)
 
 ## Notes and Other Information
 - Used for both inheritance relationships (CREATE/ALTER TABLE INHERITS) and typed table relationships (CREATE/ALTER TABLE OF)

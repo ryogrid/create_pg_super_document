@@ -23,15 +23,15 @@ The function supports both new index creation and rebuilding scenarios, with spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefineIndex
+  - [DefineIndex](../D/DefineIndex.md)
   - RelFileNumberIsValid
-  - index_open
-  - RelationPreserveStorage
-  - index_close
-  - AlteredTableInfo (struct)
+  - [index_open](../i/index_open.md)
+  - [RelationPreserveStorage](../R/RelationPreserveStorage.md)
+  - [index_close](../i/index_close.md)
+  - [AlteredTableInfo](AlteredTableInfo.md) (struct)
   - IndexStmt (struct)
 - Called from (representative examples):
-  - ATExecCmd (multiple call sites)
+  - [ATExecCmd](ATExecCmd.md) (multiple call sites)
   - child_dependency_type
 
 ## Notes and Other Information

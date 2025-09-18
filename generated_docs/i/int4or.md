@@ -30,4 +30,4 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - This function is located in src/backend/utils/adt/int.c:1402-1410
 - Part of PostgreSQL's arithmetic and bitwise operations for the int4 data type
 - The bitwise OR operation sets each bit to 1 if at least one of the corresponding bits in either operand is 1
-- Result follows standard C bitwise OR semantics for 32-bit signed integers
+- [Result](../R/Result.md) follows standard C bitwise OR semantics for 32-bit signed integers

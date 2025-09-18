@@ -19,9 +19,9 @@ This function prepares the zstd compression sink to begin compressing a new arch
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_CCtx_reset (resets compression context for new archive)
-  - psprintf (formats string with .zst extension)
+  - [psprintf](../p/psprintf.md) (formats string with .zst extension)
   - bbsink_begin_archive (notifies next sink to begin archive)
-  - pfree (frees formatted archive name)
+  - [pfree](../p/pfree.md) (frees formatted archive name)
   - Assert (validates next sink is not NULL)
 - Called from (representative examples):
   - Through bbsink_zstd_ops function pointer table

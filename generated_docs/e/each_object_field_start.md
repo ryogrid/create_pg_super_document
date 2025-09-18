@@ -21,11 +21,11 @@ This function serves as a callback handler in PostgreSQL's JSON parsing infrastr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EachState (state structure casting)
+  - [EachState](../E/EachState.md) (state structure casting)
   - JSON_TOKEN_STRING (token type comparison)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - each_worker (registered as object_field_start callback)
+  - [each_worker](each_worker.md) (registered as object_field_start callback)
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/jsonfuncs.c:2096-2117

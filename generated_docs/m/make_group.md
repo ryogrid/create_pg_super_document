@@ -35,7 +35,7 @@ This static function constructs a Group plan node that performs grouping operati
 - Types referenced:
   - Group (the grouping plan node structure)
 - Called from (representative examples):
-  - create_group_plan
+  - [create_group_plan](../c/create_group_plan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the createplan.c file

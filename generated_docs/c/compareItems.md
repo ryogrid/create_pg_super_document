@@ -20,16 +20,16 @@ The compareItems function is the central comparison engine for SQL/JSON path exp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compareNumeric
-  - compareStrings
-  - compareDatetime
+  - [compareNumeric](compareNumeric.md)
+  - [compareStrings](compareStrings.md)
+  - [compareDatetime](compareDatetime.md)
   - memcmp
   - elog
   - Various JsonbValue type constants (jbvNull, jbvBool, jbvNumeric, jbvString, jbvDatetime, jbvBinary, jbvArray, jbvObject)
   - JsonPath operation constants (jpiEqual, jpiNotEqual, jpiLess, etc.)
   - JsonPathBool constants (jpbTrue, jpbFalse, jpbUnknown)
 - Called from (representative examples):
-  - executeComparison
+  - [executeComparison](../e/executeComparison.md)
   - RETURN_ERROR
 
 ## Notes and Other Information

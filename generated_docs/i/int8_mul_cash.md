@@ -23,7 +23,7 @@ This function implements the multiplication operation between a 64-bit integer (
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: Extracts int64 argument from function call context
   - PG_GETARG_CASH: Extracts Cash argument from function call context
-  - cash_mul_int64: Performs the actual safe multiplication with overflow checking
+  - [cash_mul_int64](../c/cash_mul_int64.md): Performs the actual safe multiplication with overflow checking
   - PG_RETURN_CASH: Returns the computed Cash result
 - Called from:
   - SQL operator implementations for bigint * money operations

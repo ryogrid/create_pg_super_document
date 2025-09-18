@@ -34,12 +34,12 @@ The function handles both simple final functions (that only take the state) and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_make1
-  - make_agg_arg
+  - [make_agg_arg](../m/make_agg_arg.md)
   - lappend
   - makeFuncExpr
   - COERCE_EXPLICIT_CALL
 - Called from (representative examples):
-  - ExecInitAgg
+  - [ExecInitAgg](../E/ExecInitAgg.md)
   - initialize_peragg
 
 ## Notes and Other Information

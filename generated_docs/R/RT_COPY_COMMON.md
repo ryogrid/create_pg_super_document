@@ -26,12 +26,12 @@ RT_COPY_COMMON is part of PostgreSQL's templated radix tree implementation. This
   - RT_MAKE_NAME (macro for name generation)
   - Direct field access to node->count
 - Called from (representative examples):
-  - RT_GROW_NODE_48 (when growing a node48 to node256)
-  - RT_GROW_NODE_16 (when growing a node16 to node48 or node256)
-  - RT_GROW_NODE_4 (when growing a node4 to node16)
-  - RT_SHRINK_NODE_256 (when shrinking a node256 to node48)
-  - RT_SHRINK_NODE_48 (when shrinking a node48 to node16)
-  - RT_SHRINK_NODE_16 (when shrinking a node16 to node4)
+  - [RT_GROW_NODE_48](RT_GROW_NODE_48.md) (when growing a node48 to node256)
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md) (when growing a node16 to node48 or node256)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md) (when growing a node4 to node16)
+  - [RT_SHRINK_NODE_256](RT_SHRINK_NODE_256.md) (when shrinking a node256 to node48)
+  - [RT_SHRINK_NODE_48](RT_SHRINK_NODE_48.md) (when shrinking a node48 to node16)
+  - [RT_SHRINK_NODE_16](RT_SHRINK_NODE_16.md) (when shrinking a node16 to node4)
 
 ## Notes and Other Information
 - This is an inline function for performance, as it's called frequently during node restructuring operations

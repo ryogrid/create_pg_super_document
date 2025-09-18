@@ -24,11 +24,11 @@ The function handles both raw parse trees from the grammar and planned statement
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCommandLogLevel (determines the logging level required for a specific statement type)
+  - [GetCommandLogLevel](../G/GetCommandLogLevel.md) (determines the logging level required for a specific statement type)
   - LOGSTMT_NONE/LOGSTMT_ALL (logging level constants)
 - Called from (representative examples):
-  - exec_simple_query (simple query execution path)
-  - exec_execute_message (extended query protocol execution)
+  - [exec_simple_query](../e/exec_simple_query.md) (simple query execution path)
+  - [exec_execute_message](../e/exec_execute_message.md) (extended query protocol execution)
 
 ## Notes and Other Information
 - Implements short-circuit evaluation: returns immediately when log_statement is LOGSTMT_NONE (false) or LOGSTMT_ALL (true)

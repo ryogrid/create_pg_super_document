@@ -26,11 +26,11 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - hash_create
-  - hash_search
-  - hash_get_num_entries
-  - guc_name_hash
-  - guc_name_match
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
+  - [guc_name_hash](../g/guc_name_hash.md)
+  - [guc_name_match](../g/guc_name_match.md)
 - Data structures used:
   - ConfigureNamesBool
   - ConfigureNamesInt
@@ -40,8 +40,8 @@ This function takes no parameters.
   - HASHCTL
   - GUCHashEntry
 - Called from:
-  - InitializeGUCOptions (src/backend/utils/misc/guc.c:1546)
-  - GucInfoMain (src/backend/utils/misc/help_config.c:53)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md) (src/backend/utils/misc/guc.c:1546)
+  - [GucInfoMain](../G/GucInfoMain.md) (src/backend/utils/misc/help_config.c:53)
 
 ## Notes and Other Information
 - The function creates the hash table with 25% extra capacity (num_vars + num_vars/4) to minimize collisions

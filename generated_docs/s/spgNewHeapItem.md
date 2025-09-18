@@ -31,12 +31,12 @@ The function is responsible for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgAllocSearchItem - Allocates a new search item in queue context
-  - datumCopy - Creates a proper copy of the datum value
-  - palloc - Allocates memory for leaf tuple storage
+  - [spgAllocSearchItem](spgAllocSearchItem.md) - Allocates a new search item in queue context
+  - [datumCopy](../d/datumCopy.md) - Creates a proper copy of the datum value
+  - [palloc](../p/palloc.md) - Allocates memory for leaf tuple storage
   - memcpy - Copies leaf tuple data
 - Called from:
-  - spgLeafTest - Creates heap items for qualifying leaf tuples
+  - [spgLeafTest](spgLeafTest.md) - Creates heap items for qualifying leaf tuples
 
 ## Notes and Other Information
 - The function carefully handles memory context issues by copying data from temporary context to queue context

@@ -23,23 +23,23 @@ The `append_relation_pattern_helper` function is the core implementation for pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extend_pattern_info_array
+  - [extend_pattern_info_array](../e/extend_pattern_info_array.md)
   - initPQExpBuffer
-  - patternToSQLRegex
+  - [patternToSQLRegex](../p/patternToSQLRegex.md)
   - pg_log_error
   - exit
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - termPQExpBuffer
 - Types used:
-  - PatternInfoArray
-  - PQExpBufferData
-  - PatternInfo
+  - [PatternInfoArray](../P/PatternInfoArray.md)
+  - [PQExpBufferData](../P/PQExpBufferData.md)
+  - [PatternInfo](../P/PatternInfo.md)
 - Global variables accessed:
   - opts.dbpattern
 - Called from (representative examples):
-  - append_relation_pattern (at src/bin/pg_amcheck/pg_amcheck.c:1480)
-  - append_heap_pattern (at src/bin/pg_amcheck/pg_amcheck.c:1496)
-  - append_btree_pattern (at src/bin/pg_amcheck/pg_amcheck.c:1512)
+  - [append_relation_pattern](append_relation_pattern.md) (at src/bin/pg_amcheck/pg_amcheck.c:1480)
+  - [append_heap_pattern](append_heap_pattern.md) (at src/bin/pg_amcheck/pg_amcheck.c:1496)
+  - [append_btree_pattern](append_btree_pattern.md) (at src/bin/pg_amcheck/pg_amcheck.c:1512)
 
 ## Notes and Other Information
 - Central helper function used by multiple pattern append functions for different relation types

@@ -32,16 +32,16 @@ The function is essential for the extended statistics subsystem, as extended sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_andclause
-  - find_single_rel_for_clauses (recursive call)
+  - [is_andclause](../i/is_andclause.md)
+  - [find_single_rel_for_clauses](find_single_rel_for_clauses.md) (recursive call)
   - bms_is_empty
-  - bms_get_singleton_member
-  - find_base_rel
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [find_base_rel](find_base_rel.md)
   - BoolExpr
 - Called from (representative examples):
-  - clauselist_selectivity_ext
-  - clauselist_selectivity_or
-  - find_single_rel_for_clauses (recursive)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
+  - [clauselist_selectivity_or](../c/clauselist_selectivity_or.md)
+  - [find_single_rel_for_clauses](find_single_rel_for_clauses.md) (recursive)
 
 ## Notes and Other Information
 This function implements a sophisticated analysis algorithm with several important characteristics:

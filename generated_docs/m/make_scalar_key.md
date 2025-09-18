@@ -24,10 +24,10 @@ All processing ultimately delegates to make_text_key() for the actual Datum cons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_text_key
-  - numeric_normalize
+  - [make_text_key](make_text_key.md)
+  - [numeric_normalize](../n/numeric_normalize.md)
   - strlen
-  - pfree
+  - [pfree](../p/pfree.md)
   - elog
 - Constants/Flags:
   - JGINFLAG_NULL
@@ -41,8 +41,8 @@ All processing ultimately delegates to make_text_key() for the actual Datum cons
   - jbvNumeric
   - jbvString
 - Called from (representative examples):
-  - gin_extract_jsonb
-  - make_jsp_entry_node_scalar
+  - [gin_extract_jsonb](../g/gin_extract_jsonb.md)
+  - [make_jsp_entry_node_scalar](make_jsp_entry_node_scalar.md)
 
 ## Notes and Other Information
 The function includes assertions that null and boolean values cannot be object keys, reflecting JSON semantic constraints. For numeric values, the use of textual representation in the index is acknowledged as suboptimal for storage efficiency, but provides notational convenience for the GIN B-Tree union type storage and prioritizes string indexing performance. The normalization of numeric values is crucial for ensuring that mathematically equivalent numbers (like 1.0 and 1.00) produce identical index keys, enabling proper equality matching. The distinction between JGINFLAG_KEY and JGINFLAG_STR allows the index to support different query semantics for object keys versus string values, which is important for operators like the existence operator (?). The function serves as a critical bridge between JSONB's varied scalar types and the uniform text-based key format required by the GIN index infrastructure.

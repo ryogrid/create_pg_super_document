@@ -21,9 +21,9 @@ The function ensures that nested boolean evaluations operate on the correct JSON
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeBoolItem
+  - [executeBoolItem](executeBoolItem.md)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)
   - Used in error handling contexts (RETURN_ERROR)
 
 ## Notes and Other Information

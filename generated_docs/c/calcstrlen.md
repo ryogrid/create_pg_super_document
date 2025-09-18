@@ -21,14 +21,14 @@ The function is typically used during TSQuery cleanup operations to determine ho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `calcstrlen`: Recursive self-call for child nodes
+  - `[calcstrlen](calcstrlen.md)`: Recursive self-call for child nodes
   - `QI_VAL`: Query item type constant for value nodes
   - `QI_OPR`: Query item type constant for operator nodes
   - `OP_NOT`: Operator type constant for NOT operations
   - `NODE`: Tree node structure type
 
 - Called from (representative examples):
-  - `cleanup_tsquery_stopwords`: Uses the calculated length for memory allocation in tsquery_cleanup.c:420
+  - `[cleanup_tsquery_stopwords](cleanup_tsquery_stopwords.md)`: Uses the calculated length for memory allocation in tsquery_cleanup.c:420
   - Self-recursive calls for tree traversal
 
 ## Notes and Other Information

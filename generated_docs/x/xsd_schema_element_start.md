@@ -30,9 +30,9 @@ This is a building block used by higher-level functions that generate complete X
   - strlen
   - NAMESPACE_XSD (constant for XSD namespace URI)
 - Called from (representative examples):
-  - schema_to_xmlschema_internal
-  - database_to_xmlschema_internal
-  - map_sql_table_to_xmlschema
+  - [schema_to_xmlschema_internal](../s/schema_to_xmlschema_internal.md)
+  - [database_to_xmlschema_internal](../d/database_to_xmlschema_internal.md)
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
 
 ## Notes and Other Information
 - This is a static internal function, not directly accessible from SQL

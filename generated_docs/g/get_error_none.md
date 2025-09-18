@@ -20,9 +20,9 @@ The `get_error_none` function is a static helper function that serves as the err
 ## Dependencies
 - Functions called/Symbols referenced:
   - strerror (C standard library)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
-  - InitCompressFileHandleNone
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md)
 
 ## Notes and Other Information
 - This function is part of the "none" compression implementation, providing error reporting for uncompressed file operations

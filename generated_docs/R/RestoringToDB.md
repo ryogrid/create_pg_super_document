@@ -17,16 +17,16 @@ The  function serves as a centralized check to determine if the restoration proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestoreOptions (struct type)
+  - [RestoreOptions](RestoreOptions.md) (struct type)
 - Called from (representative examples):
   - TEXT_DUMPALL_HEADER
-  - restore_toc_entry
-  - ahwrite
-  - _doSetSessionAuth
-  - _reconnectToDB
-  - _selectOutputSchema
-  - _selectTablespace
-  - _selectTableAccessMethod
+  - [restore_toc_entry](../r/restore_toc_entry.md)
+  - [ahwrite](../a/ahwrite.md)
+  - [_doSetSessionAuth](../d/_doSetSessionAuth.md)
+  - [_reconnectToDB](../r/_reconnectToDB.md)
+  - [_selectOutputSchema](../s/_selectOutputSchema.md)
+  - [_selectTablespace](../s/_selectTablespace.md)
+  - [_selectTableAccessMethod](../s/_selectTableAccessMethod.md)
 
 ## Notes and Other Information
 - Returns non-zero (true) if all conditions are met: restore options exist, useDB is enabled, and there is an active database connection

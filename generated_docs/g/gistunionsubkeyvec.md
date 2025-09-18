@@ -24,14 +24,14 @@ This function is a subroutine for  that processes a subset of index tuples to cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (structure type)
+  - [GISTSTATE](../G/GISTSTATE.md) (structure type)
   - GistSplitUnion (structure type)
-  - gistMakeUnionItVec (function to compute union of index tuples)
-  - palloc (memory allocation)
-  - pfree (memory deallocation)
+  - [gistMakeUnionItVec](gistMakeUnionItVec.md) (function to compute union of index tuples)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from:
-  - gistunionsubkey (at src/backend/access/gist/gistsplit.c:91)
-  - gistunionsubkey (at src/backend/access/gist/gistsplit.c:98)
+  - [gistunionsubkey](gistunionsubkey.md) (at src/backend/access/gist/gistsplit.c:91)
+  - [gistunionsubkey](gistunionsubkey.md) (at src/backend/access/gist/gistsplit.c:98)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistsplit.c file

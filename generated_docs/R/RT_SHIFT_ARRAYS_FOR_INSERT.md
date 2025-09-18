@@ -34,8 +34,8 @@ After this function completes, the caller can safely insert the new chunk and ch
   - RT_MAKE_NAME (macro expansion)
   - GCC inline assembly (compiler-specific workaround)
 - Called from (representative examples):
-  - RT_ADD_CHILD_16
-  - RT_ADD_CHILD_4
+  - [RT_ADD_CHILD_16](RT_ADD_CHILD_16.md)
+  - [RT_ADD_CHILD_4](RT_ADD_CHILD_4.md)
 
 ## Notes and Other Information
 - Modifies both input arrays in-place, shifting elements from insertpos to count-1

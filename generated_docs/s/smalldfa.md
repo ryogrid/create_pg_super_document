@@ -21,16 +21,16 @@ The smalldfa structure is a performance optimization for PostgreSQL's regular ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dfa (base DFA structure)
-  - sset (state set structure)
-  - arcp (arc pointer structure)
+  - [dfa](../d/dfa.md) (base DFA structure)
+  - [sset](sset.md) (state set structure)
+  - [arcp](../a/arcp.md) (arc pointer structure)
   - FEWSTATES (constant defining small state limit)
   - FEWCOLORS (constant defining small color limit)
   - WORK (constant defining work area size)
 - Called from (representative examples):
-  - newdfa (DFA construction and size determination)
+  - [newdfa](../n/newdfa.md) (DFA construction and size determination)
   - DOMALLOC (memory allocation decision macro)
-  - vars (variable initialization)
+  - [vars](../v/vars.md) (variable initialization)
   - LOFF (offset calculations)
 
 ## Notes and Other Information

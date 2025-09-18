@@ -24,10 +24,10 @@ The function handles both finite and infinite bounds, using the appropriate comp
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeBound (struct type)
-  - FunctionCall2Coll (function call interface)
-  - DatumGetInt32 (datum conversion utility)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (function call interface)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (datum conversion utility)
 - Called from (representative examples):
-  - multirange_contains_elem_internal
+  - [multirange_contains_elem_internal](multirange_contains_elem_internal.md)
 
 ## Notes and Other Information
 This is a static helper function specifically designed for use with binary search algorithms. It follows the standard comparison function contract returning negative, zero, or positive values. The function properly handles infinite bounds and respects the inclusiveness flags of range boundaries. The comparison operations are collation-aware, using the collation information stored in the type cache.

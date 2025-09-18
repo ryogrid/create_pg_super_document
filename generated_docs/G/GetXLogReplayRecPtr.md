@@ -32,12 +32,12 @@ Return value:
   - XLogRecoveryCtl->lastReplayedEndRecPtr (shared memory variable)
   - XLogRecoveryCtl->lastReplayedTLI (shared memory variable)
 - Called from (representative examples):
-  - CreateRestartPoint
-  - pg_last_wal_replay_lsn
-  - WalReceiverMain
-  - XLogWalRcvSendReply
-  - GetReplicationApplyDelay
-  - WalSndWaitForWal
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
+  - [pg_last_wal_replay_lsn](../p/pg_last_wal_replay_lsn.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [XLogWalRcvSendReply](../X/XLogWalRcvSendReply.md)
+  - [GetReplicationApplyDelay](GetReplicationApplyDelay.md)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
 
 ## Notes and Other Information
 - Thread-safe function that uses spinlocks to protect shared memory access

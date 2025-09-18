@@ -21,17 +21,17 @@ The function includes corruption detection - if a required segment is found to b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calc_bucket (calculates bucket number from hash value)
+  - [calc_bucket](../c/calc_bucket.md) (calculates bucket number from hash value)
   - MOD (modular arithmetic macro)
-  - hash_corrupted (error handling for corrupted hash tables)
+  - [hash_corrupted](hash_corrupted.md) (error handling for corrupted hash tables)
 - Data structures referenced:
-  - HTAB (hash table structure)
-  - HASHHDR (hash table header)
+  - [HTAB](../H/HTAB.md) (hash table structure)
+  - [HASHHDR](../H/HASHHDR.md) (hash table header)
   - HASHBUCKET (hash bucket structure)
   - HASHSEGMENT (hash table segment)
 - Called from (representative examples):
-  - hash_search_with_hash_value
-  - hash_update_hash_key
+  - [hash_search_with_hash_value](hash_search_with_hash_value.md)
+  - [hash_update_hash_key](hash_update_hash_key.md)
 
 ## Notes and Other Information
 - Declared as static inline for performance optimization

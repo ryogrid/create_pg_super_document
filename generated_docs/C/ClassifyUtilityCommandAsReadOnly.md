@@ -27,10 +27,10 @@ Key classification categories include:
 - Functions called/Symbols referenced:
   - nodeTag (for type identification)
   - Various command type constants (T_AlterTableStmt, T_CreateStmt, etc.)
-  - Command classification flags (COMMAND_IS_NOT_READ_ONLY, COMMAND_IS_STRICTLY_READ_ONLY, COMMAND_OK_IN_READ_ONLY_TXN, COMMAND_OK_IN_RECOVERY)
+  - [Command](Command.md) classification flags (COMMAND_IS_NOT_READ_ONLY, COMMAND_IS_STRICTLY_READ_ONLY, COMMAND_OK_IN_READ_ONLY_TXN, COMMAND_OK_IN_RECOVERY)
   - Statement-specific structures (CopyStmt, LockStmt, TransactionStmt)
 - Called from (representative examples):
-  - standard_ProcessUtility (src/backend/tcop/utility.c:571)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:571)
 
 ## Notes and Other Information
 - Returns COMMAND_IS_NOT_READ_ONLY for DDL commands and TRUNCATE

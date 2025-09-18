@@ -25,13 +25,13 @@ PLyDatumToOb is a core data structure in PostgreSQL's PLpython extension that en
 ## Dependencies
 - Functions called/Symbols referenced:
   - PLyDatumToObFunc (function pointer type)
-  - PLyScalarToOb, PLyArrayToOb, PLyTupleToOb, PLyTransformToOb (union members)
+  - [PLyScalarToOb](PLyScalarToOb.md), PLyArrayToOb, PLyTupleToOb, PLyTransformToOb (union members)
   - Standard PostgreSQL types: Oid, MemoryContext, Datum
 - Called from (representative examples):
-  - PLy_input_convert
-  - PLy_input_from_tuple
-  - PLy_input_setup_func
-  - PLyProcedure structure
+  - [PLy_input_convert](PLy_input_convert.md)
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md)
+  - [PLy_input_setup_func](PLy_input_setup_func.md)
+  - [PLyProcedure](PLyProcedure.md) structure
   - Various conversion functions (PLyBool_FromBool, PLyFloat_FromFloat4, etc.)
 
 ## Notes and Other Information

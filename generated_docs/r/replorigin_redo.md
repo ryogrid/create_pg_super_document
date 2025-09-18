@@ -19,10 +19,10 @@ replorigin_redo is a WAL record replay function that processes replication origi
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
   - XLogRecGetData
-  - replorigin_advance
+  - [replorigin_advance](replorigin_advance.md)
   - elog (PANIC level)
-  - xl_replorigin_set (struct)
-  - xl_replorigin_drop (struct)
+  - [xl_replorigin_set](../x/xl_replorigin_set.md) (struct)
+  - [xl_replorigin_drop](../x/xl_replorigin_drop.md) (struct)
   - ReplicationState (struct)
   - XLOG_REPLORIGIN_SET
   - XLOG_REPLORIGIN_DROP

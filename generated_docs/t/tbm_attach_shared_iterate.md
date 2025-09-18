@@ -20,13 +20,13 @@ This function creates a backend-private TBMSharedIterator that connects to share
 - Functions called/Symbols referenced:
   - dsa_area (type)
   - dsa_pointer (type)
-  - TBMSharedIterator (struct type)
-  - TBMSharedIteratorState (struct type)
+  - [TBMSharedIterator](../T/TBMSharedIterator.md) (struct type)
+  - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md) (struct type)
   - MAX_TUPLES_PER_PAGE (constant)
-  - dsa_get_address (function)
-  - palloc0 (function)
+  - [dsa_get_address](../d/dsa_get_address.md) (function)
+  - [palloc0](../p/palloc0.md) (function)
 - Called from (representative examples):
-  - BitmapHeapNext
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
 
 ## Notes and Other Information
 - Supports parallel bitmap heap scans by allowing multiple workers to share iteration state

@@ -30,7 +30,7 @@ This function is the primary lookup interface that most clients of the hash tabl
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (for name generation)
   - SH_HASH_KEY (computes hash value for the key)
-  - SH_LOOKUP_HASH_INTERNAL (performs the actual lookup)
+  - [SH_LOOKUP_HASH_INTERNAL](SH_LOOKUP_HASH_INTERNAL.md) (performs the actual lookup)
 - Called from (representative examples):
   - Various PostgreSQL subsystems that need to look up entries by key only
 

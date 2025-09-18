@@ -24,7 +24,7 @@ ReadTempFileBlock is a wrapper around BufFile operations specifically designed f
   - elog (for error reporting)
 - Called from (representative examples):
   - gistLoadNodeBuffer
-  - gistPopItupFromNodeBuffer
+  - [gistPopItupFromNodeBuffer](../g/gistPopItupFromNodeBuffer.md)
 
 ## Notes and Other Information
 - This function is part of the GiST index building buffer management system located in gistbuildbuffers.c:750-757

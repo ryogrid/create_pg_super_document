@@ -25,7 +25,7 @@ If the wait_event_info parameter is 0, the function returns NULL, indicating tha
   - WAIT_EVENT_ID_MASK (mask for extracting event ID)
   - GetLWLockIdentifier (for PG_WAIT_LWLOCK events)
   - GetLockNameFromTagType (for PG_WAIT_LOCK events)
-  - GetWaitEventCustomIdentifier (for PG_WAIT_EXTENSION and PG_WAIT_INJECTIONPOINT events)
+  - [GetWaitEventCustomIdentifier](../G/GetWaitEventCustomIdentifier.md) (for PG_WAIT_EXTENSION and PG_WAIT_INJECTIONPOINT events)
   - pgstat_get_wait_bufferpin (for PG_WAIT_BUFFERPIN events)
   - pgstat_get_wait_activity (for PG_WAIT_ACTIVITY events)
   - pgstat_get_wait_client (for PG_WAIT_CLIENT events)
@@ -34,7 +34,7 @@ If the wait_event_info parameter is 0, the function returns NULL, indicating tha
   - pgstat_get_wait_io (for PG_WAIT_IO events)
 - Called from (representative examples):
   - PG_STAT_GET_ACTIVITY_COLS
-  - pg_stat_get_backend_wait_event
+  - [pg_stat_get_backend_wait_event](pg_stat_get_backend_wait_event.md)
 
 ## Notes and Other Information
 - The function implements a switch statement that handles all known wait event classes, providing a default case that returns "unknown wait event" for unrecognized classes

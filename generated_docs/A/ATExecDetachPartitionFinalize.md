@@ -27,11 +27,11 @@ The function delegates the actual finalization work to DetachPartitionFinalize()
   - GetActiveSnapshot
   - table_openrv
   - AccessExclusiveLock
-  - WaitForOlderSnapshots
-  - DetachPartitionFinalize
+  - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Designed specifically for recovery scenarios where DETACH PARTITION CONCURRENTLY was interrupted

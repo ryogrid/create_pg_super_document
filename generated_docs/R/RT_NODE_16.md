@@ -34,18 +34,18 @@ This node type is optimized with SIMD (Single Instruction, Multiple Data) operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - RT_NODE (base node structure)
+  - [RT_NODE](RT_NODE.md) (base node structure)
   - RT_FANOUT_16_MAX (maximum capacity constant, typically 32)
   - RT_PTR_ALLOC (child pointer type)
   - FLEXIBLE_ARRAY_MEMBER (variable-length array support)
 - Called from (representative examples):
-  - RT_ALLOC_NODE (node allocation with RT_NODE_KIND_16)
-  - RT_NODE_16_SEARCH_EQ (SIMD-optimized child lookup)
-  - RT_NODE_16_GET_INSERTPOS (finding insertion position)
-  - RT_ADD_CHILD_16 (adding new child entries)
-  - RT_GROW_NODE_16 (converting to RT_NODE_48 when capacity exceeded)
-  - RT_SHRINK_NODE_16 (converting to RT_NODE_4 when underutilized)
-  - RT_REMOVE_CHILD_16 (removing child entries)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (node allocation with RT_NODE_KIND_16)
+  - [RT_NODE_16_SEARCH_EQ](RT_NODE_16_SEARCH_EQ.md) (SIMD-optimized child lookup)
+  - [RT_NODE_16_GET_INSERTPOS](RT_NODE_16_GET_INSERTPOS.md) (finding insertion position)
+  - [RT_ADD_CHILD_16](RT_ADD_CHILD_16.md) (adding new child entries)
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md) (converting to RT_NODE_48 when capacity exceeded)
+  - [RT_SHRINK_NODE_16](RT_SHRINK_NODE_16.md) (converting to RT_NODE_4 when underutilized)
+  - [RT_REMOVE_CHILD_16](RT_REMOVE_CHILD_16.md) (removing child entries)
 
 ## Notes and Other Information
 - Uses SIMD operations for parallel chunk searching when available, with fallback to linear search

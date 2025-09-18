@@ -29,16 +29,16 @@ The function returns the tuple from whichever source currently has the smallest/
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gather_merge_init
-  - binaryheap_first
-  - DatumGetInt32
-  - gather_merge_readnext
-  - binaryheap_replace_first
-  - binaryheap_remove_first
+  - [gather_merge_init](gather_merge_init.md)
+  - [binaryheap_first](../b/binaryheap_first.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [gather_merge_readnext](gather_merge_readnext.md)
+  - [binaryheap_replace_first](../b/binaryheap_replace_first.md)
+  - [binaryheap_remove_first](../b/binaryheap_remove_first.md)
   - binaryheap_empty
-  - gather_merge_clear_tuples
+  - [gather_merge_clear_tuples](gather_merge_clear_tuples.md)
 - Called from (representative examples):
-  - ExecGatherMerge
+  - [ExecGatherMerge](../E/ExecGatherMerge.md)
 
 ## Notes and Other Information
 - The function maintains the heap invariant by replacing/removing elements after each tuple consumption

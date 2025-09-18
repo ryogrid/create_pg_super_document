@@ -23,9 +23,9 @@ The structure is designed to work with callback-based JSON processing, where ind
   - ParsedText (structure containing word parsing state)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - jsonb_to_tsvector_worker
-  - json_to_tsvector_worker
-  - add_to_tsvector
+  - [jsonb_to_tsvector_worker](../j/jsonb_to_tsvector_worker.md)
+  - [json_to_tsvector_worker](../j/json_to_tsvector_worker.md)
+  - [add_to_tsvector](../a/add_to_tsvector.md)
 
 ## Notes and Other Information
 - Used specifically for JSON/JSONB to tsvector conversion operations

@@ -32,20 +32,20 @@ None - this function takes no parameters and operates on the current database en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding (retrieves current database encoding ID)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (retrieves current database encoding ID)
   - pg_wchar_table (global table containing encoding metadata)
 - Called from (representative examples):
-  - downcase_identifier
-  - lowerstr_with_len
-  - str_tolower
-  - str_toupper
-  - str_initcap
-  - GenericMatchText
-  - like_escape
-  - text_length
-  - text_substring
-  - pg_mbstrlen
-  - pg_mbcharcliplen
+  - [downcase_identifier](../d/downcase_identifier.md)
+  - [lowerstr_with_len](../l/lowerstr_with_len.md)
+  - [str_tolower](../s/str_tolower.md)
+  - [str_toupper](../s/str_toupper.md)
+  - [str_initcap](../s/str_initcap.md)
+  - [GenericMatchText](../G/GenericMatchText.md)
+  - [like_escape](../l/like_escape.md)
+  - [text_length](../t/text_length.md)
+  - [text_substring](../t/text_substring.md)
+  - [pg_mbstrlen](pg_mbstrlen.md)
+  - [pg_mbcharcliplen](pg_mbcharcliplen.md)
 
 ## Notes and Other Information
 - Returns an integer representing maximum bytes per character for current database encoding

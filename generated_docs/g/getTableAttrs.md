@@ -21,23 +21,23 @@ The function operates in three main phases: 1) Collect basic column information 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - appendPQExpBufferChar
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - atooid
   - pg_malloc
-  - pg_strdup
-  - PQgetisnull
-  - AssignDumpId
-  - shouldPrintColumn
-  - addObjectDependency
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [shouldPrintColumn](../s/shouldPrintColumn.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
   - pg_log_info
-  - printfPQExpBuffer
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
   - ngettext
   - pg_log_error_hint
-  - exit_nicely
+  - [exit_nicely](../e/exit_nicely.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Skips sequences and tables marked as uninteresting to optimize performance

@@ -24,16 +24,16 @@ SimpleOidList implements a singly-linked list specifically designed for storing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleOidListCell (the node type used to build the linked list)
+  - [SimpleOidListCell](SimpleOidListCell.md) (the node type used to build the linked list)
 - Called from (representative examples):
-  - simple_oid_list_append
-  - simple_oid_list_member  
-  - simple_oid_list_destroy
-  - OidOptions (in pg_dump for various option filtering)
-  - expand_schema_name_patterns
-  - expand_table_name_patterns
-  - expand_extension_name_patterns
-  - expand_foreign_server_name_patterns
+  - [simple_oid_list_append](../s/simple_oid_list_append.md)
+  - [simple_oid_list_member](../s/simple_oid_list_member.md)  
+  - [simple_oid_list_destroy](../s/simple_oid_list_destroy.md)
+  - [OidOptions](../O/OidOptions.md) (in pg_dump for various option filtering)
+  - [expand_schema_name_patterns](../e/expand_schema_name_patterns.md)
+  - [expand_table_name_patterns](../e/expand_table_name_patterns.md)
+  - [expand_extension_name_patterns](../e/expand_extension_name_patterns.md)
+  - [expand_foreign_server_name_patterns](../e/expand_foreign_server_name_patterns.md)
 
 ## Notes and Other Information
 - Primarily used by PostgreSQL frontend tools, especially pg_dump for managing lists of database object identifiers

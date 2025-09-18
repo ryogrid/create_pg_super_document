@@ -17,7 +17,7 @@ RS_free performs cleanup for a compiled regular expression by traversing the lin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Types referenced:
   - Regis (main regex structure)
   - RegisNode (pattern node structure)

@@ -20,10 +20,10 @@ The structure contains two ArrayMetaState members that cache different type info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayMetaState
+  - [ArrayMetaState](ArrayMetaState.md)
 - Called from (representative examples):
-  - array_map
-  - ExecInitExprRec
+  - [array_map](../a/array_map.md)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
   - ExprEvalStep (used in expression evaluation context)
 
 ## Notes and Other Information

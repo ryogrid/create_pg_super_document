@@ -29,20 +29,20 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat
+  - [stat](../s/stat.md)
   - S_ISDIR
   - ereport
   - snprintf
   - MakePGDirectory
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Constants used:
   - XLOGDIR
   - MAXPGPATH
   - FATAL
   - LOG
 - Called from:
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

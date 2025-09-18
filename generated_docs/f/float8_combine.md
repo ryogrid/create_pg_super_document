@@ -28,13 +28,13 @@ The combination algorithm preserves the mathematical properties required for acc
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (macro to extract ArrayType arguments)
-  - check_float8_array (validation helper function)
-  - float8_pl (safe float8 addition)
+  - [check_float8_array](../c/check_float8_array.md) (validation helper function)
+  - [float8_pl](float8_pl.md) (safe float8 addition)
   - isinf (check for infinite results)
-  - float_overflow_error (PostgreSQL error handling)
-  - AggCheckCallContext (check if called in aggregate context)
+  - [float_overflow_error](float_overflow_error.md) (PostgreSQL error handling)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if called in aggregate context)
   - Float8GetDatumFast (convert float8 to Datum)
-  - construct_array (create new ArrayType)
+  - [construct_array](../c/construct_array.md) (create new ArrayType)
   - PG_RETURN_ARRAYTYPE_P (macro to return ArrayType result)
 - Called from (representative examples):
   - No direct references found in the codebase (used by aggregate system)

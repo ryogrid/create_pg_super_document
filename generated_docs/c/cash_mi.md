@@ -20,7 +20,7 @@ This function is a PostgreSQL built-in function that implements the '-' operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Macro to extract cash values from function arguments
-  - cash_mi_cash: Internal static function that performs the actual subtraction with overflow checking
+  - [cash_mi_cash](cash_mi_cash.md): Internal static function that performs the actual subtraction with overflow checking
   - PG_RETURN_CASH: Macro to return cash result as Datum
 - Called from (representative examples):
   - No direct references found (likely called through operator system)

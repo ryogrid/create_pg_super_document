@@ -21,11 +21,11 @@ This function is part of PostgreSQL's logical replication parallel apply worker 
   - UnlockApplyTransactionForSession
   - PARALLEL_APPLY_LOCK_STREAM
 - Called from (representative examples):
-  - pa_process_spooled_messages_if_required
-  - pa_decr_and_wait_stream_block
-  - pa_xact_finish
-  - apply_handle_stream_start
-  - apply_handle_stream_abort
+  - [pa_process_spooled_messages_if_required](pa_process_spooled_messages_if_required.md)
+  - [pa_decr_and_wait_stream_block](pa_decr_and_wait_stream_block.md)
+  - [pa_xact_finish](pa_xact_finish.md)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 - This function is specifically used in the context of parallel logical replication apply workers

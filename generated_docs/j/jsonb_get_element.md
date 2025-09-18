@@ -24,17 +24,17 @@ The  function implements the fundamental JSONB path traversal logic in PostgreSQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - JB_ROOT_IS_OBJECT, JB_ROOT_IS_ARRAY, JB_ROOT_IS_SCALAR (JSONB type checking)
-  - getIthJsonbValueFromContainer (array element access)
-  - getKeyJsonValueFromContainer (object key access)
-  - JsonbToCString, cstring_to_text (text conversion)
-  - JsonbValueAsText (value-to-text conversion)
-  - JsonbValueToJsonb (value-to-JSONB conversion)
+  - [getIthJsonbValueFromContainer](../g/getIthJsonbValueFromContainer.md) (array element access)
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md) (object key access)
+  - [JsonbToCString](../J/JsonbToCString.md), cstring_to_text (text conversion)
+  - [JsonbValueAsText](../J/JsonbValueAsText.md) (value-to-text conversion)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md) (value-to-JSONB conversion)
   - JsonContainerIsArray, JsonContainerIsObject (container type checking)
   - strtoint (string-to-integer conversion)
 - Called from (representative examples):
-  - get_jsonb_path_all
-  - jsonb_subscript_fetch
-  - jsonb_subscript_fetch_old
+  - [get_jsonb_path_all](../g/get_jsonb_path_all.md)
+  - [jsonb_subscript_fetch](jsonb_subscript_fetch.md)
+  - [jsonb_subscript_fetch_old](jsonb_subscript_fetch_old.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/jsonfuncs.c:1529-1676

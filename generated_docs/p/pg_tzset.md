@@ -17,19 +17,19 @@ This function serves as the primary interface for loading timezone information i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_timezone_hashtable (initializes cache if not already done)
-  - pg_toupper (converts timezone name to uppercase)
-  - hash_search (searches and inserts entries in timezone cache)
+  - [init_timezone_hashtable](../i/init_timezone_hashtable.md) (initializes cache if not already done)
+  - [pg_toupper](pg_toupper.md) (converts timezone name to uppercase)
+  - [hash_search](../h/hash_search.md) (searches and inserts entries in timezone cache)
   - tzparse (parses POSIX timezone specifications)
   - tzload (loads timezone from filesystem)
   - TZ_STRLEN_MAX (maximum timezone string length)
   - pg_tz_cache (cache entry structure type)
   - HASH_FIND and HASH_ENTER (hashtable operation flags)
 - Called from (representative examples):
-  - check_timezone (src/backend/commands/variable.c:341)
-  - DecodeDateTime (src/backend/utils/adt/datetime.c:1120, 1479)
-  - DecodeTimeOnly (src/backend/utils/adt/datetime.c:1959, 2251)
-  - pg_timezone_initialize (src/timezone/pgtz.c:370)
+  - [check_timezone](../c/check_timezone.md) (src/backend/commands/variable.c:341)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (src/backend/utils/adt/datetime.c:1120, 1479)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md) (src/backend/utils/adt/datetime.c:1959, 2251)
+  - [pg_timezone_initialize](pg_timezone_initialize.md) (src/timezone/pgtz.c:370)
 
 ## Notes and Other Information
 - Returns NULL if the timezone name is too long (> TZ_STRLEN_MAX) or cannot be loaded

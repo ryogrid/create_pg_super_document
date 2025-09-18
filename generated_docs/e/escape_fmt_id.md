@@ -21,12 +21,12 @@ This function formats an unescaped string as a properly quoted PostgreSQL identi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setFmtEncoding
-  - PQclientEncoding
-  - fmtId
-  - appendPQExpBufferStr
+  - [setFmtEncoding](../s/setFmtEncoding.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
+  - [fmtId](../f/fmtId.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from (representative examples):
-  - escape_fmt_id (recursive self-reference in test context)
+  - [escape_fmt_id](escape_fmt_id.md) (recursive self-reference in test context)
 
 ## Notes and Other Information
 - This is a test module function located in 

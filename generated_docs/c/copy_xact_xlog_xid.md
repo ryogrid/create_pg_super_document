@@ -33,11 +33,11 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_MAJOR_VERSION: Determines PostgreSQL major version for compatibility checks
-  - copy_subdir_files: Copies entire subdirectories between clusters
-  - prep_status: Displays operation status to user
-  - exec_prog: Executes pg_resetwal commands with various options
-  - check_ok: Verifies each operation completed successfully
-  - remove_new_subdir: Removes incompatible multixact offset files
+  - [copy_subdir_files](copy_subdir_files.md): Copies entire subdirectories between clusters
+  - [prep_status](../p/prep_status.md): Displays operation status to user
+  - [exec_prog](../e/exec_prog.md): Executes pg_resetwal commands with various options
+  - [check_ok](check_ok.md): Verifies each operation completed successfully
+  - [remove_new_subdir](../r/remove_new_subdir.md): Removes incompatible multixact offset files
 - Constants used:
   - UTILITY_LOG_FILE: Log file for utility operations
   - MULTIXACT_FORMATCHANGE_CAT_VER: Version constant for multixact format compatibility
@@ -45,7 +45,7 @@ This function takes no parameters.
   - old_cluster.controldata: Contains transaction and multixact state from old cluster
   - new_cluster: Contains paths and connection info for new cluster
 - Called from:
-  - main: Part of the main pg_upgrade workflow after schema restoration
+  - [main](../m/main.md): Part of the main pg_upgrade workflow after schema restoration
 
 ## Notes and Other Information
 - The function handles version-specific directory naming (pg_clog vs pg_xact) automatically

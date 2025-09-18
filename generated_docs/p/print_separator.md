@@ -22,10 +22,10 @@ The  function is a utility that outputs separator characters or strings to a spe
 - Functions called/Symbols referenced:
   - fputc (standard C library function)
   - fputs (standard C library function)
-  - printTableFooter (referenced but relationship unclear from source)
+  - [printTableFooter](printTableFooter.md) (referenced but relationship unclear from source)
 - Called from (representative examples):
-  - print_unaligned_text (multiple locations)
-  - print_unaligned_vertical (multiple locations)
+  - [print_unaligned_text](print_unaligned_text.md) (multiple locations)
+  - [print_unaligned_vertical](print_unaligned_vertical.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/fe_utils/print.c

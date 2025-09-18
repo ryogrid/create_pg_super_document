@@ -33,8 +33,8 @@ This function is primarily used for debugging purposes to inspect the structure 
   - printf: Standard C library function for formatted output
   - NameStr: PostgreSQL macro to extract name from a Name structure
 - Called from (representative examples):
-  - debugStartup: Uses printatt to display attribute information during startup debugging
-  - debugtup: Uses printatt to display tuple attribute information for debugging
+  - [debugStartup](../d/debugStartup.md): Uses printatt to display attribute information during startup debugging
+  - [debugtup](../d/debugtup.md): Uses printatt to display tuple attribute information for debugging
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the printtup.c file

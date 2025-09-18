@@ -20,7 +20,7 @@ This function serves as a GUC check hook for the  parameter. It validates that t
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtou64 (for parsing 64-bit unsigned integers)
-  - guc_malloc (for memory allocation)
+  - [guc_malloc](../g/guc_malloc.md) (for memory allocation)
   - TransactionId (type definition)
   - GucSource (enum type)
 - Called from (representative examples):

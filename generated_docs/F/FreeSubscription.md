@@ -19,10 +19,10 @@ FreeSubscription performs comprehensive cleanup of a Subscription structure by d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
-  - list_free_deep (deep free for list structures with allocated elements)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [list_free_deep](../l/list_free_deep.md) (deep free for list structures with allocated elements)
 - Called from (representative examples):
-  - maybe_reread_subscription (logical replication worker cleanup)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (logical replication worker cleanup)
 
 ## Notes and Other Information
 - Essential counterpart to GetSubscription() for proper memory management

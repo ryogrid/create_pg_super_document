@@ -22,14 +22,14 @@ This function serves as a callback for RangeVar processing during attribute rena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - renameatt_check
-  - ReleaseSysCache
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [renameatt_check](../r/renameatt_check.md)
+  - [ReleaseSysCache](ReleaseSysCache.md)
   - GETSTRUCT
   - HeapTupleIsValid
 - Called from (representative examples):
-  - renameatt
-  - RenameConstraint
+  - [renameatt](../r/renameatt.md)
+  - [RenameConstraint](RenameConstraint.md)
 
 ## Notes and Other Information
 - Static function used specifically for attribute rename callback validation

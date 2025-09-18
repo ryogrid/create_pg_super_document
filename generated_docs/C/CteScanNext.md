@@ -24,17 +24,17 @@ The function carefully manages scan direction, handling special cases like rever
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward: Check if scan direction is forward
-  - tuplestore_select_read_pointer: Select the appropriate read pointer for this node
-  - tuplestore_ateof: Check if tuplestore is at end of file
-  - tuplestore_advance: Advance tuplestore position
-  - tuplestore_gettupleslot: Retrieve tuple from tuplestore
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Select the appropriate read pointer for this node
+  - [tuplestore_ateof](../t/tuplestore_ateof.md): Check if tuplestore is at end of file
+  - [tuplestore_advance](../t/tuplestore_advance.md): Advance tuplestore position
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md): Retrieve tuple from tuplestore
   - ExecProcNode: Execute the underlying CTE plan node
   - TupIsNull: Check if tuple is null
   - tuplestore_puttupleslot: Store tuple in tuplestore
   - ExecCopySlot: Copy tuple from one slot to another
   - ExecClearTuple: Clear tuple slot
 - Called from (representative examples):
-  - ExecCteScan: The main CTE scan execution function
+  - [ExecCteScan](../E/ExecCteScan.md): The main CTE scan execution function
 
 ## Notes and Other Information
 - Uses copy=true when calling tuplestore_gettupleslot because the tuplestore is shared with other nodes that might write to it

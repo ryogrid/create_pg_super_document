@@ -27,11 +27,11 @@ The cleaning loop continues until no more patterns are found, ensuring all appli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among (for pattern matching against array a_0 with 13 elements)
-  - slice_from_s (for string replacements, called 6 times)
+  - [find_among](../f/find_among.md) (for pattern matching against array a_0 with 13 elements)
+  - [slice_from_s](../s/slice_from_s.md) (for string replacements, called 6 times)
 - Called from (representative examples):
-  - catalan_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1435)
-  - catalan_UTF_8_stem (src/backend/snowball/libstemmer/stem_UTF_8_catalan.c:1438)
+  - [catalan_ISO_8859_1_stem](../c/catalan_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1435)
+  - [catalan_UTF_8_stem](../c/catalan_UTF_8_stem.md) (src/backend/snowball/libstemmer/stem_UTF_8_catalan.c:1438)
 
 ## Notes and Other Information
 - This function is specific to Catalan language processing and implements language-specific character normalization rules

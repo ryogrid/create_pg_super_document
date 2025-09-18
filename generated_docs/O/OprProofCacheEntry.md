@@ -25,13 +25,13 @@ The entry tracks two types of logical relationships: same-subexpressions proofs 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OprProofCacheKey (the hash key structure)
+  - [OprProofCacheKey](OprProofCacheKey.md) (the hash key structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - lookup_proof_cache (creates and retrieves cache entries)
-  - operator_same_subexprs_lookup (accesses cached same-subexpressions results)
-  - get_btree_test_op (accesses cached test operator results)
-  - InvalidateOprProofCacheCallBack (resets cache entries when catalogs change)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md) (creates and retrieves cache entries)
+  - [operator_same_subexprs_lookup](../o/operator_same_subexprs_lookup.md) (accesses cached same-subexpressions results)
+  - [get_btree_test_op](../g/get_btree_test_op.md) (accesses cached test operator results)
+  - [InvalidateOprProofCacheCallBack](../I/InvalidateOprProofCacheCallBack.md) (resets cache entries when catalogs change)
 
 ## Notes and Other Information
 - The key field must be first to serve as the hash table lookup key (requirement of PostgreSQL's hash table implementation)

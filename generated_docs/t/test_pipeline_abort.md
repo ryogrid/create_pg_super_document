@@ -23,18 +23,18 @@ The function verifies that aborted pipeline operations return PGRES_PIPELINE_ABO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec (multiple calls for setup and verification)
+  - [PQexec](../P/PQexec.md) (multiple calls for setup and verification)
   - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
-  - PQsendQueryParams (sending parameterized queries)
+  - [PQsendQueryParams](../P/PQsendQueryParams.md) (sending parameterized queries)
   - PQpipelineSync (pipeline synchronization)
-  - PQgetResult (retrieving results)
-  - PQpipelineStatus (checking pipeline state)
-  - PQsetSingleRowMode (enabling single-row mode)
-  - PQresultStatus/PQresStatus (result status checking)
-  - PQresultErrorField (error field extraction)
+  - [PQgetResult](../P/PQgetResult.md) (retrieving results)
+  - [PQpipelineStatus](../P/PQpipelineStatus.md) (checking pipeline state)
+  - [PQsetSingleRowMode](../P/PQsetSingleRowMode.md) (enabling single-row mode)
+  - [PQresultStatus](../P/PQresultStatus.md)/PQresStatus (result status checking)
+  - [PQresultErrorField](../P/PQresultErrorField.md) (error field extraction)
   - Various PGRES_* constants (result status codes)
 - Called from (representative examples):
-  - main (at src/test/modules/libpq_pipeline/libpq_pipeline.c:2262)
+  - [main](../m/main.md) (at src/test/modules/libpq_pipeline/libpq_pipeline.c:2262)
 
 ## Notes and Other Information
 - Intentionally avoids using transactions to wrap pipelines to observe individual statement effects

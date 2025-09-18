@@ -20,19 +20,19 @@ This function adds constraints to domain types, supporting CHECK and NOT NULL co
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameTypeId
+  - [typenameTypeId](../t/typenameTypeId.md)
   - SearchSysCacheCopy1
-  - checkDomainOwner
+  - [checkDomainOwner](../c/checkDomainOwner.md)
   - nodeTag
-  - domainAddCheckConstraint
-  - validateDomainCheckConstraint
-  - domainAddNotNullConstraint
-  - validateDomainNotNullConstraint
-  - CatalogTupleUpdate
-  - CacheInvalidateHeapTuple
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md)
+  - [validateDomainCheckConstraint](../v/validateDomainCheckConstraint.md)
+  - [domainAddNotNullConstraint](../d/domainAddNotNullConstraint.md)
+  - [validateDomainNotNullConstraint](../v/validateDomainNotNullConstraint.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
-  - ATExecCmd
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - Only supports CHECK and NOT NULL constraints for domains

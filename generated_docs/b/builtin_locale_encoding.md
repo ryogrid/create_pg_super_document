@@ -28,11 +28,11 @@ For any other locale name, the function raises an ERROR, as only these two local
   - PG_UTF8
   - strcmp (standard C library function)
   - ereport (for error reporting)
-  - errcode, ERRCODE_WRONG_OBJECT_TYPE
-  - errmsg
+  - [errcode](../e/errcode.md), ERRCODE_WRONG_OBJECT_TYPE
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - DefineCollation
-  - builtin_validate_locale
+  - [DefineCollation](../D/DefineCollation.md)
+  - [builtin_validate_locale](builtin_validate_locale.md)
 
 ## Notes and Other Information
 - Only supports two builtin locales: "C" and "C.UTF-8"

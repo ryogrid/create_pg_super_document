@@ -44,7 +44,7 @@ The function includes important safety measures:
   - REG_ERANGE (invalid range error)
   - REG_ETOOBIG (range too large error)
 - Called from (representative examples):
-  - brackpart (in regcomp.c:1874 for bracket expression ranges)
+  - [brackpart](../b/brackpart.md) (in regcomp.c:1874 for bracket expression ranges)
 
 ## Notes and Other Information
 - Returns NULL on error conditions (invalid range or memory allocation failure)

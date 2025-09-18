@@ -21,13 +21,13 @@ The function performs lazy initialization of the cache hash table, creating it w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - CacheRegisterSyscacheCallback  
-  - InvalidateOprCacheCallBack
-  - hash_search
+  - [hash_create](../h/hash_create.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)  
+  - [InvalidateOprCacheCallBack](../I/InvalidateOprCacheCallBack.md)
+  - [hash_search](../h/hash_search.md)
 - Called from (representative examples):
-  - oper (main operator lookup function)
-  - left_oper (left unary operator lookup)
+  - [oper](../o/oper.md) (main operator lookup function)
+  - [left_oper](../l/left_oper.md) (left unary operator lookup)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching cache entry is found

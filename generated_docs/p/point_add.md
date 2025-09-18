@@ -20,10 +20,10 @@ This function serves as the PostgreSQL SQL function interface for point addition
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P
-  - palloc
-  - point_add_point
+  - [palloc](palloc.md)
+  - [point_add_point](point_add_point.md)
   - PG_RETURN_POINT_P
-  - Point (data type)
+  - [Point](../P/Point.md) (data type)
 - Called from (representative examples):
   - SQL queries using point addition operator
   - PostgreSQL function call infrastructure

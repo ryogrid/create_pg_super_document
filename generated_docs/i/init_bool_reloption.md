@@ -21,11 +21,11 @@ This static function creates a new boolean reloption by calling allocate_relopti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocate_reloption (for basic reloption allocation and initialization)
+  - [allocate_reloption](../a/allocate_reloption.md) (for basic reloption allocation and initialization)
   - RELOPT_TYPE_BOOL (constant for boolean type specification)
 - Called from (representative examples):
-  - add_bool_reloption
-  - add_local_bool_reloption
+  - [add_bool_reloption](../a/add_bool_reloption.md)
+  - [add_local_bool_reloption](../a/add_local_bool_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reloptions.c file

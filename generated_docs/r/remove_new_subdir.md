@@ -20,14 +20,14 @@ The function provides user feedback through prep_status() and includes error han
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status: Displays status message to user about the deletion operation
+  - [prep_status](../p/prep_status.md): Displays status message to user about the deletion operation
   - rmtree: Utility function that recursively removes directories and their contents
-  - check_ok: Verifies the operation completed successfully
+  - [check_ok](../c/check_ok.md): Verifies the operation completed successfully
 - Global variables used:
   - new_cluster.pgdata: Path to the new cluster's data directory
 - Called from:
-  - copy_subdir_files: Before copying files from old to new cluster
-  - copy_xact_xlog_xid: Before copying transaction log data
+  - [copy_subdir_files](../c/copy_subdir_files.md): Before copying files from old to new cluster
+  - [copy_xact_xlog_xid](../c/copy_xact_xlog_xid.md): Before copying transaction log data
 
 ## Notes and Other Information
 - The function is primarily used to clean up directories in the new cluster before copying corresponding data from the old cluster

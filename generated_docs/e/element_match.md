@@ -21,9 +21,9 @@ This function acts as a comparison callback for hash table operations, specifica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - element_compare (which uses array_extra_data->cmp and collation)
+  - [element_compare](element_compare.md) (which uses array_extra_data->cmp and collation)
 - Called from (representative examples):
-  - compute_array_stats (registered as hash table match function)
+  - [compute_array_stats](../c/compute_array_stats.md) (registered as hash table match function)
 
 ## Notes and Other Information
 - Serves as a thin wrapper around element_compare for hash table compatibility

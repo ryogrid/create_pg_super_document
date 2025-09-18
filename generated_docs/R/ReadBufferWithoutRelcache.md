@@ -30,14 +30,14 @@ Note that this function cannot handle temporary relations, as temporary relation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgropen
-  - ReadBuffer_common
+  - [smgropen](../s/smgropen.md)
+  - [ReadBuffer_common](ReadBuffer_common.md)
   - INVALID_PROC_NUMBER
   - RELPERSISTENCE_PERMANENT
   - RELPERSISTENCE_UNLOGGED
 - Called from (representative examples):
   - XLogReadBufferExtended
-  - ScanSourceDatabasePgClass
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md)
   - RelationCopyStorageUsingBuffer
 
 ## Notes and Other Information

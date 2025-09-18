@@ -32,20 +32,20 @@ The structure maintains the current container being built (contVal), tracks memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbValue (for contVal member)
+  - [JsonbValue](JsonbValue.md) (for contVal member)
   - Size (PostgreSQL size type)
   - struct JsonbParseState (self-reference for linked list)
 - Called from (representative examples):
-  - JsonbValueToJsonb
-  - pushJsonbValue
-  - pushJsonbValueScalar
-  - pushState
-  - appendKey
-  - appendValue
-  - appendElement
-  - jsonb_set_element
-  - jsonb_concat
-  - setPath
+  - [JsonbValueToJsonb](JsonbValueToJsonb.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [pushJsonbValueScalar](../p/pushJsonbValueScalar.md)
+  - [pushState](../p/pushState.md)
+  - [appendKey](../a/appendKey.md)
+  - [appendValue](../a/appendValue.md)
+  - [appendElement](../a/appendElement.md)
+  - [jsonb_set_element](../j/jsonb_set_element.md)
+  - [jsonb_concat](../j/jsonb_concat.md)
+  - [setPath](../s/setPath.md)
 
 ## Notes and Other Information
 The structure implements a stack-based parsing approach where each level corresponds to a JSON container (array or object). The unique_keys and skip_nulls flags provide parsing configuration options that affect how the final JSONB is constructed. Memory management is tracked through the size field to ensure efficient allocation during the parsing process. The linked list design allows arbitrary nesting depth limited only by available memory.

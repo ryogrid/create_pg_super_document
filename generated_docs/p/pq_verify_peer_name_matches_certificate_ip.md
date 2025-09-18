@@ -34,14 +34,14 @@ The verification process includes generating a human-readable string representat
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_STRERROR_R_BUFLEN (PostgreSQL error buffer size constant)
-  - inet_aton (C standard library IPv4 conversion)
-  - pg_inet_net_ntop (PostgreSQL network address to string conversion)
+  - [inet_aton](../i/inet_aton.md) (C standard library IPv4 conversion)
+  - [pg_inet_net_ntop](pg_inet_net_ntop.md) (PostgreSQL network address to string conversion)
   - strerror_r (C standard library error string conversion)
-  - libpq_append_conn_error (libpq error handling)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (libpq error handling)
   - memcmp (C standard library)
   - strdup (C standard library)
 - Called from (representative examples):
-  - openssl_verify_peer_name_matches_certificate_ip
+  - [openssl_verify_peer_name_matches_certificate_ip](../o/openssl_verify_peer_name_matches_certificate_ip.md)
 
 ## Notes and Other Information
 - Returns 1 on successful match, 0 on no match, -1 on error

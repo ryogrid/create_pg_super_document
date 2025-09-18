@@ -40,8 +40,8 @@ The prepXacts array is dynamically sized based on the max_prepared_xacts configu
   - GlobalTransaction (typedef pointer to GlobalTransactionData)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array declaration)
 - Called from (representative examples):
-  - TwoPhaseShmemSize (for calculating required shared memory size)
-  - TwoPhaseShmemInit (for initializing shared memory structures)
+  - [TwoPhaseShmemSize](TwoPhaseShmemSize.md) (for calculating required shared memory size)
+  - [TwoPhaseShmemInit](TwoPhaseShmemInit.md) (for initializing shared memory structures)
 
 ## Notes and Other Information
 - Access to this structure must be synchronized using TwoPhaseStateLock to prevent race conditions

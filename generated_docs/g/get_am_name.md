@@ -21,20 +21,20 @@ The implementation uses PostgreSQL's system cache (syscache) for efficient looku
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_am
 
 - Called from (representative examples):
-  - getObjectIdentityParts (src/backend/catalog/objectaddress.c:5099)
-  - assignOperTypes (src/backend/commands/opclasscmds.c:1174)
-  - IsThereOpClassInNamespace (src/backend/commands/opclasscmds.c:1817)
-  - IsThereOpFamilyInNamespace (src/backend/commands/opclasscmds.c:1840)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (src/backend/catalog/objectaddress.c:5099)
+  - [assignOperTypes](../a/assignOperTypes.md) (src/backend/commands/opclasscmds.c:1174)
+  - [IsThereOpClassInNamespace](../I/IsThereOpClassInNamespace.md) (src/backend/commands/opclasscmds.c:1817)
+  - [IsThereOpFamilyInNamespace](../I/IsThereOpFamilyInNamespace.md) (src/backend/commands/opclasscmds.c:1840)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

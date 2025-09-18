@@ -30,7 +30,7 @@ The dependency management ensures proper catalog behavior during DROP operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpFamilyMember (structure access)
+  - [OpFamilyMember](../O/OpFamilyMember.md) (structure access)
   - SPGIST_CONFIG_PROC
   - SPGIST_CHOOSE_PROC  
   - SPGIST_PICKSPLIT_PROC
@@ -40,7 +40,7 @@ The dependency management ensures proper catalog behavior during DROP operations
   - SPGIST_OPTIONS_PROC
   - ereport
 - Called from (representative examples):
-  - spghandler (in spgutils.c:83)
+  - [spghandler](spghandler.md) (in spgutils.c:83)
 
 ## Notes and Other Information
 - This function does not return a value (void return type)

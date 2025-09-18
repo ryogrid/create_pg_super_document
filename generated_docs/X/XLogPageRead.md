@@ -31,17 +31,17 @@ The function implements sophisticated error handling that differentiates between
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitForWALToBecomeAvailable
-  - XLogCheckpointNeeded
-  - GetRedoRecPtr
-  - RequestCheckpoint
-  - emode_for_corrupt_record
-  - XLogReaderValidatePageHeader
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
+  - [XLogCheckpointNeeded](XLogCheckpointNeeded.md)
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
+  - [RequestCheckpoint](../R/RequestCheckpoint.md)
+  - [emode_for_corrupt_record](../e/emode_for_corrupt_record.md)
+  - [XLogReaderValidatePageHeader](XLogReaderValidatePageHeader.md)
   - pg_pread
   - pgstat_report_wait_start/end
 - Called from (representative examples):
-  - InitWalRecovery (as page_read callback)
-  - XLogReaderState callback mechanism
+  - [InitWalRecovery](../I/InitWalRecovery.md) (as page_read callback)
+  - [XLogReaderState](XLogReaderState.md) callback mechanism
 
 ## Notes and Other Information
 - Returns the number of bytes read on success, XLREAD_FAIL on permanent failure, or XLREAD_WOULDBLOCK for non-blocking operations

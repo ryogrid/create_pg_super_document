@@ -20,19 +20,19 @@ The function handles concurrent access considerations by ensuring the pending li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginFreeScanKeys
-  - ginNewScanKey
+  - [ginFreeScanKeys](ginFreeScanKeys.md)
+  - [ginNewScanKey](ginNewScanKey.md)
   - GinIsVoidRes
-  - scanPendingInsert
-  - startScan
+  - [scanPendingInsert](../s/scanPendingInsert.md)
+  - [startScan](../s/startScan.md)
   - ItemPointerSetMin
-  - scanGetItem
+  - [scanGetItem](../s/scanGetItem.md)
   - ItemPointerIsLossyPage
   - tbm_add_page
-  - ItemPointerGetBlockNumber
-  - tbm_add_tuples
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
 - Called from (representative examples):
-  - ginhandler (GIN access method handler)
+  - [ginhandler](ginhandler.md) (GIN access method handler)
   - Referenced in GinScanOpaque structure
 
 ## Notes and Other Information

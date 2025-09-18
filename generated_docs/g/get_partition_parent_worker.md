@@ -23,17 +23,17 @@ The function is designed to work with an already-opened pg_inherits relation, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit (to initialize scan keys)
-  - systable_beginscan (to begin scanning pg_inherits)
-  - systable_getnext (to get the next tuple)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (to initialize scan keys)
+  - [systable_beginscan](../s/systable_beginscan.md) (to begin scanning pg_inherits)
+  - [systable_getnext](../s/systable_getnext.md) (to get the next tuple)
   - HeapTupleIsValid (to validate the returned tuple)
   - GETSTRUCT (to extract the struct from the tuple)
-  - systable_endscan (to end the scan)
+  - [systable_endscan](../s/systable_endscan.md) (to end the scan)
   - Form_pg_inherits (struct type for pg_inherits tuples)
 
 - Called from (representative examples):
-  - get_partition_parent
-  - get_partition_ancestors_worker
+  - [get_partition_parent](get_partition_parent.md)
+  - [get_partition_ancestors_worker](get_partition_ancestors_worker.md)
 
 ## Notes and Other Information
 - Uses InheritsRelidSeqnoIndexId for efficient indexed access

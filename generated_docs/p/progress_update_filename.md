@@ -22,12 +22,12 @@ The function only performs its operations when both `showprogress` and `verbose`
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)
-  - pg_strdup (PostgreSQL string duplication utility)
+  - [pg_strdup](pg_strdup.md) (PostgreSQL string duplication utility)
 - Called from (representative examples):
   - CompressionLocation
-  - CreateBackupStreamer
-  - ReceiveTarFile
-  - BaseBackup
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
+  - [ReceiveTarFile](../R/ReceiveTarFile.md)
+  - [BaseBackup](../B/BaseBackup.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same source file

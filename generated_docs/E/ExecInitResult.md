@@ -33,18 +33,18 @@ The function handles both Result nodes with outer plans (filter/projection nodes
   - makeNode (to create ResultState structure)
   - outerPlan/innerPlan (macros to access plan tree structure) 
   - ExecAssignExprContext (to create expression evaluation context)
-  - ExecInitNode (to recursively initialize child nodes)
-  - ExecInitResultTupleSlotTL (to initialize result tuple slot - see related processed symbols)
-  - ExecAssignProjectionInfo (to set up projection infrastructure - see related processed symbols)
-  - ExecInitQual (to compile qualification expressions)
+  - [ExecInitNode](ExecInitNode.md) (to recursively initialize child nodes)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (to initialize result tuple slot - see related processed symbols)
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md) (to set up projection infrastructure - see related processed symbols)
+  - [ExecInitQual](ExecInitQual.md) (to compile qualification expressions)
 - Called from:
-  - ExecInitNode (the main node initialization dispatcher in execProcnode.c)
+  - [ExecInitNode](ExecInitNode.md) (the main node initialization dispatcher in execProcnode.c)
   - Declared in nodeResult.h
 
 ## Notes and Other Information
 - Assert statements ensure that mark/restore functionality is only requested when an outer plan exists
 - The rs_checkqual flag optimizes constant qualification evaluation by tracking whether it has been checked
-- Result nodes never have inner (right) child plans, as verified by the assertion
+- [Result](../R/Result.md) nodes never have inner (right) child plans, as verified by the assertion
 - Uses virtual tuple table slot operations (TTSOpsVirtual) for efficient tuple handling
 - The function integrates with PostgreSQL's expression evaluation framework for both regular and constant qualifications
 - Returns a fully initialized ResultState ready for execution by ExecResult

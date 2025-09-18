@@ -64,18 +64,18 @@ The structure is organized into several functional groups: basic scanning operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ImportForeignSchema
+  - [ImportForeignSchema](../I/ImportForeignSchema.md)
 - Called from (representative examples):
-  - GetFdwRoutine
-  - GetFdwRoutineByServerId
-  - GetFdwRoutineByRelId
-  - GetFdwRoutineForRelation
-  - ExecInitForeignScan
+  - [GetFdwRoutine](../G/GetFdwRoutine.md)
+  - [GetFdwRoutineByServerId](../G/GetFdwRoutineByServerId.md)
+  - [GetFdwRoutineByRelId](../G/GetFdwRoutineByRelId.md)
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
+  - [ExecInitForeignScan](../E/ExecInitForeignScan.md)
   - make_modifytable
-  - select_rowmark_type
-  - analyze_rel
-  - show_foreignscan_info
-  - ExecuteTruncateGuts
+  - [select_rowmark_type](../s/select_rowmark_type.md)
+  - [analyze_rel](../a/analyze_rel.md)
+  - [show_foreignscan_info](../s/show_foreignscan_info.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 The FdwRoutine structure is central to PostgreSQL's Foreign Data Wrapper architecture and serves as the contract between FDW implementations and the core database engine. FDW developers must implement at least the basic scanning functions, while other functions can be implemented as needed based on the capabilities of the foreign data source. The structure's design allows for future extensibility without breaking existing FDW implementations, as new function pointers can be added and existing FDWs will have them initialized to NULL by makeNode().

@@ -27,8 +27,8 @@ The function iterates through all block references in the record, checking each 
   - XLogRecGetBlock
   - XLogRecGetTotalLen
 - Called from (representative examples):
-  - XLogRecStoreStats
-  - XLogDumpDisplayRecord
+  - [XLogRecStoreStats](XLogRecStoreStats.md)
+  - [XLogDumpDisplayRecord](XLogDumpDisplayRecord.md)
 
 ## Notes and Other Information
 - The function accesses xlogreader's private decoded backup blocks to get bimg_len

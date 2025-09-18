@@ -21,8 +21,8 @@ The function leverages PostgreSQL's internal `pg_prng_double()` function which p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `initialize_prng` - Ensures PRNG is seeded before use
-  - `pg_prng_double` - Generates uniform double in [0.0, 1.0) range
+  - `[initialize_prng](../i/initialize_prng.md)` - Ensures PRNG is seeded before use
+  - `[pg_prng_double](../p/pg_prng_double.md)` - Generates uniform double in [0.0, 1.0) range
 - Called from:
   - No direct callers found in the analyzed codebase (likely called from SQL)
 

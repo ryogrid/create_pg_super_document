@@ -20,9 +20,9 @@ The function returns an array of INT32 values representing the PIDs of processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSafeSnapshotBlockingPids (core function that identifies blocking processes)
-  - construct_array_builtin (constructs PostgreSQL array result)
-  - palloc (PostgreSQL memory allocation)
-  - Int32GetDatum (converts integers to PostgreSQL datums)
+  - [construct_array_builtin](../c/construct_array_builtin.md) (constructs PostgreSQL array result)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (converts integers to PostgreSQL datums)
 - Referenced constants:
   - MaxBackends (maximum number of backend processes)
 - Called from:

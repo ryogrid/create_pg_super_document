@@ -28,14 +28,14 @@ The function is critical for logical replication performance, as having an appro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRelationIdentityOrPK
-  - FindUsableIndexForReplicaIdentityFull
-  - LogicalRepRelation (struct type)
-  - AttrMap (struct type)
+  - [GetRelationIdentityOrPK](../G/GetRelationIdentityOrPK.md)
+  - [FindUsableIndexForReplicaIdentityFull](FindUsableIndexForReplicaIdentityFull.md)
+  - [LogicalRepRelation](../L/LogicalRepRelation.md) (struct type)
+  - [AttrMap](../A/AttrMap.md) (struct type)
   - REPLICA_IDENTITY_FULL (constant)
 - Called from (representative examples):
   - logicalrep_rel_open
-  - logicalrep_partition_open
+  - [logicalrep_partition_open](../l/logicalrep_partition_open.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/relation.c:868-908

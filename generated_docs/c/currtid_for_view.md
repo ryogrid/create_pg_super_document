@@ -35,15 +35,15 @@ The implementation includes several validation checks to ensure the view is prop
   - elog
   - list_length
   - linitial
-  - get_tle_by_resno
+  - [get_tle_by_resno](../g/get_tle_by_resno.md)
   - IsA
   - IS_SPECIAL_VARNO
   - rt_fetch
   - table_open
-  - currtid_internal
+  - [currtid_internal](currtid_internal.md)
   - table_close
 - Called from (representative examples):
-  - currtid_internal
+  - [currtid_internal](currtid_internal.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, used only within the TID utilities module

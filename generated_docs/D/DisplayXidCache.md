@@ -33,7 +33,7 @@ The function prints a single line with multiple metrics separated by commas, sho
     - xc_no_overflow
     - xc_slow_answer
 - Called from (representative examples):
-  - ProcArrayRemove (in procarray.c)
+  - [ProcArrayRemove](../P/ProcArrayRemove.md) (in procarray.c)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the procarray.c file

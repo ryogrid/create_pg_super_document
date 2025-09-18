@@ -23,20 +23,20 @@ A critical requirement is that the exit condition must be tested between calling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionVariableCancelSleep (cancels any previous prepared sleep)
+  - [ConditionVariableCancelSleep](ConditionVariableCancelSleep.md) (cancels any previous prepared sleep)
   - proclist_push_tail (adds process to wait queue)
   - SpinLockAcquire/SpinLockRelease (protects wait queue modifications)
 - Called from (representative examples):
   - Checkpointer signal handling
-  - ReplicationSlotAcquire
-  - InvalidatePossiblyObsoleteSlot
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
+  - [InvalidatePossiblyObsoleteSlot](../I/InvalidatePossiblyObsoleteSlot.md)
   - WaitForStandbyConfirmation
-  - ShutdownWalRcv
-  - WalSndWait
+  - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
+  - [WalSndWait](../W/WalSndWait.md)
   - WaitIO
   - BarrierArriveAndWait
-  - ConditionVariableTimedSleep
-  - injection_wait
+  - [ConditionVariableTimedSleep](ConditionVariableTimedSleep.md)
+  - [injection_wait](../i/injection_wait.md)
 
 ## Notes and Other Information
 - Optional optimization - can be omitted if first test of exit condition is likely to succeed

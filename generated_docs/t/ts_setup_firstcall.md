@@ -21,14 +21,14 @@ The function operates within PostgreSQL's set-returning function (SRF) framework
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc0
-  - get_call_result_type
-  - TupleDescGetAttInMetadata
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
   - elog
 - Called from (representative examples):
-  - ts_stat1
-  - ts_stat2
+  - [ts_stat1](ts_stat1.md)
+  - [ts_stat2](ts_stat2.md)
 
 ## Notes and Other Information
 - Uses a stack-based approach to maintain traversal state between function calls

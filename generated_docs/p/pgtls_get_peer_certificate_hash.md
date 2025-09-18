@@ -30,9 +30,9 @@ The function first examines the certificate's signature algorithm using either X
   - X509_digest
   - malloc
   - memcpy
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
-  - build_client_final_message (SCRAM authentication)
+  - [build_client_final_message](../b/build_client_final_message.md) (SCRAM authentication)
 
 ## Notes and Other Information
 - Returns NULL on error and sets appropriate error message via libpq_append_conn_error

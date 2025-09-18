@@ -53,21 +53,21 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_valid_polymorphic_signature: Validates polymorphic type usage
-  - check_valid_internal_signature: Validates internal type usage
-  - SearchSysCache3: Searches for existing function definition
-  - object_ownercheck: Verifies ownership permissions
-  - build_function_result_tupdesc_t: Builds tuple descriptor for RECORD return types
-  - get_user_default_acl: Gets default ACL for the function
-  - record_object_address_dependencies: Records all object dependencies
+  - [check_valid_polymorphic_signature](../c/check_valid_polymorphic_signature.md): Validates polymorphic type usage
+  - [check_valid_internal_signature](../c/check_valid_internal_signature.md): Validates internal type usage
+  - [SearchSysCache3](../S/SearchSysCache3.md): Searches for existing function definition
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies ownership permissions
+  - [build_function_result_tupdesc_t](../b/build_function_result_tupdesc_t.md): Builds tuple descriptor for RECORD return types
+  - [get_user_default_acl](../g/get_user_default_acl.md): Gets default ACL for the function
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md): Records all object dependencies
   - OidFunctionCall1: Calls language validator function
   - CommandCounterIncrement: Makes new tuple visible to validator
 
 - Called from (representative examples):
-  - CreateFunction: Main entry point for CREATE FUNCTION command
-  - AggregateCreate: Creates the final function for aggregate definitions
-  - makeRangeConstructors: Creates constructor functions for range types
-  - makeMultirangeConstructors: Creates constructor functions for multirange types
+  - [CreateFunction](../C/CreateFunction.md): Main entry point for CREATE FUNCTION command
+  - [AggregateCreate](../A/AggregateCreate.md): Creates the final function for aggregate definitions
+  - [makeRangeConstructors](../m/makeRangeConstructors.md): Creates constructor functions for range types
+  - [makeMultirangeConstructors](../m/makeMultirangeConstructors.md): Creates constructor functions for multirange types
 
 ## Notes and Other Information
 - The function enforces strict backward compatibility when replacing existing functions to prevent breaking dependent objects like views and rules

@@ -21,20 +21,20 @@ RelationCreateStorage is responsible for creating the underlying disk file stora
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgropen
-  - smgrcreate
-  - log_smgrcreate
-  - AddPendingSync
+  - [smgropen](../s/smgropen.md)
+  - [smgrcreate](../s/smgrcreate.md)
+  - [log_smgrcreate](../l/log_smgrcreate.md)
+  - [AddPendingSync](../A/AddPendingSync.md)
   - ProcNumberForTempRelations
-  - GetCurrentTransactionNestLevel
-  - MemoryContextAlloc
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - XLogIsNeeded
   - IsInParallelMode
 - Called from (representative examples):
-  - heap_create
-  - RelationSetNewRelfilenumber
-  - heapam_relation_set_new_filelocator
-  - index_copy_data
+  - [heap_create](../h/heap_create.md)
+  - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md)
+  - [heapam_relation_set_new_filelocator](../h/heapam_relation_set_new_filelocator.md)
+  - [index_copy_data](../i/index_copy_data.md)
 
 ## Notes and Other Information
 - Function asserts that it is not called in parallel mode due to pendingSyncHash updates

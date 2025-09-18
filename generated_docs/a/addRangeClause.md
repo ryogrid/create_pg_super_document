@@ -37,13 +37,13 @@ The function is essential for converting multiple independent inequality estimat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_leftop
-  - get_rightop
-  - equal
-  - palloc
-  - RangeQueryClause
+  - [get_leftop](../g/get_leftop.md)
+  - [get_rightop](../g/get_rightop.md)
+  - [equal](../e/equal.md)
+  - [palloc](../p/palloc.md)
+  - [RangeQueryClause](../R/RangeQueryClause.md)
 - Called from (representative examples):
-  - clauselist_selectivity_ext
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
 
 ## Notes and Other Information
 This function implements sophisticated logic for bound determination:

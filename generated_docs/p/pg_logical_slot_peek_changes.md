@@ -25,7 +25,7 @@ This function is typically used for monitoring, debugging, or preview purposes w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_logical_slot_get_changes_guts (core implementation function)
+  - [pg_logical_slot_get_changes_guts](pg_logical_slot_get_changes_guts.md) (core implementation function)
 - Called from:
   - SQL queries (this is a public SQL-callable function registered in the system catalog)
 

@@ -23,9 +23,9 @@ The function ensures the directory parameter is valid through an assertion and c
   - open (system call)
   - PG_BINARY (PostgreSQL binary flag constant)
 - Called from (representative examples):
-  - search_directory
-  - WALDumpOpenSegment
-  - main
+  - [search_directory](../s/search_directory.md)
+  - [WALDumpOpenSegment](../W/WALDumpOpenSegment.md)
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Returns -1 if the file doesn't exist (ENOENT error) or on successful opening returns a valid file descriptor

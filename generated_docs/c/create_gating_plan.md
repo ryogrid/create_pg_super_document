@@ -22,13 +22,13 @@ The `create_gating_plan` function creates a Result node that acts as a "gate" in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist
-  - make_result
-  - copy_plan_costsize
-  - Result (type/struct)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [make_result](../m/make_result.md)
+  - [copy_plan_costsize](copy_plan_costsize.md)
+  - [Result](../R/Result.md) (type/struct)
 - Called from (representative examples):
-  - create_scan_plan
-  - create_join_plan
+  - [create_scan_plan](create_scan_plan.md)
+  - [create_join_plan](create_join_plan.md)
 
 ## Notes and Other Information
 - The function avoids stacking Result nodes unnecessarily by checking if the input plan is already a trivial Result node

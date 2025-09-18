@@ -22,16 +22,16 @@ The implementation uses pointer arithmetic to start copying from the correct off
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_list
-  - check_list_invariants
+  - [new_list](../n/new_list.md)
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - get_object_address_opcf
-  - transformAggregateCall
-  - ParseFuncOrColumn
-  - addRangeTableEntryForTableFunc
-  - addRangeTableEntryForJoin
-  - expandRTE
-  - get_name_for_var_field
+  - [get_object_address_opcf](../g/get_object_address_opcf.md)
+  - [transformAggregateCall](../t/transformAggregateCall.md)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [addRangeTableEntryForTableFunc](../a/addRangeTableEntryForTableFunc.md)
+  - [addRangeTableEntryForJoin](../a/addRangeTableEntryForJoin.md)
+  - [expandRTE](../e/expandRTE.md)
+  - [get_name_for_var_field](../g/get_name_for_var_field.md)
 
 ## Notes and Other Information
 - This is a shallow copy operation - only the list structure is duplicated, not the data elements

@@ -21,12 +21,12 @@ Although the functionality could technically be achieved with a simple  pointer,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_node (as the type for the current position pointer)
+  - [slist_node](slist_node.md) (as the type for the current position pointer)
 - Called from (representative examples):
   - slist_foreach (macro that uses this iterator for list traversal)
-  - pg_event_trigger_dropped_objects (for iterating through dropped objects)
-  - BackgroundWorkerShmemInit (for iterating through background worker registrations)
-  - CatCachePrintStats (for iterating through catalog cache entries)
+  - [pg_event_trigger_dropped_objects](../p/pg_event_trigger_dropped_objects.md) (for iterating through dropped objects)
+  - [BackgroundWorkerShmemInit](../B/BackgroundWorkerShmemInit.md) (for iterating through background worker registrations)
+  - [CatCachePrintStats](../C/CatCachePrintStats.md) (for iterating through catalog cache entries)
 
 ## Notes and Other Information
 - Designed for forward-only iteration through singly linked lists

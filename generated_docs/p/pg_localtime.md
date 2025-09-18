@@ -22,15 +22,15 @@ The `pg_localtime` function is PostgreSQL's timezone-aware version of the standa
 - Functions called/Symbols referenced:
   - localsub
   - pg_time_t
-  - pg_tz
-  - pg_tm
+  - [pg_tz](pg_tz.md)
+  - [pg_tm](pg_tm.md)
 - Called from (representative examples):
-  - str_time
-  - build_backup_content
-  - timeofday
-  - timestamp2tm
-  - get_formatted_log_time
-  - logfile_getname
+  - [str_time](../s/str_time.md)
+  - [build_backup_content](../b/build_backup_content.md)
+  - [timeofday](../t/timeofday.md)
+  - [timestamp2tm](../t/timestamp2tm.md)
+  - [get_formatted_log_time](../g/get_formatted_log_time.md)
+  - [logfile_getname](../l/logfile_getname.md)
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's timestamp handling and is used throughout the system for converting timestamps to local time representations. It properly handles edge cases such as times during DST transitions, times outside the range of available timezone data (using extrapolation), and invalid times. The function returns a pointer to a static `pg_tm` structure, so the result should be used immediately or copied if persistence is needed. Unlike the standard `localtime` function, this version is thread-safe when used with PostgreSQL's timezone infrastructure.

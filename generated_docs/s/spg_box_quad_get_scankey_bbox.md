@@ -26,13 +26,13 @@ For polygon queries, the function uses the is_bounding_box_test_exact helper to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP (converts Datum to BOX pointer)
-  - DatumGetPolygonP (converts Datum to POLYGON pointer)
-  - is_bounding_box_test_exact (determines if bbox test is sufficient)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (converts Datum to BOX pointer)
+  - [DatumGetPolygonP](../D/DatumGetPolygonP.md) (converts Datum to POLYGON pointer)
+  - [is_bounding_box_test_exact](../i/is_bounding_box_test_exact.md) (determines if bbox test is sufficient)
   - elog (PostgreSQL error logging function)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent (consistency checking for internal nodes)
-  - spg_box_quad_leaf_consistent (consistency checking for leaf nodes)
+  - [spg_box_quad_inner_consistent](spg_box_quad_inner_consistent.md) (consistency checking for internal nodes)
+  - [spg_box_quad_leaf_consistent](spg_box_quad_leaf_consistent.md) (consistency checking for leaf nodes)
 
 ## Notes and Other Information
 - Static function with internal linkage, only used within geo_spgist.c

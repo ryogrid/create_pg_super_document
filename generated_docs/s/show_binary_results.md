@@ -27,15 +27,15 @@ The function demonstrates best practices for handling binary query results, incl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfnumber (libpq function to get field number by name)
-  - PQntuples (libpq function to get number of tuples/rows)
-  - PQgetvalue (libpq function to get field value)
-  - PQgetlength (libpq function to get field length)
+  - [PQfnumber](../P/PQfnumber.md) (libpq function to get field number by name)
+  - [PQntuples](../P/PQntuples.md) (libpq function to get number of tuples/rows)
+  - [PQgetvalue](../P/PQgetvalue.md) (libpq function to get field value)
+  - [PQgetlength](../P/PQgetlength.md) (libpq function to get field length)
   - ntohl (network to host byte order conversion)
   - printf (standard C library function)
 
 - Called from (representative examples):
-  - main (in testlibpq3.c, called twice to demonstrate binary result handling)
+  - [main](../m/main.md) (in testlibpq3.c, called twice to demonstrate binary result handling)
 
 ## Notes and Other Information
 - This is a demonstration/test function, not part of the core PostgreSQL engine

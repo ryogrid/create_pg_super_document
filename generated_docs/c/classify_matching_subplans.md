@@ -22,13 +22,13 @@ The function handles edge cases where no valid subplans exist or where no valid 
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - bms_overlap
-  - bms_intersect
-  - bms_del_members
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_intersect](../b/bms_intersect.md)
+  - [bms_del_members](../b/bms_del_members.md)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - ExecInitAppend
-  - ExecAppendAsyncBegin
+  - [ExecInitAppend](../E/ExecInitAppend.md)
+  - [ExecAppendAsyncBegin](../E/ExecAppendAsyncBegin.md)
 
 ## Notes and Other Information
 - Requires that as_valid_subplans_identified is true before execution

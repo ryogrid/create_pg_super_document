@@ -23,15 +23,15 @@ This function provides a type-safe way to determine if a clause represents an op
   - OpExpr (node type)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - TidExprListCreate
-  - clauselist_selectivity_ext
-  - clause_selectivity_ext
-  - process_equivalence
-  - match_clause_to_ordering_op
-  - create_hashjoin_plan
-  - CommuteOpExpr
-  - make_restrictinfo_internal
-  - mergejoinscansel
+  - [TidExprListCreate](../T/TidExprListCreate.md)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [process_equivalence](../p/process_equivalence.md)
+  - [match_clause_to_ordering_op](../m/match_clause_to_ordering_op.md)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md)
+  - [CommuteOpExpr](../C/CommuteOpExpr.md)
+  - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md)
+  - [mergejoinscansel](../m/mergejoinscansel.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in nodeFuncs.h, making it available to any file that includes this header

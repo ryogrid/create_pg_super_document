@@ -23,25 +23,25 @@ The algorithm is designed to scale efficiently across multiple CPU cores while m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashState (parameter and state references)
+  - [HashState](../H/HashState.md) (parameter and state references)
   - ParallelHashJoinState (parallel coordination state)
-  - HashJoinTable (shared hash table structure)
-  - Barrier (synchronization primitive)
+  - [HashJoinTable](../H/HashJoinTable.md) (shared hash table structure)
+  - [Barrier](../B/Barrier.md) (synchronization primitive)
   - outerPlanState (child plan access)
   - PHJ_BUILD_ALLOCATE, PHJ_BUILD_HASH_INNER, PHJ_BUILD_FREE (phase constants)
   - BarrierPhase, BarrierArriveAndWait, BarrierAttach, BarrierDetach (barrier operations)
   - PHJ_GROW_BATCHES_PHASE, PHJ_GROW_BUCKETS_PHASE (growth phase checks)
-  - ExecParallelHashIncreaseNumBatches, ExecParallelHashIncreaseNumBuckets (parallel resizing)
-  - ExecParallelHashEnsureBatchAccessors (batch file management)
-  - ExecParallelHashTableSetCurrentBatch (batch switching)
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md), ExecParallelHashIncreaseNumBuckets (parallel resizing)
+  - [ExecParallelHashEnsureBatchAccessors](../E/ExecParallelHashEnsureBatchAccessors.md) (batch file management)
+  - [ExecParallelHashTableSetCurrentBatch](../E/ExecParallelHashTableSetCurrentBatch.md) (batch switching)
   - ExecProcNode, TupIsNull (tuple processing)
   - ExecHashGetHashValue (hash computation)
   - ExecParallelHashTableInsert (parallel-safe insertion)
-  - sts_end_write (shared tuple storage finalization)
-  - ExecParallelHashMergeCounters (statistics aggregation)
-  - my_log2 (logarithm utility)
+  - [sts_end_write](../s/sts_end_write.md) (shared tuple storage finalization)
+  - [ExecParallelHashMergeCounters](../E/ExecParallelHashMergeCounters.md) (statistics aggregation)
+  - [my_log2](../m/my_log2.md) (logarithm utility)
 - Called from (representative examples):
-  - MultiExecHash (parallel execution path)
+  - [MultiExecHash](MultiExecHash.md) (parallel execution path)
 
 ## Notes and Other Information
 - Implements complex barrier-based synchronization to coordinate multiple parallel workers

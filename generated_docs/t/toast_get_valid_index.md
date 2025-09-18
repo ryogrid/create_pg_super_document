@@ -21,13 +21,13 @@ This function opens a TOAST relation and finds its valid index. TOAST relations 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - toast_open_indexes
+  - [toast_open_indexes](toast_open_indexes.md)
   - RelationGetRelid
-  - toast_close_indexes
+  - [toast_close_indexes](toast_close_indexes.md)
   - table_close
 - Called from (representative examples):
-  - swap_relation_files (in cluster.c)
-  - finish_heap_swap (in cluster.c)
+  - [swap_relation_files](../s/swap_relation_files.md) (in cluster.c)
+  - [finish_heap_swap](../f/finish_heap_swap.md) (in cluster.c)
 
 ## Notes and Other Information
 - TOAST relations can have only one valid index at any given time, making this function essential for index management operations

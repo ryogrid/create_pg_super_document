@@ -31,7 +31,7 @@ It then translates these into standard SQL interval notation (e.g., "day to seco
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32
-  - palloc
+  - [palloc](../p/palloc.md)
   - INTERVAL_RANGE
   - INTERVAL_PRECISION
   - INTERVAL_MASK

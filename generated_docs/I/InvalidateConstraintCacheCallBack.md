@@ -26,13 +26,13 @@ The function is designed to handle high-traffic scenarios like pg_dump restores 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_count
+  - [dclist_count](../d/dclist_count.md)
   - dclist_foreach_modify
   - dclist_container
-  - dclist_delete_from
+  - [dclist_delete_from](../d/dclist_delete_from.md)
   - Assert
 - Called from (representative examples):
-  - ri_InitHashTables (registered as callback)
+  - [ri_InitHashTables](../r/ri_InitHashTables.md) (registered as callback)
 
 ## Notes and Other Information
 - Registered as a callback with the PostgreSQL cache invalidation system during ri_InitHashTables

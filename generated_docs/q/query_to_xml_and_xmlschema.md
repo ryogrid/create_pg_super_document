@@ -30,14 +30,14 @@ The function handles the complete workflow:
   - text_to_cstring
   - PG_GETARG_BOOL
   - SPI_connect
-  - SPI_prepare
-  - SPI_cursor_open
-  - _SPI_strdup
-  - map_sql_table_to_xmlschema
-  - SPI_cursor_close
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
+  - [_SPI_strdup](../S/_SPI_strdup.md)
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
   - SPI_finish
-  - stringinfo_to_xmltype
-  - query_to_xml_internal
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
+  - [query_to_xml_internal](query_to_xml_internal.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function call mechanism)

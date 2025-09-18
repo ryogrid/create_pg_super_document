@@ -20,12 +20,12 @@ The initTeller function generates one row of data for the pgbench_tellers table 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (buffer structure for building strings)
-  - printfPQExpBuffer (formats and writes data to the buffer)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for building strings)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formats and writes data to the buffer)
   - INT64_FORMAT (format macro for 64-bit integers)
   - ntellers (global variable defining number of tellers per branch)
 - Called from (representative examples):
-  - initGenerateDataClientSide (during client-side data generation for tellers)
+  - [initGenerateDataClientSide](initGenerateDataClientSide.md) (during client-side data generation for tellers)
 
 ## Notes and Other Information
 - Generates tab-separated values suitable for PostgreSQL COPY command

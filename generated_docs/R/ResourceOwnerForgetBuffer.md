@@ -26,7 +26,7 @@ This is the counterpart to ResourceOwnerRememberBuffer and is essential for main
 - Functions called/Symbols referenced:
   - ResourceOwner (structure type)
   - ResourceOwnerForget (generic resource untracking function)
-  - Int32GetDatum (conversion function)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (conversion function)
   - buffer_pin_resowner_desc (resource descriptor for buffer pins)
 - Called from (representative examples):
   - UnpinBuffer

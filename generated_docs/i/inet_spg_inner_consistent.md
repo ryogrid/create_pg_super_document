@@ -38,12 +38,12 @@ The function uses a bitmask approach where each bit represents whether the corre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP (datum to inet conversion)
+  - [DatumGetInetPP](../D/DatumGetInetPP.md) (datum to inet conversion)
   - ip_family (extract address family)
-  - inet_spg_consistent_bitmap (evaluate prefix-based consistency)
-  - palloc (memory allocation)
+  - [inet_spg_consistent_bitmap](inet_spg_consistent_bitmap.md) (evaluate prefix-based consistency)
+  - [palloc](../p/palloc.md) (memory allocation)
   - Strategy constants (RTLessStrategyNumber, RTGreaterStrategyNumber, etc.)
-  - spgInnerConsistentIn/spgInnerConsistentOut (SP-GiST structures)
+  - [spgInnerConsistentIn](../s/spgInnerConsistentIn.md)/spgInnerConsistentOut (SP-GiST structures)
 - Called from (representative examples):
   - SP-GiST query processing engine
   - Index search operations for network address queries

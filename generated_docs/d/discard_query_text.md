@@ -21,13 +21,13 @@ This function rolls back the query buffer and scanner state to values previously
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_get_query_len
-  - conditional_stack_get_paren_depth
+  - [conditional_stack_get_query_len](../c/conditional_stack_get_query_len.md)
+  - [conditional_stack_get_paren_depth](../c/conditional_stack_get_paren_depth.md)
   - psql_scan_set_paren_depth
 - Called from (representative examples):
-  - exec_command_elif
-  - exec_command_else 
-  - exec_command_endif
+  - [exec_command_elif](../e/exec_command_elif.md)
+  - [exec_command_else](../e/exec_command_else.md) 
+  - [exec_command_endif](../e/exec_command_endif.md)
 
 ## Notes and Other Information
 - This is a static function used internally within psql's command processing

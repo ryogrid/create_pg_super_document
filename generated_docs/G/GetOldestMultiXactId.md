@@ -21,16 +21,16 @@ The function is critical for vacuum operations and SLRU management decisions. Wh
 - Functions called/Symbols referenced:
   - LWLockAcquire (MultiXactGenLock, LW_SHARED)
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
   - LWLockRelease
   - FirstMultiXactId
   - MaxOldestSlot
   - OldestMemberMXactId array
   - OldestVisibleMXactId array
 - Called from (representative examples):
-  - heapam_relation_set_new_filelocator
-  - vacuum_get_cutoffs
-  - vac_update_datfrozenxid
+  - [heapam_relation_set_new_filelocator](../h/heapam_relation_set_new_filelocator.md)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
 
 ## Notes and Other Information
 - Uses shared locking on MultiXactGenLock for safe concurrent access

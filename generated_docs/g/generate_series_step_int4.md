@@ -26,15 +26,15 @@ The `generate_series_step_int4` function is the main implementation of PostgreSQ
   - `SRF_IS_FIRSTCALL` - Macro to check if this is the first function call
   - `PG_GETARG_INT32` - Macro to extract int32 arguments
   - `PG_NARGS` - Macro to get the number of arguments
-  - `SRF_FIRSTCALL_INIT` - Initialize SRF context on first call
+  - `SRF_FIRSTCALL_INIT` - [Initialize](../I/Initialize.md) SRF context on first call
   - `SRF_PERCALL_SETUP` - Setup for each subsequent call
-  - `pg_add_s32_overflow` - Safe integer addition with overflow detection
+  - `[pg_add_s32_overflow](../p/pg_add_s32_overflow.md)` - Safe integer addition with overflow detection
   - `SRF_RETURN_NEXT` - Return next value in the series
   - `SRF_RETURN_DONE` - Signal end of series
   - `generate_series_fctx` - Context structure for maintaining state
-  - `FuncCallContext` - PostgreSQL function call context structure
+  - `[FuncCallContext](../F/FuncCallContext.md)` - PostgreSQL function call context structure
 - Called from (representative examples):
-  - `generate_series_int4` - Wrapper function for two-parameter version
+  - `[generate_series_int4](generate_series_int4.md)` - Wrapper function for two-parameter version
 
 ## Notes and Other Information
 - Located in `src/backend/utils/adt/int.c:1509-1584`

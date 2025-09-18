@@ -29,7 +29,7 @@ This provides the logical combination of the < and = operators, essential for ra
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P (macro for extracting TimeTzADT arguments)
-  - timetz_cmp_internal (internal comparison function)
+  - [timetz_cmp_internal](timetz_cmp_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro for returning boolean result)
   - TimeTzADT (data type)
 - Called from (representative examples):

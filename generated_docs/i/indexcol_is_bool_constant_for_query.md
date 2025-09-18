@@ -21,12 +21,12 @@ The function specifically handles this case by checking if a boolean index colum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsBooleanOpfamily
-  - match_boolean_index_clause
-  - IndexOptInfo (structure)
-  - RestrictInfo (structure)
+  - [IsBooleanOpfamily](../I/IsBooleanOpfamily.md)
+  - [match_boolean_index_clause](../m/match_boolean_index_clause.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (structure)
 - Called from (representative examples):
-  - build_index_pathkeys
+  - [build_index_pathkeys](../b/build_index_pathkeys.md)
 
 ## Notes and Other Information
 - Only applicable to boolean opfamily index columns (checked via IsBooleanOpfamily)

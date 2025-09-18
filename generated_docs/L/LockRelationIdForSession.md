@@ -21,14 +21,14 @@ This function grabs a session-level lock on the target relation specified by its
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to construct relation lock tag)
-  - LockAcquire (performs the actual lock acquisition with session=true, dontWait=false)
+  - [LockAcquire](LockAcquire.md) (performs the actual lock acquisition with session=true, dontWait=false)
 - Called from (representative examples):
-  - index_drop (when dropping indexes)
-  - DefineIndex (during index creation)
-  - vacuum_rel (during vacuum operations)
+  - [index_drop](../i/index_drop.md) (when dropping indexes)
+  - [DefineIndex](../D/DefineIndex.md) (during index creation)
+  - [vacuum_rel](../v/vacuum_rel.md) (during vacuum operations)
 
 ## Notes and Other Information
-- Session locks persist across transaction boundaries unlike regular locks
+- [Session](../S/Session.md) locks persist across transaction boundaries unlike regular locks
 - Should be paired with transaction-level locks in transactions that actually use the relation
 - The session lock ensures relcache entry consistency across transactions
 - Uses LockAcquire with session=true and dontWait=false parameters

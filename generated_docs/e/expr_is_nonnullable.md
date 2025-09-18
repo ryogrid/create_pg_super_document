@@ -28,11 +28,11 @@ The function is used as a helper for optimization decisions, particularly in det
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - find_base_rel
-  - bms_is_member
+  - [find_base_rel](../f/find_base_rel.md)
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
-  - restriction_is_always_true
-  - restriction_is_always_false
+  - [restriction_is_always_true](../r/restriction_is_always_true.md)
+  - [restriction_is_always_false](../r/restriction_is_always_false.md)
 
 ## Notes and Other Information
 **Conservative Approach**: The function takes a conservative approach, only returning true when it can definitively prove non-nullability. Complex expressions, functions, and other node types are assumed to be potentially nullable.

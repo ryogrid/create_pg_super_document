@@ -19,9 +19,9 @@ The function is part of the bootstrap subsystem which is responsible for initial
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - closerel
+  - [closerel](closerel.md)
 - Called from (representative examples):
-  - BootstrapModeMain (src/backend/bootstrap/bootstrap.c:367)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (src/backend/bootstrap/bootstrap.c:367)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the bootstrap.c file

@@ -27,14 +27,14 @@ The structure is designed for memory efficiency, storing the channel name and pa
   
 - Called from (representative examples):
   - NotificationHash (hash table operations)
-  - Async_Notify (main notification processing)
-  - asyncQueueNotificationToEntry (queue management)
-  - asyncQueueAddEntries (queue processing)
-  - AtSubCommit_Notify (subtransaction handling)
-  - AsyncExistsPendingNotify (duplicate detection)
-  - AddEventToPendingNotifies (event management)
-  - notification_hash (hash function)
-  - notification_match (comparison function)
+  - [Async_Notify](../A/Async_Notify.md) (main notification processing)
+  - [asyncQueueNotificationToEntry](../a/asyncQueueNotificationToEntry.md) (queue management)
+  - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md) (queue processing)
+  - [AtSubCommit_Notify](../A/AtSubCommit_Notify.md) (subtransaction handling)
+  - [AsyncExistsPendingNotify](../A/AsyncExistsPendingNotify.md) (duplicate detection)
+  - [AddEventToPendingNotifies](../A/AddEventToPendingNotifies.md) (event management)
+  - [notification_hash](../n/notification_hash.md) (hash function)
+  - [notification_match](../n/notification_match.md) (comparison function)
 
 ## Notes and Other Information
 - This structure is kept in CurTransactionContext and is part of a list of pending notifications

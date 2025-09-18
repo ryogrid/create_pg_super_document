@@ -24,7 +24,7 @@ The generate_subscripts function uses this structure to provide a convenient way
   - (This structure contains only primitive types and references no other symbols directly)
 
 - Called from (representative examples):
-  - generate_subscripts (creates and uses instances of this structure for state management)
+  - [generate_subscripts](generate_subscripts.md) (creates and uses instances of this structure for state management)
 
 ## Notes and Other Information
 - This structure is used exclusively by the generate_subscripts SQL function implementation

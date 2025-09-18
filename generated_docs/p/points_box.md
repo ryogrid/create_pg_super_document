@@ -20,8 +20,8 @@ This function constructs a PostgreSQL BOX geometric object from two Point argume
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P (argument extraction)
-  - palloc (memory allocation)
-  - box_construct (constructs the BOX from the two points)
+  - [palloc](palloc.md) (memory allocation)
+  - [box_construct](../b/box_construct.md) (constructs the BOX from the two points)
   - PG_RETURN_BOX_P (return value packaging)
 - Called from (representative examples):
   - No direct callers found in the codebase

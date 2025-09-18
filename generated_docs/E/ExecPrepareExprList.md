@@ -18,16 +18,16 @@ ExecPrepareExprList is a utility function that iterates through a list of expres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecPrepareExpr
-  - MemoryContextSwitchTo
+  - [ExecPrepareExpr](ExecPrepareExpr.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - lappend
   - lfirst
   - foreach
 - Called from (representative examples):
-  - FormIndexDatum
-  - EvaluateParams  
-  - FormPartitionKeyDatum
-  - make_build_data
+  - [FormIndexDatum](../F/FormIndexDatum.md)
+  - [EvaluateParams](EvaluateParams.md)  
+  - [FormPartitionKeyDatum](../F/FormPartitionKeyDatum.md)
+  - [make_build_data](../m/make_build_data.md)
   - ExecProcNode
 
 ## Notes and Other Information

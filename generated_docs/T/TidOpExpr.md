@@ -24,12 +24,12 @@ The structure works in conjunction with the TidExprType enumeration (TIDEXPR_UPP
   - TidExprType (enum with TIDEXPR_UPPER_BOUND, TIDEXPR_LOWER_BOUND values)
   - ExprState (PostgreSQL expression state structure)
 - Called from (representative examples):
-  - MakeTidOpExpr (creates TidOpExpr instances from OpExpr nodes)
-  - TidExprListCreate (builds lists of TidOpExpr for range scanning)
-  - TidRangeEval (evaluates TidOpExpr during scan execution)
+  - [MakeTidOpExpr](../M/MakeTidOpExpr.md) (creates TidOpExpr instances from OpExpr nodes)
+  - [TidExprListCreate](TidExprListCreate.md) (builds lists of TidOpExpr for range scanning)
+  - [TidRangeEval](TidRangeEval.md) (evaluates TidOpExpr during scan execution)
 
 ## Notes and Other Information
-- TidOpExpr is specifically designed for CTID-based range scans and is not used for general expression evaluation
+- [TidOpExpr](TidOpExpr.md) is specifically designed for CTID-based range scans and is not used for general expression evaluation
 - The structure is allocated using palloc() and is part of the executor's memory context
 - The inclusive field is currently initialized to false in MakeTidOpExpr, suggesting that inclusive boundary support may be limited or under development
 - This structure is closely tied to the TID range scan optimization, which allows PostgreSQL to efficiently scan table pages based on physical tuple locations rather than sequential scanning

@@ -21,14 +21,14 @@ This function is a specialized variant of tuple insertion for BRIN (Block Range 
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
   - BRINSORTTUPLE_SIZE
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - TupleSortUseBumpTupleCxt
   - GetMemoryChunkSpace
   - tuplesort_puttuple_common
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - form_and_spill_tuple
+  - [form_and_spill_tuple](../f/form_and_spill_tuple.md)
 
 ## Notes and Other Information
 - Uses the BRIN tuple's block number (bt_blkno) as the primary sorting datum

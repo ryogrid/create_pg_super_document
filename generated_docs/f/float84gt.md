@@ -21,7 +21,7 @@ The float84gt function implements the greater-than comparison operator between a
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function arguments
   - PG_GETARG_FLOAT4: Extracts float4 argument from function arguments
-  - float8_gt: Performs the actual greater-than comparison between two float8 values
+  - [float8_gt](float8_gt.md): Performs the actual greater-than comparison between two float8 values
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - No direct references found in the codebase

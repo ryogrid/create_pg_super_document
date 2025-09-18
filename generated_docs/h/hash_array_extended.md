@@ -29,7 +29,7 @@ This function is particularly important for hash partitioning and other operatio
   -  - Get array element type OID
   -  - Get cached type information with extended hash function
   -  - Calculate total number of array elements
-  -  - Initialize array iterator
+  -  - [Initialize](../I/Initialize.md) array iterator
   -  - Get next array element
   -  - Convert int64 to Datum for seed parameter
   -  - Call element extended hash function

@@ -40,13 +40,13 @@ This function serves as the main interface for regular expression selectivity es
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regex_selectivity_sub (performs the detailed regex pattern analysis)
+  - [regex_selectivity_sub](regex_selectivity_sub.md) (performs the detailed regex pattern analysis)
   - FULL_WILDCARD_SEL (selectivity factor for implicit trailing wildcard)
   - FIXED_CHAR_SEL (base selectivity for literal characters, used in prefix calculations)
   - pow (mathematical power function for prefix selectivity calculation)
   - CLAMP_PROBABILITY (macro to ensure result stays in valid range)
 - Called from:
-  - regex_fixed_prefix (when calculating selectivity for remaining pattern after prefix extraction)
+  - [regex_fixed_prefix](regex_fixed_prefix.md) (when calculating selectivity for remaining pattern after prefix extraction)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, not exposed in the public API

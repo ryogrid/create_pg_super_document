@@ -24,11 +24,11 @@ This function is a specialized handler extracted from exec_command_d to manage t
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - describeFunctions
-  - describeOperators
+  - [describeFunctions](../d/describeFunctions.md)
+  - [describeOperators](../d/describeOperators.md)
   - FUNC_MAX_ARGS (constant)
 - Called from (representative examples):
-  - exec_command_d (for \df and \do command variants)
+  - [exec_command_d](exec_command_d.md) (for \df and \do command variants)
 
 ## Notes and Other Information
 - Supports up to FUNC_MAX_ARGS argument patterns to prevent buffer overflow

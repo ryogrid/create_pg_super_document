@@ -21,22 +21,22 @@ This function serves as the main entry point for verifying individual filesystem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat
-  - report_backup_error
-  - simple_string_list_append  
-  - verify_backup_directory
+  - [stat](../s/stat.md)
+  - [report_backup_error](../r/report_backup_error.md)
+  - [simple_string_list_append](../s/simple_string_list_append.md)  
+  - [verify_backup_directory](verify_backup_directory.md)
   - manifest_files_lookup
-  - verify_control_file
+  - [verify_control_file](verify_control_file.md)
   - should_verify_checksum
 - Macros/Constants referenced:
   - S_ISDIR
   - S_ISREG
 - Types referenced:
-  - verifier_context
+  - [verifier_context](verifier_context.md)
   - struct stat
-  - manifest_file
+  - [manifest_file](../m/manifest_file.md)
 - Called from (representative examples):
-  - verify_backup_directory
+  - [verify_backup_directory](verify_backup_directory.md)
 
 ## Notes and Other Information
 - The function implements a two-phase verification approach: structural validation first, checksum validation later

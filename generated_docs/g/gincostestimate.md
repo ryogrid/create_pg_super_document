@@ -24,21 +24,21 @@ The gincostestimate function provides comprehensive cost estimation for GIN inde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_quals_from_indexclauses
-  - index_open
-  - ginGetStats
-  - index_close
-  - add_predicate_to_index_quals
-  - clauselist_selectivity
-  - get_tablespace_page_costs
-  - gincost_opexpr
-  - gincost_scalararrayopexpr
-  - index_pages_fetched
-  - index_other_operands_eval_cost
+  - [get_quals_from_indexclauses](get_quals_from_indexclauses.md)
+  - [index_open](../i/index_open.md)
+  - [ginGetStats](ginGetStats.md)
+  - [index_close](../i/index_close.md)
+  - [add_predicate_to_index_quals](../a/add_predicate_to_index_quals.md)
+  - [clauselist_selectivity](../c/clauselist_selectivity.md)
+  - [get_tablespace_page_costs](get_tablespace_page_costs.md)
+  - [gincost_opexpr](gincost_opexpr.md)
+  - [gincost_scalararrayopexpr](gincost_scalararrayopexpr.md)
+  - [index_pages_fetched](../i/index_pages_fetched.md)
+  - [index_other_operands_eval_cost](../i/index_other_operands_eval_cost.md)
   - GinStatsData
   - GinQualCounts
 - Called from (representative examples):
-  - ginhandler
+  - [ginhandler](ginhandler.md)
 
 ## Notes and Other Information
 - Retrieves actual statistics from GIN index meta page when available, falls back to heuristic estimates for hypothetical indexes

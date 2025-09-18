@@ -22,17 +22,17 @@ If no matching target is found, the function reports an error with ERRCODE_FEATU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initialize_target_list
-  - BaseBackupTargetType (struct)
-  - BaseBackupTargetHandle (struct)
-  - palloc
+  - [initialize_target_list](../i/initialize_target_list.md)
+  - [BaseBackupTargetType](BaseBackupTargetType.md) (struct)
+  - [BaseBackupTargetHandle](BaseBackupTargetHandle.md) (struct)
+  - [palloc](../p/palloc.md)
   - strcmp
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 
 - Called from (representative examples):
-  - parse_basebackup_options
+  - [parse_basebackup_options](../p/parse_basebackup_options.md)
 
 ## Notes and Other Information
 - Part of the base backup target validation and setup process

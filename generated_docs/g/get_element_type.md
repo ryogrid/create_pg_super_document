@@ -19,23 +19,23 @@ This function performs a system catalog lookup to determine the element type of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - IsTrueArrayType
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_type
   - InvalidOid
 - Called from (representative examples):
-  - aclcheck_error_type
-  - CheckAttributeType
-  - ProcedureCreate
-  - CreateCast
-  - build_coercion_expression
+  - [aclcheck_error_type](../a/aclcheck_error_type.md)
+  - [CheckAttributeType](../C/CheckAttributeType.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [CreateCast](../C/CreateCast.md)
+  - [build_coercion_expression](../b/build_coercion_expression.md)
   - transformArrayExpr
-  - json_categorize_type
-  - get_promoted_array_type
+  - [json_categorize_type](../j/json_categorize_type.md)
+  - [get_promoted_array_type](get_promoted_array_type.md)
 
 ## Notes and Other Information
 This function is crucial for array type handling throughout PostgreSQL. It's used in type coercion, function parameter validation, array operations, and many other contexts where the system needs to understand the relationship between array types and their elements. The function's strict checking for "true" array types helps maintain type safety by ensuring that only proper arrays are treated as such, even if other types might have some array-like characteristics.

@@ -24,17 +24,17 @@ This function is responsible for processing leaf tuples during SP-GiST index sca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItem
-  - PageGetItemId
-  - ItemPointerGetOffsetNumber
-  - ItemPointerGetBlockNumber
-  - ItemPointerIsValid
-  - spgLeafTest
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [spgLeafTest](spgLeafTest.md)
   - SGLT_GET_NEXTOFFSET
   - SpGistLeafTuple
   - SpGistDeadTuple
 - Called from (representative examples):
-  - spgWalk
+  - [spgWalk](spgWalk.md)
 
 ## Notes and Other Information
 - This is a static function internal to spgscan.c

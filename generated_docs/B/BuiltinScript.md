@@ -28,10 +28,10 @@ BuiltinScript represents a complete test scenario that can be executed by pgbenc
 - Functions called/Symbols referenced:
   - No direct function calls (data structure only)
 - Called from (representative examples):
-  - process_builtin() at src/bin/pgbench/pgbench.c:6137
-  - listAvailableScripts() at src/bin/pgbench/pgbench.c:6155
-  - findBuiltin() at src/bin/pgbench/pgbench.c:6161
-  - main() at src/bin/pgbench/pgbench.c:6994
+  - [process_builtin](../p/process_builtin.md)() at src/bin/pgbench/pgbench.c:6137
+  - [listAvailableScripts](../l/listAvailableScripts.md)() at src/bin/pgbench/pgbench.c:6155
+  - [findBuiltin](../f/findBuiltin.md)() at src/bin/pgbench/pgbench.c:6161
+  - [main](../m/main.md)() at src/bin/pgbench/pgbench.c:6994
 
 ## Notes and Other Information
 - Builtin scripts provide standardized benchmarks for consistent performance testing across different PostgreSQL installations

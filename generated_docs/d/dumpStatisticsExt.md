@@ -32,14 +32,14 @@ The function ensures that extended statistics objects are properly recreated dur
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - fmtId
-  - ExecuteSqlQueryForSingleRow
+  - [fmtId](../f/fmtId.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - fmtQualifiedDumpable
-  - ArchiveEntry
-  - dumpComment
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing in data-only dump mode since extended statistics are schema objects

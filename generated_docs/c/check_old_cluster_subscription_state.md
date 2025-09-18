@@ -21,16 +21,16 @@ The function queries the old cluster's catalogs to identify subscriptions missin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status
-  - DbInfo
-  - connectToServer
-  - executeQueryOrDie
+  - [prep_status](../p/prep_status.md)
+  - [DbInfo](../D/DbInfo.md)
+  - [connectToServer](connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - fopen_priv
-  - PQfinish
-  - pg_log
-  - check_ok
+  - [PQfinish](../P/PQfinish.md)
+  - [pg_log](../p/pg_log.md)
+  - [check_ok](check_ok.md)
 - Called from (representative examples):
-  - check_and_dump_old_cluster
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md)
 
 ## Notes and Other Information
 - Creates "subs_invalid.txt" file in the log base directory when problematic subscriptions are detected

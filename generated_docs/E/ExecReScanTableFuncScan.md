@@ -20,11 +20,11 @@ ExecReScanTableFuncScan is responsible for rescanning a TableFuncScan execution 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - ExecScanReScan
-  - tuplestore_end
-  - tuplestore_rescan
+  - [ExecScanReScan](ExecScanReScan.md)
+  - [tuplestore_end](../t/tuplestore_end.md)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md)
 - Called from (representative examples):
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
   - NODETABLEFUNCSCAN_H
 
 ## Notes and Other Information

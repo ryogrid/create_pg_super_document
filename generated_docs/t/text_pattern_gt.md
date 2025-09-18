@@ -22,7 +22,7 @@ The function uses `internal_text_pattern_compare` to perform the actual comparis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_text_pattern_compare
+  - [internal_text_pattern_compare](../i/internal_text_pattern_compare.md)
   - PG_GETARG_TEXT_PP
   - PG_FREE_IF_COPY
   - PG_RETURN_BOOL

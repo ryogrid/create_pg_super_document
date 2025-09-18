@@ -23,7 +23,7 @@ This function follows PostgreSQL's standard pattern for type output functions, u
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (macro for extracting C string argument)
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - PG_RETURN_CSTRING (macro for returning C string result)
 
 - Called from (representative examples):

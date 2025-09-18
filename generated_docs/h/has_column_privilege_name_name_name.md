@@ -25,10 +25,10 @@ The function is designed to be called from SQL as part of PostgreSQL's privilege
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public: Converts role name to OID, handling "public" role
-  - convert_table_name: Converts table name string to table OID
-  - convert_column_name: Converts column name string to attribute number
-  - convert_column_priv_string: Converts privilege text to AclMode
-  - column_privilege_check: Performs the actual privilege verification
+  - [convert_table_name](../c/convert_table_name.md): Converts table name string to table OID
+  - [convert_column_name](../c/convert_column_name.md): Converts column name string to attribute number
+  - [convert_column_priv_string](../c/convert_column_priv_string.md): Converts privilege text to AclMode
+  - [column_privilege_check](../c/column_privilege_check.md): Performs the actual privilege verification
   - PG_GETARG_NAME: PostgreSQL macro for extracting Name arguments
 - Called from (representative examples):
   - No direct references found in codebase (likely called via SQL function interface)

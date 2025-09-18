@@ -30,12 +30,12 @@ The structure uses a flexible array of pointers to MVDependency structures, allo
   - STATS_DEPS_TYPE_BASIC (type constant)
 
 - Called from (representative examples):
-  - statext_dependencies_build (builds MVDependencies statistics)
-  - statext_dependencies_serialize (serializes structure for storage)
-  - statext_dependencies_deserialize (deserializes from storage)
-  - dependencies_clauselist_selectivity (uses for selectivity estimation)
+  - [statext_dependencies_build](../s/statext_dependencies_build.md) (builds MVDependencies statistics)
+  - [statext_dependencies_serialize](../s/statext_dependencies_serialize.md) (serializes structure for storage)
+  - [statext_dependencies_deserialize](../s/statext_dependencies_deserialize.md) (deserializes from storage)
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md) (uses for selectivity estimation)
   - DependencyGenerator (generates dependency combinations)
-  - find_strongest_dependency (analyzes dependency strength)
+  - [find_strongest_dependency](../f/find_strongest_dependency.md) (analyzes dependency strength)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extended statistics system for handling correlated columns

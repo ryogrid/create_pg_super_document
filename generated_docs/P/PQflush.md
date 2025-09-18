@@ -24,12 +24,12 @@ When used with blocking connections, PQflush may block until the data is success
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_BAD (connection status constant)
-  - pqFlush (internal flush implementation)
+  - [pqFlush](../p/pqFlush.md) (internal flush implementation)
 - Called from (representative examples):
-  - libpqrcv_endstreaming (in libpqwalreceiver)
-  - libpqrcv_send (in libpqwalreceiver)
-  - sendFeedback (in pg_recvlogical and receivelog)
-  - test_nosync, test_pipelined_insert, test_uniqviol (in libpq_pipeline test module)
+  - [libpqrcv_endstreaming](../l/libpqrcv_endstreaming.md) (in libpqwalreceiver)
+  - [libpqrcv_send](../l/libpqrcv_send.md) (in libpqwalreceiver)
+  - [sendFeedback](../s/sendFeedback.md) (in pg_recvlogical and receivelog)
+  - [test_nosync](../t/test_nosync.md), test_pipelined_insert, test_uniqviol (in libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns 0 if the flush succeeded or if there was no data to flush

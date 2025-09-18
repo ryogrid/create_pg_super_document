@@ -59,18 +59,18 @@ ReorderBuffer serves as the central coordinator for PostgreSQL's logical replica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXN
-  - ReorderBufferChange
+  - [ReorderBufferTXN](ReorderBufferTXN.md)
+  - [ReorderBufferChange](ReorderBufferChange.md)
   - Various callback function types (ReorderBufferBeginCB, etc.)
-  - HTAB
-  - dlist_head
-  - dclist_head
-  - pairingheap
-  - MemoryContext
+  - [HTAB](../H/HTAB.md)
+  - [dlist_head](../d/dlist_head.md)
+  - [dclist_head](../d/dclist_head.md)
+  - [pairingheap](../p/pairingheap.md)
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):
-  - ReorderBufferAllocate
-  - ReorderBufferCommit
-  - ReorderBufferProcessTXN
+  - [ReorderBufferAllocate](ReorderBufferAllocate.md)
+  - [ReorderBufferCommit](ReorderBufferCommit.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
   - Logical decoding context management functions
 
 ## Notes and Other Information

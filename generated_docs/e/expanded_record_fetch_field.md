@@ -35,8 +35,8 @@ The function is designed as the "slow path" complement to the inline expanded_re
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExpandedRecordIsEmpty
-  - deconstruct_expanded_record
-  - heap_getsysattr
+  - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
+  - [heap_getsysattr](../h/heap_getsysattr.md)
 - Types referenced:
   - ExpandedRecordHeader
   - Datum

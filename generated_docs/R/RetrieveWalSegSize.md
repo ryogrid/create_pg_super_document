@@ -17,13 +17,13 @@ RetrieveWalSegSize determines the WAL segment size used by the connected Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion
-  - PQexec
-  - PQresultStatus
-  - PQntuples
-  - PQnfields
-  - PQgetvalue
-  - PQclear
+  - [PQserverVersion](../P/PQserverVersion.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
   - IsValidWalSegSize
   - sscanf
   - strcmp
@@ -34,7 +34,7 @@ RetrieveWalSegSize determines the WAL segment size used by the connected Postgre
   - DEFAULT_XLOG_SEG_SIZE
   - PGRES_TUPLES_OK
 - Called from (representative examples):
-  - main (in pg_basebackup.c, pg_receivewal.c)
+  - [main](../m/main.md) (in pg_basebackup.c, pg_receivewal.c)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

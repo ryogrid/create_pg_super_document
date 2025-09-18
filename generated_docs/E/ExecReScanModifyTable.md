@@ -24,9 +24,9 @@ The function immediately raises an ERROR with the message "ExecReScanModifyTable
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Data structures used:
-  - ModifyTableState (parameter only)
+  - [ModifyTableState](../M/ModifyTableState.md) (parameter only)
 - Called from:
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 
 ## Notes and Other Information
 - This is a deliberate non-implementation rather than an oversight

@@ -25,8 +25,8 @@ This approach improves performance during table creation by avoiding unnecessary
   - CreateStmtContext, Constraint (data structures)
   - No major function calls - primarily manipulates constraint flags
 - Called from (representative examples):
-  - transformCreateStmt (during CREATE TABLE processing)
-  - transformAlterTableStmt (during ALTER TABLE processing)
+  - [transformCreateStmt](transformCreateStmt.md) (during CREATE TABLE processing)
+  - [transformAlterTableStmt](transformAlterTableStmt.md) (during ALTER TABLE processing)
 
 ## Notes and Other Information
 - This is a static function in parse_utilcmd.c, part of the constraint transformation infrastructure

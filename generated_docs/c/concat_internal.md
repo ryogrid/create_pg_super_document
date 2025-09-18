@@ -21,18 +21,18 @@ This static function serves as the unified implementation for PostgreSQL's conca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_variadic
+  - [get_fn_expr_variadic](../g/get_fn_expr_variadic.md)
   - PG_NARGS
-  - get_base_element_type
-  - get_fn_expr_argtype
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
   - PG_GETARG_ARRAYTYPE_P
-  - array_to_text_internal
-  - build_concat_foutcache
-  - OutputFunctionCall
+  - [array_to_text_internal](../a/array_to_text_internal.md)
+  - [build_concat_foutcache](../b/build_concat_foutcache.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
   - cstring_to_text_with_len
 - Called from (representative examples):
-  - text_concat
-  - text_concat_ws
+  - [text_concat](../t/text_concat.md)
+  - [text_concat_ws](../t/text_concat_ws.md)
 
 ## Notes and Other Information
 - Returns NULL if the result should be NULL, otherwise returns a text value

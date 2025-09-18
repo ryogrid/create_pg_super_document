@@ -23,8 +23,8 @@ The implementation uses a dynamic buffer approach where the allocated space (tot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for initial memory allocation)
-  - repalloc (for buffer resizing)
+  - [palloc](../p/palloc.md) (for initial memory allocation)
+  - [repalloc](../r/repalloc.md) (for buffer resizing)
   - memcpy (for string data copying)
 - Called from (representative examples):
   - addstring (adds string data to JsonPathString)

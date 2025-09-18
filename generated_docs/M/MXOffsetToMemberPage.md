@@ -26,13 +26,13 @@ This is part of the two-level MultiXact storage system: the offsets SLRU stores 
   - MULTIXACT_MEMBERS_PER_PAGE (constant defining member entries per page)
   - MultiXactOffset (type definition for offset positions)
 - Called from (representative examples):
-  - MXOffsetToMemberSegment
-  - RecordNewMultiXact
+  - [MXOffsetToMemberSegment](MXOffsetToMemberSegment.md)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
   - OFFSET_WARN_SEGMENTS (called twice)
-  - GetMultiXactIdMembers
-  - StartupMultiXact
-  - TrimMultiXact
-  - ExtendMultiXactMember
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [StartupMultiXact](../S/StartupMultiXact.md)
+  - [TrimMultiXact](../T/TrimMultiXact.md)
+  - [ExtendMultiXactMember](../E/ExtendMultiXactMember.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

@@ -34,19 +34,19 @@ This function takes no parameters but operates on:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtAbort_Memory/AtAbort_ResourceOwner (emergency memory/resource cleanup)
+  - [AtAbort_Memory](AtAbort_Memory.md)/AtAbort_ResourceOwner (emergency memory/resource cleanup)
   - LWLockReleaseAll (release all lightweight locks immediately)
-  - RecordTransactionAbort (record abort in WAL, except for parallel workers)
-  - SetUserIdAndSecContext (restore user ID and security context)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (record abort in WAL, except for parallel workers)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md) (restore user ID and security context)
   - AtEOXact_* functions (end-of-transaction cleanup for various subsystems)
   - AtAbort_* functions (abort-specific cleanup routines)
   - ResourceOwnerRelease (systematic resource cleanup)
-  - ProcArrayEndTransaction (remove from process array)
+  - [ProcArrayEndTransaction](../P/ProcArrayEndTransaction.md) (remove from process array)
 
 - Called from (representative examples):
-  - AbortCurrentTransactionInternal (various error recovery scenarios)
-  - AbortOutOfAnyTransaction (emergency abort from any transaction state)
-  - CommitTransactionCommandInternal (when commit preparation fails)
+  - [AbortCurrentTransactionInternal](AbortCurrentTransactionInternal.md) (various error recovery scenarios)
+  - [AbortOutOfAnyTransaction](AbortOutOfAnyTransaction.md) (emergency abort from any transaction state)
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md) (when commit preparation fails)
 
 ## Notes and Other Information
 - Uses HOLD_INTERRUPTS/RESUME_INTERRUPTS to prevent interruption during critical cleanup

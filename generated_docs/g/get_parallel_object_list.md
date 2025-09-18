@@ -40,24 +40,24 @@ The function uses safe search_path queries and proper identifier encoding to han
 - Functions called/Symbols referenced:
   - initPQExpBuffer
   - termPQExpBuffer
-  - resetPQExpBuffer
-  - appendPQExpBufferStr
-  - appendStringLiteralConn
-  - appendQualifiedRelation
-  - executeQuery
-  - PQntuples
-  - PQgetvalue
-  - PQclear
-  - PQfinish
-  - PQclientEncoding
-  - fmtQualifiedIdEnc
-  - simple_string_list_append
-  - simple_string_list_destroy
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md)
+  - [appendQualifiedRelation](../a/appendQualifiedRelation.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
+  - [fmtQualifiedIdEnc](../f/fmtQualifiedIdEnc.md)
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [simple_string_list_destroy](../s/simple_string_list_destroy.md)
   - pg_malloc0
   - CppAsString2 macros for relation constants
   - ReindexType enums (REINDEX_DATABASE, REINDEX_SCHEMA, REINDEX_INDEX, REINDEX_SYSTEM, REINDEX_TABLE)
 - Called from (representative examples):
-  - reindex_one_database (reindexdb.c:339, 352, 368)
+  - [reindex_one_database](../r/reindex_one_database.md) (reindexdb.c:339, 352, 368)
 
 ## Notes and Other Information
 - Returns NULL if no matching objects are found, allowing the caller to handle empty result sets gracefully
@@ -66,5 +66,5 @@ The function uses safe search_path queries and proper identifier encoding to han
 - Generates fully qualified identifiers using proper encoding to handle special characters
 - The function closes the database connection and returns NULL when no objects are found
 - REINDEX_SYSTEM and REINDEX_TABLE cases are not implemented (Assert(false)) as they don't require object list expansion
-- Query results are ordered by object size (relpages) in descending order to enable better load balancing in parallel execution
+- [Query](../Q/Query.md) results are ordered by object size (relpages) in descending order to enable better load balancing in parallel execution
 - For index reindexing, ensures that indexes belonging to the same table are grouped together to avoid concurrent modification conflicts

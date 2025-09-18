@@ -18,18 +18,18 @@ The btrestrpos function restores a B-tree index scan to a previously marked posi
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanPosIsValid
-  - _bt_killitems
+  - [_bt_killitems](_bt_killitems.md)
   - BTScanPosUnpinIfPinned
   - BTScanPosIsPinned
-  - IncrBufferRefCount
-  - _bt_start_array_keys
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
+  - [_bt_start_array_keys](_bt_start_array_keys.md)
   - BTScanPosInvalidate
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque
-  - BTScanPosData
-  - BTScanPosItem
+  - [BTScanPosData](../B/BTScanPosData.md)
+  - [BTScanPosItem](../B/BTScanPosItem.md)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - Uses markItemIndex >= 0 as an indicator that the scan hasn't moved to a new page since marking

@@ -25,11 +25,11 @@ This function performs a linear search through the namedRelList of a query envir
   - strcmp (standard C string comparison)
   - Assert (for parameter validation)
 - Called from (representative examples):
-  - ExecInitNamedTuplestoreScan
-  - _SPI_find_ENR_by_name
-  - get_visible_ENR_metadata
-  - register_ENR
-  - unregister_ENR
+  - [ExecInitNamedTuplestoreScan](../E/ExecInitNamedTuplestoreScan.md)
+  - [_SPI_find_ENR_by_name](../S/_SPI_find_ENR_by_name.md)
+  - [get_visible_ENR_metadata](get_visible_ENR_metadata.md)
+  - [register_ENR](../r/register_ENR.md)
+  - [unregister_ENR](../u/unregister_ENR.md)
 
 ## Notes and Other Information
 - Returns NULL quietly if no match is found (no error is raised)

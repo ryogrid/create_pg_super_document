@@ -23,15 +23,15 @@ The function implements underflow detection using pg_sub_s64_overflow to ensure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - USE_FLOAT8_BYVAL (compilation flag that controls int8 behavior)
-  - AggCheckCallContext (checks if called in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (checks if called in aggregate context)
   - PG_GETARG_POINTER (pointer argument extraction for in-place modification)
   - PG_GETARG_INT64 (standard int64 argument extraction)
-  - pg_sub_s64_overflow (overflow-safe subtraction)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (overflow-safe subtraction)
   - PG_RETURN_POINTER (return pointer for aggregate context)
   - PG_RETURN_INT64 (standard int64 return)
   - ereport/ERROR (error reporting)
 - Called from (representative examples):
-  - int8dec_any
+  - [int8dec_any](int8dec_any.md)
 
 ## Notes and Other Information
 - Contains conditional compilation logic based on USE_FLOAT8_BYVAL flag

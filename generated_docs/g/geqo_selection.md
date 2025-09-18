@@ -26,10 +26,10 @@ The selection process uses the `linear_rand()` function which implements a biase
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - linear_rand (generates biased random selection index)
-  - geqo_copy (copies chromosome data from pool to output parameters)
+  - [linear_rand](../l/linear_rand.md) (generates biased random selection index)
+  - [geqo_copy](geqo_copy.md) (copies chromosome data from pool to output parameters)
 - Called from (representative examples):
-  - geqo (main GEQO algorithm function)
+  - [geqo](geqo.md) (main GEQO algorithm function)
 
 ## Notes and Other Information
 - The function guarantees that two different chromosomes are selected when pool size > 1

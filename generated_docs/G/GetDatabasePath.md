@@ -23,15 +23,15 @@ This function generates the appropriate filesystem path for a database directory
   - GLOBALTABLESPACE_OID (constant for global tablespace)
   - DEFAULTTABLESPACE_OID (constant for default tablespace)
   - TABLESPACE_VERSION_DIRECTORY (version-specific directory name)
-  - pstrdup (PostgreSQL string duplication function)
-  - psprintf (PostgreSQL formatted string creation)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL formatted string creation)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - CreateDatabaseUsingWalLog (in src/backend/commands/dbcommands.c:162-163)
-  - CreateDatabaseUsingFileCopy (in src/backend/commands/dbcommands.c:589, 604)
-  - createdb (in src/backend/commands/dbcommands.c:1317)
-  - movedb (in src/backend/commands/dbcommands.c:2070-2071)
-  - InitPostgres (in src/backend/utils/init/postinit.c:1162)
+  - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md) (in src/backend/commands/dbcommands.c:162-163)
+  - [CreateDatabaseUsingFileCopy](../C/CreateDatabaseUsingFileCopy.md) (in src/backend/commands/dbcommands.c:589, 604)
+  - [createdb](../c/createdb.md) (in src/backend/commands/dbcommands.c:1317)
+  - [movedb](../m/movedb.md) (in src/backend/commands/dbcommands.c:2070-2071)
+  - [InitPostgres](../I/InitPostgres.md) (in src/backend/utils/init/postinit.c:1162)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

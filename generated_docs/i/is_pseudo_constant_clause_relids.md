@@ -27,9 +27,9 @@ This optimization is valuable when the caller has already computed the relation 
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty (checks if the relation bitmap is empty)
-  - contain_volatile_functions (checks for volatile functions in the expression)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for volatile functions in the expression)
 - Called from (representative examples):
-  - clauselist_selectivity_ext (in selectivity estimation)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md) (in selectivity estimation)
 
 ## Notes and Other Information
 - Performance optimization over is_pseudo_constant_clause() when relation membership is already known

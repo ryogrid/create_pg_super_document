@@ -35,18 +35,18 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tm (struct)
+  - [pg_tm](../p/pg_tm.md) (struct)
   - fsec_t (type)
   - MAXDATEFIELDS (constant)
-  - DecodeSpecial
-  - DecodeNumber
+  - [DecodeSpecial](DecodeSpecial.md)
+  - [DecodeNumber](DecodeNumber.md)
   - DTK_M (macro)
   - DTERR_BAD_FORMAT (constant)
   - MONTH, DOY, TZ (field type constants)
   - DTK_DATE_M (mask constant)
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeTimeOnly
+  - [DecodeDateTime](DecodeDateTime.md)
+  - [DecodeTimeOnly](DecodeTimeOnly.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the datetime.c module

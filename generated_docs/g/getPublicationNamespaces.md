@@ -19,15 +19,15 @@ The function filters results based on dump options and only processes relationsh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery - executes the catalog query
-  - findPublicationByOid - looks up publication info by OID
-  - findNamespaceByOid - looks up namespace info by OID
-  - AssignDumpId - assigns unique dump ID to the object
-  - selectDumpablePublicationObject - determines if object should be dumped
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) - executes the catalog query
+  - [findPublicationByOid](../f/findPublicationByOid.md) - looks up publication info by OID
+  - [findNamespaceByOid](../f/findNamespaceByOid.md) - looks up namespace info by OID
+  - [AssignDumpId](../A/AssignDumpId.md) - assigns unique dump ID to the object
+  - [selectDumpablePublicationObject](../s/selectDumpablePublicationObject.md) - determines if object should be dumped
   - pg_malloc - allocates memory for publication schema info array
   - atooid - converts string to OID
 - Called from (representative examples):
-  - getSchemaData - part of the schema discovery process
+  - [getSchemaData](getSchemaData.md) - part of the schema discovery process
 
 ## Notes and Other Information
 - Only active when  option is not set and PostgreSQL version >= 15.0

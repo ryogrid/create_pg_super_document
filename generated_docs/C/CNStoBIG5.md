@@ -26,15 +26,15 @@ The function first masks the input CNS code with 0x7f7f to normalize the input, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BinarySearchRange (called at lines 355 and 358)
+  - [BinarySearchRange](../B/BinarySearchRange.md) (called at lines 355 and 358)
   - LC_CNS11643_1, LC_CNS11643_2, LC_CNS11643_3, LC_CNS11643_4 (locale constants)
   - cnsPlane1ToBig5Level1 (mapping array for Plane 1)
   - cnsPlane2ToBig5Level2 (mapping array for Plane 2)
   - b2c3 (lookup table for Plane 3 to Big5 Level 2)
   - b1c4 (lookup table for Plane 4 to Big5 Level 1)
 - Called from (representative examples):
-  - euc_tw2big5 (in euc_tw_and_big5.c at line 190)
-  - mic2big5 (in euc_tw_and_big5.c at line 556)
+  - [euc_tw2big5](../e/euc_tw2big5.md) (in euc_tw_and_big5.c at line 190)
+  - [mic2big5](../m/mic2big5.md) (in euc_tw_and_big5.c at line 556)
 
 ## Notes and Other Information
 - Returns 0 for unsupported planes or when no mapping is found

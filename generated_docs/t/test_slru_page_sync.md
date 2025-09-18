@@ -24,7 +24,7 @@ Note that this operation flushes the entire segment file that contains the speci
   - `PG_GETARG_INT64`: Extracts the int64 argument from function call
   - `FileTag`: Structure for identifying file segments
   - `SLRU_PAGES_PER_SEGMENT`: Constant defining pages per segment
-  - `SlruSyncFileTag`: Synchronizes the segment file to disk
+  - `[SlruSyncFileTag](../S/SlruSyncFileTag.md)`: Synchronizes the segment file to disk
   - `TestSlruCtl`: The test SLRU control structure
   - `elog`: Logs notice messages
   - `PG_RETURN_VOID`: Returns void to SQL

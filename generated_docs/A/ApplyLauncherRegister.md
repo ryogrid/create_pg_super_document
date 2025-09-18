@@ -19,14 +19,14 @@ This function sets up and registers a background worker process for the logical 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorker
+  - [BackgroundWorker](../B/BackgroundWorker.md)
   - BGWORKER_SHMEM_ACCESS
   - BGWORKER_BACKEND_DATABASE_CONNECTION
   - BgWorkerStart_RecoveryFinished
   - BGW_MAXLEN
-  - RegisterBackgroundWorker
+  - [RegisterBackgroundWorker](../R/RegisterBackgroundWorker.md)
 - Called from (representative examples):
-  - PostmasterMain
+  - [PostmasterMain](../P/PostmasterMain.md)
   - LOGICALLAUNCHER_H
 
 ## Notes and Other Information

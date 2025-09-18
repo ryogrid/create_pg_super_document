@@ -26,14 +26,14 @@ The validation ensures that the operator class can handle the subtype's data, ei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opclass_oid: Retrieves operator class OID by name and access method
-  - get_opclass_input_type: Gets the input data type for an operator class
-  - IsBinaryCoercible: Checks if two types are binary compatible
-  - NameListToString: Converts qualified name list to string for error messages
-  - GetDefaultOpClass: Finds the default operator class for a type and access method
-  - format_type_be: Formats type names for error messages
+  - [get_opclass_oid](../g/get_opclass_oid.md): Retrieves operator class OID by name and access method
+  - [get_opclass_input_type](../g/get_opclass_input_type.md): Gets the input data type for an operator class
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md): Checks if two types are binary compatible
+  - [NameListToString](../N/NameListToString.md): Converts qualified name list to string for error messages
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md): Finds the default operator class for a type and access method
+  - [format_type_be](format_type_be.md): Formats type names for error messages
 - Called from:
-  - DefineRange: During creation of new range types
+  - [DefineRange](../D/DefineRange.md): During creation of new range types
   - AlterTypeRecurseParams: As part of recursive type alteration operations
 
 ## Notes and Other Information

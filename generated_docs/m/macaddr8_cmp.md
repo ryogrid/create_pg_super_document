@@ -24,7 +24,7 @@ The function is typically registered in the system catalogs and can be invoked t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR8_P (macro for extracting macaddr8 arguments)
-  - macaddr8_cmp_internal (performs actual comparison)
+  - [macaddr8_cmp_internal](macaddr8_cmp_internal.md) (performs actual comparison)
   - PG_RETURN_INT32 (macro for returning int32 result)
   - macaddr8 (structure type)
 - Called from (representative examples):

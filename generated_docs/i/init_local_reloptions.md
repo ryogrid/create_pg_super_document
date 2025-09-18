@@ -24,12 +24,12 @@ This initialization is typically the first step in setting up custom relation op
 - Functions called/Symbols referenced:
   - NIL (empty list constant)
 - Data structures used:
-  - local_relopts (structure being initialized)
+  - [local_relopts](../l/local_relopts.md) (structure being initialized)
 - Called from:
-  - brin_bloom_options
-  - brin_minmax_multi_options
-  - index_opclass_options
-  - gtsvector_options
+  - [brin_bloom_options](../b/brin_bloom_options.md)
+  - [brin_minmax_multi_options](../b/brin_minmax_multi_options.md)
+  - [index_opclass_options](index_opclass_options.md)
+  - [gtsvector_options](../g/gtsvector_options.md)
   - GET_STRING_RELOPTION (macro)
 
 ## Notes and Other Information

@@ -24,9 +24,9 @@ The referenced cursor can be specified in two ways: as a hardwired string name (
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - execCurrentOf (src/backend/executor/execCurrent.c:44)
-  - TidExprListCreate (src/backend/executor/nodeTidscan.c:109)
-  - IsCurrentOfClause (src/backend/optimizer/path/tidpath.c:213)
+  - [execCurrentOf](../e/execCurrentOf.md) (src/backend/executor/execCurrent.c:44)
+  - [TidExprListCreate](../T/TidExprListCreate.md) (src/backend/executor/nodeTidscan.c:109)
+  - [IsCurrentOfClause](../I/IsCurrentOfClause.md) (src/backend/optimizer/path/tidpath.c:213)
   - transformCurrentOfExpr (src/backend/parser/parse_expr.c:2568)
 
 ## Notes and Other Information

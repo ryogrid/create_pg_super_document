@@ -19,9 +19,9 @@ The function returns the server version as an integer in the same format used th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion
+  - [PQserverVersion](../P/PQserverVersion.md)
 - Called from (representative examples):
-  - WalReceiverConn (referenced in connection management routines)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (referenced in connection management routines)
 
 ## Notes and Other Information
 - This is a static function internal to the libpqwalreceiver module

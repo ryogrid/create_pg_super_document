@@ -35,20 +35,20 @@ The function handles complex scenarios like partial aggregation, aggregate split
 - Functions called/Symbols referenced:
   - ExecAssignExprContext, ExecInitNode, ExecGetResultSlotOps
   - ExecCreateScanSlotFromOuterPlan, ExecInitExtraTupleSlot
-  - ExecInitResultTupleSlotTL, ExecAssignProjectionInfo
-  - ExecInitQual, ExecInitExprList
-  - CreateWorkExprContext, AllocSetContextCreate
-  - hash_agg_entry_size, hash_agg_set_limits, find_hash_columns, build_hash_tables
-  - initialize_phase, select_current_set
-  - build_pertrans_for_aggref, build_aggregate_finalfn_expr
-  - ExecBuildAggTrans
-  - get_aggregate_argtypes, get_typlenbyval
-  - object_aclcheck, aclcheck_error, InvokeFunctionExecuteHook
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md), ExecAssignProjectionInfo
+  - [ExecInitQual](ExecInitQual.md), ExecInitExprList
+  - [CreateWorkExprContext](../C/CreateWorkExprContext.md), AllocSetContextCreate
+  - [hash_agg_entry_size](../h/hash_agg_entry_size.md), hash_agg_set_limits, find_hash_columns, build_hash_tables
+  - [initialize_phase](../i/initialize_phase.md), select_current_set
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md), build_aggregate_finalfn_expr
+  - [ExecBuildAggTrans](ExecBuildAggTrans.md)
+  - [get_aggregate_argtypes](../g/get_aggregate_argtypes.md), get_typlenbyval
+  - [object_aclcheck](../o/object_aclcheck.md), aclcheck_error, InvokeFunctionExecuteHook
 - Types used:
-  - AggState, Agg, EState, AggStatePerAgg, AggStatePerTrans, AggStatePerGroup
-  - AggStatePerPhase, AggStatePerHash, Aggref, ExprContext
+  - [AggState](../A/AggState.md), Agg, EState, AggStatePerAgg, AggStatePerTrans, AggStatePerGroup
+  - [AggStatePerPhase](../A/AggStatePerPhase.md), AggStatePerHash, Aggref, ExprContext
 - Called from:
-  - ExecInitNode (src/backend/executor/execProcnode.c:341)
+  - [ExecInitNode](ExecInitNode.md) (src/backend/executor/execProcnode.c:341)
 
 ## Notes and Other Information
 - This is a complex function with ~860 lines handling multiple aggregation strategies

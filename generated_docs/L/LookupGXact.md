@@ -25,13 +25,13 @@ The LSN comparison uses the prepare_end_lsn (where the prepare phase ends) becau
 - Functions called/Symbols referenced:
   - LWLockAcquire
   - LWLockRelease
-  - ReadTwoPhaseFile
-  - XlogReadTwoPhaseData
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md)
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - TwoPhaseFileHeader
   - GlobalTransaction
   - LW_SHARED
 - Called from (representative examples):
-  - apply_handle_rollback_prepared
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
 
 ## Notes and Other Information
 - The function holds TwoPhaseStateLock in shared mode during the entire operation, including I/O operations, for simplicity

@@ -27,10 +27,10 @@ This is the simplest form of constraint loop repair, used when no other objects 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency (removes the automatic constraint-to-table dependency)
+  - [removeObjectDependency](removeObjectDependency.md) (removes the automatic constraint-to-table dependency)
   - DumpableObject (base structure for dumpable database objects)
 - Called from:
-  - repairDependencyLoop (main dependency loop repair dispatcher, called twice at lines 1272 and 1281)
+  - [repairDependencyLoop](repairDependencyLoop.md) (main dependency loop repair dispatcher, called twice at lines 1272 and 1281)
 
 ## Notes and Other Information
 - This function only handles simple two-object loops between tables and CHECK constraints

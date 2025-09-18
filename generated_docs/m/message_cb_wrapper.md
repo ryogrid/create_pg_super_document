@@ -29,9 +29,9 @@ The function includes a null check for the message callback since message handli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer
-  - ReorderBufferTXN
-  - LogicalDecodingContext
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
   - LogicalErrorCallbackState
   - output_plugin_error_callback
 - Called from (representative examples):

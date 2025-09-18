@@ -17,10 +17,10 @@ The `pq_getmsgfloat4` function reads a 4-byte floating-point value from a messag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint (reads 4 bytes as integer with byte order conversion)
+  - [pq_getmsgint](pq_getmsgint.md) (reads 4 bytes as integer with byte order conversion)
   - float4 (PostgreSQL's single-precision float type)
 - Called from (representative examples):
-  - float4recv (float4 data type receive function)
+  - [float4recv](../f/float4recv.md) (float4 data type receive function)
 
 ## Notes and Other Information
 - Uses a union for safe type punning between uint32 and float4

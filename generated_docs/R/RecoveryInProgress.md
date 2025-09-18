@@ -26,14 +26,14 @@ The function is widely used throughout PostgreSQL to conditionally enable/disabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogCtlData (shared memory control structure)
+  - [XLogCtlData](../X/XLogCtlData.md) (shared memory control structure)
   - RECOVERY_STATE_DONE (recovery completion state constant)
   - LocalRecoveryInProgress (process-local cache variable)
 - Called from (representative examples):
   - GetNewTransactionId (transaction ID assignment)
-  - CreateCheckPoint (checkpoint creation logic)
-  - pg_is_in_recovery (SQL function)
-  - BackgroundWriterMain (background writer process)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (checkpoint creation logic)
+  - [pg_is_in_recovery](../p/pg_is_in_recovery.md) (SQL function)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background writer process)
   - Many other functions across the codebase that need recovery status
 
 ## Notes and Other Information

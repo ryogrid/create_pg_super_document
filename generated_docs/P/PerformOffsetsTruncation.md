@@ -20,13 +20,13 @@ The function includes a critical optimization where it steps back one MultiXact 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruTruncate
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
   - MultiXactOffsetCtl
-  - MultiXactIdToOffsetPage
-  - PreviousMultiXactId
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
+  - [PreviousMultiXactId](PreviousMultiXactId.md)
 - Called from (representative examples):
-  - TruncateMultiXact
-  - multixact_redo
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
+  - [multixact_redo](../m/multixact_redo.md)
 
 ## Notes and Other Information
 - Much simpler than member truncation due to predictable offset data patterns

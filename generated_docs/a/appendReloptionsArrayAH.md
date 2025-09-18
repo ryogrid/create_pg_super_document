@@ -22,13 +22,13 @@ The function extracts encoding and standard strings settings from the Archive st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendReloptionsArray
+  - [appendReloptionsArray](appendReloptionsArray.md)
   - pg_log_warning
 - Called from (representative examples):
   - fmtQualifiedDumpable
-  - dumpTableSchema
-  - dumpConstraint
-  - dumpRule
+  - [dumpTableSchema](../d/dumpTableSchema.md)
+  - [dumpConstraint](../d/dumpConstraint.md)
+  - [dumpRule](../d/dumpRule.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c, used internally by the pg_dump utility

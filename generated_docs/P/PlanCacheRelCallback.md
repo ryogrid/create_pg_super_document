@@ -27,11 +27,11 @@ For each plan source, it performs validation checks to avoid unnecessary work, s
   - dlist_foreach (iteration over doubly-linked lists)
   - dlist_container (container access from list nodes) 
   - StmtPlanRequiresRevalidation (checks if plan needs revalidation)
-  - list_member_oid (checks if OID is in a list)
+  - [list_member_oid](../l/list_member_oid.md) (checks if OID is in a list)
   - lfirst_node (list cell access for PlannedStmt)
 
 - Called from (representative examples):
-  - InitPlanCache (registers this callback)
+  - [InitPlanCache](../I/InitPlanCache.md) (registers this callback)
   - Relcache invalidation system (via callback mechanism)
 
 ## Notes and Other Information

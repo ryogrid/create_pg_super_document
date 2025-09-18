@@ -28,12 +28,12 @@ The function iterates through all elements in the target list, evaluating each a
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - MemoryContextSwitchTo
-  - ExecMakeFunctionResultSet
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [ExecMakeFunctionResultSet](ExecMakeFunctionResultSet.md)
   - ExecEvalExpr
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
 - Called from (representative examples):
-  - ExecProjectSet (both for continuing and new evaluations)
+  - [ExecProjectSet](ExecProjectSet.md) (both for continuing and new evaluations)
 
 ## Notes and Other Information
 - Uses assertions to ensure ProjectSet nodes only contain SRFs (hassrf must be true)

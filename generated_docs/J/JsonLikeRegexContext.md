@@ -24,10 +24,10 @@ JsonLikeRegexContext is a simple structure used to encapsulate the state needed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text (PostgreSQL text type)
+  - [text](../t/text.md) (PostgreSQL text type)
 - Called from (representative examples):
-  - executeBoolItem
-  - executeLikeRegex
+  - [executeBoolItem](../e/executeBoolItem.md)
+  - [executeLikeRegex](../e/executeLikeRegex.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for the LIKE_REGEX JSON path operator

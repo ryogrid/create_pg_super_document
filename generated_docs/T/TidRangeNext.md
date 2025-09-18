@@ -17,18 +17,18 @@ This function implements the core tuple retrieval logic for TID range scans. On 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TidRangeEval
+  - [TidRangeEval](TidRangeEval.md)
   - table_beginscan_tidrange
   - table_rescan_tidrange
   - table_scan_getnextslot_tidrange
   - ExecClearTuple
 - Data structures used:
-  - TableScanDesc
-  - EState
+  - [TableScanDesc](TableScanDesc.md)
+  - [EState](../E/EState.md)
   - ScanDirection
   - TupleTableSlot
 - Called from:
-  - ExecTidRangeScan
+  - [ExecTidRangeScan](../E/ExecTidRangeScan.md)
 
 ## Notes and Other Information
 - Returns NULL if TidRangeEval determines no tuples can match the range criteria

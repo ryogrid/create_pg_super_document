@@ -24,12 +24,12 @@ The function sets the row estimate for the path based on the provided parameters
 ## Dependencies
 - Functions called/Symbols referenced:
   - GatherPath (structure)
-  - ParamPathInfo (structure)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (structure)
   - Cost (type)
   - parallel_setup_cost (global variable)
   - parallel_tuple_cost (global variable)
 - Called from (representative examples):
-  - create_gather_path
+  - [create_gather_path](create_gather_path.md)
 
 ## Notes and Other Information
 The function adds two main components to the base subpath cost: parallel_setup_cost for the overhead of coordinating parallel workers, and parallel_tuple_cost multiplied by the number of rows for the per-tuple communication overhead. These costs reflect the real-world overhead of parallel query execution in PostgreSQL.

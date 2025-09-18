@@ -24,10 +24,10 @@ The function validates that gzip compression is supported at build time (require
 - Functions called/Symbols referenced:
   - ereport (error reporting)
   - Assert (assertion checking)
-  - palloc0 (memory allocation)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - bbsink_gzip_ops (operation callbacks structure)
 - Called from (representative examples):
-  - SendBaseBackup (src/backend/backup/basebackup.c:1042)
+  - [SendBaseBackup](../S/SendBaseBackup.md) (src/backend/backup/basebackup.c:1042)
   - bbsink_cleanup (src/include/backup/basebackup_sink.h:287)
 
 ## Notes and Other Information

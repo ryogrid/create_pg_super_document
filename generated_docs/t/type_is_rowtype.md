@@ -29,19 +29,19 @@ This is essential for operations that need to handle structured data differently
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype (retrieve type category)
-  - getBaseType (resolve domain to underlying type)
+  - [get_typtype](../g/get_typtype.md) (retrieve type category)
+  - [getBaseType](../g/getBaseType.md) (resolve domain to underlying type)
   - RECORDOID (constant for generic record type)
   - TYPTYPE_COMPOSITE (constant for composite type category)
   - TYPTYPE_DOMAIN (constant for domain type category)
 
 - Called from (representative examples):
-  - ExecMakeTableFunctionResult (src/backend/executor/execSRF.c:137)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (src/backend/executor/execSRF.c:137)
   - makeWholeRowVar (src/backend/nodes/makefuncs.c:193, 230)
-  - transformExprRecurse (src/backend/parser/parse_expr.c:293)
-  - can_minmax_aggs (src/backend/optimizer/plan/planagg.c:290)
-  - json_categorize_type (src/backend/utils/adt/jsonfuncs.c:6035)
-  - plperl_sv_to_datum (src/pl/plperl/plperl.c:1372)
+  - [transformExprRecurse](transformExprRecurse.md) (src/backend/parser/parse_expr.c:293)
+  - [can_minmax_aggs](../c/can_minmax_aggs.md) (src/backend/optimizer/plan/planagg.c:290)
+  - [json_categorize_type](../j/json_categorize_type.md) (src/backend/utils/adt/jsonfuncs.c:6035)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (src/pl/plperl/plperl.c:1372)
   - compile_pltcl_function (src/pl/tcl/pltcl.c:1566, 1597)
 
 ## Notes and Other Information

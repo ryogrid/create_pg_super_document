@@ -23,13 +23,13 @@ This function constructs appropriate expression nodes for partition constraint o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_partition_operator
-  - makeRelabelType
+  - [get_partition_operator](../g/get_partition_operator.md)
+  - [makeRelabelType](makeRelabelType.md)
   - type_is_array
-  - get_array_type
-  - get_opcode
+  - [get_array_type](../g/get_array_type.md)
+  - [get_opcode](../g/get_opcode.md)
   - make_opclause
-  - makeBoolExpr
+  - [makeBoolExpr](makeBoolExpr.md)
   - list_make2
   - ArrayExpr
   - ScalarArrayOpExpr
@@ -40,8 +40,8 @@ This function constructs appropriate expression nodes for partition constraint o
   - COERCE_EXPLICIT_CAST
 - Called from (representative examples):
   - compare_range_bounds
-  - get_qual_for_list
-  - get_qual_for_range
+  - [get_qual_for_list](../g/get_qual_for_list.md)
+  - [get_qual_for_range](../g/get_qual_for_range.md)
 
 ## Notes and Other Information
 - This is a static function internal to partbounds.c

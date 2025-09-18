@@ -23,8 +23,8 @@ This function takes no parameters and returns a relopt_kind value.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Constants used:
   - RELOPT_KIND_MAX
   - ERROR
@@ -33,7 +33,7 @@ This function takes no parameters and returns a relopt_kind value.
   - last_assigned_kind (static variable)
 - Called from:
   - GET_STRING_RELOPTION (macro)
-  - create_reloptions_table
+  - [create_reloptions_table](../c/create_reloptions_table.md)
 
 ## Notes and Other Information
 - The function uses bit-shifting (<<= 1) to generate unique power-of-2 identifiers

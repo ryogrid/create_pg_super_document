@@ -26,14 +26,14 @@ The function also implements logic to suppress status printing when the COPY out
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus (determines if result is COPY IN/OUT)
+  - [PQresultStatus](../P/PQresultStatus.md) (determines if result is COPY IN/OUT)
   - Assert (validates result status)
-  - SetCancelConn (enables cancellation during COPY)
-  - handleCopyOut (handles COPY TO operations)
-  - handleCopyIn (handles COPY FROM operations) 
-  - PQbinaryTuples (checks if result uses binary format)
-  - ResetCancelConn (disables cancellation after COPY)
-  - PQclear (frees PGresult memory)
+  - [SetCancelConn](../S/SetCancelConn.md) (enables cancellation during COPY)
+  - [handleCopyOut](../h/handleCopyOut.md) (handles COPY TO operations)
+  - [handleCopyIn](../h/handleCopyIn.md) (handles COPY FROM operations) 
+  - [PQbinaryTuples](../P/PQbinaryTuples.md) (checks if result uses binary format)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (disables cancellation after COPY)
+  - [PQclear](../P/PQclear.md) (frees PGresult memory)
 - Constants referenced:
   - PGRES_COPY_OUT (result status for COPY TO)
   - PGRES_COPY_IN (result status for COPY FROM)
@@ -44,7 +44,7 @@ The function also implements logic to suppress status printing when the COPY out
   - pset.copyStream (COPY data source stream)
   - pset.cur_cmd_source (current command input stream)
 - Called from:
-  - ExecQueryAndProcessResults (in src/bin/psql/common.c:1643)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (in src/bin/psql/common.c:1643)
 
 ## Notes and Other Information
 - This is a static function internal to psql's common.c module

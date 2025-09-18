@@ -40,21 +40,21 @@ The function includes extensive safety checks and optimizations, particularly ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_domain_for_new_field
-  - deconstruct_expanded_record
+  - [check_domain_for_new_field](../c/check_domain_for_new_field.md)
+  - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
   - TupleDescAttr (macro)
   - VARATT_IS_EXTERNAL (macro)
-  - get_short_term_cxt
-  - detoast_external_attr
-  - MemoryContextSwitchTo
-  - datumCopy
-  - MemoryContextReset
-  - DatumGetPointer
-  - PointerGetDatum
-  - pfree
+  - [get_short_term_cxt](../g/get_short_term_cxt.md)
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [pfree](../p/pfree.md)
 - Types referenced:
   - ExpandedRecordHeader
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
   - Form_pg_attribute
   - struct varlena
 - Flags manipulated:
@@ -66,7 +66,7 @@ The function includes extensive safety checks and optimizations, particularly ar
   - ER_FLAG_FVALUE_VALID
 - Called from (representative examples):
   - expanded_record_set_field (macro wrapper)
-  - ER_get_flat_size (for inlining external values)
+  - [ER_get_flat_size](../E/ER_get_flat_size.md) (for inlining external values)
 
 ## Notes and Other Information
 - External callers should use the expanded_record_set_field macro, not call this function directly

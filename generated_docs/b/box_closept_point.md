@@ -19,14 +19,14 @@ This static function finds the closest point on a box (rectangle) to a given poi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - box_contain_point: Checks if a point is contained within the box
-  - statlseg_construct: Constructs a line segment between two points (called for each box edge)
-  - lseg_closept_point: Finds closest point on line segment to a point (called for each edge)
-  - float8_lt: Compares two float8 values for less-than relationship
+  - [box_contain_point](box_contain_point.md): Checks if a point is contained within the box
+  - [statlseg_construct](../s/statlseg_construct.md): Constructs a line segment between two points (called for each box edge)
+  - [lseg_closept_point](../l/lseg_closept_point.md): Finds closest point on line segment to a point (called for each edge)
+  - [float8_lt](../f/float8_lt.md): Compares two float8 values for less-than relationship
 - Called from (representative examples):
-  - dist_pb: Distance from point to box
-  - dist_bp: Distance from box to point
-  - close_pb: Closest point from point to box
+  - [dist_pb](../d/dist_pb.md): Distance from point to box
+  - [dist_bp](../d/dist_bp.md): Distance from box to point
+  - [close_pb](../c/close_pb.md): Closest point from point to box
 
 ## Notes and Other Information
 - This is a static function used internally within geo_ops.c for geometric calculations

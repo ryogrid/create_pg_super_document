@@ -25,15 +25,15 @@ The function only outputs information when the SETTINGS option is enabled in the
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_explain_guc_options
-  - GetConfigOptionByName
-  - ExplainOpenGroup
-  - ExplainCloseGroup
-  - ExplainPropertyText
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)
+  - [ExplainCloseGroup](ExplainCloseGroup.md)
+  - [ExplainPropertyText](ExplainPropertyText.md)
   - initStringInfo
   - appendStringInfoString
   - appendStringInfo
 - Called from (representative examples):
-  - ExplainPrintPlan
+  - [ExplainPrintPlan](ExplainPrintPlan.md)
 
 ## Notes and Other Information
 - The function is static (internal to explain.c) and only called from ExplainPrintPlan

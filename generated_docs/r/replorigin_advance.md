@@ -22,22 +22,22 @@ replorigin_advance is a core function that updates the replication progress trac
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - ereport (ERROR level)
   - RepOriginId
   - ReplicationState (struct)
-  - xl_replorigin_set (struct)
+  - [xl_replorigin_set](../x/xl_replorigin_set.md) (struct)
   - InvalidRepOriginId
   - DoNotReplicateId
   - XLOG_REPLORIGIN_SET
   - RM_REPLORIGIN_ID
 - Called from (representative examples):
-  - xact_redo_commit (src/backend/access/transam/xact.c:6152)
-  - replorigin_redo (src/backend/replication/logical/origin.c:838)
-  - pg_replication_origin_advance (src/backend/replication/logical/origin.c:1474)
-  - LogicalRepSyncTableStart (src/backend/replication/logical/tablesync.c:1487)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (src/backend/access/transam/xact.c:6152)
+  - [replorigin_redo](replorigin_redo.md) (src/backend/replication/logical/origin.c:838)
+  - [pg_replication_origin_advance](../p/pg_replication_origin_advance.md) (src/backend/replication/logical/origin.c:1474)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md) (src/backend/replication/logical/tablesync.c:1487)
 
 ## Notes and Other Information
 - Requires RowExclusiveLock on pg_replication_origin unless running in recovery

@@ -21,16 +21,16 @@ The function operates on the child plan's target list (tlist) to determine and d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lcons (adds plan to ancestors list)
-  - show_sort_group_keys (displays the actual grouping keys)
+  - [lcons](../l/lcons.md) (adds plan to ancestors list)
+  - [show_sort_group_keys](show_sort_group_keys.md) (displays the actual grouping keys)
   - outerPlanState (gets the child plan state)
   - list_delete_first (removes plan from ancestors list)
 - Types referenced:
-  - GroupState (execution state for Group nodes)
+  - [GroupState](../G/GroupState.md) (execution state for Group nodes)
   - ExplainState (state for EXPLAIN operations)
   - Group (Group plan node type)
 - Called from (representative examples):
-  - ExplainNode (main function for explaining plan nodes)
+  - [ExplainNode](../E/ExplainNode.md) (main function for explaining plan nodes)
 
 ## Notes and Other Information
 - This is a static function within explain.c, indicating it's only used internally within the EXPLAIN subsystem

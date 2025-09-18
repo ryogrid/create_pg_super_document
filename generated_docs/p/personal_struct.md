@@ -20,8 +20,8 @@ The struct definition also declares two instances:  (a direct instance) and  (a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varchar_1 (nested struct for name storage)
-  - birthinfo (nested struct for birth information)
+  - [varchar_1](../v/varchar_1.md) (nested struct for name storage)
+  - [birthinfo](../b/birthinfo.md) (nested struct for birth information)
 - Called from (representative examples):
   - No direct references found
 

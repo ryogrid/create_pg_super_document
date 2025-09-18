@@ -24,7 +24,7 @@ The function should always be called when finished with a stemming environment t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function)
 - Called from (representative examples):
   - External clients finishing Porter stemming operations (no direct references found in codebase)
 

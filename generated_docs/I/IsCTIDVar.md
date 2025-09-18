@@ -20,11 +20,11 @@ This macro provides a convenient way to identify CTID variables during query exe
   - IsA (macro for type checking)
   - SelfItemPointerAttributeNumber (constant defining CTID attribute number)
 - Called from (representative examples):
-  - MakeTidOpExpr
-  - TidExprListCreate
-  - IsBinaryTidClause
-  - IsTidEqualAnyClause
-  - ec_member_matches_ctid
+  - [MakeTidOpExpr](../M/MakeTidOpExpr.md)
+  - [TidExprListCreate](../T/TidExprListCreate.md)
+  - [IsBinaryTidClause](IsBinaryTidClause.md)
+  - [IsTidEqualAnyClause](IsTidEqualAnyClause.md)
+  - [ec_member_matches_ctid](../e/ec_member_matches_ctid.md)
 
 ## Notes and Other Information
 The macro includes a detailed comment explaining that checking varattno is sufficient to identify CTID variables because any Var in the relation scan qual must belong to the current table. This is guaranteed by PostgreSQL's parameter handling, where variables from other tables would have been converted to Param nodes during query planning.

@@ -26,13 +26,13 @@ This function ensures that 'en' suffixes are only removed when they follow conso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1: Validates that the current position is within the R1 region
-  - out_grouping_b: Checks if character is NOT in specified vowel group
-  - eq_s_b: Checks for specific string pattern match (3-character exclusion pattern s_10)
-  - slice_del: Removes character sequence from the word
-  - r_undouble: Removes doubled consonants after suffix removal
+  - [r_R1](r_R1.md): Validates that the current position is within the R1 region
+  - [out_grouping_b](../o/out_grouping_b.md): Checks if character is NOT in specified vowel group
+  - [eq_s_b](../e/eq_s_b.md): Checks for specific string pattern match (3-character exclusion pattern s_10)
+  - [slice_del](../s/slice_del.md): Removes character sequence from the word
+  - [r_undouble](r_undouble.md): Removes doubled consonants after suffix removal
 - Called from (representative examples):
-  - r_standard_suffix: Dutch standard suffix processing (multiple locations)
+  - [r_standard_suffix](r_standard_suffix.md): Dutch standard suffix processing (multiple locations)
 
 ## Notes and Other Information
 - The function includes a specific exclusion mechanism using s_10 pattern matching to prevent incorrect 'en' suffix removal

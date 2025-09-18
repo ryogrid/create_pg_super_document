@@ -27,11 +27,11 @@ The SH_USE_NONDEFAULT_ALLOCATOR macro can be defined to skip the default impleme
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
   - SH_RAW_ALLOCATOR (conditionally, when defined by user)
-  - MemoryContextAllocExtended (default PostgreSQL memory allocation)
+  - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md) (default PostgreSQL memory allocation)
   - MCXT_ALLOC_HUGE | MCXT_ALLOC_ZERO (allocation flags for large, zeroed memory)
 - Called from (representative examples):
   - SH_CREATE (during initial hash table creation)
-  - SH_GROW (during hash table resizing operations)
+  - [SH_GROW](SH_GROW.md) (during hash table resizing operations)
 
 ## Notes and Other Information
 - This is part of the simplehash template system and expands to a function with user-defined prefix

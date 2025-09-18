@@ -25,7 +25,7 @@ The function extracts two text arguments from the function call parameters and d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `text_catenate`: Internal function that performs the actual concatenation
+  - `[text_catenate](text_catenate.md)`: Internal function that performs the actual concatenation
   - `PG_GETARG_TEXT_PP`: Extracts text arguments with potential detoasting
   - `PG_RETURN_TEXT_P`: Returns the resulting text value
 

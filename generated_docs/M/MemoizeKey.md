@@ -21,15 +21,15 @@ When the cache reaches capacity limits, the LRU mechanism uses the lru_node to i
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
-  - MemoizeHash_hash
-  - MemoizeHash_equal
-  - prepare_probe_slot
-  - remove_cache_entry
-  - cache_reduce_memory
-  - cache_lookup
-  - cache_store_tuple
+  - [MemoizeHash_hash](MemoizeHash_hash.md)
+  - [MemoizeHash_equal](MemoizeHash_equal.md)
+  - [prepare_probe_slot](../p/prepare_probe_slot.md)
+  - [remove_cache_entry](../r/remove_cache_entry.md)
+  - [cache_reduce_memory](../c/cache_reduce_memory.md)
+  - [cache_lookup](../c/cache_lookup.md)
+  - [cache_store_tuple](../c/cache_store_tuple.md)
 
 ## Notes and Other Information
 - Used as SH_KEY_TYPE in the specialized hash table implementation for memoization

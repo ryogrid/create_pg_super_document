@@ -29,18 +29,18 @@ The caching mechanism significantly improves performance by avoiding repeated sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getprocid
-  - index_getprocinfo
+  - [index_getprocid](../i/index_getprocid.md)
+  - [index_getprocinfo](../i/index_getprocinfo.md)
   - RegProcedureIsValid
-  - fmgr_info_copy
+  - [fmgr_info_copy](../f/fmgr_info_copy.md)
   - ereport
-  - errcode
-  - errmsg_internal
-  - errdetail_internal
+  - [errcode](../e/errcode.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
   - PROCNUM_BASE
 - Called from (representative examples):
-  - brin_bloom_add_value
-  - brin_bloom_consistent
+  - [brin_bloom_add_value](brin_bloom_add_value.md)
+  - [brin_bloom_consistent](brin_bloom_consistent.md)
 
 ## Notes and Other Information
 - This is a static utility function internal to the BRIN bloom implementation

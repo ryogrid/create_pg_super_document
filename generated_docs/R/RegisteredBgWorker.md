@@ -26,20 +26,20 @@ The structure is designed to track both shared memory-connected workers and thos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorker
+  - [BackgroundWorker](../B/BackgroundWorker.md)
   - bkend
   - pid_t
-  - slist_node
+  - [slist_node](../s/slist_node.md)
 - Called from (representative examples):
-  - BackgroundWorkerShmemInit
-  - FindRegisteredWorkerBySlotNumber
-  - BackgroundWorkerStateChange
-  - ForgetBackgroundWorker
-  - ReportBackgroundWorkerPID
-  - ReportBackgroundWorkerExit
-  - RegisterBackgroundWorker
-  - CleanupBackgroundWorker
-  - do_start_bgworker
+  - [BackgroundWorkerShmemInit](../B/BackgroundWorkerShmemInit.md)
+  - [FindRegisteredWorkerBySlotNumber](../F/FindRegisteredWorkerBySlotNumber.md)
+  - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md)
+  - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md)
+  - [ReportBackgroundWorkerPID](ReportBackgroundWorkerPID.md)
+  - [ReportBackgroundWorkerExit](ReportBackgroundWorkerExit.md)
+  - [RegisterBackgroundWorker](RegisterBackgroundWorker.md)
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md)
+  - [do_start_bgworker](../d/do_start_bgworker.md)
 
 ## Notes and Other Information
 - This structure is defined in bgworker_internals.h and is private to the postmaster implementation

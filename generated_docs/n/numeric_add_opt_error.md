@@ -24,18 +24,18 @@ The function implements comprehensive special value handling for NaN and infinit
   - NUMERIC_IS_SPECIAL (special value detection)
   - NUMERIC_IS_NAN (NaN detection)
   - NUMERIC_IS_PINF/NUMERIC_IS_NINF (infinity detection)
-  - make_result (numeric result construction)
-  - init_var_from_num (numeric variable initialization)
+  - [make_result](../m/make_result.md) (numeric result construction)
+  - [init_var_from_num](../i/init_var_from_num.md) (numeric variable initialization)
   - init_var (variable initialization)
-  - add_var (core addition arithmetic)
-  - make_result_opt_error (result construction with error handling)
-  - free_var (memory cleanup)
+  - [add_var](../a/add_var.md) (core addition arithmetic)
+  - [make_result_opt_error](../m/make_result_opt_error.md) (result construction with error handling)
+  - [free_var](../f/free_var.md) (memory cleanup)
 - Called from (representative examples):
-  - numeric_add (standard addition wrapper)
-  - executeItemOptUnwrapTarget (JSON path execution)
-  - timestamp_part_common (timestamp arithmetic)
-  - timestamptz_part_common (timestamptz arithmetic)
-  - interval_part_common (interval arithmetic)
+  - [numeric_add](numeric_add.md) (standard addition wrapper)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution)
+  - [timestamp_part_common](../t/timestamp_part_common.md) (timestamp arithmetic)
+  - [timestamptz_part_common](../t/timestamptz_part_common.md) (timestamptz arithmetic)
+  - [interval_part_common](../i/interval_part_common.md) (interval arithmetic)
 
 ## Notes and Other Information
 - Core implementation function for all numeric addition operations in PostgreSQL

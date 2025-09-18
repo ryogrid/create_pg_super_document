@@ -30,9 +30,9 @@ The function maintains state through the JsonbParseState pointer, enabling incre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushJsonbValueScalar
-  - JsonbIteratorInit
-  - JsonbIteratorNext
+  - [pushJsonbValueScalar](pushJsonbValueScalar.md)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
   - WJB_BEGIN_OBJECT, WJB_END_OBJECT, WJB_BEGIN_ARRAY, WJB_END_ARRAY, WJB_KEY, WJB_VALUE, WJB_ELEM, WJB_DONE
   - jbvObject, jbvArray, jbvBinary (type enums)
   - JB_FSCALAR (header flag)
@@ -40,7 +40,7 @@ The function maintains state through the JsonbParseState pointer, enabling incre
   - JSON parsing functions (jsonb_in_object_start, jsonb_in_scalar, etc.)
   - JSONB construction functions (jsonb_build_object_worker, jsonb_build_array_worker)
   - JSONB modification functions (setPath, IteratorConcat)
-  - JsonbValueToJsonb
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - Self-recursive calls for object/array expansion
 
 ## Notes and Other Information

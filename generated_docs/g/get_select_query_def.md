@@ -27,14 +27,14 @@ The function sets up the deparse context with the query's target list and window
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_with_clause
-  - get_setop_query
-  - get_basic_select_query
-  - get_rule_orderby
+  - [get_with_clause](get_with_clause.md)
+  - [get_setop_query](get_setop_query.md)
+  - [get_basic_select_query](get_basic_select_query.md)
+  - [get_rule_orderby](get_rule_orderby.md)
   - get_rule_expr
-  - get_rtable_name
+  - [get_rtable_name](get_rtable_name.md)
   - appendContextKeyword
-  - quote_identifier
+  - [quote_identifier](../q/quote_identifier.md)
   - appendStringInfo
   - appendStringInfoString
   - appendStringInfoChar
@@ -44,7 +44,7 @@ The function sets up the deparse context with the query's target list and window
   - LockWaitError, LockWaitSkip
   - RowMarkClause
 - Called from (representative examples):
-  - get_query_def
+  - [get_query_def](get_query_def.md)
 
 ## Notes and Other Information
 This function is the primary entry point for SELECT statement deparsing within the broader query deparsing system. It demonstrates PostgreSQL's comprehensive SELECT statement support, including advanced features like set operations, window functions (via windowClause context setup), and various locking modes with different wait policies. The function handles both simple and complex SELECT statements, properly formatting set operations where only ORDER BY and LIMIT clauses are meaningful at the top level. The locking clause processing supports all PostgreSQL lock strengths from KEY SHARE to UPDATE, along with NOWAIT and SKIP LOCKED options. The LIMIT clause processing includes support for the SQL standard FETCH FIRST syntax with WITH TIES option, showing PostgreSQL's SQL standards compliance alongside its traditional syntax.

@@ -22,17 +22,17 @@ The function parses the new options, validates constraints (especially for parti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_publication_options: Parses publication-specific options from the statement
-  - LockDatabaseObject: Locks the publication to prevent concurrent modifications
-  - GetPublicationRelations: Retrieves relations associated with the publication
-  - heap_attisnull: Checks for NULL values in tuple attributes (for WHERE clauses and column lists)
-  - get_rel_relkind/get_rel_name: Retrieves relation metadata for validation
-  - heap_modify_tuple: Creates a modified version of the publication tuple
-  - CatalogTupleUpdate: Updates the publication record in the catalog
-  - InvalidatePublicationRels: Invalidates relation cache entries for affected tables
-  - GetAllSchemaPublicationRelations: Gets schema-based publication relations
+  - [parse_publication_options](../p/parse_publication_options.md): Parses publication-specific options from the statement
+  - [LockDatabaseObject](../L/LockDatabaseObject.md): Locks the publication to prevent concurrent modifications
+  - [GetPublicationRelations](../G/GetPublicationRelations.md): Retrieves relations associated with the publication
+  - [heap_attisnull](../h/heap_attisnull.md): Checks for NULL values in tuple attributes (for WHERE clauses and column lists)
+  - [get_rel_relkind](../g/get_rel_relkind.md)/get_rel_name: Retrieves relation metadata for validation
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates a modified version of the publication tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the publication record in the catalog
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md): Invalidates relation cache entries for affected tables
+  - [GetAllSchemaPublicationRelations](../G/GetAllSchemaPublicationRelations.md): Gets schema-based publication relations
 - Called from (representative examples):
-  - AlterPublication: Main function handling publication alterations
+  - [AlterPublication](AlterPublication.md): Main function handling publication alterations
 
 ## Notes and Other Information
 - Enforces the constraint that partitioned tables with WHERE clauses or column lists cannot exist when publish_via_partition_root is false

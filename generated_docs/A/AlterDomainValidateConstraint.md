@@ -19,24 +19,24 @@ This function validates an existing check constraint on a domain type by first l
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameTypeId
-  - SearchSysCache1
-  - checkDomainOwner
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - SysCacheGetAttrNotNull
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [checkDomainOwner](../c/checkDomainOwner.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
-  - validateDomainCheckConstraint
-  - heap_copytuple
-  - heap_freetuple
-  - CatalogTupleUpdate
+  - [validateDomainCheckConstraint](../v/validateDomainCheckConstraint.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - TypeNameToString
-  - ReleaseSysCache
+  - [TypeNameToString](../T/TypeNameToString.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Only works with check constraints, rejects other constraint types with appropriate error messages

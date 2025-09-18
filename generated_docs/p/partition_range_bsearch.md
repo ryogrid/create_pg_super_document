@@ -27,12 +27,12 @@ This function implements a binary search algorithm specifically designed for ran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (partition boundary structure)
-  - PartitionRangeBound (range bound structure)
-  - partition_rbound_cmp (range bound comparison function)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (partition boundary structure)
+  - [PartitionRangeBound](../P/PartitionRangeBound.md) (range bound structure)
+  - [partition_rbound_cmp](partition_rbound_cmp.md) (range bound comparison function)
 - Called from:
   - compare_range_bounds (at src/backend/partitioning/partbounds.c:223)
-  - check_new_partition_bound (at src/backend/partitioning/partbounds.c:3159)
+  - [check_new_partition_bound](../c/check_new_partition_bound.md) (at src/backend/partitioning/partbounds.c:3159)
 
 ## Notes and Other Information
 - This is a static function internal to the partbounds.c module

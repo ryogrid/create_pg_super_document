@@ -22,8 +22,8 @@ The callback mechanism provides a way for extensions to hook into transaction li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XactCallbackItem (structure type)
-  - MemoryContextAlloc (for allocating callback item)
+  - [XactCallbackItem](../X/XactCallbackItem.md) (structure type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for allocating callback item)
   - TopMemoryContext (memory context for persistent storage)
   - Xact_callbacks (global linked list head)
 - Called from (representative examples):

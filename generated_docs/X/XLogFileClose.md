@@ -22,16 +22,16 @@ The function includes comprehensive error handling with PANIC-level reporting fo
   - XLogIsNeeded
   - posix_fadvise (conditional on USE_POSIX_FADVISE)
   - close
-  - XLogFileName  
+  - [XLogFileName](XLogFileName.md)  
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
   - ReleaseExternalFD
 - Called from (representative examples):
   - RefreshXLogWriteResult (src/backend/access/transam/xlog.c:680)
-  - XLogWrite (src/backend/access/transam/xlog.c:2362, 2545)
-  - XLogBackgroundFlush (src/backend/access/transam/xlog.c:3016)
-  - assign_wal_sync_method (src/backend/access/transam/xlog.c:8686)
+  - [XLogWrite](XLogWrite.md) (src/backend/access/transam/xlog.c:2362, 2545)
+  - [XLogBackgroundFlush](XLogBackgroundFlush.md) (src/backend/access/transam/xlog.c:3016)
+  - [assign_wal_sync_method](../a/assign_wal_sync_method.md) (src/backend/access/transam/xlog.c:8686)
 
 ## Notes and Other Information
 - Operates on global variables: openLogFile, openLogTLI, openLogSegNo

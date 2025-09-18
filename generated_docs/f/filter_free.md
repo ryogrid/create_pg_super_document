@@ -23,9 +23,9 @@ This function performs cleanup operations for a FilterStateData structure that w
   - fclose
   - pg_log_error
 - Called from (representative examples):
-  - read_dump_filters (in pg_dump.c)
-  - read_dumpall_filters (in pg_dumpall.c)
-  - read_restore_filters (in pg_restore.c)
+  - [read_dump_filters](../r/read_dump_filters.md) (in pg_dump.c)
+  - [read_dumpall_filters](../r/read_dumpall_filters.md) (in pg_dumpall.c)
+  - [read_restore_filters](../r/read_restore_filters.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - The function is NULL-safe and returns early if fstate is NULL

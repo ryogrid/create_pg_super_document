@@ -22,16 +22,16 @@ The raciness is intentional for testing purposes - between checking if a buffer 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerEnlarge
-  - ReservePrivateRefCountEntry
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
   - BufferIsLocal
-  - GetBufferDescriptor
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - LockBufHdr
-  - UnlockBufHdr
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BUF_STATE_GET_REFCOUNT
   - PinBuffer_Locked
-  - BufferDescriptorGetContentLock
-  - FlushBuffer
-  - InvalidateVictimBuffer
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
   - UnpinBuffer
   - BM_VALID (constant)
   - BM_DIRTY (constant)

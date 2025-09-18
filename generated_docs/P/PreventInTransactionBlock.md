@@ -20,8 +20,8 @@ The function validates that the statement is not executing within a transaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionBlock
-  - IsSubTransaction
+  - [IsTransactionBlock](../I/IsTransactionBlock.md)
+  - [IsSubTransaction](../I/IsSubTransaction.md)
   - ereport (for error reporting)
   - elog (for fatal errors)
   - CurrentTransactionState (global variable)
@@ -34,14 +34,14 @@ The function validates that the statement is not executing within a transaction 
   - ERROR, FATAL (error levels)
   - ERRCODE_ACTIVE_SQL_TRANSACTION
 - Called from (representative examples):
-  - cluster (CLUSTER command)
-  - AlterDatabase
-  - DiscardAll (DISCARD ALL command)
-  - ExecReindex (REINDEX commands)
-  - CreateSubscription, DropSubscription (subscription management)
+  - [cluster](../c/cluster.md) (CLUSTER command)
+  - [AlterDatabase](../A/AlterDatabase.md)
+  - [DiscardAll](../D/DiscardAll.md) (DISCARD ALL command)
+  - [ExecReindex](../E/ExecReindex.md) (REINDEX commands)
+  - [CreateSubscription](../C/CreateSubscription.md), DropSubscription (subscription management)
   - vacuum (VACUUM command)
   - Various replication commands
-  - standard_ProcessUtility (multiple statement types)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (multiple statement types)
 
 ## Notes and Other Information
 This function is essential for maintaining PostgreSQL's ACID properties by preventing statements with non-transactional effects from running in transactional contexts. Common commands that use this include VACUUM, CLUSTER, REINDEX, subscription commands, and database modification commands. The immediate commit flag ensures these operations are committed as soon as they complete successfully, providing the atomicity guarantee these statements require.

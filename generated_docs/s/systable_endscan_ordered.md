@@ -19,21 +19,21 @@ A key aspect of this function is its handling of the bsysscan flag, which is use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecDropSingleTupleTableSlot
-  - index_endscan
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [index_endscan](../i/index_endscan.md)
   - UnregisterSnapshot
   - TransactionIdIsValid
   - CheckXidAlive (global variable)
-  - pfree
-  - SysScanDesc (type)
+  - [pfree](../p/pfree.md)
+  - [SysScanDesc](../S/SysScanDesc.md) (type)
 - Called from (representative examples):
-  - toast_delete_datum
-  - heap_fetch_toast_slice
-  - inv_getsize
-  - inv_read
-  - inv_write
-  - enum_endpoint
-  - BuildEventTriggerCache
+  - [toast_delete_datum](../t/toast_delete_datum.md)
+  - [heap_fetch_toast_slice](../h/heap_fetch_toast_slice.md)
+  - [inv_getsize](../i/inv_getsize.md)
+  - [inv_read](../i/inv_read.md)
+  - [inv_write](../i/inv_write.md)
+  - [enum_endpoint](../e/enum_endpoint.md)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md)
 
 ## Notes and Other Information
 - Must be called for every successful systable_beginscan_ordered() to prevent resource leaks

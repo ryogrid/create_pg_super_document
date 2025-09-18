@@ -41,11 +41,11 @@ The NUMProc structure is a sophisticated state machine used by PostgreSQL's nume
   - decimal (locale decimal point)
 - Called from (representative examples):
   - DCH_ZONED
-  - NUM_prepare_locale
-  - NUM_numpart_from_char
-  - NUM_numpart_to_char
-  - NUM_eat_non_data_chars
-  - NUM_processor
+  - [NUM_prepare_locale](NUM_prepare_locale.md)
+  - [NUM_numpart_from_char](NUM_numpart_from_char.md)
+  - [NUM_numpart_to_char](NUM_numpart_to_char.md)
+  - [NUM_eat_non_data_chars](NUM_eat_non_data_chars.md)
+  - [NUM_processor](NUM_processor.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's numeric formatting functionality in src/backend/utils/adt/formatting.c. It serves as a comprehensive state machine that manages the complex process of converting between numeric values and their formatted string representations. The structure handles locale-specific formatting requirements, maintains parsing state for bidirectional conversions, and provides buffer management for efficient string operations. The numerous pointer fields enable precise tracking of positions during parsing and formatting operations, while the locale-specific fields ensure proper internationalization support.

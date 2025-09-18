@@ -42,17 +42,17 @@ This structure serves as the central repository for all transaction statistics i
   - pg_time_usec_t
   - SimpleStats
 - Called from (representative examples):
-  - CState
-  - ParsedScript
-  - initStats
-  - accumStats
-  - advanceConnectionState
-  - getFailures
-  - doLog
-  - processXactStats
-  - printProgressReport
-  - printResults
-  - threadRun
+  - [CState](../C/CState.md)
+  - [ParsedScript](../P/ParsedScript.md)
+  - [initStats](../i/initStats.md)
+  - [accumStats](../a/accumStats.md)
+  - [advanceConnectionState](../a/advanceConnectionState.md)
+  - [getFailures](../g/getFailures.md)
+  - [doLog](../d/doLog.md)
+  - [processXactStats](../p/processXactStats.md)
+  - [printProgressReport](../p/printProgressReport.md)
+  - [printResults](../p/printResults.md)
+  - [threadRun](../t/threadRun.md)
 
 ## Notes and Other Information
 The structure implements a sophisticated transaction accounting model that distinguishes between different types of transaction outcomes. This granular tracking enables accurate performance reporting even in complex scenarios involving connection failures, serialization conflicts, and retry logic. The statistics are designed to be aggregated across multiple threads and time intervals for comprehensive benchmark reporting.

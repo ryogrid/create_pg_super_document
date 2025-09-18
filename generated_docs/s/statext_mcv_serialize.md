@@ -20,19 +20,19 @@ This function converts an in-memory MCVList structure into a serialized bytea fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - PrepareSortSupportFromOrderingOp
   - qsort_interruptible
-  - compare_scalars_simple
-  - compare_datums_simple
+  - [compare_scalars_simple](../c/compare_scalars_simple.md)
+  - [compare_datums_simple](../c/compare_datums_simple.md)
   - PG_DETOAST_DATUM
   - store_att_byval
   - bsearch_arg
   - SET_VARSIZE
-  - palloc0
-  - pfree
+  - [palloc0](../p/palloc0.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - statext_store
+  - [statext_store](statext_store.md)
 
 ## Notes and Other Information
 - Uses uint16 indexes to reference deduplicated values, limiting to 65k unique values per column

@@ -30,27 +30,27 @@ The function provides robust error handling with an optional `is_missing` parame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_namespace_aclmask_ext
-  - pg_type_aclmask_ext
+  - [pg_namespace_aclmask_ext](../p/pg_namespace_aclmask_ext.md)
+  - [pg_type_aclmask_ext](../p/pg_type_aclmask_ext.md)
   - superuser_arg
-  - get_object_catcache_oid
-  - get_object_class_descr
-  - SysCacheGetAttrNotNull
-  - DatumGetObjectId
-  - get_object_attnum_owner
-  - get_object_attnum_acl
-  - SysCacheGetAttr
-  - get_object_type
-  - acldefault
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
+  - [get_object_class_descr](../g/get_object_class_descr.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [get_object_attnum_owner](../g/get_object_attnum_owner.md)
+  - [get_object_attnum_acl](../g/get_object_attnum_acl.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [get_object_type](../g/get_object_type.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclP
-  - aclmask
-  - SearchSysCache1
-  - ReleaseSysCache
-  - pfree
+  - [aclmask](../a/aclmask.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - InternalDefaultACL
-  - object_aclmask
-  - object_aclcheck_ext
+  - [object_aclmask](object_aclmask.md)
+  - [object_aclcheck_ext](object_aclcheck_ext.md)
 
 ## Notes and Other Information
 - This is a static function internal to the aclchk.c module

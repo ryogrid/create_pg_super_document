@@ -26,17 +26,17 @@ The function handles BC dates (years <= 0) by appending " BC" to the formatted s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultostr_zeropad (for zero-padded number formatting)
+  - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (for zero-padded number formatting)
   - MONTHS_PER_YEAR (constant for month validation)
   - DateOrder (global variable controlling day/month ordering)
   - Various style constants (USE_ISO_DATES, USE_SQL_DATES, USE_GERMAN_DATES, USE_POSTGRES_DATES)
   - DATEORDER_DMY (constant for date ordering)
 
 - Called from (representative examples):
-  - date_out (src/backend/utils/adt/date.c:198)
+  - [date_out](../d/date_out.md) (src/backend/utils/adt/date.c:198)
   - JsonEncodeDateTime (src/backend/utils/adt/json.c:322)
-  - map_sql_value_to_xml_value (src/backend/utils/adt/xml.c:2558)
-  - PGTYPESdate_to_asc (src/interfaces/ecpg/pgtypeslib/datetime.c:110)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md) (src/backend/utils/adt/xml.c:2558)
+  - [PGTYPESdate_to_asc](../P/PGTYPESdate_to_asc.md) (src/interfaces/ecpg/pgtypeslib/datetime.c:110)
 
 ## Notes and Other Information
 - The function assumes tm_mon is valid (1-12) and includes an assertion to verify this

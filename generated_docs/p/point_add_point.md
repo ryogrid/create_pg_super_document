@@ -19,15 +19,15 @@ This function computes the sum of two Point structures by adding their correspon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_construct
-  - float8_pl
-  - Point (data type)
+  - [point_construct](point_construct.md)
+  - [float8_pl](../f/float8_pl.md)
+  - [Point](../P/Point.md) (data type)
 - Called from (representative examples):
-  - point_add
-  - box_add
-  - path_add_pt
-  - circle_add_pt
-  - poly_to_circle
+  - [point_add](point_add.md)
+  - [box_add](../b/box_add.md)
+  - [path_add_pt](path_add_pt.md)
+  - [circle_add_pt](../c/circle_add_pt.md)
+  - [poly_to_circle](poly_to_circle.md)
 
 ## Notes and Other Information
 - This is a static inline function for internal use within the geometric operations module

@@ -26,14 +26,14 @@ The function stores all k hash values in the caller-provided array, with each ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_filter (struct type)
-  - hash_any_extended (PostgreSQL hash function)
-  - DatumGetUInt64 (PostgreSQL type conversion macro)
-  - mod_m (modulo calculation for power-of-two values)
+  - [bloom_filter](../b/bloom_filter.md) (struct type)
+  - [hash_any_extended](../h/hash_any_extended.md) (PostgreSQL hash function)
+  - [DatumGetUInt64](../D/DatumGetUInt64.md) (PostgreSQL type conversion macro)
+  - [mod_m](../m/mod_m.md) (modulo calculation for power-of-two values)
 - Called from:
-  - bloom_filter (at src/backend/lib/bloomfilter.c:56)
-  - bloom_add_element (at src/backend/lib/bloomfilter.c:140)
-  - bloom_lacks_element (at src/backend/lib/bloomfilter.c:162)
+  - [bloom_filter](../b/bloom_filter.md) (at src/backend/lib/bloomfilter.c:56)
+  - [bloom_add_element](../b/bloom_add_element.md) (at src/backend/lib/bloomfilter.c:140)
+  - [bloom_lacks_element](../b/bloom_lacks_element.md) (at src/backend/lib/bloomfilter.c:162)
 
 ## Notes and Other Information
 - Uses enhanced double hashing instead of classic double hashing to avoid collision issues with power-of-two bitsets

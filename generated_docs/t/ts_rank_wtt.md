@@ -22,8 +22,8 @@ The  function is a PostgreSQL built-in function that computes text search rankin
   - PG_DETOAST_DATUM: Decompresses the weight array argument if needed
   - PG_GETARG_TSVECTOR: Extracts TSVector from function arguments
   - PG_GETARG_TSQUERY: Extracts TSQuery from function arguments
-  - getWeights: Validates and extracts weight values from the array
-  - calc_rank: Performs the actual ranking calculation
+  - [getWeights](../g/getWeights.md): Validates and extracts weight values from the array
+  - [calc_rank](../c/calc_rank.md): Performs the actual ranking calculation
   - DEF_NORM_METHOD: Default normalization method constant (RANK_NO_NORM)
   - PG_FREE_IF_COPY: Frees detoasted copies of arguments
   - PG_RETURN_FLOAT4: Returns the calculated rank as a float4 value

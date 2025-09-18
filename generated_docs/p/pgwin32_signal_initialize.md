@@ -31,16 +31,16 @@ This function takes no parameters.
   - PG_SIGNAL_COUNT (constant defining number of signals)
   - SIG_DFL (default signal handler constant)
   - SIG_IGN (ignore signal constant)
-  - pg_signal_thread (signal processing thread function)
-  - pg_console_handler (console control handler function)
+  - [pg_signal_thread](pg_signal_thread.md) (signal processing thread function)
+  - [pg_console_handler](pg_console_handler.md) (console control handler function)
   - InitializeCriticalSection (Windows API)
   - CreateEvent (Windows API)
   - CreateThread (Windows API)
   - SetConsoleCtrlHandler (Windows API)
 - Called from (representative examples):
-  - PostmasterMain
-  - InitPostmasterChild
-  - InitStandaloneProcess
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md)
+  - [InitStandaloneProcess](../I/InitStandaloneProcess.md)
 
 ## Notes and Other Information
 - This is a Windows-specific initialization function located in src/backend/port/win32/signal.c

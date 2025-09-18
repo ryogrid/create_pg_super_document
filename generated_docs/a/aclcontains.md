@@ -25,7 +25,7 @@ The function iterates through all items in the ACL and returns true if it finds 
 - Functions called/Symbols referenced:
   - PG_GETARG_ACL_P (macro for extracting ACL argument)
   - PG_GETARG_ACLITEM_P (macro for extracting AclItem argument)
-  - check_acl (validates ACL structure)
+  - [check_acl](../c/check_acl.md) (validates ACL structure)
   - ACL_NUM (macro to get number of ACL items)
   - ACL_DAT (macro to get ACL data array)
   - ACLITEM_GET_RIGHTS (macro to extract privilege bits from ACL item)

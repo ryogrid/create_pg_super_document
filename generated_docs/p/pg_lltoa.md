@@ -24,10 +24,10 @@ The function provides a complete string conversion solution for 64-bit integers,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ulltoa_n (performs the actual unsigned 64-bit integer to string conversion)
+  - [pg_ulltoa_n](pg_ulltoa_n.md) (performs the actual unsigned 64-bit integer to string conversion)
 - Called from (representative examples):
-  - printsimple (for debug output formatting of 64-bit values)
-  - int8out (converts int64 to string for PostgreSQL bigint output)
+  - [printsimple](printsimple.md) (for debug output formatting of 64-bit values)
+  - [int8out](../i/int8out.md) (converts int64 to string for PostgreSQL bigint output)
 
 ## Notes and Other Information
 - The output string IS null-terminated, making it suitable for standard C string operations

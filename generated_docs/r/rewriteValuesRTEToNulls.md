@@ -20,10 +20,10 @@ Unlike rewriteValuesRTE, this function unconditionally replaces all SetToDefault
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetToDefault (type checking and casting)
-  - makeNullConst
+  - [SetToDefault](../S/SetToDefault.md) (type checking and casting)
+  - [makeNullConst](../m/makeNullConst.md)
 - Called from:
-  - RewriteQuery
+  - [RewriteQuery](../R/RewriteQuery.md)
 
 ## Notes and Other Information
 - Used specifically for DO ALSO rule product queries on auto-updatable views

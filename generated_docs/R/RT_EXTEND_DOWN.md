@@ -23,14 +23,14 @@ This function creates a chain of new nodes extending downward from a given paren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RT_ALLOC_NODE
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md)
   - RT_GET_KEY_CHUNK
   - RT_SPAN
   - RT_NODE_KIND_4
   - RT_CLASS_4
 - Called from (representative examples):
-  - RT_GET_SLOT_RECURSIVE
-  - RT_SET (during tree extension operations)
+  - [RT_GET_SLOT_RECURSIVE](RT_GET_SLOT_RECURSIVE.md)
+  - [RT_SET](RT_SET.md) (during tree extension operations)
 
 ## Notes and Other Information
 - The function is marked as pg_noinline, indicating it is not meant to be inlined for performance reasons

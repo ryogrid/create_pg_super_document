@@ -20,15 +20,15 @@ RemoveTSConfigurationById performs the low-level deletion of a text search confi
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens system catalog relations)
-  - SearchSysCache1 (finds configuration tuple by OID)
-  - CatalogTupleDelete (removes tuples from catalogs)
-  - ReleaseSysCache (releases cached tuple)
-  - ScanKeyInit (initializes scan key)
-  - systable_beginscan/systable_getnext (scans configuration map)
-  - systable_endscan (ends scan)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (finds configuration tuple by OID)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (removes tuples from catalogs)
+  - [ReleaseSysCache](ReleaseSysCache.md) (releases cached tuple)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext (scans configuration map)
+  - [systable_endscan](../s/systable_endscan.md) (ends scan)
   - table_close (closes relations)
 - Called from (representative examples):
-  - doDeletion (dependency system deletion)
+  - [doDeletion](../d/doDeletion.md) (dependency system deletion)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock on both pg_ts_config and pg_ts_config_map relations

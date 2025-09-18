@@ -28,11 +28,11 @@ This hybrid approach leverages the efficiency of 32-bit operations while correct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - decimalLength64 (calculates the number of digits needed for 64-bit values)
+  - [decimalLength64](../d/decimalLength64.md) (calculates the number of digits needed for 64-bit values)
   - DIGIT_TABLE (lookup table for digit pairs, same as used by 32-bit functions)
 - Called from (representative examples):
-  - BuildQueryCompletionString (for formatting query completion statistics)
-  - pg_lltoa (as part of signed 64-bit integer conversion)
+  - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (for formatting query completion statistics)
+  - [pg_lltoa](pg_lltoa.md) (as part of signed 64-bit integer conversion)
 
 ## Notes and Other Information
 - The output string is NOT null-terminated - caller must handle termination if needed

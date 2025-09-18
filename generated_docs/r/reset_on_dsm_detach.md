@@ -27,13 +27,13 @@ This function is typically called during process cleanup scenarios where callbac
 - Functions called/Symbols referenced:
   - dlist_foreach
   - dlist_container
-  - slist_is_empty
-  - slist_pop_head_node
+  - [slist_is_empty](../s/slist_is_empty.md)
+  - [slist_pop_head_node](../s/slist_pop_head_node.md)
   - slist_container
-  - pfree
+  - [pfree](../p/pfree.md)
   - INVALID_CONTROL_SLOT
 - Called from (representative examples):
-  - on_exit_reset
+  - [on_exit_reset](../o/on_exit_reset.md)
 
 ## Notes and Other Information
 - This is a cleanup function that deliberately avoids executing registered callbacks

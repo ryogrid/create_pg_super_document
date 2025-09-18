@@ -27,8 +27,8 @@ The function uses a hash table (`_state->json_hash`) to efficiently map field na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (hash table operations)
-  - palloc (memory allocation)
+  - [hash_search](../h/hash_search.md) (hash table operations)
+  - [palloc](palloc.md) (memory allocation)
   - memcpy (memory copying)
   - strlen (string length calculation)
   - Assert (debugging assertion)
@@ -36,11 +36,11 @@ The function uses a hash table (`_state->json_hash`) to efficiently map field na
   - NAMEDATALEN (PostgreSQL name length limit)
   - JSON_SUCCESS (return constant)
   - JSON_TOKEN_NULL (token type constant)
-  - JsonHashEntry (hash table entry structure)
-  - PopulateRecordsetState (state structure)
+  - [JsonHashEntry](../J/JsonHashEntry.md) (hash table entry structure)
+  - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (state structure)
 
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

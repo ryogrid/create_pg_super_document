@@ -19,7 +19,7 @@ This function serves as a wrapper around the generic pg_ls_tmpdir function, desi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ls_tmpdir (core listing functionality)
+  - [pg_ls_tmpdir](pg_ls_tmpdir.md) (core listing functionality)
   - PG_GETARG_OID (macro to extract OID argument)
 - Called from (representative examples):
   - SQL queries via function call interface

@@ -17,8 +17,8 @@ This function acts as the primary entry point for row iteration in PostgreSQL's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetJsonTableExecContext (retrieves the JSON table execution context from the scan state)
-  - JsonTablePlanNextRow (performs the actual row advancement using the root plan state)
+  - [GetJsonTableExecContext](../G/GetJsonTableExecContext.md) (retrieves the JSON table execution context from the scan state)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md) (performs the actual row advancement using the root plan state)
 - Called from (representative examples):
   - PostgreSQL table function infrastructure (as part of the table function scan operations)
 

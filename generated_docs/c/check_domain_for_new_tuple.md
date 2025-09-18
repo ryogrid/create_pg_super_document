@@ -20,14 +20,14 @@ Unlike single field validation, this function works with complete tuples and doe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_short_term_cxt
-  - domain_check
-  - MemoryContextReset
-  - build_dummy_expanded_header
+  - [get_short_term_cxt](../g/get_short_term_cxt.md)
+  - [domain_check](../d/domain_check.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [build_dummy_expanded_header](../b/build_dummy_expanded_header.md)
   - HeapTupleHasExternal
   - ExpandedRecordGetRODatum
 - Called from (representative examples):
-  - expanded_record_set_tuple
+  - [expanded_record_set_tuple](../e/expanded_record_set_tuple.md)
 
 ## Notes and Other Information
 - Function is marked static and pg_noinline, indicating internal use with call-site optimization disabled

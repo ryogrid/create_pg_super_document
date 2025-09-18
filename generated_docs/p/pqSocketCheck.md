@@ -20,17 +20,17 @@ pqSocketCheck is the foundational socket monitoring function used by other libpq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsocketPoll
-  - pgtls_read_pending (SSL only)
-  - libpq_append_conn_error
+  - [PQsocketPoll](../P/PQsocketPoll.md)
+  - [pgtls_read_pending](pgtls_read_pending.md) (SSL only)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - PGINVALID_SOCKET
   - SOCK_ERRNO
   - SOCK_STRERROR
   - EINTR
 - Called from (representative examples):
-  - pqWaitTimed
-  - pqReadReady
-  - pqWriteReady
+  - [pqWaitTimed](pqWaitTimed.md)
+  - [pqReadReady](pqReadReady.md)
+  - [pqWriteReady](pqWriteReady.md)
 
 ## Notes and Other Information
 - Returns >0 if one or more conditions are met, 0 if timeout occurred, -1 if error occurred

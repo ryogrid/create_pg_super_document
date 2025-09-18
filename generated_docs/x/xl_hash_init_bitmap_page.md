@@ -23,9 +23,9 @@ The operation involves 2 backup blocks:
 - Functions called/Symbols referenced:
   - uint16 (type)
 - Called from (representative examples):
-  - hash_xlog_init_bitmap_page (WAL replay function for bitmap page initialization)
-  - _hash_init (hash index initialization function)
-  - hash_desc (hash WAL record description function)
+  - [hash_xlog_init_bitmap_page](../h/hash_xlog_init_bitmap_page.md) (WAL replay function for bitmap page initialization)
+  - [_hash_init](../h/_hash_init.md) (hash index initialization function)
+  - [hash_desc](../h/hash_desc.md) (hash WAL record description function)
   - SizeOfHashInitBitmapPage (macro for calculating structure size)
 
 ## Notes and Other Information

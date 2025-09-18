@@ -21,13 +21,13 @@ This function releases a lock on an already-open relation without closing the re
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to set up lock tag for relation)
-  - LockRelease (performs the actual lock release)
+  - [LockRelease](../L/LockRelease.md) (performs the actual lock release)
 - Types referenced:
-  - Relation (relation descriptor structure)
+  - [Relation](../R/Relation.md) (relation descriptor structure)
   - LOCKTAG (lock tag structure)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
-  - lazy_truncate_heap (in vacuumlazy.c:2625, 2641, 2657)
+  - [lazy_truncate_heap](../l/lazy_truncate_heap.md) (in vacuumlazy.c:2625, 2641, 2657)
 
 ## Notes and Other Information
 - This is a convenience function that automatically extracts lock information from the Relation structure

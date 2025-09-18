@@ -41,7 +41,7 @@ The function processes input character by character, maintaining state about wha
   - isdigit (character classification)
   - elog (debug logging)
 - Called from (representative examples):
-  - NUM_processor (formatting.c:6040)
+  - [NUM_processor](NUM_processor.md) (formatting.c:6040)
   - DCH_ZONED (formatting.c:1079)
 
 ## Notes and Other Information

@@ -24,7 +24,7 @@ This function performs timestamp subtraction by computing the difference between
   - TIMESTAMP_NOT_FINITE
   - PGTYPES_TS_ERR_EINFTIME
 - Called from (representative examples):
-  - dtsub (in compatlib)
+  - [dtsub](../d/dtsub.md) (in compatlib)
 
 ## Notes and Other Information
 - Returns 0 on success, PGTYPES_TS_ERR_EINFTIME if either timestamp is infinite

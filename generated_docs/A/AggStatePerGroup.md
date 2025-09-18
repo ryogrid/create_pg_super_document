@@ -34,20 +34,20 @@ AggStatePerGroup represents the per-aggregate-per-group working state that track
   - AggStatePerGroupData
   - Datum (PostgreSQL's generic data value type)
 - Called from (representative examples):
-  - ExecInterpExpr (various aggregate evaluation functions)
-  - ExecAggInitGroup
-  - ExecAggPlainTransByVal
-  - ExecAggPlainTransByRef
-  - initialize_aggregate
-  - advance_transition_function
-  - process_ordered_aggregate_single
-  - process_ordered_aggregate_multi
-  - finalize_aggregate
-  - finalize_partialaggregate
-  - initialize_hash_entry
-  - lookup_hash_entries
-  - agg_retrieve_direct
-  - agg_retrieve_hash_table_in_memory
+  - [ExecInterpExpr](../E/ExecInterpExpr.md) (various aggregate evaluation functions)
+  - [ExecAggInitGroup](../E/ExecAggInitGroup.md)
+  - [ExecAggPlainTransByVal](../E/ExecAggPlainTransByVal.md)
+  - [ExecAggPlainTransByRef](../E/ExecAggPlainTransByRef.md)
+  - [initialize_aggregate](../i/initialize_aggregate.md)
+  - [advance_transition_function](../a/advance_transition_function.md)
+  - [process_ordered_aggregate_single](../p/process_ordered_aggregate_single.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
+  - [finalize_aggregate](../f/finalize_aggregate.md)
+  - [finalize_partialaggregate](../f/finalize_partialaggregate.md)
+  - [initialize_hash_entry](../i/initialize_hash_entry.md)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
 
 ## Notes and Other Information
 - The structure uses field number defines (FIELDNO_AGGSTATEPERGROUPDATA_*) for efficient access in compiled expressions

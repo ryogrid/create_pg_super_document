@@ -23,12 +23,12 @@ The function follows the standard callback pattern used throughout PostgreSQL fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteManifestState (struct cast from callback_data for accessing file state)
+  - [WriteManifestState](../W/WriteManifestState.md) (struct cast from callback_data for accessing file state)
   - fwrite (standard C library function to write data to file)
-  - pg_fatal (PostgreSQL error handling function for fatal errors)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling function for fatal errors)
 
 - Called from (representative examples):
-  - ReceiveBackupManifest (which sets up the callback for ReceiveCopyData)
+  - [ReceiveBackupManifest](ReceiveBackupManifest.md) (which sets up the callback for ReceiveCopyData)
 
 ## Notes and Other Information
 - Implements robust error handling by explicitly checking errno and assuming disk space issues when errno is not set by fwrite

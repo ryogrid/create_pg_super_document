@@ -30,16 +30,16 @@ The function uses caching via `RecordCompareData` to avoid repeated type lookups
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
-  - lookup_rowtype_tupdesc
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - HeapTupleHeaderGetDatumLength
-  - ItemPointerSetInvalid
-  - MemoryContextAlloc
-  - heap_deform_tuple
-  - datum_image_eq
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [datum_image_eq](../d/datum_image_eq.md)
   - ReleaseTupleDesc
   - PG_FREE_IF_COPY
 - Called from (representative examples):
-  - record_image_ne
+  - [record_image_ne](record_image_ne.md)
 
 ## Notes and Other Information
 - Returns a PostgreSQL Datum boolean value (true for identical, false otherwise)

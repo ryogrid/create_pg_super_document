@@ -20,7 +20,7 @@ Like eqsel, this function supports operators that are not strict inequality ("!=
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eqsel_internal
+  - [eqsel_internal](../e/eqsel_internal.md)
 - Called from (representative examples):
   - Used by PostgreSQL's query planner for selectivity estimation
   - Referenced in operator catalog entries for inequality operators

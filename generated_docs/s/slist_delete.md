@@ -20,11 +20,11 @@ The function includes assertion checking to ensure that the specified node is ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_check
+  - [slist_check](slist_check.md)
   - Assert (macro)
 - Called from (representative examples):
-  - RemoveGUCFromLists
-  - reapply_stacked_values
+  - [RemoveGUCFromLists](../R/RemoveGUCFromLists.md)
+  - [reapply_stacked_values](../r/reapply_stacked_values.md)
 
 ## Notes and Other Information
 - **Performance Warning**: This is an O(n) operation that requires traversing the list from the beginning. For better performance when the current position is known, consider using  instead

@@ -29,18 +29,18 @@ Key safety features include comprehensive error handling with PG_ENSURE_ERROR_CL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - do_pg_backup_start
-  - do_pg_backup_stop
-  - sendDir
-  - sendTablespace
-  - sendFileWithContent
-  - build_backup_content
-  - CheckXLogRemoved
-  - compareWalFileNames
+  - [do_pg_backup_start](../d/do_pg_backup_start.md)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md)
+  - [sendDir](../s/sendDir.md)
+  - [sendTablespace](../s/sendTablespace.md)
+  - [sendFileWithContent](../s/sendFileWithContent.md)
+  - [build_backup_content](../b/build_backup_content.md)
+  - [CheckXLogRemoved](../C/CheckXLogRemoved.md)
+  - [compareWalFileNames](../c/compareWalFileNames.md)
   - bbsink_begin_backup/bbsink_end_backup
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
 - Called from (representative examples):
-  - SendBaseBackup
+  - [SendBaseBackup](../S/SendBaseBackup.md)
 
 ## Notes and Other Information
 - This function is static and split out primarily to avoid compiler warnings about variables potentially being clobbered by longjmp

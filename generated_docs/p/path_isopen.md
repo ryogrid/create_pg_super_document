@@ -22,7 +22,7 @@ The `path_isopen` function is a conversion operator that checks if a PATH object
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P: Macro to extract PATH argument from function call
   - PG_RETURN_BOOL: Macro to return boolean result
-  - PATH: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
 
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through SQL function framework)

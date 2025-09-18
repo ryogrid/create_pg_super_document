@@ -22,14 +22,14 @@ The function optimizes performance by reusing existing pinned buffers when possi
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)
-  - BufferGetBlockNumber (gets block number from buffer)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
   - ReleaseBuffer (releases previously pinned buffer)
-  - vm_readbuf (internal function to read/extend visibility map pages)
+  - [vm_readbuf](vm_readbuf.md) (internal function to read/extend visibility map pages)
 - Called from (representative examples):
-  - heap_delete (pins before clearing bits during tuple deletion)
-  - heap_update (pins before setting/clearing bits during tuple updates)
-  - RelationGetBufferForTuple (pins during tuple insertion operations)
-  - lazy_scan_heap (pins during vacuum operations)
+  - [heap_delete](../h/heap_delete.md) (pins before clearing bits during tuple deletion)
+  - [heap_update](../h/heap_update.md) (pins before setting/clearing bits during tuple updates)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md) (pins during tuple insertion operations)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (pins during vacuum operations)
 
 ## Notes and Other Information
 - Part of a two-phase protocol: pin first, then set bits with visibilitymap_set

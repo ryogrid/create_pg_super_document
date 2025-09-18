@@ -30,18 +30,18 @@ The function employs a "cheating" approach by building an untransformed operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth
-  - A_Expr
-  - markVarForSelectPriv
+  - [A_Expr](../A/A_Expr.md)
+  - [markVarForSelectPriv](../m/markVarForSelectPriv.md)
   - makeSimpleA_Expr
   - AEXPR_OP
   - copyObject
-  - makeBoolExpr
+  - [makeBoolExpr](../m/makeBoolExpr.md)
   - AND_EXPR
-  - transformExpr
+  - [transformExpr](transformExpr.md)
   - EXPR_KIND_JOIN_USING
-  - coerce_to_boolean
+  - [coerce_to_boolean](../c/coerce_to_boolean.md)
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - This is a static (internal) function within parse_clause.c, not exposed in the public API

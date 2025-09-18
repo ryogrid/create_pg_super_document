@@ -26,7 +26,7 @@ Key differences from inet_cidr_pton_ipv4: this function doesn't perform classful
   - ENOENT (error constant for invalid format)
   - Standard C library functions: isdigit, strchr
 - Called from (representative examples):
-  - pg_inet_net_pton (src/backend/utils/adt/inet_net_pton.c:68)
+  - [pg_inet_net_pton](../p/pg_inet_net_pton.md) (src/backend/utils/adt/inet_net_pton.c:68)
 
 ## Notes and Other Information
 - Returns the number of bits in the prefix length on success, -1 on failure

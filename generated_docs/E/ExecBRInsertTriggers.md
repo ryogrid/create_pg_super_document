@@ -34,22 +34,22 @@ The function iterates through all applicable triggers, calling each one with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTuple (converts slot to HeapTuple for trigger processing)
+  - [ExecFetchSlotHeapTuple](ExecFetchSlotHeapTuple.md) (converts slot to HeapTuple for trigger processing)
   - TRIGGER_TYPE_MATCHES (trigger type filtering macro)
-  - TriggerEnabled (trigger enable state and condition checking)
-  - ExecCallTriggerFunc (actual trigger execution)
-  - ExecForceStoreHeapTuple (stores modified tuple back to slot)
-  - ExecPartitionCheck (validates partition constraints)
-  - heap_freetuple (memory cleanup)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (trigger enable state and condition checking)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md) (actual trigger execution)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md) (stores modified tuple back to slot)
+  - [ExecPartitionCheck](ExecPartitionCheck.md) (validates partition constraints)
+  - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)
   - GetPerTupleMemoryContext (memory context management)
 - Data structures used:
   - TriggerData (trigger execution context)
   - TriggerDesc (trigger descriptor from relinfo)
   - Trigger (individual trigger structure)
 - Called from (representative examples):
-  - CopyFrom (during COPY FROM operations)
-  - ExecInsert (from nodeModifyTable executor)
-  - ExecSimpleRelationInsert (logical replication)
+  - [CopyFrom](../C/CopyFrom.md) (during COPY FROM operations)
+  - [ExecInsert](ExecInsert.md) (from nodeModifyTable executor)
+  - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md) (logical replication)
 
 ## Notes and Other Information
 - BEFORE ROW triggers fire once per tuple and can inspect/modify individual row data

@@ -23,12 +23,12 @@ The function distinguishes between these cases using the  flag in the range tabl
 - Functions called/Symbols referenced:
   - planner_rt_fetch
   - RTE_CTE
-  - clamp_row_est
-  - set_baserel_size_estimates
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
   - recursive_worktable_factor (configuration parameter)
 - Called from (representative examples):
-  - set_cte_pathlist
-  - set_worktable_pathlist
+  - [set_cte_pathlist](set_cte_pathlist.md)
+  - [set_worktable_pathlist](set_worktable_pathlist.md)
 
 ## Notes and Other Information
 - Handles both regular and recursive CTE estimation with different strategies

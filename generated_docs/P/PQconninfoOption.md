@@ -28,12 +28,12 @@ The structure serves multiple purposes: it provides a standardized way to repres
   - (This structure doesn't directly call functions but is used by connection-related functions)
 - Called from (representative examples):
   - PQconndefaults
-  - PQconninfoParse
-  - PQconninfo
-  - PQconninfoFree
-  - conninfo_init
-  - conninfo_parse
-  - parseServiceInfo
+  - [PQconninfoParse](PQconninfoParse.md)
+  - [PQconninfo](PQconninfo.md)
+  - [PQconninfoFree](PQconninfoFree.md)
+  - [conninfo_init](../c/conninfo_init.md)
+  - [conninfo_parse](../c/conninfo_parse.md)
+  - [parseServiceInfo](../p/parseServiceInfo.md)
 
 ## Notes and Other Information
 - This structure is central to libpq's connection parameter management system

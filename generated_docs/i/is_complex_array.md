@@ -24,12 +24,12 @@ This function is used internally within the type coercion system to make decisio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_element_type
+  - [get_element_type](../g/get_element_type.md)
   - ISCOMPLEX
 - Called from (representative examples):
-  - coerce_type (src/backend/parser/parse_coerce.c:495, 502)
-  - can_coerce_type (src/backend/parser/parse_coerce.c:623, 631)  
-  - IsBinaryCoercibleWithCast (src/backend/parser/parse_coerce.c:3105)
+  - [coerce_type](../c/coerce_type.md) (src/backend/parser/parse_coerce.c:495, 502)
+  - [can_coerce_type](../c/can_coerce_type.md) (src/backend/parser/parse_coerce.c:623, 631)  
+  - [IsBinaryCoercibleWithCast](../I/IsBinaryCoercibleWithCast.md) (src/backend/parser/parse_coerce.c:3105)
 
 ## Notes and Other Information
 - This is a static function, only visible within parse_coerce.c

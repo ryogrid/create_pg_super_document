@@ -19,12 +19,12 @@ This function addresses morphological conflicts that arise during Lithuanian ste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function for conflict pattern detection
-  - slice_from_s: String replacement function for applying corrections
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function for conflict pattern detection
+  - [slice_from_s](../s/slice_from_s.md): String replacement function for applying corrections
   - a_2: Array of 11 Lithuanian conflict patterns
   - s_0 through s_7: Replacement string constants for conflict resolution
 - Called from (representative examples):
-  - lithuanian_UTF_8_stem: Main Lithuanian stemming function
+  - [lithuanian_UTF_8_stem](../l/lithuanian_UTF_8_stem.md): Main Lithuanian stemming function
 
 ## Notes and Other Information
 - Returns 1 on successful transformation, 0 if no conflicts found or optimization checks fail

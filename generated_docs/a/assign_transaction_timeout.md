@@ -18,7 +18,7 @@ This function serves as a GUC (Grand Unified Configuration) assign hook that is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState: Checks if currently within a transaction block
+  - [IsTransactionState](../I/IsTransactionState.md): Checks if currently within a transaction block
   - get_timeout_active: Determines if the TRANSACTION_TIMEOUT is currently active
   - enable_timeout_after: Enables the transaction timeout with specified duration
   - disable_timeout: Disables the transaction timeout

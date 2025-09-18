@@ -22,11 +22,11 @@ The calculation includes the base size of BTParallelScanDescData plus additional
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTParallelScanDescData (structure type)
+  - [BTParallelScanDescData](../B/BTParallelScanDescData.md) (structure type)
   - offsetof (macro)
   - sizeof (operator)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - The function takes a pessimistic approach by assuming all scan keys will require array storage

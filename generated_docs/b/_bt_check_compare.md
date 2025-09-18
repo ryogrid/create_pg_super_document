@@ -197,15 +197,15 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_check_rowcompare
-  - index_getattr
-  - BTreeTupleIsPivot
-  - FunctionCall2Coll
-  - _bt_advance_array_keys
+  - [_bt_check_rowcompare](_bt_check_rowcompare.md)
+  - [index_getattr](../i/index_getattr.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
   - ScanDirectionIsForward/ScanDirectionIsBackward
 - Called from (representative examples):
-  - _bt_checkkeys
-  - _bt_advance_array_keys
+  - [_bt_checkkeys](_bt_checkkeys.md)
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
 
 ## Notes and Other Information
 - Handles complex scan key logic including required vs non-required keys in different directions

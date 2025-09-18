@@ -27,16 +27,16 @@ The function is typically called in two scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - performDeletion
+  - [performDeletion](../p/performDeletion.md)
   - DROP_CASCADE
   - PERFORM_DELETION_INTERNAL
   - PERFORM_DELETION_QUIETLY
   - PERFORM_DELETION_SKIP_ORIGINAL
   - PERFORM_DELETION_SKIP_EXTENSIONS
 - Called from (representative examples):
-  - InitTempTableNamespace
-  - RemoveTempRelationsCallback
-  - ResetTempTableNamespace
+  - [InitTempTableNamespace](../I/InitTempTableNamespace.md)
+  - [RemoveTempRelationsCallback](RemoveTempRelationsCallback.md)
+  - [ResetTempTableNamespace](ResetTempTableNamespace.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the namespace.c file

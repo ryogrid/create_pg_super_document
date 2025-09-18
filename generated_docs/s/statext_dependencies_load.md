@@ -20,15 +20,15 @@ The function follows PostgreSQL's standard pattern for loading statistics data: 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 (system cache lookup)
-  - SysCacheGetAttr (attribute extraction from cached tuple)
-  - statext_dependencies_deserialize (converts binary data to MVDependencies structure)
+  - [SearchSysCache2](../S/SearchSysCache2.md) (system cache lookup)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (attribute extraction from cached tuple)
+  - [statext_dependencies_deserialize](statext_dependencies_deserialize.md) (converts binary data to MVDependencies structure)
   - DatumGetByteaPP (extracts bytea data from Datum)
-  - ReleaseSysCache (cleanup cached tuple)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cleanup cached tuple)
   - STATS_EXT_DEPENDENCIES (constant identifying dependency statistics type)
 
 - Called from (representative examples):
-  - dependencies_clauselist_selectivity (for selectivity estimation using dependencies)
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md) (for selectivity estimation using dependencies)
 
 ## Notes and Other Information
 - Throws ERROR if the cache lookup fails or if dependency statistics haven't been built yet

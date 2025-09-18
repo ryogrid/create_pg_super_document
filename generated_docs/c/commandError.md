@@ -27,13 +27,13 @@ Key characteristics:
   - Assert
   - pg_log_info
 - Types used:
-  - CState
+  - [CState](../C/CState.md)
 - Constants used:
   - SQL_COMMAND
 - Global variables referenced:
   - sql_script
 - Called from (representative examples):
-  - readCommandResponse
+  - [readCommandResponse](../r/readCommandResponse.md)
 
 ## Notes and Other Information
 - The function is declared as static, indicating it's for internal use within the pgbench module

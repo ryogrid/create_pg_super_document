@@ -29,7 +29,7 @@ Key behaviors:
   - PG_GETARG_INT64 (extract 64-bit integer argument)
   - PG_GETARG_INT32 (extract integer argument for typmod)
   - VARBITTOTALLEN (calculate total storage length)
-  - palloc (allocate memory for result)
+  - [palloc](../p/palloc.md) (allocate memory for result)
   - SET_VARSIZE (set variable-length object size)
   - VARBITLEN (set bit string length)
   - VARBITS (access bit data)

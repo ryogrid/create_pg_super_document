@@ -22,10 +22,10 @@ This function iterates through an array of child plan states and recursively cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainNode
+  - [ExplainNode](ExplainNode.md)
   - ExplainState (struct)
 - Called from (representative examples):
-  - ExplainNode (for Append, MergeAppend, BitmapAnd, BitmapOr nodes)
+  - [ExplainNode](ExplainNode.md) (for Append, MergeAppend, BitmapAnd, BitmapOr nodes)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

@@ -20,9 +20,9 @@ This function handles the replay of a hash index split operation during PostgreS
   - XLogReadBufferForRedo
   - BLK_RESTORED
   - elog
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery module

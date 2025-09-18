@@ -25,7 +25,7 @@ The function uses  to detect range errors from  and performs additional validati
   - pg_log_error (PostgreSQL logging function)
   - unlikely (PostgreSQL optimization macro)
 - Called from (representative examples):
-  - makeVariableValue (at src/bin/pgbench/pgbench.c:1713)
+  - [makeVariableValue](../m/makeVariableValue.md) (at src/bin/pgbench/pgbench.c:1713)
 
 ## Notes and Other Information
 - Returns true on successful conversion, false on any error condition

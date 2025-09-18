@@ -24,14 +24,14 @@ This function handles the allocation of data structures needed to track dead tup
   - VacDeadItemsInfo
   - AmAutoVacuumWorkerProcess
   - RelationUsesLocalBuffers
-  - parallel_vacuum_init
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
   - ParallelVacuumIsActive
-  - parallel_vacuum_get_dead_items
-  - TidStoreCreateLocal
+  - [parallel_vacuum_get_dead_items](../p/parallel_vacuum_get_dead_items.md)
+  - [TidStoreCreateLocal](../T/TidStoreCreateLocal.md)
   - autovacuum_work_mem
   - maintenance_work_mem
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
 
 ## Notes and Other Information
 The function implements intelligent memory management by selecting appropriate work memory limits and choosing between local and shared memory allocation based on parallelism requirements. It ensures that parallel vacuum is only attempted when beneficial (multiple indexes) and safe (non-temporary tables). The parallel vacuum initialization includes proper error handling and resource cleanup. The memory allocation strategy optimizes for the expected vacuum workload while respecting configured memory limits.

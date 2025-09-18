@@ -29,9 +29,9 @@ The function supports all standard PostgreSQL number formatting patterns includi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NUM_cache, NUM_processor, numeric_in, DirectFunctionCall3, DirectFunctionCall2
-  - int64_to_numeric, numeric_power, numeric_mul
-  - CStringGetDatum, NumericGetDatum, DatumGetNumeric, PG_GET_COLLATION
+  - [NUM_cache](../N/NUM_cache.md), NUM_processor, numeric_in, DirectFunctionCall3, DirectFunctionCall2
+  - [int64_to_numeric](../i/int64_to_numeric.md), numeric_power, numeric_mul
+  - [CStringGetDatum](../C/CStringGetDatum.md), NumericGetDatum, DatumGetNumeric, PG_GET_COLLATION
   - VARSIZE_ANY_EXHDR, VARDATA_ANY, palloc, pfree
   - IS_MULTI (macro for checking multiplicative formatting)
 - Called from (representative examples):

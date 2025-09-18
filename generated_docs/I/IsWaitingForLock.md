@@ -22,7 +22,7 @@ This function takes no parameters and returns a boolean value indicating the loc
   - None (only accesses the global lockAwaited variable)
 
 - Called from (representative examples):
-  - ProcessRecoveryConflictInterrupt
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
 
 ## Notes and Other Information
 - Returns true if the process is currently waiting for a lock, false otherwise

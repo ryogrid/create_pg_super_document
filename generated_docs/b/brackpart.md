@@ -25,19 +25,19 @@ The `brackpart` function processes individual components within bracket expressi
   - ERR (error reporting macro)
   - NEXT (advances to next token)
   - SEE (checks current token type)
-  - onechr (handles single character)
-  - scanplain (scans plain text within delimiters)
+  - [onechr](../o/onechr.md) (handles single character)
+  - [scanplain](../s/scanplain.md) (scans plain text within delimiters)
   - INSIST (assertion with error handling)
-  - element (processes collating elements)
-  - eclass (handles equivalence classes)
-  - subcolorcvec (creates arcs for character vector)
+  - [element](../e/element.md) (processes collating elements)
+  - [eclass](../e/eclass.md) (handles equivalence classes)
+  - [subcolorcvec](../s/subcolorcvec.md) (creates arcs for character vector)
   - lookupcclass (looks up character class)
-  - charclass (handles character classes)
-  - range (creates character ranges)
+  - [charclass](../c/charclass.md) (handles character classes)
+  - [range](../r/range.md) (creates character ranges)
   - NOERR/NOTE (error handling macros)
   - Various constants: REG_ERANGE, REG_ECOLLATE, REG_ECTYPE, REG_ASSERT, REG_ICASE, REG_UUNPORT
 - Called from:
-  - bracket (main bracket expression handler)
+  - [bracket](bracket.md) (main bracket expression handler)
 
 ## Notes and Other Information
 - Supports multiple bracket element types: plain chars, ranges, collating elements, equivalence classes, character classes

@@ -21,14 +21,14 @@ The  function serves as a wrapper around  that provides error suppression capabi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeItemOptUnwrapResult
-  - JsonPathExecContext (type)
+  - [executeItemOptUnwrapResult](executeItemOptUnwrapResult.md)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (type)
   - JsonPathItem (type)
-  - JsonValueList (type)
-  - JsonPathExecResult (return type)
+  - [JsonValueList](../J/JsonValueList.md) (type)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (return type)
 - Called from (representative examples):
-  - executeBoolItem
-  - executePredicate
+  - [executeBoolItem](executeBoolItem.md)
+  - [executePredicate](executePredicate.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c

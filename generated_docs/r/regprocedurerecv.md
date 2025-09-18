@@ -23,7 +23,7 @@ The function is part of PostgreSQL's type system infrastructure and is automatic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidrecv
+  - [oidrecv](../o/oidrecv.md)
   - fcinfo (function call context)
 - Called from:
   - Automatically invoked by PostgreSQL's type system when receiving regprocedure values in binary format

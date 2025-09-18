@@ -25,12 +25,12 @@ The function uses strtof() as the primary parsing mechanism but supplements it w
 - Functions called/Symbols referenced:
   - ereturn (error handling)
   - strtof (standard library float parsing)
-  - pg_strncasecmp (case-insensitive string comparison)
-  - get_float4_nan (NaN value generation)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
+  - [get_float4_nan](../g/get_float4_nan.md) (NaN value generation)
   - get_float4_infinity (infinity value generation)
   - isinf (infinity check)
 - Called from (representative examples):
-  - float4in
+  - [float4in](float4in.md)
 
 ## Notes and Other Information
 - Designed to be platform-independent and handles various special cases that strtof() might not handle consistently

@@ -30,10 +30,10 @@ GinState serves as the central working structure for GIN index operations, encap
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant)
 - Called from (representative examples):
-  - initGinState
+  - [initGinState](../i/initGinState.md)
   - ginFormTuple
-  - ginReadTuple
-  - ginExtractEntries
+  - [ginReadTuple](../g/ginReadTuple.md)
+  - [ginExtractEntries](../g/ginExtractEntries.md)
   - ginInsert operations
 
 ## Notes and Other Information

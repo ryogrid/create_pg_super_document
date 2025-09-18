@@ -27,7 +27,7 @@ The function is designed to be called during shutdown sequences and deliberately
   - sock_paths (global list variable containing socket file paths)
 
 - Called from (representative examples):
-  - CloseServerPorts (during postmaster shutdown to clean up socket files)
+  - [CloseServerPorts](../C/CloseServerPorts.md) (during postmaster shutdown to clean up socket files)
 
 ## Notes and Other Information
 - This function is part of the cleanup process during postmaster termination

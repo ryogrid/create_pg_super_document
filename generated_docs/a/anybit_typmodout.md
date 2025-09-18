@@ -23,11 +23,11 @@ This function is typically used when PostgreSQL needs to display the schema info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - snprintf (string formatting)
 - Called from (representative examples):
-  - bittypmodout
-  - varbittypmodout
+  - [bittypmodout](../b/bittypmodout.md)
+  - [varbittypmodout](../v/varbittypmodout.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the varbit.c file

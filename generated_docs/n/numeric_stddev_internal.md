@@ -30,25 +30,25 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericAggState (aggregate state structure)
+  - [NumericAggState](../N/NumericAggState.md) (aggregate state structure)
   - NA_TOTAL_COUNT (macro to get total count from state)
-  - make_result (creates Numeric from NumericVar)
+  - [make_result](../m/make_result.md) (creates Numeric from NumericVar)
   - init_var (initializes NumericVar)
-  - int64_to_numericvar (converts int64 to NumericVar)
-  - accum_sum_final (finalizes accumulated sum)
-  - sub_var (subtraction of NumericVar)
-  - mul_var (multiplication of NumericVar)
-  - cmp_var (comparison of NumericVar)
-  - select_div_scale (selects appropriate scale for division)
-  - div_var (division of NumericVar)
-  - sqrt_var (square root of NumericVar)
-  - free_var (frees NumericVar memory)
+  - [int64_to_numericvar](../i/int64_to_numericvar.md) (converts int64 to NumericVar)
+  - [accum_sum_final](../a/accum_sum_final.md) (finalizes accumulated sum)
+  - [sub_var](../s/sub_var.md) (subtraction of NumericVar)
+  - [mul_var](../m/mul_var.md) (multiplication of NumericVar)
+  - [cmp_var](../c/cmp_var.md) (comparison of NumericVar)
+  - [select_div_scale](../s/select_div_scale.md) (selects appropriate scale for division)
+  - [div_var](../d/div_var.md) (division of NumericVar)
+  - [sqrt_var](../s/sqrt_var.md) (square root of NumericVar)
+  - [free_var](../f/free_var.md) (frees NumericVar memory)
 - Called from (representative examples):
-  - numeric_var_samp
-  - numeric_stddev_samp
-  - numeric_var_pop
-  - numeric_stddev_pop
-  - numeric_poly_stddev_internal
+  - [numeric_var_samp](numeric_var_samp.md)
+  - [numeric_stddev_samp](numeric_stddev_samp.md)
+  - [numeric_var_pop](numeric_var_pop.md)
+  - [numeric_stddev_pop](numeric_stddev_pop.md)
+  - [numeric_poly_stddev_internal](numeric_poly_stddev_internal.md)
 
 ## Notes and Other Information
 - Returns NULL for sample statistics when N <= 1 (mathematically undefined)

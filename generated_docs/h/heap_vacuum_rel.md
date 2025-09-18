@@ -29,18 +29,18 @@ The function handles both aggressive and non-aggressive vacuum modes, supports p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lazy_scan_heap (core vacuum work)
-  - vacuum_get_cutoffs (cutoff calculations)
-  - dead_items_alloc (memory management)
-  - vac_open_indexes / vac_close_indexes (index management)
-  - lazy_check_wraparound_failsafe (safety checks)
-  - should_attempt_truncation / lazy_truncate_heap (relation truncation)
-  - update_relstats_all_indexes (statistics updates)
-  - vac_update_relstats (relation statistics)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (core vacuum work)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md) (cutoff calculations)
+  - [dead_items_alloc](../d/dead_items_alloc.md) (memory management)
+  - [vac_open_indexes](../v/vac_open_indexes.md) / vac_close_indexes (index management)
+  - [lazy_check_wraparound_failsafe](../l/lazy_check_wraparound_failsafe.md) (safety checks)
+  - [should_attempt_truncation](../s/should_attempt_truncation.md) / lazy_truncate_heap (relation truncation)
+  - [update_relstats_all_indexes](../u/update_relstats_all_indexes.md) (statistics updates)
+  - [vac_update_relstats](../v/vac_update_relstats.md) (relation statistics)
   - pgstat_report_vacuum (statistics reporting)
 
 - Called from (representative examples):
-  - SampleHeapTupleVisible (src/backend/access/heap/heapam_handler.c:2632)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (src/backend/access/heap/heapam_handler.c:2632)
   - HeapScanIsValid (src/include/access/heapam.h:402)
 
 ## Notes and Other Information

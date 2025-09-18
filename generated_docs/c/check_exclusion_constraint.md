@@ -26,12 +26,12 @@ The function uses the  mode internally, which means it will wait for concurrent 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_exclusion_or_unique_constraint
+  - [check_exclusion_or_unique_constraint](check_exclusion_or_unique_constraint.md)
   - IndexInfo
   - CEOUC_WAIT
 - Called from (representative examples):
-  - IndexCheckExclusion
-  - unique_key_recheck
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md)
+  - [unique_key_recheck](../u/unique_key_recheck.md)
 
 ## Notes and Other Information
 - This is explicitly described as a "dumbed down version" for external callers who don't need the special modes available in the full constraint checking function

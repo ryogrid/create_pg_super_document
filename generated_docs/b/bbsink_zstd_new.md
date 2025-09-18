@@ -19,13 +19,13 @@ This function creates a new zstd compression basebackup sink that wraps another 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting when zstd not supported)
-  - palloc0 (for memory allocation)
+  - [palloc0](../p/palloc0.md) (for memory allocation)
   - bbsink_zstd_ops (operations table for zstd sink)
   - bbsink (base sink type)
-  - pg_compress_specification (compression configuration)
-  - bbsink_zstd (zstd-specific sink structure)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (compression configuration)
+  - [bbsink_zstd](bbsink_zstd.md) (zstd-specific sink structure)
 - Called from (representative examples):
-  - SendBaseBackup (main backup function)
+  - [SendBaseBackup](../S/SendBaseBackup.md) (main backup function)
   - bbsink_cleanup (cleanup utility)
 
 ## Notes and Other Information

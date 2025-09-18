@@ -18,14 +18,14 @@ This function implements a random number generator that produces values approxim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_double
+  - [pg_prng_double](../p/pg_prng_double.md)
   - pg_prng_state (type)
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - Uses inverse transform sampling method for Poisson distribution generation
 - Results are rounded to integers using standard rounding (+ 0.5)
-- The function ensures the uniform random value is in (0,1] by computing 1.0 - pg_prng_double(state)
+- The function ensures the uniform random value is in (0,1] by computing 1.0 - [pg_prng_double](../p/pg_prng_double.md)(state)
 - Part of pgbench utility for PostgreSQL performance testing
 - Located in src/bin/pgbench/pgbench.c:1179-1200

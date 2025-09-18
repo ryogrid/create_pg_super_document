@@ -21,12 +21,12 @@ This function constructs the essential column mapping infrastructure needed for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeVar (creates Var nodes for column references)
-  - SearchSysCacheAttName (looks up attributes by name)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (looks up attributes by name)
   - RelationGetDescr (gets relation tuple descriptor)
   - TupleDescAttr (accesses tuple descriptor attributes)
-  - palloc0 (allocates zeroed memory)
+  - [palloc0](../p/palloc0.md) (allocates zeroed memory)
 - Called from (representative examples):
-  - make_append_rel_info
+  - [make_append_rel_info](make_append_rel_info.md)
 
 ## Notes and Other Information
 - Handles the special case where parent and child are the same relation (self-inheritance)

@@ -21,7 +21,7 @@ This enumeration is used within PostgreSQL's asynchronous notification system to
 - Functions called/Symbols referenced:
   - Used as a field type in ListenAction struct
 - Called from (representative examples):
-  - queue_listen (src/backend/commands/async.c:690)
+  - [queue_listen](../q/queue_listen.md) (src/backend/commands/async.c:690)
   - Referenced in NotificationHash and related notification processing functions
 
 ## Notes and Other Information

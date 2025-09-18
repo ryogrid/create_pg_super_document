@@ -23,8 +23,8 @@ The function is essential for pg_dump's operation as it provides access to the c
   - pg_malloc_array (memory allocation function)
   - DumpableObject (structure type for dumpable objects)
 - Called from (representative examples):
-  - main (in src/bin/pg_dump/pg_dump.c:999)
-  - getTableDataFKConstraints (in src/bin/pg_dump/pg_dump.c:3021)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:999)
+  - [getTableDataFKConstraints](getTableDataFKConstraints.md) (in src/bin/pg_dump/pg_dump.c:3021)
 
 ## Notes and Other Information
 - The function accesses global variables  and  which maintain the internal object registry

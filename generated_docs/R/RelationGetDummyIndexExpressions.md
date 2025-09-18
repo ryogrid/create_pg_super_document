@@ -29,16 +29,16 @@ This approach is particularly useful in scenarios where you need type informatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_attisnull
-  - heap_getattr
-  - GetPgIndexDescriptor
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [GetPgIndexDescriptor](../G/GetPgIndexDescriptor.md)
   - TextDatumGetCString
-  - stringToNode
-  - makeConst
+  - [stringToNode](../s/stringToNode.md)
+  - [makeConst](../m/makeConst.md)
   - exprTypmod
-  - exprCollation
+  - [exprCollation](../e/exprCollation.md)
 - Called from (representative examples):
-  - BuildDummyIndexInfo
+  - [BuildDummyIndexInfo](../B/BuildDummyIndexInfo.md)
 
 ## Notes and Other Information
 - Returns NIL for relations without index expressions

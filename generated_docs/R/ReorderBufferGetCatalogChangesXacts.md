@@ -17,16 +17,16 @@ This function creates and returns a dynamically allocated array containing the t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_count
+  - [dclist_count](../d/dclist_count.md)
   - dclist_foreach
   - dclist_container
-  - palloc
+  - [palloc](../p/palloc.md)
   - qsort
-  - xidComparator
+  - [xidComparator](../x/xidComparator.md)
   - rbtxn_has_catalog_changes
   - Assert
 - Called from (representative examples):
-  - SnapBuildSerialize
+  - [SnapBuildSerialize](../S/SnapBuildSerialize.md)
 
 ## Notes and Other Information
 - Returns NULL if no transactions have catalog changes

@@ -22,12 +22,12 @@ The function uses a simple strategy to ensure uniqueness: it scans the entire ta
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic list operations)
 - Called from (representative examples):
-  - addTargetToSortList
-  - addTargetToGroupList
-  - transformDistinctOnClause
-  - create_unique_plan
-  - build_minmax_path
-  - generate_setop_child_grouplist
+  - [addTargetToSortList](addTargetToSortList.md)
+  - [addTargetToGroupList](addTargetToGroupList.md)
+  - [transformDistinctOnClause](../t/transformDistinctOnClause.md)
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [build_minmax_path](../b/build_minmax_path.md)
+  - [generate_setop_child_grouplist](../g/generate_setop_child_grouplist.md)
 
 ## Notes and Other Information
 - Simple but effective algorithm ensures no duplicate reference numbers

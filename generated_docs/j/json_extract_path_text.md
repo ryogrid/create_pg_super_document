@@ -23,7 +23,7 @@ For JSON string values, the function removes JSON escaping and quotes. For other
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_path_all` - Common worker function for JSON path extraction operations
+  - `[get_path_all](../g/get_path_all.md)` - Common worker function for JSON path extraction operations
 - Called from (representative examples):
   - No direct references found (used via SQL function calls)
 

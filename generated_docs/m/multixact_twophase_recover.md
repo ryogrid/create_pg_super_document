@@ -22,7 +22,7 @@ This function is part of the two-phase commit recovery mechanism and is responsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetDummyProcNumber
+  - [TwoPhaseGetDummyProcNumber](../T/TwoPhaseGetDummyProcNumber.md)
   - ProcNumber (type)
   - MultiXactId (type)
   - Assert (validation macro)

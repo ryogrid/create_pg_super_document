@@ -35,13 +35,13 @@ This function creates a RangeTblEntry of type RTE_VALUES for handling VALUES cla
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry creation)
   - copyObject (for alias copying)
-  - makeAlias (for default alias creation)
-  - makeString (for column name creation)
-  - buildNSItemFromLists (for ParseNamespaceItem construction)
+  - [makeAlias](../m/makeAlias.md) (for default alias creation)
+  - [makeString](../m/makeString.md) (for column name creation)
+  - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (for ParseNamespaceItem construction)
   - lappend (for list operations)
 - Called from (representative examples):
-  - transformInsertStmt (in analyze.c:890)
-  - transformValuesClause (in analyze.c:1639)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (in analyze.c:890)
+  - [transformValuesClause](../t/transformValuesClause.md) (in analyze.c:1639)
 
 ## Notes and Other Information
 - The function performs validation to ensure the number of column aliases matches the number of actual columns

@@ -17,24 +17,24 @@ This function takes no parameters and operates on global postmaster state variab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CountChildren
-  - ForgetUnstartedBackgroundWorkers
-  - SignalSomeChildren
-  - signal_child
-  - StartChildProcess
-  - ConfigurePostmasterWaitSet
-  - dlist_is_empty
-  - ExitPostmaster
-  - RemovePgTempFiles
-  - ResetBackgroundWorkerCrashTimes
-  - shmem_exit
-  - LocalProcessControlFile
-  - CreateSharedMemoryAndSemaphores
+  - [CountChildren](../C/CountChildren.md)
+  - [ForgetUnstartedBackgroundWorkers](../F/ForgetUnstartedBackgroundWorkers.md)
+  - [SignalSomeChildren](../S/SignalSomeChildren.md)
+  - [signal_child](../s/signal_child.md)
+  - [StartChildProcess](../S/StartChildProcess.md)
+  - [ConfigurePostmasterWaitSet](../C/ConfigurePostmasterWaitSet.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [ExitPostmaster](../E/ExitPostmaster.md)
+  - [RemovePgTempFiles](../R/RemovePgTempFiles.md)
+  - [ResetBackgroundWorkerCrashTimes](../R/ResetBackgroundWorkerCrashTimes.md)
+  - [shmem_exit](../s/shmem_exit.md)
+  - [LocalProcessControlFile](../L/LocalProcessControlFile.md)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
   - SignalChildren
 - Called from (representative examples):
-  - process_pm_shutdown_request
-  - process_pm_child_exit
-  - process_pm_pmsignal
+  - [process_pm_shutdown_request](../p/process_pm_shutdown_request.md)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md)
 
 ## Notes and Other Information
 - Implements PostgreSQL's coordinated shutdown sequence to ensure data consistency

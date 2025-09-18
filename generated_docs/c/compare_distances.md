@@ -25,10 +25,10 @@ However, the return values are inverted to achieve descending order (larger dist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DistanceValue
+  - [DistanceValue](../D/DistanceValue.md)
 
 - Called from (representative examples):
-  - build_distances
+  - [build_distances](../b/build_distances.md)
 
 ## Notes and Other Information
 - Specifically designed for descending order sorting (largest gaps first)

@@ -28,10 +28,10 @@ The DatabaseInfo structure encapsulates the key attributes of a database that ar
 - Functions called/Symbols referenced:
   - (No direct function calls from struct definition)
 - Called from (representative examples):
-  - RelationInfo (contains DatabaseInfo member)
-  - compile_database_list
-  - compile_relation_list_one_db
-  - main (in pg_amcheck)
+  - [RelationInfo](../R/RelationInfo.md) (contains DatabaseInfo member)
+  - [compile_database_list](../c/compile_database_list.md)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md)
+  - [main](../m/main.md) (in pg_amcheck)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_amcheck/pg_amcheck.c:149-154

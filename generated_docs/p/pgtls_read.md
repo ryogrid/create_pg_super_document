@@ -28,14 +28,14 @@ For SSL_ERROR_WANT_WRITE conditions (when SSL needs to write during a read opera
   - SSL_read (OpenSSL)
   - SSL_get_error (OpenSSL)
   - ERR_get_error (OpenSSL)
-  - appendPQExpBufferStr
-  - libpq_append_conn_error
-  - SSLerrmessage
-  - SSLerrfree
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [SSLerrmessage](../S/SSLerrmessage.md)
+  - [SSLerrfree](../S/SSLerrfree.md)
   - SOCK_STRERROR
   - Various errno constants (ECONNRESET, EPIPE)
 - Called from (representative examples):
-  - pqsecure_read (in fe-secure.c:189)
+  - [pqsecure_read](pqsecure_read.md) (in fe-secure.c:189)
   - pgunlock_thread (referenced in libpq-int.h:819)
 
 ## Notes and Other Information

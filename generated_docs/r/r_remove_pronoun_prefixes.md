@@ -30,12 +30,12 @@ The function follows the standard Snowball stemmer return convention where 1 ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among (called twice with arrays a_11 and a_12)
-  - eq_s (checks for 3-character pattern s_45)
-  - slice_del (removes the identified prefix)
-  - r_fix_va_start (fixes "va" patterns after prefix removal)
+  - [find_among](../f/find_among.md) (called twice with arrays a_11 and a_12)
+  - [eq_s](../e/eq_s.md) (checks for 3-character pattern s_45)
+  - [slice_del](../s/slice_del.md) (removes the identified prefix)
+  - [r_fix_va_start](r_fix_va_start.md) (fixes "va" patterns after prefix removal)
 - Called from (representative examples):
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - This function is specific to Tamil language morphology and handles pronoun prefix removal patterns

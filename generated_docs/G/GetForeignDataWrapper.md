@@ -17,18 +17,18 @@ GetForeignDataWrapper is a wrapper function that provides a convenient interface
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetForeignDataWrapperExtended
-  - ForeignDataWrapper (return type)
+  - [GetForeignDataWrapperExtended](GetForeignDataWrapperExtended.md)
+  - [ForeignDataWrapper](../F/ForeignDataWrapper.md) (return type)
 - Called from (representative examples):
-  - AlterForeignServerOwner_internal
-  - AlterForeignServer
-  - CreateUserMapping
-  - AlterUserMapping
-  - CreateForeignTable
-  - ImportForeignSchema
-  - ATExecAlterColumnGenericOptions
-  - ATExecGenericOptions
-  - GetForeignDataWrapperByName
+  - [AlterForeignServerOwner_internal](../A/AlterForeignServerOwner_internal.md)
+  - [AlterForeignServer](../A/AlterForeignServer.md)
+  - [CreateUserMapping](../C/CreateUserMapping.md)
+  - [AlterUserMapping](../A/AlterUserMapping.md)
+  - [CreateForeignTable](../C/CreateForeignTable.md)
+  - [ImportForeignSchema](../I/ImportForeignSchema.md)
+  - [ATExecAlterColumnGenericOptions](../A/ATExecAlterColumnGenericOptions.md)
+  - [ATExecGenericOptions](../A/ATExecGenericOptions.md)
+  - [GetForeignDataWrapperByName](GetForeignDataWrapperByName.md)
 
 ## Notes and Other Information
 - This is a convenience wrapper around GetForeignDataWrapperExtended with flags set to 0

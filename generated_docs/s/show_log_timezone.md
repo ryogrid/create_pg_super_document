@@ -19,7 +19,7 @@ The function always returns the canonical name of the timezone zone rather than 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_timezone_name
+  - [pg_get_timezone_name](../p/pg_get_timezone_name.md)
 - Called from (representative examples):
   - PostgreSQL GUC system (via function pointer in GUC_HOOKS_H)
 

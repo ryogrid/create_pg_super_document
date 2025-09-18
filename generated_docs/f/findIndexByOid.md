@@ -19,13 +19,13 @@ The function is declared as static, indicating it's used internally within the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId (generic object lookup by catalog ID)
-  - CatalogId (structure for identifying catalog objects)
+  - [findObjectByCatalogId](findObjectByCatalogId.md) (generic object lookup by catalog ID)
+  - [CatalogId](../C/CatalogId.md) (structure for identifying catalog objects)
   - DumpableObject (base structure type for dumpable objects)
   - DO_INDEX (enum value for index object type)
-  - IndxInfo (structure type for index information)
+  - [IndxInfo](../I/IndxInfo.md) (structure type for index information)
 - Called from (representative examples):
-  - flagInhIndexes (in src/bin/pg_dump/common.c:432)
+  - [flagInhIndexes](flagInhIndexes.md) (in src/bin/pg_dump/common.c:432)
   - Limited usage due to static scope
 
 ## Notes and Other Information

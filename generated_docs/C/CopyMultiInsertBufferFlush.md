@@ -30,15 +30,15 @@ The function also manages memory contexts, progress reporting, error context inf
 ## Dependencies
 - Functions called/Symbols referenced:
   - CopyFromState, EState, CommandId (state management types)
-  - ExecARInsertTriggers (trigger execution)
-  - pgstat_progress_update_param, PROGRESS_COPY_TUPLES_PROCESSED (progress reporting)
+  - [ExecARInsertTriggers](../E/ExecARInsertTriggers.md) (trigger execution)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md), PROGRESS_COPY_TUPLES_PROCESSED (progress reporting)
   - ExecClearTuple (slot cleanup)
   - GetPerTupleMemoryContext (memory management)
   - table_multi_insert (bulk insertion for regular tables)
-  - ExecInsertIndexTuples (index maintenance)
-  - list_free (memory cleanup)
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md) (index maintenance)
+  - [list_free](../l/list_free.md) (memory cleanup)
 - Called from (representative examples):
-  - CopyMultiInsertInfoFlush (at src/backend/commands/copyfrom.c:529)
+  - [CopyMultiInsertInfoFlush](CopyMultiInsertInfoFlush.md) (at src/backend/commands/copyfrom.c:529)
 
 ## Notes and Other Information
 The function switches memory contexts to GetPerTupleMemoryContext before calling table_multi_insert to prevent memory leaks. For FDW tables, it suppresses detailed error context information (relname_only mode) to avoid confusion when batch operations fail. The function ensures proper cleanup by clearing all tuple slots regardless of the insertion path taken.

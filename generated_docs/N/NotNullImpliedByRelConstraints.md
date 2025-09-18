@@ -37,10 +37,10 @@ This function is crucial for optimizing ALTER TABLE operations where adding NOT 
 - Functions called/Symbols referenced:
   - makeNode (to create NullTest node)
   - makeVar (to create variable reference for the column)
-  - ConstraintImpliedByRelConstraint (to perform the actual constraint analysis)
+  - [ConstraintImpliedByRelConstraint](../C/ConstraintImpliedByRelConstraint.md) (to perform the actual constraint analysis)
   - ereport (for debug logging)
 - Called from (representative examples):
-  - ATExecSetNotNull (to optimize NOT NULL constraint addition)
+  - [ATExecSetNotNull](../A/ATExecSetNotNull.md) (to optimize NOT NULL constraint addition)
 
 ## Notes and Other Information
 - The function returns true if existing constraints prove the column cannot be NULL, false otherwise

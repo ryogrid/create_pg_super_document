@@ -17,15 +17,15 @@ This function prepares an EPQ state for execution by handling two scenarios: ini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EvalPlanQualStart
-  - ExecSetParamPlanMulti
+  - [EvalPlanQualStart](EvalPlanQualStart.md)
+  - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md)
   - GetPerTupleExprContext
-  - bms_add_member
-  - EPQState
+  - [bms_add_member](../b/bms_add_member.md)
+  - [EPQState](EPQState.md)
 - Called from (representative examples):
-  - EvalPlanQual
-  - ExecLockRows
-  - ExecDelete
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [ExecLockRows](ExecLockRows.md)
+  - [ExecDelete](ExecDelete.md)
   - EvalPlanQualSetSlot
 
 ## Notes and Other Information

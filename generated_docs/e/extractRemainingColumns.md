@@ -35,14 +35,14 @@ The function is designed to handle wide tables efficiently by using bitmapset op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceColumn
-  - bms_add_member
+  - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - lfirst_int
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - lappend_int
-  - buildVarFromNSColumn
+  - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md)
 - Called from (representative examples):
-  - transformFromClauseItem (multiple locations)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static (internal) function within parse_clause.c, not exposed in the public API

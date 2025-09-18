@@ -27,10 +27,10 @@ By sorting in ascending order of delta values, the most balanced splits (lowest 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_s16: PostgreSQL utility function for comparing two int16 values
+  - [pg_cmp_s16](../p/pg_cmp_s16.md): PostgreSQL utility function for comparing two int16 values
   - SplitPoint: Structure type for split point data
 - Called from:
-  - _bt_deltasortsplits: Used as qsort comparison function
+  - [_bt_deltasortsplits](_bt_deltasortsplits.md): Used as qsort comparison function
 
 ## Notes and Other Information
 - Follows the standard qsort comparator interface with void pointers that are cast to SplitPoint pointers

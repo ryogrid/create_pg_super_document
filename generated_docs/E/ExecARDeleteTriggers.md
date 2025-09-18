@@ -26,19 +26,19 @@ The function includes special handling for foreign data wrapper tables, prohibit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetTriggerOldSlot
-  - GetTupleForTrigger
-  - ExecForceStoreHeapTuple
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
   - AfterTriggerSaveEvent
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Data types referenced:
   - TransitionCaptureState
   - TriggerDesc
   - LockTupleExclusive
   - TRIGGER_EVENT_DELETE
 - Called from (representative examples):
-  - ExecSimpleRelationDelete
-  - ExecDeleteEpilogue
+  - [ExecSimpleRelationDelete](ExecSimpleRelationDelete.md)
+  - [ExecDeleteEpilogue](ExecDeleteEpilogue.md)
 
 ## Notes and Other Information
 - This function does not directly execute triggers but rather queues them for execution via AfterTriggerSaveEvent

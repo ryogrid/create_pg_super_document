@@ -27,7 +27,7 @@ The bit manipulation involves calculating the target byte position and the bit p
   - PG_GETARG_INT32
   - VARBITLEN
   - VARSIZE
-  - palloc
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - VARBITS
   - VARBITBYTES

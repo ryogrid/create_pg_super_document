@@ -24,18 +24,18 @@ RT_FREE_NODE is part of PostgreSQL's templated radix tree implementation that ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - dsa_free (for shared memory deallocation when RT_SHMEM is defined)
-  - pfree (for regular memory deallocation)
+  - [dsa_free](../d/dsa_free.md) (for shared memory deallocation when RT_SHMEM is defined)
+  - [pfree](../p/pfree.md) (for regular memory deallocation)
   - Assert (for debug assertions)
   - RT_SIZE_CLASS_INFO array access
 - Called from (representative examples):
-  - RT_GROW_NODE_48 (after growing node48 to node256)
-  - RT_GROW_NODE_16 (after growing node16 to larger sizes)
-  - RT_GROW_NODE_4 (after growing node4 to node16)
-  - RT_SHRINK_NODE_256 (after shrinking node256 to node48)
-  - RT_SHRINK_NODE_48 (after shrinking node48 to node16)
-  - RT_SHRINK_NODE_16 (after shrinking node16 to node4)
-  - RT_REMOVE_CHILD_4 (when removing the last child from node4)
+  - [RT_GROW_NODE_48](RT_GROW_NODE_48.md) (after growing node48 to node256)
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md) (after growing node16 to larger sizes)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md) (after growing node4 to node16)
+  - [RT_SHRINK_NODE_256](RT_SHRINK_NODE_256.md) (after shrinking node256 to node48)
+  - [RT_SHRINK_NODE_48](RT_SHRINK_NODE_48.md) (after shrinking node48 to node16)
+  - [RT_SHRINK_NODE_16](RT_SHRINK_NODE_16.md) (after shrinking node16 to node4)
+  - [RT_REMOVE_CHILD_4](RT_REMOVE_CHILD_4.md) (when removing the last child from node4)
 
 ## Notes and Other Information
 - Updates debug statistics by decrementing the node count for the appropriate size class when RT_DEBUG is enabled

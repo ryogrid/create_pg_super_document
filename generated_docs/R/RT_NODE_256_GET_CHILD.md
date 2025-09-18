@@ -29,14 +29,14 @@ The function includes an assertion that verifies the requested chunk actually ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RT_NODE_256_IS_CHUNK_USED (for assertion checking)
+  - [RT_NODE_256_IS_CHUNK_USED](RT_NODE_256_IS_CHUNK_USED.md) (for assertion checking)
   - RT_MAKE_NAME (macro name generation)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - RT_NODE_SEARCH (during tree traversal)
-  - RT_ADD_CHILD_256 (when adding new children)
-  - RT_FREE_RECURSE (during tree cleanup)
-  - RT_NODE_ITERATE_NEXT (during iteration)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md) (during tree traversal)
+  - [RT_ADD_CHILD_256](RT_ADD_CHILD_256.md) (when adding new children)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (during tree cleanup)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md) (during iteration)
 
 ## Notes and Other Information
 - Returns a pointer to RT_PTR_ALLOC, which is defined as dsa_pointer for shared memory allocation

@@ -22,7 +22,7 @@ This static function performs the lazy initialization of an LZ4State structure, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LZ4State_compression_init (internal compression setup function)
+  - [LZ4State_compression_init](LZ4State_compression_init.md) (internal compression setup function)
   - LZ4F_createDecompressionContext (LZ4 library function)
   - LZ4F_isError (LZ4 library error checking function)
   - fwrite (standard C library I/O function)
@@ -33,8 +33,8 @@ This static function performs the lazy initialization of an LZ4State structure, 
   - LZ4F_VERSION (LZ4 library constant)
   - ENOSPC (system error code)
 - Called from:
-  - LZ4Stream_read_internal (at compress_lz4.c:461)
-  - LZ4Stream_write (at compress_lz4.c:580)
+  - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (at compress_lz4.c:461)
+  - [LZ4Stream_write](LZ4Stream_write.md) (at compress_lz4.c:580)
 
 ## Notes and Other Information
 - This function implements lazy initialization - it returns immediately if the state is already initialized (state->inited == true)

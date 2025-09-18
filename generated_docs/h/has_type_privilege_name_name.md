@@ -24,9 +24,9 @@ This PostgreSQL function implements privilege checking for database types using 
   - PG_GETARG_NAME
   - PG_GETARG_TEXT_PP
   - get_role_oid_or_public
-  - convert_type_name
-  - convert_type_priv_string
-  - object_aclcheck
+  - [convert_type_name](../c/convert_type_name.md)
+  - [convert_type_priv_string](../c/convert_type_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - This function is callable from SQL as has_type_privilege()

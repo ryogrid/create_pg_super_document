@@ -24,14 +24,14 @@ This function ensures that all streaming transaction state is properly cleaned u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subxact_info_write
-  - stream_close_file
-  - IsTransactionState
-  - CommitTransactionCommand
-  - MemoryContextReset
+  - [subxact_info_write](subxact_info_write.md)
+  - [stream_close_file](stream_close_file.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from:
-  - apply_handle_stream_stop
-  - stream_open_and_write_change
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md)
+  - [stream_open_and_write_change](stream_open_and_write_change.md)
 
 ## Notes and Other Information
 - Must be called after stream_start_internal has been invoked

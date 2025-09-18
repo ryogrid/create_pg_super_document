@@ -26,29 +26,29 @@ NumericAggState serves as the transition datatype for PostgreSQL's numeric aggre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericSumAccum (for sumX and sumX2 members)
+  - [NumericSumAccum](NumericSumAccum.md) (for sumX and sumX2 members)
 - Called from (representative examples):
-  - makeNumericAggState
-  - makeNumericAggStateCurrentContext
-  - do_numeric_accum
-  - do_numeric_discard
-  - numeric_accum
-  - numeric_combine
-  - numeric_avg_accum
-  - numeric_avg_combine
-  - numeric_serialize
-  - numeric_deserialize
-  - numeric_accum_inv
-  - int8_accum
-  - int8_accum_inv
-  - numeric_avg
-  - numeric_sum
-  - numeric_stddev_internal
-  - numeric_var_samp
-  - numeric_stddev_samp
-  - numeric_var_pop
-  - numeric_stddev_pop
-  - numeric_poly_stddev_internal
+  - [makeNumericAggState](../m/makeNumericAggState.md)
+  - [makeNumericAggStateCurrentContext](../m/makeNumericAggStateCurrentContext.md)
+  - [do_numeric_accum](../d/do_numeric_accum.md)
+  - [do_numeric_discard](../d/do_numeric_discard.md)
+  - [numeric_accum](../n/numeric_accum.md)
+  - [numeric_combine](../n/numeric_combine.md)
+  - [numeric_avg_accum](../n/numeric_avg_accum.md)
+  - [numeric_avg_combine](../n/numeric_avg_combine.md)
+  - [numeric_serialize](../n/numeric_serialize.md)
+  - [numeric_deserialize](../n/numeric_deserialize.md)
+  - [numeric_accum_inv](../n/numeric_accum_inv.md)
+  - [int8_accum](../i/int8_accum.md)
+  - [int8_accum_inv](../i/int8_accum_inv.md)
+  - [numeric_avg](../n/numeric_avg.md)
+  - [numeric_sum](../n/numeric_sum.md)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md)
+  - [numeric_var_samp](../n/numeric_var_samp.md)
+  - [numeric_stddev_samp](../n/numeric_stddev_samp.md)
+  - [numeric_var_pop](../n/numeric_var_pop.md)
+  - [numeric_stddev_pop](../n/numeric_stddev_pop.md)
+  - [numeric_poly_stddev_internal](../n/numeric_poly_stddev_internal.md)
 
 ## Notes and Other Information
 This structure is used as the INTERNAL transition datatype for PostgreSQL's numeric aggregate functions. The actual implementation stores this as a pointer allocated in the aggregate context, with digit buffers for NumericVars also allocated in the same context. On platforms supporting 128-bit integers, some aggregates may use Int128AggState instead for performance optimization. The special value counts (NaN, +Inf, -Inf) are maintained separately from the main count N and should be accessed using the NA_TOTAL_COUNT() macro when the total count is needed.

@@ -24,15 +24,15 @@ For scans using array keys, the caller must save the scan_page argument for pote
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelIndexScanDesc (type)
-  - BTParallelScanDesc (type)
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md) (type)
+  - [BTParallelScanDesc](../B/BTParallelScanDesc.md) (type)
   - OffsetToPointer (function)
   - SpinLockAcquire/SpinLockRelease (functions)
   - BTPARALLEL_IDLE (constant)
   - ConditionVariableSignal (function)
 - Called from (representative examples):
-  - _bt_readpage
-  - _bt_readnextpage
+  - [_bt_readpage](_bt_readpage.md)
+  - [_bt_readnextpage](_bt_readnextpage.md)
 
 ## Notes and Other Information
 - Must be called after successfully seizing the scan with 

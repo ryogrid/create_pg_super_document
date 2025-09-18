@@ -31,15 +31,15 @@ The resulting filemap contains entries sorted in the order that their actions sh
 - Functions called/Symbols referenced:
   - filehash_start_iterate
   - filehash_iterate  
-  - decide_file_action
+  - [decide_file_action](decide_file_action.md)
   - pg_malloc
   - qsort
-  - final_filemap_cmp
+  - [final_filemap_cmp](../f/final_filemap_cmp.md)
   - filehash (global variable)
-  - filemap_t (return type)
-  - file_entry_t (array element type)
+  - [filemap_t](../f/filemap_t.md) (return type)
+  - [file_entry_t](../f/file_entry_t.md) (array element type)
 - Called from (representative examples):
-  - main (in pg_rewind.c)
+  - [main](../m/main.md) (in pg_rewind.c)
 
 ## Notes and Other Information
 - This is a public function (not static) that serves as the main API for the file decision subsystem

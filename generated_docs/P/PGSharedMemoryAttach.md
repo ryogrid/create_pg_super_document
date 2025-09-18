@@ -31,14 +31,14 @@ The function handles various error conditions gracefully, including platform-spe
 - Functions called/Symbols referenced:
   - shmctl (System V IPC function)
   - shmat (System V IPC function)  
-  - stat (file system function)
+  - [stat](../s/stat.md) (file system function)
   - PGShmemMagic (PostgreSQL shared memory magic number)
   - DataDir (global variable)
   - Various IpcMemoryState enum values
 - Called from (representative examples):
-  - PGSharedMemoryIsInUse
-  - PGSharedMemoryCreate
-  - PGSharedMemoryReAttach
+  - [PGSharedMemoryIsInUse](PGSharedMemoryIsInUse.md)
+  - [PGSharedMemoryCreate](PGSharedMemoryCreate.md)
+  - [PGSharedMemoryReAttach](PGSharedMemoryReAttach.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_shmem.c file

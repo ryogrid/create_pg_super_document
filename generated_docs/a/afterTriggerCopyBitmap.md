@@ -19,8 +19,8 @@ This function creates a deep copy of a Bitmapset in the AfterTriggerEvents memor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy
-  - MemoryContextSwitchTo (implicit)
+  - [bms_copy](../b/bms_copy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicit)
   - afterTriggers.event_cxt (global variable access)
 - Called from (representative examples):
   - Used in trigger event processing contexts where bitmaps need to be preserved

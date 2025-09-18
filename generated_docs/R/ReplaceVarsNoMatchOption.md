@@ -30,8 +30,8 @@ Each option represents a different error handling or fallback strategy: strict e
 - Functions called/Symbols referenced:
   - (None - this is a standalone enum)
 - Called from (representative examples):
-  - ReplaceVarsFromTargetList (src/backend/rewrite/rewriteManip.c:1778)
-  - map_variable_attnos (src/backend/rewrite/rewriteManip.c:1664)
+  - [ReplaceVarsFromTargetList](ReplaceVarsFromTargetList.md) (src/backend/rewrite/rewriteManip.c:1778)
+  - [map_variable_attnos](../m/map_variable_attnos.md) (src/backend/rewrite/rewriteManip.c:1664)
 
 ## Notes and Other Information
 This enumeration is primarily used in functions like `ReplaceVarsFromTargetList` where variables from one query context need to be mapped to variables in another context. The choice of option depends on whether the caller expects all variables to have matches (use REPORT_ERROR), needs to update variable references (use CHANGE_VARNO), or can handle missing data gracefully (use SUBSTITUTE_NULL). This design supports robust error handling in PostgreSQL's complex query transformation pipeline.

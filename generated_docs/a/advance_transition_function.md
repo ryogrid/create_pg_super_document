@@ -29,17 +29,17 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
   - FunctionCallInvoke
-  - ExecAggCopyTransValue
+  - [ExecAggCopyTransValue](../E/ExecAggCopyTransValue.md)
 - Data types used:
-  - AggState
-  - AggStatePerTrans
-  - AggStatePerGroup
-  - FunctionCallInfo
+  - [AggState](../A/AggState.md)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
 - Called from (representative examples):
-  - process_ordered_aggregate_single
-  - process_ordered_aggregate_multi
+  - [process_ordered_aggregate_single](../p/process_ordered_aggregate_single.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
 
 ## Notes and Other Information
 - The function operates within the assumption that input values are already preloaded in pertrans->transfn_fcinfo

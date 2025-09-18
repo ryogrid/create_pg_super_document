@@ -21,9 +21,9 @@ This handler is responsible for executing Tcl functions that have been defined w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_handler (the core handler function)
+  - [pltcl_handler](pltcl_handler.md) (the core handler function)
 - Called from (representative examples):
-  - pltcl_call_handler (cross-reference in function info)
+  - [pltcl_call_handler](pltcl_call_handler.md) (cross-reference in function info)
 
 ## Notes and Other Information
 - This function is marked as "keep non-static" indicating it needs external visibility

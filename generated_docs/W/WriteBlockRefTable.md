@@ -21,15 +21,15 @@ WriteBlockRefTable converts an in-memory BlockRefTable hash table into a seriali
 - Functions called/Symbols referenced:
   - BlockRefTableWrite
   - BlockRefTableFileTerminate
-  - BlockRefTableComparator
+  - [BlockRefTableComparator](../B/BlockRefTableComparator.md)
   - blockreftable_start_iterate
   - blockreftable_iterate
   - blockreftable_lookup
   - INIT_CRC32C
   - qsort
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - SummarizeWAL
+  - [SummarizeWAL](../S/SummarizeWAL.md)
 
 ## Notes and Other Information
 - Writes a BLOCKREFTABLE_MAGIC number as the file header for format identification

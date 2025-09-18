@@ -19,7 +19,7 @@ This function retrieves the total count of restartpoints that have been successf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_checkpointer
+  - [pgstat_fetch_stat_checkpointer](pgstat_fetch_stat_checkpointer.md)
   - PG_RETURN_INT64
 - Called from (representative examples):
   - SQL queries via pg_stat_get_checkpointer_restartpoints_performed() function

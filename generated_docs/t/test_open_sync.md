@@ -24,10 +24,10 @@ The function handles direct I/O through the open_direct function and provides ap
 - Functions called/Symbols referenced:
   - printf
   - fflush  
-  - open_direct
+  - [open_direct](../o/open_direct.md)
   - pg_pwrite
   - close
-  - die
+  - [die](../d/die.md)
 - Macros used:
   - LABEL_FORMAT
   - NA_FORMAT
@@ -36,7 +36,7 @@ The function handles direct I/O through the open_direct function and provides ap
   - O_SYNC (conditional compilation)
   - PG_BINARY
 - Called from:
-  - test_open_syncs (5 times with different write sizes)
+  - [test_open_syncs](test_open_syncs.md) (5 times with different write sizes)
 
 ## Notes and Other Information
 - Only available on platforms that support O_SYNC flag for file operations

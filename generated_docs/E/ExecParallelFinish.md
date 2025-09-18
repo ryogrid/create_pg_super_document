@@ -31,14 +31,14 @@ The function ensures proper resource cleanup and prevents resource leaks during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_detach
-  - pfree
-  - DestroyTupleQueueReader
+  - [shm_mq_detach](../s/shm_mq_detach.md)
+  - [pfree](../p/pfree.md)
+  - [DestroyTupleQueueReader](../D/DestroyTupleQueueReader.md)
   - WaitForParallelWorkersToFinish
-  - InstrAccumParallelQuery
+  - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
 - Called from (representative examples):
-  - ExecShutdownGatherWorkers
-  - ExecShutdownGatherMergeWorkers
+  - [ExecShutdownGatherWorkers](ExecShutdownGatherWorkers.md)
+  - [ExecShutdownGatherMergeWorkers](ExecShutdownGatherMergeWorkers.md)
 
 ## Notes and Other Information
 - This is a public function used by parallel-aware execution nodes

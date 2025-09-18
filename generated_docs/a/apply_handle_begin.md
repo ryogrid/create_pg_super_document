@@ -19,14 +19,14 @@ This function processes logical replication BEGIN messages that signal the start
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepBeginData (struct for storing begin message data)
-  - logicalrep_read_begin (deserializes BEGIN message from stream)
-  - set_apply_error_context_xact (establishes error context for transaction)
-  - maybe_start_skipping_changes (initiates LSN-based change filtering if needed)
-  - pgstat_report_activity (reports worker activity status)
+  - [LogicalRepBeginData](../L/LogicalRepBeginData.md) (struct for storing begin message data)
+  - [logicalrep_read_begin](../l/logicalrep_read_begin.md) (deserializes BEGIN message from stream)
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md) (establishes error context for transaction)
+  - [maybe_start_skipping_changes](../m/maybe_start_skipping_changes.md) (initiates LSN-based change filtering if needed)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (reports worker activity status)
   - STATE_RUNNING (activity state constant)
 - Called from:
-  - apply_dispatch (main message dispatcher for logical replication)
+  - [apply_dispatch](apply_dispatch.md) (main message dispatcher for logical replication)
 
 ## Notes and Other Information
 - This function asserts that no streaming transaction is currently active (stream_xid must be invalid)

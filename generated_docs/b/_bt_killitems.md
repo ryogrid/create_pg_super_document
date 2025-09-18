@@ -17,21 +17,21 @@ This function implements the "kill tuple" optimization for B-tree indexes, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_lockbuf/_bt_unlockbuf
-  - _bt_getbuf/_bt_relbuf
-  - BufferGetLSNAtomic
-  - PageGetItemId/PageGetItem
-  - BTreeTupleIsPosting
-  - BTreeTupleGetNPosting/BTreeTupleGetPostingN
-  - ItemPointerEquals
+  - [_bt_lockbuf](_bt_lockbuf.md)/_bt_unlockbuf
+  - [_bt_getbuf](_bt_getbuf.md)/_bt_relbuf
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
+  - [PageGetItemId](../P/PageGetItemId.md)/PageGetItem
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)/BTreeTupleGetPostingN
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - ItemIdIsDead/ItemIdMarkDead
   - BTPageGetOpaque
-  - MarkBufferDirtyHint
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
 - Called from (representative examples):
-  - btrescan
-  - btendscan
-  - btrestrpos
-  - _bt_steppage
+  - [btrescan](btrescan.md)
+  - [btendscan](btendscan.md)
+  - [btrestrpos](btrestrpos.md)
+  - [_bt_steppage](_bt_steppage.md)
 
 ## Notes and Other Information
 - Critical optimization for reducing index bloat and improving scan performance

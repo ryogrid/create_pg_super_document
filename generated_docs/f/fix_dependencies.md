@@ -19,14 +19,14 @@ The function handles backward compatibility issues, such as fixing missing BLOB 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repoint_table_dependencies
+  - [repoint_table_dependencies](../r/repoint_table_dependencies.md)
   - pg_malloc
-  - identify_locking_dependencies
-  - TocEntry
+  - [identify_locking_dependencies](../i/identify_locking_dependencies.md)
+  - [TocEntry](../T/TocEntry.md)
   - DumpId
   - K_VERS_1_11
 - Called from (representative examples):
-  - restore_toc_entries_prefork
+  - [restore_toc_entries_prefork](../r/restore_toc_entries_prefork.md)
 
 ## Notes and Other Information
 - Must be called before parallel restore begins as it modifies fundamental dependency structures

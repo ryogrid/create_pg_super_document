@@ -20,7 +20,7 @@ ExceptionalCondition is the core assertion failure handler in PostgreSQL. It is 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (parameter validation)
-  - write_stderr (error output)
+  - [write_stderr](../w/write_stderr.md) (error output)
   - lengthof (array length calculation)
   - getpid (process ID retrieval)
   - fflush (output flushing)
@@ -32,7 +32,7 @@ ExceptionalCondition is the core assertion failure handler in PostgreSQL. It is 
   - Assert (assertion macro)
   - AssertMacro (assertion macro variant)
   - AssertPointerAlignment (pointer alignment assertion)
-  - pg_re_throw (exception re-throwing context)
+  - [pg_re_throw](../p/pg_re_throw.md) (exception re-throwing context)
 
 ## Notes and Other Information
 - The function intentionally avoids using elog() to minimize infrastructure dependencies during assertion failures

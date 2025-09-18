@@ -35,19 +35,19 @@ The function handles different relation persistence types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_start_smgr
+  - [smgr_bulk_start_smgr](../s/smgr_bulk_start_smgr.md)
   - smgrnblocks
-  - smgr_bulk_get_buf
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
   - smgrread
   - PageIsVerifiedExtended
   - relpathbackend
-  - smgr_bulk_write
-  - smgr_bulk_finish
+  - [smgr_bulk_write](../s/smgr_bulk_write.md)
+  - [smgr_bulk_finish](../s/smgr_bulk_finish.md)
   - XLogIsNeeded
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - heapam_relation_copy_data
-  - index_copy_data
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md)
+  - [index_copy_data](../i/index_copy_data.md)
 
 ## Notes and Other Information
 - Requires that no dirty data exists in shared buffers - callers should flush using FlushRelationBuffers() if needed

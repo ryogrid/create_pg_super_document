@@ -20,11 +20,11 @@ This function is responsible for processing a query result through a slot's regi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlot (struct type)
-  - PQclear (PostgreSQL libpq function for freeing results)
+  - [ParallelSlot](../P/ParallelSlot.md) (struct type)
+  - [PQclear](../P/PQclear.md) (PostgreSQL libpq function for freeing results)
 - Called from (representative examples):
-  - consumeQueryResult
-  - wait_on_slots
+  - [consumeQueryResult](../c/consumeQueryResult.md)
+  - [wait_on_slots](../w/wait_on_slots.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parallel_slot.c file

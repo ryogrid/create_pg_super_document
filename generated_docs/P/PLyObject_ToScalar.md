@@ -26,10 +26,10 @@ The function is designed to work within PostgreSQL's array processing framework,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObject_AsString
-  - InputFunctionCall
+  - [PLyObject_AsString](PLyObject_AsString.md)
+  - [InputFunctionCall](../I/InputFunctionCall.md)
 - Called from (representative examples):
-  - PLy_output_setup_func
+  - [PLy_output_setup_func](PLy_output_setup_func.md)
 
 ## Notes and Other Information
 This function represents the most general conversion path in PL/Python, falling back to string-based conversion when more specific type conversions are not available. The reliance on PostgreSQL's input functions ensures that all type-specific parsing rules and validations are properly applied. The simplicity of this approach makes it reliable but potentially less efficient than direct conversions for certain types.

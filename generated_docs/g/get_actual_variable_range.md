@@ -28,17 +28,17 @@ This function provides a mechanism to obtain real-time minimum and maximum value
 - Functions called/Symbols referenced:
   - VariableStatData
   - RTE_RELATION
-  - IndexOptInfo
-  - match_index_to_operand
-  - get_op_opfamily_strategy
+  - [IndexOptInfo](../I/IndexOptInfo.md)
+  - [match_index_to_operand](../m/match_index_to_operand.md)
+  - [get_op_opfamily_strategy](get_op_opfamily_strategy.md)
   - AllocSetContextCreate
-  - index_open
-  - table_slot_create
-  - get_typlenbyval
-  - ScanKeyEntryInitialize
+  - [index_open](../i/index_open.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [get_typlenbyval](get_typlenbyval.md)
+  - [ScanKeyEntryInitialize](../S/ScanKeyEntryInitialize.md)
   - get_actual_variable_endpoint
-  - ExecDropSingleTupleTableSlot
-  - index_close
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [index_close](../i/index_close.md)
 - Called from (representative examples):
   - ineq_histogram_selectivity
   - get_variable_range

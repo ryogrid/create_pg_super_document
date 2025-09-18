@@ -23,7 +23,7 @@ The extra storage mechanism ensures that transaction rollbacks don't attempt to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
   - PGC_S_INTERACTIVE (constant)
   - GucSource (enum type)
 - Called from (representative examples):

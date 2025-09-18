@@ -29,8 +29,8 @@ The function continues reading until either the minimum read requirement is sati
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_receive (reads data from WAL receiver connection)
-  - WaitLatchOrSocket (waits for socket readability or latch events)
-  - ResetLatch (resets the process latch after wakeup)
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md) (waits for socket readability or latch events)
+  - [ResetLatch](../R/ResetLatch.md) (resets the process latch after wakeup)
   - CHECK_FOR_INTERRUPTS (checks for query cancellation)
   - memcpy (copies data between buffers)
   - LogRepWorkerWalRcvConn (global WAL receiver connection)
@@ -38,7 +38,7 @@ The function continues reading until either the minimum read requirement is sati
   - copybuf (static StringInfo buffer for data buffering)
 
 - Called from (representative examples):
-  - copy_table (registers this as a callback for COPY FROM operations)
+  - [copy_table](copy_table.md) (registers this as a callback for COPY FROM operations)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:744-819

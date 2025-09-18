@@ -27,12 +27,12 @@ The function is particularly useful for join selectivity estimation in network o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode
-  - fmgr_info
+  - [get_opcode](../g/get_opcode.md)
+  - [fmgr_info](../f/fmgr_info.md)
   - FunctionCall2
-  - DatumGetBool
+  - [DatumGetBool](../D/DatumGetBool.md)
 - Called from (representative examples):
-  - networkjoinsel_inner
+  - [networkjoinsel_inner](../n/networkjoinsel_inner.md)
 
 ## Notes and Other Information
 - Returns exact selectivity without requiring scaling, unlike histogram-based estimates

@@ -23,8 +23,8 @@ This function serves as a semantic callback for the JSON parser testing framewor
 - Functions called/Symbols referenced:
   - printf (standard library)
   - resetStringInfo (PostgreSQL string utility)
-  - escape_json (JSON escaping function)
-  - DoState (struct type)
+  - [escape_json](../e/escape_json.md) (JSON escaping function)
+  - [DoState](../D/DoState.md) (struct type)
   - JSON_SUCCESS (return code constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):

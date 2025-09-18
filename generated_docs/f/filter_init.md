@@ -26,9 +26,9 @@ This function initializes a FilterStateData structure for processing filter file
   - pg_log_error
   - strcmp
 - Called from (representative examples):
-  - read_dump_filters (in pg_dump.c)
-  - read_dumpall_filters (in pg_dumpall.c)
-  - read_restore_filters (in pg_restore.c)
+  - [read_dump_filters](../r/read_dump_filters.md) (in pg_dump.c)
+  - [read_dumpall_filters](../r/read_dumpall_filters.md) (in pg_dumpall.c)
+  - [read_restore_filters](../r/read_restore_filters.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - The function is part of the common filter infrastructure shared between pg_dump utilities

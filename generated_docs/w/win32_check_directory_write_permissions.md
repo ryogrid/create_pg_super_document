@@ -22,7 +22,7 @@ This function takes no parameters and operates on the current working directory.
   - unlink
   - GLOBALS_DUMP_FILE (constant defining the test file name)
 - Called from (representative examples):
-  - verify_directories (Windows-specific code path)
+  - [verify_directories](../v/verify_directories.md) (Windows-specific code path)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the exec.c file

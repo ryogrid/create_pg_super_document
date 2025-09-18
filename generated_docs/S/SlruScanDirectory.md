@@ -23,19 +23,19 @@ SlruScanDirectory is a fundamental utility function in the PostgreSQL SLRU subsy
 - Functions called/Symbols referenced:
   - AllocateDir
   - ReadDir  
-  - SlruCorrectSegmentFilenameLength
+  - [SlruCorrectSegmentFilenameLength](SlruCorrectSegmentFilenameLength.md)
   - strtoi64
   - SLRU_PAGES_PER_SEGMENT
   - elog (DEBUG2)
   - FreeDir
 - Called from (representative examples):
-  - TruncateCLOG
-  - DeactivateCommitTs
-  - TruncateCommitTs
-  - TruncateMultiXact
-  - SimpleLruTruncate
-  - AsyncShmemInit
-  - test_slru_delete_all
+  - [TruncateCLOG](../T/TruncateCLOG.md)
+  - [DeactivateCommitTs](../D/DeactivateCommitTs.md)
+  - [TruncateCommitTs](../T/TruncateCommitTs.md)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
+  - [SimpleLruTruncate](SimpleLruTruncate.md)
+  - [AsyncShmemInit](../A/AsyncShmemInit.md)
+  - [test_slru_delete_all](../t/test_slru_delete_all.md)
 
 ## Notes and Other Information
 - No locking is applied during directory scanning - callers must ensure appropriate locking

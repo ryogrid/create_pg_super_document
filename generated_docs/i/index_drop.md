@@ -30,35 +30,35 @@ The function also handles predicate lock transfers, statistics removal, and clea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_persistence
-  - IndexGetRelation
+  - [get_rel_persistence](../g/get_rel_persistence.md)
+  - [IndexGetRelation](../I/IndexGetRelation.md)
   - table_open
-  - index_open
-  - CheckTableNotInUse
-  - GetTopTransactionIdIfAny
-  - index_set_state_flags
-  - CacheInvalidateRelcache
-  - LockRelationIdForSession
-  - CommitTransactionCommand
-  - StartTransactionCommand
+  - [index_open](index_open.md)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
+  - [index_set_state_flags](index_set_state_flags.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [LockRelationIdForSession](../L/LockRelationIdForSession.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - PopActiveSnapshot
-  - WaitForLockers
-  - index_concurrently_set_dead
-  - TransferPredicateLocksToHeapRelation
-  - RelationDropStorage
+  - [WaitForLockers](../W/WaitForLockers.md)
+  - [index_concurrently_set_dead](index_concurrently_set_dead.md)
+  - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
+  - [RelationDropStorage](../R/RelationDropStorage.md)
   - pgstat_drop_relation
-  - index_close
-  - RelationForgetRelation
-  - SearchSysCache1
-  - heap_attisnull
-  - CatalogTupleDelete
-  - RemoveStatistics
-  - DeleteAttributeTuples
-  - DeleteRelationTuple
-  - DeleteInheritsTuple
-  - UnlockRelationIdForSession
+  - [index_close](index_close.md)
+  - [RelationForgetRelation](../R/RelationForgetRelation.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [RemoveStatistics](../R/RemoveStatistics.md)
+  - [DeleteAttributeTuples](../D/DeleteAttributeTuples.md)
+  - [DeleteRelationTuple](../D/DeleteRelationTuple.md)
+  - [DeleteInheritsTuple](../D/DeleteInheritsTuple.md)
+  - [UnlockRelationIdForSession](../U/UnlockRelationIdForSession.md)
 - Called from (representative examples):
-  - doDeletion
+  - [doDeletion](../d/doDeletion.md)
 
 ## Notes and Other Information
 - Should only be called through performDeletion() to ensure associated dependencies are properly cleaned up

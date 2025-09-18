@@ -25,12 +25,12 @@ This function takes no parameters and returns a boolean value indicating whether
   - TransactionState (type)
   - TBLOCK_DEFAULT (enum constant)
 - Called from (representative examples):
-  - ProcessNotifyInterrupt
+  - [ProcessNotifyInterrupt](../P/ProcessNotifyInterrupt.md)
   - ProcessInterrupts
-  - pgstat_report_stat
-  - SnapBuildExportSnapshot
-  - WalSndErrorCleanup
-  - ReorderBufferProcessTXN
+  - [pgstat_report_stat](../p/pgstat_report_stat.md)
+  - [SnapBuildExportSnapshot](../S/SnapBuildExportSnapshot.md)
+  - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)
+  - [ReorderBufferProcessTXN](../R/ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 The function's comment explicitly states that the backend is only really "idle" when this returns false, emphasizing its role in determining true idle state. This function should logically align with IsTransactionBlock and IsTransactionState, providing a consistent view of transaction activity across different contexts. It's particularly important for interrupt handling and cleanup operations that need to behave differently when any transaction context is active.

@@ -19,10 +19,10 @@ The function is minimal because Limit nodes have minimal resource requirements b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (recursively shuts down child plan)
+  - [ExecEndNode](ExecEndNode.md) (recursively shuts down child plan)
   - outerPlanState (accesses child plan state)
 - Called from (representative examples):
-  - ExecEndNode (as part of plan tree cleanup)
+  - [ExecEndNode](ExecEndNode.md) (as part of plan tree cleanup)
 
 ## Notes and Other Information
 - Follows PostgreSQL's recursive cleanup pattern for plan nodes

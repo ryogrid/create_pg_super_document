@@ -24,8 +24,8 @@ The structure is designed to be resilient to concurrent operations. While the st
   - BlockNumber (type)
   - OffsetNumber (type)
 - Called from (representative examples):
-  - _bt_insert_parent
-  - _bt_search
+  - [_bt_insert_parent](../b/_bt_insert_parent.md)
+  - [_bt_search](../b/_bt_search.md)
   - BTStack (typedef alias)
 
 ## Notes and Other Information

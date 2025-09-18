@@ -19,13 +19,13 @@ The function uses RecoveryInProgress() to determine if the database is currently
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (function to check if database is in recovery mode)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (function to check if database is in recovery mode)
   - ereport (error reporting mechanism)
-  - errcode, errmsg (error handling macros)
+  - [errcode](../e/errcode.md), errmsg (error handling macros)
 - Called from (representative examples):
-  - pg_notify (src/backend/commands/async.c:573)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:582)
-  - pg_current_xact_id (src/backend/utils/adt/xid8funcs.c:342)
+  - [pg_notify](../p/pg_notify.md) (src/backend/commands/async.c:573)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:582)
+  - [pg_current_xact_id](../p/pg_current_xact_id.md) (src/backend/utils/adt/xid8funcs.c:342)
 
 ## Notes and Other Information
 - Uses ERRCODE_READ_ONLY_SQL_TRANSACTION error code, consistent with read-only restrictions

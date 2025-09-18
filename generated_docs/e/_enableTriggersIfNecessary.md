@@ -25,13 +25,13 @@ This function is critical for maintaining database integrity after bulk data loa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _becomeUser (switches to specified user)
+  - [_becomeUser](../b/_becomeUser.md) (switches to specified user)
   - pg_log_info (logs information message)
-  - ahprintf (outputs SQL command)
-  - fmtQualifiedId (formats schema-qualified table name)
-  - RestoreOptions (accesses restore configuration)
+  - [ahprintf](../a/ahprintf.md) (outputs SQL command)
+  - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats schema-qualified table name)
+  - [RestoreOptions](../R/RestoreOptions.md) (accesses restore configuration)
 - Called from (representative examples):
-  - restore_toc_entry (after data loading phase)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (after data loading phase)
 
 ## Notes and Other Information
 - Only executes during data-only restores when disable_triggers option is set

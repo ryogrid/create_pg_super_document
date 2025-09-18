@@ -24,14 +24,14 @@ This function serves as the foundation for all GIN page types (entry pages, data
   - PageInit: Standard PostgreSQL function for basic page initialization
   - GinPageGetOpaque: Retrieves the GIN-specific opaque data from the page
   - GinPageOpaque: Type definition for GIN page opaque data structure
-  - GinPageOpaqueData: Structure containing GIN-specific page metadata
+  - [GinPageOpaqueData](GinPageOpaqueData.md): Structure containing GIN-specific page metadata
 
 - Called from (representative examples):
-  - GinInitBuffer: Higher-level buffer initialization function
-  - GinInitMetabuffer: Meta page initialization function
-  - ginPlaceToPage: During page splitting operations in B-tree operations
-  - entrySplitPage: When splitting entry pages
-  - createPostingTree: When creating new posting trees for data pages
+  - [GinInitBuffer](GinInitBuffer.md): Higher-level buffer initialization function
+  - [GinInitMetabuffer](GinInitMetabuffer.md): Meta page initialization function
+  - [ginPlaceToPage](../g/ginPlaceToPage.md): During page splitting operations in B-tree operations
+  - [entrySplitPage](../e/entrySplitPage.md): When splitting entry pages
+  - [createPostingTree](../c/createPostingTree.md): When creating new posting trees for data pages
 
 ## Notes and Other Information
 - This function is part of the core GIN infrastructure and is called whenever a new GIN page needs to be created

@@ -28,11 +28,11 @@ The depth tracking is critical because it allows the function to distinguish bet
   - IsA (macro for type checking)
   - query_tree_walker
   - expression_tree_walker
-  - QTW_EXAMINE_RTES_BEFORE (flag constant)
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md) (flag constant)
   - RTE_CTE (enum value)
 - Called from (representative examples):
-  - contain_outer_selfref
-  - contain_outer_selfref_walker (recursive calls)
+  - [contain_outer_selfref](contain_outer_selfref.md)
+  - [contain_outer_selfref_walker](contain_outer_selfref_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a recursive function that calls itself when processing Query nodes and expression nodes

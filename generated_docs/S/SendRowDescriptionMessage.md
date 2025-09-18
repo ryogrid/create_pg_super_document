@@ -23,17 +23,17 @@ This function constructs and sends a RowDescription message (T message) that inf
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_beginmessage_reuse (message protocol initiation)
-  - pq_sendint16 (protocol integer writing)
+  - [pq_sendint16](../p/pq_sendint16.md) (protocol integer writing)
   - enlargeStringInfo (buffer preallocation)
-  - getBaseTypeAndTypmod (domain type resolution)  
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md) (domain type resolution)  
   - list_head, lnext (list traversal)
-  - pq_writestring, pq_writeint32, pq_writeint16 (protocol data writing)
-  - pq_endmessage_reuse (message protocol completion)
+  - [pq_writestring](../p/pq_writestring.md), pq_writeint32, pq_writeint16 (protocol data writing)
+  - [pq_endmessage_reuse](../p/pq_endmessage_reuse.md) (message protocol completion)
   - TupleDescAttr (attribute access macro)
 - Called from (representative examples):
-  - printtup_startup
-  - exec_describe_statement_message
-  - exec_describe_portal_message
+  - [printtup_startup](../p/printtup_startup.md)
+  - [exec_describe_statement_message](../e/exec_describe_statement_message.md)
+  - [exec_describe_portal_message](../e/exec_describe_portal_message.md)
 
 ## Notes and Other Information
 - Handles domain types by sending the base type instead of the domain type to the client

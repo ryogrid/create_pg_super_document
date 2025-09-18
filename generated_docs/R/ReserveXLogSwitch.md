@@ -21,14 +21,14 @@ ReserveXLogSwitch handles space reservation for xlog-switch records with special
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBytePosToEndRecPtr
-  - XLogBytePosToRecPtr
-  - XLogRecPtrToBytePos
+  - [XLogBytePosToEndRecPtr](../X/XLogBytePosToEndRecPtr.md)
+  - [XLogBytePosToRecPtr](../X/XLogBytePosToRecPtr.md)
+  - [XLogRecPtrToBytePos](../X/XLogRecPtrToBytePos.md)
   - XLogSegmentOffset
   - SpinLockAcquire/SpinLockRelease
   - MAXALIGN
 - Called from (representative examples):
-  - XLogInsertRecord (WALINSERT_SPECIAL_SWITCH case)
+  - [XLogInsertRecord](../X/XLogInsertRecord.md) (WALINSERT_SPECIAL_SWITCH case)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

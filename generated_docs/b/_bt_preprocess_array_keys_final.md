@@ -32,8 +32,8 @@ The function operates in-place and can completely eliminate arrays from a scan i
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanOpaque
-  - BTArrayKeyInfo
-  - _bt_setup_array_cmp
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md)
+  - [_bt_setup_array_cmp](_bt_setup_array_cmp.md)
   - memmove
   - ereport
   - SK_SEARCHARRAY, SK_SEARCHNULL, SK_BT_REQFWD
@@ -42,7 +42,7 @@ The function operates in-place and can completely eliminate arrays from a scan i
   - PG_USED_FOR_ASSERTS_ONLY
 
 - Called from (representative examples):
-  - _bt_preprocess_keys (final step in scan key preprocessing)
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md) (final step in scan key preprocessing)
 
 ## Notes and Other Information
 - Returns early if so->numArrayKeys is 0, indicating no array keys need finalization

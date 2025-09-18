@@ -27,14 +27,14 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - PgStatShared_BgWriter (type for shared memory statistics)
   - PgStat_BgWriterStats (type for statistics structure)
-  - pgstat_assert_is_up (assertion function)
-  - pgstat_begin_changecount_write (atomic update mechanism)
-  - pgstat_end_changecount_write (atomic update mechanism)
-  - pgstat_flush_io (IO statistics reporting)
+  - [pgstat_assert_is_up](pgstat_assert_is_up.md) (assertion function)
+  - [pgstat_begin_changecount_write](pgstat_begin_changecount_write.md) (atomic update mechanism)
+  - [pgstat_end_changecount_write](pgstat_end_changecount_write.md) (atomic update mechanism)
+  - [pgstat_flush_io](pgstat_flush_io.md) (IO statistics reporting)
   - memcmp (memory comparison)
   - MemSet (memory clearing)
 - Called from (representative examples):
-  - BackgroundWriterMain (main background writer process loop)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (main background writer process loop)
 
 ## Notes and Other Information
 - The function uses a static all_zeroes variable for efficient comparison to detect if any statistics are pending

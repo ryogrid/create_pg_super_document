@@ -20,9 +20,9 @@ The  function serves as the PostgreSQL built-in function that implements the ine
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](range_get_typcache.md)
   - RangeTypeGetOid
-  - range_ne_internal
+  - [range_ne_internal](range_ne_internal.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL's operator dispatch system)

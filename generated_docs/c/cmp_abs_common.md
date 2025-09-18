@@ -31,8 +31,8 @@ The function handles PostgreSQL's base-NBASE representation where each 'digit' a
 - Functions called/Symbols referenced:
   - NumericDigit (type definition for individual digits)
 - Called from (representative examples):
-  - cmp_abs (wrapper function for NumericVar comparison)
-  - cmp_var_common (signed comparison function)
+  - [cmp_abs](cmp_abs.md) (wrapper function for NumericVar comparison)
+  - [cmp_var_common](cmp_var_common.md) (signed comparison function)
   - NUMERIC_CAN_BE_SHORT (numeric optimization checks)
 
 ## Notes and Other Information

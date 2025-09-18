@@ -23,9 +23,9 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s_b (with string s_3 containing "ki")
+  - [eq_s_b](../e/eq_s_b.md) (with string s_3 containing "ki")
 - Called from (representative examples):
-  - r_stem_suffix_chain_before_ki
+  - [r_stem_suffix_chain_before_ki](r_stem_suffix_chain_before_ki.md)
 
 ## Notes and Other Information
 - Returns 1 on successful match, 0 on failure

@@ -28,14 +28,14 @@ This function must be called in the leader process before parallel workers are l
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsMVCCSnapshot (to determine if snapshot needs serialization)
-  - SerializeSnapshot (to serialize MVCC snapshot into shared memory)
+  - [SerializeSnapshot](../S/SerializeSnapshot.md) (to serialize MVCC snapshot into shared memory)
   - SnapshotAny (global variable representing special non-MVCC snapshot)
-  - ParallelTableScanDesc (structure type for parallel scan coordination)
+  - [ParallelTableScanDesc](../P/ParallelTableScanDesc.md) (structure type for parallel scan coordination)
 
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - _bt_begin_parallel  
-  - ExecSeqScanInitializeDSM
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)  
+  - [ExecSeqScanInitializeDSM](../E/ExecSeqScanInitializeDSM.md)
   - table_scan_getnextslot_tidrange
 
 ## Notes and Other Information

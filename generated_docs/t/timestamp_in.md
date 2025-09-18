@@ -23,12 +23,12 @@ The parsing process involves multiple stages: first tokenizing the input string 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime: Initial string parsing and tokenization
-  - DecodeDateTime: Token interpretation and datetime component extraction
+  - [ParseDateTime](../P/ParseDateTime.md): Initial string parsing and tokenization
+  - [DecodeDateTime](../D/DecodeDateTime.md): Token interpretation and datetime component extraction
   - DateTimeParseError: Error reporting for parsing failures
-  - tm2timestamp: Conversion from broken-down time to timestamp
-  - SetEpochTimestamp: Handling of 'epoch' special value
-  - AdjustTimestampForTypmod: Applying precision constraints
+  - [tm2timestamp](tm2timestamp.md): Conversion from broken-down time to timestamp
+  - [SetEpochTimestamp](../S/SetEpochTimestamp.md): Handling of 'epoch' special value
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md): Applying precision constraints
   - TIMESTAMP_NOEND/TIMESTAMP_NOBEGIN: Handling infinity values
   - PG_RETURN_TIMESTAMP: Return value macro
 - Called from: Used as input function for TIMESTAMP type (registered in pg_type catalog)

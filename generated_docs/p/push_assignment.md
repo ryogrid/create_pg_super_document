@@ -20,9 +20,9 @@ The assignments are stored as a linked list where each new assignment becomes th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (memory allocation function)
+  - [mm_alloc](../m/mm_alloc.md) (memory allocation function)
   - strcpy (string copy function)
-  - assignment (struct type)
+  - [assignment](../a/assignment.md) (struct type)
   - ECPGdtype (enum type)
 - Called from (representative examples):
   - Grammar rules in ecpg.trailer for descriptor assignments

@@ -25,14 +25,14 @@ In single-threaded mode, it processes all tablespaces together by passing NULL a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status_progress
-  - parallel_transfer_all_new_dbs
-  - reap_child
-  - end_progress_output
-  - check_ok
+  - [prep_status_progress](../p/prep_status_progress.md)
+  - [parallel_transfer_all_new_dbs](../p/parallel_transfer_all_new_dbs.md)
+  - [reap_child](../r/reap_child.md)
+  - [end_progress_output](../e/end_progress_output.md)
+  - [check_ok](../c/check_ok.md)
   - TRANSFER_MODE_CLONE, TRANSFER_MODE_COPY, TRANSFER_MODE_COPY_FILE_RANGE, TRANSFER_MODE_LINK
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - The function adapts its behavior based on the configured transfer mode, displaying appropriate progress messages for each mode

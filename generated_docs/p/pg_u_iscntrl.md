@@ -21,11 +21,11 @@ The function provides PostgreSQL's internal implementation for Unicode control c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category (internal Unicode category determination function)
+  - [unicode_category](../u/unicode_category.md) (internal Unicode category determination function)
   - PG_U_CONTROL (Unicode category constant for control characters)
 - Called from (representative examples):
-  - icu_test (test function)
-  - pg_unicode_category (Unicode category interface)
+  - [icu_test](../i/icu_test.md) (test function)
+  - [pg_unicode_category](pg_unicode_category.md) (Unicode category interface)
 
 ## Notes and Other Information
 - Returns true only for characters classified as Unicode control characters

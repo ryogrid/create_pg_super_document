@@ -21,18 +21,18 @@ The structure supports both Unix fork()-based processes and Windows thread-based
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry
-  - ParallelSlot
+  - [TocEntry](../T/TocEntry.md)
+  - [ParallelSlot](ParallelSlot.md)
 
 - Called from (representative examples):
-  - ParallelBackupStart
-  - ParallelBackupEnd
-  - DispatchJobForTocEntry
-  - GetIdleWorker
-  - ShutdownWorkersHard
-  - ListenToWorkers
-  - WaitForWorkers
-  - RestoreArchive
+  - [ParallelBackupStart](ParallelBackupStart.md)
+  - [ParallelBackupEnd](ParallelBackupEnd.md)
+  - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md)
+  - [GetIdleWorker](../G/GetIdleWorker.md)
+  - [ShutdownWorkersHard](../S/ShutdownWorkersHard.md)
+  - [ListenToWorkers](../L/ListenToWorkers.md)
+  - [WaitForWorkers](../W/WaitForWorkers.md)
+  - [RestoreArchive](../R/RestoreArchive.md)
 
 ## Notes and Other Information
 - The struct is allocated and initialized by ParallelBackupStart() when parallel operations begin

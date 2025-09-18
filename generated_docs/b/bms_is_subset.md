@@ -18,13 +18,13 @@ The function determines if bitmap set  is a subset of bitmap set  by checking th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation function for bitmap sets)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation function for bitmap sets)
 - Called from (representative examples):
-  - check_functional_grouping (constraint validation)
-  - get_cheapest_parameterized_child_path (path optimization)
-  - initial_cost_mergejoin (join costing)
-  - join_is_legal (join planning validation)
-  - clause_sides_match_join (join clause analysis)
+  - [check_functional_grouping](../c/check_functional_grouping.md) (constraint validation)
+  - [get_cheapest_parameterized_child_path](../g/get_cheapest_parameterized_child_path.md) (path optimization)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md) (join costing)
+  - [join_is_legal](../j/join_is_legal.md) (join planning validation)
+  - [clause_sides_match_join](../c/clause_sides_match_join.md) (join clause analysis)
 
 ## Notes and Other Information
 This function is extensively used throughout PostgreSQL's query optimizer for testing relationships between sets of relation IDs, column numbers, and other identifiers. The subset relationship is fundamental for determining join legality, clause applicability, and path optimization. The function assumes that both input bitmap sets are valid or NULL, and uses assertions to verify this in debug builds.

@@ -28,15 +28,15 @@ Key operational aspects include: stack depth checking for recursion protection, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessUtilitySlow (for commands requiring event trigger support)
-  - CheckRestrictedOperation (security validation for sensitive commands)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (for commands requiring event trigger support)
+  - [CheckRestrictedOperation](../C/CheckRestrictedOperation.md) (security validation for sensitive commands)
   - Various command-specific execution functions (BeginTransactionBlock, CreateTableSpace, ExecuteTruncate, etc.)
   - Transaction control functions (PreventInTransactionBlock, RequireTransactionBlock)
   - Security and privilege checking functions (has_privs_of_role, superuser)
   - Event trigger support checking (EventTriggerSupportsObjectType)
 - Called from (representative examples):
-  - ProcessUtility (main entry point when no hooks are present)
-  - REGRESS_utility_command (testing framework)
+  - [ProcessUtility](../P/ProcessUtility.md) (main entry point when no hooks are present)
+  - [REGRESS_utility_command](../R/REGRESS_utility_command.md) (testing framework)
 
 ## Notes and Other Information
 - The function handles approximately 40+ different statement types through its central switch statement

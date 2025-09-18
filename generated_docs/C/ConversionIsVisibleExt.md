@@ -25,13 +25,13 @@ The extended version provides graceful error handling - if the conversion is not
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_conversion (system catalog form)
-  - recomputeNamespacePath
-  - list_member_oid
-  - ConversionGetConid
-  - SearchSysCache1, ReleaseSysCache
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [ConversionGetConid](ConversionGetConid.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache
 - Called from (representative examples):
-  - ConversionIsVisible
-  - pg_conversion_is_visible
+  - [ConversionIsVisible](ConversionIsVisible.md)
+  - [pg_conversion_is_visible](../p/pg_conversion_is_visible.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within namespace.c

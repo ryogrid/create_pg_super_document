@@ -69,17 +69,17 @@ The xl_xact_parsed_commit structure is a deconstructed representation of the xl_
 - Functions called/Symbols referenced:
   - TimestampTz (data type)
   - TransactionId (data type)
-  - RelFileLocator (data type)
+  - [RelFileLocator](../R/RelFileLocator.md) (data type)
   - xl_xact_stats_item (structure)
   - SharedInvalidationMessage (data type)
   - GIDSIZE (constant)
   - XLogRecPtr (data type)
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c) - creates this structure
-  - xact_desc_commit (in xactdesc.c)
-  - xact_redo_commit (in xact.c)
-  - DecodeCommit (in decode.c)
-  - recoveryStopsBefore/After (in xlogrecovery.c)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c) - creates this structure
+  - [xact_desc_commit](xact_desc_commit.md) (in xactdesc.c)
+  - [xact_redo_commit](xact_redo_commit.md) (in xact.c)
+  - [DecodeCommit](../D/DecodeCommit.md) (in decode.c)
+  - [recoveryStopsBefore](../r/recoveryStopsBefore.md)/After (in xlogrecovery.c)
 
 ## Notes and Other Information
 This structure greatly simplifies WAL processing by providing a parsed view of commit records. The parsing is done once by ParseCommitRecord(), and then various subsystems can access the structured data without needing to understand the original variable-length format. The structure includes both regular commit data and two-phase commit specific fields, making it suitable for all commit scenarios. The arrays (subxacts, xlocators, stats, msgs, etc.) point to the actual data within the parsed record, providing efficient access without unnecessary copying.

@@ -21,14 +21,14 @@ The function performs two key operations: delegating the actual index closing to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCloseIndices (closes the actual indexes)
-  - pfree (deallocates the indstate structure)
+  - [ExecCloseIndices](../E/ExecCloseIndices.md) (closes the actual indexes)
+  - [pfree](../p/pfree.md) (deallocates the indstate structure)
 - Called from (representative examples):
-  - CatalogTupleInsert
-  - CatalogTupleUpdate
-  - InsertPgAttributeTuples
-  - AddNewAttributeTuples
-  - recordMultipleDependencies
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
+  - [recordMultipleDependencies](../r/recordMultipleDependencies.md)
 
 ## Notes and Other Information
 - Must be called for every CatalogIndexState returned by CatalogOpenIndexes to prevent resource leaks

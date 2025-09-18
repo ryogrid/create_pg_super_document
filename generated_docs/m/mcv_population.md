@@ -24,8 +24,8 @@ This calculation is essential for selectivity estimation algorithms that need to
 - Functions called/Symbols referenced:
   - float4 (data type)
 - Called from (representative examples):
-  - networkjoinsel_inner
-  - networkjoinsel_semi
+  - [networkjoinsel_inner](../n/networkjoinsel_inner.md)
+  - [networkjoinsel_semi](../n/networkjoinsel_semi.md)
 
 ## Notes and Other Information
 - Returns a Selectivity value (typically between 0.0 and 1.0) representing the population fraction

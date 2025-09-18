@@ -23,12 +23,12 @@ The function uses an explicit switch statement that lists every backend type, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendType (enum type)
+  - [BackendType](../B/BackendType.md) (enum type)
   - B_INVALID, B_ARCHIVER, B_LOGGER, B_WAL_RECEIVER, B_WAL_WRITER, B_WAL_SUMMARIZER (backend types that don't track I/O)
   - B_AUTOVAC_LAUNCHER, B_AUTOVAC_WORKER, B_BACKEND, B_BG_WORKER, B_BG_WRITER, B_CHECKPOINTER, B_SLOTSYNC_WORKER, B_STANDALONE_BACKEND, B_STARTUP, B_WAL_SENDER (backend types that do track I/O)
 - Called from (representative examples):
-  - pgstat_tracks_io_object() (to validate backend type before checking object tracking)
-  - pg_stat_get_io() (to filter backends when retrieving I/O statistics)
+  - [pgstat_tracks_io_object](pgstat_tracks_io_object.md)() (to validate backend type before checking object tracking)
+  - [pg_stat_get_io](pg_stat_get_io.md)() (to filter backends when retrieving I/O statistics)
 
 ## Notes and Other Information
 - Returns false for backend types that do not participate in I/O tracking: B_INVALID, B_ARCHIVER, B_LOGGER, B_WAL_RECEIVER, B_WAL_WRITER, B_WAL_SUMMARIZER

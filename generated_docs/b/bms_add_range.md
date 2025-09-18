@@ -25,19 +25,19 @@ The function performs several optimizations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation)
-  - bms_copy_and_free (memory management)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation)
+  - [bms_copy_and_free](bms_copy_and_free.md) (memory management)
   - WORDNUM (bit position to word index conversion)
   - BITNUM (bit position within word calculation)
   - BITMAPSET_SIZE (memory size calculation)
-  - repalloc (memory reallocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - BITS_PER_BITMAPWORD (word size constant)
   
 - Called from (representative examples):
-  - ExecInitPartitionPruning (partition pruning initialization)
-  - ExecInitAppend/ExecInitMergeAppend (append node initialization)
-  - get_matching_partitions (partition matching logic)
-  - prune_append_rel_partitions (partition pruning)
+  - [ExecInitPartitionPruning](../E/ExecInitPartitionPruning.md) (partition pruning initialization)
+  - [ExecInitAppend](../E/ExecInitAppend.md)/ExecInitMergeAppend (append node initialization)
+  - [get_matching_partitions](../g/get_matching_partitions.md) (partition matching logic)
+  - [prune_append_rel_partitions](../p/prune_append_rel_partitions.md) (partition pruning)
 
 ## Notes and Other Information
 - Raises an ERROR if lower < 0 (negative bitmap members not allowed)

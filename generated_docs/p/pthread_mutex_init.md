@@ -20,12 +20,12 @@ This function is a custom implementation of the standard POSIX pthread_mutex_ini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_t (mutex structure type)
+  - [pthread_mutex_t](pthread_mutex_t.md) (mutex structure type)
 - Called from (representative examples):
   - PTHREAD_ONCE_INIT (in src/interfaces/ecpg/include/ecpg-pthread-win32.h)
   - pgtls_init (in src/interfaces/libpq/fe-secure-openssl.c)
   - pthread_once_t (in src/port/pthread-win32.h)
-  - pthread_barrier_init (in src/port/pthread_barrier_wait.c)
+  - [pthread_barrier_init](pthread_barrier_init.md) (in src/port/pthread_barrier_wait.c)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation, part of PostgreSQL's pthread compatibility layer

@@ -33,8 +33,8 @@ The _typeInfo structure is a comprehensive data structure used by pg_dump to man
 - Functions called/Symbols referenced:
   - DumpableObject
   - DumpableAcl
-  - _shellTypeInfo
-  - _constraintInfo
+  - [_shellTypeInfo](../s/_shellTypeInfo.md)
+  - [_constraintInfo](../c/_constraintInfo.md)
 - Called from (representative examples):
   - No direct references found (likely used internally by pg_dump functions)
 

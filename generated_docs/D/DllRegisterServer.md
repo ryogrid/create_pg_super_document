@@ -28,7 +28,7 @@ This function takes no parameters.
   - MessageBox (displays error messages)
   - _snprintf (formats registry key names)
 - Called from (representative examples):
-  - DllInstall (when bInstall is TRUE)
+  - [DllInstall](DllInstall.md) (when bInstall is TRUE)
   - Windows regsvr32.exe utility
   - COM registration framework
 

@@ -39,17 +39,17 @@ The structure supports multiple phases of CTE analysis: dependency graph constru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseState
-  - CteItem
-  - RecursionContext
-  - List
+  - [ParseState](../P/ParseState.md)
+  - [CteItem](CteItem.md)
+  - [RecursionContext](../R/RecursionContext.md)
+  - [List](../L/List.md)
   - CommonTableExpr
 - Called from (representative examples):
-  - transformWithClause
-  - makeDependencyGraph
-  - makeDependencyGraphWalker
-  - checkWellFormedRecursion
-  - checkWellFormedRecursionWalker
+  - [transformWithClause](../t/transformWithClause.md)
+  - [makeDependencyGraph](../m/makeDependencyGraph.md)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md)
+  - [checkWellFormedRecursion](../c/checkWellFormedRecursion.md)
+  - [checkWellFormedRecursionWalker](../c/checkWellFormedRecursionWalker.md)
 
 ## Notes and Other Information
 - The structure is designed to be passed through multiple phases of CTE analysis, with different fields being relevant during different phases

@@ -19,22 +19,22 @@ The function configures semantic handlers for various JSON elements (objects, ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - makeJsonLexContextIncremental
-  - json_manifest_object_start
+  - [json_manifest_object_start](json_manifest_object_start.md)
   - json_manifest_object_end
   - json_manifest_array_start
   - json_manifest_array_end
   - json_manifest_object_field_start
   - json_manifest_scalar
-  - pg_cryptohash_create
-  - pg_cryptohash_init
+  - [pg_cryptohash_create](../p/pg_cryptohash_create.md)
+  - [pg_cryptohash_init](../p/pg_cryptohash_init.md)
   - PG_SHA256
   - PG_UTF8
   - JM_EXPECT_TOPLEVEL_START
 - Called from (representative examples):
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:178)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:455)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:178)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:455)
 
 ## Notes and Other Information
 - Returns a fully initialized JsonManifestParseIncrementalState pointer

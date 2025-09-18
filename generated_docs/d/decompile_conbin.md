@@ -26,15 +26,15 @@ The function performs these steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (macro)
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - elog
   - DirectFunctionCall2
-  - pg_get_expr
-  - ObjectIdGetDatum
+  - [pg_get_expr](../p/pg_get_expr.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - TextDatumGetCString
   - Form_pg_constraint
 - Called from (representative examples):
-  - constraints_equivalent (called twice)
+  - [constraints_equivalent](../c/constraints_equivalent.md) (called twice)
 
 ## Notes and Other Information
 - The function assumes the input tuple is from pg_constraint catalog

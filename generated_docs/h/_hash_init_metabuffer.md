@@ -22,19 +22,19 @@ This function sets up the metadata page for a hash index, which is the control s
 ## Dependencies
 - Functions called/Symbols referenced:
   - _hash_get_totalbuckets
-  - _hash_spareindex
-  - _hash_pageinit
-  - BufferGetPage
-  - BufferGetPageSize
+  - [_hash_spareindex](_hash_spareindex.md)
+  - [_hash_pageinit](_hash_pageinit.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
   - HashPageGetOpaque
   - HashPageGetMeta
   - HashGetMaxBitmapSize
-  - pg_leftmost_one_pos32
-  - pg_nextpower2_32
+  - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
   - MemSet
 - Called from (representative examples):
-  - hash_xlog_init_meta_page
-  - _hash_init
+  - [hash_xlog_init_meta_page](hash_xlog_init_meta_page.md)
+  - [_hash_init](_hash_init.md)
 
 ## Notes and Other Information
 - Always forces at least 2 bucket pages regardless of calculated requirements

@@ -17,13 +17,13 @@ ReadStr reads a string from a PostgreSQL archive by first reading an integer rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadInt
+  - [ReadInt](ReadInt.md)
   - pg_malloc
 - Called from (representative examples):
-  - ReadToc
-  - ReadHead
+  - [ReadToc](ReadToc.md)
+  - [ReadHead](ReadHead.md)
   - appendByteaLiteralAHX
-  - _ReadExtraToc
+  - [_ReadExtraToc](_ReadExtraToc.md)
 
 ## Notes and Other Information
 - Returns NULL when the stored length is negative (indicating a null string)

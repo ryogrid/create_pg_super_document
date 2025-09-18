@@ -21,8 +21,8 @@ The function is designed to work in conjunction with PQresetPoll to provide non-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqClosePGconn
-  - pqConnectDBStart
+  - [pqClosePGconn](../p/pqClosePGconn.md)
+  - [pqConnectDBStart](../p/pqConnectDBStart.md)
   - PostgresPollingStatusType
 - Called from (representative examples):
   - PQsetdb (referenced in libpq-fe.h)

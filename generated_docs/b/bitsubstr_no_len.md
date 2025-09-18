@@ -21,7 +21,7 @@ This function implements a variant of bit string substring extraction where no e
 - Functions called/Symbols referenced:
   - PG_GETARG_VARBIT_P (extracts VarBit argument)
   - PG_GETARG_INT32 (extracts integer start position argument)
-  - bitsubstring (performs actual substring extraction with -1 length and true flag)
+  - [bitsubstring](bitsubstring.md) (performs actual substring extraction with -1 length and true flag)
   - PG_RETURN_VARBIT_P (returns VarBit result)
 - Called from:
   - No direct references found (likely called via SQL function dispatch)

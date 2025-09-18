@@ -24,11 +24,11 @@ This static function serves as an error reporting mechanism for LZ4 stream opera
   - LZ4F_getErrorName (LZ4 library function) 
   - strerror (standard C library function)
 - Types referenced:
-  - CompressFileHandle
-  - LZ4State
+  - [CompressFileHandle](../C/CompressFileHandle.md)
+  - [LZ4State](LZ4State.md)
 - Called from:
-  - LZ4Stream_read (at compress_lz4.c:616)
-  - LZ4Stream_getc (at compress_lz4.c:633)
+  - [LZ4Stream_read](LZ4Stream_read.md) (at compress_lz4.c:616)
+  - [LZ4Stream_getc](LZ4Stream_getc.md) (at compress_lz4.c:633)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the compress_lz4.c file

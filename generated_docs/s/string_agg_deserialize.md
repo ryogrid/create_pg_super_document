@@ -31,14 +31,14 @@ The deserialization process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate execution context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate execution context)
   - PG_GETARG_BYTEA_PP (extracts bytea argument)
-  - initReadOnlyStringInfo (initializes read-only buffer for deserialization)
-  - makeStringAggState (creates new StringInfo state in aggregate context)
-  - pq_getmsgint (reads 4-byte integer from buffer)
-  - pq_getmsgbytes (reads byte array from buffer)
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md) (initializes read-only buffer for deserialization)
+  - [makeStringAggState](../m/makeStringAggState.md) (creates new StringInfo state in aggregate context)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (reads 4-byte integer from buffer)
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md) (reads byte array from buffer)
   - appendBinaryStringInfo (appends binary data to StringInfo)
-  - pq_getmsgend (validates complete message consumption)
+  - [pq_getmsgend](../p/pq_getmsgend.md) (validates complete message consumption)
   - VARDATA_ANY, VARSIZE_ANY_EXHDR (bytea data access macros)
 
 - Called from:

@@ -23,13 +23,13 @@ The function performs bounds checking to ensure sufficient data is available in 
 - Functions called/Symbols referenced:
   - pg_ntoh16 (converts 16-bit value from network to host byte order)
   - pg_ntoh32 (converts 32-bit value from network to host byte order)
-  - pqInternalNotice (logs internal notice messages)
+  - [pqInternalNotice](pqInternalNotice.md) (logs internal notice messages)
 - Called from (representative examples):
-  - pqParseInput3 (protocol parsing)
-  - getRowDescriptions (result set metadata parsing)
-  - getAnotherTuple (data row parsing)
-  - getNotify (notification message parsing)
-  - pqFunctionCall3 (function call result parsing)
+  - [pqParseInput3](pqParseInput3.md) (protocol parsing)
+  - [getRowDescriptions](../g/getRowDescriptions.md) (result set metadata parsing)
+  - [getAnotherTuple](../g/getAnotherTuple.md) (data row parsing)
+  - [getNotify](../g/getNotify.md) (notification message parsing)
+  - [pqFunctionCall3](pqFunctionCall3.md) (function call result parsing)
 
 ## Notes and Other Information
 - Only supports 2-byte and 4-byte integers; other sizes will result in an error notice and EOF return

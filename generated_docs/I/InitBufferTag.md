@@ -22,14 +22,14 @@ The function extracts the tablespace OID and database OID directly from the RelF
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufTagSetRelForkDetails
+  - [BufTagSetRelForkDetails](../B/BufTagSetRelForkDetails.md)
   - BufferTag (structure type)
 - Called from (representative examples):
-  - PrefetchSharedBuffer
-  - ReadRecentBuffer
-  - BufferAlloc
-  - ExtendBufferedRelShared
-  - FindAndDropRelationBuffers
+  - [PrefetchSharedBuffer](../P/PrefetchSharedBuffer.md)
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [BufferAlloc](../B/BufferAlloc.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
   - PrefetchLocalBuffer
   - LocalBufferAlloc
   - ExtendBufferedRelLocal

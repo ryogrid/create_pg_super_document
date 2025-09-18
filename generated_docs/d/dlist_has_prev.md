@@ -20,12 +20,12 @@ The function is marked as static inline for performance, as it's a simple pointe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (struct type)
-  - dlist_node (struct type)
+  - [dlist_head](dlist_head.md) (struct type)
+  - [dlist_node](dlist_node.md) (struct type)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf (src/backend/access/gin/gindatapage.c:639)
-  - dlist_prev_node (src/include/lib/ilist.h:549)
-  - dclist_has_prev (src/include/lib/ilist.h:859)
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md) (src/backend/access/gin/gindatapage.c:639)
+  - [dlist_prev_node](dlist_prev_node.md) (src/include/lib/ilist.h:549)
+  - [dclist_has_prev](dclist_has_prev.md) (src/include/lib/ilist.h:859)
 
 ## Notes and Other Information
 - **Caution**: This function is unreliable if the node is not actually in the specified list

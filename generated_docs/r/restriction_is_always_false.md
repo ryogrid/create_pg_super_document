@@ -25,16 +25,16 @@ Like its counterpart restriction_is_always_true, it includes safety checks to av
 - Functions called/Symbols referenced:
   - NullTest (struct type for null testing operations)
   - IS_NULL (enum value for null test type)
-  - expr_is_nonnullable (determines if expression is guaranteed non-null)
-  - restriction_is_or_clause (checks if restriction is an OR clause)
-  - is_orclause (verifies if node is an OR Boolean expression)  
+  - [expr_is_nonnullable](../e/expr_is_nonnullable.md) (determines if expression is guaranteed non-null)
+  - [restriction_is_or_clause](restriction_is_or_clause.md) (checks if restriction is an OR clause)
+  - [is_orclause](../i/is_orclause.md) (verifies if node is an OR Boolean expression)  
   - BoolExpr (struct type for Boolean expressions)
-  - restriction_is_always_false (recursive call for OR branch analysis)
+  - [restriction_is_always_false](restriction_is_always_false.md) (recursive call for OR branch analysis)
 
 - Called from (representative examples):
-  - add_base_clause_to_rel (base relation clause processing)
-  - apply_child_basequals (inheritance hierarchy clause application)
-  - add_join_clause_to_rels (join clause distribution)
+  - [add_base_clause_to_rel](../a/add_base_clause_to_rel.md) (base relation clause processing)
+  - [apply_child_basequals](../a/apply_child_basequals.md) (inheritance hierarchy clause application)
+  - [add_join_clause_to_rels](../a/add_join_clause_to_rels.md) (join clause distribution)
 
 ## Notes and Other Information
 - Avoids optimization for clone clauses due to unreliable nulling relation information

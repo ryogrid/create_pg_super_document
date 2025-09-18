@@ -17,11 +17,11 @@ This function is the core implementation for determining what operations are sup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_typcache_tupdesc
-  - IncrTupleDescRefCount
-  - DecrTupleDescRefCount
-  - lookup_type_cache
-  - getBaseTypeAndTypmod
+  - [load_typcache_tupdesc](../l/load_typcache_tupdesc.md)
+  - [IncrTupleDescRefCount](../I/IncrTupleDescRefCount.md)
+  - [DecrTupleDescRefCount](../D/DecrTupleDescRefCount.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
   - TCFLAGS_HAVE_FIELD_EQUALITY (flag)
   - TCFLAGS_HAVE_FIELD_COMPARE (flag)
   - TCFLAGS_HAVE_FIELD_HASHING (flag)
@@ -29,10 +29,10 @@ This function is the core implementation for determining what operations are sup
   - TCFLAGS_CHECKED_FIELD_PROPERTIES (flag)
   - TCFLAGS_DOMAIN_BASE_IS_COMPOSITE (flag)
 - Called from (representative examples):
-  - record_fields_have_equality
-  - record_fields_have_compare
-  - record_fields_have_hashing
-  - record_fields_have_extended_hashing
+  - [record_fields_have_equality](../r/record_fields_have_equality.md)
+  - [record_fields_have_compare](../r/record_fields_have_compare.md)
+  - [record_fields_have_hashing](../r/record_fields_have_hashing.md)
+  - [record_fields_have_extended_hashing](../r/record_fields_have_extended_hashing.md)
 
 ## Notes and Other Information
 - This is a static function only used within typcache.c

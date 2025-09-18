@@ -31,12 +31,12 @@ Unlike unique indexes, hash indexes don't enforce uniqueness constraints, so the
 ## Dependencies
 - Functions called/Symbols referenced:
   - _hash_convert_tuple
-  - index_form_tuple
+  - [index_form_tuple](../i/index_form_tuple.md)
   - RelationGetDescr
-  - _hash_doinsert
-  - pfree
+  - [_hash_doinsert](_hash_doinsert.md)
+  - [pfree](../p/pfree.md)
 - Called from:
-  - hashhandler (as amroutine->aminsert callback)
+  - [hashhandler](hashhandler.md) (as amroutine->aminsert callback)
   - PostgreSQL index insertion system during DML operations
 
 ## Notes and Other Information

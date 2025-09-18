@@ -20,7 +20,7 @@ The  function creates a hard link using the POSIX  system call with the  flag. T
 - Functions called/Symbols referenced:
   - linkat (POSIX system call for creating hard links)
 - Called from:
-  - dolink (twice, at lines 1034 and 1039 in src/timezone/zic.c)
+  - [dolink](../d/dolink.md) (twice, at lines 1034 and 1039 in src/timezone/zic.c)
 
 ## Notes and Other Information
 - This is a static function local to src/timezone/zic.c, part of PostgreSQL's timezone handling code

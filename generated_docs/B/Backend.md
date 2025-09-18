@@ -25,18 +25,18 @@ The struct is essential for PostgreSQL's multi-process architecture, allowing th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (for BackendList management)
+  - [dlist_head](../d/dlist_head.md) (for BackendList management)
   - DLIST_STATIC_INIT (for list initialization)
-  - BackgroundWorker (related background worker structure)
+  - [BackgroundWorker](BackgroundWorker.md) (related background worker structure)
 - Called from (representative examples):
-  - processCancelRequest (for query cancellation)
-  - CleanupBackend (for process cleanup)
-  - BackendStartup (for new backend registration)
-  - assign_backendlist_entry (for backend list management)
+  - [processCancelRequest](../p/processCancelRequest.md) (for query cancellation)
+  - [CleanupBackend](../C/CleanupBackend.md) (for process cleanup)
+  - [BackendStartup](BackendStartup.md) (for new backend registration)
+  - [assign_backendlist_entry](../a/assign_backendlist_entry.md) (for backend list management)
 
 ## Notes and Other Information
 - The Backend struct is central to PostgreSQL's process management in the postmaster
 - Under EXEC_BACKEND builds, backends are also stored in shared memory via ShmemBackendArray
 - The cancel_key provides security by requiring knowledge of the key to cancel queries
 - The dead_end flag is used for backends that will immediately terminate after sending an error
-- Backend entries are maintained in a global BackendList for efficient iteration and management
+- [Backend](Backend.md) entries are maintained in a global BackendList for efficient iteration and management

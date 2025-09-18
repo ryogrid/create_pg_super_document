@@ -23,11 +23,11 @@ This function takes a Julian date value and converts it to the conventional mont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j: Converts year/month/day to Julian day number
-  - j2date: Converts Julian day number to year/month/day
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number
+  - [j2date](../j/j2date.md): Converts Julian day number to year/month/day
 - Called from (representative examples):
-  - rjulmdy: Informix compatibility wrapper function
-  - main: Used in test programs (dt_test.c)
+  - [rjulmdy](../r/rjulmdy.md): Informix compatibility wrapper function
+  - [main](../m/main.md): Used in test programs (dt_test.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's ECPG (Embedded SQL in C) pgtypes library

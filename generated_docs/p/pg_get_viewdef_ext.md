@@ -22,7 +22,7 @@ This enhanced interface is particularly useful for applications that need to bal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_get_viewdef_worker` - Core worker function for view definition generation
+  - `[pg_get_viewdef_worker](pg_get_viewdef_worker.md)` - Core worker function for view definition generation
   - `GET_PRETTY_FLAGS` - Macro to convert boolean to appropriate formatting flags
   - `string_to_text` - Converts C string to PostgreSQL text type
   - `WRAP_COLUMN_DEFAULT` - Default column width for line wrapping

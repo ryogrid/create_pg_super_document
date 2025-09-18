@@ -20,17 +20,17 @@ This function serves as a relation-oriented wrapper around the more general smgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_start_smgr
+  - [smgr_bulk_start_smgr](smgr_bulk_start_smgr.md)
   - RelationGetSmgr
   - RelationNeedsWAL
   - INIT_FORKNUM
-  - BulkWriteState
+  - [BulkWriteState](../B/BulkWriteState.md)
 - Called from (representative examples):
-  - gist_indexsortbuild
-  - begin_heap_rewrite
-  - btbuildempty
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md)
+  - [btbuildempty](../b/btbuildempty.md)
   - _bt_load
-  - spgbuildempty
+  - [spgbuildempty](spgbuildempty.md)
 
 ## Notes and Other Information
 - This function automatically determines WAL logging requirements by checking if the relation needs WAL logging or if the operation is on the INIT_FORKNUM

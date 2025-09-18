@@ -21,11 +21,11 @@ validate_table_rewrite_tags is a static helper function specifically designed to
 ## Dependencies
 - Functions called/Symbols referenced:
   - strVal() - extracts string value from a Node
-  - GetCommandTagEnum() - converts command tag string to CommandTag enum
-  - command_tag_table_rewrite_ok() - checks if command tag is valid for table rewrite events
+  - [GetCommandTagEnum](../G/GetCommandTagEnum.md)() - converts command tag string to CommandTag enum
+  - [command_tag_table_rewrite_ok](../c/command_tag_table_rewrite_ok.md)() - checks if command tag is valid for table rewrite events
   - ereport() - reports errors with appropriate error codes
 - Called from (representative examples):
-  - CreateEventTrigger() - when creating event triggers with table_rewrite event and tag filters
+  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - when creating event triggers with table_rewrite event and tag filters
 
 ## Notes and Other Information
 - This is a static function only accessible within event_trigger.c

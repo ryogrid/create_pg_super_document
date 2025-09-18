@@ -19,21 +19,21 @@ This function serves as a converter that transforms jsonpath items (nodes in the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetBool (extracts boolean value from jsonpath item)
-  - jspGetNumeric (extracts numeric value from jsonpath item)  
-  - jspGetString (extracts string value and length from jsonpath item)
-  - getJsonPathVariable (resolves variable references)
+  - [jspGetBool](../j/jspGetBool.md) (extracts boolean value from jsonpath item)
+  - [jspGetNumeric](../j/jspGetNumeric.md) (extracts numeric value from jsonpath item)  
+  - [jspGetString](../j/jspGetString.md) (extracts string value and length from jsonpath item)
+  - [getJsonPathVariable](getJsonPathVariable.md) (resolves variable references)
 - Data types used:
-  - JsonPathExecContext, JsonPathItem, JsonbValue
+  - [JsonPathExecContext](../J/JsonPathExecContext.md), JsonPathItem, JsonbValue
   - jsonpath item types: jpiNull, jpiBool, jpiNumeric, jpiString, jpiVariable
   - JSON value types: jbvNull, jbvBool, jbvNumeric, jbvString
 - Called from (representative examples):
   - RETURN_ERROR macro in jsonpath_exec.c:310
-  - executeItemOptUnwrapTarget in jsonpath_exec.c:782
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) in jsonpath_exec.c:782
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module
 - The function modifies the output parameter 'value' rather than returning a value
-- Variable processing is handled specially - it calls getJsonPathVariable and returns early
+- [Variable](../V/Variable.md) processing is handled specially - it calls getJsonPathVariable and returns early
 - Uses elog(ERROR) for unexpected jsonpath item types, which will terminate execution
 - Part of the PostgreSQL jsonpath execution engine's type conversion system

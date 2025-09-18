@@ -22,9 +22,9 @@ This function is fundamental to the genetic algorithm's operation, providing the
 ## Dependencies
 - Functions called/Symbols referenced:
   - GeqoPrivateData (struct type)
-  - pg_prng_double (PostgreSQL's pseudo-random double generator function)
+  - [pg_prng_double](../p/pg_prng_double.md) (PostgreSQL's pseudo-random double generator function)
 - Called from (representative examples):
-  - linear_rand (in geqo_selection.c:104 for selection operations)
+  - [linear_rand](../l/linear_rand.md) (in geqo_selection.c:104 for selection operations)
 
 ## Notes and Other Information
 - Returns a double-precision value in the range [0.0, 1.0)

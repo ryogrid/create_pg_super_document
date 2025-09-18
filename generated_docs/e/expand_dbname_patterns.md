@@ -21,16 +21,16 @@ For each pattern provided, the function constructs and executes a SQL query that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleStringList (data structure)
-  - SimpleStringListCell (iterator structure)  
+  - [SimpleStringList](../S/SimpleStringList.md) (data structure)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md) (iterator structure)  
   - processSQL PatternPattern (pattern matching utility)
-  - PQfinish (PostgreSQL connection cleanup)
-  - exit_nicely (graceful exit function)
-  - executeQuery (query execution wrapper)
-  - simple_string_list_append (list manipulation)
-  - resetPQExpBuffer (buffer reset utility)
+  - [PQfinish](../P/PQfinish.md) (PostgreSQL connection cleanup)
+  - [exit_nicely](exit_nicely.md) (graceful exit function)
+  - [executeQuery](executeQuery.md) (query execution wrapper)
+  - [simple_string_list_append](../s/simple_string_list_append.md) (list manipulation)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (buffer reset utility)
 - Called from (representative examples):
-  - main (in pg_dumpall.c at line 515)
+  - [main](../m/main.md) (in pg_dumpall.c at line 515)
 
 ## Notes and Other Information
 - The function returns early if no patterns are provided (patterns->head == NULL)

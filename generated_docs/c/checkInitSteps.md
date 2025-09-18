@@ -27,12 +27,12 @@ If validation fails, the function logs an error message indicating the invalid c
 - Functions called/Symbols referenced:
   - ALL_INIT_STEPS (constant defining valid step characters: "dtgGvpf")
   - strchr (standard C library function to search for character)
-  - pg_fatal (PostgreSQL utility for fatal error logging)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL utility for fatal error logging)
   - pg_log_error (PostgreSQL utility for error logging)
   - pg_log_error_detail (PostgreSQL utility for detailed error logging)
   - exit (standard C library exit function)
 - Called from (representative examples):
-  - main (during command-line option processing)
+  - [main](../m/main.md) (during command-line option processing)
 
 ## Notes and Other Information
 - Valid initialization step characters are defined by ALL_INIT_STEPS: "dtgGvpf" where:

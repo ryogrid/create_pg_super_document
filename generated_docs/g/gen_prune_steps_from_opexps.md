@@ -33,18 +33,18 @@ For LIST and RANGE partitioning, the function implements sophisticated prefix lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_op_opfamily_properties
-  - get_steps_using_prefix
-  - list_concat
+  - [get_op_opfamily_properties](get_op_opfamily_properties.md)
+  - [get_steps_using_prefix](get_steps_using_prefix.md)
+  - [list_concat](../l/list_concat.md)
   - lappend
   - list_head
   - llast
   - for_each_cell
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - BTMaxStrategyNumber, HTMaxStrategyNumber
   - HTEqualStrategyNumber, BTEqualStrategyNumber, BTLessStrategyNumber, etc.
 - Called from (representative examples):
-  - gen_partprune_steps_internal (partprune.c:1267)
+  - [gen_partprune_steps_internal](gen_partprune_steps_internal.md) (partprune.c:1267)
 
 ## Notes and Other Information
 - Returns NIL when no useful pruning steps can be generated

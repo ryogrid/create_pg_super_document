@@ -27,14 +27,14 @@ This function takes no parameters but operates on numerous global variables incl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readfile, writefile
-  - replace_guc_value, replace_token
-  - pretty_wal_size
-  - locale_date_order
+  - [readfile](../r/readfile.md), writefile
+  - [replace_guc_value](../r/replace_guc_value.md), replace_token
+  - [pretty_wal_size](../p/pretty_wal_size.md)
+  - [locale_date_order](../l/locale_date_order.md)
   - pg_malloc_array, pg_strdup
-  - check_ok
+  - [check_ok](../c/check_ok.md)
 - Called from (representative examples):
-  - initialize_data_directory (around line 3079)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (around line 3079)
 
 ## Notes and Other Information
 - This is a static function within initdb.c, used specifically during database cluster initialization

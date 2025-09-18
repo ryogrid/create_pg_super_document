@@ -24,7 +24,7 @@ The operation is atomic and doesn't require locking because:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PROC_HDR (structure type)
+  - [PROC_HDR](../P/PROC_HDR.md) (structure type)
 
 - Called from (representative examples):
   - LockBufferForCleanup

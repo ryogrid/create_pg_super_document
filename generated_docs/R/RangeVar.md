@@ -29,17 +29,17 @@ The structure supports temporary table indicators through the relpersistence fie
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)
-  - Alias (for aliasing support)
+  - [Alias](../A/Alias.md) (for aliasing support)
   - ParseLoc (parse location tracking)
   - RELPERSISTENCE_* constants
 
 - Called from (representative examples):
-  - RangeVarGetRelidExtended (relation resolution)
-  - parserOpenTable (table access)
-  - addRangeTableEntry (RTE creation)
-  - transformFromClauseItem (FROM clause parsing)
-  - makeRangeVar (creation function)
-  - DefineRelation (table creation)
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md) (relation resolution)
+  - [parserOpenTable](../p/parserOpenTable.md) (table access)
+  - [addRangeTableEntry](../a/addRangeTableEntry.md) (RTE creation)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (FROM clause parsing)
+  - [makeRangeVar](../m/makeRangeVar.md) (creation function)
+  - [DefineRelation](../D/DefineRelation.md) (table creation)
   - various utility commands (DROP, ALTER, etc.)
 
 ## Notes and Other Information

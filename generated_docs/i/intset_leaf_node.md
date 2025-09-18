@@ -24,15 +24,15 @@ The nodes are linked together via the 'next' pointer to form a singly-linked lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_leaf_node (self-reference for next pointer)
+  - [intset_leaf_node](intset_leaf_node.md) (self-reference for next pointer)
   - MAX_LEAF_ITEMS (capacity constant, value 64)  
-  - leaf_item (structure for compressed integer sequences)
+  - [leaf_item](../l/leaf_item.md) (structure for compressed integer sequences)
 - Referenced by:
-  - IntegerSet (maintains pointers to leaf nodes)
-  - intset_new_leaf_node
-  - intset_flush_buffered_values
-  - intset_update_upper
-  - intset_is_member
+  - [IntegerSet](../I/IntegerSet.md) (maintains pointers to leaf nodes)
+  - [intset_new_leaf_node](intset_new_leaf_node.md)
+  - [intset_flush_buffered_values](intset_flush_buffered_values.md)
+  - [intset_update_upper](intset_update_upper.md)
+  - [intset_is_member](intset_is_member.md)
 
 ## Notes and Other Information
 Like intset_internal_node, this structure uses C-style inheritance by embedding the intset_node header, allowing polymorphic access. The leaf_item array stores compressed integer sequences where each item can hold up to 1 + SIMPLE8B_MAX_VALUES_PER_CODEWORD integers. The horizontal linkage through the 'next' pointer enables efficient range scans without requiring repeated tree traversals from the root. The Simple-8b compression provides significant space savings for typical PostgreSQL integer sequences while maintaining fast decompression performance.

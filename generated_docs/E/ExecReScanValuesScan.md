@@ -22,9 +22,9 @@ This function ensures that subsequent calls to the scan will start from the begi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - ExecScanReScan
+  - [ExecScanReScan](ExecScanReScan.md)
 - Called from:
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 
 ## Notes and Other Information
 - Resets curr_idx to -1 to indicate the scan should start from the beginning

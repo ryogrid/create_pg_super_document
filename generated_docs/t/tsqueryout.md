@@ -29,10 +29,10 @@ The function follows PostgreSQL's standard I/O function conventions, using the  
   - PG_GETARG_TSQUERY
   - GETQUERY
   - GETOPERAND
-  - infix
+  - [infix](../i/infix.md)
   - PG_RETURN_CSTRING
   - PG_FREE_IF_COPY
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - PostgreSQL type system (no direct code references found, called via function manager)
 

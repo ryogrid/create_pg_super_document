@@ -24,15 +24,15 @@ The junk filter removes junk attributes to form the real output tuple. It also p
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - List
-  - TupleDesc
+  - [List](../L/List.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - AttrNumber
   - TupleTableSlot
 - Called from (representative examples):
   - ExecInitJunkFilter
   - ExecFilterJunk
   - ExecFindJunkAttribute
-  - InitPlan
+  - [InitPlan](../I/InitPlan.md)
 
 ## Notes and Other Information
 - Essential for UPDATE and DELETE operations where row identifiers (ctid) are needed for execution but not for output

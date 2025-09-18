@@ -19,19 +19,19 @@ This function is the primary decision point for whether commands should be execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_peek (function)
+  - [conditional_stack_peek](conditional_stack_peek.md) (function)
   - ifState (typedef)
-  - ConditionalStack (typedef)
+  - [ConditionalStack](../C/ConditionalStack.md) (typedef)
   - IFSTATE_NONE (enum value)
   - IFSTATE_TRUE (enum value)  
   - IFSTATE_ELSE_TRUE (enum value)
 - Called from (representative examples):
-  - advanceConnectionState (pgbench) - multiple locations
-  - HandleSlashCmds (psql)
-  - exec_command (psql)
-  - exec_command_if (psql)
-  - psql_get_variable (psql)
-  - MainLoop (psql) - multiple locations
+  - [advanceConnectionState](../a/advanceConnectionState.md) (pgbench) - multiple locations
+  - [HandleSlashCmds](../H/HandleSlashCmds.md) (psql)
+  - [exec_command](../e/exec_command.md) (psql)
+  - [exec_command_if](../e/exec_command_if.md) (psql)
+  - [psql_get_variable](../p/psql_get_variable.md) (psql)
+  - [MainLoop](../M/MainLoop.md) (psql) - multiple locations
   - MAX_PROMPT_SIZE (psql)
 
 ## Notes and Other Information

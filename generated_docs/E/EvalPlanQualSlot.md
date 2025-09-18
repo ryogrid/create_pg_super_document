@@ -19,14 +19,14 @@ This function provides access to tuple slots used during EPQ testing, which is p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_slot_create
-  - EPQState
+  - [table_slot_create](../t/table_slot_create.md)
+  - [EPQState](EPQState.md)
 - Called from (representative examples):
-  - EvalPlanQual
-  - ExecLockRows
-  - ExecDelete
-  - ExecUpdate
-  - ExecMergeMatched
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [ExecLockRows](ExecLockRows.md)
+  - [ExecDelete](ExecDelete.md)
+  - [ExecUpdate](ExecUpdate.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
   - ExecGetJunkAttribute
 
 ## Notes and Other Information

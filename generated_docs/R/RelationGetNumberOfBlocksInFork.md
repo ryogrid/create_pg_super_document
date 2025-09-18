@@ -21,13 +21,13 @@ RelationGetNumberOfBlocksInFork provides a unified interface for determining the
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_HAS_TABLE_AM
-  - table_relation_size
+  - [table_relation_size](../t/table_relation_size.md)
   - RELKIND_HAS_STORAGE
   - smgrnblocks
   - RelationGetSmgr
 - Called from (representative examples):
-  - _hash_getnewbuf
-  - _hash_init
+  - [_hash_getnewbuf](../h/_hash_getnewbuf.md)
+  - [_hash_init](../h/_hash_init.md)
   - RelationGetNumberOfBlocks (macro wrapper)
 
 ## Notes and Other Information

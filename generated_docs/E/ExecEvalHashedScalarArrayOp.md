@@ -30,17 +30,17 @@ Special handling is provided for:
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
   - ArrayGetNItems
-  - get_typlenbyvalalign
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - saophash_create
   - saophash_insert
   - saophash_lookup
-  - fmgr_info
+  - [fmgr_info](../f/fmgr_info.md)
   - InitFunctionCallInfoData
   - fetch_att
   - att_addlength_pointer
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Only supports OR semantics (ANY), unlike the general ExecEvalScalarArrayOp

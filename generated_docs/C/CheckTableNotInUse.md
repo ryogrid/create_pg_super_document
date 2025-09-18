@@ -32,11 +32,11 @@ The function is designed to "err on the side of paranoia" to prevent data corrup
   - ereport (reports errors with appropriate error codes)
   - RELKIND_INDEX, RELKIND_PARTITIONED_INDEX (relation kind constants)
 - Called from (representative examples):
-  - CheckAlterTableIsSafe (in tablecmds.c:4331, as part of ALTER TABLE safety checks)
-  - cluster_rel (in cluster.c:444, before clustering a relation)
-  - reindex_index (in index.c:3707, before reindexing)
-  - truncate_check_activity (in tablecmds.c:2383, before truncating)
-  - DefineIndex (in indexcmds.c:748, during index creation)
+  - [CheckAlterTableIsSafe](CheckAlterTableIsSafe.md) (in tablecmds.c:4331, as part of ALTER TABLE safety checks)
+  - [cluster_rel](../c/cluster_rel.md) (in cluster.c:444, before clustering a relation)
+  - [reindex_index](../r/reindex_index.md) (in index.c:3707, before reindexing)
+  - [truncate_check_activity](../t/truncate_check_activity.md) (in tablecmds.c:2383, before truncating)
+  - [DefineIndex](../D/DefineIndex.md) (in indexcmds.c:748, during index creation)
 
 ## Notes and Other Information
 - The function distinguishes between "nailed" relations (critical system catalogs that are kept permanently open) and regular relations when checking reference counts

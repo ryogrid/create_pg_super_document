@@ -26,12 +26,12 @@ The XLogPrefetchStats structure serves as a comprehensive metrics collection sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint64 (atomic 64-bit unsigned integer type for thread-safe counters)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (atomic 64-bit unsigned integer type for thread-safe counters)
 
 - Called from (representative examples):
-  - XLogPrefetchShmemSize (calculates shared memory requirements)
-  - XLogPrefetchShmemInit (initializes the shared memory structure)
-  - XLogPrefetcherComputeStats (updates dynamic statistics)
+  - [XLogPrefetchShmemSize](XLogPrefetchShmemSize.md) (calculates shared memory requirements)
+  - [XLogPrefetchShmemInit](XLogPrefetchShmemInit.md) (initializes the shared memory structure)
+  - [XLogPrefetcherComputeStats](XLogPrefetcherComputeStats.md) (updates dynamic statistics)
   - Various prefetch functions that increment specific counters
 
 ## Notes and Other Information

@@ -27,12 +27,12 @@ The function is designed to work with PostgreSQL's internal wide character repre
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_regexec (core regex execution from Spencer's library)
-  - pg_regerror (error message generation)
+  - [pg_regerror](../p/pg_regerror.md) (error message generation)
   - regex_t, regmatch_t (data structures)
   - REG_OKAY, REG_NOMATCH (result constants)
 - Called from (representative examples):
-  - RE_execute
-  - setup_regexp_matches
+  - [RE_execute](RE_execute.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within regexp.c

@@ -23,22 +23,22 @@ The function uses PostgreSQL's SPI (Server Programming Interface) to perform the
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple
-  - PLy_current_execution_context
-  - PLy_exception_set
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
+  - [PLy_exception_set](PLy_exception_set.md)
   - GetPortalByName
   - PortalIsValid
-  - PLy_result_new
-  - PLy_spi_subtransaction_begin
-  - SPI_cursor_fetch
+  - [PLy_result_new](PLy_result_new.md)
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)
+  - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)
   - PyLong_FromLong
   - PyLong_FromUnsignedLongLong
   - PyList_New
-  - PLy_input_setup_tuple
-  - PLy_input_from_tuple
+  - [PLy_input_setup_tuple](PLy_input_setup_tuple.md)
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md)
   - PyList_SetItem
-  - SPI_freetuptable
-  - PLy_spi_subtransaction_commit
-  - PLy_spi_subtransaction_abort
+  - [SPI_freetuptable](../S/SPI_freetuptable.md)
+  - [PLy_spi_subtransaction_commit](PLy_spi_subtransaction_commit.md)
+  - [PLy_spi_subtransaction_abort](PLy_spi_subtransaction_abort.md)
 - Called from (representative examples):
   - Registered as "fetch" method in PLy_cursor_methods array
 

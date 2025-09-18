@@ -18,8 +18,8 @@ The  function serves as the SQL interface for the pg_hba_file_rules system view,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - fill_hba_view
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [fill_hba_view](../f/fill_hba_view.md)
   - PG_RETURN_NULL
 - Types referenced:
   - ReturnSetInfo

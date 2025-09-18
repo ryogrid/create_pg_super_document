@@ -26,20 +26,20 @@ The function handles distance calculations for nearest-neighbor searches and can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgDeformLeafTuple
-  - heap_form_tuple
+  - [spgDeformLeafTuple](spgDeformLeafTuple.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - pPalloc (implicit through palloc)
 - Types used:
   - SpGistScanOpaque
   - SpGistLeafTuple
-  - IndexOrderByDistance
+  - [IndexOrderByDistance](../I/IndexOrderByDistance.md)
   - ItemPointer
 - Constants:
   - MaxIndexTuplesPerPage
   - INDEX_MAX_KEYS
   - spgKeyColumn
 - Called from:
-  - spggettuple
+  - [spggettuple](spggettuple.md)
 
 ## Notes and Other Information
 - This is a static helper function specific to the SPGiST scan implementation

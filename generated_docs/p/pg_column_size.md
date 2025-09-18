@@ -26,11 +26,11 @@ The function caches the input type's length information in `fn_extra` for effici
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_DATUM`: Macro to extract a datum argument
-  - `get_fn_expr_argtype`: Get the OID of the argument's data type
-  - `get_typlen`: Get the storage length of a data type
-  - `MemoryContextAlloc`: Allocate memory for caching type information
-  - `toast_datum_size`: Calculate size of potentially TOAST-ed varlena data
-  - `DatumGetCString`: Convert datum to C string
+  - `[get_fn_expr_argtype](../g/get_fn_expr_argtype.md)`: Get the OID of the argument's data type
+  - `[get_typlen](../g/get_typlen.md)`: Get the storage length of a data type
+  - `[MemoryContextAlloc](../M/MemoryContextAlloc.md)`: Allocate memory for caching type information
+  - `[toast_datum_size](../t/toast_datum_size.md)`: Calculate size of potentially TOAST-ed varlena data
+  - `[DatumGetCString](../D/DatumGetCString.md)`: Convert datum to C string
   - `PG_RETURN_INT32`: Macro to return a 32-bit integer result
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL function interface)

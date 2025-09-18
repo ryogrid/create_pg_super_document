@@ -26,13 +26,13 @@ The function implements a key optimization principle: rather than immediately pl
 ## Dependencies
 - Functions called/Symbols referenced:
   - work_mem (global variable for memory limit)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - Min/Max macros
   - MaxAllocSize constant
-  - BTPendingFSM structure
-  - BTVacState structure fields (bufsize, maxbufsize, pendingpages, npendingpages)
+  - [BTPendingFSM](../B/BTPendingFSM.md) structure
+  - [BTVacState](../B/BTVacState.md) structure fields (bufsize, maxbufsize, pendingpages, npendingpages)
 - Called from (representative examples):
-  - btvacuumscan
+  - [btvacuumscan](btvacuumscan.md)
 
 ## Notes and Other Information
 - The function uses a conservative approach with cleanup-only operations, completely skipping the optimization since no new deletions are expected

@@ -40,20 +40,20 @@ ArrayBuildState provides an efficient mechanism for building arrays incrementall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext for memory management
+  - [MemoryContext](../M/MemoryContext.md) for memory management
   - Datum type for element storage
   - Oid type for element type identification
 - Called from (representative examples):
-  - accumArrayResult() - main function for adding elements
-  - initArrayResult() - initializes the state
-  - makeArrayResult() - creates final ArrayType from accumulated state
-  - array_agg_transfn() - array aggregation function
+  - [accumArrayResult](../a/accumArrayResult.md)() - [main](../m/main.md) function for adding elements
+  - [initArrayResult](../i/initArrayResult.md)() - initializes the state
+  - [makeArrayResult](../m/makeArrayResult.md)() - creates final ArrayType from accumulated state
+  - [array_agg_transfn](../a/array_agg_transfn.md)() - array aggregation function
   - Various array-building functions throughout the codebase
 
 ## Notes and Other Information
 - Input elements must be scalars (legal array elements), not arrays themselves
 - The structure automatically grows the storage arrays when capacity is exceeded
 - Pass-by-reference data is copied into the memory context to ensure data persistence
-- Variable-length (varlena) data is detoasted and copied to avoid later modifications
+- [Variable](../V/Variable.md)-length (varlena) data is detoasted and copied to avoid later modifications
 - Used extensively in aggregate functions like array_agg() and various array manipulation routines
 - The private_cxt flag allows for using a private memory context for better memory management control

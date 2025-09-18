@@ -24,7 +24,7 @@ This function is essential for proper memory management when using the German st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function)
 - Called from (representative examples):
   - No direct references found (likely called through external library interfaces when stemmer instances are no longer needed)
 

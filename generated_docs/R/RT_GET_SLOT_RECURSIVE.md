@@ -25,14 +25,14 @@ This function recursively traverses the radix tree to locate the appropriate slo
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_GET_KEY_CHUNK
-  - RT_PTR_SET_LOCAL
-  - RT_NODE_SEARCH
-  - RT_NODE_INSERT
-  - RT_EXTEND_DOWN
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md)
+  - [RT_EXTEND_DOWN](RT_EXTEND_DOWN.md)
   - RT_SPAN
 - Called from (representative examples):
-  - RT_SET
-  - RT_GET_SLOT_RECURSIVE (recursive self-call)
+  - [RT_SET](RT_SET.md)
+  - [RT_GET_SLOT_RECURSIVE](RT_GET_SLOT_RECURSIVE.md) (recursive self-call)
 
 ## Notes and Other Information
 - This is the core recursive function that implements the tree traversal logic for insertions

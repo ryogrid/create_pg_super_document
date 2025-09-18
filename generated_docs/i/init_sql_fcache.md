@@ -23,23 +23,23 @@ This function performs comprehensive initialization of a SQL function's cache st
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - SearchSysCache1
-  - get_call_result_type
-  - get_typlenbyval
-  - prepare_sql_fn_parse_info
-  - pg_parse_query
-  - pg_analyze_and_rewrite_withcb
-  - sql_fn_parser_setup
-  - check_sql_fn_statements
-  - check_sql_fn_retval
-  - MakeSingleTupleTableSlot
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [get_typlenbyval](../g/get_typlenbyval.md)
+  - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md)
+  - [pg_parse_query](../p/pg_parse_query.md)
+  - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md)
+  - [sql_fn_parser_setup](../s/sql_fn_parser_setup.md)
+  - [check_sql_fn_statements](../c/check_sql_fn_statements.md)
+  - [check_sql_fn_retval](../c/check_sql_fn_retval.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - ExecInitJunkFilter
   - ExecInitJunkFilterConversion
-  - BlessTupleDesc
-  - init_execution_state
-  - GetCurrentSubTransactionId
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
+  - [init_execution_state](init_execution_state.md)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
 - Called from (representative examples):
-  - fmgr_sql
+  - [fmgr_sql](../f/fmgr_sql.md)
 
 ## Notes and Other Information
 - Creates dedicated memory context for function cache to ensure proper cleanup

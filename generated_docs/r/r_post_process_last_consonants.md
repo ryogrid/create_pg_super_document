@@ -27,10 +27,10 @@ These transformations follow Turkish consonant devoicing rules where voiced cons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (Snowball library function for backward pattern matching)
-  - slice_from_s (Snowball library function for string replacement)
+  - [find_among_b](../f/find_among_b.md) (Snowball library function for backward pattern matching)
+  - [slice_from_s](../s/slice_from_s.md) (Snowball library function for string replacement)
 - Called from:
-  - r_postlude (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2058)
+  - [r_postlude](r_postlude.md) (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2058)
 
 ## Notes and Other Information
 - This is a static function within the Turkish stemmer implementation

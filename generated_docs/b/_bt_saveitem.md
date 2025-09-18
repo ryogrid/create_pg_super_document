@@ -20,11 +20,11 @@ This function is a helper routine used during B-tree page scanning to store inde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPivot (assertion check)
-  - BTreeTupleIsPosting (assertion check)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md) (assertion check)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md) (assertion check)
   - IndexTupleSize (for tuple size calculation)
 - Called from (representative examples):
-  - _bt_readpage (multiple calls during page scanning)
+  - [_bt_readpage](_bt_readpage.md) (multiple calls during page scanning)
 
 ## Notes and Other Information
 - This function includes assertions to ensure the tuple is neither a pivot tuple nor a posting tuple, as these have different handling requirements

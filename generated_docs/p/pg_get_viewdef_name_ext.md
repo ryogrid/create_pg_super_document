@@ -26,10 +26,10 @@ This function serves as an extended PostgreSQL SQL function entry point for retr
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
   - GET_PRETTY_FLAGS
-  - makeRangeVarFromNameList
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - textToQualifiedNameList
   - RangeVarGetRelid
-  - pg_get_viewdef_worker
+  - [pg_get_viewdef_worker](pg_get_viewdef_worker.md)
   - string_to_text
   - PG_RETURN_TEXT_P
   - WRAP_COLUMN_DEFAULT

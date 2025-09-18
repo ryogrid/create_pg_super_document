@@ -22,9 +22,9 @@ The function is optimized for performance by unrolling the loop and handling eac
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for validation)
-  - GinPostingList (referenced in comments/context)
+  - [GinPostingList](../G/GinPostingList.md) (referenced in comments/context)
 - Called from (representative examples):
-  - ginPostingListDecodeAllSegments
+  - [ginPostingListDecodeAllSegments](../g/ginPostingListDecodeAllSegments.md)
 
 ## Notes and Other Information
 - This is a static function used internally for GIN index posting list decompression

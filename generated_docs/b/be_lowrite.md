@@ -30,8 +30,8 @@ This function serves as the interface between PostgreSQL's SQL  function and the
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (macro)
-  - PreventCommandIfReadOnly
-  - lo_write
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
+  - [lo_write](../l/lo_write.md)
   - VARSIZE_ANY_EXHDR (macro)
   - VARDATA_ANY (macro)
 - Called from (representative examples):

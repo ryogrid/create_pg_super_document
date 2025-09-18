@@ -21,18 +21,18 @@ This function is part of PostgreSQL's regression testing suite and serves as an 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_HEAPTUPLEHEADER (macro for extracting tuple header from arguments)
-  - GetAttributeByName (retrieves attribute value from tuple by name)
-  - DatumGetInt32 (converts Datum to 32-bit integer)
+  - [GetAttributeByName](../G/GetAttributeByName.md) (retrieves attribute value from tuple by name)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum to 32-bit integer)
   - PG_RETURN_BOOL (returns boolean value)
   - PG_RETURN_NULL (returns NULL value)
 - Data types used:
   - HeapTupleHeader (PostgreSQL's internal tuple representation)
   - Datum (PostgreSQL's generic data type)
   - int32 (32-bit signed integer)
-  - bool (boolean type)
+  - [bool](../b/bool.md) (boolean type)
 
 - Called from (representative examples):
-  - regress_lseg_construct (referenced in the same file)
+  - [regress_lseg_construct](../r/regress_lseg_construct.md) (referenced in the same file)
 
 ## Notes and Other Information
 - This function is specifically designed for regression testing and demonstrates user-defined function capabilities

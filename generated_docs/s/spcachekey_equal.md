@@ -20,7 +20,7 @@ This function implements the equality comparison logic for SearchPathCacheKey st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheKey (key structure type)
+  - [SearchPathCacheKey](../S/SearchPathCacheKey.md) (key structure type)
   - strcmp (standard C library string comparison function)
 - Called from (representative examples):
   - SH_EQUAL macro (used in simplehash hash table implementation)

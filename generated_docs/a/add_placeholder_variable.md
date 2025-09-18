@@ -29,10 +29,10 @@ Placeholder variables have special characteristics: they're marked with GUC_CUST
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_malloc
-  - guc_strdup
-  - guc_free
-  - add_guc_variable
+  - [guc_malloc](../g/guc_malloc.md)
+  - [guc_strdup](../g/guc_strdup.md)
+  - [guc_free](../g/guc_free.md)
+  - [add_guc_variable](add_guc_variable.md)
   - memset
   - unconstify
 - Data structures used:

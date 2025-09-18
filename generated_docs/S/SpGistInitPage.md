@@ -24,12 +24,12 @@ The function ensures that the page has the proper SP-GiST page identification an
 - Functions called/Symbols referenced:
   - PageInit
   - SpGistPageGetOpaque
-  - SpGistPageOpaqueData (struct)
+  - [SpGistPageOpaqueData](SpGistPageOpaqueData.md) (struct)
   - SPGIST_PAGE_ID (constant)
 - Called from (representative examples):
-  - spgbuildempty
-  - SpGistInitBuffer
-  - SpGistInitMetapage
+  - [spgbuildempty](../s/spgbuildempty.md)
+  - [SpGistInitBuffer](SpGistInitBuffer.md)
+  - [SpGistInitMetapage](SpGistInitMetapage.md)
 
 ## Notes and Other Information
 - This is a low-level initialization function that sets up the basic SP-GiST page structure

@@ -18,18 +18,18 @@ This function performs a bitwise intersection operation on two Bitmapsets, creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation macro for input bitmapsets)
-  - bms_copy (creates a copy of a bitmapset)
-  - pfree (PostgreSQL memory deallocation function)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation macro for input bitmapsets)
+  - [bms_copy](bms_copy.md) (creates a copy of a bitmapset)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 
 - Called from (representative examples):
-  - UpdateChangedParamSet
-  - classify_matching_subplans
-  - match_eclasses_to_foreign_key_col
-  - have_unsafe_outer_join_ref
-  - get_matching_part_pairs
-  - create_lateral_join_info
-  - distribute_qual_to_rels
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md)
+  - [classify_matching_subplans](../c/classify_matching_subplans.md)
+  - [match_eclasses_to_foreign_key_col](../m/match_eclasses_to_foreign_key_col.md)
+  - [have_unsafe_outer_join_ref](../h/have_unsafe_outer_join_ref.md)
+  - [get_matching_part_pairs](../g/get_matching_part_pairs.md)
+  - [create_lateral_join_info](../c/create_lateral_join_info.md)
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
   - build_joinrel_tlist
 
 ## Notes and Other Information

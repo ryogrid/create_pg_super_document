@@ -25,17 +25,17 @@ This function takes no parameters but operates on the global MyReplicationSlot v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotDropAcquired
+  - [ReplicationSlotDropAcquired](ReplicationSlotDropAcquired.md)
   - SlotIsLogical  
-  - ReplicationSlotsComputeRequiredXmin
-  - GetCurrentTimestamp
+  - [ReplicationSlotsComputeRequiredXmin](ReplicationSlotsComputeRequiredXmin.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - ConditionVariableBroadcast
 - Called from (representative examples):
-  - pg_logical_slot_get_changes_guts
-  - synchronize_one_slot
-  - ReplicationSlotShmemExit
-  - WalSndErrorCleanup
-  - PostgresMain
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
+  - [ReplicationSlotShmemExit](ReplicationSlotShmemExit.md)
+  - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - The function handles both logical and physical replication slots

@@ -21,10 +21,10 @@ The function is part of PostgreSQL's visibility checking infrastructure, which i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CollationIsVisibleExt (the extended version that does the actual work)
+  - [CollationIsVisibleExt](CollationIsVisibleExt.md) (the extended version that does the actual work)
 - Called from (representative examples):
-  - getObjectDescription (for object description formatting)
-  - regcollationout (for collation output formatting)
+  - [getObjectDescription](../g/getObjectDescription.md) (for object description formatting)
+  - [regcollationout](../r/regcollationout.md) (for collation output formatting)
   - generate_collation_name (for SQL generation)
   - RangeVarGetRelid (via header inclusion)
 

@@ -28,11 +28,11 @@ The function respects various formatting options including borders (0-2 levels),
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - troff_ms_escaped_print (for escaping text content)
-  - footers_with_default (for retrieving table footers)
+  - [troff_ms_escaped_print](../t/troff_ms_escaped_print.md) (for escaping text content)
+  - [footers_with_default](../f/footers_with_default.md) (for retrieving table footers)
   - fputs, fputc (standard C library functions)
 - Called from (representative examples):
-  - printTable (at src/fe_utils/print.c:3527)
+  - [printTable](printTable.md) (at src/fe_utils/print.c:3527)
 
 ## Notes and Other Information
 - This is a static function, accessible only within src/fe_utils/print.c

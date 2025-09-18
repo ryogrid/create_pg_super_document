@@ -33,12 +33,12 @@ The function is specifically designed for extended statistics where expressions 
   - Form_pg_type (type structure access)
   - InvalidAttrNumber (constant for expression marking)
   - STATISTIC_NUM_SLOTS (statistics array sizing)
-  - std_typanalyze (default type analysis function)
+  - [std_typanalyze](../s/std_typanalyze.md) (default type analysis function)
   - OidFunctionCall1 (type-specific analysis function calls)
-  - heap_freetuple (memory cleanup)
+  - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)
 - Called from (representative examples):
-  - build_expr_data (expression statistics building)
-  - make_build_data (statistics data preparation)
+  - [build_expr_data](../b/build_expr_data.md) (expression statistics building)
+  - [make_build_data](../m/make_build_data.md) (statistics data preparation)
 
 ## Notes and Other Information
 - Returns NULL if the expression cannot be analyzed or analysis setup fails

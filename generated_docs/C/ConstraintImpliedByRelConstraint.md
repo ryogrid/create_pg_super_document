@@ -29,18 +29,18 @@ The function is crucial for partition constraint validation and constraint optim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy
-  - TupleConstr
-  - stringToNode
-  - eval_const_expressions
-  - canonicalize_qual
-  - list_concat
-  - make_ands_implicit
-  - predicate_implied_by
+  - [list_copy](../l/list_copy.md)
+  - [TupleConstr](../T/TupleConstr.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [canonicalize_qual](../c/canonicalize_qual.md)
+  - [list_concat](../l/list_concat.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
 - Called from (representative examples):
   - child_dependency_type
-  - NotNullImpliedByRelConstraints
-  - PartConstraintImpliedByRelConstraint
+  - [NotNullImpliedByRelConstraints](../N/NotNullImpliedByRelConstraints.md)
+  - [PartConstraintImpliedByRelConstraint](../P/PartConstraintImpliedByRelConstraint.md)
 
 ## Notes and Other Information
 - Only considers CHECK constraints that have been fully validated (ccvalid = true)

@@ -18,20 +18,20 @@ This function serves as a test coordinator that prepares the database connection
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsetClientEncoding
-  - PQerrorMessage
+  - [PQsetClientEncoding](../P/PQsetClientEncoding.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - fprintf
   - exit
   - lengthof
-  - test_one_vector_escape
+  - [test_one_vector_escape](test_one_vector_escape.md)
 - Types referenced:
-  - pe_test_config
-  - pe_test_vector
-  - pe_test_escape_func
+  - [pe_test_config](../p/pe_test_config.md)
+  - [pe_test_vector](../p/pe_test_vector.md)
+  - [pe_test_escape_func](../p/pe_test_escape_func.md)
 - Constants referenced:
   - pe_test_escape_funcs (array of escape functions to test)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a test module function located in 

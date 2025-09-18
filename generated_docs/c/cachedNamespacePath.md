@@ -24,14 +24,14 @@ When object access hooks are present, the finalPath must be recomputed each time
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheEntry (struct type)
-  - spcache_init
-  - spcache_insert 
-  - preprocessNamespacePath
-  - list_free
-  - finalNamespacePath
+  - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md) (struct type)
+  - [spcache_init](../s/spcache_init.md)
+  - [spcache_insert](../s/spcache_insert.md) 
+  - [preprocessNamespacePath](../p/preprocessNamespacePath.md)
+  - [list_free](../l/list_free.md)
+  - [finalNamespacePath](../f/finalNamespacePath.md)
 - Called from (representative examples):
-  - recomputeNamespacePath
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
 
 ## Notes and Other Information
 - The function uses SearchPathCacheContext memory context for cached data to ensure proper memory management

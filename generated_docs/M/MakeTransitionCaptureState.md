@@ -29,15 +29,15 @@ The function ensures proper resource management by creating tuplestores in the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetAfterTriggersTableData
-  - AfterTriggerEnlargeQueryState
+  - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md)
+  - [AfterTriggerEnlargeQueryState](../A/AfterTriggerEnlargeQueryState.md)
   - tuplestore_begin_heap
-  - palloc0
-  - MemoryContextSwitchTo
+  - [palloc0](../p/palloc0.md)
+  - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
   - elog
 - Called from (representative examples):
-  - ExecSetupTransitionCaptureState
-  - CopyFrom
+  - [ExecSetupTransitionCaptureState](../E/ExecSetupTransitionCaptureState.md)
+  - [CopyFrom](../C/CopyFrom.md)
 
 ## Notes and Other Information
 - Returns NULL if no transition tables are needed for the given triggers and command type

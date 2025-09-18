@@ -19,12 +19,12 @@ This function registers a hash table in the global sequential scan tracking syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (struct type)
+  - [HTAB](../H/HTAB.md) (struct type)
   - MAX_SEQ_SCANS (constant)
-  - GetCurrentTransactionNestLevel
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
 - Called from (representative examples):
   - MOD
-  - hash_seq_init
+  - [hash_seq_init](../h/hash_seq_init.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dynahash.c file

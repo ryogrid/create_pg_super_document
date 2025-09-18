@@ -27,7 +27,7 @@ The  function is a static helper function that parses a string representation of
   - ereturn (error return macro with context)
   - isspace (standard C library function for whitespace checking)
 - Called from (representative examples):
-  - line_in (function that handles line input from string)
+  - [line_in](line_in.md) (function that handles line input from string)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geo_ops.c file

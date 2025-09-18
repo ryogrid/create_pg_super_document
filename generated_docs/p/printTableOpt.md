@@ -41,21 +41,21 @@ The printTableOpt structure serves as the central configuration hub for all tabl
 ## Dependencies
 - Functions called/Symbols referenced:
   - printFormat (enum)
-  - printXheaderWidthType (type)
-  - printTextFormat (structure)
-  - separator (structure)
-  - unicode_linestyle (type)
+  - [printXheaderWidthType](printXheaderWidthType.md) (type)
+  - [printTextFormat](printTextFormat.md) (structure)
+  - [separator](../s/separator.md) (structure)
+  - [unicode_linestyle](../u/unicode_linestyle.md) (type)
 - Called from (representative examples):
-  - describeOneTableDetails (src/bin/psql/describe.c:1536)
-  - describeRoles (src/bin/psql/describe.c:3619)
-  - describePublications (src/bin/psql/describe.c:6420)
-  - print_aligned_vertical_line (src/fe_utils/print.c:1225)
-  - PageOutput (src/fe_utils/print.c:3089)
-  - printTableInit (src/fe_utils/print.c:3172)
-  - get_line_style (src/fe_utils/print.c:3677)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (src/bin/psql/describe.c:1536)
+  - [describeRoles](../d/describeRoles.md) (src/bin/psql/describe.c:3619)
+  - [describePublications](../d/describePublications.md) (src/bin/psql/describe.c:6420)
+  - [print_aligned_vertical_line](print_aligned_vertical_line.md) (src/fe_utils/print.c:1225)
+  - [PageOutput](../P/PageOutput.md) (src/fe_utils/print.c:3089)
+  - [printTableInit](printTableInit.md) (src/fe_utils/print.c:3172)
+  - [get_line_style](../g/get_line_style.md) (src/fe_utils/print.c:3677)
   - refresh_utf8format (src/fe_utils/print.c:3691)
-  - printTableContent (src/include/fe_utils/print.h:165)
-  - printQueryOpt (src/include/fe_utils/print.h:185)
+  - [printTableContent](printTableContent.md) (src/include/fe_utils/print.h:165)
+  - [printQueryOpt](printQueryOpt.md) (src/include/fe_utils/print.h:185)
 
 ## Notes and Other Information
 This structure is essential to PostgreSQL's table output system and is used extensively in psql and other frontend utilities. It provides a unified interface for controlling table appearance across different output formats and environments. The Unicode linestyle fields enable sophisticated table styling with Unicode box-drawing characters, while the separator structures allow flexible field and record delimiting for various text formats.

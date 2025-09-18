@@ -20,13 +20,13 @@ The function is crucial for PostgreSQL's internationalization (i18n) support, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
   - LOCALEDIR (compile-time constant)
   - PGBINDIR (compile-time constant)
 - Called from (representative examples):
-  - pg_bindtextdomain (src/backend/utils/init/miscinit.c:1942)
-  - get_configdata (src/common/config_info.c:96)
-  - set_pglocale_pgservice (src/common/exec.c:473)
+  - [pg_bindtextdomain](../p/pg_bindtextdomain.md) (src/backend/utils/init/miscinit.c:1942)
+  - [get_configdata](get_configdata.md) (src/common/config_info.c:96)
+  - [set_pglocale_pgservice](../s/set_pglocale_pgservice.md) (src/common/exec.c:473)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's internationalization infrastructure

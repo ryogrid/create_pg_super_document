@@ -30,17 +30,17 @@ The function is recursive and will traverse the entire partition hierarchy to en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartConstraintImpliedByRelConstraint
+  - [PartConstraintImpliedByRelConstraint](../P/PartConstraintImpliedByRelConstraint.md)
   - DEBUG1 (logging)
-  - ATGetQueueEntry
-  - RelationGetPartitionDesc
+  - [ATGetQueueEntry](../A/ATGetQueueEntry.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - table_open
-  - map_partition_varattnos
+  - [map_partition_varattnos](../m/map_partition_varattnos.md)
   - table_close
-  - QueuePartitionConstraintValidation (recursive call)
+  - [QueuePartitionConstraintValidation](QueuePartitionConstraintValidation.md) (recursive call)
 - Called from (representative examples):
   - child_dependency_type
-  - ATExecAttachPartition
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - Static function, used internally within tablecmds.c

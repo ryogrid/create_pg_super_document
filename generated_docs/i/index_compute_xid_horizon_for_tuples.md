@@ -23,18 +23,18 @@ The function operates on index tuples that are already known to be deletable (ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (get page from buffer)
-  - BufferGetBlockNumber (get block number from buffer)
-  - PageGetItemId (get item ID from page)
-  - PageGetItem (get item from page)
+  - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (get block number from buffer)
+  - [PageGetItemId](../P/PageGetItemId.md) (get item ID from page)
+  - [PageGetItem](../P/PageGetItem.md) (get item from page)
   - ItemIdIsDead (check if line pointer is marked dead)
-  - ItemPointerCopy (copy item pointer)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md) (copy item pointer)
   - table_index_delete_tuples (main table AM interface)
-  - palloc (memory allocation)
-  - pfree (memory deallocation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - gistprunepage (GiST index page pruning)
-  - _hash_vacuum_one_page (Hash index page cleanup)
+  - [gistprunepage](../g/gistprunepage.md) (GiST index page pruning)
+  - [_hash_vacuum_one_page](../h/_hash_vacuum_one_page.md) (Hash index page cleanup)
 
 ## Notes and Other Information
 - All line pointers for the specified offset numbers must already be marked LP_DEAD

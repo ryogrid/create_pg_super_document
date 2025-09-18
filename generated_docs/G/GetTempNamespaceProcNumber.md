@@ -23,16 +23,16 @@ The function retrieves the namespace name using `get_namespace_name()`, checks f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_name
+  - [get_namespace_name](../g/get_namespace_name.md)
   - strncmp (standard C library function)
   - atoi (standard C library function)
-  - pfree (PostgreSQL memory management)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management)
   - INVALID_PROC_NUMBER (constant)
 
 - Called from (representative examples):
-  - checkTempNamespaceStatus
-  - pg_relation_filepath
-  - RelationBuildDesc
+  - [checkTempNamespaceStatus](../c/checkTempNamespaceStatus.md)
+  - [pg_relation_filepath](../p/pg_relation_filepath.md)
+  - [RelationBuildDesc](../R/RelationBuildDesc.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

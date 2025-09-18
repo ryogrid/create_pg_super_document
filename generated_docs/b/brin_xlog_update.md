@@ -21,11 +21,11 @@ This function performs BRIN index update replay operations during crash recovery
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extracts the data portion from the WAL record
   - XLogReadBufferForRedo: Reads buffer for redo operations
-  - PageIndexTupleDeleteNoCompact: Removes the old tuple without compacting the page
-  - brin_xlog_insert_update: Inserts the new tuple and updates revmap
-  - xl_brin_update: Structure containing BRIN update parameters including old offset and insert data
+  - [PageIndexTupleDeleteNoCompact](../P/PageIndexTupleDeleteNoCompact.md): Removes the old tuple without compacting the page
+  - [brin_xlog_insert_update](brin_xlog_insert_update.md): Inserts the new tuple and updates revmap
+  - [xl_brin_update](../x/xl_brin_update.md): Structure containing BRIN update parameters including old offset and insert data
 - Called from (representative examples):
-  - brin_redo: Main BRIN WAL replay dispatcher function
+  - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin_xlog.c file

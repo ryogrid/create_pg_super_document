@@ -25,11 +25,11 @@ The thread terminates when it detects EOF on the pipe (ERROR_HANDLE_EOF or ERROR
 - Functions called/Symbols referenced:
   - READ_BUF_SIZE
   - _dosmaperr
-  - process_pipe_input
-  - SetLatch
-  - flush_pipe_input
+  - [process_pipe_input](process_pipe_input.md)
+  - [SetLatch](../S/SetLatch.md)
+  - [flush_pipe_input](../f/flush_pipe_input.md)
 - Called from (representative examples):
-  - SysLoggerMain
+  - [SysLoggerMain](../S/SysLoggerMain.md)
 
 ## Notes and Other Information
 - Windows-specific function using __stdcall calling convention

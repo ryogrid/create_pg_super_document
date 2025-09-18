@@ -36,18 +36,18 @@ The function includes extensive special case handling for scalar types, providin
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Prevents stack overflow in recursive calls
-  - lookup_type_cache: Retrieves type information from PostgreSQL's cache
-  - get_transform_fromsql: Looks up custom transform functions
-  - getTypeOutputInfo: Gets output function information for scalar types
-  - fmgr_info_cxt: Sets up function manager information
+  - [lookup_type_cache](../l/lookup_type_cache.md): Retrieves type information from PostgreSQL's cache
+  - [get_transform_fromsql](../g/get_transform_fromsql.md): Looks up custom transform functions
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md): Gets output function information for scalar types
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md): Sets up function manager information
   - Various PLy*_From* functions: Type-specific conversion functions (PLyBool_FromBool, PLyFloat_FromFloat4, etc.)
 - Called from:
-  - PLy_cursor_query: Cursor query result processing
-  - PLy_cursor_plan: Cursor plan setup
-  - PLy_exec_trigger: Trigger execution setup
-  - PLy_procedure_create: Function procedure creation
-  - PLy_spi_execute_fetch_result: SPI result processing
-  - PLy_input_setup_tuple: Tuple field setup
+  - [PLy_cursor_query](PLy_cursor_query.md): Cursor query result processing
+  - [PLy_cursor_plan](PLy_cursor_plan.md): Cursor plan setup
+  - [PLy_exec_trigger](PLy_exec_trigger.md): Trigger execution setup
+  - [PLy_procedure_create](PLy_procedure_create.md): Function procedure creation
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md): SPI result processing
+  - [PLy_input_setup_tuple](PLy_input_setup_tuple.md): Tuple field setup
   - Itself (recursive calls for complex types)
 
 ## Notes and Other Information

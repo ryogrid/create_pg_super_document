@@ -21,13 +21,13 @@ The structure uses double precision floating-point numbers to accommodate potent
 ## Dependencies
 - Functions called/Symbols referenced: None (simple data structure)
 - Called from (representative examples):
-  - brinbuild (BRIN index build)
-  - ginbuild (GIN index build)  
-  - gistbuild (GiST index build)
-  - hashbuild (Hash index build)
-  - btbuild (B-tree index build)
-  - spgbuild (SP-GiST index build)
-  - index_build (generic index building function)
+  - [brinbuild](../b/brinbuild.md) (BRIN index build)
+  - [ginbuild](../g/ginbuild.md) (GIN index build)  
+  - [gistbuild](../g/gistbuild.md) (GiST index build)
+  - [hashbuild](../h/hashbuild.md) (Hash index build)
+  - [btbuild](../b/btbuild.md) (B-tree index build)
+  - [spgbuild](../s/spgbuild.md) (SP-GiST index build)
+  - [index_build](../i/index_build.md) (generic index building function)
 
 ## Notes and Other Information
 - The difference between heap_tuples and index_tuples can indicate how many tuples were filtered out during index creation (e.g., due to NULL values in non-partial indexes)

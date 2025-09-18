@@ -27,8 +27,8 @@ This classification system allows the merge join executor to efficiently handle 
 ## Dependencies
 - Functions called/Symbols referenced: None (this is an enumeration definition)
 - Called from (representative examples):
-  - MJEvalOuterValues (returns this type)
-  - MJEvalInnerValues (returns this type)
+  - [MJEvalOuterValues](MJEvalOuterValues.md) (returns this type)
+  - [MJEvalInnerValues](MJEvalInnerValues.md) (returns this type)
   - ExecMergeJoin (processes values of this type in switch statements)
 
 ## Notes and Other Information

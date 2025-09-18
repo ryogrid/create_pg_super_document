@@ -22,17 +22,17 @@ The function supports special syntax including comments (lines starting with #),
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tsearch_config_filename: Resolves the full path to the thesaurus file with .ths extension
-  - tsearch_readline_begin/tsearch_readline/tsearch_readline_end: File reading utilities for text search configurations
-  - newLexeme: Creates lexeme entries for pattern words
-  - addWrd: Adds replacement words to substitution rules
-  - t_isspace/t_iseq: Text processing utilities for Unicode-aware character testing
-  - pg_mblen: PostgreSQL multibyte character length function
+  - [get_tsearch_config_filename](../g/get_tsearch_config_filename.md): Resolves the full path to the thesaurus file with .ths extension
+  - [tsearch_readline_begin](tsearch_readline_begin.md)/tsearch_readline/tsearch_readline_end: File reading utilities for text search configurations
+  - [newLexeme](../n/newLexeme.md): Creates lexeme entries for pattern words
+  - [addWrd](../a/addWrd.md): Adds replacement words to substitution rules
+  - [t_isspace](t_isspace.md)/t_iseq: Text processing utilities for Unicode-aware character testing
+  - [pg_mblen](../p/pg_mblen.md): PostgreSQL multibyte character length function
   - ereport/elog: PostgreSQL error reporting functions
-  - pfree: PostgreSQL memory deallocation function
+  - [pfree](../p/pfree.md): PostgreSQL memory deallocation function
 
 - Called from (representative examples):
-  - thesaurus_init: Dictionary initialization function that loads the thesaurus configuration
+  - [thesaurus_init](thesaurus_init.md): Dictionary initialization function that loads the thesaurus configuration
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dict_thesaurus.c file

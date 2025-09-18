@@ -19,13 +19,13 @@ This function converts a Cash value to PostgreSQL's Numeric data type, which pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Extracts Cash argument from function call
-  - PGLC_localeconv: Gets locale-specific formatting information
-  - int64_to_numeric: Converts 64-bit integer to Numeric type
-  - NumericGetDatum: Wraps Numeric value as PostgreSQL Datum
-  - numeric_round: Rounds numeric value to specified decimal places
-  - numeric_div: Performs division between numeric values
+  - [PGLC_localeconv](../P/PGLC_localeconv.md): Gets locale-specific formatting information
+  - [int64_to_numeric](../i/int64_to_numeric.md): Converts 64-bit integer to Numeric type
+  - [NumericGetDatum](../N/NumericGetDatum.md): Wraps Numeric value as PostgreSQL Datum
+  - [numeric_round](../n/numeric_round.md): Rounds numeric value to specified decimal places
+  - [numeric_div](../n/numeric_div.md): Performs division between numeric values
   - DirectFunctionCall2: Calls PostgreSQL functions directly
-  - Int32GetDatum: Converts int32 to Datum format
+  - [Int32GetDatum](../I/Int32GetDatum.md): Converts int32 to Datum format
   - PG_RETURN_DATUM: Returns the resulting Datum
 - Called from (representative examples):
   - No direct references found in the codebase

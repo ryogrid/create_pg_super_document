@@ -17,10 +17,10 @@ This function provides access to error information for zstd compression operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (structure)
-  - ZstdCompressorState (structure)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure)
+  - [ZstdCompressorState](ZstdCompressorState.md) (structure)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (assigned as get_error_func)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (assigned as get_error_func)
 
 ## Notes and Other Information
 - This is a static function local to compress_zstd.c

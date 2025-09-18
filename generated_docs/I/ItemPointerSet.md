@@ -22,13 +22,13 @@ The function performs validation through assertions and delegates the actual blo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)
-  - BlockIdSet (sets the block identifier portion)
+  - [BlockIdSet](../B/BlockIdSet.md) (sets the block identifier portion)
 - Called from (representative examples):
-  - brin_doupdate
-  - heapgettup
-  - RelationPutHeapTuple
-  - ItemPointerInc
-  - TidRangeEval
+  - [brin_doupdate](../b/brin_doupdate.md)
+  - [heapgettup](../h/heapgettup.md)
+  - [RelationPutHeapTuple](../R/RelationPutHeapTuple.md)
+  - [ItemPointerInc](ItemPointerInc.md)
+  - [TidRangeEval](../T/TidRangeEval.md)
 
 ## Notes and Other Information
 - This is an inline function defined in itemptr.h for optimal performance

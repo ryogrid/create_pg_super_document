@@ -27,12 +27,12 @@ This function is primarily used when checking column-level privileges such as SE
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACLCHECK_NO_PRIV, ACLCHECK_NOT_OWNER constants
-  - aclcheck_error (for ownership violation handling)
+  - [aclcheck_error](aclcheck_error.md) (for ownership violation handling)
   - ereport (for error reporting)
   - elog (for unexpected error conditions)
   - ERRCODE_INSUFFICIENT_PRIVILEGE
 - Called from:
-  - restrict_and_check_grant (src/backend/catalog/aclchk.c:312)
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md) (src/backend/catalog/aclchk.c:312)
 
 ## Notes and Other Information
 - This function never returns for error conditions - it calls ereport(ERROR) which throws an exception

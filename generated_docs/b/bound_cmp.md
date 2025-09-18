@@ -20,10 +20,10 @@ This function provides a comparison interface for sorting RangeBound structures 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeBound (structure type)
-  - TypeCacheEntry (structure type)
-  - range_cmp_bounds (range bound comparison function)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (structure type)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md) (range bound comparison function)
 - Called from (representative examples):
-  - spg_range_quad_picksplit (via qsort_arg for sorting bounds)
+  - [spg_range_quad_picksplit](../s/spg_range_quad_picksplit.md) (via qsort_arg for sorting bounds)
 
 ## Notes and Other Information
 - Designed specifically for use with qsort_arg function which requires this exact signature

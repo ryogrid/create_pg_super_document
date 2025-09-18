@@ -26,14 +26,14 @@ The function creates a temporary memory context to manage allocations and automa
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - ALLOCSET_SMALL_SIZES
-  - bms_make_singleton
-  - bms_replace_members
-  - bms_add_member
-  - bms_copy
-  - bms_del_member
-  - MemoryContextDelete
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [bms_replace_members](../b/bms_replace_members.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_del_member](../b/bms_del_member.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - consider_groupingsets_paths (src/backend/optimizer/plan/planner.c:4485)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md) (src/backend/optimizer/plan/planner.c:4485)
 
 ## Notes and Other Information
 - Uses dynamic programming with O(max_weight * num_items) time complexity

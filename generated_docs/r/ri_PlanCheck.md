@@ -30,26 +30,26 @@ The function ensures that RI checks are performed with appropriate privileges wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserIdAndSecContext
-  - SetUserIdAndSecContext
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
   - RelationGetForm
-  - SPI_prepare
-  - SPI_result_code_string
-  - SPI_keepplan
-  - ri_HashPreparedPlan
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
+  - [SPI_keepplan](../S/SPI_keepplan.md)
+  - [ri_HashPreparedPlan](ri_HashPreparedPlan.md)
   - elog
 - Called from (representative examples):
-  - ri_Check_Pk_Match
-  - ri_restrict
-  - RI_FKey_cascade_del
-  - RI_FKey_cascade_upd
-  - ri_set
+  - [ri_Check_Pk_Match](ri_Check_Pk_Match.md)
+  - [ri_restrict](ri_restrict.md)
+  - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md)
+  - [RI_FKey_cascade_upd](../R/RI_FKey_cascade_upd.md)
+  - [ri_set](ri_set.md)
 
 ## Notes and Other Information
 - Implements security model where RI checks run with table owner privileges
 - Uses PostgreSQL's Server Programming Interface (SPI) for query preparation
 - Applies security flags SECURITY_LOCAL_USERID_CHANGE and SECURITY_NOFORCE_RLS
-- Query type determination based on RI_PLAN_LAST_ON_PK threshold separates PK vs FK operations
-- Plan caching mechanism improves performance by avoiding repeated preparation of identical queries
+- [Query](../Q/Query.md) type determination based on RI_PLAN_LAST_ON_PK threshold separates PK vs FK operations
+- [Plan](../P/Plan.md) caching mechanism improves performance by avoiding repeated preparation of identical queries
 - Essential component of PostgreSQL's referential integrity enforcement system
 - Located in src/backend/utils/adt/ri_triggers.c:2269-2311

@@ -20,13 +20,13 @@ This function is responsible for starting asynchronous read operations for block
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadStream (structure type)
+  - [ReadStream](../R/ReadStream.md) (structure type)
   - READ_BUFFERS_ISSUE_ADVICE (flag constant)
-  - StartReadBuffers (I/O initiation function)
+  - [StartReadBuffers](../S/StartReadBuffers.md) (I/O initiation function)
   - Assert (debugging macro)
   - memmove (memory move function)
 - Called from (representative examples):
-  - read_stream_look_ahead (multiple call sites)
+  - [read_stream_look_ahead](read_stream_look_ahead.md) (multiple call sites)
 
 ## Notes and Other Information
 - The function includes extensive assertions to validate stream state before and during operation

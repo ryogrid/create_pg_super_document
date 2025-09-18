@@ -27,14 +27,14 @@ The created receiver is marked with DestSQLFunction destination type, identifyin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (allocates zero-initialized memory)
-  - sqlfunction_receive (callback for receiving individual tuples)
-  - sqlfunction_startup (callback for initialization)
-  - sqlfunction_shutdown (callback for cleanup)
-  - sqlfunction_destroy (callback for resource deallocation)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
+  - [sqlfunction_receive](../s/sqlfunction_receive.md) (callback for receiving individual tuples)
+  - [sqlfunction_startup](../s/sqlfunction_startup.md) (callback for initialization)
+  - [sqlfunction_shutdown](../s/sqlfunction_shutdown.md) (callback for cleanup)
+  - [sqlfunction_destroy](../s/sqlfunction_destroy.md) (callback for resource deallocation)
   - DestSQLFunction (destination type constant)
 - Called from (representative examples):
-  - CreateDestReceiver (general destination receiver factory)
+  - [CreateDestReceiver](CreateDestReceiver.md) (general destination receiver factory)
 
 ## Notes and Other Information
 - Part of PostgreSQL's DestReceiver framework for handling query results

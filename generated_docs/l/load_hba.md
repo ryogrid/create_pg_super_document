@@ -26,20 +26,20 @@ The function employs comprehensive error handling, continuing to parse the entir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - open_auth_file (opens authentication configuration file)
-  - tokenize_auth_file (breaks file into tokens)
+  - [open_auth_file](../o/open_auth_file.md) (opens authentication configuration file)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md) (breaks file into tokens)
   - AllocSetContextCreate (creates memory context for HBA data)
-  - parse_hba_line (parses individual HBA configuration lines)
+  - [parse_hba_line](../p/parse_hba_line.md) (parses individual HBA configuration lines)
   - lappend (appends items to list)
   - ereport/errcode/errmsg (error reporting)
-  - free_auth_file (cleanup tokenized file data)
-  - MemoryContextSwitchTo/MemoryContextDelete (memory context management)
+  - [free_auth_file](../f/free_auth_file.md) (cleanup tokenized file data)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)/MemoryContextDelete (memory context management)
   - PostmasterContext, ALLOCSET_SMALL_SIZES (memory allocation constants)
-  - TokenizedAuthLine, HbaLine (data structures)
+  - [TokenizedAuthLine](../T/TokenizedAuthLine.md), HbaLine (data structures)
 - Called from:
-  - PostmasterMain (src/backend/postmaster/postmaster.c:1306)
-  - process_pm_reload_request (src/backend/postmaster/postmaster.c:2131)
-  - PerformAuthentication (src/backend/utils/init/postinit.c:213)
+  - [PostmasterMain](../P/PostmasterMain.md) (src/backend/postmaster/postmaster.c:1306)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md) (src/backend/postmaster/postmaster.c:2131)
+  - [PerformAuthentication](../P/PerformAuthentication.md) (src/backend/utils/init/postinit.c:213)
 
 ## Notes and Other Information
 - Uses global variables HbaFileName, parsed_hba_context, and parsed_hba_lines

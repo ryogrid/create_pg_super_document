@@ -28,14 +28,14 @@ The function includes timing-attack resistance by always computing client proofs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - strlen
-  - read_client_first_message
-  - read_client_final_message
-  - build_server_first_message
-  - build_server_final_message
-  - verify_final_nonce
-  - verify_client_proof
+  - [read_client_first_message](../r/read_client_first_message.md)
+  - [read_client_final_message](../r/read_client_final_message.md)
+  - [build_server_first_message](../b/build_server_first_message.md)
+  - [build_server_final_message](../b/build_server_final_message.md)
+  - [verify_final_nonce](../v/verify_final_nonce.md)
+  - [verify_client_proof](../v/verify_client_proof.md)
   - ereport/errcode/errmsg/errdetail
   - elog
   - Assert

@@ -21,7 +21,7 @@ The replay location indicates the progress of WAL record replay during recovery 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GetXLogReplayRecPtr()` - Retrieves the current WAL replay record pointer (with NULL parameter)
+  - `[GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)()` - Retrieves the current WAL replay record pointer (with NULL parameter)
   - `PG_RETURN_LSN` - Macro to return LSN value to PostgreSQL function caller
 - Called from (representative examples):
   - No direct callers found in the codebase (SQL-callable function)

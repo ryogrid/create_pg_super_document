@@ -25,9 +25,9 @@ This function is particularly important for comparing unsigned values like OIDs 
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)
 - Called from (representative examples):
-  - list_oid_cmp (src/backend/nodes/list.c:1708)
-  - oid_cmp (src/backend/utils/adt/oid.c:263)
-  - xidComparator (src/backend/utils/adt/xid.c:144)
+  - [list_oid_cmp](../l/list_oid_cmp.md) (src/backend/nodes/list.c:1708)
+  - [oid_cmp](../o/oid_cmp.md) (src/backend/utils/adt/oid.c:263)
+  - [xidComparator](../x/xidComparator.md) (src/backend/utils/adt/xid.c:144)
   - _bt_blk_cmp (src/backend/access/nbtree/nbtinsert.c:3016)
 
 ## Notes and Other Information

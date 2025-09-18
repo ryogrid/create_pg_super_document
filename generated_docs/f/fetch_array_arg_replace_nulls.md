@@ -24,15 +24,15 @@ A key design consideration is that if the input is a read/write pointer, the fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
-  - AggCheckCallContext
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_GETARG_EXPANDED_ARRAYX
-  - get_fn_expr_argtype
-  - get_element_type
-  - construct_empty_expanded_array
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [get_element_type](../g/get_element_type.md)
+  - [construct_empty_expanded_array](../c/construct_empty_expanded_array.md)
 - Called from (representative examples):
-  - array_append
-  - array_prepend
+  - [array_append](../a/array_append.md)
+  - [array_prepend](../a/array_prepend.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the array_userfuncs.c file

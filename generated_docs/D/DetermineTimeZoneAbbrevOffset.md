@@ -29,17 +29,17 @@ This behavior is crucial for handling historical timezone abbreviations that may
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tm (struct)
-  - pg_tz (struct) 
+  - [pg_tm](../p/pg_tm.md) (struct)
+  - [pg_tz](../p/pg_tz.md) (struct) 
   - pg_time_t (type)
   - DetermineTimeZoneOffsetInternal
-  - DetermineTimeZoneAbbrevOffsetInternal
+  - [DetermineTimeZoneAbbrevOffsetInternal](DetermineTimeZoneAbbrevOffsetInternal.md)
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeTimeOnly
-  - do_to_timestamp
-  - parse_sane_timezone
-  - timestamp_zone
+  - [DecodeDateTime](DecodeDateTime.md)
+  - [DecodeTimeOnly](DecodeTimeOnly.md)
+  - [do_to_timestamp](../d/do_to_timestamp.md)
+  - [parse_sane_timezone](../p/parse_sane_timezone.md)
+  - [timestamp_zone](../t/timestamp_zone.md)
 
 ## Notes and Other Information
 - This function specifically handles dynamic timezone abbreviations whose meanings have changed over historical time periods

@@ -31,15 +31,15 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP (SRF framework macros)
   - PG_GETARG_TIMESTAMPTZ, PG_GETARG_INTERVAL_P, PG_NARGS (argument extraction)
-  - lookup_timezone (timezone resolution)
-  - interval_sign (interval direction determination)
+  - [lookup_timezone](../l/lookup_timezone.md) (timezone resolution)
+  - [interval_sign](../i/interval_sign.md) (interval direction determination)
   - INTERVAL_NOT_FINITE (interval validation macro)
-  - timestamp_cmp_internal (timestamp comparison)
-  - timestamptz_pl_interval_internal (timezone-aware interval addition)
+  - [timestamp_cmp_internal](../t/timestamp_cmp_internal.md) (timestamp comparison)
+  - [timestamptz_pl_interval_internal](../t/timestamptz_pl_interval_internal.md) (timezone-aware interval addition)
   - TimestampTzGetDatum (datum conversion)
 - Called from:
-  - generate_series_timestamptz (src/backend/utils/adt/timestamp.c:6674)
-  - generate_series_timestamptz_at_zone (src/backend/utils/adt/timestamp.c:6680)
+  - [generate_series_timestamptz](generate_series_timestamptz.md) (src/backend/utils/adt/timestamp.c:6674)
+  - [generate_series_timestamptz_at_zone](generate_series_timestamptz_at_zone.md) (src/backend/utils/adt/timestamp.c:6680)
 
 ## Notes and Other Information
 - This is a static internal function, not directly callable from SQL

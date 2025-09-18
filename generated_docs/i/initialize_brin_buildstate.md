@@ -23,18 +23,18 @@ This static function creates and initializes a BrinBuildState structure that ser
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_object
-  - brin_build_desc
-  - brin_new_memtuple
+  - [brin_build_desc](../b/brin_build_desc.md)
+  - [brin_new_memtuple](../b/brin_new_memtuple.md)
   - CurrentMemoryContext
   - InvalidBuffer
 - Types referenced:
-  - BrinBuildState
-  - BrinRevmap
+  - [BrinBuildState](../B/BrinBuildState.md)
+  - [BrinRevmap](../B/BrinRevmap.md)
   - BlockNumber
 - Called from (representative examples):
-  - brinbuild
-  - brinsummarize
-  - _brin_parallel_build_main
+  - [brinbuild](../b/brinbuild.md)
+  - [brinsummarize](../b/brinsummarize.md)
+  - [_brin_parallel_build_main](../b/_brin_parallel_build_main.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin.c module

@@ -32,14 +32,14 @@ HeadlineJsonState serves as a state container for the JSON headline generation p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeadlineParsedText
+  - [HeadlineParsedText](HeadlineParsedText.md)
   - TSConfigCacheEntry
   - TSParserCacheEntry
   - TSQuery
 - Called from (representative examples):
-  - ts_headline_jsonb_byid_opt
-  - ts_headline_json_byid_opt
-  - headline_json_value
+  - [ts_headline_jsonb_byid_opt](../t/ts_headline_jsonb_byid_opt.md)
+  - [ts_headline_json_byid_opt](../t/ts_headline_json_byid_opt.md)
+  - [headline_json_value](../h/headline_json_value.md)
 
 ## Notes and Other Information
 This struct is specifically designed for JSON headline generation and is part of PostgreSQL's full-text search infrastructure. It provides a centralized way to maintain state across multiple function calls during the JSON text processing and highlighting workflow. The struct is used internally by the text search system and is not directly exposed to end users.

@@ -23,10 +23,10 @@ This structure is used to log GiST index page split operations in the write-ahea
 - Functions called/Symbols referenced:
   - GistNSN
 - Called from (representative examples):
-  - gistRedoPageSplitRecord
-  - gistXLogSplit
-  - out_gistxlogPageSplit
-  - gist_desc
+  - [gistRedoPageSplitRecord](gistRedoPageSplitRecord.md)
+  - [gistXLogSplit](gistXLogSplit.md)
+  - [out_gistxlogPageSplit](../o/out_gistxlogPageSplit.md)
+  - [gist_desc](gist_desc.md)
 
 ## Notes and Other Information
 - Backup block 0 contains the left half of the split if this operation completes a page split by inserting a downlink

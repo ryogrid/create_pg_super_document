@@ -34,17 +34,17 @@ TarMethodData is a concrete implementation of the WAL writing method for tar arc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalWriteMethod (base structure)
-  - TarMethodFile (file handle for individual files within the tar)
+  - [WalWriteMethod](../W/WalWriteMethod.md) (base structure)
+  - [TarMethodFile](TarMethodFile.md) (file handle for individual files within the tar)
 - Called from (representative examples):
-  - tar_write_compressed_data (uses TarMethodData for compressed writes)
-  - tar_write (writes data using TarMethodData)
-  - tar_open_for_write (creates new files within TarMethodData archive)
+  - [tar_write_compressed_data](../t/tar_write_compressed_data.md) (uses TarMethodData for compressed writes)
+  - [tar_write](../t/tar_write.md) (writes data using TarMethodData)
+  - [tar_open_for_write](../t/tar_open_for_write.md) (creates new files within TarMethodData archive)
   - tar_sync (synchronizes TarMethodData to disk)
   - tar_close (closes files within TarMethodData)
   - tar_finish (finalizes TarMethodData archive)
-  - tar_free (deallocates TarMethodData)
-  - CreateWalTarMethod (instantiates TarMethodData)
+  - [tar_free](../t/tar_free.md) (deallocates TarMethodData)
+  - [CreateWalTarMethod](../C/CreateWalTarMethod.md) (instantiates TarMethodData)
 
 ## Notes and Other Information
 - This structure follows PostgreSQL's object-oriented programming pattern in C, where the base structure is embedded as the first member

@@ -17,15 +17,15 @@ This function validates the syntactic correctness of conditional constructs in a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_create, conditional_stack_destroy
-  - conditional_stack_push, conditional_stack_pop, conditional_stack_poke
-  - conditional_stack_empty, conditional_stack_peek
-  - ConditionError
-  - ParsedScript, ConditionalStack, Command structs
+  - [conditional_stack_create](../c/conditional_stack_create.md), conditional_stack_destroy
+  - [conditional_stack_push](../c/conditional_stack_push.md), conditional_stack_pop, conditional_stack_poke
+  - [conditional_stack_empty](../c/conditional_stack_empty.md), conditional_stack_peek
+  - [ConditionError](ConditionError.md)
+  - [ParsedScript](../P/ParsedScript.md), ConditionalStack, Command structs
   - META_COMMAND, META_IF, META_ELIF, META_ELSE, META_ENDIF enums
   - IFSTATE_FALSE, IFSTATE_ELSE_FALSE enum values
 - Called from:
-  - addScript (src/bin/pgbench/pgbench.c:6237)
+  - [addScript](../a/addScript.md) (src/bin/pgbench/pgbench.c:6237)
 
 ## Notes and Other Information
 - Uses a stack-based approach to track nested conditional levels

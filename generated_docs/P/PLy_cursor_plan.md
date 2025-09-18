@@ -24,29 +24,29 @@ The entire operation is wrapped in a subtransaction for proper error handling an
 - Functions called/Symbols referenced:
   - PySequence_Check (Python C API)
   - PyUnicode_Check (Python C API)
-  - PLy_exception_set
+  - [PLy_exception_set](PLy_exception_set.md)
   - PySequence_Length (Python C API)
   - PLy_elog
-  - PLyUnicode_AsString
-  - PLy_exception_set_plural
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md)
+  - [PLy_exception_set_plural](PLy_exception_set_plural.md)
   - PyObject_New (Python C API)
-  - PLy_current_execution_context
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
   - AllocSetContextCreate
-  - PLy_input_setup_func
-  - PLy_spi_subtransaction_begin
-  - MemoryContextSwitchTo
-  - palloc
+  - [PLy_input_setup_func](PLy_input_setup_func.md)
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
   - PySequence_GetItem (Python C API)
-  - PLy_output_convert
-  - SPI_cursor_open
-  - MemoryContextStrdup
-  - PinPortal
-  - MemoryContextDelete
-  - PLy_spi_subtransaction_commit
-  - PLy_spi_subtransaction_abort
+  - [PLy_output_convert](PLy_output_convert.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
+  - [PinPortal](PinPortal.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [PLy_spi_subtransaction_commit](PLy_spi_subtransaction_commit.md)
+  - [PLy_spi_subtransaction_abort](PLy_spi_subtransaction_abort.md)
 - Called from (representative examples):
-  - PLy_cursor
-  - PLy_plan_cursor
+  - [PLy_cursor](PLy_cursor.md)
+  - [PLy_plan_cursor](PLy_plan_cursor.md)
 
 ## Notes and Other Information
 - Validates argument types and counts before proceeding with cursor creation

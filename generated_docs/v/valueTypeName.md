@@ -26,7 +26,7 @@ The `valueTypeName` function provides a mapping from PgBenchValue type enumerati
   - PGBT_DOUBLE - Enumeration value for floating-point values
   - PGBT_BOOLEAN - Enumeration value for boolean values
 - Called from (representative examples):
-  - coerceToBool - Uses valueTypeName for error reporting when type coercion fails
+  - [coerceToBool](../c/coerceToBool.md) - Uses valueTypeName for error reporting when type coercion fails
   - coerceToInt - Uses valueTypeName for error reporting when type coercion fails
   - coerceToDouble - Uses valueTypeName for error reporting when type coercion fails
 

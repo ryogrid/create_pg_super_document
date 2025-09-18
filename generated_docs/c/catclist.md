@@ -27,14 +27,14 @@ The catclist struct describes the result of a partial search in PostgreSQL's cat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (doubly-linked list node structure)
+  - [dlist_node](../d/dlist_node.md) (doubly-linked list node structure)
   - CATCACHE_MAXKEYS (maximum number of cache keys)
   - CatCache (catalog cache structure)
   - FLEXIBLE_ARRAY_MEMBER (flexible array member marker)
   - CatCTup (catalog cache tuple structure)
 - Called from (representative examples):
-  - SearchCatCacheList (partial key search operations)
-  - ReleaseCatCacheList (list release operations)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (partial key search operations)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md) (list release operations)
 
 ## Notes and Other Information
 - CatCLists contain only positive cache entries, never negative entries

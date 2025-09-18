@@ -21,22 +21,22 @@ The function performs careful bounds checking against the relation's actual size
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSet
-  - ItemPointerCompare
-  - ItemPointerCopy
-  - ItemPointerGetBlockNumberNoCheck
-  - heap_setscanlimits
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
+  - [heap_setscanlimits](heap_setscanlimits.md)
 - Data structures used:
-  - HeapScanDesc
-  - TableScanDesc
+  - [HeapScanDesc](../H/HeapScanDesc.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
   - ItemPointer
-  - ItemPointerData
+  - [ItemPointerData](../I/ItemPointerData.md)
   - BlockNumber
 - Constants:
   - MaxOffsetNumber
   - FirstOffsetNumber
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

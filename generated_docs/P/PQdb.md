@@ -21,14 +21,14 @@ The function performs a simple validation check and returns a pointer to the int
 - Functions called/Symbols referenced:
   - None (direct field access)
 - Called from (representative examples):
-  - main (pg_amcheck)
-  - prohibit_crossdb_refs (pg_dump)
-  - GetTableInfo (pgbench)
-  - exec_command_conninfo (psql)
-  - do_connect (psql)
-  - cluster_one_database (clusterdb)
-  - vacuum_one_database (vacuumdb)
-  - find_matching_idle_slot (parallel_slot)
+  - [main](../m/main.md) (pg_amcheck)
+  - [prohibit_crossdb_refs](../p/prohibit_crossdb_refs.md) (pg_dump)
+  - [GetTableInfo](../G/GetTableInfo.md) (pgbench)
+  - [exec_command_conninfo](../e/exec_command_conninfo.md) (psql)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [cluster_one_database](../c/cluster_one_database.md) (clusterdb)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (vacuumdb)
+  - [find_matching_idle_slot](../f/find_matching_idle_slot.md) (parallel_slot)
 
 ## Notes and Other Information
 - This is a public libpq API function exposed to client applications

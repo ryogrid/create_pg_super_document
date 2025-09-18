@@ -18,12 +18,12 @@ The  function is responsible for deserializing path data from PostgreSQL's binar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte (reads boolean closed flag)
-  - pq_getmsgint (reads int32 number of points)
-  - Point (coordinate structure)
-  - PATH (path data type structure)
+  - [pq_getmsgbyte](pq_getmsgbyte.md) (reads boolean closed flag)
+  - [pq_getmsgint](pq_getmsgint.md) (reads int32 number of points)
+  - [Point](../P/Point.md) (coordinate structure)
+  - [PATH](../P/PATH.md) (path data type structure)
   - SET_VARSIZE (sets variable-length object size)
-  - pq_getmsgfloat8 (reads float8 coordinate values)
+  - [pq_getmsgfloat8](pq_getmsgfloat8.md) (reads float8 coordinate values)
   - PG_RETURN_PATH_P (returns PATH pointer as Datum)
 - Called from (representative examples):
   - No direct references found (likely referenced through function pointer tables)

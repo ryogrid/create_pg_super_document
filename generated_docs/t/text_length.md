@@ -22,19 +22,19 @@ The function is designed as an internal utility that can be called by various st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_database_encoding_max_length (function to get max encoding byte length)
-  - toast_raw_datum_size (function to get size of TOAST datum without decompressing)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (function to get max encoding byte length)
+  - [toast_raw_datum_size](toast_raw_datum_size.md) (function to get size of TOAST datum without decompressing)
   - VARHDRSZ (macro for variable-length header size)
   - DatumGetTextPP (macro to extract text from datum, potentially decompressing)
-  - pg_mbstrlen_with_len (function to calculate character length for multi-byte strings)
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md) (function to calculate character length for multi-byte strings)
   - VARDATA_ANY (macro to get data portion of variable-length value)
   - VARSIZE_ANY_EXHDR (macro to get size excluding header)
 
 - Called from (representative examples):
-  - textlen (wrapper function at src/backend/utils/adt/varlena.c:698)
-  - textoverlay_no_len (at src/backend/utils/adt/varlena.c:1111)
+  - [textlen](textlen.md) (wrapper function at src/backend/utils/adt/varlena.c:698)
+  - [textoverlay_no_len](textoverlay_no_len.md) (at src/backend/utils/adt/varlena.c:1111)
   - DatumGetVarStringPP (at src/backend/utils/adt/varlena.c:127)
-  - escape_string (multiple calls in src/bin/psql/tab-complete.c)
+  - [escape_string](../e/escape_string.md) (multiple calls in src/bin/psql/tab-complete.c)
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/varlena.c at lines 711-730

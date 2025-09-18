@@ -64,23 +64,23 @@ AppendState coordinates the execution of multiple child plans in sequence, suppo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited base structure)
-  - ParallelAppendState (for parallel coordination)
+  - [PlanState](../P/PlanState.md) (inherited base structure)
+  - [ParallelAppendState](../P/ParallelAppendState.md) (for parallel coordination)
   - PartitionPruneState (for runtime pruning)
-  - AsyncRequest (for asynchronous execution)
+  - [AsyncRequest](AsyncRequest.md) (for asynchronous execution)
   - TupleTableSlot (for result storage)
-  - WaitEventSet (for event management)
-  - Bitmapset (for plan tracking)
+  - [WaitEventSet](../W/WaitEventSet.md) (for event management)
+  - [Bitmapset](../B/Bitmapset.md) (for plan tracking)
 - Called from (representative examples):
-  - ExecAppend
-  - ExecInitAppend
-  - ExecEndAppend
-  - ExecReScanAppend
-  - choose_next_subplan_locally
-  - choose_next_subplan_for_leader
-  - choose_next_subplan_for_worker
-  - ExecAppendAsyncBegin
-  - ExecAppendAsyncGetNext
+  - [ExecAppend](../E/ExecAppend.md)
+  - [ExecInitAppend](../E/ExecInitAppend.md)
+  - [ExecEndAppend](../E/ExecEndAppend.md)
+  - [ExecReScanAppend](../E/ExecReScanAppend.md)
+  - [choose_next_subplan_locally](../c/choose_next_subplan_locally.md)
+  - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md)
+  - [choose_next_subplan_for_worker](../c/choose_next_subplan_for_worker.md)
+  - [ExecAppendAsyncBegin](../E/ExecAppendAsyncBegin.md)
+  - [ExecAppendAsyncGetNext](../E/ExecAppendAsyncGetNext.md)
 
 ## Notes and Other Information
 AppendState represents one of PostgreSQL's most sophisticated execution state structures, enabling complex query execution patterns across multiple data sources. The asynchronous execution support allows PostgreSQL to efficiently query foreign tables and other remote data sources by overlapping I/O operations. The parallel execution capabilities enable efficient utilization of multiple CPU cores for large UNION operations and partitioned table scans. The runtime partition pruning integration allows PostgreSQL to skip unnecessary partitions during execution, significantly improving performance for partitioned table operations. The choose_next_subplan function pointer provides flexibility in subplan selection strategies, supporting different execution patterns for local vs. parallel execution contexts.

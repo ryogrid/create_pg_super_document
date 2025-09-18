@@ -24,20 +24,20 @@ The function performs a system catalog scan using three search keys: relation OI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - CStringGetDatum
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_constraint
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - FirstLowInvalidHeapAttributeNumber
-  - get_rel_name
+  - [get_rel_name](get_rel_name.md)
 - Called from (representative examples):
-  - transformOnConflictArbiter
-  - ConstraintCategory
+  - [transformOnConflictArbiter](../t/transformOnConflictArbiter.md)
+  - [ConstraintCategory](../C/ConstraintCategory.md)
 
 ## Notes and Other Information
 - The function accesses pg_constraint with AccessShareLock to ensure consistent reads

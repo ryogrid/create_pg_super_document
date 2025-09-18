@@ -18,16 +18,16 @@ The  function is a fundamental message parsing utility in PostgreSQL's libpq com
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting mechanism)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
 - Called from (representative examples):
-  - HandleParallelMessage
-  - logicalrep_read_commit
-  - LogicalRepApplyLoop
-  - boolrecv
-  - charrecv
-  - macaddr_recv
-  - network_recv
+  - [HandleParallelMessage](../H/HandleParallelMessage.md)
+  - [logicalrep_read_commit](../l/logicalrep_read_commit.md)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md)
+  - [boolrecv](../b/boolrecv.md)
+  - [charrecv](../c/charrecv.md)
+  - [macaddr_recv](../m/macaddr_recv.md)
+  - [network_recv](../n/network_recv.md)
 
 ## Notes and Other Information
 - Returns the byte value as an int (cast from unsigned char)

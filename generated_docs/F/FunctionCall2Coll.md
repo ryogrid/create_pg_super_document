@@ -27,16 +27,16 @@ The function creates a local FunctionCallInfoData structure with space for 2 arg
   - FunctionCallInvoke
   - elog (for error reporting)
 - Called from (representative examples):
-  - brin_inclusion_add_value
-  - brin_inclusion_consistent
-  - brin_minmax_add_value
-  - brin_minmax_consistent
-  - _bt_compare
-  - genericPickSplit
-  - gistMakeUnionItVec
-  - array_position_common
-  - range_cmp_bounds
-  - OidFunctionCall2Coll
+  - [brin_inclusion_add_value](../b/brin_inclusion_add_value.md)
+  - [brin_inclusion_consistent](../b/brin_inclusion_consistent.md)
+  - [brin_minmax_add_value](../b/brin_minmax_add_value.md)
+  - [brin_minmax_consistent](../b/brin_minmax_consistent.md)
+  - [_bt_compare](../b/_bt_compare.md)
+  - [genericPickSplit](../g/genericPickSplit.md)
+  - [gistMakeUnionItVec](../g/gistMakeUnionItVec.md)
+  - [array_position_common](../a/array_position_common.md)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md)
+  - [OidFunctionCall2Coll](../O/OidFunctionCall2Coll.md)
 
 ## Notes and Other Information
 - This function explicitly checks for NULL results and throws an ERROR if the called function returns NULL

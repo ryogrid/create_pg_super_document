@@ -23,20 +23,20 @@ The function includes comprehensive error handling for file operations including
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateDestReceiver
-  - CreateTemplateTupleDesc
-  - TupleDescInitBuiltinEntry
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md)
   - TLHistoryFileName
   - TLHistoryFilePath
   - pq_beginmessage
-  - pq_sendint16
-  - pq_sendint32
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
   - pq_sendbytes
   - OpenTransientFile
   - lseek
   - read
   - CloseTransientFile
-  - pq_endmessage
+  - [pq_endmessage](../p/pq_endmessage.md)
   - pgstat_report_wait_start
   - pgstat_report_wait_end
   - DestRemoteSimple
@@ -46,7 +46,7 @@ The function includes comprehensive error handling for file operations including
   - ERRCODE_DATA_CORRUPTED
 
 - Called from:
-  - exec_replication_command (when processing TIMELINE_HISTORY command)
+  - [exec_replication_command](../e/exec_replication_command.md) (when processing TIMELINE_HISTORY command)
 
 ## Notes and Other Information
 - This is a static function only accessible within walsender.c

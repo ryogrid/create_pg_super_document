@@ -20,9 +20,9 @@ The  function is used during PostgreSQL upgrade operations to verify whether a P
   - snprintf
   - open
   - close
-  - pg_fatal (for unexpected errors)
+  - [pg_fatal](pg_fatal.md) (for unexpected errors)
 - Called from (representative examples):
-  - setup (in pg_upgrade.c, called twice for old and new clusters)
+  - [setup](../s/setup.md) (in pg_upgrade.c, called twice for old and new clusters)
 
 ## Notes and Other Information
 - Returns true if the postmaster.pid file exists and can be opened, false otherwise

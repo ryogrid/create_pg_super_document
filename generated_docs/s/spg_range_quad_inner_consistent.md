@@ -33,13 +33,13 @@ The function processes each scan key strategy (BEFORE, OVERLEFT, OVERLAPS, OVERR
 - Functions called/Symbols referenced:
   - RangeIsEmpty
   - DatumGetRangeTypeP  
-  - range_get_typcache
+  - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
-  - range_deserialize
-  - adjacent_inner_consistent
-  - getQuadrant
-  - range_cmp_bounds
-  - datumCopy
+  - [range_deserialize](../r/range_deserialize.md)
+  - [adjacent_inner_consistent](../a/adjacent_inner_consistent.md)
+  - [getQuadrant](../g/getQuadrant.md)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in SP-GiST operator class)
 

@@ -28,7 +28,7 @@ This function examines a relation's rewrite rules and returns those that match t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rangeTableEntry_used
+  - [rangeTableEntry_used](../r/rangeTableEntry_used.md)
   - RelationGetRelationName
   - ereport/errcode/errmsg/errdetail (error reporting)
 - Types used:
@@ -36,8 +36,8 @@ This function examines a relation's rewrite rules and returns those that match t
   - SESSION_REPLICATION_ROLE_* constants
   - RULE_* enablement constants
 - Called from:
-  - rewriteValuesRTE
-  - RewriteQuery
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md)
+  - [RewriteQuery](../R/RewriteQuery.md)
 
 ## Notes and Other Information
 - Returns NIL if the relation has no rules or if no rules match

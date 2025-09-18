@@ -18,17 +18,17 @@ This function determines if the integer value `x` is present in the bitmap set `
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation function for bitmap sets)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation function for bitmap sets)
   - WORDNUM (macro to calculate word index from bit number)
   - BITNUM (macro to calculate bit position within word)
   - bitmapword (type for bitmap word storage)
   - elog (error logging function)
 - Called from (representative examples):
-  - execute_attr_map_cols (tuple conversion)
-  - HeapDetermineColumnsInfo (heap access method)
-  - has_partition_attrs (partitioning logic)
-  - ExecBuildUpdateProjection (executor expression building)
-  - index_unchanged_by_update (index maintenance)
+  - [execute_attr_map_cols](../e/execute_attr_map_cols.md) (tuple conversion)
+  - [HeapDetermineColumnsInfo](../H/HeapDetermineColumnsInfo.md) (heap access method)
+  - [has_partition_attrs](../h/has_partition_attrs.md) (partitioning logic)
+  - [ExecBuildUpdateProjection](../E/ExecBuildUpdateProjection.md) (executor expression building)
+  - [index_unchanged_by_update](../i/index_unchanged_by_update.md) (index maintenance)
 
 ## Notes and Other Information
 This is one of the most frequently used bitmap set functions in PostgreSQL, appearing throughout the codebase for testing membership of relation IDs, column numbers, attribute numbers, and other identifiers. The function is designed to be fast for the common case where the value is within the allocated range, using simple array indexing and bit masking. The error for negative values reflects the design constraint that bitmap sets only handle non-negative integers, which aligns with their typical use for representing sets of database object identifiers.

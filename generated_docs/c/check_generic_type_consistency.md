@@ -21,19 +21,19 @@ This function implements PostgreSQL's comprehensive polymorphic type consistency
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType (flatten domain types to base types)
-  - get_element_type (extract array element types)
-  - get_range_subtype (extract range subtypes)
-  - get_multirange_range (extract multirange element types)
-  - select_common_type_from_oids (find common supertype)
-  - verify_common_type_from_oids (verify coercion feasibility)
+  - [getBaseType](../g/getBaseType.md) (flatten domain types to base types)
+  - [get_element_type](../g/get_element_type.md) (extract array element types)
+  - [get_range_subtype](../g/get_range_subtype.md) (extract range subtypes)
+  - [get_multirange_range](../g/get_multirange_range.md) (extract multirange element types)
+  - [select_common_type_from_oids](../s/select_common_type_from_oids.md) (find common supertype)
+  - [verify_common_type_from_oids](../v/verify_common_type_from_oids.md) (verify coercion feasibility)
   - type_is_array_domain (check if type is array or domain over array)
-  - type_is_enum (check if type is enum)
+  - [type_is_enum](../t/type_is_enum.md) (check if type is enum)
   - FUNC_MAX_ARGS (maximum function argument limit)
   - Various polymorphic type OID constants (ANYELEMENTOID, ANYARRAYOID, etc.)
 
 - Called from (representative examples):
-  - can_coerce_type (type coercion feasibility checking)
+  - [can_coerce_type](can_coerce_type.md) (type coercion feasibility checking)
 
 ## Notes and Other Information
 - Implements 10 detailed consistency rules covering all polymorphic type combinations

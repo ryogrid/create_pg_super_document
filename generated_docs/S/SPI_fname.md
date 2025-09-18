@@ -21,11 +21,11 @@ The function validates the attribute number to ensure it's within valid bounds a
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)
-  - SystemAttributeDefinition (for looking up system attribute definitions)
-  - pstrdup (for duplicating the attribute name string)
+  - [SystemAttributeDefinition](SystemAttributeDefinition.md) (for looking up system attribute definitions)
+  - [pstrdup](../p/pstrdup.md) (for duplicating the attribute name string)
   - NameStr (macro for extracting string from Name type)
 - Called from (representative examples):
-  - SPI_sql_row_to_xmlelement (XML utility function)
+  - [SPI_sql_row_to_xmlelement](SPI_sql_row_to_xmlelement.md) (XML utility function)
   - Various stored procedures and functions that need attribute names dynamically
 
 ## Notes and Other Information

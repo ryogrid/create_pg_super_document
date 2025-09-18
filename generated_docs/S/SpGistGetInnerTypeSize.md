@@ -27,8 +27,8 @@ The size calculation depends on the attribute type descriptor:
   - VARSIZE_ANY (macro for getting variable-length type size)
   - MAXALIGN (macro for memory alignment)
 - Called from (representative examples):
-  - spgFormNodeTuple
-  - spgFormInnerTuple
+  - [spgFormNodeTuple](../s/spgFormNodeTuple.md)
+  - [spgFormInnerTuple](../s/spgFormInnerTuple.md)
 
 ## Notes and Other Information
 - The function assumes the datum is non-null (as stated in the comment)

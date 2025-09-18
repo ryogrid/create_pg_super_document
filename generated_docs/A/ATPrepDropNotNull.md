@@ -23,12 +23,12 @@ The function enforces a key restriction: NOT NULL constraints cannot be removed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionDesc (retrieves partition descriptor for the relation)
-  - PartitionDesc (type for partition information)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md) (retrieves partition descriptor for the relation)
+  - [PartitionDesc](../P/PartitionDesc.md) (type for partition information)
   - ereport (for error reporting)
-  - errmsg/errhint (for error message formatting)
+  - [errmsg](../e/errmsg.md)/errhint (for error message formatting)
 - Called from (representative examples):
-  - ATPrepCmd (main ALTER TABLE command preparation dispatcher)
+  - [ATPrepCmd](ATPrepCmd.md) (main ALTER TABLE command preparation dispatcher)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within tablecmds.c

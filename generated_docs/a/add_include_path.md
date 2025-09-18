@@ -19,12 +19,12 @@ The `add_include_path` function is a utility function in the ECPG (Embedded SQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (ECPG memory allocation function)
+  - [mm_alloc](../m/mm_alloc.md) (ECPG memory allocation function)
   - struct _include_path (include path list node structure)
   - include_paths (global variable maintaining the list head)
 
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/preproc/ecpg.c at multiple lines: 187, 219, 265, 266, 268, 269)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c at multiple lines: 187, 219, 265, 266, 268, 269)
 
 ## Notes and Other Information
 - The function is static and only accessible within the ecpg.c compilation unit

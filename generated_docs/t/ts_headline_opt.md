@@ -21,8 +21,8 @@ This function is useful when you need more control over the headline generation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ts_headline_byid_opt: The core function that performs the actual headline generation with options
-  - getTSCurrentConfig: Retrieves the current default text search configuration
+  - [ts_headline_byid_opt](ts_headline_byid_opt.md): The core function that performs the actual headline generation with options
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md): Retrieves the current default text search configuration
   - DirectFunctionCall4: PostgreSQL macro for calling functions with 4 arguments
   - PG_RETURN_DATUM: PostgreSQL macro for returning function results
 - Called from (representative examples):

@@ -21,7 +21,7 @@ This is a static helper function that ensures consistency in boolean string repr
 - Functions called/Symbols referenced:
   - None (uses only basic C constructs)
 - Called from (representative examples):
-  - pset_value_string (multiple calls)
+  - [pset_value_string](pset_value_string.md) (multiple calls)
 
 ## Notes and Other Information
 - Returns constant string literals, so no memory management is required

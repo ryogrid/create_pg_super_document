@@ -24,9 +24,9 @@ This cleanup ensures that the next transaction starts with a clean slate regardi
   - uncommitted_enum_types: Global pointer to hash table tracking uncommitted enum types
   - uncommitted_enum_values: Global pointer to hash table tracking uncommitted enum values
 - Called from (representative examples):
-  - CommitTransaction: Called during transaction commit to clean up enum state
-  - PrepareTransaction: Called during two-phase commit preparation
-  - AbortTransaction: Called during transaction abort to clean up enum state
+  - [CommitTransaction](../C/CommitTransaction.md): Called during transaction commit to clean up enum state
+  - [PrepareTransaction](../P/PrepareTransaction.md): Called during two-phase commit preparation
+  - [AbortTransaction](AbortTransaction.md): Called during transaction abort to clean up enum state
 
 ## Notes and Other Information
 - This is a transaction lifecycle callback function, part of PostgreSQL's end-of-transaction cleanup mechanism

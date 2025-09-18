@@ -23,11 +23,11 @@ For pass-by-value types, it copies the Datum value itself (which contains the ac
 - Functions called/Symbols referenced:
   - SpGistTypeDesc (type descriptor structure)
   - VARSIZE_ANY (macro for getting variable-length type size)
-  - DatumGetPointer (macro to extract pointer from datum)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from datum)
   - memcpy (standard memory copy function)
 - Called from (representative examples):
-  - spgFormNodeTuple
-  - spgFormInnerTuple
+  - [spgFormNodeTuple](../s/spgFormNodeTuple.md)
+  - [spgFormInnerTuple](../s/spgFormInnerTuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spgutils.c file

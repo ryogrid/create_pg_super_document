@@ -30,12 +30,12 @@ This function takes no parameters (void).
   - GetCurrentThreadId (Windows API)
   - WSAStartup (Windows Socket API)
   - MAKEWORD (Windows macro)
-  - pg_fatal (PostgreSQL error reporting)
-  - ParallelSlot (type reference)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting)
+  - [ParallelSlot](../P/ParallelSlot.md) (type reference)
 
 - Called from (representative examples):
-  - main (in src/bin/pg_dump/pg_dump.c:466)
-  - main (in src/bin/pg_dump/pg_restore.c:139)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:466)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_restore.c:139)
 
 ## Notes and Other Information
 - This function is Windows-specific but designed to be called on all platforms

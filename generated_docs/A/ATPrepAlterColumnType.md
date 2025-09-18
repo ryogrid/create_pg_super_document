@@ -24,21 +24,21 @@ This function performs Phase 1 preparation for ALTER COLUMN TYPE operations. Unl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName (column lookup)
-  - has_partition_attrs (partition key validation)
-  - typenameTypeIdAndMod (type resolution)
-  - object_aclcheck/aclcheck_error_type (permission checking)
-  - GetColumnDefCollation (collation handling)
-  - CheckAttributeType (type validation)
-  - coerce_to_target_type (type coercion)
-  - assign_expr_collations (expression processing)
-  - expression_planner (expression optimization)
-  - ATColumnChangeRequiresRewrite (rewrite determination)
-  - find_all_inheritors (inheritance processing)
-  - build_attrmap_by_name/map_variable_attnos (attribute mapping)
-  - ATTypedTableRecursion (typed table handling)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (column lookup)
+  - [has_partition_attrs](../h/has_partition_attrs.md) (partition key validation)
+  - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md) (type resolution)
+  - [object_aclcheck](../o/object_aclcheck.md)/aclcheck_error_type (permission checking)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md) (collation handling)
+  - [CheckAttributeType](../C/CheckAttributeType.md) (type validation)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (type coercion)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (expression processing)
+  - [expression_planner](../e/expression_planner.md) (expression optimization)
+  - [ATColumnChangeRequiresRewrite](ATColumnChangeRequiresRewrite.md) (rewrite determination)
+  - [find_all_inheritors](../f/find_all_inheritors.md) (inheritance processing)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)/map_variable_attnos (attribute mapping)
+  - [ATTypedTableRecursion](ATTypedTableRecursion.md) (typed table handling)
 - Called from (representative examples):
-  - ATPrepCmd (main ALTER TABLE preparation)
+  - [ATPrepCmd](ATPrepCmd.md) (main ALTER TABLE preparation)
 
 ## Notes and Other Information
 - Performs parse transformation during Phase 1 to handle USING expressions correctly

@@ -27,7 +27,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentRoleId
+  - [GetCurrentRoleId](../G/GetCurrentRoleId.md)
   - role_string (external variable)
 - Called from (representative examples):
   - GUC system framework (as show hook)

@@ -23,10 +23,10 @@ LockingClause captures the FOR UPDATE and FOR SHARE locking specifications found
   - LockClauseStrength (enum defining lock strength types)
   - LockWaitPolicy (enum defining wait behavior on lock conflicts)
 - Called from (representative examples):
-  - transformSelectStmt (processes SELECT statement locking clauses)
-  - transformLockingClause (transforms locking specifications)
-  - transformSetOperationStmt (handles locking in UNION/INTERSECT/EXCEPT)
-  - isLockedRefname (checks if a relation name is locked)
+  - [transformSelectStmt](../t/transformSelectStmt.md) (processes SELECT statement locking clauses)
+  - [transformLockingClause](../t/transformLockingClause.md) (transforms locking specifications)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md) (handles locking in UNION/INTERSECT/EXCEPT)
+  - [isLockedRefname](../i/isLockedRefname.md) (checks if a relation name is locked)
 
 ## Notes and Other Information
 LockingClause is essential for PostgreSQL's row-level locking mechanism in SELECT statements. The lockedRels field uses RangeVar nodes primarily for their location information, and parse analysis requires unqualified relation names. When lockedRels is NIL, the locking applies to all relations in the query. The structure supports the full range of PostgreSQL's row locking options including the KEY variants introduced for foreign key optimization and the SKIP LOCKED feature for implementing work queues.

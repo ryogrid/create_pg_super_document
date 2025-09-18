@@ -19,12 +19,12 @@ XactCallbackItem implements a simple linked list to maintain transaction callbac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XactCallbackItem (self-reference for linked list)
-  - callback (function pointer field)
+  - [XactCallbackItem](XactCallbackItem.md) (self-reference for linked list)
+  - [callback](../c/callback.md) (function pointer field)
 - Called from (representative examples):
-  - RegisterXactCallback
-  - UnregisterXactCallback
-  - CallXactCallbacks
+  - [RegisterXactCallback](../R/RegisterXactCallback.md)
+  - [UnregisterXactCallback](../U/UnregisterXactCallback.md)
+  - [CallXactCallbacks](../C/CallXactCallbacks.md)
 
 ## Notes and Other Information
 The callback mechanism supports both start-of-transaction and end-of-transaction events, allowing registered functions to perform initialization and cleanup operations. The generic void pointer argument enables callbacks to maintain context-specific state information. This design is commonly used by PostgreSQL's resource management systems, background worker processes, and third-party extensions that need to coordinate with transaction lifecycle events.

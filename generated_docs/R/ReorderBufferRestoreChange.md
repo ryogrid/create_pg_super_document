@@ -23,17 +23,17 @@ The function performs type-specific deserialization based on the change action, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetChange (memory allocation for changes)
-  - ReorderBufferGetTupleBuf (tuple buffer allocation)
-  - ReorderBufferGetRelids (relation ID array allocation)
-  - MemoryContextAlloc (general memory allocation)
-  - MemoryContextAllocZero (zeroed memory allocation)
-  - dlist_push_tail (list management)
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md) (memory allocation for changes)
+  - [ReorderBufferGetTupleBuf](ReorderBufferGetTupleBuf.md) (tuple buffer allocation)
+  - [ReorderBufferGetRelids](ReorderBufferGetRelids.md) (relation ID array allocation)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (general memory allocation)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (zeroed memory allocation)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (list management)
   - ReorderBufferChangeMemoryUpdate (memory accounting)
-  - ReorderBufferChangeSize (size calculation)
+  - [ReorderBufferChangeSize](ReorderBufferChangeSize.md) (size calculation)
   - Various REORDER_BUFFER_CHANGE_* constants
 - Called from (representative examples):
-  - ReorderBufferRestoreChanges
+  - [ReorderBufferRestoreChanges](ReorderBufferRestoreChanges.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the reorderbuffer.c module

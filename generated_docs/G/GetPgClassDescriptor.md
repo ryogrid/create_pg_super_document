@@ -21,12 +21,12 @@ None - this is a parameter-less function.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildHardcodedDescriptor
+  - [BuildHardcodedDescriptor](../B/BuildHardcodedDescriptor.md)
   - Natts_pg_class (constant)
   - Desc_pg_class (constant)
 - Called from:
   - OpClassCacheEnt
-  - RelationParseRelOptions
+  - [RelationParseRelOptions](../R/RelationParseRelOptions.md)
 
 ## Notes and Other Information
 - Uses static variable for caching to avoid rebuilding the descriptor on subsequent calls

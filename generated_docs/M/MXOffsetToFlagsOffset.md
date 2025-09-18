@@ -27,11 +27,11 @@ The calculation involves:
   - MULTIXACT_MEMBERGROUPS_PER_PAGE (constant)
   - MULTIXACT_MEMBERGROUP_SIZE (constant)
 - Called from (representative examples):
-  - MXOffsetToMemberOffset
-  - RecordNewMultiXact
-  - GetMultiXactIdMembers
-  - TrimMultiXact
-  - ExtendMultiXactMember
+  - [MXOffsetToMemberOffset](MXOffsetToMemberOffset.md)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [TrimMultiXact](../T/TrimMultiXact.md)
+  - [ExtendMultiXactMember](../E/ExtendMultiXactMember.md)
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance as it's called frequently during MultiXact operations

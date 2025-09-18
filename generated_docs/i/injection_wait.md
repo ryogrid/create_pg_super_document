@@ -18,14 +18,14 @@ The `injection_wait` function provides a sophisticated synchronization mechanism
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - injection_init_shmem
-  - injection_point_allowed
-  - WaitEventInjectionPointNew
+  - [injection_init_shmem](injection_init_shmem.md)
+  - [injection_point_allowed](injection_point_allowed.md)
+  - [WaitEventInjectionPointNew](../W/WaitEventInjectionPointNew.md)
   - strlcpy
-  - ConditionVariablePrepareToSleep
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
-  - InjectionPointCondition
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [InjectionPointCondition](../I/InjectionPointCondition.md)
   - INJ_MAX_WAIT
   - INJ_NAME_MAXLEN
 - Called from (representative examples):

@@ -21,13 +21,13 @@ The function performs a critical safety check by verifying that  is not NULL bef
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (for error handling)
+  - [pg_fatal](../p/pg_fatal.md) (for error handling)
   - AH->WriteDataPtr (function pointer for format-specific writing)
 - Called from (representative examples):
-  - archputs
-  - archprintf  
-  - dumpTableData_copy
-  - dumpLOs
+  - [archputs](../a/archputs.md)
+  - [archprintf](../a/archprintf.md)  
+  - [dumpTableData_copy](../d/dumpTableData_copy.md)
+  - [dumpLOs](../d/dumpLOs.md)
 
 ## Notes and Other Information
 - This function is part of the public dumper interface and must only be called within DataDumper routines

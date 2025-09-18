@@ -23,8 +23,8 @@ The function requires that both input states are valid Int8TransTypeData arrays 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int8TransTypeData
-  - AggCheckCallContext
+  - [Int8TransTypeData](../I/Int8TransTypeData.md)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_GETARG_ARRAYTYPE_P
   - ARR_HASNULL
   - ARR_SIZE

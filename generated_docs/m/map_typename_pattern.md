@@ -21,11 +21,11 @@ This mapping doesn't completely mask the special nature of these names - for exa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)
 - Called from (representative examples):
-  - describeFunctions (src/bin/psql/describe.c:561)
-  - describeTypes (src/bin/psql/describe.c:683) 
-  - describeOperators (src/bin/psql/describe.c:871)
+  - [describeFunctions](../d/describeFunctions.md) (src/bin/psql/describe.c:561)
+  - [describeTypes](../d/describeTypes.md) (src/bin/psql/describe.c:683) 
+  - [describeOperators](../d/describeOperators.md) (src/bin/psql/describe.c:871)
 
 ## Notes and Other Information
 - The function uses a static array of string pairs where even-indexed entries are aliases and odd-indexed entries are their canonical equivalents

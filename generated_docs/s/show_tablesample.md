@@ -26,19 +26,19 @@ The function works by looking up the sampling method name from the handler funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_deparse_context_plan (sets up context for expression deparsing)
-  - get_func_name (converts function OID to name for the sampling method)
-  - deparse_expression (converts expression nodes to readable text)
-  - ExplainIndentText (adds proper indentation in text format)
-  - ExplainPropertyText (outputs named text properties in structured formats)
-  - ExplainPropertyList (outputs named list properties in structured formats)
+  - [set_deparse_context_plan](set_deparse_context_plan.md) (sets up context for expression deparsing)
+  - [get_func_name](../g/get_func_name.md) (converts function OID to name for the sampling method)
+  - [deparse_expression](../d/deparse_expression.md) (converts expression nodes to readable text)
+  - [ExplainIndentText](../E/ExplainIndentText.md) (adds proper indentation in text format)
+  - [ExplainPropertyText](../E/ExplainPropertyText.md) (outputs named text properties in structured formats)
+  - [ExplainPropertyList](../E/ExplainPropertyList.md) (outputs named list properties in structured formats)
   - appendStringInfo/appendStringInfoString/appendStringInfoChar (builds output string)
 - Constants referenced:
   - EXPLAIN_FORMAT_TEXT (indicates text output format)
 - Types referenced:
-  - TableSampleClause, PlanState, ExplainState, ListCell
+  - [TableSampleClause](../T/TableSampleClause.md), PlanState, ExplainState, ListCell
 - Called from (representative examples):
-  - ExplainNode (when explaining nodes that use table sampling)
+  - [ExplainNode](../E/ExplainNode.md) (when explaining nodes that use table sampling)
 
 ## Notes and Other Information
 - Handles both text and structured output formats differently for optimal readability

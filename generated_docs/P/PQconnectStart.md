@@ -19,15 +19,15 @@ PQconnectStart is a convenience wrapper around PQconnectStartParams that accepts
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqMakeEmptyPGconn
-  - connectOptions1
+  - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)
+  - [connectOptions1](../c/connectOptions1.md)
   - pqConnectOptions2
-  - pqConnectDBStart
+  - [pqConnectDBStart](../p/pqConnectDBStart.md)
   - CONNECTION_BAD (status constant)
 - Called from (representative examples):
-  - PQconnectdb (fe-connect.c)
-  - PQping (fe-connect.c)
-  - libpqsrv_connect (libpq-be-fe-helpers.h)
+  - [PQconnectdb](PQconnectdb.md) (fe-connect.c)
+  - [PQping](PQping.md) (fe-connect.c)
+  - [libpqsrv_connect](../l/libpqsrv_connect.md) (libpq-be-fe-helpers.h)
 
 ## Notes and Other Information
 - This is the string-based equivalent of PQconnectStartParams for asynchronous connections

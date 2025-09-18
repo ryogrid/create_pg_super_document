@@ -21,10 +21,10 @@ The function compares the  field within the  union of two SPELL structures. It u
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
-  - SPELL (structure type)
-  - flag (field within SPELL structure's p union)
+  - [SPELL](../S/SPELL.md) (structure type)
+  - [flag](../f/flag.md) (field within SPELL structure's p union)
 - Called from:
-  - NISortDictionary (src/backend/tsearch/spell.c:1777)
+  - [NISortDictionary](../N/NISortDictionary.md) (src/backend/tsearch/spell.c:1777)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the spell.c compilation unit

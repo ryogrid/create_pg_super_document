@@ -27,12 +27,12 @@ The function optimizes vacuum performance by balancing I/O efficiency (avoiding 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_next_unskippable_block (identifies next required block)
+  - [find_next_unskippable_block](../f/find_next_unskippable_block.md) (identifies next required block)
   - ReleaseBuffer (buffer management)
   - SKIP_PAGES_THRESHOLD (skip optimization threshold)
 
 - Called from (representative examples):
-  - lazy_scan_heap (src/backend/access/heap/vacuumlazy.c:843)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (src/backend/access/heap/vacuumlazy.c:843)
 
 ## Notes and Other Information
 - Returns false when no more blocks need processing (end of relation reached)

@@ -134,16 +134,16 @@ write_data_to_archive_lz4_doc.md: ScanDirection indicating whether to scan forwa
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
-  - _hash_kill_items  
+  - [_hash_kill_items](_hash_kill_items.md)  
   - BlockNumberIsValid
-  - _hash_getbuf
-  - _hash_readpage
-  - _hash_dropbuf
-  - _hash_dropscanbuf
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [_hash_readpage](_hash_readpage.md)
+  - [_hash_dropbuf](_hash_dropbuf.md)
+  - [_hash_dropscanbuf](_hash_dropscanbuf.md)
   - HashScanPosInvalidate
 - Called from (representative examples):
-  - hashgettuple
-  - hashgetbitmap
+  - [hashgettuple](hashgettuple.md)
+  - [hashgetbitmap](hashgetbitmap.md)
 
 ## Notes and Other Information
 The function ensures proper cleanup of killed items before page transitions and maintains buffer pins appropriately. For backward scans, special handling is required for bucket page pins to avoid double-pinning. The function returns false when the scan is exhausted and true when a valid next tuple is found, setting scan->xs_heaptid to the result tuple's TID.

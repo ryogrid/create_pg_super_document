@@ -21,16 +21,16 @@ The function deletes the temporary and traversal memory contexts that were creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
-  - pfree
-  - FreeTupleDesc
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [pfree](../p/pfree.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
   - RelationGetDescr (for comparison)
 - Called from:
-  - spghandler (src/backend/access/spgist/spgutils.c:88)
+  - [spghandler](spghandler.md) (src/backend/access/spgist/spgutils.c:88)
 
 ## Dependencies
 - Types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - SpGistScanOpaque
 
 ## Notes and Other Information

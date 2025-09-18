@@ -19,14 +19,14 @@ This function serves as a memory allocator callback for the red-black tree imple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - GetMemoryChunkSpace
   - DEF_NENTRY (constant)
-  - BuildAccumulator (struct)
-  - GinEntryAccumulator (struct)
-  - RBTNode (struct)
+  - [BuildAccumulator](../B/BuildAccumulator.md) (struct)
+  - [GinEntryAccumulator](../G/GinEntryAccumulator.md) (struct)
+  - [RBTNode](../R/RBTNode.md) (struct)
 - Called from (representative examples):
-  - ginInitBA
+  - [ginInitBA](ginInitBA.md)
 
 ## Notes and Other Information
 - Implements bulk memory allocation strategy to reduce overhead

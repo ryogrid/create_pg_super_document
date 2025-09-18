@@ -40,9 +40,9 @@ The function is essential for handling scenarios where:
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro to access attribute metadata)
   - elog/ereport (error reporting functions)
-  - format_type_be (formats type OIDs for error messages)
+  - [format_type_be](../f/format_type_be.md) (formats type OIDs for error messages)
 - Called from:
-  - CheckExprStillValid (for each variable operation in expressions)
+  - [CheckExprStillValid](CheckExprStillValid.md) (for each variable operation in expressions)
 
 ## Notes and Other Information
 - Declared static as it's an internal implementation detail of the expression interpreter

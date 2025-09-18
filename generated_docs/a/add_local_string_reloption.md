@@ -23,11 +23,11 @@ This function registers a local string reloption within a specific local relopti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_string_reloption
-  - add_local_reloption
+  - [init_string_reloption](../i/init_string_reloption.md)
+  - [add_local_reloption](add_local_reloption.md)
   - RELOPT_KIND_LOCAL
-  - relopt_string
-  - relopt_gen
+  - [relopt_string](../r/relopt_string.md)
+  - [relopt_gen](../r/relopt_gen.md)
 - Called from (representative examples):
   - GET_STRING_RELOPTION (macro)
 

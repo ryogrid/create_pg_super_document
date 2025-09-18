@@ -17,9 +17,9 @@ heapam_relation_nontransactional_truncate is a static function that serves as a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationTruncate
+  - [RelationTruncate](../R/RelationTruncate.md)
 - Called from (representative examples):
-  - SampleHeapTupleVisible (referenced in heapam_handler.c:2629)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (referenced in heapam_handler.c:2629)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the heapam_handler.c file

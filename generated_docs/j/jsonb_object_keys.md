@@ -23,8 +23,8 @@ jsonb_object_keys implements a set-returning function that processes JSONB objec
   - JB_ROOT_IS_SCALAR
   - JB_ROOT_IS_ARRAY
   - SRF_FIRSTCALL_INIT
-  - JsonbIteratorInit
-  - JsonbIteratorNext
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
   - SRF_PERCALL_SETUP
   - SRF_RETURN_NEXT
   - SRF_RETURN_DONE

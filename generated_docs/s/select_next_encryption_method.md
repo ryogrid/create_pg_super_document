@@ -27,12 +27,12 @@ For sslmode="allow", plaintext is tried before SSL. For sslmode="prefer", SSL is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_GSS_have_cred_cache (conditionally, if ENABLE_GSS defined)
-  - libpq_append_conn_error
+  - [pg_GSS_have_cred_cache](../p/pg_GSS_have_cred_cache.md) (conditionally, if ENABLE_GSS defined)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
-  - init_allowed_encryption_methods (fe-connect.c:4338)
-  - encryption_negotiation_failed (fe-connect.c:4361) 
-  - connection_failed (fe-connect.c:4386)
+  - [init_allowed_encryption_methods](../i/init_allowed_encryption_methods.md) (fe-connect.c:4338)
+  - [encryption_negotiation_failed](../e/encryption_negotiation_failed.md) (fe-connect.c:4361) 
+  - [connection_failed](../c/connection_failed.md) (fe-connect.c:4386)
 
 ## Notes and Other Information
 - The function uses a local SELECT_NEXT_METHOD macro to streamline the selection logic

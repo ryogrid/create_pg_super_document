@@ -27,9 +27,9 @@ On Unix systems, it first checks the HOME environment variable, and if that's no
   - getpwuid: Retrieves user information by UID (Unix)
   - chdir: System call to change directory
   - pg_log_error: PostgreSQL logging function for error messages
-  - ignore_slash_options: Skips parsing when not in active branch
+  - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when not in active branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Platform-specific behavior: Unix systems try HOME environment variable then user database, Windows defaults to root

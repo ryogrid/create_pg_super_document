@@ -24,23 +24,23 @@ This function creates the complete SQL DDL needed to recreate a subscription dur
 - Functions called/Symbols referenced:
   - DumpOptions
   - createPQExpBuffer
-  - pg_strdup
-  - fmtId
-  - appendPQExpBuffer
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - appendStringLiteralAH
-  - parsePGArray
-  - pg_fatal
+  - [parsePGArray](../p/parsePGArray.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - LOGICALREP_TWOPHASE_STATE_DISABLED
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - LOGICALREP_ORIGIN_ANY
   - DUMP_COMPONENT_DEFINITION
-  - ArchiveEntry
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - ARCHIVE_OPTS
   - SECTION_POST_DATA
   - DUMP_COMPONENT_COMMENT
-  - dumpComment
+  - [dumpComment](dumpComment.md)
   - DUMP_COMPONENT_SECLABEL
-  - dumpSecLabel
+  - [dumpSecLabel](dumpSecLabel.md)
   - destroyPQExpBuffer
   - free
 - Called from (representative examples):

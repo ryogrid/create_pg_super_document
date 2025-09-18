@@ -21,13 +21,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SyncRepUpdateSyncStandbysDefined
-  - UpdateFullPageWrites
+  - [SyncRepUpdateSyncStandbysDefined](../S/SyncRepUpdateSyncStandbysDefined.md)
+  - [UpdateFullPageWrites](UpdateFullPageWrites.md)
   - elog (with DEBUG2 level)
 - Called from:
-  - CheckpointerMain
-  - HandleCheckpointerInterrupts
-  - CheckpointWriteDelay
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)
+  - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md)
 
 ## Notes and Other Information
 - Function is declared static, indicating it is internal to the checkpointer.c module

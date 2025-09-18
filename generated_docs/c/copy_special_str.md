@@ -29,8 +29,8 @@ The logic follows IEEE 754 special value encoding:
 - Functions called/Symbols referenced:
   - memcpy (for efficient string copying)
 - Called from (representative examples):
-  - double_to_shortest_decimal_bufn (in src/common/d2s.c at line 1031)
-  - float_to_shortest_decimal_bufn (in src/common/f2s.c at line 758)
+  - [double_to_shortest_decimal_bufn](../d/double_to_shortest_decimal_bufn.md) (in src/common/d2s.c at line 1031)
+  - [float_to_shortest_decimal_bufn](../f/float_to_shortest_decimal_bufn.md) (in src/common/f2s.c at line 758)
 
 ## Notes and Other Information
 - Part of the Ryu algorithm for fast floating-point to string conversion

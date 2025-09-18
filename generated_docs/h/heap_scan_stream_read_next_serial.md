@@ -25,11 +25,11 @@ This function works with both forward and backward scans, and supports TID range
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heapgettup_initial_block
-  - heapgettup_advance_block
-  - HeapScanDesc (type cast)
+  - [heapgettup_initial_block](heapgettup_initial_block.md)
+  - [heapgettup_advance_block](heapgettup_advance_block.md)
+  - [HeapScanDesc](../H/HeapScanDesc.md) (type cast)
 - Called from (representative examples):
-  - heap_beginscan (src/backend/access/heap/heapam.c:1180)
+  - [heap_beginscan](heap_beginscan.md) (src/backend/access/heap/heapam.c:1180)
 
 ## Notes and Other Information
 - This function handles both sequential scans and TID range scans in serial (non-parallel) mode

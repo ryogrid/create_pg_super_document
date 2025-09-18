@@ -21,14 +21,14 @@ _EndLO is a callback function specific to the custom archive format that handles
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EndCompressor
-  - WriteInt
-  - TocEntry (type)
-  - lclContext (type)
+  - [EndCompressor](EndCompressor.md)
+  - [WriteInt](../W/WriteInt.md)
+  - [TocEntry](../T/TocEntry.md) (type)
+  - [lclContext](../l/lclContext.md) (type)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (registered as callback)
-  - InitArchiveFmt_Directory (referenced in directory format)
-  - InitArchiveFmt_Null (referenced in null format)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (registered as callback)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (referenced in directory format)
+  - [InitArchiveFmt_Null](../I/InitArchiveFmt_Null.md) (referenced in null format)
 
 ## Notes and Other Information
 This function is marked as optional in the archiver interface and is specific to the custom format implementation. It ensures proper cleanup of compression resources and provides a clear termination marker in the archive stream for large objects.

@@ -22,14 +22,14 @@ The function can return different results indicating whether the lock was freshl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockAcquireExtended (the actual implementation with extended parameters)
+  - [LockAcquireExtended](LockAcquireExtended.md) (the actual implementation with extended parameters)
 - Data structures used:
   - LOCKTAG (lock identifier structure)
   - LockAcquireResult (return value enum)
 - Called from (representative examples):
-  - LockRelationIdForSession (relation locking)
-  - LockPage, LockTuple (granular locking)
-  - XactLockTableWait (transaction waiting)
+  - [LockRelationIdForSession](LockRelationIdForSession.md) (relation locking)
+  - [LockPage](LockPage.md), LockTuple (granular locking)
+  - [XactLockTableWait](../X/XactLockTableWait.md) (transaction waiting)
   - pg_advisory_lock_* functions (advisory locking API)
   - Various lmgr.c wrapper functions
 

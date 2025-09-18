@@ -21,9 +21,9 @@ This function serves as a validation hook for the `recovery_target_time` Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime (parses datetime string into fields)
-  - DecodeDateTime (interprets parsed fields into datetime components)
-  - tm2timestamp (converts time structure to timestamp)
+  - [ParseDateTime](../P/ParseDateTime.md) (parses datetime string into fields)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (interprets parsed fields into datetime components)
+  - [tm2timestamp](../t/tm2timestamp.md) (converts time structure to timestamp)
   - GUC_check_errdetail (provides detailed error messages)
   - fsec_t, pg_tm, DateTimeErrorExtra (datetime-related types)
   - MAXDATEFIELDS, MAXDATELEN, DTK_DATE (datetime parsing constants)

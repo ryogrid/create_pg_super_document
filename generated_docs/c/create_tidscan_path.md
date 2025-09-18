@@ -29,10 +29,10 @@ The function initializes the standard Path structure fields and calls cost_tidsc
 - Functions called/Symbols referenced:
   - makeNode (creates new TidPath node)
   - get_baserel_parampathinfo (gets parameterization info for the path)
-  - cost_tidscan (calculates startup and total execution costs)
+  - [cost_tidscan](cost_tidscan.md) (calculates startup and total execution costs)
 - Called from (representative examples):
-  - BuildParameterizedTidPaths (for parameterized TID scan paths)
-  - create_tidscan_paths (when generating TID scan alternatives)
+  - [BuildParameterizedTidPaths](../B/BuildParameterizedTidPaths.md) (for parameterized TID scan paths)
+  - [create_tidscan_paths](create_tidscan_paths.md) (when generating TID scan alternatives)
 
 ## Notes and Other Information
 - The resulting path is always unordered (pathkeys = NIL) since TID scans access tuples by physical location

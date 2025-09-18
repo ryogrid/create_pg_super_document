@@ -22,7 +22,7 @@ The implementation deliberately avoids using PostgreSQL's floating-point macros 
 - Functions called/Symbols referenced:
   - None (uses only basic C operations)
 - Called from (representative examples):
-  - spg_box_quad_picksplit (multiple times for sorting coordinates)
+  - [spg_box_quad_picksplit](../s/spg_box_quad_picksplit.md) (multiple times for sorting coordinates)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the geo_spgist.c file

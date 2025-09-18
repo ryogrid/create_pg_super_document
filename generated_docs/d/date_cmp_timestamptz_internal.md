@@ -18,7 +18,7 @@ This internal function implements the core comparison logic for DATE vs TIMESTAM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2timestamptz_opt_overflow (converts date to timestamptz with overflow detection)
+  - [date2timestamptz_opt_overflow](date2timestamptz_opt_overflow.md) (converts date to timestamptz with overflow detection)
   - TIMESTAMP_IS_NOEND (macro to check for positive infinity timestamp)  
   - TIMESTAMP_IS_NOBEGIN (macro to check for negative infinity timestamp)
   - timestamptz_cmp_internal (internal timestamptz comparison function)
@@ -26,11 +26,11 @@ This internal function implements the core comparison logic for DATE vs TIMESTAM
   - DateADT (PostgreSQL date type)
   - TimestampTz (PostgreSQL timestamp with timezone type)
 - Called from (representative examples):
-  - date_eq_timestamptz, date_ne_timestamptz, date_lt_timestamptz
-  - date_gt_timestamptz, date_le_timestamptz, date_ge_timestamptz
-  - date_cmp_timestamptz
-  - timestamptz_eq_date, timestamptz_ne_date, etc.
-  - cmpDateToTimestampTz (in jsonpath execution)
+  - [date_eq_timestamptz](date_eq_timestamptz.md), date_ne_timestamptz, date_lt_timestamptz
+  - [date_gt_timestamptz](date_gt_timestamptz.md), date_le_timestamptz, date_ge_timestamptz
+  - [date_cmp_timestamptz](date_cmp_timestamptz.md)
+  - [timestamptz_eq_date](../t/timestamptz_eq_date.md), timestamptz_ne_date, etc.
+  - [cmpDateToTimestampTz](../c/cmpDateToTimestampTz.md) (in jsonpath execution)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/date.c:823-843

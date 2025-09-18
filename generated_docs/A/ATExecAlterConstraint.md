@@ -31,17 +31,17 @@ The function follows these main steps:
 - Functions called/Symbols referenced:
   - castNode
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
-  - SearchSysCache1
-  - ATExecAlterConstrRecurse
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ATExecAlterConstrRecurse](ATExecAlterConstrRecurse.md)
   - ObjectAddressSet
-  - CacheInvalidateRelcacheByRelid
-  - get_rel_name
+  - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md)
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Only supports foreign key constraints; other constraint types will result in an error

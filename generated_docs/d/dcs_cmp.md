@@ -25,10 +25,10 @@ The function follows the standard qsort comparator contract:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintState (struct type)
+  - [DomainConstraintState](../D/DomainConstraintState.md) (struct type)
   - strcmp (standard library function)
 - Called from (representative examples):
-  - load_domaintype_info
+  - [load_domaintype_info](../l/load_domaintype_info.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

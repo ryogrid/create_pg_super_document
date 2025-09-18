@@ -22,17 +22,17 @@ The function enforces PostgreSQL's inheritance rules by validating ownership per
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_openrv
-  - ATSimplePermissions
-  - find_all_inheritors
-  - list_member_oid
-  - FindTriggerIncompatibleWithInheritance
-  - CreateInheritance
+  - [ATSimplePermissions](ATSimplePermissions.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [FindTriggerIncompatibleWithInheritance](../F/FindTriggerIncompatibleWithInheritance.md)
+  - [CreateInheritance](../C/CreateInheritance.md)
   - ObjectAddressSet
   - table_close
   - RelationGetRelid
   - RelationGetRelationName
 - Called from (representative examples):
-  - ATExecCmd (for ALTER TABLE INHERIT operations)
+  - [ATExecCmd](ATExecCmd.md) (for ALTER TABLE INHERIT operations)
 
 ## Notes and Other Information
 - Requires ShareUpdateExclusiveLock on parent relation to prevent concurrent schema changes

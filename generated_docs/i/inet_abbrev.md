@@ -22,7 +22,7 @@ The inet_abbrev function provides an abbreviated representation of an inet value
   - ip_family (to get address family)
   - ip_addr (to get address data)
   - ip_bits (to get the actual netmask length)
-  - pg_inet_net_ntop (to format the network address with specified bit length)
+  - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md) (to format the network address with specified bit length)
   - cstring_to_text (to convert C string to PostgreSQL text)
   - PG_RETURN_TEXT_P (to return text result)
 - Called from (representative examples):

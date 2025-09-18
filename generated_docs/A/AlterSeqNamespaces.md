@@ -27,16 +27,16 @@ This function handles the namespace migration of sequences that have auto or int
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - relation_open
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [relation_open](../r/relation_open.md)
   - RelationGetForm
-  - relation_close
-  - AlterRelationNamespaceInternal
-  - systable_endscan
+  - [relation_close](../r/relation_close.md)
+  - [AlterRelationNamespaceInternal](AlterRelationNamespaceInternal.md)
+  - [systable_endscan](../s/systable_endscan.md)
 - Called from (representative examples):
-  - AlterTableNamespaceInternal
+  - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md)
 
 ## Notes and Other Information
 - Focuses specifically on SERIAL and IDENTITY sequences with auto/internal dependencies

@@ -32,7 +32,7 @@ This function takes no parameters.
   - InterruptPending (global interrupt flag)
   - ProcSignalBarrierPending (barrier-specific interrupt flag)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler (main SIGUSR1 signal dispatcher)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (main SIGUSR1 signal dispatcher)
 
 ## Notes and Other Information
 - Declared as static, making it internal to the procsignal.c module

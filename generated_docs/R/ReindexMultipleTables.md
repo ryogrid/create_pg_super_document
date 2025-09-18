@@ -32,21 +32,21 @@ This function orchestrates bulk reindexing operations across multiple tables wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_oid
-  - object_ownercheck
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
   - has_privs_of_role
-  - aclcheck_error
-  - get_database_name
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_database_name](../g/get_database_name.md)
   - AllocSetContextCreate
   - table_open/table_close
-  - table_beginscan_catalog
-  - heap_getnext
-  - IsCatalogRelationOid
-  - pg_class_aclcheck
-  - IsSystemClass
-  - ReindexMultipleInternal
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [IsCatalogRelationOid](../I/IsCatalogRelationOid.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [IsSystemClass](../I/IsSystemClass.md)
+  - [ReindexMultipleInternal](ReindexMultipleInternal.md)
 - Called from:
-  - ExecReindex
+  - [ExecReindex](../E/ExecReindex.md)
 
 ## Notes and Other Information
 - Must not be called within a user transaction block due to internal transaction commits

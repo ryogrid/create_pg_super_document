@@ -32,18 +32,18 @@ The function maintains the innerwiths list in CteState to track which CTEs are v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lcons (list manipulation)
-  - makeDependencyGraphWalker (recursive dependency analysis) 
+  - [lcons](../l/lcons.md) (list manipulation)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md) (recursive dependency analysis) 
   - raw_expression_tree_walker (generic AST traversal)
   - list_delete_first (list manipulation)
   - list_head (list access)
   - lappend (list manipulation)
   - CommonTableExpr (CTE structure)
   - WithClause (WITH clause structure)
-  - CteState (dependency tracking state)
+  - [CteState](../C/CteState.md) (dependency tracking state)
 
 - Called from:
-  - makeDependencyGraphWalker (multiple call sites for different statement types)
+  - [makeDependencyGraphWalker](../m/makeDependencyGraphWalker.md) (multiple call sites for different statement types)
 
 ## Notes and Other Information
 - This function is critical for implementing SQL:1999 WITH clause semantics correctly

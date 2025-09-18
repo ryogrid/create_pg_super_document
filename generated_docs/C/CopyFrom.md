@@ -30,36 +30,36 @@ The function supports various advanced features including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
-  - GetCurrentCommandId  
+  - [CreateExecutorState](CreateExecutorState.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)  
   - ExecInitRangeTable
-  - ExecInitResultRelation
-  - CheckValidResultRel
-  - ExecOpenIndices
-  - MakeTransitionCaptureState
-  - ExecSetupPartitionTupleRouting
-  - CopyMultiInsertInfoInit
-  - GetBulkInsertState
-  - table_slot_create
-  - NextCopyFrom
-  - ExecFindPartition
-  - ExecGetRootToChildMap
-  - execute_attr_map_slot
-  - ExecBRInsertTriggers
-  - ExecIRInsertTriggers
-  - ExecComputeStoredGenerated
-  - ExecConstraints
-  - ExecPartitionCheck
-  - CopyMultiInsertInfoNextFreeSlot
-  - CopyMultiInsertInfoStore
-  - CopyMultiInsertInfoFlush
+  - [ExecInitResultRelation](../E/ExecInitResultRelation.md)
+  - [CheckValidResultRel](CheckValidResultRel.md)
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md)
+  - [ExecSetupPartitionTupleRouting](../E/ExecSetupPartitionTupleRouting.md)
+  - [CopyMultiInsertInfoInit](CopyMultiInsertInfoInit.md)
+  - [GetBulkInsertState](../G/GetBulkInsertState.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [NextCopyFrom](../N/NextCopyFrom.md)
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [ExecGetRootToChildMap](../E/ExecGetRootToChildMap.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [ExecBRInsertTriggers](../E/ExecBRInsertTriggers.md)
+  - [ExecIRInsertTriggers](../E/ExecIRInsertTriggers.md)
+  - [ExecComputeStoredGenerated](../E/ExecComputeStoredGenerated.md)
+  - [ExecConstraints](../E/ExecConstraints.md)
+  - [ExecPartitionCheck](../E/ExecPartitionCheck.md)
+  - [CopyMultiInsertInfoNextFreeSlot](CopyMultiInsertInfoNextFreeSlot.md)
+  - [CopyMultiInsertInfoStore](CopyMultiInsertInfoStore.md)
+  - [CopyMultiInsertInfoFlush](CopyMultiInsertInfoFlush.md)
   - table_tuple_insert
-  - ExecInsertIndexTuples
-  - ExecARInsertTriggers
-  - FreeExecutorState
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md)
+  - [ExecARInsertTriggers](../E/ExecARInsertTriggers.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
 - Called from (representative examples):
-  - DoCopy (main entry point for COPY command)
-  - copy_table (logical replication)
+  - [DoCopy](../D/DoCopy.md) (main entry point for COPY command)
+  - [copy_table](../c/copy_table.md) (logical replication)
 
 ## Notes and Other Information
 - Returns the number of tuples successfully processed and inserted

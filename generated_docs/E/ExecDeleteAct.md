@@ -29,8 +29,8 @@ The function is intentionally minimal, focusing solely on the physical deletion 
 - Functions called/Symbols referenced:
   - table_tuple_delete (storage layer deletion function)
 - Called from (representative examples):
-  - ExecDelete (standard DELETE operation processing)
-  - ExecMergeMatched (MERGE statement DELETE actions)
+  - [ExecDelete](ExecDelete.md) (standard DELETE operation processing)
+  - [ExecMergeMatched](ExecMergeMatched.md) (MERGE statement DELETE actions)
 
 ## Notes and Other Information
 - Returns TM_Result indicating the outcome of the deletion attempt (success, updated by concurrent transaction, etc.)

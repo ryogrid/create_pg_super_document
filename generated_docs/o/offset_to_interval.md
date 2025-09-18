@@ -21,7 +21,7 @@ offset_to_interval is a utility function that creates a PostgreSQL Interval stru
 - Functions called/Symbols referenced:
   - TimeOffset (type)
   - Interval (struct type)
-  - palloc (memory allocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):
   - PG_STAT_GET_WAL_SENDERS_COLS (multiple calls)
 

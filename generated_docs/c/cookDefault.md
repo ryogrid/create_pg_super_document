@@ -27,19 +27,19 @@ The function performs comprehensive validation including type checking, mutabili
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr: Converts parse tree to executable expression
-  - check_nested_generated: Validates generated column references
-  - contain_mutable_functions_after_planning: Checks for non-immutable functions in generated columns
-  - contain_var_clause: Verifies absence of column references in regular defaults
-  - coerce_to_target_type: Handles type conversion and validation
-  - assign_expr_collations: Resolves collation assignments in the final expression
+  - [transformExpr](../t/transformExpr.md): Converts parse tree to executable expression
+  - [check_nested_generated](check_nested_generated.md): Validates generated column references
+  - [contain_mutable_functions_after_planning](contain_mutable_functions_after_planning.md): Checks for non-immutable functions in generated columns
+  - [contain_var_clause](contain_var_clause.md): Verifies absence of column references in regular defaults
+  - [coerce_to_target_type](coerce_to_target_type.md): Handles type conversion and validation
+  - [assign_expr_collations](../a/assign_expr_collations.md): Resolves collation assignments in the final expression
   - exprType: Determines the data type of an expression
-  - format_type_be: Formats type names for error messages
+  - [format_type_be](../f/format_type_be.md): Formats type names for error messages
 
 - Called from (representative examples):
-  - AddRelationNewConstraints: When adding constraints with default values
-  - DefineDomain: During domain definition with default values
-  - AlterDomainDefault: When modifying domain default values
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md): When adding constraints with default values
+  - [DefineDomain](../D/DefineDomain.md): During domain definition with default values
+  - [AlterDomainDefault](../A/AlterDomainDefault.md): When modifying domain default values
 
 ## Notes and Other Information
 - The function enforces different validation rules for generated columns vs regular defaults

@@ -25,10 +25,10 @@ The function creates a new JSONB value rather than modifying the input in place,
   - JB_ROOT_IS_SCALAR: Check if JSONB root is a scalar value
   - JB_ROOT_IS_OBJECT: Check if JSONB root is an object
   - JB_ROOT_COUNT: Get the count of elements in JSONB root
-  - JsonbIteratorInit: Initialize JSONB iterator
-  - JsonbIteratorNext: Get next element from JSONB iterator
-  - pushJsonbValue: Add value to JSONB parse state
-  - JsonbValueToJsonb: Convert JsonbValue to Jsonb
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md): Initialize JSONB iterator
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md): Get next element from JSONB iterator
+  - [pushJsonbValue](../p/pushJsonbValue.md): Add value to JSONB parse state
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md): Convert JsonbValue to Jsonb
   - PG_RETURN_JSONB_P: Return JSONB value from function
 - Called from (representative examples):
   - No direct callers found (SQL-callable function)

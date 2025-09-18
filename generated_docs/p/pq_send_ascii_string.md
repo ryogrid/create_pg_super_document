@@ -25,7 +25,7 @@ This function is specifically used in error handling scenarios where PostgreSQL 
   - appendStringInfoChar (appends null terminator)
 
 - Called from (representative examples):
-  - err_sendstring (error message handling when encoding conversion fails)
+  - [err_sendstring](../e/err_sendstring.md) (error message handling when encoding conversion fails)
 
 ## Notes and Other Information
 - This function is specifically designed for error recovery scenarios

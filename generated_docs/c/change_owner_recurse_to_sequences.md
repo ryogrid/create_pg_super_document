@@ -28,16 +28,16 @@ The function specifically targets SERIAL sequences by looking for dependencies w
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - relation_open
-  - relation_close
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
   - RelationGetForm
-  - ATExecChangeOwner
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md)
 - Called from (representative examples):
-  - ATExecChangeOwner
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md)
 
 ## Notes and Other Information
 - This is a static helper function only accessible within tablecmds.c

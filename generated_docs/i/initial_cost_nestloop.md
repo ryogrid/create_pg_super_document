@@ -34,16 +34,16 @@ The function deliberately excludes CPU-cost considerations and detailed join qua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_rescan
-  - JoinCostWorkspace
+  - [cost_rescan](../c/cost_rescan.md)
+  - [JoinCostWorkspace](../J/JoinCostWorkspace.md)
   - JoinType
-  - JoinPathExtraData
+  - [JoinPathExtraData](../J/JoinPathExtraData.md)
   - Cost
   - JOIN_SEMI
   - JOIN_ANTI
 - Called from (representative examples):
-  - try_nestloop_path
-  - try_partial_nestloop_path
+  - [try_nestloop_path](../t/try_nestloop_path.md)
+  - [try_partial_nestloop_path](../t/try_partial_nestloop_path.md)
 
 ## Notes and Other Information
 - This is the first phase of a two-phase nested loop costing process

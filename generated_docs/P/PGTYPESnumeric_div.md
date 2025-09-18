@@ -21,17 +21,17 @@ This function implements division of two numeric variables using a sophisticated
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - select_div_scale (determines appropriate result scale)
+  - [select_div_scale](../s/select_div_scale.md) (determines appropriate result scale)
   - digitbuf_alloc/digitbuf_free (memory management)
-  - zero_var (initializes result to zero)
+  - [zero_var](../z/zero_var.md) (initializes result to zero)
   - init_var (initializes temporary variables)
-  - cmp_abs (compares absolute values)
-  - sub_abs (performs absolute subtraction)
+  - [cmp_abs](../c/cmp_abs.md) (compares absolute values)
+  - [sub_abs](../s/sub_abs.md) (performs absolute subtraction)
   - NUMERIC_POS/NUMERIC_NEG (sign constants)
   - PGTYPES_NUM_DIVIDE_ZERO (division by zero error)
 - Called from (representative examples):
-  - decdiv (in ECPG Informix compatibility layer)
-  - main (in various pgtypes test programs)
+  - [decdiv](../d/decdiv.md) (in ECPG Informix compatibility layer)
+  - [main](../m/main.md) (in various pgtypes test programs)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (memory allocation or division by zero)

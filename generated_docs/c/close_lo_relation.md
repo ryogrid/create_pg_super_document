@@ -17,11 +17,11 @@ This function handles the cleanup of large object relation references at transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_close (to close the large object index)
+  - [index_close](../i/index_close.md) (to close the large object index)
   - table_close (to close the large object heap relation)
   - ResourceOwner (for resource management)
 - Called from (representative examples):
-  - AtEOXact_LargeObject (transaction end processing)
+  - [AtEOXact_LargeObject](../A/AtEOXact_LargeObject.md) (transaction end processing)
 
 ## Notes and Other Information
 - Function has public visibility (not static)

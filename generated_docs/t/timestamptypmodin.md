@@ -22,7 +22,7 @@ This function is part of PostgreSQL's type system infrastructure and is called d
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P
-  - anytimestamp_typmodin
+  - [anytimestamp_typmodin](../a/anytimestamp_typmodin.md)
 - Called from (representative examples):
   - No direct references found in the current analysis
 

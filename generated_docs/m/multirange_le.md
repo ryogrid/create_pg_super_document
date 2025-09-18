@@ -33,7 +33,7 @@ The comparison follows these principles:
 - Called from (representative examples):
   - SQL queries using <= operator on multirange columns
   - B-tree index operations during sorting and searching
-  - Query planner when evaluating multirange comparisons
+  - [Query](../Q/Query.md) planner when evaluating multirange comparisons
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's multirange type infrastructure introduced for handling collections of ranges

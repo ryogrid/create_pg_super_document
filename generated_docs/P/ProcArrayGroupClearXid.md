@@ -21,20 +21,20 @@ The function uses atomic operations to maintain a lock-free linked list of proce
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetNumberFromPGProc
-  - pg_atomic_read_u32
-  - pg_atomic_write_u32
-  - pg_atomic_compare_exchange_u32
-  - pg_atomic_exchange_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md)
+  - [pg_atomic_exchange_u32](../p/pg_atomic_exchange_u32.md)
   - pgstat_report_wait_start
   - pgstat_report_wait_end
-  - PGSemaphoreLock
-  - PGSemaphoreUnlock
+  - [PGSemaphoreLock](PGSemaphoreLock.md)
+  - [PGSemaphoreUnlock](PGSemaphoreUnlock.md)
   - LWLockAcquire
   - LWLockRelease
-  - ProcArrayEndTransactionInternal
+  - [ProcArrayEndTransactionInternal](ProcArrayEndTransactionInternal.md)
   - pg_write_barrier
 - Called from (representative examples):
-  - ProcArrayEndTransaction
+  - [ProcArrayEndTransaction](ProcArrayEndTransaction.md)
 
 ## Notes and Other Information
 - Uses atomic operations to implement a lock-free queue for batching XID clearing operations

@@ -17,12 +17,12 @@ The `get_object_end` function is a semantic action callback used during JSON par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetState
+  - [GetState](../G/GetState.md)
   - cstring_to_text_with_len
   - JSON_SUCCESS
   - JsonParseErrorType
 - Called from (representative examples):
-  - get_worker
+  - [get_worker](get_worker.md)
 
 ## Notes and Other Information
 - This function is static and internal to jsonfuncs.c

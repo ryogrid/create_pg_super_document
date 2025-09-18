@@ -19,11 +19,11 @@ The function efficiently determines emptiness by checking the two fields that de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure type)
+  - [JsonValueList](JsonValueList.md) (structure type)
   - NIL (PostgreSQL constant for empty list)
 - Called from (representative examples):
-  - executeJsonPath
-  - executeBoolItem
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [executeBoolItem](../e/executeBoolItem.md)
   - RETURN_ERROR macro
 
 ## Notes and Other Information

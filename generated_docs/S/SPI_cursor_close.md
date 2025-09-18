@@ -21,14 +21,14 @@ The function is essential for proper resource management in SPI applications, as
 - Functions called/Symbols referenced:
   - PortalIsValid (validation function)
   - PortalDrop (actual portal cleanup function)
-  - Portal (struct type)
+  - [Portal](../P/Portal.md) (struct type)
 - Called from (representative examples):
-  - tsquery_rewrite_query
-  - ts_stat_sql
-  - query_to_xmlschema
-  - query_to_xml_and_xmlschema
-  - plperl_spi_cursor_close (Perl procedural language)
-  - PLy_cursor_close (Python procedural language)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [ts_stat_sql](../t/ts_stat_sql.md)
+  - [query_to_xmlschema](../q/query_to_xmlschema.md)
+  - [query_to_xml_and_xmlschema](../q/query_to_xml_and_xmlschema.md)
+  - [plperl_spi_cursor_close](../p/plperl_spi_cursor_close.md) (Perl procedural language)
+  - [PLy_cursor_close](../P/PLy_cursor_close.md) (Python procedural language)
 
 ## Notes and Other Information
 - The function throws an ERROR if an invalid portal is provided

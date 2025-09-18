@@ -29,8 +29,8 @@ The structure works as a companion to TextFreq, where LexemeKey provides the sea
   - char (C character data type)
   - int (C integer data type)
 - Called from (representative examples):
-  - tsquery_opr_selec
-  - compare_lexeme_textfreq
+  - [tsquery_opr_selec](../t/tsquery_opr_selec.md)
+  - [compare_lexeme_textfreq](../c/compare_lexeme_textfreq.md)
 
 ## Notes and Other Information
 - Used specifically in src/backend/tsearch/ts_selfuncs.c for text search selectivity functions

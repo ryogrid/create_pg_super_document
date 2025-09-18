@@ -20,7 +20,7 @@ The function handles the complex pointer dereferencing needed to access GUC vari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_name_compare
+  - [guc_name_compare](guc_name_compare.md)
 - Called from (representative examples):
   - get_guc_variables (used as qsort comparator)
 

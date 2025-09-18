@@ -26,8 +26,8 @@ This design ensures that PostgreSQL servers can handle SSL certificate passphras
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ssl_external_passwd_cb`: External password callback function that executes configured passphrase commands
-  - `dummy_ssl_passwd_cb`: Dummy callback that prevents interactive password prompts
+  - `[ssl_external_passwd_cb](../s/ssl_external_passwd_cb.md)`: External password callback function that executes configured passphrase commands
+  - `[dummy_ssl_passwd_cb](dummy_ssl_passwd_cb.md)`: Dummy callback that prevents interactive password prompts
   - `SSL_CTX_set_default_passwd_cb`: OpenSSL function to set the default password callback
 - Global variables referenced:
   - `ssl_passphrase_command`: Array containing the configured passphrase command

@@ -23,18 +23,18 @@ When tables with OIDs are found, the upgrade process is halted and provides clea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status - Updates status display for the validation operation
-  - connectToServer - Establishes connections to each database in the cluster
-  - executeQueryOrDie - Executes SQL query to find tables with OID columns
+  - [prep_status](../p/prep_status.md) - Updates status display for the validation operation
+  - [connectToServer](connectToServer.md) - Establishes connections to each database in the cluster
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) - Executes SQL query to find tables with OID columns
   - fopen_priv - Opens output file with proper permissions for logging problematic tables
-  - PQntuples, PQfnumber, PQgetvalue - PostgreSQL result set processing functions
-  - PQclear - Releases PostgreSQL result set memory
-  - PQfinish - Closes database connections
-  - pg_log - Logs messages at specified severity level
-  - pg_fatal - Terminates upgrade process with fatal error message
-  - check_ok - Marks validation as successful when no issues are found
+  - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue - PostgreSQL result set processing functions
+  - [PQclear](../P/PQclear.md) - Releases PostgreSQL result set memory
+  - [PQfinish](../P/PQfinish.md) - Closes database connections
+  - [pg_log](../p/pg_log.md) - Logs messages at specified severity level
+  - [pg_fatal](../p/pg_fatal.md) - Terminates upgrade process with fatal error message
+  - [check_ok](check_ok.md) - Marks validation as successful when no issues are found
 - Called from (representative examples):
-  - check_and_dump_old_cluster - Part of old cluster validation sequence
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md) - Part of old cluster validation sequence
 
 ## Notes and Other Information
 - This is a static function within the pg_upgrade check.c module

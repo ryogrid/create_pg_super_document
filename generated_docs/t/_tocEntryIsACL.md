@@ -24,11 +24,11 @@ The function checks for three specific ACL types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - _tocEntryRequired
-  - _printTocEntry
+  - [_tocEntryRequired](_tocEntryRequired.md)
+  - [_printTocEntry](../p/_printTocEntry.md)
 
 ## Notes and Other Information
 - Located in src/bin/pg_dump/pg_backup_archiver.c:3240-3254

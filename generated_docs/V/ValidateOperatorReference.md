@@ -23,13 +23,13 @@ Shell operators are incomplete operator definitions that exist in the system cat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OperatorLookup (operator lookup by name and signature)
-  - op_signature_string (format operator signature for error messages)
-  - object_ownercheck (ownership verification)
-  - aclcheck_error (error reporting for permission failures)
-  - NameListToString (name formatting for error messages)
+  - [OperatorLookup](../O/OperatorLookup.md) (operator lookup by name and signature)
+  - [op_signature_string](../o/op_signature_string.md) (format operator signature for error messages)
+  - [object_ownercheck](../o/object_ownercheck.md) (ownership verification)
+  - [aclcheck_error](../a/aclcheck_error.md) (error reporting for permission failures)
+  - [NameListToString](../N/NameListToString.md) (name formatting for error messages)
 - Called from (representative examples):
-  - AlterOperator (twice - for commutator and negator validation)
+  - [AlterOperator](../A/AlterOperator.md) (twice - for commutator and negator validation)
 
 ## Notes and Other Information
 - The function is static and only used within operatorcmds.c

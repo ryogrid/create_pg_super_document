@@ -21,7 +21,7 @@ The float84le function implements the less-than-or-equal-to comparison operator 
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function arguments
   - PG_GETARG_FLOAT4: Extracts float4 argument from function arguments
-  - float8_le: Performs the actual less-than-or-equal comparison between two float8 values
+  - [float8_le](float8_le.md): Performs the actual less-than-or-equal comparison between two float8 values
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - No direct references found in the codebase

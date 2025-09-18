@@ -26,13 +26,13 @@ The function validates the connection state and parameter constraints before del
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQueryStart: Validates connection state and prepares for query sending
-  - PQsendQueryGuts: Core implementation for extended query protocol execution
+  - [PQsendQueryStart](PQsendQueryStart.md): Validates connection state and prepares for query sending
+  - [PQsendQueryGuts](PQsendQueryGuts.md): Core implementation for extended query protocol execution
   - PQ_QUERY_PARAM_MAX_LIMIT: Maximum allowed number of parameters
 - Called from (representative examples):
-  - PQexecParams: Synchronous version that waits for completion
-  - sendCommand: pgbench utility function for performance testing
-  - ExecQueryAndProcessResults: psql command execution function
+  - [PQexecParams](PQexecParams.md): Synchronous version that waits for completion
+  - [sendCommand](../s/sendCommand.md): pgbench utility function for performance testing
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md): psql command execution function
   - Various test functions: libpq_pipeline module test cases
 
 ## Notes and Other Information

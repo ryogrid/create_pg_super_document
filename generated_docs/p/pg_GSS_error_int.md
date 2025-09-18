@@ -32,7 +32,7 @@ The function uses a message context (`msg_ctx`) to iterate through multiple erro
   - gss_buffer_desc (GSS-API type)
   - COMMERROR (PostgreSQL constant)
 - Called from (representative examples):
-  - pg_GSS_error (both backend and frontend versions)
+  - [pg_GSS_error](pg_GSS_error.md) (both backend and frontend versions)
 
 ## Notes and Other Information
 - This is a static function only visible within the compilation unit

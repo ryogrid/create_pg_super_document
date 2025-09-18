@@ -24,11 +24,11 @@ The function is designed to handle the common need to format publication lists f
   - strVal: Extracts string value from List node
   - appendStringInfoString: Appends string to StringInfo buffer
   - appendStringInfoChar: Appends single character to StringInfo buffer
-  - quote_literal_cstr: Applies SQL literal quoting to string
+  - [quote_literal_cstr](../q/quote_literal_cstr.md): Applies SQL literal quoting to string
 - Called from (representative examples):
-  - check_publications: For formatting publication lists in error messages and validation
-  - check_publications_origin: When validating publication origins
-  - fetch_table_list: During table list retrieval operations
+  - [check_publications](../c/check_publications.md): For formatting publication lists in error messages and validation
+  - [check_publications_origin](../c/check_publications_origin.md): When validating publication origins
+  - [fetch_table_list](../f/fetch_table_list.md): During table list retrieval operations
 
 ## Notes and Other Information
 - The function assumes the publications list is not NIL and will assert if passed an empty list

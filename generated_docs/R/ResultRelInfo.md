@@ -56,14 +56,14 @@ ResultRelInfo can refer to tables in the query's range table (with ri_RangeTable
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - Relation
+  - [Relation](Relation.md)
   - RelationPtr
   - IndexInfo
-  - ProjectionInfo
+  - [ProjectionInfo](../P/ProjectionInfo.md)
   - TriggerDesc
-  - OnConflictSetState
+  - [OnConflictSetState](../O/OnConflictSetState.md)
   - TupleConversionMap
-  - FdwRoutine
+  - [FdwRoutine](../F/FdwRoutine.md)
   - Various executor data types
 - Called from (representative examples):
   - Data modification operations (INSERT, UPDATE, DELETE, MERGE)

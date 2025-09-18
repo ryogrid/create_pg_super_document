@@ -29,12 +29,12 @@ When executed within a conditional block, the function respects the active_branc
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - expand_tilde
-  - setQFout
+  - [expand_tilde](expand_tilde.md)
+  - [setQFout](../s/setQFout.md)
   - free
-  - ignore_slash_filepipe
+  - [ignore_slash_filepipe](../i/ignore_slash_filepipe.md)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure

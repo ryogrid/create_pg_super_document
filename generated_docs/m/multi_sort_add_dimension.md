@@ -24,9 +24,9 @@ This function initializes a single dimension of a multi-dimensional sort operati
   - MultiSortSupport (type)
   - SortSupport (type)
 - Called from (representative examples):
-  - dependency_degree (src/backend/statistics/dependencies.c:275)
-  - build_mss (src/backend/statistics/mcv.c:366)
-  - ndistinct_for_combination (src/backend/statistics/mvdistinct.c:480)
+  - [dependency_degree](../d/dependency_degree.md) (src/backend/statistics/dependencies.c:275)
+  - [build_mss](../b/build_mss.md) (src/backend/statistics/mcv.c:366)
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (src/backend/statistics/mvdistinct.c:480)
 
 ## Notes and Other Information
 - Sets ssup_nulls_first to false, indicating that NULL values are sorted after non-NULL values

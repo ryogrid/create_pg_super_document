@@ -22,14 +22,14 @@ The function handles the intricate rules governing when outer joins can be execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member
-  - bms_is_subset  
-  - bms_copy
-  - bms_is_member
-  - bms_add_members
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_is_subset](../b/bms_is_subset.md)  
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_members](../b/bms_add_members.md)
 - Called from (representative examples):
-  - make_join_rel
-  - generate_join_implied_equalities
+  - [make_join_rel](../m/make_join_rel.md)
+  - [generate_join_implied_equalities](../g/generate_join_implied_equalities.md)
 
 ## Notes and Other Information
 - Returns early if the join is not an outer join or has no assigned relid

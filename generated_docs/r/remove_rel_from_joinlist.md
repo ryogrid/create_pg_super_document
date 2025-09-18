@@ -31,10 +31,10 @@ When a matching relation is found, the removal counter is incremented and the no
   - lappend (appends elements to lists)
   - elog (error logging)
   - nodeTag (gets the node type tag)
-  - remove_rel_from_joinlist (recursive self-call)
+  - [remove_rel_from_joinlist](remove_rel_from_joinlist.md) (recursive self-call)
 - Called from (representative examples):
-  - remove_useless_joins
-  - remove_rel_from_joinlist (recursive self-call)
+  - [remove_useless_joins](remove_useless_joins.md)
+  - [remove_rel_from_joinlist](remove_rel_from_joinlist.md) (recursive self-call)
 
 ## Notes and Other Information
 - This is a static function within analyzejoins.c, serving as an internal utility

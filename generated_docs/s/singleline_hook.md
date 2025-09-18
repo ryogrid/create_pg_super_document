@@ -17,9 +17,9 @@ The  function serves as a validation and assignment hook for the SINGLELINE psql
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseVariableBool
+  - [ParseVariableBool](../P/ParseVariableBool.md)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
 
 ## Notes and Other Information
 - This is a static function within the psql startup module

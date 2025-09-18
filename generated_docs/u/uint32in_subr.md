@@ -25,11 +25,11 @@ The function includes special logic to handle cases where unsigned long is wider
   - ereturn (error return macro for soft error handling)
   - PG_UINT32_MAX (maximum 32-bit unsigned integer constant)
 - Called from (representative examples):
-  - oidin (object identifier input function)
-  - oidvectorin (OID vector input function)
-  - oidparse (OID parsing function)
-  - xidin (transaction ID input function)
-  - cidin (command ID input function)
+  - [oidin](../o/oidin.md) (object identifier input function)
+  - [oidvectorin](../o/oidvectorin.md) (OID vector input function)
+  - [oidparse](../o/oidparse.md) (OID parsing function)
+  - [xidin](../x/xidin.md) (transaction ID input function)
+  - [cidin](../c/cidin.md) (command ID input function)
 
 ## Notes and Other Information
 - Uses standard library strtoul() for the actual parsing work

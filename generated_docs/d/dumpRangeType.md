@@ -25,18 +25,18 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlStatement
-  - ExecuteSqlQueryForSingleRow
-  - fmtId
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - binary_upgrade_set_type_oids_by_type_oid
-  - findCollationByOid
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
+  - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)
+  - [findCollationByOid](../f/findCollationByOid.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
 - Called from (representative examples):
-  - dumpType
+  - [dumpType](dumpType.md)
 
 ## Notes and Other Information
 - Uses prepared statements for efficiency when dumping multiple range types

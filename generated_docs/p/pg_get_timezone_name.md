@@ -19,12 +19,12 @@ This is a straightforward getter function that provides safe access to the timez
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tz (timezone structure type)
+  - [pg_tz](pg_tz.md) (timezone structure type)
 - Called from (representative examples):
-  - show_timezone (src/backend/commands/variable.c:395)
-  - show_log_timezone (src/backend/commands/variable.c:468)
-  - timetz_at_local (src/backend/utils/adt/date.c:3168)
-  - pg_timezone_names (src/backend/utils/adt/datetime.c:5165)
+  - [show_timezone](../s/show_timezone.md) (src/backend/commands/variable.c:395)
+  - [show_log_timezone](../s/show_log_timezone.md) (src/backend/commands/variable.c:468)
+  - [timetz_at_local](../t/timetz_at_local.md) (src/backend/utils/adt/date.c:3168)
+  - [pg_timezone_names](pg_timezone_names.md) (src/backend/utils/adt/datetime.c:5165)
 
 ## Notes and Other Information
 - Returns a const char pointer to the timezone name string

@@ -20,14 +20,14 @@ The conversion process involves three main steps: 1) decomposing the input tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_deform_tuple
-  - heap_form_tuple
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - TupleConversionMap (struct)
-  - AttrMap (struct)
+  - [AttrMap](../A/AttrMap.md) (struct)
   - Assert
 - Called from (representative examples):
-  - acquire_inherited_sample_rows
-  - ExecEvalConvertRowtype
+  - [acquire_inherited_sample_rows](../a/acquire_inherited_sample_rows.md)
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)
 
 ## Notes and Other Information
 - Uses the preallocated workspace arrays (invalues, inisnull, outvalues, outisnull) from the conversion map for efficiency

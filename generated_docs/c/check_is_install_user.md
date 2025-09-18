@@ -25,19 +25,19 @@ The function connects to the template1 database to perform these checks, using p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer (establishes database connection)
-  - prep_status (status reporting for user feedback)
-  - executeQueryOrDie (SQL query execution with error handling)
+  - [connectToServer](connectToServer.md) (establishes database connection)
+  - [prep_status](../p/prep_status.md) (status reporting for user feedback)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL query execution with error handling)
   - atooid (string to OID conversion)
-  - PQntuples (result tuple count)
-  - PQgetvalue (result value extraction)
-  - PQclear (result cleanup)
-  - PQfinish (connection cleanup)
-  - check_ok (completion status reporting)
-  - pg_fatal (error reporting and termination)
+  - [PQntuples](../P/PQntuples.md) (result tuple count)
+  - [PQgetvalue](../P/PQgetvalue.md) (result value extraction)
+  - [PQclear](../P/PQclear.md) (result cleanup)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
+  - [check_ok](check_ok.md) (completion status reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting and termination)
 - Called from (representative examples):
-  - check_and_dump_old_cluster (old cluster validation)
-  - check_new_cluster (new cluster validation)
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md) (old cluster validation)
+  - [check_new_cluster](check_new_cluster.md) (new cluster validation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the check.c compilation unit

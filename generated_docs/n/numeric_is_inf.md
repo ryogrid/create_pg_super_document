@@ -28,7 +28,7 @@ Infinity values in PostgreSQL's numeric type represent mathematical concepts of 
 - Functions called/Symbols referenced:
   - `NUMERIC_IS_INF`: Macro that performs the actual infinity check on the Numeric structure
 - Called from (representative examples):
-  - `executeItemOptUnwrapTarget`: JSON path execution with infinity handling
+  - `[executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)`: JSON path execution with infinity handling
   - Various numeric utility functions via `PG_RETURN_NUMERIC` header
 
 ## Notes and Other Information

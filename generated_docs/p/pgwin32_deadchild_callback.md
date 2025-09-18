@@ -21,11 +21,11 @@ This function serves as a Windows API callback executed on a thread pool when a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PostQueuedCompletionStatus (Windows API for posting completion status)
-  - write_stderr (PostgreSQL error reporting function)
-  - pg_queue_signal (PostgreSQL signal queuing function)
+  - [write_stderr](../w/write_stderr.md) (PostgreSQL error reporting function)
+  - [pg_queue_signal](pg_queue_signal.md) (PostgreSQL signal queuing function)
   - SIGCHLD (signal constant for child process termination)
 - Called from:
-  - pgwin32_register_deadchild_callback (src/backend/postmaster/postmaster.c:4687)
+  - [pgwin32_register_deadchild_callback](pgwin32_register_deadchild_callback.md) (src/backend/postmaster/postmaster.c:4687)
 
 ## Notes and Other Information
 - This function executes on a Windows thread pool, requiring all operations to be thread-safe

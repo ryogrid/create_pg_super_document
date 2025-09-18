@@ -31,23 +31,23 @@ The function performs comprehensive checks including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_get_singleton_member: Extracts single member from bitmap set
-  - find_base_rel: Locates base relation information
-  - rel_supports_distinctness: Checks if relation can have distinctness proven
-  - bms_union, bms_copy, bms_add_member: Bitmap set operations
-  - bms_is_subset, bms_overlap, bms_is_member: Bitmap set comparisons
-  - pull_varnos: Extracts variable relation IDs from expressions
-  - clause_sides_match_join: Validates clause structure for join
-  - rel_is_distinct_for: Attempts to prove relation distinctness
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md): Extracts single member from bitmap set
+  - [find_base_rel](../f/find_base_rel.md): Locates base relation information
+  - [rel_supports_distinctness](../r/rel_supports_distinctness.md): Checks if relation can have distinctness proven
+  - [bms_union](../b/bms_union.md), bms_copy, bms_add_member: Bitmap set operations
+  - [bms_is_subset](../b/bms_is_subset.md), bms_overlap, bms_is_member: Bitmap set comparisons
+  - [pull_varnos](../p/pull_varnos.md): Extracts variable relation IDs from expressions
+  - [clause_sides_match_join](../c/clause_sides_match_join.md): Validates clause structure for join
+  - [rel_is_distinct_for](../r/rel_is_distinct_for.md): Attempts to prove relation distinctness
   - RINFO_IS_PUSHED_DOWN: Macro to check if restriction is pushed down
 
 - Called from (representative examples):
-  - remove_useless_joins: Main join elimination function
+  - [remove_useless_joins](../r/remove_useless_joins.md): Main join elimination function
 
 ## Notes and Other Information
 - Only handles left joins to single base relations; other join types and complex structures are not supported
 - The function includes special handling for MERGE operations by preventing elimination of joins to result relations
-- PlaceHolderVar analysis is particularly complex due to the need to ensure evaluation locations remain valid after join removal
+- [PlaceHolderVar](../P/PlaceHolderVar.md) analysis is particularly complex due to the need to ensure evaluation locations remain valid after join removal
 - Uses mergejoinable clauses as the basis for distinctness proofs, as these behave like equality for btree operations
 - Includes optimizations like starting attribute checks from max_attr and counting down, assuming system attributes are less likely to be referenced
 - The distinctness proof is currently the only method implemented, though comments suggest future extensions for other proof methods

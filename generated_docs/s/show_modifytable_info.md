@@ -21,21 +21,21 @@ This function serves three main objectives for ModifyTable operations (INSERT, U
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainOpenGroup
-  - ExplainCloseGroup
-  - ExplainIndentText
-  - ExplainTargetRel
-  - ExplainPropertyText
-  - ExplainPropertyList
-  - ExplainPropertyFloat
-  - show_upper_qual
-  - show_instrumentation_count
-  - get_rel_name
-  - list_nth
-  - InstrEndLoop
+  - [ExplainOpenGroup](../E/ExplainOpenGroup.md)
+  - [ExplainCloseGroup](../E/ExplainCloseGroup.md)
+  - [ExplainIndentText](../E/ExplainIndentText.md)
+  - [ExplainTargetRel](../E/ExplainTargetRel.md)
+  - [ExplainPropertyText](../E/ExplainPropertyText.md)
+  - [ExplainPropertyList](../E/ExplainPropertyList.md)
+  - [ExplainPropertyFloat](../E/ExplainPropertyFloat.md)
+  - [show_upper_qual](show_upper_qual.md)
+  - [show_instrumentation_count](show_instrumentation_count.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [list_nth](../l/list_nth.md)
+  - [InstrEndLoop](../I/InstrEndLoop.md)
   - outerPlanState
 - Called from (representative examples):
-  - ExplainNode
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

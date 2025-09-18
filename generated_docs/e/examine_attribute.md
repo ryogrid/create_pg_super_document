@@ -29,16 +29,16 @@ For expression indexes, the function uses the expression tree's type information
 ## Dependencies
 - Functions called/Symbols referenced:
   - VacAttrStats (structure allocation)
-  - SearchSysCache2, SearchSysCacheCopy1 (system catalog lookups)
-  - SysCacheGetAttr (attribute retrieval)
+  - [SearchSysCache2](../S/SearchSysCache2.md), SearchSysCacheCopy1 (system catalog lookups)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (attribute retrieval)
   - DatumGetInt16, Int16GetDatum (data conversion)
   - exprType, exprTypmod, exprCollation (expression type analysis)
-  - std_typanalyze (default type analysis)
+  - [std_typanalyze](../s/std_typanalyze.md) (default type analysis)
   - OidFunctionCall1 (type-specific analysis function calls)
-  - heap_freetuple (memory cleanup)
+  - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)
 - Called from (representative examples):
-  - do_analyze_rel (main analysis driver)
-  - lookup_var_attr_stats (extended statistics)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (main analysis driver)
+  - [lookup_var_attr_stats](../l/lookup_var_attr_stats.md) (extended statistics)
 
 ## Notes and Other Information
 - Returns NULL if the column should not be analyzed (dropped, attstattarget=0, or analysis setup fails)

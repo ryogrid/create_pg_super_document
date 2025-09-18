@@ -20,10 +20,10 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc: Allocates memory for the DumpOptions structure
-  - InitDumpOptions: Initializes the newly allocated structure with default values
+  - [InitDumpOptions](../I/InitDumpOptions.md): Initializes the newly allocated structure with default values
   - DumpOptions: The structure type being allocated
 - Called from (representative examples):
-  - dumpOptionsFromRestoreOptions: Creates DumpOptions from RestoreOptions
+  - [dumpOptionsFromRestoreOptions](../d/dumpOptionsFromRestoreOptions.md): Creates DumpOptions from RestoreOptions
 
 ## Notes and Other Information
 - The function allocates exactly sizeof(DumpOptions) bytes of memory

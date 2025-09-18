@@ -19,10 +19,10 @@ The function returns a dynamically allocated string containing only the function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - strcmp (for string comparison)
 - Called from (representative examples):
-  - dumpOpr (multiple calls for different operator functions)
+  - [dumpOpr](../d/dumpOpr.md) (multiple calls for different operator functions)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

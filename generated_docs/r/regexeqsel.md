@@ -31,7 +31,7 @@ The function delegates the actual selectivity calculation to the `patternsel` ad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `patternsel`: Pattern selectivity adapter function
+  - `[patternsel](../p/patternsel.md)`: Pattern selectivity adapter function
   - `Pattern_Type_Regex`: Enum constant specifying regex pattern type
 - Called from (representative examples):
   - PostgreSQL query planner when encountering ~ operators

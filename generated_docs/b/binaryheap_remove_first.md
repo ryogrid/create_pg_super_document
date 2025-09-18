@@ -27,14 +27,14 @@ The function performs the following steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - binaryheap_empty (heap validation)
-  - sift_down (heap rebalancing)
+  - [sift_down](../s/sift_down.md) (heap rebalancing)
 - Called from (representative examples):
-  - gather_merge_getnext (executor/nodeGatherMerge.c:567)
+  - [gather_merge_getnext](../g/gather_merge_getnext.md) (executor/nodeGatherMerge.c:567)
   - ExecMergeAppend (executor/nodeMergeAppend.c:252)
-  - pgarch_readyXlog (postmaster/pgarch.c:737, 761)
-  - ReorderBufferIterTXNNext (replication/logical/reorderbuffer.c:1491)
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (postmaster/pgarch.c:737, 761)
+  - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (replication/logical/reorderbuffer.c:1491)
   - BufferSync (storage/buffer/bufmgr.c:3130)
-  - TopoSort (bin/pg_dump/pg_dump_sort.c:692)
+  - [TopoSort](../T/TopoSort.md) (bin/pg_dump/pg_dump_sort.c:692)
 
 ## Notes and Other Information
 - The caller must ensure the heap is not empty before calling this function

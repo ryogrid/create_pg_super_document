@@ -27,20 +27,20 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_timezone_initialize: Initializes timezone processing for logging
-  - build_guc_variables: Creates GUC hash table and memory context
-  - hash_seq_init, hash_seq_search: Hash table iteration utilities
-  - check_GUC_init: Validates parameter initialization state
-  - InitializeOneGUCOption: Initializes individual GUC parameters
-  - SetConfigOption: Sets configuration parameter values
-  - InitializeGUCOptionsFromEnvironment: Processes environment variable defaults
+  - [pg_timezone_initialize](../p/pg_timezone_initialize.md): Initializes timezone processing for logging
+  - [build_guc_variables](../b/build_guc_variables.md): Creates GUC hash table and memory context
+  - [hash_seq_init](../h/hash_seq_init.md), hash_seq_search: Hash table iteration utilities
+  - [check_GUC_init](../c/check_GUC_init.md): Validates parameter initialization state
+  - [InitializeOneGUCOption](InitializeOneGUCOption.md): Initializes individual GUC parameters
+  - [SetConfigOption](../S/SetConfigOption.md): Sets configuration parameter values
+  - [InitializeGUCOptionsFromEnvironment](InitializeGUCOptionsFromEnvironment.md): Processes environment variable defaults
   - HASH_SEQ_STATUS, GUCHashEntry: Hash table structures
   - PGC_POSTMASTER, PGC_S_OVERRIDE: Configuration context and source constants
 - Called from (representative examples):
-  - BootstrapModeMain: Bootstrap process initialization
-  - PostmasterMain: Main postmaster process startup
-  - SubPostmasterMain: Backend process initialization
-  - PostgresSingleUserMain: Single-user mode initialization
+  - [BootstrapModeMain](../B/BootstrapModeMain.md): Bootstrap process initialization
+  - [PostmasterMain](../P/PostmasterMain.md): Main postmaster process startup
+  - [SubPostmasterMain](../S/SubPostmasterMain.md): Backend process initialization
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md): Single-user mode initialization
 
 ## Notes and Other Information
 - Must be called before reading configuration files or processing command-line options

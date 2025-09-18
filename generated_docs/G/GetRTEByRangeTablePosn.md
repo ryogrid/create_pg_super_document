@@ -22,10 +22,10 @@ This function locates and returns a specific Range Table Entry (RTE) from the Po
   - rt_fetch
   - CommonTableExpr
 - Called from (representative examples):
-  - count_rowexpr_columns
-  - unknown_attribute
-  - markTargetListOrigin
-  - expandRecordVariable
+  - [count_rowexpr_columns](../c/count_rowexpr_columns.md)
+  - [unknown_attribute](../u/unknown_attribute.md)
+  - [markTargetListOrigin](../m/markTargetListOrigin.md)
+  - [expandRecordVariable](../e/expandRecordVariable.md)
 
 ## Notes and Other Information
 - The function includes assertions to ensure varno is within valid range (1 to length of range table)

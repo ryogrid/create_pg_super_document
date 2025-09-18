@@ -33,17 +33,17 @@ When the macro expands to the actual function:
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
   - grow (base name for the operation)
-  - SH_COMPUTE_SIZE (for computing actual table size)
-  - SH_ALLOCATE (for memory allocation)
-  - SH_UPDATE_PARAMETERS (for updating table metadata)
-  - SH_ENTRY_HASH (for computing element hashes)
-  - SH_INITIAL_BUCKET (for finding optimal bucket positions)
-  - SH_NEXT (for bucket iteration)
-  - SH_FREE (for deallocating old data)
+  - [SH_COMPUTE_SIZE](SH_COMPUTE_SIZE.md) (for computing actual table size)
+  - [SH_ALLOCATE](SH_ALLOCATE.md) (for memory allocation)
+  - [SH_UPDATE_PARAMETERS](SH_UPDATE_PARAMETERS.md) (for updating table metadata)
+  - [SH_ENTRY_HASH](SH_ENTRY_HASH.md) (for computing element hashes)
+  - [SH_INITIAL_BUCKET](SH_INITIAL_BUCKET.md) (for finding optimal bucket positions)
+  - [SH_NEXT](SH_NEXT.md) (for bucket iteration)
+  - [SH_FREE](SH_FREE.md) (for deallocating old data)
   - memcpy (for copying elements)
 
 - Called from (representative examples):
-  - SH_INSERT_HASH_INTERNAL (when table needs to grow during insertion)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (when table needs to grow during insertion)
 
 ## Notes and Other Information
 - The function ensures the new size is a power of 2 for efficient modulo operations

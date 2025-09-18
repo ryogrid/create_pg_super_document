@@ -136,9 +136,9 @@ The _restoreOptions structure serves as the central configuration hub for pg_res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleStringList
-  - ConnParams
-  - pg_compress_specification
+  - [SimpleStringList](../S/SimpleStringList.md)
+  - [ConnParams](../C/ConnParams.md)
+  - [pg_compress_specification](../p/pg_compress_specification.md)
 - Called from (representative examples):
   - No direct references found in current analysis
 

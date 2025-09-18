@@ -23,17 +23,17 @@ WorkerInfo is a pointer type to WorkerInfoData structure that tracks individual 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WorkerInfoData (underlying structure)
-  - dlist_node (for linked list management)
-  - PGPROC (process information)
+  - [WorkerInfoData](WorkerInfoData.md) (underlying structure)
+  - [dlist_node](../d/dlist_node.md) (for linked list management)
+  - [PGPROC](../P/PGPROC.md) (process information)
   - TimestampTz (timestamp type)
-  - pg_atomic_flag (atomic operations)
+  - [pg_atomic_flag](../p/pg_atomic_flag.md) (atomic operations)
 - Called from (representative examples):
-  - AutoVacuumShmemStruct (as array member)
-  - do_start_worker
-  - autovac_recalculate_workers_for_balance
-  - do_autovacuum
-  - AutoVacuumShmemInit
+  - [AutoVacuumShmemStruct](../A/AutoVacuumShmemStruct.md) (as array member)
+  - [do_start_worker](../d/do_start_worker.md)
+  - [autovac_recalculate_workers_for_balance](../a/autovac_recalculate_workers_for_balance.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
+  - [AutoVacuumShmemInit](../A/AutoVacuumShmemInit.md)
 
 ## Notes and Other Information
 - All fields are protected by AutovacuumLock, except wi_tableoid and wi_sharedrel which are protected by AutovacuumScheduleLock

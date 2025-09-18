@@ -21,11 +21,11 @@ The function leverages the  function to perform the actual lookup in the interna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_lookupByName
+  - [fmgr_lookupByName](fmgr_lookupByName.md)
   - FmgrBuiltin (structure type)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - fmgr_internal_validator
+  - [fmgr_internal_validator](fmgr_internal_validator.md)
   - OidFunctionCall9
 
 ## Notes and Other Information

@@ -23,7 +23,7 @@ The resulting environment contains all necessary state information for processin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - No direct references found (likely called through external library interfaces or function tables)
 

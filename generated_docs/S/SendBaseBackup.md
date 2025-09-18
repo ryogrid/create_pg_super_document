@@ -27,18 +27,18 @@ Key validation includes checking for concurrent backups in the same session and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_basebackup_options
-  - get_backup_status
-  - perform_base_backup
-  - WalSndSetState
-  - bbsink_copystream_new
-  - BaseBackupGetSink
-  - bbsink_throttle_new
-  - bbsink_gzip_new/bbsink_lz4_new/bbsink_zstd_new
-  - bbsink_progress_new
+  - [parse_basebackup_options](../p/parse_basebackup_options.md)
+  - [get_backup_status](../g/get_backup_status.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [WalSndSetState](../W/WalSndSetState.md)
+  - [bbsink_copystream_new](../b/bbsink_copystream_new.md)
+  - [BaseBackupGetSink](../B/BaseBackupGetSink.md)
+  - [bbsink_throttle_new](../b/bbsink_throttle_new.md)
+  - [bbsink_gzip_new](../b/bbsink_gzip_new.md)/bbsink_lz4_new/bbsink_zstd_new
+  - [bbsink_progress_new](../b/bbsink_progress_new.md)
   - bbsink_cleanup
 - Called from (representative examples):
-  - exec_replication_command (in walsender.c)
+  - [exec_replication_command](../e/exec_replication_command.md) (in walsender.c)
 
 ## Notes and Other Information
 - Sets WAL sender state to WALSNDSTATE_BACKUP during operation

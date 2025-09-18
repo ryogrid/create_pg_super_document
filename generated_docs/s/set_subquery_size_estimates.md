@@ -38,12 +38,12 @@ The function includes several important safety checks and limitations:
 - Functions called/Symbols referenced:
   - planner_rt_fetch
   - fetch_upper_rel
-  - find_base_rel
-  - set_baserel_size_estimates
+  - [find_base_rel](../f/find_base_rel.md)
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
   - Constants: RTE_SUBQUERY, UPPERREL_FINAL
 - Called from (representative examples):
-  - set_subquery_pathlist (src/backend/optimizer/path/allpaths.c:2661)
-  - build_setop_child_paths (src/backend/optimizer/prep/prepunion.c:527)
+  - [set_subquery_pathlist](set_subquery_pathlist.md) (src/backend/optimizer/path/allpaths.c:2661)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md) (src/backend/optimizer/prep/prepunion.c:527)
 
 ## Notes and Other Information
 - Must be called after the subquery's planning is complete and paths are available

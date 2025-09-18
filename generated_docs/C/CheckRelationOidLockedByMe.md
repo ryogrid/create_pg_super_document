@@ -21,11 +21,11 @@ This function is similar to CheckRelationLockedByMe but accepts a relation OID i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLocktagRelationOid (constructs lock tag from relation OID)
-  - LockHeldByMe (performs the actual lock ownership check)
+  - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md) (constructs lock tag from relation OID)
+  - [LockHeldByMe](../L/LockHeldByMe.md) (performs the actual lock ownership check)
 - Called from (representative examples):
-  - UpdateSubscriptionRelStateEx
-  - SetRelationHasSubclass
+  - [UpdateSubscriptionRelStateEx](../U/UpdateSubscriptionRelStateEx.md)
+  - [SetRelationHasSubclass](../S/SetRelationHasSubclass.md)
 
 ## Notes and Other Information
 - Returns true if the current transaction holds the specified lock or stronger

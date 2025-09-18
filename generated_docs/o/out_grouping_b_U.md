@@ -30,13 +30,13 @@ This is particularly valuable for operations like finding the beginning of vowel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_b_utf8 (for backward UTF-8 character decoding)
-  - repeat (parameter used in control flow)
+  - [get_b_utf8](../g/get_b_utf8.md) (for backward UTF-8 character decoding)
+  - [repeat](../r/repeat.md) (parameter used in control flow)
 - Called from (representative examples):
-  - r_shortv (in English and Porter stemmers)
-  - r_Step_1a, r_Step_1b, r_Step_1c (in English stemmer)
-  - r_standard_suffix (in Dutch and French stemmers)
-  - r_check_vowel_harmony (in Turkish stemmer)
+  - [r_shortv](../r/r_shortv.md) (in English and Porter stemmers)
+  - [r_Step_1a](../r/r_Step_1a.md), r_Step_1b, r_Step_1c (in English stemmer)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (in Dutch and French stemmers)
+  - [r_check_vowel_harmony](../r/r_check_vowel_harmony.md) (in Turkish stemmer)
 
 ## Notes and Other Information
 - Returns 0 on successful completion when repeat is true and all characters processed are outside the group

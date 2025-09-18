@@ -25,13 +25,13 @@ This function adds a new string value to the end of a SimpleStringList. It alloc
   - strcpy (for string copying)
   - offsetof (for calculating memory offset)
 - Data structures used:
-  - SimpleStringList (the list container structure)
-  - SimpleStringListCell (individual list node structure)
+  - [SimpleStringList](../S/SimpleStringList.md) (the list container structure)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md) (individual list node structure)
 - Called from (representative examples):
-  - main functions in various pg_dump utilities (pg_dump.c, pg_dumpall.c, pg_restore.c)
-  - read_dump_filters (src/bin/pg_dump/pg_dump.c:19088-19143)
-  - reindex_one_database (src/bin/scripts/reindexdb.c:322)
-  - vacuum_one_database (src/bin/scripts/vacuumdb.c:795)
+  - [main](../m/main.md) functions in various pg_dump utilities (pg_dump.c, pg_dumpall.c, pg_restore.c)
+  - [read_dump_filters](../r/read_dump_filters.md) (src/bin/pg_dump/pg_dump.c:19088-19143)
+  - [reindex_one_database](../r/reindex_one_database.md) (src/bin/scripts/reindexdb.c:322)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (src/bin/scripts/vacuumdb.c:795)
 
 ## Notes and Other Information
 - The string is copied into the cell, so the original string does not need to survive past the call

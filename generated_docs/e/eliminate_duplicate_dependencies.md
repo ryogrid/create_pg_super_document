@@ -28,12 +28,12 @@ This function is critical for maintaining performance in the dependency system, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (for sorting object addresses)
-  - object_address_comparator (comparison function for sorting)
+  - [object_address_comparator](../o/object_address_comparator.md) (comparison function for sorting)
   - Assert (for validation)
 - Called from (representative examples):
-  - recordDependencyOnExpr (after collecting expression dependencies)
-  - recordDependencyOnSingleRelExpr (after collecting single-relation dependencies)
-  - record_object_address_dependencies (for general dependency optimization)
+  - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md) (after collecting expression dependencies)
+  - [recordDependencyOnSingleRelExpr](../r/recordDependencyOnSingleRelExpr.md) (after collecting single-relation dependencies)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md) (for general dependency optimization)
 
 ## Notes and Other Information
 - Requires that the ObjectAddresses collection has no 'extras' data to maintain sort sync

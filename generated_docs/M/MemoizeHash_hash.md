@@ -23,12 +23,12 @@ The function combines hash values from multiple key attributes by rotating the a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeKey
-  - MemoizeState  
-  - pg_rotate_left32
-  - datum_image_hash
-  - FunctionCall1Coll
-  - DatumGetUInt32
+  - [MemoizeKey](MemoizeKey.md)
+  - [MemoizeState](MemoizeState.md)  
+  - [pg_rotate_left32](../p/pg_rotate_left32.md)
+  - [datum_image_hash](../d/datum_image_hash.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
   - murmurhash32
 - Called from (representative examples):
   - SH_DECLARE (hash table declaration)

@@ -17,8 +17,8 @@ This function serves as a debug print callback for PostgreSQL's ResourceOwner sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's sprintf-like function for formatted string allocation)
-  - DatumGetInt32 (converts Datum to int32)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf-like function for formatted string allocation)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum to int32)
 - Called from (representative examples):
   - ResourceOwner debugging mechanisms
   - Registered as DebugPrint callback in file_resowner_desc

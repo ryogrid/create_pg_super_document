@@ -30,15 +30,15 @@ The function requires exact matches on indexed columns/expressions but allows fl
 - Functions called/Symbols referenced:
   - rt_fetch
   - table_open, table_close
-  - RelationGetIndexList
-  - index_open, index_close
-  - get_constraint_index
-  - infer_collation_opclass_match
-  - RelationGetIndexExpressions
-  - RelationGetIndexPredicate
-  - predicate_implied_by
-  - bms_add_member, bms_equal
-  - list_member, list_difference
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [index_open](index_open.md), index_close
+  - [get_constraint_index](../g/get_constraint_index.md)
+  - [infer_collation_opclass_match](infer_collation_opclass_match.md)
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md)
+  - [RelationGetIndexPredicate](../R/RelationGetIndexPredicate.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [bms_add_member](../b/bms_add_member.md), bms_equal
+  - [list_member](../l/list_member.md), list_difference
 - Called from (representative examples):
   - make_modifytable
 

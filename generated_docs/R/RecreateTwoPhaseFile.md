@@ -19,7 +19,7 @@ This static function is responsible for recreating two-phase commit state files 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseFilePath
+  - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
   - OpenTransientFile
   - write
   - pg_fsync
@@ -27,7 +27,7 @@ This static function is responsible for recreating two-phase commit state files 
   - INIT_CRC32C/COMP_CRC32C/FIN_CRC32C (CRC computation macros)
   - pgstat_report_wait_start/pgstat_report_wait_end
 - Called from (representative examples):
-  - CheckPointTwoPhase
+  - [CheckPointTwoPhase](../C/CheckPointTwoPhase.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the twophase.c module

@@ -30,7 +30,7 @@ The retry loop ensures that if the buffer needs to be enlarged during the format
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQExpBufferBroken
-  - appendPQExpBufferVA
+  - [appendPQExpBufferVA](appendPQExpBufferVA.md)
 - Called from (representative examples):
   - No direct references found in the current codebase analysis
 

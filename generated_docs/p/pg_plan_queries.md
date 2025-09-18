@@ -30,14 +30,14 @@ The function iterates through each query in the input list, determines the appro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_plan_query
+  - [pg_plan_query](pg_plan_query.md)
   - makeNode
   - lfirst_node
   - lappend
 - Called from (representative examples):
-  - exec_simple_query
-  - execute_sql_string
-  - BuildCachedPlan
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [execute_sql_string](../e/execute_sql_string.md)
+  - [BuildCachedPlan](../B/BuildCachedPlan.md)
 
 ## Notes and Other Information
 - Essential for handling multi-statement queries and complex rewrite scenarios

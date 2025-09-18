@@ -26,16 +26,16 @@ To avoid roundoff errors, the function multiplies by count before dividing. It a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_var_from_num
-  - sub_var
-  - mul_var
-  - div_var
-  - select_div_scale
-  - cmp_var
-  - set_var_from_var
-  - add_var
-  - floor_var
-  - free_var
+  - [init_var_from_num](../i/init_var_from_num.md)
+  - [sub_var](../s/sub_var.md)
+  - [mul_var](../m/mul_var.md)
+  - [div_var](../d/div_var.md)
+  - [select_div_scale](../s/select_div_scale.md)
+  - [cmp_var](cmp_var.md)
+  - [set_var_from_var](../s/set_var_from_var.md)
+  - [add_var](../a/add_var.md)
+  - [floor_var](../f/floor_var.md)
+  - [free_var](../f/free_var.md)
 - Called from (representative examples):
   - width_bucket_numeric
 

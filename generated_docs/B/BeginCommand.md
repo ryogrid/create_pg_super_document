@@ -21,8 +21,8 @@ This function is part of PostgreSQL's command processing and destination managem
   - CommandTag (type reference)
   - CommandDest (type reference)  
 - Called from (representative examples):
-  - exec_simple_query (in postgres.c during simple query execution)
-  - exec_execute_message (in postgres.c during prepared statement execution)
+  - [exec_simple_query](../e/exec_simple_query.md) (in postgres.c during simple query execution)
+  - [exec_execute_message](../e/exec_execute_message.md) (in postgres.c during prepared statement execution)
 
 ## Notes and Other Information
 - Currently has an empty implementation with comment "Nothing to do at present"

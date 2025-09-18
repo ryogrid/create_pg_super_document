@@ -25,18 +25,18 @@ The barrier mechanism ensures that critical system-wide operations (like file cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint64 (for barrier generation tracking)
-  - pg_atomic_uint32 (for barrier check mask)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (for barrier generation tracking)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (for barrier check mask)
   - ConditionVariable (for barrier synchronization)
   - sig_atomic_t (for atomic signal flags)
   - NUM_PROCSIGNALS (enum constant defining number of signal types)
 - Called from (representative examples):
-  - ProcSignalShmemInit (initialization of slot arrays)
-  - ProcSignalInit (process registration)
-  - SendProcSignal (signal sending)
-  - EmitProcSignalBarrier (barrier emission)
-  - WaitForProcSignalBarrier (barrier waiting)
-  - CheckProcSignal (signal checking)
+  - [ProcSignalShmemInit](ProcSignalShmemInit.md) (initialization of slot arrays)
+  - [ProcSignalInit](ProcSignalInit.md) (process registration)
+  - [SendProcSignal](../S/SendProcSignal.md) (signal sending)
+  - [EmitProcSignalBarrier](../E/EmitProcSignalBarrier.md) (barrier emission)
+  - [WaitForProcSignalBarrier](../W/WaitForProcSignalBarrier.md) (barrier waiting)
+  - [CheckProcSignal](../C/CheckProcSignal.md) (signal checking)
 
 ## Notes and Other Information
 - The structure is designed for maximum portability using volatile sig_atomic_t declarations to ensure atomic loads and stores without explicit locking

@@ -20,14 +20,14 @@ The function performs OID validation and operator lookup, returning NULL for inv
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (for string comparison)
-  - findOprByOid (to locate operator information by OID)
+  - [findOprByOid](../f/findOprByOid.md) (to locate operator information by OID)
   - atooid (to convert string OID to Oid type)  
   - pg_log_warning (for error logging)
-  - psprintf (for formatted string creation)
-  - fmtId (for proper identifier formatting)
+  - [psprintf](../p/psprintf.md) (for formatted string creation)
+  - [fmtId](../f/fmtId.md) (for proper identifier formatting)
 - Called from (representative examples):
-  - dumpOpr (multiple calls for operator references)
-  - dumpAgg (for aggregate operator references)
+  - [dumpOpr](../d/dumpOpr.md) (multiple calls for operator references)
+  - [dumpAgg](../d/dumpAgg.md) (for aggregate operator references)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

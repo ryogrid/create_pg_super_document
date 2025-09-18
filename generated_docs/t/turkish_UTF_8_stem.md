@@ -17,10 +17,10 @@ This function implements the complete Turkish stemming algorithm following the S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_more_than_one_syllable_word
-  - r_stem_nominal_verb_suffixes  
-  - r_stem_noun_suffixes
-  - r_postlude
+  - [r_more_than_one_syllable_word](../r/r_more_than_one_syllable_word.md)
+  - [r_stem_nominal_verb_suffixes](../r/r_stem_nominal_verb_suffixes.md)  
+  - [r_stem_noun_suffixes](../r/r_stem_noun_suffixes.md)
+  - [r_postlude](../r/r_postlude.md)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer or external interface)
 

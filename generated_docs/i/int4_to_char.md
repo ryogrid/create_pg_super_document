@@ -28,7 +28,7 @@ Key features include sign extraction and handling, prefix padding calculation, o
 - Functions called/Symbols referenced:
   - NUM_TOCHAR_prepare, NUM_TOCHAR_finish, int_to_roman, int4out
   - DirectFunctionCall1, DatumGetCString, Int32GetDatum
-  - psprintf, fill_str, pow (mathematical power function)
+  - [psprintf](../p/psprintf.md), fill_str, pow (mathematical power function)
   - IS_ROMAN, IS_EEEE, IS_MULTI (formatting condition macros)
 - Called from (representative examples):
   - This is a SQL-callable function, typically not called directly from C code

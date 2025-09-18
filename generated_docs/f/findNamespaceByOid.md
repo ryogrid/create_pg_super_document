@@ -17,15 +17,15 @@ This function is part of the pg_dump utility's object lookup system. It searches
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
-  - NamespaceInfo (struct)
+  - [NamespaceInfo](../N/NamespaceInfo.md) (struct)
   - DO_NAMESPACE (enum value)
   - NamespaceRelationId (constant)
 - Called from (representative examples):
-  - getPublicationNamespaces (src/bin/pg_dump/pg_dump.c:4485)
-  - findNamespace (src/bin/pg_dump/pg_dump.c:5758)
+  - [getPublicationNamespaces](../g/getPublicationNamespaces.md) (src/bin/pg_dump/pg_dump.c:4485)
+  - [findNamespace](findNamespace.md) (src/bin/pg_dump/pg_dump.c:5758)
 
 ## Notes and Other Information
 - Returns NULL if the namespace with the given OID is not found

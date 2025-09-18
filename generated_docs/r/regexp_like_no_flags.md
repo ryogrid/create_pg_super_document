@@ -21,7 +21,7 @@ This variant provides the same boolean pattern matching functionality as `regexp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_like
+  - [regexp_like](regexp_like.md)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

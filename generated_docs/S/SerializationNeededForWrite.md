@@ -30,11 +30,11 @@ The function is used to guard write-side serialization conflict detection, ensur
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidSerializableXact (constant indicating no active serializable transaction)
-  - PredicateLockingNeededForRelation (function to check relation eligibility)
-  - SERIALIZABLEXACT (referenced in context but not directly called)
+  - [PredicateLockingNeededForRelation](../P/PredicateLockingNeededForRelation.md) (function to check relation eligibility)
+  - [SERIALIZABLEXACT](SERIALIZABLEXACT.md) (referenced in context but not directly called)
 - Called from (representative examples):
-  - CheckForSerializableConflictIn
-  - CheckTableForSerializableConflictIn
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
+  - [CheckTableForSerializableConflictIn](../C/CheckTableForSerializableConflictIn.md)
 
 ## Notes and Other Information
 - This function is marked inline for performance since it's called during write operations

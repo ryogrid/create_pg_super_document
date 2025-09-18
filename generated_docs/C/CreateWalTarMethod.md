@@ -25,11 +25,11 @@ This function creates a tar-based WAL method implementation that packages WAL fi
   - sprintf (for filename construction)
   - pg_malloc (for compression buffer allocation)
   - WalTarMethodOps (function pointer table for tar operations)
-  - TarMethodData (internal data structure)
+  - [TarMethodData](../T/TarMethodData.md) (internal data structure)
   - PG_COMPRESSION_GZIP (compression algorithm constant)
   - ZLIB_OUT_SIZE (compression buffer size constant)
 - Called from (representative examples):
-  - LogStreamerMain (in pg_basebackup.c for WAL streaming)
+  - [LogStreamerMain](../L/LogStreamerMain.md) (in pg_basebackup.c for WAL streaming)
 
 ## Notes and Other Information
 - The compression_algorithm parameter is currently ignored except for distinguishing gzip vs uncompressed output

@@ -31,24 +31,24 @@ The algorithm uses integer arrays for computation, estimates quotient digits via
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport/ERROR (for division by zero)
-  - div_var_int (for short integer divisors)
-  - div_var_int64 (for 64-bit integer divisors on 128-bit platforms)
-  - zero_var (for zero dividend case)
-  - alloc_var (for result allocation)
-  - round_var (for rounding result)
-  - trunc_var (for truncating result)
-  - strip_var (for removing leading/trailing zeros)
-  - palloc0/pfree (for memory management)
+  - [div_var_int](div_var_int.md) (for short integer divisors)
+  - [div_var_int64](div_var_int64.md) (for 64-bit integer divisors on 128-bit platforms)
+  - [zero_var](../z/zero_var.md) (for zero dividend case)
+  - [alloc_var](../a/alloc_var.md) (for result allocation)
+  - [round_var](../r/round_var.md) (for rounding result)
+  - [trunc_var](../t/trunc_var.md) (for truncating result)
+  - [strip_var](../s/strip_var.md) (for removing leading/trailing zeros)
+  - [palloc0](../p/palloc0.md)/pfree (for memory management)
   - abs (for absolute value)
   - NUMERIC_POS/NUMERIC_NEG (sign constants)
   - NBASE (numeric base constant)
   - DEC_DIGITS (digits per NumericDigit)
   - DIV_GUARD_DIGITS (guard digits for accuracy)
 - Called from (representative examples):
-  - div_mod_var
-  - ln_var
-  - log_var
-  - power_var_int
+  - [div_mod_var](div_mod_var.md)
+  - [ln_var](../l/ln_var.md)
+  - [log_var](../l/log_var.md)
+  - [power_var_int](../p/power_var_int.md)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

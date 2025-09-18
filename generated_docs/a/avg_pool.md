@@ -20,7 +20,7 @@ This function computes the arithmetic mean of the worth values for all chromosom
   - Pool (structure type)
   - elog (for error reporting)
 - Called from (representative examples):
-  - print_gen
+  - [print_gen](../p/print_gen.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the geqo_misc.c file

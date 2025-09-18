@@ -26,14 +26,14 @@ The function iterates through all block references in a WAL record, reads both t
   - XLogRecHasAnyBlockRefs: Checks if the record contains block references
   - XLogRecGetInfo: Gets the info field from the record
   - XLogRecMaxBlockId: Gets the maximum block ID in the record
-  - XLogRecGetBlockTagExtended: Extracts block location information
+  - [XLogRecGetBlockTagExtended](../X/XLogRecGetBlockTagExtended.md): Extracts block location information
   - XLogRecHasBlockImage: Checks if block has a backup image
   - XLogRecBlockImageApply: Checks if block image was already applied
   - XLogReadBufferExtended: Reads the current page from buffer
-  - LockBuffer/UnlockReleaseBuffer: Buffer locking operations
-  - BufferGetPage: Gets page from buffer
-  - PageGetLSN: Gets the Log Sequence Number from page
-  - RestoreBlockImage: Restores backup image from WAL record
+  - [LockBuffer](../L/LockBuffer.md)/UnlockReleaseBuffer: Buffer locking operations
+  - [BufferGetPage](../B/BufferGetPage.md): Gets page from buffer
+  - [PageGetLSN](../P/PageGetLSN.md): Gets the Log Sequence Number from page
+  - [RestoreBlockImage](../R/RestoreBlockImage.md): Restores backup image from WAL record
   - memcmp: Compares the two page images
 - Constants used:
   - XLR_CHECK_CONSISTENCY: Flag indicating consistency check needed
@@ -41,7 +41,7 @@ The function iterates through all block references in a WAL record, reads both t
   - BUFFER_LOCK_EXCLUSIVE: Exclusive buffer lock mode
   - BLCKSZ: Block size constant
 - Called from:
-  - ApplyWalRecord: Main WAL replay function that calls this for verification
+  - [ApplyWalRecord](../A/ApplyWalRecord.md): Main WAL replay function that calls this for verification
 
 ## Notes and Other Information
 - This is a static function, only accessible within xlogrecovery.c

@@ -33,12 +33,12 @@ The statistics are reported through logging using either pg_log_info() or elog(L
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for generating type-specific names)
-  - palloc0 (PostgreSQL memory allocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - SH_STATUS_IN_USE (status constant for checking occupied elements)
-  - SH_ENTRY_HASH (macro for computing element hash)
-  - SH_INITIAL_BUCKET (macro for computing optimal bucket position)
-  - SH_DISTANCE_FROM_OPTIMAL (macro for computing displacement distance)
+  - [SH_ENTRY_HASH](SH_ENTRY_HASH.md) (macro for computing element hash)
+  - [SH_INITIAL_BUCKET](SH_INITIAL_BUCKET.md) (macro for computing optimal bucket position)
+  - [SH_DISTANCE_FROM_OPTIMAL](SH_DISTANCE_FROM_OPTIMAL.md) (macro for computing displacement distance)
   - sh_log (macro that resolves to pg_log_info or elog for output)
 - Called from:
   - Primarily used for debugging and profiling purposes (no regular production usage found)

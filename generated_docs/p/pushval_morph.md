@@ -26,20 +26,20 @@ This function implements the core logic for morphological analysis during TSQuer
 - Functions called/Symbols referenced:
   - TSQueryParserState
   - ParsedText
-  - MorphOpaque
+  - [MorphOpaque](../M/MorphOpaque.md)
   - ParsedWord
-  - parsetext
-  - pushStop
-  - pushOperator
-  - pushValue
+  - [parsetext](parsetext.md)
+  - [pushStop](pushStop.md)
+  - [pushOperator](pushOperator.md)
+  - [pushValue](pushValue.md)
   - TSL_PREFIX
   - OP_AND
   - OP_OR
 - Called from (representative examples):
-  - to_tsquery_byid
-  - plainto_tsquery_byid
-  - phraseto_tsquery_byid
-  - websearch_to_tsquery_byid
+  - [to_tsquery_byid](../t/to_tsquery_byid.md)
+  - [plainto_tsquery_byid](plainto_tsquery_byid.md)
+  - [phraseto_tsquery_byid](phraseto_tsquery_byid.md)
+  - [websearch_to_tsquery_byid](../w/websearch_to_tsquery_byid.md)
 
 ## Notes and Other Information
 - Central function for morphological processing in PostgreSQL's text search query parsing

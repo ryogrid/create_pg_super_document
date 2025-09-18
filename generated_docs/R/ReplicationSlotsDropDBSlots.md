@@ -28,14 +28,14 @@ The function intentionally includes invalidated slots in the drop operation sinc
   - SpinLockAcquire
   - SpinLockRelease
   - SlotIsLogical
-  - ReplicationSlotDropAcquired
-  - ReplicationSlot (struct access)
+  - [ReplicationSlotDropAcquired](ReplicationSlotDropAcquired.md)
+  - [ReplicationSlot](ReplicationSlot.md) (struct access)
   - NameStr (macro)
   - ereport/ERROR
 
 - Called from (representative examples):
-  - dropdb (database drop command)
-  - dbase_redo (WAL replay during database operations)
+  - [dropdb](../d/dropdb.md) (database drop command)
+  - [dbase_redo](../d/dbase_redo.md) (WAL replay during database operations)
 
 ## Notes and Other Information
 - Uses a restart-based scan pattern due to releasing locks during slot drops

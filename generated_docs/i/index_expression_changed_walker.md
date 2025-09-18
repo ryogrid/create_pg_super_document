@@ -22,13 +22,13 @@ For non-Var nodes, the function delegates to the standard  mechanism, which hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - FirstLowInvalidHeapAttributeNumber
   - expression_tree_walker
-  - index_expression_changed_walker (recursive call)
+  - [index_expression_changed_walker](index_expression_changed_walker.md) (recursive call)
 - Called from (representative examples):
-  - index_unchanged_by_update
-  - index_expression_changed_walker (recursive calls)
+  - [index_unchanged_by_update](index_unchanged_by_update.md)
+  - [index_expression_changed_walker](index_expression_changed_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function used exclusively within execIndexing.c as a helper for index optimization analysis

@@ -25,14 +25,14 @@ The function includes conditional compilation directives to handle different Ope
   - PG_TLS1_VERSION (PostgreSQL constant for TLS 1.0)
   - PG_TLS1_1_VERSION (PostgreSQL constant for TLS 1.1)
   - PG_TLS1_2_VERSION (PostgreSQL constant for TLS 1.2)
-  - PG_TLS1_3_VERSION (PostgreSQL constant for TLS 1.3)
+  - [PG_TLS1_3_VERSION](../P/PG_TLS1_3_VERSION.md) (PostgreSQL constant for TLS 1.3)
   - TLS1_VERSION (OpenSSL constant for TLS 1.0)
   - TLS1_1_VERSION (OpenSSL constant for TLS 1.1, if available)
   - TLS1_2_VERSION (OpenSSL constant for TLS 1.2, if available)
   - TLS1_3_VERSION (OpenSSL constant for TLS 1.3, if available)
 - Called from (representative examples):
-  - be_tls_init (backend TLS initialization)
-  - initialize_SSL (libpq SSL initialization)
+  - [be_tls_init](../b/be_tls_init.md) (backend TLS initialization)
+  - [initialize_SSL](../i/initialize_SSL.md) (libpq SSL initialization)
 
 ## Notes and Other Information
 - Static function - only accessible within the be-secure-openssl.c compilation unit

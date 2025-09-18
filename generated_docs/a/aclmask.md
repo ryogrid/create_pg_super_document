@@ -27,7 +27,7 @@ Owner privileges are handled specially - owners implicitly have all grant option
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl
+  - [check_acl](../c/check_acl.md)
   - has_privs_of_role
   - ACL_NUM
   - ACL_DAT
@@ -35,11 +35,11 @@ Owner privileges are handled specially - owners implicitly have all grant option
   - ACL_ID_PUBLIC
   - ACLMASK_ALL
 - Called from (representative examples):
-  - object_aclmask_ext
-  - pg_attribute_aclmask_ext
-  - pg_class_aclmask_ext
-  - pg_namespace_aclmask_ext
-  - LockTableAclCheck
+  - [object_aclmask_ext](../o/object_aclmask_ext.md)
+  - [pg_attribute_aclmask_ext](../p/pg_attribute_aclmask_ext.md)
+  - [pg_class_aclmask_ext](../p/pg_class_aclmask_ext.md)
+  - [pg_namespace_aclmask_ext](../p/pg_namespace_aclmask_ext.md)
+  - [LockTableAclCheck](../L/LockTableAclCheck.md)
 
 ## Notes and Other Information
 - Returns 0 immediately if mask is 0 (no privileges requested)

@@ -32,27 +32,27 @@ This test validates that pipelines work correctly without explicit synchronizati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsocket
+  - [PQsocket](../P/PQsocket.md)
   - PQenterPipelineMode
-  - PQsendQueryParams
-  - PQflush
-  - PQconsumeInput
-  - PQsendFlushRequest
-  - PQgetResult
-  - PQresultStatus
-  - PQresStatus
-  - PQclear
-  - PQerrorMessage
+  - [PQsendQueryParams](../P/PQsendQueryParams.md)
+  - [PQflush](../P/PQflush.md)
+  - [PQconsumeInput](../P/PQconsumeInput.md)
+  - [PQsendFlushRequest](../P/PQsendFlushRequest.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresStatus](../P/PQresStatus.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - PGRES_TUPLES_OK
   - select
   - FD_ZERO
   - FD_SET
   - FD_ISSET
-  - exit_nicely
+  - [exit_nicely](../e/exit_nicely.md)
   - fprintf
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function within the libpq_pipeline test module

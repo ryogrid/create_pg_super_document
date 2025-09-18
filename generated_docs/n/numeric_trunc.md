@@ -28,17 +28,17 @@ Key differences from rounding:
   - PG_GETARG_NUMERIC: Extracts the NUMERIC argument from function arguments
   - PG_GETARG_INT32: Extracts the scale parameter
   - NUMERIC_IS_SPECIAL: Checks if the numeric value is special (NaN/infinity)
-  - duplicate_numeric: Creates a copy of special values
+  - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of special values
   - init_var: Initializes a NumericVar structure
-  - set_var_from_num: Converts Numeric to NumericVar
-  - trunc_var: Performs the actual truncation operation
-  - make_result: Converts NumericVar back to Numeric
-  - free_var: Frees NumericVar memory
+  - [set_var_from_num](../s/set_var_from_num.md): Converts Numeric to NumericVar
+  - [trunc_var](../t/trunc_var.md): Performs the actual truncation operation
+  - [make_result](../m/make_result.md): Converts NumericVar back to Numeric
+  - [free_var](../f/free_var.md): Frees NumericVar memory
   - PG_RETURN_NUMERIC: Returns the result as a NUMERIC Datum
   - NUMERIC_WEIGHT_MAX, NUMERIC_DSCALE_MAX, DEC_DIGITS: Constants for bounds checking
 
 - Called from (representative examples):
-  - getArrayIndex: Used in JSON path execution for array index calculations
+  - [getArrayIndex](../g/getArrayIndex.md): Used in JSON path execution for array index calculations
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/numeric.c at lines 1595-1644

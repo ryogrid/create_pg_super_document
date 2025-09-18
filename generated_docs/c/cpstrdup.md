@@ -25,11 +25,11 @@ This function creates a duplicate copy of a null-terminated C string using the c
   - strcpy (standard C library function)
   - IspellDict (struct type)
 - Called from (representative examples):
-  - NIAddSpell
-  - NIAddAffix
-  - setCompoundAffixFlagValue
+  - [NIAddSpell](../N/NIAddSpell.md)
+  - [NIAddAffix](../N/NIAddAffix.md)
+  - [setCompoundAffixFlagValue](../s/setCompoundAffixFlagValue.md)
   - NIImportOOAffixes
-  - NISortDictionary
+  - [NISortDictionary](../N/NISortDictionary.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spell.c compilation unit

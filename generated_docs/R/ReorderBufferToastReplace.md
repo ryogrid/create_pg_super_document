@@ -20,17 +20,17 @@ This function performs the critical task of reconstructing large column values t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferChangeSize (calculates change size for memory accounting)
-  - RelationIdGetRelation, RelationClose (accesses TOAST relation)
-  - heap_deform_tuple, heap_form_tuple (tuple manipulation)
+  - [ReorderBufferChangeSize](ReorderBufferChangeSize.md) (calculates change size for memory accounting)
+  - [RelationIdGetRelation](RelationIdGetRelation.md), RelationClose (accesses TOAST relation)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md), heap_form_tuple (tuple manipulation)
   - VARATT_IS_EXTERNAL, VARATT_EXTERNAL_GET_POINTER (TOAST pointer analysis)
-  - hash_search (finds TOAST entries in hash table)
+  - [hash_search](../h/hash_search.md) (finds TOAST entries in hash table)
   - dlist_foreach, dlist_container (iterates through chunk list)
   - SET_VARTAG_EXTERNAL, VARDATA_EXTERNAL (creates indirect pointers)
   - ReorderBufferChangeMemoryUpdate (updates memory accounting)
   - Various TOAST macros for size and compression handling
 - Called from (representative examples):
-  - ReorderBufferProcessTXN (during transaction commit processing)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (during transaction commit processing)
 
 ## Notes and Other Information
 - Only processes changes that have collected TOAST chunks (txn->toast_hash != NULL)

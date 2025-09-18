@@ -27,10 +27,10 @@ The strategy_procinfos in the opaque structure is noted to be lazily initialized
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - MAXALIGN
   - SizeofBrinOpcInfo
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - PG_RETURN_POINTER
 - Called from:
   - (No direct references found - likely called through PostgreSQL's operator class system)

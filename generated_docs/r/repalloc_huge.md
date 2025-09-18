@@ -20,12 +20,12 @@ This function serves as a convenience wrapper around repalloc_extended, specific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc_extended (extended reallocation function with flags support)
+  - [repalloc_extended](repalloc_extended.md) (extended reallocation function with flags support)
   - MCXT_ALLOC_HUGE (flag indicating huge allocation requirements)
 - Called from (representative examples):
   - ginCombineData (GIN index data combination operations)
-  - spi_printtup (SPI tuple printing functionality)
-  - grow_memtuples (tuple sorting and storage growth operations)
+  - [spi_printtup](../s/spi_printtup.md) (SPI tuple printing functionality)
+  - [grow_memtuples](../g/grow_memtuples.md) (tuple sorting and storage growth operations)
   - repalloc0_array (array reallocation with zero initialization)
 
 ## Notes and Other Information

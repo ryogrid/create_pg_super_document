@@ -21,7 +21,7 @@ This function attempts to acquire an exclusive advisory lock that is scoped to t
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
-  - LockAcquire: Core lock acquisition function with ExclusiveLock mode, session scope (true), and no-wait (true)
+  - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function with ExclusiveLock mode, session scope (true), and no-wait (true)
   - LOCKTAG: Lock identifier structure
   - LockAcquireResult: Enumeration type for lock acquisition results
   - ExclusiveLock: Lock mode constant for exclusive access
@@ -30,7 +30,7 @@ This function attempts to acquire an exclusive advisory lock that is scoped to t
   - No direct references found (likely called via SQL function interface)
 
 ## Notes and Other Information
-- Session-scoped locks must be explicitly released or will persist until session end
+- [Session](../S/Session.md)-scoped locks must be explicitly released or will persist until session end
 - Uses exclusive lock mode, preventing other processes from acquiring conflicting locks
 - Non-blocking operation returns immediately with success/failure status
 - Returns boolean: true if lock acquired, false if not available

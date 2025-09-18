@@ -34,8 +34,8 @@ Error handling is limited to direct stderr writes using  rather than PostgreSQL'
   - GetLastError (Windows API)
   - fprintf (standard C library)
 - Called from (representative examples):
-  - send_message_to_server_log (in src/backend/utils/error/elog.c)
-  - write_stderr (in src/backend/utils/error/elog.c)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md) (in src/backend/utils/error/elog.c)
+  - [write_stderr](../w/write_stderr.md) (in src/backend/utils/error/elog.c)
   - Referenced in src/include/port/win32_port.h
 
 ## Notes and Other Information

@@ -19,11 +19,11 @@ This function checks if the array element type associated with a given type cach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_array_element_properties
+  - [cache_array_element_properties](../c/cache_array_element_properties.md)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
   - TCFLAGS_HAVE_ELEM_COMPARE (flag constant)
 - Called from (representative examples):
-  - lookup_type_cache (multiple calls at lines 613, 638, 663)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (multiple calls at lines 613, 638, 663)
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as part of the type caching system. It ensures lazy evaluation of element properties - the properties are only cached when first needed. The function is primarily used by the type cache lookup functionality to determine capabilities of array element types for comparison operations.

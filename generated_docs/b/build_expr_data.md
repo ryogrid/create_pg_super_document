@@ -18,13 +18,13 @@ This function creates and initializes the data structures needed to analyze expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AnlExprData
-  - examine_expression
+  - [AnlExprData](../A/AnlExprData.md)
+  - [examine_expression](../e/examine_expression.md)
   - list_length
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - lfirst
 - Called from (representative examples):
-  - BuildRelationExtStatistics
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
 
 ## Notes and Other Information
 The function uses palloc0 to allocate zero-initialized memory for the AnlExprData array, ensuring all fields start in a clean state. The stattarget parameter is passed through to examine_expression where it controls the granularity of statistics collection - higher values result in more detailed histograms and statistics. The resulting AnlExprData array is used by subsequent functions like compute_expr_stats to evaluate expressions against sample data and generate the actual statistical summaries.

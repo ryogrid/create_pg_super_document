@@ -32,17 +32,17 @@ The function implements PostgreSQL's standard pattern for bulk index creation, b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginHeapTupleBulkInsert: Process each attribute value for bulk insertion
-  - ginBeginBAScan: Initialize scan of BuildAccumulator contents
-  - ginGetBAEntry: Retrieve next accumulated entry for processing
-  - ginEntryInsert: Insert accumulated entries into the actual index
-  - ginInitBA: Reset BuildAccumulator after flush
-  - MemoryContextSwitchTo: Manage memory contexts for clean operation
-  - MemoryContextReset: Reset temporary memory context
+  - [ginHeapTupleBulkInsert](ginHeapTupleBulkInsert.md): Process each attribute value for bulk insertion
+  - [ginBeginBAScan](ginBeginBAScan.md): Initialize scan of BuildAccumulator contents
+  - [ginGetBAEntry](ginGetBAEntry.md): Retrieve next accumulated entry for processing
+  - [ginEntryInsert](ginEntryInsert.md): Insert accumulated entries into the actual index
+  - [ginInitBA](ginInitBA.md): Reset BuildAccumulator after flush
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Manage memory contexts for clean operation
+  - [MemoryContextReset](../M/MemoryContextReset.md): Reset temporary memory context
   - CHECK_FOR_INTERRUPTS: Allow cancellation of long operations
 
 - Called from (representative examples):
-  - ginbuild: Main index build function via IndexBuildHeapScan
+  - [ginbuild](ginbuild.md): Main index build function via IndexBuildHeapScan
 
 ## Notes and Other Information
 - Follows PostgreSQL's standard callback pattern for index building (IndexBuildCallback signature)

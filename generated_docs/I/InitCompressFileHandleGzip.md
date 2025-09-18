@@ -25,18 +25,18 @@ The function provides a complete file handle interface for gzip-compressed files
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Gzip_open
-  - Gzip_open_write
-  - Gzip_read
-  - Gzip_write
-  - Gzip_gets
-  - Gzip_getc
-  - Gzip_close
-  - Gzip_eof
-  - Gzip_get_error
-  - pg_fatal
+  - [Gzip_open](../G/Gzip_open.md)
+  - [Gzip_open_write](../G/Gzip_open_write.md)
+  - [Gzip_read](../G/Gzip_read.md)
+  - [Gzip_write](../G/Gzip_write.md)
+  - [Gzip_gets](../G/Gzip_gets.md)
+  - [Gzip_getc](../G/Gzip_getc.md)
+  - [Gzip_close](../G/Gzip_close.md)
+  - [Gzip_eof](../G/Gzip_eof.md)
+  - [Gzip_get_error](../G/Gzip_get_error.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - InitCompressFileHandle (src/bin/pg_dump/compress_io.c:204)
+  - [InitCompressFileHandle](InitCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:204)
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's Compress File API for handling compressed files

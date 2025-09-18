@@ -25,15 +25,15 @@ Unlike pipeline sync operations, flush requests do not create synchronization bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - pqPutMsgStart
-  - pqPutMsgEnd
-  - pqPipelineFlush
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqPutMsgStart](../p/pqPutMsgStart.md)
+  - [pqPutMsgEnd](../p/pqPutMsgEnd.md)
+  - [pqPipelineFlush](../p/pqPipelineFlush.md)
 - Called from:
-  - test_nosync (libpq_pipeline.c:654)
-  - test_pipeline_idle (libpq_pipeline.c:1437, 1457, 1478)
-  - test_singlerowmode (libpq_pipeline.c:1688, 1711, 1730)
-  - test_uniqviol (libpq_pipeline.c:2052)
+  - [test_nosync](../t/test_nosync.md) (libpq_pipeline.c:654)
+  - [test_pipeline_idle](../t/test_pipeline_idle.md) (libpq_pipeline.c:1437, 1457, 1478)
+  - [test_singlerowmode](../t/test_singlerowmode.md) (libpq_pipeline.c:1688, 1711, 1730)
+  - [test_uniqviol](../t/test_uniqviol.md) (libpq_pipeline.c:2052)
 
 ## Notes and Other Information
 - This is a public libpq API function available to client applications

@@ -21,16 +21,16 @@ This function initializes the Dynamic Shared Memory (DSM) structures required fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - shm_toc_allocate
-  - table_parallelscan_initialize
+  - [table_parallelscan_initialize](../t/table_parallelscan_initialize.md)
   - shm_toc_insert
-  - table_beginscan_parallel
+  - [table_beginscan_parallel](../t/table_beginscan_parallel.md)
 - Types referenced:
-  - SeqScanState
-  - ParallelContext
-  - EState
-  - ParallelTableScanDesc
+  - [SeqScanState](../S/SeqScanState.md)
+  - [ParallelContext](../P/ParallelContext.md)
+  - [EState](EState.md)
+  - [ParallelTableScanDesc](../P/ParallelTableScanDesc.md)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM (in execParallel.c)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (in execParallel.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution infrastructure

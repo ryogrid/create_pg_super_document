@@ -20,19 +20,19 @@ The transformRangeTableFunc function handles the transformation of table functio
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - transformExpr
-  - coerce_to_specific_type
-  - coerce_to_specific_type_typmod
-  - assign_expr_collations
-  - typenameTypeIdAndMod
-  - get_typcollation
-  - bms_add_member
-  - contain_vars_of_level
-  - addRangeTableEntryForTableFunc
+  - [transformExpr](transformExpr.md)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
+  - [coerce_to_specific_type_typmod](../c/coerce_to_specific_type_typmod.md)
+  - [assign_expr_collations](../a/assign_expr_collations.md)
+  - [typenameTypeIdAndMod](typenameTypeIdAndMod.md)
+  - [get_typcollation](../g/get_typcollation.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)
+  - [addRangeTableEntryForTableFunc](../a/addRangeTableEntryForTableFunc.md)
   - TFT_XMLTABLE
   - EXPR_KIND_FROM_FUNCTION
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - Currently only supports XMLTABLE functionality (TFT_XMLTABLE), with JSON_TABLE support handled elsewhere

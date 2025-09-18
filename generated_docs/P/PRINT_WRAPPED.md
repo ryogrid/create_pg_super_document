@@ -20,14 +20,14 @@ As an enumeration constant, PRINT_WRAPPED has no parameters or member variables 
 - Functions called/Symbols referenced:
   - None (enumeration constant)
 - Called from (representative examples):
-  - _align2string (src/bin/psql/command.c:4478)
+  - [_align2string](../a/_align2string.md) (src/bin/psql/command.c:4478)
   - fmt (src/bin/psql/command.c:4559)
-  - print_aligned_text (src/fe_utils/print.c:820)
-  - print_aligned_vertical (src/fe_utils/print.c:1463)
-  - printTable (src/fe_utils/print.c:3457, 3480)
+  - [print_aligned_text](../p/print_aligned_text.md) (src/fe_utils/print.c:820)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md) (src/fe_utils/print.c:1463)
+  - [printTable](../p/printTable.md) (src/fe_utils/print.c:3457, 3480)
 
 ## Notes and Other Information
-- PRINT_WRAPPED is part of the printFormat enumeration that defines various output formats for PostgreSQL's frontend table printing system
+- [PRINT_WRAPPED](PRINT_WRAPPED.md) is part of the printFormat enumeration that defines various output formats for PostgreSQL's frontend table printing system
 - This format is particularly useful when dealing with tables that contain wide text content that needs to be displayed within terminal width constraints
 - The enum comment suggests that additional output formats can be added after this value
 - Used primarily in psql command-line interface for formatting query results and table outputs

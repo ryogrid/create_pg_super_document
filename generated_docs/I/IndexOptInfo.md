@@ -132,15 +132,15 @@ Key optimization features include tracking which index columns can support index
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelOptInfo (parent table information)
-  - List (expression and predicate lists)
-  - RestrictInfo (restriction clause information)
-  - IndexAmRoutine (access method interface)
+  - [List](../L/List.md) (expression and predicate lists)
+  - [RestrictInfo](../R/RestrictInfo.md) (restriction clause information)
+  - [IndexAmRoutine](IndexAmRoutine.md) (access method interface)
 
 - Called from (representative examples):
-  - get_relation_info() (builds IndexOptInfo during relation setup)
-  - create_index_paths() (uses IndexOptInfo to generate index access paths)
-  - cost_index() (cost estimation using IndexOptInfo)
-  - match_clauses_to_index() (clause matching for index usage)
+  - [get_relation_info](../g/get_relation_info.md)() (builds IndexOptInfo during relation setup)
+  - [create_index_paths](../c/create_index_paths.md)() (uses IndexOptInfo to generate index access paths)
+  - [cost_index](../c/cost_index.md)() (cost estimation using IndexOptInfo)
+  - [match_clauses_to_index](../m/match_clauses_to_index.md)() (clause matching for index usage)
 
 ## Notes and Other Information
 IndexOptInfo is created during the relation setup phase of planning and remains immutable throughout optimization. The structure is designed to efficiently answer common optimization questions like "Can this index satisfy these WHERE clauses?" and "What is the cost of scanning this index?"

@@ -27,12 +27,12 @@ When used in Informix compatibility mode (struct sqlda_compat):
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlda_compat (when in Informix compatibility mode)
-  - sqlda_struct (when in native mode)  
-  - sqlvar_compat (referenced through sqlvar member)
+  - [sqlda_compat](sqlda_compat.md) (when in Informix compatibility mode)
+  - [sqlda_struct](sqlda_struct.md) (when in native mode)  
+  - [sqlvar_compat](sqlvar_compat.md) (referenced through sqlvar member)
 - Called from (representative examples):
-  - dump_sqlda functions in ECPG test cases
-  - main functions in various ECPG compatibility tests
+  - [dump_sqlda](../d/dump_sqlda.md) functions in ECPG test cases
+  - [main](../m/main.md) functions in various ECPG compatibility tests
   - ECPG runtime functions for dynamic SQL processing
 
 ## Notes and Other Information

@@ -22,15 +22,15 @@ The classification is particularly important for determining return value handli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype
-  - getBaseType
+  - [get_typtype](get_typtype.md)
+  - [getBaseType](getBaseType.md)
   - TYPTYPE_COMPOSITE/BASE/ENUM/RANGE/MULTIRANGE/DOMAIN/PSEUDO constants
   - TYPEFUNC_COMPOSITE/SCALAR/COMPOSITE_DOMAIN/RECORD/OTHER constants
   - RECORDOID, VOIDOID, CSTRINGOID constants
 - Called from (representative examples):
-  - get_expr_result_type
-  - internal_get_result_type
-  - TypeGetTupleDesc
+  - [get_expr_result_type](get_expr_result_type.md)
+  - [internal_get_result_type](../i/internal_get_result_type.md)
+  - [TypeGetTupleDesc](../T/TypeGetTupleDesc.md)
 
 ## Notes and Other Information
 - Returns TypeFuncClass enum values: TYPEFUNC_SCALAR, TYPEFUNC_COMPOSITE, TYPEFUNC_COMPOSITE_DOMAIN, TYPEFUNC_RECORD, or TYPEFUNC_OTHER

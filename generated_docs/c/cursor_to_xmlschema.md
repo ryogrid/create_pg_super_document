@@ -23,11 +23,11 @@ This function generates an XML Schema Definition for the result set structure of
   - text_to_cstring
   - PG_GETARG_BOOL
   - SPI_connect
-  - SPI_cursor_find
-  - _SPI_strdup
-  - map_sql_table_to_xmlschema
+  - [SPI_cursor_find](../S/SPI_cursor_find.md)
+  - [_SPI_strdup](../S/_SPI_strdup.md)
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
   - SPI_finish
-  - cstring_to_xmltype
+  - [cstring_to_xmltype](cstring_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:
   - Available as SQL function (no direct C callers found)

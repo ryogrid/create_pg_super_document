@@ -22,11 +22,11 @@ SlruScanDirCbDeleteCutoff is a static callback function that implements the actu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruMayDeleteSegment
-  - SlruInternalDeleteSegment  
+  - [SlruMayDeleteSegment](SlruMayDeleteSegment.md)
+  - [SlruInternalDeleteSegment](SlruInternalDeleteSegment.md)  
   - SLRU_PAGES_PER_SEGMENT
 - Called from (representative examples):
-  - SimpleLruTruncate
+  - [SimpleLruTruncate](SimpleLruTruncate.md)
 
 ## Notes and Other Information
 - Always returns false to ensure all segments in the directory are processed

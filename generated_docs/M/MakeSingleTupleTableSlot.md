@@ -20,16 +20,16 @@ This function is particularly useful in scenarios where you need a temporary or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakeTupleTableSlot
+  - [MakeTupleTableSlot](MakeTupleTableSlot.md)
   - TupleTableSlotOps
 
 - Called from (representative examples):
-  - table_slot_create
-  - CatalogIndexInsert
-  - ATRewriteTable
+  - [table_slot_create](../t/table_slot_create.md)
+  - [CatalogIndexInsert](../C/CatalogIndexInsert.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
   - ExecInitJunkFilter
   - BuildTupleHashTableExt
-  - init_sql_fcache
+  - [init_sql_fcache](../i/init_sql_fcache.md)
 
 ## Notes and Other Information
 - This is a thin wrapper around MakeTupleTableSlot, providing a more descriptive name for standalone slot creation

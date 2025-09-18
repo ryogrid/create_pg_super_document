@@ -23,11 +23,11 @@ The shared state is maintained in the `FixedParallelState` structure, which is a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FixedParallelState (struct type)
+  - [FixedParallelState](../F/FixedParallelState.md) (struct type)
   - SpinLockAcquire, SpinLockRelease (spinlock operations)
   - MyFixedParallelState (global variable)
 - Called from (representative examples):
-  - CommitTransaction (during transaction commit)
+  - [CommitTransaction](../C/CommitTransaction.md) (during transaction commit)
   - IsParallelWorker (helper function)
 
 ## Notes and Other Information

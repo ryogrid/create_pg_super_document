@@ -22,13 +22,13 @@ This function serves as the main entry point for parsing relation options from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initialize_reloptions
-  - palloc
+  - [initialize_reloptions](../i/initialize_reloptions.md)
+  - [palloc](palloc.md)
   - PointerIsValid
-  - DatumGetPointer
-  - parseRelOptionsInternal
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [parseRelOptionsInternal](parseRelOptionsInternal.md)
 - Called from (representative examples):
-  - build_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
 
 ## Notes and Other Information
 - Returns NULL and sets numrelopts to 0 if no options of the given kind exist

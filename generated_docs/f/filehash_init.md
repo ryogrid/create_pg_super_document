@@ -22,7 +22,7 @@ This function takes no parameters.
   - filehash_create
   - FILEHASH_INITIAL_SIZE (constant set to 1000)
 - Called from (representative examples):
-  - main (src/bin/pg_rewind/pg_rewind.c:467)
+  - [main](../m/main.md) (src/bin/pg_rewind/pg_rewind.c:467)
 
 ## Notes and Other Information
 - The hash table is implemented using PostgreSQL's simplehash library

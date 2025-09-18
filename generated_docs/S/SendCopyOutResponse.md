@@ -19,11 +19,11 @@ This function constructs and sends a CopyOutResponse message as part of the Post
 - Functions called/Symbols referenced:
   - pq_beginmessage
   - PqMsg_CopyOutResponse
-  - pq_sendbyte
-  - pq_sendint16
-  - pq_endmessage
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
 - Called from (representative examples):
-  - bbsink_copystream_begin_backup
+  - [bbsink_copystream_begin_backup](../b/bbsink_copystream_begin_backup.md)
 
 ## Notes and Other Information
 - This is a static function limited to the basebackup_copy.c file

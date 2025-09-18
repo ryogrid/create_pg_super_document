@@ -23,12 +23,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PendingRelDelete (struct type for pending deletion tracking)
-  - pfree (memory deallocation function)
+  - [PendingRelDelete](PendingRelDelete.md) (struct type for pending deletion tracking)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - pendingDeletes (global variable - linked list of pending deletions)
 
 - Called from (representative examples):
-  - PrepareTransaction (src/backend/access/transam/xact.c:2679)
+  - [PrepareTransaction](PrepareTransaction.md) (src/backend/access/transam/xact.c:2679)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's two-phase commit implementation

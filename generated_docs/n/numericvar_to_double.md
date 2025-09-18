@@ -28,15 +28,15 @@ The conversion process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_new (creates new numeric variable)
-  - PGTYPESnumeric_copy (copies numeric values)
-  - PGTYPESnumeric_free (frees numeric memory)
-  - get_str_from_var (converts numeric to string representation)
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md) (creates new numeric variable)
+  - [PGTYPESnumeric_copy](../P/PGTYPESnumeric_copy.md) (copies numeric values)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md) (frees numeric memory)
+  - [get_str_from_var](../g/get_str_from_var.md) (converts numeric to string representation)
   - PGTYPES_NUM_UNDERFLOW (error constant for underflow)
   - PGTYPES_NUM_OVERFLOW (error constant for overflow)
   - PGTYPES_NUM_BAD_NUMERIC (error constant for bad numeric)
 - Called from (representative examples):
-  - PGTYPESnumeric_to_double (public wrapper function)
+  - [PGTYPESnumeric_to_double](../P/PGTYPESnumeric_to_double.md) (public wrapper function)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure with appropriate errno set

@@ -24,12 +24,12 @@ The function uses the system cache PUBLICATIONNAMESPACEMAP to efficiently locate
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid2
-  - get_namespace_name
+  - [get_namespace_name](../g/get_namespace_name.md)
   - ObjectAddressSet
-  - performDeletion
+  - [performDeletion](../p/performDeletion.md)
   - DROP_CASCADE (constant)
 - Called from (representative examples):
-  - AlterPublicationSchemas
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the publicationcmds.c compilation unit

@@ -18,14 +18,14 @@ CheckPWChallengeAuth is a sophisticated authentication function that handles bot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_role_password (retrieves stored password hash for user)
-  - get_password_type (determines the type of stored password hash)
-  - CheckMD5Auth (performs MD5 authentication when password is MD5 type)
-  - CheckSASLAuth (performs SCRAM authentication with pg_be_scram_mech)
-  - set_authn_id (sets authenticated identity on successful auth)
-  - pfree (memory cleanup)
+  - [get_role_password](../g/get_role_password.md) (retrieves stored password hash for user)
+  - [get_password_type](../g/get_password_type.md) (determines the type of stored password hash)
+  - [CheckMD5Auth](CheckMD5Auth.md) (performs MD5 authentication when password is MD5 type)
+  - [CheckSASLAuth](CheckSASLAuth.md) (performs SCRAM authentication with pg_be_scram_mech)
+  - [set_authn_id](../s/set_authn_id.md) (sets authenticated identity on successful auth)
+  - [pfree](../p/pfree.md) (memory cleanup)
 - Called from (representative examples):
-  - ClientAuthentication function in auth.c:600
+  - [ClientAuthentication](ClientAuthentication.md) function in auth.c:600
 
 ## Notes and Other Information
 - Supports both uaMD5 and uaSCRAM authentication methods as configured in pg_hba.conf

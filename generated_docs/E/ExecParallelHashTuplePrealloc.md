@@ -30,13 +30,13 @@ The estimation is approximate because actual tuple packing differs between the p
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease
-  - ExecParallelHashIncreaseNumBatches
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md)
   - ExecParallelHashIncreaseNumBuckets
   - Max (macro)
   - MAXALIGN (macro)
   - HASH_CHUNK_SIZE/HASH_CHUNK_HEADER_SIZE (constants)
   - PHJ_GROWTH_* constants
-  - HashJoinTable, ParallelHashJoinState, ParallelHashJoinBatchAccessor (types)
+  - [HashJoinTable](../H/HashJoinTable.md), ParallelHashJoinState, ParallelHashJoinBatchAccessor (types)
 - Called from:
   - ExecParallelHashTableInsert
 

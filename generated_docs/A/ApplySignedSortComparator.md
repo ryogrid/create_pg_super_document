@@ -24,10 +24,10 @@ The function is specifically designed for signed integer data types and provides
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupport (struct type)
-  - DatumGetInt64 (conversion macro/function)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (conversion macro/function)
   - INVERT_COMPARE_RESULT (macro)
 - Called from (representative examples):
-  - qsort_tuple_signed_compare (src/backend/utils/sort/tuplesort.c:525)
+  - [qsort_tuple_signed_compare](../q/qsort_tuple_signed_compare.md) (src/backend/utils/sort/tuplesort.c:525)
 
 ## Notes and Other Information
 This function is a performance optimization specifically for signed integer data types that can be safely converted to int64. It avoids the overhead of function pointer calls while providing the same NULL handling and sort direction semantics as the general ApplySortComparator. The use of DatumGetInt64() ensures proper sign extension and handling of signed values across different platforms and architectures.

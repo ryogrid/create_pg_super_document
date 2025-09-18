@@ -23,16 +23,16 @@ The spgPickSplitOut structure is used as an output parameter in SP-GiST index pi
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)
-  - bool (standard boolean type)
+  - [bool](../b/bool.md) (standard boolean type)
 - Called from (representative examples):
-  - checkAllTheSame (src/backend/access/spgist/spgdoinsert.c:599)
-  - doPickSplit (src/backend/access/spgist/spgdoinsert.c:684)
-  - spg_kd_picksplit (src/backend/access/spgist/spgkdtreeproc.c:111)
-  - spg_quad_picksplit (src/backend/access/spgist/spgquadtreeproc.c:172)
-  - spg_text_picksplit (src/backend/access/spgist/spgtextproc.c:336)
-  - spg_box_quad_picksplit (src/backend/utils/adt/geo_spgist.c:444)
-  - inet_spg_picksplit (src/backend/utils/adt/network_spgist.c:168)
-  - spg_range_quad_picksplit (src/backend/utils/adt/rangetypes_spgist.c:203)
+  - [checkAllTheSame](../c/checkAllTheSame.md) (src/backend/access/spgist/spgdoinsert.c:599)
+  - [doPickSplit](../d/doPickSplit.md) (src/backend/access/spgist/spgdoinsert.c:684)
+  - [spg_kd_picksplit](spg_kd_picksplit.md) (src/backend/access/spgist/spgkdtreeproc.c:111)
+  - [spg_quad_picksplit](spg_quad_picksplit.md) (src/backend/access/spgist/spgquadtreeproc.c:172)
+  - [spg_text_picksplit](spg_text_picksplit.md) (src/backend/access/spgist/spgtextproc.c:336)
+  - [spg_box_quad_picksplit](spg_box_quad_picksplit.md) (src/backend/utils/adt/geo_spgist.c:444)
+  - [inet_spg_picksplit](../i/inet_spg_picksplit.md) (src/backend/utils/adt/network_spgist.c:168)
+  - [spg_range_quad_picksplit](spg_range_quad_picksplit.md) (src/backend/utils/adt/rangetypes_spgist.c:203)
 
 ## Notes and Other Information
 - This structure is primarily used by SP-GiST operator class implementations to communicate split decisions back to the SP-GiST access method

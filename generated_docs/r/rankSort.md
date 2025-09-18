@@ -22,10 +22,10 @@ The function creates a temporary mapping array (hmap) that stores pairs of [rank
 - Functions called/Symbols referenced:
   - pg_malloc (memory allocation for temporary mapping array)
   - qsort (standard library sorting function)
-  - rankCompare (custom comparison function for sorting rank pairs)
-  - pg_free (memory deallocation)
+  - [rankCompare](rankCompare.md) (custom comparison function for sorting rank pairs)
+  - [pg_free](../p/pg_free.md) (memory deallocation)
 - Called from (representative examples):
-  - PrintResultInCrosstab (main crosstab processing function)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (main crosstab processing function)
 
 ## Notes and Other Information
 - Only processes sort_value fields that contain valid integer strings (including negative numbers)

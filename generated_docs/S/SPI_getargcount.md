@@ -19,7 +19,7 @@ The function is commonly used in generic SPI utility functions that need to hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr (typedef for struct _SPI_plan *)
+  - [SPIPlanPtr](SPIPlanPtr.md) (typedef for struct _SPI_plan *)
   - _SPI_PLAN_MAGIC (validation constant)
   - SPI_ERROR_ARGUMENT (error code)
 - Called from (representative examples):

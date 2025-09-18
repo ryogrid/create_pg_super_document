@@ -32,8 +32,8 @@ The function checks each relevant infobits flag and appends corresponding descri
   - XLHL_XMAX_KEYSHR_LOCK (flag constant)
   - XLHL_KEYS_UPDATED (flag constant)
 - Called from:
-  - heap_desc (multiple locations)
-  - heap2_desc
+  - [heap_desc](../h/heap_desc.md) (multiple locations)
+  - [heap2_desc](../h/heap2_desc.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the keyname parameter does not end with spaces, as this would interfere with proper formatting

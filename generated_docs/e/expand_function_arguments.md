@@ -30,16 +30,16 @@ The function preserves the original argument list when no changes are needed and
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetArrayTypeP
-  - reorder_function_arguments
-  - add_function_defaults
-  - recheck_cast_function_args
+  - [reorder_function_arguments](../r/reorder_function_arguments.md)
+  - [add_function_defaults](../a/add_function_defaults.md)
+  - [recheck_cast_function_args](../r/recheck_cast_function_args.md)
   - NamedArgExpr
 - Called from (representative examples):
-  - simplify_function
-  - eval_const_expressions_mutator
-  - transformCallStmt
+  - [simplify_function](../s/simplify_function.md)
+  - [eval_const_expressions_mutator](eval_const_expressions_mutator.md)
+  - [transformCallStmt](../t/transformCallStmt.md)
 
 ## Notes and Other Information
 - The function handles both function calls and operator calls (though named arguments should never occur for operators)

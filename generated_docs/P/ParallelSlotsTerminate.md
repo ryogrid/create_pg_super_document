@@ -19,13 +19,13 @@ The function iterates through each slot in the array, checks if a connection exi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - disconnectDatabase
-  - ParallelSlotArray
+  - [disconnectDatabase](../d/disconnectDatabase.md)
+  - [ParallelSlotArray](ParallelSlotArray.md)
 - Called from (representative examples):
-  - main (src/bin/pg_amcheck/pg_amcheck.c:814)
-  - reindex_one_database (src/bin/scripts/reindexdb.c:494)
-  - vacuum_one_database (src/bin/scripts/vacuumdb.c:892)
-  - ParallelSlotClearHandler (src/include/fe_utils/parallel_slot.h:70)
+  - [main](../m/main.md) (src/bin/pg_amcheck/pg_amcheck.c:814)
+  - [reindex_one_database](../r/reindex_one_database.md) (src/bin/scripts/reindexdb.c:494)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (src/bin/scripts/vacuumdb.c:892)
+  - [ParallelSlotClearHandler](ParallelSlotClearHandler.md) (src/include/fe_utils/parallel_slot.h:70)
 
 ## Notes and Other Information
 - This function should be called to clean up parallel slots when operations complete

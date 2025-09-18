@@ -24,12 +24,12 @@ This static function implements the core algorithm for converting text from Post
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set)
   - LC_GB2312_80 (MIC language code for GB2312-80 character set)
-  - report_untranslatable_char (error reporting function for unsupported character sets)
-  - report_invalid_encoding (error reporting function for malformed sequences)
+  - [report_untranslatable_char](../r/report_untranslatable_char.md) (error reporting function for unsupported character sets)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting function for malformed sequences)
   - PG_MULE_INTERNAL (MIC encoding constant)
   - PG_EUC_CN (EUC-CN encoding constant)
 - Called from:
-  - mic_to_euc_cn (PostgreSQL function wrapper)
+  - [mic_to_euc_cn](mic_to_euc_cn.md) (PostgreSQL function wrapper)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

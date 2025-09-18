@@ -20,8 +20,8 @@ The  function analyzes a string containing geometric coordinate data and determi
 - Functions called/Symbols referenced:
   - strchr (standard C library function)
 - Called from (representative examples):
-  - path_in
-  - poly_in
+  - [path_in](path_in.md)
+  - [poly_in](poly_in.md)
 
 ## Notes and Other Information
 This function implements a validation mechanism for geometric input parsing. The requirement for an odd number of delimiters stems from the coordinate pair structure: each pair needs an internal delimiter (x,y) plus separators between pairs. The function returns -1 for invalid input, which allows calling functions to detect malformed geometric data early in the parsing process. This is a static utility function used internally by PostgreSQL's geometric data type input functions.

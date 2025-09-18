@@ -21,12 +21,12 @@ This function performs a comparison between a date and timestamptz value, but fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkTimezoneIsUsedForCast (timezone validation)
-  - date_cmp_timestamptz_internal (core comparison function)
+  - [checkTimezoneIsUsedForCast](checkTimezoneIsUsedForCast.md) (timezone validation)
+  - [date_cmp_timestamptz_internal](../d/date_cmp_timestamptz_internal.md) (core comparison function)
   - DateADT (date data type)
   - TimestampTz (timezone-aware timestamp data type)
 - Called from (representative examples):
-  - compareDatetime (multiple locations for datetime comparisons)
+  - [compareDatetime](compareDatetime.md) (multiple locations for datetime comparisons)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/jsonpath_exec.c:3699-3709

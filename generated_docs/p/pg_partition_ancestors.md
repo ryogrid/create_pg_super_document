@@ -29,16 +29,16 @@ The returned set includes the input relation itself as the first element, follow
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_rel_can_be_partition: Validates if the relation can participate in partition trees
-  - get_partition_ancestors: Retrieves the list of ancestor relations
-  - lcons_oid: Prepends the input relation OID to the ancestors list
+  - [check_rel_can_be_partition](../c/check_rel_can_be_partition.md): Validates if the relation can participate in partition trees
+  - [get_partition_ancestors](../g/get_partition_ancestors.md): Retrieves the list of ancestor relations
+  - [lcons_oid](../l/lcons_oid.md): Prepends the input relation OID to the ancestors list
   - SRF_IS_FIRSTCALL: Checks if this is the first call in the SRF sequence
   - SRF_FIRSTCALL_INIT: Initializes the function call context for SRF
   - SRF_PERCALL_SETUP: Sets up context for each subsequent call
   - SRF_RETURN_NEXT: Returns the next value in the result set
   - SRF_RETURN_DONE: Signals completion of the result set
   - list_length: Gets the number of elements in the ancestors list
-  - list_nth_oid: Retrieves the OID at a specific position in the list
+  - [list_nth_oid](../l/list_nth_oid.md): Retrieves the OID at a specific position in the list
 
 - Called from (representative examples):
   - Available as SQL function  for end-user queries

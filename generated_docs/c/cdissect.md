@@ -34,13 +34,13 @@ The function follows strict rules for managing match data, ensuring that capture
   - MDEBUG, LOFF (debugging macros)
   - INTERRUPT, STACK_TOO_DEEP (safety checks)
   - REG_OKAY, REG_NOMATCH, REG_ETOOBIG, REG_ASSERT (return codes)
-  - cbrdissect, ccondissect, crevcondissect, caltdissect, citerdissect, creviterdissect (specialized dissection functions)
-  - subset (match recording function)
+  - [cbrdissect](cbrdissect.md), ccondissect, crevcondissect, caltdissect, citerdissect, creviterdissect (specialized dissection functions)
+  - [subset](../s/subset.md) (match recording function)
   - SHORTER, BACKR (flag constants)
 - Called from (representative examples):
   - find (function at src/backend/regex/regexec.c:502)
   - cfindloop (function at src/backend/regex/regexec.c:612)
-  - ccondissect, crevcondissect, caltdissect, citerdissect, creviterdissect (recursive calls)
+  - [ccondissect](ccondissect.md), crevcondissect, caltdissect, citerdissect, creviterdissect (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within regexec.c

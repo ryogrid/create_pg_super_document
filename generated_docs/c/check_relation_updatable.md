@@ -32,17 +32,17 @@ This validation is essential for maintaining data consistency in logical replica
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid (macro)
-  - GetRelationIdentityOrPK
+  - [GetRelationIdentityOrPK](../G/GetRelationIdentityOrPK.md)
   - ereport (macro)
-  - errcode (macro)
-  - errmsg (macro)
-  - LogicalRepRelMapEntry (data structure)
+  - [errcode](../e/errcode.md) (macro)
+  - [errmsg](../e/errmsg.md) (macro)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (data structure)
   - RELKIND_PARTITIONED_TABLE (constant)
   - ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE (constant)
 - Called from (representative examples):
-  - apply_handle_update
-  - apply_handle_delete
-  - apply_handle_tuple_routing
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - This is a static function within the logical replication worker module

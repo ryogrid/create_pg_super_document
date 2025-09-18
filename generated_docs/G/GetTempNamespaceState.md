@@ -21,7 +21,7 @@ This function retrieves the OIDs of the current session's temporary namespace an
   - myTempNamespace (global variable)
   - myTempToastNamespace (global variable)
 - Called from (representative examples):
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:346)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:346)
   - RangeVarGetRelid (src/include/catalog/namespace.h:162)
 
 ## Notes and Other Information

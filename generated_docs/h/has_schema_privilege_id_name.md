@@ -21,9 +21,9 @@ Unlike other variants in this family, this function does not handle missing sche
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_schema_name
-  - convert_schema_priv_string
-  - object_aclcheck
+  - [convert_schema_name](../c/convert_schema_name.md)
+  - [convert_schema_priv_string](../c/convert_schema_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - AclResult (type)

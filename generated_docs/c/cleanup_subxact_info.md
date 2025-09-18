@@ -27,13 +27,13 @@ This function takes no parameters and operates on the global subxact_data struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - InvalidTransactionId (constant for invalid transaction ID)
   - subxact_data (global structure containing subtransaction information)
 - Called from (representative examples):
-  - stream_abort_internal (at src/backend/replication/logical/worker.c:1783)
-  - subxact_info_write (at src/backend/replication/logical/worker.c:4033)
-  - subxact_info_write (at src/backend/replication/logical/worker.c:4057)
+  - [stream_abort_internal](../s/stream_abort_internal.md) (at src/backend/replication/logical/worker.c:1783)
+  - [subxact_info_write](../s/subxact_info_write.md) (at src/backend/replication/logical/worker.c:4033)
+  - [subxact_info_write](../s/subxact_info_write.md) (at src/backend/replication/logical/worker.c:4057)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization since it's a simple cleanup function

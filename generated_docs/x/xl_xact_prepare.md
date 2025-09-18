@@ -57,10 +57,10 @@ The xl_xact_prepare structure is the WAL record format for the PREPARE phase of 
   - TimestampTz (data type)
   - XLogRecPtr (data type)
 - Called from (representative examples):
-  - ParsePrepareRecord (in xactdesc.c)
-  - xact_desc_prepare (in xactdesc.c)
+  - [ParsePrepareRecord](../P/ParsePrepareRecord.md) (in xactdesc.c)
+  - [xact_desc_prepare](xact_desc_prepare.md) (in xactdesc.c)
   - TwoPhaseFileHeader (in twophase.c)
-  - xact_decode (in decode.c)
+  - [xact_decode](xact_decode.md) (in decode.c)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's two-phase commit implementation, allowing transactions to be prepared on multiple nodes and later committed or aborted atomically. The comprehensive metadata ensures that all transaction effects (including sub-transactions, relation cleanup, and cache invalidation) can be properly applied or rolled back even after system restarts. The origin tracking fields support distributed transaction scenarios in logical replication setups.

@@ -21,7 +21,7 @@ The function is a simple wrapper around ResourceOwnerReleaseAllOfKind(), which i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerReleaseAllOfKind (generic resource release function)
+  - [ResourceOwnerReleaseAllOfKind](ResourceOwnerReleaseAllOfKind.md) (generic resource release function)
   - planref_resowner_desc (resource descriptor for plan cache references)
 
 - Called from (representative examples):

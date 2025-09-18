@@ -23,13 +23,13 @@ The function is designed specifically for aggregate final functions, which are n
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - SET_VARSIZE (PostgreSQL macro for variable-length type sizing)
   - VARDATA (PostgreSQL macro for variable-length data access)
   - memcpy (standard C library)
 - Called from (representative examples):
-  - json_agg_finalfn
-  - json_object_agg_finalfn
+  - [json_agg_finalfn](../j/json_agg_finalfn.md)
+  - [json_object_agg_finalfn](../j/json_object_agg_finalfn.md)
 
 ## Notes and Other Information
 - This is a static internal function within the json.c module

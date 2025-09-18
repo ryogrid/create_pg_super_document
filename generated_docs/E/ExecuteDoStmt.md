@@ -24,16 +24,16 @@ The function creates an InlineCodeBlock structure containing the source code and
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (node creation)
-  - errorConflictingDefElem (error reporting)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md) (error reporting)
   - strVal (string value extraction)
-  - SearchSysCache1 (language lookup)
-  - extension_file_exists (extension existence check)
-  - object_aclcheck (permission checking)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (language lookup)
+  - [extension_file_exists](../e/extension_file_exists.md) (extension existence check)
+  - [object_aclcheck](../o/object_aclcheck.md) (permission checking)
   - superuser (superuser check)
-  - aclcheck_error (permission error reporting)
+  - [aclcheck_error](../a/aclcheck_error.md) (permission error reporting)
   - OidFunctionCall1 (inline handler execution)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Defaults to 'plpgsql' language if no LANGUAGE option is specified

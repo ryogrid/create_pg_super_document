@@ -19,13 +19,13 @@ DatumGetCString is a static inline function that extracts a C string from a Datu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (called internally)
+  - [DatumGetPointer](DatumGetPointer.md) (called internally)
 - Called from (representative examples):
-  - brin_range_serialize
-  - fill_val
-  - ExecInterpExpr
-  - coerce_type
-  - OutputFunctionCall
+  - [brin_range_serialize](../b/brin_range_serialize.md)
+  - [fill_val](../f/fill_val.md)
+  - [ExecInterpExpr](../E/ExecInterpExpr.md)
+  - [coerce_type](../c/coerce_type.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
   - PG_GETARG_CSTRING
 
 ## Notes and Other Information

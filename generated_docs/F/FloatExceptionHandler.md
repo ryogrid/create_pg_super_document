@@ -24,15 +24,15 @@ Since this handler calls ereport(ERROR), it will cause the current transaction t
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (PostgreSQL error reporting function)
-  - errcode (sets error code to ERRCODE_FLOATING_POINT_EXCEPTION)
-  - errmsg (sets primary error message)
-  - errdetail (provides detailed explanation of the error)
+  - [errcode](../e/errcode.md) (sets error code to ERRCODE_FLOATING_POINT_EXCEPTION)
+  - [errmsg](../e/errmsg.md) (sets primary error message)
+  - [errdetail](../e/errdetail.md) (provides detailed explanation of the error)
   - SIGNAL_ARGS (macro for signal handler parameters)
 - Called from (representative examples):
-  - PostgresMain (main backend process)
-  - AutoVacWorkerMain (autovacuum worker processes)
-  - BackgroundWorkerMain (background worker processes)
-  - ReplSlotSyncWorkerMain (replication slot sync worker)
+  - [PostgresMain](../P/PostgresMain.md) (main backend process)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker processes)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md) (background worker processes)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (replication slot sync worker)
   - PLPERL_RESTORE_LOCALE (PL/Perl language handler)
 
 ## Notes and Other Information

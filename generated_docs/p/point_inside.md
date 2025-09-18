@@ -24,19 +24,19 @@ The implementation processes edges in sequence, including the closing edge from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro for debugging)
-  - float8_mi (floating-point subtraction)
-  - lseg_crossing (determines if a line segment crosses the ray from origin)
+  - [float8_mi](../f/float8_mi.md) (floating-point subtraction)
+  - [lseg_crossing](../l/lseg_crossing.md) (determines if a line segment crosses the ray from origin)
   - POINT_ON_POLYGON (constant indicating point lies exactly on polygon boundary)
 - Data types referenced:
-  - Point (2D point structure with x,y coordinates)
+  - [Point](../P/Point.md) (2D point structure with x,y coordinates)
 
 - Called from (representative examples):
-  - poly_contain_pt (checks if polygon contains a point)
-  - pt_contained_poly (checks if point is contained in polygon)
-  - lseg_inside_poly (checks if line segment is inside polygon)
-  - on_ppath (checks if point is on a path)
-  - poly_overlap_internal (polygon overlap detection)
-  - dist_ppoly_internal (point-to-polygon distance calculation)
+  - [poly_contain_pt](poly_contain_pt.md) (checks if polygon contains a point)
+  - [pt_contained_poly](pt_contained_poly.md) (checks if point is contained in polygon)
+  - [lseg_inside_poly](../l/lseg_inside_poly.md) (checks if line segment is inside polygon)
+  - [on_ppath](../o/on_ppath.md) (checks if point is on a path)
+  - [poly_overlap_internal](poly_overlap_internal.md) (polygon overlap detection)
+  - [dist_ppoly_internal](../d/dist_ppoly_internal.md) (point-to-polygon distance calculation)
 
 ## Notes and Other Information
 - This is a static (internal) function not directly exposed as a PostgreSQL function

@@ -28,9 +28,9 @@ The function operates in the per-tuple memory context and uses the WindowObject 
   - FUNC_MAX_ARGS  
   - InitFunctionCallInfoData
   - FunctionCallInvoke
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - ExecWindowAgg
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
 
 ## Notes and Other Information
 - Window function arguments are not evaluated in this function; instead, window functions use special accessor functions to retrieve argument values from specific rows

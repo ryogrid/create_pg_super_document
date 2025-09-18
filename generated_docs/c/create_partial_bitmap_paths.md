@@ -21,12 +21,12 @@ The function serves as a bridge between index path creation and parallel executi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_bitmap_pages (calculates expected number of heap pages to fetch)
-  - compute_parallel_worker (determines optimal number of parallel workers)
-  - add_partial_path (adds the created path to relation's partial path list)
-  - create_bitmap_heap_path (creates the actual bitmap heap scan path)
+  - [compute_bitmap_pages](compute_bitmap_pages.md) (calculates expected number of heap pages to fetch)
+  - [compute_parallel_worker](compute_parallel_worker.md) (determines optimal number of parallel workers)
+  - [add_partial_path](../a/add_partial_path.md) (adds the created path to relation's partial path list)
+  - [create_bitmap_heap_path](create_bitmap_heap_path.md) (creates the actual bitmap heap scan path)
 - Called from (representative examples):
-  - create_index_paths (when building index-based access paths)
+  - [create_index_paths](create_index_paths.md) (when building index-based access paths)
 
 ## Notes and Other Information
 - Only creates partial paths when parallel execution is beneficial (parallel_workers > 0)

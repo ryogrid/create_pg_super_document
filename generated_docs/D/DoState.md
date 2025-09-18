@@ -21,17 +21,17 @@ This structure is allocated when the '-s' flag is passed to the test program, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
   - StringInfo
 - Called from (representative examples):
-  - main (for allocation and initialization)
-  - do_object_start
-  - do_object_end
-  - do_object_field_start
-  - do_array_start
-  - do_array_end
-  - do_array_element_start
-  - do_scalar
+  - [main](../m/main.md) (for allocation and initialization)
+  - [do_object_start](../d/do_object_start.md)
+  - [do_object_end](../d/do_object_end.md)
+  - [do_object_field_start](../d/do_object_field_start.md)
+  - [do_array_start](../d/do_array_start.md)
+  - [do_array_end](../d/do_array_end.md)
+  - [do_array_element_start](../d/do_array_element_start.md)
+  - [do_scalar](../d/do_scalar.md)
 
 ## Notes and Other Information
 - This structure is specific to the test_json_parser_incremental test module and is not part of the core PostgreSQL JSON parsing infrastructure

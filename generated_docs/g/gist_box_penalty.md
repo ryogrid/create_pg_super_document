@@ -23,8 +23,8 @@ The penalty is computed by calling the box_penalty helper function, which calcul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP: Extracts BOX pointer from Datum
-  - box_penalty: Computes the area penalty for box union
+  - [DatumGetBoxP](../D/DatumGetBoxP.md): Extracts BOX pointer from Datum
+  - [box_penalty](../b/box_penalty.md): Computes the area penalty for box union
 - Called from (representative examples):
   - No direct references found in the indexed codebase
 

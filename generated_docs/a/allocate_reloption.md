@@ -21,17 +21,17 @@ This static function is responsible for allocating memory for a new reloption st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (memory context management)
-  - palloc (memory allocation)
-  - pstrdup (string duplication)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
   - strlen (string length calculation)
   - elog (error logging)
 - Called from (representative examples):
-  - init_bool_reloption
-  - init_int_reloption
-  - init_real_reloption
-  - init_enum_reloption
-  - init_string_reloption
+  - [init_bool_reloption](../i/init_bool_reloption.md)
+  - [init_int_reloption](../i/init_int_reloption.md)
+  - [init_real_reloption](../i/init_real_reloption.md)
+  - [init_enum_reloption](../i/init_enum_reloption.md)
+  - [init_string_reloption](../i/init_string_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reloptions.c file

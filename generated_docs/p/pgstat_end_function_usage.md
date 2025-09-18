@@ -23,12 +23,12 @@ This function completes the statistics tracking for a function call that was pre
   - INSTR_TIME_SET_CURRENT
   - INSTR_TIME_SUBTRACT
   - INSTR_TIME_ADD
-  - instr_time (type)
+  - [instr_time](../i/instr_time.md) (type)
   - PgStat_FunctionCounts (type)
 - Called from (representative examples):
-  - ExecEvalFuncExprFusage (in src/backend/executor/execExprInterp.c:2466)
-  - fmgr_security_definer (in src/backend/utils/fmgr/fmgr.c:753)
-  - ExecMakeTableFunctionResult (in src/backend/executor/execSRF.c:236)
+  - [ExecEvalFuncExprFusage](../E/ExecEvalFuncExprFusage.md) (in src/backend/executor/execExprInterp.c:2466)
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (in src/backend/utils/fmgr/fmgr.c:753)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (in src/backend/executor/execSRF.c:236)
 
 ## Notes and Other Information
 - Handles complex timing calculations to avoid double-counting time spent in recursive function calls

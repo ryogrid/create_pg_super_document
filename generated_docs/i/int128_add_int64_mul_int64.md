@@ -28,10 +28,10 @@ The function includes a compiler performance warning noting that with poor compi
 ## Dependencies
 - Functions called/Symbols referenced:
   - INT128 (type definition)
-  - int128_add_uint64 (used in manual implementation for partial products)
+  - [int128_add_uint64](int128_add_uint64.md) (used in manual implementation for partial products)
 - Called from (representative examples):
-  - interval_cmp_value (in src/backend/utils/adt/timestamp.c:2499)
-  - main (in src/tools/testint128.c:127)
+  - [interval_cmp_value](interval_cmp_value.md) (in src/backend/utils/adt/timestamp.c:2499)
+  - [main](../m/main.md) (in src/tools/testint128.c:127)
 
 ## Notes and Other Information
 - This is a static inline function with two conditional implementations based on USE_NATIVE_INT128

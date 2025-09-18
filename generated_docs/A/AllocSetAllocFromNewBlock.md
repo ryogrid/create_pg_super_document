@@ -32,18 +32,18 @@ The function is marked as  to prevent inlining, which helps with performance pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocSetFreeIndex
+  - [AllocSetFreeIndex](AllocSetFreeIndex.md)
   - GetChunkSizeFromFreeListIdx  
-  - MemoryChunkSetHdrMask
+  - [MemoryChunkSetHdrMask](../M/MemoryChunkSetHdrMask.md)
   - GetFreeListLink
   - malloc
-  - MemoryContextAllocationFailure
-  - AllocSetAllocChunkFromBlock
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
+  - [AllocSetAllocChunkFromBlock](AllocSetAllocChunkFromBlock.md)
   - VALGRIND_MAKE_MEM_UNDEFINED
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from:
-  - AllocSetAlloc
+  - [AllocSetAlloc](AllocSetAlloc.md)
 
 ## Notes and Other Information
 - The function includes an optimization to salvage remaining space in the current block by creating appropriately-sized chunks for the freelists

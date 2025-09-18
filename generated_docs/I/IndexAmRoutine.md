@@ -55,17 +55,17 @@ Access methods use this structure to advertise their capabilities to the Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - amvalidate (validation function pointer)
+  - [amvalidate](../a/amvalidate.md) (validation function pointer)
 - Called from (representative examples):
-  - brinhandler (BRIN access method)
-  - ginhandler (GIN access method)
-  - gisthandler (GiST access method)
-  - hashhandler (Hash access method)
-  - bthandler (B-tree access method)
-  - spghandler (SP-GiST access method)
-  - GetIndexAmRoutine (access method retrieval)
-  - DefineIndex (index creation)
-  - CheckIndexCompatible (index compatibility checking)
+  - [brinhandler](../b/brinhandler.md) (BRIN access method)
+  - [ginhandler](../g/ginhandler.md) (GIN access method)
+  - [gisthandler](../g/gisthandler.md) (GiST access method)
+  - [hashhandler](../h/hashhandler.md) (Hash access method)
+  - [bthandler](../b/bthandler.md) (B-tree access method)
+  - [spghandler](../s/spghandler.md) (SP-GiST access method)
+  - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md) (access method retrieval)
+  - [DefineIndex](../D/DefineIndex.md) (index creation)
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md) (index compatibility checking)
 
 ## Notes and Other Information
 - This structure is the central contract between access methods and PostgreSQL core

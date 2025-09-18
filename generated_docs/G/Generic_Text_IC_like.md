@@ -27,21 +27,21 @@ The dual approach optimizes performance: single-byte encodings can perform case 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lc_ctype_is_c (check if collation uses C locale)
-  - pg_newlocale_from_collation (create locale from collation)
-  - pg_locale_deterministic (validate locale determinism)
-  - pg_database_encoding_max_length (get max bytes per character)
-  - DirectFunctionCall1Coll (call lower() function with collation)
+  - [lc_ctype_is_c](../l/lc_ctype_is_c.md) (check if collation uses C locale)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md) (create locale from collation)
+  - [pg_locale_deterministic](../p/pg_locale_deterministic.md) (validate locale determinism)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (get max bytes per character)
+  - [DirectFunctionCall1Coll](../D/DirectFunctionCall1Coll.md) (call lower() function with collation)
   - DatumGetTextPP (extract text from Datum)
-  - GetDatabaseEncoding (get current database encoding)
+  - [GetDatabaseEncoding](GetDatabaseEncoding.md) (get current database encoding)
   - UTF8_MatchText (UTF-8 optimized matching)
   - MB_MatchText (general multibyte matching)
   - SB_IMatchText (single-byte case-insensitive matching)
 - Called from (representative examples):
-  - nameiclike (name ILIKE pattern matching)
-  - nameicnlike (name NOT ILIKE pattern matching)
-  - texticlike (text ILIKE pattern matching)
-  - texticnlike (text NOT ILIKE pattern matching)
+  - [nameiclike](../n/nameiclike.md) (name ILIKE pattern matching)
+  - [nameicnlike](../n/nameicnlike.md) (name NOT ILIKE pattern matching)
+  - [texticlike](../t/texticlike.md) (text ILIKE pattern matching)
+  - [texticnlike](../t/texticnlike.md) (text NOT ILIKE pattern matching)
 
 ## Notes and Other Information
 - This function implements PostgreSQL's ILIKE operator, which is a case-insensitive version of LIKE

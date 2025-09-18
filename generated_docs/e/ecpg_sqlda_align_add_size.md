@@ -24,11 +24,11 @@ The alignment process follows standard memory alignment rules: if the current of
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic arithmetic operations)
 - Called from (representative examples):
-  - sqlda_compat_empty_size
-  - sqlda_common_total_size
-  - sqlda_native_empty_size
-  - ecpg_set_compat_sqlda
-  - ecpg_set_native_sqlda
+  - [sqlda_compat_empty_size](../s/sqlda_compat_empty_size.md)
+  - [sqlda_common_total_size](../s/sqlda_common_total_size.md)
+  - [sqlda_native_empty_size](../s/sqlda_native_empty_size.md)
+  - [ecpg_set_compat_sqlda](ecpg_set_compat_sqlda.md)
+  - [ecpg_set_native_sqlda](ecpg_set_native_sqlda.md)
 
 ## Notes and Other Information
 This is a fundamental utility function for SQLDA memory layout calculations. It's heavily used throughout the ECPG SQLDA implementation to ensure proper memory alignment for different data types. The function allows for flexible usage by accepting NULL pointers for either output parameter when only one result is needed. Memory alignment is crucial for performance and correctness on many architectures, especially when dealing with structured data that will be accessed by both C code and database operations.

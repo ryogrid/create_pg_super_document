@@ -20,14 +20,14 @@ This function parses a string containing a numeric value and creates a PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_alloc (for memory allocation)
-  - set_var_from_str (for string parsing)
-  - PGTYPESnumeric_free (for cleanup on error)
-  - numeric (type definition)
+  - [pgtypes_alloc](../p/pgtypes_alloc.md) (for memory allocation)
+  - [set_var_from_str](../s/set_var_from_str.md) (for string parsing)
+  - [PGTYPESnumeric_free](PGTYPESnumeric_free.md) (for cleanup on error)
+  - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
-  - deccvasc (Informix compatibility function)
+  - [deccvasc](../d/deccvasc.md) (Informix compatibility function)
   - ecpg_get_data (ECPG data retrieval)
-  - PGTYPESnumeric_from_double (numeric conversion)
+  - [PGTYPESnumeric_from_double](PGTYPESnumeric_from_double.md) (numeric conversion)
   - Various test functions
 
 ## Notes and Other Information

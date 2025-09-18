@@ -32,10 +32,10 @@ The function handles several scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_FetchConstraintInfo
-  - ri_NullCheck
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
+  - [ri_NullCheck](../r/ri_NullCheck.md)
   - slot_is_current_xact_tuple
-  - ri_KeysEqual
+  - [ri_KeysEqual](../r/ri_KeysEqual.md)
   - RI_KEYS_ALL_NULL
   - RI_KEYS_SOME_NULL
   - FKCONSTR_MATCH_SIMPLE

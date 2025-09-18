@@ -23,7 +23,7 @@ The structure is used to populate an array of exception mappings that are automa
 - Functions called/Symbols referenced:
   - Used in static array  in plpy_plpymodule.c:53
 - Called from (representative examples):
-  - PLy_generate_spi_exceptions (iterates through exception_map array)
+  - [PLy_generate_spi_exceptions](../P/PLy_generate_spi_exceptions.md) (iterates through exception_map array)
   - Hash table lookups in PLy_spi_exceptions
 
 ## Notes and Other Information

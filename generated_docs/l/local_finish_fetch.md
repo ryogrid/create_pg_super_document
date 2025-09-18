@@ -21,9 +21,9 @@ The function is part of the pg_rewind utility, which synchronizes a PostgreSQL d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rewind_source (structure type)
+  - [rewind_source](../r/rewind_source.md) (structure type)
 - Called from (representative examples):
-  - init_local_source (assigned as function pointer at src/bin/pg_rewind/local_source.c:50)
+  - [init_local_source](../i/init_local_source.md) (assigned as function pointer at src/bin/pg_rewind/local_source.c:50)
 
 ## Notes and Other Information
 - This is a static function, only accessible within local_source.c

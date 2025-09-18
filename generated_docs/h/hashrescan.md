@@ -29,13 +29,13 @@ If new scan keys are provided, the function updates the scan's key data by copyi
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashScanPosIsValid
-  - _hash_kill_items
-  - _hash_dropscanbuf
+  - [_hash_kill_items](_hash_kill_items.md)
+  - [_hash_dropscanbuf](_hash_dropscanbuf.md)
   - HashScanPosInvalidate
   - memmove (for copying scan keys)
-  - ScanKeyData (structure)
+  - [ScanKeyData](../S/ScanKeyData.md) (structure)
 - Called from (representative examples):
-  - hashhandler (hash access method handler)
+  - [hashhandler](hashhandler.md) (hash access method handler)
   - Referenced in HASHNProcs (hash index procedure array)
 
 ## Notes and Other Information

@@ -79,8 +79,8 @@ Output plugins populate this structure during their initialization (_PG_output_p
   - Various LogicalDecode*CB callback type definitions
 - Called from (representative examples):
   - LoadOutputPlugin (src/backend/replication/logical/logical.c:752)
-  - _PG_output_plugin_init (src/backend/replication/pgoutput/pgoutput.c:254)
-  - LogicalDecodingContext (src/include/replication/logical.h:53)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (src/backend/replication/pgoutput/pgoutput.c:254)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (src/include/replication/logical.h:53)
 
 ## Notes and Other Information
 This structure is the core interface for logical replication output plugins in PostgreSQL. The streaming callbacks are particularly important for handling large transactions that cannot fit entirely in memory. Output plugins must implement at least the basic callbacks (startup_cb, begin_cb, change_cb, commit_cb) to function properly. The prepared transaction and streaming callbacks are optional and can be set to NULL if not needed. The structure is populated during plugin initialization and remains constant throughout the decoding session.

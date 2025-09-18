@@ -27,17 +27,17 @@ The function is designed as a lightweight cleanup mechanism that maintains trans
   - PopActiveSnapshot (removes the current active snapshot from the stack)
   - CommandCounterIncrement (increments the command counter to make changes visible)
 - Called from (representative examples):
-  - apply_handle_insert (after INSERT operation processing)
-  - apply_handle_update (after UPDATE operation processing) 
-  - apply_handle_delete (after DELETE operation processing)
-  - apply_handle_truncate (after TRUNCATE operation processing)
-  - apply_spooled_messages (after processing queued messages)
-  - stream_start_internal (after streaming transaction setup)
+  - [apply_handle_insert](../a/apply_handle_insert.md) (after INSERT operation processing)
+  - [apply_handle_update](../a/apply_handle_update.md) (after UPDATE operation processing) 
+  - [apply_handle_delete](../a/apply_handle_delete.md) (after DELETE operation processing)
+  - [apply_handle_truncate](../a/apply_handle_truncate.md) (after TRUNCATE operation processing)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (after processing queued messages)
+  - [stream_start_internal](../s/stream_start_internal.md) (after streaming transaction setup)
 
 ## Notes and Other Information
 - Must be called by every caller of begin_replication_step() for proper cleanup
 - Does not close the transaction - allows multiple steps to be batched efficiently
-- Command counter increment ensures that changes from this step are visible to subsequent steps
+- [Command](../C/Command.md) counter increment ensures that changes from this step are visible to subsequent steps
 - Part of the snapshot management infrastructure that ensures consistent data visibility
 - The function is intentionally lightweight to minimize overhead in high-throughput replication scenarios
 - Proper pairing with begin_replication_step() is essential for maintaining snapshot stack integrity

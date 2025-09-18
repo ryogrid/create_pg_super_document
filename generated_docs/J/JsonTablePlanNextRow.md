@@ -17,17 +17,17 @@ This function serves as a polymorphic dispatcher for different types of JSON tab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlanScanNextRow (for JsonTablePathScan plans)
-  - JsonTablePlanJoinNextRow (for JsonTableSiblingJoin plans)
+  - [JsonTablePlanScanNextRow](JsonTablePlanScanNextRow.md) (for JsonTablePathScan plans)
+  - [JsonTablePlanJoinNextRow](JsonTablePlanJoinNextRow.md) (for JsonTableSiblingJoin plans)
   - IsA (PostgreSQL macro for type checking)
   - elog (PostgreSQL error logging function)
 - Called from (representative examples):
-  - JsonTablePlanScanNextRow (for nested plan execution)
-  - JsonTablePlanJoinNextRow (for join plan execution) 
-  - JsonTableFetchRow (main row fetching interface)
+  - [JsonTablePlanScanNextRow](JsonTablePlanScanNextRow.md) (for nested plan execution)
+  - [JsonTablePlanJoinNextRow](JsonTablePlanJoinNextRow.md) (for join plan execution) 
+  - [JsonTableFetchRow](JsonTableFetchRow.md) (main row fetching interface)
 
 ## Notes and Other Information
 - This function implements a simple visitor pattern for different JSON table plan types
 - Returns true if a row was successfully retrieved, false if the plan has exhausted all rows
 - The function includes an assertion and compiler appeasement return statement that should never be reached
-- Plan type validation is performed at runtime, with invalid types triggering an ERROR-level log message
+- [Plan](../P/Plan.md) type validation is performed at runtime, with invalid types triggering an ERROR-level log message

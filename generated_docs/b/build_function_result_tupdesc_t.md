@@ -24,15 +24,15 @@ Note that this function deliberately does not handle resolution of polymorphic t
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc (struct access via GETSTRUCT)
-  - heap_attisnull
-  - SysCacheGetAttrNotNull
-  - SysCacheGetAttr
-  - PointerGetDatum
-  - build_function_result_tupdesc_d
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [build_function_result_tupdesc_d](build_function_result_tupdesc_d.md)
 - Called from (representative examples):
-  - ProcedureCreate
-  - CallStmtResultDesc
-  - internal_get_result_type
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [CallStmtResultDesc](../C/CallStmtResultDesc.md)
+  - [internal_get_result_type](../i/internal_get_result_type.md)
   - TypeFuncClass
 
 ## Notes and Other Information

@@ -28,10 +28,10 @@ This enumeration is used in conjunction with FetchStmt structures to implement S
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - SPI_scroll_cursor_fetch (src/backend/executor/spi.c:1835)
-  - SPI_scroll_cursor_move (src/backend/executor/spi.c:1850)
-  - PortalRunFetch (src/backend/tcop/pquery.c:1381)
-  - DoPortalRunFetch (src/backend/tcop/pquery.c:1479)
+  - [SPI_scroll_cursor_fetch](../S/SPI_scroll_cursor_fetch.md) (src/backend/executor/spi.c:1835)
+  - [SPI_scroll_cursor_move](../S/SPI_scroll_cursor_move.md) (src/backend/executor/spi.c:1850)
+  - [PortalRunFetch](../P/PortalRunFetch.md) (src/backend/tcop/pquery.c:1381)
+  - [DoPortalRunFetch](../D/DoPortalRunFetch.md) (src/backend/tcop/pquery.c:1479)
   - FetchStmt (src/include/nodes/parsenodes.h:3331)
 
 ## Notes and Other Information

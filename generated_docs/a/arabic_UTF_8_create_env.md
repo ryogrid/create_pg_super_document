@@ -20,7 +20,7 @@ This is a language-specific constructor function that creates a new Snowball env
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SN_create_env` - Generic Snowball environment constructor called with parameters (0, 3)
+  - `[SN_create_env](../S/SN_create_env.md)` - Generic Snowball environment constructor called with parameters (0, 3)
     - First parameter (0): Number of string arrays (S_size) - Arabic stemmer doesn't use string arrays
     - Second parameter (3): Number of integer variables (I_size) - Arabic stemmer uses 3 integer state variables
 - Called from:

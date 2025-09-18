@@ -34,16 +34,16 @@ The function handles various join contexts through the `sjinfo` parameter, suppo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clause_selectivity_ext (with use_extended_stats = true)
+  - [clause_selectivity_ext](clause_selectivity_ext.md) (with use_extended_stats = true)
 - Called from (representative examples):
-  - approx_tuple_count
-  - get_foreign_key_join_selectivity
-  - consider_new_or_clause
+  - [approx_tuple_count](../a/approx_tuple_count.md)
+  - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md)
+  - [consider_new_or_clause](consider_new_or_clause.md)
   - booltestsel
 
 ## Notes and Other Information
 - This is a thin wrapper that always calls clause_selectivity_ext with extended statistics enabled
-- RestrictInfo structures are preferred input for caching selectivity estimates
+- [RestrictInfo](../R/RestrictInfo.md) structures are preferred input for caching selectivity estimates
 - The function documentation includes detailed guidance on parameter usage for different scenarios
 - Supports variant joins where jointype may differ from sjinfo->jointype (LHS/RHS switched or input unique-ified)
 - When using varRelid != 0, it's typically appropriate to set jointype=JOIN_INNER and sjinfo=NULL

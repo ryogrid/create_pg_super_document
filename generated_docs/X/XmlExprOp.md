@@ -43,7 +43,7 @@ XmlExprOp serves as an identifier for various SQL/XML functions that require spe
 ## Notes and Other Information
 - Each operation corresponds to specific SQL/XML standard functionality
 - The enumeration works in conjunction with XmlExpr structure fields like 'name', 'named_args', and 'arg_names'
-- Result type information is deduced from the operation type rather than stored explicitly
+- [Result](../R/Result.md) type information is deduced from the operation type rather than stored explicitly
 - The 'name' field carries XML-escaped NAME arguments for relevant operations
 - 'named_args' and 'arg_names' represent xml_attribute lists for operations that support attributes
 - Type/typmod fields in the containing structure are used for display purposes only and may not represent the true result type

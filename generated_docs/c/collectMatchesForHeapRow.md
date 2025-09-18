@@ -24,16 +24,16 @@ Performance is optimized through datum caching arrays that prevent redundant key
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - gintuple_get_attrnum
-  - gintuple_get_key
-  - ginCompareEntries
-  - matchPartialInPendingList
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md)
+  - [gintuple_get_key](../g/gintuple_get_key.md)
+  - [ginCompareEntries](../g/ginCompareEntries.md)
+  - [matchPartialInPendingList](../m/matchPartialInPendingList.md)
   - GinPageHasFullRow
-  - scanGetCandidate
-  - ItemPointerEquals
+  - [scanGetCandidate](../s/scanGetCandidate.md)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
 - Called from (representative examples):
-  - scanPendingInsert
+  - [scanPendingInsert](../s/scanPendingInsert.md)
 
 ## Notes and Other Information
 Central component of pending list processing that determines whether heap rows satisfy query conditions. The binary search optimization is crucial for performance on large pending lists. The function must correctly handle the transition between pages when a single heap row's entries span multiple pending list pages, which can occur during high-volume insert scenarios.

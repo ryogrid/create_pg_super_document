@@ -24,7 +24,7 @@ The function is typically called once at the beginning of benchmark execution wh
   - Unix version: , , 
   - Windows version: , , , 
 - Called from (representative examples):
-  - main() function at src/bin/pgbench/pgbench.c:7347
+  - [main](../m/main.md)() function at src/bin/pgbench/pgbench.c:7347
 
 ## Notes and Other Information
 - The function has two completely different implementations depending on the target platform

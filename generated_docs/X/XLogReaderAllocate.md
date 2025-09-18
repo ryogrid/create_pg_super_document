@@ -22,19 +22,19 @@ XLogReaderState *XLogReaderAllocate(int wal_segment_size, const char *waldir, XL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc_extended (memory allocation with flags)
-  - WALOpenSegmentInit (initializes WAL segment context)
-  - allocate_recordbuf (allocates initial record buffer)
+  - [palloc_extended](../p/palloc_extended.md) (memory allocation with flags)
+  - [WALOpenSegmentInit](../W/WALOpenSegmentInit.md) (initializes WAL segment context)
+  - [allocate_recordbuf](../a/allocate_recordbuf.md) (allocates initial record buffer)
   - MCXT_ALLOC_NO_OOM (memory allocation flag)
   - MCXT_ALLOC_ZERO (memory allocation flag)
   - MAX_ERRORMSG_LEN (constant for error message buffer size)
 - Called from (representative examples):
-  - InitWalRecovery
-  - StartReplication 
-  - XLogInsertRecord
-  - main (pg_waldump utility)
+  - [InitWalRecovery](../I/InitWalRecovery.md)
+  - [StartReplication](../S/StartReplication.md) 
+  - [XLogInsertRecord](XLogInsertRecord.md)
+  - [main](../m/main.md) (pg_waldump utility)
   - StartupDecodingContext
-  - SummarizeWAL
+  - [SummarizeWAL](../S/SummarizeWAL.md)
 
 ## Notes and Other Information
 - Returns NULL if memory allocation fails, allowing graceful error handling

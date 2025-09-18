@@ -31,11 +31,11 @@ The function includes sophisticated character validation using bitwise operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward string pattern matching)
-  - slice_del (suffix deletion)
-  - slice_from_s (string replacement)
+  - [find_among_b](../f/find_among_b.md) (backward string pattern matching)
+  - [slice_del](../s/slice_del.md) (suffix deletion)
+  - [slice_from_s](../s/slice_from_s.md) (string replacement)
 - Called from (representative examples):
-  - greek_UTF_8_stem
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful execution, 0 on no match or validation failure, negative on errors

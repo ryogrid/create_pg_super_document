@@ -26,7 +26,7 @@ The message encoding affects how PostgreSQL formats and sends messages to client
   - pg_enc2name_tbl (global encoding table)
   - MessageEncoding (global variable being set)
 - Called from (representative examples):
-  - pg_perm_setlocale (multiple calls)
+  - [pg_perm_setlocale](../p/pg_perm_setlocale.md) (multiple calls)
 
 ## Notes and Other Information
 - This function is called during early initialization when elog() may not be available yet

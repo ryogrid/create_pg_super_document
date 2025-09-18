@@ -27,7 +27,7 @@ The function is essential for translating between the logical bitmap representat
   - HashMetaPage (metadata structure)
   - _hash_get_totalbuckets (calculates total bucket count for a split level)
 - Called from (representative examples):
-  - _hash_addovflpage (when adding new overflow pages)
+  - [_hash_addovflpage](../h/_hash_addovflpage.md) (when adding new overflow pages)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the hashovfl.c module

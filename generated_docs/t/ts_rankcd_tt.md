@@ -24,8 +24,8 @@ This function is ideal for users who want cover density ranking with standard Po
 - Functions called/Symbols referenced:
   - PG_GETARG_TSVECTOR: Extracts tsvector argument from function call
   - PG_GETARG_TSQUERY: Extracts tsquery argument from function call
-  - getWeights: Processes NULL to return default weight values
-  - calc_rank_cd: Core cover density ranking calculation function
+  - [getWeights](../g/getWeights.md): Processes NULL to return default weight values
+  - [calc_rank_cd](../c/calc_rank_cd.md): Core cover density ranking calculation function
   - DEF_NORM_METHOD: Default normalization method constant
   - PG_FREE_IF_COPY: Frees memory for copied arguments if needed
   - PG_RETURN_FLOAT4: Returns float4 result to PostgreSQL
@@ -34,9 +34,9 @@ This function is ideal for users who want cover density ranking with standard Po
 
 ## Notes and Other Information
 This function represents the most basic and commonly used variant of the ts_rankcd family. It is the entry point for users who want to use cover density ranking without needing to understand or configure the underlying weight and normalization parameters. The complete family includes:
-- ts_rankcd_wttf: weights + tsvector + tsquery + method (full customization)
-- ts_rankcd_wtt: weights + tsvector + tsquery (custom weights, default method)
-- ts_rankcd_ttf: tsvector + tsquery + method (default weights, custom method)  
-- ts_rankcd_tt: tsvector + tsquery (this function - defaults for both)
+- [ts_rankcd_wttf](ts_rankcd_wttf.md): weights + tsvector + tsquery + method (full customization)
+- [ts_rankcd_wtt](ts_rankcd_wtt.md): weights + tsvector + tsquery (custom weights, default method)
+- [ts_rankcd_ttf](ts_rankcd_ttf.md): tsvector + tsquery + method (default weights, custom method)  
+- [ts_rankcd_tt](ts_rankcd_tt.md): tsvector + tsquery (this function - defaults for both)
 
 The function provides the fastest execution path among the variants since it avoids parameter processing overhead for weights and normalization method. It's particularly suitable for applications that need reliable, consistent ranking behavior across different queries without requiring fine-tuning of ranking parameters.

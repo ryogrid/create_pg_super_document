@@ -23,15 +23,15 @@ The function includes comprehensive comments about Valgrind behavior and memory 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer (core buffer manager locking function)
+  - [LockBuffer](../L/LockBuffer.md) (core buffer manager locking function)
   - RelationUsesLocalBuffers (checks if relation uses local buffer management)
   - VALGRIND_MAKE_MEM_DEFINED (makes buffer memory accessible to Valgrind)
 - Called from (representative examples):
-  - _bt_getbuf (after reading a buffer)
-  - _bt_relandgetbuf (when switching buffers)
-  - _bt_getroot (when accessing root page)
-  - _bt_search (during tree traversal)
-  - _bt_moveright (during rightward navigation)
+  - [_bt_getbuf](_bt_getbuf.md) (after reading a buffer)
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md) (when switching buffers)
+  - [_bt_getroot](_bt_getroot.md) (when accessing root page)
+  - [_bt_search](_bt_search.md) (during tree traversal)
+  - [_bt_moveright](_bt_moveright.md) (during rightward navigation)
 
 ## Notes and Other Information
 - Essential wrapper around LockBuffer() that enforces proper nbtree locking conventions

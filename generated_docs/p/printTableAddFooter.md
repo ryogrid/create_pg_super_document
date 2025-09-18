@@ -21,14 +21,14 @@ The design assumes that footers are typically composed of individually translate
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0 (PostgreSQL memory allocation)
-  - pg_strdup (PostgreSQL string duplication)
-  - printTableFooter (structure type)
+  - [pg_strdup](pg_strdup.md) (PostgreSQL string duplication)
+  - [printTableFooter](printTableFooter.md) (structure type)
 - Called from (representative examples):
-  - describeOneTableDetails (extensively used in describe.c)
-  - add_tablespace_footer (describe.c)
-  - addFooterToPublicationDesc (describe.c)
-  - printTableSetFooter (print.c)
-  - printQuery (print.c)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (extensively used in describe.c)
+  - [add_tablespace_footer](../a/add_tablespace_footer.md) (describe.c)
+  - [addFooterToPublicationDesc](../a/addFooterToPublicationDesc.md) (describe.c)
+  - [printTableSetFooter](printTableSetFooter.md) (print.c)
+  - [printQuery](printQuery.md) (print.c)
 
 ## Notes and Other Information
 - Footer strings are automatically duplicated, so the original string does not need to persist

@@ -18,7 +18,7 @@ This function serves as a simple wrapper around the text_format function. Its pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_format
+  - [text_format](text_format.md)
 - Called from:
   - No direct references found (likely referenced from PostgreSQL system catalogs)
 

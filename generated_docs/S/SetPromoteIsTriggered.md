@@ -19,10 +19,10 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease  
-  - SetRecoveryPause
+  - [SetRecoveryPause](SetRecoveryPause.md)
   - XLogRecoveryCtl (global variable)
 - Called from (representative examples):
-  - CheckForStandbyTrigger
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within the xlogrecovery.c file

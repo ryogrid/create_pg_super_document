@@ -28,18 +28,18 @@ The function automatically detects the appropriate conversion method based on th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `lc_ctype_is_c`: Check if collation uses C/POSIX locale
-  - `asc_tolower`: ASCII-only lowercase conversion
-  - `pg_newlocale_from_collation`: Get locale information from collation OID
-  - `icu_to_uchar`, `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
-  - `unicode_strlower`: Built-in Unicode lowercase conversion
-  - `char2wchar`, `wchar2char`: Wide character conversion functions
+  - `[lc_ctype_is_c](../l/lc_ctype_is_c.md)`: Check if collation uses C/POSIX locale
+  - `[asc_tolower](../a/asc_tolower.md)`: ASCII-only lowercase conversion
+  - `[pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)`: Get locale information from collation OID
+  - `[icu_to_uchar](../i/icu_to_uchar.md)`, `icu_convert_case`, `icu_from_uchar`: ICU conversion functions
+  - `[unicode_strlower](../u/unicode_strlower.md)`: Built-in Unicode lowercase conversion
+  - `[char2wchar](../c/char2wchar.md)`, `wchar2char`: Wide character conversion functions
   - `towlower_l`, `tolower_l`: Locale-aware case conversion
-  - `pg_tolower`: PostgreSQL's ASCII case conversion
+  - `[pg_tolower](../p/pg_tolower.md)`: PostgreSQL's ASCII case conversion
 - Called from (representative examples):
-  - `lower`: SQL LOWER() function implementation
-  - `seq_search_localized`: Localized pattern searching
-  - `str_tolower_z`: Null-terminated string wrapper
+  - `[lower](../l/lower.md)`: SQL LOWER() function implementation
+  - `[seq_search_localized](seq_search_localized.md)`: Localized pattern searching
+  - `[str_tolower_z](str_tolower_z.md)`: Null-terminated string wrapper
 
 ## Notes and Other Information
 - Returns a palloc'd, null-terminated string that must be freed by the caller

@@ -19,17 +19,17 @@ The function includes special handling for database objects during dump restorat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_oid: Validates database existence
-  - get_object_address: Resolves object specification to ObjectAddress
-  - check_object_ownership: Verifies user has permission to comment on object
-  - CreateComments: Adds comment to pg_description for regular objects
-  - CreateSharedComments: Adds comment to pg_shdescription for cluster-wide objects
-  - relation_close: Closes relation if opened during object resolution
-  - errdetail_relkind_not_supported: Provides error details for unsupported relation kinds
+  - [get_database_oid](../g/get_database_oid.md): Validates database existence
+  - [get_object_address](../g/get_object_address.md): Resolves object specification to ObjectAddress
+  - [check_object_ownership](../c/check_object_ownership.md): Verifies user has permission to comment on object
+  - [CreateComments](CreateComments.md): Adds comment to pg_description for regular objects
+  - [CreateSharedComments](CreateSharedComments.md): Adds comment to pg_shdescription for cluster-wide objects
+  - [relation_close](../r/relation_close.md): Closes relation if opened during object resolution
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md): Provides error details for unsupported relation kinds
 - Called from (representative examples):
-  - standard_ProcessUtility: Main utility command dispatcher
-  - ProcessUtilitySlow: Secondary utility command processor
-  - ATExecCmd: ALTER TABLE command execution
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md): Main utility command dispatcher
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Secondary utility command processor
+  - [ATExecCmd](../A/ATExecCmd.md): ALTER TABLE command execution
 
 ## Notes and Other Information
 - Special case handling for database comments during dump restoration prevents errors from old database names

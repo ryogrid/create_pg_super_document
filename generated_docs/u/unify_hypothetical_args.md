@@ -32,12 +32,12 @@ The function modifies the argument expressions in place and updates the actual a
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_nth_cell (accesses specific argument positions in the argument list)
-  - select_common_type (determines the best common type for argument pairs)
-  - select_common_typmod (determines the best common type modifier)
-  - coerce_type (performs the actual type coercion on arguments)
+  - [select_common_type](../s/select_common_type.md) (determines the best common type for argument pairs)
+  - [select_common_typmod](../s/select_common_typmod.md) (determines the best common type modifier)
+  - [coerce_type](../c/coerce_type.md) (performs the actual type coercion on arguments)
   - list_make2 (creates temporary lists for type selection)
 - Called from (representative examples):
-  - ParseFuncOrColumn (from parse_func.c:505)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (from parse_func.c:505)
 
 ## Notes and Other Information
 - Static function used internally within the parser

@@ -17,9 +17,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (PostgreSQL memory allocation function)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - SPI_register_relation
+  - [SPI_register_relation](../S/SPI_register_relation.md)
 
 ## Notes and Other Information
 - The function returns a pointer to the newly allocated QueryEnvironment

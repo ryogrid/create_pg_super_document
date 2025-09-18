@@ -19,15 +19,15 @@ The TmToChar structure is a composite data type used by PostgreSQL's formatting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmt_tm (embedded structure)
+  - [fmt_tm](../f/fmt_tm.md) (embedded structure)
   - fsec_t (fractional seconds type)
 - Called from (representative examples):
   - DCH_ZONED
-  - DCH_to_char
-  - datetime_to_char_body
-  - timestamp_to_char
-  - timestamptz_to_char
-  - interval_to_char
+  - [DCH_to_char](../D/DCH_to_char.md)
+  - [datetime_to_char_body](../d/datetime_to_char_body.md)
+  - [timestamp_to_char](../t/timestamp_to_char.md)
+  - [timestamptz_to_char](../t/timestamptz_to_char.md)
+  - [interval_to_char](../i/interval_to_char.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's datetime formatting functionality in src/backend/utils/adt/formatting.c. It provides a complete representation of temporal data that includes not only the standard datetime components but also fractional seconds for high precision and timezone information for localization. The structure is particularly important for formatting operations that need to preserve sub-second precision and timezone context. The tzn field points to timezone name strings, allowing formatted output to include human-readable timezone information.

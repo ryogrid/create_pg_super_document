@@ -22,19 +22,19 @@ The function searches the SUBSCRIPTIONOID system cache to retrieve the subscript
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_subscription
 - Called from (representative examples):
-  - getObjectDescription
-  - getObjectIdentityParts
-  - RemoveSubscriptionRel
+  - [getObjectDescription](getObjectDescription.md)
+  - [getObjectIdentityParts](getObjectIdentityParts.md)
+  - [RemoveSubscriptionRel](../R/RemoveSubscriptionRel.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that should be freed by the caller when no longer needed

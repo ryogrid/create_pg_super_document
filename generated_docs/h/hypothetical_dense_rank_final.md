@@ -29,13 +29,13 @@ The implementation differs significantly from the simpler percent_rank and cume_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext: Validates aggregate function call context
+  - [AggCheckCallContext](../A/AggCheckCallContext.md): Validates aggregate function call context
   - CreateStandaloneExprContext: Creates expression evaluation context
-  - hypothetical_check_argtypes: Validates argument types for hypothetical functions
+  - [hypothetical_check_argtypes](hypothetical_check_argtypes.md): Validates argument types for hypothetical functions
   - execTuplesMatchPrepare: Prepares tuple comparison expression
   - ExecClearTuple, ExecStoreVirtualTuple: Tuple slot manipulation functions
-  - tuplesort_puttupleslot, tuplesort_performsort, tuplesort_gettupleslot: Tuple sorting operations
-  - MakeSingleTupleTableSlot, ExecDropSingleTupleTableSlot: Tuple slot lifecycle management
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md), tuplesort_performsort, tuplesort_gettupleslot: Tuple sorting operations
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md), ExecDropSingleTupleTableSlot: Tuple slot lifecycle management
   - ExecQualAndReset: Execute tuple comparison and reset expression state
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's aggregate function dispatch mechanism)

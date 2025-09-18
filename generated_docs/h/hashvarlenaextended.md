@@ -19,9 +19,9 @@ The hashvarlenaextended function is the extended variant of hashvarlena that acc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena
+  - [varlena](../v/varlena.md)
   - PG_GETARG_VARLENA_PP
-  - hash_any_extended
+  - [hash_any_extended](hash_any_extended.md)
   - PG_GETARG_INT64
 
 - Called from (representative examples):

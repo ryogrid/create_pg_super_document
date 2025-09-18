@@ -23,10 +23,10 @@ The function delegates the cleanup to forget_invalid_pages(), passing the relati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - forget_invalid_pages
+  - [forget_invalid_pages](../f/forget_invalid_pages.md)
 
 - Called from (representative examples):
-  - smgr_redo
+  - [smgr_redo](../s/smgr_redo.md)
   - InHotStandby (referenced in header)
 
 ## Notes and Other Information

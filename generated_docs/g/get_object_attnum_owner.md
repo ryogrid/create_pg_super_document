@@ -21,16 +21,16 @@ The function integrates with the object property data system to maintain consist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
+  - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (struct)
 - Called from (representative examples):
-  - ExecGrant_common
-  - object_aclmask_ext
-  - object_ownercheck
-  - RemoveRoleFromInitPriv
-  - AlterObjectRename_internal
-  - AlterObjectNamespace_internal
-  - AlterObjectOwner_internal
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [object_aclmask_ext](../o/object_aclmask_ext.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [RemoveRoleFromInitPriv](../R/RemoveRoleFromInitPriv.md)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

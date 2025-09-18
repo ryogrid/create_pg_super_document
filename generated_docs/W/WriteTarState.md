@@ -20,10 +20,10 @@ The structure serves as a state holder for TAR-specific backup operations, maint
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (stream processing component)
+  - [bbstreamer](../b/bbstreamer.md) (stream processing component)
 - Called from (representative examples):
-  - ReceiveTarFile
-  - ReceiveTarCopyChunk
+  - [ReceiveTarFile](../R/ReceiveTarFile.md)
+  - [ReceiveTarCopyChunk](../R/ReceiveTarCopyChunk.md)
 
 ## Notes and Other Information
 - This structure is simpler than ArchiveStreamState, focusing specifically on TAR file operations

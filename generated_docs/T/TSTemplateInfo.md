@@ -29,8 +29,8 @@ TSTemplateInfo is part of pg_dump's internal representation of PostgreSQL databa
   - DumpableObject (base structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getTSTemplates (populates TSTemplateInfo structures from pg_ts_template catalog)
-  - dumpTSTemplate (uses TSTemplateInfo to generate CREATE TEXT SEARCH TEMPLATE statements)
+  - [getTSTemplates](../g/getTSTemplates.md) (populates TSTemplateInfo structures from pg_ts_template catalog)
+  - [dumpTSTemplate](../d/dumpTSTemplate.md) (uses TSTemplateInfo to generate CREATE TEXT SEARCH TEMPLATE statements)
   - fmtQualifiedDumpable (formats the template name for output)
 
 ## Notes and Other Information

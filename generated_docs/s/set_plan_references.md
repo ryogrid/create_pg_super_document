@@ -30,16 +30,16 @@ Additionally, the function performs a final optimization by removing unnecessary
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_rtes_to_flat_rtable
-  - set_plan_refs
+  - [add_rtes_to_flat_rtable](../a/add_rtes_to_flat_rtable.md)
+  - [set_plan_refs](set_plan_refs.md)
   - foreach_current_index
 - Types used:
   - PlannerGlobal
   - PlanRowMark
-  - AppendRelInfo
+  - [AppendRelInfo](../A/AppendRelInfo.md)
 - Called from (representative examples):
-  - standard_planner
-  - set_subqueryscan_references
+  - [standard_planner](standard_planner.md)
+  - [set_subqueryscan_references](set_subqueryscan_references.md)
 
 ## Notes and Other Information
 - Modifies Plan nodes in-place but uses expression_tree_mutator for targetlist and qual expressions

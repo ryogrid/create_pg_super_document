@@ -23,14 +23,14 @@ For each unprocessed object, the function calls findLoop() to detect cycles star
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getMaxDumpId
+  - [getMaxDumpId](../g/getMaxDumpId.md)
   - pg_malloc0
   - pg_malloc
-  - findLoop
-  - repairDependencyLoop
-  - pg_fatal
+  - [findLoop](findLoop.md)
+  - [repairDependencyLoop](../r/repairDependencyLoop.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - sortDumpableObjects
+  - [sortDumpableObjects](../s/sortDumpableObjects.md)
 
 ## Notes and Other Information
 - Uses efficient memoization in searchFailed[] array to avoid O(N^2) zeroing overhead

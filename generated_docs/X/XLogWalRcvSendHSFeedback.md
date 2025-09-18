@@ -24,21 +24,21 @@ The function respects timing intervals and only sends feedback when necessary, e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - WalRcvComputeNextWakeup
-  - HotStandbyActive
-  - GetReplicationHorizons
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [WalRcvComputeNextWakeup](../W/WalRcvComputeNextWakeup.md)
+  - [HotStandbyActive](../H/HotStandbyActive.md)
+  - [GetReplicationHorizons](../G/GetReplicationHorizons.md)
   - ReadNextFullTransactionId
   - XidFromFullTransactionId
   - EpochFromFullTransactionId
   - resetStringInfo
-  - pq_sendbyte
-  - pq_sendint64
-  - pq_sendint32
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
   - walrcv_send
 - Called from (representative examples):
-  - WalReceiverMain
-  - XLogWalRcvFlush
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [XLogWalRcvFlush](XLogWalRcvFlush.md)
 
 ## Notes and Other Information
 - The function maintains a static variable  to track whether the primary currently has xmin information from this standby

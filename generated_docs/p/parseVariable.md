@@ -25,8 +25,8 @@ This function is responsible for parsing variable references in pgbench SQL scri
   - pg_malloc
   - memcpy
 - Called from:
-  - assignVariables (src/bin/pgbench/pgbench.c:1947)
-  - parseQuery (src/bin/pgbench/pgbench.c:5467)
+  - [assignVariables](../a/assignVariables.md) (src/bin/pgbench/pgbench.c:1947)
+  - [parseQuery](parseQuery.md) (src/bin/pgbench/pgbench.c:5467)
 
 ## Notes and Other Information
 - Returns a malloc'd string containing the variable name on success, NULL if no valid variable found
@@ -34,4 +34,4 @@ This function is responsible for parsing variable references in pgbench SQL scri
 - Follows PostgreSQL identifier naming rules for variable validation
 - The caller is responsible for freeing the returned string
 - Used during SQL script parsing to identify and extract variable references for substitution
-- Variable names can contain high-bit characters for internationalization support
+- [Variable](../V/Variable.md) names can contain high-bit characters for internationalization support

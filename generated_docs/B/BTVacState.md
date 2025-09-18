@@ -298,22 +298,22 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexVacuumInfo (vacuum parameter structure)
-  - IndexBulkDeleteResult (vacuum statistics structure)
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md) (vacuum parameter structure)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (vacuum statistics structure)
   - IndexBulkDeleteCallback (function pointer type)
   - BTCycleId (cycle identifier type)
-  - MemoryContext (memory management)
-  - BTPendingFSM (pending FSM page structure)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
+  - [BTPendingFSM](BTPendingFSM.md) (pending FSM page structure)
 - Called from (representative examples):
-  - _bt_pagedel
-  - _bt_unlink_halfdead_page
-  - _bt_pendingfsm_init
-  - _bt_pendingfsm_finalize
-  - _bt_pendingfsm_add
-  - BTParallelScanDesc
-  - btvacuumscan
-  - btvacuumpage
-  - btreevacuumposting
+  - [_bt_pagedel](../b/_bt_pagedel.md)
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
+  - [_bt_pendingfsm_init](../b/_bt_pendingfsm_init.md)
+  - [_bt_pendingfsm_finalize](../b/_bt_pendingfsm_finalize.md)
+  - [_bt_pendingfsm_add](../b/_bt_pendingfsm_add.md)
+  - [BTParallelScanDesc](BTParallelScanDesc.md)
+  - [btvacuumscan](../b/btvacuumscan.md)
+  - [btvacuumpage](../b/btvacuumpage.md)
+  - [btreevacuumposting](../b/btreevacuumposting.md)
 
 ## Notes and Other Information
 - This structure is private to nbtree.c but exported for use by page deletion code in nbtpage.c

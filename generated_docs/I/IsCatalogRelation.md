@@ -21,14 +21,14 @@ The function serves as a wrapper around IsCatalogRelationOid, extracting the rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsCatalogRelationOid
+  - [IsCatalogRelationOid](IsCatalogRelationOid.md)
   - RelationGetRelid (macro to extract OID from relation)
 - Called from (representative examples):
-  - heap_multi_insert
+  - [heap_multi_insert](../h/heap_multi_insert.md)
   - index_create
-  - check_publication_add_relation
-  - needs_toast_table
-  - CacheInvalidateHeapTuple
+  - [check_publication_add_relation](../c/check_publication_add_relation.md)
+  - [needs_toast_table](../n/needs_toast_table.md)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
 
 ## Notes and Other Information
 - Only identifies relations created during the bootstrap phase of initdb

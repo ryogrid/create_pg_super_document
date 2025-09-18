@@ -19,26 +19,26 @@ This function sets up shared iteration infrastructure for parallel bitmap scans 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TBMSharedIteratorState (structure type)
-  - PTEntryArray (structure type)
-  - PTIterationArray (structure type)
+  - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md) (structure type)
+  - [PTEntryArray](../P/PTEntryArray.md) (structure type)
+  - [PTIterationArray](../P/PTIterationArray.md) (structure type)
   - TBM_ITERATING_PRIVATE (constant)
   - dsa_allocate0 (function)
-  - dsa_get_address (function)
+  - [dsa_get_address](../d/dsa_get_address.md) (function)
   - TBM_NOT_ITERATING (constant)
-  - PagetableEntry (structure type)
+  - [PagetableEntry](../P/PagetableEntry.md) (structure type)
   - dsa_allocate (function)
-  - pg_atomic_init_u32 (function)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md) (function)
   - TBM_HASH (constant)
   - TBM_ONE_PAGE (constant)
   - qsort_arg (function)
-  - tbm_shared_comparator (function)
-  - pg_atomic_add_fetch_u32 (function)
+  - [tbm_shared_comparator](tbm_shared_comparator.md) (function)
+  - [pg_atomic_add_fetch_u32](../p/pg_atomic_add_fetch_u32.md) (function)
   - LWLockInitialize (function)
   - LWTRANCHE_SHARED_TIDBITMAP (constant)
   - TBM_ITERATING_SHARED (constant)
 - Called from (representative examples):
-  - BitmapHeapNext (src/backend/executor/nodeBitmapHeapscan.c:148, 153)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (src/backend/executor/nodeBitmapHeapscan.c:148, 153)
 
 ## Notes and Other Information
 - Returns a dsa_pointer that can be shared across processes for parallel iteration

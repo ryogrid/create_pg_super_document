@@ -35,10 +35,10 @@ The function is essential for SQL parsing operations where comments and whitespa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmblenBounded (for multibyte character length calculation)
+  - [PQmblenBounded](../P/PQmblenBounded.md) (for multibyte character length calculation)
   - isspace (standard C library function)
 - Called from (representative examples):
-  - command_no_begin (multiple calls for SQL parsing)
+  - [command_no_begin](../c/command_no_begin.md) (multiple calls for SQL parsing)
 
 ## Notes and Other Information
 - Returns pointer to first non-whitespace, non-comment character in the query

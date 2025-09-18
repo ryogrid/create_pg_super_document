@@ -24,7 +24,7 @@ This static function registers a directed edge from city1 to city2 in the input 
   - Gene (genetic algorithm gene data type)  
   - abs (absolute value function for checking shared edges)
 - Called from (representative examples):
-  - gimme_edge_table (called multiple times to build complete edge table)
+  - [gimme_edge_table](gimme_edge_table.md) (called multiple times to build complete edge table)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to the geqo_erx.c file

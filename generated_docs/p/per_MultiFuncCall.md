@@ -26,7 +26,7 @@ This function is typically called on every invocation of a set-returning functio
 - Functions called/Symbols referenced:
   - (None - this is a simple accessor function)
 - Types referenced:
-  - FuncCallContext
+  - [FuncCallContext](../F/FuncCallContext.md)
 - Called from (representative examples):
   - SRF_PERCALL_SETUP (macro)
   - Various set-returning functions during their per-call processing

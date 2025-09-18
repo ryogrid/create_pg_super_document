@@ -21,9 +21,9 @@ The function uses safe pointer-to-integer conversion through intptr_t to handle 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_s32 (PostgreSQL's signed 32-bit integer comparison function)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's signed 32-bit integer comparison function)
 - Called from (representative examples):
-  - TopoSort
+  - [TopoSort](../T/TopoSort.md)
   - Binary heap operations in dependency sorting
 
 ## Notes and Other Information

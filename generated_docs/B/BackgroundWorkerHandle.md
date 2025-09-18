@@ -24,19 +24,19 @@ This design prevents race conditions where a slot might be recycled and reused f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorkerArray (implicitly through slot indexing)
-  - ParallelWorkerMain
-  - ApplyLauncherMain
-  - ApplyWorkerMain
-  - ParallelApplyWorkerMain
-  - TablesyncWorkerMain
-  - LookupBackgroundWorkerFunction
+  - [BackgroundWorkerArray](BackgroundWorkerArray.md) (implicitly through slot indexing)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md)
+  - [ApplyWorkerMain](../A/ApplyWorkerMain.md)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
+  - [TablesyncWorkerMain](../T/TablesyncWorkerMain.md)
+  - [LookupBackgroundWorkerFunction](../L/LookupBackgroundWorkerFunction.md)
 - Called from (representative examples):
-  - RegisterDynamicBackgroundWorker
-  - GetBackgroundWorkerPid
-  - WaitForBackgroundWorkerStartup
-  - WaitForBackgroundWorkerShutdown
-  - TerminateBackgroundWorker
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md)
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [WaitForBackgroundWorkerStartup](../W/WaitForBackgroundWorkerStartup.md)
+  - [WaitForBackgroundWorkerShutdown](../W/WaitForBackgroundWorkerShutdown.md)
+  - [TerminateBackgroundWorker](../T/TerminateBackgroundWorker.md)
   - logicalrep_worker_launch
 
 ## Notes and Other Information

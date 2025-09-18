@@ -32,14 +32,14 @@ The function is designed to be resilient, ignoring write errors since there's no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_message_to_UTF16 (Windows: PostgreSQL UTF-16 conversion utility)
+  - [pgwin32_message_to_UTF16](../p/pgwin32_message_to_UTF16.md) (Windows: PostgreSQL UTF-16 conversion utility)
   - GetStdHandle, WriteConsoleW (Windows: Windows API console functions)
   - write, fileno (POSIX: standard I/O functions)
-  - in_error_recursion_trouble (PostgreSQL error handling)
-  - pfree (PostgreSQL memory management)
+  - [in_error_recursion_trouble](../i/in_error_recursion_trouble.md) (PostgreSQL error handling)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management)
 - Called from (representative examples):
-  - send_message_to_server_log
-  - write_stderr
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
+  - [write_stderr](write_stderr.md)
 
 ## Notes and Other Information
 - Cross-platform function with conditional compilation (#ifdef WIN32)

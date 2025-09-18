@@ -22,19 +22,19 @@ Result nodes are commonly used in various optimization scenarios, including gati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
-  - Node
+  - [Plan](../P/Plan.md) (base structure)
+  - [Node](../N/Node.md)
 
 - Called from (representative examples):
-  - make_result (optimizer/plan/createplan.c:6993)
-  - create_gating_plan (optimizer/plan/createplan.c:1038,1040)
-  - create_group_result_plan (optimizer/plan/createplan.c:1590)
-  - create_resultscan_plan (optimizer/plan/createplan.c:4028)
-  - ExecInitResult (executor/nodeResult.c:180)
-  - make_limit (optimizer/plan/createplan.c:6988)
+  - [make_result](../m/make_result.md) (optimizer/plan/createplan.c:6993)
+  - [create_gating_plan](../c/create_gating_plan.md) (optimizer/plan/createplan.c:1038,1040)
+  - [create_group_result_plan](../c/create_group_result_plan.md) (optimizer/plan/createplan.c:1590)
+  - [create_resultscan_plan](../c/create_resultscan_plan.md) (optimizer/plan/createplan.c:4028)
+  - [ExecInitResult](../E/ExecInitResult.md) (executor/nodeResult.c:180)
+  - [make_limit](../m/make_limit.md) (optimizer/plan/createplan.c:6988)
 
 ## Notes and Other Information
-- Result nodes are versatile and appear in many different query execution scenarios
+- [Result](Result.md) nodes are versatile and appear in many different query execution scenarios
 - When resconstantqual evaluates to false, the Result node can terminate execution early
 - Commonly used as a wrapper for constant expressions and scalar subqueries
 - Can serve as a projection layer when complex expressions need to be evaluated on incoming tuples

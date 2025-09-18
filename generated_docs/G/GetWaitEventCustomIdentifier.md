@@ -18,7 +18,7 @@ This static function retrieves the human-readable name string for a custom wait 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - LWLockRelease
   - elog
 - Data structures used:
@@ -30,7 +30,7 @@ This static function retrieves the human-readable name string for a custom wait 
   - LW_SHARED
   - HASH_FIND
 - Called from (representative examples):
-  - pgstat_get_wait_event
+  - [pgstat_get_wait_event](../p/pgstat_get_wait_event.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the wait_event.c file

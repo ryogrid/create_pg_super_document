@@ -22,20 +22,20 @@ The function first checks if the lock already exists or is covered by a coarser 
   - PredicateLockExists
   - CoarserLockCovers
   - PredicateLockTargetTagHashCode
-  - hash_search_with_hash_value
-  - CreatePredicateLock
-  - CheckAndPromotePredicateLockRequest
-  - DeleteChildTargetLocks
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [CreatePredicateLock](../C/CreatePredicateLock.md)
+  - [CheckAndPromotePredicateLockRequest](../C/CheckAndPromotePredicateLockRequest.md)
+  - [DeleteChildTargetLocks](../D/DeleteChildTargetLocks.md)
   - GET_PREDICATELOCKTARGETTAG_TYPE
   - LOCALPREDICATELOCK (struct)
   - PREDLOCKTAG_TUPLE (constant)
   - MySerializableXact (global variable)
 - Called from (representative examples):
-  - PredicateLockRelation
-  - PredicateLockPage
-  - PredicateLockTID
-  - CheckAndPromotePredicateLockRequest
-  - SerialControl
+  - [PredicateLockRelation](PredicateLockRelation.md)
+  - [PredicateLockPage](PredicateLockPage.md)
+  - [PredicateLockTID](PredicateLockTID.md)
+  - [CheckAndPromotePredicateLockRequest](../C/CheckAndPromotePredicateLockRequest.md)
+  - [SerialControl](../S/SerialControl.md)
 
 ## Notes and Other Information
 - Central function in PostgreSQL's predicate locking mechanism for serializable transactions

@@ -19,9 +19,9 @@ This function provides a fallback implementation for testing an atomic flag's st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_flag (structure type)
+  - [pg_atomic_flag](pg_atomic_flag.md) (structure type)
 - Called from (representative examples):
-  - pg_atomic_unlocked_test_flag (macro/inline wrapper)
+  - [pg_atomic_unlocked_test_flag](pg_atomic_unlocked_test_flag.md) (macro/inline wrapper)
   - Optimistic synchronization code and spin-wait loops
 
 ## Notes and Other Information

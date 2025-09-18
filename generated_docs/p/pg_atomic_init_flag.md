@@ -19,12 +19,12 @@ The function explicitly provides no memory barrier semantics, meaning it does no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_init_flag_impl
+  - [pg_atomic_init_flag_impl](pg_atomic_init_flag_impl.md)
 - Structures referenced:
-  - pg_atomic_flag
+  - [pg_atomic_flag](pg_atomic_flag.md)
 - Called from (representative examples):
-  - AutoVacuumShmemInit (src/backend/postmaster/autovacuum.c:3350)
-  - test_atomic_flag (src/test/regress/regress.c:716)
+  - [AutoVacuumShmemInit](../A/AutoVacuumShmemInit.md) (src/backend/postmaster/autovacuum.c:3350)
+  - [test_atomic_flag](../t/test_atomic_flag.md) (src/test/regress/regress.c:716)
 
 ## Notes and Other Information
 - This function is implemented as a static inline function in the header file for performance optimization

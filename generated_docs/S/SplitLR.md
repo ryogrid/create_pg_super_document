@@ -21,8 +21,8 @@ SplitLR is a simple enumeration used in the PostgreSQL GiST (Generalized Search 
   - (none - this is a simple enum)
 - Called from (representative examples):
   - rangeCopy
-  - range_gist_picksplit
-  - range_gist_class_split
+  - [range_gist_picksplit](../r/range_gist_picksplit.md)
+  - [range_gist_class_split](../r/range_gist_class_split.md)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/rangetypes_gist.c:64-66

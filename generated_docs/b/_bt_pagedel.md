@@ -27,19 +27,19 @@ The algorithm maintains strict safety checks to prevent deletion of rightmost pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber (gets block number for tracking)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number for tracking)
   - BTPageGetOpaque (accesses B-tree page metadata)
   - P_ISLEAF, P_ISDELETED, P_ISHALFDEAD (page state checks)
   - P_RIGHTMOST, P_ISROOT, P_INCOMPLETE_SPLIT (safety checks)
-  - _bt_leftsib_splitflag (checks for incomplete split conditions)
-  - CopyIndexTuple (creates copy of high key for search)
-  - _bt_mkscankey (creates insertion scan key)
-  - _bt_search (finds parent page location)
-  - _bt_mark_page_halfdead (first phase: marks page and removes downlinks)
-  - _bt_unlink_halfdead_page (second phase: unlinks pages from siblings)
-  - _bt_getbuf, _bt_relbuf, _bt_lockbuf, _bt_unlockbuf (buffer management)
+  - [_bt_leftsib_splitflag](_bt_leftsib_splitflag.md) (checks for incomplete split conditions)
+  - [CopyIndexTuple](../C/CopyIndexTuple.md) (creates copy of high key for search)
+  - [_bt_mkscankey](_bt_mkscankey.md) (creates insertion scan key)
+  - [_bt_search](_bt_search.md) (finds parent page location)
+  - [_bt_mark_page_halfdead](_bt_mark_page_halfdead.md) (first phase: marks page and removes downlinks)
+  - [_bt_unlink_halfdead_page](_bt_unlink_halfdead_page.md) (second phase: unlinks pages from siblings)
+  - [_bt_getbuf](_bt_getbuf.md), _bt_relbuf, _bt_lockbuf, _bt_unlockbuf (buffer management)
 - Called from:
-  - btvacuumpage (main VACUUM page processing loop)
+  - [btvacuumpage](btvacuumpage.md) (main VACUUM page processing loop)
 
 ## Notes and Other Information
 - Implements complete page deletion with two distinct phases for crash recovery

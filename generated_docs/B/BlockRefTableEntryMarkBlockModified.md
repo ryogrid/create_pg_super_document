@@ -21,9 +21,9 @@ The function handles dynamic allocation and reallocation of chunk arrays when ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - repalloc
-  - pfree
+  - [palloc0](../p/palloc0.md)
+  - [repalloc](../r/repalloc.md)
+  - [pfree](../p/pfree.md)
   - Max
   - Assert
 - Called from (representative examples):

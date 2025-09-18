@@ -34,9 +34,9 @@ Each worker instance uses a unique schema name (schema1, schema2, etc.) and a co
 - Functions called/Symbols referenced:
   - No direct symbol references (struct definition only)
 - Called from (representative examples):
-  - `initialize_worker_spi` at src/test/modules/worker_spi/worker_spi.c:73
-  - `worker_spi_main` at src/test/modules/worker_spi/worker_spi.c:141
-  - `worker_spi_main` at src/test/modules/worker_spi/worker_spi.c:149
+  - `[initialize_worker_spi](../i/initialize_worker_spi.md)` at src/test/modules/worker_spi/worker_spi.c:73
+  - `[worker_spi_main](worker_spi_main.md)` at src/test/modules/worker_spi/worker_spi.c:141
+  - `[worker_spi_main](worker_spi_main.md)` at src/test/modules/worker_spi/worker_spi.c:149
 
 ## Notes and Other Information
 - This struct is part of the PostgreSQL test infrastructure, specifically designed to demonstrate background worker functionality

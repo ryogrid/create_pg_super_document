@@ -31,15 +31,15 @@ The conversion process involves:
   - PySequence_Length (Python API length retrieval)
   - PySequence_GetItem (Python API element access)
   - TupleDescAttr (tuple descriptor attribute access)
-  - palloc (PostgreSQL memory allocation)
-  - heap_form_tuple (creates HeapTuple from arrays)
-  - heap_copy_tuple_as_datum (converts HeapTuple to Datum)
-  - heap_freetuple (frees HeapTuple memory)
-  - pfree (PostgreSQL memory deallocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates HeapTuple from arrays)
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md) (converts HeapTuple to Datum)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees HeapTuple memory)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - PG_TRY/PG_CATCH/PG_RE_THROW/PG_END_TRY (exception handling)
   - Py_XDECREF (Python reference counting)
 - Called from (representative examples):
-  - PLyObject_ToComposite (src/pl/plpython/plpy_typeio.c:1004)
+  - [PLyObject_ToComposite](PLyObject_ToComposite.md) (src/pl/plpython/plpy_typeio.c:1004)
 
 ## Notes and Other Information
 - Validates input with PySequence_Check assertion to ensure proper type handling

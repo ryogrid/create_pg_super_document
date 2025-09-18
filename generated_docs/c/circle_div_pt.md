@@ -22,11 +22,11 @@ The `circle_div_pt` function performs the inverse geometric transformation of `c
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P
   - PG_GETARG_POINT_P
-  - point_div_point
-  - float8_div
+  - [point_div_point](../p/point_div_point.md)
+  - [float8_div](../f/float8_div.md)
   - HYPOT
   - PG_RETURN_CIRCLE_P
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

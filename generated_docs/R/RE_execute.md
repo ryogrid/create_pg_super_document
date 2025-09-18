@@ -25,13 +25,13 @@ The function manages memory allocation for the character conversion process, ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mb2wchar_with_len (character encoding conversion)
-  - RE_wchar_execute (core wide-character regex execution)
-  - palloc, pfree (memory management)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (character encoding conversion)
+  - [RE_wchar_execute](RE_wchar_execute.md) (core wide-character regex execution)
+  - [palloc](../p/palloc.md), pfree (memory management)
   - regex_t, regmatch_t (data structures)
 - Called from (representative examples):
-  - RE_compile_and_execute
-  - textregexsubstr
+  - [RE_compile_and_execute](RE_compile_and_execute.md)
+  - [textregexsubstr](../t/textregexsubstr.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within regexp.c

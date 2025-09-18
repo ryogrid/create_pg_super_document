@@ -25,7 +25,7 @@ The cleanup process includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - (No direct callers found - likely called via external stemming interface)
 

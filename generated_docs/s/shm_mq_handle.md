@@ -37,17 +37,17 @@ The handle optimizes performance by batching shared memory updates (writing data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq
+  - [shm_mq](shm_mq.md)
   - dsm_segment
-  - BackgroundWorkerHandle
-  - MemoryContext
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md)
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):
-  - shm_mq_attach
-  - shm_mq_send
-  - shm_mq_receive
-  - CreateTupleQueueDestReceiver
-  - CreateTupleQueueReader
-  - ExecParallelSetupTupleQueues
+  - [shm_mq_attach](shm_mq_attach.md)
+  - [shm_mq_send](shm_mq_send.md)
+  - [shm_mq_receive](shm_mq_receive.md)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md)
+  - [CreateTupleQueueReader](../C/CreateTupleQueueReader.md)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md)
 
 ## Notes and Other Information
 - Optimizes performance through batched shared memory updates to minimize cache misses

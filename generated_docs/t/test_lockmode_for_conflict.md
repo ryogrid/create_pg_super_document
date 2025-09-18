@@ -34,17 +34,17 @@ The "hypothetical" nature of the status parameter allows the function to work un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_mxact_status_for_lock
-  - TransactionIdIsCurrentTransactionId
+  - [get_mxact_status_for_lock](../g/get_mxact_status_for_lock.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidAbort
-  - TransactionIdDidCommit
-  - DoLockModesConflict
+  - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [DoLockModesConflict](../D/DoLockModesConflict.md)
   - LOCKMODE_from_mxstatus
   - ISUPDATE_from_mxstatus
-  - ItemPointerEquals
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
 - Called from (representative examples):
-  - heap_lock_updated_tuple_rec
+  - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam.c, specifically designed for tuple locking logic

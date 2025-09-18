@@ -24,11 +24,11 @@ The function iterates through a list of sublists containing Query nodes, examini
   - lfirst_node (macro for safe list traversal)
   - IsA (macro for type checking)
   - ereport (error reporting mechanism)
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - fmgr_sql_validator (during function validation)
-  - init_sql_fcache (during function cache initialization)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md) (during function validation)
+  - [init_sql_fcache](../i/init_sql_fcache.md) (during function cache initialization)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's SQL function validation infrastructure

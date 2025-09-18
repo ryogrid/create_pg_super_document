@@ -29,7 +29,7 @@ The newly created step is added to the context's steps list and returned for use
   - makeNode (for PartitionPruneStepCombine allocation)
   - lappend (to add step to context->steps list)
 - Called from (representative examples):
-  - gen_partprune_steps_internal (partprune.c:1081, 1098, 1297)
+  - [gen_partprune_steps_internal](gen_partprune_steps_internal.md) (partprune.c:1081, 1098, 1297)
 
 ## Notes and Other Information
 - Assigns unique step IDs using context->next_step_id++ for proper step sequencing

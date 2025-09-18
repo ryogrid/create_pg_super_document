@@ -21,12 +21,12 @@ The function navigates up the planner hierarchy to find the appropriate query le
 ## Dependencies
 - Functions called/Symbols referenced:
   - PlannerParamItem (structure creation)
-  - bms_equal (bitmap set equality comparison)
+  - [bms_equal](../b/bms_equal.md) (bitmap set equality comparison)
   - copyObject (deep copy of the Var node)
   - makeNode (node creation)
   - lappend_oid (append OID to list)
 - Called from (representative examples):
-  - replace_outer_var
+  - [replace_outer_var](../r/replace_outer_var.md)
 
 ## Notes and Other Information
 - The function performs a comparison that matches _equalVar() except for ignoring varlevelsup

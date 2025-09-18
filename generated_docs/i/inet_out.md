@@ -20,7 +20,7 @@ This function serves as the standard output conversion function for PostgreSQL's
 - Functions called/Symbols referenced:
   - inet (data type)
   - PG_GETARG_INET_PP (extract inet argument)
-  - network_out (common formatting function)
+  - [network_out](../n/network_out.md) (common formatting function)
   - PG_RETURN_CSTRING (return C-string value)
 - Called from (representative examples):
   - No direct references found in the current analysis

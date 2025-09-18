@@ -27,12 +27,12 @@ This function ensures that 'e' endings are only removed when they follow consona
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1: Validates that the current position is within the R1 region
-  - out_grouping_b: Checks if character is NOT in specified vowel group
-  - slice_del: Removes character sequence from the word
-  - r_undouble: Removes doubled consonants after suffix removal
+  - [r_R1](r_R1.md): Validates that the current position is within the R1 region
+  - [out_grouping_b](../o/out_grouping_b.md): Checks if character is NOT in specified vowel group
+  - [slice_del](../s/slice_del.md): Removes character sequence from the word
+  - [r_undouble](r_undouble.md): Removes doubled consonants after suffix removal
 - Called from (representative examples):
-  - r_standard_suffix: Dutch standard suffix processing (multiple locations)
+  - [r_standard_suffix](r_standard_suffix.md): Dutch standard suffix processing (multiple locations)
 
 ## Notes and Other Information
 - The function uses z->I[2] as a state flag to track successful e-ending removal for downstream processing

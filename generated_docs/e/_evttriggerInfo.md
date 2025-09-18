@@ -28,9 +28,9 @@ Event triggers operate at the database level and can intercept and respond to sc
   - DumpableObject (base structure)
   
 - Called from (representative examples):
-  - getEventTriggers() (creates EventTriggerInfo objects by querying pg_event_trigger system catalog)
-  - dumpEventTrigger() (generates CREATE EVENT TRIGGER SQL statements during dump)
-  - selectDumpableObject() (determines if object should be dumped)
+  - [getEventTriggers](../g/getEventTriggers.md)() (creates EventTriggerInfo objects by querying pg_event_trigger system catalog)
+  - [dumpEventTrigger](../d/dumpEventTrigger.md)() (generates CREATE EVENT TRIGGER SQL statements during dump)
+  - [selectDumpableObject](../s/selectDumpableObject.md)() (determines if object should be dumped)
 
 ## Notes and Other Information
 - Event triggers were introduced in PostgreSQL 9.3, so this structure is only used when dumping from servers with version 90300 or higher

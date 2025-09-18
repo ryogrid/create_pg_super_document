@@ -27,7 +27,7 @@ The conversion is performed using PostgreSQL's internal LocalToUtf utility funct
   - PG_GETARG_INT32 (macro for extracting integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validates encoding conversion arguments)
-  - LocalToUtf (core conversion function from local encoding to UTF-8)
+  - [LocalToUtf](../L/LocalToUtf.md) (core conversion function from local encoding to UTF-8)
   - PG_RETURN_INT32 (macro for returning integer result)
   - uhc_to_unicode_tree (mapping tree for UHC to Unicode conversion)
 - Called from (representative examples):

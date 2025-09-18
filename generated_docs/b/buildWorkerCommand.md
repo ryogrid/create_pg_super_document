@@ -26,10 +26,10 @@ buildWorkerCommand constructs text-based command messages that the leader proces
   - ACT_RESTORE (restore action constant)
   - Assert (error checking for invalid actions)
 - Called from (representative examples):
-  - DispatchJobForTocEntry (src/bin/pg_dump/parallel.c:1220)
+  - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md) (src/bin/pg_dump/parallel.c:1220)
 
 ## Notes and Other Information
-- Command format is "DUMP <dumpId>" for dump operations and "RESTORE <dumpId>" for restore operations
+- [Command](../C/Command.md) format is "DUMP <dumpId>" for dump operations and "RESTORE <dumpId>" for restore operations
 - Uses snprintf for safe string formatting with buffer bounds checking
 - Function is currently format-agnostic but designed to allow format-specific overrides in the future
 - Static function scope limits visibility to the parallel.c module

@@ -19,18 +19,18 @@ This function performs the initialization of a fresh TupleHashEntry that has jus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_agg_check_limits
-  - MemoryContextAlloc
-  - initialize_aggregate
-  - AggState
-  - TupleHashTable
-  - TupleHashEntry
-  - AggStatePerGroup
+  - [hash_agg_check_limits](../h/hash_agg_check_limits.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [initialize_aggregate](initialize_aggregate.md)
+  - [AggState](../A/AggState.md)
+  - [TupleHashTable](../T/TupleHashTable.md)
+  - [TupleHashEntry](../T/TupleHashEntry.md)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md)
   - AggStatePerGroupData
-  - AggStatePerTrans
+  - [AggStatePerTrans](../A/AggStatePerTrans.md)
 - Called from (representative examples):
-  - lookup_hash_entries
-  - agg_refill_hash_table
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - Increments hash_ngroups_current to track the total number of groups currently in the hash table

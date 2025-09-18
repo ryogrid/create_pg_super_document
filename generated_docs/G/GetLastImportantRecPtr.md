@@ -25,10 +25,10 @@ The function operates by iterating through all NUM_XLOGINSERT_LOCKS WAL insertio
   - LWLockRelease
   - WALInsertLocks (array of insertion lock structures)
 - Called from (representative examples):
-  - CreateCheckPoint
-  - BackgroundWriterMain
-  - CheckArchiveTimeout
-  - WALAvailability
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckArchiveTimeout](../C/CheckArchiveTimeout.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - Used for checkpoint scheduling and background writer coordination

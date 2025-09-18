@@ -19,9 +19,9 @@ This simple utility function is used within the psql client to build formatted l
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQExpBuffer (PostgreSQL's expandable string buffer)
-  - appendPQExpBufferStr (PostgreSQL's buffer append function)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md) (PostgreSQL's buffer append function)
 - Called from (representative examples):
-  - describeRoles (called 7 times within this function at lines 3684, 3687, 3690, 3693, 3696, 3699, 3703)
+  - [describeRoles](../d/describeRoles.md) (called 7 times within this function at lines 3684, 3687, 3690, 3693, 3696, 3699, 3703)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (describe.c)

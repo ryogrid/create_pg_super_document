@@ -32,7 +32,7 @@ This is used extensively during RTE_RESULT optimization to identify candidates f
   - RTE_RESULT (constant for relation type comparison)
 
 - Called from (representative examples):
-  - remove_useless_results_recurse (5 different locations for various join optimization scenarios)
+  - [remove_useless_results_recurse](../r/remove_useless_results_recurse.md) (5 different locations for various join optimization scenarios)
 
 ## Notes and Other Information
 - This is a static function, only accessible within prepjointree.c

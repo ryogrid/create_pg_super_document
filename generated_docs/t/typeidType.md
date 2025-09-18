@@ -23,13 +23,13 @@ The function uses the system cache for efficient lookup and will raise an ERROR 
 - Functions called/Symbols referenced:
   - Type (return type)
   - HeapTuple
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
 - Called from (representative examples):
-  - coerce_type
-  - find_typmod_coercion_function
+  - [coerce_type](../c/coerce_type.md)
+  - [find_typmod_coercion_function](../f/find_typmod_coercion_function.md)
 
 ## Notes and Other Information
 - **Important**: The caller MUST call ReleaseSysCache() on the returned tuple when finished to avoid memory leaks

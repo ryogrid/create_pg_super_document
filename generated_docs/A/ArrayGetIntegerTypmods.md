@@ -28,17 +28,17 @@ This is commonly used by various data types' typmod input functions to process c
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE
   - ARR_NDIM
-  - array_contains_nulls
-  - deconstruct_array_builtin
-  - pg_strtoint32
-  - DatumGetCString
+  - [array_contains_nulls](../a/array_contains_nulls.md)
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [pg_strtoint32](../p/pg_strtoint32.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
 - Called from (representative examples):
-  - anytime_typmodin
-  - numerictypmodin
-  - anytimestamp_typmodin
-  - intervaltypmodin
-  - anybit_typmodin
-  - anychar_typmodin
+  - [anytime_typmodin](../a/anytime_typmodin.md)
+  - [numerictypmodin](../n/numerictypmodin.md)
+  - [anytimestamp_typmodin](../a/anytimestamp_typmodin.md)
+  - [intervaltypmodin](../i/intervaltypmodin.md)
+  - [anybit_typmodin](../a/anybit_typmodin.md)
+  - [anychar_typmodin](../a/anychar_typmodin.md)
 
 ## Notes and Other Information
 - Returns a palloc'd array that must be freed by the caller

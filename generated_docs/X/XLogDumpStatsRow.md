@@ -28,7 +28,7 @@ XLogDumpStatsRow formats and prints a single statistical row showing record coun
   - printf (standard C library function)
   - INT64_MODIFIER (PostgreSQL macro for platform-specific 64-bit integer formatting)
 - Called from (representative examples):
-  - XLogDumpDisplayStats
+  - [XLogDumpDisplayStats](XLogDumpDisplayStats.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_waldump.c file

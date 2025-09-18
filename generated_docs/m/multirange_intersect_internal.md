@@ -24,15 +24,15 @@ The function handles edge cases such as empty multiranges and optimizes memory a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_multirange
-  - range_before_internal
-  - range_overlaps_internal  
-  - range_intersect_internal
-  - range_overleft_internal
-  - palloc0
+  - [make_multirange](make_multirange.md)
+  - [range_before_internal](../r/range_before_internal.md)
+  - [range_overlaps_internal](../r/range_overlaps_internal.md)  
+  - [range_intersect_internal](../r/range_intersect_internal.md)
+  - [range_overleft_internal](../r/range_overleft_internal.md)
+  - [palloc0](../p/palloc0.md)
 - Called from:
-  - multirange_intersect
-  - multirange_intersect_agg_transfn
+  - [multirange_intersect](multirange_intersect.md)
+  - [multirange_intersect_agg_transfn](multirange_intersect_agg_transfn.md)
 
 ## Notes and Other Information
 - Uses a parallel iteration algorithm similar to merge sort for efficiency

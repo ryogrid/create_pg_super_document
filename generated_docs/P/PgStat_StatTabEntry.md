@@ -74,11 +74,11 @@ This structure serves as the central repository for table-level statistics in Po
   - PgStat_Counter (used for all counter fields)
   - TimestampTz (used for timestamp fields)
 - Called from (representative examples):
-  - do_autovacuum
+  - [do_autovacuum](../d/do_autovacuum.md)
   - pgstat_copy_relation_stats
   - pgstat_report_vacuum
   - pgstat_report_analyze
-  - pgstat_fetch_stat_tabentry
+  - [pgstat_fetch_stat_tabentry](../p/pgstat_fetch_stat_tabentry.md)
   - PG_STAT_GET_RELENTRY_INT64
   - PG_STAT_GET_RELENTRY_TIMESTAMPTZ
 

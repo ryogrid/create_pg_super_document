@@ -23,12 +23,12 @@ When either xmin value changes, the function marks the slot as dirty for eventua
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal (transaction ID validation)
-  - TransactionIdPrecedes (transaction ID comparison)
-  - ReplicationSlot (accessed via MyReplicationSlot global)
-  - ReplicationSlotMarkDirty (slot persistence)
-  - ReplicationSlotsComputeRequiredXmin (global xmin computation)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (transaction ID comparison)
+  - [ReplicationSlot](../R/ReplicationSlot.md) (accessed via MyReplicationSlot global)
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md) (slot persistence)
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md) (global xmin computation)
 - Called from (representative examples):
-  - ProcessStandbyHSFeedbackMessage
+  - [ProcessStandbyHSFeedbackMessage](ProcessStandbyHSFeedbackMessage.md)
 
 ## Notes and Other Information
 - Uses spinlocks for thread-safe access to replication slot data

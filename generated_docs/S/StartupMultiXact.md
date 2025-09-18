@@ -26,9 +26,9 @@ This function takes no parameters and operates on global MultiXact state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdToOffsetPage
-  - MXOffsetToMemberPage
-  - pg_atomic_write_u64
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
+  - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
 - Global variables accessed:
   - MultiXactState
   - MultiXactOffsetCtl
@@ -37,7 +37,7 @@ This function takes no parameters and operates on global MultiXact state.
   - MultiXactId
   - MultiXactOffset
 - Called from:
-  - StartupXLOG
+  - [StartupXLOG](StartupXLOG.md)
 
 ## Notes and Other Information
 - Function must be called exactly once during system startup

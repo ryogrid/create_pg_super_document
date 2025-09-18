@@ -28,12 +28,12 @@ This function is a key component of PostgreSQL's query plan visualization system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_deparse_context_plan
-  - deparse_expression
-  - ExplainPropertyText
+  - [set_deparse_context_plan](set_deparse_context_plan.md)
+  - [deparse_expression](../d/deparse_expression.md)
+  - [ExplainPropertyText](../E/ExplainPropertyText.md)
 - Called from (representative examples):
-  - ExplainNode
-  - show_qual
+  - [ExplainNode](../E/ExplainNode.md)
+  - [show_qual](show_qual.md)
 
 ## Notes and Other Information
 - This function is static to the explain.c file and serves as an internal utility

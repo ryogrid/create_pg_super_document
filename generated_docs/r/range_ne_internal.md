@@ -19,12 +19,12 @@ The  function is a simple internal implementation for range inequality compariso
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_eq_internal
+  - [range_eq_internal](range_eq_internal.md)
 - Types referenced:
-  - TypeCacheEntry
-  - RangeType
+  - [TypeCacheEntry](../T/TypeCacheEntry.md)
+  - [RangeType](../R/RangeType.md)
 - Called from (representative examples):
-  - range_ne
+  - [range_ne](range_ne.md)
   - RANGESTRAT_EQ (macro/function in range strategy)
 
 ## Notes and Other Information

@@ -19,17 +19,17 @@ This function takes modifications made by a Perl trigger function (stored in a P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hv_fetch_string (fetch value from Perl hash by string key)
+  - [hv_fetch_string](../h/hv_fetch_string.md) (fetch value from Perl hash by string key)
   - SvOK, SvROK, SvTYPE, SvRV (Perl API macros for type checking)
   - hv_iterinit, hv_iternext (Perl hash iteration functions)
-  - hek2cstr (convert Perl hash key to C string)
-  - SPI_fnumber (get attribute number by name)
+  - [hek2cstr](../h/hek2cstr.md) (convert Perl hash key to C string)
+  - [SPI_fnumber](../S/SPI_fnumber.md) (get attribute number by name)
   - TupleDescAttr (get attribute descriptor)
-  - plperl_sv_to_datum (convert Perl scalar to PostgreSQL datum)
-  - heap_modify_tuple (PostgreSQL function to create modified tuple)
-  - palloc0, pfree (PostgreSQL memory management)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md) (convert Perl scalar to PostgreSQL datum)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (PostgreSQL function to create modified tuple)
+  - [palloc0](palloc0.md), pfree (PostgreSQL memory management)
 - Called from (representative examples):
-  - plperl_trigger_handler
+  - [plperl_trigger_handler](plperl_trigger_handler.md)
 
 ## Notes and Other Information
 - Validates that ->{new} exists and is a hash reference before processing

@@ -22,12 +22,12 @@ The function serves as a bridge between the lower-level union computation (gistM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (GiST state structure type)
+  - [GISTSTATE](../G/GISTSTATE.md) (GiST state structure type)
   - INDEX_MAX_KEYS (maximum number of index columns constant)
-  - gistMakeUnionItVec (computes union datums for each column)
+  - [gistMakeUnionItVec](gistMakeUnionItVec.md) (computes union datums for each column)
   - gistFormTuple (creates IndexTuple from datum arrays)
 - Called from (representative examples):
-  - gist_indexsortbuild_levelstate_flush (in gistbuild.c:530)
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md) (in gistbuild.c:530)
 
 ## Notes and Other Information
 - This function is a simple wrapper that combines two fundamental GiST operations: union computation and tuple formation

@@ -27,19 +27,19 @@ The function handles the complex logic of merging potentially overlapping page r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _brin_parallel_heapscan (wait for worker completion)
+  - [_brin_parallel_heapscan](_brin_parallel_heapscan.md) (wait for worker completion)
   - tuplesort_performsort (sort collected tuples)
-  - tuplesort_getbrintuple (retrieve sorted tuples)
+  - [tuplesort_getbrintuple](../t/tuplesort_getbrintuple.md) (retrieve sorted tuples)
   - tuplesort_end (cleanup sort state)
-  - brin_new_memtuple (create memory tuple)
-  - brin_deform_tuple (convert tuple to memory format)
-  - brin_form_tuple (convert memory tuple to disk format)
-  - union_tuples (merge overlapping range summaries)
-  - brin_doinsert (insert tuple into index)
-  - brin_fill_empty_ranges (fill gaps with empty summaries)
+  - [brin_new_memtuple](brin_new_memtuple.md) (create memory tuple)
+  - [brin_deform_tuple](brin_deform_tuple.md) (convert tuple to memory format)
+  - [brin_form_tuple](brin_form_tuple.md) (convert memory tuple to disk format)
+  - [union_tuples](../u/union_tuples.md) (merge overlapping range summaries)
+  - [brin_doinsert](brin_doinsert.md) (insert tuple into index)
+  - [brin_fill_empty_ranges](brin_fill_empty_ranges.md) (fill gaps with empty summaries)
   - AllocSetContextCreate/MemoryContextReset/MemoryContextDelete (memory management)
 - Called from (representative examples):
-  - brinbuild (main BRIN index build function)
+  - [brinbuild](brinbuild.md) (main BRIN index build function)
 
 ## Notes and Other Information
 - Returns the total number of heap tuples scanned across all workers

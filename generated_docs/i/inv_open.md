@@ -22,17 +22,17 @@ The function supports different access modes through flags and handles memory al
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetActiveSnapshot
-  - myLargeObjectExists  
-  - pg_largeobject_aclcheck_snapshot
-  - MemoryContextAlloc
-  - GetUserId
+  - [myLargeObjectExists](../m/myLargeObjectExists.md)  
+  - [pg_largeobject_aclcheck_snapshot](../p/pg_largeobject_aclcheck_snapshot.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [GetUserId](../G/GetUserId.md)
 - Called from (representative examples):
-  - be_lo_open
-  - lo_import_internal
-  - be_lo_export
-  - lo_get_fragment_internal
-  - be_lo_from_bytea
-  - be_lo_put
+  - [be_lo_open](../b/be_lo_open.md)
+  - [lo_import_internal](../l/lo_import_internal.md)
+  - [be_lo_export](../b/be_lo_export.md)
+  - [lo_get_fragment_internal](../l/lo_get_fragment_internal.md)
+  - [be_lo_from_bytea](../b/be_lo_from_bytea.md)
+  - [be_lo_put](../b/be_lo_put.md)
 
 ## Notes and Other Information
 - Historically, INV_WRITE automatically grants read access as well

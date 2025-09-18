@@ -20,9 +20,9 @@ This function validates the precision (type modifier) value for TIME data types 
 - Functions called/Symbols referenced:
   - MAX_TIME_PRECISION (constant defining maximum allowed time precision)
 - Called from (representative examples):
-  - anytime_typmodin (src/backend/utils/adt/date.c:66)
+  - [anytime_typmodin](anytime_typmodin.md) (src/backend/utils/adt/date.c:66)
   - transformSQLValueFunction (src/backend/parser/parse_expr.c:2318, 2332)
-  - executeDateTimeMethod (src/backend/utils/adt/jsonpath_exec.c:2576, 2623)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (src/backend/utils/adt/jsonpath_exec.c:2576, 2623)
   - PG_RETURN_TIMETZADT_P (src/include/utils/date.h:99)
 
 ## Notes and Other Information

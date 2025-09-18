@@ -18,10 +18,10 @@ This function processes ACL (Access Control List) user names by extracting them 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - appendPQExpBufferChar
 - Called from (representative examples):
-  - parseAclItem (src/bin/pg_dump/dumputils.c:436, 448)
+  - [parseAclItem](../p/parseAclItem.md) (src/bin/pg_dump/dumputils.c:436, 448)
 
 ## Notes and Other Information
 - This is a static function used internally within dumputils.c

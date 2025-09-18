@@ -25,9 +25,9 @@ The function receives arguments through PG_FUNCTION_ARGS containing:
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
   - text_to_cstring
-  - database_to_xmlschema_internal
-  - database_to_xml_internal
-  - stringinfo_to_xmltype
+  - [database_to_xmlschema_internal](database_to_xmlschema_internal.md)
+  - [database_to_xml_internal](database_to_xml_internal.md)
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:
   - No direct references (SQL-callable function)

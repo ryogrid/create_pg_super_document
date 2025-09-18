@@ -37,16 +37,16 @@ The function is crucial for SQL constructs like CASE expressions, UNION queries,
 - Functions called/Symbols referenced:
   - linitial, list_second_cell, for_each_cell (list manipulation)
   - exprType, exprLocation
-  - getBaseType
-  - get_type_category_preferred
-  - can_coerce_type
-  - format_type_be
-  - parser_errposition
+  - [getBaseType](../g/getBaseType.md)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
+  - [can_coerce_type](../c/can_coerce_type.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [parser_errposition](../p/parser_errposition.md)
   - COERCION_IMPLICIT (constant)
   - TYPCATEGORY (type)
 - Called from (representative examples):
-  - transformValuesClause (src/backend/parser/analyze.c:1592)
-  - transformSetOperationTree (src/backend/parser/analyze.c:2204)
+  - [transformValuesClause](../t/transformValuesClause.md) (src/backend/parser/analyze.c:1592)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (src/backend/parser/analyze.c:2204)
   - transformCaseExpr (src/backend/parser/parse_expr.c:1731)
   - transformArrayExpr (src/backend/parser/parse_expr.c:2100)
   - transformCoalesceExpr (src/backend/parser/parse_expr.c:2231)

@@ -23,10 +23,10 @@ The function only needs to account for required parameterization due to LATERAL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_path
-  - create_valuesscan_path
+  - [add_path](../a/add_path.md)
+  - [create_valuesscan_path](../c/create_valuesscan_path.md)
 - Called from (representative examples):
-  - set_rel_pathlist
+  - [set_rel_pathlist](set_rel_pathlist.md)
 
 ## Notes and Other Information
 - VALUES scans do not support pushing join clauses into their quals, making them simpler than table or function scans

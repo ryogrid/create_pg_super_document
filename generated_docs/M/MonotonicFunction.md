@@ -25,8 +25,8 @@ This information is primarily used for window function optimization, where knowl
 - Used by:
   - SupportRequestWFuncMonotonic struct (as monotonic member)
   - Various window function support functions (row_number, dense_rank, etc.)
-  - Query planner optimization logic in allpaths.c
-  - int8inc_support function for increment operations
+  - [Query](../Q/Query.md) planner optimization logic in allpaths.c
+  - [int8inc_support](../i/int8inc_support.md) function for increment operations
 
 ## Notes and Other Information
 - Designed as bitflags to allow combination of INCREASING and DECREASING properties

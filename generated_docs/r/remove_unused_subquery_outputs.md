@@ -32,17 +32,17 @@ The function performs several safety checks to ensure semantic correctness, avoi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varattnos (extracts variable attribute numbers from expressions)
-  - bms_is_member (checks bitmap set membership)
+  - [pull_varattnos](../p/pull_varattnos.md) (extracts variable attribute numbers from expressions)
+  - [bms_is_member](../b/bms_is_member.md) (checks bitmap set membership)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute number offset)
-  - expression_returns_set (checks if expression returns multiple rows)
-  - contain_volatile_functions (checks for functions with side effects)
-  - makeNullConst (creates NULL constant with specified type)
+  - [expression_returns_set](../e/expression_returns_set.md) (checks if expression returns multiple rows)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for functions with side effects)
+  - [makeNullConst](../m/makeNullConst.md) (creates NULL constant with specified type)
   - exprTypmod (gets type modifier of expression)
-  - exprCollation (gets collation of expression)
+  - [exprCollation](../e/exprCollation.md) (gets collation of expression)
 - Called from (representative examples):
   - pushdown_safe_type
-  - set_subquery_pathlist
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
 
 ## Notes and Other Information
 - The function modifies the subquery's targetList in-place, which is safe because set_subquery_pathlist creates a copy of the subquery

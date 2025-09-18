@@ -24,13 +24,13 @@ This is a typedef for a pointer, so it has no direct member variables. It points
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RWConflictData
+  - [RWConflictData](RWConflictData.md)
 - Called from (representative examples):
-  - RWConflictExists
-  - SetRWConflict
-  - SetPossibleUnsafeConflict
-  - ReleaseRWConflict
-  - OnConflict_CheckForSerializationFailure
+  - [RWConflictExists](RWConflictExists.md)
+  - [SetRWConflict](../S/SetRWConflict.md)
+  - [SetPossibleUnsafeConflict](../S/SetPossibleUnsafeConflict.md)
+  - [ReleaseRWConflict](ReleaseRWConflict.md)
+  - [OnConflict_CheckForSerializationFailure](../O/OnConflict_CheckForSerializationFailure.md)
 
 ## Notes and Other Information
 - Essential typedef for PostgreSQL's SSI implementation

@@ -21,8 +21,8 @@ This function is a PostgreSQL built-in function that checks whether a specific u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_type_priv_string: Converts privilege text to AclMode bitmask
-  - object_aclcheck_ext: Performs the actual access control check with missing object detection
+  - [convert_type_priv_string](../c/convert_type_priv_string.md): Converts privilege text to AclMode bitmask
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Performs the actual access control check with missing object detection
   - PG_RETURN_NULL: Returns NULL if type is missing
   - PG_RETURN_BOOL: Returns boolean result of privilege check
 - Called from (representative examples):

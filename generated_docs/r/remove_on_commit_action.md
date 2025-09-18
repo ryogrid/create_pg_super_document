@@ -19,10 +19,10 @@ This function handles the cleanup of ON COMMIT action registrations when a tempo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentSubTransactionId
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
   - lfirst (list iteration macro)
 - Called from (representative examples):
-  - heap_drop_with_catalog
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
 
 ## Notes and Other Information
 - Uses lazy deletion by marking entries rather than immediate removal

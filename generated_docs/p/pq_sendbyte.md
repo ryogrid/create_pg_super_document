@@ -20,21 +20,21 @@ static inline void pq_sendbyte(StringInfo buf, uint8 byt)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendint8
+  - [pq_sendint8](pq_sendint8.md)
 - Called from (representative examples):
-  - logicalrep_write_begin
-  - logicalrep_write_commit
-  - logicalrep_write_insert
+  - [logicalrep_write_begin](../l/logicalrep_write_begin.md)
+  - [logicalrep_write_commit](../l/logicalrep_write_commit.md)
+  - [logicalrep_write_insert](../l/logicalrep_write_insert.md)
   - logicalrep_write_update
   - logicalrep_write_delete
-  - send_feedback
-  - XLogWalRcvSendReply
-  - WalSndPrepareWrite
-  - send_message_to_frontend
-  - boolsend
-  - charsend
-  - macaddr_send
-  - network_send
+  - [send_feedback](../s/send_feedback.md)
+  - [XLogWalRcvSendReply](../X/XLogWalRcvSendReply.md)
+  - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md)
+  - [boolsend](../b/boolsend.md)
+  - [charsend](../c/charsend.md)
+  - [macaddr_send](../m/macaddr_send.md)
+  - [network_send](../n/network_send.md)
 
 ## Notes and Other Information
 - Defined as a static inline function for optimal performance

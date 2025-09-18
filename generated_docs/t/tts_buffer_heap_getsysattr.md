@@ -21,9 +21,9 @@ tts_buffer_heap_getsysattr extracts system attribute values from buffer-backed h
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (cast target type)
   - TTS_EMPTY (slot state check macro)
-  - heap_getsysattr (core system attribute extraction function)
+  - [heap_getsysattr](../h/heap_getsysattr.md) (core system attribute extraction function)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (as part of vtable operations)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (as part of vtable operations)
 
 ## Notes and Other Information
 - This is a static function, accessible only within execTuples.c

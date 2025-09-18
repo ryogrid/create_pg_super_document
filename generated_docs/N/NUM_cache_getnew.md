@@ -17,9 +17,9 @@ This function manages the allocation of cache entries in the numeric formatting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NUM_prevent_counter_overflow
+  - [NUM_prevent_counter_overflow](NUM_prevent_counter_overflow.md)
   - strlcpy
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - TopMemoryContext
   - NUMCounter (global variable)
   - NUMCache (global array)
@@ -27,7 +27,7 @@ This function manages the allocation of cache entries in the numeric formatting 
   - NUM_CACHE_ENTRIES (constant)
   - NUM_CACHE_SIZE (constant)
 - Called from (representative examples):
-  - NUM_cache_fetch
+  - [NUM_cache_fetch](NUM_cache_fetch.md)
 
 ## Notes and Other Information
 - Returns cache entries in an invalid state - caller must populate format and Num fields, then set valid = true

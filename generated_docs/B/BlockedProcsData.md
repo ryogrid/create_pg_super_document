@@ -38,14 +38,14 @@ BlockedProcsData serves as the central repository for all information related to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockedProcData
-  - LockInstanceData
+  - [BlockedProcData](BlockedProcData.md)
+  - [LockInstanceData](../L/LockInstanceData.md)
 - Called from (representative examples):
   - PROCLOCK_PRINT
-  - GetLockStatusData
-  - GetBlockerStatusData
-  - GetSingleProcBlockerStatusData
-  - pg_blocking_pids
+  - [GetLockStatusData](../G/GetLockStatusData.md)
+  - [GetBlockerStatusData](../G/GetBlockerStatusData.md)
+  - [GetSingleProcBlockerStatusData](../G/GetSingleProcBlockerStatusData.md)
+  - [pg_blocking_pids](../p/pg_blocking_pids.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

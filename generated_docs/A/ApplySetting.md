@@ -32,15 +32,15 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
-  - systable_beginscan/systable_endscan/systable_getnext
-  - heap_getattr
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
+  - [heap_getattr](../h/heap_getattr.md)
   - DatumGetArrayTypeP
   - ProcessGUCArray
   - PGC_SUSET (privilege level)
   - GUC_ACTION_SET (action type)
 - Called from (representative examples):
-  - process_settings (src/backend/utils/init/postinit.c:1341-1344) - called multiple times with different database/role combinations
+  - [process_settings](../p/process_settings.md) (src/backend/utils/init/postinit.c:1341-1344) - called multiple times with different database/role combinations
 
 ## Notes and Other Information
 - Requires the pg_db_role_setting relation to be pre-opened with appropriate locking by the caller

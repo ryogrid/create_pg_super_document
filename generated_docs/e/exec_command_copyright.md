@@ -18,9 +18,9 @@ The  function handles the  command in psql, which displays the PostgreSQL copyri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - print_copyright: Displays the actual copyright notice text
+  - [print_copyright](../p/print_copyright.md): Displays the actual copyright notice text
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Always returns PSQL_CMD_SKIP_LINE regardless of execution success

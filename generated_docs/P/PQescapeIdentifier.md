@@ -19,13 +19,13 @@ PQescapeIdentifier is a wrapper function that calls PQescapeInternal with the  p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeInternal
+  - [PQescapeInternal](PQescapeInternal.md)
 - Called from (representative examples):
-  - stringlist_to_identifierstr (in libpqwalreceiver.c)
-  - main (in pg_amcheck.c)
-  - create_publication (in pg_createsubscriber.c)
-  - ddlinfo (in pgbench.c)
-  - psql_get_variable (in psql/common.c)
+  - [stringlist_to_identifierstr](../s/stringlist_to_identifierstr.md) (in libpqwalreceiver.c)
+  - [main](../m/main.md) (in pg_amcheck.c)
+  - [create_publication](../c/create_publication.md) (in pg_createsubscriber.c)
+  - [ddlinfo](../d/ddlinfo.md) (in pgbench.c)
+  - [psql_get_variable](../p/psql_get_variable.md) (in psql/common.c)
   - PQchangePassword (in fe-auth.c)
 
 ## Notes and Other Information

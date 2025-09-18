@@ -24,11 +24,11 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - CommitTransaction (src/backend/access/transam/xact.c:2255)
-  - PrepareTransaction (src/backend/access/transam/xact.c:2511)
-  - AbortTransaction (src/backend/access/transam/xact.c:2856)
+  - [CommitTransaction](../C/CommitTransaction.md) (src/backend/access/transam/xact.c:2255)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2511)
+  - [AbortTransaction](AbortTransaction.md) (src/backend/access/transam/xact.c:2856)
 
 ## Notes and Other Information
 - Can be called repeatedly during error conditions without causing issues

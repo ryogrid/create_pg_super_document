@@ -42,22 +42,22 @@ The function is designed to handle both bulk delete operations (with callback) a
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - _bt_pendingfsm_init
+  - [_bt_pendingfsm_init](_bt_pendingfsm_init.md)
   - LockRelationForExtension / UnlockRelationForExtension  
   - RelationGetNumberOfBlocks
-  - pgstat_progress_update_param
-  - btvacuumpage
-  - MemoryContextDelete
-  - _bt_pendingfsm_finalize
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [btvacuumpage](btvacuumpage.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [_bt_pendingfsm_finalize](_bt_pendingfsm_finalize.md)
   - IndexFreeSpaceMapVacuum
 - Types used:
-  - IndexVacuumInfo
-  - IndexBulkDeleteResult
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
   - IndexBulkDeleteCallback
   - BTCycleId
-  - BTVacState
+  - [BTVacState](../B/BTVacState.md)
   - BlockNumber
-  - Relation
+  - [Relation](../R/Relation.md)
 - Constants used:
   - BTREE_METAPAGE
   - ALLOCSET_DEFAULT_SIZES
@@ -67,8 +67,8 @@ The function is designed to handle both bulk delete operations (with callback) a
 - Macros used:
   - RELATION_IS_LOCAL
 - Called from:
-  - btbulkdelete
-  - btvacuumcleanup
+  - [btbulkdelete](btbulkdelete.md)
+  - [btvacuumcleanup](btvacuumcleanup.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nbtree.c file

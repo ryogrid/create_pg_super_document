@@ -20,10 +20,10 @@ The algorithm handles three main cases: initial traversal (finding the leftmost 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RBTNIL (sentinel node constant)
-  - RBTreeIterator (iterator structure type)
-  - RBTNode (node structure type)
+  - [RBTreeIterator](../R/RBTreeIterator.md) (iterator structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)
 - Called from (representative examples):
-  - rbt_begin_iterate
+  - [rbt_begin_iterate](rbt_begin_iterate.md)
 
 ## Notes and Other Information
 - This is an internal static function used by the public iteration API

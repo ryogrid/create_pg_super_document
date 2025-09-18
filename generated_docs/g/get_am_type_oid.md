@@ -19,15 +19,15 @@ get_am_type_oid serves as a core utility function for access method OID lookups 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches system cache for access method by name
-  - CStringGetDatum: Converts C string to Datum for cache lookup
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches system cache for access method by name
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to Datum for cache lookup
   - GETSTRUCT: Macro to extract structure from heap tuple
-  - get_am_type_string: Converts access method type character to string representation
-  - ReleaseSysCache: Releases system cache tuple
+  - [get_am_type_string](get_am_type_string.md): Converts access method type character to string representation
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases system cache tuple
 - Called from (representative examples):
-  - get_index_am_oid: Gets OID for index access methods
-  - get_table_am_oid: Gets OID for table access methods
-  - get_am_oid: Gets OID for any access method type
+  - [get_index_am_oid](get_index_am_oid.md): Gets OID for index access methods
+  - [get_table_am_oid](get_table_am_oid.md): Gets OID for table access methods
+  - [get_am_oid](get_am_oid.md): Gets OID for any access method type
 
 ## Notes and Other Information
 - This is a static function used internally within the access method command subsystem

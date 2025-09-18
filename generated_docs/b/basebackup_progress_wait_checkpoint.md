@@ -17,11 +17,11 @@ This function is a simple progress reporting utility that updates the base backu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_param (progress parameter update function)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md) (progress parameter update function)
   - PROGRESS_BASEBACKUP_PHASE (progress phase parameter constant)
   - PROGRESS_BASEBACKUP_PHASE_WAIT_CHECKPOINT (checkpoint waiting phase constant)
 - Called from (representative examples):
-  - perform_base_backup (in basebackup.c at line 266)
+  - [perform_base_backup](../p/perform_base_backup.md) (in basebackup.c at line 266)
   - bbsink_cleanup (referenced in basebackup_sink.h at line 295)
 
 ## Notes and Other Information

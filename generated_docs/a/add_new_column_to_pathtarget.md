@@ -20,11 +20,11 @@ The function leaves it to the caller to update the cost and width fields of the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member (checks if expression already exists in target->exprs)
-  - add_column_to_pathtarget (performs the actual addition with sortgroupref=0)
-  - PathTarget (the target structure type)
+  - [list_member](../l/list_member.md) (checks if expression already exists in target->exprs)
+  - [add_column_to_pathtarget](add_column_to_pathtarget.md) (performs the actual addition with sortgroupref=0)
+  - [PathTarget](../P/PathTarget.md) (the target structure type)
 - Called from (representative examples):
-  - add_new_columns_to_pathtarget (in src/backend/optimizer/util/tlist.c:760)
+  - [add_new_columns_to_pathtarget](add_new_columns_to_pathtarget.md) (in src/backend/optimizer/util/tlist.c:760)
 
 ## Notes and Other Information
 - The caller cannot specify a sortgroupref when using this function, as it would be unclear how to merge that with a pre-existing column

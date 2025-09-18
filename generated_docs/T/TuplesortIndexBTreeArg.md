@@ -23,9 +23,9 @@ The structure enables the sorting system to enforce uniqueness constraints durin
 - Functions called/Symbols referenced:
   - TuplesortIndexArg (base structure)
 - Called from (representative examples):
-  - tuplesort_begin_index_btree (src/backend/utils/sort/tuplesortvariants.c:364, 369)
-  - tuplesort_begin_index_gist (src/backend/utils/sort/tuplesortvariants.c:500, 504)
-  - comparetup_index_btree_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1470)
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md) (src/backend/utils/sort/tuplesortvariants.c:364, 369)
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md) (src/backend/utils/sort/tuplesortvariants.c:500, 504)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1470)
 
 ## Notes and Other Information
 - This structure is specific to the index_btree sorting subcase and is not used for other index types

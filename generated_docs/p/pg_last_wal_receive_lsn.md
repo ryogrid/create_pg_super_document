@@ -21,7 +21,7 @@ Unlike the previous WAL control functions, this function does not check for reco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GetWalRcvFlushRecPtr()` - Retrieves the WAL receiver flush record pointer (with NULL, NULL parameters)
+  - `[GetWalRcvFlushRecPtr](../G/GetWalRcvFlushRecPtr.md)()` - Retrieves the WAL receiver flush record pointer (with NULL, NULL parameters)
   - `PG_RETURN_LSN` - Macro to return LSN value to PostgreSQL function caller
 - Called from (representative examples):
   - No direct callers found in the codebase (SQL-callable function)

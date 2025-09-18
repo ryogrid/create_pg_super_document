@@ -25,7 +25,7 @@ The structure maintains compatibility with HeapTupleHeaderData from the t_infoma
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):
-  - expand_tuple (for tuple expansion operations)
+  - [expand_tuple](../e/expand_tuple.md) (for tuple expansion operations)
   - Various functions via MinimalTuple typedef
 
 ## Notes and Other Information

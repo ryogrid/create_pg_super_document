@@ -24,7 +24,7 @@ This function serves as a PostgreSQL conversion procedure that transforms UTF-8 
   - PG_GETARG_INT32 (parameter extraction)
   - PG_GETARG_BOOL (parameter extraction)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - UtfToLocal (core UTF-8 to local encoding conversion function)
+  - [UtfToLocal](../U/UtfToLocal.md) (core UTF-8 to local encoding conversion function)
   - PG_RETURN_INT32 (return value macro)
   - koi8u_from_unicode_tree (KOI8-U Unicode conversion table)
 - Called from:

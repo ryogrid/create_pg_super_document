@@ -21,7 +21,7 @@ This function takes no parameters.
   - elog (PostgreSQL logging function)
   - PLy_SubtransactionType (static type definition)
 - Called from:
-  - PLy_init_plpy (at src/pl/plpython/plpy_plpymodule.c:154)
+  - [PLy_init_plpy](PLy_init_plpy.md) (at src/pl/plpython/plpy_plpymodule.c:154)
 
 ## Notes and Other Information
 - This function must be called during PLPython module initialization before any subtransaction objects can be created

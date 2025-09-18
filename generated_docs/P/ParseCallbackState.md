@@ -23,13 +23,13 @@ The callback is designed to be non-intrusive and only adds location information 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseState (from parser subsystem)
+  - [ParseState](ParseState.md) (from parser subsystem)
   - ErrorContextCallback (from PostgreSQL error handling system)
 - Called from (representative examples):
-  - setup_parser_errposition_callback (src/backend/parser/parse_node.c:140)
-  - cancel_parser_errposition_callback (src/backend/parser/parse_node.c:156)
-  - coerce_type (src/backend/parser/parse_coerce.c:257)
-  - transformSetOperationTree (src/backend/parser/analyze.c:2288)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md) (src/backend/parser/parse_node.c:140)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md) (src/backend/parser/parse_node.c:156)
+  - [coerce_type](../c/coerce_type.md) (src/backend/parser/parse_coerce.c:257)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (src/backend/parser/analyze.c:2288)
 
 ## Notes and Other Information
 - Part of PostgreSQL's comprehensive error reporting infrastructure for parser operations

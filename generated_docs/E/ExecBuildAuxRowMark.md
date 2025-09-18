@@ -23,17 +23,17 @@ The function searches the target list for these specially named junk columns and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecRowMark (structure type)
-  - ExecAuxRowMark (structure type)
+  - [ExecRowMark](ExecRowMark.md) (structure type)
+  - [ExecAuxRowMark](ExecAuxRowMark.md) (structure type)
   - ROW_MARK_COPY (constant)
   - ExecFindJunkAttributeInTlist
   - AttributeNumberIsValid
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - snprintf
   - elog
 - Called from (representative examples):
-  - ExecInitLockRows
-  - ExecInitModifyTable
+  - [ExecInitLockRows](ExecInitLockRows.md)
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's row locking infrastructure setup phase. The junk columns it searches for are added by the planner and have standardized naming conventions: 'ctid[N]', 'wholerow[N]', and 'tableoid[N]' where N is the rowmarkId. The function performs error checking to ensure all required junk columns are present, as their absence would indicate a planner bug or corrupted plan tree. The distinction between rti and prti helps identify child relations in inheritance hierarchies where tableoid is needed to determine the specific table.

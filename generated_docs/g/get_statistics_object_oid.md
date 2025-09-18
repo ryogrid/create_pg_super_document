@@ -24,14 +24,14 @@ The function provides flexible error handling through the missing_ok parameter -
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - GetSysCacheOid2 (STATEXTNAMENSP cache)
-  - recomputeNamespacePath
-  - NameListToString
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [NameListToString](../N/NameListToString.md)
 - Called from (representative examples):
-  - get_object_address (in objectaddress.c)
-  - AlterStatistics (in statscmds.c)
+  - [get_object_address](get_object_address.md) (in objectaddress.c)
+  - [AlterStatistics](../A/AlterStatistics.md) (in statscmds.c)
   - Referenced in namespace.h header
 
 ## Notes and Other Information

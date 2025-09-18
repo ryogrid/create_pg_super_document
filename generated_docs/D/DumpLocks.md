@@ -24,11 +24,11 @@ This function is primarily used for diagnostic purposes during development and d
   - dlist_foreach (doubly-linked list iteration)
   - dlist_container (container retrieval macro)
 - Data structures used:
-  - PGPROC (process structure)
-  - PROCLOCK (process lock structure)
+  - [PGPROC](../P/PGPROC.md) (process structure)
+  - [PROCLOCK](../P/PROCLOCK.md) (process lock structure)
   - LOCK (lock structure)
-  - dlist_head (doubly-linked list head)
-  - dlist_iter (doubly-linked list iterator)
+  - [dlist_head](../d/dlist_head.md) (doubly-linked list head)
+  - [dlist_iter](../d/dlist_iter.md) (doubly-linked list iterator)
 - Constants used:
   - NUM_LOCK_PARTITIONS (number of lock hash partitions)
 - Called from (representative examples):

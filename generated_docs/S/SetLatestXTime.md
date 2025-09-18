@@ -23,7 +23,7 @@ This function stores the timestamp of the most recently processed commit or abor
   - SpinLockRelease (for thread-safe access)
   - XLogRecoveryCtl (global recovery control structure)
 - Called from (representative examples):
-  - recoveryStopsAfter
+  - [recoveryStopsAfter](../r/recoveryStopsAfter.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it is only accessible within the xlogrecovery.c file

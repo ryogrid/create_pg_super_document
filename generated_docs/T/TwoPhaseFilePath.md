@@ -20,16 +20,16 @@ The function uses snprintf to safely format the path string and returns the numb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AdjustToFullTransactionId
+  - [AdjustToFullTransactionId](../A/AdjustToFullTransactionId.md)
   - FullTransactionId
   - TWOPHASE_DIR
   - EpochFromFullTransactionId
   - XidFromFullTransactionId
 - Called from (representative examples):
-  - ReadTwoPhaseFile
-  - RemoveTwoPhaseFile
-  - RecreateTwoPhaseFile
-  - PrepareRedoAdd
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md)
+  - [RemoveTwoPhaseFile](../R/RemoveTwoPhaseFile.md)
+  - [RecreateTwoPhaseFile](../R/RecreateTwoPhaseFile.md)
+  - [PrepareRedoAdd](../P/PrepareRedoAdd.md)
 
 ## Notes and Other Information
 - Returns the number of characters written to the path buffer (standard snprintf behavior)

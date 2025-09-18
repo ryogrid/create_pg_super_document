@@ -23,11 +23,11 @@ The function follows the standard psql command processing pattern, returning app
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option (to extract the shell command from input)
-  - do_shell (to actually execute the extracted shell command)
-  - ignore_slash_whole_line (to skip processing when not in active branch)
+  - [do_shell](../d/do_shell.md) (to actually execute the extracted shell command)
+  - [ignore_slash_whole_line](../i/ignore_slash_whole_line.md) (to skip processing when not in active branch)
   - free (to deallocate the extracted command string)
 - Called from (representative examples):
-  - exec_command (main command dispatcher for psql meta-commands)
+  - [exec_command](exec_command.md) (main command dispatcher for psql meta-commands)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on successful execution or PSQL_CMD_ERROR on failure

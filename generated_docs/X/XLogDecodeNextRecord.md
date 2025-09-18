@@ -30,17 +30,17 @@ The function implements a state machine that can restart record reading when enc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadPageInternal
+  - [ReadPageInternal](../R/ReadPageInternal.md)
   - XLogPageHeaderSize
-  - ValidXLogRecordHeader
-  - ValidXLogRecord
-  - XLogReadRecordAlloc
+  - [ValidXLogRecordHeader](../V/ValidXLogRecordHeader.md)
+  - [ValidXLogRecord](../V/ValidXLogRecord.md)
+  - [XLogReadRecordAlloc](XLogReadRecordAlloc.md)
   - DecodeXLogRecord
-  - XLogReaderInvalReadState
-  - report_invalid_record
-  - allocate_recordbuf
+  - [XLogReaderInvalReadState](XLogReaderInvalReadState.md)
+  - [report_invalid_record](../r/report_invalid_record.md)
+  - [allocate_recordbuf](../a/allocate_recordbuf.md)
 - Called from (representative examples):
-  - XLogReadAhead
+  - [XLogReadAhead](XLogReadAhead.md)
 
 ## Notes and Other Information
 - Returns XLREAD_SUCCESS on successful decode, XLREAD_WOULDBLOCK for nonblocking reads without data, or XLREAD_FAIL on errors

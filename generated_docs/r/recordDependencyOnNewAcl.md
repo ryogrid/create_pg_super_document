@@ -25,13 +25,13 @@ If the ACL parameter is NULL (indicating default system permissions), the functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - aclmembers (extracts all role OIDs from an ACL)
-  - updateAclDependencies (records/updates shared dependency information)
+  - [aclmembers](../a/aclmembers.md) (extracts all role OIDs from an ACL)
+  - [updateAclDependencies](../u/updateAclDependencies.md) (records/updates shared dependency information)
 - Called from:
-  - heap_create_with_catalog (when creating tables with custom ACLs)
-  - NamespaceCreate (when creating schemas with custom ACLs)
-  - ProcedureCreate (when creating functions with custom ACLs)
-  - GenerateTypeDependencies (when creating types with custom ACLs)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (when creating tables with custom ACLs)
+  - [NamespaceCreate](../N/NamespaceCreate.md) (when creating schemas with custom ACLs)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (when creating functions with custom ACLs)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md) (when creating types with custom ACLs)
 
 ## Notes and Other Information
 - This function is specifically designed for new object creation scenarios

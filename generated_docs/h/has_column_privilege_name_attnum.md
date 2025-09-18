@@ -19,11 +19,11 @@ This function is a variant of the column privilege checking functions that takes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - PG_GETARG_INT16
-  - convert_table_name
-  - convert_column_priv_string
-  - column_privilege_check
+  - [convert_table_name](../c/convert_table_name.md)
+  - [convert_column_priv_string](../c/convert_column_priv_string.md)
+  - [column_privilege_check](../c/column_privilege_check.md)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)
 

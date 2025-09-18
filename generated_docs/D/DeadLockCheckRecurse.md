@@ -24,17 +24,17 @@ The function maintains constraint lists and manages memory efficiently by option
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TestConfiguration
-  - DeadLockCheckRecurse (recursive call)
-  - PGPROC (struct type)
+  - [TestConfiguration](../T/TestConfiguration.md)
+  - [DeadLockCheckRecurse](DeadLockCheckRecurse.md) (recursive call)
+  - [PGPROC](../P/PGPROC.md) (struct type)
   - curConstraints (global array)
   - possibleConstraints (global array)
   - nCurConstraints (global variable)
   - nPossibleConstraints (global variable)
   - maxCurConstraints (global variable)
 - Called from (representative examples):
-  - DeadLockCheck
-  - DeadLockCheckRecurse (recursive)
+  - [DeadLockCheck](DeadLockCheck.md)
+  - [DeadLockCheckRecurse](DeadLockCheckRecurse.md) (recursive)
 
 ## Notes and Other Information
 - Returns true if no solution exists (hard deadlock), false if a deadlock-free state is attainable

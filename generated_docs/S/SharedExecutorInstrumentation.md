@@ -35,11 +35,11 @@ This structure serves as the central repository for collecting execution instrum
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array declaration)
 - Called from (representative examples):
   - GetInstrumentationArray (for accessing instrumentation data)
-  - ExecParallelInitializeDSMContext (for initialization during DSM context setup)
-  - ExecInitParallelPlan (during parallel plan initialization)
-  - ExecParallelRetrieveInstrumentation (for collecting data from workers)
-  - ExecParallelReportInstrumentation (for reporting collected data)
-  - ParallelQueryMain (in worker processes)
+  - [ExecParallelInitializeDSMContext](../E/ExecParallelInitializeDSMContext.md) (for initialization during DSM context setup)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (during parallel plan initialization)
+  - [ExecParallelRetrieveInstrumentation](../E/ExecParallelRetrieveInstrumentation.md) (for collecting data from workers)
+  - [ExecParallelReportInstrumentation](../E/ExecParallelReportInstrumentation.md) (for reporting collected data)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md) (in worker processes)
   - ParallelExecutorInfo (as part of larger parallel execution structures)
 
 ## Notes and Other Information

@@ -20,17 +20,17 @@ This function processes the tidrangequals list from a TidRangeScan plan node, co
   - lfirst
   - IsA
   - elog
-  - MakeTidOpExpr
+  - [MakeTidOpExpr](../M/MakeTidOpExpr.md)
   - lappend
 - Data structures used:
   - TidRangeScan
-  - List
+  - [List](../L/List.md)
   - ListCell
   - OpExpr
-  - TidOpExpr
+  - [TidOpExpr](TidOpExpr.md)
 - Called from:
-  - ExecInitTidRangeScan
-  - ExecInitTidScan
+  - [ExecInitTidRangeScan](../E/ExecInitTidRangeScan.md)
+  - [ExecInitTidScan](../E/ExecInitTidScan.md)
 
 ## Notes and Other Information
 - The function validates that all expressions in tidrangequals are OpExpr nodes

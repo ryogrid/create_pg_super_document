@@ -21,7 +21,7 @@ This function extracts the average X value from a 6-element regression transitio
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P: Macro to extract ArrayType pointer from function arguments
-  - check_float8_array: Validates and extracts float8 values from the transition array
+  - [check_float8_array](../c/check_float8_array.md): Validates and extracts float8 values from the transition array
   - PG_RETURN_NULL: Macro to return NULL when sample size is insufficient
   - PG_RETURN_FLOAT8: Macro to return a float8 value as PostgreSQL Datum
 - Called from (representative examples):

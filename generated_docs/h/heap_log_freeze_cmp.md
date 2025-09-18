@@ -22,9 +22,9 @@ The function is specifically designed to work with heap_log_freeze_eq for identi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleFreeze (struct type)
+  - [HeapTupleFreeze](../H/HeapTupleFreeze.md) (struct type)
 - Called from (representative examples):
-  - heap_log_freeze_plan
+  - [heap_log_freeze_plan](heap_log_freeze_plan.md)
 
 ## Notes and Other Information
 - Designed as a comparator for standard library sorting functions (qsort)

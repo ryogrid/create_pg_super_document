@@ -28,11 +28,11 @@ Like its timestamp counterpart, it manually calculates day-of-week and day-of-ye
   - PG_GETARG_TIMESTAMP
   - PG_GETARG_TEXT_PP  
   - TIMESTAMP_NOT_FINITE
-  - timestamp2tm (with timezone extraction)
-  - date2j (for day-of-week and day-of-year calculations)
+  - [timestamp2tm](timestamp2tm.md) (with timezone extraction)
+  - [date2j](../d/date2j.md) (for day-of-week and day-of-year calculations)
   - ZERO_tmtc/tmtcTm/tmtcFsec/tmtcTzn (TmToChar manipulation macros)
   - COPY_tm
-  - datetime_to_char_body
+  - [datetime_to_char_body](../d/datetime_to_char_body.md)
   - PG_GET_COLLATION
 - Called from (representative examples):
   - SQL queries using to_char() function with timestamptz arguments

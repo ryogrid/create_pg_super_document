@@ -17,15 +17,15 @@ The  function initializes a doubly-linked list by setting up the head node to po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (structure type)
+  - [dlist_head](dlist_head.md) (structure type)
 - Called from (representative examples):
-  - disassembleLeaf (src/backend/access/gin/gindatapage.c:1378)
-  - MarkAsPreparingGuts (src/backend/access/transam/twophase.c:476)
-  - XLogPrefetcherAllocate (src/backend/access/transam/xlogprefetcher.c:376)
-  - cache_purge_all (src/backend/executor/nodeMemoize.c:420)
-  - ExecInitMemoize (src/backend/executor/nodeMemoize.c:1046)
-  - AutoVacuumShmemInit (src/backend/postmaster/autovacuum.c:3336)
-  - ReorderBufferAllocate (src/backend/replication/logical/reorderbuffer.c:395)
+  - [disassembleLeaf](disassembleLeaf.md) (src/backend/access/gin/gindatapage.c:1378)
+  - [MarkAsPreparingGuts](../M/MarkAsPreparingGuts.md) (src/backend/access/transam/twophase.c:476)
+  - [XLogPrefetcherAllocate](../X/XLogPrefetcherAllocate.md) (src/backend/access/transam/xlogprefetcher.c:376)
+  - [cache_purge_all](../c/cache_purge_all.md) (src/backend/executor/nodeMemoize.c:420)
+  - [ExecInitMemoize](../E/ExecInitMemoize.md) (src/backend/executor/nodeMemoize.c:1046)
+  - [AutoVacuumShmemInit](../A/AutoVacuumShmemInit.md) (src/backend/postmaster/autovacuum.c:3336)
+  - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md) (src/backend/replication/logical/reorderbuffer.c:395)
   - InitProcGlobal (src/backend/storage/lmgr/proc.c:174)
 
 ## Notes and Other Information

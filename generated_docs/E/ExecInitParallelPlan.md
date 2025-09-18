@@ -42,18 +42,18 @@ Key components initialized:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecSetParamPlanMulti (evaluate initplan parameters)
+  - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (evaluate initplan parameters)
   - ExecSerializePlan (serialize plan for workers)
-  - CreateParallelContext (create parallel execution context)
-  - InitializeParallelDSM (create shared memory segment)
-  - ExecParallelSetupTupleQueues (establish communication channels)
+  - [CreateParallelContext](../C/CreateParallelContext.md) (create parallel execution context)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (create shared memory segment)
+  - [ExecParallelSetupTupleQueues](ExecParallelSetupTupleQueues.md) (establish communication channels)
   - ExecParallelEstimate, ExecParallelInitializeDSM (plan node setup)
-  - SerializeParamList, SerializeParamExecParams (parameter handling)
+  - [SerializeParamList](../S/SerializeParamList.md), SerializeParamExecParams (parameter handling)
   - dsa_create_in_place (dynamic shared memory allocation)
   - Various shm_toc_* functions for shared memory table of contents management
 - Called from:
-  - ExecGather (Gather node initialization)
-  - ExecGatherMerge (GatherMerge node initialization)
+  - [ExecGather](ExecGather.md) (Gather node initialization)
+  - [ExecGatherMerge](ExecGatherMerge.md) (GatherMerge node initialization)
 
 ## Notes and Other Information
 - Returns a ParallelExecutorInfo structure containing all parallel execution state

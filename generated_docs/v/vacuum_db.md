@@ -30,7 +30,7 @@ The strategic ordering (ANALYZE before VACUUM FREEZE) ensures that the collected
   - PG_CMD_PUTS (macro for writing SQL strings to the command file)
 
 - Called from:
-  - initialize_data_directory (main database initialization function)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (main database initialization function)
 
 ## Notes and Other Information
 - This is typically the final maintenance step in the initdb process

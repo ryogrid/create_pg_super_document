@@ -23,11 +23,11 @@ The function extracts the partition expression from the specified column and com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal (for structural equality comparison)
-  - is_notclause (to check if clause is a NOT expression)
-  - get_notclausearg (to extract argument from NOT clause)
+  - [equal](../e/equal.md) (for structural equality comparison)
+  - [is_notclause](../i/is_notclause.md) (to check if clause is a NOT expression)
+  - [get_notclausearg](../g/get_notclausearg.md) (to extract argument from NOT clause)
 - Called from (representative examples):
-  - partkey_is_bool_constant_for_query
+  - [partkey_is_bool_constant_for_query](../p/partkey_is_bool_constant_for_query.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the pathkeys module

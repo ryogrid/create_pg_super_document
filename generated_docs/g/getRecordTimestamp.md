@@ -30,13 +30,13 @@ The function checks the resource manager ID (rmid) and operation info to determi
   - XLOG_XACT_COMMIT/XLOG_XACT_COMMIT_PREPARED: Transaction commit record types
   - XLOG_XACT_ABORT/XLOG_XACT_ABORT_PREPARED: Transaction abort record types
 - Structures used:
-  - xl_restore_point: Structure for restore point records
-  - xl_xact_commit: Structure for transaction commit records
-  - xl_xact_abort: Structure for transaction abort records
+  - [xl_restore_point](../x/xl_restore_point.md): Structure for restore point records
+  - [xl_xact_commit](../x/xl_xact_commit.md): Structure for transaction commit records
+  - [xl_xact_abort](../x/xl_xact_abort.md): Structure for transaction abort records
 - Called from:
-  - recoveryStopsBefore: Uses timestamps for recovery stopping logic
-  - recoveryStopsAfter: Uses timestamps for recovery stopping logic
-  - recoveryApplyDelay: Uses timestamps for applying recovery delays
+  - [recoveryStopsBefore](../r/recoveryStopsBefore.md): Uses timestamps for recovery stopping logic
+  - [recoveryStopsAfter](../r/recoveryStopsAfter.md): Uses timestamps for recovery stopping logic
+  - [recoveryApplyDelay](../r/recoveryApplyDelay.md): Uses timestamps for applying recovery delays
 
 ## Notes and Other Information
 - Returns  if the record contains a timestamp and it was successfully extracted,  otherwise

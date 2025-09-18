@@ -26,15 +26,15 @@ This function constructs and logs a comprehensive abort record to the Write-Ahea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogSetRecordFlags
-  - XLogInsert
+  - [XLogBeginInsert](XLogBeginInsert.md)
+  - [XLogRegisterData](XLogRegisterData.md)
+  - [XLogSetRecordFlags](XLogSetRecordFlags.md)
+  - [XLogInsert](XLogInsert.md)
   - XLogLogicalInfoActive
   - unconstify
 - Called from (representative examples):
-  - RecordTransactionAbort
-  - RecordTransactionAbortPrepared
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
+  - [RecordTransactionAbortPrepared](../R/RecordTransactionAbortPrepared.md)
 
 ## Notes and Other Information
 The function differentiates between regular transaction aborts (XLOG_XACT_ABORT) and prepared transaction aborts (XLOG_XACT_ABORT_PREPARED) based on the validity of twophase_xid. It conditionally includes various information blocks in the WAL record using xinfo flags, ensuring efficient storage by only including relevant data. The function operates within a critical section and includes replication origin information when applicable for proper logical replication support.

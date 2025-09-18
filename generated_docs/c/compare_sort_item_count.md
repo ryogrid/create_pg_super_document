@@ -26,9 +26,9 @@ The descending order arrangement ensures that the most frequently occurring valu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortItem
+  - [SortItem](../S/SortItem.md)
 - Called from (representative examples):
-  - build_distinct_groups
+  - [build_distinct_groups](../b/build_distinct_groups.md)
 
 ## Notes and Other Information
 - Designed for use with qsort_r() or similar sorting functions that accept a comparator

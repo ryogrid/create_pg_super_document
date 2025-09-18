@@ -19,11 +19,11 @@ This function checks if the array element type associated with a given type cach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_array_element_properties
+  - [cache_array_element_properties](../c/cache_array_element_properties.md)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
   - TCFLAGS_HAVE_ELEM_HASHING (flag constant)
 - Called from (representative examples):
-  - lookup_type_cache (at line 701)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (at line 701)
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as part of the type caching system for hash functionality. Like its comparison counterpart, it implements lazy evaluation of element properties. Hash functions are essential for operations like hash joins, hash aggregation, and hash-based data structures in PostgreSQL. The function is used by the type cache lookup functionality to determine if array element types support hashing operations.

@@ -27,11 +27,11 @@ This function is essential for building connection strings dynamically in pg_cre
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar (to add space and equals sign characters)
-  - appendPQExpBufferStr (to add the keyword string)
-  - appendConnStrVal (to add the properly quoted/escaped value)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md) (to add the keyword string)
+  - [appendConnStrVal](appendConnStrVal.md) (to add the properly quoted/escaped value)
 - Called from (representative examples):
-  - get_base_conninfo
-  - get_sub_conninfo
+  - [get_base_conninfo](../g/get_base_conninfo.md)
+  - [get_sub_conninfo](../g/get_sub_conninfo.md)
   - concat_conninfo_dbname
 
 ## Notes and Other Information

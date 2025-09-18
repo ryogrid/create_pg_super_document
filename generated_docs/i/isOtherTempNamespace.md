@@ -21,11 +21,11 @@ The comment in the source code notes that this function is largely obsolete for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isTempOrTempToastNamespace
-  - isAnyTempNamespace
+  - [isTempOrTempToastNamespace](isTempOrTempToastNamespace.md)
+  - [isAnyTempNamespace](isAnyTempNamespace.md)
 
 - Called from (representative examples):
-  - pg_is_other_temp_schema
+  - [pg_is_other_temp_schema](../p/pg_is_other_temp_schema.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

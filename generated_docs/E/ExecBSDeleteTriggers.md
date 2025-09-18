@@ -25,8 +25,8 @@ The function processes triggers in the order they were defined and calls each en
 ## Dependencies
 - Functions called/Symbols referenced:
   - before_stmt_triggers_fired
-  - ExecCallTriggerFunc
-  - TriggerEnabled
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
   - TRIGGER_TYPE_MATCHES
   - RelationGetRelid
@@ -42,7 +42,7 @@ The function processes triggers in the order they were defined and calls each en
   - TriggerData
   - Trigger
 - Called from (representative examples):
-  - fireBSTriggers
+  - [fireBSTriggers](../f/fireBSTriggers.md)
 
 ## Notes and Other Information
 - Executes only once per DELETE statement, not per row

@@ -20,7 +20,7 @@ MultiXactIdGetDatum performs a simple type cast from a MultiXactId to a Datum. T
   - MultiXactId (type reference)
   - CommandId (related type reference)
 - Called from (representative examples):
-  - InsertPgClassTuple (catalog tuple insertion operations)
+  - [InsertPgClassTuple](../I/InsertPgClassTuple.md) (catalog tuple insertion operations)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/postgres.h, making it available throughout the codebase

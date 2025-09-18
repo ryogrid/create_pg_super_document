@@ -19,14 +19,14 @@ This function provides a SQL-callable interface to retrieve detailed information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLatestCommitTsData
-  - get_call_result_type
+  - [GetLatestCommitTsData](../G/GetLatestCommitTsData.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
   - TransactionIdIsNormal
-  - TransactionIdGetDatum
+  - [TransactionIdGetDatum](../T/TransactionIdGetDatum.md)
   - TimestampTzGetDatum
-  - ObjectIdGetDatum
-  - heap_form_tuple
-  - HeapTupleGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - PG_RETURN_DATUM
 - Called from (representative examples):
   - SQL queries via PostgreSQL's function call mechanism

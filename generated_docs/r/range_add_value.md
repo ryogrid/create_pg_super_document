@@ -26,13 +26,13 @@ The function includes extensive assertions to verify the integrity of the range 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - minmax_multi_get_strategy_procinfo
-  - AssertCheckRanges
-  - ensure_free_space_in_buffer
-  - range_contains_value
-  - datumCopy
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
+  - [AssertCheckRanges](../A/AssertCheckRanges.md)
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [range_contains_value](range_contains_value.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from:
-  - brin_minmax_multi_add_value
+  - [brin_minmax_multi_add_value](../b/brin_minmax_multi_add_value.md)
 
 ## Notes and Other Information
 - Returns true if the range was modified (either by space management or value addition), false if no changes occurred

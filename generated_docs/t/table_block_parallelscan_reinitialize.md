@@ -22,11 +22,11 @@ This is more efficient than completely reinitializing the descriptor, as it pres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_write_u64
-  - ParallelTableScanDesc (type cast)
-  - ParallelBlockTableScanDesc (target type)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
+  - [ParallelTableScanDesc](../P/ParallelTableScanDesc.md) (type cast)
+  - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (target type)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

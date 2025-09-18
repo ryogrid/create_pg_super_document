@@ -22,14 +22,14 @@ The function assumes that pendingNotifies->events is already non-empty, which al
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (to check if hash table creation is needed)
-  - hash_create (to create the hash table)
-  - hash_search (to add entries to the hash table)
+  - [hash_create](../h/hash_create.md) (to create the hash table)
+  - [hash_search](../h/hash_search.md) (to add entries to the hash table)
   - lappend (to add notification to the list)
-  - notification_hash (hash function for notifications)
-  - notification_match (comparison function for notifications)
+  - [notification_hash](../n/notification_hash.md) (hash function for notifications)
+  - [notification_match](../n/notification_match.md) (comparison function for notifications)
 - Called from (representative examples):
-  - Async_Notify
-  - AtSubCommit_Notify
+  - [Async_Notify](Async_Notify.md)
+  - [AtSubCommit_Notify](AtSubCommit_Notify.md)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

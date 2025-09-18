@@ -41,10 +41,10 @@ Additionally, it handles relation cache initialization file invalidations, which
   - SHAREDINVALRELMAP_ID
   - SHAREDINVALSNAPSHOT_ID
 - Called from (representative examples):
-  - standby_desc
-  - xact_desc_commit
-  - xact_desc_prepare
-  - xact_desc
+  - [standby_desc](standby_desc.md)
+  - [xact_desc_commit](../x/xact_desc_commit.md)
+  - [xact_desc_prepare](../x/xact_desc_prepare.md)
+  - [xact_desc](../x/xact_desc.md)
 
 ## Notes and Other Information
 - Shared utility function used by both standby and transaction WAL record descriptions

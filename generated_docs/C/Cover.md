@@ -24,17 +24,17 @@ This function implements a sophisticated algorithm to find the shortest contiguo
   - CoverExt (struct type)
   - DocRepresentation (struct type)
   - check_stack_depth (recursion depth check)
-  - resetQueryRepresentation (reset query state)
-  - fillQueryRepresentationData (populate operand data)
+  - [resetQueryRepresentation](../r/resetQueryRepresentation.md) (reset query state)
+  - [fillQueryRepresentationData](../f/fillQueryRepresentationData.md) (populate operand data)
   - TS_execute (execute query condition)
   - GETQUERY (macro to get query)
-  - checkcondition_QueryOperand (condition checker function)
+  - [checkcondition_QueryOperand](../c/checkcondition_QueryOperand.md) (condition checker function)
   - TS_EXEC_EMPTY (execution flag)
   - WEP_GETPOS (extract word position)
-  - Cover (recursive self-call)
+  - [Cover](Cover.md) (recursive self-call)
 - Called from (representative examples):
-  - Cover (recursive call at line 723)
-  - calc_rank_cd (called at line 887)
+  - [Cover](Cover.md) (recursive call at line 723)
+  - [calc_rank_cd](../c/calc_rank_cd.md) (called at line 887)
 
 ## Notes and Other Information
 This is a recursive function that includes stack depth checking to prevent overflow. The algorithm is optimized for tail-recursion and implements a sliding window approach to find minimal covers. The function returns true if a valid cover is found and false otherwise. The two-phase scanning (forward then backward) ensures optimal cover detection while the recursive nature allows exploration of multiple potential covers to find the shortest one.

@@ -19,11 +19,11 @@ This function iterates through all worker slots in the parallel state to determi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelState (struct)
+  - [ParallelState](../P/ParallelState.md) (struct)
   - WORKER_IS_RUNNING (macro)
 - Called from (representative examples):
-  - WaitForTerminatingWorkers
-  - write_stderr
+  - [WaitForTerminatingWorkers](../W/WaitForTerminatingWorkers.md)
+  - [write_stderr](../w/write_stderr.md)
 
 ## Notes and Other Information
 - Returns true if all workers have terminated, false if any worker is still running

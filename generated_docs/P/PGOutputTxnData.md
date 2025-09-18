@@ -20,12 +20,12 @@ This optimization is specifically disabled for prepared transactions to avoid pr
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
-  - pgoutput_begin_txn
-  - pgoutput_send_begin
-  - pgoutput_commit_txn
-  - pgoutput_change
-  - pgoutput_truncate
-  - pgoutput_message
+  - [pgoutput_begin_txn](../p/pgoutput_begin_txn.md)
+  - [pgoutput_send_begin](../p/pgoutput_send_begin.md)
+  - [pgoutput_commit_txn](../p/pgoutput_commit_txn.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [pgoutput_truncate](../p/pgoutput_truncate.md)
+  - [pgoutput_message](../p/pgoutput_message.md)
 
 ## Notes and Other Information
 - This optimization specifically targets empty transactions to reduce network overhead in logical replication

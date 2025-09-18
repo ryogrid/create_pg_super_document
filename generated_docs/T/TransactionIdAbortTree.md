@@ -21,13 +21,13 @@ This function is responsible for marking a top-level transaction and all its ass
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdSetTreeStatus
+  - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)
   - TRANSACTION_STATUS_ABORTED
   - InvalidXLogRecPtr
 - Called from (representative examples):
-  - RecordTransactionAbortPrepared
-  - RecordTransactionAbort
-  - xact_redo_abort
+  - [RecordTransactionAbortPrepared](../R/RecordTransactionAbortPrepared.md)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
+  - [xact_redo_abort](../x/xact_redo_abort.md)
 
 ## Notes and Other Information
 - The function operates on transaction trees, ensuring that both the parent transaction and all its subtransactions are consistently marked as aborted

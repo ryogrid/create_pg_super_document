@@ -23,14 +23,14 @@ Special handling ensures that PRIMARY KEY indexes are preserved in preference to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformIndexConstraint (converts individual constraints to IndexStmt)
-  - equal (deep comparison of node structures)
-  - list_concat (concatenates lists)
+  - [transformIndexConstraint](transformIndexConstraint.md) (converts individual constraints to IndexStmt)
+  - [equal](../e/equal.md) (deep comparison of node structures)
+  - [list_concat](../l/list_concat.md) (concatenates lists)
   - CreateStmtContext, IndexStmt, Constraint (data structures)
   - CONSTR_PRIMARY, CONSTR_UNIQUE, CONSTR_EXCLUSION (constraint type constants)
 - Called from (representative examples):
-  - transformCreateStmt (during CREATE TABLE processing)
-  - transformAlterTableStmt (during ALTER TABLE processing)
+  - [transformCreateStmt](transformCreateStmt.md) (during CREATE TABLE processing)
+  - [transformAlterTableStmt](transformAlterTableStmt.md) (during ALTER TABLE processing)
 
 ## Notes and Other Information
 - This is a static function in parse_utilcmd.c, part of the utility command parsing infrastructure

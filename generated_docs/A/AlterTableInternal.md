@@ -21,13 +21,13 @@ The function follows a straightforward execution pattern: it determines the appr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTableGetLockLevel
-  - relation_open
-  - EventTriggerAlterTableRelid
-  - ATController
+  - [AlterTableGetLockLevel](AlterTableGetLockLevel.md)
+  - [relation_open](../r/relation_open.md)
+  - [EventTriggerAlterTableRelid](../E/EventTriggerAlterTableRelid.md)
+  - [ATController](ATController.md)
 - Called from (representative examples):
-  - AlterTableMoveAll
-  - DefineVirtualRelation
+  - [AlterTableMoveAll](AlterTableMoveAll.md)
+  - [DefineVirtualRelation](../D/DefineVirtualRelation.md)
 
 ## Notes and Other Information
 - This function does not reject operations on already-open relations, as it assumes callers may have the relation open

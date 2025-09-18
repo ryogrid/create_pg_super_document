@@ -25,7 +25,7 @@ The function uses a cascading switch statement where later states inherit the ab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BgWorkerStartTime (enum type)
+  - [BgWorkerStartTime](../B/BgWorkerStartTime.md) (enum type)
   - BgWorkerStart_PostmasterStart
   - BgWorkerStart_ConsistentState  
   - BgWorkerStart_RecoveryFinished

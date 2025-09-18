@@ -20,7 +20,7 @@ The  function performs a byte-by-byte inspection of a memory buffer to determine
 - Functions called/Symbols referenced:
   - (None - uses only basic C operations)
 - Called from (representative examples):
-  - ECPGis_noind_null (4 times in src/interfaces/ecpg/ecpglib/misc.c)
+  - [ECPGis_noind_null](../E/ECPGis_noind_null.md) (4 times in src/interfaces/ecpg/ecpglib/misc.c)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the misc.c file

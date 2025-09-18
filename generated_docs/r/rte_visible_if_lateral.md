@@ -25,10 +25,10 @@ This analysis enables PostgreSQL to provide targeted hints like "To reference th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findNSItemForRTE
+  - [findNSItemForRTE](../f/findNSItemForRTE.md)
 - Called from (representative examples):
-  - errorMissingRTE
-  - errorMissingColumn
+  - [errorMissingRTE](../e/errorMissingRTE.md)
+  - [errorMissingColumn](../e/errorMissingColumn.md)
 
 ## Notes and Other Information
 - Static function with internal linkage, used specifically for error message generation

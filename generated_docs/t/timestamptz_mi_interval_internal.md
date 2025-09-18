@@ -25,12 +25,12 @@ This design ensures that all the complex timezone-aware calendar arithmetic, DST
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - interval_um_internal (interval negation/unary minus)
-  - timestamptz_pl_interval_internal (delegated timezone-aware addition with negated interval)
+  - [interval_um_internal](../i/interval_um_internal.md) (interval negation/unary minus)
+  - [timestamptz_pl_interval_internal](timestamptz_pl_interval_internal.md) (delegated timezone-aware addition with negated interval)
 - Called from:
-  - timestamptz_mi_interval (src/backend/utils/adt/timestamp.c:3353)
-  - timestamptz_mi_interval_at_zone (src/backend/utils/adt/timestamp.c:3378)
-  - in_range_timestamptz_interval (src/backend/utils/adt/timestamp.c:3824)
+  - [timestamptz_mi_interval](timestamptz_mi_interval.md) (src/backend/utils/adt/timestamp.c:3353)
+  - [timestamptz_mi_interval_at_zone](timestamptz_mi_interval_at_zone.md) (src/backend/utils/adt/timestamp.c:3378)
+  - [in_range_timestamptz_interval](../i/in_range_timestamptz_interval.md) (src/backend/utils/adt/timestamp.c:3824)
 
 ## Notes and Other Information
 - Static function - not directly exposed to SQL, only used internally by other timestamptz functions

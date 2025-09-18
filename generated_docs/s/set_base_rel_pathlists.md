@@ -20,9 +20,9 @@ The function operates after size estimates have been established, ensuring that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_BASEREL (enum value)
-  - set_rel_pathlist
+  - [set_rel_pathlist](set_rel_pathlist.md)
 - Called from (representative examples):
-  - make_one_rel
+  - [make_one_rel](../m/make_one_rel.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/allpaths.c:333-359

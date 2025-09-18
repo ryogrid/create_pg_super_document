@@ -18,10 +18,10 @@ RWConflictPoolHeaderData serves as the header structure for a memory pool that m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (from src/include/lib/ilist.h)
-  - RWConflict (typedef for struct RWConflictData*)
+  - [dlist_head](../d/dlist_head.md) (from src/include/lib/ilist.h)
+  - [RWConflict](RWConflict.md) (typedef for struct RWConflictData*)
 - Called from (representative examples):
-  - RWConflictPoolHeader (typedef alias)
+  - [RWConflictPoolHeader](RWConflictPoolHeader.md) (typedef alias)
   - RWConflictPoolHeaderDataSize (size calculation macro)
 
 ## Notes and Other Information

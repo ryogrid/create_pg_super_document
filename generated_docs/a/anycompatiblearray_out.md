@@ -17,7 +17,7 @@ The anycompatiblearray_out function serves as a text output function for the any
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_out: The actual implementation for text array output
+  - [array_out](array_out.md): The actual implementation for text array output
 - Called from (representative examples):
   - No direct references found in the codebase (typically called through PostgreSQL's type system)
 

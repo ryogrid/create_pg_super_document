@@ -27,13 +27,13 @@ This function constructs a ProjectionPath node that represents computing a speci
 - Functions called/Symbols referenced:
   - makeNode
   - IsA
-  - is_parallel_safe
+  - [is_parallel_safe](../i/is_parallel_safe.md)
   - is_projection_capable_path
-  - equal
+  - [equal](../e/equal.md)
 - Called from (representative examples):
-  - adjust_paths_for_srfs
-  - apply_scanjoin_target_to_paths
-  - apply_projection_to_path
+  - [adjust_paths_for_srfs](../a/adjust_paths_for_srfs.md)
+  - [apply_scanjoin_target_to_paths](../a/apply_scanjoin_target_to_paths.md)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md)
 
 ## Notes and Other Information
 The function implements a key optimization by setting dummypp flag when no separate Result node is needed. This occurs when the subpath can project directly or when target expressions match the input. Projection operations preserve the sort order (pathkeys) from the input path. Cost calculation accounts for expression evaluation overhead and potential cpu_tuple_cost when a Result node is required.

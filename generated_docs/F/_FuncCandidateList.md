@@ -29,7 +29,7 @@ The structure is primarily used by  to return a list of potential function match
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array member)
 - Called from (representative examples):
-  - FuncnameGetCandidates (primary creator and user)
+  - [FuncnameGetCandidates](FuncnameGetCandidates.md) (primary creator and user)
   - SPACE_PER_OP (for memory allocation calculations)
 
 ## Notes and Other Information

@@ -26,8 +26,8 @@ ForeignServerInfo is a data structure that encapsulates all information about Po
   - DumpableObject (base structure)
   - DumpableAcl (ACL handling)
 - Called from (representative examples):
-  - getForeignServers
-  - dumpForeignServer
+  - [getForeignServers](../g/getForeignServers.md)
+  - [dumpForeignServer](../d/dumpForeignServer.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

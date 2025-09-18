@@ -23,17 +23,17 @@ The function validates that the specified block_id corresponds to an active regi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - registered_buffer (struct type for tracking registered buffers)
+  - [registered_buffer](../r/registered_buffer.md) (struct type for tracking registered buffers)
   - XLogRecData (struct type for data segments)
-  - errdetail_internal (for error reporting)
+  - [errdetail_internal](../e/errdetail_internal.md) (for error reporting)
   - elog (for error logging)
   - Assert (for debug assertions)
 - Called from (representative examples):
-  - _bt_insertonpg (B-tree page modifications)
-  - heap_insert (heap tuple insertions with buffer data)
-  - log_heap_update (heap update operations)
-  - _hash_doinsert (hash index insertions)
-  - gistXLogUpdate (GiST index updates)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md) (B-tree page modifications)
+  - [heap_insert](../h/heap_insert.md) (heap tuple insertions with buffer data)
+  - [log_heap_update](../l/log_heap_update.md) (heap update operations)
+  - [_hash_doinsert](../h/_hash_doinsert.md) (hash index insertions)
+  - [gistXLogUpdate](../g/gistXLogUpdate.md) (GiST index updates)
 
 ## Notes and Other Information
 - Must be called after the corresponding XLogRegisterBuffer() call

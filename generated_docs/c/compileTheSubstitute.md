@@ -27,15 +27,15 @@ The function is essential for preparing efficient substitute phrase matching dur
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall4 (calls subdictionary lexize function)  
-  - repalloc (dynamic memory reallocation)
-  - pstrdup (string duplication)
-  - palloc (memory allocation)
-  - pfree (memory deallocation)
+  - [repalloc](../r/repalloc.md) (dynamic memory reallocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - TSLexeme, DictThesaurus (structure types)
   - DT_USEASIS (flag to bypass lexizing)
   - TSL_ADDPOS (flag for position information)
 - Called from (representative examples):
-  - thesaurus_init
+  - [thesaurus_init](../t/thesaurus_init.md)
 
 ## Notes and Other Information
 - Handles the DT_USEASIS flag to allow literal substitute text without subdictionary normalization

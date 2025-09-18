@@ -17,7 +17,7 @@ This function is specifically designed for use during recovery mode to confirm i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadTwoPhaseFile
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md)
   - TransactionIdEquals
   - TwoPhaseFileHeader
 - Called from (representative examples):

@@ -29,10 +29,10 @@ This is a more limited normalization compared to interval_justify_interval, focu
   - INTERVAL_NOT_FINITE (infinity checking macro for intervals)
   - TMODULO (time modulo operation macro)
   - USECS_PER_DAY (constant for microseconds per day conversion)
-  - pg_add_s32_overflow (safe 32-bit addition with overflow detection)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (safe 32-bit addition with overflow detection)
   - PG_RETURN_INTERVAL_P (PostgreSQL return value macro)
 - Called from (representative examples):
-  - timestamp_mi (called via DirectFunctionCall1 for hour justification)
+  - [timestamp_mi](../t/timestamp_mi.md) (called via DirectFunctionCall1 for hour justification)
 
 ## Notes and Other Information
 - More limited than interval_justify_interval, only handling hour-to-day conversion

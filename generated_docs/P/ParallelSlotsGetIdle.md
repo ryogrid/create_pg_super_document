@@ -18,17 +18,17 @@ This function implements a four-tier strategy for obtaining an idle parallel slo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_matching_idle_slot (finds slot already connected to desired database)
-  - find_unconnected_slot (finds slot with no database connection)
-  - find_any_idle_slot (finds any available idle slot)
-  - connect_slot (establishes new database connection for slot)
-  - disconnectDatabase (closes existing database connection)
-  - wait_on_slots (blocks until slots become available)
+  - [find_matching_idle_slot](../f/find_matching_idle_slot.md) (finds slot already connected to desired database)
+  - [find_unconnected_slot](../f/find_unconnected_slot.md) (finds slot with no database connection)
+  - [find_any_idle_slot](../f/find_any_idle_slot.md) (finds any available idle slot)
+  - [connect_slot](../c/connect_slot.md) (establishes new database connection for slot)
+  - [disconnectDatabase](../d/disconnectDatabase.md) (closes existing database connection)
+  - [wait_on_slots](../w/wait_on_slots.md) (blocks until slots become available)
 - Called from (representative examples):
-  - main (pg_amcheck)
-  - reindex_one_database (reindexdb)
-  - vacuum_one_database (vacuumdb)
-  - ParallelSlotClearHandler
+  - [main](../m/main.md) (pg_amcheck)
+  - [reindex_one_database](../r/reindex_one_database.md) (reindexdb)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (vacuumdb)
+  - [ParallelSlotClearHandler](ParallelSlotClearHandler.md)
 
 ## Notes and Other Information
 - Returns a pointer to an available ParallelSlot, or NULL on error

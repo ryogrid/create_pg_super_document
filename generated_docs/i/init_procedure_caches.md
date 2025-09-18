@@ -17,14 +17,14 @@ This function sets up a hash table that serves as a cache for compiled PL/Python
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (PostgreSQL hash table creation function)
+  - [hash_create](../h/hash_create.md) (PostgreSQL hash table creation function)
   - HASHCTL (hash table control structure)
-  - PLyProcedureKey (key structure for procedure cache)
-  - PLyProcedureEntry (entry structure for cached procedures)
+  - [PLyProcedureKey](../P/PLyProcedureKey.md) (key structure for procedure cache)
+  - [PLyProcedureEntry](../P/PLyProcedureEntry.md) (entry structure for cached procedures)
   - HASH_ELEM (hash table flag for element-based hashing)
   - HASH_BLOBS (hash table flag for blob-based key comparison)
 - Called from (representative examples):
-  - PLy_initialize (main PL/Python initialization function)
+  - [PLy_initialize](../P/PLy_initialize.md) (main PL/Python initialization function)
 
 ## Notes and Other Information
 - This function must be called during PL/Python initialization before any procedures are cached

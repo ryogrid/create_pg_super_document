@@ -23,20 +23,20 @@ DatumGetPointP is part of PostgreSQL's function manager (fmgr) interface functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (geometric point data type)
-  - DatumGetPointer (implicit, through direct pointer casting)
+  - [Point](../P/Point.md) (geometric point data type)
+  - [DatumGetPointer](DatumGetPointer.md) (implicit, through direct pointer casting)
 - Called from (representative examples):
-  - gist_point_compress
-  - gist_bbox_distance
-  - spg_kd_choose
-  - spg_kd_picksplit
-  - spg_kd_inner_consistent
-  - spg_key_orderbys_distances
-  - spg_quad_choose
-  - spg_quad_picksplit
-  - spg_quad_inner_consistent
-  - spg_quad_leaf_consistent
-  - spg_box_quad_inner_consistent
+  - [gist_point_compress](../g/gist_point_compress.md)
+  - [gist_bbox_distance](../g/gist_bbox_distance.md)
+  - [spg_kd_choose](../s/spg_kd_choose.md)
+  - [spg_kd_picksplit](../s/spg_kd_picksplit.md)
+  - [spg_kd_inner_consistent](../s/spg_kd_inner_consistent.md)
+  - [spg_key_orderbys_distances](../s/spg_key_orderbys_distances.md)
+  - [spg_quad_choose](../s/spg_quad_choose.md)
+  - [spg_quad_picksplit](../s/spg_quad_picksplit.md)
+  - [spg_quad_inner_consistent](../s/spg_quad_inner_consistent.md)
+  - [spg_quad_leaf_consistent](../s/spg_quad_leaf_consistent.md)
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
   - PG_GETARG_POINT_P
 
 ## Notes and Other Information

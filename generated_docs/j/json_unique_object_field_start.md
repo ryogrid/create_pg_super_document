@@ -19,14 +19,14 @@ This function is a specialized JSON parsing callback that ensures object field n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_unique_check_key
-  - pfree
+  - [json_unique_check_key](json_unique_check_key.md)
+  - [pfree](../p/pfree.md)
 - Data types referenced:
   - JsonUniqueParsingState
   - JsonUniqueStackEntry
   - JSON_SUCCESS
 - Called from (representative examples):
-  - json_validate
+  - [json_validate](json_validate.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the json.c source file

@@ -24,7 +24,7 @@ The usage function in initdb serves as the help system for the PostgreSQL databa
   - PACKAGE_URL (macro containing the project homepage URL)
 
 - Called from (representative examples):
-  - main (when help is requested via command line options)
+  - [main](../m/main.md) (when help is requested via command line options)
 
 ## Notes and Other Information
 - Supports internationalization through gettext-style _() macros for translatable help text

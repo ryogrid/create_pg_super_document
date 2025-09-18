@@ -28,11 +28,11 @@ The structure tracks both the number of tuples moved and whether the destination
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)
-  - bool (type)
+  - [bool](../b/bool.md) (type)
 - Called from (representative examples):
-  - hash_xlog_move_page_contents (WAL replay function)
-  - _hash_squeezebucket (bucket squeeze implementation)
-  - hash_desc (WAL record description function)  
+  - [hash_xlog_move_page_contents](../h/hash_xlog_move_page_contents.md) (WAL replay function)
+  - [_hash_squeezebucket](../h/_hash_squeezebucket.md) (bucket squeeze implementation)
+  - [hash_desc](../h/hash_desc.md) (WAL record description function)  
   - SizeOfHashMovePageContents (macro for size calculation)
 
 ## Notes and Other Information

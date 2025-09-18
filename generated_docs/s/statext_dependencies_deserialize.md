@@ -35,13 +35,13 @@ The function includes comprehensive error handling with detailed error messages 
   - STATS_DEPS_MAGIC (validation constant)
   - STATS_DEPS_TYPE_BASIC (type validation constant)
   - STATS_MAX_DIMENSIONS (maximum attribute limit)
-  - palloc0 (PostgreSQL memory allocation)
-  - repalloc (PostgreSQL memory reallocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation)
   - memcpy (system memory copy function)
   - elog (PostgreSQL error logging)
 - Called from:
-  - statext_dependencies_load
-  - pg_dependencies_out
+  - [statext_dependencies_load](statext_dependencies_load.md)
+  - [pg_dependencies_out](../p/pg_dependencies_out.md)
 
 ## Notes and Other Information
 - Returns NULL if input data is NULL, allowing for graceful handling of missing statistics

@@ -26,17 +26,17 @@ This simplified approach is used in contexts where the full catalog system may n
 - Functions called/Symbols referenced:
   - slot_getallattrs
   - pq_beginmessage
-  - pq_sendint16
-  - pq_sendint32
+  - [pq_sendint16](pq_sendint16.md)
+  - [pq_sendint32](pq_sendint32.md)
   - pq_sendcountedtext
-  - pq_endmessage
+  - [pq_endmessage](pq_endmessage.md)
   - DatumGetTextPP
-  - DatumGetInt32
-  - DatumGetInt64
-  - ObjectIdGetDatum
-  - pg_ltoa
-  - pg_lltoa
-  - pg_ultoa_n
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [DatumGetInt64](../D/DatumGetInt64.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [pg_ltoa](pg_ltoa.md)
+  - [pg_lltoa](pg_lltoa.md)
+  - [pg_ultoa_n](pg_ultoa_n.md)
   - TupleDescAttr
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR
@@ -45,7 +45,7 @@ This simplified approach is used in contexts where the full catalog system may n
   - MAXINT8LEN
   - elog
 - Called from (representative examples):
-  - donothingCleanup (referenced in dest.c)
+  - [donothingCleanup](../d/donothingCleanup.md) (referenced in dest.c)
 
 ## Notes and Other Information
 - Only supports TEXTOID, INT4OID, INT8OID, and OIDOID data types

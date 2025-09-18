@@ -32,19 +32,19 @@ The function handles security carefully by checking the original authenticated u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSessionUserId
-  - GetSessionUserIsSuperuser
-  - IsTransactionState
-  - SearchSysCache1
+  - [GetSessionUserId](../G/GetSessionUserId.md)
+  - [GetSessionUserIsSuperuser](../G/GetSessionUserIsSuperuser.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - ereport
   - GUC_check_errmsg
   - GETSTRUCT
-  - ReleaseSysCache
-  - GetAuthenticatedUserId
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [GetAuthenticatedUserId](../G/GetAuthenticatedUserId.md)
   - superuser_arg
   - GUC_check_errcode
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - GUC system when processing SET SESSION AUTHORIZATION commands
   - Configuration validation during parameter changes

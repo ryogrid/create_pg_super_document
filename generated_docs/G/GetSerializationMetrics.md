@@ -21,11 +21,11 @@ This function safely extracts serialization performance metrics from a destinati
 - Functions called/Symbols referenced:
   - memset
   - INSTR_TIME_SET_ZERO
-  - SerializeMetrics
+  - [SerializeMetrics](../S/SerializeMetrics.md)
   - DestExplainSerialize
-  - SerializeDestReceiver
+  - [SerializeDestReceiver](../S/SerializeDestReceiver.md)
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
   - BYTES_TO_KILOBYTES
 
 ## Notes and Other Information

@@ -21,10 +21,10 @@ This is part of the PostgreSQL reloptions (relation options) framework that allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_local_reloptions
-  - add_local_int_reloption
+  - [init_local_reloptions](../i/init_local_reloptions.md)
+  - [add_local_int_reloption](../a/add_local_int_reloption.md)
   - MINMAX_MULTI_DEFAULT_VALUES_PER_PAGE (constant)
-  - MinMaxMultiOptions (structure type)
+  - [MinMaxMultiOptions](../M/MinMaxMultiOptions.md) (structure type)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct references found (likely called through relation options framework)

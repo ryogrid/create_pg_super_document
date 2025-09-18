@@ -26,22 +26,22 @@ The `JsonPathQuery` function implements the SQL/JSON JSON_QUERY operation, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeJsonPath
-  - GetJsonPathVar
-  - CountJsonPathVars
-  - DatumGetJsonbP
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [GetJsonPathVar](../G/GetJsonPathVar.md)
+  - [CountJsonPathVars](../C/CountJsonPathVars.md)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
   - jperIsError
-  - JsonValueListLength
-  - JsonValueListHead
-  - wrapItemsInArray
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
-  - PointerGetDatum
+  - [JsonValueListLength](JsonValueListLength.md)
+  - [JsonValueListHead](JsonValueListHead.md)
+  - [wrapItemsInArray](../w/wrapItemsInArray.md)
+  - [JsonbValueToJsonb](JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](JsonbPGetDatum.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - JsonWrapper (enum: JSW_NONE, JSW_UNSPEC, JSW_UNCONDITIONAL, JSW_CONDITIONAL)
-  - JsonValueList (type)
-  - JsonPathExecResult (type)
+  - [JsonValueList](JsonValueList.md) (type)
+  - [JsonPathExecResult](JsonPathExecResult.md) (type)
 - Called from (representative examples):
-  - ExecEvalJsonExprPath
+  - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)
 
 ## Notes and Other Information
 - Returns NULL (PointerGetDatum(NULL)) when no matches are found and sets *empty to true

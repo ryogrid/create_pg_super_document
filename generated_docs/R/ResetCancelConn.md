@@ -19,17 +19,17 @@ Like SetCancelConn, this function uses critical sections on Windows platforms to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfreeCancel
+  - [PQfreeCancel](../P/PQfreeCancel.md)
   - PGcancel (type)
 - Called from (representative examples):
-  - runInitSteps (pgbench)
-  - do_connect (psql)
-  - CheckConnection (psql)
-  - PSQLexec (psql)
-  - PSQLexecWatch (psql)
-  - HandleCopyResult (psql)
-  - SendQuery (psql)
-  - consumeQueryResult (parallel_slot)
+  - [runInitSteps](../r/runInitSteps.md) (pgbench)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [CheckConnection](../C/CheckConnection.md) (psql)
+  - [PSQLexec](../P/PSQLexec.md) (psql)
+  - [PSQLexecWatch](../P/PSQLexecWatch.md) (psql)
+  - [HandleCopyResult](../H/HandleCopyResult.md) (psql)
+  - [SendQuery](../S/SendQuery.md) (psql)
+  - [consumeQueryResult](../c/consumeQueryResult.md) (parallel_slot)
 
 ## Notes and Other Information
 - Uses Windows-specific critical sections for thread safety on WIN32 platforms

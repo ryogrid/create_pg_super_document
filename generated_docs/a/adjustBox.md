@@ -26,13 +26,13 @@ This operation is fundamental in spatial indexing algorithms where bounding boxe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type)
-  - float8_lt (for comparing coordinates to determine if expansion is needed)
-  - float8_gt (for comparing coordinates to determine if expansion is needed)
+  - [BOX](../B/BOX.md) (data type)
+  - [float8_lt](../f/float8_lt.md) (for comparing coordinates to determine if expansion is needed)
+  - [float8_gt](../f/float8_gt.md) (for comparing coordinates to determine if expansion is needed)
 - Called from (representative examples):
-  - gist_box_union
-  - fallbackSplit (multiple times)
-  - gist_box_picksplit
+  - [gist_box_union](../g/gist_box_union.md)
+  - [fallbackSplit](../f/fallbackSplit.md) (multiple times)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md)
   - PLACE_LEFT
   - PLACE_RIGHT
 
@@ -40,7 +40,7 @@ This operation is fundamental in spatial indexing algorithms where bounding boxe
 - This is a static function, only accessible within gistproc.c
 - The function modifies the first box parameter in-place rather than creating a new box
 - Unlike rt_box_union, this function modifies an existing box rather than creating a union in a separate output parameter
-- The operation is not commutative in terms of which box gets modified - adjustBox(a, b) modifies 'a' to include 'b'
+- The operation is not commutative in terms of which box gets modified - [adjustBox](adjustBox.md)(a, b) modifies 'a' to include 'b'
 - Essential for maintaining bounding box integrity during R-tree node updates and splits
 - Used extensively in GiST split algorithms and union operations
 - Located in src/backend/access/gist/gistproc.c:146-163

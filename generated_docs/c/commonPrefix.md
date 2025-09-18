@@ -24,9 +24,9 @@ The function performs a simple linear scan, making it efficient for typical use 
 - Functions called/Symbols referenced:
   - No external function calls (uses only basic pointer arithmetic and comparison)
 - Called from (representative examples):
-  - spg_text_choose
-  - spg_text_picksplit
-  - spgist_name_choose
+  - [spg_text_choose](../s/spg_text_choose.md)
+  - [spg_text_picksplit](../s/spg_text_picksplit.md)
+  - [spgist_name_choose](../s/spgist_name_choose.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/spgist/spgtextproc.c:138-157

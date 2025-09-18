@@ -18,10 +18,10 @@ This function serves as a validation callback within PostgreSQL's incremental ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonManifestParseContext (structure for manifest parsing context)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (structure for manifest parsing context)
   - context->error_cb (error callback function from the context)
 - Called from (representative examples):
-  - IncrementalBackupInfo (structure that utilizes this validation callback)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (structure that utilizes this validation callback)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, used only within the incremental backup module

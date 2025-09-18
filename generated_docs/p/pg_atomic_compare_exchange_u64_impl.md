@@ -23,13 +23,13 @@ This function provides a fallback implementation for atomic compare-and-swap ope
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - pg_atomic_uint64 (type)
-  - slock_t (type)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
+  - [slock_t](../s/slock_t.md) (type)
 - Called from (representative examples):
-  - pg_atomic_compare_exchange_u64 (inline wrapper)
-  - pg_atomic_exchange_u64_impl
-  - pg_atomic_fetch_add_u64_impl
-  - pg_atomic_fetch_and_u64_impl
+  - [pg_atomic_compare_exchange_u64](pg_atomic_compare_exchange_u64.md) (inline wrapper)
+  - [pg_atomic_exchange_u64_impl](pg_atomic_exchange_u64_impl.md)
+  - [pg_atomic_fetch_add_u64_impl](pg_atomic_fetch_add_u64_impl.md)
+  - [pg_atomic_fetch_and_u64_impl](pg_atomic_fetch_and_u64_impl.md)
 
 ## Notes and Other Information
 - This is a fallback implementation used when PG_HAVE_ATOMIC_COMPARE_EXCHANGE_U64 is not defined

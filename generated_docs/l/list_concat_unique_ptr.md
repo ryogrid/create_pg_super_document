@@ -23,10 +23,10 @@ The function modifies list1 in-place by appending each element from list2 that i
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList
-  - list_member_ptr
-  - check_list_invariants
+  - [list_member_ptr](list_member_ptr.md)
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - group_keys_reorder_by_pathkeys
+  - [group_keys_reorder_by_pathkeys](../g/group_keys_reorder_by_pathkeys.md)
   - forfive
 
 ## Notes and Other Information

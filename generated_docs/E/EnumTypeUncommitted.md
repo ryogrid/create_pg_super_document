@@ -19,11 +19,11 @@ The function uses a simple hash table lookup to determine membership, returning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search: Performs hash table lookup to find the type ID
+  - [hash_search](../h/hash_search.md): Performs hash table lookup to find the type ID
   - HASH_FIND: Hash operation flag indicating a search operation
   - uncommitted_enum_types: Global hash table tracking uncommitted enum types
 - Called from (representative examples):
-  - AddEnumLabel: Checks if enum type is uncommitted before adding new labels
+  - [AddEnumLabel](../A/AddEnumLabel.md): Checks if enum type is uncommitted before adding new labels
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_enum.c compilation unit

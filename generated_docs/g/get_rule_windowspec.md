@@ -35,12 +35,12 @@ Frame clause generation supports:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - quote_identifier (for proper quoting of reference window names)
-  - get_rule_sortgroupclause (for PARTITION BY column expressions)
-  - get_rule_orderby (for ORDER BY clause formatting)
+  - [quote_identifier](../q/quote_identifier.md) (for proper quoting of reference window names)
+  - [get_rule_sortgroupclause](get_rule_sortgroupclause.md) (for PARTITION BY column expressions)
+  - [get_rule_orderby](get_rule_orderby.md) (for ORDER BY clause formatting)
   - get_rule_expr (for frame boundary offset expressions)
 - Called from (representative examples):
-  - get_rule_windowclause (for named window definitions)
+  - [get_rule_windowclause](get_rule_windowclause.md) (for named window definitions)
   - get_windowfunc_expr_helper (for inline window specifications)
 
 ## Notes and Other Information

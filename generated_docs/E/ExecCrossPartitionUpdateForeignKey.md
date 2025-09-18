@@ -29,14 +29,14 @@ The function is essential for maintaining referential integrity when updates cau
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetAncestorResultRels
-  - RI_FKey_trigger_type
+  - [ExecGetAncestorResultRels](ExecGetAncestorResultRels.md)
+  - [RI_FKey_trigger_type](../R/RI_FKey_trigger_type.md)
   - RI_TRIGGER_PK
-  - ExecARUpdateTriggers
+  - [ExecARUpdateTriggers](ExecARUpdateTriggers.md)
   - RelationGetRelationName
   - ereport
 - Called from (representative examples):
-  - ExecUpdateAct (src/backend/executor/nodeModifyTable.c:2093)
+  - [ExecUpdateAct](ExecUpdateAct.md) (src/backend/executor/nodeModifyTable.c:2093)
 
 ## Notes and Other Information
 - The function is static and only used within nodeModifyTable.c

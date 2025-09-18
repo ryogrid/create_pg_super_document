@@ -27,8 +27,8 @@ The function follows the mathematical definition where LCM is the smallest posit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `int4gcd_internal`: Internal GCD implementation used in LCM calculation
-  - `pg_mul_s32_overflow`: PostgreSQL function to detect 32-bit signed integer multiplication overflow
+  - `[int4gcd_internal](int4gcd_internal.md)`: Internal GCD implementation used in LCM calculation
+  - `[pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)`: PostgreSQL function to detect 32-bit signed integer multiplication overflow
   - `PG_INT32_MIN`: Constant representing the minimum value for a 32-bit signed integer
   - `PG_GETARG_INT32()`: PostgreSQL macro to extract int32 arguments
   - `PG_RETURN_INT32()`: PostgreSQL macro to return int32 result

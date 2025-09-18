@@ -25,14 +25,14 @@ The function prepares for a complete traversal that will visit buffered values, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntegerSet (structure access)
+  - [IntegerSet](../I/IntegerSet.md) (structure access)
 - Called from (representative examples):
-  - gistvacuum_delete_empty_pages
-  - test_pattern
-  - test_single_value
-  - test_single_value_and_filler
-  - test_empty
-  - test_huge_distances
+  - [gistvacuum_delete_empty_pages](../g/gistvacuum_delete_empty_pages.md)
+  - [test_pattern](../t/test_pattern.md)
+  - [test_single_value](../t/test_single_value.md)
+  - [test_single_value_and_filler](../t/test_single_value_and_filler.md)
+  - [test_empty](../t/test_empty.md)
+  - [test_huge_distances](../t/test_huge_distances.md)
 
 ## Notes and Other Information
 - Prevents modification of the IntegerSet while iteration is active to maintain consistency

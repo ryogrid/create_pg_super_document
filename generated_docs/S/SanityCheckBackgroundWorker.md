@@ -26,8 +26,8 @@ Key validation checks include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)
-  - errcode (error code generation)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code generation)
+  - [errmsg](../e/errmsg.md) (error message formatting)
   - strcmp (string comparison)
   - strcpy (string copy)
 - Constants referenced:
@@ -38,8 +38,8 @@ Key validation checks include:
   - USECS_PER_DAY
   - BGWORKER_CLASS_PARALLEL
 - Called from:
-  - RegisterBackgroundWorker
-  - RegisterDynamicBackgroundWorker
+  - [RegisterBackgroundWorker](../R/RegisterBackgroundWorker.md)
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md)
 
 ## Notes and Other Information
 - This is a static function internal to bgworker.c, not exposed in public APIs

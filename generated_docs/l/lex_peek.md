@@ -17,15 +17,15 @@ The lex_peek function provides a simple way to examine the current token in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (structure access)
-  - JsonTokenType (return type)
+  - [JsonLexContext](../J/JsonLexContext.md) (structure access)
+  - [JsonTokenType](../J/JsonTokenType.md) (return type)
 - Called from (representative examples):
-  - lex_expect
-  - pg_parse_json
-  - json_count_array_elements
-  - pg_parse_json_incremental
-  - parse_scalar
-  - parse_object_field
+  - [lex_expect](lex_expect.md)
+  - [pg_parse_json](../p/pg_parse_json.md)
+  - [json_count_array_elements](../j/json_count_array_elements.md)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)
+  - [parse_scalar](../p/parse_scalar.md)
+  - [parse_object_field](../p/parse_object_field.md)
   - parse_object
   - parse_array_element
   - parse_array

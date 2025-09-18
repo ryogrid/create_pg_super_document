@@ -23,13 +23,13 @@ The function handles empty ranges and ranges with missing bounds appropriately, 
   - PG_GETARG_RANGE_P
   - PG_GETARG_DATUM  
   - check_stack_depth
-  - range_get_typcache
+  - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
-  - range_deserialize
-  - range_get_flags
-  - lookup_type_cache
-  - FunctionCall2Coll
-  - hash_uint32_extended
+  - [range_deserialize](../r/range_deserialize.md)
+  - [range_get_flags](../r/range_get_flags.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [hash_uint32_extended](hash_uint32_extended.md)
   - ROTATE_HIGH_AND_LOW_32BITS
   - PG_RETURN_UINT64
 - Called from (representative examples):

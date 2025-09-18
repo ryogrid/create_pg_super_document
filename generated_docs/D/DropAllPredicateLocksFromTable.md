@@ -27,30 +27,30 @@ The function is designed specifically for DDL operations like DROP TABLE, ALTER 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid (via PredXact->SxactGlobalXmin check)
-  - PredicateLockingNeededForRelation
+  - [PredicateLockingNeededForRelation](../P/PredicateLockingNeededForRelation.md)
   - LWLockAcquire
   - PredicateLockHashPartitionLockByIndex
   - RemoveScratchTarget
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - GET_PREDICATELOCKTARGETTAG_RELATION
   - GET_PREDICATELOCKTARGETTAG_DB
   - GET_PREDICATELOCKTARGETTAG_TYPE
   - SET_PREDICATELOCKTARGETTAG_RELATION
   - PredicateLockTargetTagHashCode
-  - hash_search_with_hash_value
-  - dlist_init
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [dlist_init](../d/dlist_init.md)
   - dlist_foreach_modify
   - dlist_container
-  - dlist_delete
-  - hash_search
-  - dlist_push_tail
+  - [dlist_delete](../d/dlist_delete.md)
+  - [hash_search](../h/hash_search.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - PredicateLockHashCodeFromTargetHashCode
-  - RestoreScratchTarget
+  - [RestoreScratchTarget](../R/RestoreScratchTarget.md)
   - LWLockRelease
 - Called from (representative examples):
-  - TransferPredicateLocksToHeapRelation
-  - SerialControl
+  - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
+  - [SerialControl](../S/SerialControl.md)
 
 ## Notes and Other Information
 - Static function - internal to the predicate locking subsystem

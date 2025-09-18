@@ -31,24 +31,24 @@ The function performs a SQL query against `pg_depend` and `pg_extension` tables 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - createPQExpBuffer
-  - appendPQExpBuffer
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQfnumber
-  - PQgetvalue
-  - fmtId
-  - PQclear
+  - [appendPQExpBuffer](appendPQExpBuffer.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [fmtId](../f/fmtId.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
-  - pg_free
+  - [pg_free](../p/pg_free.md)
   - PGRES_TUPLES_OK
 - Called from (representative examples):
-  - dumpFunc (src/bin/pg_dump/pg_dump.c:12673)
-  - dumpTableSchema (src/bin/pg_dump/pg_dump.c:16322)
-  - dumpIndex (src/bin/pg_dump/pg_dump.c:17056)
-  - dumpConstraint (src/bin/pg_dump/pg_dump.c:17375)
-  - dumpTrigger (src/bin/pg_dump/pg_dump.c:17922)
+  - [dumpFunc](../d/dumpFunc.md) (src/bin/pg_dump/pg_dump.c:12673)
+  - [dumpTableSchema](../d/dumpTableSchema.md) (src/bin/pg_dump/pg_dump.c:16322)
+  - [dumpIndex](../d/dumpIndex.md) (src/bin/pg_dump/pg_dump.c:17056)
+  - [dumpConstraint](../d/dumpConstraint.md) (src/bin/pg_dump/pg_dump.c:17375)
+  - [dumpTrigger](../d/dumpTrigger.md) (src/bin/pg_dump/pg_dump.c:17922)
 
 ## Notes and Other Information
 - The function only operates when `dobj->depends_on_ext` is true, indicating the object has extension dependencies

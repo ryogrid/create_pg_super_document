@@ -28,15 +28,15 @@ The function is widely used throughout PostgreSQL's query processing components,
   - RowMarkClause (referenced but not called within this function)
   - Standard PostgreSQL list iteration macros (foreach, lfirst)
 - Called from (representative examples):
-  - show_grouping_set_keys (EXPLAIN functionality)
-  - show_sort_group_keys (EXPLAIN functionality)
-  - create_unique_plan (query planning)
-  - prepare_sort_from_pathkeys (query planning)
-  - markTargetListOrigin (target list analysis)
-  - expandRecordVariable (variable expansion)
-  - rewriteTargetView (view rewriting)
-  - get_variable (rule utilities)
-  - resolve_special_varno (variable resolution)
+  - [show_grouping_set_keys](../s/show_grouping_set_keys.md) (EXPLAIN functionality)
+  - [show_sort_group_keys](../s/show_sort_group_keys.md) (EXPLAIN functionality)
+  - [create_unique_plan](../c/create_unique_plan.md) (query planning)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md) (query planning)
+  - [markTargetListOrigin](../m/markTargetListOrigin.md) (target list analysis)
+  - [expandRecordVariable](../e/expandRecordVariable.md) (variable expansion)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (view rewriting)
+  - [get_variable](get_variable.md) (rule utilities)
+  - [resolve_special_varno](../r/resolve_special_varno.md) (variable resolution)
 
 ## Notes and Other Information
 - Returns NULL if no TargetEntry with the specified resno is found in the list

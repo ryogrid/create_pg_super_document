@@ -20,15 +20,15 @@ This function is used during query execution to track parameter changes that aff
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_intersect
-  - bms_join
+  - [bms_intersect](../b/bms_intersect.md)
+  - [bms_join](../b/bms_join.md)
 - Called from (representative examples):
-  - ExecReScan
-  - ExecReScanAppend
-  - ExecReScanBitmapAnd
-  - ExecReScanBitmapOr
+  - [ExecReScan](../E/ExecReScan.md)
+  - [ExecReScanAppend](../E/ExecReScanAppend.md)
+  - [ExecReScanBitmapAnd](../E/ExecReScanBitmapAnd.md)
+  - [ExecReScanBitmapOr](../E/ExecReScanBitmapOr.md)
   - ExecReScanMergeAppend
-  - ExecReScanSubqueryScan
+  - [ExecReScanSubqueryScan](../E/ExecReScanSubqueryScan.md)
 
 ## Notes and Other Information
 - Used primarily during plan re-scanning operations when parameters change

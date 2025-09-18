@@ -28,17 +28,17 @@ The scan direction is particularly important for understanding query performance
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - explain_get_index_name
+  - [explain_get_index_name](../e/explain_get_index_name.md)
   - ScanDirectionIsBackward
   - appendStringInfoString
   - appendStringInfo
-  - quote_identifier
-  - ExplainPropertyText
+  - [quote_identifier](../q/quote_identifier.md)
+  - [ExplainPropertyText](ExplainPropertyText.md)
   - BackwardScanDirection
   - ForwardScanDirection
 - Called from (representative examples):
-  - ExplainNode (for IndexScan nodes)
-  - ExplainNode (for IndexOnlyScan nodes)
+  - [ExplainNode](ExplainNode.md) (for IndexScan nodes)
+  - [ExplainNode](ExplainNode.md) (for IndexOnlyScan nodes)
 
 ## Notes and Other Information
 - Index names are properly quoted using  to handle names with special characters

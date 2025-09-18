@@ -19,26 +19,26 @@ This function manages cached I/O information for range types to optimize repeate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc: Allocates memory for the cache structure
-  - lookup_type_cache: Retrieves type cache information for the range type
-  - get_type_io_data: Obtains I/O function metadata for the element type
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory for the cache structure
+  - [lookup_type_cache](../l/lookup_type_cache.md): Retrieves type cache information for the range type
+  - [get_type_io_data](get_type_io_data.md): Obtains I/O function metadata for the element type
   - OidIsValid: Validates that an OID is valid
   - ereport/errcode/errmsg: Error reporting functions
-  - format_type_be: Formats type names for error messages
-  - fmgr_info_cxt: Prepares function call information for the I/O function
+  - [format_type_be](../f/format_type_be.md): Formats type names for error messages
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md): Prepares function call information for the I/O function
 - Data structures used:
-  - RangeIOData: Cache structure containing type cache and I/O function info
-  - FunctionCallInfo: PostgreSQL function call information
+  - [RangeIOData](../R/RangeIOData.md): Cache structure containing type cache and I/O function info
+  - [FunctionCallInfo](../F/FunctionCallInfo.md): PostgreSQL function call information
   - IOFuncSelector: Enumeration specifying I/O function types
   - TYPECACHE_RANGE_INFO: Flag for type cache lookup
 - Constants used:
   - IOFunc_receive/IOFunc_send: Enum values for binary I/O functions
   - ERRCODE_UNDEFINED_FUNCTION: Error code for missing functions
 - Called from (representative examples):
-  - range_in: Text input function for ranges
-  - range_out: Text output function for ranges  
-  - range_recv: Binary receive function for ranges
-  - range_send: Binary send function for ranges
+  - [range_in](../r/range_in.md): Text input function for ranges
+  - [range_out](../r/range_out.md): Text output function for ranges  
+  - [range_recv](../r/range_recv.md): Binary receive function for ranges
+  - [range_send](../r/range_send.md): Binary send function for ranges
 
 ## Notes and Other Information
 - The function uses PostgreSQL's function call caching mechanism (fn_extra) to avoid repeated expensive lookups

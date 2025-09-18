@@ -29,10 +29,10 @@ Based on these boundaries, it determines the appropriate availability status.
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
-  - GetXLogWriteRecPtr
-  - XLogGetReplicationSlotMinimumLSN
-  - KeepLogSeg
-  - XLogGetLastRemovedSegno
+  - [GetXLogWriteRecPtr](GetXLogWriteRecPtr.md)
+  - [XLogGetReplicationSlotMinimumLSN](../X/XLogGetReplicationSlotMinimumLSN.md)
+  - [KeepLogSeg](../K/KeepLogSeg.md)
+  - [XLogGetLastRemovedSegno](../X/XLogGetLastRemovedSegno.md)
   - XLByteToSeg
   - ConvertToXSegs
 - Called from (representative examples):

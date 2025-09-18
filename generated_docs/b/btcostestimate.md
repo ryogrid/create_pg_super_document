@@ -33,18 +33,18 @@ The function performs sophisticated analysis of index clauses to determine which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - genericcostestimate
-  - add_predicate_to_index_quals
-  - get_op_opfamily_strategy
-  - estimate_array_length
-  - clauselist_selectivity
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [add_predicate_to_index_quals](../a/add_predicate_to_index_quals.md)
+  - [get_op_opfamily_strategy](../g/get_op_opfamily_strategy.md)
+  - [estimate_array_length](../e/estimate_array_length.md)
+  - [clauselist_selectivity](../c/clauselist_selectivity.md)
   - planner_rt_fetch
-  - get_attstatsslot
-  - get_opfamily_member
-  - SearchSysCache3
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [SearchSysCache3](../S/SearchSysCache3.md)
   - ReleaseVariableStats
 - Called from (representative examples):
-  - bthandler (B-tree access method handler)
+  - [bthandler](bthandler.md) (B-tree access method handler)
 
 ## Notes and Other Information
 - Implements intelligent clamping of ScalarArrayOpExpr scan estimates to at most 1/3 of total index pages

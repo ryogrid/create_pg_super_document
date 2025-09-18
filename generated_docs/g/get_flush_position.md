@@ -33,15 +33,15 @@ The algorithm ensures that only LSNs corresponding to locally-flushed data are r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFlushRecPtr
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
   - dlist_foreach_modify
   - dlist_container
-  - dlist_delete
+  - [dlist_delete](../d/dlist_delete.md)
   - dlist_tail_element
-  - dlist_is_empty
-  - pfree
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - send_feedback
+  - [send_feedback](../s/send_feedback.md)
 
 ## Notes and Other Information
 - Uses a doubly-linked list (lsn_mapping) to maintain LSN associations in commit order

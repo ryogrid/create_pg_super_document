@@ -19,10 +19,10 @@ The function implements a comprehensive switch statement that covers all possibl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbortTransaction
-  - CleanupTransaction  
-  - AbortSubTransaction
-  - CleanupSubTransaction
+  - [AbortTransaction](AbortTransaction.md)
+  - [CleanupTransaction](../C/CleanupTransaction.md)  
+  - [AbortSubTransaction](AbortSubTransaction.md)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md)
   - CurrentTransactionState (global variable)
 - Transaction block states referenced:
   - TBLOCK_DEFAULT, TBLOCK_STARTED, TBLOCK_IMPLICIT_INPROGRESS
@@ -35,7 +35,7 @@ The function implements a comprehensive switch statement that covers all possibl
 - Transaction states referenced:
   - TRANS_DEFAULT, TRANS_START, TRANS_INPROGRESS
 - Called from:
-  - AbortCurrentTransaction
+  - [AbortCurrentTransaction](AbortCurrentTransaction.md)
 
 ## Notes and Other Information
 This function is static and internal to xact.c, designed to be called repeatedly by AbortCurrentTransaction until all transaction cleanup is complete. The iterative design is particularly important for handling complex subtransaction hierarchies where multiple cleanup steps may be required. The function carefully manages transaction state transitions to ensure the system reaches a consistent state after error recovery.

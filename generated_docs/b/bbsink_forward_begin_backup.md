@@ -24,8 +24,8 @@ The function ensures that the bbsink chain is properly initialized and that buff
   - bbsink_begin_backup
   - bbsink (type reference)
 - Called from (representative examples):
-  - bbsink_progress_begin_backup (src/backend/backup/basebackup_progress.c:107)
-  - bbsink_throttle_begin_backup (src/backend/backup/basebackup_throttle.c:100)
+  - [bbsink_progress_begin_backup](bbsink_progress_begin_backup.md) (src/backend/backup/basebackup_progress.c:107)
+  - [bbsink_throttle_begin_backup](bbsink_throttle_begin_backup.md) (src/backend/backup/basebackup_throttle.c:100)
 
 ## Notes and Other Information
 - This implementation should only be used when the bbsink wants to share a buffer with its successor

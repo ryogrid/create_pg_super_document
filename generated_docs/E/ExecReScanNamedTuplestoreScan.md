@@ -25,11 +25,11 @@ This function is essential for supporting operations that require multiple passe
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple: Clears any cached tuple from the result tuple slot
-  - ExecScanReScan: Performs generic scan state reset operations
-  - tuplestore_select_read_pointer: Selects the node's read pointer for operations
-  - tuplestore_rescan: Rewinds the tuple store to the beginning position
+  - [ExecScanReScan](ExecScanReScan.md): Performs generic scan state reset operations
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Selects the node's read pointer for operations
+  - [tuplestore_rescan](../t/tuplestore_rescan.md): Rewinds the tuple store to the beginning position
 - Called from (representative examples):
-  - ExecReScan: Generic rescan dispatcher in the executor framework
+  - [ExecReScan](ExecReScan.md): Generic rescan dispatcher in the executor framework
 
 ## Notes and Other Information
 - Function returns void as it performs state modification rather than returning data

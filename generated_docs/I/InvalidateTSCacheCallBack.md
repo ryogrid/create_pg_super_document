@@ -21,18 +21,18 @@ The function can be used for all text search caches by passing the appropriate h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
-  - hash_seq_init
-  - hash_seq_search
-  - HTAB (hash table structure)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [HTAB](../H/HTAB.md) (hash table structure)
   - HASH_SEQ_STATUS (hash sequence status structure)
   - TSAnyCacheEntry (base cache entry structure)
   - TSConfigCacheHash (global hash table variable)
   - TSCurrentConfigCache (global current config cache variable)
 - Called from (representative examples):
-  - lookup_ts_parser_cache (registers this callback)
-  - lookup_ts_dictionary_cache (registers this callback)
-  - init_ts_config_cache (registers this callback)
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md) (registers this callback)
+  - [lookup_ts_dictionary_cache](../l/lookup_ts_dictionary_cache.md) (registers this callback)
+  - [init_ts_config_cache](../i/init_ts_config_cache.md) (registers this callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the ts_cache.c compilation unit

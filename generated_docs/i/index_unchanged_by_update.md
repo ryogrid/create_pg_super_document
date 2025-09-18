@@ -27,17 +27,17 @@ The function specifically ignores INCLUDE columns (non-key columns) since change
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetUpdatedCols
-  - ExecGetExtraUpdatedCols
-  - bms_is_member
-  - bms_union
-  - RelationGetIndexExpressions
-  - index_expression_changed_walker
-  - list_free
-  - bms_free
+  - [ExecGetUpdatedCols](../E/ExecGetUpdatedCols.md)
+  - [ExecGetExtraUpdatedCols](../E/ExecGetExtraUpdatedCols.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_union](../b/bms_union.md)
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md)
+  - [index_expression_changed_walker](index_expression_changed_walker.md)
+  - [list_free](../l/list_free.md)
+  - [bms_free](../b/bms_free.md)
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - ExecInsertIndexTuples
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md)
 
 ## Notes and Other Information
 - This is a static function used internally within execIndexing.c for UPDATE optimization

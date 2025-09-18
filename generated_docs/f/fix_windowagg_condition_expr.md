@@ -26,11 +26,11 @@ The function uses a mutator pattern to recursively traverse the condition expres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_windowagg_condition_expr_mutator
-  - fix_windowagg_cond_context (structure)
-  - indexed_tlist (type)
+  - [fix_windowagg_condition_expr_mutator](fix_windowagg_condition_expr_mutator.md)
+  - [fix_windowagg_cond_context](fix_windowagg_cond_context.md) (structure)
+  - [indexed_tlist](../i/indexed_tlist.md) (type)
 - Called from (representative examples):
-  - set_windowagg_runcondition_references
+  - [set_windowagg_runcondition_references](../s/set_windowagg_runcondition_references.md)
 
 ## Notes and Other Information
 - This is a static function within the setrefs.c module, indicating it's used internally for plan reference fixing

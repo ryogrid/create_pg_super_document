@@ -20,8 +20,8 @@ This function implements a standard linked list deallocation pattern for ECPGstr
   - free (standard C library function for memory deallocation)
   - ECPGstruct_member (struct definition for member list nodes)
 - Called from (representative examples):
-  - ECPGfree_type (when freeing struct/union types)
-  - main (cleanup at program termination)
+  - [ECPGfree_type](ECPGfree_type.md) (when freeing struct/union types)
+  - [main](../m/main.md) (cleanup at program termination)
 
 ## Notes and Other Information
 - Function safely handles NULL input - if rm is NULL, the while loop never executes

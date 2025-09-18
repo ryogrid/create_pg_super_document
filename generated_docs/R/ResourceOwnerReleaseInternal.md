@@ -26,16 +26,16 @@ The function recursively processes all child resource owners first, then sorts r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerReleaseInternal (recursive call for child resource owners)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (recursive call for child resource owners)
   - ResourceOwnerSort (sorts resources by phase and priority)
   - ResourceOwnerReleaseAll (releases resources for specific phases)
-  - ProcReleaseLocks (releases all locks for top-level transactions)
-  - ReleasePredicateLocks (releases predicate locks)
+  - [ProcReleaseLocks](../P/ProcReleaseLocks.md) (releases all locks for top-level transactions)
+  - [ReleasePredicateLocks](ReleasePredicateLocks.md) (releases predicate locks)
   - LockReassignCurrentOwner (transfers locks to parent on commit)
   - LockReleaseCurrentOwner (releases locks on abort)
 - Called from (representative examples):
   - ResourceOwnerRelease (public interface function)
-  - ResourceOwnerReleaseInternal (recursive calls)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, not exposed in the public API

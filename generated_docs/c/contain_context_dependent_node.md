@@ -21,7 +21,7 @@ This function identifies nodes that are sensitive to their execution context and
 - Functions called/Symbols referenced:
   - contain_context_dependent_node_walker
 - Called from (representative examples):
-  - inline_function (to prevent unsafe function inlining)
+  - [inline_function](../i/inline_function.md) (to prevent unsafe function inlining)
   - max_parallel_hazard_context (part of parallelization safety checks)
 
 ## Notes and Other Information

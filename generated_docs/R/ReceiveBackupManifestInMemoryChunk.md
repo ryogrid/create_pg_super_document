@@ -23,11 +23,11 @@ The function is remarkably simple and efficient, using PostgreSQLs `PQExpBuffer`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBuffer (PostgreSQL utility function for appending data to PQExpBuffer)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (PostgreSQL utility function for appending data to PQExpBuffer)
   - PQExpBuffer (PostgreSQL dynamic string buffer structure, cast from callback_data)
 
 - Called from (representative examples):
-  - ReceiveBackupManifestInMemory (which sets up the callback for ReceiveCopyData)
+  - [ReceiveBackupManifestInMemory](ReceiveBackupManifestInMemory.md) (which sets up the callback for ReceiveCopyData)
 
 ## Notes and Other Information
 - Provides a clean, memory-based alternative to file-based manifest chunk processing

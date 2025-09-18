@@ -25,11 +25,11 @@ As a blocking operation, this function will suspend the worker process until a m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readMessageFromPipe (low-level pipe reading function that handles message framing and memory allocation)
+  - [readMessageFromPipe](../r/readMessageFromPipe.md) (low-level pipe reading function that handles message framing and memory allocation)
   - PIPE_READ (constant defining the read end index of the pipe descriptor array)
 
 - Called from (representative examples):
-  - WaitForCommands (main worker command processing loop)
+  - [WaitForCommands](../W/WaitForCommands.md) (main worker command processing loop)
 
 ## Notes and Other Information
 - Executed exclusively in worker processes as part of the parallel processing architecture

@@ -20,15 +20,15 @@ This function creates and opens a new WAL (Write-Ahead Log) file for streaming d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StreamCtl (structure)
+  - [StreamCtl](../S/StreamCtl.md) (structure)
   - Walfile (structure)
   - XLogSegNo, XLogRecPtr (types)
   - XLByteToSeg
-  - XLogFileName
+  - [XLogFileName](../X/XLogFileName.md)
   - PG_COMPRESSION_NONE
-  - GetLastWalMethodError
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
   - CLOSE_UNLINK
-  - pg_free
+  - [pg_free](../p/pg_free.md)
   - ngettext
   - walmethod->ops->get_file_name
   - walmethod->ops->existsfile
@@ -37,7 +37,7 @@ This function creates and opens a new WAL (Write-Ahead Log) file for streaming d
   - walmethod->ops->sync
   - walmethod->ops->close
 - Called from (representative examples):
-  - ProcessXLogDataMsg
+  - [ProcessXLogDataMsg](../P/ProcessXLogDataMsg.md)
 
 ## Notes and Other Information
 - Pads WAL files to full 16MB (WalSegSz) with zeroes for uncompressed files

@@ -27,14 +27,14 @@ The  function creates a new state for an NFA with sophisticated memory managemen
   - FIRSTSBSIZE
   - MAXSBSIZE
 - Called from (representative examples):
-  - newnfa (in regc_nfa.c)
+  - [newnfa](newnfa.md) (in regc_nfa.c)
   - newfstate (in regc_nfa.c)
-  - duptraverse (in regc_nfa.c)
-  - pull (in regc_nfa.c)
+  - [duptraverse](../d/duptraverse.md) (in regc_nfa.c)
+  - [pull](../p/pull.md) (in regc_nfa.c)
   - push (in regc_nfa.c)
-  - makesearch (in regcomp.c)
-  - parse (in regcomp.c)
-  - parsebranch (in regcomp.c)
+  - [makesearch](../m/makesearch.md) (in regcomp.c)
+  - [parse](../p/parse.md) (in regcomp.c)
+  - [parsebranch](../p/parsebranch.md) (in regcomp.c)
 
 ## Notes and Other Information
 - Returns NULL on memory allocation failure or space limit exceeded

@@ -19,11 +19,11 @@ This dual-mode approach ensures that the startup process can be terminated quick
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proc_exit (immediately terminates process with exit code)
-  - WakeupRecovery (wakes up the recovery process)
+  - [proc_exit](../p/proc_exit.md) (immediately terminates process with exit code)
+  - [WakeupRecovery](../W/WakeupRecovery.md) (wakes up the recovery process)
   - SIGNAL_ARGS (signal handler arguments macro)
 - Called from (representative examples):
-  - StartupProcessMain (registers this as SIGTERM handler)
+  - [StartupProcessMain](StartupProcessMain.md) (registers this as SIGTERM handler)
 
 ## Notes and Other Information
 - This handler is registered specifically for SIGTERM signals during startup process initialization

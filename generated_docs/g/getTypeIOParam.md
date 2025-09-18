@@ -27,14 +27,14 @@ Note that as of PostgreSQL 8.1, output functions only receive the value itself w
   - OidIsValid (macro to check if OID is valid)
   - Form_pg_type (type catalog structure)
 - Called from (representative examples):
-  - stringTypeDatum (string type datum parsing)
-  - get_type_io_data (type I/O information retrieval)
-  - get_typdefault (type default value retrieval)
-  - getTypeInputInfo (type input function information)
-  - getTypeBinaryInputInfo (binary input function information)
-  - compile_plperl_function (PL/Perl function compilation)
+  - [stringTypeDatum](../s/stringTypeDatum.md) (string type datum parsing)
+  - [get_type_io_data](get_type_io_data.md) (type I/O information retrieval)
+  - [get_typdefault](get_typdefault.md) (type default value retrieval)
+  - [getTypeInputInfo](getTypeInputInfo.md) (type input function information)
+  - [getTypeBinaryInputInfo](getTypeBinaryInputInfo.md) (binary input function information)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (PL/Perl function compilation)
   - compile_pltcl_function (PL/Tcl function compilation)
-  - plsample_func_handler (sample procedural language handler)
+  - [plsample_func_handler](../p/plsample_func_handler.md) (sample procedural language handler)
 
 ## Notes and Other Information
 - For array types (where `typelem` is valid), returns the element type OID

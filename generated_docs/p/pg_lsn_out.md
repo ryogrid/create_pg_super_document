@@ -26,7 +26,7 @@ The function allocates memory for the result string using pstrdup to ensure the 
   - MAXPG_LSNLEN (constant defining maximum length of LSN string)
   - LSN_FORMAT_ARGS (macro to extract high/low 32-bit components)
   - snprintf (C library function for formatted string output)
-  - pstrdup (PostgreSQL memory allocation function)
+  - [pstrdup](pstrdup.md) (PostgreSQL memory allocation function)
   - PG_RETURN_CSTRING (returns string as Datum)
 
 - Called from (representative examples):

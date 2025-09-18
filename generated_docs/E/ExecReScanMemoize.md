@@ -18,11 +18,11 @@ ExecReScanMemoize handles the complexities of restarting a Memoize node scan whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecReScan
-  - bms_nonempty_difference
-  - cache_purge_all
+  - [ExecReScan](ExecReScan.md)
+  - [bms_nonempty_difference](../b/bms_nonempty_difference.md)
+  - [cache_purge_all](../c/cache_purge_all.md)
 - Called from (representative examples):
-  - ExecReScan (main node rescanning dispatcher)
+  - [ExecReScan](ExecReScan.md) (main node rescanning dispatcher)
 
 ## Notes and Other Information
 - Sets execution state to MEMO_CACHE_LOOKUP to begin fresh cache lookups for the new scan

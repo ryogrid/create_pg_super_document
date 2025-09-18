@@ -19,16 +19,16 @@ The PGTYPESnumeric_add function implements signed numeric addition by analyzing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_abs
-  - sub_abs
-  - cmp_abs
-  - zero_var
+  - [add_abs](../a/add_abs.md)
+  - [sub_abs](../s/sub_abs.md)
+  - [cmp_abs](../c/cmp_abs.md)
+  - [zero_var](../z/zero_var.md)
   - NUMERIC_POS (constant)
   - NUMERIC_NEG (constant)
-  - numeric (type)
+  - [numeric](../n/numeric.md) (type)
 - Called from (representative examples):
-  - decadd (in informix compatibility library)
-  - main (in test programs)
+  - [decadd](../d/decadd.md) (in informix compatibility library)
+  - [main](../m/main.md) (in test programs)
   - decimal (in test programs)
 
 ## Notes and Other Information
@@ -39,5 +39,5 @@ The PGTYPESnumeric_add function implements signed numeric addition by analyzing 
 - When absolute values are equal with different signs, result is zero with proper scaling
 - The result parameter can safely point to one of the operands without causing issues
 - Part of the ECPG pgtypes library providing PostgreSQL-compatible numeric operations for client applications
-- Result scaling (rscale and dscale) is handled appropriately for all operation types
+- [Result](../R/Result.md) scaling (rscale and dscale) is handled appropriately for all operation types
 - The function is designed to be a public interface, unlike the internal static functions it calls

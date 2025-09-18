@@ -31,19 +31,19 @@ The function also handles offset vacuum limits separately and can trigger autova
   - LWLockAcquire
   - LWLockRelease
   - ereport
-  - SetOffsetVacuumLimit
-  - MultiXactIdPrecedes
+  - [SetOffsetVacuumLimit](SetOffsetVacuumLimit.md)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
   - SendPostmasterSignal
-  - IsTransactionState
-  - get_database_name
-  - errmsg_plural
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [get_database_name](../g/get_database_name.md)
+  - [errmsg_plural](../e/errmsg_plural.md)
 - Called from (representative examples):
-  - TrimMultiXact
-  - MultiXactAdvanceOldest
-  - multixact_redo
-  - BootStrapXLOG
-  - StartupXLOG
-  - vac_truncate_clog
+  - [TrimMultiXact](../T/TrimMultiXact.md)
+  - [MultiXactAdvanceOldest](../M/MultiXactAdvanceOldest.md)
+  - [multixact_redo](../m/multixact_redo.md)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md)
+  - [StartupXLOG](StartupXLOG.md)
+  - [vac_truncate_clog](../v/vac_truncate_clog.md)
 
 ## Notes and Other Information
 - Critical for preventing MultiXact wraparound and data loss

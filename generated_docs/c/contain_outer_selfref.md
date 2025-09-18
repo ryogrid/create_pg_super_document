@@ -19,11 +19,11 @@ The function acts as a wrapper that initializes the depth tracking to 0 and dele
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_outer_selfref_walker
+  - [contain_outer_selfref_walker](contain_outer_selfref_walker.md)
   - IsA (macro for type checking)
   - Assert (macro for debugging assertions)
 - Called from (representative examples):
-  - SS_process_ctes
+  - [SS_process_ctes](../S/SS_process_ctes.md)
 
 ## Notes and Other Information
 - The function expects the input node to be a Query node, as indicated by the Assert statement

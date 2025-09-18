@@ -36,22 +36,22 @@ The function ensures proper isolation and variable scoping while maintaining sem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AcquireRewriteLocks
-  - acquireLocksOnSubLinks
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md)
+  - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
   - copyObject
-  - getInsertSelectQuery
-  - OffsetVarNodes
-  - ChangeVarNodes
-  - adjustJoinTreeList
-  - CombineRangeTables
-  - contain_vars_of_level
-  - rangeTableEntry_used
-  - checkExprHasSubLink
-  - ReplaceVarsFromTargetList
-  - AddQual
+  - [getInsertSelectQuery](../g/getInsertSelectQuery.md)
+  - [OffsetVarNodes](../O/OffsetVarNodes.md)
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [adjustJoinTreeList](../a/adjustJoinTreeList.md)
+  - [CombineRangeTables](../C/CombineRangeTables.md)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)
+  - [rangeTableEntry_used](rangeTableEntry_used.md)
+  - [checkExprHasSubLink](../c/checkExprHasSubLink.md)
+  - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md)
+  - [AddQual](../A/AddQual.md)
   - rt_fetch
 - Called from (representative examples):
-  - fireRules
+  - [fireRules](../f/fireRules.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within rewriteHandler.c

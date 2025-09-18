@@ -32,7 +32,7 @@ This function takes no parameters.
   - ALLOCSET_DEFAULT_SIZES (default sizing parameters for TopMemoryContext)
   - MemoryContextAllowInCriticalSection (to enable ErrorContext allocations during critical sections)
 - Called from (representative examples):
-  - main (during PostgreSQL startup in src/backend/main/main.c)
+  - [main](../m/main.md) (during PostgreSQL startup in src/backend/main/main.c)
   - AllocHugeSizeIsValid (referenced in header file)
 
 ## Notes and Other Information

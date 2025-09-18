@@ -21,14 +21,14 @@ The function is critical to the parallel restore mechanism as it populates the w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tocEntryRestorePass
-  - pending_list_remove
-  - binaryheap_add
-  - TocEntry
-  - binaryheap
-  - RestorePass
+  - [_tocEntryRestorePass](../t/_tocEntryRestorePass.md)
+  - [pending_list_remove](../p/pending_list_remove.md)
+  - [binaryheap_add](../b/binaryheap_add.md)
+  - [TocEntry](../T/TocEntry.md)
+  - [binaryheap](../b/binaryheap.md)
+  - [RestorePass](../R/RestorePass.md)
 - Called from (representative examples):
-  - restore_toc_entries_parallel
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
 
 ## Notes and Other Information
 - This function operates on a circular linked list where pending_list serves as the sentinel node

@@ -25,7 +25,7 @@ The int8div function implements the division operation for PostgreSQL's bigint d
   - PG_RETURN_NULL (returns NULL on error path)
   - PG_INT64_MIN (minimum int64 constant)
   - ereport (error reporting)
-  - errcode/errmsg (error code and message macros)
+  - [errcode](../e/errcode.md)/errmsg (error code and message macros)
 - Called from:
   - No direct references found (likely called via PostgreSQL function dispatch system)
 

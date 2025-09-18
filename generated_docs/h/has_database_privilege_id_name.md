@@ -19,9 +19,9 @@ This SQL-callable function determines whether a user (specified by role OID) has
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_database_name: Converts database name to OID
-  - convert_database_priv_string: Converts privilege string to AclMode bitmask
-  - object_aclcheck: Performs the actual privilege check
+  - [convert_database_name](../c/convert_database_name.md): Converts database name to OID
+  - [convert_database_priv_string](../c/convert_database_priv_string.md): Converts privilege string to AclMode bitmask
+  - [object_aclcheck](../o/object_aclcheck.md): Performs the actual privilege check
   - AclResult: Enum type for access control results
 - Called from (representative examples):
   - This function is typically called from SQL queries using the has_database_privilege() function

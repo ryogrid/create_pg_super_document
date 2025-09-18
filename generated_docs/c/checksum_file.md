@@ -22,13 +22,13 @@ The `checksum_file` function is a static utility that computes checksums for fil
   - `pg_malloc` - PostgreSQL memory allocation
   - `read` - System call for reading data
   - `pg_checksum_update` - Updates checksum with new data
-  - `pg_free` - PostgreSQL memory deallocation  
+  - `[pg_free](../p/pg_free.md)` - PostgreSQL memory deallocation  
   - `close` - System call for file closing
   - `CHECKSUM_TYPE_NONE` - Constant for no checksum type
 - Called from:
-  - `copy_file_clone` (src/bin/pg_combinebackup/copy_file.c:249)
-  - `copy_file_by_range` (src/bin/pg_combinebackup/copy_file.c:289)
-  - `copy_file_copyfile` (src/bin/pg_combinebackup/copy_file.c:304)
+  - `[copy_file_clone](copy_file_clone.md)` (src/bin/pg_combinebackup/copy_file.c:249)
+  - `[copy_file_by_range](copy_file_by_range.md)` (src/bin/pg_combinebackup/copy_file.c:289)
+  - `[copy_file_copyfile](copy_file_copyfile.md)` (src/bin/pg_combinebackup/copy_file.c:304)
 
 ## Notes and Other Information
 - Part of the pg_combinebackup utility for combining incremental backups

@@ -22,11 +22,11 @@ This function handles error reporting when PostgreSQL cannot connect to the publ
 - Functions called/Symbols referenced:
   - lfirst
   - OidIsValid
-  - ReplicationSlotNameForTablesync
+  - [ReplicationSlotNameForTablesync](ReplicationSlotNameForTablesync.md)
   - elog
   - ereport
 - Called from (representative examples):
-  - DropSubscription
+  - [DropSubscription](../D/DropSubscription.md)
 
 ## Notes and Other Information
 - Only processes tablesync workers (relations with valid OIDs) and skips main subscription slots

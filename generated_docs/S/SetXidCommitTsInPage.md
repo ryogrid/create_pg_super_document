@@ -28,14 +28,14 @@ The function is designed to be called by TransactionTreeSetCommitTsData as part 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock (to get the appropriate lock for the page)
-  - SimpleLruReadPage (to ensure the page is loaded into memory)
-  - TransactionIdSetCommitTs (to set timestamp for individual transactions)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (to get the appropriate lock for the page)
+  - [SimpleLruReadPage](SimpleLruReadPage.md) (to ensure the page is loaded into memory)
+  - [TransactionIdSetCommitTs](../T/TransactionIdSetCommitTs.md) (to set timestamp for individual transactions)
   - CommitTsCtl (global SLRU control structure for commit timestamps)
-  - LWLock (lightweight lock type)
+  - [LWLock](../L/LWLock.md) (lightweight lock type)
   - RepOriginId (replication origin identifier type)
 - Called from (representative examples):
-  - TransactionTreeSetCommitTsData
+  - [TransactionTreeSetCommitTsData](../T/TransactionTreeSetCommitTsData.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within commit_ts.c

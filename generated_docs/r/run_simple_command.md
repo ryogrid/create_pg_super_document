@@ -22,14 +22,14 @@ This function is the counterpart to  - while  is for queries that return data,  
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec
-  - PQresultStatus
-  - PQresultErrorMessage
-  - PQclear
-  - pg_fatal
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [PQclear](../P/PQclear.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - PGRES_COMMAND_OK
 - Called from:
-  - init_libpq_conn (multiple times at lines 117, 118, 119, 120, 126)
+  - [init_libpq_conn](../i/init_libpq_conn.md) (multiple times at lines 117, 118, 119, 120, 126)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the libpq_source.c file

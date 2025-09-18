@@ -40,11 +40,11 @@ The message format includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputString (for statement name and query text)
-  - pqTraceOutputInt16 (for parameter count)
-  - pqTraceOutputInt32 (for parameter type OIDs)
+  - [pqTraceOutputString](pqTraceOutputString.md) (for statement name and query text)
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md) (for parameter count)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (for parameter type OIDs)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This is a static function internal to the fe-trace.c module

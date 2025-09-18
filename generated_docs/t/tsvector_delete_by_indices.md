@@ -28,17 +28,17 @@ The function operates in several phases:
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (sorts indices array using compare_int)
-  - qunique (removes duplicate indices using compare_int)  
-  - compare_int (comparator function for integer sorting)
-  - palloc0 (PostgreSQL memory allocation)
+  - [qunique](../q/qunique.md) (removes duplicate indices using compare_int)  
+  - [compare_int](../c/compare_int.md) (comparator function for integer sorting)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
   - memcpy (memory copy operations)
   - ARRPTR/STRPTR (TSVector access macros)
   - POSDATALEN (position data length calculation)
   - SHORTALIGN (memory alignment for position data)
   - SET_VARSIZE/CALCDATASIZE (TSVector size management)
 - Called from:
-  - tsvector_delete_str (for single lexeme deletion)
-  - tsvector_delete_arr (for multiple lexeme deletion by text array)
+  - [tsvector_delete_str](tsvector_delete_str.md) (for single lexeme deletion)
+  - [tsvector_delete_arr](tsvector_delete_arr.md) (for multiple lexeme deletion by text array)
 
 ## Notes and Other Information
 - The indices_to_delete array is modified during execution (sorted and deduplicated)

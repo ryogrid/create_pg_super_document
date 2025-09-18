@@ -27,7 +27,7 @@ The function creates a FileTag to identify the specific segment and uses Registe
 - Functions called/Symbols referenced:
   - INIT_MD_FILETAG
   - RelFileLocatorBackendIsTemp
-  - RegisterSyncRequest
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
   - SYNC_UNLINK_REQUEST
 - Called from (representative examples):
   - mdunlinkfork

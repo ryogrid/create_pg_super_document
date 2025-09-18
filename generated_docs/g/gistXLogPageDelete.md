@@ -24,16 +24,16 @@ This is a critical operation for maintaining index consistency during crash reco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - SizeOfGistxlogPageDelete
   - REGBUF_STANDARD
   - XLOG_GIST_PAGE_DELETE
   - RM_GIST_ID
 - Called from (representative examples):
-  - gistdeletepage (during VACUUM operations)
+  - [gistdeletepage](gistdeletepage.md) (during VACUUM operations)
   - Referenced in GISTPageSplitInfo structure
 
 ## Notes and Other Information

@@ -22,21 +22,21 @@ When dealing with relation RTEs, the function updates the `RTEPermissionInfo` st
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch
-  - getRTEPermissionInfo
-  - bms_add_member
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - list_nth_node
   - nodeTag
   - RTE_RELATION
   - RTE_JOIN
-  - RTEPermissionInfo
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
   - ACL_SELECT
   - FirstLowInvalidHeapAttributeNumber
   - InvalidAttrNumber
   - JoinExpr
   - RangeTblRef
 - Called from (representative examples):
-  - markVarForSelectPriv
-  - markRTEForSelectPriv (recursive calls)
+  - [markVarForSelectPriv](markVarForSelectPriv.md)
+  - [markRTEForSelectPriv](markRTEForSelectPriv.md) (recursive calls)
 
 ## Notes and Other Information
 - The function is static (internal to parse_relation.c)

@@ -24,10 +24,10 @@ BitmapOrState manages the execution of bitmap OR operations in PostgreSQL's bitm
 - Functions called/Symbols referenced:
   - (No direct symbol references beyond base types)
 - Called from (representative examples):
-  - ExecBitmapOr
-  - ExecInitBitmapOr
-  - MultiExecBitmapOr
-  - ExecEndBitmapOr
+  - [ExecBitmapOr](../E/ExecBitmapOr.md)
+  - [ExecInitBitmapOr](../E/ExecInitBitmapOr.md)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
+  - [ExecEndBitmapOr](../E/ExecEndBitmapOr.md)
 
 ## Notes and Other Information
 - Used in bitmap heap scan optimization where multiple indexes can be combined for efficient row filtering

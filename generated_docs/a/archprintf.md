@@ -26,13 +26,13 @@ The implementation preserves the original `errno` value and uses `pvsnprintf` fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - pvsnprintf
-  - WriteData
+  - [pvsnprintf](../p/pvsnprintf.md)
+  - [WriteData](../W/WriteData.md)
   - free (standard C library function)
   - va_start, va_end (variadic argument macros)
 - Called from (representative examples):
-  - dumpTableData_copy
-  - dumpTableData_insert
+  - [dumpTableData_copy](../d/dumpTableData_copy.md)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md)
 
 ## Notes and Other Information
 - Returns the number of bytes written to the archive

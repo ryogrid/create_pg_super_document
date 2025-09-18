@@ -19,11 +19,11 @@ Like its startup counterpart, this function implements a safety mechanism to det
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBackgroundWorkerPid
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
   - CHECK_FOR_INTERRUPTS
-  - WaitLatch (with MyLatch, WL_LATCH_SET, WL_POSTMASTER_DEATH)
-  - ResetLatch
-  - BgwHandleStatus enum values (BGWH_STOPPED, BGWH_POSTMASTER_DIED)
+  - [WaitLatch](WaitLatch.md) (with MyLatch, WL_LATCH_SET, WL_POSTMASTER_DEATH)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [BgwHandleStatus](../B/BgwHandleStatus.md) enum values (BGWH_STOPPED, BGWH_POSTMASTER_DIED)
 - Called from (representative examples):
   - WaitForParallelWorkersToExit
 

@@ -28,7 +28,7 @@ This function is critical for ensuring that recovery from base backups completes
   - UpdateControlFile (persists control file changes to disk)
   - InvalidXLogRecPtr (constant used to reset backup start/end points)
 - Called from (representative examples):
-  - CheckRecoveryConsistency (when processing end-of-backup records during recovery)
+  - [CheckRecoveryConsistency](../C/CheckRecoveryConsistency.md) (when processing end-of-backup records during recovery)
 
 ## Notes and Other Information
 - Called as a callback during WAL recovery when processing end-of-backup records

@@ -22,18 +22,18 @@ This function iterates through a predefined exception_map array to create Python
 - Functions called/Symbols referenced:
   - PyDict_New (Python C API)
   - PLy_elog
-  - PLyUnicode_FromString
-  - unpack_sql_state
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md)
+  - [unpack_sql_state](../u/unpack_sql_state.md)
   - PyDict_SetItemString (Python C API)
   - Py_DECREF (Python C API)
-  - PLy_create_exception
-  - hash_search
+  - [PLy_create_exception](PLy_create_exception.md)
+  - [hash_search](../h/hash_search.md)
   - Assert (PostgreSQL assertion macro)
   - HASH_ENTER (hash operation flag)
-  - PLyExceptionEntry (exception entry structure)
+  - [PLyExceptionEntry](PLyExceptionEntry.md) (exception entry structure)
   - exception_map (global exception mapping array)
 - Called from (representative examples):
-  - PLy_add_exceptions
+  - [PLy_add_exceptions](PLy_add_exceptions.md)
 
 ## Notes and Other Information
 - Processes a complete mapping of PostgreSQL error codes to Python exceptions

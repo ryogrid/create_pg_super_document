@@ -19,16 +19,16 @@ This function serves as the validation handler for PL/Python functions and trigg
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (extract OID from function arguments)
-  - CheckFunctionValidatorAccess (security check)
+  - [CheckFunctionValidatorAccess](../C/CheckFunctionValidatorAccess.md) (security check)
   - PG_RETURN_VOID (return void result)
-  - PLy_initialize (initialize PL/Python environment)
-  - SearchSysCache1 (lookup function in system cache)
+  - [PLy_initialize](../P/PLy_initialize.md) (initialize PL/Python environment)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (lookup function in system cache)
   - HeapTupleIsValid (validate heap tuple)
   - elog (error logging)
   - GETSTRUCT (extract structure from heap tuple)
-  - PLy_procedure_is_trigger (check if function is trigger)
-  - ReleaseSysCache (release system cache)
-  - PLy_procedure_get (compile and validate procedure)
+  - [PLy_procedure_is_trigger](../P/PLy_procedure_is_trigger.md) (check if function is trigger)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release system cache)
+  - [PLy_procedure_get](../P/PLy_procedure_get.md) (compile and validate procedure)
 - Called from (representative examples):
   - PostgreSQL's function validation system during CREATE FUNCTION
 

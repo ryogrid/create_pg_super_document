@@ -31,15 +31,15 @@ The function maintains the semantic correctness of join operations while ensurin
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - init_dummy_sjinfo
-  - find_appinfos_by_relids
-  - adjust_child_relids
-  - adjust_appendrel_attrs
+  - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md)
+  - [adjust_child_relids](../a/adjust_child_relids.md)
+  - [adjust_appendrel_attrs](../a/adjust_appendrel_attrs.md)
   - memcpy
-  - pfree
+  - [pfree](../p/pfree.md)
   - JOIN_INNER
 - Called from (representative examples):
-  - try_partitionwise_join
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
 
 ## Notes and Other Information
 - Creates dummy SpecialJoinInfo for INNER joins since they don't require outer join tracking

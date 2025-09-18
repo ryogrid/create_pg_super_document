@@ -20,14 +20,14 @@ The function is part of the ECPG type system that handles arrays of various data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGmake_simple_type
+  - [ECPGmake_simple_type](ECPGmake_simple_type.md)
   - ECPGt_array (enum value)
   - ECPGtype (struct type)
 
 - Called from (representative examples):
-  - ECPGstruct_member_dup
+  - [ECPGstruct_member_dup](ECPGstruct_member_dup.md)
   - find_struct_member
-  - find_variable
+  - [find_variable](../f/find_variable.md)
 
 ## Notes and Other Information
 - The function builds upon ECPGmake_simple_type, reusing its initialization logic but specializing it for array types

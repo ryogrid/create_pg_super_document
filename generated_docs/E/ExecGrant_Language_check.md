@@ -24,8 +24,8 @@ This function is called by ExecGrant_common during language privilege operations
   - GETSTRUCT (tuple access macro)
   - ereport, errcode, errmsg, errdetail (error reporting)
 - Called from:
-  - ExecGrantStmt_oids (when processing language privileges)
-  - ExecGrant_common (as object_check callback)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (when processing language privileges)
+  - [ExecGrant_common](ExecGrant_common.md) (as object_check callback)
 
 ## Notes and Other Information
 - Only allows GRANT/REVOKE on trusted languages (lanpltrusted = true)

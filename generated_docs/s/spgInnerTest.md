@@ -24,15 +24,15 @@ The function includes validation for allTheSame inner tuples, ensuring that the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgInitInnerConsistentIn - Initializes input parameters for inner_consistent call
-  - FunctionCall2Coll - Calls the opclass inner_consistent method
+  - [spgInitInnerConsistentIn](spgInitInnerConsistentIn.md) - Initializes input parameters for inner_consistent call
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) - Calls the opclass inner_consistent method
   - SGITITERATE - Iterates through child nodes in the inner tuple
-  - ItemPointerIsValid - Validates child node pointers
-  - spgMakeInnerItem - Creates search items for qualifying child nodes
-  - spgAddSearchItemToQueue - Adds child items to the search queue
-  - MemoryContextSwitchTo - Manages memory contexts during processing
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md) - Validates child node pointers
+  - [spgMakeInnerItem](spgMakeInnerItem.md) - Creates search items for qualifying child nodes
+  - [spgAddSearchItemToQueue](spgAddSearchItemToQueue.md) - Adds child items to the search queue
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) - Manages memory contexts during processing
 - Called from:
-  - spgWalk - Main scanning function that processes inner tuples during traversal
+  - [spgWalk](spgWalk.md) - Main scanning function that processes inner tuples during traversal
 
 ## Notes and Other Information
 - Memory context management is crucial - temporary context for inner_consistent calls, traversal context for creating search items

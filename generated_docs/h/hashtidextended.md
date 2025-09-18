@@ -21,8 +21,8 @@ The  function is a PostgreSQL built-in function that generates a seeded hash val
 - Functions called/Symbols referenced:
   - PG_GETARG_ITEMPOINTER (macro for extracting ItemPointer argument)
   - PG_GETARG_INT64 (macro for extracting 64-bit integer seed)
-  - hash_any_extended (extended hash function with seed support)
-  - BlockIdData (type representing block identifier component)
+  - [hash_any_extended](hash_any_extended.md) (extended hash function with seed support)
+  - [BlockIdData](../B/BlockIdData.md) (type representing block identifier component)
   - OffsetNumber (type representing offset component)
 - Called from:
   - No direct references found (likely used through extended hash operator classes for TID type)

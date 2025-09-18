@@ -36,16 +36,16 @@ The function handles memory management carefully, allocating long-lived structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclcheck, aclcheck_error (permission checking)
-  - get_func_name, InvokeFunctionExecuteHook (function metadata and hooks)
-  - fmgr_info_cxt, fmgr_info_set_expr (function manager setup)
+  - [object_aclcheck](../o/object_aclcheck.md), aclcheck_error (permission checking)
+  - [get_func_name](../g/get_func_name.md), InvokeFunctionExecuteHook (function metadata and hooks)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md), fmgr_info_set_expr (function manager setup)
   - SizeForFunctionCallInfo, InitFunctionCallInfoData (call info initialization)
-  - get_expr_result_type (return type analysis)
-  - CreateTupleDescCopy, CreateTemplateTupleDesc, TupleDescInitEntry (descriptor creation)
-  - executor_errposition, exprLocation (error reporting)
+  - [get_expr_result_type](../g/get_expr_result_type.md) (return type analysis)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md), CreateTemplateTupleDesc, TupleDescInitEntry (descriptor creation)
+  - [executor_errposition](../e/executor_errposition.md), exprLocation (error reporting)
 - Called from (representative examples):
-  - ExecInitTableFunctionResult (src/backend/executor/execSRF.c:81)
-  - ExecInitFunctionResultSet (src/backend/executor/execSRF.c:462, 470)
+  - [ExecInitTableFunctionResult](../E/ExecInitTableFunctionResult.md) (src/backend/executor/execSRF.c:81)
+  - [ExecInitFunctionResultSet](../E/ExecInitFunctionResultSet.md) (src/backend/executor/execSRF.c:462, 470)
 
 ## Notes and Other Information
 - Static function used internally by execSRF.c initialization routines

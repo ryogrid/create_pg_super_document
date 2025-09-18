@@ -20,12 +20,12 @@ The function is designed to handle the SQL syntax for timestamp types with preci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayGetIntegerTypmods
-  - anytimestamp_typmod_check
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md)
+  - [anytimestamp_typmod_check](anytimestamp_typmod_check.md)
   - ereport (for error reporting)
 - Called from:
-  - timestamptypmodin (src/backend/utils/adt/timestamp.c:306)
-  - timestamptztypmodin (src/backend/utils/adt/timestamp.c:862)
+  - [timestamptypmodin](../t/timestamptypmodin.md) (src/backend/utils/adt/timestamp.c:306)
+  - [timestamptztypmodin](../t/timestamptztypmodin.md) (src/backend/utils/adt/timestamp.c:862)
 
 ## Notes and Other Information
 - The function expects exactly one type modifier in the array; providing zero or multiple modifiers results in an "invalid type modifier" error

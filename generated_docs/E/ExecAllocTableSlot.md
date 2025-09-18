@@ -27,14 +27,14 @@ This is particularly useful in executor nodes that need to track multiple slots 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakeTupleTableSlot
+  - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)
   - lappend
 - Called from (representative examples):
-  - ExecInitResultSlot
-  - ExecInitScanTupleSlot
-  - ExecInitExtraTupleSlot
-  - find_hash_columns
-  - ExecInitIndexOnlyScan
+  - [ExecInitResultSlot](ExecInitResultSlot.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md)
+  - [find_hash_columns](../f/find_hash_columns.md)
+  - [ExecInitIndexOnlyScan](ExecInitIndexOnlyScan.md)
 
 ## Notes and Other Information
 - This is a thin wrapper that combines slot creation with tuple table management

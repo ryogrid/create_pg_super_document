@@ -22,9 +22,9 @@ This function retrieves the upper bound value of a multirange type. It first che
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P
   - MultirangeIsEmpty
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeTypeGetOid
-  - multirange_get_bounds
+  - [multirange_get_bounds](multirange_get_bounds.md)
   - PG_RETURN_DATUM
   - PG_RETURN_NULL
   - MultirangeType

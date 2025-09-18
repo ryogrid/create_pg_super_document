@@ -29,12 +29,12 @@ Each validation failure triggers an ERROR with ERRCODE_INVALID_PARAMETER_VALUE, 
 - Functions called/Symbols referenced:
   - strlen (calculate string length)
   - strstr (search for substring)
-  - first_dir_separator (find directory separator characters)
+  - [first_dir_separator](../f/first_dir_separator.md) (find directory separator characters)
   - ereport (error reporting with detailed messages)
 
 - Called from (representative examples):
-  - CreateExtension (during extension creation)
-  - get_required_extension (when resolving extension dependencies)
+  - [CreateExtension](../C/CreateExtension.md) (during extension creation)
+  - [get_required_extension](../g/get_required_extension.md) (when resolving extension dependencies)
   - pg_extension_update_paths (when checking update path validity)
 
 ## Notes and Other Information

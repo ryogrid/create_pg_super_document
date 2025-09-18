@@ -31,15 +31,15 @@ When a page is reused, any transactions that might have been reading the old con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (type)
+  - [RelFileLocator](../R/RelFileLocator.md) (type)
   - BlockNumber (type)
   - FullTransactionId (type)
-  - bool (type)
+  - [bool](../b/bool.md) (type)
 
 - Called from (representative examples):
-  - _bt_allocbuf (src/backend/access/nbtree/nbtpage.c:935)
-  - btree_xlog_reuse_page (src/backend/access/nbtree/nbtxlog.c:1005)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:115)
+  - [_bt_allocbuf](../b/_bt_allocbuf.md) (src/backend/access/nbtree/nbtpage.c:935)
+  - [btree_xlog_reuse_page](../b/btree_xlog_reuse_page.md) (src/backend/access/nbtree/nbtxlog.c:1005)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:115)
   - SizeOfBtreeReusePage (src/include/access/nbtxlog.h:195)
 
 ## Notes and Other Information

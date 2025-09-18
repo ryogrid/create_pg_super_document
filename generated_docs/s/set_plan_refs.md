@@ -31,18 +31,18 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - fix_scan_list: Fixes variable references in expression lists for scan operations
-  - fix_scan_expr: Fixes variable references in individual expressions
-  - set_indexonlyscan_references: Specialized handling for index-only scans
-  - set_subqueryscan_references: Specialized handling for subquery scans
-  - set_join_references: Handles complex join expression reference adjustment
-  - set_upper_references: Processes upper-level plan nodes like aggregation
-  - set_dummy_tlist_references: Sets references for nodes that don't evaluate targetlists
+  - [fix_scan_expr](../f/fix_scan_expr.md): Fixes variable references in individual expressions
+  - [set_indexonlyscan_references](set_indexonlyscan_references.md): Specialized handling for index-only scans
+  - [set_subqueryscan_references](set_subqueryscan_references.md): Specialized handling for subquery scans
+  - [set_join_references](set_join_references.md): Handles complex join expression reference adjustment
+  - [set_upper_references](set_upper_references.md): Processes upper-level plan nodes like aggregation
+  - [set_dummy_tlist_references](set_dummy_tlist_references.md): Sets references for nodes that don't evaluate targetlists
   - NUM_EXEC_TLIST/NUM_EXEC_QUAL: Macros for determining execution context
 - Called from (representative examples):
-  - set_plan_references: Top-level entry point for plan reference adjustment
-  - set_plan_refs: Recursive self-calls for child plan processing
-  - set_append_references: When processing Append node children
-  - set_customscan_references: For custom scan node subplans
+  - [set_plan_references](set_plan_references.md): Top-level entry point for plan reference adjustment
+  - [set_plan_refs](set_plan_refs.md): Recursive self-calls for child plan processing
+  - [set_append_references](set_append_references.md): When processing Append node children
+  - [set_customscan_references](set_customscan_references.md): For custom scan node subplans
 
 ## Notes and Other Information
 The function must process parent nodes before their children to ensure proper variable matching during reference adjustment. This top-down approach is critical because child nodes' variables must be matched against the already-adjusted expressions in parent nodes. The function handles over 30 different plan node types, each with specific requirements for reference adjustment, making it one of the most comprehensive functions in the PostgreSQL query planner.

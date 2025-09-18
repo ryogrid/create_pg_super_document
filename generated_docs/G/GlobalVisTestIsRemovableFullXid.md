@@ -26,11 +26,11 @@ The state parameter must be initialized for the relation that fxid belongs to, o
 - Functions called/Symbols referenced:
   - FullTransactionIdPrecedes
   - FullTransactionIdFollowsOrEquals
-  - GlobalVisTestShouldUpdate
-  - GlobalVisUpdate
+  - [GlobalVisTestShouldUpdate](GlobalVisTestShouldUpdate.md)
+  - [GlobalVisUpdate](GlobalVisUpdate.md)
 - Called from:
-  - GlobalVisTestIsRemovableXid
-  - GlobalVisCheckRemovableFullXid
+  - [GlobalVisTestIsRemovableXid](GlobalVisTestIsRemovableXid.md)
+  - [GlobalVisCheckRemovableFullXid](GlobalVisCheckRemovableFullXid.md)
 
 ## Notes and Other Information
 - Returns true if the transaction ID can be safely removed, false otherwise

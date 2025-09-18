@@ -29,16 +29,16 @@ The function handles both regular and speculative insertion scenarios. Speculati
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetForm: Accesses relation tuple form to check relhasindex flag
-  - RelationGetIndexList: Retrieves cached list of index OIDs for the relation
-  - index_open: Opens individual index relations with RowExclusiveLock
-  - BuildIndexInfo: Extracts and builds index metadata from pg_index system catalog
-  - BuildSpeculativeIndexInfo: Adds speculative insertion metadata for unique indices
-  - list_free: Deallocates the temporary index OID list
+  - [RelationGetIndexList](../R/RelationGetIndexList.md): Retrieves cached list of index OIDs for the relation
+  - [index_open](../i/index_open.md): Opens individual index relations with RowExclusiveLock
+  - [BuildIndexInfo](../B/BuildIndexInfo.md): Extracts and builds index metadata from pg_index system catalog
+  - [BuildSpeculativeIndexInfo](../B/BuildSpeculativeIndexInfo.md): Adds speculative insertion metadata for unique indices
+  - [list_free](../l/list_free.md): Deallocates the temporary index OID list
 - Called from (representative examples):
-  - ExecInsert: Opens indices before inserting new tuples
-  - ExecUpdatePrologue: Opens indices before updating existing tuples
-  - CopyFrom: Opens indices for bulk data loading operations
-  - apply_handle_insert/update/delete: Logical replication worker operations
+  - [ExecInsert](ExecInsert.md): Opens indices before inserting new tuples
+  - [ExecUpdatePrologue](ExecUpdatePrologue.md): Opens indices before updating existing tuples
+  - [CopyFrom](../C/CopyFrom.md): Opens indices for bulk data loading operations
+  - [apply_handle_insert](../a/apply_handle_insert.md)/update/delete: Logical replication worker operations
 
 ## Notes and Other Information
 - The function assumes the caller has already acquired appropriate locks on the main relation

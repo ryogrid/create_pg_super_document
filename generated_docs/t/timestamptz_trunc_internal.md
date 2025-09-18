@@ -30,19 +30,19 @@ This function is essential for ensuring that timestamp truncation behaves correc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - downcase_truncate_identifier
-  - DecodeUnits
-  - timestamp2tm
-  - date2isoweek
-  - isoweek2date
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md)
+  - [DecodeUnits](../D/DecodeUnits.md)
+  - [timestamp2tm](timestamp2tm.md)
+  - [date2isoweek](../d/date2isoweek.md)
+  - [isoweek2date](../i/isoweek2date.md)
   - DetermineTimeZoneOffset
-  - tm2timestamp
-  - format_type_be
+  - [tm2timestamp](tm2timestamp.md)
+  - [format_type_be](../f/format_type_be.md)
   - Various DTK_* constants (DTK_WEEK, DTK_YEAR, DTK_MONTH, etc.)
   - MONTHS_PER_YEAR
 - Called from (representative examples):
-  - timestamptz_trunc
-  - timestamptz_trunc_zone
+  - [timestamptz_trunc](timestamptz_trunc.md)
+  - [timestamptz_trunc_zone](timestamptz_trunc_zone.md)
 
 ## Notes and Other Information
 - This is an internal static function that consolidates the timezone-aware truncation logic

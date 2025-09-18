@@ -29,21 +29,21 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate: Creates parse state structure
-  - setup_parse_fixed_parameters: Sets up parameter type information
-  - transformTopLevelStmt: Performs the main statement transformation
+  - [make_parsestate](../m/make_parsestate.md): Creates parse state structure
+  - [setup_parse_fixed_parameters](../s/setup_parse_fixed_parameters.md): Sets up parameter type information
+  - [transformTopLevelStmt](../t/transformTopLevelStmt.md): Performs the main statement transformation
   - IsQueryIdEnabled: Checks if query ID generation is enabled
-  - JumbleQuery: Generates query ID for statistics
-  - free_parsestate: Cleanup parse state structure
-  - pgstat_report_query_id: Reports query ID for statistics collection
+  - [JumbleQuery](../J/JumbleQuery.md): Generates query ID for statistics
+  - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
+  - [pgstat_report_query_id](pgstat_report_query_id.md): Reports query ID for statistics collection
 
 - Called from (representative examples):
-  - DefineView: Used when creating views
-  - pg_analyze_and_rewrite_fixedparams: Main analysis entry point in postgres.c
+  - [DefineView](../D/DefineView.md): Used when creating views
+  - [pg_analyze_and_rewrite_fixedparams](pg_analyze_and_rewrite_fixedparams.md): Main analysis entry point in postgres.c
 
 ## Notes and Other Information
 - This function is part of the parse analysis phase, distinct from the raw parsing phase
 - The function ensures that only pre-defined parameters (via paramTypes) can be referenced
 - Post-parse analysis hooks allow extensions to modify or inspect the analyzed query
-- Query ID generation supports query statistics and monitoring features
+- [Query](../Q/Query.md) ID generation supports query statistics and monitoring features
 - The function handles both optimizable SQL statements and utility statements differently

@@ -25,8 +25,8 @@ This lookup method is slower than Oid-based lookup but is necessary when only th
   - fmgr_nbuiltins (global variable containing the count of builtin functions)
   - fmgr_builtins (global array containing builtin function metadata)
 - Called from (representative examples):
-  - fmgr_info_cxt_security (when setting up function call information with security context using function name)
-  - fmgr_internal_function (when looking up internal functions by name)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (when setting up function call information with security context using function name)
+  - [fmgr_internal_function](fmgr_internal_function.md) (when looking up internal functions by name)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fmgr.c file

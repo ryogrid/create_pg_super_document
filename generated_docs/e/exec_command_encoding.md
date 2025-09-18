@@ -24,17 +24,17 @@ When setting a new encoding, the function updates the database connection's enco
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
   - pg_encoding_to_char
-  - PQsetClientEncoding
-  - PQclientEncoding
-  - setFmtEncoding
+  - [PQsetClientEncoding](../P/PQsetClientEncoding.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
+  - [setFmtEncoding](../s/setFmtEncoding.md)
   - SetVariable
-  - ignore_slash_options
-  - PsqlScanState (type)
+  - [ignore_slash_options](../i/ignore_slash_options.md)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
   - OT_NORMAL (constant)
   - PSQL_CMD_SKIP_LINE (return value)
-  - backslashResult (return type)
+  - [backslashResult](../b/backslashResult.md) (return type)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

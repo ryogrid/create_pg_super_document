@@ -20,7 +20,7 @@ This function safely converts a C string into CSV format and appends it to a Str
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro (macro for efficiently appending single characters)
 - Called from (representative examples):
-  - write_csvlog (primary caller, used extensively for CSV log formatting)
+  - [write_csvlog](../w/write_csvlog.md) (primary caller, used extensively for CSV log formatting)
 
 ## Notes and Other Information
 - Declared as static inline for performance optimization since it's frequently called

@@ -24,22 +24,22 @@ The function handles both relation constraints and domain type constraints by us
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - ObjectAddressSet
-  - object_address_present
-  - heap_copytuple
-  - CatalogTupleUpdate
+  - [object_address_present](../o/object_address_present.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - add_exact_object_address
-  - systable_endscan
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from (representative examples):
-  - AlterTableNamespaceInternal (tablecmds.c:17303)
-  - AlterTypeNamespaceInternal (typecmds.c:4261, 4268)
+  - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md) (tablecmds.c:17303)
+  - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md) (typecmds.c:4261, 4268)
 
 ## Notes and Other Information
 - Uses ConstraintRelidTypidNameIndexId index for efficient constraint lookup

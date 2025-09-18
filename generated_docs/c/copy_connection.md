@@ -19,16 +19,16 @@ The function allocates memory for keyword and value arrays, iterates through all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconninfo
-  - PQconninfoOption
+  - [PQconninfo](../P/PQconninfo.md)
+  - [PQconninfoOption](../P/PQconninfoOption.md)
   - pg_malloc
-  - PQconnectdbParams
+  - [PQconnectdbParams](../P/PQconnectdbParams.md)
   - PQstatus
   - CONNECTION_OK
-  - pg_fatal
-  - PQerrorMessage
+  - [pg_fatal](../p/pg_fatal.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
 - Called from (representative examples):
-  - test_cancel
+  - [test_cancel](../t/test_cancel.md)
 
 ## Notes and Other Information
 - This is a static function within the libpq_pipeline test module

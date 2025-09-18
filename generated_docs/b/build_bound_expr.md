@@ -27,14 +27,14 @@ This function is a helper for range containment optimization that builds specifi
   - BTGreaterStrategyNumber
   - BTLessEqualStrategyNumber
   - BTLessStrategyNumber
-  - get_opfamily_member
-  - makeConst
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [makeConst](../m/makeConst.md)
   - make_opclause
   - OidIsValid
   - BOOLOID
   - InvalidOid
 - Called from (representative examples):
-  - find_simplified_clause
+  - [find_simplified_clause](../f/find_simplified_clause.md)
 
 ## Notes and Other Information
 This function maps boundary conditions to B-tree strategy numbers: lower inclusive uses >=, lower exclusive uses >, upper inclusive uses <=, and upper exclusive uses <. It creates a properly typed constant expression from the boundary datum and constructs an OpExpr that can be evaluated by the query executor. The function returns NULL if it cannot find an appropriate operator in the specified operator family, which causes the calling optimization to fall back to the original range containment operation.

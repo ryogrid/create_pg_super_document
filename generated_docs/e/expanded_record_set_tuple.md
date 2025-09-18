@@ -24,17 +24,17 @@ The function performs domain constraint validation when the expanded record repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_domain_for_new_tuple
+  - [check_domain_for_new_tuple](../c/check_domain_for_new_tuple.md)
   - HeapTupleHasExternal
-  - get_short_term_cxt
-  - toast_flatten_tuple
-  - heap_copytuple
-  - MemoryContextReset
-  - heap_freetuple
-  - MemoryContextSwitchTo
+  - [get_short_term_cxt](../g/get_short_term_cxt.md)
+  - [toast_flatten_tuple](../t/toast_flatten_tuple.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - TupleDescAttr
-  - DatumGetPointer
-  - pfree
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [pfree](../p/pfree.md)
 - Called from:
   - (No direct references found in the analyzed codebase)
 

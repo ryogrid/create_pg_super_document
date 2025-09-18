@@ -30,11 +30,11 @@ This function performs an atomic update of a specific line in the data directory
   - DIRECTORY_LOCK_FILE (constant)
   - PG_BINARY (constant)
 - Called from (representative examples):
-  - InternalIpcMemoryCreate
-  - PostmasterMain
-  - process_pm_shutdown_request
-  - process_pm_child_exit
-  - process_pm_pmsignal
+  - [InternalIpcMemoryCreate](../I/InternalIpcMemoryCreate.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [process_pm_shutdown_request](../p/process_pm_shutdown_request.md)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md)
 
 ## Notes and Other Information
 - Updates are atomic due to single kernel call write operation

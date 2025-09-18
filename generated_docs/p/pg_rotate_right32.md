@@ -20,7 +20,7 @@ pg_rotate_right32 implements a circular right bit shift operation on a 32-bit un
 - Functions called/Symbols referenced:
   - No external function calls (uses only bitwise operations)
 - Called from (representative examples):
-  - ExecHashGetBucketAndBatch (hash table bucket calculation in executor)
+  - [ExecHashGetBucketAndBatch](../E/ExecHashGetBucketAndBatch.md) (hash table bucket calculation in executor)
 
 ## Notes and Other Information
 - The function is declared as static inline for performance efficiency

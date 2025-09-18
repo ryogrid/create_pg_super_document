@@ -33,9 +33,9 @@ This function translates a numeric wait event information value into a human-rea
   - PG_WAIT_IO
   - PG_WAIT_INJECTIONPOINT
 - Called from (representative examples):
-  - pg_stat_get_backend_wait_event_type (in pgstatfuncs.c:778)
-  - pg_isolation_test_session_is_blocked (in waitfuncs.c:59)
-  - WaitEventCustomNew (in wait_event.c:209, 234)
+  - [pg_stat_get_backend_wait_event_type](pg_stat_get_backend_wait_event_type.md) (in pgstatfuncs.c:778)
+  - [pg_isolation_test_session_is_blocked](pg_isolation_test_session_is_blocked.md) (in waitfuncs.c:59)
+  - [WaitEventCustomNew](../W/WaitEventCustomNew.md) (in wait_event.c:209, 234)
 
 ## Notes and Other Information
 - Returns NULL when wait_event_info is 0 (process not waiting)

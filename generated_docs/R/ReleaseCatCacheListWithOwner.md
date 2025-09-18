@@ -21,11 +21,11 @@ The function includes safety assertions to verify the list's magic number and en
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForgetCatCacheListRef
-  - CatCacheRemoveCList
+  - [CatCacheRemoveCList](../C/CatCacheRemoveCList.md)
   - Assert (for safety checks)
 - Called from (representative examples):
-  - ReleaseCatCacheList
-  - ResOwnerReleaseCatCacheList
+  - [ReleaseCatCacheList](ReleaseCatCacheList.md)
+  - [ResOwnerReleaseCatCacheList](ResOwnerReleaseCatCacheList.md)
 
 ## Notes and Other Information
 - This is a static function, not directly callable from outside catcache.c

@@ -24,16 +24,16 @@ The function is primarily used by the interrupt processing system to detect lost
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ModifyWaitEvent
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
   - WaitEventSetWait
-  - ResetLatch
+  - [ResetLatch](../R/ResetLatch.md)
   - FeBeWaitSet (global wait event set)
   - FeBeWaitSetSocketPos (socket position in wait set)
   - MyLatch (current process latch)
   - WL_SOCKET_CLOSED (wait event flag)
   - WL_LATCH_SET (wait event flag)
   - FeBeWaitSetNEvents (maximum events constant)
-  - WaitEvent (event structure type)
+  - [WaitEvent](../W/WaitEvent.md) (event structure type)
   - lengthof (macro for array length)
 - Called from (representative examples):
   - ProcessInterrupts (in postgres.c:3332)

@@ -26,8 +26,8 @@ This data is used by the query planner to make informed decisions about whether 
 - Functions called/Symbols referenced:
   - BlockNumber (type dependency)
 - Called from (representative examples):
-  - brinGetStats() function in src/backend/access/brin/brin.c:1639
-  - brincostestimate() function in src/backend/utils/adt/selfuncs.c:8053
+  - [brinGetStats](../b/brinGetStats.md)() function in src/backend/access/brin/brin.c:1639
+  - [brincostestimate](../b/brincostestimate.md)() function in src/backend/utils/adt/selfuncs.c:8053
 
 ## Notes and Other Information
 - The structure is defined in src/include/access/brin.h:32-36

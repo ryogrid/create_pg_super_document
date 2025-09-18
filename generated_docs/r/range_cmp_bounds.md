@@ -19,18 +19,18 @@ The `range_cmp_bounds` function performs comprehensive comparison between two ra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
-  - FunctionCall2Coll
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
-  - range_eq_internal
-  - range_overlaps_internal  
-  - range_before_internal
-  - range_after_internal
-  - range_cmp
-  - range_compare
-  - range_contains_internal
-  - range_gist_penalty
-  - multirange_cmp
+  - [range_eq_internal](range_eq_internal.md)
+  - [range_overlaps_internal](range_overlaps_internal.md)  
+  - [range_before_internal](range_before_internal.md)
+  - [range_after_internal](range_after_internal.md)
+  - [range_cmp](range_cmp.md)
+  - [range_compare](range_compare.md)
+  - [range_contains_internal](range_contains_internal.md)
+  - [range_gist_penalty](range_gist_penalty.md)
+  - [multirange_cmp](../m/multirange_cmp.md)
 
 ## Notes and Other Information
 - Infinite bounds are handled specially: lower infinite bounds represent minus infinity, upper infinite bounds represent plus infinity

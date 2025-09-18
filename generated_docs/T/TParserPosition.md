@@ -26,14 +26,14 @@ The structure tracks both byte and character positions separately to handle mult
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParserState
+  - [TParserState](TParserState.md)
   - TParserStateActionItem
 - Called from (representative examples):
-  - TParser (as state field)
+  - [TParser](TParser.md) (as state field)
   - newTParserPosition
   - TParserClose
   - TParserCopyClose
-  - TParserGet
+  - [TParserGet](TParserGet.md)
 
 ## Notes and Other Information
 This structure is fundamental to the parser's ability to handle complex tokenization scenarios where lookahead and backtracking are necessary. The linked list design allows for efficient push/pop operations when the parser needs to save and restore positions. The separation of byte and character counting is essential for proper handling of Unicode and other multibyte character encodings in PostgreSQL's internationalization support.

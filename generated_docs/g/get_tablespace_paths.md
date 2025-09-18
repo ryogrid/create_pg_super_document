@@ -29,19 +29,19 @@ This function takes no parameters but modifies global state:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - pg_malloc
-  - pg_strdup
-  - PQfnumber
-  - PQgetvalue
-  - PQclear
-  - PQfinish
-  - stat
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [stat](../s/stat.md)
   - S_ISDIR
   - report_status
 - Called from (representative examples):
-  - init_tablespaces (src/bin/pg_upgrade/tablespace.c:21)
+  - [init_tablespaces](../i/init_tablespaces.md) (src/bin/pg_upgrade/tablespace.c:21)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tablespace.c compilation unit

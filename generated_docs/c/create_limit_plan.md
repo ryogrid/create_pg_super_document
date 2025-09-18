@@ -21,14 +21,14 @@ The function allocates memory for the uniqueness comparison arrays only when nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - get_sortgroupclause_tle
-  - exprCollation
-  - make_limit
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [make_limit](../m/make_limit.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - LIMIT_OPTION_WITH_TIES (constant)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module

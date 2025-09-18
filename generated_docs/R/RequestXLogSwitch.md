@@ -21,17 +21,17 @@ The function optionally marks the switch record as unimportant, which affects ho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogSetRecordFlags
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - XLOG_MARK_UNIMPORTANT (flag)
   - XLOG_SWITCH (record type)
 - Called from (representative examples):
-  - ShutdownXLOG (during database shutdown)
-  - do_pg_backup_start (during backup initiation)
-  - do_pg_backup_stop (during backup completion)
-  - pg_switch_wal (SQL function implementation)
-  - CheckArchiveTimeout (during archive timeout handling)
+  - [ShutdownXLOG](../S/ShutdownXLOG.md) (during database shutdown)
+  - [do_pg_backup_start](../d/do_pg_backup_start.md) (during backup initiation)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md) (during backup completion)
+  - [pg_switch_wal](../p/pg_switch_wal.md) (SQL function implementation)
+  - [CheckArchiveTimeout](../C/CheckArchiveTimeout.md) (during archive timeout handling)
 
 ## Notes and Other Information
 - The return value is the LSN (Log Sequence Number) pointing to the end+1 address of the switch record, or the end+1 address of the prior segment if no switch was needed because we're already at a segment boundary

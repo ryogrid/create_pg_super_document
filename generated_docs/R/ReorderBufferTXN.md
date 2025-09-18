@@ -56,18 +56,18 @@ ReorderBufferTXN is the central data structure representing a transaction within
 ## Dependencies
 - Functions called/Symbols referenced:
   - bits32
-  - ReorderBufferTXN (self-reference for hierarchy)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (self-reference for hierarchy)
   - RepOriginId
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
   - CommandId
-  - dlist_head
-  - HTAB
-  - pairingheap_node
+  - [dlist_head](../d/dlist_head.md)
+  - [HTAB](../H/HTAB.md)
+  - [pairingheap_node](../p/pairingheap_node.md)
   - SharedInvalidationMessage
 - Called from (representative examples):
-  - ReorderBufferGetTXN
-  - ReorderBufferCommit
-  - ReorderBufferProcessTXN
+  - [ReorderBufferGetTXN](ReorderBufferGetTXN.md)
+  - [ReorderBufferCommit](ReorderBufferCommit.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
   - pgoutput transaction callback functions
 
 ## Notes and Other Information

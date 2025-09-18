@@ -25,9 +25,9 @@ trigger_return_old is a PostgreSQL trigger function designed to return the origi
   - TriggerData (structure containing trigger context information)
   - CALLED_AS_TRIGGER (macro to validate trigger context)
   - elog (PostgreSQL logging/error function)
-  - PointerGetDatum (converts pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
 - Called from (representative examples):
-  - reverse_name (appears in reference context)
+  - [reverse_name](../r/reverse_name.md) (appears in reference context)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's regression test suite for testing trigger mechanisms

@@ -33,15 +33,15 @@ The function handles special cases for page headers (both short and long formats
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrToBufIdx (converts WAL position to buffer index)
-  - pg_atomic_read_u64 (atomically reads buffer end positions)
-  - WALInsertLockUpdateInsertingAt (updates insertion progress)
-  - AdvanceXLInsertBuffer (initializes new WAL buffers)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md) (atomically reads buffer end positions)
+  - [WALInsertLockUpdateInsertingAt](../W/WALInsertLockUpdateInsertingAt.md) (updates insertion progress)
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md) (initializes new WAL buffers)
   - pg_memory_barrier (ensures memory ordering)
   - XLogSegmentOffset (calculates offset within WAL segment)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - CopyXLogRecordToWAL
-  - CreateOverwriteContrecordRecord
+  - [CopyXLogRecordToWAL](../C/CopyXLogRecordToWAL.md)
+  - [CreateOverwriteContrecordRecord](../C/CreateOverwriteContrecordRecord.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlog.c module

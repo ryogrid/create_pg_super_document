@@ -26,20 +26,20 @@ For each set of variables found, it calls add_vars_to_targetlist() with a bitmap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_var_clause
-  - add_vars_to_targetlist
-  - bms_make_singleton
-  - list_free
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md)
+  - [bms_make_singleton](bms_make_singleton.md)
+  - [list_free](../l/list_free.md)
 - Constants used:
   - PVC_RECURSE_AGGREGATES
   - PVC_RECURSE_WINDOWFUNCS
   - PVC_INCLUDE_PLACEHOLDERS
 - Called from (representative examples):
-  - query_planner
-  - distribute_row_identity_vars
+  - [query_planner](../q/query_planner.md)
+  - [distribute_row_identity_vars](../d/distribute_row_identity_vars.md)
 
 ## Notes and Other Information
-- Variables are marked as needed by "relation 0" to ensure propagation through all join steps
+- [Variables](../V/Variables.md) are marked as needed by "relation 0" to ensure propagation through all join steps
 - HAVING clause processing excludes window functions (only includes aggregates)
 - Uses different flag combinations for final_tlist vs HAVING clause variable extraction
 - Memory management includes explicit list_free() calls for extracted variable lists

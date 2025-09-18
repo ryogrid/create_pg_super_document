@@ -28,10 +28,10 @@ This conversion is typically needed when data from a virtual slot needs to be wr
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro to check if slot is empty)
-  - heap_form_tuple (function to create HeapTuple from values and null indicators)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (function to create HeapTuple from values and null indicators)
   - MinimalTuple (type referenced, likely in nearby code)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (at src/backend/executor/execTuples.c:1125)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (at src/backend/executor/execTuples.c:1125)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the slot is not empty before proceeding

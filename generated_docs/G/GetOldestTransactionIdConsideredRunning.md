@@ -28,10 +28,10 @@ The function simply computes all visibility horizons and returns the most conser
 ## Dependencies
 - Functions called/Symbols referenced:
   - ComputeXidHorizons
-  - ComputeXidHorizonsResult (struct type)
+  - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md) (struct type)
 - Called from:
-  - CreateCheckPoint
-  - CreateRestartPoint
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
 
 ## Notes and Other Information
 - This function is specifically designed NOT to be used for visibility/pruning decisions - use GetOldestNonRemovableTransactionId() for those purposes instead

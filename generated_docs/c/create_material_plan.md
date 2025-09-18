@@ -29,12 +29,12 @@ The Material node reads all tuples from its child plan on first execution and st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse (creates the child plan that will be materialized)
-  - make_material (creates the Material plan node)
-  - copy_generic_path_info (copies common path information to the plan)
+  - [create_plan_recurse](create_plan_recurse.md) (creates the child plan that will be materialized)
+  - [make_material](../m/make_material.md) (creates the Material plan node)
+  - [copy_generic_path_info](copy_generic_path_info.md) (copies common path information to the plan)
   - CP_SMALL_TLIST (flag to request minimal target list from child)
 - Called from (representative examples):
-  - create_plan_recurse (main recursive plan creation function)
+  - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)
 
 ## Notes and Other Information
 - Material nodes consume memory proportional to the size of their child's output

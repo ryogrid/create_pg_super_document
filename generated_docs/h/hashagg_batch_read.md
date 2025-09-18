@@ -30,12 +30,12 @@ Reading process:
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalTapeRead
-  - palloc
+  - [palloc](../p/palloc.md)
   - ereport
-  - errcode_for_file_access
-  - errmsg_internal
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
 - Called from (representative examples):
-  - agg_refill_hash_table
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - Returns NULL when reaching the end of the tape (no more tuples to read)

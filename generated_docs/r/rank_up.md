@@ -19,17 +19,17 @@ The function uses partition-local memory to maintain a  structure that tracks th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WinGetCurrentPosition
-  - WinGetPartitionLocalMemory
-  - WinRowsArePeers
-  - WinSetMarkPosition
-  - rank_context (struct)
+  - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md)
+  - [WinGetPartitionLocalMemory](../W/WinGetPartitionLocalMemory.md)
+  - [WinRowsArePeers](../W/WinRowsArePeers.md)
+  - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
+  - [rank_context](rank_context.md) (struct)
   - WindowObject (type)
 - Called from (representative examples):
-  - window_rank
-  - window_dense_rank
-  - window_percent_rank
-  - window_cume_dist
+  - [window_rank](../w/window_rank.md)
+  - [window_dense_rank](../w/window_dense_rank.md)
+  - [window_percent_rank](../w/window_percent_rank.md)
+  - [window_cume_dist](../w/window_cume_dist.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the windowfuncs.c file

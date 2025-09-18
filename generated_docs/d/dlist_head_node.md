@@ -17,16 +17,16 @@ This function is a convenience wrapper around  that returns the first node in a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head_element_off
-  - dlist_node (return type)
-  - dlist_head (parameter type)
+  - [dlist_head_element_off](dlist_head_element_off.md)
+  - [dlist_node](dlist_node.md) (return type)
+  - [dlist_head](dlist_head.md) (parameter type)
 - Called from (representative examples):
-  - dataPlaceToPageLeafSplit (src/backend/access/gin/gindatapage.c:1059)
-  - leafRepackItems (src/backend/access/gin/gindatapage.c:1589)
+  - [dataPlaceToPageLeafSplit](dataPlaceToPageLeafSplit.md) (src/backend/access/gin/gindatapage.c:1059)
+  - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1589)
   - pgstat_flush_pending_entries (src/backend/utils/activity/pgstat.c:1197)
-  - BumpReset (src/backend/utils/mmgr/bump.c:270)
-  - BumpAlloc (src/backend/utils/mmgr/bump.c:520)
-  - GenerationReset (src/backend/utils/mmgr/generation.c:320)
+  - [BumpReset](../B/BumpReset.md) (src/backend/utils/mmgr/bump.c:270)
+  - [BumpAlloc](../B/BumpAlloc.md) (src/backend/utils/mmgr/bump.c:520)
+  - [GenerationReset](../G/GenerationReset.md) (src/backend/utils/mmgr/generation.c:320)
 
 ## Notes and Other Information
 - This function should only be called when the list is known to contain at least one element

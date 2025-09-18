@@ -20,11 +20,11 @@ The function performs several safety checks: it verifies that nextval() has been
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Check if the sequence still exists in the system catalog
-  - lock_and_open_sequence: Open and lock the sequence relation
-  - pg_class_aclcheck: Check access permissions on the sequence
+  - [lock_and_open_sequence](lock_and_open_sequence.md): Open and lock the sequence relation
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Check access permissions on the sequence
   - ACL_SELECT: Permission flag for SELECT operations
   - ACL_USAGE: Permission flag for USAGE operations
-  - sequence_close: Close and unlock the sequence relation
+  - [sequence_close](../s/sequence_close.md): Close and unlock the sequence relation
   - PG_RETURN_INT64: Return the 64-bit integer result
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)

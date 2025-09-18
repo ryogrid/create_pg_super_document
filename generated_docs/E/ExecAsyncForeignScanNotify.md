@@ -21,9 +21,9 @@ The function acts as a dispatcher, extracting the ForeignScanState from the asyn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AsyncRequest (structure)
-  - ForeignScanState (structure)
-  - FdwRoutine (structure)
+  - [AsyncRequest](../A/AsyncRequest.md) (structure)
+  - [ForeignScanState](../F/ForeignScanState.md) (structure)
+  - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ForeignAsyncNotify (FDW callback function)
 - Called from (representative examples):
   - ExecAsyncNotify (in execAsync.c)

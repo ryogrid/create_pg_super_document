@@ -19,9 +19,9 @@ This function determines if a reloptions (relation options) string contains actu
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
 - Called from (representative examples):
-  - dumpTableSchema (multiple locations)
-  - dumpConstraint
-  - dumpRule
+  - [dumpTableSchema](../d/dumpTableSchema.md) (multiple locations)
+  - [dumpConstraint](../d/dumpConstraint.md)
+  - [dumpRule](../d/dumpRule.md)
 
 ## Notes and Other Information
 - Specifically designed to avoid printing empty "{}" option arrays in dump output

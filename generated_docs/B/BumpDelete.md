@@ -19,7 +19,7 @@ The function is straightforward and efficient, leveraging the BumpReset function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BumpReset
+  - [BumpReset](BumpReset.md)
   - free
 - Called from (representative examples):
   - BOGUS_MCTX (via function pointer)

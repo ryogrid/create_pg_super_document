@@ -24,13 +24,13 @@ This function is part of the executor's replication infrastructure and serves as
   - RELKIND_RELATION (constant for regular table relation kind)
   - RELKIND_PARTITIONED_TABLE (constant for partitioned table relation kind)
   - ereport (error reporting function)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
-  - errdetail_relkind_not_supported (utility function for generating relation kind error details)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md) (utility function for generating relation kind error details)
 - Called from (representative examples):
-  - CreateSubscription (in subscription creation commands)
+  - [CreateSubscription](CreateSubscription.md) (in subscription creation commands)
   - logicalrep_rel_open (when opening relations for logical replication)
-  - apply_handle_tuple_routing (during tuple routing in logical replication worker)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md) (during tuple routing in logical replication worker)
   - exec_rt_fetch (in executor runtime fetch operations)
 
 ## Notes and Other Information

@@ -17,10 +17,10 @@ This function efficiently computes the ceiling of the base-2 logarithm for 64-bi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos64 (to find the position of the leftmost set bit)
+  - [pg_leftmost_one_pos64](pg_leftmost_one_pos64.md) (to find the position of the leftmost set bit)
 - Called from (representative examples):
-  - GetHugePageSize (memory management and huge page calculations)
-  - my_log2 (dynamic hash table implementation for large sizes)
+  - [GetHugePageSize](../G/GetHugePageSize.md) (memory management and huge page calculations)
+  - [my_log2](../m/my_log2.md) (dynamic hash table implementation for large sizes)
 
 ## Notes and Other Information
 - 64-bit version of pg_ceil_log2_32 with identical logic but wider data type

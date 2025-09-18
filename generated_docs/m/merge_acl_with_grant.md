@@ -24,9 +24,9 @@ This static function performs the core ACL modification logic for PostgreSQL's G
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - aclupdate
+  - [aclupdate](../a/aclupdate.md)
   - ACLITEM_SET_PRIVS_GOPTIONS
-  - pfree
+  - [pfree](../p/pfree.md)
   - lfirst_oid
   - ereport
 - Types used:
@@ -40,13 +40,13 @@ This static function performs the core ACL modification logic for PostgreSQL's G
   - ACL_ID_PUBLIC
   - ACL_NO_RIGHTS
 - Called from:
-  - SetDefaultACL
-  - ExecGrant_Attribute
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - ExecGrant_Largeobject
-  - ExecGrant_Parameter
-  - RemoveRoleFromInitPriv
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [ExecGrant_Largeobject](../E/ExecGrant_Largeobject.md)
+  - [ExecGrant_Parameter](../E/ExecGrant_Parameter.md)
+  - [RemoveRoleFromInitPriv](../R/RemoveRoleFromInitPriv.md)
 
 ## Notes and Other Information
 - The function enforces a critical security restriction: grant options can only be granted to individual roles, not to PUBLIC, to prevent uncleanable privilege escalation scenarios

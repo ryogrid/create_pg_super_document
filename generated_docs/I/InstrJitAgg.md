@@ -22,11 +22,11 @@ This aggregation capability is particularly important in parallel query executio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JitInstrumentation (struct type)
+  - [JitInstrumentation](../J/JitInstrumentation.md) (struct type)
   - INSTR_TIME_ADD (macro for timing accumulation)
 - Called from (representative examples):
   - ExplainPrintJITSummary (src/backend/commands/explain.c:997, 1001)
-  - ExecParallelRetrieveJitInstrumentation (src/backend/executor/execParallel.c:1110)
+  - [ExecParallelRetrieveJitInstrumentation](../E/ExecParallelRetrieveJitInstrumentation.md) (src/backend/executor/execParallel.c:1110)
 
 ## Notes and Other Information
 - This function modifies the destination structure in-place, adding values from the source structure

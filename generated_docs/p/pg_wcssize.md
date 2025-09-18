@@ -29,12 +29,12 @@ The function handles special characters as follows:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmblen: Determines the byte length of a multibyte character
-  - PQdsplen: Determines the display width of a multibyte character
+  - [PQmblen](../P/PQmblen.md): Determines the byte length of a multibyte character
+  - [PQdsplen](../P/PQdsplen.md): Determines the display width of a multibyte character
 - Called from (representative examples):
-  - print_aligned_text: For calculating table formatting dimensions
-  - print_aligned_vertical: For vertical table formatting
-  - lineptr: Through header inclusion for line pointer operations
+  - [print_aligned_text](print_aligned_text.md): For calculating table formatting dimensions
+  - [print_aligned_vertical](print_aligned_vertical.md): For vertical table formatting
+  - [lineptr](../l/lineptr.md): Through header inclusion for line pointer operations
 
 ## Notes and Other Information
 - This function MUST be kept in sync with pg_wcsformat to ensure consistent formatting behavior

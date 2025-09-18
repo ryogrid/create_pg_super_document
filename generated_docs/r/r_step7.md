@@ -31,12 +31,12 @@ The byte values 129 and 132 correspond to specific Greek UTF-8 character sequenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward suffix matching)
-  - slice_del (delete substring)
+  - [find_among_b](../f/find_among_b.md) (backward suffix matching)
+  - [slice_del](../s/slice_del.md) (delete substring)
 - Arrays used:
   - a_67 (8 Greek comparative/superlative patterns: εστερ, υτερ, ωτερ, οτερ, εστατ, υτατ, ωτατ, οτατ)
 - Called from:
-  - greek_UTF_8_stem at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3661
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md) at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3661
 
 ## Notes and Other Information
 - Returns 1 on successful processing, 0 if no transformation was applied

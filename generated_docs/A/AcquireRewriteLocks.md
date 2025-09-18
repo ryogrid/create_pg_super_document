@@ -28,19 +28,19 @@ A key secondary function is fixing up JOIN RTE references to dropped columns by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strip_implicit_coercions
+  - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
   - rt_fetch
-  - get_rte_attribute_is_dropped
-  - get_parse_rowmark
+  - [get_rte_attribute_is_dropped](../g/get_rte_attribute_is_dropped.md)
+  - [get_parse_rowmark](../g/get_parse_rowmark.md)
   - query_tree_walker
-  - acquireLocksOnSubLinks
+  - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
   - table_open/table_close
 - Called from (representative examples):
-  - rewriteRuleAction
-  - ApplyRetrieveRule
-  - refresh_matview_datafill
-  - init_sql_fcache
-  - inline_set_returning_function
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
+  - [ApplyRetrieveRule](ApplyRetrieveRule.md)
+  - [refresh_matview_datafill](../r/refresh_matview_datafill.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md)
 
 ## Notes and Other Information
 - This function modifies the querytree in-place, so callers should typically use copyObject() first

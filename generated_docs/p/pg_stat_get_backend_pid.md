@@ -19,8 +19,8 @@ This function retrieves the process ID of a PostgreSQL backend process by its pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_beentry_by_proc_number: Retrieves backend status entry by process number
-  - PgBackendStatus: Structure containing backend status information
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md): Retrieves backend status entry by process number
+  - [PgBackendStatus](../P/PgBackendStatus.md): Structure containing backend status information
   - PG_GETARG_INT32: Macro to extract int32 argument from function call
   - PG_RETURN_INT32: Macro to return int32 value from PostgreSQL function
   - PG_RETURN_NULL: Macro to return NULL from PostgreSQL function

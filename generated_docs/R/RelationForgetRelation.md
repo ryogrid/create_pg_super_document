@@ -29,11 +29,11 @@ The function is designed to be safe for both top-level transactions and subtrans
   - RelationIdCacheLookup
   - PointerIsValid
   - RelationHasReferenceCountZero
-  - GetCurrentSubTransactionId
-  - RelationClearRelation
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
+  - [RelationClearRelation](RelationClearRelation.md)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - index_drop
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [index_drop](../i/index_drop.md)
 
 ## Notes and Other Information
 - The function includes an assertion that rd_droppedSubid must be InvalidSubTransactionId when called

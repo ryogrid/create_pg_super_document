@@ -26,10 +26,10 @@ If adding the attribute would cause a buffer overflow, the function logs a warni
   - memcpy (for copying attribute data)
 - Types referenced:
   - radius_packet
-  - radius_attribute
+  - [radius_attribute](radius_attribute.md)
   - RADIUS_BUFFER_SIZE (constant)
 - Called from:
-  - PerformRadiusTransaction (multiple times at lines 3004, 3005, 3006, 3053)
+  - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md) (multiple times at lines 3004, 3005, 3006, 3053)
 
 ## Notes and Other Information
 - This is a static function, only visible within the auth.c compilation unit

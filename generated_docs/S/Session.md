@@ -23,12 +23,12 @@ The Session struct is designed to manage session-scoped state that was previousl
 - Functions called/Symbols referenced:
   - dsm_segment
   - dsa_area
-  - SharedRecordTypmodRegistry
-  - dshash_table
+  - [SharedRecordTypmodRegistry](SharedRecordTypmodRegistry.md)
+  - [dshash_table](../d/dshash_table.md)
 - Called from (representative examples):
-  - InitializeSession
-  - check_testspec
-  - Permutation
+  - [InitializeSession](../I/InitializeSession.md)
+  - [check_testspec](../c/check_testspec.md)
+  - [Permutation](../P/Permutation.md)
 
 ## Notes and Other Information
 - This struct is part of PostgreSQL's parallel query infrastructure

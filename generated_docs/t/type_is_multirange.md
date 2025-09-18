@@ -19,12 +19,12 @@ This function provides a simple boolean check to determine if a PostgreSQL type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype
+  - [get_typtype](../g/get_typtype.md)
   - TYPTYPE_MULTIRANGE
 - Called from (representative examples):
-  - IsBinaryCoercibleWithCast
-  - multirange_agg_transfn
-  - multirange_intersect_agg_transfn
+  - [IsBinaryCoercibleWithCast](../I/IsBinaryCoercibleWithCast.md)
+  - [multirange_agg_transfn](../m/multirange_agg_transfn.md)
+  - [multirange_intersect_agg_transfn](../m/multirange_intersect_agg_transfn.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's system cache utilities (lsyscache.c) and provides a clean abstraction for type checking. Multirange types were introduced in PostgreSQL 14 as an extension of range types, allowing for collections of non-overlapping ranges. This function is commonly used in contexts where multirange-specific operations need to be performed or where type coercion rules need to be applied differently for multirange types.

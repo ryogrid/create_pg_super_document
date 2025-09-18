@@ -67,16 +67,16 @@ The function includes version compatibility handling for PostgreSQL 10.0+, 12.0+
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQueryForSingleRow
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - fmtQualifiedDumpable
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
-  - ArchiveEntry
-  - dumpComment
-  - binary_upgrade_extension_member
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
   - pg_log_warning
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Only operates in schema dump mode (skipped when dopt->dataOnly is true)

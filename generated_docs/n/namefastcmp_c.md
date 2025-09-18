@@ -19,14 +19,14 @@ The `namefastcmp_c` function provides optimized comparison functionality specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetName
+  - [DatumGetName](../D/DatumGetName.md)
   - Name
   - SortSupport
   - strncmp
   - NameStr (macro)
   - NAMEDATALEN (constant)
 - Called from (representative examples):
-  - varstr_sortsupport (when NAME type and C locale are detected)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md) (when NAME type and C locale are detected)
 
 ## Notes and Other Information
 - Specifically designed for the NAME data type (used for system catalog identifiers)

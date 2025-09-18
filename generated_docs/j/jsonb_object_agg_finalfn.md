@@ -26,13 +26,13 @@ The function includes safety checks to ensure it's called within a proper aggreg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - clone_parse_state
-  - pushJsonbValue
-  - JsonbValueToJsonb
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [clone_parse_state](../c/clone_parse_state.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
 - Types referenced:
-  - JsonbAggState
-  - JsonbInState
+  - [JsonbAggState](../J/JsonbAggState.md)
+  - [JsonbInState](../J/JsonbInState.md)
   - Jsonb
   - WJB_END_OBJECT
 - Called from (representative examples):

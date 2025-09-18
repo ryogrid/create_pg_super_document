@@ -21,7 +21,7 @@ The Hash node's execution model is fundamentally different from other executor n
 - Functions called/Symbols referenced:
   - elog
 - Called from (representative examples):
-  - ExecInitHash (sets this as the ExecProcNode function pointer)
+  - [ExecInitHash](ExecInitHash.md) (sets this as the ExecProcNode function pointer)
 
 ## Notes and Other Information
 - This function should never actually be executed during normal query processing

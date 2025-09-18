@@ -26,19 +26,19 @@ The function uses Perl's croak() function to immediately terminate execution if 
   - plperl_ending (indicates if PL/Perl is in cleanup phase)
   - current_call_data (current execution context)
 - Called from (representative examples):
-  - plperl_sv_to_literal
-  - plperl_spi_exec
-  - plperl_spi_execute_fetch_result
-  - plperl_return_next
-  - plperl_spi_query
-  - plperl_spi_fetchrow
-  - plperl_spi_cursor_close
-  - plperl_spi_prepare
-  - plperl_spi_exec_prepared
-  - plperl_spi_query_prepared
-  - plperl_spi_freeplan
-  - plperl_spi_commit
-  - plperl_spi_rollback
+  - [plperl_sv_to_literal](../p/plperl_sv_to_literal.md)
+  - [plperl_spi_exec](../p/plperl_spi_exec.md)
+  - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md)
+  - [plperl_return_next](../p/plperl_return_next.md)
+  - [plperl_spi_query](../p/plperl_spi_query.md)
+  - [plperl_spi_fetchrow](../p/plperl_spi_fetchrow.md)
+  - [plperl_spi_cursor_close](../p/plperl_spi_cursor_close.md)
+  - [plperl_spi_prepare](../p/plperl_spi_prepare.md)
+  - [plperl_spi_exec_prepared](../p/plperl_spi_exec_prepared.md)
+  - [plperl_spi_query_prepared](../p/plperl_spi_query_prepared.md)
+  - [plperl_spi_freeplan](../p/plperl_spi_freeplan.md)
+  - [plperl_spi_commit](../p/plperl_spi_commit.md)
+  - [plperl_spi_rollback](../p/plperl_spi_rollback.md)
 
 ## Notes and Other Information
 - Essential safety mechanism that prevents crashes and undefined behavior

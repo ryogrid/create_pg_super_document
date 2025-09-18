@@ -23,7 +23,7 @@ The `likesel` function is a SQL-callable selectivity estimation function that pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `patternsel`: Core pattern selectivity estimation function
+  - `[patternsel](../p/patternsel.md)`: Core pattern selectivity estimation function
   - `Pattern_Type_Like`: Enum constant for standard LIKE pattern type
 - Called from (representative examples):
   - No direct references found in the codebase (likely registered as operator selectivity function)

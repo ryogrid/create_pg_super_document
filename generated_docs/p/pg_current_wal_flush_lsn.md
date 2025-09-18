@@ -21,8 +21,8 @@ The function is primarily intended for debugging purposes and provides insight i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `RecoveryInProgress()` - Checks if database recovery is currently active
-  - `GetFlushRecPtr()` - Retrieves the current WAL flush record pointer (with NULL parameter)
+  - `[RecoveryInProgress](../R/RecoveryInProgress.md)()` - Checks if database recovery is currently active
+  - `[GetFlushRecPtr](../G/GetFlushRecPtr.md)()` - Retrieves the current WAL flush record pointer (with NULL parameter)
   - `PG_RETURN_LSN` - Macro to return LSN value to PostgreSQL function caller
 - Called from (representative examples):
   - No direct callers found in the codebase (SQL-callable function)

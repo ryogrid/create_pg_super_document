@@ -25,7 +25,7 @@ The compression process extracts essential information from the inet value inclu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP: Extracts inet pointer from Datum
+  - [DatumGetInetPP](../D/DatumGetInetPP.md): Extracts inet pointer from Datum
   - ip_family: Gets IP family (IPv4/IPv6) from inet
   - ip_bits: Gets network mask bits from inet  
   - ip_addr: Gets raw address bytes from inet
@@ -37,7 +37,7 @@ The compression process extracts essential information from the inet value inclu
   - gk_ip_addrsize: Gets address size in GistInetKey
   - SET_GK_VARSIZE: Sets variable size header for GistInetKey
   - gistentryinit: Initializes GISTENTRY structure
-  - palloc/palloc0: PostgreSQL memory allocation functions
+  - [palloc](../p/palloc.md)/palloc0: PostgreSQL memory allocation functions
 
 - Called from (representative examples):
   - GiST index operations (indirectly through function pointer in operator class)

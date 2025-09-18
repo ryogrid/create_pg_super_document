@@ -19,17 +19,17 @@ This function queries the pg_user_mappings system view to display information ab
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - gettext_noop
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher)
 
 ## Notes and Other Information
 - Returns false if pattern validation fails or query execution fails

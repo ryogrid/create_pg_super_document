@@ -34,17 +34,17 @@ The function maintains efficiency by checking for existing clauses before genera
 - Functions called/Symbols referenced:
   - IS_OTHER_REL
   - bms_is_empty
-  - bms_union
-  - add_outer_joins_to_relids
-  - get_eclass_indexes_for_relids
-  - get_common_eclass_indexes
-  - bms_next_member
-  - bms_overlap
-  - generate_join_implied_equalities_normal
-  - generate_join_implied_equalities_broken
-  - list_concat
+  - [bms_union](../b/bms_union.md)
+  - [add_outer_joins_to_relids](../a/add_outer_joins_to_relids.md)
+  - [get_eclass_indexes_for_relids](get_eclass_indexes_for_relids.md)
+  - [get_common_eclass_indexes](get_common_eclass_indexes.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [generate_join_implied_equalities_normal](generate_join_implied_equalities_normal.md)
+  - [generate_join_implied_equalities_broken](generate_join_implied_equalities_broken.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - check_index_predicates (src/backend/optimizer/path/indxpath.c:3311)
+  - [check_index_predicates](../c/check_index_predicates.md) (src/backend/optimizer/path/indxpath.c:3311)
   - build_joinrel_restrictlist (src/backend/optimizer/util/relnode.c:1324)
   - get_baserel_parampathinfo (src/backend/optimizer/util/relnode.c:1602)
 

@@ -22,14 +22,14 @@ The function simply returns the result of `CHR('\n')`, which converts the litera
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHR (macro for creating character constants)
-  - chr (character type used by regex engine)
+  - [chr](../c/chr.md) (character type used by regex engine)
 - Called from (representative examples):
-  - load_hba (HBA configuration loading)
-  - load_ident (identity mapping loading)
+  - [load_hba](../l/load_hba.md) (HBA configuration loading)
+  - [load_ident](../l/load_ident.md) (identity mapping loading)
   - CNOERR (regex compilation error handling)
-  - xmltotext_with_options (XML processing)
-  - replace_token (initdb token replacement)
-  - replace_guc_value (GUC configuration processing)
+  - [xmltotext_with_options](../x/xmltotext_with_options.md) (XML processing)
+  - [replace_token](../r/replace_token.md) (initdb token replacement)
+  - [replace_guc_value](../r/replace_guc_value.md) (GUC configuration processing)
   - Various formatting and parsing utilities throughout PostgreSQL
 
 ## Notes and Other Information

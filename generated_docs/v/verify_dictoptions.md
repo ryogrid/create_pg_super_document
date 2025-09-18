@@ -23,16 +23,16 @@ A special case exists for standalone backend mode (during initdb) where validati
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsUnderPostmaster: Checks if running under postmaster (not standalone backend)
-  - SearchSysCache1: Looks up template information in system cache
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up template information in system cache
   - HeapTupleIsValid: Validates cache lookup result
   - Form_pg_ts_template: Type cast to access template tuple fields
   - OidIsValid: Checks if template has an init method
   - copyObject: Creates deep copy of options list
   - OidFunctionCall1: Calls the template's init method with options
-  - ReleaseSysCache: Releases system cache tuple
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases system cache tuple
 - Called from (representative examples):
-  - DefineTSDictionary: Validates options during dictionary creation
-  - AlterTSDictionary: Validates new options during dictionary alteration
+  - [DefineTSDictionary](../D/DefineTSDictionary.md): Validates options during dictionary creation
+  - [AlterTSDictionary](../A/AlterTSDictionary.md): Validates new options during dictionary alteration
 
 ## Notes and Other Information
 - This is a static function, only accessible within tsearchcmds.c

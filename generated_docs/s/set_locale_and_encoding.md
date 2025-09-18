@@ -26,17 +26,17 @@ No parameters - operates on global cluster information structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting)
-  - connectToServer (database connection)
-  - PQescapeLiteral (SQL string escaping)
-  - executeQueryOrDie (SQL execution)
+  - [prep_status](../p/prep_status.md) (status reporting)
+  - [connectToServer](../c/connectToServer.md) (database connection)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md) (SQL string escaping)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL execution)
   - GET_MAJOR_VERSION (version checking)
-  - PQfreemem (memory cleanup)
-  - PQfinish (connection cleanup)
-  - check_ok (status verification)
+  - [PQfreemem](../P/PQfreemem.md) (memory cleanup)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
+  - [check_ok](../c/check_ok.md) (status verification)
   - DbLocaleInfo (locale information structure)
 - Called from:
-  - main (from pg_upgrade.c:151)
+  - [main](../m/main.md) (from pg_upgrade.c:151)
 
 ## Notes and Other Information
 - Critical for maintaining locale consistency across PostgreSQL versions

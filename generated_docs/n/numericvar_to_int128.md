@@ -21,18 +21,18 @@ The conversion algorithm first rounds the input to the nearest integer, then con
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var: Initialize a NumericVar structure
-  - set_var_from_var: Copy one NumericVar to another
-  - round_var: Round a NumericVar to specified decimal places
-  - strip_var: Remove leading/trailing zeros from NumericVar
-  - free_var: Free memory allocated for NumericVar
+  - [set_var_from_var](../s/set_var_from_var.md): Copy one NumericVar to another
+  - [round_var](../r/round_var.md): Round a NumericVar to specified decimal places
+  - [strip_var](../s/strip_var.md): Remove leading/trailing zeros from NumericVar
+  - [free_var](../f/free_var.md): Free memory allocated for NumericVar
   - NUMERIC_NEG: Constant indicating negative sign
   - NBASE: Numeric base constant (10000)
   - NumericDigit: Type for numeric digit storage
 
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT: Numeric optimization function
-  - numeric_poly_deserialize: Deserialization function for numeric polynomials
-  - int8_avg_deserialize: Deserialization function for int8 averages
+  - [numeric_poly_deserialize](numeric_poly_deserialize.md): Deserialization function for numeric polynomials
+  - [int8_avg_deserialize](../i/int8_avg_deserialize.md): Deserialization function for int8 averages
 
 ## Notes and Other Information
 - Returns true on successful conversion, false on overflow

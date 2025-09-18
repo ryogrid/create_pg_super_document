@@ -21,17 +21,17 @@ The function operates by first locating the local lock entry in the current back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (to find LOCALLOCK entry)
+  - [hash_search](../h/hash_search.md) (to find LOCALLOCK entry)
   - LockHashPartitionLock (to get partition lock for safe access)
   - LWLockAcquire/LWLockRelease (for shared lock table synchronization)
-  - RemoveLocalLock (cleanup on error conditions)
+  - [RemoveLocalLock](../R/RemoveLocalLock.md) (cleanup on error conditions)
   - LOCKBIT_ON (macro for lock mode bit manipulation)
   - MemSet (memory initialization)
 - Data structures used:
   - LOCALTAG, LOCALLOCK, LOCK, PROCLOCK
   - LockMethods array and conflict tables
 - Called from (representative examples):
-  - LockHasWaitersRelation (relation-specific wrapper)
+  - [LockHasWaitersRelation](LockHasWaitersRelation.md) (relation-specific wrapper)
 
 ## Notes and Other Information
 - Returns false and logs warnings if the process doesn't actually own the specified lock

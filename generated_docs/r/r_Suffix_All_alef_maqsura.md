@@ -19,12 +19,12 @@ This function is part of the Arabic stemming algorithm implementation in Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b` (searches for patterns from the end of the string)
-  - `slice_from_s` (replaces a portion of the string with new content)
+  - `[find_among_b](../f/find_among_b.md)` (searches for patterns from the end of the string)
+  - `[slice_from_s](../s/slice_from_s.md)` (replaces a portion of the string with new content)
   - `a_21` (array containing the alef maqsura pattern: { 0xD9, 0x89 })
   - `s_66` (replacement string containing ya character: { 0xD9, 0x8A })
 - Called from (representative examples):
-  - `arabic_UTF_8_stem` at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1593
+  - `[arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md)` at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1593
 
 ## Notes and Other Information
 - The function uses UTF-8 encoded Arabic characters: 0xD9 0x89 for alef maqsura (ى) and 0xD9 0x8A for ya (ي)

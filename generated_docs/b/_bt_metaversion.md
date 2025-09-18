@@ -31,15 +31,15 @@ The function is essential for ensuring that index operations use the correct alg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf: Acquires buffer for metadata page
+  - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for metadata page
   - _bt_getmeta: Gets metadata from metapage  
-  - _bt_relbuf: Releases buffer
-  - MemoryContextAlloc: Allocates memory for caching metadata
-  - BTMetaPageData: Metadata structure type
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory for caching metadata
+  - [BTMetaPageData](../B/BTMetaPageData.md): Metadata structure type
   - BTREE_NOVAC_VERSION: Version constant for heapkeyspace transition
 - Called from (representative examples):
-  - _bt_first: Beginning of index scans
-  - _bt_mkscankey: Creating scan keys for index operations
+  - [_bt_first](_bt_first.md): Beginning of index scans
+  - [_bt_mkscankey](_bt_mkscankey.md): Creating scan keys for index operations
 
 ## Notes and Other Information
 - Critical for determining proper index traversal and insertion algorithms

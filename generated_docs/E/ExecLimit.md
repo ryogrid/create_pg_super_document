@@ -29,7 +29,7 @@ The function supports both forward and backward scanning directions and handles 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recompute_limits (computes offset/count on first call)
+  - [recompute_limits](../r/recompute_limits.md) (computes offset/count on first call)
   - ExecProcNode (fetches tuples from subplan)
   - ExecCopySlot (saves tuple for WITH TIES comparison)  
   - ExecQualAndReset (compares tuples for WITH TIES logic)
@@ -37,7 +37,7 @@ The function supports both forward and backward scanning directions and handles 
   - TupIsNull (checks for null tuples)
   - outerPlanState (accesses subplan state)
 - Called from (representative examples):
-  - ExecInitLimit (sets as execution function)
+  - [ExecInitLimit](ExecInitLimit.md) (sets as execution function)
 
 ## Notes and Other Information
 - Uses a complex state machine to handle different execution phases and edge cases

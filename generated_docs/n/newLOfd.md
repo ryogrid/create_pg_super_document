@@ -31,11 +31,11 @@ None (void function)
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - ALLOCSET_DEFAULT_SIZES
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - repalloc0_array
-  - LargeObjectDesc (struct type)
+  - [LargeObjectDesc](../L/LargeObjectDesc.md) (struct type)
 - Called from (representative examples):
-  - be_lo_open (src/backend/libpq/be-fsstubs.c:105)
+  - [be_lo_open](../b/be_lo_open.md) (src/backend/libpq/be-fsstubs.c:105)
 
 ## Notes and Other Information
 - Static function with file-local scope, used internally by large object operations

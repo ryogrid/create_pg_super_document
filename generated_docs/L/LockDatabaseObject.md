@@ -26,14 +26,14 @@ After acquiring the lock, the function calls AcceptInvalidationMessages() to ens
 - Functions called/Symbols referenced:
   - LOCKTAG (data structure for lock identification)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag)
-  - LockAcquire (core lock acquisition function)
-  - AcceptInvalidationMessages (system cache invalidation handling)
+  - [LockAcquire](LockAcquire.md) (core lock acquisition function)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (system cache invalidation handling)
 - Called from (representative examples):
-  - AcquireDeletionLock (src/backend/catalog/dependency.c:1517)
-  - RangeVarGetAndCheckCreationNamespace (src/backend/catalog/namespace.c:813)
-  - get_object_address (src/backend/catalog/objectaddress.c:1178)
-  - AddEnumLabel (src/backend/catalog/pg_enum.c:326)
-  - RenameEnumLabel (src/backend/catalog/pg_enum.c:635)
+  - [AcquireDeletionLock](../A/AcquireDeletionLock.md) (src/backend/catalog/dependency.c:1517)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md) (src/backend/catalog/namespace.c:813)
+  - [get_object_address](../g/get_object_address.md) (src/backend/catalog/objectaddress.c:1178)
+  - [AddEnumLabel](../A/AddEnumLabel.md) (src/backend/catalog/pg_enum.c:326)
+  - [RenameEnumLabel](../R/RenameEnumLabel.md) (src/backend/catalog/pg_enum.c:635)
 
 ## Notes and Other Information
 - Should NOT be used for shared objects (tablespaces) or relations - use appropriate specialized locking functions instead

@@ -30,11 +30,11 @@ The shouldFree parameter indicates whether the caller is responsible for freeing
   - slot->tts_ops->get_heap_tuple
   - slot->tts_ops->copy_heap_tuple
 - Called from (representative examples):
-  - heap_multi_insert
-  - heapam_tuple_insert
-  - systable_getnext
-  - ExecBRInsertTriggers
-  - ExecFetchSlotHeapTupleDatum
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heapam_tuple_insert](../h/heapam_tuple_insert.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [ExecBRInsertTriggers](ExecBRInsertTriggers.md)
+  - [ExecFetchSlotHeapTupleDatum](ExecFetchSlotHeapTupleDatum.md)
 
 ## Notes and Other Information
 - The function performs sanity checks to ensure the slot is not NULL and not empty

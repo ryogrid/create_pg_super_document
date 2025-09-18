@@ -19,8 +19,8 @@ This function implements the standard binary heap parent index calculation formu
 - Functions called/Symbols referenced: None (basic arithmetic operation)
 - Called from (representative examples):
   - ltsReleaseBlock (in src/backend/utils/sort/logtape.c)
-  - binaryheap_build (in src/common/binaryheap.c)  
-  - sift_up (in src/common/binaryheap.c)
+  - [binaryheap_build](../b/binaryheap_build.md) (in src/common/binaryheap.c)  
+  - [sift_up](../s/sift_up.md) (in src/common/binaryheap.c)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization since it's a simple calculation used frequently in heap operations

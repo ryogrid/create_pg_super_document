@@ -25,11 +25,11 @@ The calculated space will be used to store synchronization information between p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (for safe size arithmetic preventing overflow)
+  - [add_size](../a/add_size.md) (for safe size arithmetic preventing overflow)
   - offsetof (for calculating structure member offsets)
   - shm_toc_estimate_chunk (for registering data chunk memory needs)
   - shm_toc_estimate_keys (for registering table-of-contents key needs)
-  - ParallelAppendState (the structure type being sized)
+  - [ParallelAppendState](../P/ParallelAppendState.md) (the structure type being sized)
 - Called from (representative examples):
   - ExecParallelEstimate (main parallel execution estimator dispatcher)
 

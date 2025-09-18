@@ -24,14 +24,14 @@ The function manages several critical aspects: permission checking (ACL_EXECUTE)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclcheck (permission verification)
-  - CreateExecutorState/CreateExprContext (execution environment)
-  - ExecPrepareExpr/ExecEvalExprSwitchContext (argument evaluation)
+  - [object_aclcheck](../o/object_aclcheck.md) (permission verification)
+  - [CreateExecutorState](../C/CreateExecutorState.md)/CreateExprContext (execution environment)
+  - [ExecPrepareExpr](ExecPrepareExpr.md)/ExecEvalExprSwitchContext (argument evaluation)
   - FunctionCallInvoke (procedure execution)
-  - begin_tup_output_tupdesc/end_tup_output (result handling)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)/end_tup_output (result handling)
   - GetTransactionSnapshot/PushActiveSnapshot (snapshot management)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Establishes non-atomic execution context when atomic=false, allowing transaction commands

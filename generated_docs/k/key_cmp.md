@@ -20,9 +20,9 @@ This function provides a comparison interface for uint64 values that conforms to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u64 (PostgreSQL's uint64 comparison utility function)
+  - [pg_cmp_u64](../p/pg_cmp_u64.md) (PostgreSQL's uint64 comparison utility function)
 - Called from (representative examples):
-  - test_random (used for sorting keys in random testing scenarios)
+  - [test_random](../t/test_random.md) (used for sorting keys in random testing scenarios)
 
 ## Notes and Other Information
 - This is a static function used internally within the test_radixtree module

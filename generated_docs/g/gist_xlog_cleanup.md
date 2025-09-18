@@ -23,7 +23,7 @@ This cleanup function is part of the WAL resource manager interface and is calle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete: Delete the memory context and free all associated memory
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Delete the memory context and free all associated memory
 - Called from:
   - WAL recovery infrastructure (registered as GiST cleanup manager)
 

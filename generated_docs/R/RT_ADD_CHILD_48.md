@@ -27,9 +27,9 @@ This function adds a child to a node48 by finding the first available slot in th
   - RT_MAKE_NAME (macro for name generation)
   - RT_BM_IDX (calculates bitmap array index)
   - bmw_rightmost_one_pos (finds position of rightmost set bit)
-  - RT_VERIFY_NODE (node verification macro)
+  - [RT_VERIFY_NODE](RT_VERIFY_NODE.md) (node verification macro)
 - Called from (representative examples):
-  - RT_NODE_INSERT (at src/include/lib/radixtree.h:1567)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (at src/include/lib/radixtree.h:1567)
 
 ## Notes and Other Information
 Node48 provides a balance between node16 (which has limited capacity) and node256 (which may waste space). It uses an indirection array to map 256 possible chunk values to 48 actual slots, allowing efficient storage when the key space is sparse. The bitmap `isset` tracks which of the 48 slots are occupied, and the algorithm efficiently finds the first available slot using bit manipulation. The function updates both the slot mapping (`slot_idxs[chunk] = insertpos`) and marks the slot as used in the bitmap.

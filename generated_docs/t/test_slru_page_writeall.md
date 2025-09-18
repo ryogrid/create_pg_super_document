@@ -17,7 +17,7 @@ This function provides a simple testing interface for performing bulk write oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruWriteAll (performs the actual bulk write operation)
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md) (performs the actual bulk write operation)
   - TestSlruCtl (global SLRU control structure for the test module)
   - PG_RETURN_VOID (PostgreSQL function return macro)
 - Called from (representative examples):

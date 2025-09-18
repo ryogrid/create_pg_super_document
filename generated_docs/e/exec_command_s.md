@@ -21,19 +21,19 @@ When executed in an active branch, the function first attempts to parse an optio
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - expand_tilde
-  - printHistory
-  - ignore_slash_options
+  - [expand_tilde](expand_tilde.md)
+  - [printHistory](../p/printHistory.md)
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - printf
   - putchar
   - free
-  - PsqlScanState (type)
-  - backslashResult (return type)  
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
+  - [backslashResult](../b/backslashResult.md) (return type)  
   - OT_NORMAL (option type)
   - PSQL_CMD_SKIP_LINE (success return value)
   - PSQL_CMD_ERROR (error return value)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

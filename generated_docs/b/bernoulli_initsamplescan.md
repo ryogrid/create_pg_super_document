@@ -20,10 +20,10 @@ The `bernoulli_initsamplescan` function is called during PostgreSQL executor ini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (allocates zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - BernoulliSamplerData (private data structure for Bernoulli sampling state)
 - Called from (representative examples):
-  - tsm_bernoulli_handler (sets this as InitSampleScan callback)
+  - [tsm_bernoulli_handler](../t/tsm_bernoulli_handler.md) (sets this as InitSampleScan callback)
 
 ## Notes and Other Information
 - This is a static function, only callable within the bernoulli.c module

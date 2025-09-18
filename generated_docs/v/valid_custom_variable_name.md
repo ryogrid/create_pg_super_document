@@ -30,8 +30,8 @@ The function performs character-by-character validation with the following rules
   - GUC_QUALIFIER_SEPARATOR
   - IS_HIGHBIT_SET
 - Called from:
-  - assignable_custom_variable_name (src/backend/utils/misc/guc.c:1134)
-  - AlterSystemSetConfigFile (src/backend/utils/misc/guc.c:4733)
+  - [assignable_custom_variable_name](../a/assignable_custom_variable_name.md) (src/backend/utils/misc/guc.c:1134)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md) (src/backend/utils/misc/guc.c:4733)
   - validate_option_array_item (src/backend/utils/misc/guc.c:6746)
 
 ## Notes and Other Information

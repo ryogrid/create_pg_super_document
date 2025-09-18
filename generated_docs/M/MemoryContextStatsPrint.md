@@ -24,12 +24,12 @@ This static callback function handles the formatting and output of memory contex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbcliplen (Unicode-aware string truncation)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (Unicode-aware string truncation)
   - LOG_SERVER_ONLY (logging level constant)
-  - errhidestmt/errhidecontext (error reporting functions)
+  - [errhidestmt](../e/errhidestmt.md)/errhidecontext (error reporting functions)
   - Various string manipulation functions (strcmp, strcpy, strlen, strcat)
 - Called from (representative examples):
-  - MemoryContextStatsInternal (as a callback via context->methods->stats)
+  - [MemoryContextStatsInternal](MemoryContextStatsInternal.md) (as a callback via context->methods->stats)
 
 ## Notes and Other Information
 - Static function, only accessible within mcxt.c

@@ -31,17 +31,17 @@ The function is exported because it's called from prepare.c in EXPLAIN EXECUTE s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTableAsRelExists
-  - ExplainDummyGroup
-  - QueryRewrite
+  - [CreateTableAsRelExists](../C/CreateTableAsRelExists.md)
+  - [ExplainDummyGroup](ExplainDummyGroup.md)
+  - [QueryRewrite](../Q/QueryRewrite.md)
   - copyObject
-  - ExplainOneQuery
-  - ExplainExecuteQuery
+  - [ExplainOneQuery](ExplainOneQuery.md)
+  - [ExplainExecuteQuery](ExplainExecuteQuery.md)
   - linitial_node
   - appendStringInfoString
 - Called from (representative examples):
-  - ExplainOneQuery
-  - ExplainExecuteQuery
+  - [ExplainOneQuery](ExplainOneQuery.md)
+  - [ExplainExecuteQuery](ExplainExecuteQuery.md)
 
 ## Notes and Other Information
 - The function performs existence checks for CREATE TABLE AS to avoid unnecessary planning when the target relation already exists

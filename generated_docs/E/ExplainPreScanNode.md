@@ -23,18 +23,18 @@ The function uses a switch statement to handle different plan node types and ext
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - bms_add_member
-  - bms_add_members
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_add_members](../b/bms_add_members.md)
   - planstate_tree_walker
   - Scan (cast)
   - ForeignScan (cast)
   - CustomScan (cast)
-  - ModifyTable (cast)
+  - [ModifyTable](../M/ModifyTable.md) (cast)
   - Append (cast)
   - MergeAppend (cast)
 - Called from (representative examples):
-  - ExplainPrintPlan
-  - ExplainPreScanNode (recursive)
+  - [ExplainPrintPlan](ExplainPrintPlan.md)
+  - [ExplainPreScanNode](ExplainPreScanNode.md) (recursive)
 
 ## Notes and Other Information
 - Returns a boolean value (though the return value from planstate_tree_walker is typically used for control flow)

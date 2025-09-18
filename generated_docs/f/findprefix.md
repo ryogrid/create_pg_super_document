@@ -27,7 +27,7 @@ The algorithm handles various edge cases including patterns with multiple parall
   - GETCOLOR (macro for character color lookup)
   - Various constants: COLORLESS, RAINBOW, REG_NOMATCH, REG_PREFIX, REG_EXACT
 - Called from (representative examples):
-  - pg_regprefix
+  - [pg_regprefix](../p/pg_regprefix.md)
 
 ## Return Values
 - : A common prefix was found and stored in the string array

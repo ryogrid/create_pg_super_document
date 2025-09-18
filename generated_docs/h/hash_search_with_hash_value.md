@@ -21,19 +21,19 @@ This function provides the core implementation for all hash table operations in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB, HASHHDR, HASHBUCKET (hash table structures)
+  - [HTAB](../H/HTAB.md), HASHHDR, HASHBUCKET (hash table structures)
   - HASHACTION (operation enumeration)
   - FREELIST_IDX (macro for freelist indexing)
   - IS_PARTITIONED (partitioning check macro)
-  - has_seq_scans (function to check for active sequential scans)
-  - expand_table (table expansion function)
-  - hash_initial_lookup (initial bucket lookup)
-  - get_hash_entry (entry allocation function)
+  - [has_seq_scans](has_seq_scans.md) (function to check for active sequential scans)
+  - [expand_table](../e/expand_table.md) (table expansion function)
+  - [hash_initial_lookup](hash_initial_lookup.md) (initial bucket lookup)
+  - [get_hash_entry](../g/get_hash_entry.md) (entry allocation function)
   - ELEMENTKEY (macro to access element key)
 - Called from (representative examples):
-  - hash_search (convenience wrapper)
-  - BufTableLookup, BufTableInsert, BufTableDelete
-  - LockAcquireExtended, SetupLockInTable
+  - [hash_search](hash_search.md) (convenience wrapper)
+  - [BufTableLookup](../B/BufTableLookup.md), BufTableInsert, BufTableDelete
+  - [LockAcquireExtended](../L/LockAcquireExtended.md), SetupLockInTable
   - Various predicate locking functions
 
 ## Notes and Other Information

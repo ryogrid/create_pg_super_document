@@ -19,10 +19,10 @@ The function demonstrates the ECPG translation of embedded SQL cursor close oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGdo (ECPG runtime function for SQL execution)
+  - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for SQL execution)
   - ECPGt_EOIT, ECPGt_EORT (ECPG type constants for statement boundaries)
 - Called from (representative examples):
-  - main (in the same test file)
+  - [main](../m/main.md) (in the same test file)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

@@ -30,15 +30,15 @@ Key operations include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteInSeg
-  - XLogWalRcvClose
+  - [XLogWalRcvClose](XLogWalRcvClose.md)
   - XLByteToSeg
-  - XLogFileInit
+  - [XLogFileInit](XLogFileInit.md)
   - XLogSegmentOffset
   - pg_pwrite
-  - XLogFileName
-  - pg_atomic_write_u64
+  - [XLogFileName](XLogFileName.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
 - Called from (representative examples):
-  - XLogWalRcvProcessMsg
+  - [XLogWalRcvProcessMsg](XLogWalRcvProcessMsg.md)
 
 ## Notes and Other Information
 - This is a static function internal to the walreceiver.c module

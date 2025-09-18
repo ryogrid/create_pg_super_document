@@ -37,8 +37,8 @@ The function also cleans up "allocated" stdio files, directories, and file descr
   - FreeDesc (to clean up allocated descriptors)
   - FD_DELETE_AT_CLOSE, FD_CLOSE_AT_EOXACT (file descriptor state flags)
 - Called from (representative examples):
-  - AtEOXact_Files (for transaction-level cleanup)
-  - BeforeShmemExit_Files (for process exit cleanup)
+  - [AtEOXact_Files](../A/AtEOXact_Files.md) (for transaction-level cleanup)
+  - [BeforeShmemExit_Files](../B/BeforeShmemExit_Files.md) (for process exit cleanup)
 
 ## Notes and Other Information
 - This is a static function only accessible within fd.c

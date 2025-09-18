@@ -25,22 +25,22 @@ The `JsonPathValue` function implements the SQL/JSON JSON_VALUE operation, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeJsonPath
-  - GetJsonPathVar
-  - CountJsonPathVars
-  - DatumGetJsonbP
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [GetJsonPathVar](../G/GetJsonPathVar.md)
+  - [CountJsonPathVars](../C/CountJsonPathVars.md)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
   - jperIsError
-  - JsonValueListLength
-  - JsonValueListHead
+  - [JsonValueListLength](JsonValueListLength.md)
+  - [JsonValueListHead](JsonValueListHead.md)
   - JsonContainerIsScalar
-  - JsonbExtractScalar
+  - [JsonbExtractScalar](JsonbExtractScalar.md)
   - IsAJsonbScalar
-  - JsonValueList (type)
-  - JsonPathExecResult (type)
+  - [JsonValueList](JsonValueList.md) (type)
+  - [JsonPathExecResult](JsonPathExecResult.md) (type)
   - PG_USED_FOR_ASSERTS_ONLY (macro)
   - jbvBinary, jbvNull (enum values)
 - Called from (representative examples):
-  - ExecEvalJsonExprPath
+  - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)
 
 ## Notes and Other Information
 - Returns NULL when no matches are found, when result is JSON null, or on error (with appropriate flags set)

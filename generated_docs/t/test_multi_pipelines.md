@@ -31,24 +31,24 @@ The function performs the following test sequence:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQenterPipelineMode
-  - PQsendQueryParams
+  - [PQsendQueryParams](../P/PQsendQueryParams.md)
   - PQpipelineSync
   - PQsendPipelineSync
-  - PQgetResult
-  - PQresultStatus
-  - PQresStatus
-  - PQclear
+  - [PQgetResult](../P/PQgetResult.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresStatus](../P/PQresStatus.md)
+  - [PQclear](../P/PQclear.md)
   - PQexitPipelineMode
-  - PQpipelineStatus
-  - PQerrorMessage
+  - [PQpipelineStatus](../P/PQpipelineStatus.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - PGRES_TUPLES_OK
   - PGRES_PIPELINE_SYNC
   - PQ_PIPELINE_OFF
   - INT4OID
   - fprintf
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function within the libpq_pipeline test module

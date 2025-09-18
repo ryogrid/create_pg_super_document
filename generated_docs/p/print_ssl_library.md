@@ -19,11 +19,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsslAttribute
+  - [PQsslAttribute](../P/PQsslAttribute.md)
   - fprintf (standard C library)
   - printf (standard C library)
 - Called from (representative examples):
-  - main (in src/interfaces/libpq/test/libpq_testclient.c:31)
+  - [main](../m/main.md) (in src/interfaces/libpq/test/libpq_testclient.c:31)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same translation unit (libpq_testclient.c)

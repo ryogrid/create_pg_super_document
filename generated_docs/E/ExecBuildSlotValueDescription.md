@@ -27,19 +27,19 @@ ExecBuildSlotValueDescription generates formatted tuple representations for erro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_enable_rls
-  - pg_class_aclcheck
-  - pg_attribute_aclcheck
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
   - slot_getallattrs
-  - bms_is_member
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
-  - pg_mbcliplen
+  - [bms_is_member](../b/bms_is_member.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md)
   - appendBinaryStringInfo
 - Called from (representative examples):
-  - ExecPartitionCheckEmitError
-  - ExecConstraints
-  - ExecWithCheckOptions
+  - [ExecPartitionCheckEmitError](ExecPartitionCheckEmitError.md)
+  - [ExecConstraints](ExecConstraints.md)
+  - [ExecWithCheckOptions](ExecWithCheckOptions.md)
 
 ## Notes and Other Information
 - Returns NULL when RLS is enabled to prevent unauthorized data disclosure

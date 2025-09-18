@@ -23,12 +23,12 @@ The function uses boundary markers (bra/ket) to define the text segments for rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Searches backwards for patterns using lookup table a_1
-  - find_among: Searches forward for patterns using lookup table a_2  
-  - slice_from_s: Replaces characters between bra and ket with specified string
-  - skip_utf8: Advances cursor by one UTF-8 character
+  - [find_among_b](../f/find_among_b.md): Searches backwards for patterns using lookup table a_1
+  - [find_among](../f/find_among.md): Searches forward for patterns using lookup table a_2  
+  - [slice_from_s](../s/slice_from_s.md): Replaces characters between bra and ket with specified string
+  - [skip_utf8](../s/skip_utf8.md): Advances cursor by one UTF-8 character
 - Called from (representative examples):
-  - arabic_UTF_8_stem: Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1655
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1655
 
 ## Notes and Other Information
 This function is automatically generated code from Snowball stemming algorithms and complements r_Normalize_pre by handling normalization that must occur after stemming operations. It specifically targets Arabic character sequences that need standardization in the final output. The function processes UTF-8 encoded Arabic text and returns 1 on success or a negative value on error. The two-phase approach (backward then forward) ensures comprehensive normalization of the processed text.

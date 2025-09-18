@@ -22,10 +22,10 @@ The effective key length represents the actual cryptographic strength of the cip
 ## Dependencies
 - Functions called/Symbols referenced:
   - SSL_get_cipher_bits (OpenSSL function)
-  - Port (structure containing SSL connection state)
+  - [Port](../P/Port.md) (structure containing SSL connection state)
 - Called from (representative examples):
-  - pgstat_bestart (for collecting connection statistics)
-  - PerformAuthentication (during authentication logging)
+  - [pgstat_bestart](../p/pgstat_bestart.md) (for collecting connection statistics)
+  - [PerformAuthentication](../P/PerformAuthentication.md) (during authentication logging)
 
 ## Notes and Other Information
 - Returns 0 if no SSL connection is active on the port

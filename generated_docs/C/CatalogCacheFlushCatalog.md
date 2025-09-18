@@ -23,14 +23,14 @@ The design avoids re-initializing cache structures during flush operations to pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResetCatalogCache
-  - CallSyscacheCallbacks
+  - [ResetCatalogCache](../R/ResetCatalogCache.md)
+  - [CallSyscacheCallbacks](CallSyscacheCallbacks.md)
   - slist_foreach
   - slist_container
   - CACHE_elog
   - DEBUG2
 - Called from (representative examples):
-  - LocalExecuteInvalidationMessage
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
   - Referenced in CatCacheHeader
 
 ## Notes and Other Information

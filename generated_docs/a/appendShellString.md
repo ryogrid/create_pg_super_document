@@ -22,15 +22,15 @@ The function serves as a fatal-error variant of appendShellStringNoError(), prio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendShellStringNoError (performs the actual quoting and validation)
+  - [appendShellStringNoError](appendShellStringNoError.md) (performs the actual quoting and validation)
   - fprintf (for error message output)
   - exit (terminates program on security violation)
   - EXIT_FAILURE (exit status constant)
 - Called from (representative examples):
-  - main (in pg_dumpall.c for command-line argument processing)
-  - ensureCleanShutdown (in pg_rewind.c for server control commands)
-  - cluster_conn_opts (in pg_upgrade for connection parameter handling)
-  - start_standby_server (in pg_createsubscriber.c)
+  - [main](../m/main.md) (in pg_dumpall.c for command-line argument processing)
+  - [ensureCleanShutdown](../e/ensureCleanShutdown.md) (in pg_rewind.c for server control commands)
+  - [cluster_conn_opts](../c/cluster_conn_opts.md) (in pg_upgrade for connection parameter handling)
+  - [start_standby_server](../s/start_standby_server.md) (in pg_createsubscriber.c)
 
 ## Notes and Other Information
 - Designed specifically for building shell commands that will be executed via system() or similar functions

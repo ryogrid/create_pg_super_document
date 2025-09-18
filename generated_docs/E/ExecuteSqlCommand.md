@@ -19,21 +19,21 @@ ExecuteSqlCommand is a utility function within pg_dump that wraps the execution 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec
-  - PQresultStatus
-  - PQerrorMessage
-  - PQclear
-  - warn_or_exit_horribly
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQclear](../P/PQclear.md)
+  - [warn_or_exit_horribly](../w/warn_or_exit_horribly.md)
 - Constants referenced:
   - PGRES_COMMAND_OK
   - PGRES_TUPLES_OK
   - PGRES_EMPTY_QUERY
   - PGRES_COPY_IN
 - Called from (representative examples):
-  - ExecuteSimpleCommands
-  - ExecuteSqlCommandBuf
-  - StartTransaction
-  - CommitTransaction
+  - [ExecuteSimpleCommands](ExecuteSimpleCommands.md)
+  - [ExecuteSqlCommandBuf](ExecuteSqlCommandBuf.md)
+  - [StartTransaction](../S/StartTransaction.md)
+  - [CommitTransaction](../C/CommitTransaction.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_backup_db.c file

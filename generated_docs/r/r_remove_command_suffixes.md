@@ -30,11 +30,11 @@ This function is more restrictive than other suffix removal functions, requiring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_has_min_length (ensures minimum word length before processing)
-  - find_among_b (backward pattern matching using array a_15 with 2 command patterns)
-  - slice_del (completely removes the matched suffix)
+  - [r_has_min_length](r_has_min_length.md) (ensures minimum word length before processing)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching using array a_15 with 2 command patterns)
+  - [slice_del](../s/slice_del.md) (completely removes the matched suffix)
 - Called from (representative examples):
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - Specifically targets Tamil imperative/command verb forms

@@ -26,7 +26,7 @@ This function serves as a PostgreSQL conversion function wrapper that converts t
   - PG_GETARG_INT32
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
-  - shift_jis_20042euc_jis_2004
+  - [shift_jis_20042euc_jis_2004](shift_jis_20042euc_jis_2004.md)
   - PG_RETURN_INT32
 - Constants used:
   - PG_SHIFT_JIS_2004

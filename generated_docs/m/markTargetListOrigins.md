@@ -21,13 +21,13 @@ This function iterates through a target list and marks target entries that corre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - markTargetListOrigin
+  - [markTargetListOrigin](markTargetListOrigin.md)
   - lfirst (macro)
-  - TargetEntry
+  - [TargetEntry](../T/TargetEntry.md)
   - Var
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformReturningList
+  - [transformSelectStmt](../t/transformSelectStmt.md)
+  - [transformReturningList](../t/transformReturningList.md)
 
 ## Notes and Other Information
 - Only used for SELECT targetlists and RETURNING lists since origin information is only needed when sending results to the frontend

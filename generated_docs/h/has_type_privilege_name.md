@@ -21,10 +21,10 @@ This PostgreSQL function provides a convenient way to check type privileges for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - GetUserId
-  - convert_type_name
-  - convert_type_priv_string
-  - object_aclcheck
+  - [GetUserId](../G/GetUserId.md)
+  - [convert_type_name](../c/convert_type_name.md)
+  - [convert_type_priv_string](../c/convert_type_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - This function is callable from SQL as has_type_privilege()

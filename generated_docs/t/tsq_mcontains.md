@@ -22,17 +22,17 @@ This function implements the @> (contains) operator for TSQuery objects. It extr
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY (PostgreSQL macro to extract TSQuery arguments)
-  - collectTSQueryValues (extracts string values from TSQuery)
+  - [collectTSQueryValues](../c/collectTSQueryValues.md) (extracts string values from TSQuery)
   - qsort (standard C sorting function)
-  - cmp_string (string comparison function for sorting)
-  - qunique (PostgreSQL utility to remove duplicates from sorted arrays)
+  - [cmp_string](../c/cmp_string.md) (string comparison function for sorting)
+  - [qunique](../q/qunique.md) (PostgreSQL utility to remove duplicates from sorted arrays)
   - strcmp (standard C string comparison)
   - PG_RETURN_BOOL (PostgreSQL macro to return boolean result)
 - Types referenced:
   - TSQuery (text search query structure)
   - Datum (PostgreSQL generic data type)
 - Called from (representative examples):
-  - tsq_mcontained (at src/backend/utils/adt/tsquery_op.c:356, implements the reverse containment operator)
+  - [tsq_mcontained](tsq_mcontained.md) (at src/backend/utils/adt/tsquery_op.c:356, implements the reverse containment operator)
 
 ## Notes and Other Information
 - This is a PostgreSQL SQL function accessible as the @> operator for TSQuery types

@@ -28,10 +28,10 @@ The function uses ChooseIndexNameAddition to create a column-based name componen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ChooseRelationName (called multiple times with different suffixes)
-  - ChooseIndexNameAddition (called to generate column-based name components)
+  - [ChooseRelationName](ChooseRelationName.md) (called multiple times with different suffixes)
+  - [ChooseIndexNameAddition](ChooseIndexNameAddition.md) (called to generate column-based name components)
 - Called from:
-  - DefineIndex (src/backend/commands/indexcmds.c:821)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:821)
 
 ## Notes and Other Information
 - This is a static function internal to indexcmds.c

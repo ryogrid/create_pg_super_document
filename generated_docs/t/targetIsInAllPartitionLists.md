@@ -25,14 +25,14 @@ The implementation notes that it would be possible to optimize by ignoring windo
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst
-  - targetIsInSortList
+  - [targetIsInSortList](targetIsInSortList.md)
 - Types referenced:
-  - TargetEntry
-  - Query
+  - [TargetEntry](../T/TargetEntry.md)
+  - [Query](../Q/Query.md)
   - WindowClause
   - InvalidOid (constant)
 - Called from (representative examples):
-  - check_output_expressions (src/backend/optimizer/path/allpaths.c:3752)
+  - [check_output_expressions](../c/check_output_expressions.md) (src/backend/optimizer/path/allpaths.c:3752)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c, used specifically for window function-related pushdown safety analysis

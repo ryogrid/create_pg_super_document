@@ -27,12 +27,12 @@ This function processes a string containing an affix flag, extracts the flag por
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - t_isspace: Text search space character testing
-  - pg_mblen: Get multibyte character length
+  - [t_isspace](../t/t_isspace.md): Text search space character testing
+  - [pg_mblen](../p/pg_mblen.md): Get multibyte character length
   - COPYCHAR: Macro for copying multibyte characters
-  - repalloc: PostgreSQL memory reallocation function
+  - [repalloc](../r/repalloc.md): PostgreSQL memory reallocation function
   - tmpalloc: PostgreSQL temporary memory allocation
-  - setCompoundAffixFlagValue: Configure the flag entry with parsed values
+  - [setCompoundAffixFlagValue](../s/setCompoundAffixFlagValue.md): Configure the flag entry with parsed values
   - ereport: Error reporting for syntax errors
 - Called from (representative examples):
   - NIImportOOAffixes: Import OpenOffice-style affix configurations

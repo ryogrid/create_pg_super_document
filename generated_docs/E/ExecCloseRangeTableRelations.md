@@ -25,8 +25,8 @@ The function works in coordination with ExecCloseResultRelations to ensure compl
 - Functions called/Symbols referenced:
   - table_close (closes individual relation descriptors with NoLock parameter)
 - Called from:
-  - ExecEndPlan (main execution cleanup sequence)
-  - CopyFrom (COPY command cleanup)
+  - [ExecEndPlan](ExecEndPlan.md) (main execution cleanup sequence)
+  - [CopyFrom](../C/CopyFrom.md) (COPY command cleanup)
   - ResetPerTupleExprContext (expression context reset cleanup)
 
 ## Notes and Other Information

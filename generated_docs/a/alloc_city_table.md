@@ -22,10 +22,10 @@ The allocated table serves as a lookup structure that connects the abstract gene
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL's memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL's memory allocation function)
   - City (type representing relation information in GEQO context)
 - Called from (representative examples):
-  - geqo (main GEQO function, called multiple times for different algorithm phases)
+  - [geqo](../g/geqo.md) (main GEQO function, called multiple times for different algorithm phases)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Genetic Query Optimizer (GEQO) memory management

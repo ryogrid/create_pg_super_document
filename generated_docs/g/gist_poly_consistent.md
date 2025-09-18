@@ -28,13 +28,13 @@ The function uses the same internal consistency logic for both leaf and internal
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER, PG_GETARG_POLYGON_P, PG_GETARG_UINT16 (argument extraction)
-  - DatumGetBoxP (to extract bounding box from index entry)
-  - rtree_internal_consistent (for actual spatial logic)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (to extract bounding box from index entry)
+  - [rtree_internal_consistent](../r/rtree_internal_consistent.md) (for actual spatial logic)
   - PG_FREE_IF_COPY (to avoid memory leaks with toasted data)
   - PG_RETURN_BOOL (to return result)
 - Called from (representative examples):
   - GiST index access method framework
-  - gist_point_consistent (for point-in-polygon queries)
+  - [gist_point_consistent](gist_point_consistent.md) (for point-in-polygon queries)
 
 ## Notes and Other Information
 - Always sets recheck to true since bounding box comparisons are inexact for polygons

@@ -37,12 +37,12 @@ The function uses checkWellFormedRecursionWalker to perform the actual tree trav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkWellFormedRecursionWalker (recursive tree walker for validation)
+  - [checkWellFormedRecursionWalker](checkWellFormedRecursionWalker.md) (recursive tree walker for validation)
   - ereport (error reporting)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
-  - parser_errposition (parse location for errors)
-  - exprLocation (expression location tracking)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [parser_errposition](../p/parser_errposition.md) (parse location for errors)
+  - [exprLocation](../e/exprLocation.md) (expression location tracking)
   - IsA (type checking macro)
   - Assert (assertion macro)
   - elog (internal error logging)
@@ -52,7 +52,7 @@ The function uses checkWellFormedRecursionWalker to perform the actual tree trav
   - RECURSION_* constants (recursion context enums)
 
 - Called from:
-  - transformWithClause (main WITH clause transformation)
+  - [transformWithClause](../t/transformWithClause.md) (main WITH clause transformation)
 
 ## Notes and Other Information
 - Recursive CTEs in PostgreSQL must follow SQL standard requirements with additional restrictions for implementation feasibility

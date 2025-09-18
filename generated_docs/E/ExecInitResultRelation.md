@@ -21,13 +21,13 @@ This function initializes a ResultRelInfo structure for a relation that will be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetRangeTableRelation
-  - InitResultRelInfo
-  - palloc0
+  - [ExecGetRangeTableRelation](ExecGetRangeTableRelation.md)
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
+  - [palloc0](../p/palloc0.md)
   - lappend
 - Called from (representative examples):
-  - CopyFrom
-  - ExecInitModifyTable
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
 
 ## Notes and Other Information
 - Lazily allocates es_result_relations array when first result relation is initialized

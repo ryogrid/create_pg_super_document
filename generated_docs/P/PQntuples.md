@@ -23,7 +23,7 @@ The function handles NULL input gracefully by returning 0, making it safe to use
 - Called from (representative examples):
   - Various PostgreSQL client applications and tools
   - Database result processing loops
-  - Query validation logic
+  - [Query](../Q/Query.md) validation logic
 
 ## Notes and Other Information
 - Returns 0 if the PGresult pointer is NULL

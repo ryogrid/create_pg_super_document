@@ -38,15 +38,15 @@ The flexible array member design allows the structure to accommodate varying num
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
-  - TypeCacheEntry
+  - [TypeCacheEntry](../T/TypeCacheEntry.md)
 
 - Called from (representative examples):
-  - brin_build_desc (src/backend/access/brin/brin.c:1574, 1593, 1601, 1608)
-  - union_tuples (src/backend/access/brin/brin.c:2070, 2100)
-  - brin_bloom_opcinfo (src/backend/access/brin/brin_bloom.c:451)
-  - brin_inclusion_opcinfo (src/backend/access/brin/brin_inclusion.c:97)
-  - brin_minmax_opcinfo (src/backend/access/brin/brin_minmax.c:37)
-  - brin_minmax_multi_opcinfo (src/backend/access/brin/brin_minmax_multi.c:1861)
+  - [brin_build_desc](../b/brin_build_desc.md) (src/backend/access/brin/brin.c:1574, 1593, 1601, 1608)
+  - [union_tuples](../u/union_tuples.md) (src/backend/access/brin/brin.c:2070, 2100)
+  - [brin_bloom_opcinfo](../b/brin_bloom_opcinfo.md) (src/backend/access/brin/brin_bloom.c:451)
+  - [brin_inclusion_opcinfo](../b/brin_inclusion_opcinfo.md) (src/backend/access/brin/brin_inclusion.c:97)
+  - [brin_minmax_opcinfo](../b/brin_minmax_opcinfo.md) (src/backend/access/brin/brin_minmax.c:37)
+  - [brin_minmax_multi_opcinfo](../b/brin_minmax_multi_opcinfo.md) (src/backend/access/brin/brin_minmax_multi.c:1861)
 
 ## Notes and Other Information
 - The structure uses a flexible array member for oi_typcache, allowing dynamic sizing based on the number of stored columns

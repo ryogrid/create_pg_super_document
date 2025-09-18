@@ -20,12 +20,12 @@ The function is static and used internally within the index path optimization mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal (for deep equality comparison of nodes)
+  - [equal](../e/equal.md) (for deep equality comparison of nodes)
   - lfirst (list cell access macro)
   - lappend (to add node to list if not found)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - classify_index_clause_usage
+  - [classify_index_clause_usage](../c/classify_index_clause_usage.md)
 
 ## Notes and Other Information
 - This function modifies the input list by adding the node if it's not already present

@@ -22,11 +22,11 @@ This function extracts the most recently added index tuple from a buffer page us
   - BUFFER_PAGE_DATA_OFFSET (macro)
   - PAGE_FREE_SPACE (macro)
   - IndexTupleSize
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - MAXALIGN (macro)
 - Called from (representative examples):
-  - gistPopItupFromNodeBuffer
+  - [gistPopItupFromNodeBuffer](gistPopItupFromNodeBuffer.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistbuildbuffers.c file

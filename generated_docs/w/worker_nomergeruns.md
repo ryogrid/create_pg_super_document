@@ -19,7 +19,7 @@ This function serves as an alternative to mergeruns() for worker processes when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - worker_freeze_result_tape
+  - [worker_freeze_result_tape](worker_freeze_result_tape.md)
   - WORKER (macro)
   - Tuplesortstate
 - Called from (representative examples):

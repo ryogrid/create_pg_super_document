@@ -36,16 +36,16 @@ RI_ConstraintInfo serves as a cached representation of foreign key constraint me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NameData
+  - [NameData](../N/NameData.md)
   - RI_MAX_NUMKEYS
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
-  - ri_FetchConstraintInfo
-  - ri_LoadConstraintInfo
-  - ri_PerformCheck
-  - ri_CheckTrigger
-  - RI_FKey_cascade_del
-  - RI_FKey_cascade_upd
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
+  - [ri_LoadConstraintInfo](../r/ri_LoadConstraintInfo.md)
+  - [ri_PerformCheck](../r/ri_PerformCheck.md)
+  - [ri_CheckTrigger](../r/ri_CheckTrigger.md)
+  - [RI_FKey_cascade_del](RI_FKey_cascade_del.md)
+  - [RI_FKey_cascade_upd](RI_FKey_cascade_upd.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's referential integrity system and is heavily used during trigger execution for foreign key constraint checking. The caching mechanism improves performance by avoiding repeated lookups of constraint metadata from the system catalogs. The structure supports both simple and complex foreign key relationships, including those with multiple columns and various constraint actions.

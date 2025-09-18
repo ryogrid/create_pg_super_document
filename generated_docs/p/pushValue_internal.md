@@ -27,15 +27,15 @@ The function includes comprehensive error handling with appropriate error codes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (PostgreSQL memory allocation function)
-  - lcons (list construction function)
+  - [palloc0](palloc0.md) (PostgreSQL memory allocation function)
+  - [lcons](../l/lcons.md) (list construction function)
   - ereturn (PostgreSQL error return macro)
   - QueryOperand (query operand structure type)
   - QI_VAL (query item type constant for values)
   - MAXSTRPOS, MAXSTRLEN (PostgreSQL size limit constants)
   - pg_crc32 (PostgreSQL CRC32 type)
 - Called from (representative examples):
-  - pushValue
+  - [pushValue](pushValue.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the tsquery.c module

@@ -28,14 +28,14 @@ The function carefully handles the domain requirements of the Box-Muller transfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_double: Generates uniform random doubles in [0, 1)
+  - [pg_prng_double](pg_prng_double.md): Generates uniform random doubles in [0, 1)
   - M_PI: Mathematical constant π
   - sqrt: Square root function
   - log: Natural logarithm function
   - sin: Sine function
 - Called from (representative examples):
-  - drandom_normal: Database function for generating normal random numbers
-  - getGaussianRand: pgbench utility function for Gaussian random generation
+  - [drandom_normal](../d/drandom_normal.md): Database function for generating normal random numbers
+  - [getGaussianRand](../g/getGaussianRand.md): pgbench utility function for Gaussian random generation
 
 ## Notes and Other Information
 - Implements the Box-Muller transform algorithm as described in https://en.wikipedia.org/wiki/Box–Muller_transform

@@ -36,15 +36,15 @@ For all other node types, the function delegates to expression_tree_walker for s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member, bms_del_member, bms_copy, bms_join (bitmap set operations)
-  - find_minmax_agg_replacement_param (checks for aggregate replacements)
+  - [bms_add_member](../b/bms_add_member.md), bms_del_member, bms_copy, bms_join (bitmap set operations)
+  - [find_minmax_agg_replacement_param](find_minmax_agg_replacement_param.md) (checks for aggregate replacements)
   - planner_subplan_get_plan (retrieves subplan details)
   - expression_tree_walker (general expression traversal)
-  - Node type checking macros (IsA)
+  - [Node](../N/Node.md) type checking macros (IsA)
 - Called from (representative examples):
-  - finalize_plan (for processing plan node expressions)
-  - finalize_primnode (recursive calls)
-  - finalize_agg_primnode (for aggregate-specific processing)
+  - [finalize_plan](finalize_plan.md) (for processing plan node expressions)
+  - [finalize_primnode](finalize_primnode.md) (recursive calls)
+  - [finalize_agg_primnode](finalize_agg_primnode.md) (for aggregate-specific processing)
 
 ## Notes and Other Information
 - Returns false to continue tree walking (standard expression_tree_walker protocol)

@@ -19,14 +19,14 @@ The ascii function extracts the numeric value of the first character from a text
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - PG_UTF8
-  - pg_encoding_max_length
+  - [pg_encoding_max_length](../p/pg_encoding_max_length.md)
 - Called from (representative examples):
-  - pg_to_ascii (src/backend/utils/adt/ascii.c)
+  - [pg_to_ascii](../p/pg_to_ascii.md) (src/backend/utils/adt/ascii.c)
   - RANGE_160 (src/backend/utils/adt/ascii.c)
-  - float4out (src/backend/utils/adt/float.c)
-  - float8out_internal (src/backend/utils/adt/float.c)
+  - [float4out](../f/float4out.md) (src/backend/utils/adt/float.c)
+  - [float8out_internal](../f/float8out_internal.md) (src/backend/utils/adt/float.c)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/oracle_compat.c:925-1005

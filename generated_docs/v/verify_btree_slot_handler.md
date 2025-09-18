@@ -23,21 +23,21 @@ For failed queries, the function formats and displays error messages with proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationInfo (struct type)
-  - PQresultStatus
+  - [RelationInfo](../R/RelationInfo.md) (struct type)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - PGRES_TUPLES_OK
-  - PQntuples
+  - [PQntuples](../P/PQntuples.md)
   - fprintf (to stderr)
   - pg_log_warning
   - pg_log_warning_detail
   - pg_log_warning_hint
-  - indent_lines
-  - PQerrorMessage
+  - [indent_lines](../i/indent_lines.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - printf (with internationalization via _())
   - FREE_AND_SET_NULL
-  - should_processing_continue
+  - [should_processing_continue](../s/should_processing_continue.md)
 - Called from:
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:792)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:792)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_amcheck.c

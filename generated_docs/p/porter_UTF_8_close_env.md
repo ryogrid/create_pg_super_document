@@ -27,7 +27,7 @@ This function should always be called to prevent memory leaks when a stemming en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (performs the actual environment cleanup and deallocation)
+  - [SN_close_env](../S/SN_close_env.md) (performs the actual environment cleanup and deallocation)
 - Called from:
   - External stemming interfaces (not shown in current symbol database)
 

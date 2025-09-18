@@ -21,18 +21,18 @@ The function first increments the total lock count, then searches through existi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerRememberLock
-  - CheckAndSetLockHeld
+  - [CheckAndSetLockHeld](../C/CheckAndSetLockHeld.md)
 - Data structures used:
-  - LOCALLOCK
-  - LOCALLOCKOWNER
+  - [LOCALLOCK](../L/LOCALLOCK.md)
+  - [LOCALLOCKOWNER](../L/LOCALLOCKOWNER.md)
   - ResourceOwner
 - Called from (representative examples):
-  - LockAcquireExtended
-  - GrantAwaitedLock
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
+  - [GrantAwaitedLock](GrantAwaitedLock.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within lock.c
 - The function assumes that LockAcquire has already ensured there is room for a new ResourceOwner entry
 - It maintains the invariant that locallock->numLockOwners < locallock->maxLockOwners
 - The function handles both NULL and non-NULL ResourceOwner values appropriately
-- CheckAndSetLockHeld is called to update lock status for specific lock types that require tracking
+- [CheckAndSetLockHeld](../C/CheckAndSetLockHeld.md) is called to update lock status for specific lock types that require tracking

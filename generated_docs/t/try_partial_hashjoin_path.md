@@ -31,12 +31,12 @@ The function performs several validation checks:
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - initial_cost_hashjoin
-  - add_partial_path_precheck
-  - add_partial_path
-  - create_hashjoin_path
+  - [initial_cost_hashjoin](../i/initial_cost_hashjoin.md)
+  - [add_partial_path_precheck](../a/add_partial_path_precheck.md)
+  - [add_partial_path](../a/add_partial_path.md)
+  - [create_hashjoin_path](../c/create_hashjoin_path.md)
 - Called from (representative examples):
-  - hash_inner_and_outer
+  - [hash_inner_and_outer](../h/hash_inner_and_outer.md)
 
 ## Notes and Other Information
 - This is a static function within joinpath.c, specifically designed for partial path planning

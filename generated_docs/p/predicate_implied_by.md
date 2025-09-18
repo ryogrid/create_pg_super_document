@@ -26,15 +26,15 @@ The function assumes that both input lists represent AND-ed conditions at the to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - predicate_implied_by_recurse
+  - [predicate_implied_by_recurse](predicate_implied_by_recurse.md)
   - list_length
   - linitial
 - Called from (representative examples):
-  - ConstraintImpliedByRelConstraint (table constraint validation)
-  - build_paths_for_OR (query path planning)
-  - choose_bitmap_and (bitmap index planning)
-  - check_index_predicates (index predicate validation)
-  - create_indexscan_plan (index scan planning)
+  - [ConstraintImpliedByRelConstraint](../C/ConstraintImpliedByRelConstraint.md) (table constraint validation)
+  - [build_paths_for_OR](../b/build_paths_for_OR.md) (query path planning)
+  - [choose_bitmap_and](../c/choose_bitmap_and.md) (bitmap index planning)
+  - [check_index_predicates](../c/check_index_predicates.md) (index predicate validation)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (index scan planning)
 
 ## Notes and Other Information
 - Returns true for empty predicate lists (vacuous implication)

@@ -23,11 +23,11 @@ The function is declared as static inline for performance optimization, as it's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_hton32 (host-to-network byte order conversion)
-  - CopySendData (low-level data transmission function)
+  - [CopySendData](CopySendData.md) (low-level data transmission function)
 - Called from (representative examples):
   - DR_copy
-  - DoCopyTo
-  - CopyOneRowTo
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [CopyOneRowTo](CopyOneRowTo.md)
 
 ## Notes and Other Information
 - This function is specifically used for binary COPY format operations, not text format

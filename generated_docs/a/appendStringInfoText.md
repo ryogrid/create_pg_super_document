@@ -25,11 +25,11 @@ This approach is more efficient because it avoids the overhead of text_to_cstrin
   - VARSIZE_ANY_EXHDR (macro to get data size excluding header)
 - Called from:
   - DatumGetVarStringPP (variable string processing)
-  - replace_text (text replacement operations)
+  - [replace_text](../r/replace_text.md) (text replacement operations)
   - replace_text_regexp (regex text replacement)
-  - string_agg_transfn (string aggregation function)
-  - xmlcomment (XML comment generation)
-  - XmlTableGetValue (XML table value extraction)
+  - [string_agg_transfn](../s/string_agg_transfn.md) (string aggregation function)
+  - [xmlcomment](../x/xmlcomment.md) (XML comment generation)
+  - [XmlTableGetValue](../X/XmlTableGetValue.md) (XML table value extraction)
 
 ## Notes and Other Information
 - This is a static function, only available within the varlena.c compilation unit

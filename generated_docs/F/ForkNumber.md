@@ -36,8 +36,8 @@ This design allows PostgreSQL to efficiently manage storage metadata alongside t
 
 - Called from (representative examples):
   - forkNames[] array (maps fork numbers to string names: "main", "fsm", "vm", "init")
-  - forkname_to_number() function (converts fork name strings to ForkNumber)
-  - forkname_chars() function (parses fork names from filenames)
+  - [forkname_to_number](../f/forkname_to_number.md)() function (converts fork name strings to ForkNumber)
+  - [forkname_chars](../f/forkname_chars.md)() function (parses fork names from filenames)
   - Buffer management system (BufferTag structure)
   - Storage path construction (GetRelationPath function)
 

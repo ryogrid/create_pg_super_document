@@ -19,13 +19,13 @@ This function provides a simple boolean check to determine if a PostgreSQL type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype
+  - [get_typtype](../g/get_typtype.md)
   - TYPTYPE_RANGE
 - Called from (representative examples):
-  - ExecAlterExtensionContentsRecurse
-  - IsBinaryCoercibleWithCast
-  - range_agg_transfn
-  - range_intersect_agg_transfn
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md)
+  - [IsBinaryCoercibleWithCast](../I/IsBinaryCoercibleWithCast.md)
+  - [range_agg_transfn](../r/range_agg_transfn.md)
+  - [range_intersect_agg_transfn](../r/range_intersect_agg_transfn.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's system cache utilities (lsyscache.c) and provides a clean abstraction for type checking. It's commonly used in contexts where range-specific operations need to be performed or where type coercion rules need to be applied differently for range types.

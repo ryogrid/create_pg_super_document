@@ -19,24 +19,24 @@ This function implements a comprehensive security sandboxing mechanism for Windo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InheritStdHandles
+  - [InheritStdHandles](../I/InheritStdHandles.md)
   - OpenProcessToken (Windows API)
   - AllocateAndInitializeSid (Windows API)
-  - GetPrivilegesToDelete
+  - [GetPrivilegesToDelete](../G/GetPrivilegesToDelete.md)
   - CreateRestrictedToken (Windows API)
-  - AddUserToTokenDacl
+  - [AddUserToTokenDacl](../A/AddUserToTokenDacl.md)
   - CreateProcessAsUser (Windows API)
   - IsProcessInJob (Windows API)
   - CreateJobObject (Windows API)
   - SetInformationJobObject (Windows API)
   - AssignProcessToJobObject (Windows API)
   - ResumeThread (Windows API)
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
 - Called from (representative examples):
-  - start_postmaster
-  - pgwin32_ServiceMain
-  - get_restricted_token
-  - spawn_process
+  - [start_postmaster](../s/start_postmaster.md)
+  - [pgwin32_ServiceMain](../p/pgwin32_ServiceMain.md)
+  - [get_restricted_token](../g/get_restricted_token.md)
+  - [spawn_process](../s/spawn_process.md)
 
 ## Notes and Other Information
 - Returns 0 on success, non-zero on failure (same convention as CreateProcess)

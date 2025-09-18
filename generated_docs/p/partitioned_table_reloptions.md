@@ -19,14 +19,14 @@ This function serves as the relation options parser specifically for partitioned
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
-  - errhint (PostgreSQL error hint function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
+  - [errhint](../e/errhint.md) (PostgreSQL error hint function)
   - ERRCODE_WRONG_OBJECT_TYPE (error code constant)
 - Called from:
-  - extractRelOptions (src/backend/access/common/reloptions.c:1414)
-  - DefineRelation (src/backend/commands/tablecmds.c:867)
-  - ATExecSetRelOptions (src/backend/commands/tablecmds.c:15105)
+  - [extractRelOptions](../e/extractRelOptions.md) (src/backend/access/common/reloptions.c:1414)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:867)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md) (src/backend/commands/tablecmds.c:15105)
   - GET_STRING_RELOPTION (src/include/access/reloptions.h:240)
 
 ## Notes and Other Information

@@ -21,12 +21,12 @@ This function serves as the counterpart to `AllocateCompressor` and should be ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - cs->end (function pointer call to algorithm-specific end function)
-  - pg_free
-  - CompressorState
+  - [pg_free](../p/pg_free.md)
+  - [CompressorState](../C/CompressorState.md)
 - Called from (representative examples):
-  - _EndData (src/bin/pg_dump/pg_backup_custom.c:333)
-  - _EndLO (src/bin/pg_dump/pg_backup_custom.c:395)
-  - _PrintData (src/bin/pg_dump/pg_backup_custom.c:576)
+  - [_EndData](_EndData.md) (src/bin/pg_dump/pg_backup_custom.c:333)
+  - [_EndLO](_EndLO.md) (src/bin/pg_dump/pg_backup_custom.c:395)
+  - [_PrintData](../P/_PrintData.md) (src/bin/pg_dump/pg_backup_custom.c:576)
 
 ## Notes and Other Information
 - This function must be called to properly clean up resources allocated by AllocateCompressor

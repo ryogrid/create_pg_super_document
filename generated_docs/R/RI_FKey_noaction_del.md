@@ -25,8 +25,8 @@ This function follows PostgreSQL's trigger function interface:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_CheckTrigger
-  - ri_restrict
+  - [ri_CheckTrigger](../r/ri_CheckTrigger.md)
+  - [ri_restrict](../r/ri_restrict.md)
   - RI_TRIGTYPE_DELETE (constant)
   - TriggerData (type cast)
 - Called from (representative examples):

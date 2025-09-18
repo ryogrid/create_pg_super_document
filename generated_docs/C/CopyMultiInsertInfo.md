@@ -36,22 +36,22 @@ The structure integrates with PostgreSQL's executor framework through the EState
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - CopyFromState
-  - EState
+  - [EState](../E/EState.md)
   - CommandId
-  - CopyMultiInsertBuffer (via multiInsertBuffers list)
+  - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (via multiInsertBuffers list)
 - Called from (representative examples):
-  - CopyMultiInsertInfoInit
-  - CopyMultiInsertInfoFlush
-  - CopyMultiInsertInfoCleanup
-  - CopyMultiInsertInfoSetupBuffer
-  - CopyFrom
+  - [CopyMultiInsertInfoInit](CopyMultiInsertInfoInit.md)
+  - [CopyMultiInsertInfoFlush](CopyMultiInsertInfoFlush.md)
+  - [CopyMultiInsertInfoCleanup](CopyMultiInsertInfoCleanup.md)
+  - [CopyMultiInsertInfoSetupBuffer](CopyMultiInsertInfoSetupBuffer.md)
+  - [CopyFrom](CopyFrom.md)
 
 ## Notes and Other Information
 - Essential for managing COPY operations into partitioned tables where multiple CopyMultiInsertBuffer instances are needed
 - Provides centralized tracking of buffer statistics to make intelligent decisions about when to flush buffers
 - The bufferedBytes tracking helps with memory management and prevents excessive memory usage
 - Works closely with the PostgreSQL executor framework through the EState integration
-- Command ID tracking ensures proper transaction isolation during bulk insert operations
+- [Command](Command.md) ID tracking ensures proper transaction isolation during bulk insert operations
 - Designed to handle complex scenarios where data needs to be distributed across multiple target relations or partitions

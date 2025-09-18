@@ -20,15 +20,15 @@ LookupTypeName serves as a convenience wrapper around LookupTypeNameExtended, pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeNameExtended
+  - [LookupTypeNameExtended](LookupTypeNameExtended.md)
 - Called from (representative examples):
-  - get_object_address_type
-  - compute_return_type
-  - interpret_function_parameter_list
-  - AlterTypeOwner
-  - LookupTypeNameOid
-  - typenameType
-  - parseTypeString
+  - [get_object_address_type](../g/get_object_address_type.md)
+  - [compute_return_type](../c/compute_return_type.md)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md)
+  - [AlterTypeOwner](../A/AlterTypeOwner.md)
+  - [LookupTypeNameOid](LookupTypeNameOid.md)
+  - [typenameType](../t/typenameType.md)
+  - [parseTypeString](../p/parseTypeString.md)
 
 ## Notes and Other Information
 This function is defined in src/backend/parser/parse_type.c:38-42 and serves as the standard entry point for type name lookups in most PostgreSQL parsing scenarios. It always allows temporary types (temp_ok=true) which is the typical behavior desired in most parsing contexts. For cases requiring more control over the lookup process, callers should use LookupTypeNameExtended directly.

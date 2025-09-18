@@ -25,14 +25,14 @@ ArrayBuildStateAny serves as a discriminated union that allows array building fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayBuildState structure for scalar element handling
-  - ArrayBuildStateArr structure for array concatenation
+  - [ArrayBuildState](ArrayBuildState.md) structure for scalar element handling
+  - [ArrayBuildStateArr](ArrayBuildStateArr.md) structure for array concatenation
 - Called from (representative examples):
-  - accumArrayResultAny() - adds elements/arrays using appropriate method
+  - [accumArrayResultAny](../a/accumArrayResultAny.md)() - adds elements/arrays using appropriate method
   - initArrayResultAny() - initializes based on input type
-  - makeArrayResultAny() - creates final array from accumulated state
-  - ExecScanSubPlan() - executor functions that handle subplan results
-  - ExecSetParamPlan() - executor functions for parameter handling
+  - [makeArrayResultAny](../m/makeArrayResultAny.md)() - creates final array from accumulated state
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md)() - executor functions that handle subplan results
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md)() - executor functions for parameter handling
 
 ## Notes and Other Information
 - Exactly one of the two member pointers must be non-NULL at any time, never both or neither

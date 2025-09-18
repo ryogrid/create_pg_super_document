@@ -19,10 +19,10 @@ This function obtains the current system date using the GetCurrentDateTime utili
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentDateTime: Retrieves current system date and time into a tm structure
-  - date2j: Converts year/month/day to Julian day number (called twice for calculation)
+  - [GetCurrentDateTime](../G/GetCurrentDateTime.md): Retrieves current system date and time into a tm structure
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number (called twice for calculation)
 - Called from (representative examples):
-  - rtoday: Informix compatibility wrapper function
+  - [rtoday](../r/rtoday.md): Informix compatibility wrapper function
 
 ## Notes and Other Information
 - Part of PostgreSQL's ECPG (Embedded SQL in C) pgtypes library

@@ -21,15 +21,15 @@ AlterTypeNamespace is the main entry point for handling ALTER TYPE SET SCHEMA SQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameTypeId
-  - get_typtype
-  - LookupCreationNamespace
-  - AlterTypeNamespace_oid
-  - new_object_addresses
-  - free_object_addresses
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [get_typtype](../g/get_typtype.md)
+  - [LookupCreationNamespace](../L/LookupCreationNamespace.md)
+  - [AlterTypeNamespace_oid](AlterTypeNamespace_oid.md)
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ExecAlterObjectSchemaStmt
+  - [ExecAlterObjectSchemaStmt](../E/ExecAlterObjectSchemaStmt.md)
 
 ## Notes and Other Information
 - Performs domain-specific validation when objecttype is OBJECT_DOMAIN, ensuring the target type is actually a domain type

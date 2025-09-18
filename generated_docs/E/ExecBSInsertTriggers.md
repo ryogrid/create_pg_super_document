@@ -29,16 +29,16 @@ The function iterates through all triggers defined on the relation, filtering fo
 - Functions called/Symbols referenced:
   - before_stmt_triggers_fired (duplicate execution prevention)
   - TRIGGER_TYPE_MATCHES (trigger type filtering macro)
-  - TriggerEnabled (trigger enable state checking)
-  - ExecCallTriggerFunc (actual trigger execution)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (trigger enable state checking)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md) (actual trigger execution)
   - GetPerTupleMemoryContext (memory context management)
 - Data structures used:
   - TriggerDesc (trigger descriptor from relinfo)
   - TriggerData (trigger execution context)
   - Trigger (individual trigger structure)
 - Called from (representative examples):
-  - CopyFrom (during COPY FROM operations)
-  - fireBSTriggers (from nodeModifyTable executor)
+  - [CopyFrom](../C/CopyFrom.md) (during COPY FROM operations)
+  - [fireBSTriggers](../f/fireBSTriggers.md) (from nodeModifyTable executor)
 
 ## Notes and Other Information
 - BEFORE STATEMENT triggers fire exactly once per SQL statement, regardless of how many rows are affected

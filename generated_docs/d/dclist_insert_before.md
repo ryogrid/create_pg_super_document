@@ -24,8 +24,8 @@ Similar to dclist_insert_after, this function includes important safety measures
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_insert_before
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_insert_before](dlist_insert_before.md)
 - Called from (representative examples):
   - ProcSleep (src/backend/storage/lmgr/proc.c:1195)
 

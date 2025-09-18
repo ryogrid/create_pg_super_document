@@ -18,9 +18,9 @@ This function is responsible for correctly positioning and formatting variable d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CHECK_SIZE_CODE (macro to ensure sufficient buffer space)
+  - [CHECK_SIZE_CODE](../C/CHECK_SIZE_CODE.md) (macro to ensure sufficient buffer space)
 - Called from (representative examples):
-  - main (multiple locations in pg_bsd_indent processing loop)
+  - [main](../m/main.md) (multiple locations in pg_bsd_indent processing loop)
 
 ## Notes and Other Information
 - Works with global variables: ps.ind_level, ps.ind_size, tabsize, postgres_tab_rules

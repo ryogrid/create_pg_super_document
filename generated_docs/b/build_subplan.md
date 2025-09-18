@@ -39,26 +39,26 @@ The function returns either the SubPlan node itself (for regular subplans) or a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - get_first_col_type
-  - SS_process_sublinks
+  - [get_first_col_type](../g/get_first_col_type.md)
+  - [SS_process_sublinks](../S/SS_process_sublinks.md)
   - lappend_int
   - lappend
-  - generate_new_exec_param
+  - [generate_new_exec_param](../g/generate_new_exec_param.md)
   - list_make1_int
-  - generate_subquery_params
-  - convert_testexpr
-  - list_copy
+  - [generate_subquery_params](../g/generate_subquery_params.md)
+  - [convert_testexpr](../c/convert_testexpr.md)
+  - [list_copy](../l/list_copy.md)
   - list_nth_cell
-  - makeNullConst
-  - subplan_is_hashable
-  - testexpr_is_hashable
-  - ExecMaterializesOutput
-  - materialize_finished_plan
-  - bms_add_member
-  - psprintf
-  - cost_subplan
+  - [makeNullConst](../m/makeNullConst.md)
+  - [subplan_is_hashable](../s/subplan_is_hashable.md)
+  - [testexpr_is_hashable](../t/testexpr_is_hashable.md)
+  - [ExecMaterializesOutput](../E/ExecMaterializesOutput.md)
+  - [materialize_finished_plan](../m/materialize_finished_plan.md)
+  - [bms_add_member](bms_add_member.md)
+  - [psprintf](../p/psprintf.md)
+  - [cost_subplan](../c/cost_subplan.md)
 - Called from (representative examples):
-  - make_subplan (twice - for main plan and alternative hash plan)
+  - [make_subplan](../m/make_subplan.md) (twice - for main plan and alternative hash plan)
 
 ## Notes and Other Information
 - The function handles five main sublink types with different execution strategies

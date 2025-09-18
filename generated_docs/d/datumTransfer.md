@@ -24,13 +24,13 @@ This function is particularly valuable when working with expanded objects that w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - VARATT_IS_EXTERNAL_EXPANDED_RW
-  - TransferExpandedObject
-  - datumCopy
+  - [TransferExpandedObject](../T/TransferExpandedObject.md)
+  - [datumCopy](datumCopy.md)
   - CurrentMemoryContext (global variable)
 - Called from (representative examples):
-  - SPI_datumTransfer
+  - [SPI_datumTransfer](../S/SPI_datumTransfer.md)
 
 ## Notes and Other Information
 - This function assumes the input datum is non-NULL; NULL datums should be handled by the caller

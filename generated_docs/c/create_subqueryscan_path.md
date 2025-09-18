@@ -35,13 +35,13 @@ Key behaviors include:
 - Functions called/Symbols referenced:
   - makeNode (to create SubqueryScanPath node)
   - get_baserel_parampathinfo (to get parameter information)
-  - cost_subqueryscan (to calculate execution costs)
+  - [cost_subqueryscan](cost_subqueryscan.md) (to calculate execution costs)
   - SubqueryScanPath (the path node structure)
 
 - Called from (representative examples):
-  - set_subquery_pathlist (in allpaths.c:2710, 2736)
-  - build_setop_child_paths (in prepunion.c:557, 625, 651)
-  - reparameterize_path (in pathnode.c:4009)
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md) (in allpaths.c:2710, 2736)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md) (in prepunion.c:557, 625, 651)
+  - [reparameterize_path](../r/reparameterize_path.md) (in pathnode.c:4009)
 
 ## Notes and Other Information
 - The trivial_pathtarget parameter is an optimization hint that the caller can provide to improve cost calculation efficiency

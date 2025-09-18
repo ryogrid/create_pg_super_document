@@ -23,18 +23,18 @@ ecpg_log is the central logging function for ECPG debug output. It supports prin
   - ECPGget_sqlca
   - ecpg_gettext
   - malloc
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
   - vfprintf
 - Called from (representative examples):
-  - ecpg_finish, ECPGsetcommit, ECPGnoticeReceiver in connect.c
+  - [ecpg_finish](ecpg_finish.md), ECPGsetcommit, ECPGnoticeReceiver in connect.c
   - ecpg_get_data in data.c
-  - ECPGget_desc_header, ECPGget_desc in descriptor.c
-  - ecpg_raise, ecpg_check_PQresult in error.c
+  - [ECPGget_desc_header](../E/ECPGget_desc_header.md), ECPGget_desc in descriptor.c
+  - [ecpg_raise](ecpg_raise.md), ecpg_check_PQresult in error.c
   - ecpg_execute, ecpg_process_output in execute.c
-  - ECPGtrans, ECPGdebug in misc.c
+  - [ECPGtrans](../E/ECPGtrans.md), ECPGdebug in misc.c
   - prepare_common, ecpg_auto_prepare in prepare.c
-  - ecpg_build_compat_sqlda, ecpg_set_compat_sqlda in sqlda.c
+  - [ecpg_build_compat_sqlda](ecpg_build_compat_sqlda.md), ecpg_set_compat_sqlda in sqlda.c
 
 ## Notes and Other Information
 - Thread-safe implementation with debug_mutex protection

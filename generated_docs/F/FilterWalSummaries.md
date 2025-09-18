@@ -29,7 +29,7 @@ This function is useful when you already have a list of WAL summaries and need t
   - lfirst
   - foreach
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
 
 ## Notes and Other Information
 - Returns a new List of WalSummaryFile pointers (shallow copy)

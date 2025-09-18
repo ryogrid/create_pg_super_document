@@ -38,15 +38,15 @@ The function handles several complex scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber (to get block numbers from buffers)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (to get block numbers from buffers)
   - RelationGetTargetBlock/RelationSetTargetBlock (for target block management)
   - GetPageWithFreeSpace (to query FSM for pages with free space)
-  - ReadBuffer (to read pages into buffers)
-  - LockBuffer/UnlockReleaseBuffer (for buffer locking)
+  - [ReadBuffer](../R/ReadBuffer.md) (to read pages into buffers)
+  - [LockBuffer](../L/LockBuffer.md)/UnlockReleaseBuffer (for buffer locking)
   - LockRelationForExtension/UnlockRelationForExtension (for extension coordination)
-  - BufferGetPage (to access page data)
-  - br_page_get_freespace (to measure available space)
-  - brin_initialize_empty_new_buffer (to initialize new pages)
+  - [BufferGetPage](../B/BufferGetPage.md) (to access page data)
+  - [br_page_get_freespace](br_page_get_freespace.md) (to measure available space)
+  - [brin_initialize_empty_new_buffer](brin_initialize_empty_new_buffer.md) (to initialize new pages)
   - RecordAndGetPageWithFreeSpace (to update FSM and find new pages)
   - FreeSpaceMapVacuumRange (to update FSM for extended pages)
   - BRIN_IS_REGULAR_PAGE (to check page type)
@@ -55,8 +55,8 @@ The function handles several complex scenarios:
   - P_NEW (special block number for extension)
   - Various lock and buffer constants
 - Called from:
-  - brin_doupdate (for tuple updates)
-  - brin_doinsert (for tuple insertions)
+  - [brin_doupdate](brin_doupdate.md) (for tuple updates)
+  - [brin_doinsert](brin_doinsert.md) (for tuple insertions)
 
 ## Notes and Other Information
 - This is a static function internal to brin_pageops.c

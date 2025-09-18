@@ -31,7 +31,7 @@ This is the interval-specific version of the timestamp encoding function, design
   - strcpy (standard C string copy function)
   - elog (PostgreSQL error logging)
 - Called from:
-  - interval_out (interval to string conversion)
+  - [interval_out](../i/interval_out.md) (interval to string conversion)
 
 ## Notes and Other Information
 - Only handles special infinite interval values, not regular intervals

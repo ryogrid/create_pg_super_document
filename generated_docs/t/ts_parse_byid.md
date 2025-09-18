@@ -25,12 +25,12 @@ The function expects two arguments: a parser OID and the text to be parsed. It r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncCallContext (PostgreSQL SRF context structure)
+  - [FuncCallContext](../F/FuncCallContext.md) (PostgreSQL SRF context structure)
   - SRF_IS_FIRSTCALL (macro to check if this is the first call)
   - SRF_FIRSTCALL_INIT (macro to initialize first call context)
-  - prs_setup_firstcall (initializes parser and tokenizes text)
+  - [prs_setup_firstcall](../p/prs_setup_firstcall.md) (initializes parser and tokenizes text)
   - SRF_PERCALL_SETUP (macro to set up per-call context)
-  - prs_process_call (processes individual tokens)
+  - [prs_process_call](../p/prs_process_call.md) (processes individual tokens)
   - SRF_RETURN_NEXT (macro to return next result)
   - SRF_RETURN_DONE (macro to signal completion)
   - PG_FREE_IF_COPY (memory management for varlena types)

@@ -20,12 +20,12 @@ This function implements the PostgreSQL function interface for constructing mult
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_rettype (determines return type)
-  - multirange_get_typcache (gets type cache information)
-  - make_multirange (constructs the actual multirange)
+  - [get_fn_expr_rettype](../g/get_fn_expr_rettype.md) (determines return type)
+  - [multirange_get_typcache](multirange_get_typcache.md) (gets type cache information)
+  - [make_multirange](make_multirange.md) (constructs the actual multirange)
   - PG_RETURN_MULTIRANGE_P (returns multirange result)
   - ARR_NDIM, ARR_ELEMTYPE (array introspection)
-  - deconstruct_array (extracts array elements)
+  - [deconstruct_array](../d/deconstruct_array.md) (extracts array elements)
   - DatumGetRangeTypeP (converts Datum to RangeType)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)

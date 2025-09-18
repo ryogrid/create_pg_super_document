@@ -17,9 +17,9 @@ This function serves as the destruction callback for DR_intorel destination rece
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CreateIntoRelDestReceiver (sets as callback)
+  - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (sets as callback)
   - DestReceiver cleanup sequences
 
 ## Notes and Other Information

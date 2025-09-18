@@ -32,15 +32,15 @@ The `shortest` function implements shortest-preferred matching for DFA-based reg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dfa_backref (for handling backreferences)
-  - initialize (for setting up initial DFA state)
-  - miss (for handling state transitions)
+  - [dfa_backref](../d/dfa_backref.md) (for handling backreferences)
+  - [initialize](../i/initialize.md) (for setting up initial DFA state)
+  - [miss](../m/miss.md) (for handling state transitions)
   - lastcold (for coldstart optimization)
   - GETCOLOR (for character-to-color mapping)
   - FDEBUG (for debug tracing)
 - Called from (representative examples):
-  - dfa_backref (recursive calls for backref processing)
-  - lacon (lookahead/lookbehind processing)
+  - [dfa_backref](../d/dfa_backref.md) (recursive calls for backref processing)
+  - [lacon](../l/lacon.md) (lookahead/lookbehind processing)
   - LOFF (regex execution offset function)
   - find, cfindloop (main search functions)
 

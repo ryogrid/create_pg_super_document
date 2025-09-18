@@ -32,26 +32,26 @@ The function implements various safety checks and early exit conditions for unsu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransactionCommand
-  - CommitTransactionCommand
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
   - PushActiveSnapshot
   - PopActiveSnapshot
   - GetTransactionSnapshot
   - vacuum_open_relation
   - vacuum_is_permitted_for_relation
-  - relation_close
-  - LockRelationIdForSession
-  - UnlockRelationIdForSession
-  - GetUserIdAndSecContext
-  - SetUserIdAndSecContext
-  - NewGUCNestLevel
-  - RestrictSearchPath
-  - AtEOXact_GUC
-  - cluster_rel
+  - [relation_close](../r/relation_close.md)
+  - [LockRelationIdForSession](../L/LockRelationIdForSession.md)
+  - [UnlockRelationIdForSession](../U/UnlockRelationIdForSession.md)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md)
+  - [RestrictSearchPath](../R/RestrictSearchPath.md)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
+  - [cluster_rel](../c/cluster_rel.md)
   - table_relation_vacuum
 - Called from (representative examples):
   - vacuum (main vacuum entry point)
-  - vacuum_rel (recursive call for TOAST tables)
+  - [vacuum_rel](vacuum_rel.md) (recursive call for TOAST tables)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the vacuum.c source file

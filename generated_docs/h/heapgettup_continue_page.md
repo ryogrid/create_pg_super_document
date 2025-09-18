@@ -29,14 +29,14 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - ScanDirectionIsForward
   - OffsetNumberNext
   - OffsetNumberPrev
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - Min
 - Called from (representative examples):
-  - heapgettup
+  - [heapgettup](heapgettup.md)
 
 ## Notes and Other Information
 - The function assumes the scan is already initialized (rs_inited) and has a valid current buffer (rs_cbuf)

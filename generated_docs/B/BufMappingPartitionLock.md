@@ -22,17 +22,17 @@ The returned LWLock pointer is used by buffer management operations to acquire e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufTableHashPartition
+  - [BufTableHashPartition](BufTableHashPartition.md)
   - MainLWLockArray (global lock array)
   - BUFFER_MAPPING_LWLOCK_OFFSET (offset constant)
-  - LWLock (lock structure type)
+  - [LWLock](../L/LWLock.md) (lock structure type)
 - Called from (representative examples):
-  - PrefetchSharedBuffer
-  - BufferAlloc
-  - InvalidateBuffer
-  - InvalidateVictimBuffer
-  - ExtendBufferedRelShared
-  - FindAndDropRelationBuffers
+  - [PrefetchSharedBuffer](../P/PrefetchSharedBuffer.md)
+  - [BufferAlloc](BufferAlloc.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
 
 ## Notes and Other Information
 - This is an inline function optimized for frequent buffer locking operations

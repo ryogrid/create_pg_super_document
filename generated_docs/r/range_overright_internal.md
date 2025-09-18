@@ -25,13 +25,13 @@ The function returns true if r1's lower bound is greater than or equal to r2's l
 - Functions called/Symbols referenced:
   - RangeTypeGetOid (to validate range types match)
   - elog (for error reporting when types don't match)
-  - range_deserialize (to extract bounds from both ranges)
-  - range_cmp_bounds (to compare the lower bounds)
+  - [range_deserialize](range_deserialize.md) (to extract bounds from both ranges)
+  - [range_cmp_bounds](range_cmp_bounds.md) (to compare the lower bounds)
 - Called from (representative examples):
-  - range_overright (public wrapper function)
-  - range_gist_consistent_int_range
-  - range_gist_consistent_leaf_range 
-  - spg_range_quad_leaf_consistent
+  - [range_overright](range_overright.md) (public wrapper function)
+  - [range_gist_consistent_int_range](range_gist_consistent_int_range.md)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md) 
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md)
   - RANGESTRAT_EQ (macro in rangetypes.h)
 
 ## Notes and Other Information

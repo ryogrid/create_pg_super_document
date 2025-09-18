@@ -18,21 +18,21 @@ The  function implements the core logic for populating the pg_hba_file_rules sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - open_auth_file
-  - tokenize_auth_file
+  - [open_auth_file](../o/open_auth_file.md)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md)
   - AllocSetContextCreate
-  - MemoryContextSwitchTo
-  - MemoryContextDelete
-  - parse_hba_line
-  - fill_hba_line
-  - free_auth_file
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [parse_hba_line](../p/parse_hba_line.md)
+  - [fill_hba_line](fill_hba_line.md)
+  - [free_auth_file](free_auth_file.md)
 - Types referenced:
   - Tuplestorestate, TupleDesc
-  - TokenizedAuthLine, HbaLine
+  - [TokenizedAuthLine](../T/TokenizedAuthLine.md), HbaLine
   - HbaFileName (global variable)
   - ALLOCSET_SMALL_SIZES, DEBUG3 (constants)
 - Called from:
-  - pg_hba_file_rules
+  - [pg_hba_file_rules](../p/pg_hba_file_rules.md)
 
 ## Notes and Other Information
 - Function is static and only used within hbafuncs.c for system view implementation

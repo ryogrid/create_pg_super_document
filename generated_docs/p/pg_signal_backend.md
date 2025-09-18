@@ -29,11 +29,11 @@ The function returns status codes to indicate success or the specific type of fa
   - superuser_arg
   - superuser
   - has_privs_of_role
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - kill (system call)
 - Called from (representative examples):
-  - pg_cancel_backend
-  - pg_terminate_backend
+  - [pg_cancel_backend](pg_cancel_backend.md)
+  - [pg_terminate_backend](pg_terminate_backend.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within signalfuncs.c

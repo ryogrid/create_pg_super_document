@@ -21,15 +21,15 @@ For nested objects within arrays, the function simply returns success, allowing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ElementsState (state structure)
+  - [ElementsState](../E/ElementsState.md) (state structure)
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
   - ereport/ERROR (error reporting mechanism)
-  - errcode/ERRCODE_INVALID_PARAMETER_VALUE (error code)
-  - errmsg (error message formatting)
+  - [errcode](errcode.md)/ERRCODE_INVALID_PARAMETER_VALUE (error code)
+  - [errmsg](errmsg.md) (error message formatting)
 
 - Called from (representative examples):
-  - elements_worker (main processing function)
+  - [elements_worker](elements_worker.md) (main processing function)
   - JsObjectFree (cleanup context)
 
 ## Notes and Other Information

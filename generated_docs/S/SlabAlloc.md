@@ -19,21 +19,21 @@ SlabAlloc is the primary allocation function for PostgreSQL's slab memory alloca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext
-  - SlabBlock
+  - [SlabContext](SlabContext.md)
+  - [SlabBlock](SlabBlock.md)
   - MemoryChunk
   - SlabIsValid
-  - SlabBlocklistIndex
+  - [SlabBlocklistIndex](SlabBlocklistIndex.md)
   - SlabAllocInvalidSize (when size is invalid)
-  - SlabAllocFromNewBlock
-  - dlist_head
-  - dlist_is_empty
+  - [SlabAllocFromNewBlock](SlabAllocFromNewBlock.md)
+  - [dlist_head](../d/dlist_head.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
-  - SlabGetNextFreeChunk
-  - dlist_delete_from
-  - dlist_push_head
-  - SlabFindNextBlockListIndex
-  - SlabAllocSetupNewChunk
+  - [SlabGetNextFreeChunk](SlabGetNextFreeChunk.md)
+  - [dlist_delete_from](../d/dlist_delete_from.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [SlabFindNextBlockListIndex](SlabFindNextBlockListIndex.md)
+  - [SlabAllocSetupNewChunk](SlabAllocSetupNewChunk.md)
 - Called from (representative examples):
   - BOGUS_MCTX (src/backend/utils/mmgr/mcxt.c:76)
   - Referenced in MEMUTILS_INTERNAL_H (src/include/utils/memutils_internal.h:57)

@@ -23,7 +23,7 @@ This function is a PostgreSQL built-in function that provides controlled binary 
   - PG_GETARG_TEXT_PP (macro for extracting text argument)
   - PG_GETARG_INT64 (macro for extracting 64-bit integer argument)
   - PG_GETARG_BOOL (macro for extracting boolean argument)
-  - pg_read_binary_file_common (core file reading implementation)
+  - [pg_read_binary_file_common](pg_read_binary_file_common.md) (core file reading implementation)
   - PG_RETURN_BYTEA_P (macro for returning bytea data)
   - PG_RETURN_NULL (macro for returning NULL)
 - Called from (representative examples):

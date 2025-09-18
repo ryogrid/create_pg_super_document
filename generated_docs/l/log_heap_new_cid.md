@@ -20,26 +20,26 @@ The function differentiates between tuples that have combo CIDs (inserted and de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_heap_new_cid (WAL record structure)
-  - GetTopTransactionId
-  - ItemPointerIsValid
+  - [xl_heap_new_cid](../x/xl_heap_new_cid.md) (WAL record structure)
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - HeapTupleHeaderGetCmin
   - HeapTupleHeaderGetCmax
   - HeapTupleHeaderGetRawCommandId
   - HeapTupleHeaderXminInvalid
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - HEAP_COMBOCID
   - HEAP_XMAX_INVALID
   - HEAP_XMAX_IS_LOCKED_ONLY
   - InvalidCommandId
   - XLOG_HEAP2_NEW_CID
 - Called from:
-  - heap_insert
-  - heap_multi_insert
-  - heap_delete
-  - heap_update
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within heapam.c

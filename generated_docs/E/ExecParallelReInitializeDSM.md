@@ -25,18 +25,18 @@ The function uses planstate_tree_walker to recursively traverse the entire plan 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - ExecSeqScanReInitializeDSM
-  - ExecIndexScanReInitializeDSM  
-  - ExecIndexOnlyScanReInitializeDSM
-  - ExecForeignScanReInitializeDSM
-  - ExecAppendReInitializeDSM
-  - ExecCustomScanReInitializeDSM
-  - ExecBitmapHeapReInitializeDSM
+  - [ExecSeqScanReInitializeDSM](ExecSeqScanReInitializeDSM.md)
+  - [ExecIndexScanReInitializeDSM](ExecIndexScanReInitializeDSM.md)  
+  - [ExecIndexOnlyScanReInitializeDSM](ExecIndexOnlyScanReInitializeDSM.md)
+  - [ExecForeignScanReInitializeDSM](ExecForeignScanReInitializeDSM.md)
+  - [ExecAppendReInitializeDSM](ExecAppendReInitializeDSM.md)
+  - [ExecCustomScanReInitializeDSM](ExecCustomScanReInitializeDSM.md)
+  - [ExecBitmapHeapReInitializeDSM](ExecBitmapHeapReInitializeDSM.md)
   - ExecHashJoinReInitializeDSM
   - planstate_tree_walker
 - Called from (representative examples):
-  - ExecParallelReinitialize
-  - ExecParallelReInitializeDSM (recursive calls)
+  - [ExecParallelReinitialize](ExecParallelReinitialize.md)
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function internal to execParallel.c

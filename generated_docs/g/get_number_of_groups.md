@@ -27,8 +27,8 @@ The function processes different cases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgrouplist_exprs
-  - estimate_num_groups  
+  - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)
+  - [estimate_num_groups](../e/estimate_num_groups.md)  
   - forboth (macro)
 - Data structures used:
   - grouping_sets_data
@@ -36,8 +36,8 @@ The function processes different cases:
   - GroupingSetData
 - Called from:
   - standard_qp_extra
-  - create_ordinary_grouping_paths
-  - create_partial_grouping_paths
+  - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md)
+  - [create_partial_grouping_paths](../c/create_partial_grouping_paths.md)
 
 ## Notes and Other Information
 - This is a static function within the planner module, indicating it's an internal utility for group estimation

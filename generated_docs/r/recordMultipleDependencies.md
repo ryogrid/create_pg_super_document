@@ -22,23 +22,23 @@ This function provides an optimized way to record multiple dependency relationsh
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
   - table_open
-  - isObjectPinned
-  - MakeSingleTupleTableSlot
+  - [isObjectPinned](../i/isObjectPinned.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
-  - CatalogOpenIndexes
-  - CatalogTuplesMultiInsertWithInfo
-  - CatalogCloseIndexes
-  - ExecDropSingleTupleTableSlot
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
+  - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
   - MAX_CATALOG_MULTI_INSERT_BYTES
   - DependencyType
   - CatalogIndexState
-  - CharGetDatum
+  - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):
-  - recordDependencyOnExpr
-  - recordDependencyOnSingleRelExpr
-  - record_object_address_dependencies
-  - recordDependencyOn
+  - [recordDependencyOnExpr](recordDependencyOnExpr.md)
+  - [recordDependencyOnSingleRelExpr](recordDependencyOnSingleRelExpr.md)
+  - [record_object_address_dependencies](record_object_address_dependencies.md)
+  - [recordDependencyOn](recordDependencyOn.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/pg_depend.c:58-193

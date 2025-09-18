@@ -19,12 +19,12 @@ The function uses assertions to ensure the input table is indeed a partition wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableInfo (structure type)
+  - [TableInfo](../T/TableInfo.md) (structure type)
   - Assert (macro for debugging assertions)
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:342)
-  - dumpTableData_insert (src/bin/pg_dump/pg_dump.c:2419)  
-  - dumpTableData (src/bin/pg_dump/pg_dump.c:2683)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md) (src/bin/pg_dump/pg_dump.c:2419)  
+  - [dumpTableData](../d/dumpTableData.md) (src/bin/pg_dump/pg_dump.c:2683)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within pg_dump.c

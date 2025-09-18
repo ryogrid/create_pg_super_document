@@ -23,9 +23,9 @@ This design allows bootstrap to work with a minimal set of built-in types initia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_typ_list (to load type cache from pg_type)
-  - list_free_deep (to free existing type list)
-  - gettype (recursive call after populating Typ list)
+  - [populate_typ_list](../p/populate_typ_list.md) (to load type cache from pg_type)
+  - [list_free_deep](../l/list_free_deep.md) (to free existing type list)
+  - [gettype](gettype.md) (recursive call after populating Typ list)
   - strncmp (for string comparison)
   - elog (for error and debug logging)
   - NameStr (macro to extract name from Name type)
@@ -33,8 +33,8 @@ This design allows bootstrap to work with a minimal set of built-in types initia
   - DEBUG4 (debug log level)
 
 - Called from:
-  - DefineAttr (when defining attributes during bootstrap)
-  - gettype (recursive self-call)
+  - [DefineAttr](../D/DefineAttr.md) (when defining attributes during bootstrap)
+  - [gettype](gettype.md) (recursive self-call)
 
 ## Notes and Other Information
 - Sets global variable Ap to point to the found typmap entry when successful

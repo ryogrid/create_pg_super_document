@@ -24,17 +24,17 @@ The function uses get_element_type() to detect if the given type is an array and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_element_type (to resolve array types to element types)
-  - aclcheck_error (for actual error reporting)
-  - format_type_be (for formatted type name display)
+  - [get_element_type](../g/get_element_type.md) (to resolve array types to element types)
+  - [aclcheck_error](aclcheck_error.md) (for actual error reporting)
+  - [format_type_be](../f/format_type_be.md) (for formatted type name display)
   - OBJECT_TYPE constant
 - Called from (representative examples):
-  - check_object_ownership (src/backend/catalog/objectaddress.c:2406)
-  - AggregateCreate (src/backend/catalog/pg_aggregate.c:591)
-  - compute_return_type (src/backend/commands/functioncmds.c:160)
-  - DefineOperator (src/backend/commands/operatorcmds.c:194)
-  - DefineRelation (src/backend/commands/tablecmds.c:881)
-  - DefineDomain (src/backend/commands/typecmds.c:790)
+  - [check_object_ownership](../c/check_object_ownership.md) (src/backend/catalog/objectaddress.c:2406)
+  - [AggregateCreate](../A/AggregateCreate.md) (src/backend/catalog/pg_aggregate.c:591)
+  - [compute_return_type](../c/compute_return_type.md) (src/backend/commands/functioncmds.c:160)
+  - [DefineOperator](../D/DefineOperator.md) (src/backend/commands/operatorcmds.c:194)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:881)
+  - [DefineDomain](../D/DefineDomain.md) (src/backend/commands/typecmds.c:790)
 
 ## Notes and Other Information
 - This function never returns for error conditions - it delegates to aclcheck_error which throws an exception

@@ -24,13 +24,13 @@ For each non-null lexeme in the array, the function performs a binary search to 
 - Functions called/Symbols referenced:
   - PG_GETARG_TSVECTOR - Extract TSVector argument
   - PG_GETARG_ARRAYTYPE_P - Extract array argument
-  - deconstruct_array_builtin - Decompose array into elements
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) - Decompose array into elements
   - VARDATA - Get pointer to variable-length data
   - VARSIZE - Get size of variable-length data
-  - tsvector_bsearch - Binary search for lexeme in TSVector
-  - tsvector_delete_by_indices - Helper to delete lexemes by index array
-  - palloc0 - Allocate zero-initialized memory
-  - pfree - Free allocated memory
+  - [tsvector_bsearch](tsvector_bsearch.md) - Binary search for lexeme in TSVector
+  - [tsvector_delete_by_indices](tsvector_delete_by_indices.md) - Helper to delete lexemes by index array
+  - [palloc0](../p/palloc0.md) - Allocate zero-initialized memory
+  - [pfree](../p/pfree.md) - Free allocated memory
   - PG_FREE_IF_COPY - Free copied arguments if needed
   - PG_RETURN_POINTER - Return result pointer
 - Called from (representative examples):

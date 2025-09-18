@@ -18,13 +18,13 @@ This function implements cache validation for compiled PL/Perl functions. It che
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_proc_ptr: Structure type for procedure pointer management
-  - plperl_proc_desc: Structure type for procedure descriptor
+  - [plperl_proc_ptr](../p/plperl_proc_ptr.md): Structure type for procedure pointer management
+  - [plperl_proc_desc](../p/plperl_proc_desc.md): Structure type for procedure descriptor
   - HeapTupleHeaderGetRawXmin: Gets transaction ID from tuple header
-  - ItemPointerEquals: Compares tuple IDs for equality
+  - [ItemPointerEquals](../I/ItemPointerEquals.md): Compares tuple IDs for equality
   - decrement_prodesc_refcount: Decrements reference count and potentially frees descriptor
 - Called from:
-  - compile_plperl_function: Used during function compilation/retrieval process
+  - [compile_plperl_function](../c/compile_plperl_function.md): Used during function compilation/retrieval process
 
 ## Notes and Other Information
 - Returns true if the cached function is still valid, false if it needs recompilation

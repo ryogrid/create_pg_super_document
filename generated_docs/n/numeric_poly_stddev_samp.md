@@ -18,8 +18,8 @@ The `numeric_poly_stddev_samp` function is a PostgreSQL aggregate function final
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `numeric_poly_stddev_internal` (performs standard deviation calculation with 128-bit integer state)
-  - `numeric_stddev_samp` (fallback for systems without 128-bit integer support)
+  - `[numeric_poly_stddev_internal](numeric_poly_stddev_internal.md)` (performs standard deviation calculation with 128-bit integer state)
+  - `[numeric_stddev_samp](numeric_stddev_samp.md)` (fallback for systems without 128-bit integer support)
   - `PolyNumAggState` (polymorphic aggregate state with 128-bit integers)
   - `Numeric` (PostgreSQL numeric data type)
   - `PG_RETURN_NUMERIC` (macro for returning numeric values)

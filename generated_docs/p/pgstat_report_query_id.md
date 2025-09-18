@@ -25,18 +25,18 @@ Query identifiers are automatically reset when a backend transitions to STATE_RU
   - PGSTAT_BEGIN_WRITE_ACTIVITY
   - PGSTAT_END_WRITE_ACTIVITY
 - Called from (representative examples):
-  - ExecutorStart
-  - parse_analyze_fixedparams
-  - parse_analyze_varparams
-  - parse_analyze_withcb
-  - exec_simple_query
-  - exec_bind_message
-  - exec_execute_message
+  - [ExecutorStart](../E/ExecutorStart.md)
+  - [parse_analyze_fixedparams](parse_analyze_fixedparams.md)
+  - [parse_analyze_varparams](parse_analyze_varparams.md)
+  - [parse_analyze_withcb](parse_analyze_withcb.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
 
 ## Notes and Other Information
 - Only reports top-level query identifiers to avoid confusion from nested operations
 - Uses volatile pointers and atomic update protocol to ensure thread safety
 - Returns early if activity tracking is disabled (pgstat_track_activities = false)
 - The stored query_id is reset to 0 when pgstat_report_activity(STATE_RUNNING) is called
-- Query identifiers enable correlation between pg_stat_statements and pg_stat_activity views
+- [Query](../Q/Query.md) identifiers enable correlation between pg_stat_statements and pg_stat_activity views
 - Part of PostgreSQL's query monitoring infrastructure for performance analysis and debugging

@@ -17,9 +17,9 @@ The initDropTables function is a cleanup utility in pgbench that removes all sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeStatement (for executing the SQL drop command)
+  - [executeStatement](../e/executeStatement.md) (for executing the SQL drop command)
 - Called from (representative examples):
-  - runInitSteps (part of the pgbench initialization process)
+  - [runInitSteps](../r/runInitSteps.md) (part of the pgbench initialization process)
 
 ## Notes and Other Information
 - Uses IF EXISTS to prevent errors when tables don't exist

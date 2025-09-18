@@ -34,13 +34,13 @@ The function applies a threshold of NBuffers/4 to determine if a table is "large
   - RelationUsesLocalBuffers  
   - GetAccessStrategy
   - FreeAccessStrategy
-  - ss_get_location
-  - ItemPointerSetInvalid
+  - [ss_get_location](../s/ss_get_location.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - pgstat_count_heap_scan
-  - ParallelBlockTableScanDesc (type cast)
+  - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (type cast)
 - Called from (representative examples):
-  - heap_beginscan (src/backend/access/heap/heapam.c:1163)
-  - heap_rescan (src/backend/access/heap/heapam.c:1250)
+  - [heap_beginscan](../h/heap_beginscan.md) (src/backend/access/heap/heapam.c:1163)
+  - [heap_rescan](../h/heap_rescan.md) (src/backend/access/heap/heapam.c:1250)
 
 ## Notes and Other Information
 - The NBuffers/4 threshold for strategy decisions matches similar logic in table_block_parallelscan_initialize

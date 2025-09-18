@@ -26,8 +26,8 @@ This iterator is designed to handle different node types in the radix tree (node
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion system)
 - Called from (representative examples):
-  - RT_ITER (uses RT_NODE_ITER in its node_iters array)
-  - RT_NODE_ITERATE_NEXT (operates on RT_NODE_ITER structures)
+  - [RT_ITER](RT_ITER.md) (uses RT_NODE_ITER in its node_iters array)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md) (operates on RT_NODE_ITER structures)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's templated radix tree system that allows multiple instances with different prefixes

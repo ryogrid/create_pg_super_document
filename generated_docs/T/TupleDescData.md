@@ -26,13 +26,13 @@ The structure is designed to efficiently handle cases where constraints can be o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleConstr
+  - [TupleConstr](TupleConstr.md)
   - FLEXIBLE_ARRAY_MEMBER
   - FormData_pg_attribute
 - Called from (representative examples):
-  - CreateTemplateTupleDesc
-  - IndexScanDescData
-  - TupleDesc (typedef)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [IndexScanDescData](../I/IndexScanDescData.md)
+  - [TupleDesc](TupleDesc.md) (typedef)
   - TupleDescSize
 
 ## Notes and Other Information

@@ -29,15 +29,15 @@ The function specifically monitors pss_barrierGeneration rather than pss_barrier
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u64 (atomic read operations)
-  - ConditionVariableTimedSleep (timed condition variable wait)
-  - ConditionVariableCancelSleep (condition variable cleanup)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md) (atomic read operations)
+  - [ConditionVariableTimedSleep](../C/ConditionVariableTimedSleep.md) (timed condition variable wait)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md) (condition variable cleanup)
   - pg_memory_barrier (memory synchronization)
   - elog (logging function)
   - ereport (error reporting)
 - Data structures accessed:
   - ProcSignal global structure
-  - ProcSignalSlot array elements  
+  - [ProcSignalSlot](../P/ProcSignalSlot.md) array elements  
   - NumProcSignalSlots global variable
 - Constants used:
   - DEBUG1, LOG (logging levels)
@@ -45,11 +45,11 @@ The function specifically monitors pss_barrierGeneration rather than pss_barrier
   - WAIT_EVENT_PROC_SIGNAL_BARRIER (wait event type)
 
 - Called from (representative examples):
-  - dropdb (database drop operations)
-  - movedb (database move operations)
-  - dbase_redo (database WAL replay)
-  - DropTableSpace (tablespace removal)
-  - tblspc_redo (tablespace WAL replay)
+  - [dropdb](../d/dropdb.md) (database drop operations)
+  - [movedb](../m/movedb.md) (database move operations)
+  - [dbase_redo](../d/dbase_redo.md) (database WAL replay)
+  - [DropTableSpace](../D/DropTableSpace.md) (tablespace removal)
+  - [tblspc_redo](../t/tblspc_redo.md) (tablespace WAL replay)
 
 ## Notes and Other Information
 - Uses condition variables with 5-second timeouts to avoid indefinite blocking

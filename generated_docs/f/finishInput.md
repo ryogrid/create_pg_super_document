@@ -25,7 +25,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - useHistory (global variable indicating if history functionality is enabled)
   - psql_history (global variable containing the path to the history file)
-  - saveHistory (saves current history to specified file with line limit)
+  - [saveHistory](../s/saveHistory.md) (saves current history to specified file with line limit)
   - free (deallocates dynamically allocated memory)
   - pset.histsize (global setting for maximum history size)
 

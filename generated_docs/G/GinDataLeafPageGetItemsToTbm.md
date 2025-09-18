@@ -29,12 +29,12 @@ This function is optimized for scenarios where TIDs will be used for bitmap oper
   - GinPageIsCompressed
   - GinDataLeafPageGetPostingList
   - GinDataLeafPageGetPostingListSize
-  - ginPostingListDecodeAllSegmentsToTbm
-  - dataLeafPageGetUncompressed
-  - tbm_add_tuples
+  - [ginPostingListDecodeAllSegmentsToTbm](../g/ginPostingListDecodeAllSegmentsToTbm.md)
+  - [dataLeafPageGetUncompressed](../d/dataLeafPageGetUncompressed.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
 - Called from (representative examples):
-  - scanPostingTree
-  - GinBtreeDataLeafInsertData
+  - [scanPostingTree](../s/scanPostingTree.md)
+  - [GinBtreeDataLeafInsertData](GinBtreeDataLeafInsertData.md)
 
 ## Notes and Other Information
 - Returns the number of TIDs added to the bitmap

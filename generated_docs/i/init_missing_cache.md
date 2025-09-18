@@ -21,13 +21,13 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - `HASHCTL`: Structure type for hash table control parameters
   - `missing_cache_key`: Structure type used for cache keys and entries
-  - `missing_hash`: Custom hash function for cache keys
-  - `missing_match`: Custom comparison function for cache keys
-  - `hash_create`: PostgreSQL function to create hash tables
+  - `[missing_hash](../m/missing_hash.md)`: Custom hash function for cache keys
+  - `[missing_match](../m/missing_match.md)`: Custom comparison function for cache keys
+  - `[hash_create](../h/hash_create.md)`: PostgreSQL function to create hash tables
   - `TopMemoryContext`: Long-lived memory context for persistent storage
   - Hash table flags: `HASH_ELEM`, `HASH_CONTEXT`, `HASH_FUNCTION`, `HASH_COMPARE`
 - Called from (representative examples):
-  - `getmissingattr`: Calls this function to initialize the cache when first needed
+  - `[getmissingattr](../g/getmissingattr.md)`: Calls this function to initialize the cache when first needed
 
 ## Notes and Other Information
 - This is a static function with internal linkage within heaptuple.c

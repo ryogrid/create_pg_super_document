@@ -19,13 +19,13 @@ This function is critical for resource management in parallel queries, as it ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (cleans up the outer child plan node recursively)
+  - [ExecEndNode](ExecEndNode.md) (cleans up the outer child plan node recursively)
   - outerPlanState (accesses the child plan state)
-  - ExecShutdownGather (performs Gather-specific parallel worker shutdown)
-    - ExecShutdownGatherWorkers (terminates individual worker processes)
-    - ExecParallelCleanup (destroys parallel execution context and shared memory)
+  - [ExecShutdownGather](ExecShutdownGather.md) (performs Gather-specific parallel worker shutdown)
+    - [ExecShutdownGatherWorkers](ExecShutdownGatherWorkers.md) (terminates individual worker processes)
+    - [ExecParallelCleanup](ExecParallelCleanup.md) (destroys parallel execution context and shared memory)
 - Called from (representative examples):
-  - ExecEndNode (main node cleanup dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (main node cleanup dispatcher)
 
 ## Notes and Other Information
 - Follows the cleanup ordering principle: child nodes are cleaned up before parent nodes

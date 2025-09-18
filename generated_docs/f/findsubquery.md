@@ -30,10 +30,10 @@ This design allows for both simple substitution operations (where the caller doe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dofindsubquery (performs the actual recursive substitution work)
+  - [dofindsubquery](../d/dofindsubquery.md) (performs the actual recursive substitution work)
 - Called from (representative examples):
-  - tsquery_rewrite_query
-  - tsquery_rewrite
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [tsquery_rewrite](../t/tsquery_rewrite.md)
   - PG_GETARG_TSQUERYSIGN
 
 ## Notes and Other Information

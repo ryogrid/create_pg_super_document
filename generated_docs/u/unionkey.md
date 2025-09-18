@@ -26,9 +26,9 @@ This function merges two TSVector signatures by performing a bitwise OR operatio
   - LOOPBYTE (macro for byte-wise iteration)
   - GETARR (macro to get array representation)
   - ARRNELEM (macro to get number of array elements)
-  - HASH (macro to hash values into signature)
+  - [HASH](../H/HASH.md) (macro to hash values into signature)
 - Called from:
-  - gtsvector_union (GiST union function for TSVector)
+  - [gtsvector_union](../g/gtsvector_union.md) (GiST union function for TSVector)
 
 ## Notes and Other Information
 This is a static function used specifically within the TSVector GiST index implementation. The function returns 1 when the result should be treated as an all-true signature (covering all possible values), and 0 for normal signature processing. The function modifies the base signature in-place, making it an efficient union operation for index maintenance.

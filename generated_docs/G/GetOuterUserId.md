@@ -24,8 +24,8 @@ This function takes no parameters and returns:
   - OidIsValid (macro to check if OID is valid)  
   - OuterUserId (static variable holding outer-level user ID)
 - Called from (representative examples):
-  - DropRole (to check if dropping the current outer role)
-  - RenameRole (to check if renaming the current outer role)
+  - [DropRole](../D/DropRole.md) (to check if dropping the current outer role)
+  - [RenameRole](../R/RenameRole.md) (to check if renaming the current outer role)
   - AmSpecialWorkerProcess (role context checking)
 
 ## Notes and Other Information

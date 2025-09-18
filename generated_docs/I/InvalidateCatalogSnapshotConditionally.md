@@ -22,9 +22,9 @@ If other snapshots are active or registered, the catalog snapshot is likely not 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_is_singular
-  - InvalidateCatalogSnapshot
+  - [InvalidateCatalogSnapshot](InvalidateCatalogSnapshot.md)
 - Called from (representative examples):
-  - PostgresMain
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - Optimization for idle connection scenarios

@@ -20,13 +20,13 @@ JsonHashEntry serves as the fundamental data structure for storing JSON object f
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN
-  - JsonTokenType
+  - [JsonTokenType](JsonTokenType.md)
 - Called from (representative examples):
-  - JsObjectGetField
-  - get_json_object_as_hash
-  - hash_object_field_end
-  - populate_recordset_object_start
-  - populate_recordset_object_field_end
+  - [JsObjectGetField](JsObjectGetField.md)
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
+  - [hash_object_field_end](../h/hash_object_field_end.md)
+  - [populate_recordset_object_start](../p/populate_recordset_object_start.md)
+  - [populate_recordset_object_field_end](../p/populate_recordset_object_field_end.md)
 
 ## Notes and Other Information
 The fname field is specifically marked as "MUST BE FIRST" because PostgreSQL's hash table implementation requires the hash key to be at the beginning of the structure. The NAMEDATALEN constant defines the maximum length for PostgreSQL identifiers, ensuring compatibility with PostgreSQL's naming conventions. This structure is essential for JSON-to-relational mapping operations and efficient field lookup within JSON objects.

@@ -18,17 +18,17 @@ This function handles the cleanup and notification process when a background wor
 ## Dependencies
 - Functions called/Symbols referenced:
   - slist_container (macro to get container structure from list node)
-  - ForgetBackgroundWorker (removes worker from registration)
+  - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md) (removes worker from registration)
   - kill (system call for sending signals)
   - SIGUSR1 (signal constant)
   - BGW_NEVER_RESTART (constant indicating worker should not restart)
 - Data structures used:
-  - slist_mutable_iter
-  - RegisteredBgWorker
-  - BackgroundWorkerSlot
+  - [slist_mutable_iter](../s/slist_mutable_iter.md)
+  - [RegisteredBgWorker](RegisteredBgWorker.md)
+  - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md)
   - BackgroundWorkerData (global shared memory structure)
 - Called from (representative examples):
-  - CleanupBackgroundWorker
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md)
 
 ## Notes and Other Information
 - This function should only be called from the postmaster process

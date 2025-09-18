@@ -30,14 +30,14 @@ The function modifies the existing ColumnDef in the inheritance list and increme
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_nth_node
-  - typenameTypeIdAndMod
-  - format_type_with_typemod
-  - GetColumnDefCollation
-  - get_collation_name
-  - storage_name
-  - ColumnDef (structure type)
+  - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md)
+  - [get_collation_name](../g/get_collation_name.md)
+  - [storage_name](../s/storage_name.md)
+  - [ColumnDef](../C/ColumnDef.md) (structure type)
 - Called from (representative examples):
-  - MergeAttributes
+  - [MergeAttributes](MergeAttributes.md)
 
 ## Notes and Other Information
 - Only applicable to regular table inheritance, not partitioning (partitions inherit from single parent)

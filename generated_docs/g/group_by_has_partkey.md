@@ -23,12 +23,12 @@ The algorithm iterates through each partition key attribute, then through all al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgrouplist_exprs
-  - exprCollation
-  - equal
+  - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [equal](../e/equal.md)
   - RelabelType (type checking)
 - Called from (representative examples):
-  - create_ordinary_grouping_paths
+  - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md)
 
 ## Notes and Other Information
 - The function requires the input relation to be partitioned (asserts on part_scheme)

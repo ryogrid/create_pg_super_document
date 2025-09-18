@@ -18,15 +18,15 @@ This function processes a list of SortGroupClause structures and extracts the co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupclause_expr
+  - [get_sortgroupclause_expr](get_sortgroupclause_expr.md)
   - SortGroupClause (structure type)
   - lappend (list manipulation function)
 - Called from (representative examples):
-  - get_windowclause_startup_tuples
-  - get_number_of_groups
-  - create_partial_distinct_paths
-  - create_final_distinct_paths
-  - group_by_has_partkey
+  - [get_windowclause_startup_tuples](get_windowclause_startup_tuples.md)
+  - [get_number_of_groups](get_number_of_groups.md)
+  - [create_partial_distinct_paths](../c/create_partial_distinct_paths.md)
+  - [create_final_distinct_paths](../c/create_final_distinct_paths.md)
+  - [group_by_has_partkey](group_by_has_partkey.md)
 
 ## Notes and Other Information
 This function is essential for query planning operations that need to analyze groups of expressions together. It's particularly important in window function processing, distinct path creation, and group-by optimization where the planner needs to understand the collective behavior of multiple sort/group expressions. The function returns a newly allocated list that contains references to the expression nodes.

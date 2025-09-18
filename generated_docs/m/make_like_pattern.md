@@ -22,11 +22,11 @@ The function also handles multibyte characters correctly by detecting high-bit-s
   - pg_malloc
   - strlen
   - IS_HIGHBIT_SET
-  - PQmblenBounded
-  - escape_string
+  - [PQmblenBounded](../P/PQmblenBounded.md)
+  - [escape_string](../e/escape_string.md)
   - free
 - Called from (representative examples):
-  - _complete_from_query
+  - [_complete_from_query](../c/_complete_from_query.md)
   - THING_NO_SHOW completion generator
 
 ## Notes and Other Information

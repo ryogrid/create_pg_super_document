@@ -28,16 +28,16 @@ The function is particularly important for optimizing queries that involve CTID 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TidQualFromRestrictInfoList (extracts TID qualifications from restriction clauses)
-  - create_tidscan_path (creates a standard TID scan path)
-  - add_path (adds a path to the relation's path list)
-  - TidRangeQualFromRestrictInfoList (extracts TID range qualifications)
-  - create_tidrangescan_path (creates a TID range scan path)
-  - generate_implied_equalities_for_column (generates implied equalities from equivalence classes)
-  - ec_member_matches_ctid (callback function to match CTID equivalence members)
-  - BuildParameterizedTidPaths (builds parameterized TID paths from join clauses)
+  - [TidQualFromRestrictInfoList](../T/TidQualFromRestrictInfoList.md) (extracts TID qualifications from restriction clauses)
+  - [create_tidscan_path](create_tidscan_path.md) (creates a standard TID scan path)
+  - [add_path](../a/add_path.md) (adds a path to the relation's path list)
+  - [TidRangeQualFromRestrictInfoList](../T/TidRangeQualFromRestrictInfoList.md) (extracts TID range qualifications)
+  - [create_tidrangescan_path](create_tidrangescan_path.md) (creates a TID range scan path)
+  - [generate_implied_equalities_for_column](../g/generate_implied_equalities_for_column.md) (generates implied equalities from equivalence classes)
+  - [ec_member_matches_ctid](../e/ec_member_matches_ctid.md) (callback function to match CTID equivalence members)
+  - [BuildParameterizedTidPaths](../B/BuildParameterizedTidPaths.md) (builds parameterized TID paths from join clauses)
 - Called from (representative examples):
-  - set_plain_rel_pathlist (main path generation function in allpaths.c)
+  - [set_plain_rel_pathlist](../s/set_plain_rel_pathlist.md) (main path generation function in allpaths.c)
 
 ## Notes and Other Information
 - This function only adds paths to the relation's pathlist; it doesn't modify existing paths

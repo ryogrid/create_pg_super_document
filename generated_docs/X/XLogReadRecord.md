@@ -29,23 +29,23 @@ This function is the standard blocking interface used throughout PostgreSQL for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReleasePreviousRecord (releases previous record)
+  - [XLogReleasePreviousRecord](XLogReleasePreviousRecord.md) (releases previous record)
   - XLogReaderHasQueuedRecordOrError (checks if records are queued)  
-  - XLogReadAhead (performs read-ahead operations)
-  - XLogNextRecord (gets next record from queue)
+  - [XLogReadAhead](XLogReadAhead.md) (performs read-ahead operations)
+  - [XLogNextRecord](XLogNextRecord.md) (gets next record from queue)
   - Assert (debugging assertion macro)
 - Data structures used:
-  - DecodedXLogRecord
-  - XLogRecord
-  - XLogReaderState
+  - [DecodedXLogRecord](../D/DecodedXLogRecord.md)
+  - [XLogRecord](XLogRecord.md)
+  - [XLogReaderState](XLogReaderState.md)
 - Called from (representative examples):
-  - XlogReadTwoPhaseData
-  - XLogFindNextRecord
-  - SummarizeWAL
-  - DecodingContextFindStartpoint
+  - [XlogReadTwoPhaseData](XlogReadTwoPhaseData.md)
+  - [XLogFindNextRecord](XLogFindNextRecord.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
+  - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
   - LogicalReplicationSlotHasPendingWal
-  - XLogSendLogical
-  - extractPageMap
+  - [XLogSendLogical](XLogSendLogical.md)
+  - [extractPageMap](../e/extractPageMap.md)
   - pg_waldump main function
 
 ## Notes and Other Information

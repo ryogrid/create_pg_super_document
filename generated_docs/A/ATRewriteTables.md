@@ -26,26 +26,26 @@ The function operates in multiple distinct phases: first handling table rewrites
 - Functions called/Symbols referenced:
   - RELKIND_HAS_STORAGE
   - table_open
-  - find_composite_type_dependencies
+  - [find_composite_type_dependencies](../f/find_composite_type_dependencies.md)
   - table_close
-  - IsSystemRelation
+  - [IsSystemRelation](../I/IsSystemRelation.md)
   - RelationIsUsedAsCatalogTable
   - RELATION_IS_OTHER_TEMP
   - RelationGetRelationName
-  - EventTriggerTableRewrite
-  - make_new_heap
-  - ATRewriteTable
-  - finish_heap_swap
-  - ReadNextMultiXactId
+  - [EventTriggerTableRewrite](../E/EventTriggerTableRewrite.md)
+  - [make_new_heap](../m/make_new_heap.md)
+  - [ATRewriteTable](ATRewriteTable.md)
+  - [finish_heap_swap](../f/finish_heap_swap.md)
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
   - InvokeObjectPostAlterHook
-  - SequenceChangePersistence
-  - ATExecSetTableSpace
-  - getOwnedSequences
-  - validateForeignKeyConstraint
-  - ProcessUtilityForAlterTable
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md)
+  - [ATExecSetTableSpace](ATExecSetTableSpace.md)
+  - [getOwnedSequences](../g/getOwnedSequences.md)
+  - [validateForeignKeyConstraint](../v/validateForeignKeyConstraint.md)
+  - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md)
   - CommandCounterIncrement
 - Called from:
-  - ATController
+  - [ATController](ATController.md)
 
 ## Notes and Other Information
 - This function is static and only used within the tablecmds.c module

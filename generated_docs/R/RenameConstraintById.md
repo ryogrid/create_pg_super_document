@@ -29,18 +29,18 @@ The function updates the constraint name in-place and triggers post-alter hooks 
   - elog
   - GETSTRUCT
   - OidIsValid
-  - ConstraintNameIsUsed
+  - [ConstraintNameIsUsed](../C/ConstraintNameIsUsed.md)
   - ereport
-  - get_rel_name
-  - format_type_be
+  - [get_rel_name](../g/get_rel_name.md)
+  - [format_type_be](../f/format_type_be.md)
   - namestrcpy
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Called from (representative examples):
-  - rename_constraint_internal (tablecmds.c:4001)
-  - RenameRelationInternal (tablecmds.c:4215)
+  - [rename_constraint_internal](../r/rename_constraint_internal.md) (tablecmds.c:4001)
+  - [RenameRelationInternal](RenameRelationInternal.md) (tablecmds.c:4215)
 
 ## Notes and Other Information
 - Not intended as a user-exposed function - lacks permission checking

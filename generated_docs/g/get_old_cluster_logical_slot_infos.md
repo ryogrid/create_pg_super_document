@@ -19,18 +19,18 @@ This function collects comprehensive information about logical replication slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_MAJOR_VERSION
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - pg_malloc
-  - pg_strdup
-  - PQfnumber
-  - PQntuples
-  - PQgetvalue
-  - PQclear
-  - PQfinish
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
   - strcmp
 - Called from (representative examples):
-  - get_db_rel_and_slot_infos
+  - [get_db_rel_and_slot_infos](get_db_rel_and_slot_infos.md)
 
 ## Notes and Other Information
 - Only functions on PostgreSQL 17+ clusters due to logical slot persistence requirements

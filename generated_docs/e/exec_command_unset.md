@@ -21,10 +21,10 @@ This function handles the execution of the \unset command in psql, which is used
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the variable name argument
   - SetVariable: Removes the variable by setting it to NULL
-  - ignore_slash_options: Skips parsing when in inactive branch
+  - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when in inactive branch
   - pg_log_error: Reports error messages
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success to indicate the command line should be skipped from further processing

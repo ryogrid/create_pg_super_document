@@ -36,17 +36,17 @@ The function considers transaction boundaries, subtransaction state, and protoco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsWaitingForLock (checks if process is waiting for a lock)
+  - [IsWaitingForLock](../I/IsWaitingForLock.md) (checks if process is waiting for a lock)
   - HoldingBufferPinThatDelaysRecovery (checks for problematic buffer pins)
-  - GetStartupBufferPinWaitBufId (gets startup process buffer wait info)
-  - CheckDeadLockAlert (sets deadlock detection flag)
-  - IsTransactionOrTransactionBlock (checks transaction state)
-  - IsSubTransaction (checks if in subtransaction)
-  - IsAbortedTransactionBlockState (checks if transaction is already aborted)
-  - LockErrorCleanup (cleans up lock state before error)
-  - pgstat_report_recovery_conflict (reports conflict statistics)
+  - [GetStartupBufferPinWaitBufId](../G/GetStartupBufferPinWaitBufId.md) (gets startup process buffer wait info)
+  - [CheckDeadLockAlert](../C/CheckDeadLockAlert.md) (sets deadlock detection flag)
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md) (checks transaction state)
+  - [IsSubTransaction](../I/IsSubTransaction.md) (checks if in subtransaction)
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md) (checks if transaction is already aborted)
+  - [LockErrorCleanup](../L/LockErrorCleanup.md) (cleans up lock state before error)
+  - [pgstat_report_recovery_conflict](../p/pgstat_report_recovery_conflict.md) (reports conflict statistics)
   - ereport (reports errors with appropriate severity)
-  - errdetail_recovery_conflict (provides conflict-specific error details)
+  - [errdetail_recovery_conflict](../e/errdetail_recovery_conflict.md) (provides conflict-specific error details)
 - Global variables used:
   - MyProc->recoveryConflictPending (marks process as having pending conflict)
   - DoingCommandRead (indicates if waiting for client input)
@@ -54,7 +54,7 @@ The function considers transaction boundaries, subtransaction state, and protoco
   - RecoveryConflictPendingReasons (re-arms deferred conflicts)
   - RecoveryConflictPending, InterruptPending (general interrupt flags)
 - Called from:
-  - ProcessRecoveryConflictInterrupts (processes all pending conflicts)
+  - [ProcessRecoveryConflictInterrupts](ProcessRecoveryConflictInterrupts.md) (processes all pending conflicts)
 
 ## Notes and Other Information
 - This is a static function, only called from within the same source file

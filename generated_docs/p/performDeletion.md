@@ -34,24 +34,24 @@ The function supports both CASCADE behavior (delete dependent objects) and RESTR
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - AcquireDeletionLock
-  - new_object_addresses
-  - findDependentObjects
-  - reportDependentObjects
-  - deleteObjectsInList
-  - free_object_addresses
+  - [AcquireDeletionLock](../A/AcquireDeletionLock.md)
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [findDependentObjects](../f/findDependentObjects.md)
+  - [reportDependentObjects](../r/reportDependentObjects.md)
+  - [deleteObjectsInList](../d/deleteObjectsInList.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - table_close
 - Data structures used:
-  - ObjectAddress
+  - [ObjectAddress](../O/ObjectAddress.md)
   - ObjectAddresses
   - DropBehavior
   - DEPFLAG_ORIGINAL
 - Called from (representative examples):
-  - SetDefaultACL
-  - RemoveTempRelations
-  - ATExecDropConstraint
-  - DetachPartitionFinalize
-  - do_autovacuum
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [RemoveTempRelations](../R/RemoveTempRelations.md)
+  - [ATExecDropConstraint](../A/ATExecDropConstraint.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information
 - This is a public function accessible throughout the PostgreSQL backend

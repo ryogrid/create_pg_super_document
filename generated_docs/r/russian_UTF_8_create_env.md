@@ -25,7 +25,7 @@ The function abstracts the specific configuration requirements for Russian stemm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Generic Snowball environment creation function (called with parameters 0, 2)
+  - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function (called with parameters 0, 2)
 - Called from:
   - No direct references found (likely called through external stemming interface initialization)
 

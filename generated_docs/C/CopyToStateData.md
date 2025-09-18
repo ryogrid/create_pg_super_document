@@ -72,7 +72,7 @@ The structure manages both high-level operational parameters (like the source re
   - CopyFormatOptions
   - QueryDesc
 - Called from (representative examples):
-  - BeginCopyTo
+  - [BeginCopyTo](../B/BeginCopyTo.md)
   - CopyToState
 
 ## Notes and Other Information

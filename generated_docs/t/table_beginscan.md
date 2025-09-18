@@ -28,11 +28,11 @@ The function delegates the actual scan initialization to the table's access meth
   - SO_ALLOW_PAGEMODE (allows page-at-a-time reading)
   - rd_tableam->scan_begin (table access method function)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
-  - DoCopyTo
-  - ATRewriteTable
-  - SeqNext
-  - RelationFindReplTupleSeq
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [SeqNext](../S/SeqNext.md)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam.h header for performance

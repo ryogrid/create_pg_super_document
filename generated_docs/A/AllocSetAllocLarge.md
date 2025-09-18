@@ -29,12 +29,12 @@ The block insertion strategy places new large blocks as the second block in the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextCheckSize (validates size against context limits and flags)
-  - MemoryContextAllocationFailure (handles allocation failure scenarios)
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md) (handles allocation failure scenarios)
   - malloc (system memory allocation)
-  - MemoryChunkSetHdrMaskExternal (marks chunk as externally managed)
+  - [MemoryChunkSetHdrMaskExternal](../M/MemoryChunkSetHdrMaskExternal.md) (marks chunk as externally managed)
   - MemoryChunkGetPointer (retrieves user-accessible pointer from chunk)
-  - set_sentinel (adds debugging sentinel bytes)
-  - randomize_mem (fills memory with random data for debugging)
+  - [set_sentinel](../s/set_sentinel.md) (adds debugging sentinel bytes)
+  - [randomize_mem](../r/randomize_mem.md) (fills memory with random data for debugging)
   - VALGRIND_MAKE_MEM_NOACCESS (memory debugging support)
 
 - Referenced constants/macros:
@@ -44,7 +44,7 @@ The block insertion strategy places new large blocks as the second block in the 
   - MEMORY_CONTEXT_CHECKING, RANDOMIZE_ALLOCATED_MEMORY (debug options)
 
 - Called from (representative examples):
-  - AllocSetAlloc (when allocation size exceeds chunk limits)
+  - [AllocSetAlloc](AllocSetAlloc.md) (when allocation size exceeds chunk limits)
 
 ## Notes and Other Information
 - Function marked as pg_noinline to keep AllocSetAlloc() optimized for common small allocation cases

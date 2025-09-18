@@ -19,11 +19,11 @@ The RangeBox structure provides a more convenient access pattern for SP-GiST ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (PostgreSQL geometric box type)
+  - [BOX](../B/BOX.md) (PostgreSQL geometric box type)
   - RangeBox (4D range representation structure)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within geo_spgist.c

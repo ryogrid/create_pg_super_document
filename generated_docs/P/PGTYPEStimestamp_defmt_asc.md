@@ -21,11 +21,11 @@ This function performs the reverse operation of timestamp formatting - it takes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_strdup
-  - PGTYPEStimestamp_defmt_scan
+  - [pgtypes_strdup](../p/pgtypes_strdup.md)
+  - [PGTYPEStimestamp_defmt_scan](PGTYPEStimestamp_defmt_scan.md)
 - Called from (representative examples):
-  - dtcvfmtasc (in compatlib)
-  - main (extensively in test cases)
+  - [dtcvfmtasc](../d/dtcvfmtasc.md) (in compatlib)
+  - [main](../m/main.md) (extensively in test cases)
 
 ## Notes and Other Information
 - Returns an integer status code indicating parsing success or failure

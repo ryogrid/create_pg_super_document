@@ -23,11 +23,11 @@ Like `r_step1`, this function resets the state flag `z->I[0] = 0` after the dele
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Backward pattern matching for suffix identification
-  - `slice_del`: Complete suffix removal function
-  - `slice_from_s`: String replacement using predefined constants
+  - `[find_among_b](../f/find_among_b.md)`: Backward pattern matching for suffix identification
+  - `[slice_del](../s/slice_del.md)`: Complete suffix removal function
+  - `[slice_from_s](../s/slice_from_s.md)`: String replacement using predefined constants
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function as part of the sequential stemming pipeline
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function as part of the sequential stemming pipeline
 
 ## Notes and Other Information
 - Represents an intermediate stemming phase that refines the results from `r_step1`

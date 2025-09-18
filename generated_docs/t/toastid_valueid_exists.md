@@ -22,9 +22,9 @@ The function maintains the same safety semantics as its underlying implementatio
 - Functions called/Symbols referenced:
   - table_open
   - table_close
-  - toastrel_valueid_exists
+  - [toastrel_valueid_exists](toastrel_valueid_exists.md)
 - Called from (representative examples):
-  - toast_save_datum
+  - [toast_save_datum](toast_save_datum.md)
 
 ## Notes and Other Information
 - Declared as static function, internal to toast_internals.c

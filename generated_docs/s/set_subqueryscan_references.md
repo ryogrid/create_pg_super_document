@@ -28,14 +28,14 @@ This optimization is significant because it can eliminate entire levels of plan 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_base_rel: Locates the RelOptInfo for the subquery relation
-  - set_plan_references: Recursively processes the subplan with its own planner context
-  - trivial_subqueryscan: Determines if the SubqueryScan can be safely eliminated
-  - clean_up_removed_plan_level: Handles the mechanics of pulling up a subplan
+  - [find_base_rel](../f/find_base_rel.md): Locates the RelOptInfo for the subquery relation
+  - [set_plan_references](set_plan_references.md): Recursively processes the subplan with its own planner context
+  - [trivial_subqueryscan](../t/trivial_subqueryscan.md): Determines if the SubqueryScan can be safely eliminated
+  - [clean_up_removed_plan_level](../c/clean_up_removed_plan_level.md): Handles the mechanics of pulling up a subplan
   - fix_scan_list: Standard variable reference adjustment for scan expressions
   - NUM_EXEC_TLIST/NUM_EXEC_QUAL: Macros for determining execution context
 - Called from (representative examples):
-  - set_plan_refs: When processing SubqueryScan nodes in the main plan tree traversal
+  - [set_plan_refs](set_plan_refs.md): When processing SubqueryScan nodes in the main plan tree traversal
   - fix_scan_list: During recursive plan reference adjustment
 
 ## Notes and Other Information

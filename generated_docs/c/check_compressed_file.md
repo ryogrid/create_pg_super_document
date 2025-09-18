@@ -19,12 +19,12 @@ This is a static utility function used internally within the compression I/O mod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - free_keep_errno
-  - psprintf
+  - [free_keep_errno](../f/free_keep_errno.md)
+  - [psprintf](../p/psprintf.md)
   - access
   - F_OK
 - Called from (representative examples):
-  - InitDiscoverCompressFileHandle (multiple calls for different compression formats)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md) (multiple calls for different compression formats)
 
 ## Notes and Other Information
 This function is marked as static, making it internal to the compress_io.c module. It follows a pattern of destructively updating the fname parameter, which requires careful memory management by callers. The function uses F_OK with access() to check for file existence without requiring read permissions. The free_keep_errno function is used to preserve errno values during memory deallocation.

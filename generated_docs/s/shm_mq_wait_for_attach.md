@@ -21,9 +21,9 @@ The function performs role detection by comparing the current process (MyProc) w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_get_receiver
-  - shm_mq_get_sender  
-  - shm_mq_wait_internal
+  - [shm_mq_get_receiver](shm_mq_get_receiver.md)
+  - [shm_mq_get_sender](shm_mq_get_sender.md)  
+  - [shm_mq_wait_internal](shm_mq_wait_internal.md)
   - SHM_MQ_SUCCESS
   - SHM_MQ_DETACHED
 - Called from (representative examples):

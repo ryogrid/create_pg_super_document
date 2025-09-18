@@ -26,21 +26,21 @@ The function follows the same visibility rules established elsewhere in the heap
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetRawXmax
-  - HeapTupleGetUpdateXid
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - TransactionIdIsValid
-  - TransactionIdIsCurrentTransactionId
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - HEAP_XMAX_INVALID (macro)
   - HEAP_XMAX_LOCK_ONLY (macro)
   - HEAP_XMAX_IS_MULTI (macro)
 - Called from (representative examples):
-  - heap_get_latest_tid
-  - heap_delete
-  - heap_lock_tuple
-  - heap_lock_updated_tuple_rec
-  - HeapTupleSatisfiesVacuumHorizon
-  - rewrite_heap_tuple
+  - [heap_get_latest_tid](../h/heap_get_latest_tid.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
+  - [HeapTupleSatisfiesVacuumHorizon](HeapTupleSatisfiesVacuumHorizon.md)
+  - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md)
 
 ## Notes and Other Information
 - The function handles both simple lock cases (using infomask bits) and complex MultiXact cases (requiring transaction status checks)

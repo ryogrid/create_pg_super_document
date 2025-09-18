@@ -21,10 +21,10 @@ StartReadBuffers is the primary public interface for PostgreSQL's asynchronous b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartReadBuffersImpl
-  - ReadBuffersOperation (structure)
+  - [StartReadBuffersImpl](StartReadBuffersImpl.md)
+  - [ReadBuffersOperation](../R/ReadBuffersOperation.md) (structure)
 - Called from (representative examples):
-  - read_stream_start_pending_read
+  - [read_stream_start_pending_read](../r/read_stream_start_pending_read.md)
   - BUFFER_LOCK_EXCLUSIVE (from buffer management header)
 
 ## Notes and Other Information

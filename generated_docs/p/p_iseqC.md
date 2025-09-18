@@ -20,10 +20,10 @@ The function internally calls , which performs the actual character comparison b
 ## Dependencies
 - Functions called/Symbols referenced:
   - p_iseq (performs the actual character comparison)
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
 - Called from (representative examples):
-  - p_isspecial (used extensively throughout the state machine for character-specific transitions)
-  - _make_compiler_happy (test/debug function)
+  - [p_isspecial](p_isspecial.md) (used extensively throughout the state machine for character-specific transitions)
+  - [_make_compiler_happy](../m/_make_compiler_happy.md) (test/debug function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

@@ -32,12 +32,12 @@ The function uses the syscache_callback_links array to find the head of the call
   - SysCacheSize (global variable for cache count validation)
   - syscache_callback_links (array mapping cache IDs to callback chains)
   - syscache_callback_list (global array storing callback information)
-  - SYSCACHECALLBACK (structure type for callback entries)
+  - [SYSCACHECALLBACK](../S/SYSCACHECALLBACK.md) (structure type for callback entries)
   - elog (error logging function)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - CatalogCacheFlushCatalog (src/backend/utils/cache/catcache.c:851)
-  - LocalExecuteInvalidationMessage (src/backend/utils/cache/inval.c:716)
+  - [CatalogCacheFlushCatalog](CatalogCacheFlushCatalog.md) (src/backend/utils/cache/catcache.c:851)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md) (src/backend/utils/cache/inval.c:716)
 
 ## Notes and Other Information
 - This function is the execution counterpart to CacheRegisterSyscacheCallback (registration)

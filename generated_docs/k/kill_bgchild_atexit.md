@@ -25,7 +25,7 @@ This function takes no parameters but operates on global variables:
 - Functions called/Symbols referenced:
   - kill (system call to send signals to processes)
 - Called from (representative examples):
-  - StartLogStreamer (in pg_basebackup.c via atexit registration)
+  - [StartLogStreamer](../S/StartLogStreamer.md) (in pg_basebackup.c via atexit registration)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within pg_basebackup.c

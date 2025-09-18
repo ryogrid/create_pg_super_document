@@ -97,17 +97,17 @@ This structure implements the complete in-memory representation of a replication
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (for mutex synchronization)
+  - [slock_t](../s/slock_t.md) (for mutex synchronization)
   - pid_t (for process tracking)
-  - ReplicationSlotPersistentData (for persistent state)
-  - LWLock (for I/O coordination)
+  - [ReplicationSlotPersistentData](ReplicationSlotPersistentData.md) (for persistent state)
+  - [LWLock](../L/LWLock.md) (for I/O coordination)
   - ConditionVariable (for process signaling)
 - Called from (representative examples):
   - CreateDecodingContext
-  - ReplicationSlotCreate
-  - ReplicationSlotAcquire
-  - ReplicationSlotRelease
-  - LogicalIncreaseXminForSlot
+  - [ReplicationSlotCreate](ReplicationSlotCreate.md)
+  - [ReplicationSlotAcquire](ReplicationSlotAcquire.md)
+  - [ReplicationSlotRelease](ReplicationSlotRelease.md)
+  - [LogicalIncreaseXminForSlot](../L/LogicalIncreaseXminForSlot.md)
 
 ## Notes and Other Information
 The structure implements a complex locking model where the ReplicationSlotControlLock controls slot lifecycle (in_use flag) while individual field access is protected by the per-slot mutex. Only the backend owning a slot can update its fields without taking the mutex for reads, but concurrent backends must hold the mutex for all access. The effective_xmin values are critical for logical decoding correctness and represent the most recently disk-flushed transaction horizons, ensuring that required data is never prematurely removed even after crashes. Logical-specific fields (candidate_* and last_saved_confirmed_flush) are only meaningful for logical replication slots.

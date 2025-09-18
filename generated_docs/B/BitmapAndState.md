@@ -24,10 +24,10 @@ BitmapAndState manages the execution of bitmap AND operations in PostgreSQL's bi
 - Functions called/Symbols referenced:
   - (No direct symbol references beyond base types)
 - Called from (representative examples):
-  - ExecBitmapAnd
-  - ExecInitBitmapAnd
-  - MultiExecBitmapAnd
-  - ExecEndBitmapAnd
+  - [ExecBitmapAnd](../E/ExecBitmapAnd.md)
+  - [ExecInitBitmapAnd](../E/ExecInitBitmapAnd.md)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md)
+  - [ExecEndBitmapAnd](../E/ExecEndBitmapAnd.md)
 
 ## Notes and Other Information
 - Used in bitmap heap scan optimization where multiple indexes can be combined for efficient row filtering

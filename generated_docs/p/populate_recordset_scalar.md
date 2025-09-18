@@ -28,12 +28,12 @@ The validation at level 0 ensures that recordset functions receive properly stru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTokenType (enum type for token classification)
-  - PopulateRecordsetState (struct type)
+  - [JsonTokenType](../J/JsonTokenType.md) (enum type for token classification)
+  - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (struct type)
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

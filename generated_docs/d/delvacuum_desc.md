@@ -20,14 +20,14 @@ This static helper function provides detailed formatting for B-tree vacuum and d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_desc (for formatting deleted offset arrays)
-  - offset_elem_desc (callback for formatting individual offsets)
+  - [array_desc](../a/array_desc.md) (for formatting deleted offset arrays)
+  - [offset_elem_desc](../o/offset_elem_desc.md) (callback for formatting individual offsets)
   - OffsetNumberIsValid (validation function)
   - appendStringInfo/appendStringInfoString/appendStringInfoChar (string formatting)
-  - xl_btree_update (structure type)
+  - [xl_btree_update](../x/xl_btree_update.md) (structure type)
   - SizeOfBtreeUpdate (macro for structure size)
 - Called from (representative examples):
-  - btree_desc (called twice for VACUUM and DELETE operations)
+  - [btree_desc](../b/btree_desc.md) (called twice for VACUUM and DELETE operations)
 
 ## Notes and Other Information
 - This is a static function only used within nbtdesc.c for B-tree WAL record descriptions

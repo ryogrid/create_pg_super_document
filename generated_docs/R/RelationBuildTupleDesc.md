@@ -19,17 +19,17 @@ The function performs a systematic scan of pg_attribute filtering for user attri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc, TupleConstr, AttrMissing (data structure types)
-  - MemoryContextAllocZero (memory allocation in cache context)
+  - [SysScanDesc](../S/SysScanDesc.md), TupleConstr, AttrMissing (data structure types)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation in cache context)
   - BTGreaterStrategyNumber, Int16GetDatum (scan key construction)
-  - systable_beginscan, systable_getnext (system catalog scanning)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (system catalog scanning)
   - RelationGetNumberOfAttributes (attribute count retrieval)
   - ATTRIBUTE_FIXED_PART_SIZE, ATTRIBUTE_GENERATED_STORED (constants)
-  - heap_getattr (attribute value extraction from tuple)
-  - array_get_element, datumCopy (missing value processing)
-  - AttrDefaultFetch, CheckConstraintFetch (constraint processing)
+  - [heap_getattr](../h/heap_getattr.md) (attribute value extraction from tuple)
+  - [array_get_element](../a/array_get_element.md), datumCopy (missing value processing)
+  - [AttrDefaultFetch](../A/AttrDefaultFetch.md), CheckConstraintFetch (constraint processing)
 - Called from (representative examples):
-  - RelationBuildDesc (during complete relation descriptor construction)
+  - [RelationBuildDesc](RelationBuildDesc.md) (during complete relation descriptor construction)
 
 ## Notes and Other Information
 - Scans only user attributes (attnum > 0) for efficiency using index optimization

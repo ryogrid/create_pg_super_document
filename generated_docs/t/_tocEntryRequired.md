@@ -24,14 +24,14 @@ The decision logic flows through multiple stages: special entry handling, databa
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp/strncmp (C standard library string comparison)
-  - _tocEntryIsACL (helper function to identify ACL entries)
-  - getTocEntryByDumpId (lookup function for dependency resolution)
-  - simple_string_list_member (utility for checking list membership)
+  - [_tocEntryIsACL](_tocEntryIsACL.md) (helper function to identify ACL entries)
+  - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md) (lookup function for dependency resolution)
+  - [simple_string_list_member](../s/simple_string_list_member.md) (utility for checking list membership)
   - REQ_SCHEMA, REQ_DATA, REQ_SPECIAL (bit flag constants)
-  - RestoreOptions, TocEntry, teSection (struct types)
+  - [RestoreOptions](../R/RestoreOptions.md), TocEntry, teSection (struct types)
 - Called from (representative examples):
-  - ProcessArchiveRestoreOptions (during restore option processing)
-  - PrintTOCSummary (when generating restore summaries)
+  - [ProcessArchiveRestoreOptions](../P/ProcessArchiveRestoreOptions.md) (during restore option processing)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md) (when generating restore summaries)
 
 ## Notes and Other Information
 - Returns combination of REQ_SCHEMA (1), REQ_DATA (2), and REQ_SPECIAL (4) bits

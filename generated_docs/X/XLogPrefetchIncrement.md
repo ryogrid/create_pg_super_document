@@ -22,10 +22,10 @@ The function includes an assertion to ensure it's only called by the startup pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmStartupProcess (assertion check)
-  - pg_atomic_read_u64 (atomic read operation)
-  - pg_atomic_write_u64 (atomic write operation)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md) (atomic read operation)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md) (atomic write operation)
 - Called from (representative examples):
-  - XLogPrefetcherNextBlock (multiple locations for different statistics)
+  - [XLogPrefetcherNextBlock](XLogPrefetcherNextBlock.md) (multiple locations for different statistics)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the xlogprefetcher.c file and likely inlined at call sites for performance

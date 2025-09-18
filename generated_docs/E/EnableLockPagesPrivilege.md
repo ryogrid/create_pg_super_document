@@ -32,12 +32,12 @@ The function provides detailed error reporting with appropriate PostgreSQL error
   - CloseHandle (Windows API)
   - GetLastError (Windows API)
   - ereport
-  - errmsg
-  - errdetail
-  - errhint
-  - errcode
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
+  - [errhint](../e/errhint.md)
+  - [errcode](../e/errcode.md)
 - Called from (representative examples):
-  - PGSharedMemoryCreate
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md)
 
 ## Notes and Other Information
 - **Windows-only**: This function exists only in the Windows port (win32_shmem.c)

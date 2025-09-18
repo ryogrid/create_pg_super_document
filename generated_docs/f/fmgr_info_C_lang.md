@@ -27,16 +27,16 @@ The function only supports API version 1 functions and will error on unrecognize
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_C_func (check function cache)
-  - SysCacheGetAttrNotNull (get prosrc/probin attributes)
+  - [lookup_C_func](../l/lookup_C_func.md) (check function cache)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (get prosrc/probin attributes)
   - TextDatumGetCString (convert Datum to C string)
-  - load_external_function (load shared library function)
-  - fetch_finfo_record (get function info record)
-  - record_C_func (cache function for future use)
-  - pfree (free memory)
+  - [load_external_function](../l/load_external_function.md) (load shared library function)
+  - [fetch_finfo_record](fetch_finfo_record.md) (get function info record)
+  - [record_C_func](../r/record_C_func.md) (cache function for future use)
+  - [pfree](../p/pfree.md) (free memory)
   - elog (error logging)
 - Called from (representative examples):
-  - fmgr_info_cxt_security (main function info setup)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (main function info setup)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's dynamic loading system for C extensions

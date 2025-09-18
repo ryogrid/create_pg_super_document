@@ -18,18 +18,18 @@ CleanupBackend is a critical function in PostgreSQL's postmaster process that ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogChildExit
+  - [LogChildExit](../L/LogChildExit.md)
   - EXIT_STATUS_0
   - EXIT_STATUS_1
-  - HandleChildCrash
-  - ReleasePostmasterChildSlot
-  - ShmemBackendArrayRemove
-  - BackgroundWorkerStopNotifications
+  - [HandleChildCrash](../H/HandleChildCrash.md)
+  - [ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md)
+  - [ShmemBackendArrayRemove](../S/ShmemBackendArrayRemove.md)
+  - [BackgroundWorkerStopNotifications](../B/BackgroundWorkerStopNotifications.md)
   - dlist_foreach_modify
   - dlist_container
-  - dlist_delete
+  - [dlist_delete](../d/dlist_delete.md)
 - Called from (representative examples):
-  - process_pm_child_exit
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
 
 ## Notes and Other Information
 - This function is platform-specific, with special Windows handling for ERROR_WAIT_NO_CHILDREN

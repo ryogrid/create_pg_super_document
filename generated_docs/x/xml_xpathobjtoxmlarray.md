@@ -23,13 +23,13 @@ This function processes the result of XPath expression evaluation and converts i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_xmlnodetoxmltype
-  - accumArrayResult
-  - map_sql_value_to_xml_value
-  - cstring_to_xmltype
-  - BoolGetDatum, Float8GetDatum, CStringGetDatum (PostgreSQL datum conversion)
+  - [xml_xmlnodetoxmltype](xml_xmlnodetoxmltype.md)
+  - [accumArrayResult](../a/accumArrayResult.md)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
+  - [cstring_to_xmltype](../c/cstring_to_xmltype.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md), Float8GetDatum, CStringGetDatum (PostgreSQL datum conversion)
 - Called from (representative examples):
-  - xpath_internal
+  - [xpath_internal](xpath_internal.md)
 
 ## Notes and Other Information
 - Static function used internally by PostgreSQL's XPath implementation

@@ -23,8 +23,8 @@ MultiXact offsets are used to locate member information in the MultiXact member 
   - MultiXactOffset (type)
 - Called from (representative examples):
   - debug_elog6
-  - MultiXactAdvanceNextMXact
-  - MultiXactMemberPagePrecedes
+  - [MultiXactAdvanceNextMXact](MultiXactAdvanceNextMXact.md)
+  - [MultiXactMemberPagePrecedes](MultiXactMemberPagePrecedes.md)
 
 ## Notes and Other Information
 - This is a static function internal to multixact.c

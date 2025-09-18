@@ -22,11 +22,11 @@ The function operates at the global level (root->glob) to ensure it doesn't inte
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating PlaceHolderVar)
-  - PlaceHolderVar (node type)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md) (node type)
   - PlaceHolderInfo (related structure)
 - Called from (representative examples):
-  - pullup_replace_vars_callback (in prepjointree.c)
-  - add_nullingrels_if_needed (in var.c)
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md) (in prepjointree.c)
+  - [add_nullingrels_if_needed](../a/add_nullingrels_if_needed.md) (in var.c)
 
 ## Notes and Other Information
 - The caller is responsible for adjusting phlevelsup and phnullingrels fields as needed

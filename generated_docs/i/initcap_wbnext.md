@@ -26,12 +26,12 @@ The function uses Unicode-aware character classification via `pg_u_isalnum` to p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `WordBoundaryState`: State structure for tracking iteration progress
-  - `utf8_to_unicode`: Convert UTF-8 bytes to Unicode codepoint
-  - `pg_u_isalnum`: Unicode-aware alphanumeric character test
-  - `unicode_utf8len`: Get byte length of UTF-8 character
+  - `[WordBoundaryState](../W/WordBoundaryState.md)`: State structure for tracking iteration progress
+  - `[utf8_to_unicode](../u/utf8_to_unicode.md)`: Convert UTF-8 bytes to Unicode codepoint
+  - `[pg_u_isalnum](../p/pg_u_isalnum.md)`: Unicode-aware alphanumeric character test
+  - `[unicode_utf8len](../u/unicode_utf8len.md)`: Get byte length of UTF-8 character
 - Called from (representative examples):
-  - `str_initcap`: Main initial capitalization function
+  - `[str_initcap](../s/str_initcap.md)`: Main initial capitalization function
 
 ## Notes and Other Information
 - Returns the byte offset of the current word boundary, or the string length when iteration is complete

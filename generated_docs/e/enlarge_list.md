@@ -21,23 +21,23 @@ This function increases the storage capacity of an existing List when more space
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - pg_nextpower2_32 (calculates next power of 2)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (calculates next power of 2)
   - GetMemoryChunkContext (gets memory context of allocation)
-  - MemoryContextAlloc (allocates memory in specific context)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory in specific context)
   - memcpy (copies memory)
-  - repalloc (reallocates memory)
-  - pfree (frees memory)
-  - wipe_mem (debug memory clearing)
+  - [repalloc](../r/repalloc.md) (reallocates memory)
+  - [pfree](../p/pfree.md) (frees memory)
+  - [wipe_mem](../w/wipe_mem.md) (debug memory clearing)
   - VALGRIND_MAKE_MEM_NOACCESS (Valgrind debugging macro)
   - Max (maximum value macro)
   - DEBUG_LIST_MEMORY_USAGE (conditional compilation flag)
   - CLOBBER_FREED_MEMORY (debug memory clobbering flag)
 
 - Called from (representative examples):
-  - new_head_cell
-  - new_tail_cell
+  - [new_head_cell](../n/new_head_cell.md)
+  - [new_tail_cell](../n/new_tail_cell.md)
   - insert_new_cell
-  - list_concat
+  - [list_concat](../l/list_concat.md)
 
 ## Notes and Other Information
 - Static function internal to list.c, not part of the public API

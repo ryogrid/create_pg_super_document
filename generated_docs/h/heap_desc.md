@@ -28,10 +28,10 @@ The function follows PostgreSQL"s WAL record format conventions, using the opera
   - XLogRecGetInfo
   - appendStringInfo
   - appendStringInfoString
-  - infobits_desc
-  - truncate_flags_desc
-  - array_desc
-  - oid_elem_desc
+  - [infobits_desc](../i/infobits_desc.md)
+  - [truncate_flags_desc](../t/truncate_flags_desc.md)
+  - [array_desc](../a/array_desc.md)
+  - [oid_elem_desc](../o/oid_elem_desc.md)
   - Various XLOG_HEAP_* operation constants
   - Various xl_heap_* structure types
   - XLR_INFO_MASK

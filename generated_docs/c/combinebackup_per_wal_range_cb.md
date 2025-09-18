@@ -26,15 +26,15 @@ The function maintains the linked list by properly setting both forward and back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - JsonManifestParseContext (parsing context structure)
-  - manifest_data (private data structure containing WAL range list)
-  - manifest_wal_range (WAL range data structure)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (parsing context structure)
+  - [manifest_data](../m/manifest_data.md) (private data structure containing WAL range list)
+  - [manifest_wal_range](../m/manifest_wal_range.md) (WAL range data structure)
   - TimeLineID (timeline identifier type)
   - XLogRecPtr (WAL position type)
 
 - Called from:
-  - load_backup_manifest (via callback registration in SH_DEFINE at src/bin/pg_combinebackup/load_manifest.c:148)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (via callback registration in SH_DEFINE at src/bin/pg_combinebackup/load_manifest.c:148)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the load_manifest.c compilation unit

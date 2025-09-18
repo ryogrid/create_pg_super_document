@@ -22,7 +22,7 @@ The `coerceToBool` function performs type coercion from a PgBenchValue to a bool
 - Functions called/Symbols referenced:
   - PgBenchValue - Structure type representing a typed value in pgbench
   - PGBT_BOOLEAN - Enumeration value indicating boolean type
-  - valueTypeName - Returns string representation of the value's type for error reporting
+  - [valueTypeName](../v/valueTypeName.md) - Returns string representation of the value's type for error reporting
   - pg_log_error - PostgreSQL logging function for error messages
 - Called from (representative examples):
   - evalLazyFunc - Uses coerceToBool for logical operations (AND, OR, NOT)

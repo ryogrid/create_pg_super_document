@@ -21,7 +21,7 @@ This function implements the division operation between a Cash data type value a
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Extracts Cash argument from function call
   - PG_GETARG_INT16: Extracts int16 argument from function call  
-  - cash_div_int64: Performs the actual division operation
+  - [cash_div_int64](cash_div_int64.md): Performs the actual division operation
   - PG_RETURN_CASH: Returns Cash result
 - Called from (representative examples):
   - No direct references found in the codebase

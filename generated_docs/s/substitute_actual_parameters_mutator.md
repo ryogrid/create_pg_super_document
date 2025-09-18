@@ -22,14 +22,14 @@ The function is designed to be called recursively through the expression_tree_mu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - substitute_actual_parameters_context (context structure type)
+  - [substitute_actual_parameters_context](substitute_actual_parameters_context.md) (context structure type)
   - Param (parameter node type)
   - PARAM_EXTERN (external parameter constant)
-  - list_nth (gets nth element from list)
+  - [list_nth](../l/list_nth.md) (gets nth element from list)
   - expression_tree_mutator (generic tree traversal function)
 - Called from:
-  - substitute_actual_parameters (initial entry point)
-  - substitute_actual_parameters_mutator (recursive calls during tree traversal)
+  - [substitute_actual_parameters](substitute_actual_parameters.md) (initial entry point)
+  - [substitute_actual_parameters_mutator](substitute_actual_parameters_mutator.md) (recursive calls during tree traversal)
 
 ## Notes and Other Information
 - This is a static function used internally within clauses.c

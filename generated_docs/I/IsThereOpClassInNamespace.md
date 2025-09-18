@@ -20,14 +20,14 @@ This function serves as a validation subroutine for ALTER OPERATOR CLASS operati
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3
-  - ObjectIdGetDatum
-  - CStringGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - ereport
-  - get_am_name
-  - get_namespace_name
+  - [get_am_name](../g/get_am_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
 - Called from (representative examples):
-  - AlterObjectRename_internal (src/backend/commands/alter.c:283)
-  - AlterObjectNamespace_internal (src/backend/commands/alter.c:776)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (src/backend/commands/alter.c:283)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (src/backend/commands/alter.c:776)
 
 ## Notes and Other Information
 - This is a non-static (public) function that can be called from other modules, as indicated by its declaration in defrem.h

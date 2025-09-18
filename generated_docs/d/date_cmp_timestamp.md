@@ -21,7 +21,7 @@ This function implements the comparison function used for sorting and ordering o
 - Functions called/Symbols referenced:
   - PG_GETARG_DATEADT (macro to extract DateADT from function args)
   - PG_GETARG_TIMESTAMP (macro to extract Timestamp from function args)
-  - date_cmp_timestamp_internal (internal comparison function)
+  - [date_cmp_timestamp_internal](date_cmp_timestamp_internal.md) (internal comparison function)
   - PG_RETURN_INT32 (macro to return 32-bit integer result)
 - Data types used:
   - DateADT (PostgreSQL date type)

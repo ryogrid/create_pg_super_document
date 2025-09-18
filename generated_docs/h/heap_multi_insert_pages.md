@@ -21,10 +21,10 @@ This function calculates how many pages will be needed to accommodate the remain
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeOfPageHeaderData (constant for page header size)
-  - ItemIdData (struct for item identifier size calculation)
+  - [ItemIdData](../I/ItemIdData.md) (struct for item identifier size calculation)
   - MAXALIGN (macro for alignment calculation)
 - Called from:
-  - heap_multi_insert
+  - [heap_multi_insert](heap_multi_insert.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heapam.c

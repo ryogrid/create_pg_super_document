@@ -23,7 +23,7 @@ The `int82mi` function performs subtraction between a 64-bit integer and a 16-bi
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: Retrieves the first 64-bit integer argument
   - PG_GETARG_INT16: Retrieves the second 16-bit integer argument
-  - pg_sub_s64_overflow: Performs 64-bit subtraction with overflow detection
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md): Performs 64-bit subtraction with overflow detection
   - ereport: Reports error when overflow occurs
   - PG_RETURN_INT64: Returns the 64-bit result
 - Called from (representative examples):

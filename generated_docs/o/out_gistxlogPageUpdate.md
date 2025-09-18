@@ -24,7 +24,7 @@ The function is called as part of the WAL record description mechanism, specific
 - Functions called/Symbols referenced:
   - gistxlogPageUpdate (struct type)
 - Called from (representative examples):
-  - gist_desc (when processing XLOG_GIST_PAGE_UPDATE records)
+  - [gist_desc](../g/gist_desc.md) (when processing XLOG_GIST_PAGE_UPDATE records)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the gistdesc.c file

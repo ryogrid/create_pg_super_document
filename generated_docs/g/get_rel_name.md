@@ -19,26 +19,26 @@ This function retrieves the name of a PostgreSQL relation from the system catalo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_class
 - Called from (representative examples):
-  - expand_col_privileges
-  - heap_truncate_check_FKs
-  - reindex_index
-  - RenameConstraintById
-  - ExplainTargetRel
-  - show_modifytable_info
-  - DefineRelation
-  - ExecCheckPermissions
-  - do_autovacuum
+  - [expand_col_privileges](../e/expand_col_privileges.md)
+  - [heap_truncate_check_FKs](../h/heap_truncate_check_FKs.md)
+  - [reindex_index](../r/reindex_index.md)
+  - [RenameConstraintById](../R/RenameConstraintById.md)
+  - [ExplainTargetRel](../E/ExplainTargetRel.md)
+  - [show_modifytable_info](../s/show_modifytable_info.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
   - get_relation_name
-  - SysCacheGetAttrNotNull
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
 
 ## Notes and Other Information
 - Returns a palloc'd copy of the string that must be freed by the caller

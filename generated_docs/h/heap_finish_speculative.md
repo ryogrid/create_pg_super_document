@@ -27,25 +27,25 @@ This operation is critical for UPSERT functionality where speculative insertions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber  
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)  
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - HeapTupleHeaderIsSpeculative
   - MarkBufferDirty
   - RelationNeedsWAL
-  - XLogBeginInsert
-  - XLogSetRecordFlags
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
-  - PageSetLSN
-  - UnlockReleaseBuffer
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - heapam_tuple_complete_speculative
+  - [heapam_tuple_complete_speculative](heapam_tuple_complete_speculative.md)
   - HeapScanIsValid (indirect reference)
 
 ## Notes and Other Information

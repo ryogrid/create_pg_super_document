@@ -22,10 +22,10 @@ The function processes various advanced heap operations including page pruning (
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo (extracts operation info from WAL record)
-  - heap_xlog_prune_freeze (handles pruning and freezing operations)
-  - heap_xlog_visible (handles visibility map updates)
-  - heap_xlog_multi_insert (handles multi-tuple insert operations)
-  - heap_xlog_lock_updated (handles lock update operations)
+  - [heap_xlog_prune_freeze](heap_xlog_prune_freeze.md) (handles pruning and freezing operations)
+  - [heap_xlog_visible](heap_xlog_visible.md) (handles visibility map updates)
+  - [heap_xlog_multi_insert](heap_xlog_multi_insert.md) (handles multi-tuple insert operations)
+  - [heap_xlog_lock_updated](heap_xlog_lock_updated.md) (handles lock update operations)
   - heap_xlog_logical_rewrite (handles logical rewrite operations)
 - Called from:
   - WAL replay infrastructure (not directly referenced by other functions)

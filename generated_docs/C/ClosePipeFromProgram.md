@@ -26,10 +26,10 @@ The error handling ensures that PostgreSQL can provide meaningful diagnostic inf
   - ClosePipeStream
   - wait_result_is_signal
   - wait_result_to_str
-  - errdetail_internal
+  - [errdetail_internal](../e/errdetail_internal.md)
   - SIGPIPE
 - Called from (representative examples):
-  - EndCopyFrom
+  - [EndCopyFrom](../E/EndCopyFrom.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the COPY FROM implementation

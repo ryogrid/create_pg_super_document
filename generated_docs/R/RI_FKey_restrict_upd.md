@@ -24,8 +24,8 @@ The function performs validation to ensure it's called in the correct trigger co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ri_CheckTrigger`: Validates the trigger call context
-  - `ri_restrict`: Shared implementation for restriction-based constraints
+  - `[ri_CheckTrigger](../r/ri_CheckTrigger.md)`: Validates the trigger call context
+  - `[ri_restrict](../r/ri_restrict.md)`: Shared implementation for restriction-based constraints
   - `RI_TRIGTYPE_UPDATE`: Constant defining UPDATE trigger type
   - `TriggerData`: Structure containing trigger execution context
   

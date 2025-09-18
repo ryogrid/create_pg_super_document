@@ -20,15 +20,15 @@ The function acts as a convenience wrapper that first calls  to create the attri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_attrmap_by_name_if_req
-  - convert_tuples_by_name_attrmap
-  - AttrMap (struct)
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [convert_tuples_by_name_attrmap](convert_tuples_by_name_attrmap.md)
+  - [AttrMap](../A/AttrMap.md) (struct)
   - TupleConversionMap (struct)
 - Called from (representative examples):
-  - acquire_inherited_sample_rows
-  - ExecEvalConvertRowtype
-  - ExecGetChildToRootMap
-  - apply_handle_tuple_routing
+  - [acquire_inherited_sample_rows](../a/acquire_inherited_sample_rows.md)
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)
+  - [ExecGetChildToRootMap](../E/ExecGetChildToRootMap.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - Dropped columns are ignored in both input and output descriptors during name-based matching

@@ -27,7 +27,7 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
   - PG_INT16_MIN (constant defining minimum 16-bit signed integer value)
   - `__builtin_add_overflow` (compiler built-in, when available)
 - Called from (representative examples):
-  - int2pl (16-bit integer addition operator function)
+  - [int2pl](../i/int2pl.md) (16-bit integer addition operator function)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/common/int.h for performance

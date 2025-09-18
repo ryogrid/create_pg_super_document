@@ -22,18 +22,18 @@ Unlike the 32-bit variant, 64-bit atomic operations may be simulated using locks
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint64 (base type)
-  - pg_attribute_aligned (alignment directive)
+  - [pg_attribute_aligned](pg_attribute_aligned.md) (alignment directive)
 - Called from (representative examples):
-  - pg_atomic_init_u64
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
-  - pg_atomic_compare_exchange_u64
-  - pg_atomic_fetch_add_u64
+  - [pg_atomic_init_u64](pg_atomic_init_u64.md)
+  - [pg_atomic_read_u64](pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](pg_atomic_write_u64.md)
+  - [pg_atomic_compare_exchange_u64](pg_atomic_compare_exchange_u64.md)
+  - [pg_atomic_fetch_add_u64](pg_atomic_fetch_add_u64.md)
   - pg_atomic_monotonic_advance_u64
-  - XLogCtlData (WAL control structure for LSN tracking)
+  - [XLogCtlData](../X/XLogCtlData.md) (WAL control structure for LSN tracking)
   - LWLockWaitForVar (lightweight lock condition variables)
-  - shm_mq (shared memory message queues)
-  - ProcSignalSlot (process signaling)
+  - [shm_mq](../s/shm_mq.md) (shared memory message queues)
+  - [ProcSignalSlot](../P/ProcSignalSlot.md) (process signaling)
 
 ## Notes and Other Information
 - Extensively used in PostgreSQL's WAL system for tracking LSNs (Log Sequence Numbers) and write positions

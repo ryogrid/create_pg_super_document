@@ -26,12 +26,12 @@ The LSN format is parsed using sscanf with the pattern '%X/%X' to extract the he
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - run_simple_query
-  - pg_free
-  - pg_fatal
+  - [run_simple_query](../r/run_simple_query.md)
+  - [pg_free](../p/pg_free.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - sscanf (standard library)
 - Types referenced:
-  - rewind_source
+  - [rewind_source](../r/rewind_source.md)
   - libpq_source
   - XLogRecPtr
   - PGconn

@@ -32,11 +32,11 @@ The function performs strict validation and throws syntax errors for any invalid
   - `RANGE_LB_INC` (constant flag for lower bound inclusive)
   - `RANGE_UB_INC` (constant flag for upper bound inclusive)
   - `ereport` (error reporting function)
-  - `errcode` (error code specification)
-  - `errmsg` (error message specification)
-  - `errhint` (error hint specification)
+  - `[errcode](../e/errcode.md)` (error code specification)
+  - `[errmsg](../e/errmsg.md)` (error message specification)
+  - `[errhint](../e/errhint.md)` (error hint specification)
 - Called from:
-  - `range_constructor3` (src/backend/utils/adt/rangetypes.c:424)
+  - `[range_constructor3](range_constructor3.md)` (src/backend/utils/adt/rangetypes.c:424)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the rangetypes.c file

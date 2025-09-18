@@ -32,15 +32,15 @@ The function performs proper argument validation, ensuring required parameters a
   - psql_scan_slash_option
   - strcmp
   - pg_log_error
-  - expand_tilde
-  - do_lo_export
-  - do_lo_import
-  - listLargeObjects
-  - do_lo_unlink
+  - [expand_tilde](expand_tilde.md)
+  - [do_lo_export](../d/do_lo_export.md)
+  - [do_lo_import](../d/do_lo_import.md)
+  - [listLargeObjects](../l/listLargeObjects.md)
+  - [do_lo_unlink](../d/do_lo_unlink.md)
   - free
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure, or PSQL_CMD_UNKNOWN for unrecognized commands

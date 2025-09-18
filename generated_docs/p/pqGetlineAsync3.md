@@ -21,11 +21,11 @@ The function validates the connection state to ensure it's in an appropriate COP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getCopyDataMessage
+  - [getCopyDataMessage](../g/getCopyDataMessage.md)
   - PGASYNC_COPY_OUT (connection status constant)
   - PGASYNC_COPY_BOTH (connection status constant)
 - Called from (representative examples):
-  - PQgetlineAsync (in src/interfaces/libpq/fe-exec.c)
+  - [PQgetlineAsync](../P/PQgetlineAsync.md) (in src/interfaces/libpq/fe-exec.c)
 
 ## Notes and Other Information
 - Returns the number of bytes copied to the buffer, 0 if no data is available yet, or -1 for end-of-copy or error conditions

@@ -26,7 +26,7 @@ ExecEvalSubroutineTemplate serves as a template function in PostgreSQL's LLVM JI
   - AssertVariableIsOfType (for type assertion)
   - ExecEvalSubroutine (function pointer type for assertion)
 - Called from (representative examples):
-  - llvm_create_types (in llvmjit.c:1136)
+  - [llvm_create_types](../l/llvm_create_types.md) (in llvmjit.c:1136)
   - llvm_compile_expr (in llvmjit_expr.c:1140, 1189)
 
 ## Notes and Other Information

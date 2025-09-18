@@ -21,12 +21,12 @@ audit_success is a semantic wrapper function that provides a clear interface for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - emit_audit_message() (core audit message emission function)
+  - [emit_audit_message](../e/emit_audit_message.md)() (core audit message emission function)
 - Called from (representative examples):
-  - REGRESS_object_access_hook_str() (for string-based object access hooks)
-  - REGRESS_object_access_hook() (for OID-based object access hooks)
-  - REGRESS_exec_check_perms() (for executor permission checks)
-  - REGRESS_utility_command() (for utility command hooks)
+  - [REGRESS_object_access_hook_str](../R/REGRESS_object_access_hook_str.md)() (for string-based object access hooks)
+  - [REGRESS_object_access_hook](../R/REGRESS_object_access_hook.md)() (for OID-based object access hooks)
+  - [REGRESS_exec_check_perms](../R/REGRESS_exec_check_perms.md)() (for executor permission checks)
+  - [REGRESS_utility_command](../R/REGRESS_utility_command.md)() (for utility command hooks)
 
 ## Notes and Other Information
 - Part of the test_oat_hooks module for mandatory access control (MAC) testing

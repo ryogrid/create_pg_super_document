@@ -24,10 +24,10 @@ The function signature suggests it would return a boolean indicating whether the
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog: PostgreSQL's error logging and reporting function, used here to throw an ERROR
-  - slock_t: The spinlock data type, though not actively used in this implementation
+  - [slock_t](slock_t.md): The spinlock data type, though not actively used in this implementation
 - Called from (representative examples):
   - S_LOCK_FREE: The spinlock free-checking macro that may delegate to this function
-  - slock_t: Used indirectly through the spinlock system when semaphore-based locking is active
+  - [slock_t](slock_t.md): Used indirectly through the spinlock system when semaphore-based locking is active
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's spinlock interface but is not implemented for semaphore-based locks

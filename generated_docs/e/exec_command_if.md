@@ -19,20 +19,20 @@ This function handles the execution of the \if backslash command in psql, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_active (checks if currently in an active conditional branch)
-  - conditional_stack_push (adds new conditional state to stack)
-  - conditional_stack_poke (modifies top conditional state)
-  - save_query_text_state (preserves current query state for restoration)
-  - is_true_boolean_expression (evaluates the boolean expression)
-  - ignore_boolean_expression (skips expression parsing when in inactive branch)
+  - [conditional_active](../c/conditional_active.md) (checks if currently in an active conditional branch)
+  - [conditional_stack_push](../c/conditional_stack_push.md) (adds new conditional state to stack)
+  - [conditional_stack_poke](../c/conditional_stack_poke.md) (modifies top conditional state)
+  - [save_query_text_state](../s/save_query_text_state.md) (preserves current query state for restoration)
+  - [is_true_boolean_expression](../i/is_true_boolean_expression.md) (evaluates the boolean expression)
+  - [ignore_boolean_expression](../i/ignore_boolean_expression.md) (skips expression parsing when in inactive branch)
   - IFSTATE_TRUE, IFSTATE_FALSE, IFSTATE_IGNORED (conditional state constants)
 - Called from (representative examples):
-  - exec_command (main command dispatcher in psql)
+  - [exec_command](exec_command.md) (main command dispatcher in psql)
 
 ## Notes and Other Information
 - Always returns PSQL_CMD_SKIP_LINE as conditional commands don't produce immediate output
 - Supports nested \if..\endif blocks through the conditional stack mechanism
-- Variable substitution and backtick evaluation occur during expression parsing in active branches
+- [Variable](../V/Variable.md) substitution and backtick evaluation occur during expression parsing in active branches
 - Invalid boolean expressions emit warnings and are treated as false
 - Forms the foundation of psql's conditional scripting capabilities along with \elif, \else, and \endif
 - The query buffer state is saved to handle cases where conditional blocks span multiple lines

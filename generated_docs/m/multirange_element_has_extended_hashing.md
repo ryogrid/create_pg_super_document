@@ -19,11 +19,11 @@ This function determines if the element type of a multirange type has extended h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_multirange_element_properties
+  - [cache_multirange_element_properties](../c/cache_multirange_element_properties.md)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
   - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
 - Called from (representative examples):
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
 
 ## Notes and Other Information
 This is a static helper function within the type cache system, specifically for multirange types. It mirrors the functionality of range_element_has_extended_hashing but operates on multirange types. The function follows the same lazy evaluation pattern to ensure efficient caching. Extended hashing capability is crucial for performance optimizations in advanced hash-based operations like hash joins and hash partitioning, particularly important for multirange types which can contain multiple range elements.

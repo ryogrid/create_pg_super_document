@@ -28,19 +28,19 @@ The function supports reentrancy, allowing event trigger functions to drop objec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventTriggerSupportsObject (validates object support)
-  - isAnyTempNamespace, isTempNamespace (temporary namespace checks)
-  - is_objectclass_supported (checks if object class supports schema qualification)
-  - get_catalog_object_by_oid (retrieves catalog tuple)
-  - get_object_attnum_oid, get_object_attnum_namespace, get_object_attnum_name (attribute number retrieval)
-  - heap_getattr (extracts attributes from heap tuples)
-  - get_namespace_name (retrieves namespace name)
-  - getObjectIdentityParts (gets object identity components)
+  - [EventTriggerSupportsObject](EventTriggerSupportsObject.md) (validates object support)
+  - [isAnyTempNamespace](../i/isAnyTempNamespace.md), isTempNamespace (temporary namespace checks)
+  - [is_objectclass_supported](../i/is_objectclass_supported.md) (checks if object class supports schema qualification)
+  - [get_catalog_object_by_oid](../g/get_catalog_object_by_oid.md) (retrieves catalog tuple)
+  - [get_object_attnum_oid](../g/get_object_attnum_oid.md), get_object_attnum_namespace, get_object_attnum_name (attribute number retrieval)
+  - [heap_getattr](../h/heap_getattr.md) (extracts attributes from heap tuples)
+  - [get_namespace_name](../g/get_namespace_name.md) (retrieves namespace name)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md) (gets object identity components)
   - getObjectTypeDescription (gets object type description)
-  - slist_push_head (adds object to drop list)
+  - [slist_push_head](../s/slist_push_head.md) (adds object to drop list)
 - Called from (representative examples):
-  - deleteObjectsInList (src/backend/catalog/dependency.c:211)
-  - DropSubscription (src/backend/commands/subscriptioncmds.c:1654)
+  - [deleteObjectsInList](../d/deleteObjectsInList.md) (src/backend/catalog/dependency.c:211)
+  - [DropSubscription](../D/DropSubscription.md) (src/backend/commands/subscriptioncmds.c:1654)
 
 ## Notes and Other Information
 - Only operates when currentEventTriggerState is active

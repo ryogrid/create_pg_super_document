@@ -23,7 +23,7 @@ The function iterates through the delta buffer, parsing each modification record
 - Functions called/Symbols referenced:
   - memcpy (copies memory blocks for offset, length, and data extraction/application)
 - Called from (representative examples):
-  - generic_redo (applies deltas during WAL replay)
+  - [generic_redo](../g/generic_redo.md) (applies deltas during WAL replay)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the generic_xlog.c file

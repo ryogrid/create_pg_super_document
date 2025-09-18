@@ -27,10 +27,10 @@ This is a foundational utility function used throughout the rule decompilation p
   - deparse_context (context structure for rule decompilation)
   - deparse_namespace (namespace structure containing RTE information)
   - linitial (macro to get first element of a list)
-  - list_nth (function to get nth element of a list)
+  - [list_nth](../l/list_nth.md) (function to get nth element of a list)
   - list_length (function to get length of a list)
 - Called from (representative examples):
-  - get_select_query_def (at line 5819)
+  - [get_select_query_def](get_select_query_def.md) (at line 5819)
   - get_from_clause_item (at line 12309)
   - get_rte_alias (at line 12329)
 

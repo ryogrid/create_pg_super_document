@@ -17,16 +17,16 @@ This function checks if a relation (table) has a primary key by examining all in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList: Retrieves the list of index OIDs for the relation
+  - [RelationGetIndexList](../R/RelationGetIndexList.md): Retrieves the list of index OIDs for the relation
   - Form_pg_index: PostgreSQL system catalog structure for index information
-  - SearchSysCache1: Searches system cache for index tuple by OID
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches system cache for index tuple by OID
   - HeapTupleIsValid: Validates heap tuple
   - GETSTRUCT: Macro to extract structure from heap tuple
-  - ReleaseSysCache: Releases system cache entry
-  - list_free: Frees memory allocated for the index OID list
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases system cache entry
+  - [list_free](../l/list_free.md): Frees memory allocated for the index OID list
 - Called from (representative examples):
   - SerializedReindexState: Used during reindex operations
-  - index_check_primary_key: Called when validating primary key constraints
+  - [index_check_primary_key](../i/index_check_primary_key.md): Called when validating primary key constraints
 
 ## Notes and Other Information
 - The function is marked static, indicating it's only used within the same source file

@@ -19,9 +19,9 @@ Similar to other B-tree tuple functions, it avoids asserting that the tuple is a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumberNoCheck
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
 - Called from (representative examples):
-  - _bt_unlink_halfdead_page
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
 
 ## Notes and Other Information
 - Used specifically during B-tree page deletion operations to maintain parent-child relationships

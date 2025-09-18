@@ -23,15 +23,15 @@ The function uses the PostgreSQL type system to determine how the data type is s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typlenbyval (retrieves type storage properties from system catalog)
-  - makeConst (creates the actual Const node)
+  - [get_typlenbyval](../g/get_typlenbyval.md) (retrieves type storage properties from system catalog)
+  - [makeConst](makeConst.md) (creates the actual Const node)
   - Datum (PostgreSQL's generic value type)
 - Called from (representative examples):
-  - ATExecAddColumn (DDL commands)
-  - ExecInitExprRec (expression execution)
-  - eval_const_expressions_mutator (optimizer)
-  - coerce_record_to_complex (parser)
-  - rewriteValuesRTE (rewriter)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (DDL commands)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression execution)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (optimizer)
+  - [coerce_record_to_complex](../c/coerce_record_to_complex.md) (parser)
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md) (rewriter)
 
 ## Notes and Other Information
 - This is a convenience function that saves callers from having to look up type storage properties manually  

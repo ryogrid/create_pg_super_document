@@ -32,23 +32,23 @@ The function distinguishes between scrollable and non-scrollable cursors: scroll
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDescCopy
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - MarkPortalActive
   - MarkPortalFailed
   - PushActiveSnapshot
   - PopActiveSnapshot
-  - ExecutorRewind
-  - ExecutorRun
-  - ExecutorFinish
-  - ExecutorEnd
-  - FreeQueryDesc
-  - CreateDestReceiver
-  - SetTuplestoreDestReceiverParams
-  - tuplestore_skiptuples
-  - tuplestore_rescan
-  - MemoryContextDeleteChildren
+  - [ExecutorRewind](../E/ExecutorRewind.md)
+  - [ExecutorRun](../E/ExecutorRun.md)
+  - [ExecutorFinish](../E/ExecutorFinish.md)
+  - [ExecutorEnd](../E/ExecutorEnd.md)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
+  - [SetTuplestoreDestReceiverParams](../S/SetTuplestoreDestReceiverParams.md)
+  - [tuplestore_skiptuples](../t/tuplestore_skiptuples.md)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md)
+  - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)
 - Called from (representative examples):
-  - Portal persistence mechanisms during transaction commit for holdable cursors
+  - [Portal](Portal.md) persistence mechanisms during transaction commit for holdable cursors
 
 ## Notes and Other Information
 - This function must be called within the transaction that originally created the portal (createSubid validation)

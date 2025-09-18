@@ -28,7 +28,7 @@ This cleanup is essential for maintaining the integrity of PostgreSQLs process m
   - `PgArch->pgprocno`: Global archiver state field that tracks the process number
 
 - Called from (representative examples):
-  - `PgArchiverMain`: Registered as an exit cleanup handler during archiver initialization
+  - `[PgArchiverMain](../P/PgArchiverMain.md)`: Registered as an exit cleanup handler during archiver initialization
   - Process exit handling infrastructure when the archiver process terminates
 
 ## Notes and Other Information

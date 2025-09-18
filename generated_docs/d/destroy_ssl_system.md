@@ -23,8 +23,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
   - pq_lockingcallback
   - pq_threadidcallback
   - CRYPTO_get_locking_callback (OpenSSL)
@@ -32,7 +32,7 @@ This function takes no parameters.
   - CRYPTO_get_id_callback (OpenSSL)
   - CRYPTO_set_id_callback (OpenSSL)
 - Called from:
-  - pgtls_close
+  - [pgtls_close](../p/pgtls_close.md)
 
 ## Notes and Other Information
 - Only compiled when HAVE_CRYPTO_LOCK is defined (threadsafe mode)

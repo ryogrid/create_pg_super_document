@@ -24,9 +24,9 @@ The search operates on float8 values extracted from Datum array elements using `
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat8
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
 - Called from (representative examples):
-  - calc_length_hist_frac
+  - [calc_length_hist_frac](../c/calc_length_hist_frac.md)
 
 ## Notes and Other Information
 - Returns -1 if all histogram lengths are greater than (or greater than or equal to) the target value

@@ -27,22 +27,22 @@ The function is optimized to avoid unnecessary catalog scans when the partition 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - RelationGetIndexAttrBitmap
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
   - bms_is_empty
   - table_open
   - table_close
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - lappend_oid
   - RelationGetRelid
-  - ObjectIdGetDatum
-  - CharGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):
-  - DetachPartitionFinalize
-  - ATDetachCheckNoForeignKeyRefs
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [ATDetachCheckNoForeignKeyRefs](../A/ATDetachCheckNoForeignKeyRefs.md)
 
 ## Notes and Other Information
 - The function uses a sequential scan of pg_constraint since there's no suitable index for this specific query pattern

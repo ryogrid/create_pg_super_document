@@ -33,12 +33,12 @@ This approach optimizes dependency management while avoiding the creation of inc
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandCounterIncrement
-  - get_opclass_input_type
-  - list_concat_copy
-  - opclass_for_family_datatype
+  - [get_opclass_input_type](../g/get_opclass_input_type.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [opclass_for_family_datatype](../o/opclass_for_family_datatype.md)
   - BTORDER_PROC (constant)
 - Called from:
-  - bthandler (in btree access method handler)
+  - [bthandler](bthandler.md) (in btree access method handler)
 
 ## Notes and Other Information
 - The function includes cache optimization by remembering the most recently used operator class input type to avoid repeated expensive lookups

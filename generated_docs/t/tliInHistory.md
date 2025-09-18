@@ -24,8 +24,8 @@ The function iterates through the provided list using PostgreSQL's foreach macro
 - Functions called/Symbols referenced:
   - TimeLineHistoryEntry (structure access)
 - Called from (representative examples):
-  - checkTimeLineSwitch (src/backend/access/transam/xlogrecovery.c:2390)
-  - ReadRecord (src/backend/access/transam/xlogrecovery.c:3193)
+  - [checkTimeLineSwitch](../c/checkTimeLineSwitch.md) (src/backend/access/transam/xlogrecovery.c:2390)
+  - [ReadRecord](../R/ReadRecord.md) (src/backend/access/transam/xlogrecovery.c:3193)
 
 ## Notes and Other Information
 - Simple O(n) linear search algorithm - adequate for typical timeline history sizes

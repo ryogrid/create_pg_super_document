@@ -36,13 +36,13 @@ The function carefully handles various tuple states including locked-only tuples
   - HeapTupleHeaderGetRawXmax
   - HeapTupleHeaderGetCmin
   - HeapTupleHeaderGetCmax
-  - HeapTupleGetUpdateXid
-  - TransactionIdIsCurrentTransactionId
-  - TransactionIdDidCommit
-  - XidInMVCCSnapshot
-  - SetHintBits
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md)
+  - [SetHintBits](../S/SetHintBits.md)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 The function is static and represents the standard MVCC visibility semantics used by most PostgreSQL queries. It implements careful optimization strategies to minimize contention on shared data structures like ProcArrayLock by avoiding premature hint bit updates.

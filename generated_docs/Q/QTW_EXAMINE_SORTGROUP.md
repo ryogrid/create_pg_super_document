@@ -23,9 +23,9 @@ Without this flag, the default behavior of query tree traversal would skip over 
 - Functions called/Symbols referenced:
   - (This is a constant definition - no function calls)
 - Called from (representative examples):
-  - find_expr_references_walker (src/backend/catalog/dependency.c:2245)
-  - query_tree_walker_impl (src/backend/nodes/nodeFuncs.c:2728)
-  - query_tree_mutator_impl (src/backend/nodes/nodeFuncs.c:3783)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (src/backend/catalog/dependency.c:2245)
+  - [query_tree_walker_impl](../q/query_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2728)
+  - [query_tree_mutator_impl](../q/query_tree_mutator_impl.md) (src/backend/nodes/nodeFuncs.c:3783)
 
 ## Notes and Other Information
 - This flag is part of a family of QTW (Query Tree Walker) flags defined in src/include/nodes/nodeFuncs.h

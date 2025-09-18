@@ -40,9 +40,9 @@ The structure efficiently manages both successful query results and error condit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGresAttDesc, PGresAttValue, PGresParamDesc (data structures)
+  - [PGresAttDesc](../P/PGresAttDesc.md), PGresAttValue, PGresParamDesc (data structures)
   - ExecStatusType (execution status enumeration)
-  - PGNoticeHooks, PGEvent, PGMessageField (event and error handling)
+  - [PGNoticeHooks](../P/PGNoticeHooks.md), PGEvent, PGMessageField (event and error handling)
   - PGresult_data (memory management)
 - Called from (representative examples):
   - Aliased as `PGresult` in public API via typedef

@@ -17,13 +17,13 @@ This function retrieves the namespace (schema) OID for a specified function by l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches the system cache for the function entry
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the function entry
   - HeapTupleIsValid: Validates the returned heap tuple
   - GETSTRUCT: Extracts the struct from the heap tuple
-  - ReleaseSysCache: Releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache entry
   - Form_pg_proc: PostgreSQL system catalog structure for procedures/functions
 - Called from (representative examples):
-  - ExplainTargetRel: Used in query explanation functionality
+  - [ExplainTargetRel](../E/ExplainTargetRel.md): Used in query explanation functionality
 
 ## Notes and Other Information
 - Part of PostgreSQL's system catalog lookup utilities in lsyscache.c

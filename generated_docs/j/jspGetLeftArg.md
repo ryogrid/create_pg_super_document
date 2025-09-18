@@ -18,16 +18,16 @@ The jspGetLeftArg function is designed to extract the left operand from binary J
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspInitByBuffer
+  - [jspInitByBuffer](jspInitByBuffer.md)
   - JsonPathItem (struct type)
   - Binary operation type constants (jpiAnd, jpiOr, jpiEqual, jpiNotEqual, jpiLess, jpiGreater, jpiLessOrEqual, jpiGreaterOrEqual, jpiAdd, jpiSub, jpiMul, jpiDiv, jpiMod, jpiStartsWith, jpiDecimal)
 - Called from (representative examples):
-  - extract_jsp_bool_expr
-  - printJsonPathItem
-  - jspIsMutableWalker
-  - executeItemOptUnwrapTarget
-  - executeBoolItem
-  - executeBinaryArithmExpr
+  - [extract_jsp_bool_expr](../e/extract_jsp_bool_expr.md)
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [jspIsMutableWalker](jspIsMutableWalker.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeBoolItem](../e/executeBoolItem.md)
+  - [executeBinaryArithmExpr](../e/executeBinaryArithmExpr.md)
 
 ## Notes and Other Information
 - This function does not return a value (void return type)

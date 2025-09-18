@@ -21,13 +21,13 @@ The function includes important sanity checks to prevent unreasonable estimates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_foreign_size_estimates (sets initial size estimates using standard logic)
+  - [set_foreign_size_estimates](set_foreign_size_estimates.md) (sets initial size estimates using standard logic)
   - GetForeignRelSize (FDW callback to adjust size estimates)
-  - clamp_row_est (ensures row estimate is not zero)
+  - [clamp_row_est](../c/clamp_row_est.md) (ensures row estimate is not zero)
   - Max (macro to get maximum of two values)
 
 - Called from (representative examples):
-  - set_rel_size (main relation sizing dispatcher)
+  - [set_rel_size](set_rel_size.md) (main relation sizing dispatcher)
 
 ## Notes and Other Information
 - This function is static and only used within allpaths.c

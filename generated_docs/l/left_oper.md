@@ -23,15 +23,15 @@ The function is particularly important in the parsing phase where prefix operato
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_oper_cache_key
-  - find_oper_cache_entry
-  - OpernameGetOprid
-  - OpernameGetCandidates
-  - oper_select_candidate
-  - make_oper_cache_entry
-  - op_error
+  - [make_oper_cache_key](../m/make_oper_cache_key.md)
+  - [find_oper_cache_entry](../f/find_oper_cache_entry.md)
+  - [OpernameGetOprid](../O/OpernameGetOprid.md)
+  - [OpernameGetCandidates](../O/OpernameGetCandidates.md)
+  - [oper_select_candidate](../o/oper_select_candidate.md)
+  - [make_oper_cache_entry](../m/make_oper_cache_entry.md)
+  - [op_error](../o/op_error.md)
 - Called from (representative examples):
-  - make_op
+  - [make_op](../m/make_op.md)
   - generate_operator_name
 
 ## Notes and Other Information

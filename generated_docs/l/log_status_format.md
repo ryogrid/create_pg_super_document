@@ -23,19 +23,19 @@ The function maintains static variables to track line numbers and process identi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reset_formatted_start_time
-  - process_log_prefix_padding
+  - [reset_formatted_start_time](../r/reset_formatted_start_time.md)
+  - [process_log_prefix_padding](../p/process_log_prefix_padding.md)
   - appendStringInfoSpaces
-  - get_backend_type_for_log
-  - get_formatted_log_time
-  - get_formatted_start_time
+  - [get_backend_type_for_log](../g/get_backend_type_for_log.md)
+  - [get_formatted_log_time](../g/get_formatted_log_time.md)
+  - [get_formatted_start_time](../g/get_formatted_start_time.md)
   - get_ps_display
-  - GetTopTransactionIdIfAny
-  - unpack_sql_state
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
+  - [unpack_sql_state](../u/unpack_sql_state.md)
   - pgstat_get_my_query_id
   - Various StringInfo manipulation functions
 - Called from:
-  - log_line_prefix
+  - [log_line_prefix](log_line_prefix.md)
   - LOG_DESTINATION_JSONLOG (via header reference)
 
 ## Notes and Other Information

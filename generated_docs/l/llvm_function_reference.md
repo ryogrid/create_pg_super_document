@@ -31,9 +31,9 @@ The function implements caching by checking if the function already exists in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_symbol (PostgreSQL function manager)
-  - psprintf (PostgreSQL string formatting)
-  - pstrdup (PostgreSQL string duplication)
+  - [fmgr_symbol](../f/fmgr_symbol.md) (PostgreSQL function manager)
+  - [psprintf](../p/psprintf.md) (PostgreSQL string formatting)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
   - LLVMGetNamedGlobal (LLVM C API)
   - LLVMGetNamedFunction (LLVM C API)
   - LLVMAddFunction (LLVM C API)
@@ -42,9 +42,9 @@ The function implements caching by checking if the function already exists in th
   - LLVMSetGlobalConstant (LLVM C API)
   - LLVMSetLinkage (LLVM C API)
   - LLVMSetUnnamedAddr (LLVM C API)
-  - l_load (PostgreSQL LLVM utility)
-  - l_ptr_const (PostgreSQL LLVM utility)
-  - AttributeTemplate (global function type template)
+  - [l_load](l_load.md) (PostgreSQL LLVM utility)
+  - [l_ptr_const](l_ptr_const.md) (PostgreSQL LLVM utility)
+  - [AttributeTemplate](../A/AttributeTemplate.md) (global function type template)
   - TypePGFunction (PostgreSQL function type)
 
 - Called from (representative examples):

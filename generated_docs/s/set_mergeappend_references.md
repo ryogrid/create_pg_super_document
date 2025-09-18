@@ -27,17 +27,17 @@ The optimization criteria are identical to Append nodes: there must be exactly o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_plan_refs (recursive processing)
+  - [set_plan_refs](set_plan_refs.md) (recursive processing)
   - list_length
   - linitial
-  - clean_up_removed_plan_level
-  - set_dummy_tlist_references
-  - offset_relid_set
+  - [clean_up_removed_plan_level](../c/clean_up_removed_plan_level.md)
+  - [set_dummy_tlist_references](set_dummy_tlist_references.md)
+  - [offset_relid_set](../o/offset_relid_set.md)
   - fix_scan_list
   - lfirst
   - Assert
 - Called from (representative examples):
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
   - fix_scan_list
 
 ## Notes and Other Information

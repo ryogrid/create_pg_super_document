@@ -21,12 +21,12 @@ This operation is useful when you need to preserve the complete state of the wor
 ## Dependencies
 - Functions called/Symbols referenced:
   - CAPACITY (macro to get buffer capacity)
-  - increase_size (expands buffer if needed to fit the entire string)
+  - [increase_size](../i/increase_size.md) (expands buffer if needed to fit the entire string)
   - memmove (copies the entire string memory safely)
   - SET_SIZE (macro to set the destination buffer size)
   - symbol (character type used in buffers)
 - Called from (representative examples):
-  - among (utility function for pattern matching operations)
+  - [among](among.md) (utility function for pattern matching operations)
 
 ## Notes and Other Information
 - Returns the destination buffer pointer on success, NULL on memory allocation failure

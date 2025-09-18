@@ -28,10 +28,10 @@ ForBothCellState provides independent iteration control for two lists, unlike Fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (implicitly referenced through l1 and l2 members)
+  - [List](../L/List.md) (implicitly referenced through l1 and l2 members)
 - Called from (representative examples):
   - for_both_cell
-  - for_both_cell_setup
+  - [for_both_cell_setup](../f/for_both_cell_setup.md)
 
 ## Notes and Other Information
 This structure is more flexible than ForBothState as it allows independent progression through each list. This is useful for algorithms that need to advance through lists at different rates, start from different positions, or handle lists of different lengths in sophisticated ways. The separate index counters provide maximum flexibility for complex dual-list iteration patterns.

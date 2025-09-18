@@ -33,16 +33,16 @@ Key features include:
 - Functions called/Symbols referenced:
   - castNode
   - CHECK_FOR_INTERRUPTS
-  - ExecInitParallelPlan
-  - ExecParallelReinitialize
-  - LaunchParallelWorkers
-  - ExecParallelCreateReaders
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md)
+  - [ExecParallelReinitialize](ExecParallelReinitialize.md)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
+  - [ExecParallelCreateReaders](ExecParallelCreateReaders.md)
   - ResetExprContext
-  - gather_merge_getnext
+  - [gather_merge_getnext](../g/gather_merge_getnext.md)
   - TupIsNull
   - ExecProject
 - Called from:
-  - ExecInitGatherMerge (set as the ExecProcNode function pointer)
+  - [ExecInitGatherMerge](ExecInitGatherMerge.md) (set as the ExecProcNode function pointer)
 
 ## Notes and Other Information
 - Workers are launched lazily on first execution rather than during initialization, allowing for better resource management

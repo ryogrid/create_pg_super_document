@@ -27,12 +27,12 @@ The function assumes that a matching namespace item must exist and will raise an
   - elog/ERROR (for internal error reporting)
   - Assert (for debugging assertions)
 - Types referenced:
-  - ParseNamespaceItem
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
 - Called from (representative examples):
-  - coerce_record_to_complex (src/backend/parser/parse_coerce.c:1044)
-  - ParseComplexProjection (src/backend/parser/parse_func.c:1933)
-  - transformMergeStmt (src/backend/parser/parse_merge.c:211)
-  - ExpandRowReference (src/backend/parser/parse_target.c:1446)
+  - [coerce_record_to_complex](../c/coerce_record_to_complex.md) (src/backend/parser/parse_coerce.c:1044)
+  - [ParseComplexProjection](../P/ParseComplexProjection.md) (src/backend/parser/parse_func.c:1933)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (src/backend/parser/parse_merge.c:211)
+  - [ExpandRowReference](../E/ExpandRowReference.md) (src/backend/parser/parse_target.c:1446)
 
 ## Notes and Other Information
 - Function is declared in src/include/parser/parse_relation.h

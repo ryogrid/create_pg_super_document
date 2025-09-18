@@ -26,17 +26,17 @@ The function uses atomic write operations to ensure consistency when updating th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProgressCommandType (enum type)
-  - PgBackendStatus (struct type)
+  - [ProgressCommandType](../P/ProgressCommandType.md) (enum type)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (struct type)
   - PGSTAT_BEGIN_WRITE_ACTIVITY (macro)
   - MemSet (function)
   - PGSTAT_END_WRITE_ACTIVITY (macro)
 - Called from (representative examples):
-  - heap_vacuum_rel (VACUUM operations)
-  - analyze_rel (ANALYZE operations)
-  - DefineIndex (CREATE INDEX operations)
-  - cluster_rel (CLUSTER operations)
-  - BeginCopyFrom/BeginCopyTo (COPY operations)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md) (VACUUM operations)
+  - [analyze_rel](../a/analyze_rel.md) (ANALYZE operations)
+  - [DefineIndex](../D/DefineIndex.md) (CREATE INDEX operations)
+  - [cluster_rel](../c/cluster_rel.md) (CLUSTER operations)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)/BeginCopyTo (COPY operations)
 
 ## Notes and Other Information
 - The function checks if progress tracking is enabled (`pgstat_track_activities`) before performing any operations

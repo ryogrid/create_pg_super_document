@@ -23,14 +23,14 @@ This function creates and registers a new global enumeration-type relation optio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_enum_reloption
-  - add_reloption
-  - relopt_enum_elt_def
-  - relopt_enum
-  - relopt_gen
+  - [init_enum_reloption](../i/init_enum_reloption.md)
+  - [add_reloption](add_reloption.md)
+  - [relopt_enum_elt_def](../r/relopt_enum_elt_def.md)
+  - [relopt_enum](../r/relopt_enum.md)
+  - [relopt_gen](../r/relopt_gen.md)
   - bits32
 - Called from (representative examples):
-  - create_reloptions_table (in test modules)
+  - [create_reloptions_table](../c/create_reloptions_table.md) (in test modules)
 
 ## Notes and Other Information
 - This creates global reloptions (as opposed to local ones)

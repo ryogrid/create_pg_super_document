@@ -30,19 +30,19 @@ Cost information is preserved in indextotalcost and indexselectivity to avoid re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base path structure)
-  - IndexOptInfo (index metadata and statistics)
-  - List (PostgreSQL's list structure)
+  - [Path](../P/Path.md) (base path structure)
+  - [IndexOptInfo](IndexOptInfo.md) (index metadata and statistics)
+  - [List](../L/List.md) (PostgreSQL's list structure)
   - ScanDirection (scan direction enumeration)
   - Cost (cost estimation type)
   - Selectivity (selectivity estimation type)
 
 - Called from (representative examples):
-  - cost_index (src/backend/optimizer/path/costsize.c:549)
-  - get_index_paths (src/backend/optimizer/path/indxpath.c:742)
-  - build_index_paths (src/backend/optimizer/path/indxpath.c:811)
-  - create_indexscan_plan (src/backend/optimizer/plan/createplan.c:3007)
-  - create_index_path (src/backend/optimizer/util/pathnode.c:1005)
+  - [cost_index](../c/cost_index.md) (src/backend/optimizer/path/costsize.c:549)
+  - [get_index_paths](../g/get_index_paths.md) (src/backend/optimizer/path/indxpath.c:742)
+  - [build_index_paths](../b/build_index_paths.md) (src/backend/optimizer/path/indxpath.c:811)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (src/backend/optimizer/plan/createplan.c:3007)
+  - [create_index_path](../c/create_index_path.md) (src/backend/optimizer/util/pathnode.c:1005)
 
 ## Notes and Other Information
 - Used for both regular index scans and index-only scans (differentiated by path.pathtype)

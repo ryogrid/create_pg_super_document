@@ -19,7 +19,7 @@ W_STOP is one of the enumeration values in the WHEN_TYPE enum used by the ECPG p
 - Functions called/Symbols referenced:
   - N/A (enumeration constant)
 - Called from (representative examples):
-  - print_action (in src/interfaces/ecpg/preproc/output.c:50)
+  - [print_action](../p/print_action.md) (in src/interfaces/ecpg/preproc/output.c:50)
 
 ## Notes and Other Information
 - Defined in src/interfaces/ecpg/preproc/type.h:84

@@ -21,7 +21,7 @@ The function allocates memory for the environment structure and initializes it w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation with parameters 0, 3)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation with parameters 0, 3)
 - Called from:
   - No direct references found in the codebase (likely used through external stemming interface)
 

@@ -28,16 +28,16 @@ The function ensures that the parallel worker sees exactly the same transaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransaction - initializes the new transaction in the worker
+  - [StartTransaction](StartTransaction.md) - initializes the new transaction in the worker
   - Assert - validates that transaction state is in expected initial condition
 - Structures used:
-  - SerializedTransactionState - deserialized transaction state format
+  - [SerializedTransactionState](SerializedTransactionState.md) - deserialized transaction state format
   - CurrentTransactionState - global transaction state being restored
 - Constants used:
   - TBLOCK_DEFAULT - expected initial transaction block state
   - TBLOCK_PARALLEL_INPROGRESS - final block state for parallel workers
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1455)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1455)
 
 ## Notes and Other Information
 - Must be called early in parallel worker initialization before any database operations

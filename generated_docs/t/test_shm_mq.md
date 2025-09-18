@@ -26,11 +26,11 @@ The function sets up a dynamic shared memory segment with background workers, se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_shm_mq_setup: Sets up the dynamic shared memory segment and background workers
-  - shm_mq_send: Sends messages through shared memory queues
-  - shm_mq_receive: Receives messages from shared memory queues
-  - verify_message: Validates message integrity by comparing original and final messages
-  - dsm_detach: Cleans up the dynamic shared memory segment
+  - [test_shm_mq_setup](test_shm_mq_setup.md): Sets up the dynamic shared memory segment and background workers
+  - [shm_mq_send](../s/shm_mq_send.md): Sends messages through shared memory queues
+  - [shm_mq_receive](../s/shm_mq_receive.md): Receives messages from shared memory queues
+  - [verify_message](../v/verify_message.md): Validates message integrity by comparing original and final messages
+  - [dsm_detach](../d/dsm_detach.md): Cleans up the dynamic shared memory segment
   - PG_GETARG_INT64, PG_GETARG_TEXT_PP, PG_GETARG_INT32: PostgreSQL argument extraction macros
   - PG_RETURN_VOID: PostgreSQL return macro
 - Called from (representative examples):

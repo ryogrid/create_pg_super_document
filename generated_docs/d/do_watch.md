@@ -24,16 +24,16 @@ The implementation includes robust error handling, iteration counting, minimum r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printQueryOpt (query output formatting options)
+  - [printQueryOpt](../p/printQueryOpt.md) (query output formatting options)
   - sigset_t, sigemptyset, sigaddset, sigprocmask (Unix signal management)
-  - setitimer, ITIMER_REAL (Unix interval timer)
-  - disable_sigpipe_trap, restore_sigpipe_trap (signal handling utilities)
+  - [setitimer](../s/setitimer.md), ITIMER_REAL (Unix interval timer)
+  - [disable_sigpipe_trap](disable_sigpipe_trap.md), restore_sigpipe_trap (signal handling utilities)
   - popen, pclose (pager process management)
-  - PSQLexecWatch (executes the query with watch-specific handling)
-  - pg_usleep (Windows sleep implementation)
+  - [PSQLexecWatch](../P/PSQLexecWatch.md) (executes the query with watch-specific handling)
+  - [pg_usleep](../p/pg_usleep.md) (Windows sleep implementation)
   - pg_malloc, pg_free (PostgreSQL memory management)
 - Called from (representative examples):
-  - exec_command_watch (handles \watch command parsing and delegation)
+  - [exec_command_watch](../e/exec_command_watch.md) (handles \watch command parsing and delegation)
 
 ## Notes and Other Information
 - Uses different timing strategies: Unix systems use SIGALRM with setitimer, Windows uses pg_usleep loops

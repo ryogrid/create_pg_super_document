@@ -45,12 +45,12 @@ Key features and safeguards:
   - LOCAL_FCINFO
   - FUNC_MAX_ARGS
 - Data types used:
-  - AggState
-  - AggStatePerAgg
-  - AggStatePerGroup
-  - AggStatePerTrans
+  - [AggState](../A/AggState.md)
+  - [AggStatePerAgg](../A/AggStatePerAgg.md)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md)
 - Called from (representative examples):
-  - finalize_aggregates
+  - [finalize_aggregates](finalize_aggregates.md)
 
 ## Notes and Other Information
 - Handles only one grouping set (already set in aggstate->current_set) per invocation

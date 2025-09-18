@@ -21,9 +21,9 @@ This function performs the reverse conversion of sjis2mic, transforming MIC enco
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET: Check if character has high bit set
-  - pg_encoding_verifymbchar: Validate MIC character sequence length
-  - report_invalid_encoding: Report encoding conversion errors
-  - report_untranslatable_char: Report characters that cannot be converted
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md): Validate MIC character sequence length
+  - [report_invalid_encoding](../r/report_invalid_encoding.md): Report encoding conversion errors
+  - [report_untranslatable_char](../r/report_untranslatable_char.md): Report characters that cannot be converted
   - LC_JISX0201K: Language character code for JIS X0201 katakana
   - LC_JISX0208: Language character code for JIS X0208
   - LC_JISX0212: Language character code for JIS X0212
@@ -32,7 +32,7 @@ This function performs the reverse conversion of sjis2mic, transforming MIC enco
   - PG_MULE_INTERNAL: PostgreSQL encoding constant for MIC
   - PG_SJIS: PostgreSQL encoding constant for Shift JIS
 - Called from (representative examples):
-  - mic_to_sjis: PostgreSQL function wrapper for MIC to SJIS conversion
+  - [mic_to_sjis](mic_to_sjis.md): PostgreSQL function wrapper for MIC to SJIS conversion
   - PGEUCALTCODE: Referenced in encoding conversion system
 
 ## Notes and Other Information

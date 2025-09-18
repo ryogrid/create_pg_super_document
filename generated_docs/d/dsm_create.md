@@ -28,16 +28,16 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_backend_startup (initialization)
-  - dsm_create_descriptor (descriptor creation)
+  - [dsm_create_descriptor](dsm_create_descriptor.md) (descriptor creation)
   - FreePageManagerGet/FreePageManagerPut (main region allocation)
-  - make_main_region_dsm_handle (handle generation for main region)
+  - [make_main_region_dsm_handle](../m/make_main_region_dsm_handle.md) (handle generation for main region)
   - dsm_impl_op (platform-specific segment operations)
-  - pg_prng_uint32 (random handle generation)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md) (random handle generation)
   - ResourceOwnerForgetDSM (resource management)
 - Called from (representative examples):
-  - GetSessionDsmHandle (session management)
-  - InitializeParallelDSM (parallel processing)
-  - dsa_create_ext (dynamic shared arrays)
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (session management)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (parallel processing)
+  - [dsa_create_ext](dsa_create_ext.md) (dynamic shared arrays)
   - GetNamedDSMSegment (named segment registry)
 
 ## Notes and Other Information

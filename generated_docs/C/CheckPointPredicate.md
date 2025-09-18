@@ -34,10 +34,10 @@ This function takes no parameters.
   - TransactionIdIsValid
   - SerialPage
   - SerialPagePrecedesLogically
-  - SimpleLruTruncate
-  - SimpleLruWriteAll
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
 - Called from (representative examples):
-  - CheckPointGuts
+  - [CheckPointGuts](CheckPointGuts.md)
 
 ## Notes and Other Information
 - This is a public function accessible outside predicate.c

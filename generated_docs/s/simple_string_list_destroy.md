@@ -17,13 +17,13 @@ This function performs cleanup of a SimpleStringList data structure by traversin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_free (PostgreSQL memory deallocation function)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
 - Data structures used:
-  - SimpleStringList
-  - SimpleStringListCell
+  - [SimpleStringList](../S/SimpleStringList.md)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md)
 - Called from (representative examples):
-  - reindex_one_database (src/bin/scripts/reindexdb.c:484, 490)
-  - get_parallel_object_list (src/bin/scripts/reindexdb.c:759)
+  - [reindex_one_database](../r/reindex_one_database.md) (src/bin/scripts/reindexdb.c:484, 490)
+  - [get_parallel_object_list](../g/get_parallel_object_list.md) (src/bin/scripts/reindexdb.c:759)
 
 ## Notes and Other Information
 - This function only frees the list cells but does not free the list structure itself

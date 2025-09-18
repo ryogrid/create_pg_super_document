@@ -20,11 +20,11 @@ The executeComparison function serves as a comparison predicate callback in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compareItems
+  - [compareItems](../c/compareItems.md)
   - JsonPathItem
-  - JsonPathExecContext
+  - [JsonPathExecContext](../J/JsonPathExecContext.md)
 - Called from (representative examples):
-  - executeBoolItem
+  - [executeBoolItem](executeBoolItem.md)
   - RETURN_ERROR
 
 ## Notes and Other Information

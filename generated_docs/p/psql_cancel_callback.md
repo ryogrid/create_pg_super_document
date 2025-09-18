@@ -22,7 +22,7 @@ psql_cancel_callback serves as the signal handler callback for interruption requ
   - sigint_interrupt_jmp (global jump buffer)
   - cancel_pressed (global cancellation flag)
 - Called from (representative examples):
-  - psql_setup_cancel_handler (registers this as the cancel callback)
+  - [psql_setup_cancel_handler](psql_setup_cancel_handler.md) (registers this as the cancel callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the common.c compilation unit

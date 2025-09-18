@@ -24,9 +24,9 @@ The function includes an assertion to verify that the NFA is not already empty b
   - ZAPCNFA (macro to zero out the NFA structure)
 - Called from (representative examples):
   - REPLACEARC (src/backend/regex/regcomp.c:233)
-  - freesrnode (src/backend/regex/regcomp.c:2194)
-  - freelacons (src/backend/regex/regcomp.c:2439)
-  - rfree (src/backend/regex/regcomp.c:2467)
+  - [freesrnode](freesrnode.md) (src/backend/regex/regcomp.c:2194)
+  - [freelacons](freelacons.md) (src/backend/regex/regcomp.c:2439)
+  - [rfree](../r/rfree.md) (src/backend/regex/regcomp.c:2467)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the regc_nfa.c source file

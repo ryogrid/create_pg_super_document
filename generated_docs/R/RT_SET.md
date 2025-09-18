@@ -23,17 +23,17 @@ This function sets a key to the value pointed to by value_p. If an entry already
 - Functions called/Symbols referenced:
   - RT_GET_VALUE_SIZE
   - RT_PTR_ALLOC_IS_VALID
-  - RT_KEY_GET_SHIFT
-  - RT_PTR_SET_LOCAL
+  - [RT_KEY_GET_SHIFT](RT_KEY_GET_SHIFT.md)
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md)
   - RT_GET_KEY_CHUNK
-  - RT_EXTEND_DOWN
-  - RT_SHIFT_GET_MAX_VAL
-  - RT_EXTEND_UP
-  - RT_GET_SLOT_RECURSIVE
-  - RT_VALUE_IS_EMBEDDABLE
-  - RT_CHILDPTR_IS_VALUE
-  - RT_FREE_LEAF
-  - RT_ALLOC_LEAF
+  - [RT_EXTEND_DOWN](RT_EXTEND_DOWN.md)
+  - [RT_SHIFT_GET_MAX_VAL](RT_SHIFT_GET_MAX_VAL.md)
+  - [RT_EXTEND_UP](RT_EXTEND_UP.md)
+  - [RT_GET_SLOT_RECURSIVE](RT_GET_SLOT_RECURSIVE.md)
+  - [RT_VALUE_IS_EMBEDDABLE](RT_VALUE_IS_EMBEDDABLE.md)
+  - [RT_CHILDPTR_IS_VALUE](RT_CHILDPTR_IS_VALUE.md)
+  - [RT_FREE_LEAF](RT_FREE_LEAF.md)
+  - [RT_ALLOC_LEAF](RT_ALLOC_LEAF.md)
 - Called from (representative examples):
   - RT_HANDLE (as referenced)
 

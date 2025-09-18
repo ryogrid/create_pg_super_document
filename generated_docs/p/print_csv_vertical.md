@@ -30,10 +30,10 @@ The function uses csv_print_field() to ensure both column names and values are p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - csv_print_field
+  - [csv_print_field](../c/csv_print_field.md)
   - fputc (standard C library)
 - Called from (representative examples):
-  - printTable
+  - [printTable](printTable.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's frontend utilities and provides an alternative CSV output format that complements the standard horizontal CSV format. The vertical format is especially valuable for tables with numerous columns or when examining individual records in detail. Like other PostgreSQL printing functions, it respects the cancel_pressed flag for responsive interruption during processing. The output format produces exactly two columns (column_name, column_value) regardless of the input table structure, making it suitable for further processing by tools that expect consistent CSV structure.

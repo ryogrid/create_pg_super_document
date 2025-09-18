@@ -28,15 +28,15 @@ The function is part of PostgreSQL's collation infrastructure and is used intern
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - ucol_nextSortKeyPart (ICU function)
   - uiter_setUTF8 (ICU function)
-  - pg_strnxfrm_prefix_icu_no_utf8
+  - [pg_strnxfrm_prefix_icu_no_utf8](pg_strnxfrm_prefix_icu_no_utf8.md)
   - ereport
   - u_errorName (ICU function)
 - Called from (representative examples):
-  - pg_strxfrm_prefix
-  - pg_strnxfrm_prefix
+  - [pg_strxfrm_prefix](pg_strxfrm_prefix.md)
+  - [pg_strnxfrm_prefix](pg_strnxfrm_prefix.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within pg_locale.c

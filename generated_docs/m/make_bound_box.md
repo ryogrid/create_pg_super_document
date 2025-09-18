@@ -21,14 +21,14 @@ The function uses PostgreSQLs float8 comparison functions to handle floating-poi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `float8_lt`: Less-than comparison for float8 values
-  - `float8_gt`: Greater-than comparison for float8 values
-  - `POLYGON`: Polygon data structure type
+  - `[float8_lt](../f/float8_lt.md)`: Less-than comparison for float8 values
+  - `[float8_gt](../f/float8_gt.md)`: Greater-than comparison for float8 values
+  - `[POLYGON](../P/POLYGON.md)`: Polygon data structure type
 - Called from (representative examples):
-  - `poly_in`: Called during polygon input parsing
-  - `poly_recv`: Called during polygon binary deserialization
-  - `path_poly`: Called when converting path to polygon
-  - `circle_poly`: Called when converting circle to polygon
+  - `[poly_in](../p/poly_in.md)`: Called during polygon input parsing
+  - `[poly_recv](../p/poly_recv.md)`: Called during polygon binary deserialization
+  - `[path_poly](../p/path_poly.md)`: Called when converting path to polygon
+  - `[circle_poly](../c/circle_poly.md)`: Called when converting circle to polygon
 
 ## Notes and Other Information
 - The function is static, indicating its only used within the geo_ops.c file

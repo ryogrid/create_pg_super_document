@@ -21,15 +21,15 @@ This function performs comprehensive user identity initialization for PostgreSQL
 - Functions called/Symbols referenced:
   - Form_pg_authid (pg_authid catalog structure)
   - IsBootstrapProcessingMode (bootstrap mode check)
-  - AcceptInvalidationMessages (syscache invalidation)
-  - SetAuthenticatedUserId (sets authenticated user ID)
-  - SetConfigOption (sets GUC variables)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (syscache invalidation)
+  - [SetAuthenticatedUserId](../S/SetAuthenticatedUserId.md) (sets authenticated user ID)
+  - [SetConfigOption](../S/SetConfigOption.md) (sets GUC variables)
   - PGC_BACKEND, PGC_S_OVERRIDE (GUC setting flags)
   - AmRegularBackendProcess (backend process type check)
   - CountUserBackends (connection count function)
-  - SearchSysCache1, HeapTupleIsValid, ReleaseSysCache (catalog access functions)
+  - [SearchSysCache1](../S/SearchSysCache1.md), HeapTupleIsValid, ReleaseSysCache (catalog access functions)
 - Called from (representative examples):
-  - InitPostgres (src/backend/utils/init/postinit.c:917, 927)
+  - [InitPostgres](InitPostgres.md) (src/backend/utils/init/postinit.c:917, 927)
   - AmSpecialWorkerProcess (src/include/miscadmin.h:414)
 
 ## Notes and Other Information

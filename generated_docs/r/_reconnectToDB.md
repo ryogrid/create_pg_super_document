@@ -27,18 +27,18 @@ After reconnection, the function resets session state tracking variables (curren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestoringToDB (connection mode check)
-  - ReconnectToServer (actual database reconnection)
-  - PQExpBufferData (buffer data structure)
-  - RestoreOptions (restore configuration structure)
-  - ahprintf (archive output function)
+  - [RestoringToDB](../R/RestoringToDB.md) (connection mode check)
+  - [ReconnectToServer](../R/ReconnectToServer.md) (actual database reconnection)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (buffer data structure)
+  - [RestoreOptions](../R/RestoreOptions.md) (restore configuration structure)
+  - [ahprintf](../a/ahprintf.md) (archive output function)
   - initPQExpBuffer (buffer initialization)
-  - appendPsqlMetaConnect (psql connection command generation)
+  - [appendPsqlMetaConnect](../a/appendPsqlMetaConnect.md) (psql connection command generation)
   - termPQExpBuffer (buffer cleanup)
   - free (memory deallocation)
-  - _doSetFixedOutputState (session state re-establishment)
+  - [_doSetFixedOutputState](../d/_doSetFixedOutputState.md) (session state re-establishment)
 - Called from (representative examples):
-  - restore_toc_entry
+  - [restore_toc_entry](restore_toc_entry.md)
 
 ## Notes and Other Information
 - Located in src/bin/pg_dump/pg_backup_archiver.c:3365-3415

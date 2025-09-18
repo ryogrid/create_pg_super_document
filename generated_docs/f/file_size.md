@@ -25,7 +25,7 @@ The function is implemented as a static function within the pg_regress.c file, m
   - ftell (standard C library function for getting current file position)
   - fclose (standard C library function for closing files)
 - Called from (representative examples):
-  - run_diff (used to check file sizes during regression testing)
+  - [run_diff](../r/run_diff.md) (used to check file sizes during regression testing)
 
 ## Notes and Other Information
 - Returns -1 on error (file cannot be opened)

@@ -26,11 +26,11 @@ The adhoc_opts structure serves as the central repository for all command-line o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleActionList (for storing queued actions)
-  - parse_psql_options (initializes and populates the structure)
+  - [SimpleActionList](../S/SimpleActionList.md) (for storing queued actions)
+  - [parse_psql_options](../p/parse_psql_options.md) (initializes and populates the structure)
 - Called from (representative examples):
-  - main (declares and uses an instance to control psql behavior)
-  - parse_psql_options (receives pointer to populate fields)
+  - [main](../m/main.md) (declares and uses an instance to control psql behavior)
+  - [parse_psql_options](../p/parse_psql_options.md) (receives pointer to populate fields)
 
 ## Notes and Other Information
 - The structure is initialized with memset() to zero all fields before option parsing

@@ -18,11 +18,11 @@ This static function serves as a backend process exit handler that performs crit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnlockBuffers
-  - CheckForBufferLeaks
+  - [UnlockBuffers](../U/UnlockBuffers.md)
+  - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
   - AtProcExit_LocalBuffers
 - Called from (representative examples):
-  - InitBufferPoolAccess (registers this function as exit callback)
+  - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md) (registers this function as exit callback)
   - Process exit mechanism (automatic callback)
 
 ## Notes and Other Information

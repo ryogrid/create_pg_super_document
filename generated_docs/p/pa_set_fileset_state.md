@@ -24,16 +24,16 @@ The function uses spinlocks to ensure atomic updates to the shared state, preven
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - am_leader_apply_worker
+  - [am_leader_apply_worker](../a/am_leader_apply_worker.md)
   - Assert
   - FS_SERIALIZE_DONE (enum constant)
   - MyLogicalRepWorker (global variable)
 - Called from (representative examples):
-  - pa_process_spooled_messages_if_required
-  - pa_switch_to_partial_serialize
-  - apply_handle_stream_prepare
-  - apply_handle_stream_abort
-  - apply_handle_stream_commit
+  - [pa_process_spooled_messages_if_required](pa_process_spooled_messages_if_required.md)
+  - [pa_switch_to_partial_serialize](pa_switch_to_partial_serialize.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - Uses spinlocks for thread-safe access to shared worker state

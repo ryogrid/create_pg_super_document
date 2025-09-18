@@ -22,11 +22,11 @@ This static function serves as a callback for table_index_build_scan() during SP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgdoinsert
-  - MemoryContextReset
+  - [spgdoinsert](spgdoinsert.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - SpGistBuildState
 - Called from (representative examples):
-  - spgbuild (via table_index_build_scan)
+  - [spgbuild](spgbuild.md) (via table_index_build_scan)
 
 ## Notes and Other Information
 The function includes retry logic to handle concurrent buffer access conflicts, even though no concurrent insertions should occur during index building. Each retry resets the temporary memory context to flush any partially built data structures.

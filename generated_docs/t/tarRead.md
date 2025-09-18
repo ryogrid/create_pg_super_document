@@ -23,12 +23,12 @@ This function is designed to provide fread()-like semantics for tar archive memb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tarReadRaw
+  - [_tarReadRaw](_tarReadRaw.md)
 - Called from (representative examples):
-  - _PrintFileData
-  - _LoadLOs
-  - _ReadByte
-  - _ReadBuf
+  - [_PrintFileData](../P/_PrintFileData.md)
+  - [_LoadLOs](../L/_LoadLOs.md)
+  - [_ReadByte](../R/_ReadByte.md)
+  - [_ReadBuf](../R/_ReadBuf.md)
 
 ## Notes and Other Information
 - Automatically prevents reading past the logical file end (th->fileLen)

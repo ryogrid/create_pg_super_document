@@ -22,11 +22,11 @@ Error handling is comprehensive, generating specific protocol violation errors f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sanitize_char (at Line 865)
+  - [sanitize_char](../s/sanitize_char.md) (at Line 865)
   - ereport/errcode/errmsg/errdetail (PostgreSQL error reporting system)
 - Called from (representative examples):
-  - read_client_first_message (at src/backend/libpq/auth-scram.c:1103)
-  - read_client_final_message (at src/backend/libpq/auth-scram.c:1370)
+  - [read_client_first_message](read_client_first_message.md) (at src/backend/libpq/auth-scram.c:1103)
+  - [read_client_final_message](read_client_final_message.md) (at src/backend/libpq/auth-scram.c:1370)
 
 ## Notes and Other Information
 - Follows SCRAM protocol specification: attr-val = ALPHA "=" value

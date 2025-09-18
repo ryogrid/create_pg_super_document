@@ -38,16 +38,16 @@ This function operates on global state variables including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `waitpid` - Collects child process exit information
-  - `HandleChildCrash` - Handles abnormal process exits
-  - `StartChildProcess` - Restarts terminated processes
-  - `PostmasterStateMachine` - Advances postmaster state
-  - `CleanupBackgroundWorker` - Handles background worker cleanup
-  - `CleanupBackend` - Handles backend process cleanup
-  - `TerminateChildren` - Sends termination signals
-  - `ExitPostmaster` - Exits postmaster process
+  - `[waitpid](../w/waitpid.md)` - Collects child process exit information
+  - `[HandleChildCrash](../H/HandleChildCrash.md)` - Handles abnormal process exits
+  - `[StartChildProcess](../S/StartChildProcess.md)` - Restarts terminated processes
+  - `[PostmasterStateMachine](../P/PostmasterStateMachine.md)` - Advances postmaster state
+  - `[CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md)` - Handles background worker cleanup
+  - `[CleanupBackend](../C/CleanupBackend.md)` - Handles backend process cleanup
+  - `[TerminateChildren](../T/TerminateChildren.md)` - Sends termination signals
+  - `[ExitPostmaster](../E/ExitPostmaster.md)` - Exits postmaster process
 - Called from (representative examples):
-  - `ServerLoop` - Main postmaster event loop
+  - `[ServerLoop](../S/ServerLoop.md)` - Main postmaster event loop
 
 ## Notes and Other Information
 - Uses a loop with `waitpid(-1, &exitstatus, WNOHANG)` to collect all pending child exit notifications

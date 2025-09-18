@@ -33,7 +33,7 @@ This distinction is important in PostgreSQL's three-valued logic system where NU
   - IS_FALSE (boolean test type for definite falsity)
 - Called from (representative examples):
   - iterate_end
-  - predicate_refuted_by_recurse
+  - [predicate_refuted_by_recurse](../p/predicate_refuted_by_recurse.md)
 
 ## Notes and Other Information
 - Returns NULL if the input clause is NULL or doesn't match strong negation patterns

@@ -35,16 +35,16 @@ This function constructs trigger metadata for a given relation by performing the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetTriggerFlags: Sets trigger type flags in TriggerDesc
-  - CopyTriggerDesc: Copies TriggerDesc to cache memory context
-  - FreeTriggerDesc: Releases working memory for TriggerDesc
-  - systable_beginscan/systable_getnext: System catalog scanning
-  - fastgetattr: Extracts attributes from HeapTuple
+  - [SetTriggerFlags](../S/SetTriggerFlags.md): Sets trigger type flags in TriggerDesc
+  - [CopyTriggerDesc](../C/CopyTriggerDesc.md): Copies TriggerDesc to cache memory context
+  - [FreeTriggerDesc](../F/FreeTriggerDesc.md): Releases working memory for TriggerDesc
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext: System catalog scanning
+  - [fastgetattr](../f/fastgetattr.md): Extracts attributes from HeapTuple
   - DirectFunctionCall1/nameout: Name conversion utilities
-  - DatumGetCString/TextDatumGetCString: Datum conversion utilities
+  - [DatumGetCString](../D/DatumGetCString.md)/TextDatumGetCString: Datum conversion utilities
 
 - Called from (representative examples):
-  - RelationBuildDesc: During relation cache entry construction
+  - [RelationBuildDesc](RelationBuildDesc.md): During relation cache entry construction
 
 ## Notes and Other Information
 - The function ensures triggers are processed in name order by using TriggerRelidNameIndexId

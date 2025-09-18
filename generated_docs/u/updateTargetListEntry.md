@@ -27,10 +27,10 @@ The function delegates the complex expression processing to transformAssignedExp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformAssignedExpr
+  - [transformAssignedExpr](../t/transformAssignedExpr.md)
   - EXPR_KIND_UPDATE_TARGET
 - Called from:
-  - transformUpdateTargetList (analyze.c)
+  - [transformUpdateTargetList](../t/transformUpdateTargetList.md) (analyze.c)
 
 ## Notes and Other Information
 - This function is a wrapper around transformAssignedExpr specifically for UPDATE contexts

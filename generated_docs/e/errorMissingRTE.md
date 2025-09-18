@@ -25,15 +25,15 @@ The function leverages PostgreSQL's namespace resolution system to provide conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - searchRangeTableForRel
-  - refnameNamespaceItem  
-  - rte_visible_if_lateral
+  - [searchRangeTableForRel](../s/searchRangeTableForRel.md)
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)  
+  - [rte_visible_if_lateral](../r/rte_visible_if_lateral.md)
   - ereport
-  - errcode (ERRCODE_UNDEFINED_TABLE)
-  - errmsg
-  - errhint
-  - errdetail
-  - parser_errposition
+  - [errcode](errcode.md) (ERRCODE_UNDEFINED_TABLE)
+  - [errmsg](errmsg.md)
+  - [errhint](errhint.md)
+  - [errdetail](errdetail.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
   - Various parser functions when table resolution fails
 

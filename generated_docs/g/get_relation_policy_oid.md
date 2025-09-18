@@ -29,13 +29,13 @@ This function serves as a building block for other policy-related operations tha
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close (catalog access)
-  - ScanKeyInit, systable_beginscan, systable_getnext, systable_endscan (catalog scanning)
+  - [ScanKeyInit](../S/ScanKeyInit.md), systable_beginscan, systable_getnext, systable_endscan (catalog scanning)
   - HeapTupleIsValid (tuple validation)
-  - get_rel_name (relation name lookup for error messages)
+  - [get_rel_name](get_rel_name.md) (relation name lookup for error messages)
   - Form_pg_policy, GETSTRUCT (tuple structure access)
   - ereport, errcode, errmsg (error reporting)
 - Called from:
-  - get_object_address_relobject (object address resolution for policies)
+  - [get_object_address_relobject](get_object_address_relobject.md) (object address resolution for policies)
 
 ## Notes and Other Information
 - Uses AccessShareLock for read-only catalog access, allowing concurrent reads

@@ -33,17 +33,17 @@ The function is specifically designed to work with the prepared INSERT statement
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus - Get result status code
-  - PQgetResult - Retrieve the expected NULL result that follows
-  - PQerrorMessage - Get detailed error message for fatal errors
-  - PQgetvalue - Extract the returned value from successful queries
-  - PQclear - Free the result memory
-  - PQresStatus - Convert status code to string representation
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status code
+  - [PQgetResult](../P/PQgetResult.md) - Retrieve the expected NULL result that follows
+  - [PQerrorMessage](../P/PQerrorMessage.md) - Get detailed error message for fatal errors
+  - [PQgetvalue](../P/PQgetvalue.md) - Extract the returned value from successful queries
+  - [PQclear](../P/PQclear.md) - Free the result memory
+  - [PQresStatus](../P/PQresStatus.md) - Convert status code to string representation
   - PGRES_FATAL_ERROR - Fatal error status constant
   - PGRES_TUPLES_OK - Successful query result status
   - PGRES_PIPELINE_ABORTED - Pipeline aborted status constant
 - Called from (representative examples):
-  - test_uniqviol - Main caller that processes multiple pipeline results
+  - [test_uniqviol](../t/test_uniqviol.md) - Main caller that processes multiple pipeline results
 
 ## Notes and Other Information
 - This is a specialized helper function for pipeline result processing

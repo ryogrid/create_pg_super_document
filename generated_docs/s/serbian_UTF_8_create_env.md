@@ -25,7 +25,7 @@ The function returns a properly initialized SN_env structure that contains all n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Generic Snowball environment creation function that allocates and initializes the SN_env structure
+  - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function that allocates and initializes the SN_env structure
 
 - Called from (representative examples):
   - Not directly referenced in the codebase (external interface function)

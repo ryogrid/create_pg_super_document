@@ -22,14 +22,14 @@ This function serves as the primary interface for retrieving transaction objects
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (hash table lookup/insertion)
-  - ReorderBufferGetTXN (allocates new transaction object)
-  - dlist_push_tail (adds to top-level transaction list)
-  - AssertTXNLsnOrder (debug assertion for LSN ordering)
+  - [hash_search](../h/hash_search.md) (hash table lookup/insertion)
+  - [ReorderBufferGetTXN](ReorderBufferGetTXN.md) (allocates new transaction object)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (adds to top-level transaction list)
+  - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md) (debug assertion for LSN ordering)
 - Called from (representative examples):
-  - ReorderBufferQueueChange (queuing transaction changes)
-  - ReorderBufferQueueMessage (queuing transaction messages)
-  - ReorderBufferCommit (committing transactions)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md) (queuing transaction changes)
+  - [ReorderBufferQueueMessage](ReorderBufferQueueMessage.md) (queuing transaction messages)
+  - [ReorderBufferCommit](ReorderBufferCommit.md) (committing transactions)
   - ReorderBufferAssignChild (assigning subtransactions)
 
 ## Notes and Other Information

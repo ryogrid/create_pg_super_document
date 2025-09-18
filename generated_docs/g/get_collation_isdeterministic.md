@@ -21,21 +21,21 @@ Non-deterministic collations can treat different strings as equivalent (for exam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (performs system cache lookup by collation OID)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (performs system cache lookup by collation OID)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - HeapTupleIsValid (checks if cache lookup succeeded)
   - Form_pg_collation (type cast to collation catalog structure)
   - GETSTRUCT (extracts structure from heap tuple)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - elog (logs error if collation not found)
 - Called from (representative examples):
   - index_create (checking if collation supports certain index types)
-  - match_pattern_prefix (determining if pattern matching optimizations are safe)
-  - ri_restrict (foreign key constraint checking)
-  - RI_FKey_cascade_del (foreign key cascade deletion)
-  - RI_FKey_cascade_upd (foreign key cascade updates)
-  - ri_set (foreign key constraint operations)
-  - btvarstrequalimage (B-tree equality image checking)
+  - [match_pattern_prefix](../m/match_pattern_prefix.md) (determining if pattern matching optimizations are safe)
+  - [ri_restrict](../r/ri_restrict.md) (foreign key constraint checking)
+  - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md) (foreign key cascade deletion)
+  - [RI_FKey_cascade_upd](../R/RI_FKey_cascade_upd.md) (foreign key cascade updates)
+  - [ri_set](../r/ri_set.md) (foreign key constraint operations)
+  - [btvarstrequalimage](../b/btvarstrequalimage.md) (B-tree equality image checking)
 
 ## Notes and Other Information
 - Throws an ERROR if the collation OID is not found in the system catalog

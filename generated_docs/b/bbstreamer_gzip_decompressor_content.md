@@ -26,11 +26,11 @@ This function performs the core decompression work for the gzip decompressor str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base streamer type)
+  - [bbstreamer](bbstreamer.md) (base streamer type)
   - bbstreamer_member (member information structure)
-  - bbstreamer_archive_context (context information type)
-  - bbstreamer_gzip_decompressor (internal decompressor structure)
-  - bbstreamer_content (function to forward data to next streamer)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (context information type)
+  - [bbstreamer_gzip_decompressor](bbstreamer_gzip_decompressor.md) (internal decompressor structure)
+  - [bbstreamer_content](bbstreamer_content.md) (function to forward data to next streamer)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in ops structure)
 

@@ -20,9 +20,9 @@ SubqueryNext is a core function in PostgreSQL's subquery scanning mechanism. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecProcNode (executes the next step of the subplan)
-  - SubqueryScanState (execution state structure)
+  - [SubqueryScanState](SubqueryScanState.md) (execution state structure)
 - Called from (representative examples):
-  - ExecSubqueryScan (main subquery scan execution function)
+  - [ExecSubqueryScan](../E/ExecSubqueryScan.md) (main subquery scan execution function)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the nodeSubqueryscan.c file

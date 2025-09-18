@@ -21,11 +21,11 @@ This function serves as a specialized tree walker designed to traverse expressio
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubLink
-  - ScanQueryForLocks
+  - [ScanQueryForLocks](ScanQueryForLocks.md)
   - expression_tree_walker
 - Called from (representative examples):
-  - ScanQueryForLocks
-  - ScanQueryWalker (recursive calls via expression_tree_walker)
+  - [ScanQueryForLocks](ScanQueryForLocks.md)
+  - [ScanQueryWalker](ScanQueryWalker.md) (recursive calls via expression_tree_walker)
 
 ## Notes and Other Information
 - This is a callback function designed to work with PostgreSQL's expression_tree_walker framework

@@ -22,7 +22,7 @@ This dual check ensures that page1 completely precedes all transactions that cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (used twice for comprehensive comparison)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (used twice for comprehensive comparison)
   - SUBTRANS_XACTS_PER_PAGE
   - FirstNormalTransactionId
 - Called from (representative examples):

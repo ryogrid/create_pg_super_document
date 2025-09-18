@@ -21,7 +21,7 @@ The `dclist_next_node` function retrieves the next node in a doubly-linked count
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_next_node
+  - [dlist_next_node](dlist_next_node.md)
 - Called from (representative examples):
   - No direct callers found in codebase
 

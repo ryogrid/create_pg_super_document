@@ -21,12 +21,12 @@ CompositeIOData serves as a comprehensive metadata cache for composite type hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecordIOData
+  - [RecordIOData](../R/RecordIOData.md)
 - Called from (representative examples):
-  - ColumnIOData
+  - [ColumnIOData](ColumnIOData.md)
   - JsObjectFree
-  - update_cached_tupdesc
-  - populate_composite
+  - [update_cached_tupdesc](../u/update_cached_tupdesc.md)
+  - [populate_composite](../p/populate_composite.md)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/jsonfuncs.c at lines 173-186

@@ -27,17 +27,17 @@ This repartitioning is essential for maintaining optimal memory usage and ensuri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecParallelHashPopChunkQueue (chunk queue management)
-  - ExecHashGetBucketAndBatch (hash-to-bucket/batch mapping)
-  - ExecParallelHashTupleAlloc (parallel tuple allocation)
-  - ExecParallelHashPushTuple (tuple insertion into buckets)
-  - sts_puttuple (tuple storage to disk)
-  - dsa_free (shared memory deallocation)
+  - [ExecParallelHashPopChunkQueue](ExecParallelHashPopChunkQueue.md) (chunk queue management)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md) (hash-to-bucket/batch mapping)
+  - [ExecParallelHashTupleAlloc](ExecParallelHashTupleAlloc.md) (parallel tuple allocation)
+  - [ExecParallelHashPushTuple](ExecParallelHashPushTuple.md) (tuple insertion into buckets)
+  - [sts_puttuple](../s/sts_puttuple.md) (tuple storage to disk)
+  - [dsa_free](../d/dsa_free.md) (shared memory deallocation)
   - HASH_CHUNK_DATA, HJTUPLE_MINTUPLE, HJTUPLE_OVERHEAD (tuple access macros)
   - CHECK_FOR_INTERRUPTS (interruption handling)
 
 - Called from (representative examples):
-  - ExecParallelHashIncreaseNumBatches
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md)
 
 ## Notes and Other Information
 - This function only handles the repartitioning of tuples that were already in memory for batch 0

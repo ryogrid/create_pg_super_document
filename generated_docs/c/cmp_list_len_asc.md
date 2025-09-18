@@ -26,10 +26,10 @@ The function is designed to be used with PostgreSQL's list_sort function to arra
 - Functions called/Symbols referenced:
   - list_length: Gets the number of elements in a list
   - lfirst: Extracts the datum from a ListCell
-  - pg_cmp_s32: PostgreSQL's 32-bit integer comparison function
+  - [pg_cmp_s32](../p/pg_cmp_s32.md): PostgreSQL's 32-bit integer comparison function
 - Called from:
-  - expand_grouping_sets: Uses this to sort grouping combinations by size
-  - cmp_list_len_contents_asc: Uses this as part of a two-level comparison
+  - [expand_grouping_sets](../e/expand_grouping_sets.md): Uses this to sort grouping combinations by size
+  - [cmp_list_len_contents_asc](cmp_list_len_contents_asc.md): Uses this as part of a two-level comparison
 
 ## Notes and Other Information
 - This is a standard comparator function following the C library qsort convention

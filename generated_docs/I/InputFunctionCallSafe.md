@@ -26,15 +26,15 @@ This function serves as a safer alternative to InputFunctionCall by providing er
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro for local function call info)
   - InitFunctionCallInfoData (initializes function call structure)
-  - CStringGetDatum (converts C string to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - FunctionCallInvoke (invokes the actual function)
   - SOFT_ERROR_OCCURRED (checks if a soft error occurred)
 - Called from (representative examples):
-  - NextCopyFrom
-  - ReadArrayStr
-  - domain_in
-  - populate_scalar
-  - pg_input_is_valid_common
+  - [NextCopyFrom](../N/NextCopyFrom.md)
+  - [ReadArrayStr](../R/ReadArrayStr.md)
+  - [domain_in](../d/domain_in.md)
+  - [populate_scalar](../p/populate_scalar.md)
+  - [pg_input_is_valid_common](../p/pg_input_is_valid_common.md)
 
 ## Notes and Other Information
 - Returns true for success, false for failure, with the actual result stored in the result parameter

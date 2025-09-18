@@ -22,13 +22,13 @@ This function is designed for typical use cases where the FmgrInfo struct is tem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info_cxt_security (the core function that performs the actual initialization)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (the core function that performs the actual initialization)
   - CurrentMemoryContext (global variable representing the current memory context)
 - Called from (representative examples):
-  - ScanKeyEntryInitialize (for initializing scan key comparison functions)
-  - ExecInitExprRec (during expression initialization in the executor)
-  - ExecInitFunc (when setting up function calls in expressions)
-  - OidFunctionCall0Coll through OidFunctionCall9Coll (convenience functions for direct function calls)
+  - [ScanKeyEntryInitialize](../S/ScanKeyEntryInitialize.md) (for initializing scan key comparison functions)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (during expression initialization in the executor)
+  - [ExecInitFunc](../E/ExecInitFunc.md) (when setting up function calls in expressions)
+  - [OidFunctionCall0Coll](../O/OidFunctionCall0Coll.md) through OidFunctionCall9Coll (convenience functions for direct function calls)
   - Various executor nodes (nodeAgg.c, nodeHash.c, nodeWindowAgg.c)
   - Statistics and selectivity estimation functions
   - Type input/output functions

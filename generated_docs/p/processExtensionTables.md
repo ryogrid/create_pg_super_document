@@ -27,24 +27,24 @@ The function handles extension include/exclude lists, table-specific include/exc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_oid_list_member
-  - parsePGArray
+  - [simple_oid_list_member](../s/simple_oid_list_member.md)
+  - [parsePGArray](parsePGArray.md)
   - atooid
-  - findTableByOid
-  - makeTableDataInfo
-  - pg_strdup
+  - [findTableByOid](../f/findTableByOid.md)
+  - [makeTableDataInfo](../m/makeTableDataInfo.md)
+  - [pg_strdup](pg_strdup.md)
   - createPQExpBuffer
-  - printfPQExpBuffer
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQfnumber
-  - PQgetvalue
-  - addObjectDependency
-  - PQclear
+  - [printfPQExpBuffer](printfPQExpBuffer.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
-  - pg_fatal
+  - [pg_fatal](pg_fatal.md)
 - Called from:
-  - getSchemaData (in src/bin/pg_dump/common.c:223)
+  - [getSchemaData](../g/getSchemaData.md) (in src/bin/pg_dump/common.c:223)
 
 ## Notes and Other Information
 - Configuration table data is treated as schema data, so TableDataInfo objects are created even in schema-only mode

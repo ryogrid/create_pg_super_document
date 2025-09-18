@@ -21,7 +21,7 @@ The implementation is straightforward: it extracts the input bytea argument, pas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `cryptohash_internal`: Internal utility function that performs the actual SHA-384 hash computation
+  - `[cryptohash_internal](../c/cryptohash_internal.md)`: Internal utility function that performs the actual SHA-384 hash computation
   - `PG_SHA384`: Constant identifier for the SHA-384 algorithm
   - `PG_GETARG_BYTEA_PP`: Macro to extract bytea argument from function call
   - `PG_RETURN_BYTEA_P`: Macro to return bytea result from function

@@ -25,10 +25,10 @@ The check_acl function performs structural validation of an ACL array to ensure 
   - ereport (PostgreSQL error reporting function)
   - ACLITEMOID (OID constant for ACL item type)
 - Called from (representative examples):
-  - aclupdate (src/backend/utils/adt/acl.c:1006)
-  - aclnewowner (src/backend/utils/adt/acl.c:1133)
-  - aclmask (src/backend/utils/adt/acl.c:1404)
-  - aclcontains (src/backend/utils/adt/acl.c:1620)
+  - [aclupdate](../a/aclupdate.md) (src/backend/utils/adt/acl.c:1006)
+  - [aclnewowner](../a/aclnewowner.md) (src/backend/utils/adt/acl.c:1133)
+  - [aclmask](../a/aclmask.md) (src/backend/utils/adt/acl.c:1404)
+  - [aclcontains](../a/aclcontains.md) (src/backend/utils/adt/acl.c:1620)
 
 ## Notes and Other Information
 - This is a static (internal) function used for validation within the ACL module

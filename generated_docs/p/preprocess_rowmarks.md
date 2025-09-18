@@ -31,12 +31,12 @@ The function distinguishes between relations that have explicit FOR UPDATE/SHARE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckSelectLocking, get_relids_in_jointree, select_rowmark_type
-  - bms_del_member, bms_is_member, rt_fetch
+  - [CheckSelectLocking](../C/CheckSelectLocking.md), get_relids_in_jointree, select_rowmark_type
+  - [bms_del_member](../b/bms_del_member.md), bms_is_member, rt_fetch
   - makeNode (PlanRowMark), linitial_node (RowMarkClause)
   - CMD_UPDATE, CMD_DELETE, CMD_MERGE, RTE_RELATION, LCS_NONE, LockWaitBlock
 - Called from (representative examples):
-  - subquery_planner
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/plan/planner.c:2295-2406

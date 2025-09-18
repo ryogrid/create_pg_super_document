@@ -18,13 +18,13 @@ WorkTableScanNext implements the tuple retrieval mechanism for worktable scans, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward (assertion check for forward scan direction)
-  - tuplestore_gettupleslot (retrieves next tuple from tuplestore)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (retrieves next tuple from tuplestore)
 - Types used:
-  - WorkTableScanState (scan state structure)
+  - [WorkTableScanState](WorkTableScanState.md) (scan state structure)
   - TuplestoreState (tuplestore for temporary data)
   - TupleTableSlot (tuple storage slot)
 - Called from:
-  - ExecWorkTableScan (main execution function)
+  - [ExecWorkTableScan](../E/ExecWorkTableScan.md) (main execution function)
 
 ## Notes and Other Information
 - Only supports forward scanning for performance reasons

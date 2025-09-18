@@ -36,7 +36,7 @@ The implementation uses a branch-free computation technique to efficiently skip 
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
 - Called from (representative examples):
-  - RT_SHRINK_NODE_16 (src/include/lib/radixtree.h:2485)
+  - [RT_SHRINK_NODE_16](RT_SHRINK_NODE_16.md) (src/include/lib/radixtree.h:2485)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's template-based radix tree implementation

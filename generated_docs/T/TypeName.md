@@ -44,18 +44,18 @@ The pct_type flag enables PostgreSQL's %TYPE functionality, where instead of spe
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - LookupTypeName
-  - typenameType
-  - typenameTypeId
+  - [LookupTypeName](../L/LookupTypeName.md)
+  - [typenameType](../t/typenameType.md)
+  - [typenameTypeId](../t/typenameTypeId.md)
   - makeTypeName
-  - TypeNameToString
-  - parseTypeString
-  - CreateFunction
-  - DefineOperator
-  - AlterEnum
+  - [TypeNameToString](TypeNameToString.md)
+  - [parseTypeString](../p/parseTypeString.md)
+  - [CreateFunction](../C/CreateFunction.md)
+  - [DefineOperator](../D/DefineOperator.md)
+  - [AlterEnum](../A/AlterEnum.md)
 
 ## Notes and Other Information
-- TypeName is used extensively throughout the parser and analyzer for all type-related operations
+- [TypeName](TypeName.md) is used extensively throughout the parser and analyzer for all type-related operations
 - Supports both compile-time (OID-based) and runtime (name-based) type resolution
 - The %TYPE feature allows for type inheritance from existing schema objects
 - Array bounds can specify multi-dimensional arrays with varying dimension specifications  

@@ -33,7 +33,7 @@ The comparison semantics are consistent with other multirange operators:
 - Called from (representative examples):
   - SQL queries using >= operator on multirange columns
   - B-tree index operations during range scans and sorting
-  - Query optimization when evaluating multirange predicates
+  - [Query](../Q/Query.md) optimization when evaluating multirange predicates
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's multirange type infrastructure for handling collections of ranges

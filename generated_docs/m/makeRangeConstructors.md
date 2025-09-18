@@ -26,13 +26,13 @@ Each constructor is created as an internal language function with the same name 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcedureCreate (creates the constructor function catalog entries)
-  - buildoidvector (constructs parameter type vectors)
-  - recordDependencyOn (establishes dependency relationships)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (creates the constructor function catalog entries)
+  - [buildoidvector](../b/buildoidvector.md) (constructs parameter type vectors)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (establishes dependency relationships)
   - DEPENDENCY_INTERNAL (dependency type constant)
   - PROKIND_FUNCTION, PROVOLATILE_IMMUTABLE, PROPARALLEL_SAFE (function attribute constants)
 - Called from (representative examples):
-  - DefineRange (during range type creation)
+  - [DefineRange](../D/DefineRange.md) (during range type creation)
   - AlterTypeRecurseParams (during type alterations)
 
 ## Notes and Other Information

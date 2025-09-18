@@ -19,8 +19,8 @@ This function is part of the bbstreamer framework's three-phase lifecycle: conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base type casting)
-  - bbstreamer_extractor (specific extractor type casting)
+  - [bbstreamer](bbstreamer.md) (base type casting)
+  - [bbstreamer_extractor](bbstreamer_extractor.md) (specific extractor type casting)
   - PG_USED_FOR_ASSERTS_ONLY (debug macro for assertion-only variables)
   - Assert (assertion macro for validation)
 - Called from (representative examples):

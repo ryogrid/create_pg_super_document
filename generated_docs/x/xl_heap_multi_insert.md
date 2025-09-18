@@ -21,10 +21,10 @@ This structure is used to record bulk insertion operations where multiple tuples
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - heap_multi_insert (creates WAL records for bulk insertions)
-  - heap_xlog_multi_insert (replays multi-insert operations during recovery)
-  - heap2_desc (describes multi-insert WAL records for debugging)
-  - DecodeMultiInsert (logical replication decoding of bulk insert operations)
+  - [heap_multi_insert](../h/heap_multi_insert.md) (creates WAL records for bulk insertions)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md) (replays multi-insert operations during recovery)
+  - [heap2_desc](../h/heap2_desc.md) (describes multi-insert WAL records for debugging)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md) (logical replication decoding of bulk insert operations)
 
 ## Notes and Other Information
 - Uses FLEXIBLE_ARRAY_MEMBER for efficient storage of variable numbers of offset positions

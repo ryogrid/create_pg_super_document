@@ -23,19 +23,19 @@ The function ensures proper locking semantics by holding AccessExclusiveLock on 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
   - OidIsValid
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - CatalogTupleDelete
-  - ReleaseSysCache
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [ReleaseSysCache](ReleaseSysCache.md)
   - table_close
 - Called from (representative examples):
-  - doDeletion (dependency.c:1396)
+  - [doDeletion](../d/doDeletion.md) (dependency.c:1396)
 
 ## Notes and Other Information
 - The function expects the constraint to exist; missing constraints trigger an ERROR

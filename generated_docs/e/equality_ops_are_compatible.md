@@ -27,13 +27,13 @@ The rationale is that operators within the same opfamily are designed to have co
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
-  - op_in_opfamily
+  - [op_in_opfamily](../o/op_in_opfamily.md)
   - ReleaseSysCacheList
   - Form_pg_amop
   - BTREE_AM_OID
   - HASH_AM_OID
 - Called from (representative examples):
-  - query_is_distinct_for
+  - [query_is_distinct_for](../q/query_is_distinct_for.md)
 
 ## Notes and Other Information
 - Returns true if the operators are compatible, false otherwise

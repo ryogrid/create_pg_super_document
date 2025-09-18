@@ -17,10 +17,10 @@ This is the primary entry point for Basque stemming in PostgreSQL's Snowball ste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (establishes morphological boundaries)
-  - r_aditzak (processes verb suffixes)
-  - r_izenak (processes noun suffixes)
-  - r_adjetiboak (processes adjective suffixes)
+  - [r_mark_regions](../r/r_mark_regions.md) (establishes morphological boundaries)
+  - [r_aditzak](../r/r_aditzak.md) (processes verb suffixes)
+  - [r_izenak](../r/r_izenak.md) (processes noun suffixes)
+  - [r_adjetiboak](../r/r_adjetiboak.md) (processes adjective suffixes)
 - Called from (representative examples):
   - External callers using the Basque ISO-8859-1 stemmer
 

@@ -21,15 +21,15 @@ This function calculates and returns a pointer to the actual data portion of a s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_Kind (enum type for statistics kinds)
+  - [PgStat_Kind](../P/PgStat_Kind.md) (enum type for statistics kinds)
   - PgStatShared_Common (base structure for shared statistics entries)
-  - pgstat_get_kind_info (function to get kind-specific information)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md) (function to get kind-specific information)
   - PG_UINT32_MAX (constant for maximum 32-bit unsigned integer value)
   - Assert (macro for debug assertions)
 - Called from (representative examples):
-  - pgstat_fetch_entry in pgstat.c
-  - pgstat_build_snapshot in pgstat.c
-  - pgstat_write_statsfile in pgstat.c
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md) in pgstat.c
+  - [pgstat_build_snapshot](pgstat_build_snapshot.md) in pgstat.c
+  - [pgstat_write_statsfile](pgstat_write_statsfile.md) in pgstat.c
   - pgstat_read_statsfile in pgstat.c
   - pgstat_reinit_entry in pgstat_shmem.c
   - shared_stat_reset_contents in pgstat_shmem.c

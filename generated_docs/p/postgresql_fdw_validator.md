@@ -23,15 +23,15 @@ When an invalid option is encountered, the function not only reports an error bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `untransformRelOptions`: Converts options array into internal List format
-  - `is_conninfo_option`: Validates if an option is a valid libpq connection option
-  - `initClosestMatch`: Initializes fuzzy string matching state
-  - `updateClosestMatch`: Updates fuzzy matching with candidate option
-  - `getClosestMatch`: Retrieves the best matching option name
+  - `[untransformRelOptions](../u/untransformRelOptions.md)`: Converts options array into internal List format
+  - `[is_conninfo_option](../i/is_conninfo_option.md)`: Validates if an option is a valid libpq connection option
+  - `[initClosestMatch](../i/initClosestMatch.md)`: Initializes fuzzy string matching state
+  - `[updateClosestMatch](../u/updateClosestMatch.md)`: Updates fuzzy matching with candidate option
+  - `[getClosestMatch](../g/getClosestMatch.md)`: Retrieves the best matching option name
   - `ereport`: Reports errors with detailed messages and hints
-  - `DefElem`: Structure representing option definitions
-  - `ConnectionOption`: Structure for libpq connection options
-  - `ClosestMatchState`: State structure for fuzzy string matching
+  - `[DefElem](../D/DefElem.md)`: Structure representing option definitions
+  - `[ConnectionOption](../C/ConnectionOption.md)`: Structure for libpq connection options
+  - `[ClosestMatchState](../C/ClosestMatchState.md)`: State structure for fuzzy string matching
 - Called from:
   - No direct references found (likely called via SQL function interface)
 

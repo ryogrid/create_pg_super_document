@@ -27,15 +27,15 @@ The function handles special validation for index columns, ensuring that statist
   - RELKIND_PARTITIONED_INDEX
   - intVal
   - MAX_STATISTICS_TARGET
-  - SearchSysCacheAttName
-  - SearchSysCacheAttNum
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
+  - [SearchSysCacheAttNum](../S/SearchSysCacheAttNum.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSubSet
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - Statistics targets are limited to MAX_STATISTICS_TARGET, with automatic adjustment and warning for higher values

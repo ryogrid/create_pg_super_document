@@ -23,18 +23,18 @@ The function operates in different modes depending on the standby state. In earl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdFollows
-  - TransactionIdPrecedes
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - TransactionIdAdvance
-  - ExtendSUBTRANS
+  - [ExtendSUBTRANS](../E/ExtendSUBTRANS.md)
   - KnownAssignedXidsAdd
   - AdvanceNextFullTransactionIdPastXid
   - STANDBY_INITIALIZED (constant)
   - DEBUG4 (logging level)
 - Called from (representative examples):
-  - xact_redo_commit
-  - xact_redo_abort
-  - ApplyWalRecord
+  - [xact_redo_commit](../x/xact_redo_commit.md)
+  - [xact_redo_abort](../x/xact_redo_abort.md)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md)
   - ProcArrayApplyXidAssignment
 
 ## Notes and Other Information

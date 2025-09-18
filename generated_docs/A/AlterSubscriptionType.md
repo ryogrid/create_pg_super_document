@@ -28,7 +28,7 @@ This enumeration defines the different types of modifications that can be made t
 - Called from (representative examples):
   - AlterSubscriptionStmt (as the 'kind' field)
   - Parser grammar rules in gram.y for ALTER SUBSCRIPTION statements
-  - Subscription command functions in src/backend/commands/subscriptioncmds.c
+  - [Subscription](../S/Subscription.md) command functions in src/backend/commands/subscriptioncmds.c
 
 ## Notes and Other Information
 - This enum is part of PostgreSQL's logical replication infrastructure

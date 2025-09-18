@@ -23,15 +23,15 @@ The function treats the entire input text as a single morphological unit using t
 ## Dependencies
 - Functions called/Symbols referenced:
   - TSQuery (return type)
-  - MorphOpaque (data structure for morphological operations)
+  - [MorphOpaque](../M/MorphOpaque.md) (data structure for morphological operations)
   - OP_PHRASE (phrase operator constant)
-  - parse_tsquery (core parsing function)
+  - [parse_tsquery](parse_tsquery.md) (core parsing function)
   - text_to_cstring (text conversion utility)
-  - pushval_morph (morphological processing callback)
+  - [pushval_morph](pushval_morph.md) (morphological processing callback)
   - P_TSQ_PLAIN (parsing flag constant)
   - PG_RETURN_TSQUERY (PostgreSQL return macro)
 - Called from (representative examples):
-  - phraseto_tsquery
+  - [phraseto_tsquery](phraseto_tsquery.md)
 
 ## Notes and Other Information
 - This is a PostgreSQL internal function designed to be called through the SQL function interface

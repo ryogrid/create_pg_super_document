@@ -25,18 +25,18 @@ The function includes sophisticated memory management, automatically cleaning up
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search_with_hash_value (for finding/creating shared hash table entries)
-  - ProcLockHashCode (for computing proclock hash codes)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (for finding/creating shared hash table entries)
+  - [ProcLockHashCode](../P/ProcLockHashCode.md) (for computing proclock hash codes)
   - LockHashPartition (for determining lock partition)
-  - dlist_init, dlist_push_tail (for managing linked lists)
-  - dclist_init (for wait queue initialization)
+  - [dlist_init](../d/dlist_init.md), dlist_push_tail (for managing linked lists)
+  - [dclist_init](../d/dclist_init.md) (for wait queue initialization)
   - MemSet (for memory initialization)
 - Data structures used:
   - LOCK, PROCLOCK, PROCLOCKTAG (core lock structures)
   - LockMethodLockHash, LockMethodProcLockHash (shared hash tables)
 - Called from (representative examples):
-  - LockAcquireExtended (main lock acquisition path)
-  - FastPathTransferRelationLocks (fast-path to shared table transfer)
+  - [LockAcquireExtended](../L/LockAcquireExtended.md) (main lock acquisition path)
+  - [FastPathTransferRelationLocks](../F/FastPathTransferRelationLocks.md) (fast-path to shared table transfer)
   - VirtualXactLock (virtual transaction locking)
 
 ## Notes and Other Information

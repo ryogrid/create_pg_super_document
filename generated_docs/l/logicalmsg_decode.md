@@ -33,12 +33,12 @@ For transactional messages, the function uses the standard snapshot management t
   - XLogRecGetOrigin
   - XLogRecGetData
   - ReorderBufferProcessXid
-  - SnapBuildCurrentState
-  - FilterByOrigin
-  - SnapBuildProcessChange
-  - SnapBuildXactNeedsSkip
-  - SnapBuildGetOrBuildSnapshot
-  - ReorderBufferQueueMessage
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
+  - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
+  - [SnapBuildXactNeedsSkip](../S/SnapBuildXactNeedsSkip.md)
+  - [SnapBuildGetOrBuildSnapshot](../S/SnapBuildGetOrBuildSnapshot.md)
+  - [ReorderBufferQueueMessage](../R/ReorderBufferQueueMessage.md)
 - Called from (representative examples):
   - Referenced in rmgrlist.h as the decode function for RM_LOGICALMSG_ID
   - Used by the logical decoding infrastructure for processing logical messages

@@ -26,7 +26,7 @@ Both encodings represent Cyrillic characters but with different byte values - WI
   - PG_GETARG_INT32 (parameter extraction macro)
   - PG_GETARG_BOOL (parameter extraction macro)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - local2local (core conversion function in src/backend/utils/mb/conv.c:33)
+  - [local2local](../l/local2local.md) (core conversion function in src/backend/utils/mb/conv.c:33)
   - win8662win1251 (character mapping table at line 186)
   - PG_WIN866, PG_WIN1251 (encoding constants)
   - PG_RETURN_INT32 (return value macro)

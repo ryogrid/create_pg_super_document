@@ -20,11 +20,11 @@ The function is designed to normalize Windows-style path separators to Unix-styl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sjis_mblen
+  - [pg_sjis_mblen](../p/pg_sjis_mblen.md)
   - PG_SJIS
 - Called from (representative examples):
-  - cleanup_path
-  - canonicalize_path_enc
+  - [cleanup_path](../c/cleanup_path.md)
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/port/path.c

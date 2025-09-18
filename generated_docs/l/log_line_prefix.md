@@ -18,10 +18,10 @@ The  function is a simple wrapper that delegates to  to format log line prefixes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log_status_format
+  - [log_status_format](log_status_format.md)
   - ErrorData (struct type)
 - Called from (representative examples):
-  - send_message_to_server_log (multiple locations)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static function internal to elog.c, serving as a specialized interface to the more general log_status_format function

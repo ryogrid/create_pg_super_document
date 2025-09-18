@@ -26,12 +26,12 @@ None - This function takes no parameters and uses global environment state.
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - CreateRestrictedProcess
+  - [CreateRestrictedProcess](../C/CreateRestrictedProcess.md)
   - setenv
-  - pg_free
+  - [pg_free](../p/pg_free.md)
 - Called from (representative examples):
-  - main (in initdb, pg_resetwal, pg_rewind, pg_upgrade, pg_createsubscriber)
-  - regression_main
+  - [main](../m/main.md) (in initdb, pg_resetwal, pg_rewind, pg_upgrade, pg_createsubscriber)
+  - [regression_main](../r/regression_main.md)
 
 ## Notes and Other Information
 - **Cross-Platform**: No-op on non-Windows systems, Windows-specific security implementation

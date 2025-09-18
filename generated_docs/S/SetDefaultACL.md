@@ -17,31 +17,31 @@ This function implements the core logic for managing default ACL entries in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - acldefault
+  - [acldefault](../a/acldefault.md)
   - make_empty_acl
-  - SearchSysCache3
-  - SysCacheGetAttr
+  - [SearchSysCache3](SearchSysCache3.md)
+  - [SysCacheGetAttr](SysCacheGetAttr.md)
   - DatumGetAclPCopy
-  - aclmembers
+  - [aclmembers](../a/aclmembers.md)
   - aclcopy
-  - merge_acl_with_grant
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - aclitemsort
-  - aclequal
-  - performDeletion
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - recordDependencyOnOwner
-  - recordDependencyOn
-  - updateAclDependencies
+  - [aclequal](../a/aclequal.md)
+  - [performDeletion](../p/performDeletion.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [updateAclDependencies](../u/updateAclDependencies.md)
   - InvokeObjectPostCreateHook
   - InvokeObjectPostAlterHook
   - CommandCounterIncrement
 - Called from (representative examples):
-  - SetDefaultACLsInSchemas
-  - RemoveRoleFromObjectACL
+  - [SetDefaultACLsInSchemas](SetDefaultACLsInSchemas.md)
+  - [RemoveRoleFromObjectACL](../R/RemoveRoleFromObjectACL.md)
 
 ## Notes and Other Information
 - The function is static and serves as the lowest-level implementation for default ACL management

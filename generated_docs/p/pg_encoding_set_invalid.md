@@ -22,15 +22,15 @@ The function includes an assertion that the target encoding supports multibyte c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_max_length (encoding capability check)
+  - [pg_encoding_max_length](pg_encoding_max_length.md) (encoding capability check)
   - PG_UTF8 (UTF-8 encoding constant)
   - NONUTF8_INVALID_BYTE0 (0x8D - first byte of non-UTF8 invalid sequence)
   - NONUTF8_INVALID_BYTE1 (0x20 - second byte of invalid sequence)
 - Called from (representative examples):
-  - fmtIdEnc (identifier encoding formatting)
-  - appendStringLiteral (string literal processing)
-  - PQescapeStringInternal (libpq string escaping)
-  - test_enc_setup (regression testing)
+  - [fmtIdEnc](../f/fmtIdEnc.md) (identifier encoding formatting)
+  - [appendStringLiteral](../a/appendStringLiteral.md) (string literal processing)
+  - [PQescapeStringInternal](../P/PQescapeStringInternal.md) (libpq string escaping)
+  - [test_enc_setup](../t/test_enc_setup.md) (regression testing)
 
 ## Notes and Other Information
 - The invalid byte sequences were carefully selected to avoid conflicts with legitimate character encodings

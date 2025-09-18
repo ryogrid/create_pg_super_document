@@ -278,15 +278,15 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base structure)
-  - List (PostgreSQL list structure)
-  - ItemPointerData (TID representation)
+  - [ScanState](../S/ScanState.md) (base structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [ItemPointerData](../I/ItemPointerData.md) (TID representation)
 
 - Called from (representative examples):
-  - ExecInitTidRangeScan (initialization)
-  - ExecTidRangeScan (execution)
-  - ExecEndTidRangeScan (cleanup)
-  - ExecReScanTidRangeScan (rescan operations)
+  - [ExecInitTidRangeScan](../E/ExecInitTidRangeScan.md) (initialization)
+  - [ExecTidRangeScan](../E/ExecTidRangeScan.md) (execution)
+  - [ExecEndTidRangeScan](../E/ExecEndTidRangeScan.md) (cleanup)
+  - [ExecReScanTidRangeScan](../E/ExecReScanTidRangeScan.md) (rescan operations)
 
 ## Notes and Other Information
 This state structure is specifically used by the TID range scan executor node (nodeTidrangescan.c). TID range scans are an optimization for queries that can benefit from scanning only a specific physical range of tuples in a table, rather than performing a full table scan or index scan. The scan maintains boundaries and tracks progress through the TID range to ensure efficient and correct tuple retrieval.

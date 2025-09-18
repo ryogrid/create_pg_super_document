@@ -32,9 +32,9 @@ Return value: void (no return value, assumes entry is valid)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (for name generation)
-  - SH_ENTRY_HASH (gets hash value from entry)
-  - SH_INITIAL_BUCKET (calculates starting bucket)
-  - SH_NEXT (moves to next bucket in probe sequence)
+  - [SH_ENTRY_HASH](SH_ENTRY_HASH.md) (gets hash value from entry)
+  - [SH_INITIAL_BUCKET](SH_INITIAL_BUCKET.md) (calculates starting bucket)
+  - [SH_NEXT](SH_NEXT.md) (moves to next bucket in probe sequence)
 - Called from (representative examples):
   - PostgreSQL subsystems that have cached entry pointers
   - Iterator-based deletion operations

@@ -30,25 +30,25 @@ The function ensures data integrity by carefully managing all dependent objects 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RememberAllDependentForRebuilding
-  - SearchSysCacheCopyAttName
-  - typenameType
-  - GetColumnDefCollation
-  - build_column_default
-  - strip_implicit_coercions
-  - coerce_to_target_type
-  - add_column_datatype_dependency
-  - add_column_collation_dependency
-  - RemoveStatistics
-  - GetAttrDefaultOid
-  - deleteDependencyRecordsFor
-  - RemoveAttrDefault
-  - StoreAttrDefault
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - relation_close
+  - [RememberAllDependentForRebuilding](../R/RememberAllDependentForRebuilding.md)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [typenameType](../t/typenameType.md)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md)
+  - [build_column_default](../b/build_column_default.md)
+  - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [add_column_datatype_dependency](../a/add_column_datatype_dependency.md)
+  - [add_column_collation_dependency](../a/add_column_collation_dependency.md)
+  - [RemoveStatistics](../R/RemoveStatistics.md)
+  - [GetAttrDefaultOid](../G/GetAttrDefaultOid.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
+  - [RemoveAttrDefault](../R/RemoveAttrDefault.md)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Handles both regular and generated column defaults differently

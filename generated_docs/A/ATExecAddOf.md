@@ -19,22 +19,22 @@ ATExecAddOf implements the ALTER TABLE OF SQL command that converts a regular ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameType
-  - check_of_type
+  - [typenameType](../t/typenameType.md)
+  - [check_of_type](../c/check_of_type.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - lookup_rowtype_tupdesc
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - TupleDescAttr
   - ReleaseTupleDesc
-  - drop_parent_dependency
-  - recordDependencyOn
+  - [drop_parent_dependency](../d/drop_parent_dependency.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - Validates that the table has no inheritance relationships, preventing typed tables from participating in inheritance

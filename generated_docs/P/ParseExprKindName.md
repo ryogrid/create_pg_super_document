@@ -21,14 +21,14 @@ The function is designed to return simple SQL keywords when practical, making er
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseExprKind (enumeration type)
+  - [ParseExprKind](ParseExprKind.md) (enumeration type)
   - Multiple EXPR_KIND_* constants (enumeration values)
 - Called from (representative examples):
-  - check_agglevels_and_constraints
-  - transformWindowFuncCall
-  - checkTargetlistEntrySQL92
-  - findTargetlistEntrySQL92
-  - check_srf_call_placement
+  - [check_agglevels_and_constraints](../c/check_agglevels_and_constraints.md)
+  - [transformWindowFuncCall](../t/transformWindowFuncCall.md)
+  - [checkTargetlistEntrySQL92](../c/checkTargetlistEntrySQL92.md)
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md)
+  - [check_srf_call_placement](../c/check_srf_call_placement.md)
 
 ## Notes and Other Information
 - Used extensively for error reporting throughout the parser

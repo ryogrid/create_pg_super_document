@@ -24,7 +24,7 @@ The stop_streaming function serves as the main control mechanism for terminating
   - LSN_FORMAT_ARGS (macro for formatting LSN values)
   - InvalidXLogRecPtr (constant for invalid LSN)
 - Called from (representative examples):
-  - StreamLog (in pg_receivewal.c)
+  - [StreamLog](../S/StreamLog.md) (in pg_receivewal.c)
 
 ## Notes and Other Information
 - This is a static function with file-local scope within pg_receivewal.c

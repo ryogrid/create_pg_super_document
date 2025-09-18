@@ -38,15 +38,15 @@ The function modifies the inherited column definition in place and handles prope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameTypeIdAndMod (resolves type names to OIDs and modifiers)
-  - GetColumnDefCollation (determines column collation settings)
-  - format_type_with_typemod (formats type information for error messages)
-  - get_collation_name (retrieves collation names for error messages)
-  - storage_name (converts storage type codes to names for error messages)
+  - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md) (resolves type names to OIDs and modifiers)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md) (determines column collation settings)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md) (formats type information for error messages)
+  - [get_collation_name](../g/get_collation_name.md) (retrieves collation names for error messages)
+  - [storage_name](../s/storage_name.md) (converts storage type codes to names for error messages)
   - list_nth_node (retrieves specific list elements)
   - ereport (error and notice reporting)
 - Called from (representative examples):
-  - MergeAttributes (main attribute merging function during table creation)
+  - [MergeAttributes](MergeAttributes.md) (main attribute merging function during table creation)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, used exclusively during table inheritance processing

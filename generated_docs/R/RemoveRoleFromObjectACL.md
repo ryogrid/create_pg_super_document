@@ -27,15 +27,15 @@ The function effectively performs a "REVOKE ALL" operation on the specified obje
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetDefaultACL
-  - ExecGrantStmt_oids
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [ExecGrantStmt_oids](../E/ExecGrantStmt_oids.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - list_make1_oid
 - Called from (representative examples):
-  - shdepDropOwned
+  - [shdepDropOwned](../s/shdepDropOwned.md)
 
 ## Notes and Other Information
 - The function does not accept an objsubid parameter, which means it operates at the object level rather than sub-object level (like specific columns)

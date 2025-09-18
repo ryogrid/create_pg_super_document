@@ -27,8 +27,8 @@ The function performs several critical tasks: validates syntax constraints (e.g.
   - check_stack_depth
   - CHECK_FOR_INTERRUPTS
   - appendStringInfoChar
-  - alignStringInfoInt
-  - reserveSpaceForItemPointer
+  - [alignStringInfoInt](../a/alignStringInfoInt.md)
+  - [reserveSpaceForItemPointer](../r/reserveSpaceForItemPointer.md)
   - appendBinaryStringInfo
   - appendStringInfoSpaces
   - ereturn
@@ -36,8 +36,8 @@ The function performs several critical tasks: validates syntax constraints (e.g.
   - VARSIZE
   - Various JsonPath item type constants (jpiString, jpiNumeric, jpiAnd, etc.)
 - Called from (representative examples):
-  - jsonPathFromCstring
-  - flattenJsonPathParseItem (recursive calls)
+  - [jsonPathFromCstring](../j/jsonPathFromCstring.md)
+  - [flattenJsonPathParseItem](flattenJsonPathParseItem.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath.c and central to JsonPath compilation

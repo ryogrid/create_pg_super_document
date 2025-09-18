@@ -22,11 +22,11 @@ This structure implements PostgreSQL's regular expression caching mechanism, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext (PostgreSQL memory context type)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory context type)
   - Oid (PostgreSQL object identifier type)
   - regex_t (Spencer's regex library compiled expression type)
 - Called from (representative examples):
-  - RE_compile_and_cache (multiple references for cache management)
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md) (multiple references for cache management)
 
 ## Notes and Other Information
 This structure is fundamental to PostgreSQL's regex performance optimization strategy. The caching system maintains a small number of recently used compiled regular expressions to avoid the overhead of recompilation. The structure carefully tracks collation information because the same pattern text may behave differently under different collations. The use of PostgreSQL's memory context system ensures that cached regex objects are properly cleaned up when no longer needed. The pattern is stored without null termination as an optimization, requiring the length field for proper handling.

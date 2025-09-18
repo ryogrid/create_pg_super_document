@@ -22,13 +22,13 @@ The function includes a comment noting that in SHARED_TUPLESTORE_SINGLE_PASS mod
   - SharedTuplestoreAccessor (structure type)
   - BufFileClose (function to close buffer files)
 - Called from (representative examples):
-  - sts_begin_parallel_scan (automatically called to end existing scans)
-  - ExecParallelHashRepartitionRest (in nodeHash.c:1429)
-  - ExecParallelPrepHashTableForUnmatched (in nodeHash.c:2126, 2127)
-  - ExecParallelHashCloseBatchAccessors (in nodeHash.c:3193, 3194)
-  - ExecHashTableDetachBatch (in nodeHash.c:3299, 3300)
-  - ExecHashTableDetach (in nodeHash.c:3403, 3404)
-  - ExecParallelHashJoinNewBatch (in nodeHashjoin.c:1240)
+  - [sts_begin_parallel_scan](sts_begin_parallel_scan.md) (automatically called to end existing scans)
+  - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md) (in nodeHash.c:1429)
+  - [ExecParallelPrepHashTableForUnmatched](../E/ExecParallelPrepHashTableForUnmatched.md) (in nodeHash.c:2126, 2127)
+  - [ExecParallelHashCloseBatchAccessors](../E/ExecParallelHashCloseBatchAccessors.md) (in nodeHash.c:3193, 3194)
+  - [ExecHashTableDetachBatch](../E/ExecHashTableDetachBatch.md) (in nodeHash.c:3299, 3300)
+  - [ExecHashTableDetach](../E/ExecHashTableDetach.md) (in nodeHash.c:3403, 3404)
+  - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md) (in nodeHashjoin.c:1240)
 
 ## Notes and Other Information
 - Safe to call even when no scan is active (checks for NULL read_file)

@@ -27,8 +27,8 @@ The function categorizes operators into several groups:
   - DEFAULT_INEQ_SEL
 
 - Called from (representative examples):
-  - multirangesel (multiple times for fallback estimates)
-  - calc_multirangesel (as fallback when histogram analysis fails)
+  - [multirangesel](../m/multirangesel.md) (multiple times for fallback estimates)
+  - [calc_multirangesel](../c/calc_multirangesel.md) (as fallback when histogram analysis fails)
 
 ## Notes and Other Information
 The function serves as a safety net in the PostgreSQL query planner's selectivity estimation system. The specific probability values are based on empirical observations of typical data patterns and operator behavior. Overlap operations are considered relatively rare (1%), while containment operations are even rarer (0.5%). Element containment operations are treated similarly to scalar range comparisons since they represent point-in-range queries.

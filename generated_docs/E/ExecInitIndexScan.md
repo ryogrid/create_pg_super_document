@@ -34,20 +34,20 @@ The function includes special handling for EXPLAIN-only execution, where it stop
   - makeNode
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - ExecInitScanTupleSlot
-  - table_slot_callbacks
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfo
-  - ExecInitQual
-  - ExecInitExprList
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [table_slot_callbacks](../t/table_slot_callbacks.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecInitExprList](ExecInitExprList.md)
   - exec_rt_fetch
-  - index_open
-  - ExecIndexBuildScanKeys
+  - [index_open](../i/index_open.md)
+  - [ExecIndexBuildScanKeys](ExecIndexBuildScanKeys.md)
   - PrepareSortSupportFromOrderingOp
-  - get_typlenbyval
+  - [get_typlenbyval](../g/get_typlenbyval.md)
   - pairingheap_allocate
 - Called from (representative examples):
-  - ExecInitNode (in execProcnode.c:220)
+  - [ExecInitNode](ExecInitNode.md) (in execProcnode.c:220)
 
 ## Notes and Other Information
 - The function handles two relations: the base table being scanned and the index being used

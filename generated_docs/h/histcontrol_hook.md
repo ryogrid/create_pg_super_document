@@ -17,14 +17,14 @@ This function serves as a validation hook for the HISTCONTROL psql variable. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (for case-insensitive string comparison)  
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)  
   - PsqlVarEnumError (for error reporting on invalid values)
   - hctl_none (enum constant for no history control)
   - hctl_ignorespace (enum constant for ignoring commands starting with space)
   - hctl_ignoredups (enum constant for ignoring duplicate commands)
   - hctl_ignoreboth (enum constant combining ignorespace and ignoredups)
 - Called from (representative examples):
-  - EstablishVariableSpace (via SetVariableHooks for HISTCONTROL variable)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (via SetVariableHooks for HISTCONTROL variable)
 
 ## Notes and Other Information
 - The function expects newval to never be NULL due to the substitute hook providing a default value

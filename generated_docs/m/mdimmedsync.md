@@ -22,13 +22,13 @@ This function is particularly important for handling cases where a relation migh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdnblocks
-  - _mdfd_openseg
+  - [mdnblocks](mdnblocks.md)
+  - [_mdfd_openseg](_mdfd_openseg.md)
   - FileSync
   - data_sync_elevel
-  - FilePathName
+  - [FilePathName](../F/FilePathName.md)
   - FileClose
-  - _fdvec_resize
+  - [_fdvec_resize](../f/_fdvec_resize.md)
 - Called from (representative examples):
   - Referenced in MD_H header file
 

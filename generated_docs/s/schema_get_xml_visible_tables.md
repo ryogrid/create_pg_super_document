@@ -25,10 +25,10 @@ This function constructs and executes a SQL query to find all tables, materializ
   - RELKIND_MATVIEW
   - RELKIND_VIEW
   - CppAsString2
-  - query_to_oid_list
+  - [query_to_oid_list](../q/query_to_oid_list.md)
 - Called from (representative examples):
-  - schema_to_xml_internal
-  - schema_to_xmlschema_internal
+  - [schema_to_xml_internal](schema_to_xml_internal.md)
+  - [schema_to_xmlschema_internal](schema_to_xmlschema_internal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xml.c file

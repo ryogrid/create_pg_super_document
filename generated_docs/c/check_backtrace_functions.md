@@ -30,7 +30,7 @@ The output format allows efficient, reentrant scanning when errors occur without
 - Functions called/Symbols referenced:
   - GucSource (type)
   - GUC_check_errdetail (for error reporting)
-  - guc_malloc (for memory allocation)
+  - [guc_malloc](../g/guc_malloc.md) (for memory allocation)
   - strlen, strspn (C library functions)
 
 - Called from (representative examples):

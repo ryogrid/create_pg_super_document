@@ -19,18 +19,18 @@ This static function generates detailed log messages upon checkpoint completion,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - TimestampDifferenceMilliseconds
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
   - ereport (with LOG level)
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - LSN_FORMAT_ARGS macro
   - CheckpointStats global structure
   - PendingCheckpointerStats global structure
   - ControlFile global structure
   - NBuffers global variable
 - Called from (representative examples):
-  - CreateCheckPoint (in xlog.c:7348)
-  - CreateRestartPoint (in xlog.c:7833)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (in xlog.c:7348)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (in xlog.c:7833)
 
 ## Notes and Other Information
 - Static function only called internally within xlog.c

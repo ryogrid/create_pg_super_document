@@ -25,14 +25,14 @@ The function handles line continuation with backslashes in plain mode and proper
   - printf() (standard C library)
   - fflush() (standard C library)
   - resetStringInfo() (PostgreSQL string utility)
-  - interactive_getc() (custom input function)
+  - [interactive_getc](../i/interactive_getc.md)() (custom input function)
   - appendStringInfoChar() (PostgreSQL string utility)
   - UseSemiNewlineNewline (global variable)
   - EchoQuery (global variable)
   - PqMsg_Query (message type constant)
 
 - Called from (representative examples):
-  - ReadCommand (src/backend/tcop/postgres.c:499)
+  - [ReadCommand](../R/ReadCommand.md) (src/backend/tcop/postgres.c:499)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the postgres.c compilation unit

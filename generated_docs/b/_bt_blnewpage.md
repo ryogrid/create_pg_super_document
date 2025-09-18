@@ -20,18 +20,18 @@ This function creates a new B-tree page during the bulk loading phase of index c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTWriteState (parameter type)
+  - [BTWriteState](../B/BTWriteState.md) (parameter type)
   - BulkWriteBuffer (return type and local variable)
   - BTPageOpaque (local variable type)
-  - smgr_bulk_get_buf (to allocate buffer from bulk state)
-  - _bt_pageinit (to initialize basic page structure)
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md) (to allocate buffer from bulk state)
+  - [_bt_pageinit](_bt_pageinit.md) (to initialize basic page structure)
   - BTPageGetOpaque (to access B-tree opaque data)
   - P_NONE (constant for unlinked page pointers)
   - BTP_LEAF (flag for leaf pages)
   - PageHeader (for page header manipulation)
-  - ItemIdData (for size calculation)
+  - [ItemIdData](../I/ItemIdData.md) (for size calculation)
 - Called from (representative examples):
-  - _bt_pagestate
+  - [_bt_pagestate](_bt_pagestate.md)
   - _bt_buildadd
 
 ## Notes and Other Information

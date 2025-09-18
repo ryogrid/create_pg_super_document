@@ -24,10 +24,10 @@ The function operates efficiently by returning true immediately upon finding the
   - PARAM_EXTERN
   - query_tree_walker
   - expression_tree_walker
-  - query_contains_extern_params_walker (recursive)
+  - [query_contains_extern_params_walker](query_contains_extern_params_walker.md) (recursive)
 - Called from (representative examples):
-  - query_contains_extern_params
-  - query_contains_extern_params_walker (recursive)
+  - [query_contains_extern_params](query_contains_extern_params.md)
+  - [query_contains_extern_params_walker](query_contains_extern_params_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function used internally for parameter detection

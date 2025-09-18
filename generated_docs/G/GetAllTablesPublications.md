@@ -24,16 +24,16 @@ This function is typically used in replication contexts where the system needs t
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
   - lappend_oid
   - Form_pg_publication
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):
-  - RelationBuildPublicationDesc
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
 
 ## Notes and Other Information
 - Specifically targets publications with puballtables=true (FOR ALL TABLES publications)

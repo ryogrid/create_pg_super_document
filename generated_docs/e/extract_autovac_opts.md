@@ -23,14 +23,14 @@ The function handles the case where no autovacuum options are explicitly set by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extractRelOptions (extracts reloptions bytea from tuple)
-  - palloc (memory allocation)
+  - [extractRelOptions](extractRelOptions.md) (extracts reloptions bytea from tuple)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copying)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - Form_pg_class/GETSTRUCT (tuple structure access)
 - Called from (representative examples):
-  - do_autovacuum (during table scanning for autovacuum candidates)
-  - table_recheck_autovac (when rechecking table maintenance needs)
+  - [do_autovacuum](../d/do_autovacuum.md) (during table scanning for autovacuum candidates)
+  - [table_recheck_autovac](../t/table_recheck_autovac.md) (when rechecking table maintenance needs)
 
 ## Notes and Other Information
 - Only processes relations, materialized views, and TOAST tables (verified by assertions)

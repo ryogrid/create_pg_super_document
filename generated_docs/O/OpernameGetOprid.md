@@ -19,20 +19,20 @@ This function performs operator resolution in the PostgreSQL catalog system. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
-  - SearchSysCache4
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [SearchSysCache4](../S/SearchSysCache4.md)
   - SearchSysCacheList3
-  - recomputeNamespacePath
-  - CStringGetDatum
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - Form_pg_operator
   - ReleaseSysCacheList
 - Called from (representative examples):
-  - OperatorIsVisibleExt
-  - LookupOperName
-  - binary_oper_exact
-  - left_oper
-  - regoperatorin
+  - [OperatorIsVisibleExt](OperatorIsVisibleExt.md)
+  - [LookupOperName](../L/LookupOperName.md)
+  - [binary_oper_exact](../b/binary_oper_exact.md)
+  - [left_oper](../l/left_oper.md)
+  - [regoperatorin](../r/regoperatorin.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the operator is not found or if a specified schema does not exist

@@ -32,13 +32,13 @@ The function performs three main operations: transaction header setup (setting x
   - HeapTupleHeaderSetXmax
   - RelationGetRelid
   - HeapTupleHasExternal
-  - heap_toast_insert_or_update
+  - [heap_toast_insert_or_update](heap_toast_insert_or_update.md)
   - HEAP_XACT_MASK, HEAP2_XACT_MASK, HEAP_XMAX_INVALID (constants)
   - RELKIND_RELATION, RELKIND_MATVIEW (constants)
   - TOAST_TUPLE_THRESHOLD (constant)
 - Called from (representative examples):
-  - heap_insert
-  - heap_multi_insert
+  - [heap_insert](heap_insert.md)
+  - [heap_multi_insert](heap_multi_insert.md)
 
 ## Notes and Other Information
 - Returns either the original tuple (if no toasting needed) or a new toasted tuple

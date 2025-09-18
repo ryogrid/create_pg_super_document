@@ -24,7 +24,7 @@ The function delegates to the encoding-specific display length function through 
   - `pg_wchar_table` (global encoding function table)
   - `DatabaseEncoding` (current database encoding information)
 - Called from (representative examples):
-  - `p_isspecial` (text search parser special character detection)
+  - `[p_isspecial](p_isspecial.md)` (text search parser special character detection)
 
 ## Notes and Other Information
 - Returns the number of screen columns (typically 1 or 2) occupied by the first character

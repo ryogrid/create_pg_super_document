@@ -26,15 +26,15 @@ The function follows the standard pattern of acquiring the slot, making validate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotAcquire
+  - [ReplicationSlotAcquire](ReplicationSlotAcquire.md)
   - SlotIsPhysical
-  - RecoveryInProgress
-  - ReplicationSlotMarkDirty
-  - ReplicationSlotSave
-  - ReplicationSlotRelease
+  - [RecoveryInProgress](RecoveryInProgress.md)
+  - [ReplicationSlotMarkDirty](ReplicationSlotMarkDirty.md)
+  - [ReplicationSlotSave](ReplicationSlotSave.md)
+  - [ReplicationSlotRelease](ReplicationSlotRelease.md)
   - RS_TEMPORARY (slot persistency constant)
 - Called from (representative examples):
-  - AlterReplicationSlot
+  - [AlterReplicationSlot](../A/AlterReplicationSlot.md)
 
 ## Notes and Other Information
 - Only supports logical replication slots - physical slots will generate an error

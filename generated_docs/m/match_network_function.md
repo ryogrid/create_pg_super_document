@@ -34,10 +34,10 @@ This design allows the same underlying matching logic to handle both subset and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_network_subset (core matching logic for network subset operations)
+  - [match_network_subset](match_network_subset.md) (core matching logic for network subset operations)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - network_subset_support (planner support function)
+  - [network_subset_support](../n/network_subset_support.md) (planner support function)
 
 ## Notes and Other Information
 - This is a static helper function, not directly callable from outside the module

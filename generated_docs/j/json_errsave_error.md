@@ -20,20 +20,20 @@ json_errsave_error serves as the central error reporting mechanism for PostgreSQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - errsave
-  - errdetail_internal
+  - [errdetail_internal](../e/errdetail_internal.md)
   - json_errdetail
-  - report_json_context
+  - [report_json_context](../r/report_json_context.md)
   - SOFT_ERROR_OCCURRED
   - JSON_UNICODE_HIGH_ESCAPE
   - JSON_UNICODE_UNTRANSLATABLE
   - JSON_UNICODE_CODE_POINT_ZERO
   - JSON_SEM_ACTION_FAILED
 - Called from (representative examples):
-  - pg_parse_json_or_errsave
-  - json_validate
-  - json_typeof
-  - get_array_start
-  - json_get_first_token
+  - [pg_parse_json_or_errsave](../p/pg_parse_json_or_errsave.md)
+  - [json_validate](json_validate.md)
+  - [json_typeof](json_typeof.md)
+  - [get_array_start](../g/get_array_start.md)
+  - [json_get_first_token](json_get_first_token.md)
 
 ## Notes and Other Information
 This function is critical for maintaining consistent error reporting across PostgreSQL's JSON functionality. It ensures that JSON parsing errors are properly categorized with appropriate SQL error codes (ERRCODE_UNTRANSLATABLE_CHARACTER for Unicode issues, ERRCODE_INVALID_TEXT_REPRESENTATION for syntax errors) and provides detailed context to help users identify and fix JSON input problems. The function's integration with PostgreSQL's error handling framework allows for both immediate error reporting and deferred error collection in bulk processing scenarios.

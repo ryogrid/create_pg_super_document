@@ -23,14 +23,14 @@ The function performs lookups to find related tables when dealing with indexes (
 - Functions called/Symbols referenced:
   - snprintf
   - strlen
-  - pg_log
+  - [pg_log](../p/pg_log.md)
   - _ (gettext translation macro)
 - Data structures used:
-  - RelInfo
-  - DbInfo
+  - [RelInfo](../R/RelInfo.md)
+  - [DbInfo](../D/DbInfo.md)
   - Oid
 - Called from (representative examples):
-  - gen_db_file_maps (multiple call sites)
+  - [gen_db_file_maps](../g/gen_db_file_maps.md) (multiple call sites)
 
 ## Notes and Other Information
 - Static function - only accessible within the same source file (info.c)

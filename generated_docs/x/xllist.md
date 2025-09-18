@@ -23,12 +23,12 @@ The structure is designed to efficiently handle variable-length data by maintain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StateFileChunk (struct type for individual data blocks)
+  - [StateFileChunk](../S/StateFileChunk.md) (struct type for individual data blocks)
 
 - Called from (representative examples):
-  - save_state_data (appends data to the records structure)
-  - StartPrepare (initializes the records structure)
-  - EndPrepare (finalizes and processes the records structure)
+  - [save_state_data](../s/save_state_data.md) (appends data to the records structure)
+  - [StartPrepare](../S/StartPrepare.md) (initializes the records structure)
+  - [EndPrepare](../E/EndPrepare.md) (finalizes and processes the records structure)
 
 ## Notes and Other Information
 - The structure is declared static and instantiated as , making it a file-scope global variable

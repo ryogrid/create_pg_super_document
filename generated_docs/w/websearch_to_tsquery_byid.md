@@ -24,16 +24,16 @@ The P_TSQ_WEB flag enables parsing of web search syntax such as quoted phrases f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MorphOpaque (data structure for morphological operations)
+  - [MorphOpaque](../M/MorphOpaque.md) (data structure for morphological operations)
   - TSQuery (return type)
   - OP_PHRASE (phrase operator constant for quoted terms)
-  - parse_tsquery (core parsing function)
+  - [parse_tsquery](../p/parse_tsquery.md) (core parsing function)
   - text_to_cstring (text conversion utility)
-  - pushval_morph (morphological processing callback)
+  - [pushval_morph](../p/pushval_morph.md) (morphological processing callback)
   - P_TSQ_WEB (web search parsing flag constant)
   - PG_RETURN_TSQUERY (PostgreSQL return macro)
 - Called from (representative examples):
-  - websearch_to_tsquery
+  - [websearch_to_tsquery](websearch_to_tsquery.md)
 
 ## Notes and Other Information
 - This is a PostgreSQL internal function designed to be called through the SQL function interface

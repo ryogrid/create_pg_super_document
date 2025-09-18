@@ -43,20 +43,20 @@ For MERGE operations, it maintains action lists and join conditions for each tar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](../P/Plan.md) (base structure)
   - CmdType
   - OnConflictAction
   - Index
-  - List
-  - Bitmapset
-  - Node
+  - [List](../L/List.md)
+  - [Bitmapset](../B/Bitmapset.md)
+  - [Node](../N/Node.md)
 
 - Called from (representative examples):
   - make_modifytable (optimizer/plan/createplan.c:7040)
-  - create_modifytable_plan (optimizer/plan/createplan.c:2817)
-  - ExecInitModifyTable (executor/nodeModifyTable.c:4422)
-  - ExecInsert (executor/nodeModifyTable.c:793)
-  - ExecInitMerge (executor/nodeModifyTable.c:3486)
+  - [create_modifytable_plan](../c/create_modifytable_plan.md) (optimizer/plan/createplan.c:2817)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md) (executor/nodeModifyTable.c:4422)
+  - [ExecInsert](../E/ExecInsert.md) (executor/nodeModifyTable.c:793)
+  - [ExecInitMerge](../E/ExecInitMerge.md) (executor/nodeModifyTable.c:3486)
 
 ## Notes and Other Information
 - Central node for all data modification operations in PostgreSQL's execution engine

@@ -27,13 +27,13 @@ This structure is essential for maintaining data consistency and correctness whe
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a context structure)
 - Called from (representative examples):
-  - AssertCheckRanges
-  - range_deduplicate_values
-  - compare_expanded_ranges
-  - compare_values
-  - range_contains_value
-  - sort_expanded_ranges
-  - reduce_expanded_ranges
+  - [AssertCheckRanges](../A/AssertCheckRanges.md)
+  - [range_deduplicate_values](../r/range_deduplicate_values.md)
+  - [compare_expanded_ranges](compare_expanded_ranges.md)
+  - [compare_values](compare_values.md)
+  - [range_contains_value](../r/range_contains_value.md)
+  - [sort_expanded_ranges](../s/sort_expanded_ranges.md)
+  - [reduce_expanded_ranges](../r/reduce_expanded_ranges.md)
 
 ## Notes and Other Information
 - This structure is specific to the BRIN minmax_multi access method implementation

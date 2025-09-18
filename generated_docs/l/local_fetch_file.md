@@ -21,7 +21,7 @@ This function provides a uniform interface for reading complete files during the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slurpFile
+  - [slurpFile](../s/slurpFile.md)
 - Called from (representative examples):
   - Via function pointer in rewind_source interface
 

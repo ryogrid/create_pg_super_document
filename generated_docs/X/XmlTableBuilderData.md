@@ -28,20 +28,20 @@ This structure is central to the XMLTABLE implementation, which allows SQL queri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgXmlErrorContext (for XML error handling)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (for XML error handling)
   - xmlParserCtxtPtr (libxml parser context)
   - xmlDocPtr (libxml document structure)
   - xmlXPathContextPtr (libxml XPath context)
   - xmlXPathCompExprPtr (compiled XPath expressions)
   - xmlXPathObjectPtr (XPath evaluation results)
 - Called from (representative examples):
-  - XmlTableInitOpaque (initializes the builder structure)
-  - XmlTableSetDocument (sets up XML document for processing)
-  - XmlTableSetRowFilter (configures row selection XPath)
-  - XmlTableSetColumnFilter (configures column extraction XPath)
-  - XmlTableFetchRow (retrieves next row from XML)
-  - XmlTableGetValue (extracts column values)
-  - XmlTableDestroyOpaque (cleanup and memory deallocation)
+  - [XmlTableInitOpaque](XmlTableInitOpaque.md) (initializes the builder structure)
+  - [XmlTableSetDocument](XmlTableSetDocument.md) (sets up XML document for processing)
+  - [XmlTableSetRowFilter](XmlTableSetRowFilter.md) (configures row selection XPath)
+  - [XmlTableSetColumnFilter](XmlTableSetColumnFilter.md) (configures column extraction XPath)
+  - [XmlTableFetchRow](XmlTableFetchRow.md) (retrieves next row from XML)
+  - [XmlTableGetValue](XmlTableGetValue.md) (extracts column values)
+  - [XmlTableDestroyOpaque](XmlTableDestroyOpaque.md) (cleanup and memory deallocation)
 
 ## Notes and Other Information
 - This structure is the private implementation detail of PostgreSQL's XMLTABLE functionality

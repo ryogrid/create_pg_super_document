@@ -25,13 +25,13 @@ The function ensures that all column and path names within a JSON_TABLE are uniq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupPathOrColumnName (called twice - for path names and column names)
-  - CheckDuplicateColumnOrPathNames (recursive call for nested columns)
+  - [LookupPathOrColumnName](../L/LookupPathOrColumnName.md) (called twice - for path names and column names)
+  - [CheckDuplicateColumnOrPathNames](CheckDuplicateColumnOrPathNames.md) (recursive call for nested columns)
   - castNode, lfirst, lappend (list manipulation functions)
   - ereport, errcode, errmsg, parser_errposition (error reporting)
 - Called from (representative examples):
-  - transformJsonTable
-  - CheckDuplicateColumnOrPathNames (recursively)
+  - [transformJsonTable](../t/transformJsonTable.md)
+  - [CheckDuplicateColumnOrPathNames](CheckDuplicateColumnOrPathNames.md) (recursively)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parse_jsontable.c module

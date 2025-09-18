@@ -22,7 +22,7 @@ The `extract_timestamp` function is a PostgreSQL SQL-callable function that extr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `timestamp_part_common` (shared implementation for timestamp field extraction)
+  - `[timestamp_part_common](../t/timestamp_part_common.md)` (shared implementation for timestamp field extraction)
 - Called from (representative examples):
   - SQL function `EXTRACT()` when used with timestamp arguments
   - PostgreSQL function call infrastructure

@@ -32,11 +32,11 @@ The function provides intelligent handling of different string types, including 
   - strncpy
   - memcpy
   - strlen
-  - ecpg_raise
+  - [ecpg_raise](../e/ecpg_raise.md)
   - ECPG_VAR_NOT_CHAR
   - ECPG_SQLSTATE_RESTRICTED_DATA_TYPE_ATTRIBUTE_VIOLATION
 - Called from (representative examples):
-  - ECPGget_desc
+  - [ECPGget_desc](../E/ECPGget_desc.md)
 
 ## Notes and Other Information
 - Static function, only accessible within descriptor.c

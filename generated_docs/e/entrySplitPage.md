@@ -41,20 +41,20 @@ The function ensures balanced page utilization while preserving the original buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - entryPreparePage
+  - [entryPreparePage](entryPreparePage.md)
   - PageGetTempPageCopy
-  - PageGetPageSize  
-  - PageGetMaxOffsetNumber
-  - PageGetItem
-  - PageGetItemId
-  - GinInitPage
+  - [PageGetPageSize](../P/PageGetPageSize.md)  
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [GinInitPage](../G/GinInitPage.md)
   - GinPageGetOpaque
   - PageAddItem
   - IndexTupleSize
   - MAXALIGN
   - RelationGetRelationName (for error reporting)
 - Called from (representative examples):
-  - entryBeginPlaceToPage
+  - [entryBeginPlaceToPage](entryBeginPlaceToPage.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN entry page management system

@@ -30,14 +30,14 @@ Key validation steps include:
 - Functions called/Symbols referenced:
   - ScalarArrayOpExpr
   - lsecond
-  - get_op_hash_functions
+  - [get_op_hash_functions](../g/get_op_hash_functions.md)
   - ArrayGetNItems, ARR_NDIM, ARR_DIMS
   - MIN_ARRAY_SIZE_FOR_HASHED_SAOP
-  - get_negator
-  - get_opcode
+  - [get_negator](../g/get_negator.md)
+  - [get_opcode](../g/get_opcode.md)
   - expression_tree_walker
 - Called from (representative examples):
-  - convert_saop_to_hashed_saop (clauses.c:2289)
+  - [convert_saop_to_hashed_saop](convert_saop_to_hashed_saop.md) (clauses.c:2289)
   - (recursively calls itself via expression_tree_walker)
 
 ## Notes and Other Information

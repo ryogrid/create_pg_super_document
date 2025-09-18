@@ -25,9 +25,9 @@ This function creates a RecursiveUnionPath node that represents the execution of
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - cost_recursive_union
+  - [cost_recursive_union](cost_recursive_union.md)
 - Called from (representative examples):
-  - generate_recursion_path (src/backend/optimizer/prep/prepunion.c:480)
+  - [generate_recursion_path](../g/generate_recursion_path.md) (src/backend/optimizer/prep/prepunion.c:480)
 
 ## Notes and Other Information
 - For recursive UNION ALL, distinctList is empty and numGroups is zero

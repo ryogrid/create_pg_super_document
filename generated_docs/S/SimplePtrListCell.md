@@ -24,13 +24,13 @@ SimplePtrListCell represents a single node in a singly-linked list specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimplePtrListCell (self-reference for next pointer)
+  - [SimplePtrListCell](SimplePtrListCell.md) (self-reference for next pointer)
   - void* (generic pointer type)
 - Called from (representative examples):
-  - simple_ptr_list_append
-  - SimplePtrList (as the cell type for the list structure)
-  - addConstrChildIdxDeps (in pg_dump)
-  - main (in pg_amcheck)
+  - [simple_ptr_list_append](../s/simple_ptr_list_append.md)
+  - [SimplePtrList](SimplePtrList.md) (as the cell type for the list structure)
+  - [addConstrChildIdxDeps](../a/addConstrChildIdxDeps.md) (in pg_dump)
+  - [main](../m/main.md) (in pg_amcheck)
 
 ## Notes and Other Information
 - Provides the most generic approach to linked list storage among PostgreSQL's simple list family

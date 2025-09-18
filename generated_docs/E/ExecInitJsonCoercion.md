@@ -32,16 +32,16 @@ The coercion step utilizes a cache (json_coercion_cache) that gets populated dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType
-  - DomainHasConstraints
-  - ExprEvalPushStep
+  - [getBaseType](../g/getBaseType.md)
+  - [DomainHasConstraints](../D/DomainHasConstraints.md)
+  - [ExprEvalPushStep](ExprEvalPushStep.md)
   - EEOP_JSONEXPR_COERCION
   - JsonReturning
-  - ErrorSaveContext
+  - [ErrorSaveContext](ErrorSaveContext.md)
   - ExprEvalStep
   - INT4OID
 - Called from (representative examples):
-  - ExecInitJsonExpr (three different call sites for main result, ON ERROR, and ON EMPTY coercions)
+  - [ExecInitJsonExpr](ExecInitJsonExpr.md) (three different call sites for main result, ON ERROR, and ON EMPTY coercions)
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExpr.c (lines 4538-4560)

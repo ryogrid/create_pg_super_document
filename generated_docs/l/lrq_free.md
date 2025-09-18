@@ -19,11 +19,11 @@ The `lrq_free` function is a simple wrapper around PostgreSQL's `pfree` function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LsnReadQueue (struct type)
-  - pfree (PostgreSQL memory deallocation function)
+  - [LsnReadQueue](../L/LsnReadQueue.md) (struct type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - XLogPrefetcherFree
-  - XLogPrefetcherReadRecord
+  - [XLogPrefetcherFree](../X/XLogPrefetcherFree.md)
+  - [XLogPrefetcherReadRecord](../X/XLogPrefetcherReadRecord.md)
 
 ## Notes and Other Information
 - Simple wrapper function that ensures consistent memory management for LSN read queues

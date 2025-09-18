@@ -23,9 +23,9 @@ This is a typedef for a pointer, so it has no direct member variables. It points
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredXactListData
+  - [PredXactListData](PredXactListData.md)
 - Called from (representative examples):
-  - SerialControl (within shared memory management)
+  - [SerialControl](../S/SerialControl.md) (within shared memory management)
 
 ## Notes and Other Information
 - Simple typedef for improved code readability and type safety

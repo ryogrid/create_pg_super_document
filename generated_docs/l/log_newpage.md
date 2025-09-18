@@ -21,17 +21,17 @@ log_newpage creates a WAL record with a complete full-page image of the provided
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert (starts WAL record construction)
-  - XLogRegisterBlock (registers the page with WAL record)
-  - XLogInsert (finalizes and writes WAL record with XLOG_FPI type)
-  - PageIsNew (checks if page is uninitialized)
-  - PageSetLSN (sets the page's log sequence number)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md) (starts WAL record construction)
+  - [XLogRegisterBlock](../X/XLogRegisterBlock.md) (registers the page with WAL record)
+  - [XLogInsert](../X/XLogInsert.md) (finalizes and writes WAL record with XLOG_FPI type)
+  - [PageIsNew](../P/PageIsNew.md) (checks if page is uninitialized)
+  - [PageSetLSN](../P/PageSetLSN.md) (sets the page's log sequence number)
   - REGBUF_FORCE_IMAGE (forces full page image inclusion)
   - REGBUF_STANDARD (optimizes standard page layout)
 - Called from:
-  - _hash_init (during hash index initialization)
-  - _hash_alloc_buckets (when allocating hash index buckets)
-  - log_newpage_buffer (as part of buffer-based page logging)
+  - [_hash_init](../h/_hash_init.md) (during hash index initialization)
+  - [_hash_alloc_buckets](../h/_hash_alloc_buckets.md) (when allocating hash index buckets)
+  - [log_newpage_buffer](log_newpage_buffer.md) (as part of buffer-based page logging)
 
 ## Notes and Other Information
 - Intended for pages built in private memory, not buffer-based pages

@@ -19,14 +19,14 @@ This function serves as the main entry point for the slot synchronization worker
 ## Dependencies
 - Functions called/Symbols referenced:
   - InitProcess (process initialization)
-  - BaseInit (early backend initialization)
-  - InitPostgres (database connection initialization)
+  - [BaseInit](../B/BaseInit.md) (early backend initialization)
+  - [InitPostgres](../I/InitPostgres.md) (database connection initialization)
   - walrcv_connect (primary server connection)
   - synchronize_slots (core slot synchronization logic)
-  - ProcessSlotSyncInterrupts (interrupt handling)
-  - wait_for_slot_activity (timing control)
+  - [ProcessSlotSyncInterrupts](../P/ProcessSlotSyncInterrupts.md) (interrupt handling)
+  - [wait_for_slot_activity](../w/wait_for_slot_activity.md) (timing control)
   - validate_remote_info (primary server validation)
-  - check_and_set_sync_info (sync context setup)
+  - [check_and_set_sync_info](../c/check_and_set_sync_info.md) (sync context setup)
   - SetProcessingMode (processing state management)
   - Various signal handlers and cleanup functions
 

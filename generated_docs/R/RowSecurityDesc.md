@@ -20,13 +20,13 @@ This structure is typically stored in the relation cache (RelationData) and is b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext (for memory management)
-  - List (PostgreSQL's linked list implementation)
-  - RowSecurityPolicy (contained within the policies list)
+  - [MemoryContext](../M/MemoryContext.md) (for memory management)
+  - [List](../L/List.md) (PostgreSQL's linked list implementation)
+  - [RowSecurityPolicy](RowSecurityPolicy.md) (contained within the policies list)
 
 - Called from (representative examples):
-  - RelationBuildRowSecurity (policy.c:197, 215)
-  - equalRSDesc (relcache.c:999)
+  - [RelationBuildRowSecurity](RelationBuildRowSecurity.md) (policy.c:197, 215)
+  - [equalRSDesc](../e/equalRSDesc.md) (relcache.c:999)
   - SWAPFIELD (relcache.c:2794)
   - RelationData.rd_rsdesc (rel.h:119)
 

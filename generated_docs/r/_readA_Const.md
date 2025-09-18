@@ -24,8 +24,8 @@ This function takes no parameters and returns a pointer to a newly allocated A_C
 ## Dependencies
 - Functions called/Symbols referenced:
   - READ_LOCALS (macro for local variable setup)
-  - pg_strtok (tokenizer function)
-  - nodeRead (generic node reading function)
+  - [pg_strtok](../p/pg_strtok.md) (tokenizer function)
+  - [nodeRead](../n/nodeRead.md) (generic node reading function)
   - nodeTag (macro to get node type)
   - memcpy (memory copy function)
   - elog (error logging function)

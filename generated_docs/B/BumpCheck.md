@@ -22,13 +22,13 @@ This function implements thorough memory consistency checking for the Bump alloc
   - IsKeeperBlock (block type checking)
   - elog (warning reporting)
   - VALGRIND_MAKE_MEM_DEFINED (valgrind support)
-  - MemoryChunkIsExternal (chunk type checking)
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md) (chunk type checking)
   - ExternalChunkGetBlock (external chunk handling)
-  - MemoryChunkGetBlock (chunk block extraction)
-  - MemoryChunkGetValue (chunk size retrieval)
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md) (chunk block extraction)
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md) (chunk size retrieval)
   - MemoryChunkGetPointer (chunk pointer extraction)
 - Called from (representative examples):
-  - BumpReset (during reset operations)
+  - [BumpReset](BumpReset.md) (during reset operations)
   - BOGUS_MCTX (via function pointer table)
   - Memory context debugging functions
 

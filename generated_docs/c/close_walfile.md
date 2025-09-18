@@ -20,7 +20,7 @@ This function properly closes the current WAL file that is being written during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StreamCtl (structure)
+  - [StreamCtl](../S/StreamCtl.md) (structure)
   - pgoff_t (type)
   - strlcpy
   - CLOSE_NORMAL, CLOSE_NO_RENAME (constants)
@@ -28,13 +28,13 @@ This function properly closes the current WAL file that is being written during 
   - walmethod->ops->close
   - pg_log_info
   - pg_log_error
-  - GetLastWalMethodError
-  - pg_free
-  - mark_file_as_archived
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
+  - [pg_free](../p/pg_free.md)
+  - [mark_file_as_archived](../m/mark_file_as_archived.md)
 - Called from (representative examples):
-  - ProcessXLogDataMsg
-  - HandleEndOfCopyStream
-  - CheckCopyStreamStop
+  - [ProcessXLogDataMsg](../P/ProcessXLogDataMsg.md)
+  - [HandleEndOfCopyStream](../H/HandleEndOfCopyStream.md)
+  - [CheckCopyStreamStop](../C/CheckCopyStreamStop.md)
 
 ## Notes and Other Information
 - Sets global `walfile` variable to NULL after closing

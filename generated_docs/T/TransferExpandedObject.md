@@ -21,12 +21,12 @@ The function performs ownership transfer by changing the parent memory context o
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetEOHP
-  - ExpandedObjectHeader
+  - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
   - VARATT_IS_EXTERNAL_EXPANDED_RW
   - MemoryContextSetParent
   - EOHPGetRWDatum
 - Called from (representative examples):
-  - datumTransfer
+  - [datumTransfer](../d/datumTransfer.md)
   - MakeExpandedObjectReadOnly
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ This function serves as an error reporting callback during backup manifest parsi
   - appendStringInfoVA
   - enlargeStringInfo
   - ereport
-  - errmsg_internal
+  - [errmsg_internal](../e/errmsg_internal.md)
 - Called from (representative examples):
   - Manifest parsing infrastructure (as error callback)
 

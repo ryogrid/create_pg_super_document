@@ -34,15 +34,15 @@ This function is crucial for maintaining B-tree integrity and is typically calle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_insert_parent (to complete the parent insertion)
-  - _bt_getbuf (to acquire lock on right sibling and metapage)
+  - [_bt_insert_parent](_bt_insert_parent.md) (to complete the parent insertion)
+  - [_bt_getbuf](_bt_getbuf.md) (to acquire lock on right sibling and metapage)
   - BTPageGetOpaque (to access page opaque data)
   - P_INCOMPLETE_SPLIT, P_LEFTMOST, P_RIGHTMOST (page flag macros)
-  - BufferGetBlockNumber (for logging and comparison)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (for logging and comparison)
 - Called from (representative examples):
-  - _bt_stepright (when moving right encounters incomplete split)
-  - _bt_getstackbuf (when re-finding parent encounters incomplete split)
-  - _bt_moveright (during search when incomplete split is encountered)
+  - [_bt_stepright](_bt_stepright.md) (when moving right encounters incomplete split)
+  - [_bt_getstackbuf](_bt_getstackbuf.md) (when re-finding parent encounters incomplete split)
+  - [_bt_moveright](_bt_moveright.md) (during search when incomplete split is encountered)
 
 ## Notes and Other Information
 - This is a public function (not static) as it's called from multiple B-tree modules

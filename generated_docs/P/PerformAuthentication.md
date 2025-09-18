@@ -26,17 +26,17 @@ The function will not return if authentication fails - it will terminate the pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (for creating PostmasterContext in EXEC_BACKEND)
-  - load_hba (for loading pg_hba.conf configuration)
-  - load_ident (for loading pg_ident.conf configuration) 
+  - [load_hba](../l/load_hba.md) (for loading pg_hba.conf configuration)
+  - [load_ident](../l/load_ident.md) (for loading pg_ident.conf configuration) 
   - enable_timeout_after/disable_timeout (for authentication timeout management)
   - set_ps_display (for updating process title)
-  - ClientAuthentication (main authentication logic)
+  - [ClientAuthentication](../C/ClientAuthentication.md) (main authentication logic)
   - initStringInfo/appendStringInfo (for building log messages)
-  - be_tls_get_version/be_tls_get_cipher/be_tls_get_cipher_bits (SSL info)
-  - be_gssapi_get_princ/be_gssapi_get_auth/be_gssapi_get_enc/be_gssapi_get_delegation (GSS info)
+  - [be_tls_get_version](../b/be_tls_get_version.md)/be_tls_get_cipher/be_tls_get_cipher_bits (SSL info)
+  - [be_gssapi_get_princ](../b/be_gssapi_get_princ.md)/be_gssapi_get_auth/be_gssapi_get_enc/be_gssapi_get_delegation (GSS info)
   - ereport (for logging and error reporting)
 - Called from:
-  - InitPostgres (src/backend/utils/init/postinit.c:926)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:926)
 
 ## Notes and Other Information
 - This is a static function, only accessible within postinit.c

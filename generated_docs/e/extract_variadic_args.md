@@ -30,23 +30,23 @@ The function allocates memory for the output arrays and populates them with the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_variadic
+  - [get_fn_expr_variadic](../g/get_fn_expr_variadic.md)
   - PG_NARGS
   - PG_GETARG_ARRAYTYPE_P
   - ARR_ELEMTYPE
-  - get_typlenbyvalalign
-  - deconstruct_array
-  - get_fn_expr_argtype
-  - get_fn_expr_arg_stable
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [get_fn_expr_arg_stable](../g/get_fn_expr_arg_stable.md)
   - CStringGetTextDatum
   - PG_GETARG_DATUM
   - PG_ARGISNULL
   - PG_GETARG_POINTER
 - Called from (representative examples):
-  - json_build_object
-  - json_build_array
-  - jsonb_build_object
-  - jsonb_build_array
+  - [json_build_object](../j/json_build_object.md)
+  - [json_build_array](../j/json_build_array.md)
+  - [jsonb_build_object](../j/jsonb_build_object.md)
+  - [jsonb_build_array](../j/jsonb_build_array.md)
 
 ## Notes and Other Information
 - Returns the number of arguments extracted, or -1 for "VARIADIC NULL" case

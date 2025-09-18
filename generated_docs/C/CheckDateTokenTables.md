@@ -19,22 +19,22 @@ This function serves as the primary entry point for validating PostgreSQL's date
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckDateTokenTable (validates individual token tables)
-  - date2j (converts date to Julian day number)
+  - [CheckDateTokenTable](CheckDateTokenTable.md) (validates individual token tables)
+  - [date2j](../d/date2j.md) (converts date to Julian day number)
   - UNIX_EPOCH_JDATE (Unix epoch constant validation)
   - POSTGRES_EPOCH_JDATE (PostgreSQL epoch constant validation)
   - datetktbl, szdatetktbl (main date/time token table and its size)
   - deltatktbl, szdeltatktbl (interval token table and its size)
 - Called from (representative examples):
-  - PostmasterMain (in src/backend/postmaster/postmaster.c)
+  - [PostmasterMain](../P/PostmasterMain.md) (in src/backend/postmaster/postmaster.c)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckDateTokenTable (for validating individual token tables)
-  - date2j (for epoch date validation)
+  - [CheckDateTokenTable](CheckDateTokenTable.md) (for validating individual token tables)
+  - [date2j](../d/date2j.md) (for epoch date validation)
   - Assert (for critical constant validation)
 - Called from (representative examples):
-  - PostmasterMain (primary call during system startup)
+  - [PostmasterMain](../P/PostmasterMain.md) (primary call during system startup)
 
 ## Notes and Other Information
 - Called during postmaster startup to ensure date/time system integrity before accepting connections

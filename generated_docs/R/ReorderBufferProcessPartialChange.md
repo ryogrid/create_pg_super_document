@@ -20,18 +20,18 @@ This function handles the tracking and management of partial changes during logi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferCanStream (checks if streaming is enabled)
+  - [ReorderBufferCanStream](ReorderBufferCanStream.md) (checks if streaming is enabled)
   - rbtxn_get_toptxn (gets the top-level transaction)
   - IsInsertOrUpdate (checks if change is insert or update)
   - IsSpecInsert (checks if change is speculative insert)
   - IsSpecConfirmOrAbort (checks if change confirms/aborts speculation)
-  - ReorderBufferCanStartStreaming (checks if streaming can start)
-  - ReorderBufferStreamTXN (initiates transaction streaming)
+  - [ReorderBufferCanStartStreaming](ReorderBufferCanStartStreaming.md) (checks if streaming can start)
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md) (initiates transaction streaming)
   - rbtxn_has_partial_change (checks partial change flag)
   - rbtxn_is_serialized (checks if transaction was serialized)
   - rbtxn_has_streamable_change (checks if transaction has streamable content)
 - Called from (representative examples):
-  - ReorderBufferQueueChange (when processing new changes)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md) (when processing new changes)
 
 ## Notes and Other Information
 - Only processes partial changes when streaming is enabled (ReorderBufferCanStream returns true)

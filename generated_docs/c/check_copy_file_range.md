@@ -31,13 +31,13 @@ This function takes no parameters.
   - close (system call for closing file descriptors)
   - copy_file_range (Linux system call for efficient file copying)
   - snprintf (for formatting file paths)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
 - Global variables accessed:
   - old_cluster.pgdata (source data directory path)
   - new_cluster.pgdata (destination data directory path)
   - pg_file_create_mode (file permission mode)
 - Called from:
-  - check_new_cluster (src/bin/pg_upgrade/check.c:702)
+  - [check_new_cluster](check_new_cluster.md) (src/bin/pg_upgrade/check.c:702)
 
 ## Notes and Other Information
 - This function is conditional on HAVE_COPY_FILE_RANGE being defined at compile time

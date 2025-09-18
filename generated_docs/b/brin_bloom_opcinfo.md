@@ -19,12 +19,12 @@ The function uses PostgreSQL's MAXALIGN macro to ensure proper memory alignment 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinOpcInfo: BRIN operator class information structure
-  - BloomOpaque: Bloom-specific opaque data structure  
+  - [BrinOpcInfo](../B/BrinOpcInfo.md): BRIN operator class information structure
+  - [BloomOpaque](../B/BloomOpaque.md): Bloom-specific opaque data structure  
   - SizeofBrinOpcInfo: Macro to calculate size of BrinOpcInfo structure
-  - palloc0: PostgreSQL memory allocation function (zero-initialized)
+  - [palloc0](../p/palloc0.md): PostgreSQL memory allocation function (zero-initialized)
   - MAXALIGN: Memory alignment macro
-  - lookup_type_cache: Function to get type cache information
+  - [lookup_type_cache](../l/lookup_type_cache.md): Function to get type cache information
   - PG_BRIN_BLOOM_SUMMARYOID: OID constant for bloom summary data type
   - PG_RETURN_POINTER: PostgreSQL macro to return pointer values
 - Called from (representative examples):

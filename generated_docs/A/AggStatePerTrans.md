@@ -59,22 +59,22 @@ AggStatePerTrans manages the transition state for aggregate functions during exe
 - Functions called/Symbols referenced:
   - AggStatePerTransData
   - Aggref
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
   - ExprState
   - TupleTableSlot
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
   - Tuplesortstate
-  - FunctionCallInfo
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
 - Called from (representative examples):
-  - ExecBuildAggTrans
-  - ExecInterpExpr (multiple aggregate evaluation functions)
-  - initialize_aggregate
-  - advance_transition_function
-  - process_ordered_aggregate_single
-  - process_ordered_aggregate_multi
-  - finalize_aggregate
-  - ExecInitAgg
-  - build_pertrans_for_aggref
+  - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md)
+  - [ExecInterpExpr](../E/ExecInterpExpr.md) (multiple aggregate evaluation functions)
+  - [initialize_aggregate](../i/initialize_aggregate.md)
+  - [advance_transition_function](../a/advance_transition_function.md)
+  - [process_ordered_aggregate_single](../p/process_ordered_aggregate_single.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
+  - [finalize_aggregate](../f/finalize_aggregate.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md)
 
 ## Notes and Other Information
 - This structure is the core of PostgreSQL's aggregate state management, handling the complex logic for maintaining transition states

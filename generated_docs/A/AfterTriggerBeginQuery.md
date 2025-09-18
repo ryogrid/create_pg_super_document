@@ -23,10 +23,10 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - afterTriggers global structure (query_depth field)
 - Called from:
-  - CopyFrom (in src/backend/commands/copyfrom.c:804)
-  - ExecuteTruncateGuts (in src/backend/commands/tablecmds.c:2020) 
-  - standard_ExecutorStart (in src/backend/executor/execMain.c:255)
-  - create_edata_for_relation (in src/backend/replication/logical/worker.c:699)
+  - [CopyFrom](../C/CopyFrom.md) (in src/backend/commands/copyfrom.c:804)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (in src/backend/commands/tablecmds.c:2020) 
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md) (in src/backend/executor/execMain.c:255)
+  - [create_edata_for_relation](../c/create_edata_for_relation.md) (in src/backend/replication/logical/worker.c:699)
 
 ## Notes and Other Information
 - This function uses a lazy initialization approach where heavy setup work is postponed until actually needed

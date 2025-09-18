@@ -29,14 +29,14 @@ static void StartLogStreamer(char *startpos, uint32 timeline, char *sysidentifie
   - sscanf (parses WAL position string)
   - XLogSegmentOffset (calculates WAL segment offset)
   - pipe (creates background communication pipe on Unix)
-  - GetConnection (establishes database connection)
-  - PQserverVersion (gets PostgreSQL server version)
-  - PQbackendPID (gets backend process ID)
-  - CreateReplicationSlot (creates temporary or permanent replication slot)
-  - pg_mkdir_p (creates directory hierarchy)
-  - LogStreamerMain (main function for the background process/thread)
+  - [GetConnection](../G/GetConnection.md) (establishes database connection)
+  - [PQserverVersion](../P/PQserverVersion.md) (gets PostgreSQL server version)
+  - [PQbackendPID](../P/PQbackendPID.md) (gets backend process ID)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (creates temporary or permanent replication slot)
+  - [pg_mkdir_p](../p/pg_mkdir_p.md) (creates directory hierarchy)
+  - [LogStreamerMain](../L/LogStreamerMain.md) (main function for the background process/thread)
   - fork/_beginthreadex (platform-specific process/thread creation)
-  - kill_bgchild_atexit (cleanup function for Unix)
+  - [kill_bgchild_atexit](../k/kill_bgchild_atexit.md) (cleanup function for Unix)
   - pg_log_info (logging function)
 - Global variables accessed:
   - bgpipe, bgchild (process communication and control)
@@ -44,7 +44,7 @@ static void StartLogStreamer(char *startpos, uint32 timeline, char *sysidentifie
   - temp_replication_slot, replication_slot, create_slot (replication settings)
   - format, verbose (backup options)
 - Called from (representative examples):
-  - BaseBackup function in pg_basebackup.c at line 2119
+  - [BaseBackup](../B/BaseBackup.md) function in pg_basebackup.c at line 2119
 
 ## Notes and Other Information
 - Creates a separate database connection for WAL streaming to enable parallel operation with the base backup

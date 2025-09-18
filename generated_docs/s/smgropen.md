@@ -21,17 +21,17 @@ The `smgropen` function is responsible for obtaining an SMgrRelation object that
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelFileNumberIsValid
-  - hash_create
-  - hash_search
-  - dlist_init
-  - dlist_push_tail
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [dlist_init](../d/dlist_init.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - HASH_ELEM, HASH_BLOBS, HASH_ENTER
   - MAX_FORKNUM
   - SMgrRelation, RelFileLocatorBackend, SMgrRelationData, HASHCTL types
 - Called from (representative examples):
   - XLogReadBufferExtended (src/backend/access/transam/xlogutils.c:491)
-  - RelationCreateStorage (src/backend/catalog/storage.c:149)
-  - ReadBufferWithoutRelcache (src/backend/storage/buffer/bufmgr.c:833)
+  - [RelationCreateStorage](../R/RelationCreateStorage.md) (src/backend/catalog/storage.c:149)
+  - [ReadBufferWithoutRelcache](../R/ReadBufferWithoutRelcache.md) (src/backend/storage/buffer/bufmgr.c:833)
   - RelationGetSmgr (src/include/utils/rel.h:571)
 
 ## Notes and Other Information

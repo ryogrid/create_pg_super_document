@@ -19,9 +19,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - pgstat_clear_snapshot
+  - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)
 
 ## Notes and Other Information
 - This function is typically invoked during transaction commit or abort to clean up transaction-specific snapshot data

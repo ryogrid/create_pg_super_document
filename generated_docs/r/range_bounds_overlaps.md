@@ -21,10 +21,10 @@ This function implements overlap detection logic for range intervals using bound
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_cmp_bounds (used for boundary comparisons)
+  - [range_cmp_bounds](range_cmp_bounds.md) (used for boundary comparisons)
   - RangeBound (boundary structure type)
 - Called from (representative examples):
-  - multirange_overlaps_multirange_internal
+  - [multirange_overlaps_multirange_internal](../m/multirange_overlaps_multirange_internal.md)
 
 ## Notes and Other Information
 - This is a static function, internal to the multirange implementation

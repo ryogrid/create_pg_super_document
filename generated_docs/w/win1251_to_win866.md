@@ -26,7 +26,7 @@ This conversion enables data transfer from modern Windows environments to legacy
   - PG_GETARG_INT32 (parameter extraction macro)
   - PG_GETARG_BOOL (parameter extraction macro)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - local2local (core conversion function in src/backend/utils/mb/conv.c:33)
+  - [local2local](../l/local2local.md) (core conversion function in src/backend/utils/mb/conv.c:33)
   - win12512win866 (character mapping table at line 206)
   - PG_WIN1251, PG_WIN866 (encoding constants)
   - PG_RETURN_INT32 (return value macro)

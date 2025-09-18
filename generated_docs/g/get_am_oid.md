@@ -18,9 +18,9 @@ get_am_oid provides a type-agnostic wrapper for access method lookup operations.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_am_type_oid: Internal worker function for access method lookup (called with type '\0' for no type checking)
+  - [get_am_type_oid](get_am_type_oid.md): Internal worker function for access method lookup (called with type '\0' for no type checking)
 - Called from (representative examples):
-  - get_object_address_unqualified: Generic object address resolution
+  - [get_object_address_unqualified](get_object_address_unqualified.md): Generic object address resolution
   - DEFREM_H: Referenced in command definition headers
 
 ## Notes and Other Information

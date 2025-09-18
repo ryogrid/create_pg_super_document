@@ -34,19 +34,19 @@ The function includes strict assertions to ensure lock mode validity (must be Ac
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)
   - RelationGetRelationName (relation name extraction)
-  - CheckRelationLockedByMe (lock validation)
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md) (lock validation)
   - RelationGetRelid (OID extraction)
-  - makeAlias (alias creation)
-  - buildRelationAliases (column name building)
-  - addRTEPermissionInfo (permission setup)
+  - [makeAlias](../m/makeAlias.md) (alias creation)
+  - [buildRelationAliases](../b/buildRelationAliases.md) (column name building)
+  - [addRTEPermissionInfo](addRTEPermissionInfo.md) (permission setup)
   - lappend (list manipulation)
-  - buildNSItemFromTupleDesc (namespace item creation)
+  - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md) (namespace item creation)
 - Called from (representative examples):
-  - AddRelationNewConstraints (in heap.c)
-  - DoCopy (in copy.c)
-  - CreatePolicy (in policy.c)
-  - setTargetTable (in parse_clause.c)
-  - transformOnConflictClause (in analyze.c)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md) (in heap.c)
+  - [DoCopy](../D/DoCopy.md) (in copy.c)
+  - [CreatePolicy](../C/CreatePolicy.md) (in policy.c)
+  - [setTargetTable](../s/setTargetTable.md) (in parse_clause.c)
+  - [transformOnConflictClause](../t/transformOnConflictClause.md) (in analyze.c)
 
 ## Notes and Other Information
 - The caller must hold the specified lock mode or a stronger one before calling this function

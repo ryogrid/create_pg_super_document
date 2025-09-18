@@ -28,10 +28,10 @@ The function formats and logs a standardized error message that includes:
 - Functions called/Symbols referenced:
   - pg_log_error
 - Types used:
-  - CState
+  - [CState](../C/CState.md)
 - Called from (representative examples):
-  - advanceConnectionState
-  - executeMetaCommand
+  - [advanceConnectionState](../a/advanceConnectionState.md)
+  - [executeMetaCommand](../e/executeMetaCommand.md)
 
 ## Notes and Other Information
 - The function is declared as static, indicating it's for internal use within the pgbench module

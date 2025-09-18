@@ -30,7 +30,7 @@ The function is specifically designed for operations that require vectorized pro
   - `vld1q_u32` (NEON implementation)
   - Vector32 (type definition)
 - Called from (representative examples):
-  - `pg_lfind32_simd_helper` (SIMD-optimized linear search for 32-bit values)
+  - `[pg_lfind32_simd_helper](../p/pg_lfind32_simd_helper.md)` (SIMD-optimized linear search for 32-bit values)
 
 ## Notes and Other Information
 - This is a static inline function defined in `src/include/port/simd.h` for optimal performance

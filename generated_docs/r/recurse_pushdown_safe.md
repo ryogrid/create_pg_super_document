@@ -29,13 +29,13 @@ The recursive nature ensures that all components of complex nested set operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subquery_is_pushdown_safe: Performs actual safety analysis for individual subqueries
+  - [subquery_is_pushdown_safe](../s/subquery_is_pushdown_safe.md): Performs actual safety analysis for individual subqueries
   - rt_fetch: Retrieves range table entries from the query's range table
   - nodeTag: Determines the runtime type of nodes for error handling
-  - recurse_pushdown_safe: Recursive self-calls for left and right set operation arguments
+  - [recurse_pushdown_safe](recurse_pushdown_safe.md): Recursive self-calls for left and right set operation arguments
 - Called from (representative examples):
-  - subquery_is_pushdown_safe: When processing set operation trees
-  - recurse_pushdown_safe: Recursive self-calls for tree traversal
+  - [subquery_is_pushdown_safe](../s/subquery_is_pushdown_safe.md): When processing set operation trees
+  - [recurse_pushdown_safe](recurse_pushdown_safe.md): Recursive self-calls for tree traversal
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's qual pushdown optimization for set operations

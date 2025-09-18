@@ -28,16 +28,16 @@ After processing affixes, it sorts all spell entries lexicographically and build
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort
-  - cmpspellaffix  
-  - cmpspell
+  - [cmpspellaffix](../c/cmpspellaffix.md)  
+  - [cmpspell](../c/cmpspell.md)
   - mkSPNode
-  - cpstrdup
-  - t_isdigit
-  - t_isspace
+  - [cpstrdup](../c/cpstrdup.md)
+  - [t_isdigit](../t/t_isdigit.md)
+  - [t_isspace](../t/t_isspace.md)
   - strtol
   - strlen
 - Called from (representative examples):
-  - dispell_init
+  - [dispell_init](../d/dispell_init.md)
 
 ## Notes and Other Information
 - This function must be called after NIImportAffixes and NIImportDictionary but before dictionary can be used for spell checking

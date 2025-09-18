@@ -20,19 +20,19 @@ The function follows PostgreSQL's replication protocol strictly, verifying that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputCopyEnd
-  - PQflush
-  - libpqrcv_PQgetResult
-  - PQresultStatus
-  - PQnfields
-  - PQntuples
-  - PQgetvalue
-  - pg_strtoint32
+  - [PQputCopyEnd](../P/PQputCopyEnd.md)
+  - [PQflush](../P/PQflush.md)
+  - [libpqrcv_PQgetResult](libpqrcv_PQgetResult.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [pg_strtoint32](../p/pg_strtoint32.md)
   - PQendcopy
-  - PQclear
-  - pchomp
+  - [PQclear](../P/PQclear.md)
+  - [pchomp](../p/pchomp.md)
 - Called from (representative examples):
-  - WalReceiverConn (referenced in streaming termination routines)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (referenced in streaming termination routines)
 
 ## Dependencies
 - Functions called/Symbols referenced:

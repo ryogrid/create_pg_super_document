@@ -17,14 +17,14 @@ This function serves as a signal handler for various termination signals during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - remove_temp
-  - pqsignal
+  - [remove_temp](../r/remove_temp.md)
+  - [pqsignal](../p/pqsignal.md)
   - raise (system call)
   - SIG_DFL (constant)
   - postgres_signal_arg (global variable)
   - SIGNAL_ARGS (macro)
 - Called from (representative examples):
-  - make_temp_sockdir (installed as signal handler for SIGINT, SIGTERM, SIGQUIT, SIGHUP)
+  - [make_temp_sockdir](../m/make_temp_sockdir.md) (installed as signal handler for SIGINT, SIGTERM, SIGQUIT, SIGHUP)
 
 ## Notes and Other Information
 - Function is marked static (internal to pg_regress.c)

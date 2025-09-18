@@ -19,12 +19,12 @@ The `appendToBuffer` function is a higher-level convenience function that combin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reserveFromBuffer
-  - copyToBuffer
+  - [reserveFromBuffer](../r/reserveFromBuffer.md)
+  - [copyToBuffer](../c/copyToBuffer.md)
 - Called from (representative examples):
-  - convertJsonbArray
-  - convertJsonbObject
-  - convertJsonbScalar
+  - [convertJsonbArray](../c/convertJsonbArray.md)
+  - [convertJsonbObject](../c/convertJsonbObject.md)
+  - [convertJsonbScalar](../c/convertJsonbScalar.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the jsonb_util.c compilation unit

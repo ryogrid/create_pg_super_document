@@ -26,14 +26,14 @@ This function serves as a callback for the Windows API function EnumSystemLocale
   - create_collation_from_locale
   - strchr (C library)
   - strcpy (C library)
-  - CollationCreate
-  - GetUserId
-  - get_collation_actual_version
+  - [CollationCreate](../C/CollationCreate.md)
+  - [GetUserId](../G/GetUserId.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
   - CommandCounterIncrement
   - CollParam (struct type)
   - NAMEDATALEN (constant)
 - Called from (representative examples):
-  - pg_import_system_collations (via EnumSystemLocalesEx callback)
+  - [pg_import_system_collations](../p/pg_import_system_collations.md) (via EnumSystemLocalesEx callback)
 
 ## Notes and Other Information
 - This is a Windows-specific function, only compiled when ENUM_SYSTEM_LOCALE is defined

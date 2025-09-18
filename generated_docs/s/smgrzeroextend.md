@@ -25,7 +25,7 @@ The smgrzeroextend function is a storage manager interface for efficiently exten
   - SMgrRelation (relation structure)
   - InvalidBlockNumber (constant for invalid block number)
 - Called from (representative examples):
-  - ExtendBufferedRelShared (shared buffer extension)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md) (shared buffer extension)
   - ExtendBufferedRelLocal (local buffer extension)
 
 ## Notes and Other Information

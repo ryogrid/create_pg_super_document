@@ -21,7 +21,7 @@ TrackFunctionsLevel controls the granularity of function call statistics collect
 - Functions called/Symbols referenced:
   - Used as type for pgstat_track_functions global variable
 - Called from (representative examples):
-  - pgstat_init_function_usage (for tracking level comparison)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) (for tracking level comparison)
   - Function execution paths in executor/execExpr.c
   - GUC configuration system in guc_tables.c
 

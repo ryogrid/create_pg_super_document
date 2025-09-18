@@ -29,9 +29,9 @@ The function is typically used in tiebreaker scenarios during abbreviated sortin
   - Various utility functions: ssup_datum_unsigned_cmp, ssup_datum_signed_cmp, ssup_datum_int32_cmp
   - Preparation functions: PrepareSortSupportComparisonShim, PrepareSortSupportFromOrderingOp, PrepareSortSupportFromIndexRel, PrepareSortSupportFromGistIndexRel
 - Called from (representative examples):
-  - comparetup_heap_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1132)
+  - [comparetup_heap_tiebreak](../c/comparetup_heap_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1132)
   - comparetup_cluster_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1278)
-  - comparetup_index_btree_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1494)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1494)
   - comparetup_datum_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1816)
 
 ## Notes and Other Information

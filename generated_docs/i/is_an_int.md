@@ -22,7 +22,7 @@ is_an_int performs string validation to determine if the input matches the patte
   - Uses unsigned char casting for proper character classification
 
 - Called from (representative examples):
-  - makeVariableValue
+  - [makeVariableValue](../m/makeVariableValue.md)
 
 ## Notes and Other Information
 - Implements validation logic consistent with PostgreSQL's strtoint64 function

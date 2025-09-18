@@ -27,14 +27,14 @@ For each archive member, the function processes four main contexts:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extract_directory
-  - extract_link  
-  - create_file_for_extract
+  - [extract_directory](../e/extract_directory.md)
+  - [extract_link](../e/extract_link.md)  
+  - [create_file_for_extract](../c/create_file_for_extract.md)
   - fwrite
   - fclose
   - snprintf
   - strlen
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
   - Referenced through bbstreamer function pointer mechanism (no direct callers found)
 

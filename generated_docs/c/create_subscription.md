@@ -23,21 +23,21 @@ The function constructs a CREATE SUBSCRIPTION SQL command with proper escaping f
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - PQescapeIdentifier
-  - PQescapeLiteral
-  - appendPQExpBuffer
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - pg_log_info
   - pg_log_debug
   - pg_log_error
-  - PQexec
-  - PQresultStatus
-  - PQresultErrorMessage
-  - disconnect_database
-  - PQfreemem
-  - PQclear
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [disconnect_database](../d/disconnect_database.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - setup_subscriber
+  - [setup_subscriber](../s/setup_subscriber.md)
 
 ## Notes and Other Information
 - Creates subscription in disabled state to allow replication progress setup first

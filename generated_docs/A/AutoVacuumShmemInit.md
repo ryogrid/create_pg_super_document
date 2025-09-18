@@ -30,25 +30,25 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct() (shared memory allocation)
-  - AutoVacuumShmemSize() (size calculation)
-  - dlist_init() (doubly-linked list initialization)
-  - dlist_push_head() (list manipulation)
-  - pg_atomic_init_flag() (atomic flag initialization)
-  - pg_atomic_init_u32() (atomic counter initialization)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)() (shared memory allocation)
+  - [AutoVacuumShmemSize](AutoVacuumShmemSize.md)() (size calculation)
+  - [dlist_init](../d/dlist_init.md)() (doubly-linked list initialization)
+  - [dlist_push_head](../d/dlist_push_head.md)() (list manipulation)
+  - [pg_atomic_init_flag](../p/pg_atomic_init_flag.md)() (atomic flag initialization)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)() (atomic counter initialization)
   - memset() (memory zeroing)
   - MAXALIGN() (memory alignment)
 - Data structures referenced:
-  - AutoVacuumShmemStruct (main control structure)
-  - WorkerInfo (worker information structure)
-  - AutoVacuumWorkItem (work item structure)
+  - [AutoVacuumShmemStruct](AutoVacuumShmemStruct.md) (main control structure)
+  - [WorkerInfo](../W/WorkerInfo.md) (worker information structure)
+  - [AutoVacuumWorkItem](AutoVacuumWorkItem.md) (work item structure)
 - Global variables used:
   - AutoVacuumShmem (global shared memory pointer)
   - autovacuum_max_workers (configuration parameter)
   - NUM_WORKITEMS (work items array size)
   - IsUnderPostmaster (process type flag)
 - Called from:
-  - CreateOrAttachShmemStructs (at src/backend/storage/ipc/ipci.c:341)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (at src/backend/storage/ipc/ipci.c:341)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's shared memory initialization sequence

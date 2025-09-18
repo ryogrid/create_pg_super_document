@@ -20,15 +20,15 @@ The function implements the concurrent TID recycling safety mechanism described 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_unlockbuf
+  - [_bt_unlockbuf](_bt_unlockbuf.md)
   - IsMVCCSnapshot
   - RelationNeedsWAL
   - ReleaseBuffer
 - Called from (representative examples):
-  - _bt_first
-  - _bt_steppage
-  - _bt_parallel_readpage
-  - _bt_endpoint
+  - [_bt_first](_bt_first.md)
+  - [_bt_steppage](_bt_steppage.md)
+  - [_bt_parallel_readpage](_bt_parallel_readpage.md)
+  - [_bt_endpoint](_bt_endpoint.md)
 
 ## Notes and Other Information
 The conditional pin release logic ensures that the buffer pin is only dropped when it's safe for concurrent operations. The three conditions checked are:

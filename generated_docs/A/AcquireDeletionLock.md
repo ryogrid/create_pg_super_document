@@ -24,17 +24,17 @@ AcquireDeletionLock provides object-type-aware locking for deletion operations. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelationOid: Acquires locks on relation objects
-  - LockSharedObject: Acquires locks on shared objects
-  - LockDatabaseObject: Acquires locks on database-specific objects
+  - [LockRelationOid](../L/LockRelationOid.md): Acquires locks on relation objects
+  - [LockSharedObject](../L/LockSharedObject.md): Acquires locks on shared objects
+  - [LockDatabaseObject](../L/LockDatabaseObject.md): Acquires locks on database-specific objects
   - ShareUpdateExclusiveLock: Lock mode constant for concurrent operations
   - AccessExclusiveLock: Lock mode constant for exclusive access
   - PERFORM_DELETION_CONCURRENTLY: Flag constant for concurrent deletion mode
 - Called from:
-  - performDeletion: Single object deletion function
-  - performMultipleDeletions: Multiple object deletion function
-  - findDependentObjects: Dependency analysis function (multiple locations)
-  - shdepDropOwned: Shared dependency cleanup (multiple locations)
+  - [performDeletion](../p/performDeletion.md): Single object deletion function
+  - [performMultipleDeletions](../p/performMultipleDeletions.md): Multiple object deletion function
+  - [findDependentObjects](../f/findDependentObjects.md): Dependency analysis function (multiple locations)
+  - [shdepDropOwned](../s/shdepDropOwned.md): Shared dependency cleanup (multiple locations)
   - PERFORM_DELETION_CONCURRENT_LOCK: Referenced in header file
 
 ## Notes and Other Information

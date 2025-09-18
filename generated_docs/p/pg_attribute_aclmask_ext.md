@@ -30,22 +30,22 @@ The function performs proper memory management for potentially large ACL objects
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - SysCacheGetAttr
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetAclP
-  - aclmask
-  - ObjectIdGetDatum
+  - [aclmask](../a/aclmask.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Int16GetDatum
-  - ReleaseSysCache
-  - pfree
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [pfree](pfree.md)
   - GETSTRUCT
   - HeapTupleIsValid
   - Form_pg_class
   - Form_pg_attribute
 - Called from (representative examples):
   - InternalDefaultACL
-  - pg_attribute_aclmask
-  - pg_attribute_aclcheck_ext
+  - [pg_attribute_aclmask](pg_attribute_aclmask.md)
+  - [pg_attribute_aclcheck_ext](pg_attribute_aclcheck_ext.md)
 
 ## Notes and Other Information
 - This is a static function internal to the aclchk.c module

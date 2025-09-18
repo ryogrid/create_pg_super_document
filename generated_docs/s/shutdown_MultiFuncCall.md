@@ -27,14 +27,14 @@ The function is static (internal) and follows the ExprContextCallbackFunction si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (implicitly used to convert Datum to pointer)
-  - MemoryContextDelete
+  - [DatumGetPointer](../D/DatumGetPointer.md) (implicitly used to convert Datum to pointer)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Types referenced:
-  - FmgrInfo
-  - FuncCallContext
+  - [FmgrInfo](../F/FmgrInfo.md)
+  - [FuncCallContext](../F/FuncCallContext.md)
 - Called from:
-  - init_MultiFuncCall (registered as callback)
-  - end_MultiFuncCall (called directly)
+  - [init_MultiFuncCall](../i/init_MultiFuncCall.md) (registered as callback)
+  - [end_MultiFuncCall](../e/end_MultiFuncCall.md) (called directly)
 
 ## Notes and Other Information
 - This is a static function, not directly callable from outside funcapi.c

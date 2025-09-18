@@ -22,11 +22,11 @@ The function follows the same efficient implementation pattern as other Unicode 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_HEX_DIGIT (constant/macro)
-  - range_search (function for binary search in Unicode ranges)
+  - [range_search](../r/range_search.md) (function for binary search in Unicode ranges)
   - lengthof (macro to get array length)
 - Called from (representative examples):
-  - icu_test (in test code)
-  - pg_u_isxdigit (higher-level hexadecimal digit checking function)
+  - [icu_test](../i/icu_test.md) (in test code)
+  - [pg_u_isxdigit](pg_u_isxdigit.md) (higher-level hexadecimal digit checking function)
   - Referenced in pg_unicode_category header
 
 ## Notes and Other Information

@@ -22,16 +22,16 @@ This function implements the core logic for processing BPCHAR input data. It han
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbstrlen_with_len (for multi-byte character length calculation)
-  - pg_mbcharcliplen (for multi-byte character boundary clipping)
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md) (for multi-byte character length calculation)
+  - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md) (for multi-byte character boundary clipping)
   - ereturn (for soft error reporting)
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - SET_VARSIZE (for setting variable-length header)
   - VARDATA (for accessing variable-length data area)
   - VARHDRSZ (variable header size constant)
 - Called from (representative examples):
-  - bpcharin
-  - bpcharrecv
+  - [bpcharin](bpcharin.md)
+  - [bpcharrecv](bpcharrecv.md)
 
 ## Notes and Other Information
 - Implements SQL standard behavior for CHAR(n) types with blank-padding

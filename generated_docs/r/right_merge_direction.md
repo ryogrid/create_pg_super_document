@@ -23,7 +23,7 @@ The function plays a crucial role in optimizing merge joins by ensuring that the
   - PathKey (structure type)
   - BTLessStrategyNumber (constant)
 - Called from (representative examples):
-  - pathkeys_useful_for_merging
+  - [pathkeys_useful_for_merging](../p/pathkeys_useful_for_merging.md)
 
 ## Notes and Other Information
 - The function ignores  when making comparisons, which means additional sorting might still be needed in some cases

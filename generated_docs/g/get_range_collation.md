@@ -19,13 +19,13 @@ The get_range_collation function retrieves the collation OID associated with a P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup using RANGETYPE cache)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup using RANGETYPE cache)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract structure from heap tuple)
-  - ReleaseSysCache (cache reference cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache reference cleanup)
   - Form_pg_range (structure type for pg_range catalog)
 - Called from (representative examples):
-  - CheckAttributeType
+  - [CheckAttributeType](../C/CheckAttributeType.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the provided OID does not correspond to a range type

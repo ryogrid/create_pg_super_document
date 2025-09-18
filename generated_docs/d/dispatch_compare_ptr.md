@@ -18,10 +18,10 @@ This function serves as a comparator for qsort() when building a lookup table th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalOpLookup (struct type)
+  - [ExprEvalOpLookup](../E/ExprEvalOpLookup.md) (struct type)
 - Called from (representative examples):
-  - ExecInitInterpreter (at line 2410)
-  - ExecEvalStepOp (at line 2435)
+  - [ExecInitInterpreter](../E/ExecInitInterpreter.md) (at line 2410)
+  - [ExecEvalStepOp](../E/ExecEvalStepOp.md) (at line 2435)
 
 ## Notes and Other Information
 - This is a static function only used within execExprInterp.c

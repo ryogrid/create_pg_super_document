@@ -27,15 +27,15 @@ Notably, the function does not destroy the DestReceiver itself, as that responsi
 ## Dependencies
 - Functions called/Symbols referenced:
   - DestReceiver->rShutdown
-  - ExecDropSingleTupleTableSlot
-  - pfree
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - SendXlogRecPtrResult (basebackup_copy.c)
-  - SendTablespaceList (basebackup_copy.c)
-  - ExplainQuery (explain.c)
-  - ExecuteCallStmt (functioncmds.c)
-  - IdentifySystem (walsender.c)
-  - CreateReplicationSlot (walsender.c)
+  - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (basebackup_copy.c)
+  - [SendTablespaceList](../S/SendTablespaceList.md) (basebackup_copy.c)
+  - [ExplainQuery](../E/ExplainQuery.md) (explain.c)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (functioncmds.c)
+  - [IdentifySystem](../I/IdentifySystem.md) (walsender.c)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (walsender.c)
   - ShowGUCConfigOption (guc_funcs.c)
   - ShowAllGUCConfig (guc_funcs.c)
 

@@ -20,17 +20,17 @@ The 'Ext' suffix indicates this is the extended version that provides optional g
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - recomputeNamespacePath
-  - list_member_oid
-  - FuncnameGetCandidates
-  - makeString
-  - ReleaseSysCache
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [FuncnameGetCandidates](FuncnameGetCandidates.md)
+  - [makeString](../m/makeString.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - FunctionIsVisible
-  - pg_function_is_visible
+  - [FunctionIsVisible](FunctionIsVisible.md)
+  - [pg_function_is_visible](../p/pg_function_is_visible.md)
 
 ## Notes and Other Information
 - This is a static function serving as the implementation backend for function visibility checking

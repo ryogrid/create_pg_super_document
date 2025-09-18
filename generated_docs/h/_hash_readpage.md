@@ -24,21 +24,21 @@ The function handles both forward and backward scan directions with different po
 ## Dependencies
 - Functions called/Symbols referenced:
   - _hash_checkpage
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
-  - BufferGetBlockNumber
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - ScanDirectionIsForward
-  - _hash_binsearch
-  - _hash_binsearch_last
-  - _hash_load_qualified_items
-  - _hash_kill_items
-  - _hash_readnext
-  - _hash_readprev
-  - _hash_relbuf
-  - LockBuffer
+  - [_hash_binsearch](_hash_binsearch.md)
+  - [_hash_binsearch_last](_hash_binsearch_last.md)
+  - [_hash_load_qualified_items](_hash_load_qualified_items.md)
+  - [_hash_kill_items](_hash_kill_items.md)
+  - [_hash_readnext](_hash_readnext.md)
+  - [_hash_readprev](_hash_readprev.md)
+  - [_hash_relbuf](_hash_relbuf.md)
+  - [LockBuffer](../L/LockBuffer.md)
 - Called from (representative examples):
-  - _hash_next
-  - _hash_first
+  - [_hash_next](_hash_next.md)
+  - [_hash_first](_hash_first.md)
 
 ## Notes and Other Information
 The function performs page validation using _hash_checkpage to ensure proper page type. Binary search positioning differs between scan directions: forward scans use _hash_binsearch while backward scans use _hash_binsearch_last. Buffer management maintains pins on bucket pages throughout scans but releases overflow page buffers after data extraction. The function handles scrollable cursor requirements by preserving page navigation information. Return value indicates whether qualifying tuples were found and loaded successfully.

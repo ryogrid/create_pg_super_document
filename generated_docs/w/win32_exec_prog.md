@@ -22,10 +22,10 @@ The function inverts the return value from exec_prog (using logical NOT) to matc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exec_prog
-  - exec_thread_arg (struct type)
+  - [exec_prog](../e/exec_prog.md)
+  - [exec_thread_arg](../e/exec_thread_arg.md) (struct type)
 - Called from (representative examples):
-  - parallel_exec_prog
+  - [parallel_exec_prog](../p/parallel_exec_prog.md)
   - transfer_thread_arg
 
 ## Notes and Other Information

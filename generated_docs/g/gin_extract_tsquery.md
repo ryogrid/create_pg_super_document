@@ -45,8 +45,8 @@ The function handles complex queries including negation, boolean operations, and
   -  - Return entries array
   -  - Text search query data type
   -  - Individual query tree node
-  -  - Query operand structure
-  -  - Query item type constant for values
+  -  - [Query](../Q/Query.md) operand structure
+  -  - [Query](../Q/Query.md) item type constant for values
   -  - Standard search mode
   -  - Full index scan mode
   -  - GIN ternary logic values

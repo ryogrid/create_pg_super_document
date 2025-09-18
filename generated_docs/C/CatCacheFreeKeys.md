@@ -23,12 +23,12 @@ This function is essential for preventing memory leaks when removing cache entri
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing attribute descriptors)
-  - DatumGetPointer (macro for converting Datum to pointer)
-  - pfree (PostgreSQL memory deallocation function)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro for converting Datum to pointer)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - Assert (for validation checks)
 - Called from (representative examples):
-  - CatCacheRemoveCTup
-  - CatCacheRemoveCList
+  - [CatCacheRemoveCTup](CatCacheRemoveCTup.md)
+  - [CatCacheRemoveCList](CatCacheRemoveCList.md)
 
 ## Notes and Other Information
 - This is a static function, only callable from within catcache.c

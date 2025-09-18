@@ -21,12 +21,12 @@ The function follows a simple three-stage process: worker setup, table synchroni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
-  - SetupApplyOrSyncWorker
-  - run_tablesync_worker
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md)
+  - [run_tablesync_worker](../r/run_tablesync_worker.md)
   - finish_sync_worker
 - Called from (representative examples):
-  - BackgroundWorkerHandle (via background worker framework)
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md) (via background worker framework)
   - Referenced in logicalworker.h header
 
 ## Notes and Other Information

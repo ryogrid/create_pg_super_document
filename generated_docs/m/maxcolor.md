@@ -24,7 +24,7 @@ The function performs error checking using the CISERR() macro before returning t
   - CISERR (error checking macro)
   - COLORLESS (constant representing invalid/no color)
 - Called from (representative examples):
-  - compact (in regc_nfa.c)
+  - [compact](../c/compact.md) (in regc_nfa.c)
 
 ## Notes and Other Information
 - Returns COLORLESS if the colormap is in an error state

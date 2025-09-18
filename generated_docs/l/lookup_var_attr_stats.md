@@ -29,13 +29,13 @@ The function implements a strict "all-or-nothing" policy - if statistics for any
 ## Dependencies
 - Functions called/Symbols referenced:
   - VacAttrStats (structure manipulation)
-  - bms_num_members (count members in Bitmapset)
-  - bms_next_member (iterate through Bitmapset)
-  - examine_attribute (analyze expressions for statistics)
-  - palloc, pfree (memory management)
+  - [bms_num_members](../b/bms_num_members.md) (count members in Bitmapset)
+  - [bms_next_member](../b/bms_next_member.md) (iterate through Bitmapset)
+  - [examine_attribute](../e/examine_attribute.md) (analyze expressions for statistics)
+  - [palloc](../p/palloc.md), pfree (memory management)
 - Called from (representative examples):
-  - BuildRelationExtStatistics (main extended statistics builder)
-  - ComputeExtStatisticsRows (statistics computation)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (main extended statistics builder)
+  - [ComputeExtStatisticsRows](../C/ComputeExtStatisticsRows.md) (statistics computation)
 
 ## Notes and Other Information
 - Returns NULL if any required column statistics are missing, implementing an all-or-nothing approach

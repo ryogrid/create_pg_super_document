@@ -21,19 +21,19 @@ The function operates in a loop, examining each incoming message and taking appr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetc
-  - pqGetInt
-  - handleSyncLoss
-  - pqCheckInBufferSpace
-  - getNotify
-  - pqGetErrorNotice3
-  - getParameterStatus
-  - pqTraceOutputMessage
+  - [pqGetc](../p/pqGetc.md)
+  - [pqGetInt](../p/pqGetInt.md)
+  - [handleSyncLoss](../h/handleSyncLoss.md)
+  - [pqCheckInBufferSpace](../p/pqCheckInBufferSpace.md)
+  - [getNotify](getNotify.md)
+  - [pqGetErrorNotice3](../p/pqGetErrorNotice3.md)
+  - [getParameterStatus](getParameterStatus.md)
+  - [pqTraceOutputMessage](../p/pqTraceOutputMessage.md)
   - PqMsg_NotificationResponse, PqMsg_NoticeResponse, PqMsg_ParameterStatus, PqMsg_CopyData, PqMsg_CopyDone
   - PGASYNC_COPY_BOTH, PGASYNC_COPY_IN, PGASYNC_BUSY
 - Called from (representative examples):
-  - pqGetCopyData3
-  - pqGetlineAsync3
+  - [pqGetCopyData3](../p/pqGetCopyData3.md)
+  - [pqGetlineAsync3](../p/pqGetlineAsync3.md)
 
 ## Notes and Other Information
 - Returns: message length (> 0) for CopyData, 0 if no complete message available, -1 if end of copy, -2 if error

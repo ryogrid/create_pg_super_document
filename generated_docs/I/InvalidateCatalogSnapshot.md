@@ -22,16 +22,16 @@ The function uses a coarse-grained invalidation approach - any catalog change in
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_remove
-  - SnapshotResetXmin
+  - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
-  - heap_inplace_lock
-  - CopyFrom
-  - InvalidateSystemCachesExtended
-  - LocalExecuteInvalidationMessage
+  - [heap_inplace_lock](../h/heap_inplace_lock.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [InvalidateSystemCachesExtended](InvalidateSystemCachesExtended.md)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
   - GetTransactionSnapshot
-  - GetNonHistoricCatalogSnapshot
-  - InvalidateCatalogSnapshotConditionally
-  - AtEOXact_Snapshot
+  - [GetNonHistoricCatalogSnapshot](../G/GetNonHistoricCatalogSnapshot.md)
+  - [InvalidateCatalogSnapshotConditionally](InvalidateCatalogSnapshotConditionally.md)
+  - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)
 
 ## Notes and Other Information
 - Uses coarse-grained invalidation strategy for simplicity

@@ -21,7 +21,7 @@ The function is part of pg_rewind's file management system that categorizes file
 - Functions called/Symbols referenced:
   - keepwal_lookup (from keepwal hash table implementation)
 - Called from (representative examples):
-  - decide_file_action (in filemap.c:754)
+  - [decide_file_action](../d/decide_file_action.md) (in filemap.c:754)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the filemap.c file

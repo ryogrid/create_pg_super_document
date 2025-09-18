@@ -29,10 +29,10 @@ The function is primarily useful for cases where you need basic type information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_get_result_type
+  - [internal_get_result_type](../i/internal_get_result_type.md)
   - TypeFuncClass (return type)
 - Called from (representative examples):
-  - fmgr_sql_validator
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md)
 
 ## Notes and Other Information
 - Simplest interface among the result type functions, requiring only a function OID

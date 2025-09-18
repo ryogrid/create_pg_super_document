@@ -29,17 +29,17 @@ The function is careful to use PlaceHolderVars (PHVs) appropriately, particularl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pullup_replace_vars
-  - pullup_replace_vars_subquery
+  - [pullup_replace_vars](../p/pullup_replace_vars.md)
+  - [pullup_replace_vars_subquery](../p/pullup_replace_vars_subquery.md)
   - rt_fetch
   - nodeTag
   - RangeTblRef, FromExpr, JoinExpr
   - Various RTE types (RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc.)
-  - TableSampleClause, TableFunc
+  - [TableSampleClause](../T/TableSampleClause.md), TableFunc
   - JOIN_FULL
 - Called from (representative examples):
-  - perform_pullup_replace_vars
-  - replace_vars_in_jointree (recursive calls)
+  - [perform_pullup_replace_vars](../p/perform_pullup_replace_vars.md)
+  - [replace_vars_in_jointree](replace_vars_in_jointree.md) (recursive calls)
 
 ## Notes and Other Information
 - Recursively calls itself to process nested jointree structures (FromExpr fromlist and JoinExpr left/right args)

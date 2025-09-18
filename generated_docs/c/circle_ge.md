@@ -22,8 +22,8 @@ The `circle_ge` function implements the "greater than or equal" comparison opera
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves CIRCLE arguments)
-  - circle_ar (calculates circle area)
-  - FPge (floating-point greater-than-or-equal comparison with epsilon tolerance)
+  - [circle_ar](circle_ar.md) (calculates circle area)
+  - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison with epsilon tolerance)
   - PG_RETURN_BOOL (returns boolean result)
 - Called from (representative examples):
   - No direct references found in codebase

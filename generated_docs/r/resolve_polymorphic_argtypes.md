@@ -26,12 +26,12 @@ The logic assumes that the parser has already enforced type consistency and coer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_expr_argtype
-  - resolve_anyelement_from_others
-  - resolve_anyarray_from_others
-  - resolve_anyrange_from_others
-  - resolve_anymultirange_from_others
-  - polymorphic_actuals (struct)
+  - [get_call_expr_argtype](../g/get_call_expr_argtype.md)
+  - [resolve_anyelement_from_others](resolve_anyelement_from_others.md)
+  - [resolve_anyarray_from_others](resolve_anyarray_from_others.md)
+  - [resolve_anyrange_from_others](resolve_anyrange_from_others.md)
+  - [resolve_anymultirange_from_others](resolve_anymultirange_from_others.md)
+  - [polymorphic_actuals](../p/polymorphic_actuals.md) (struct)
   - PROARGMODE_IN/OUT/TABLE constants
 - Called from (representative examples):
   - TypeFuncClass (referenced in funcapi.h)

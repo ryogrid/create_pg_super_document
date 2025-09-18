@@ -25,7 +25,7 @@ This function serves as a compatibility layer that normalizes the different stre
   - strerror (fallback when strerror_r unavailable)
   - strlcpy (safe string copying)
 - Called from (representative examples):
-  - pg_strerror_r
+  - [pg_strerror_r](../p/pg_strerror_r.md)
   - strerror_r (alias reference at src/port/strerror.c:24)
 
 ## Notes and Other Information

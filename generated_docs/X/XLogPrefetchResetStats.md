@@ -25,10 +25,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - pg_atomic_write_u64
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
 - Called from (representative examples):
-  - pg_stat_reset_shared
+  - [pg_stat_reset_shared](../p/pg_stat_reset_shared.md)
 
 ## Notes and Other Information
 - This function is typically called when administrators want to reset prefetch statistics

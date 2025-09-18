@@ -26,11 +26,11 @@ This function takes no parameters but uses several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - count_spaces (calculates column position after considering tab expansion)
+  - [count_spaces](count_spaces.md) (calculates column position after considering tab expansion)
 - Called from (representative examples):
-  - dump_line (main line output function)
-  - main (in indent.c for various formatting decisions)
-  - pr_comment (for comment positioning relative to code)
+  - [dump_line](../d/dump_line.md) (main line output function)
+  - [main](../m/main.md) (in indent.c for various formatting decisions)
+  - [pr_comment](../p/pr_comment.md) (for comment positioning relative to code)
 
 ## Notes and Other Information
 - Returns the target column number (1-based) where code should be positioned

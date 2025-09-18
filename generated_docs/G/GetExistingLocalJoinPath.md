@@ -27,7 +27,7 @@ The primary use case is for EPQ checks, where PostgreSQL needs a local execution
   - lfirst (for list iteration)
   - IsA (for type checking path nodes)
 - Types referenced:
-  - Path, JoinPath, HashPath, NestPath, MergePath, ForeignPath
+  - [Path](../P/Path.md), JoinPath, HashPath, NestPath, MergePath, ForeignPath
   - RelOptInfo, ListCell
 - Called from (representative examples):
   - No direct callers found in current analysis

@@ -26,15 +26,15 @@ The optimization is particularly important for queries with views or subqueries 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - join_is_removable: Determines if a specific join can be safely removed
-  - bms_singleton_member: Extracts single member from a bitmap set
-  - remove_rel_from_query: Removes a relation from the overall query structure
-  - remove_rel_from_joinlist: Removes a relation from the joinlist structure
-  - list_delete_cell: Removes a cell from a linked list
-  - SpecialJoinInfo: Structure containing information about special joins
+  - [join_is_removable](../j/join_is_removable.md): Determines if a specific join can be safely removed
+  - [bms_singleton_member](../b/bms_singleton_member.md): Extracts single member from a bitmap set
+  - [remove_rel_from_query](remove_rel_from_query.md): Removes a relation from the overall query structure
+  - [remove_rel_from_joinlist](remove_rel_from_joinlist.md): Removes a relation from the joinlist structure
+  - [list_delete_cell](../l/list_delete_cell.md): Removes a cell from a linked list
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md): Structure containing information about special joins
 
 - Called from (representative examples):
-  - query_planner: Main query planning function that orchestrates optimization phases
+  - [query_planner](../q/query_planner.md): Main query planning function that orchestrates optimization phases
 
 ## Notes and Other Information
 - Currently only works with left joins where the right-hand side is a single base relation

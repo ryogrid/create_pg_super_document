@@ -36,16 +36,16 @@ The function includes comprehensive error handling and supports schema differenc
 - Functions called/Symbols referenced:
   - ExecClearTuple
   - TupleDescAttr
-  - getTypeInputInfo
-  - OidInputFunctionCall
-  - getTypeBinaryInputInfo
-  - OidReceiveFunctionCall
-  - ExecStoreVirtualTuple
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md)
+  - [OidReceiveFunctionCall](../O/OidReceiveFunctionCall.md)
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - ereport (for error handling)
 - Called from (representative examples):
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
+  - [apply_handle_insert](../a/apply_handle_insert.md)
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication worker

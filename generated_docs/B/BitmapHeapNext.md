@@ -31,19 +31,19 @@ For prefetching optimization, the function maintains two separate iterators - on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `MultiExecProcNode`: Execute child index scan to obtain bitmap
-  - `tbm_begin_iterate`/`tbm_prepare_shared_iterate`: Initialize bitmap iterators
-  - `tbm_iterate`/`tbm_shared_iterate`: Get next bitmap page result
-  - `BitmapAdjustPrefetchIterator`: Adjust prefetch iterator position
-  - `BitmapAdjustPrefetchTarget`: Adjust prefetch distance target
-  - `BitmapPrefetch`: Issue prefetch requests for upcoming pages
-  - `table_beginscan_bm`: Initialize bitmap table scan
+  - `[MultiExecProcNode](../M/MultiExecProcNode.md)`: Execute child index scan to obtain bitmap
+  - `[tbm_begin_iterate](../t/tbm_begin_iterate.md)`/`tbm_prepare_shared_iterate`: Initialize bitmap iterators
+  - `[tbm_iterate](../t/tbm_iterate.md)`/`tbm_shared_iterate`: Get next bitmap page result
+  - `[BitmapAdjustPrefetchIterator](BitmapAdjustPrefetchIterator.md)`: Adjust prefetch iterator position
+  - `[BitmapAdjustPrefetchTarget](BitmapAdjustPrefetchTarget.md)`: Adjust prefetch distance target
+  - `[BitmapPrefetch](BitmapPrefetch.md)`: Issue prefetch requests for upcoming pages
+  - `[table_beginscan_bm](../t/table_beginscan_bm.md)`: Initialize bitmap table scan
   - `table_scan_bitmap_next_block`: Position scanner at bitmap result block
   - `table_scan_bitmap_next_tuple`: Fetch next tuple from current block
   - `ExecQualAndReset`: Apply recheck conditions for lossy bitmap entries
-  - `BitmapDoneInitializingSharedState`: Signal completion of shared state setup
+  - `[BitmapDoneInitializingSharedState](BitmapDoneInitializingSharedState.md)`: Signal completion of shared state setup
 - Called from (representative examples):
-  - `ExecBitmapHeapScan`: Main execution function for BitmapHeapScan nodes
+  - `[ExecBitmapHeapScan](../E/ExecBitmapHeapScan.md)`: Main execution function for BitmapHeapScan nodes
 
 ## Notes and Other Information
 - The function supports both exact and lossy bitmap scans, with recheck logic for lossy entries

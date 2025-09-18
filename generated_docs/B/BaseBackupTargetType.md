@@ -21,10 +21,10 @@ The BaseBackupTargetType structure serves as a template or configuration object 
 - Functions called/Symbols referenced:
   - bbsink (backup sink structure)
 - Called from (representative examples):
-  - BaseBackupTargetHandle
-  - BaseBackupAddTarget
-  - BaseBackupGetTargetHandle
-  - initialize_target_list
+  - [BaseBackupTargetHandle](BaseBackupTargetHandle.md)
+  - [BaseBackupAddTarget](BaseBackupAddTarget.md)
+  - [BaseBackupGetTargetHandle](BaseBackupGetTargetHandle.md)
+  - [initialize_target_list](../i/initialize_target_list.md)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's modular base backup system architecture, allowing different backup destinations to be supported through a plugin-like mechanism. The target types are typically registered during system initialization and used throughout the backup process to handle target-specific operations.

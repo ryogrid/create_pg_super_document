@@ -18,17 +18,17 @@ This function searches the pg_constraint catalog to locate a validated NOT NULL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - heap_copytuple
+  - [heap_copytuple](../h/heap_copytuple.md)
   - HeapTupleIsValid
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
 - Called from (representative examples):
-  - AlterDomainNotNull
+  - [AlterDomainNotNull](../A/AlterDomainNotNull.md)
 
 ## Notes and Other Information
 - Returns a HeapTuple (copy of the constraint tuple) if found, NULL otherwise

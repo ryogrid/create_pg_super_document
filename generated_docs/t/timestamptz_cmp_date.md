@@ -24,7 +24,7 @@ The function serves as a PostgreSQL internal function that can be called from SQ
 - Functions called/Symbols referenced:
   - `PG_GETARG_TIMESTAMPTZ` - Extracts timestamptz argument
   - `PG_GETARG_DATEADT` - Extracts date argument  
-  - `date_cmp_timestamptz_internal` - Internal comparison function
+  - `[date_cmp_timestamptz_internal](../d/date_cmp_timestamptz_internal.md)` - Internal comparison function
   - `DateADT` - Date abstract data type
 - Called from (representative examples):
   - No direct references found in the codebase

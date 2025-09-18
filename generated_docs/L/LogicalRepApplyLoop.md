@@ -17,21 +17,21 @@ This function implements the core message processing loop for a logical replicat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - AllocSetContextCreate
-  - pgstat_report_activity
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
   - walrcv_receive
-  - apply_dispatch
-  - UpdateWorkerStats
-  - send_feedback
-  - maybe_reread_subscription
-  - process_syncing_tables
-  - AcceptInvalidationMessages
-  - WaitLatchOrSocket
-  - IsTransactionState
+  - [apply_dispatch](../a/apply_dispatch.md)
+  - [UpdateWorkerStats](../U/UpdateWorkerStats.md)
+  - [send_feedback](../s/send_feedback.md)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md)
+  - [process_syncing_tables](../p/process_syncing_tables.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
   - walrcv_endstreaming
 - Called from (representative examples):
-  - start_apply
+  - [start_apply](../s/start_apply.md)
 
 ## Notes and Other Information
 - This is a static function internal to the worker.c file

@@ -17,13 +17,13 @@ This function implements suffix removal logic for Indonesian word stemming. It s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (Snowball framework function for backward string matching)
-  - slice_del (Snowball framework function for string deletion)
+  - [find_among_b](../f/find_among_b.md) (Snowball framework function for backward string matching)
+  - [slice_del](../s/slice_del.md) (Snowball framework function for string deletion)
   - a_2 (array defining suffixes 'i', 'an', 'kan' with their validation functions)
-  - r_SUFFIX_I_OK, r_SUFFIX_AN_OK, r_SUFFIX_KAN_OK (validation functions)
+  - [r_SUFFIX_I_OK](r_SUFFIX_I_OK.md), r_SUFFIX_AN_OK, r_SUFFIX_KAN_OK (validation functions)
 - Called from (representative examples):
-  - indonesian_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:361, 391)
-  - indonesian_UTF_8_stem (src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:361, 391)
+  - [indonesian_ISO_8859_1_stem](../i/indonesian_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:361, 391)
+  - [indonesian_UTF_8_stem](../i/indonesian_UTF_8_stem.md) (src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:361, 391)
 
 ## Notes and Other Information
 - Part of PostgreSQL's full-text search Snowball stemming implementation for Indonesian language

@@ -32,7 +32,7 @@ This is particularly important for PostgreSQL archives since some operations req
   - fseeko (seek to file position with large file support)
   - SEEK_SET (standard seek mode constant)
 - Called from:
-  - InitArchiveFmt_Custom (multiple call sites for archive initialization)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (multiple call sites for archive initialization)
 
 ## Notes and Other Information
 - Function is non-static and used by custom archive format implementation

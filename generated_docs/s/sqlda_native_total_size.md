@@ -21,11 +21,11 @@ The function is part of PostgreSQL's ECPG (Embedded SQL in C) interface, specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlda_native_empty_size
-  - sqlda_common_total_size
+  - [sqlda_native_empty_size](sqlda_native_empty_size.md)
+  - [sqlda_common_total_size](sqlda_common_total_size.md)
   - COMPAT_MODE
 - Called from (representative examples):
-  - ecpg_build_native_sqlda
+  - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md)
 
 ## Notes and Other Information
 - This is a static function internal to the SQLDA implementation

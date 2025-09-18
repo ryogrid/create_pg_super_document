@@ -27,18 +27,18 @@ The function operates in the query memory context when calling the outer plan an
   - outerPlanState
   - ExecProcNode
   - TupIsNull
-  - tuplestore_in_memory
+  - [tuplestore_in_memory](../t/tuplestore_in_memory.md)
   - ExecQualAndReset
   - ExecCopySlot
   - tuplestore_puttupleslot
 - Called from (representative examples):
-  - update_frameheadpos
-  - update_frametailpos
-  - update_grouptailpos
-  - ExecWindowAgg
-  - window_gettupleslot
-  - WinGetPartitionRowCount
-  - WinGetFuncArgInPartition
+  - [update_frameheadpos](../u/update_frameheadpos.md)
+  - [update_frametailpos](../u/update_frametailpos.md)
+  - [update_grouptailpos](../u/update_grouptailpos.md)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
+  - [window_gettupleslot](../w/window_gettupleslot.md)
+  - [WinGetPartitionRowCount](../W/WinGetPartitionRowCount.md)
+  - [WinGetFuncArgInPartition](../W/WinGetFuncArgInPartition.md)
 
 ## Notes and Other Information
 - Contains a performance kluge that forces entire partition spooling when tuplestore spills to disk to avoid expensive alternating read/write patterns

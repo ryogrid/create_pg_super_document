@@ -20,10 +20,10 @@ The  function is a static helper function that handles uncompressed data writing
 ## Dependencies
 - Functions called/Symbols referenced:
   - fwrite (C standard library)
-  - pg_fatal (PostgreSQL error reporting function)
-  - CompressFileHandle (structure type)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
-  - InitCompressFileHandleNone
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md)
 
 ## Notes and Other Information
 - This function is part of the "none" compression implementation, meaning no compression is applied

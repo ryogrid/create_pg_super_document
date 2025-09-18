@@ -23,12 +23,12 @@ The function ensures type safety by asserting that all source arcs are PLAIN typ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newarc
+  - [newarc](../n/newarc.md)
   - AHEAD
   - BEHIND  
   - PLAIN
 - Called from (representative examples):
-  - word
+  - [word](../w/word.md)
   - processlacon
 
 ## Notes and Other Information

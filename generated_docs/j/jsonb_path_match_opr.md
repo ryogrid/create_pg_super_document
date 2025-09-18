@@ -21,7 +21,7 @@ The function delegates to `jsonb_path_match_internal` with timezone handling dis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_match_internal
+  - [jsonb_path_match_internal](jsonb_path_match_internal.md)
 - Called from (representative examples):
   - PostgreSQL operator evaluation system when processing "@@" operators
 

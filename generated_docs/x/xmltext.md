@@ -32,7 +32,7 @@ The resulting escaped text is returned as PostgreSQL's XML type.
   - cstring_to_text_with_len
   - PG_RETURN_XML_P
   - NO_XML_SUPPORT (fallback when libxml not available)
-  - xmltype
+  - [xmltype](xmltype.md)
 - Called from (representative examples):
   - No direct references found in codebase
 

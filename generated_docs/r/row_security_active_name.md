@@ -26,11 +26,11 @@ The function uses NoLock when resolving the table name since it might not have t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVarFromNameList
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - textToQualifiedNameList
   - RangeVarGetRelid
-  - check_enable_rls
-  - RangeVar
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [RangeVar](../R/RangeVar.md)
   - RLS_ENABLED
 - Called from (representative examples):
   - No direct references found (likely called from SQL queries)

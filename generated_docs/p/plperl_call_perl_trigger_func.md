@@ -25,12 +25,12 @@ The function manages the Perl execution environment by temporarily setting the g
 - Functions called/Symbols referenced:
   - get_sv (to access main::_TD global variable)
   - save_item (for local variable scoping)
-  - cstr2sv (converts trigger arguments to Perl strings)
+  - [cstr2sv](../c/cstr2sv.md) (converts trigger arguments to Perl strings)
   - call_sv (executes the Perl subroutine)
-  - strip_trailing_ws
-  - sv2cstr
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md)
 - Called from:
-  - plperl_trigger_handler
+  - [plperl_trigger_handler](plperl_trigger_handler.md)
 
 ## Notes and Other Information
 - Sets up the global Perl variable `$_TD` containing trigger metadata (table name, operation type, etc.)

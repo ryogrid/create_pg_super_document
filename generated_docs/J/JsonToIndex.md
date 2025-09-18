@@ -25,11 +25,11 @@ The flags can be combined using bitwise OR operations to create custom combinati
 
 ## Dependencies
 - Functions that use JsonToIndex flags:
-  - iterate_jsonb_values
-  - iterate_json_values
-  - parse_jsonb_index_flags
-  - jsonb_to_tsvector_worker
-  - json_to_tsvector_worker
+  - [iterate_jsonb_values](../i/iterate_jsonb_values.md)
+  - [iterate_json_values](../i/iterate_json_values.md)
+  - [parse_jsonb_index_flags](../p/parse_jsonb_index_flags.md)
+  - [jsonb_to_tsvector_worker](../j/jsonb_to_tsvector_worker.md)
+  - [json_to_tsvector_worker](../j/json_to_tsvector_worker.md)
 - Used in contexts:
   - JSON/JSONB value iteration and processing
   - Text search vector generation from JSON documents

@@ -17,10 +17,10 @@ This function provides a simple hash function wrapper specifically designed for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes (core hash function that transforms byte arrays into 32-bit hash values)
+  - [hash_bytes](hash_bytes.md) (core hash function that transforms byte arrays into 32-bit hash values)
   - strlen (standard C library function to determine string length)
 - Called from (representative examples):
-  - backup_file_entry (hash table structure usage)
+  - [backup_file_entry](../b/backup_file_entry.md) (hash table structure usage)
   - SH_HASH_KEY (hash table key computation macro)
 
 ## Notes and Other Information

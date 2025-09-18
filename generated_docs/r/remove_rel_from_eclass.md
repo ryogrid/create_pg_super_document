@@ -28,13 +28,13 @@ The function is designed to maintain the integrity of the equivalence class stru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_del_member (removes members from bitmapsets)
-  - bms_is_member (checks bitmapset membership)
+  - [bms_del_member](../b/bms_del_member.md) (removes members from bitmapsets)
+  - [bms_is_member](../b/bms_is_member.md) (checks bitmapset membership)
   - bms_is_empty (checks if bitmapset is empty)
   - foreach_delete_current (removes current list element during iteration)
-  - remove_rel_from_restrictinfo (cleans up RestrictInfo structures)
+  - [remove_rel_from_restrictinfo](remove_rel_from_restrictinfo.md) (cleans up RestrictInfo structures)
 - Called from (representative examples):
-  - remove_rel_from_query
+  - [remove_rel_from_query](remove_rel_from_query.md)
 
 ## Notes and Other Information
 - This is a static function within analyzejoins.c, indicating it's an internal helper function

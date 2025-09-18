@@ -23,13 +23,13 @@ This function works with MultiXactOffset values (positions within the members sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MXOffsetToMemberPage (function to get page number from offset)
+  - [MXOffsetToMemberPage](MXOffsetToMemberPage.md) (function to get page number from offset)
   - SLRU_PAGES_PER_SEGMENT (constant defining pages per segment)
   - MultiXactOffset (type definition for offset positions)
 - Called from (representative examples):
-  - PerformMembersTruncation (called three times for range operations)
-  - TruncateMultiXact (called twice for truncation operations)
-  - multixact_redo (called twice during WAL replay)
+  - [PerformMembersTruncation](../P/PerformMembersTruncation.md) (called three times for range operations)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md) (called twice for truncation operations)
+  - [multixact_redo](../m/multixact_redo.md) (called twice during WAL replay)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

@@ -23,18 +23,18 @@ This function creates an XML Schema (XSD) definition that describes the structur
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeStringInfo
-  - LookupExplicitNamespace
-  - xsd_schema_element_start
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [xsd_schema_element_start](../x/xsd_schema_element_start.md)
   - SPI_connect
-  - schema_get_xml_visible_tables
-  - CreateTupleDescCopy
+  - [schema_get_xml_visible_tables](schema_get_xml_visible_tables.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - map_sql_typecoll_to_xmlschema_types
   - map_sql_schema_to_xmlschema_types
-  - xsd_schema_element_end
+  - [xsd_schema_element_end](../x/xsd_schema_element_end.md)
   - SPI_finish
 - Called from (representative examples):
-  - schema_to_xmlschema
-  - schema_to_xml_and_xmlschema
+  - [schema_to_xmlschema](schema_to_xmlschema.md)
+  - [schema_to_xml_and_xmlschema](schema_to_xml_and_xmlschema.md)
 
 ## Notes and Other Information
 This is a static internal function that handles the core logic for XML Schema generation. It uses the SPI (Server Programming Interface) to access database metadata and requires proper connection management. The function builds the XSD incrementally using StringInfo, first adding type definitions from tuple descriptors, then schema-specific type mappings, all wrapped within proper XSD schema element tags.

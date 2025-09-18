@@ -24,7 +24,7 @@ The pushOpStack function is a simple stack management utility used specifically 
   - STACKDEPTH (constant for maximum stack size)
   - elog (error logging function)
 - Called from (representative examples):
-  - makepol
+  - [makepol](../m/makepol.md)
 
 ## Notes and Other Information
 - Includes overflow protection by checking against STACKDEPTH constant

@@ -21,13 +21,13 @@ The function uses PostgreSQL's pq_send* family of functions to efficiently seria
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves input circle argument)
-  - pq_begintypsend (initializes binary output buffer)
-  - pq_sendfloat8 (writes float8 values to binary buffer)
-  - pq_endtypsend (finalizes binary output buffer)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initializes binary output buffer)
+  - [pq_sendfloat8](../p/pq_sendfloat8.md) (writes float8 values to binary buffer)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary output buffer)
   - PG_RETURN_BYTEA_P (returns the serialized binary data)
 - Types referenced:
   - CIRCLE (input geometric type)
-  - StringInfoData (binary output buffer)
+  - [StringInfoData](../S/StringInfoData.md) (binary output buffer)
 - Called from (representative examples):
   - No direct references found in the codebase
 

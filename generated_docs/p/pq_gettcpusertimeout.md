@@ -23,10 +23,10 @@ The function implements a caching mechanism similar to keep-alive functions to a
 - Functions called/Symbols referenced:
   - getsockopt (system call to retrieve socket options)
   - ereport (PostgreSQL error reporting function)
-  - errmsg (PostgreSQL error message formatting)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message formatting)
 - Called from (representative examples):
-  - pq_settcpusertimeout
-  - show_tcp_user_timeout
+  - [pq_settcpusertimeout](pq_settcpusertimeout.md)
+  - [show_tcp_user_timeout](../s/show_tcp_user_timeout.md)
 
 ## Notes and Other Information
 - The function is only functional when TCP_USER_TIMEOUT is defined at compile time

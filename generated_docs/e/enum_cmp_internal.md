@@ -25,19 +25,19 @@ The function uses caching via fcinfo->flinfo->fn_extra to avoid repeated type ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfo (structure type)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure type)
   - Form_pg_enum (structure type)
-  - lookup_type_cache
-  - compare_values_of_enum
-  - SearchSysCache1, HeapTupleIsValid, ReleaseSysCache (system catalog access)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [compare_values_of_enum](../c/compare_values_of_enum.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md), HeapTupleIsValid, ReleaseSysCache (system catalog access)
 - Called from:
-  - enum_lt
-  - enum_le
-  - enum_ge
-  - enum_gt
-  - enum_smaller
-  - enum_larger
-  - enum_cmp
+  - [enum_lt](enum_lt.md)
+  - [enum_le](enum_le.md)
+  - [enum_ge](enum_ge.md)
+  - [enum_gt](enum_gt.md)
+  - [enum_smaller](enum_smaller.md)
+  - [enum_larger](enum_larger.md)
+  - [enum_cmp](enum_cmp.md)
 
 ## Notes and Other Information
 - The function contains an important optimization: even-numbered OIDs are assumed to have correct relative ordering, allowing direct numeric comparison

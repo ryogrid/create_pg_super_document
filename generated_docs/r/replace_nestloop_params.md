@@ -22,31 +22,31 @@ When a Var or PlaceHolderVar is replaced with a Param, corresponding entries are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_nestloop_params_mutator
+  - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md)
 - Called from (representative examples):
-  - build_path_tlist
-  - create_append_plan  
-  - create_memoize_plan
-  - create_seqscan_plan
-  - create_samplescan_plan
-  - create_indexscan_plan
-  - create_bitmap_scan_plan
-  - create_tidscan_plan
-  - create_tidrangescan_plan
-  - create_subqueryscan_plan
-  - create_functionscan_plan
-  - create_tablefuncscan_plan
-  - create_valuesscan_plan
-  - create_ctescan_plan
-  - create_namedtuplestorescan_plan
-  - create_resultscan_plan
-  - create_worktablescan_plan
-  - create_foreignscan_plan
-  - create_customscan_plan
-  - create_nestloop_plan
-  - create_mergejoin_plan
-  - create_hashjoin_plan
-  - fix_indexqual_clause
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [create_append_plan](../c/create_append_plan.md)  
+  - [create_memoize_plan](../c/create_memoize_plan.md)
+  - [create_seqscan_plan](../c/create_seqscan_plan.md)
+  - [create_samplescan_plan](../c/create_samplescan_plan.md)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md)
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md)
+  - [create_tidscan_plan](../c/create_tidscan_plan.md)
+  - [create_tidrangescan_plan](../c/create_tidrangescan_plan.md)
+  - [create_subqueryscan_plan](../c/create_subqueryscan_plan.md)
+  - [create_functionscan_plan](../c/create_functionscan_plan.md)
+  - [create_tablefuncscan_plan](../c/create_tablefuncscan_plan.md)
+  - [create_valuesscan_plan](../c/create_valuesscan_plan.md)
+  - [create_ctescan_plan](../c/create_ctescan_plan.md)
+  - [create_namedtuplestorescan_plan](../c/create_namedtuplestorescan_plan.md)
+  - [create_resultscan_plan](../c/create_resultscan_plan.md)
+  - [create_worktablescan_plan](../c/create_worktablescan_plan.md)
+  - [create_foreignscan_plan](../c/create_foreignscan_plan.md)
+  - [create_customscan_plan](../c/create_customscan_plan.md)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md)
+  - [fix_indexqual_clause](../f/fix_indexqual_clause.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's supporting routines for plan creation and is used extensively throughout the plan creation process for various scan and join operations. It's a critical component in the nested loop join implementation, ensuring that outer relation references are properly parameterized for efficient execution. The function is defined in src/backend/optimizer/plan/createplan.c at lines 4936-4942.

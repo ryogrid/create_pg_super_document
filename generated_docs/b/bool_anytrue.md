@@ -19,7 +19,7 @@ The bool_anytrue function serves as the final function for PostgreSQL's SOME/ANY
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BoolAggState
+  - [BoolAggState](../B/BoolAggState.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_RETURN_NULL

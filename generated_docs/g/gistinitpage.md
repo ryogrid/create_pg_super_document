@@ -23,15 +23,15 @@ This function initializes a new page for use in a GiST index by calling PageInit
   - PageInit
   - GistPageGetOpaque
   - GISTPageOpaque (type)
-  - GISTPageOpaqueData (struct)
+  - [GISTPageOpaqueData](../G/GISTPageOpaqueData.md) (struct)
   - GIST_PAGE_ID (constant)
   - InvalidBlockNumber (constant)
   - BLCKSZ (constant)
 - Called from (representative examples):
-  - gist_indexsortbuild
-  - gist_indexsortbuild_levelstate_add
-  - gist_indexsortbuild_levelstate_flush
-  - GISTInitBuffer
+  - [gist_indexsortbuild](gist_indexsortbuild.md)
+  - [gist_indexsortbuild_levelstate_add](gist_indexsortbuild_levelstate_add.md)
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md)
+  - [GISTInitBuffer](../G/GISTInitBuffer.md)
 
 ## Notes and Other Information
 - This is a fundamental utility function used during GiST index construction and maintenance

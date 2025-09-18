@@ -24,14 +24,14 @@ When a state becomes unreachable (no incoming arcs) and is not currently being p
   - STACK_TOO_DEEP
   - NERR
   - REG_ETOOBIG
-  - deltraverse (recursive call)
+  - [deltraverse](deltraverse.md) (recursive call)
   - NISERR
-  - freearc
-  - freestate
+  - [freearc](../f/freearc.md)
+  - [freestate](../f/freestate.md)
   - FREESTATE
 - Called from (representative examples):
   - delsub
-  - deltraverse (recursive)
+  - [deltraverse](deltraverse.md) (recursive)
 
 ## Notes and Other Information
 - Recursive function with stack overflow protection

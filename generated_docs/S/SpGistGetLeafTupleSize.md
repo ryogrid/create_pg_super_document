@@ -29,13 +29,13 @@ This function computes the total space needed for a leaf tuple in an SP-GiST ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_compute_data_size (computes data storage requirements)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md) (computes data storage requirements)
   - SGLTHDRSZ (macro for leaf tuple header size)
   - SGDTSIZE (macro for dead tuple minimum size)
   - MAXALIGN (macro for memory alignment)
   - SpGistLeafTuple (related structure type)
 - Called from (representative examples):
-  - spgdoinsert (during index insertion operations)
+  - [spgdoinsert](../s/spgdoinsert.md) (during index insertion operations)
 
 ## Notes and Other Information
 - This function must be kept in sync with spgFormLeafTuple's size calculations

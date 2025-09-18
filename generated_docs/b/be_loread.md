@@ -29,7 +29,7 @@ This function handles the interface between PostgreSQL's function calling mechan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_read
+  - [lo_read](../l/lo_read.md)
   - VARDATA (macro)
   - SET_VARSIZE (macro)
   - PG_RETURN_BYTEA_P (macro)

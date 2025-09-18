@@ -18,13 +18,13 @@ This function builds upon get_sortgroupclause_tle() to extract the actual expres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupclause_tle
+  - [get_sortgroupclause_tle](get_sortgroupclause_tle.md)
   - SortGroupClause (structure type)
 - Called from (representative examples):
-  - make_pathkeys_for_sortclauses_extended
-  - get_sortgrouplist_exprs
-  - transformAggregateCall
-  - transformWindowDefinitions
+  - [make_pathkeys_for_sortclauses_extended](../m/make_pathkeys_for_sortclauses_extended.md)
+  - [get_sortgrouplist_exprs](get_sortgrouplist_exprs.md)
+  - [transformAggregateCall](../t/transformAggregateCall.md)
+  - [transformWindowDefinitions](../t/transformWindowDefinitions.md)
 
 ## Notes and Other Information
 This function provides a convenient way to extract expressions from sort/group clauses during query planning and parsing. It's commonly used when building path keys and when processing aggregate and window function calls where the system needs access to the underlying expressions for further analysis or transformation.

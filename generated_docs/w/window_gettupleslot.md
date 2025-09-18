@@ -19,16 +19,16 @@ This function is a core utility for window function processing that retrieves a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spool_tuples
-  - tuplestore_select_read_pointer
-  - tuplestore_skiptuples
-  - tuplestore_advance
-  - tuplestore_gettupleslot
+  - [spool_tuples](../s/spool_tuples.md)
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md)
+  - [tuplestore_skiptuples](../t/tuplestore_skiptuples.md)
+  - [tuplestore_advance](../t/tuplestore_advance.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
 - Called from (representative examples):
-  - eval_windowaggregates
-  - WinRowsArePeers
-  - WinGetFuncArgInPartition
-  - WinGetFuncArgInFrame
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
+  - [WinRowsArePeers](../W/WinRowsArePeers.md)
+  - [WinGetFuncArgInPartition](../W/WinGetFuncArgInPartition.md)
+  - [WinGetFuncArgInFrame](../W/WinGetFuncArgInFrame.md)
 
 ## Notes and Other Information
 - Returns true if successful, false if no such row exists

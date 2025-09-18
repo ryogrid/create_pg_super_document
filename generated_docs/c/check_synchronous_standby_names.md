@@ -27,7 +27,7 @@ The function handles the complete parsing workflow: initializing the scanner, pa
   - GUC_check_errcode (set GUC error code)
   - GUC_check_errdetail (set detailed error message)
   - GUC_check_errmsg (set general error message)
-  - guc_malloc (allocate memory using GUC's memory allocator)
+  - [guc_malloc](../g/guc_malloc.md) (allocate memory using GUC's memory allocator)
 - Called from (representative examples):
   - GUC system (referenced in guc_hooks.h)
 

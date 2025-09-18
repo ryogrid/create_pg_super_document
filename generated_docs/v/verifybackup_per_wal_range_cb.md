@@ -24,15 +24,15 @@ This function serves as a callback during backup manifest parsing for WAL (Write
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
 - Types referenced:
-  - JsonManifestParseContext
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md)
   - TimeLineID
   - XLogRecPtr
-  - manifest_data
-  - manifest_wal_range
+  - [manifest_data](../m/manifest_data.md)
+  - [manifest_wal_range](../m/manifest_wal_range.md)
 - Called from (representative examples):
-  - parse_manifest_file
+  - [parse_manifest_file](../p/parse_manifest_file.md)
 
 ## Notes and Other Information
 - This is a static callback function specifically designed for use with the JSON manifest parser

@@ -33,17 +33,17 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - func_get_detail (main function resolution)
-  - ParseComplexProjection (for column projection handling)
-  - transformWhereClause (for aggregate filter processing)
-  - unify_hypothetical_args (for hypothetical aggregate validation)
-  - enforce_generic_type_consistency (for polymorphic type handling)
-  - make_fn_arguments (for argument type casting)
-  - check_srf_call_placement (for set-returning function validation)
+  - [func_get_detail](../f/func_get_detail.md) (main function resolution)
+  - [ParseComplexProjection](ParseComplexProjection.md) (for column projection handling)
+  - [transformWhereClause](../t/transformWhereClause.md) (for aggregate filter processing)
+  - [unify_hypothetical_args](../u/unify_hypothetical_args.md) (for hypothetical aggregate validation)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md) (for polymorphic type handling)
+  - [make_fn_arguments](../m/make_fn_arguments.md) (for argument type casting)
+  - [check_srf_call_placement](../c/check_srf_call_placement.md) (for set-returning function validation)
 - Called from (representative examples):
   - transformFuncCall (from parse_expr.c:1474)
-  - transformIndirection (from parse_expr.c:480)
-  - transformCallStmt (from analyze.c:3112)
+  - [transformIndirection](../t/transformIndirection.md) (from parse_expr.c:480)
+  - [transformCallStmt](../t/transformCallStmt.md) (from analyze.c:3112)
 
 ## Notes and Other Information
 - The function supports both function syntax (fn != NULL) and column syntax (fn == NULL)

@@ -28,11 +28,11 @@ Note that the function does not check for structural equality (equal(item1, item
 ## Dependencies
 - Functions called/Symbols referenced:
   - EquivalenceClass (struct type)
-  - EquivalenceMember (struct type)
-  - equal (expression comparison function)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)
+  - [equal](equal.md) (expression comparison function)
   - lfirst (list iteration macro)
 - Called from (representative examples):
-  - add_unique_group_var
+  - [add_unique_group_var](../a/add_unique_group_var.md)
   - Referenced in paths.h header
 
 ## Notes and Other Information

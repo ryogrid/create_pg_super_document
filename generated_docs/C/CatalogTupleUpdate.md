@@ -26,22 +26,22 @@ The function performs constraint validation before the update and ensures all ca
   - CatalogIndexState
   - TU_UpdateIndexes
   - TU_All
-  - CatalogTupleCheckConstraints
-  - CatalogOpenIndexes
-  - simple_heap_update
-  - CatalogIndexInsert
-  - CatalogCloseIndexes
+  - [CatalogTupleCheckConstraints](CatalogTupleCheckConstraints.md)
+  - [CatalogOpenIndexes](CatalogOpenIndexes.md)
+  - [simple_heap_update](../s/simple_heap_update.md)
+  - [CatalogIndexInsert](CatalogIndexInsert.md)
+  - [CatalogCloseIndexes](CatalogCloseIndexes.md)
 - Called from (representative examples):
-  - SetDefaultACL
-  - ExecGrant_Attribute
-  - ExecGrant_Relation
-  - RemoveAttributeById
-  - RelationClearMissing
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [RemoveAttributeById](../R/RemoveAttributeById.md)
+  - [RelationClearMissing](../R/RelationClearMissing.md)
   - index_concurrently_swap
-  - AggregateCreate
-  - StoreAttrDefault
-  - AlterConstraintNamespaces
-  - changeDependencyFor
+  - [AggregateCreate](../A/AggregateCreate.md)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md)
+  - [AlterConstraintNamespaces](../A/AlterConstraintNamespaces.md)
+  - [changeDependencyFor](../c/changeDependencyFor.md)
 
 ## Notes and Other Information
 - This is a convenience routine optimized for updating single catalog tuples

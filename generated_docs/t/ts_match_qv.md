@@ -22,7 +22,7 @@ The function is part of PostgreSQL's text search boolean operations infrastructu
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2
-  - ts_match_vq
+  - [ts_match_vq](ts_match_vq.md)
   - PG_RETURN_DATUM
   - PG_GETARG_DATUM
 - Called from (representative examples):

@@ -28,14 +28,14 @@ The function performs a catalog table scan using the specified criteria and dele
 - Functions called/Symbols referenced:
   - table_open/table_close
   - OidIsValid
-  - ScanKeyInit
-  - table_beginscan_catalog/table_endscan
-  - heap_getnext
-  - CatalogTupleDelete
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)/table_endscan
+  - [heap_getnext](../h/heap_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
   - ForwardScanDirection
 - Called from (representative examples):
-  - dropdb (src/backend/commands/dbcommands.c:1767)
-  - DropRole (src/backend/commands/user.c:1320)
+  - [dropdb](../d/dropdb.md) (src/backend/commands/dbcommands.c:1767)
+  - [DropRole](DropRole.md) (src/backend/commands/user.c:1320)
 
 ## Notes and Other Information
 - Acquires RowExclusiveLock on pg_db_role_setting to ensure exclusive access during cleanup operations

@@ -30,8 +30,8 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
   - Functions performing write operations on shared radix trees
   - Modification routines that require exclusive access
 - Related symbols:
-  - RT_LOCK_SHARE (shared/read lock counterpart)
-  - RT_UNLOCK (releases the acquired lock)
+  - [RT_LOCK_SHARE](RT_LOCK_SHARE.md) (shared/read lock counterpart)
+  - [RT_UNLOCK](RT_UNLOCK.md) (releases the acquired lock)
 
 ## Notes and Other Information
 - Only available when RT_SHMEM preprocessing directive is defined

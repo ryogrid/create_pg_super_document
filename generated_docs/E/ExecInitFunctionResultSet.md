@@ -30,11 +30,11 @@ The function includes an assertion to verify that the resolved function actually
 - Functions called/Symbols referenced:
   - makeNode (SetExprState creation)
   - IsA (type checking for FuncExpr and OpExpr)
-  - ExecInitExprList (argument initialization for both function and operator expressions)
-  - init_sexpr (function call setup with SRF-specific parameters)
+  - [ExecInitExprList](ExecInitExprList.md) (argument initialization for both function and operator expressions)
+  - [init_sexpr](../i/init_sexpr.md) (function call setup with SRF-specific parameters)
   - nodeTag, elog (error handling for unsupported expression types)
 - Called from (representative examples):
-  - ExecInitProjectSet (src/backend/executor/nodeProjectSet.c:291)
+  - [ExecInitProjectSet](ExecInitProjectSet.md) (src/backend/executor/nodeProjectSet.c:291)
 
 ## Notes and Other Information
 - Specifically designed for target list SRFs, complementing ExecInitTableFunctionResult which handles FROM clause functions

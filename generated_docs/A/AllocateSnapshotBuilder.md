@@ -23,8 +23,8 @@ This function creates a new SnapBuild structure which is the core component for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextSwitchTo
-  - palloc0
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
   - ALLOCSET_DEFAULT_SIZES
   - SNAPBUILD_START
 - Called from (representative examples):

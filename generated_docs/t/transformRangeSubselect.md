@@ -19,14 +19,14 @@ The transformRangeSubselect function handles the transformation of subqueries th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_sub_analyze
-  - isLockedRefname
-  - addRangeTableEntryForSubquery
+  - [parse_sub_analyze](../p/parse_sub_analyze.md)
+  - [isLockedRefname](../i/isLockedRefname.md)
+  - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md)
   - EXPR_KIND_NONE
   - EXPR_KIND_FROM_SUBSELECT
   - CMD_SELECT
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - The function temporarily modifies pstate->p_expr_kind to EXPR_KIND_FROM_SUBSELECT to indicate recursive parsing into a subselect

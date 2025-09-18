@@ -23,8 +23,8 @@ PGTYPESdate_from_timestamp performs a conversion from a PostgreSQL timestamp (wh
   - USECS_PER_DAY (constant for microseconds per day conversion)
   - date (return type)
 - Called from (representative examples):
-  - PGTYPEStimestamp_fmt_asc (timestamp formatting function)
-  - main (in test cases)
+  - [PGTYPEStimestamp_fmt_asc](PGTYPEStimestamp_fmt_asc.md) (timestamp formatting function)
+  - [main](../m/main.md) (in test cases)
 
 ## Notes and Other Information
 - The function handles infinite timestamp values by leaving the date uninitialized (returning 0)

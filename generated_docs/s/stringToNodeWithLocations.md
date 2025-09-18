@@ -21,11 +21,11 @@ This function is primarily used in query processing contexts where location info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stringToNodeInternal
+  - [stringToNodeInternal](stringToNodeInternal.md)
 - Called from (representative examples):
-  - pg_parse_query
-  - pg_rewrite_query
-  - pg_plan_query
+  - [pg_parse_query](../p/pg_parse_query.md)
+  - [pg_rewrite_query](../p/pg_rewrite_query.md)
+  - [pg_plan_query](../p/pg_plan_query.md)
 
 ## Notes and Other Information
 - Preserves location fields from the string representation instead of setting them to -1

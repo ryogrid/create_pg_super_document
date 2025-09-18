@@ -32,26 +32,26 @@ Key policies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - compare_path_costs_fuzzily
-  - compare_pathkeys  
-  - bms_subset_compare
+  - [compare_pathkeys](../c/compare_pathkeys.md)  
+  - [bms_subset_compare](../b/bms_subset_compare.md)
   - PATH_REQ_OUTER
   - foreach_delete_current
   - foreach_current_index
-  - list_insert_nth
+  - [list_insert_nth](../l/list_insert_nth.md)
   - STD_FUZZ_FACTOR (constant)
   - COSTS_EQUAL, COSTS_BETTER1, COSTS_BETTER2, COSTS_DIFFERENT (enum values)
   - PATHKEYS_BETTER1, PATHKEYS_BETTER2, PATHKEYS_DIFFERENT (enum values)
   - BMS_EQUAL, BMS_SUBSET1, BMS_SUBSET2 (enum values)
-  - IndexPath (type)
+  - [IndexPath](../I/IndexPath.md) (type)
 - Called from (representative examples):
-  - set_plain_rel_pathlist
-  - create_index_paths
-  - try_nestloop_path
-  - try_mergejoin_path
-  - try_hashjoin_path
-  - generate_gather_paths
-  - create_tidscan_paths
-  - generate_union_paths
+  - [set_plain_rel_pathlist](../s/set_plain_rel_pathlist.md)
+  - [create_index_paths](../c/create_index_paths.md)
+  - [try_nestloop_path](../t/try_nestloop_path.md)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [try_hashjoin_path](../t/try_hashjoin_path.md)
+  - [generate_gather_paths](../g/generate_gather_paths.md)
+  - [create_tidscan_paths](../c/create_tidscan_paths.md)
+  - [generate_union_paths](../g/generate_union_paths.md)
 
 ## Notes and Other Information
 This function is called frequently throughout path generation and serves as a central chokepoint for memory management and plan quality. The fuzzy cost comparison helps avoid platform-specific plan variations due to floating-point roundoff errors. The function includes CHECK_FOR_INTERRUPTS() to allow query cancellation during lengthy planning phases.

@@ -19,10 +19,10 @@ The function uses the fasthash_accum_cstring function which is specifically desi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fasthash_state (hash state structure)
-  - fasthash_init (hash state initialization)
-  - fasthash_accum_cstring (C string accumulation with automatic length detection)
-  - fasthash_final32 (finalization returning 32-bit hash with length mixing)
+  - [fasthash_state](../f/fasthash_state.md) (hash state structure)
+  - [fasthash_init](../f/fasthash_init.md) (hash state initialization)
+  - [fasthash_accum_cstring](../f/fasthash_accum_cstring.md) (C string accumulation with automatic length detection)
+  - [fasthash_final32](../f/fasthash_final32.md) (finalization returning 32-bit hash with length mixing)
 - Called from (representative examples):
   - SH_HASH_KEY (used in multiple PostgreSQL utilities as hash function for simple hash tables)
   - load_manifest.c, pg_dumpall.c, filemap.c, pg_verifybackup.c (various PostgreSQL utilities)

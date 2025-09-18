@@ -22,22 +22,22 @@ The function handles both regular functions and procedures, with special logic f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace (resolves function name and namespace)
-  - object_aclcheck, aclcheck_error (permission checking)
-  - compute_function_attributes (processes function options and attributes)
-  - SearchSysCache1, ReleaseSysCache (language catalog lookups)
-  - extension_file_exists (checks for language extensions)
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md) (resolves function name and namespace)
+  - [object_aclcheck](../o/object_aclcheck.md), aclcheck_error (permission checking)
+  - [compute_function_attributes](../c/compute_function_attributes.md) (processes function options and attributes)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (language catalog lookups)
+  - [extension_file_exists](../e/extension_file_exists.md) (checks for language extensions)
   - superuser (privilege validation)
-  - typenameTypeId, get_base_element_type (type resolution)
-  - get_transform_oid (transform function validation)
-  - interpret_function_parameter_list (parameter processing)
-  - compute_return_type (return type resolution)
-  - construct_array_builtin (array construction for transforms)
-  - interpret_AS_clause (function body processing)
-  - ProcedureCreate (final catalog entry creation)
+  - [typenameTypeId](../t/typenameTypeId.md), get_base_element_type (type resolution)
+  - [get_transform_oid](../g/get_transform_oid.md) (transform function validation)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md) (parameter processing)
+  - [compute_return_type](../c/compute_return_type.md) (return type resolution)
+  - [construct_array_builtin](../c/construct_array_builtin.md) (array construction for transforms)
+  - [interpret_AS_clause](../i/interpret_AS_clause.md) (function body processing)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (final catalog entry creation)
   - Various constants: PROVOLATILE_VOLATILE, PROPARALLEL_UNSAFE, PROKIND_*
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1655)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1655)
 
 ## Notes and Other Information
 - Handles both CREATE FUNCTION and CREATE PROCEDURE with shared logic and procedure-specific branches

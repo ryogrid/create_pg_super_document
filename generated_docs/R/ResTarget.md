@@ -31,17 +31,17 @@ ResTarget is a versatile parse tree node that serves different purposes dependin
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)
-  - List (PostgreSQL's list data structure)
-  - Node (base node type for expressions)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
+  - [Node](../N/Node.md) (base node type for expressions)
   - ParseLoc (parse location tracking type)
 - Called from (representative examples):
-  - transformInsertStmt (src/backend/parser/analyze.c:947)
-  - transformInsertRow (src/backend/parser/analyze.c:1062)
-  - transformUpdateTargetList (src/backend/parser/analyze.c:2506, 2523)
-  - transformTargetList (src/backend/parser/parse_target.c:136)
-  - transformMergeStmt (src/backend/parser/parse_merge.c:367)
-  - DoCopy (src/backend/commands/copy.c:186, 214, 238)
-  - checkInsertTargets (src/backend/parser/parse_target.c:1030, 1038, 1058)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (src/backend/parser/analyze.c:947)
+  - [transformInsertRow](../t/transformInsertRow.md) (src/backend/parser/analyze.c:1062)
+  - [transformUpdateTargetList](../t/transformUpdateTargetList.md) (src/backend/parser/analyze.c:2506, 2523)
+  - [transformTargetList](../t/transformTargetList.md) (src/backend/parser/parse_target.c:136)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (src/backend/parser/parse_merge.c:367)
+  - [DoCopy](../D/DoCopy.md) (src/backend/commands/copy.c:186, 214, 238)
+  - [checkInsertTargets](../c/checkInsertTargets.md) (src/backend/parser/parse_target.c:1030, 1038, 1058)
 
 ## Notes and Other Information
 - Central to PostgreSQL's target list processing across multiple statement types

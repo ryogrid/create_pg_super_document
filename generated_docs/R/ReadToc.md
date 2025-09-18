@@ -19,16 +19,16 @@ This function deserializes the Table of Contents from an archive file and builds
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry, DumpId (struct types)
-  - ReadInt, ReadStr (archive reading functions)
+  - [TocEntry](../T/TocEntry.md), DumpId (struct types)
+  - [ReadInt](ReadInt.md), ReadStr (archive reading functions)
   - pg_malloc0, pg_malloc, pg_realloc (memory management)
   - pg_log_warning, pg_log_debug (logging functions)
-  - processEncodingEntry, processStdStringsEntry, processSearchPathEntry (special entry processors)
+  - [processEncodingEntry](../p/processEncodingEntry.md), processStdStringsEntry, processSearchPathEntry (special entry processors)
   - Version constants (K_VERS_1_3, K_VERS_1_5, etc.)
   - Section constants (SECTION_NONE, SECTION_DATA, SECTION_POST_DATA, SECTION_PRE_DATA)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom
-  - InitArchiveFmt_Directory
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md)
 
 ## Notes and Other Information
 - Handles version compatibility across multiple archive format versions (1.3 through 1.16+)

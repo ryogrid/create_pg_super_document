@@ -21,11 +21,11 @@ The function maintains the binary flag of the result - if any column uses text f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultAlloc
-  - pqResultStrdup
+  - [PQresultAlloc](PQresultAlloc.md)
+  - [pqResultStrdup](../p/pqResultStrdup.md)
   - memcpy
 - Called from (representative examples):
-  - PQcopyResult
+  - [PQcopyResult](PQcopyResult.md)
 
 ## Notes and Other Information
 - Returns false (0) on failure, true (non-zero) on success

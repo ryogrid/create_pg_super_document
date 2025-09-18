@@ -19,10 +19,10 @@ This function performs the cleanup and deallocation of a SnapBuild structure. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildSnapDecRefcount
-  - MemoryContextDelete
+  - [SnapBuildSnapDecRefcount](../S/SnapBuildSnapDecRefcount.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - FreeDecodingContext
+  - [FreeDecodingContext](FreeDecodingContext.md)
 
 ## Notes and Other Information
 The function uses a two-step cleanup approach: first explicitly freeing the snapshot with reference counting (which includes error checking), then using memory context deletion to clean up all other resources. This design ensures that snapshots are properly managed with reference counting while other allocations are efficiently cleaned up through the memory context mechanism. The explicit snapshot cleanup is important because snapshots may be shared between different contexts and require proper reference counting.

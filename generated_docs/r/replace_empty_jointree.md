@@ -22,15 +22,15 @@ Unlike most other functions in prepjointree.c, this function does not recurse on
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry, RangeTblRef)
-  - makeAlias
+  - [makeAlias](../m/makeAlias.md)
   - lappend
   - list_length
   - list_make1
   - RTE_RESULT constant
 - Called from (representative examples):
-  - subquery_planner (in src/backend/optimizer/plan/planner.c:706)
-  - convert_EXISTS_sublink_to_join (in src/backend/optimizer/plan/subselect.c:1442)
-  - pull_up_simple_subquery (in src/backend/optimizer/prep/prepjointree.c:1191)
+  - [subquery_planner](../s/subquery_planner.md) (in src/backend/optimizer/plan/planner.c:706)
+  - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md) (in src/backend/optimizer/plan/subselect.c:1442)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md) (in src/backend/optimizer/prep/prepjointree.c:1191)
 
 ## Notes and Other Information
 - Only operates on queries with completely empty fromlist in their jointree

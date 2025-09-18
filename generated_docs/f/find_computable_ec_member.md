@@ -25,14 +25,14 @@ Unlike find_ec_member_matching_expr, this function does not provide special hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_var_clause
-  - bms_is_subset
-  - list_member
-  - list_free
-  - is_parallel_safe
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [list_member](../l/list_member.md)
+  - [list_free](../l/list_free.md)
+  - [is_parallel_safe](../i/is_parallel_safe.md)
 - Called from (representative examples):
-  - relation_can_be_sorted_early
-  - prepare_sort_from_pathkeys
+  - [relation_can_be_sorted_early](../r/relation_can_be_sorted_early.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
 
 ## Notes and Other Information
 - Child EC members are ignored unless they belong to the specified relids

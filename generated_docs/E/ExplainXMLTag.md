@@ -26,11 +26,11 @@ ExplainXMLTag generates properly formatted XML tags for EXPLAIN output. The func
   - appendStringInfoSpaces (string formatting function)
   - appendStringInfoCharMacro (string formatting macro)
 - Called from (representative examples):
-  - ExplainPropertyList
-  - ExplainProperty
-  - ExplainOpenGroup
-  - ExplainCloseGroup
-  - ExplainDummyGroup
+  - [ExplainPropertyList](ExplainPropertyList.md)
+  - [ExplainProperty](ExplainProperty.md)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)
+  - [ExplainCloseGroup](ExplainCloseGroup.md)
+  - [ExplainDummyGroup](ExplainDummyGroup.md)
 
 ## Notes and Other Information
 This is a static function internal to explain.c. The character validation ensures XML compliance by restricting tag names to alphanumeric characters, hyphens, underscores, and periods. Invalid characters are replaced with dashes. The function is essential for generating well-formed XML output in EXPLAIN XML format.

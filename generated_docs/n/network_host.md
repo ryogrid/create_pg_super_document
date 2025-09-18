@@ -22,7 +22,7 @@ The network_host function is a PostgreSQL built-in function that takes an inet o
   - ip_family (to get address family)
   - ip_addr (to get address data)
   - ip_maxbits (to get maximum bits for the address type)
-  - pg_inet_net_ntop (to format the network address)
+  - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md) (to format the network address)
   - cstring_to_text (to convert C string to PostgreSQL text)
   - PG_RETURN_TEXT_P (to return text result)
 - Called from (representative examples):

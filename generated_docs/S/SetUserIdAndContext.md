@@ -18,7 +18,7 @@ This function modifies the current user ID (CurrentUserId) and updates the secur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InSecurityRestrictedOperation (security check function)
+  - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md) (security check function)
   - SECURITY_LOCAL_USERID_CHANGE (security context flag)
 - Called from (representative examples):
   - AmSpecialWorkerProcess (from src/include/miscadmin.h:413)

@@ -20,7 +20,7 @@ This function determines if a Bump memory context is empty of any allocated spac
   - BumpIsValid (validation check)
   - dlist_foreach (list iteration)
   - dlist_container (container extraction)
-  - BumpBlockIsEmpty (block emptiness check)
+  - [BumpBlockIsEmpty](BumpBlockIsEmpty.md) (block emptiness check)
 - Called from (representative examples):
   - BOGUS_MCTX (via function pointer table)
   - Memory context interface functions

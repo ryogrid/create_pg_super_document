@@ -23,15 +23,15 @@ The function uses GetCurrentTransactionNestLevel() to verify it's operating at t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - CommandEndInvalidationMessages
-  - AppendInvalidationMessages
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md)
+  - [AppendInvalidationMessages](AppendInvalidationMessages.md)
   - SetGroupToFollow
-  - ProcessInvalidationMessages
-  - LocalExecuteInvalidationMessage
+  - [ProcessInvalidationMessages](../P/ProcessInvalidationMessages.md)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
 - Called from (representative examples):
-  - CommitSubTransaction
-  - AbortSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
+  - [AbortSubTransaction](AbortSubTransaction.md)
 
 ## Notes and Other Information
 - Quick exits if no invalidation messages exist or if messages aren't for the current transaction level

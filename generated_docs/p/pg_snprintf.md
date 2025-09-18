@@ -20,9 +20,9 @@ pg_snprintf provides a safe, portable alternative to the standard snprintf funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_vsnprintf (performs the actual formatting work with va_list)
+  - [pg_vsnprintf](pg_vsnprintf.md) (performs the actual formatting work with va_list)
 - Called from (representative examples):
-  - initPopulateTable (in pgbench for table initialization)
+  - [initPopulateTable](../i/initPopulateTable.md) (in pgbench for table initialization)
   - snprintf (when PostgreSQL's implementation replaces system's)
   - printf (indirectly through PostgreSQL printf wrappers)
 

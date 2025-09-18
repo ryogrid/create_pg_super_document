@@ -24,7 +24,7 @@ This function is part of PostgreSQL's timestamp comparison operator family and h
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP (macro for extracting timestamp argument)
   - PG_GETARG_TIMESTAMPTZ (macro for extracting timestamptz argument) 
-  - timestamp_cmp_timestamptz_internal (internal comparison function)
+  - [timestamp_cmp_timestamptz_internal](timestamp_cmp_timestamptz_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro for returning boolean result)
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

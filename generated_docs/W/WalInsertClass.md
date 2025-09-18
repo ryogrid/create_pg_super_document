@@ -27,7 +27,7 @@ The classification is determined at runtime based on the resource manager ID (xl
   - Influences WAL insertion locking strategy (WALInsertLockAcquire vs WALInsertLockAcquireExclusive)
   - Affects ReserveXLogInsertLocation and ReserveXLogSwitch calls
 - Called from (representative examples):
-  - XLogInsertRecord (src/backend/access/transam/xlog.c:761)
+  - [XLogInsertRecord](../X/XLogInsertRecord.md) (src/backend/access/transam/xlog.c:761)
 
 ## Notes and Other Information
 - The classification is determined by examining the xl_rmid field for RM_XLOG_ID and the xl_info field for specific info types (XLOG_SWITCH, XLOG_CHECKPOINT_REDO)

@@ -33,12 +33,12 @@ The approach is deliberately liberal regarding non-matching arguments - the supp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_index_to_operand
-  - get_index_clause_from_support
+  - [match_index_to_operand](match_index_to_operand.md)
+  - [get_index_clause_from_support](../g/get_index_clause_from_support.md)
   - lfirst (list traversal)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - match_clause_to_indexcol
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md)
 
 ## Notes and Other Information
 - No built-in intelligence for function clauses - entirely depends on planner support functions

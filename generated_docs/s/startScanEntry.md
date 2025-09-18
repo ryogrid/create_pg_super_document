@@ -28,18 +28,18 @@ The function includes sophisticated error handling and restart logic for cases w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginPrepareEntryScan (prepares btree entry for search)
-  - ginFindLeafPage (locates the appropriate leaf page)
-  - collectMatchBitmap (collects TIDs for partial/complex matches)
-  - ginScanBeginPostingTree (initializes posting tree scanning)
-  - GinDataLeafPageGetItems (extracts items from posting tree page)
-  - ginReadTuple (reads posting list from index tuple)
-  - tbm_begin_iterate, tbm_end_iterate, tbm_free, tbm_is_empty (bitmap operations)
-  - PredicateLockPage (applies predicate locks)
-  - IncrBufferRefCount (manages buffer reference counting)
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md) (prepares btree entry for search)
+  - [ginFindLeafPage](../g/ginFindLeafPage.md) (locates the appropriate leaf page)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md) (collects TIDs for partial/complex matches)
+  - [ginScanBeginPostingTree](../g/ginScanBeginPostingTree.md) (initializes posting tree scanning)
+  - [GinDataLeafPageGetItems](../G/GinDataLeafPageGetItems.md) (extracts items from posting tree page)
+  - [ginReadTuple](../g/ginReadTuple.md) (reads posting list from index tuple)
+  - [tbm_begin_iterate](../t/tbm_begin_iterate.md), tbm_end_iterate, tbm_free, tbm_is_empty (bitmap operations)
+  - [PredicateLockPage](../P/PredicateLockPage.md) (applies predicate locks)
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md) (manages buffer reference counting)
   - Various GIN utility functions and constants
 - Called from:
-  - startScan (src/backend/access/gin/ginget.c:610)
+  - [startScan](startScan.md) (src/backend/access/gin/ginget.c:610)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ginget.c file

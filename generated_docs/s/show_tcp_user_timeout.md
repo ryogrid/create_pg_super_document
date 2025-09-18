@@ -22,7 +22,7 @@ The function uses a static buffer to store the formatted string representation o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_gettcpusertimeout
+  - [pq_gettcpusertimeout](../p/pq_gettcpusertimeout.md)
   - MyProcPort (global variable representing the current connection port)
   - snprintf (standard C library function)
 - Called from (representative examples):

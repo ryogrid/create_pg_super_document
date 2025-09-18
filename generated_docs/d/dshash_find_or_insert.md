@@ -19,7 +19,7 @@ The  function performs an atomic find-or-insert operation on a dynamic shared ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_key: Computes hash value for the given key
+  - [hash_key](../h/hash_key.md): Computes hash value for the given key
   - PARTITION_FOR_HASH: Macro to determine partition from hash value
   - PARTITION_LOCK: Macro to get partition lock
   - ensure_valid_bucket_pointers: Ensures bucket pointers are valid
@@ -27,7 +27,7 @@ The  function performs an atomic find-or-insert operation on a dynamic shared ha
   - BUCKET_FOR_HASH: Macro to determine bucket from hash value
   - MAX_COUNT_PER_PARTITION: Macro to determine maximum count per partition
   - resize: Resizes the hash table when load factor is too high
-  - insert_into_bucket: Inserts new item into specified bucket
+  - [insert_into_bucket](../i/insert_into_bucket.md): Inserts new item into specified bucket
   - ENTRY_FROM_ITEM: Macro to convert item to entry pointer
   - LWLockAcquire: Acquires exclusive lightweight lock
   - LWLockRelease: Releases lightweight lock
@@ -35,7 +35,7 @@ The  function performs an atomic find-or-insert operation on a dynamic shared ha
   - ApplyLauncherSetWorkerStartTime: Setting worker startup times
   - GetNamedDSMSegment: DSM segment retrieval operations
   - pgstat_get_entry_ref: Statistics entry reference operations
-  - find_or_make_matching_shared_tupledesc: Type descriptor matching operations
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md): Type descriptor matching operations
 
 ## Notes and Other Information
 - Always acquires an exclusive lock, unlike  which can use shared locks

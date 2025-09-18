@@ -24,19 +24,19 @@ The function stores alignment information in the redirection header and uses the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocExtended
+  - [MemoryContextAllocExtended](MemoryContextAllocExtended.md)
   - PallocAlignedExtraBytes
   - TYPEALIGN
   - PointerGetMemoryChunk
-  - MemoryChunkSetHdrMask
+  - [MemoryChunkSetHdrMask](MemoryChunkSetHdrMask.md)
   - MCTX_ALIGNED_REDIRECT_ID
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING enabled)
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING enabled)
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from (representative examples):
-  - PageSetChecksumCopy
-  - smgr_bulk_get_buf
-  - AlignedAllocRealloc
-  - palloc_aligned
+  - [PageSetChecksumCopy](../P/PageSetChecksumCopy.md)
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
+  - [AlignedAllocRealloc](../A/AlignedAllocRealloc.md)
+  - [palloc_aligned](../p/palloc_aligned.md)
 
 ## Notes and Other Information
 - The `alignto` parameter must be a power of 2 and less than 128MB

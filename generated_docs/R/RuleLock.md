@@ -20,19 +20,19 @@ Each relation that has associated rewrite rules will have a corresponding RuleLo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RewriteRule
+  - [RewriteRule](RewriteRule.md)
 
 - Called from (representative examples):
-  - RelationBuildRuleLock
-  - fireRIRrules
-  - matchLocks
-  - relation_is_updatable
-  - equalRuleLocks
+  - [RelationBuildRuleLock](RelationBuildRuleLock.md)
+  - [fireRIRrules](../f/fireRIRrules.md)
+  - [matchLocks](../m/matchLocks.md)
+  - [relation_is_updatable](../r/relation_is_updatable.md)
+  - [equalRuleLocks](../e/equalRuleLocks.md)
 
 ## Notes and Other Information
-- RuleLock structures are typically stored as part of RelationData structures (relation cache entries)
+- [RuleLock](RuleLock.md) structures are typically stored as part of RelationData structures (relation cache entries)
 - The name "RuleLock" is historical and does not indicate any locking mechanism in current PostgreSQL versions
 - Each relation can have multiple rules for different events (SELECT, INSERT, UPDATE, DELETE)
-- RuleLock provides the primary interface for the query rewriter to access rules associated with a relation
+- [RuleLock](RuleLock.md) provides the primary interface for the query rewriter to access rules associated with a relation
 - The structure is built and cached as part of relation cache management to avoid repeated catalog lookups
 - Views typically have at least one SELECT rule in their RuleLock, which defines how SELECT queries on the view should be rewritten to access underlying tables

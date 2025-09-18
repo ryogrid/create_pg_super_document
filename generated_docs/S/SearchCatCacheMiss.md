@@ -28,17 +28,17 @@ The function handles several complex scenarios including recursive cache lookups
 - Functions called/Symbols referenced:
   - table_open
   - table_close
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - CatalogCacheCreateEntry
-  - IndexScanOK
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md)
+  - [IndexScanOK](../I/IndexScanOK.md)
   - IsBootstrapProcessingMode
   - ResourceOwnerEnlarge
   - ResourceOwnerRememberCatCacheRef
   - CACHE_elog
 - Called from (representative examples):
-  - SearchCatCacheInternal
+  - [SearchCatCacheInternal](SearchCatCacheInternal.md)
 
 ## Notes and Other Information
 - Explicitly marked pg_noinline to avoid inlining and keep the fast path optimized

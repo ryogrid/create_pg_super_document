@@ -22,16 +22,16 @@ The function performs two levels of filtering: first, it checks whether each Res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rinfo_is_constant_true (Line 505) - to filter out constant TRUE clauses
+  - [rinfo_is_constant_true](../r/rinfo_is_constant_true.md) (Line 505) - to filter out constant TRUE clauses
   - lfirst_node macro - for safe list iteration
   - lappend - to build the result list
   - NIL - PostgreSQL's empty list constant
 - Called from (representative examples):
-  - get_gating_quals (src/backend/optimizer/plan/createplan.c:1013)
-  - create_seqscan_plan (src/backend/optimizer/plan/createplan.c:2931)
-  - create_indexscan_plan (src/backend/optimizer/plan/createplan.c:3095)
-  - create_nestloop_plan (src/backend/optimizer/plan/createplan.c:4405)
-  - create_mergejoin_plan (src/backend/optimizer/plan/createplan.c:4493)
+  - [get_gating_quals](../g/get_gating_quals.md) (src/backend/optimizer/plan/createplan.c:1013)
+  - [create_seqscan_plan](../c/create_seqscan_plan.md) (src/backend/optimizer/plan/createplan.c:2931)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (src/backend/optimizer/plan/createplan.c:3095)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md) (src/backend/optimizer/plan/createplan.c:4405)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (src/backend/optimizer/plan/createplan.c:4493)
 
 ## Notes and Other Information
 - Unlike get_actual_clauses, this function performs active filtering rather than assuming clean input

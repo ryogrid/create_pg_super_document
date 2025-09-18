@@ -21,20 +21,20 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessRepliesIfAny (handles incoming client messages)
-  - WalSndCheckTimeOut (verifies connection timeout status)
-  - WalSndKeepaliveIfNecessary (sends keepalive messages)
+  - [ProcessRepliesIfAny](ProcessRepliesIfAny.md) (handles incoming client messages)
+  - [WalSndCheckTimeOut](../W/WalSndCheckTimeOut.md) (verifies connection timeout status)
+  - [WalSndKeepaliveIfNecessary](../W/WalSndKeepaliveIfNecessary.md) (sends keepalive messages)
   - pq_is_send_pending (checks for pending output)
-  - WalSndComputeSleeptime (calculates optimal wait time)
-  - GetCurrentTimestamp (gets current time for calculations)
-  - WalSndWait (waits for socket events)
-  - ResetLatch/SetLatch (manages latch state)
+  - [WalSndComputeSleeptime](../W/WalSndComputeSleeptime.md) (calculates optimal wait time)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current time for calculations)
+  - [WalSndWait](../W/WalSndWait.md) (waits for socket events)
+  - [ResetLatch](../R/ResetLatch.md)/SetLatch (manages latch state)
   - ProcessConfigFile (handles configuration reloads)
-  - SyncRepInitConfig (reinitializes sync replication config)
+  - [SyncRepInitConfig](../S/SyncRepInitConfig.md) (reinitializes sync replication config)
   - pq_flush_if_writable (attempts to flush pending data)
-  - WalSndShutdown (shuts down on flush failure)
+  - [WalSndShutdown](../W/WalSndShutdown.md) (shuts down on flush failure)
 - Called from (representative examples):
-  - WalSndWriteData (when taking the slow path for blocked writes)
+  - [WalSndWriteData](../W/WalSndWriteData.md) (when taking the slow path for blocked writes)
   - WALSND_LOGICAL_LAG_TRACK_INTERVAL_MS (in lag tracking context)
 
 ## Notes and Other Information

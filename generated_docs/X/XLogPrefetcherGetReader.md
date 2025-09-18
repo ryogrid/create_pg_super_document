@@ -23,7 +23,7 @@ The function is straightforward, simply returning the reader pointer that was st
 - Functions called/Symbols referenced:
   - None (direct member access)
 - Called from (representative examples):
-  - ReadRecord (during WAL record reading operations)
+  - [ReadRecord](../R/ReadRecord.md) (during WAL record reading operations)
 
 ## Notes and Other Information
 - This is a simple getter function that maintains encapsulation by providing controlled access to internal prefetcher state

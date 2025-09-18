@@ -22,15 +22,15 @@ This function provides a detailed view of a specific text search configuration b
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - PSQLexec
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [PSQLexec](../P/PSQLexec.md)
   - termPQExpBuffer
-  - appendPQExpBuffer
-  - printQuery
-  - PQclear
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - gettext_noop
 - Called from (representative examples):
-  - listTSConfigsVerbose
+  - [listTSConfigsVerbose](../l/listTSConfigsVerbose.md)
 
 ## Notes and Other Information
 - Returns false if the query execution fails

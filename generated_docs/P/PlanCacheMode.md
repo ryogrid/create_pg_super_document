@@ -29,7 +29,7 @@ The plan cache system is fundamental to PostgreSQL's performance optimization fo
   - Referenced in  function logic
 - Called from (representative examples):
   - GUC configuration system in 
-  - Plan cache decision logic in 
+  - [Plan](Plan.md) cache decision logic in 
 
 ## Notes and Other Information
 - This enum is defined in 

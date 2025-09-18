@@ -22,7 +22,7 @@ After calling choose_popcount_functions(), it immediately delegates to the newly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - choose_popcount_functions
+  - [choose_popcount_functions](../c/choose_popcount_functions.md)
   - pg_popcount32 (global function pointer)
 - Called from:
   - No direct references found (likely assigned to function pointer during initialization)

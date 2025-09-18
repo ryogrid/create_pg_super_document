@@ -29,10 +29,10 @@ This function takes no parameters.
   - LWLockRelease (releasing RelationMappingLock)
   - LW_SHARED (lock mode constant)
 - Synchronizes with:
-  - write_relmap_file (ensures any ongoing map file writes complete with fsync)
-  - perform_relmap_update (waits for any ongoing map updates to finish)
+  - [write_relmap_file](../w/write_relmap_file.md) (ensures any ongoing map file writes complete with fsync)
+  - [perform_relmap_update](../p/perform_relmap_update.md) (waits for any ongoing map updates to finish)
 - Called from (representative examples):
-  - CheckPointGuts (in src/backend/access/transam/xlog.c)
+  - [CheckPointGuts](CheckPointGuts.md) (in src/backend/access/transam/xlog.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's checkpoint infrastructure that ensures crash recovery consistency

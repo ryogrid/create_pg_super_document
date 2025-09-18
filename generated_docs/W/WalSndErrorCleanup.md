@@ -22,19 +22,19 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockReleaseAll
-  - ConditionVariableCancelSleep
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - pgstat_report_wait_end
-  - wal_segment_close
-  - ReplicationSlotRelease
-  - ReplicationSlotCleanup
-  - IsTransactionOrTransactionBlock
-  - WalSndResourceCleanup
-  - proc_exit
-  - WalSndSetState
+  - [wal_segment_close](../w/wal_segment_close.md)
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
+  - [ReplicationSlotCleanup](../R/ReplicationSlotCleanup.md)
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [WalSndResourceCleanup](WalSndResourceCleanup.md)
+  - [proc_exit](../p/proc_exit.md)
+  - [WalSndSetState](WalSndSetState.md)
   - WALSNDSTATE_STARTUP
 
 - Called from:
-  - PostgresMain (in error handling context)
+  - [PostgresMain](../P/PostgresMain.md) (in error handling context)
   - Referenced in CRSSnapshotAction header
 
 ## Notes and Other Information

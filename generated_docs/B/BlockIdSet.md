@@ -20,17 +20,17 @@ BlockIdSet initializes a BlockIdData structure by decomposing a BlockNumber (32-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockIdData (structure type)
+  - [BlockIdData](BlockIdData.md) (structure type)
 - Called from (representative examples):
-  - ginPlaceToPage
+  - [ginPlaceToPage](../g/ginPlaceToPage.md)
   - PostingItemSetBlockNumber
-  - ItemPointerSet
-  - ItemPointerSetBlockNumber
-  - ItemPointerSetInvalid
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/storage/block.h for optimal performance
 - The encoding splits a 32-bit BlockNumber into: bi_hi = blockNumber >> 16, bi_lo = blockNumber & 0xffff
 - Part of PostgreSQL's block management system for efficient storage space utilization
-- BlockIdData structures can be SHORTALIGN'd, making them space-efficient for on-disk storage
+- [BlockIdData](BlockIdData.md) structures can be SHORTALIGN'd, making them space-efficient for on-disk storage
 - Commonly used in tuple headers and page management operations

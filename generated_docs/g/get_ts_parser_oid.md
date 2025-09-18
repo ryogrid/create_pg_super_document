@@ -23,16 +23,16 @@ The function uses the TSPARSERNAMENSP system cache to efficiently locate parsers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace  
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)  
   - GetSysCacheOid2
-  - recomputeNamespacePath
-  - NameListToString
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [NameListToString](../N/NameListToString.md)
 - Called from (representative examples):
-  - get_object_address
-  - DefineTSConfiguration
-  - ts_token_type_byname
-  - ts_parse_byname
+  - [get_object_address](get_object_address.md)
+  - [DefineTSConfiguration](../D/DefineTSConfiguration.md)
+  - [ts_token_type_byname](../t/ts_token_type_byname.md)
+  - [ts_parse_byname](../t/ts_parse_byname.md)
 
 ## Notes and Other Information
 - Returns InvalidOid for non-existent parsers when missing_ok is true

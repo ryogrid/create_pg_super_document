@@ -20,12 +20,12 @@ This function adds a new pointer to the end of a SimplePtrList by creating a new
 - Functions called/Symbols referenced:
   - pg_malloc (PostgreSQL memory allocation function)
 - Data structures used:
-  - SimplePtrList
-  - SimplePtrListCell
+  - [SimplePtrList](../S/SimplePtrList.md)
+  - [SimplePtrListCell](../S/SimplePtrListCell.md)
 - Called from (representative examples):
-  - compile_database_list (src/bin/pg_amcheck/pg_amcheck.c:1601, 1741)
-  - compile_relation_list_one_db (src/bin/pg_amcheck/pg_amcheck.c:2219)
-  - flagInhIndexes (src/bin/pg_dump/common.c:470)
+  - [compile_database_list](../c/compile_database_list.md) (src/bin/pg_amcheck/pg_amcheck.c:1601, 1741)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md) (src/bin/pg_amcheck/pg_amcheck.c:2219)
+  - [flagInhIndexes](../f/flagInhIndexes.md) (src/bin/pg_dump/common.c:470)
 
 ## Notes and Other Information
 - The caller is responsible for ensuring that the appended pointer remains valid for the lifetime of the list

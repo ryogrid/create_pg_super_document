@@ -22,13 +22,13 @@ The function maintains vacuum statistics by incrementing counters for removed tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinVacuumState (struct type)
-  - callback (function pointer in gvs)
-  - palloc (memory allocation)
+  - [GinVacuumState](../G/GinVacuumState.md) (struct type)
+  - [callback](../c/callback.md) (function pointer in gvs)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copy)
 - Called from (representative examples):
-  - ginVacuumPostingTreeLeaf
-  - ginVacuumEntryPage
+  - [ginVacuumPostingTreeLeaf](ginVacuumPostingTreeLeaf.md)
+  - [ginVacuumEntryPage](ginVacuumEntryPage.md)
 
 ## Notes and Other Information
 - Returns NULL if no items need to be removed, avoiding unnecessary memory allocation

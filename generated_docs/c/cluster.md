@@ -26,19 +26,19 @@ To avoid deadlocks during multi-table operations, each relation is processed in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetBoolean
-  - RangeVarGetRelidExtended
+  - [defGetBoolean](../d/defGetBoolean.md)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
   - table_open/table_close
-  - get_index_isclustered
-  - get_relname_relid
-  - cluster_rel
-  - cluster_multiple_rels
-  - check_index_is_clusterable
-  - PreventInTransactionBlock
-  - StartTransactionCommand
+  - [get_index_isclustered](../g/get_index_isclustered.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
+  - [cluster_rel](cluster_rel.md)
+  - [cluster_multiple_rels](cluster_multiple_rels.md)
+  - [check_index_is_clusterable](check_index_is_clusterable.md)
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - AllocSetContextCreate/MemoryContextDelete
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - The function prevents execution within transaction blocks for multi-table operations to avoid holding exclusive locks on multiple tables simultaneously

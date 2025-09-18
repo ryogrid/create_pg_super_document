@@ -19,7 +19,7 @@ The function only creates the space - it does not initialize the data in the new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlarge_list (expands the list's capacity when needed)
+  - [enlarge_list](../e/enlarge_list.md) (expands the list's capacity when needed)
 - Called from (representative examples):
   - lappend (appends a generic pointer value to the list)
   - lappend_int (appends an integer value to the list)

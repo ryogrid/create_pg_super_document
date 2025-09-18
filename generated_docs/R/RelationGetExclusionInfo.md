@@ -32,18 +32,18 @@ Once found, it extracts the operator OIDs from the  array field, then looks up t
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
-  - palloc/memcpy
-  - ScanKeyInit
+  - [palloc](../p/palloc.md)/memcpy
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open/table_close
-  - systable_beginscan/systable_endscan/systable_getnext
-  - fastgetattr
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
+  - [fastgetattr](../f/fastgetattr.md)
   - DatumGetArrayTypeP
   - ARR_DIMS/ARR_NDIM/ARR_HASNULL/ARR_ELEMTYPE/ARR_DATA_PTR
-  - get_opcode
-  - get_op_opfamily_strategy
+  - [get_opcode](../g/get_opcode.md)
+  - [get_op_opfamily_strategy](../g/get_op_opfamily_strategy.md)
 - Called from (representative examples):
-  - BuildIndexInfo
-  - CheckIndexCompatible
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
 
 ## Notes and Other Information
 - Should only be called for indexes with known exclusion constraints

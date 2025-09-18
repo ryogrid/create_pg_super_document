@@ -22,13 +22,13 @@ AsyncQueueControl serves as the central coordination structure for PostgreSQL's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueuePosition
+  - [QueuePosition](../Q/QueuePosition.md)
   - ProcNumber
-  - QueueBackendStatus
+  - [QueueBackendStatus](../Q/QueueBackendStatus.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - AsyncShmemSize
-  - AsyncShmemInit
+  - [AsyncShmemSize](AsyncShmemSize.md)
+  - [AsyncShmemInit](AsyncShmemInit.md)
 
 ## Notes and Other Information
 - Protected by NotifyQueueLock and NotifyQueueTailLock with specific locking protocols
@@ -36,6 +36,6 @@ AsyncQueueControl serves as the central coordination structure for PostgreSQL's 
 - EXCLUSIVE lock required to inspect other backends' entries or modify head pointer
 - Both locks in EXCLUSIVE mode required to modify tail pointers
 - Lock ordering to prevent deadlocks: NotifyQueueTailLock, then NotifyQueueLock, then SLRU bank lock
-- Backend array indexed by ProcNumber for efficient SendProcSignal operations
+- [Backend](../B/Backend.md) array indexed by ProcNumber for efficient SendProcSignal operations
 - Active listeners are threaded together in ProcNumber order for cache-friendly scanning
 - Part of the SLRU (Simple Least Recently Used) buffer management system for persistent storage

@@ -24,10 +24,10 @@ Division by 10^8 is useful for processing numbers in scientific notation or when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - umulh (returns the high 64 bits of 128-bit multiplication)
+  - [umulh](../u/umulh.md) (returns the high 64 bits of 128-bit multiplication)
 - Called from (representative examples):
   - to_chars_df (in src/common/d2s.c:690)
-  - to_chars (in src/common/d2s.c:862)
+  - [to_chars](../t/to_chars.md) (in src/common/d2s.c:862)
 
 ## Notes and Other Information
 - This function is part of the Ryu algorithm implementation for fast floating-point to string conversion

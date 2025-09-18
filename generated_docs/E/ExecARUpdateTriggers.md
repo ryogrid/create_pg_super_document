@@ -26,17 +26,17 @@ This function handles the execution of AFTER ROW UPDATE triggers and transition 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetTriggerOldSlot
-  - GetTupleForTrigger
-  - ExecForceStoreHeapTuple
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
   - ExecClearTuple
   - AfterTriggerSaveEvent
-  - ExecGetAllUpdatedCols
-  - ItemPointerIsValid
+  - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from (representative examples):
-  - ExecUpdateEpilogue
-  - ExecCrossPartitionUpdateForeignKey
-  - ExecSimpleRelationUpdate
+  - [ExecUpdateEpilogue](ExecUpdateEpilogue.md)
+  - [ExecCrossPartitionUpdateForeignKey](ExecCrossPartitionUpdateForeignKey.md)
+  - [ExecSimpleRelationUpdate](ExecSimpleRelationUpdate.md)
 
 ## Notes and Other Information
 - Does not execute triggers immediately - saves events for deferred execution via AfterTriggerSaveEvent

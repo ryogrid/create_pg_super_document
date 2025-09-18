@@ -26,15 +26,15 @@ The tsmhandler field references a tablesample method handler function (like SYST
 - Functions called/Symbols referenced:
   - NodeTag
   - Oid
-  - List
-  - Expr
+  - [List](../L/List.md)
+  - [Expr](../E/Expr.md)
 - Called from (representative examples):
-  - transformRangeTableSample
-  - ExecInitSampleScan
-  - create_samplescan_plan
-  - cost_samplescan
-  - set_tablesample_rel_size
-  - show_tablesample
+  - [transformRangeTableSample](../t/transformRangeTableSample.md)
+  - [ExecInitSampleScan](../E/ExecInitSampleScan.md)
+  - [create_samplescan_plan](../c/create_samplescan_plan.md)
+  - [cost_samplescan](../c/cost_samplescan.md)
+  - [set_tablesample_rel_size](../s/set_tablesample_rel_size.md)
+  - [show_tablesample](../s/show_tablesample.md)
   - get_tablesample_def
 
 ## Notes and Other Information

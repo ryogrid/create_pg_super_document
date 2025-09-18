@@ -32,17 +32,17 @@ The function ensures proper relation access control and maintains referential in
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)
-  - isLockedRefname (lock mode determination)
-  - parserOpenTable (relation opening with locks)
+  - [isLockedRefname](../i/isLockedRefname.md) (lock mode determination)
+  - [parserOpenTable](../p/parserOpenTable.md) (relation opening with locks)
   - RelationGetRelid (OID extraction)
-  - makeAlias (alias creation)
-  - buildRelationAliases (column name building)
-  - addRTEPermissionInfo (permission setup)
+  - [makeAlias](../m/makeAlias.md) (alias creation)
+  - [buildRelationAliases](../b/buildRelationAliases.md) (column name building)
+  - [addRTEPermissionInfo](addRTEPermissionInfo.md) (permission setup)
   - lappend (list manipulation)
-  - buildNSItemFromTupleDesc (namespace item creation)
+  - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md) (namespace item creation)
   - table_close (relation cleanup)
 - Called from (representative examples):
-  - transformTableEntry (in parse_clause.c)
+  - [transformTableEntry](../t/transformTableEntry.md) (in parse_clause.c)
 
 ## Notes and Other Information
 - The function maintains access locks until end of transaction to prevent schema modifications

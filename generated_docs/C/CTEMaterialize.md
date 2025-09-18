@@ -24,7 +24,7 @@ CTEMaterialize defines the materialization strategy for Common Table Expressions
   - CommonTableExpr (src/include/nodes/parsenodes.h:1679)
 
 ## Notes and Other Information
-- CTEMaterialize acts as an optimization fence when set to CTEMaterializeAlways
+- [CTEMaterialize](CTEMaterialize.md) acts as an optimization fence when set to CTEMaterializeAlways
 - Materialization can prevent multiple evaluations of expensive CTE queries
 - NOT MATERIALIZED allows the query planner to inline and optimize the CTE more aggressively
 - The default behavior depends on PostgreSQL's cost-based optimization decisions

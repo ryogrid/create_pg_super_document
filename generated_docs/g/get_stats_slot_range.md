@@ -26,9 +26,9 @@ This function examines all values in a statistics slot (AttStatsSlot) to determi
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttStatsSlot
-  - fmgr_info
-  - FunctionCall2Coll
-  - datumCopy
+  - [fmgr_info](../f/fmgr_info.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
   - get_variable_range
 

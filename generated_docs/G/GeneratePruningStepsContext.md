@@ -46,20 +46,20 @@ The context is initialized by gen_partprune_steps() and passed through the pruni
 - Functions called/Symbols referenced:
   - RelOptInfo (relation optimization info structure)
   - PartClauseTarget (enumeration for pruning target context)
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - PartitionPruneStep (pruning step structure)
 
 - Called from (representative examples):
-  - make_partitionedrel_pruneinfo
-  - gen_partprune_steps
-  - prune_append_rel_partitions
-  - gen_partprune_steps_internal
-  - gen_prune_step_op
-  - gen_prune_step_combine
-  - gen_prune_steps_from_opexps
-  - match_clause_to_partition_key
-  - get_steps_using_prefix
-  - get_steps_using_prefix_recurse
+  - [make_partitionedrel_pruneinfo](../m/make_partitionedrel_pruneinfo.md)
+  - [gen_partprune_steps](../g/gen_partprune_steps.md)
+  - [prune_append_rel_partitions](../p/prune_append_rel_partitions.md)
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md)
+  - [gen_prune_step_op](../g/gen_prune_step_op.md)
+  - [gen_prune_step_combine](../g/gen_prune_step_combine.md)
+  - [gen_prune_steps_from_opexps](../g/gen_prune_steps_from_opexps.md)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md)
+  - [get_steps_using_prefix](../g/get_steps_using_prefix.md)
+  - [get_steps_using_prefix_recurse](../g/get_steps_using_prefix_recurse.md)
 
 ## Notes and Other Information
 - The has_mutable_op, has_mutable_arg, and has_exec_param flags are set if any potentially-useful-for-pruning clause has those properties, regardless of whether the clause was actually used in the final steps list

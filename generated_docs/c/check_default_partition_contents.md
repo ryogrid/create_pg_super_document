@@ -28,16 +28,16 @@ The function handles both LIST and RANGE partitioning strategies and properly ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_qual_for_list / get_qual_for_range
-  - get_proposed_default_constraint
-  - map_partition_varattnos
-  - PartConstraintImpliedByRelConstraint
-  - find_all_inheritors
-  - make_ands_explicit
-  - CreateExecutorState / ExecPrepareExpr / ExecCheck
-  - table_beginscan / table_scan_getnextslot / table_endscan
+  - [get_qual_for_list](../g/get_qual_for_list.md) / get_qual_for_range
+  - [get_proposed_default_constraint](../g/get_proposed_default_constraint.md)
+  - [map_partition_varattnos](../m/map_partition_varattnos.md)
+  - [PartConstraintImpliedByRelConstraint](../P/PartConstraintImpliedByRelConstraint.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [make_ands_explicit](../m/make_ands_explicit.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md) / ExecPrepareExpr / ExecCheck
+  - [table_beginscan](../t/table_beginscan.md) / table_scan_getnextslot / table_endscan
 - Called from (representative examples):
-  - DefineRelation (during partition creation)
+  - [DefineRelation](../D/DefineRelation.md) (during partition creation)
 
 ## Notes and Other Information
 - The function performs an optimization by checking if existing partition constraints already imply that no violating rows exist, avoiding expensive table scans when possible

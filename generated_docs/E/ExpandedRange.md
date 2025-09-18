@@ -19,19 +19,19 @@ ExpandedRange serves as an intermediate representation for ranges during BRIN mi
 
 ## Dependencies
 - Used extensively by functions:
-  - AssertCheckExpandedRanges
-  - compare_expanded_ranges
-  - fill_expanded_ranges
-  - sort_expanded_ranges
-  - merge_overlapping_ranges
-  - build_distances
-  - build_expanded_ranges
-  - count_values
-  - reduce_expanded_ranges
-  - store_expanded_ranges
-  - ensure_free_space_in_buffer
-  - compactify_ranges
-  - brin_minmax_multi_union
+  - [AssertCheckExpandedRanges](../A/AssertCheckExpandedRanges.md)
+  - [compare_expanded_ranges](../c/compare_expanded_ranges.md)
+  - [fill_expanded_ranges](../f/fill_expanded_ranges.md)
+  - [sort_expanded_ranges](../s/sort_expanded_ranges.md)
+  - [merge_overlapping_ranges](../m/merge_overlapping_ranges.md)
+  - [build_distances](../b/build_distances.md)
+  - [build_expanded_ranges](../b/build_expanded_ranges.md)
+  - [count_values](../c/count_values.md)
+  - [reduce_expanded_ranges](../r/reduce_expanded_ranges.md)
+  - [store_expanded_ranges](../s/store_expanded_ranges.md)
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - Temporary structure used during complex range processing operations

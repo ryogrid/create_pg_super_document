@@ -31,11 +31,11 @@ This function takes no parameters.
   - MyLockNo (backend-specific lock identifier)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - XLogInsertRecord
-  - CreateCheckPoint
-  - CreateEndOfRecoveryRecord
-  - do_pg_backup_start
-  - do_pg_backup_stop
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CreateEndOfRecoveryRecord](../C/CreateEndOfRecoveryRecord.md)
+  - [do_pg_backup_start](../d/do_pg_backup_start.md)
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlog.c module

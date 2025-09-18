@@ -20,19 +20,19 @@ This function unlocks a relation lock identified by a relation OID and lock mode
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLocktagRelationOid (sets up lock tag from relation OID)
-  - LockRelease (performs the actual lock release)
+  - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md) (sets up lock tag from relation OID)
+  - [LockRelease](../L/LockRelease.md) (performs the actual lock release)
 - Types referenced:
   - Oid (object identifier type)
   - LOCKTAG (lock tag structure)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
-  - try_relation_open (in relation.c:106)
-  - ReleaseDeletionLock (in dependency.c:1531)
-  - RangeVarGetRelidExtended (in namespace.c:579)
-  - LockTableRecurse (in lockcmds.c:154)
-  - do_autovacuum (in autovacuum.c:2174, 2188, 2194, 2212)
-  - AcquireExecutorLocks (in plancache.c:1814)
+  - [try_relation_open](../t/try_relation_open.md) (in relation.c:106)
+  - [ReleaseDeletionLock](../R/ReleaseDeletionLock.md) (in dependency.c:1531)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (in namespace.c:579)
+  - [LockTableRecurse](../L/LockTableRecurse.md) (in lockcmds.c:154)
+  - [do_autovacuum](../d/do_autovacuum.md) (in autovacuum.c:2174, 2188, 2194, 2212)
+  - [AcquireExecutorLocks](../A/AcquireExecutorLocks.md) (in plancache.c:1814)
 
 ## Notes and Other Information
 - Less efficient than UnlockRelationId due to OID-to-LockRelId conversion overhead

@@ -25,14 +25,14 @@ None - this is a parameter-less initialization function.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct (shared memory allocation)
-  - BTreeShmemSize (size calculation function)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory allocation)
+  - [BTreeShmemSize](BTreeShmemSize.md) (size calculation function)
   - time (for cycle counter initialization)
   - IsUnderPostmaster (process type check)
   - Assert (assertion macro)
   - MaxBackends (global configuration)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (during system startup)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during system startup)
 
 ## Notes and Other Information
 - Only the postmaster process performs actual initialization (!IsUnderPostmaster)

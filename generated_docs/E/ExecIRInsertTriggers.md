@@ -26,12 +26,12 @@ This is a critical component for view insertability in PostgreSQL, enabling comp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTuple
-  - ExecCallTriggerFunc
-  - ExecForceStoreHeapTuple
-  - TriggerEnabled
+  - [ExecFetchSlotHeapTuple](ExecFetchSlotHeapTuple.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - TRIGGER_TYPE_MATCHES
 - Constants used:
   - TRIGGER_EVENT_INSERT
@@ -45,8 +45,8 @@ This is a critical component for view insertability in PostgreSQL, enabling comp
   - TriggerData
   - Trigger
 - Called from (representative examples):
-  - CopyFrom
-  - ExecInsert
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecInsert](ExecInsert.md)
 
 ## Notes and Other Information
 - Returns false if any trigger cancels the insert operation (returns NULL), true otherwise

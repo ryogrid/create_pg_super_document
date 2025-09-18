@@ -29,8 +29,8 @@ The function abstracts the complexity of different output types and provides con
   - fflush (to ensure output ordering before pipes)
   - pg_log_error (for error reporting)
 - Called from (representative examples):
-  - SetupGOutput
-  - setQFout
+  - [SetupGOutput](../S/SetupGOutput.md)
+  - [setQFout](../s/setQFout.md)
 
 ## Notes and Other Information
 - The caller is responsible for managing SIGPIPE behavior when dealing with pipe outputs

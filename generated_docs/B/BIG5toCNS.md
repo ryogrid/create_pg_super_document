@@ -25,15 +25,15 @@ The function sets the appropriate locale code (lc) parameter to indicate which C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BinarySearchRange (called at lines 310 and 331)
+  - [BinarySearchRange](BinarySearchRange.md) (called at lines 310 and 331)
   - LC_CNS11643_1, LC_CNS11643_2, LC_CNS11643_3, LC_CNS11643_4 (locale constants)
   - b1c4 (lookup table for Big5 Level 1 to CNS Plane 4)
   - b2c3 (lookup table for Big5 Level 2 to CNS Plane 3)
   - big5Level1ToCnsPlane1 (mapping array for Level 1)
   - big5Level2ToCnsPlane2 (mapping array for Level 2)
 - Called from (representative examples):
-  - big52euc_tw (in euc_tw_and_big5.c at line 251)
-  - big52mic (in euc_tw_and_big5.c at line 482)
+  - [big52euc_tw](../b/big52euc_tw.md) (in euc_tw_and_big5.c at line 251)
+  - [big52mic](../b/big52mic.md) (in euc_tw_and_big5.c at line 482)
 
 ## Notes and Other Information
 - Returns '?' character (cast to unsigned short) when no mapping is found

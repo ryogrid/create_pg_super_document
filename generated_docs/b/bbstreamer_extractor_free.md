@@ -19,9 +19,9 @@ This function is part of the bbstreamer framework's three-phase lifecycle where 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base type for casting)
-  - bbstreamer_extractor (specific extractor type for casting)
-  - pfree (PostgreSQL memory deallocation function)
+  - [bbstreamer](bbstreamer.md) (base type for casting)
+  - [bbstreamer_extractor](bbstreamer_extractor.md) (specific extractor type for casting)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
   - This is a static function with no direct external callers, used as a callback through the bbstreamer_ops function pointer table
 

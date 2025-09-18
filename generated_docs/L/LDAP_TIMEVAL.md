@@ -25,7 +25,7 @@ Since this is a typedef of , it inherits the following members:
 - Functions called/Symbols referenced:
   - struct timeval (POSIX standard type)
 - Called from (representative examples):
-  - ldapServiceLookup (used for LDAP timeout configuration)
+  - [ldapServiceLookup](../l/ldapServiceLookup.md) (used for LDAP timeout configuration)
 
 ## Notes and Other Information
 - This typedef is only defined when LDAP support is enabled ( is defined)

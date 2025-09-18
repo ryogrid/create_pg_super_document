@@ -26,16 +26,16 @@ The function also tracks whether the relation is accessible in logical decoding,
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsAccessibleInLogicalDecoding
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - SizeOfGistxlogDelete
   - REGBUF_STANDARD
   - RM_GIST_ID
   - XLOG_GIST_DELETE
 - Called from (representative examples):
-  - gistprunepage
+  - [gistprunepage](gistprunepage.md)
 
 ## Notes and Other Information
 - The target-offsets array is always stored in the WAL record regardless of whether the whole buffer is logged, enabling standby servers to locate the snapshotConflictHorizon

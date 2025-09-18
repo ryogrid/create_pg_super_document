@@ -20,14 +20,14 @@ This function implements a look-ahead optimization for B-tree scans with array k
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_tuple_before_array_skeys
-  - PageGetItem
-  - PageGetItemId
+  - [_bt_tuple_before_array_skeys](_bt_tuple_before_array_skeys.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ScanDirectionIsForward/ScanDirectionIsBackward
   - LOOK_AHEAD_DEFAULT_DISTANCE
   - MaxIndexTuplesPerPage
 - Called from (representative examples):
-  - _bt_checkkeys
+  - [_bt_checkkeys](_bt_checkkeys.md)
 
 ## Notes and Other Information
 - Uses adaptive distance heuristics: starts with LOOK_AHEAD_DEFAULT_DISTANCE, doubles on success up to MaxIndexTuplesPerPage/2

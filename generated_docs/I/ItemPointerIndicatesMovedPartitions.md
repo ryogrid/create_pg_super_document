@@ -20,16 +20,16 @@ This function checks if an ItemPointer contains special marker values that indic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetOffsetNumber
-  - ItemPointerGetBlockNumberNoCheck
+  - [ItemPointerGetOffsetNumber](ItemPointerGetOffsetNumber.md)
+  - [ItemPointerGetBlockNumberNoCheck](ItemPointerGetBlockNumberNoCheck.md)
   - MovedPartitionsOffsetNumber
   - MovedPartitionsBlockNumber
 - Called from (representative examples):
-  - heapam_tuple_lock
-  - RelationFindReplTupleByIndex
-  - RelationFindReplTupleSeq
-  - ExecOnConflictUpdate
-  - ExecMergeMatched
+  - [heapam_tuple_lock](../h/heapam_tuple_lock.md)
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md)
+  - [ExecMergeMatched](../E/ExecMergeMatched.md)
   - HeapTupleHeaderIndicatesMovedPartitions
 
 ## Notes and Other Information

@@ -27,12 +27,12 @@ This function creates two constraint triggers on the referenced table to enforce
 - Functions called/Symbols referenced:
   - makeNode (CreateTrigStmt creation)
   - SystemFuncName (RI function name generation)
-  - CreateTrigger (trigger creation)
+  - [CreateTrigger](../C/CreateTrigger.md) (trigger creation)
   - CommandCounterIncrement (visibility control)
   - RelationGetRelid (relation OID extraction)
 - Called from (representative examples):
   - child_dependency_type
-  - addFkRecurseReferenced
+  - [addFkRecurseReferenced](../a/addFkRecurseReferenced.md)
 
 ## Notes and Other Information
 - Creates two separate triggers: one for DELETE events and one for UPDATE events

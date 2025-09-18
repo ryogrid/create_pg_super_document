@@ -33,14 +33,14 @@ Since ArrayIterator is an opaque pointer to ArrayIteratorData, the actual member
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayIteratorData
+  - [ArrayIteratorData](ArrayIteratorData.md)
 - Called from (representative examples):
-  - array_create_iterator
-  - array_iterate
-  - array_free_iterator
-  - array_position_common
-  - array_positions
-  - arraycontained
+  - [array_create_iterator](../a/array_create_iterator.md)
+  - [array_iterate](../a/array_iterate.md)
+  - [array_free_iterator](../a/array_free_iterator.md)
+  - [array_position_common](../a/array_position_common.md)
+  - [array_positions](../a/array_positions.md)
+  - [arraycontained](../a/arraycontained.md)
 
 ## Notes and Other Information
 - The iterator supports both scalar (element-by-element) and slice-based iteration modes

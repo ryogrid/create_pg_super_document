@@ -25,17 +25,17 @@ The function uses Unicode category masks to efficiently check multiple character
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category (internal Unicode category determination function)
-  - pg_u_isspace (whitespace character detection function)
+  - [unicode_category](../u/unicode_category.md) (internal Unicode category determination function)
+  - [pg_u_isspace](pg_u_isspace.md) (whitespace character detection function)
   - PG_U_CATEGORY_MASK (macro for category mask conversion)
   - PG_U_CC_MASK (control character category mask)
   - PG_U_CS_MASK (surrogate character category mask) 
   - PG_U_CN_MASK (unassigned character category mask)
 - Called from (representative examples):
-  - pg_wc_isgraph (regex locale wrapper function)
-  - icu_test (test function)
-  - pg_u_isprint (print character detection function)
-  - pg_unicode_category (Unicode category interface)
+  - [pg_wc_isgraph](pg_wc_isgraph.md) (regex locale wrapper function)
+  - [icu_test](../i/icu_test.md) (test function)
+  - [pg_u_isprint](pg_u_isprint.md) (print character detection function)
+  - [pg_unicode_category](pg_unicode_category.md) (Unicode category interface)
 
 ## Notes and Other Information
 - Returns true for visible, printable characters excluding whitespace

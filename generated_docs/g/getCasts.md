@@ -20,16 +20,16 @@ The function constructs different SQL queries based on the server version: for P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - CastInfo
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [CastInfo](../C/CastInfo.md)
   - pg_malloc
   - atooid
-  - AssignDumpId
-  - findTypeByOid
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [findTypeByOid](../f/findTypeByOid.md)
   - initPQExpBuffer
-  - selectDumpableCast
+  - [selectDumpableCast](../s/selectDumpableCast.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Version-dependent behavior: PostgreSQL 14.0+ excludes range-to-multirange casts

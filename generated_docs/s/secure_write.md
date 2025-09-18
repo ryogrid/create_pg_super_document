@@ -23,16 +23,16 @@ Like its read counterpart, the function implements intelligent blocking behavior
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessClientWriteInterrupt: Handles client write interrupt conditions
-  - be_tls_write: SSL/TLS-specific write operation (when SSL is enabled)
+  - [ProcessClientWriteInterrupt](../P/ProcessClientWriteInterrupt.md): Handles client write interrupt conditions
+  - [be_tls_write](../b/be_tls_write.md): SSL/TLS-specific write operation (when SSL is enabled)
   - be_gssapi_write: GSS-API encrypted write operation (when GSS is enabled)
-  - secure_raw_write: Raw socket write for unencrypted connections
-  - ModifyWaitEvent: Updates wait event configuration for socket monitoring
+  - [secure_raw_write](secure_raw_write.md): Raw socket write for unencrypted connections
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md): Updates wait event configuration for socket monitoring
   - WaitEventSetWait: Blocks until socket becomes ready or other events occur
-  - ResetLatch: Clears the process latch after interrupt processing
+  - [ResetLatch](../R/ResetLatch.md): Clears the process latch after interrupt processing
 - Called from (representative examples):
   - internal_flush_buffer: Main packet transmission buffer management
-  - ProcessStartupPacket: Initial connection handshake data transmission
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md): Initial connection handshake data transmission
 
 ## Notes and Other Information
 - The function implements a retry mechanism with goto retry label to handle interrupts and socket state changes

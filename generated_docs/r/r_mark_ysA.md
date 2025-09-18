@@ -24,10 +24,10 @@ The function follows a three-step validation process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Performs backward pattern matching from array a_21 (8 patterns)
-  - r_mark_suffix_with_optional_y_consonant: Handles optional 'y' consonant processing
+  - [find_among_b](../f/find_among_b.md): Performs backward pattern matching from array a_21 (8 patterns)
+  - [r_mark_suffix_with_optional_y_consonant](r_mark_suffix_with_optional_y_consonant.md): Handles optional 'y' consonant processing
 - Called from:
-  - r_stem_nominal_verb_suffixes: Used three times in the Turkish nominal and verb suffix stemming process (lines 920, 1010, and 1042)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md): Used three times in the Turkish nominal and verb suffix stemming process (lines 920, 1010, and 1042)
 
 ## Notes and Other Information
 - This function is part of the Turkish language-specific stemming rules

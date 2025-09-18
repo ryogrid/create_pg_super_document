@@ -31,11 +31,11 @@ Error conditions:
 ## Dependencies
 - Functions called/Symbols referenced:
   - fgetc
-  - guc_malloc
-  - guc_realloc
+  - [guc_malloc](../g/guc_malloc.md)
+  - [guc_realloc](../g/guc_realloc.md)
   - elog
 - Called from (representative examples):
-  - read_nondefault_variables (multiple calls for name, value, and sourcefile)
+  - [read_nondefault_variables](read_nondefault_variables.md) (multiple calls for name, value, and sourcefile)
 
 ## Notes and Other Information
 - This is a static function only used within guc.c

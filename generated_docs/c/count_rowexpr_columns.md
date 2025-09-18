@@ -33,12 +33,12 @@ The function is intentionally limited in scope since its only used for hint gene
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRTEByRangeTablePosn (resolves variable references to range table entries)
-  - get_tle_by_resno (retrieves target list entries from subqueries)
+  - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md) (resolves variable references to range table entries)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md) (retrieves target list entries from subqueries)
   - IsA/list_length (type checking and list operations)
 
 - Called from (representative examples):
-  - transformInsertRow (for generating helpful error messages about column count mismatches)
+  - [transformInsertRow](../t/transformInsertRow.md) (for generating helpful error messages about column count mismatches)
 
 ## Notes and Other Information
 - Static function with limited scope - used only for error message enhancement

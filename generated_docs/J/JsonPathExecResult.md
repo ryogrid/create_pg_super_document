@@ -32,13 +32,13 @@ This enum is extensively used throughout the JSONPath execution system to provid
 
 ## Dependencies
 - Used extensively by JSONPath execution functions including:
-  - `executeJsonPath`
-  - `executeItem`
-  - `executeItemOptUnwrapTarget`
-  - `executeBoolItem`
-  - `JsonPathExists`
-  - `JsonPathQuery`
-  - `JsonPathValue`
+  - `[executeJsonPath](../e/executeJsonPath.md)`
+  - `[executeItem](../e/executeItem.md)`
+  - `[executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)`
+  - `[executeBoolItem](../e/executeBoolItem.md)`
+  - `[JsonPathExists](JsonPathExists.md)`
+  - `[JsonPathQuery](JsonPathQuery.md)`
+  - `[JsonPathValue](JsonPathValue.md)`
 - Works in conjunction with:
   - `RETURN_ERROR` macro for error handling
   - `jperIsError` macro for error checking

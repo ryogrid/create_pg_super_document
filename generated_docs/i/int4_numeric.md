@@ -23,11 +23,11 @@ This is a thin wrapper function that provides the SQL interface for the int4 to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (macro to extract int32 from function arguments)
-  - int64_to_numeric (performs the actual conversion)
+  - [int64_to_numeric](int64_to_numeric.md) (performs the actual conversion)
   - PG_RETURN_NUMERIC (macro to return Numeric result)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (in JSON path execution)
-  - JsonItemFromDatum (in JSON processing)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (in JSON path execution)
+  - [JsonItemFromDatum](../J/JsonItemFromDatum.md) (in JSON processing)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/numeric.c:4405-4412

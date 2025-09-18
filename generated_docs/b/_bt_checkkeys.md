@@ -33,17 +33,17 @@ This function serves as the primary entry point for tuple qualification during B
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_check_compare (core tuple comparison logic)
-  - _bt_tuple_before_array_skeys (array key positioning checks)
-  - _bt_advance_array_keys (array key advancement)
-  - _bt_checkkeys_look_ahead (speculative page scanning optimization)
+  - [_bt_check_compare](_bt_check_compare.md) (core tuple comparison logic)
+  - [_bt_tuple_before_array_skeys](_bt_tuple_before_array_skeys.md) (array key positioning checks)
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md) (array key advancement)
+  - [_bt_checkkeys_look_ahead](_bt_checkkeys_look_ahead.md) (speculative page scanning optimization)
   - BTreeTupleGetNAtts (tuple attribute counting)
   - RelationGetDescr (relation descriptor access)
   - BTScanOpaque, BTReadPageState, ScanDirection (scan state structures)
   - LOOK_AHEAD_REQUIRED_RECHECKS (optimization threshold constant)
 
 - Called from (representative examples):
-  - _bt_readpage (multiple calls during page scanning for tuple qualification and continuation decisions)
+  - [_bt_readpage](_bt_readpage.md) (multiple calls during page scanning for tuple qualification and continuation decisions)
 
 ## Notes and Other Information
 - Returns true if tuple satisfies all conditions, false otherwise

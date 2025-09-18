@@ -21,13 +21,13 @@ The function also removes cost-based delays and buffer access strategy limitatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_xid_failsafe_check
-  - pgstat_progress_update_multi_param
+  - [vacuum_xid_failsafe_check](../v/vacuum_xid_failsafe_check.md)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
   - ereport (for WARNING messages)
 - Called from:
-  - heap_vacuum_rel
-  - lazy_scan_heap  
-  - lazy_vacuum_all_indexes (multiple locations)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [lazy_scan_heap](lazy_scan_heap.md)  
+  - [lazy_vacuum_all_indexes](lazy_vacuum_all_indexes.md) (multiple locations)
 
 ## Notes and Other Information
 - Returns true when failsafe has been triggered, false otherwise

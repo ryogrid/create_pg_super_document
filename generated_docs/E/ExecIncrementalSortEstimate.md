@@ -25,8 +25,8 @@ The estimation is only performed when both instrumentation is enabled and parall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safely multiplies sizes with overflow checking)
-  - add_size (safely adds sizes with overflow checking)  
+  - [mul_size](../m/mul_size.md) (safely multiplies sizes with overflow checking)
+  - [add_size](../a/add_size.md) (safely adds sizes with overflow checking)  
   - shm_toc_estimate_chunk (estimates shared memory chunk space)
   - shm_toc_estimate_keys (estimates shared memory key space)
 - Called from (representative examples):

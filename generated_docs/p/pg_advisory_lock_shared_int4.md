@@ -21,7 +21,7 @@ This function acquires a shared advisory lock that is scoped to the current sess
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
-  - LockAcquire: Core lock acquisition function with ShareLock mode and session scope (true)
+  - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function with ShareLock mode and session scope (true)
   - LOCKTAG: Lock identifier structure
   - ShareLock: Lock mode constant for shared access
   - PG_RETURN_VOID: Macro to return void from a PostgreSQL function
@@ -29,7 +29,7 @@ This function acquires a shared advisory lock that is scoped to the current sess
   - No direct references found (likely called via SQL function interface)
 
 ## Notes and Other Information
-- Session-scoped locks must be explicitly released or will persist until session end
+- [Session](../S/Session.md)-scoped locks must be explicitly released or will persist until session end
 - Uses shared lock mode, allowing multiple concurrent shared lock holders
 - Blocks indefinitely until lock acquisition succeeds
 - Compatible with other shared locks but conflicts with exclusive locks

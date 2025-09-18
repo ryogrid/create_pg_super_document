@@ -40,21 +40,21 @@ The function performs several key operations:
   - TRIGGER_FIRED_FOR_ROW  
   - TRIGGER_FIRED_BY_INSERT
   - TRIGGER_FIRED_BY_UPDATE
-  - table_slot_create
+  - [table_slot_create](../t/table_slot_create.md)
   - table_index_fetch_begin
   - table_index_fetch_tuple
   - table_index_fetch_end
-  - index_open
-  - BuildIndexInfo
-  - CreateExecutorState
+  - [index_open](../i/index_open.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
   - GetPerTupleExprContext
-  - FormIndexDatum
-  - index_insert
-  - index_insert_cleanup
-  - check_exclusion_constraint
-  - FreeExecutorState
-  - ExecDropSingleTupleTableSlot
-  - index_close
+  - [FormIndexDatum](../F/FormIndexDatum.md)
+  - [index_insert](../i/index_insert.md)
+  - [index_insert_cleanup](../i/index_insert_cleanup.md)
+  - [check_exclusion_constraint](../c/check_exclusion_constraint.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [index_close](../i/index_close.md)
 - Called from:
   - No direct references found (invoked by PostgreSQL trigger system)
 

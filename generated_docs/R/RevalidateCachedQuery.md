@@ -21,31 +21,31 @@ The function implements a race condition-safe locking protocol and handles memor
 ## Dependencies
 - Functions called/Symbols referenced:
   - StmtPlanRequiresRevalidation
-  - SearchPathMatchesCurrentEnvironment
-  - AcquirePlannerLocks
-  - MemoryContextDelete
-  - ReleaseGenericPlan
+  - [SearchPathMatchesCurrentEnvironment](../S/SearchPathMatchesCurrentEnvironment.md)
+  - [AcquirePlannerLocks](../A/AcquirePlannerLocks.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ReleaseGenericPlan](ReleaseGenericPlan.md)
   - ActiveSnapshotSet
   - GetTransactionSnapshot
   - PushActiveSnapshot
   - copyObject
-  - pg_analyze_and_rewrite_withcb
-  - pg_analyze_and_rewrite_fixedparams
+  - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md)
+  - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)
   - PopActiveSnapshot
-  - PlanCacheComputeResultDesc
-  - equalRowTypes
-  - CreateTupleDescCopy
-  - FreeTupleDesc
+  - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
+  - [equalRowTypes](../e/equalRowTypes.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
   - AllocSetContextCreate
-  - extract_query_dependencies
-  - GetSearchPathMatcher
+  - [extract_query_dependencies](../e/extract_query_dependencies.md)
+  - [GetSearchPathMatcher](../G/GetSearchPathMatcher.md)
   - MemoryContextSetParent
 
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation (src/backend/utils/cache/plancache.c:103)
-  - BuildCachedPlan (src/backend/utils/cache/plancache.c:931)
-  - GetCachedPlan (src/backend/utils/cache/plancache.c:1183)
-  - CachedPlanGetTargetList (src/backend/utils/cache/plancache.c:1657)
+  - [BuildCachedPlan](../B/BuildCachedPlan.md) (src/backend/utils/cache/plancache.c:931)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (src/backend/utils/cache/plancache.c:1183)
+  - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md) (src/backend/utils/cache/plancache.c:1657)
 
 ## Notes and Other Information
 - This is a static function internal to the plancache.c module

@@ -47,24 +47,24 @@ For concurrent builds, the function implements a multi-phase process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckTableNotInUse
-  - CheckPredicate  
-  - ChooseIndexName
-  - ChooseIndexColumnNames
-  - ComputeIndexAttrs
-  - GetIndexAmRoutine
-  - WaitForOlderSnapshots
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
+  - [CheckPredicate](../C/CheckPredicate.md)  
+  - [ChooseIndexName](../C/ChooseIndexName.md)
+  - [ChooseIndexColumnNames](../C/ChooseIndexColumnNames.md)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md)
+  - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md)
+  - [WaitForOlderSnapshots](../W/WaitForOlderSnapshots.md)
   - index_create
   - index_concurrently_build
-  - validate_index
-  - CreateComments
-  - find_all_inheritors
-  - build_attrmap_by_name
+  - [validate_index](../v/validate_index.md)
+  - [CreateComments](../C/CreateComments.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
-  - DefineRelation
-  - ATExecAddIndex
-  - AttachPartitionEnsureIndexes
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
+  - [DefineRelation](DefineRelation.md)
+  - [ATExecAddIndex](../A/ATExecAddIndex.md)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md)
 
 ## Notes and Other Information
 - Supports both regular and concurrent index creation modes

@@ -38,15 +38,15 @@ The structure is designed for memory efficiency. In cvecs created by `newcvec()`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - chr (character type used for individual characters and ranges)
+  - [chr](chr.md) (character type used for individual characters and ranges)
 
 - Called from (representative examples):
   - newcvec (creation and initialization)
   - addchr, addrange (character/range addition)
-  - freecvec (cleanup)
-  - subcolorcvec (color operations)
-  - charclass, charclasscomplement (character class operations)
-  - element, range, before, eclass (locale functions)
+  - [freecvec](../f/freecvec.md) (cleanup)
+  - [subcolorcvec](../s/subcolorcvec.md) (color operations)
+  - [charclass](charclass.md), charclasscomplement (character class operations)
+  - [element](../e/element.md), range, before, eclass (locale functions)
   - Various regex compilation functions
 
 ## Notes and Other Information

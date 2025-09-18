@@ -34,14 +34,14 @@ The verification process uses case-insensitive comparison for exact matches and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (C standard library)
-  - wildcard_certificate_match (PostgreSQL wildcard matching)
-  - libpq_append_conn_error (libpq error handling)
-  - pg_strcasecmp (PostgreSQL case-insensitive string comparison)
+  - [wildcard_certificate_match](../w/wildcard_certificate_match.md) (PostgreSQL wildcard matching)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (libpq error handling)
+  - [pg_strcasecmp](pg_strcasecmp.md) (PostgreSQL case-insensitive string comparison)
   - memcpy (C standard library)
   - strlen (C standard library)
   - free (C standard library)
 - Called from (representative examples):
-  - openssl_verify_peer_name_matches_certificate_name
+  - [openssl_verify_peer_name_matches_certificate_name](../o/openssl_verify_peer_name_matches_certificate_name.md)
 
 ## Notes and Other Information
 - Returns 1 on successful match, 0 on no match, -1 on error

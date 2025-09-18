@@ -25,9 +25,9 @@ PQsetErrorVerbosity allows applications to control the amount of detail included
   - PGVerbosity (enum type)
   - PQERRORS_DEFAULT (default verbosity constant)
 - Called from (representative examples):
-  - main (in pg_amcheck.c)
-  - SyncVariables (in psql command.c)
-  - verbosity_hook (in psql startup.c)
+  - [main](../m/main.md) (in pg_amcheck.c)
+  - [SyncVariables](../S/SyncVariables.md) (in psql command.c)
+  - [verbosity_hook](../v/verbosity_hook.md) (in psql startup.c)
 
 ## Notes and Other Information
 - Returns the previous verbosity setting, allowing for restoration

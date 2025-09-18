@@ -21,15 +21,15 @@ The function follows PostgreSQL's index AM (Access Method) interface, making it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexScan
-  - initGISTstate
-  - createTempGistContext
-  - MemoryContextSwitchTo
-  - palloc0
-  - palloc
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
+  - [initGISTstate](../i/initGISTstate.md)
+  - [createTempGistContext](../c/createTempGistContext.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
+  - [palloc](../p/palloc.md)
   - memset
 - Called from (representative examples):
-  - gisthandler
+  - [gisthandler](gisthandler.md)
 
 ## Notes and Other Information
 - This function only initializes the scan structure; actual scanning begins with gistrescan()

@@ -34,16 +34,16 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getstackbuf (locates and locks parent page containing downlink to child)
-  - BufferGetPage, BTPageGetOpaque (page access functions)
-  - PageGetMaxOffsetNumber (gets highest offset number on page)
+  - [_bt_getstackbuf](_bt_getstackbuf.md) (locates and locks parent page containing downlink to child)
+  - [BufferGetPage](../B/BufferGetPage.md), BTPageGetOpaque (page access functions)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (gets highest offset number on page)
   - P_INCOMPLETE_SPLIT, P_RIGHTMOST, P_FIRSTDATAKEY (page flag and position checks)
-  - _bt_leftsib_splitflag (checks if left sibling has incomplete split)
-  - _bt_relbuf (releases buffer locks)
-  - _bt_lock_subtree_parent (recursive call to itself)
+  - [_bt_leftsib_splitflag](_bt_leftsib_splitflag.md) (checks if left sibling has incomplete split)
+  - [_bt_relbuf](_bt_relbuf.md) (releases buffer locks)
+  - [_bt_lock_subtree_parent](_bt_lock_subtree_parent.md) (recursive call to itself)
 - Called from:
-  - _bt_mark_page_halfdead (initiates subtree deletion process)
-  - _bt_lock_subtree_parent (recursive calls)
+  - [_bt_mark_page_halfdead](_bt_mark_page_halfdead.md) (initiates subtree deletion process)
+  - [_bt_lock_subtree_parent](_bt_lock_subtree_parent.md) (recursive calls)
 
 ## Notes and Other Information
 - Returns false if deletion is unsafe at any level (preserves entire subtree)

@@ -21,13 +21,13 @@ The lo_write function is the backend implementation for writing data to a Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inv_write
-  - LargeObjectDesc
+  - [inv_write](../i/inv_write.md)
+  - [LargeObjectDesc](../L/LargeObjectDesc.md)
 - Called from (representative examples):
-  - be_lowrite
-  - dump_lo_buf
-  - lo_import_internal
-  - importFile (test examples)
+  - [be_lowrite](../b/be_lowrite.md)
+  - [dump_lo_buf](../d/dump_lo_buf.md)
+  - [lo_import_internal](lo_import_internal.md)
+  - [importFile](../i/importFile.md) (test examples)
 
 ## Notes and Other Information
 - Returns the number of bytes actually written, or -1 on error

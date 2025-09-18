@@ -21,8 +21,8 @@ This function implements a lexeme comparison algorithm for PostgreSQL's text sea
   - LexemeHashKey (struct type)
   - strncmp (standard C library function)
 - Called from (representative examples):
-  - trackitem_compare_lexemes
-  - lexeme_match
+  - [trackitem_compare_lexemes](../t/trackitem_compare_lexemes.md)
+  - [lexeme_match](lexeme_match.md)
 
 ## Notes and Other Information
 - Returns 1 if key1 > key2, -1 if key1 < key2, and 0 if equal

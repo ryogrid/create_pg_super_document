@@ -24,10 +24,10 @@ The caller is responsible for ensuring that the numericStr parameter is a palloc
   - makeNode (macro for node allocation and initialization)
   - Float (struct type definition)
 - Called from (representative examples):
-  - pg_get_object_address (in objectaddress.c)
-  - sequence_options (in sequence.c, multiple locations)
-  - buildDefItem (in tsearchcmds.c)
-  - nodeRead (in read.c for deserialization)
+  - [pg_get_object_address](../p/pg_get_object_address.md) (in objectaddress.c)
+  - [sequence_options](../s/sequence_options.md) (in sequence.c, multiple locations)
+  - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c)
+  - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
 
 ## Notes and Other Information
 - Stores numeric values as strings internally rather than binary floating-point to preserve precision

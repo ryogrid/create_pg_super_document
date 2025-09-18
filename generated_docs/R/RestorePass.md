@@ -34,7 +34,7 @@ This mechanism addresses the limitation that the dependency sorting alone cannot
 - Called from (representative examples):
   -  in src/bin/pg_dump/pg_backup_archiver.c:3207
   - Restoration scheduling logic in parallel restore functions
-  - Archive handle initialization and processing
+  - [Archive](../A/Archive.md) handle initialization and processing
 
 ## Notes and Other Information
 - The enum is defined in src/bin/pg_dump/pg_backup_archiver.h:201-208

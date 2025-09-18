@@ -19,15 +19,15 @@ This function gracefully stops the PostgreSQL postmaster process that was starte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exec_prog
+  - [exec_prog](../e/exec_prog.md)
   - SERVER_STOP_LOG_FILE (constant)
 - Called from (representative examples):
-  - stop_postmaster_atexit
-  - check_and_dump_old_cluster
-  - report_clusters_compatible
-  - issue_warnings_and_set_wal_level
-  - main (multiple locations in pg_upgrade.c)
-  - setup
+  - [stop_postmaster_atexit](stop_postmaster_atexit.md)
+  - [check_and_dump_old_cluster](../c/check_and_dump_old_cluster.md)
+  - [report_clusters_compatible](../r/report_clusters_compatible.md)
+  - [issue_warnings_and_set_wal_level](../i/issue_warnings_and_set_wal_level.md)
+  - [main](../m/main.md) (multiple locations in pg_upgrade.c)
+  - [setup](setup.md)
 
 ## Notes and Other Information
 - Uses fast shutdown (-m fast) when called from atexit handler for quicker cleanup

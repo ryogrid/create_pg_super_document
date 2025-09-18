@@ -20,13 +20,13 @@ This function serves as a wrapper around the lower-level gistinitpage function t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to extract the page from the buffer)
-  - gistinitpage (to perform the actual page initialization)
+  - [BufferGetPage](../B/BufferGetPage.md) (to extract the page from the buffer)
+  - [gistinitpage](../g/gistinitpage.md) (to perform the actual page initialization)
 - Called from (representative examples):
-  - gistbuildempty (during index creation)
-  - gistplacetopage (during tuple insertion)
-  - gistbuild (during index building)
-  - gistRedoPageSplitRecord (during WAL recovery)
+  - [gistbuildempty](../g/gistbuildempty.md) (during index creation)
+  - [gistplacetopage](../g/gistplacetopage.md) (during tuple insertion)
+  - [gistbuild](../g/gistbuild.md) (during index building)
+  - [gistRedoPageSplitRecord](../g/gistRedoPageSplitRecord.md) (during WAL recovery)
 
 ## Notes and Other Information
 - This function is a thin wrapper that provides a buffer-centric interface to page initialization

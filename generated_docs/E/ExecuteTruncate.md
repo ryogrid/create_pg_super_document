@@ -32,17 +32,17 @@ The function supports PostgreSQL's inheritance hierarchy by recursively processi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForTruncate
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForTruncate](../R/RangeVarCallbackForTruncate.md)
   - table_open
-  - truncate_check_activity
+  - [truncate_check_activity](../t/truncate_check_activity.md)
   - RelationIsLogicallyLogged
-  - find_all_inheritors
-  - truncate_check_rel
-  - ExecuteTruncateGuts
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [truncate_check_rel](../t/truncate_check_rel.md)
+  - [ExecuteTruncateGuts](ExecuteTruncateGuts.md)
   - table_close
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - This function only handles the setup and validation phase of truncation - the actual data deletion is delegated to ExecuteTruncateGuts

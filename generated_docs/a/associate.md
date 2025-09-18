@@ -34,13 +34,13 @@ No parameters - operates on global data structures:
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (standard C library sorting function)
-  - rcomp (comparison function for sorting rules)
+  - [rcomp](../r/rcomp.md) (comparison function for sorting rules)
   - eat (error reporting context function)
-  - warning (warning message function)
-  - getsave (time offset parsing function)
+  - [warning](../w/warning.md) (warning message function)
+  - [getsave](../g/getsave.md) (time offset parsing function)
   - EXIT_FAILURE (standard exit code constant)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only accessible within src/timezone/zic.c

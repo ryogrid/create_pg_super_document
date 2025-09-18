@@ -21,13 +21,13 @@ HashAggBatch is a fundamental structure in PostgreSQL's multi-pass hash aggregat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape
+  - [LogicalTape](../L/LogicalTape.md)
 - Called from (representative examples):
-  - agg_refill_hash_table
-  - hashagg_spill_tuple
-  - hashagg_batch_new
-  - hashagg_batch_read
-  - hashagg_spill_finish
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
+  - [hashagg_batch_new](../h/hashagg_batch_new.md)
+  - [hashagg_batch_read](../h/hashagg_batch_read.md)
+  - [hashagg_spill_finish](../h/hashagg_spill_finish.md)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's recursive hash aggregation spilling strategy

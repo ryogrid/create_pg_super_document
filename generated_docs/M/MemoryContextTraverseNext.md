@@ -20,13 +20,13 @@ This function implements a non-recursive tree traversal algorithm for memory con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext struct fields (firstchild, nextchild, parent)
+  - [MemoryContext](MemoryContext.md) struct fields (firstchild, nextchild, parent)
 - Called from (representative examples):
-  - MemoryContextResetChildren
+  - [MemoryContextResetChildren](MemoryContextResetChildren.md)
   - MemoryContextMemAllocated
   - MemoryContextMemConsumed
-  - MemoryContextStatsInternal
-  - MemoryContextCheck
+  - [MemoryContextStatsInternal](MemoryContextStatsInternal.md)
+  - [MemoryContextCheck](MemoryContextCheck.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the memory context system

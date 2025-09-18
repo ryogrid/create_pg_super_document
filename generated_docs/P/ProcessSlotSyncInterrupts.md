@@ -21,10 +21,10 @@ The function starts by calling CHECK_FOR_INTERRUPTS() macro to check for any pen
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (macro)
   - ereport
-  - proc_exit
-  - slotsync_reread_config
+  - [proc_exit](../p/proc_exit.md)
+  - [slotsync_reread_config](../s/slotsync_reread_config.md)
 - Called from (representative examples):
-  - ReplSlotSyncWorkerMain (in src/backend/replication/logical/slotsync.c:1489)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (in src/backend/replication/logical/slotsync.c:1489)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the slotsync.c compilation unit

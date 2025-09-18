@@ -21,15 +21,15 @@ The function leverages the LANGNAME system cache for fast lookups and follows Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid1
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - OidIsValid
   - ereport (for error reporting)
 - Called from (representative examples):
-  - objectNamesToOids
-  - get_object_address
-  - get_object_address_unqualified
-  - CreateTransform
-  - convert_language_name
+  - [objectNamesToOids](../o/objectNamesToOids.md)
+  - [get_object_address](get_object_address.md)
+  - [get_object_address_unqualified](get_object_address_unqualified.md)
+  - [CreateTransform](../C/CreateTransform.md)
+  - [convert_language_name](../c/convert_language_name.md)
 
 ## Notes and Other Information
 - Uses LANGNAME system cache index for efficient lookups

@@ -23,9 +23,9 @@ The function handles the inherent complexity of copying function manager informa
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)
 - Called from (representative examples):
-  - initGinState (GIN index operations)
-  - initGISTstate (GiST index operations)
-  - ScanKeyEntryInitializeWithInfo
+  - [initGinState](../i/initGinState.md) (GIN index operations)
+  - [initGISTstate](../i/initGISTstate.md) (GiST index operations)
+  - [ScanKeyEntryInitializeWithInfo](../S/ScanKeyEntryInitializeWithInfo.md)
   - fmgr_info_set_expr
   - Various BRIN index functions
 

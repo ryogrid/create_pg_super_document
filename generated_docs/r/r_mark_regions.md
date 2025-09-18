@@ -30,15 +30,15 @@ The algorithm uses backtracking with labeled goto statements to handle multiple 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping (vowel group checking - lines 912, 923, 925, 945, 964, 975)
-  - out_grouping (consonant group checking - lines 914, 916, 934, 936, 938, 959, 970)
+  - [in_grouping](../i/in_grouping.md) (vowel group checking - lines 912, 923, 925, 945, 964, 975)
+  - [out_grouping](../o/out_grouping.md) (consonant group checking - lines 914, 916, 934, 936, 938, 959, 970)
   - g_v (vowel grouping definition for characters 97-117, a-u)
 - Called from (representative examples):
-  - basque_ISO_8859_1_stem
-  - catalan_ISO_8859_1_stem  
-  - danish_ISO_8859_1_stem
-  - dutch_ISO_8859_1_stem
-  - english_ISO_8859_1_stem
+  - [basque_ISO_8859_1_stem](../b/basque_ISO_8859_1_stem.md)
+  - [catalan_ISO_8859_1_stem](../c/catalan_ISO_8859_1_stem.md)  
+  - [danish_ISO_8859_1_stem](../d/danish_ISO_8859_1_stem.md)
+  - [dutch_ISO_8859_1_stem](../d/dutch_ISO_8859_1_stem.md)
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md)
   - And many other language-specific stemming functions
 
 ## Notes and Other Information

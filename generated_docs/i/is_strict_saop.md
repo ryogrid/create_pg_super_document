@@ -31,15 +31,15 @@ The falseOK parameter controls the strictness requirements: when true, returning
 ## Dependencies
 - Functions called/Symbols referenced:
   - set_sa_opfuncid
-  - func_strict
+  - [func_strict](../f/func_strict.md)
   - lsecond
   - DatumGetArrayTypeP
   - ArrayGetNItems
   - ARR_NDIM
   - ARR_DIMS
 - Called from (representative examples):
-  - find_nonnullable_rels_walker
-  - find_nonnullable_vars_walker
+  - [find_nonnullable_rels_walker](../f/find_nonnullable_rels_walker.md)
+  - [find_nonnullable_vars_walker](../f/find_nonnullable_vars_walker.md)
   - max_parallel_hazard_context
 
 ## Notes and Other Information

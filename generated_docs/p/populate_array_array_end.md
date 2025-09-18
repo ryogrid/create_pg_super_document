@@ -19,13 +19,13 @@ This function serves as a JSON parsing event handler for array end events during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_array_assign_ndims (dimension assignment)
-  - populate_array_check_dimension (dimension validation)
-  - PopulateArrayState, PopulateArrayContext (data types)
+  - [populate_array_assign_ndims](populate_array_assign_ndims.md) (dimension assignment)
+  - [populate_array_check_dimension](populate_array_check_dimension.md) (dimension validation)
+  - [PopulateArrayState](../P/PopulateArrayState.md), PopulateArrayContext (data types)
   - JsonParseErrorType (return type)
   - JSON_SEM_ACTION_FAILED, JSON_SUCCESS (return constants)
 - Called from (representative examples):
-  - populate_array_json
+  - [populate_array_json](populate_array_json.md)
   - JsObjectFree
 
 ## Notes and Other Information

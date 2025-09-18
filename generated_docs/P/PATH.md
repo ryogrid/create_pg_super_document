@@ -32,22 +32,22 @@ A PATH can represent complex geometric shapes like polygonal chains, routes, bou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (vertex coordinates)
+  - [Point](Point.md) (vertex coordinates)
   - FLEXIBLE_ARRAY_MEMBER (variable-length array support)
   - int32 (PostgreSQL integer type)
-  - varlena header system
+  - [varlena](../v/varlena.md) header system
 
 - Called from (representative examples):
-  - path_in/path_out (I/O functions)
-  - path_area (area calculation for closed paths)
-  - path_length (total length calculation)
-  - path_distance (distance between paths)
-  - path_isclosed/path_isopen (state queries)
-  - path_close/path_open (state modification)
-  - path_inter (intersection tests)
-  - path_npoints (point count queries)
-  - path_poly (conversion to polygon)
-  - poly_path (conversion from polygon)
+  - [path_in](../p/path_in.md)/path_out (I/O functions)
+  - [path_area](../p/path_area.md) (area calculation for closed paths)
+  - [path_length](../p/path_length.md) (total length calculation)
+  - [path_distance](../p/path_distance.md) (distance between paths)
+  - [path_isclosed](../p/path_isclosed.md)/path_isopen (state queries)
+  - [path_close](../p/path_close.md)/path_open (state modification)
+  - [path_inter](../p/path_inter.md) (intersection tests)
+  - [path_npoints](../p/path_npoints.md) (point count queries)
+  - [path_poly](../p/path_poly.md) (conversion to polygon)
+  - [poly_path](../p/poly_path.md) (conversion from polygon)
 
 ## Notes and Other Information
 - Uses PostgreSQL's varlena system for efficient variable-length storage

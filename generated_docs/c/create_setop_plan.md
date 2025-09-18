@@ -21,13 +21,13 @@ The function ensures that grouping columns are properly labeled by passing the C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - clamp_cardinality_to_long  
-  - make_setop
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [clamp_cardinality_to_long](clamp_cardinality_to_long.md)  
+  - [make_setop](../m/make_setop.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - CP_LABEL_TLIST (flag constant)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module

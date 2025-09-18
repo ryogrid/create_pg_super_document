@@ -20,15 +20,15 @@ This is a critical memory management function that prevents memory leaks when bi
 ## Dependencies
 - Functions called/Symbols referenced:
   - pagetable_destroy
-  - pfree
-  - TIDBitmap (struct type)
+  - [pfree](../p/pfree.md)
+  - [TIDBitmap](../T/TIDBitmap.md) (struct type)
 - Called from (representative examples):
-  - startScanEntry
-  - ginFreeScanKeys
-  - MultiExecBitmapAnd
-  - ExecReScanBitmapHeapScan
-  - ExecEndBitmapHeapScan
-  - MultiExecBitmapOr
+  - [startScanEntry](../s/startScanEntry.md)
+  - [ginFreeScanKeys](../g/ginFreeScanKeys.md)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md)
+  - [ExecReScanBitmapHeapScan](../E/ExecReScanBitmapHeapScan.md)
+  - [ExecEndBitmapHeapScan](../E/ExecEndBitmapHeapScan.md)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
 
 ## Notes and Other Information
 - Handles cleanup of all possible internal representations of the bitmap

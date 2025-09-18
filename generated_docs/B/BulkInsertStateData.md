@@ -29,13 +29,13 @@ Key optimization features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (from src/include/storage/buf.h)
+  - [BufferAccessStrategy](BufferAccessStrategy.md) (from src/include/storage/buf.h)
   - Buffer (from src/include/storage/buf.h)
   - BlockNumber (from src/include/storage/block.h)
 
 - Called from (representative examples):
-  - GetBulkInsertState (src/backend/access/heap/heapam.c:1975)
-  - BulkInsertState (typedef in src/include/access/heapam.h:44)
+  - [GetBulkInsertState](../G/GetBulkInsertState.md) (src/backend/access/heap/heapam.c:1975)
+  - [BulkInsertState](BulkInsertState.md) (typedef in src/include/access/heapam.h:44)
   - table_tuple_insert (src/include/access/tableam.h:1404)
   - table_tuple_insert_speculative (src/include/access/tableam.h:1424)
   - table_multi_insert (src/include/access/tableam.h:1459)

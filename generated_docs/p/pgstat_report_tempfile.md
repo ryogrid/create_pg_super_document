@@ -23,8 +23,8 @@ The function only operates when statistics tracking is enabled (pgstat_track_cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_database_pending
-  - PgStat_StatDBEntry (data structure)
+  - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md) (data structure)
   - MyDatabaseId (global variable)
   - pgstat_track_counts (global variable)
 - Called from (representative examples):

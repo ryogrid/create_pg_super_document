@@ -37,10 +37,10 @@ The function also implements dynamic rechecking - if a transaction goes idle or 
   - SetInvalidVirtualTransactionId
   - ProcNumberGetProc
   - VirtualXactLock
-  - pgstat_progress_update_param
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
 - Called from (representative examples):
-  - DefineIndex
-  - ATExecDetachPartitionFinalize
+  - [DefineIndex](../D/DefineIndex.md)
+  - [ATExecDetachPartitionFinalize](../A/ATExecDetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - Essential for maintaining MVCC consistency during concurrent index builds

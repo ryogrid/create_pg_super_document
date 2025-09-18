@@ -22,23 +22,23 @@ This function evaluates expressions on a sample of table rows and computes detai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
+  - [CreateExecutorState](../C/CreateExecutorState.md)
   - GetPerTupleExprContext
-  - ExecPrepareExpr
-  - MakeSingleTupleTableSlot
-  - ExecStoreHeapTuple
+  - [ExecPrepareExpr](../E/ExecPrepareExpr.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md)
   - ExecEvalExprSwitchContext
   - ResetExprContext
-  - ExecDropSingleTupleTableSlot
-  - FreeExecutorState
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
   - AllocSetContextCreate
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
   - get_attribute_options
-  - expr_fetch_func
-  - MemoryContextReset
-  - MemoryContextDelete
+  - [expr_fetch_func](../e/expr_fetch_func.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - BuildRelationExtStatistics
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
 
 ## Notes and Other Information
 The function creates a dedicated memory context for expression evaluation to prevent memory leaks and ensure proper cleanup. Each expression is evaluated against all sample rows using PostgreSQL's expression evaluation infrastructure. The computed statistics are stored in the VacAttrStats structure and can be overridden by table-specific n_distinct options. Memory management is critical as expression evaluation can generate significant temporary data, so the function resets the per-tuple context after each row evaluation and cleans up all resources at the end.

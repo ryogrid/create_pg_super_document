@@ -22,11 +22,11 @@ The function iterates through the string character by character, accumulating th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_max_length
-  - cliplen
+  - [pg_encoding_max_length](pg_encoding_max_length.md)
+  - [cliplen](../c/cliplen.md)
   - pg_wchar_table (array access for mblen function pointer)
 - Called from (representative examples):
-  - pg_mbcliplen
+  - [pg_mbcliplen](pg_mbcliplen.md)
 
 ## Notes and Other Information
 - The function assumes the input string is valid in the specified encoding

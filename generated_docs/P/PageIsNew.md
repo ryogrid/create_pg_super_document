@@ -18,13 +18,13 @@ This function checks if a page is newly allocated and uninitialized by examining
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (casting page to PageHeaderData pointer)
-  - PageHeaderData structure (accessed via pd_upper field)
+  - [PageHeaderData](PageHeaderData.md) structure (accessed via pd_upper field)
 - Called from (representative examples):
-  - brin_start_evacuating_page (in src/backend/access/brin/brin_pageops.c:532)
-  - gistcheckpage (in src/backend/access/gist/gistutil.c:794)
+  - [brin_start_evacuating_page](../b/brin_start_evacuating_page.md) (in src/backend/access/brin/brin_pageops.c:532)
+  - [gistcheckpage](../g/gistcheckpage.md) (in src/backend/access/gist/gistutil.c:794)
   - _hash_checkpage (in src/backend/access/hash/hashutil.c:220)
-  - RelationGetBufferForTuple (in src/backend/access/heap/hio.c:696)
-  - _bt_checkpage (in src/backend/access/nbtree/nbtpage.c:807)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md) (in src/backend/access/heap/hio.c:696)
+  - [_bt_checkpage](../b/_bt_checkpage.md) (in src/backend/access/nbtree/nbtpage.c:807)
   - PageIsVerifiedExtended (in src/backend/storage/page/bufpage.c:101)
 
 ## Notes and Other Information

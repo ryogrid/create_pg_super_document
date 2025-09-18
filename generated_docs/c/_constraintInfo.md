@@ -27,12 +27,12 @@ The  structure is a comprehensive data structure used by pg_dump to represent al
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
-  - TypeInfo
+  - [TableInfo](../T/TableInfo.md)
+  - [TypeInfo](../T/TypeInfo.md)
   - DumpId
 - Called from (representative examples):
-  - _typeInfo (domain constraints)
-  - _tableInfo (table constraints)
+  - [_typeInfo](../t/_typeInfo.md) (domain constraints)
+  - [_tableInfo](../t/_tableInfo.md) (table constraints)
 
 ## Notes and Other Information
 - The  and  fields are currently only valid for unique/primary-key constraints

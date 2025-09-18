@@ -32,13 +32,13 @@ The function handles different set operation commands (INTERSECT, INTERSECT ALL,
   - TupIsNull (checks if tuple slot is empty)
   - fetch_tuple_flag (determines tuple's relation flag)
   - LookupTupleHashEntry (finds or creates hash table entry)
-  - MemoryContextAlloc (allocates memory for per-group data)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for per-group data)
   - initialize_counts (initializes per-group counters)
   - advance_counts (updates counters for a tuple)
   - ResetExprContext (clears expression evaluation context)
   - ResetTupleHashIterator (initializes hash table iterator)
 - Called from (representative examples):
-  - ExecSetOp (when using hashed strategy and table not yet filled)
+  - [ExecSetOp](../E/ExecSetOp.md) (when using hashed strategy and table not yet filled)
 
 ## Notes and Other Information
 - This is phase 1 of the two-phase hashed strategy (phase 2 is setop_retrieve_hash_table)

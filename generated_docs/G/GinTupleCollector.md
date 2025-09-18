@@ -32,13 +32,13 @@ The collector uses a dynamically resizable array with power-of-2 growth strategy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexTuple (PostgreSQL's index tuple structure)
+  - [IndexTuple](../I/IndexTuple.md) (PostgreSQL's index tuple structure)
   - Various memory management functions (palloc, repalloc)
 
 - Called from (representative examples):
-  - ginHeapTupleFastInsert (writes collected tuples to pending list)
-  - ginHeapTupleFastCollect (adds new tuples to the collection)
-  - gininsert (main insertion entry point in gininsert.c)
+  - [ginHeapTupleFastInsert](../g/ginHeapTupleFastInsert.md) (writes collected tuples to pending list)
+  - [ginHeapTupleFastCollect](../g/ginHeapTupleFastCollect.md) (adds new tuples to the collection)
+  - [gininsert](../g/gininsert.md) (main insertion entry point in gininsert.c)
 
 ## Notes and Other Information
 - Used exclusively during "fast insertion" mode in GIN indexes (ginfast.c)

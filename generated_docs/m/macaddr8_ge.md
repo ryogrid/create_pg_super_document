@@ -20,7 +20,7 @@ This function compares two 8-byte MAC addresses and returns true if the first MA
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR8_P (macro to extract macaddr8 arguments)
-  - macaddr8_cmp_internal (internal comparison function)
+  - [macaddr8_cmp_internal](macaddr8_cmp_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):
   - No direct references found in the codebase

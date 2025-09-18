@@ -29,8 +29,8 @@ The PGcmdQueueEntry structure implements a singly-linked list node for managing 
   - PGQueryClass (enum for query classification)
   - Self-references via next pointer for linked list structure
 - Used by:
-  - Command queue management functions (pqFreeCommandQueue, pqAllocCmdQueueEntry, pqAppendCmdQueueEntry, pqRecycleCmdQueueEntry)
-  - Query execution functions (PQsendQueryInternal, PQsendPrepare, PQsendQueryGuts, PQsendTypedCommand)
+  - [Command](../C/Command.md) queue management functions (pqFreeCommandQueue, pqAllocCmdQueueEntry, pqAppendCmdQueueEntry, pqRecycleCmdQueueEntry)
+  - [Query](../Q/Query.md) execution functions (PQsendQueryInternal, PQsendPrepare, PQsendQueryGuts, PQsendTypedCommand)
   - Pipeline management (pqCommandQueueAdvance, pqPipelineSyncInternal)
   - Connection structure fields (cmd_queue_head, cmd_queue_tail, cmd_queue_recycle in libpq-int.h:464-471)
 

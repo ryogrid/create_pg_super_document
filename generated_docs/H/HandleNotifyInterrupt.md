@@ -25,9 +25,9 @@ This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md)
 
 ## Notes and Other Information
 - **Signal Safety**: Explicitly designed to be called from a signal handler context with severe restrictions on allowable operations

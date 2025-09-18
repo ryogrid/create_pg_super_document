@@ -23,9 +23,9 @@ The function updates the *index parameter to point to the position of the found 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - element_compare
+  - [element_compare](../e/element_compare.md)
 - Called from (representative examples):
-  - mcelem_array_contain_overlap_selec
+  - [mcelem_array_contain_overlap_selec](../m/mcelem_array_contain_overlap_selec.md)
 
 ## Notes and Other Information
 - Uses standard binary search algorithm with left and right bounds

@@ -24,16 +24,16 @@ When the shared invalidation queue overflows (indicating that some invalidation 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReceiveSharedInvalidMessages
-  - LocalExecuteInvalidationMessage
-  - InvalidateSystemCaches
-  - InvalidateSystemCachesExtended (in debug builds)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
+  - [InvalidateSystemCaches](../I/InvalidateSystemCaches.md)
+  - [InvalidateSystemCachesExtended](../I/InvalidateSystemCachesExtended.md) (in debug builds)
 - Called from (representative examples):
-  - AtStart_Cache
-  - relation_openrv
-  - RangeVarGetRelidExtended
-  - LockRelationOid
-  - ProcessCatchupInterrupt
-  - LogicalRepApplyLoop
+  - [AtStart_Cache](AtStart_Cache.md)
+  - [relation_openrv](../r/relation_openrv.md)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [ProcessCatchupInterrupt](../P/ProcessCatchupInterrupt.md)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md)
 
 ## Notes and Other Information
 - Should be called as the first step in processing a transaction to ensure caches are up-to-date

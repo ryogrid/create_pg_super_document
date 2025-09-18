@@ -33,21 +33,21 @@ AddEnumLabel implements the core functionality for ALTER TYPE ADD VALUE operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockDatabaseObject
-  - SearchSysCache2
+  - [LockDatabaseObject](../L/LockDatabaseObject.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
   - SearchSysCacheList1
   - qsort (with sort_order_cmp)
-  - GetNewOidWithIndex
-  - RenumberEnumType
-  - CatalogTupleInsert
-  - heap_form_tuple
-  - heap_freetuple
-  - GetCurrentTransactionNestLevel
-  - EnumTypeUncommitted
-  - init_uncommitted_enum_values
-  - hash_search
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [RenumberEnumType](../R/RenumberEnumType.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [EnumTypeUncommitted](../E/EnumTypeUncommitted.md)
+  - [init_uncommitted_enum_values](../i/init_uncommitted_enum_values.md)
+  - [hash_search](../h/hash_search.md)
 - Called from:
-  - AlterEnum (src/backend/commands/typecmds.c:1299)
+  - [AlterEnum](AlterEnum.md) (src/backend/commands/typecmds.c:1299)
 
 ## Notes and Other Information
 - Uses enumsortorder values to maintain logical ordering separate from OID ordering

@@ -22,10 +22,10 @@ This function is part of PostgreSQL's collection of standardized comparison util
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)
 - Called from (representative examples):
-  - list_int_cmp (src/backend/nodes/list.c:1696)
-  - db_comparator (src/backend/postmaster/autovacuum.c:1057)
-  - compareint (src/backend/utils/adt/tsgistidx.c:140)
-  - int_cmp (src/bin/pg_dump/pg_dump_sort.c:1734)
+  - [list_int_cmp](../l/list_int_cmp.md) (src/backend/nodes/list.c:1696)
+  - [db_comparator](../d/db_comparator.md) (src/backend/postmaster/autovacuum.c:1057)
+  - [compareint](../c/compareint.md) (src/backend/utils/adt/tsgistidx.c:140)
+  - [int_cmp](../i/int_cmp.md) (src/bin/pg_dump/pg_dump_sort.c:1734)
 
 ## Notes and Other Information
 - The branchless implementation  is more efficient than traditional if-else comparison logic

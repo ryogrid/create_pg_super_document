@@ -21,17 +21,17 @@ The function retrieves the namespace name using `get_namespace_name()` and perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_name
+  - [get_namespace_name](../g/get_namespace_name.md)
   - strncmp (standard C library function)
-  - pfree (PostgreSQL memory management)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management)
 
 - Called from (representative examples):
-  - RangeVarAdjustRelationPersistence
-  - CheckSetNamespace
-  - isOtherTempNamespace
-  - check_publication_add_schema
-  - EventTriggerSQLDropAddObject
-  - AlterTableMoveAll
+  - [RangeVarAdjustRelationPersistence](../R/RangeVarAdjustRelationPersistence.md)
+  - [CheckSetNamespace](../C/CheckSetNamespace.md)
+  - [isOtherTempNamespace](isOtherTempNamespace.md)
+  - [check_publication_add_schema](../c/check_publication_add_schema.md)
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
+  - [AlterTableMoveAll](../A/AlterTableMoveAll.md)
 
 ## Notes and Other Information
 - This function covers both regular temporary table namespaces ("pg_temp_") and temporary toast table namespaces ("pg_toast_temp_")

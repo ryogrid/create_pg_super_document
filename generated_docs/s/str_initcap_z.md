@@ -20,7 +20,7 @@ This function is part of PostgreSQL's internal formatting utilities and provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - str_initcap
+  - [str_initcap](str_initcap.md)
 - Called from (representative examples):
   - (No direct references found in current analysis)
 

@@ -21,18 +21,18 @@ This function creates a sorted array of SortItem structures from statistical sam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typlen
-  - toast_raw_datum_size
+  - [get_typlen](../g/get_typlen.md)
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
   - PG_DETOAST_DATUM
   - qsort_interruptible
-  - multi_sort_compare
+  - [multi_sort_compare](../m/multi_sort_compare.md)
   - WIDTH_THRESHOLD (constant)
-  - StatsBuildData (type)
+  - [StatsBuildData](../S/StatsBuildData.md) (type)
   - MultiSortSupport (type)
-  - SortItem (type)
+  - [SortItem](../S/SortItem.md) (type)
 - Called from (representative examples):
-  - dependency_degree
-  - statext_mcv_build
+  - [dependency_degree](../d/dependency_degree.md)
+  - [statext_mcv_build](../s/statext_mcv_build.md)
 
 ## Notes and Other Information
 - Memory is allocated as a single contiguous chunk for efficient cleanup - caller only needs to pfree() the return value

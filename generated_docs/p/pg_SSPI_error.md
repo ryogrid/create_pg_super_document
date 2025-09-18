@@ -23,12 +23,12 @@ When FormatMessage succeeds in translating the SECURITY_STATUS code into a syste
 - Functions called/Symbols referenced:
   - FormatMessage (Windows API)
   - ereport (PostgreSQL error reporting)
-  - errmsg_internal
-  - errdetail_internal
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
 - Called from (representative examples):
-  - pg_SSPI_recvauth
-  - pg_SSPI_continue  
-  - pg_SSPI_startup
+  - [pg_SSPI_recvauth](pg_SSPI_recvauth.md)
+  - [pg_SSPI_continue](pg_SSPI_continue.md)  
+  - [pg_SSPI_startup](pg_SSPI_startup.md)
 
 ## Notes and Other Information
 - This function is specific to Windows builds of PostgreSQL as it uses Windows SSPI authentication

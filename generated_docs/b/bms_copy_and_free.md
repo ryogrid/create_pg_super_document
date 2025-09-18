@@ -19,17 +19,17 @@ The function serves as an atomic operation that combines copying and freeing, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy
-  - bms_free
+  - [bms_copy](bms_copy.md)
+  - [bms_free](bms_free.md)
 - Called from (representative examples):
-  - bms_add_member
-  - bms_del_member
-  - bms_add_members
-  - bms_replace_members
-  - bms_add_range
-  - bms_int_members
-  - bms_del_members
-  - bms_join
+  - [bms_add_member](bms_add_member.md)
+  - [bms_del_member](bms_del_member.md)
+  - [bms_add_members](bms_add_members.md)
+  - [bms_replace_members](bms_replace_members.md)
+  - [bms_add_range](bms_add_range.md)
+  - [bms_int_members](bms_int_members.md)
+  - [bms_del_members](bms_del_members.md)
+  - [bms_join](bms_join.md)
 
 ## Notes and Other Information
 - This is a static function, only available within the bitmapset.c file

@@ -26,11 +26,11 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony
-  - find_among_b (with array a_11)
-  - r_mark_suffix_with_optional_n_consonant
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md)
+  - [find_among_b](../f/find_among_b.md) (with array a_11)
+  - [r_mark_suffix_with_optional_n_consonant](r_mark_suffix_with_optional_n_consonant.md)
 - Called from (representative examples):
-  - r_stem_noun_suffixes
+  - [r_stem_noun_suffixes](r_stem_noun_suffixes.md)
 
 ## Notes and Other Information
 - Returns 1 on successful match, 0 on failure

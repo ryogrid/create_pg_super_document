@@ -29,8 +29,8 @@ This technique provides better hash distribution compared to simple truncation, 
 - Functions called/Symbols referenced:
   - None (pure arithmetic operation)
 - Called from (representative examples):
-  - `fasthash_final32` (in src/include/common/hashfn_unstable.h:350)
-  - `fasthash32` (in src/include/common/hashfn_unstable.h:384)
+  - `[fasthash_final32](fasthash_final32.md)` (in src/include/common/hashfn_unstable.h:350)
+  - `[fasthash32](fasthash32.md)` (in src/include/common/hashfn_unstable.h:384)
 
 ## Notes and Other Information
 - Returns a 32-bit hash value with better distribution than simple truncation

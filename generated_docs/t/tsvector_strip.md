@@ -30,7 +30,7 @@ The function:
   - PG_GETARG_TSVECTOR (macro for extracting TSVector argument)
   - ARRPTR (macro for getting WordEntry array pointer)
   - CALCDATASIZE (macro for calculating required data size)
-  - palloc0 (PostgreSQL memory allocation function)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation function)
   - SET_VARSIZE (macro for setting variable-length data size)
   - STRPTR (macro for getting string data pointer)
   - memcpy (standard C memory copy function)

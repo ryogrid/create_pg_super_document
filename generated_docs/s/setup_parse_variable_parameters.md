@@ -21,13 +21,13 @@ This function initializes the parameter reference handling mechanism for queries
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VarParamState (structure type)
-  - variable_paramref_hook (callback function)
-  - variable_coerce_param_hook (callback function)
-  - palloc (memory allocation)
+  - [VarParamState](../V/VarParamState.md) (structure type)
+  - [variable_paramref_hook](../v/variable_paramref_hook.md) (callback function)
+  - [variable_coerce_param_hook](../v/variable_coerce_param_hook.md) (callback function)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - parse_analyze_varparams
-  - transformExplainStmt
+  - [parse_analyze_varparams](../p/parse_analyze_varparams.md)
+  - [transformExplainStmt](../t/transformExplainStmt.md)
 
 ## Notes and Other Information
 - This function is used for ad-hoc queries where parameter types must be inferred from context

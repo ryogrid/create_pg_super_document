@@ -27,15 +27,15 @@ The cost calculation is similar to other scan types but specifically accounts fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_qual_cost (calculates cost of applying restriction qualifiers)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying restriction qualifiers)
   - cpu_tuple_cost (global cost parameter for tuple processing)
 - Types referenced:
-  - ParamPathInfo (parameterized path information)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
   - QualCost (qualification cost structure)
   - RTE_NAMEDTUPLESTORE (enum value for named tuplestore range table entries)
 - Called from:
-  - create_namedtuplestorescan_path (in pathnode.c:2165)
+  - [create_namedtuplestorescan_path](create_namedtuplestorescan_path.md) (in pathnode.c:2165)
 
 ## Notes and Other Information
 - The function includes an assertion ensuring the relation is a named tuplestore (rtekind == RTE_NAMEDTUPLESTORE)

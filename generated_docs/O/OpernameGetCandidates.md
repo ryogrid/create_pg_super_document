@@ -19,18 +19,18 @@ This function performs comprehensive operator candidate lookup in the PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
-  - recomputeNamespacePath
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - SearchSysCacheList1
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - FuncCandidateList
   - CatCList
 - Called from (representative examples):
-  - oper
-  - left_oper
-  - regoperin
-  - regoperout
+  - [oper](../o/oper.md)
+  - [left_oper](../l/left_oper.md)
+  - [regoperin](../r/regoperin.md)
+  - [regoperout](../r/regoperout.md)
 
 ## Notes and Other Information
 - Returns FuncCandidateList with entries that always have two args[] slots (first is InvalidOid for prefix operators)

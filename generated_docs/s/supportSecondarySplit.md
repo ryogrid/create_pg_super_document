@@ -29,15 +29,15 @@ The function uses penalty calculations to determine the optimal arrangement and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - gistentryinit
-  - gistpenalty
-  - gistMakeUnionKey
+  - [gistpenalty](../g/gistpenalty.md)
+  - [gistMakeUnionKey](../g/gistMakeUnionKey.md)
   - SWAPVAR (macro)
 - Types referenced:
-  - GISTSTATE
-  - GIST_SPLITVEC
-  - GISTENTRY
+  - [GISTSTATE](../G/GISTSTATE.md)
+  - [GIST_SPLITVEC](../G/GIST_SPLITVEC.md)
+  - [GISTENTRY](../G/GISTENTRY.md)
 - Called from:
-  - gistUserPicksplit
+  - [gistUserPicksplit](../g/gistUserPicksplit.md)
 
 ## Notes and Other Information
 - This function is only called when secondary splits occur and the user-defined PickSplit method lacks secondary split support

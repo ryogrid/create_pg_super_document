@@ -25,7 +25,7 @@ The function evaluates a TSQuery against the available index information using t
 - Functions called/Symbols referenced:
   - GETQUERY (macro to extract query items from TSQuery)
   - TS_execute_ternary (executes TSQuery with ternary logic)
-  - checkcondition_gin (callback function for term evaluation)
+  - [checkcondition_gin](../c/checkcondition_gin.md) (callback function for term evaluation)
   - PG_RETURN_GIN_TERNARY_VALUE (macro to return ternary result)
 - Called from (representative examples):
   - No direct callers found (called by GIN index infrastructure)

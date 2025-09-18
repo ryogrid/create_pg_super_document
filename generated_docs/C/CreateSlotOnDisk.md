@@ -46,6 +46,6 @@ The atomic rename operation ensures that the slot either exists completely or no
 - No io_in_progress_lock needed since the slot is not yet visible to other processes
 - Uses .tmp suffix for temporary directories to indicate incomplete operations
 - Critical section ensures server restart if fsync operations fail during final steps
-- Path format follows: "pg_replslot/[slot_name]" and "pg_replslot/[slot_name].tmp"
+- [Path](../P/Path.md) format follows: "pg_replslot/[slot_name]" and "pg_replslot/[slot_name].tmp"
 - Error reporting uses ERROR level, which will abort the current transaction
 - Implements crash-safe slot creation through atomic filesystem operations

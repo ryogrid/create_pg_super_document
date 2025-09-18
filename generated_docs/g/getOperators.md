@@ -18,15 +18,15 @@ The getOperators function is part of pg_dump's catalog scanning infrastructure t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - findNamespace  
-  - getRoleName
-  - AssignDumpId
-  - selectDumpableObject
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [findNamespace](../f/findNamespace.md)  
+  - [getRoleName](getRoleName.md)
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
   - pg_malloc
   - atooid
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Retrieves all operators including builtin operators; system-defined operators are filtered at dump-out time rather than during collection

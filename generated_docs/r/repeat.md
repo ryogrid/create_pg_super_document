@@ -20,8 +20,8 @@ The repeat function creates a new text string by concatenating the input string 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mul_s32_overflow
-  - pg_add_s32_overflow
+  - [pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
   - AllocSizeIsValid
   - SET_VARSIZE
   - VARDATA

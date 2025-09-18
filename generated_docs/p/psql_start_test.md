@@ -20,14 +20,14 @@ This function is a core component of PostgreSQL's regression testing framework. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - file_exists: Check if input and expected files exist
-  - add_stringlist_item: Add file paths to result and expected file lists
-  - spawn_process: Create and start the psql subprocess
+  - [file_exists](../f/file_exists.md): Check if input and expected files exist
+  - [add_stringlist_item](../a/add_stringlist_item.md): Add file paths to result and expected file lists
+  - [spawn_process](../s/spawn_process.md): Create and start the psql subprocess
   - setenv/unsetenv: Manage PGAPPNAME environment variable
   - initStringInfo/appendStringInfo: Build psql command string
-  - pfree: Free allocated memory
+  - [pfree](pfree.md): Free allocated memory
 - Called from (representative examples):
-  - main (in src/test/regress/pg_regress_main.c:115)
+  - [main](../m/main.md) (in src/test/regress/pg_regress_main.c:115)
 
 ## Notes and Other Information
 - Returns INVALID_PID on failure and exits the program with code 2

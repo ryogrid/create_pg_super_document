@@ -26,11 +26,11 @@ The function accesses the path target's width through src->pathtarget->width, wh
 - Functions called/Symbols referenced:
   - (No function calls - direct field access only)
 - Called from (representative examples):
-  - create_seqscan_plan
-  - create_indexscan_plan
-  - create_nestloop_plan
-  - create_hashjoin_plan
-  - create_agg_plan
+  - [create_seqscan_plan](create_seqscan_plan.md)
+  - [create_indexscan_plan](create_indexscan_plan.md)
+  - [create_nestloop_plan](create_nestloop_plan.md)
+  - [create_hashjoin_plan](create_hashjoin_plan.md)
+  - [create_agg_plan](create_agg_plan.md)
   - (Used by virtually all plan creation functions)
 
 ## Notes and Other Information

@@ -21,12 +21,12 @@ The function modifies the top stack entry in-place to avoid affecting levelsup i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lcons (list constructor function)
-  - set_deparse_plan (sets the deparse context for a specific plan)
+  - [lcons](../l/lcons.md) (list constructor function)
+  - [set_deparse_plan](../s/set_deparse_plan.md) (sets the deparse context for a specific plan)
 - Called from (representative examples):
-  - get_variable
-  - resolve_special_varno
-  - get_name_for_var_field
+  - [get_variable](../g/get_variable.md)
+  - [resolve_special_varno](../r/resolve_special_varno.md)
+  - [get_name_for_var_field](../g/get_name_for_var_field.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, indicating it's for internal use within the rule/query deparsing subsystem

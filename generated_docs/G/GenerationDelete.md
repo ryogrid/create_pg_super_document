@@ -19,7 +19,7 @@ The implementation leverages GenerationReset to handle the complex logic of free
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GenerationReset
+  - [GenerationReset](GenerationReset.md)
   - free
   - pg_noinline
 - Called from (representative examples):
@@ -28,7 +28,7 @@ The implementation leverages GenerationReset to handle the complex logic of free
 
 ## Notes and Other Information
 - The function performs a two-stage deletion: reset then free
-- GenerationReset handles freeing all non-keeper blocks
+- [GenerationReset](GenerationReset.md) handles freeing all non-keeper blocks
 - The final free() call deallocates both the context header and keeper block together
 - This function should only be called when the context is no longer needed
 - The pg_noinline attribute suggests this function should not be inlined for performance or debugging reasons

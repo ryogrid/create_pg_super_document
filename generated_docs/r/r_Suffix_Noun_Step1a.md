@@ -34,11 +34,11 @@ The function uses backward matching (find_among_b) which is typical for suffix p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function for suffix identification
-  - len_utf8: UTF-8 string length calculation function
-  - slice_del: Function to delete text slice between bra and ket markers
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function for suffix identification
+  - [len_utf8](../l/len_utf8.md): UTF-8 string length calculation function
+  - [slice_del](../s/slice_del.md): Function to delete text slice between bra and ket markers
 - Called from:
-  - arabic_UTF_8_stem: Main Arabic stemming function at line 1503
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at line 1503
 
 ## Notes and Other Information
 - This function specifically targets Arabic noun suffixes in Step 1a of the stemming process

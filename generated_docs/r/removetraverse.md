@@ -25,14 +25,14 @@ This function recursively traverses the NFA starting from state s, identifying a
   - NERR
   - REG_ETOOBIG
   - NISERR
-  - removetraverse (recursive call)
+  - [removetraverse](removetraverse.md) (recursive call)
   - PLAIN, EMPTY, CANTMATCH, AHEAD, BEHIND, LACON (arc type constants)
-  - newarc
-  - freearc
+  - [newarc](../n/newarc.md)
+  - [freearc](../f/freearc.md)
   - REG_ASSERT
 - Called from (representative examples):
   - removeconstraints
-  - removetraverse (recursive calls)
+  - [removetraverse](removetraverse.md) (recursive calls)
 
 ## Notes and Other Information
 The function processes different types of arcs differently: PLAIN, EMPTY, and CANTMATCH arcs are left unchanged, while constraint arcs (AHEAD, BEHIND, '^', '$', LACON) are replaced with empty transitions. This is part of the regex compilation process where constraint handling is simplified by converting constraints to empty transitions. The function includes stack overflow protection and comprehensive error handling throughout the traversal process.

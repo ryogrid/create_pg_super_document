@@ -30,7 +30,7 @@ By keeping instrumentation in a separate wrapper function, PostgreSQL avoids any
   - InstrStopNode (end instrumentation timing and record tuple count)
   - TupIsNull (check if result tuple is null)
 - Called from (representative examples):
-  - ExecProcNodeFirst (when instrumentation is enabled)
+  - [ExecProcNodeFirst](ExecProcNodeFirst.md) (when instrumentation is enabled)
 
 ## Notes and Other Information
 - This is a static function, only visible within execProcnode.c

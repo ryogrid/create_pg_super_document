@@ -21,9 +21,9 @@ This function constructs a Path node specifically for work table scan operations
 - Functions called/Symbols referenced:
   - makeNode
   - get_baserel_parampathinfo
-  - cost_ctescan
+  - [cost_ctescan](cost_ctescan.md)
 - Called from (representative examples):
-  - set_worktable_pathlist
+  - [set_worktable_pathlist](../s/set_worktable_pathlist.md)
 
 ## Notes and Other Information
 - Sets pathtype to T_WorkTableScan to identify this as a work table scan path

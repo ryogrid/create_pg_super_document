@@ -24,7 +24,7 @@ Access to this structure is protected by CommitTsLock, though in some specific c
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (type)
-  - CommitTimestampEntry (struct)
+  - [CommitTimestampEntry](CommitTimestampEntry.md) (struct)
 - Called from (representative examples):
   - CommitTsShmemSize (function - for memory allocation sizing)
   - CommitTsShmemInit (function - for shared memory initialization)

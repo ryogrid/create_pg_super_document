@@ -19,10 +19,10 @@ This function iterates through the cleanup_dir_list linked list and frees all cb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cb_cleanup_dir (structure type for cleanup directory entries)
-  - cb_tablespace (structure type referenced in the source)
+  - [cb_cleanup_dir](../c/cb_cleanup_dir.md) (structure type for cleanup directory entries)
+  - [cb_tablespace](../c/cb_tablespace.md) (structure type referenced in the source)
 - Called from (representative examples):
-  - main (in src/bin/pg_combinebackup/pg_combinebackup.c:428)
+  - [main](../m/main.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:428)
 
 ## Notes and Other Information
 - This is a static function used specifically within pg_combinebackup utility

@@ -28,12 +28,12 @@ The function first handles memory management by freeing any existing buffer in t
 - Called from (representative examples):
   - generate_series_step_numeric (numeric series generation)
   - width_bucket_numeric (histogram bucket calculations)
-  - compute_bucket (bucket computation utilities)
-  - div_mod_var (division and modulo operations)
-  - ceil_var (ceiling function implementation)
-  - floor_var (floor function implementation)
-  - sqrt_var (square root calculations)
-  - power_var (exponentiation operations)
+  - [compute_bucket](../c/compute_bucket.md) (bucket computation utilities)
+  - [div_mod_var](../d/div_mod_var.md) (division and modulo operations)
+  - [ceil_var](../c/ceil_var.md) (ceiling function implementation)
+  - [floor_var](../f/floor_var.md) (floor function implementation)
+  - [sqrt_var](sqrt_var.md) (square root calculations)
+  - [power_var](../p/power_var.md) (exponentiation operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c module

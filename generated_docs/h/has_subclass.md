@@ -23,15 +23,15 @@ The flag is eventually cleaned up by ANALYZE operations on childless tables, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (with RELOID)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (with RELOID)
   - HeapTupleIsValid
   - elog (for error reporting)
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_class (to access relhassubclass field)
 - Called from (representative examples):
-  - find_inheritance_children_extended (src/backend/catalog/pg_inherits.c:101)
-  - typeInheritsFrom (src/backend/catalog/pg_inherits.c:425)
-  - subquery_planner (src/backend/optimizer/plan/planner.c:774)
+  - [find_inheritance_children_extended](../f/find_inheritance_children_extended.md) (src/backend/catalog/pg_inherits.c:101)
+  - [typeInheritsFrom](../t/typeInheritsFrom.md) (src/backend/catalog/pg_inherits.c:425)
+  - [subquery_planner](../s/subquery_planner.md) (src/backend/optimizer/plan/planner.c:774)
 
 ## Notes and Other Information
 - This is an optimization function that may return false positives but never false negatives

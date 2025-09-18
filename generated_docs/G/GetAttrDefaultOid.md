@@ -21,18 +21,18 @@ This function performs a lookup in the pg_attrdef system catalog to find the OID
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close: Opens and closes pg_attrdef catalog with shared lock
-  - ScanKeyInit: Initializes scan keys for relation ID and attribute number
-  - systable_beginscan: Begins scan using AttrDefaultIndexId for efficient lookup
-  - systable_getnext: Retrieves matching tuple from scan
-  - systable_endscan: Ends system table scan
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan keys for relation ID and attribute number
+  - [systable_beginscan](../s/systable_beginscan.md): Begins scan using AttrDefaultIndexId for efficient lookup
+  - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuple from scan
+  - [systable_endscan](../s/systable_endscan.md): Ends system table scan
   - GETSTRUCT: Extracts pg_attrdef structure from heap tuple
-  - ObjectIdGetDatum/Int16GetDatum: Converts values to datum format
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)/Int16GetDatum: Converts values to datum format
 
 - Called from (representative examples):
-  - get_object_address_attrdef: During object address resolution for defaults
-  - ATExecSetExpression: When setting column expressions (checks existing defaults)  
-  - ATExecDropExpression: When dropping column expressions
-  - ATExecAlterColumnType: During column type changes to handle existing defaults
+  - [get_object_address_attrdef](../g/get_object_address_attrdef.md): During object address resolution for defaults
+  - [ATExecSetExpression](../A/ATExecSetExpression.md): When setting column expressions (checks existing defaults)  
+  - [ATExecDropExpression](../A/ATExecDropExpression.md): When dropping column expressions
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md): During column type changes to handle existing defaults
 
 ## Notes and Other Information
 The function uses shared locking throughout the operation, making it safe for concurrent execution with other readers while ensuring consistency. It leverages the AttrDefaultIndexId index for efficient lookup performance rather than performing a full table scan. The function is designed as a simple query interface and does not perform any modifications to the catalog. The return of InvalidOid serves as a clear indication that no default exists, allowing callers to distinguish between existing defaults and missing defaults. This function is commonly used in DDL operations where the system needs to determine whether default handling is required for specific columns.

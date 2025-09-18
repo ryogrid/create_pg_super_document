@@ -25,10 +25,10 @@ This function takes no parameters and returns an integer token code.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `base_yylex`: The underlying lexer function that generates raw tokens
-  - `check_uescapechar`: Validates Unicode escape characters
+  - `[base_yylex](../b/base_yylex.md)`: The underlying lexer function that generates raw tokens
+  - `[check_uescapechar](../c/check_uescapechar.md)`: Validates Unicode escape characters
   - `mmerror`: Reports parsing errors
-  - `psprintf`: PostgreSQL string formatting function
+  - `[psprintf](../p/psprintf.md)`: PostgreSQL string formatting function
   - `strlen`: Standard C string length function
 
 - Called from (representative examples):

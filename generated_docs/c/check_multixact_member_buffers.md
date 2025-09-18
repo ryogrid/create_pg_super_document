@@ -21,7 +21,7 @@ This function is a standard PostgreSQL GUC check hook that validates proposed va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_slru_buffers
+  - [check_slru_buffers](check_slru_buffers.md)
   - GucSource (type)
 - Called from (representative examples):
   - Referenced in GUC_HOOKS_H header for GUC system integration

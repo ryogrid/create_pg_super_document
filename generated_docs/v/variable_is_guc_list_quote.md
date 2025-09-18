@@ -17,10 +17,10 @@ This function determines if a PostgreSQL configuration parameter is of the GUC_L
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
 - Called from (representative examples):
-  - makeAlterConfigCommand (src/bin/pg_dump/dumputils.c:899)
-  - dumpFunc (src/bin/pg_dump/pg_dump.c:12649)
+  - [makeAlterConfigCommand](../m/makeAlterConfigCommand.md) (src/bin/pg_dump/dumputils.c:899)
+  - [dumpFunc](../d/dumpFunc.md) (src/bin/pg_dump/pg_dump.c:12649)
 
 ## Notes and Other Information
 - Returns true for: local_preload_libraries, search_path, session_preload_libraries, shared_preload_libraries, temp_tablespaces, unix_socket_directories

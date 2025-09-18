@@ -25,12 +25,12 @@ The caller must hold an exclusive lock on the target buffer before calling this 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistinserttuples (main implementation)
+  - [gistinserttuples](gistinserttuples.md) (main implementation)
   - GISTInsertState (state parameter type)
-  - GISTInsertStack (stack parameter type)
-  - GISTSTATE (giststate parameter type)
+  - [GISTInsertStack](../G/GISTInsertStack.md) (stack parameter type)
+  - [GISTSTATE](../G/GISTSTATE.md) (giststate parameter type)
 - Called from (representative examples):
-  - gistdoinsert (main insertion logic)
+  - [gistdoinsert](gistdoinsert.md) (main insertion logic)
 
 ## Notes and Other Information
 - This function is a convenience wrapper that simplifies the common single-tuple insertion case

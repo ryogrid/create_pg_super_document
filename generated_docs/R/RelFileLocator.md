@@ -27,7 +27,7 @@ Key constraints and behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (typedef for Oid)
+  - [RelFileNumber](RelFileNumber.md) (typedef for Oid)
 - Called from (representative examples):
   - Buffer management functions
   - Storage manager operations

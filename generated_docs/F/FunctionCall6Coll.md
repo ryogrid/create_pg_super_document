@@ -32,7 +32,7 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
   - InitFunctionCallInfoData (initializes function call context)
   - FunctionCallInvoke (performs the actual function invocation)
 - Called from (representative examples):
-  - OidFunctionCall6Coll (OID-based function calling wrapper)
+  - [OidFunctionCall6Coll](../O/OidFunctionCall6Coll.md) (OID-based function calling wrapper)
   - FunctionCall6 (non-collation variant wrapper)
 
 ## Notes and Other Information

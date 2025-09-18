@@ -26,7 +26,7 @@ This is one of the translation operators in PostgreSQL's geometric system, allow
   - PG_GETARG_PATH_P_COPY (macro for retrieving and copying PATH argument)
   - PG_GETARG_POINT_P (macro for retrieving Point argument)
   - PG_RETURN_PATH_P (macro for returning PATH result)
-  - point_add_point (function for adding two points)
+  - [point_add_point](point_add_point.md) (function for adding two points)
 - Called from:
   - No direct references found in the codebase
 

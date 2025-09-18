@@ -24,15 +24,15 @@ If the resulting identifier length exceeds NAMEDATALEN and truncation is enabled
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - pg_database_encoding_max_length (encoding information)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (encoding information)
   - IS_HIGHBIT_SET (character testing macro)
   - isupper/tolower (character case functions)
-  - truncate_identifier (identifier truncation)
+  - [truncate_identifier](../t/truncate_identifier.md) (identifier truncation)
   - NAMEDATALEN (maximum identifier length constant)
 - Called from (representative examples):
-  - downcase_truncate_identifier (convenience wrapper)
-  - parse_ident (identifier parsing utility)
+  - [downcase_truncate_identifier](downcase_truncate_identifier.md) (convenience wrapper)
+  - [parse_ident](../p/parse_ident.md) (identifier parsing utility)
 
 ## Notes and Other Information
 - Returns a newly 'd string that must be freed by the caller

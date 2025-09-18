@@ -21,7 +21,7 @@ The function includes several safety checks to ensure that parallel restore is f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext (local context structure type)
+  - [lclContext](../l/lclContext.md) (local context structure type)
   - pgoff_t (PostgreSQL offset type)
   - archModeWrite (archive mode constant)
   - ftello (gets current file position)
@@ -30,9 +30,9 @@ The function includes several safety checks to ensure that parallel restore is f
   - fopen (opens new file handle)
   - fseeko (seeks to specific file position)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (custom format initialization)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (custom format initialization)
   - lclTocEntry (directory format TOC entry handling)
-  - InitArchiveFmt_Directory (directory format initialization)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (directory format initialization)
 
 ## Notes and Other Information
 - This is a static function specific to the custom archive format implementation

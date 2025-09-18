@@ -36,9 +36,9 @@ The state machine progresses through several key states:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecHashTableCreate: Creates the hash table structure
-  - ExecHashJoinOuterGetTuple/ExecParallelHashJoinOuterGetTuple: Retrieves outer tuples
-  - ExecScanHashBucket/ExecParallelScanHashBucket: Scans hash buckets for matches
-  - ExecHashJoinNewBatch/ExecParallelHashJoinNewBatch: Advances to next batch
+  - [ExecHashJoinOuterGetTuple](ExecHashJoinOuterGetTuple.md)/ExecParallelHashJoinOuterGetTuple: Retrieves outer tuples
+  - [ExecScanHashBucket](ExecScanHashBucket.md)/ExecParallelScanHashBucket: Scans hash buckets for matches
+  - [ExecHashJoinNewBatch](ExecHashJoinNewBatch.md)/ExecParallelHashJoinNewBatch: Advances to next batch
   - ExecQual: Evaluates join and filter conditions
   - ExecProject: Projects result tuples
   - BarrierArriveAndWait: Synchronizes parallel workers

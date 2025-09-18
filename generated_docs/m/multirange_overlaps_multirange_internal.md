@@ -28,12 +28,12 @@ This approach ensures that each range is examined at most once, achieving O(n + 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `MultirangeIsEmpty` - Check if a multirange contains no ranges
-  - `multirange_get_bounds` - Extract lower and upper bounds from a specific range within a multirange
-  - `range_cmp_bounds` - Compare two range bounds using the type's comparison function
-  - `range_bounds_overlaps` - Check if two pairs of bounds represent overlapping ranges
+  - `[multirange_get_bounds](multirange_get_bounds.md)` - Extract lower and upper bounds from a specific range within a multirange
+  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare two range bounds using the type's comparison function
+  - `[range_bounds_overlaps](../r/range_bounds_overlaps.md)` - Check if two pairs of bounds represent overlapping ranges
   - `RangeBound` - Structure representing range boundary points
 - Called from (representative examples):
-  - `multirange_overlaps_multirange` - The SQL operator wrapper function
+  - `[multirange_overlaps_multirange](multirange_overlaps_multirange.md)` - The SQL operator wrapper function
   - Multirange overlap operations in queries and expressions
 
 ## Notes and Other Information

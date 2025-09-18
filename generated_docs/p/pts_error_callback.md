@@ -25,7 +25,7 @@ This helps users understand what type name caused the parsing failure, making de
 - Functions called/Symbols referenced:
   - errcontext (PostgreSQL error reporting function)
 - Called from (representative examples):
-  - typeStringToTypeName (src/backend/parser/parse_type.c:751)
+  - [typeStringToTypeName](../t/typeStringToTypeName.md) (src/backend/parser/parse_type.c:751)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_type.c

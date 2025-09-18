@@ -22,16 +22,16 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: Array of fl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortAndUniqItems
-  - calc_rank_or
-  - find_wordentry
+  - [SortAndUniqItems](../S/SortAndUniqItems.md)
+  - [calc_rank_or](calc_rank_or.md)
+  - [find_wordentry](../f/find_wordentry.md)
   - _POSVECPTR
   - WEP_GETPOS
   - WEP_SETPOS
   - wpos
-  - word_distance
+  - [word_distance](../w/word_distance.md)
 - Called from (representative examples):
-  - calc_rank
+  - [calc_rank](calc_rank.md)
   - DEF_NORM_METHOD
 
 ## Notes and Other Information

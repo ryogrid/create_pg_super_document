@@ -18,18 +18,18 @@ This function iterates through a list of schema names and collects all objects o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupExplicitNamespace
-  - getRelationsInNamespace
-  - list_concat
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [getRelationsInNamespace](../g/getRelationsInNamespace.md)
+  - [list_concat](../l/list_concat.md)
   - lappend_oid
   - table_open
-  - table_beginscan_catalog
-  - heap_getnext
-  - table_endscan
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [table_endscan](../t/table_endscan.md)
   - table_close
 - Called from (representative examples):
   - InternalDefaultACL
-  - ExecuteGrantStmt
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md)
 
 ## Notes and Other Information
 - The function is static and used internally within aclchk.c for ACL-related operations

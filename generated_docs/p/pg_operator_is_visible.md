@@ -21,7 +21,7 @@ The function uses an up-to-date snapshot internally, which may see objects as al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `OperatorIsVisibleExt`: Core function that performs the actual operator visibility check
+  - `[OperatorIsVisibleExt](../O/OperatorIsVisibleExt.md)`: Core function that performs the actual operator visibility check
   - `PG_GETARG_OID`: Macro to extract OID parameter from function arguments
   - `PG_RETURN_NULL`: Macro to return NULL when object is missing
   - `PG_RETURN_BOOL`: Macro to return boolean result

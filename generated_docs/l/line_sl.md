@@ -23,9 +23,9 @@ This function computes the slope of a line given its representation in the stand
   - LINE (data type)
   - FPzero (floating-point zero comparison macro)
   - get_float8_infinity (function to get infinity value)
-  - float8_div (floating-point division)
+  - [float8_div](../f/float8_div.md) (floating-point division)
 - Called from (representative examples):
-  - close_ls (closest point on line to segment calculation)
+  - [close_ls](../c/close_ls.md) (closest point on line to segment calculation)
   - PATH_CLOSED (path operations involving line calculations)
 
 ## Notes and Other Information

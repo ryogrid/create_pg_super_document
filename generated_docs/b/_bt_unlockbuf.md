@@ -21,21 +21,21 @@ This function is part of PostgreSQL's careful buffer management protocol where b
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_CHECK_MEM_IS_DEFINED
-  - BufferGetPage  
-  - LockBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)  
+  - [LockBuffer](../L/LockBuffer.md)
   - BUFFER_LOCK_UNLOCK
   - RelationUsesLocalBuffers
   - VALGRIND_MAKE_MEM_NOACCESS
 
 - Called from (representative examples):
-  - _bt_getroot
-  - _bt_relandgetbuf
-  - _bt_relbuf
-  - _bt_pagedel
-  - _bt_search
-  - _bt_moveright
-  - _bt_first
-  - _bt_killitems
+  - [_bt_getroot](_bt_getroot.md)
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md)
+  - [_bt_relbuf](_bt_relbuf.md)
+  - [_bt_pagedel](_bt_pagedel.md)
+  - [_bt_search](_bt_search.md)
+  - [_bt_moveright](_bt_moveright.md)
+  - [_bt_first](_bt_first.md)
+  - [_bt_killitems](_bt_killitems.md)
 
 ## Notes and Other Information
 - The function includes Valgrind memory checking instrumentation for debugging buffer access patterns

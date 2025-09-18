@@ -21,7 +21,7 @@ This function serves as a callback that is invoked when the subscription system 
 - Functions called/Symbols referenced:
   - MySubscriptionValid (global variable)
 - Called from (representative examples):
-  - InitializeLogRepWorker
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within the worker.c compilation unit

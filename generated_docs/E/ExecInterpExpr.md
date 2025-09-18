@@ -35,13 +35,13 @@ The interpreter processes each step sequentially, with each step potentially mod
 ## Dependencies
 - Functions called/Symbols referenced:
   - Various ExecEval* functions for complex operations (ExecEvalSysVar, ExecEvalWholeRowVar, etc.)
-  - CheckOpSlotCompatibility for slot validation
+  - [CheckOpSlotCompatibility](../C/CheckOpSlotCompatibility.md) for slot validation
   - slot_getsomeattrs for tuple attribute fetching
   - FunctionCallInvoke for user-defined function calls
   - MakeExpandedObjectReadOnlyInternal for object lifecycle management
 - Called from:
-  - ExecReadyInterpretedExpr (as evalfunc_private)
-  - ExecInitInterpreter (for dispatch table initialization)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (as evalfunc_private)
+  - [ExecInitInterpreter](ExecInitInterpreter.md) (for dispatch table initialization)
 
 ## Notes and Other Information
 - The function contains a special case: when state is NULL, it returns the dispatch table address for computed goto initialization

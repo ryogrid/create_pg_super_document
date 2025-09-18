@@ -21,12 +21,12 @@ Join alias variables are used internally by PostgreSQL to represent the output c
 
 ## Dependencies
 - Used by:
-  - find_expr_references_walker (src/backend/catalog/dependency.c:2244)
-  - LockViewRecurse_walker (src/backend/commands/lockcmds.c:236)
-  - range_table_entry_walker_impl (src/backend/nodes/nodeFuncs.c:2836)
-  - range_table_mutator_impl (src/backend/nodes/nodeFuncs.c:3872)
-  - flatten_join_alias_vars_mutator (src/backend/optimizer/util/var.c:888)
-  - isQueryUsingTempRelation_walker (src/backend/parser/parse_relation.c:3858)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (src/backend/catalog/dependency.c:2244)
+  - [LockViewRecurse_walker](../L/LockViewRecurse_walker.md) (src/backend/commands/lockcmds.c:236)
+  - [range_table_entry_walker_impl](../r/range_table_entry_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2836)
+  - [range_table_mutator_impl](../r/range_table_mutator_impl.md) (src/backend/nodes/nodeFuncs.c:3872)
+  - [flatten_join_alias_vars_mutator](../f/flatten_join_alias_vars_mutator.md) (src/backend/optimizer/util/var.c:888)
+  - [isQueryUsingTempRelation_walker](../i/isQueryUsingTempRelation_walker.md) (src/backend/parser/parse_relation.c:3858)
 - Part of the QTW flag system defined in src/include/nodes/nodeFuncs.h
 
 ## Notes and Other Information

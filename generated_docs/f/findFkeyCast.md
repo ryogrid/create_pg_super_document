@@ -19,12 +19,12 @@ This function determines whether a type conversion (cast) is possible between a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_coercion_pathway
+  - [find_coercion_pathway](find_coercion_pathway.md)
   - COERCION_PATH_RELABELTYPE
   - COERCION_IMPLICIT
   - COERCION_PATH_NONE
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
 
 ## Notes and Other Information
 - Returns COERCION_PATH_RELABELTYPE for identical types (no actual conversion needed)

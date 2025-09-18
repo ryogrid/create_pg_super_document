@@ -28,7 +28,7 @@ ForThreeState extends the concept of synchronized list iteration to three lists,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (implicitly referenced through l1, l2, and l3 members)
+  - [List](../L/List.md) (implicitly referenced through l1, l2, and l3 members)
 - Called from (representative examples):
   - forthree
 

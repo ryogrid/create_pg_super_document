@@ -31,9 +31,9 @@ The function also properly initializes the relation's tuple descriptor type info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InsertPgClassTuple
+  - [InsertPgClassTuple](../I/InsertPgClassTuple.md)
 - Called from (representative examples):
-  - heap_create_with_catalog
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
 
 ## Notes and Other Information
 - This function is static and primarily used during relation creation as part of heap_create_with_catalog

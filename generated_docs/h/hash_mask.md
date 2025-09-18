@@ -29,11 +29,11 @@ This masking is essential for hash indexes because certain optimizations allow s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mask_page_lsn_and_checksum
-  - mask_page_hint_bits
-  - mask_unused_space
-  - mask_page_content
-  - mask_lp_flags
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md)
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md)
+  - [mask_unused_space](../m/mask_unused_space.md)
+  - [mask_page_content](../m/mask_page_content.md)
+  - [mask_lp_flags](../m/mask_lp_flags.md)
   - HashPageGetOpaque
 - Types referenced:
   - HashPageOpaque

@@ -22,12 +22,12 @@ ConditionalLockPage is a non-blocking variant of LockPage that attempts to acqui
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_PAGE
-  - LockAcquire
+  - [LockAcquire](../L/LockAcquire.md)
   - LOCKTAG
   - LOCKACQUIRE_NOT_AVAIL
 - Called from (representative examples):
-  - ginInsertCleanup
-  - XLTW_Oper
+  - [ginInsertCleanup](../g/ginInsertCleanup.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - This is the non-blocking version of LockPage that returns immediately rather than waiting for the lock

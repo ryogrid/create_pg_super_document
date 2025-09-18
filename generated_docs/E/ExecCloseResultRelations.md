@@ -25,13 +25,13 @@ The function ensures that all result-related relations are properly closed to pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCloseIndices (closes indexes for result relations)
+  - [ExecCloseIndices](ExecCloseIndices.md) (closes indexes for result relations)
   - table_close (closes individual relation descriptors with NoLock)
 - Called from:
-  - ExecEndPlan (main execution cleanup)
-  - CopyFrom (COPY command cleanup)
-  - afterTriggerInvokeEvents (trigger event cleanup)
-  - EvalPlanQualEnd (EPQ cleanup)
+  - [ExecEndPlan](ExecEndPlan.md) (main execution cleanup)
+  - [CopyFrom](../C/CopyFrom.md) (COPY command cleanup)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md) (trigger event cleanup)
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md) (EPQ cleanup)
   - ResetPerTupleExprContext (expression context reset)
 
 ## Notes and Other Information

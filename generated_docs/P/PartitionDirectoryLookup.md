@@ -23,17 +23,17 @@ This caching mechanism is particularly important for query execution and plannin
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - HASH_ENTER (hash operation flag)
-  - RelationIncrementReferenceCount
-  - RelationGetPartitionDesc
-  - PartitionDirectoryEntry (hash table entry type)
+  - [RelationIncrementReferenceCount](../R/RelationIncrementReferenceCount.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [PartitionDirectoryEntry](PartitionDirectoryEntry.md) (hash table entry type)
 
 - Called from:
-  - ExecInitPartitionDispatchInfo
-  - CreatePartitionPruneState
-  - expand_partitioned_rtentry
-  - set_relation_partition_info
+  - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md)
+  - [set_relation_partition_info](../s/set_relation_partition_info.md)
 
 ## Notes and Other Information
 - Maintains reference counts on relations to prevent premature cleanup of partition descriptors

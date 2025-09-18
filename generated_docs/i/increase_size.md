@@ -19,14 +19,14 @@ The  function is a memory management utility in PostgreSQL's Snowball stemming l
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc
-  - lose_s
+  - [lose_s](../l/lose_s.md)
   - HEAD (macro for header size)
   - CAPACITY (macro for accessing buffer capacity)
   - symbol (type definition)
 - Called from (representative examples):
-  - replace_s
-  - slice_to
-  - assign_to
+  - [replace_s](../r/replace_s.md)
+  - [slice_to](../s/slice_to.md)
+  - [assign_to](../a/assign_to.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the utilities.c file

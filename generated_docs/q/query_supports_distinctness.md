@@ -31,8 +31,8 @@ A special case handles set-returning functions (SRFs): they break distinctness u
 - Functions called/Symbols referenced:
   - NIL (PostgreSQL null list constant)
 - Called from:
-  - rel_supports_distinctness (src/backend/optimizer/plan/analyzejoins.c:835)
-  - create_unique_path (src/backend/optimizer/util/pathnode.c:1754)
+  - [rel_supports_distinctness](../r/rel_supports_distinctness.md) (src/backend/optimizer/plan/analyzejoins.c:835)
+  - [create_unique_path](../c/create_unique_path.md) (src/backend/optimizer/util/pathnode.c:1754)
 
 ## Notes and Other Information
 - This function is designed for performance - it should not perform expensive computations

@@ -22,25 +22,25 @@ The function performs two main database queries: first to get the parser informa
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - resetPQExpBuffer
-  - pg_strdup
-  - fmtId
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQueryForSingleRow
-  - ExecuteSqlQuery
-  - PQgetvalue
-  - PQntuples
-  - PQfnumber
-  - PQclear
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQclear](../P/PQclear.md)
   - strcmp
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - free
 - Called from (representative examples):
-  - dumpDumpableObject (via switch statement for DO_TSCONFIG objects)
+  - [dumpDumpableObject](dumpDumpableObject.md) (via switch statement for DO_TSCONFIG objects)
 
 ## Notes and Other Information
 - Only executes during schema dumps (skipped when dopt->dataOnly is true)

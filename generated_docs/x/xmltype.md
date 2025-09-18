@@ -19,13 +19,13 @@ As a varlena structure, xmltype contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (base structure)
+  - [varlena](../v/varlena.md) (base structure)
 - Called from (representative examples):
-  - xml_in, xml_out, xml_recv, xml_send (I/O functions)
-  - xmlconcat, xmlelement, xmlparse, xmlpi, xmlroot (XML manipulation functions)
-  - xpath, xmlexists, xpath_exists (XPath functions)
-  - DatumGetXmlP, XmlPGetDatum (conversion functions)
-  - ExecEvalXmlExpr (expression evaluation)
+  - [xml_in](xml_in.md), xml_out, xml_recv, xml_send (I/O functions)
+  - [xmlconcat](xmlconcat.md), xmlelement, xmlparse, xmlpi, xmlroot (XML manipulation functions)
+  - [xpath](xpath.md), xmlexists, xpath_exists (XPath functions)
+  - [DatumGetXmlP](../D/DatumGetXmlP.md), XmlPGetDatum (conversion functions)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (expression evaluation)
 
 ## Notes and Other Information
 - Defined in src/include/utils/xml.h at line 23

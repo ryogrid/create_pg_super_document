@@ -25,8 +25,8 @@ The `jsonb_array_length` function implements the SQL function `jsonb_array_lengt
   - JB_ROOT_IS_ARRAY
   - JB_ROOT_COUNT
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - PG_RETURN_INT32
 - Types used:
   - Jsonb

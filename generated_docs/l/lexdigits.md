@@ -40,9 +40,9 @@ This function is primarily used for parsing:
   - Character literals: CHR(0) through CHR(9), CHR(a) through CHR(f), CHR(A) through CHR(F)
   - Error codes: REG_EESCAPE
 - Types used:
-  - chr, uchr (character types)
+  - [chr](../c/chr.md), uchr (character types)
 - Called from (representative examples):
-  - lexescape (for `\u`, `\U`, `\x`, octal, and backref parsing)
+  - [lexescape](lexescape.md) (for `\u`, `\U`, `\x`, octal, and backref parsing)
 
 ## Notes and Other Information
 The function does not perform overflow checking, so callers must validate the result if the maxlen parameter could cause overflow. The function automatically backtracks when it encounters invalid digits or reaches the maximum length. For hexadecimal parsing, both uppercase and lowercase letters are accepted. The function uses unsigned arithmetic (uchr) internally to avoid undefined behavior on overflow, then casts the result back to chr. Invalid digits cause the parser to back up and terminate parsing, which allows for proper handling of partial numeric sequences.

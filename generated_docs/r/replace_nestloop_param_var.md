@@ -29,14 +29,14 @@ This approach ensures that identical variables from the outer relation share the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal: Tests structural equality between the input Var and existing paramval entries
+  - [equal](../e/equal.md): Tests structural equality between the input Var and existing paramval entries
   - makeNode: Creates new Param and NestLoopParam nodes
-  - generate_new_exec_param: Allocates a new execution parameter slot with proper type information
+  - [generate_new_exec_param](../g/generate_new_exec_param.md): Allocates a new execution parameter slot with proper type information
   - copyObject: Creates a deep copy of the Var for storage in the NestLoopParam
   - lappend: Adds the new NestLoopParam to the curOuterParams list
 
 - Called from (representative examples):
-  - replace_nestloop_params_mutator: Used during plan tree creation to parameterize variables in nested loop contexts
+  - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md): Used during plan tree creation to parameterize variables in nested loop contexts
 
 ## Notes and Other Information
 - Implements de-duplication by checking existing curOuterParams before creating new parameter slots

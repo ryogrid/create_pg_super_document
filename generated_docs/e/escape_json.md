@@ -22,13 +22,13 @@ The `escape_json` function transforms a C string into a properly escaped JSON st
   - appendStringInfoString
   - appendStringInfo
 - Called from (representative examples):
-  - datum_to_json_internal
+  - [datum_to_json_internal](../d/datum_to_json_internal.md)
   - composite_to_json
-  - json_object
-  - json_object_two_arg
-  - jsonb_put_escaped_value
-  - ExplainProperty
-  - write_jsonlog
+  - [json_object](../j/json_object.md)
+  - [json_object_two_arg](../j/json_object_two_arg.md)
+  - [jsonb_put_escaped_value](../j/jsonb_put_escaped_value.md)
+  - [ExplainProperty](../E/ExplainProperty.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
 
 ## Notes and Other Information
 - Wraps output in double quotes to create valid JSON string literals

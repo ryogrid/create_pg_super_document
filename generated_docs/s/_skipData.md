@@ -25,13 +25,13 @@ The function manages memory efficiently by reusing and growing the buffer as nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext: Local context structure for custom format handling
-  - ReadInt: Reads integer length values from the archive
+  - [lclContext](../l/lclContext.md): Local context structure for custom format handling
+  - [ReadInt](../R/ReadInt.md): Reads integer length values from the archive
   - fseeko: Performs file seeking operations when available
   - pg_malloc: Allocates memory for the read buffer
 - Called from (representative examples):
-  - _PrintTocData: Used during table of contents processing
-  - _skipLOs: Used when skipping Large Object data blocks
+  - [_PrintTocData](../P/_PrintTocData.md): Used during table of contents processing
+  - [_skipLOs](_skipLOs.md): Used when skipping Large Object data blocks
 
 ## Notes and Other Information
 - This is a static function specific to the custom format archive handling

@@ -22,19 +22,19 @@ For hypothetical-set aggregates, it adds a special flag column to distinguish be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - AggGetAggref
-  - AggStateIsShared
-  - AggRegisterCallback
-  - tuplesort_begin_heap
-  - tuplesort_begin_datum
-  - ExecTypeFromTL
-  - get_sortgroupclause_tle
-  - MakeSingleTupleTableSlot
-  - ordered_set_shutdown
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [AggGetAggref](../A/AggGetAggref.md)
+  - [AggStateIsShared](../A/AggStateIsShared.md)
+  - [AggRegisterCallback](../A/AggRegisterCallback.md)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
+  - [ExecTypeFromTL](../E/ExecTypeFromTL.md)
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [ordered_set_shutdown](ordered_set_shutdown.md)
 - Called from (representative examples):
-  - ordered_set_transition
-  - ordered_set_transition_multi
+  - [ordered_set_transition](ordered_set_transition.md)
+  - [ordered_set_transition_multi](ordered_set_transition_multi.md)
 
 ## Notes and Other Information
 - The function maintains two levels of state: per-query state (cached in ) and per-group state (allocated in group-lifespan memory context)

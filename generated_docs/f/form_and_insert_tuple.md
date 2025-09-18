@@ -30,15 +30,15 @@ The function performs three main operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_form_tuple: Converts in-memory BRIN summary data into serialized format
-  - brin_doinsert: Handles the physical insertion of tuple into index
-  - pfree: Memory deallocation function
-  - BrinBuildState: Build state structure type
-  - BrinTuple: On-disk tuple structure type
+  - [brin_form_tuple](../b/brin_form_tuple.md): Converts in-memory BRIN summary data into serialized format
+  - [brin_doinsert](../b/brin_doinsert.md): Handles the physical insertion of tuple into index
+  - [pfree](../p/pfree.md): Memory deallocation function
+  - [BrinBuildState](../B/BrinBuildState.md): Build state structure type
+  - [BrinTuple](../B/BrinTuple.md): On-disk tuple structure type
 
 - Called from (representative examples):
-  - brinbuildCallback: Main callback function during BRIN index build
-  - brinbuild: Main BRIN index construction function
+  - [brinbuildCallback](../b/brinbuildCallback.md): Main callback function during BRIN index build
+  - [brinbuild](../b/brinbuild.md): Main BRIN index construction function
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

@@ -27,20 +27,20 @@ The parser uses a callback mechanism () to process individual query terms, allow
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_tsvector_parser
-  - makepol
-  - close_tsvector_parser
-  - findoprnd
-  - cleanup_tsquery_stopwords
-  - gettoken_query_plain
-  - gettoken_query_websearch
-  - gettoken_query_standard
+  - [init_tsvector_parser](../i/init_tsvector_parser.md)
+  - [makepol](../m/makepol.md)
+  - [close_tsvector_parser](../c/close_tsvector_parser.md)
+  - [findoprnd](../f/findoprnd.md)
+  - [cleanup_tsquery_stopwords](../c/cleanup_tsquery_stopwords.md)
+  - [gettoken_query_plain](../g/gettoken_query_plain.md)
+  - [gettoken_query_websearch](../g/gettoken_query_websearch.md)
+  - [gettoken_query_standard](../g/gettoken_query_standard.md)
 - Called from (representative examples):
-  - tsqueryin
-  - to_tsquery_byid
-  - plainto_tsquery_byid
-  - phraseto_tsquery_byid
-  - websearch_to_tsquery_byid
+  - [tsqueryin](../t/tsqueryin.md)
+  - [to_tsquery_byid](../t/to_tsquery_byid.md)
+  - [plainto_tsquery_byid](plainto_tsquery_byid.md)
+  - [phraseto_tsquery_byid](phraseto_tsquery_byid.md)
+  - [websearch_to_tsquery_byid](../w/websearch_to_tsquery_byid.md)
 
 ## Notes and Other Information
 - The function validates that incompatible flags (P_TSQ_PLAIN and P_TSQ_WEB) are not used together

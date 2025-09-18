@@ -22,18 +22,18 @@ This function processes the arguments to a \\sleep meta-command in pgbench scrip
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Variables (variable storage structure)
-  - getVariable (resolve variable values by name)
+  - [Variables](../V/Variables.md) (variable storage structure)
+  - [getVariable](../g/getVariable.md) (resolve variable values by name)
   - atoi (convert string to integer)
   - isdigit (validate numeric characters)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - pg_log_error (error logging)
 - Called from (representative examples):
-  - executeMetaCommand
+  - [executeMetaCommand](executeMetaCommand.md)
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on error conditions
-- Variable references are indicated by a leading `:` character (e.g., \":varname\")
+- [Variable](../V/Variable.md) references are indicated by a leading `:` character (e.g., \":varname\")
 - Supported time units: \"ms\" (milliseconds), \"s\" (seconds), default is seconds
 - Validates that variable values are numeric (non-zero or starting with digit)
 - Conversion factors: seconds × 1,000,000 = microseconds, milliseconds × 1,000 = microseconds

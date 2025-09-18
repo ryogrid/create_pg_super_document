@@ -28,16 +28,16 @@ The function includes assertion checks to verify that the returned block number 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - revmap_extend_and_get_blkno
+  - [revmap_extend_and_get_blkno](../r/revmap_extend_and_get_blkno.md)
 - Types referenced:
-  - BrinRevmap
+  - [BrinRevmap](../B/BrinRevmap.md)
   - BlockNumber
   - PG_USED_FOR_ASSERTS_ONLY
   - BRIN_METAPAGE_BLKNO
   - InvalidBlockNumber
 - Called from:
-  - brin_doupdate
-  - brin_doinsert
+  - [brin_doupdate](brin_doupdate.md)
+  - [brin_doinsert](brin_doinsert.md)
 
 ## Notes and Other Information
 - The function uses PG_USED_FOR_ASSERTS_ONLY to mark variables only used in assertions

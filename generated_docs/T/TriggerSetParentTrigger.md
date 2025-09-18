@@ -25,17 +25,17 @@ TriggerSetParentTrigger manages the parent-child relationship between triggers i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan/systable_getnext
-  - heap_copytuple
-  - CatalogTupleUpdate
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - deleteDependencyRecordsForClass
-  - heap_freetuple
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - DEPENDENCY_PARTITION_PRI/DEPENDENCY_PARTITION_SEC
 - Called from (representative examples):
-  - tryAttachPartitionForeignKey
-  - DetachPartitionFinalize
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - Updates the tgparentid field in pg_trigger to establish inheritance relationship

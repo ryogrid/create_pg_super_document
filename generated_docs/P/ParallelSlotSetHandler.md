@@ -19,12 +19,12 @@ ParallelSlotSetHandler is an inline function that assigns a result handler callb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlot (struct type)
+  - [ParallelSlot](ParallelSlot.md) (struct type)
   - ParallelSlotResultHandler (typedef)
 - Called from (representative examples):
-  - main (in pg_amcheck.c)
-  - reindex_one_database (in reindexdb.c)  
-  - vacuum_one_database (in vacuumdb.c)
+  - [main](../m/main.md) (in pg_amcheck.c)
+  - [reindex_one_database](../r/reindex_one_database.md) (in reindexdb.c)  
+  - [vacuum_one_database](../v/vacuum_one_database.md) (in vacuumdb.c)
 
 ## Notes and Other Information
 - This is an inline function defined in parallel_slot.h for performance

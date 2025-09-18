@@ -41,17 +41,17 @@ This function is the central workhorse for placing tuples onto GiST pages. It ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistnospace (checks if tuples fit on page)
-  - gistprunepage (removes dead tuples from leaf pages)
-  - gistextractpage (extracts existing tuples from page)
-  - gistjoinvector (combines tuple vectors)
-  - gistSplit (performs the actual page splitting algorithm)
-  - gistNewBuffer (allocates new buffers for split pages)
-  - GISTInitBuffer (initializes new GiST pages)
-  - gistfillitupvec (fills tuple vector for pages)
-  - gistfillbuffer (adds tuples to a page)
-  - gistXLogSplit/gistXLogUpdate (WAL logging functions)
-  - PageIndexTupleOverwrite (efficient tuple replacement)
+  - [gistnospace](gistnospace.md) (checks if tuples fit on page)
+  - [gistprunepage](gistprunepage.md) (removes dead tuples from leaf pages)
+  - [gistextractpage](gistextractpage.md) (extracts existing tuples from page)
+  - [gistjoinvector](gistjoinvector.md) (combines tuple vectors)
+  - [gistSplit](gistSplit.md) (performs the actual page splitting algorithm)
+  - [gistNewBuffer](gistNewBuffer.md) (allocates new buffers for split pages)
+  - [GISTInitBuffer](../G/GISTInitBuffer.md) (initializes new GiST pages)
+  - [gistfillitupvec](gistfillitupvec.md) (fills tuple vector for pages)
+  - [gistfillbuffer](gistfillbuffer.md) (adds tuples to a page)
+  - [gistXLogSplit](gistXLogSplit.md)/gistXLogUpdate (WAL logging functions)
+  - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md) (efficient tuple replacement)
   - Various page manipulation and buffer management functions
 - Constants used:
   - GIST_ROOT_BLKNO (root page block number)
@@ -59,7 +59,7 @@ This function is the central workhorse for placing tuples onto GiST pages. It ha
   - F_LEAF (leaf page flag)
   - GistBuildLSN (special LSN for index builds)
 - Called from:
-  - gistinserttuples (at src/backend/access/gist/gist.c:1305)
+  - [gistinserttuples](gistinserttuples.md) (at src/backend/access/gist/gist.c:1305)
   - gistbufferinginserttuples (at src/backend/access/gist/gistbuild.c:1063)
 
 ## Notes and Other Information

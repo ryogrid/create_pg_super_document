@@ -20,11 +20,11 @@ The function decrements the list's count after performing the deletion, maintain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete_from_thoroughly
-  - dclist_head (structure type)
-  - dlist_node (structure type)
+  - [dlist_delete_from_thoroughly](dlist_delete_from_thoroughly.md)
+  - [dclist_head](dclist_head.md) (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
-  - RemoveFromWaitQueue (src/backend/storage/lmgr/lock.c:1923)
+  - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md) (src/backend/storage/lmgr/lock.c:1923)
   - ProcWakeup (src/backend/storage/lmgr/proc.c:1691)
 
 ## Notes and Other Information

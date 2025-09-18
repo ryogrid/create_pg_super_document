@@ -20,17 +20,17 @@ This function computes the memory size estimation for a shared memory table of c
 ## Dependencies
 - Functions called/Symbols referenced:
   - shm_toc_estimator (structure type)
-  - shm_toc (structure type)
-  - shm_toc_entry (structure type)
-  - mul_size (safe multiplication function)
-  - add_size (safe addition function)
+  - [shm_toc](shm_toc.md) (structure type)
+  - [shm_toc_entry](shm_toc_entry.md) (structure type)
+  - [mul_size](../m/mul_size.md) (safe multiplication function)
+  - [add_size](../a/add_size.md) (safe addition function)
   - BUFFERALIGN (memory alignment macro)
 - Called from (representative examples):
-  - GetSessionDsmHandle
-  - InitializeParallelDSM
-  - pa_setup_dsm
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
+  - [pa_setup_dsm](../p/pa_setup_dsm.md)
   - shm_toc_estimate_keys
-  - setup_dynamic_shared_memory
+  - [setup_dynamic_shared_memory](setup_dynamic_shared_memory.md)
 
 ## Notes and Other Information
 - Uses PostgreSQL's safe arithmetic functions (mul_size, add_size) to prevent integer overflow

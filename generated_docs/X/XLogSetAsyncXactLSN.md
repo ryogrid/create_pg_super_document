@@ -20,17 +20,17 @@ XLogSetAsyncXactLSN is specifically designed for asynchronous transaction proces
 ## Dependencies
 - Functions called/Symbols referenced:
   - RefreshXLogWriteResult (updates local WAL write status)
-  - SetLatch (awakens the WAL writer process)
+  - [SetLatch](../S/SetLatch.md) (awakens the WAL writer process)
 - Global variables used:
   - XLogCtl (shared WAL control structure containing asyncXactLSN and WalWriterSleeping)
   - LogwrtResult (local copy of WAL write results)
   - WalWriterFlushAfter (configuration parameter)
   - ProcGlobal->walwriterLatch (WAL writer process latch)
 - Called from (representative examples):
-  - RecordTransactionCommit (in xact.c:1502)
-  - RecordTransactionAbort (in xact.c:1810)
-  - AbortTransaction (in xact.c:2881)
-  - LogCurrentRunningXacts (in standby.c:1395)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (in xact.c:1502)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (in xact.c:1810)
+  - [AbortTransaction](../A/AbortTransaction.md) (in xact.c:2881)
+  - [LogCurrentRunningXacts](../L/LogCurrentRunningXacts.md) (in standby.c:1395)
 
 ## Notes and Other Information
 - Should NOT be called for synchronous commits (as documented in function comment)

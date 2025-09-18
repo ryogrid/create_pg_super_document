@@ -24,15 +24,15 @@ For ambiguous operators, it suggests that explicit type casts might resolve the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - op_signature_string
+  - [op_signature_string](op_signature_string.md)
   - ereport
-  - errcode
-  - errmsg
-  - errhint
-  - parser_errposition
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - oper
-  - left_oper
+  - [oper](oper.md)
+  - [left_oper](../l/left_oper.md)
 
 ## Notes and Other Information
 - Static function used internally within parse_oper.c

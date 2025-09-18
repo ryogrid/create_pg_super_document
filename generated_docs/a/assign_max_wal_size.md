@@ -23,7 +23,7 @@ This ensures that changes to the WAL size limit immediately affect the checkpoin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CalculateCheckpointSegments
+  - [CalculateCheckpointSegments](../C/CalculateCheckpointSegments.md)
 - Called from:
   - GUC system (via GUC_HOOKS_H)
 

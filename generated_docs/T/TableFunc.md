@@ -40,17 +40,17 @@ Many fields are marked with pg_node_attr(query_jumble_ignore) to exclude them fr
 - Functions called/Symbols referenced:
   - NodeTag (node system)
   - TableFuncType (function type enumeration)
-  - List (PostgreSQL list structure)
-  - Node (generic node structure)
-  - Bitmapset (bitmap utilities)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Node](../N/Node.md) (generic node structure)
+  - [Bitmapset](../B/Bitmapset.md) (bitmap utilities)
   - ParseLoc (parse location tracking)
 
 - Called from (representative examples):
-  - transformRangeTableFunc (parsing table functions)
-  - transformJsonTable (JSON_TABLE parsing)
-  - addRangeTableEntryForTableFunc (RTE creation)
-  - ExecInitTableFuncScan (execution initialization)
-  - create_tablefuncscan_plan (plan creation)
+  - [transformRangeTableFunc](../t/transformRangeTableFunc.md) (parsing table functions)
+  - [transformJsonTable](../t/transformJsonTable.md) (JSON_TABLE parsing)
+  - [addRangeTableEntryForTableFunc](../a/addRangeTableEntryForTableFunc.md) (RTE creation)
+  - [ExecInitTableFuncScan](../E/ExecInitTableFuncScan.md) (execution initialization)
+  - [create_tablefuncscan_plan](../c/create_tablefuncscan_plan.md) (plan creation)
   - get_tablefunc (rule decompilation)
 
 ## Notes and Other Information

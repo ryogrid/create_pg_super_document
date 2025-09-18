@@ -25,11 +25,11 @@ For variable-length arrays, when the original array is NULL, the function create
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - construct_empty_array (creates a new empty array when the original is NULL for varlena arrays)
-  - array_set_element (performs the actual element assignment within the array)
-  - PointerGetDatum (converts the empty array pointer to a Datum)
+  - [construct_empty_array](../c/construct_empty_array.md) (creates a new empty array when the original is NULL for varlena arrays)
+  - [array_set_element](array_set_element.md) (performs the actual element assignment within the array)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts the empty array pointer to a Datum)
 - Called from (representative examples):
-  - array_exec_setup (configures this function as part of the expression evaluation sequence for assignment operations)
+  - [array_exec_setup](array_exec_setup.md) (configures this function as part of the expression evaluation sequence for assignment operations)
 
 ## Notes and Other Information
 - This is a static function internal to the array subscripting module

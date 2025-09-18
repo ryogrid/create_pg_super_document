@@ -19,12 +19,12 @@ The function maintains a static counter to number the successful conversions and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rstrdate (parses string to date structure)
-  - rdatestr (converts date structure to string)
-  - check_return (handles error reporting)
+  - [rstrdate](../r/rstrdate.md) (parses string to date structure)
+  - [rdatestr](../r/rdatestr.md) (converts date structure to string)
+  - [check_return](../c/check_return.md) (handles error reporting)
   - date (date structure type)
 - Called from (representative examples):
-  - main (in the test program)
+  - [main](../m/main.md) (in the test program)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file

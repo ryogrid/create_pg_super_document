@@ -30,10 +30,10 @@ The computation considers both heap and index scan costs separately, then takes 
 - Functions called/Symbols referenced:
   - RELOPT_BASEREL (constant identifying base relations vs inheritance children)
 - Called from (representative examples):
-  - create_plain_partial_paths (for parallel sequential scans)
-  - create_partial_bitmap_paths (for parallel bitmap heap scans)
-  - cost_index (for index scan costing)
-  - plan_create_index_workers (for CREATE INDEX operations)
+  - [create_plain_partial_paths](create_plain_partial_paths.md) (for parallel sequential scans)
+  - [create_partial_bitmap_paths](create_partial_bitmap_paths.md) (for parallel bitmap heap scans)
+  - [cost_index](cost_index.md) (for index scan costing)
+  - [plan_create_index_workers](../p/plan_create_index_workers.md) (for CREATE INDEX operations)
 
 ## Notes and Other Information
 - Uses logarithmic base-3 scaling: workers increase by 1 for every 3x increase in pages

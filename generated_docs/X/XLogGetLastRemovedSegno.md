@@ -25,11 +25,11 @@ The function is designed with the understanding that the returned value may beco
   - SpinLockRelease: Releases spin lock after accessing shared data
   - XLogSegNo: Data type for WAL segment numbers
 - Called from (representative examples):
-  - GetWALAvailability: For determining WAL segment availability status
-  - reserve_wal_for_local_slot: During WAL reservation for logical replication slots
-  - ReplicationSlotReserveWal: For replication slot WAL reservation operations
-  - copy_replication_slot: During replication slot copying operations
-  - WALAvailability: For checking WAL availability status
+  - [GetWALAvailability](../G/GetWALAvailability.md): For determining WAL segment availability status
+  - [reserve_wal_for_local_slot](../r/reserve_wal_for_local_slot.md): During WAL reservation for logical replication slots
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md): For replication slot WAL reservation operations
+  - [copy_replication_slot](../c/copy_replication_slot.md): During replication slot copying operations
+  - [WALAvailability](../W/WALAvailability.md): For checking WAL availability status
 
 ## Notes and Other Information
 - Returns 0 if no WAL segments have been removed since server startup

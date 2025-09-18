@@ -23,7 +23,7 @@ The function performs safe subtraction using PostgreSQL's overflow-checking arit
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16 (extracts 16-bit argument)
   - PG_GETARG_INT64 (extracts 64-bit argument)
-  - pg_sub_s64_overflow (safe 64-bit subtraction with overflow detection)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (safe 64-bit subtraction with overflow detection)
   - PG_RETURN_INT64 (returns 64-bit result)
   - ereport (error reporting)
 - Called from (representative examples):

@@ -25,21 +25,21 @@ This function is responsible for creating access paths for subqueries in the Pos
 - Functions called/Symbols referenced:
   - copyObject (deep copy the subquery)
   - memset, palloc0 (memory management)
-  - subquery_is_pushdown_safe (check if clauses can be pushed down)
-  - qual_is_pushdown_safe (check individual clause safety)
-  - subquery_push_qual (push clause into subquery)
-  - check_and_push_window_quals (attempt window run conditions)
-  - remove_unused_subquery_outputs (optimize subquery output)
-  - subquery_planner (plan the subquery)
+  - [subquery_is_pushdown_safe](subquery_is_pushdown_safe.md) (check if clauses can be pushed down)
+  - [qual_is_pushdown_safe](../q/qual_is_pushdown_safe.md) (check individual clause safety)
+  - [subquery_push_qual](subquery_push_qual.md) (push clause into subquery)
+  - [check_and_push_window_quals](../c/check_and_push_window_quals.md) (attempt window run conditions)
+  - [remove_unused_subquery_outputs](../r/remove_unused_subquery_outputs.md) (optimize subquery output)
+  - [subquery_planner](subquery_planner.md) (plan the subquery)
   - fetch_upper_rel (get final relation from subquery)
-  - set_dummy_rel_pathlist (handle empty subqueries)
-  - set_subquery_size_estimates (set size estimates)
-  - convert_subquery_pathkeys (convert pathkeys to outer context)
-  - create_subqueryscan_path (create SubqueryScan paths)
-  - add_path, add_partial_path (add paths to relation)
+  - [set_dummy_rel_pathlist](set_dummy_rel_pathlist.md) (handle empty subqueries)
+  - [set_subquery_size_estimates](set_subquery_size_estimates.md) (set size estimates)
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md) (convert pathkeys to outer context)
+  - [create_subqueryscan_path](../c/create_subqueryscan_path.md) (create SubqueryScan paths)
+  - [add_path](../a/add_path.md), add_partial_path (add paths to relation)
 - Called from (representative examples):
   - pushdown_safe_type
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within allpaths.c

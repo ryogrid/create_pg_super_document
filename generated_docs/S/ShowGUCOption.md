@@ -32,16 +32,16 @@ The function processes each variable type differently:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_int_from_base_unit
+  - [convert_int_from_base_unit](../c/convert_int_from_base_unit.md)
   - convert_real_from_base_unit
   - config_enum_lookup_by_value
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - snprintf
 - Called from (representative examples):
-  - ReportGUCOption
-  - GetConfigOptionByName
+  - [ReportGUCOption](../R/ReportGUCOption.md)
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
   - ShowAllGUCConfig
-  - GetConfigOptionValues
+  - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
 
 ## Notes and Other Information
 - The function uses a local buffer of 256 characters for numeric formatting

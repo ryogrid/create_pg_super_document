@@ -28,15 +28,15 @@ For domain-typed columns, it strips CoerceToDomain nodes during processing and r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_assignment_input
+  - [get_assignment_input](../g/get_assignment_input.md)
   - CoerceToDomain
   - FieldStore
   - SubscriptingRef
-  - equal
-  - list_concat_copy
-  - flatCopyTargetEntry
+  - [equal](../e/equal.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
 - Called from (representative examples):
-  - rewriteTargetListIU
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md)
 
 ## Notes and Other Information
 - Only allows multiple assignments if all are FieldStore or SubscriptingRef operations

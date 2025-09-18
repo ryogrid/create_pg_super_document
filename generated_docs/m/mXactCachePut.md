@@ -26,16 +26,16 @@ To prevent unbounded cache growth, the function implements a simple LRU eviction
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (memory context creation)
-  - MemoryContextAlloc (cache entry allocation)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (cache entry allocation)
   - memcpy (member data copying)
   - qsort (with mxactMemberComparator for sorting)
-  - dclist_push_head, dclist_count, dclist_tail_node, dclist_delete_from (doubly-linked list operations)
-  - pfree (memory cleanup for evicted entries)
+  - [dclist_push_head](../d/dclist_push_head.md), dclist_count, dclist_tail_node, dclist_delete_from (doubly-linked list operations)
+  - [pfree](../p/pfree.md) (memory cleanup for evicted entries)
   - debug_elog3, debug_elog2 (debugging output)
-  - mxid_to_string (debugging helper)
+  - [mxid_to_string](mxid_to_string.md) (debugging helper)
 - Called from (representative examples):
-  - MultiXactIdCreateFromMembers (caching newly created MultiXacts)
-  - GetMultiXactIdMembers (caching retrieved MultiXact data)
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md) (caching newly created MultiXacts)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md) (caching retrieved MultiXact data)
   - debug_elog6 (debugging context)
 
 ## Notes and Other Information

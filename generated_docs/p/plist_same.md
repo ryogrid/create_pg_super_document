@@ -27,10 +27,10 @@ The algorithm works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (geometric point type)
-  - point_eq_point (point equality comparison function)
+  - [Point](../P/Point.md) (geometric point type)
+  - [point_eq_point](point_eq_point.md) (point equality comparison function)
 - Called from (representative examples):
-  - poly_same (polygon equality comparison)
+  - [poly_same](poly_same.md) (polygon equality comparison)
   - PATH_CLOSED (path operations)
 
 ## Notes and Other Information

@@ -23,8 +23,8 @@ The function uses `float8out_internal` to ensure consistent formatting of floati
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_LINE_P`: Extracts LINE pointer from function arguments
-  - `float8out_internal`: Converts float8 values to string representation
-  - `psprintf`: PostgreSQL's sprintf equivalent for formatted string creation
+  - `[float8out_internal](../f/float8out_internal.md)`: Converts float8 values to string representation
+  - `[psprintf](../p/psprintf.md)`: PostgreSQL's sprintf equivalent for formatted string creation
   - `PG_RETURN_CSTRING`: Returns C-string as Datum
 - Called from (representative examples):
   - PostgreSQL type output system (no direct function references found)

@@ -29,8 +29,8 @@ The structure supports two complementary notice handling mechanisms:
   - PQnoticeReceiver (function pointer type)
   - PQnoticeProcessor (function pointer type)
 - Called from (representative examples):
-  - pqInternalNotice (processes notices using the hooks)
-  - pg_result struct (contains noticeHooks member)
+  - [pqInternalNotice](../p/pqInternalNotice.md) (processes notices using the hooks)
+  - [pg_result](../p/pg_result.md) struct (contains noticeHooks member)
   - pg_conn struct (contains noticeHooks member)
 
 ## Notes and Other Information

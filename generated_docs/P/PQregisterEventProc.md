@@ -22,8 +22,8 @@ PQregisterEventProc allows applications to register callback functions that will
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGEventRegister (event data structure)
-  - PGEvent (event array element type)
+  - [PGEventRegister](PGEventRegister.md) (event data structure)
+  - [PGEvent](PGEvent.md) (event array element type)
   - realloc/malloc (for dynamic array management)
   - PGEVT_REGISTER (registration event type)
 - Called from (representative examples):

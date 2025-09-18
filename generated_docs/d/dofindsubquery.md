@@ -33,12 +33,12 @@ The function includes safeguards against stack overflow and supports query cance
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
   - CHECK_FOR_INTERRUPTS (query cancellation support)
-  - findeq (pattern matching at current node)
+  - [findeq](../f/findeq.md) (pattern matching at current node)
   - QTNFree (memory cleanup for removed nodes)
-  - dofindsubquery (recursive self-call)
+  - [dofindsubquery](dofindsubquery.md) (recursive self-call)
 - Called from (representative examples):
-  - findsubquery
-  - dofindsubquery (recursive calls)
+  - [findsubquery](../f/findsubquery.md)
+  - [dofindsubquery](dofindsubquery.md) (recursive calls)
 
 ## Notes and Other Information
 - Implements recursive tree traversal with proper stack depth checking to prevent overflow

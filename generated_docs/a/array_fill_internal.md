@@ -33,18 +33,18 @@ Key internal variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_contains_nulls (validates no nulls in dimension/bounds arrays)
+  - [array_contains_nulls](array_contains_nulls.md) (validates no nulls in dimension/bounds arrays)
   - ArrayGetNItems (calculates total element count)
   - ArrayCheckBounds (validates array bounds)
-  - construct_empty_array (handles zero-element case)
-  - get_typlenbyvalalign (retrieves element type properties)
-  - create_array_envelope (creates array structure)
+  - [construct_empty_array](../c/construct_empty_array.md) (handles zero-element case)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md) (retrieves element type properties)
+  - [create_array_envelope](../c/create_array_envelope.md) (creates array structure)
   - ArrayCastAndSet (populates array elements)
   - PG_DETOAST_DATUM (ensures data is not compressed)
   - att_addlength_datum, att_align_nominal (calculates aligned element sizes)
 - Called from (representative examples):
-  - array_fill_with_lower_bounds
-  - array_fill
+  - [array_fill_with_lower_bounds](array_fill_with_lower_bounds.md)
+  - [array_fill](array_fill.md)
 
 ## Notes and Other Information
 - Static function providing internal implementation for public array_fill functions

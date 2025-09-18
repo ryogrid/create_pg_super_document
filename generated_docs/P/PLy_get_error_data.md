@@ -27,10 +27,10 @@ The function systematically extracts string attributes from the Python exception
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_get_sqlerrcode: Extracts SQL error code from exception
-  - get_string_attr: Helper function to extract string attributes from Python objects
+  - [PLy_get_sqlerrcode](PLy_get_sqlerrcode.md): Extracts SQL error code from exception
+  - [get_string_attr](../g/get_string_attr.md): Helper function to extract string attributes from Python objects
 - Called from (representative examples):
-  - PLy_elog_impl: Main error logging function for general PostgreSQL errors
+  - [PLy_elog_impl](PLy_elog_impl.md): Main error logging function for general PostgreSQL errors
 
 ## Notes and Other Information
 - Designed for general Error exceptions, not SPI-specific errors

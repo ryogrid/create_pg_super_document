@@ -24,13 +24,13 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eval_const_expressions_context
-  - eval_const_expressions_mutator
+  - [eval_const_expressions_context](eval_const_expressions_context.md)
+  - [eval_const_expressions_mutator](eval_const_expressions_mutator.md)
 - Called from (representative examples):  
-  - preprocess_expression (planner.c:1202)
-  - expression_planner (planner.c:6666)
-  - get_relation_constraints (plancat.c:1315)
-  - apply_child_basequals (inherit.c:870)
+  - [preprocess_expression](../p/preprocess_expression.md) (planner.c:1202)
+  - [expression_planner](expression_planner.md) (planner.c:6666)
+  - [get_relation_constraints](../g/get_relation_constraints.md) (plancat.c:1315)
+  - [apply_child_basequals](../a/apply_child_basequals.md) (inherit.c:870)
 
 ## Notes and Other Information
 - The function assumes the input tree has already been type-checked and contains only reasonable operators/functions

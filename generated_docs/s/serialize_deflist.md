@@ -17,18 +17,18 @@ This function transforms a PostgreSQL List of DefElem structures into a properly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
-  - defGetString
-  - quote_identifier
+  - [DefElem](../D/DefElem.md) (structure type)
+  - [defGetString](../d/defGetString.md)
+  - [quote_identifier](../q/quote_identifier.md)
   - Integer, Float (node types)
   - ESCAPE_STRING_SYNTAX
   - SQL_STR_DOUBLE
-  - lnext
+  - [lnext](../l/lnext.md)
   - cstring_to_text_with_len
   - initStringInfo, appendStringInfo, appendStringInfoString, appendStringInfoChar
 - Called from (representative examples):
-  - DefineTSDictionary
-  - AlterTSDictionary
+  - [DefineTSDictionary](../D/DefineTSDictionary.md)
+  - [AlterTSDictionary](../A/AlterTSDictionary.md)
 
 ## Notes and Other Information
 - Returns a TEXT datum that can be stored directly in PostgreSQL catalog tables

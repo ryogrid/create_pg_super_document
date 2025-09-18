@@ -21,14 +21,14 @@ The function passes 0 as the S_size parameter to SN_close_env, which corresponds
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct callers found in the current codebase
 
 ## Notes and Other Information
 - Part of the Snowball stemming library integrated into PostgreSQL for full-text search functionality
 - The parameter 0 passed to SN_close_env corresponds to the S_size (string arrays count) that was used during environment creation
-- The function is safe to call with NULL pointer - SN_close_env handles NULL input gracefully
+- The function is safe to call with NULL pointer - [SN_close_env](../S/SN_close_env.md) handles NULL input gracefully
 - This function should always be called to clean up environments created by swedish_ISO_8859_1_create_env to prevent memory leaks
 - The function is declared as extern, making it available for external linkage
 - Proper cleanup includes freeing the main string buffer (z->p), integer array (z->I), and the environment structure itself

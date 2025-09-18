@@ -27,15 +27,15 @@ The function handles all the complexity of ICU string conversion, including prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_icu_converter (ensures ICU converter is ready)
-  - uchar_length (calculates required buffer size)
-  - uchar_convert (performs the actual conversion)
-  - palloc (PostgreSQL memory allocation)
+  - [init_icu_converter](init_icu_converter.md) (ensures ICU converter is ready)
+  - [uchar_length](../u/uchar_length.md) (calculates required buffer size)
+  - [uchar_convert](../u/uchar_convert.md) (performs the actual conversion)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
 - Called from (representative examples):
-  - str_tolower (string case conversion functions)
-  - str_toupper (string case conversion functions) 
-  - str_initcap (string capitalization functions)
-  - make_icu_collator (collation setup)
+  - [str_tolower](../s/str_tolower.md) (string case conversion functions)
+  - [str_toupper](../s/str_toupper.md) (string case conversion functions) 
+  - [str_initcap](../s/str_initcap.md) (string capitalization functions)
+  - [make_icu_collator](../m/make_icu_collator.md) (collation setup)
   - pg_locale_t (locale-related operations)
 
 ## Notes and Other Information

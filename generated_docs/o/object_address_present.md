@@ -21,13 +21,13 @@ A key feature of this function is its intelligent subobject handling: if the tar
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddresses (struct type)
-  - ObjectAddress (struct type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
 - Called from (representative examples):
-  - findDependentObjects (src/backend/catalog/dependency.c:617)
-  - AlterConstraintNamespaces (src/backend/catalog/pg_constraint.c:784)
-  - AlterRelationNamespaceInternal (src/backend/commands/tablecmds.c:17342)
-  - AlterIndexNamespaces (src/backend/commands/tablecmds.c:17417)
-  - AlterTypeNamespaceInternal (src/backend/commands/typecmds.c:4177)
+  - [findDependentObjects](../f/findDependentObjects.md) (src/backend/catalog/dependency.c:617)
+  - [AlterConstraintNamespaces](../A/AlterConstraintNamespaces.md) (src/backend/catalog/pg_constraint.c:784)
+  - [AlterRelationNamespaceInternal](../A/AlterRelationNamespaceInternal.md) (src/backend/commands/tablecmds.c:17342)
+  - [AlterIndexNamespaces](../A/AlterIndexNamespaces.md) (src/backend/commands/tablecmds.c:17417)
+  - [AlterTypeNamespaceInternal](../A/AlterTypeNamespaceInternal.md) (src/backend/commands/typecmds.c:4177)
 
 ## Notes and Other Information
 - The function uses reverse iteration (i = numrefs - 1 to i >= 0) which suggests that recently added objects are more likely to be found, optimizing for common access patterns

@@ -35,17 +35,17 @@ The function includes special handling for NOT-clauses:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - predicate_classify (classifies expressions as AND/OR/ATOM)
-  - predicate_refuted_by_simple_clause (handles atom R=> atom base cases)
-  - predicate_implied_by_recurse (used for NOT-clause handling)
-  - extract_not_arg (extracts argument from NOT-type clauses)
-  - extract_strong_not_arg (extracts argument from strong NOT clauses)
+  - [predicate_classify](predicate_classify.md) (classifies expressions as AND/OR/ATOM)
+  - [predicate_refuted_by_simple_clause](predicate_refuted_by_simple_clause.md) (handles atom R=> atom base cases)
+  - [predicate_implied_by_recurse](predicate_implied_by_recurse.md) (used for NOT-clause handling)
+  - [extract_not_arg](../e/extract_not_arg.md) (extracts argument from NOT-type clauses)
+  - [extract_strong_not_arg](../e/extract_strong_not_arg.md) (extracts argument from strong NOT clauses)
   - iterate_begin/iterate_end (macros for iterating over AND/OR components)
-  - PredIterInfoData (structure for iteration state)
-  - PredClass enumeration (CLASS_AND, CLASS_OR, CLASS_ATOM)
+  - [PredIterInfoData](../P/PredIterInfoData.md) (structure for iteration state)
+  - [PredClass](../P/PredClass.md) enumeration (CLASS_AND, CLASS_OR, CLASS_ATOM)
 - Called from (representative examples):
-  - predicate_refuted_by (top-level entry point)
-  - predicate_refuted_by_recurse (recursive self-calls)
+  - [predicate_refuted_by](predicate_refuted_by.md) (top-level entry point)
+  - [predicate_refuted_by_recurse](predicate_refuted_by_recurse.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Static function - internal implementation detail of predtest.c

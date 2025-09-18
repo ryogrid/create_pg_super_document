@@ -23,7 +23,7 @@ The function allocates a buffer on the stack with size DOUBLE_SHORTEST_DECIMAL_L
 ## Dependencies
 - Functions called/Symbols referenced:
   - DOUBLE_SHORTEST_DECIMAL_LEN (constant defining buffer size for shortest decimal representation)
-  - double_to_shortest_decimal_buf (utility function for exact double-to-decimal conversion)
+  - [double_to_shortest_decimal_buf](../d/double_to_shortest_decimal_buf.md) (utility function for exact double-to-decimal conversion)
   - appendStringInfoString (for appending the resulting decimal string)
 
 - Called from (representative examples):

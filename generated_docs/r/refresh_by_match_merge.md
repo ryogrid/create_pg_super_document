@@ -30,13 +30,13 @@ The function leverages the behavior of NULLs in equality tests and UNIQUE indexe
 - Functions called/Symbols referenced:
   - table_open, table_close
   - SPI_connect, SPI_exec, SPI_execute, SPI_finish
-  - RelationGetIndexList, index_open, index_close
-  - is_usable_unique_index
-  - OpenMatViewIncrementalMaintenance, CloseMatViewIncrementalMaintenance
+  - [RelationGetIndexList](../R/RelationGetIndexList.md), index_open, index_close
+  - [is_usable_unique_index](../i/is_usable_unique_index.md)
+  - [OpenMatViewIncrementalMaintenance](../O/OpenMatViewIncrementalMaintenance.md), CloseMatViewIncrementalMaintenance
   - quote_qualified_identifier, generate_operator_clause
-  - SetUserIdAndSecContext
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
 - Called from (representative examples):
-  - RefreshMatViewByOid
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)
 
 ## Notes and Other Information
 - Requires at least one usable unique index on the materialized view to function correctly

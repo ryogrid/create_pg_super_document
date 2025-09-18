@@ -25,11 +25,11 @@ The algorithm aims for approximately two bytes per element to achieve the target
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `my_bloom_power`: Calculates optimal power-of-two bitset size
-  - `optimal_k`: Determines optimal number of hash functions
-  - `palloc0`: PostgreSQL memory allocation with zero initialization
+  - `[my_bloom_power](../m/my_bloom_power.md)`: Calculates optimal power-of-two bitset size
+  - `[optimal_k](../o/optimal_k.md)`: Determines optimal number of hash functions
+  - `[palloc0](../p/palloc0.md)`: PostgreSQL memory allocation with zero initialization
   - `BITS_PER_BYTE`: Constant for byte-to-bit conversion
-  - `bloom_filter`: The filter structure type
+  - `[bloom_filter](bloom_filter.md)`: The filter structure type
 
 - Called from (representative examples):
   - `roles_list_append`: ACL role list processing

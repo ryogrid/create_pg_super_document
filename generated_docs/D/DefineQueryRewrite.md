@@ -25,19 +25,19 @@ DefineQueryRewrite implements the comprehensive logic for creating rewrite rules
 - Functions called/Symbols referenced:
   - table_open
   - AccessExclusiveLock
-  - errdetail_relkind_not_supported
-  - IsSystemRelation
-  - object_ownercheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - getInsertSelectQuery
-  - checkRuleResultList
-  - InsertRule
-  - SetRelationRuleStatus
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [IsSystemRelation](../I/IsSystemRelation.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [getInsertSelectQuery](../g/getInsertSelectQuery.md)
+  - [checkRuleResultList](../c/checkRuleResultList.md)
+  - [InsertRule](../I/InsertRule.md)
+  - [SetRelationRuleStatus](../S/SetRelationRuleStatus.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - DefineViewRules
-  - DefineRule
+  - [DefineViewRules](DefineViewRules.md)
+  - [DefineRule](DefineRule.md)
 
 ## Notes and Other Information
 - Uses AccessExclusiveLock on the target relation to prevent concurrent access during rule definition

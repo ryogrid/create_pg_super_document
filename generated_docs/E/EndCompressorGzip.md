@@ -22,10 +22,10 @@ The function acts as the public interface for ending gzip compression operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeflateCompressorEnd (for actual compression cleanup)
+  - [DeflateCompressorEnd](../D/DeflateCompressorEnd.md) (for actual compression cleanup)
 - Types referenced:
-  - ArchiveHandle
-  - CompressorState
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [CompressorState](../C/CompressorState.md)
 - Called from (representative examples):
   - No direct references found (likely used via function pointer in compression interface)
 

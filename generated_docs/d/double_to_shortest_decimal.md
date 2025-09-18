@@ -19,8 +19,8 @@ This design separates memory management concerns from the conversion algorithm, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc`: PostgreSQL memory allocation function (malloc outside backend)
-  - `double_to_shortest_decimal_buf`: Null-terminated string conversion function
+  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function (malloc outside backend)
+  - `[double_to_shortest_decimal_buf](double_to_shortest_decimal_buf.md)`: Null-terminated string conversion function
   - `DOUBLE_SHORTEST_DECIMAL_LEN`: Buffer size constant for allocation
 - Called from:
   - Referenced by `DOUBLE_SHORTEST_DECIMAL_LEN` constant definition (indicating usage in size calculations)

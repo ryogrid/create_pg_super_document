@@ -22,11 +22,11 @@ The function internally calls attach_internal() with the provided memory locatio
 - Functions called/Symbols referenced:
   - attach_internal
   - on_dsm_detach
-  - dsa_on_dsm_detach_release_in_place
+  - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
   - DSA_HANDLE_INVALID
 - Called from (representative examples):
-  - AttachSession (src/backend/access/common/session.c:174)
-  - ParallelQueryMain (src/backend/executor/execParallel.c:1434)
+  - [AttachSession](../A/AttachSession.md) (src/backend/access/common/session.c:174)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md) (src/backend/executor/execParallel.c:1434)
   - pgstat_attach_shmem (src/backend/utils/activity/pgstat_shmem.c:227)
 
 ## Notes and Other Information

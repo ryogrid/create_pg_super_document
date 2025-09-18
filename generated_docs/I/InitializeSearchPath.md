@@ -22,13 +22,13 @@ This function is called during InitPostgres to properly initialize the search pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - list_make1_oid
-  - GetUserId
-  - CacheRegisterSyscacheCallback
-  - InvalidationCallback
+  - [GetUserId](../G/GetUserId.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
+  - [InvalidationCallback](InvalidationCallback.md)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](InitPostgres.md)
   - RangeVarGetRelid (via namespace.h)
 
 ## Notes and Other Information

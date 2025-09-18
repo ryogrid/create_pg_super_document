@@ -32,11 +32,11 @@ The function sets both dump (what to dump for the schema itself) and dump_contai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_oid_list_member (check membership in include/exclude lists)
-  - checkExtensionMembership (check if schema belongs to extension)
+  - [simple_oid_list_member](simple_oid_list_member.md) (check membership in include/exclude lists)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md) (check if schema belongs to extension)
   - Various DUMP_COMPONENT_* constants (NONE, ALL, ACL, DEFINITION, COMMENT)
 - Called from (representative examples):
-  - getNamespaces
+  - [getNamespaces](../g/getNamespaces.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c used during the dump planning phase

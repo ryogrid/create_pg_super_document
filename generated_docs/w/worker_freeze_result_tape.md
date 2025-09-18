@@ -22,14 +22,14 @@ This function is called by worker processes after they have completed their sort
   - LogicalTapeFreeze
   - SpinLockAcquire
   - SpinLockRelease
-  - pfree
+  - [pfree](../p/pfree.md)
   - WORKER (macro)
   - Tuplesortstate
   - Sharedsort
   - TapeShare
 - Called from (representative examples):
   - mergeruns
-  - worker_nomergeruns
+  - [worker_nomergeruns](worker_nomergeruns.md)
 
 ## Notes and Other Information
 - Function is marked as static, indicating internal use within the tuplesort module

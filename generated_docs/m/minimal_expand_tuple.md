@@ -20,7 +20,7 @@ MinimalTuples are more compact representations used primarily for in-memory tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_tuple (internal expansion function)
+  - [expand_tuple](../e/expand_tuple.md) (internal expansion function)
   - MinimalTuple (return type)
 - Called from (representative examples):
   - HeapTupleClearHeapOnly

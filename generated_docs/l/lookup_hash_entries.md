@@ -17,21 +17,21 @@ This function processes the current input tuple by looking it up in hash tables 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - select_current_set
-  - prepare_hash_slot
+  - [select_current_set](../s/select_current_set.md)
+  - [prepare_hash_slot](../p/prepare_hash_slot.md)
   - LookupTupleHashEntry
-  - initialize_hash_entry
-  - hashagg_spill_init
-  - hashagg_spill_tuple
-  - AggState
-  - AggStatePerGroup
-  - AggStatePerHash
-  - TupleHashTable
-  - TupleHashEntry
-  - HashAggSpill
+  - [initialize_hash_entry](../i/initialize_hash_entry.md)
+  - [hashagg_spill_init](../h/hashagg_spill_init.md)
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
+  - [AggState](../A/AggState.md)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md)
+  - [AggStatePerHash](../A/AggStatePerHash.md)
+  - [TupleHashTable](../T/TupleHashTable.md)
+  - [TupleHashEntry](../T/TupleHashEntry.md)
+  - [HashAggSpill](../H/HashAggSpill.md)
 - Called from (representative examples):
-  - agg_retrieve_direct
-  - agg_fill_hash_table
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_fill_hash_table](../a/agg_fill_hash_table.md)
 
 ## Notes and Other Information
 - The function may reset tmpcontext during hash entry lookup operations

@@ -20,11 +20,11 @@ The function serves as a bridge between Pythons object system and PostgreSQLs st
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_Str (Python C API)
-  - PLyUnicode_AsString (PL/Python utility)
-  - pstrdup (PostgreSQL memory management)
+  - [PLyUnicode_AsString](../P/PLyUnicode_AsString.md) (PL/Python utility)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL memory management)
   - Py_DECREF (Python C API)
 - Called from (representative examples):
-  - PLy_output (multiple times for various error message components)
+  - [PLy_output](../P/PLy_output.md) (multiple times for various error message components)
 
 ## Notes and Other Information
 - Returns NULL if the input object is NULL or if string conversion fails

@@ -24,7 +24,7 @@ The function extracts two Timestamp arguments from the PostgreSQL function call 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP (PostgreSQL function call interface macro)
-  - timestamp_cmp_internal (internal timestamp comparison function)
+  - [timestamp_cmp_internal](timestamp_cmp_internal.md) (internal timestamp comparison function)
   - PG_RETURN_TIMESTAMP (PostgreSQL return value macro)
   - Timestamp (timestamp data type)
 - Called from (representative examples):

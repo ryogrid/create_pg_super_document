@@ -28,15 +28,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_pgpid
-  - postmaster_is_alive
-  - readfile
-  - free_readfile
+  - [get_pgpid](../g/get_pgpid.md)
+  - [postmaster_is_alive](../p/postmaster_is_alive.md)
+  - [readfile](../r/readfile.md)
+  - [free_readfile](../f/free_readfile.md)
   - printf/_()
   - puts
   - exit
 - Called from (representative examples):
-  - main (src/bin/pg_ctl/pg_ctl.c:2465)
+  - [main](../m/main.md) (src/bin/pg_ctl/pg_ctl.c:2465)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within pg_ctl.c

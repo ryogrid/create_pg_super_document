@@ -28,10 +28,10 @@ The function iterates through each attribute position and compares the correspon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - FunctionCall2Coll
+  - [fmgr_info](../f/fmgr_info.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
-  - CheckIndexCompatible
+  - [CheckIndexCompatible](CheckIndexCompatible.md)
 
 ## Notes and Other Information
 - Uses C collation (C_COLLATION_OID) to enforce binary equivalence of text values

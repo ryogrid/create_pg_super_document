@@ -38,7 +38,7 @@ The structure manages various aspects of SQL tokenization including buffer manag
   - ScanKeywordList
   - YYLTYPE
 - Called from (representative examples):
-  - base_yy_extra_type
+  - [base_yy_extra_type](../b/base_yy_extra_type.md)
 
 ## Notes and Other Information
 This structure is fundamental to PostgreSQL's lexical analysis system and must be carefully maintained to ensure proper SQL parsing. The literalbuf mechanism allows for efficient handling of complex string literals that require multiple lexer rules. The dollar-quote support enables PostgreSQL's extended string quoting functionality. Scanner settings can be modified after initialization to override GUC-based defaults when needed.

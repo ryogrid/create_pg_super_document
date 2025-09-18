@@ -20,18 +20,18 @@ When not in check mode, the function creates a "reindex_hash.sql" script contain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting)
-  - connectToServer (database connection)
-  - executeQueryOrDie (SQL query execution)
+  - [prep_status](../p/prep_status.md) (status reporting)
+  - [connectToServer](../c/connectToServer.md) (database connection)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL query execution)
   - fopen_priv (secure file opening)
-  - PQExpBufferData, initPQExpBuffer, appendPsqlMetaConnect, termPQExpBuffer (query buffer management)
-  - quote_identifier (SQL identifier quoting)
-  - PQfinish (connection cleanup)
+  - [PQExpBufferData](../P/PQExpBufferData.md), initPQExpBuffer, appendPsqlMetaConnect, termPQExpBuffer (query buffer management)
+  - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
   - report_status, pg_log (logging functions)
-  - check_ok (status completion)
+  - [check_ok](../c/check_ok.md) (status completion)
 - Called from (representative examples):
-  - check_and_dump_old_cluster (during upgrade checks)
-  - issue_warnings_and_set_wal_level (during upgrade process)
+  - [check_and_dump_old_cluster](../c/check_and_dump_old_cluster.md) (during upgrade checks)
+  - [issue_warnings_and_set_wal_level](../i/issue_warnings_and_set_wal_level.md) (during upgrade process)
 
 ## Notes and Other Information
 - Specifically targets the hash index format change between PostgreSQL 9.6 and 10.0

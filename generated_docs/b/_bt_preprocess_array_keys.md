@@ -34,15 +34,15 @@ The function returns a modified copy of the scan keys with array keys processed,
 - Functions called/Symbols referenced:
   - BTScanOpaque
   - AllocSetContextCreate
-  - MemoryContextReset
-  - MemoryContextSwitchTo
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - DatumGetArrayTypeP
-  - get_typlenbyvalalign
-  - deconstruct_array
-  - _bt_find_extreme_element
-  - _bt_setup_array_cmp
-  - _bt_sort_array_elements
-  - _bt_merge_arrays
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [_bt_find_extreme_element](_bt_find_extreme_element.md)
+  - [_bt_setup_array_cmp](_bt_setup_array_cmp.md)
+  - [_bt_sort_array_elements](_bt_sort_array_elements.md)
+  - [_bt_merge_arrays](_bt_merge_arrays.md)
   - ARR_ELEMTYPE
   - BTLessStrategyNumber, BTEqualStrategyNumber, BTGreaterStrategyNumber
   - SK_SEARCHARRAY, SK_ISNULL
@@ -50,7 +50,7 @@ The function returns a modified copy of the scan keys with array keys processed,
   - InvalidStrategy
 
 - Called from (representative examples):
-  - _bt_preprocess_keys (main preprocessing entry point)
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md) (main preprocessing entry point)
 
 ## Notes and Other Information
 - Returns NULL if no array keys are present or if the scan qualification becomes unsatisfiable

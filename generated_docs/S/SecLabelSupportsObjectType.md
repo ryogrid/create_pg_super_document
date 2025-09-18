@@ -22,7 +22,7 @@ The supported object types include core database objects like tables, views, fun
   - ObjectType (enum type)
   - Various OBJECT_* constants (OBJECT_TABLE, OBJECT_VIEW, etc.)
 - Called from (representative examples):
-  - ExecSecLabelStmt
+  - [ExecSecLabelStmt](../E/ExecSecLabelStmt.md)
 
 ## Notes and Other Information
 - The function is intentionally implemented without a default case in the switch statement to ensure compiler warnings if new ObjectType values are added without being explicitly handled

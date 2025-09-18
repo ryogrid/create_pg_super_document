@@ -31,21 +31,21 @@ The function also handles inequality operations through the negate parameter, co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode
+  - [get_opcode](../g/get_opcode.md)
   - statistic_proc_security_check
-  - get_attstatsslot
-  - fmgr_info
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [fmgr_info](../f/fmgr_info.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - get_variable_numdistinct
-  - free_attstatsslot
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - CLAMP_PROBABILITY
   - STATISTIC_KIND_MCV, ATTSTATSSLOT_VALUES, ATTSTATSSLOT_NUMBERS (constants)
 - Called from (representative examples):
-  - eqsel_internal
+  - [eqsel_internal](../e/eqsel_internal.md)
   - boolvarsel
-  - patternsel_common
-  - prefix_selectivity
+  - [patternsel_common](../p/patternsel_common.md)
+  - [prefix_selectivity](../p/prefix_selectivity.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/selfuncs.c:296-466

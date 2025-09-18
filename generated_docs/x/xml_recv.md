@@ -19,17 +19,17 @@ This function handles the binary protocol reception of XML data from clients. Un
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER
-  - pq_getmsgbytes
-  - palloc
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md)
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - VARDATA
   - parse_xml_decl
-  - xmlChar_to_encoding
+  - [xmlChar_to_encoding](xmlChar_to_encoding.md)
   - xml_parse
   - xmlFreeDoc
-  - pg_any_to_server
+  - [pg_any_to_server](../p/pg_any_to_server.md)
   - cstring_to_text
-  - pfree
+  - [pfree](../p/pfree.md)
   - PG_RETURN_XML_P
   - NO_XML_SUPPORT (fallback when libxml2 not available)
 - Called from (representative examples):

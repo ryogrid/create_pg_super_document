@@ -31,15 +31,15 @@ For outer joins involving default partitions, the function ensures proper handli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - merge_matching_partitions
-  - merge_partition_with_dummy
+  - [merge_matching_partitions](../m/merge_matching_partitions.md)
+  - [merge_partition_with_dummy](../m/merge_partition_with_dummy.md)
   - IS_OUTER_JOIN (macro)
   - JOIN_FULL, JOIN_RIGHT (enum values)
-  - PartitionMap, JoinType (data types)
+  - [PartitionMap](../P/PartitionMap.md), JoinType (data types)
 - Called from:
   - compare_range_bounds (src/backend/partitioning/partbounds.c:137)
-  - merge_list_bounds (src/backend/partitioning/partbounds.c:1388)
-  - merge_range_bounds (src/backend/partitioning/partbounds.c:1725)
+  - [merge_list_bounds](../m/merge_list_bounds.md) (src/backend/partitioning/partbounds.c:1388)
+  - [merge_range_bounds](../m/merge_range_bounds.md) (src/backend/partitioning/partbounds.c:1725)
 
 ## Notes and Other Information
 - Returns the index of the successfully merged partition, or -1 if merging fails

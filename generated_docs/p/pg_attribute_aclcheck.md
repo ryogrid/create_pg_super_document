@@ -20,14 +20,14 @@ This is a wrapper function that provides column-level access control checking in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_attribute_aclcheck_ext
+  - [pg_attribute_aclcheck_ext](pg_attribute_aclcheck_ext.md)
 - Called from (representative examples):
-  - BuildIndexValueDescription
-  - checkFkeyPermissions
-  - ExecCheckOneRelPerms
-  - ExecCheckPermissionsModified
-  - ExecBuildSlotValueDescription
-  - ri_ReportViolation
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md)
+  - [checkFkeyPermissions](../c/checkFkeyPermissions.md)
+  - [ExecCheckOneRelPerms](../E/ExecCheckOneRelPerms.md)
+  - [ExecCheckPermissionsModified](../E/ExecCheckPermissionsModified.md)
+  - [ExecBuildSlotValueDescription](../E/ExecBuildSlotValueDescription.md)
+  - [ri_ReportViolation](../r/ri_ReportViolation.md)
   - all_rows_selectable
 
 ## Notes and Other Information  

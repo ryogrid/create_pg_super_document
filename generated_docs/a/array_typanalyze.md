@@ -19,10 +19,10 @@ The function stores all necessary type information in an ArrayAnalyzeExtraData s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - std_typanalyze
-  - get_base_element_type
-  - lookup_type_cache
-  - compute_array_stats
+  - [std_typanalyze](../s/std_typanalyze.md)
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [compute_array_stats](../c/compute_array_stats.md)
   - VacAttrStats
   - ArrayAnalyzeExtraData
 - Called from (representative examples):

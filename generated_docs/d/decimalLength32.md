@@ -24,9 +24,9 @@ This approach is significantly faster than repeated division by 10, making it su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos32
+  - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)
 - Called from (representative examples):
-  - pg_ultoa_n
+  - [pg_ultoa_n](../p/pg_ultoa_n.md)
 
 ## Notes and Other Information
 - The function is marked  for optimal performance in numeric conversion routines

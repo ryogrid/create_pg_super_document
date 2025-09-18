@@ -31,10 +31,10 @@ This mechanism supports PostgreSQL's asynchronous I/O operations, background wor
 
 - Called from (representative examples):
   - WaitEventSetWait (main event waiting function)
-  - WaitLatch (latch-specific waiting)
-  - WaitLatchOrSocket (combined latch and socket waiting)
-  - ServerLoop (postmaster main loop)
-  - WalSndWait (WAL sender waiting)
+  - [WaitLatch](WaitLatch.md) (latch-specific waiting)
+  - [WaitLatchOrSocket](WaitLatchOrSocket.md) (combined latch and socket waiting)
+  - [ServerLoop](../S/ServerLoop.md) (postmaster main loop)
+  - [WalSndWait](WalSndWait.md) (WAL sender waiting)
   - Various executor and libpq functions for async operations
 
 ## Key Functions Operating on WaitEvent
@@ -53,7 +53,7 @@ This mechanism supports PostgreSQL's asynchronous I/O operations, background wor
 - : Exit immediately on postmaster death
 
 ## Notes and Other Information
-- WaitEvent structures are typically allocated as arrays to receive multiple simultaneous events
+- [WaitEvent](WaitEvent.md) structures are typically allocated as arrays to receive multiple simultaneous events
 - The pos field allows efficient mapping back to the original event registration in the WaitEventSet
 - user_data provides a way for applications to associate context with events without additional lookups
 - On Windows, the reset field handles platform-specific event object management requirements

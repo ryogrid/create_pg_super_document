@@ -24,11 +24,11 @@ The function establishes a parent-child relationship by linking the new command 
   - CollectedCommand (struct type)
   - SCT_AlterTable (command type constant)  
   - copyObject (for deep copying the parse tree)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - AlterTableMoveAll (src/backend/commands/tablecmds.c:15537)
-  - ProcessUtilitySlow (multiple locations in src/backend/tcop/utility.c)
-  - ProcessUtilityForAlterTable (src/backend/tcop/utility.c:1985)
+  - [AlterTableMoveAll](../A/AlterTableMoveAll.md) (src/backend/commands/tablecmds.c:15537)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (multiple locations in src/backend/tcop/utility.c)
+  - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md) (src/backend/tcop/utility.c:1985)
 
 ## Notes and Other Information
 - Part of the ALTER TABLE command collection framework for event triggers

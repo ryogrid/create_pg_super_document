@@ -26,14 +26,14 @@ The function prioritizes crash prevention over memory leak prevention by nullify
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LargeObjectDesc (struct type)
+  - [LargeObjectDesc](../L/LargeObjectDesc.md) (struct type)
   - UnregisterSnapshotFromOwner
-  - inv_close
+  - [inv_close](../i/inv_close.md)
 - Called from (representative examples):
-  - be_lo_close (src/backend/libpq/be-fsstubs.c:139)
-  - be_lo_unlink (src/backend/libpq/be-fsstubs.c:341)
-  - AtEOXact_LargeObject (src/backend/libpq/be-fsstubs.c:621)
-  - AtEOSubXact_LargeObject (src/backend/libpq/be-fsstubs.c:665)
+  - [be_lo_close](../b/be_lo_close.md) (src/backend/libpq/be-fsstubs.c:139)
+  - [be_lo_unlink](../b/be_lo_unlink.md) (src/backend/libpq/be-fsstubs.c:341)
+  - [AtEOXact_LargeObject](../A/AtEOXact_LargeObject.md) (src/backend/libpq/be-fsstubs.c:621)
+  - [AtEOSubXact_LargeObject](../A/AtEOSubXact_LargeObject.md) (src/backend/libpq/be-fsstubs.c:665)
 
 ## Notes and Other Information
 - Static function with file-local scope, used internally by large object operations

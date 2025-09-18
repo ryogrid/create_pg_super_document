@@ -19,11 +19,11 @@ This function serves as the standard input conversion function for PostgreSQL's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (extract string argument)
-  - network_in (common parsing function)
+  - [network_in](../n/network_in.md) (common parsing function)
   - PG_RETURN_INET_P (return inet value)
 - Called from (representative examples):
   - PG_STAT_GET_ACTIVITY_COLS (statistics collection)
-  - pg_stat_get_backend_client_addr (backend client address retrieval)
+  - [pg_stat_get_backend_client_addr](../p/pg_stat_get_backend_client_addr.md) (backend client address retrieval)
 
 ## Notes and Other Information
 - This is a PostgreSQL built-in function that can be called from SQL

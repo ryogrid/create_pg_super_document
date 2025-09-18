@@ -26,12 +26,12 @@ The function supports three possible outcomes: finding blocks already cached (wi
   - RelationUsesLocalBuffers: Determines buffer pool type
   - RELATION_IS_OTHER_TEMP: Checks for cross-session temporary table access
   - PrefetchLocalBuffer: Handles local buffer prefetching
-  - PrefetchSharedBuffer: Handles shared buffer prefetching
+  - [PrefetchSharedBuffer](PrefetchSharedBuffer.md): Handles shared buffer prefetching
   - RelationGetSmgr: Gets storage manager handle
 - Called from (representative examples):
-  - index_delete_prefetch_buffer: Index tuple deletion optimization
-  - count_nondeletable_pages: Vacuum operation optimization
-  - BitmapPrefetch: Bitmap heap scan prefetching
+  - [index_delete_prefetch_buffer](../i/index_delete_prefetch_buffer.md): Index tuple deletion optimization
+  - [count_nondeletable_pages](../c/count_nondeletable_pages.md): Vacuum operation optimization
+  - [BitmapPrefetch](../B/BitmapPrefetch.md): Bitmap heap scan prefetching
 
 ## Notes and Other Information
 - Temporary tables from other sessions are explicitly blocked for security reasons

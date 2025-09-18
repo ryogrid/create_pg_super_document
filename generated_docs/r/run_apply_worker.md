@@ -26,19 +26,19 @@ This function takes no parameters but operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationOriginNameForLogicalRep: Generates standardized origin name
-  - StartTransactionCommand/CommitTransactionCommand: Transaction management
+  - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md): Generates standardized origin name
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand: Transaction management
   - replorigin_by_name/replorigin_create: Replication origin management
-  - replorigin_session_setup/replorigin_session_get_progress: Session origin tracking
+  - [replorigin_session_setup](replorigin_session_setup.md)/replorigin_session_get_progress: Session origin tracking
   - walrcv_connect/walrcv_identify_system: WAL receiver connection management
-  - set_apply_error_context_origin: Error context setup
-  - set_stream_options: Streaming configuration
-  - AllTablesyncsReady: Check table synchronization status
+  - [set_apply_error_context_origin](../s/set_apply_error_context_origin.md): Error context setup
+  - [set_stream_options](../s/set_stream_options.md): Streaming configuration
+  - [AllTablesyncsReady](../A/AllTablesyncsReady.md): Check table synchronization status
   - walrcv_startstreaming: Begin replication streaming
-  - UpdateTwoPhaseState: Update subscription's two-phase state
-  - start_apply: Main replication processing loop
+  - [UpdateTwoPhaseState](../U/UpdateTwoPhaseState.md): Update subscription's two-phase state
+  - [start_apply](../s/start_apply.md): Main replication processing loop
 - Called from:
-  - ApplyWorkerMain: Main entry point for apply worker process
+  - [ApplyWorkerMain](../A/ApplyWorkerMain.md): Main entry point for apply worker process
 
 ## Notes and Other Information
 - This is a static function, internal to the worker.c file

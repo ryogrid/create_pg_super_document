@@ -23,20 +23,20 @@ The Point type is extensively used throughout PostgreSQL's geometric operations 
   - float8 (PostgreSQL's double precision type)
   
 - Called from (representative examples):
-  - LSEG (line segment structure)
-  - BOX (bounding box structure) 
-  - PATH (geometric path structure)
-  - POLYGON (polygon structure)
+  - [LSEG](../L/LSEG.md) (line segment structure)
+  - [BOX](../B/BOX.md) (bounding box structure) 
+  - [PATH](PATH.md) (geometric path structure)
+  - [POLYGON](POLYGON.md) (polygon structure)
   - CIRCLE (circle structure)
-  - point_in/point_out (I/O functions)
-  - point_distance (distance calculations)
+  - [point_in](../p/point_in.md)/point_out (I/O functions)
+  - [point_distance](../p/point_distance.md) (distance calculations)
   - GiST and SP-GiST index operations
   - Various geometric operators and functions
 
 ## Notes and Other Information
-- Point coordinates use PostgreSQL's float8 type, providing double precision accuracy
-- Point is used as a building block for all other geometric types in PostgreSQL
+- [Point](Point.md) coordinates use PostgreSQL's float8 type, providing double precision accuracy
+- [Point](Point.md) is used as a building block for all other geometric types in PostgreSQL
 - The type supports standard geometric operations like distance calculations, containment tests, and spatial indexing
-- Point values are typically represented in text format as '(x,y)' 
+- [Point](Point.md) values are typically represented in text format as '(x,y)' 
 - The type is heavily optimized for spatial index operations in both GiST and SP-GiST access methods
-- Point arithmetic operations (addition, subtraction, multiplication, division) are supported for geometric transformations
+- [Point](Point.md) arithmetic operations (addition, subtraction, multiplication, division) are supported for geometric transformations

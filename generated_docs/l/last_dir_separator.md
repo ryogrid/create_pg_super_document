@@ -27,19 +27,19 @@ This is one of the most commonly used path manipulation functions in PostgreSQL,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip_drive (to bypass drive prefixes)
+  - [skip_drive](../s/skip_drive.md) (to bypass drive prefixes)
   - IS_DIR_SEP (macro for checking directory separators)
   - unconstify (macro for casting away const qualifier)
 - Called from (representative examples):
-  - sendDir (in src/backend/backup/basebackup.c)
-  - setup_bin_paths (in src/bin/initdb/initdb.c)
-  - should_allow_existing_directory (in src/bin/pg_basebackup/bbstreamer_file.c)
-  - check_file_excluded (in src/bin/pg_rewind/filemap.c)
-  - setup (in src/bin/pg_upgrade/pg_upgrade.c)
+  - [sendDir](../s/sendDir.md) (in src/backend/backup/basebackup.c)
+  - [setup_bin_paths](../s/setup_bin_paths.md) (in src/bin/initdb/initdb.c)
+  - [should_allow_existing_directory](../s/should_allow_existing_directory.md) (in src/bin/pg_basebackup/bbstreamer_file.c)
+  - [check_file_excluded](../c/check_file_excluded.md) (in src/bin/pg_rewind/filemap.c)
+  - [setup](../s/setup.md) (in src/bin/pg_upgrade/pg_upgrade.c)
   - find_other_exec (in src/common/exec.c)
-  - ECPGconnect (in src/interfaces/ecpg/ecpglib/connect.c)
-  - main (in src/interfaces/ecpg/preproc/ecpg.c)
-  - get_progname (in src/port/path.c)
+  - [ECPGconnect](../E/ECPGconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c)
+  - [get_progname](../g/get_progname.md) (in src/port/path.c)
 
 ## Notes and Other Information
 - Returns NULL if no directory separator is found in the path

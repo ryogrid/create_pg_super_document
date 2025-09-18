@@ -24,12 +24,12 @@ The function uses a walker pattern to traverse the expression tree, collecting i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_agg_arguments_walker
-  - locate_agg_of_level
-  - locate_var_of_level
-  - check_agg_arguments_context
+  - [check_agg_arguments_walker](check_agg_arguments_walker.md)
+  - [locate_agg_of_level](../l/locate_agg_of_level.md)
+  - [locate_var_of_level](../l/locate_var_of_level.md)
+  - [check_agg_arguments_context](check_agg_arguments_context.md)
 - Called from (representative examples):
-  - check_agglevels_and_constraints
+  - [check_agglevels_and_constraints](check_agglevels_and_constraints.md)
   - check_ungrouped_columns_context
 
 ## Notes and Other Information

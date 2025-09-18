@@ -22,10 +22,10 @@ This function is responsible for interpreting status messages sent back from wor
 ## Dependencies
 - Functions called/Symbols referenced:
   - messageStartsWith
-  - TocEntry (struct)
+  - [TocEntry](../T/TocEntry.md) (struct)
   - DumpId (type)
 - Called from (representative examples):
-  - ListenToWorkers
+  - [ListenToWorkers](../L/ListenToWorkers.md)
 
 ## Notes and Other Information
 - The function only handles "OK" status messages; any other message format causes a fatal error

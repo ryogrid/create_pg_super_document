@@ -28,12 +28,12 @@ The header format is standardized to ensure archive files can be correctly ident
 - Functions called/Symbols referenced:
   - ARCHIVE_MAJOR, ARCHIVE_MINOR, ARCHIVE_REV (version extraction macros)
   - WriteBufPtr, WriteBytePtr (low-level binary writing functions)
-  - WriteInt, WriteStr (typed data writing functions)
-  - PQdb (database name extraction from connection)
+  - [WriteInt](WriteInt.md), WriteStr (typed data writing functions)
+  - [PQdb](../P/PQdb.md) (database name extraction from connection)
   - localtime (timestamp conversion)
   - struct tm (time structure)
 - Called from:
-  - _CloseArchive (in custom, directory, and tar backup formats)
+  - [_CloseArchive](../C/_CloseArchive.md) (in custom, directory, and tar backup formats)
 
 ## Notes and Other Information
 - Function is non-static and used across multiple backup format implementations

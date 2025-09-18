@@ -26,9 +26,9 @@ The function applies the same sophisticated heuristics as FigureColname:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FigureColnameInternal
+  - [FigureColnameInternal](FigureColnameInternal.md)
 - Called from (representative examples):
-  - transformIndexStmt
+  - [transformIndexStmt](../t/transformIndexStmt.md)
 
 ## Notes and Other Information
 - This function is primarily used during CREATE INDEX statement processing for expression-based indexes

@@ -19,7 +19,7 @@ The function accepts an optional text parameter that specifies which replication
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_reset_of_kind (to reset all replication slot statistics)
+  - [pgstat_reset_of_kind](pgstat_reset_of_kind.md) (to reset all replication slot statistics)
   - text_to_cstring (to convert text parameter to C string)
   - pgstat_reset_replslot (to reset specific replication slot statistics)
   - PG_RETURN_VOID (to return from the function)

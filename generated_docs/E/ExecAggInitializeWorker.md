@@ -20,12 +20,12 @@ The function uses the shared memory table of contents (TOC) to locate the approp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
 - Data types referenced:
-  - AggState
-  - ParallelWorkerContext
+  - [AggState](../A/AggState.md)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md)
 
 ## Notes and Other Information
 - This function is specifically designed for parallel query execution scenarios

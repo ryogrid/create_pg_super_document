@@ -32,7 +32,7 @@ This function implements PostgreSQL's generate_subscripts() SQL function, which 
   - AnyArrayType, FuncCallContext, generate_subscripts_fctx (supporting types)
   - MAXDIM (maximum array dimensions constant)
 - Called from (representative examples):
-  - generate_subscripts_nodir (wrapper function in arrayfuncs.c:5972)
+  - [generate_subscripts_nodir](generate_subscripts_nodir.md) (wrapper function in arrayfuncs.c:5972)
 
 ## Notes and Other Information
 - Implements PostgreSQL's generate_subscripts() SQL function for array subscript enumeration

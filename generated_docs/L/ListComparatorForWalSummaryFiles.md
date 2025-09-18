@@ -22,9 +22,9 @@ The function uses PostgreSQL's pg_cmp_u64 utility to perform a safe comparison o
 - Functions called/Symbols referenced:
   - WalSummaryFile (structure type)
   - lfirst (PostgreSQL list macro for extracting cell data)
-  - pg_cmp_u64 (PostgreSQL 64-bit unsigned integer comparison function)
+  - [pg_cmp_u64](../p/pg_cmp_u64.md) (PostgreSQL 64-bit unsigned integer comparison function)
 - Called from:
-  - WalSummariesAreComplete
+  - [WalSummariesAreComplete](../W/WalSummariesAreComplete.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the walsummary.c file

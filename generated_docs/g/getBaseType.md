@@ -17,21 +17,21 @@ This function provides a convenient interface for resolving PostgreSQL domain ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseTypeAndTypmod
+  - [getBaseTypeAndTypmod](getBaseTypeAndTypmod.md)
 - Called from (representative examples):
-  - GetIndexInputType
-  - find_expr_references_walker
-  - CheckAttributeType
-  - GetDefaultOpClass
-  - ATAddForeignKeyConstraint
-  - coerce_type
-  - select_common_type
-  - check_generic_type_consistency
-  - enforce_generic_type_consistency
-  - func_select_candidate
-  - binary_oper_exact
-  - range_typanalyze
-  - type_is_rowtype
+  - [GetIndexInputType](../G/GetIndexInputType.md)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md)
+  - [CheckAttributeType](../C/CheckAttributeType.md)
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md)
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
+  - [coerce_type](../c/coerce_type.md)
+  - [select_common_type](../s/select_common_type.md)
+  - [check_generic_type_consistency](../c/check_generic_type_consistency.md)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)
+  - [func_select_candidate](../f/func_select_candidate.md)
+  - [binary_oper_exact](../b/binary_oper_exact.md)
+  - [range_typanalyze](../r/range_typanalyze.md)
+  - [type_is_rowtype](../t/type_is_rowtype.md)
 
 ## Notes and Other Information
 - This function is essential for type system operations that need to work with the underlying type rather than domain wrappers

@@ -31,7 +31,7 @@ The function encapsulates the decision logic for change application, making the 
   - rb->stream_change (callback for streaming mode)
   - rb->apply_change (callback for regular mode)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization in the transaction processing path

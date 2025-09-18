@@ -32,7 +32,7 @@ The function specifically excludes Free Space Map (FSM) fork operations since FS
   - MAIN_FORKNUM/VISIBILITYMAP_FORKNUM: Fork type identifiers
   - FSM_FORKNUM: Free Space Map fork identifier (excluded from processing)
 - Called from (representative examples):
-  - SummarizeWAL: Main WAL summarization loop when processing RM_SMGR_ID records
+  - [SummarizeWAL](SummarizeWAL.md): Main WAL summarization loop when processing RM_SMGR_ID records
 
 ## Notes and Other Information
 - Handles two specific storage manager operations: XLOG_SMGR_CREATE and XLOG_SMGR_TRUNCATE

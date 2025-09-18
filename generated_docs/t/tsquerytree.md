@@ -41,12 +41,12 @@ Internal variables:
   - PG_GETARG_TSQUERY: Extract TSQuery from function arguments
   - GETQUERY: Get query items array from TSQuery
   - GETOPERAND: Get operand string data from TSQuery
-  - clean_NOT: Remove/clean NOT operations from query
-  - palloc: Allocate memory for buffer and INFIX structure
-  - pfree: Free allocated memory
+  - [clean_NOT](../c/clean_NOT.md): Remove/clean NOT operations from query
+  - [palloc](../p/palloc.md): Allocate memory for buffer and INFIX structure
+  - [pfree](../p/pfree.md): Free allocated memory
   - cstring_to_text: Convert C string to PostgreSQL text
   - cstring_to_text_with_len: Convert C string with specific length to text
-  - infix: Convert query tree to infix notation
+  - [infix](../i/infix.md): Convert query tree to infix notation
   - SET_VARSIZE: Set variable-length data size
   - PG_FREE_IF_COPY: Free input if it's a copy
   - PG_RETURN_TEXT_P: Return text result

@@ -18,21 +18,21 @@ ExecWorkTableScan implements the primary execution logic for WorkTableScan plan 
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (type casting with assertion)
-  - DatumGetPointer (extracts pointer from Datum)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (extracts pointer from Datum)
   - ExecAssignScanType (assigns scan tuple descriptor)
-  - ExecGetResultType (gets result tuple type from plan state)
-  - ExecAssignScanProjectionInfo (initializes projection information)
-  - ExecScan (generic scan execution framework)
-  - WorkTableScanNext (access method for next tuple)
-  - WorkTableScanRecheck (recheck method for EvalPlanQual)
+  - [ExecGetResultType](ExecGetResultType.md) (gets result tuple type from plan state)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md) (initializes projection information)
+  - [ExecScan](ExecScan.md) (generic scan execution framework)
+  - [WorkTableScanNext](../W/WorkTableScanNext.md) (access method for next tuple)
+  - [WorkTableScanRecheck](../W/WorkTableScanRecheck.md) (recheck method for EvalPlanQual)
 - Types used:
-  - WorkTableScanState (scan execution state)
+  - [WorkTableScanState](../W/WorkTableScanState.md) (scan execution state)
   - WorkTableScan (plan node structure)
-  - EState (executor state)
-  - ParamExecData (executor parameter data)
-  - RecursiveUnionState (recursive union execution state)
+  - [EState](EState.md) (executor state)
+  - [ParamExecData](../P/ParamExecData.md) (executor parameter data)
+  - [RecursiveUnionState](../R/RecursiveUnionState.md) (recursive union execution state)
 - Called from:
-  - ExecInitWorkTableScan (during plan node initialization)
+  - [ExecInitWorkTableScan](ExecInitWorkTableScan.md) (during plan node initialization)
 
 ## Notes and Other Information
 - Performs lazy initialization to handle timing dependencies with RecursiveUnion

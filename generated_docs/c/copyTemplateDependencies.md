@@ -20,17 +20,17 @@ This function establishes the shared dependency relationships for a newly create
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakeSingleTupleTableSlot (creates tuple slots for batch operations)
-  - ExecDropSingleTupleTableSlot (cleans up tuple slots)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates tuple slots for batch operations)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleans up tuple slots)
   - ExecClearTuple (clears tuple slot contents)
-  - ExecStoreVirtualTuple (stores tuple data in slot)
-  - CatalogOpenIndexes (opens catalog indexes for insertion)
-  - CatalogCloseIndexes (closes catalog indexes)
-  - CatalogTuplesMultiInsertWithInfo (performs batch tuple insertion)
-  - systable_beginscan/systable_getnext (system catalog scanning functions)
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md) (stores tuple data in slot)
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md) (opens catalog indexes for insertion)
+  - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md) (closes catalog indexes)
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md) (performs batch tuple insertion)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext (system catalog scanning functions)
   - Form_pg_shdepend (shared dependency tuple structure)
 - Called from (representative examples):
-  - createdb (database creation in dbcommands.c:1468)
+  - [createdb](createdb.md) (database creation in dbcommands.c:1468)
 
 ## Notes and Other Information
 - Uses batch insertion with configurable slot count based on MAX_CATALOG_MULTI_INSERT_BYTES to optimize performance

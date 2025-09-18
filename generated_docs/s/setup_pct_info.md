@@ -31,18 +31,18 @@ The function validates percentile values to ensure they are between 0 and 1, han
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pct_info (struct type)
-  - DatumGetFloat8
+  - [pct_info](../p/pct_info.md) (struct type)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - isnan
   - ereport/errcode/errmsg (error reporting)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - floor/ceil (math functions)
   - Max (macro)
   - qsort
-  - pct_info_cmp
+  - [pct_info_cmp](../p/pct_info_cmp.md)
 - Called from (representative examples):
-  - percentile_disc_multi_final
-  - percentile_cont_multi_final_common
+  - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md)
+  - [percentile_cont_multi_final_common](../p/percentile_cont_multi_final_common.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within orderedsetaggs.c

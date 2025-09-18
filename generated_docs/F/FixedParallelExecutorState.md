@@ -30,9 +30,9 @@ This structure serves as a communication mechanism between the parallel query le
 - Functions called/Symbols referenced:
   - dsa_pointer (DSA pointer type for shared memory management)
 - Called from (representative examples):
-  - ExecInitParallelPlan (multiple references for initialization and setup)
-  - ExecParallelReinitialize (for reinitializing parallel execution state)
-  - ParallelQueryMain (in the main parallel worker entry point)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (multiple references for initialization and setup)
+  - [ExecParallelReinitialize](../E/ExecParallelReinitialize.md) (for reinitializing parallel execution state)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md) (in the main parallel worker entry point)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's parallel query execution infrastructure located in execParallel.c

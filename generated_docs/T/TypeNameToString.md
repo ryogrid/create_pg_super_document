@@ -22,18 +22,18 @@ The returned string must be freed by the caller, as it represents a newly alloca
 ## Dependencies
 - Functions called/Symbols referenced:
   - initStringInfo
-  - appendTypeNameToBuffer
+  - [appendTypeNameToBuffer](../a/appendTypeNameToBuffer.md)
 - Called from (representative examples):
-  - get_object_address_type
-  - DefineAggregate
-  - defGetString
-  - compute_return_type
-  - interpret_function_parameter_list
-  - CreateCast
-  - DefineDomain
-  - LookupTypeNameExtended
-  - typenameType
-  - parseTypeString
+  - [get_object_address_type](../g/get_object_address_type.md)
+  - [DefineAggregate](../D/DefineAggregate.md)
+  - [defGetString](../d/defGetString.md)
+  - [compute_return_type](../c/compute_return_type.md)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md)
+  - [CreateCast](../C/CreateCast.md)
+  - [DefineDomain](../D/DefineDomain.md)
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
+  - [typenameType](../t/typenameType.md)
+  - [parseTypeString](../p/parseTypeString.md)
 
 ## Notes and Other Information
 This is a widely-used utility function throughout the PostgreSQL backend, particularly in error reporting contexts where a human-readable type name is needed. The function is robust against invalid TypeNames, which is crucial for error handling scenarios. The caller is responsible for freeing the returned string memory. This function serves as a public interface to the internal appendTypeNameToBuffer functionality, providing a clean API for string conversion operations.

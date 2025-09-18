@@ -28,17 +28,17 @@ The function supports IF NOT EXISTS semantics and handles complex parameter comb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace
-  - object_aclcheck
-  - get_collation_oid
-  - builtin_validate_locale
-  - icu_language_tag
-  - icu_validate_locale
-  - get_collation_actual_version
-  - CollationCreate
-  - pg_newlocale_from_collation
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [get_collation_oid](../g/get_collation_oid.md)
+  - [builtin_validate_locale](../b/builtin_validate_locale.md)
+  - [icu_language_tag](../i/icu_language_tag.md)
+  - [icu_validate_locale](../i/icu_validate_locale.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
+  - [CollationCreate](../C/CollationCreate.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Supports three collation providers: COLLPROVIDER_LIBC (default), COLLPROVIDER_ICU, and COLLPROVIDER_BUILTIN

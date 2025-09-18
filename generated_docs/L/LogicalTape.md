@@ -36,7 +36,7 @@ The structure supports both frozen and unfrozen modes: frozen tapes preserve blo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTapeSet
+  - [LogicalTapeSet](LogicalTapeSet.md)
 - Called from (representative examples):
   - LogicalTapeCreate
   - LogicalTapeWrite

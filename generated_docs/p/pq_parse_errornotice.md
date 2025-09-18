@@ -32,16 +32,16 @@ The function handles all standard PostgreSQL diagnostic fields including message
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet: Initializes the ErrorData structure to zero
-  - pq_getmsgbyte: Extracts a single byte (field code) from the message
-  - pq_getmsgend: Verifies the message has been fully consumed
-  - pq_getmsgrawstring: Extracts a null-terminated string from the message
-  - pstrdup: Duplicates strings in the current memory context
-  - pg_strtoint32: Converts string to 32-bit integer
+  - [pq_getmsgbyte](pq_getmsgbyte.md): Extracts a single byte (field code) from the message
+  - [pq_getmsgend](pq_getmsgend.md): Verifies the message has been fully consumed
+  - [pq_getmsgrawstring](pq_getmsgrawstring.md): Extracts a null-terminated string from the message
+  - [pstrdup](pstrdup.md): Duplicates strings in the current memory context
+  - [pg_strtoint32](pg_strtoint32.md): Converts string to 32-bit integer
   - MAKE_SQLSTATE: Constructs SQLSTATE code from individual characters
   - elog: Reports errors for invalid field codes or values
 - Called from (representative examples):
-  - HandleParallelMessage: Processes messages from parallel workers
-  - HandleParallelApplyMessage: Processes messages from logical parallel apply workers
+  - [HandleParallelMessage](../H/HandleParallelMessage.md): Processes messages from parallel workers
+  - [HandleParallelApplyMessage](../H/HandleParallelApplyMessage.md): Processes messages from logical parallel apply workers
 
 ## Notes and Other Information
 - Located in src/backend/libpq/pqmq.c at lines 216-330

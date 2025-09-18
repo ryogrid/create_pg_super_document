@@ -35,15 +35,15 @@ The function includes comprehensive error handling for various failure scenarios
 - Functions called/Symbols referenced:
   - TranslateName (Windows API)
   - GetLastError (Windows API)
-  - psprintf (PostgreSQL)
-  - palloc/pfree (PostgreSQL memory management)
+  - [psprintf](psprintf.md) (PostgreSQL)
+  - [palloc](palloc.md)/pfree (PostgreSQL memory management)
   - strchr (C standard library)
   - strcpy (C standard library)
   - ereport (PostgreSQL error reporting)
   - STATUS_OK
   - STATUS_ERROR
 - Called from (representative examples):
-  - pg_SSPI_recvauth
+  - [pg_SSPI_recvauth](pg_SSPI_recvauth.md)
   - LDAP_OPT_DIAGNOSTIC_MESSAGE context
 
 ## Notes and Other Information

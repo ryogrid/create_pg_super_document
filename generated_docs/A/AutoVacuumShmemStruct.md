@@ -37,14 +37,14 @@ The structure is designed to handle concurrent access from multiple processes wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - AutoVacNumSignals (enum defining signal types)
-  - WorkerInfo (worker process information structure)
-  - AutoVacuumWorkItem (work item structure for vacuum tasks)
+  - [WorkerInfo](../W/WorkerInfo.md) (worker process information structure)
+  - [AutoVacuumWorkItem](AutoVacuumWorkItem.md) (work item structure for vacuum tasks)
   - NUM_WORKITEMS (constant defining work item array size)
-  - dlist_head (doubly-linked list infrastructure)
-  - pg_atomic_uint32 (atomic integer type)
+  - [dlist_head](../d/dlist_head.md) (doubly-linked list infrastructure)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic integer type)
 - Called from (representative examples):
-  - AutoVacuumShmemSize (calculates shared memory size requirements)
-  - AutoVacuumShmemInit (initializes the shared memory structure)
+  - [AutoVacuumShmemSize](AutoVacuumShmemSize.md) (calculates shared memory size requirements)
+  - [AutoVacuumShmemInit](AutoVacuumShmemInit.md) (initializes the shared memory structure)
 
 ## Notes and Other Information
 - Located at src/backend/postmaster/autovacuum.c:288-297

@@ -24,15 +24,15 @@ The design enables efficient tuple handling throughout PostgreSQL's execution pi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData
+  - [ItemPointerData](../I/ItemPointerData.md)
   - HeapTupleHeader
   - Oid
 - Called from (representative examples):
-  - heap_get_latest_tid (src/backend/access/heap/heapam.c:1859)
-  - heap_delete (src/backend/access/heap/heapam.c:2738)
-  - heap_update (src/backend/access/heap/heapam.c:3214)
-  - ExecMakeTableFunctionResult (src/backend/executor/execSRF.c:115)
-  - GetAttributeByName (src/backend/executor/execUtils.c:1002)
+  - [heap_get_latest_tid](../h/heap_get_latest_tid.md) (src/backend/access/heap/heapam.c:1859)
+  - [heap_delete](../h/heap_delete.md) (src/backend/access/heap/heapam.c:2738)
+  - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3214)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (src/backend/executor/execSRF.c:115)
+  - [GetAttributeByName](../G/GetAttributeByName.md) (src/backend/executor/execUtils.c:1002)
 
 ## Notes and Other Information
 - The typedef HeapTuple creates a pointer type for convenient usage throughout the codebase

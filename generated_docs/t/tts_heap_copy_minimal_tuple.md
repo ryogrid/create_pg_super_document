@@ -20,10 +20,10 @@ This function is a specialized tuple table slot operation that extracts and conv
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (type cast)
-  - tts_heap_materialize
-  - minimal_tuple_from_heap_tuple
+  - [tts_heap_materialize](tts_heap_materialize.md)
+  - [minimal_tuple_from_heap_tuple](../m/minimal_tuple_from_heap_tuple.md)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function specific to heap tuple table slot operations

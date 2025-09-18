@@ -27,9 +27,9 @@ The progress reporting system uses a standardized interface where each command t
 - Functions called/Symbols referenced:
   - None (this is an enum definition)
 - Called from (representative examples):
-  - pgstat_progress_start_command
+  - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md)
   - PG_STAT_GET_PROGRESS_COLS
-  - PgBackendStatus (as a field type)
+  - [PgBackendStatus](PgBackendStatus.md) (as a field type)
 
 ## Notes and Other Information
 - Defined in src/include/utils/backend_progress.h:22-31

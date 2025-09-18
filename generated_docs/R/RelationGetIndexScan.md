@@ -21,16 +21,16 @@ The function is designed to be called by AM-specific beginscan routines, which t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - TransactionStartedDuringRecovery (recovery state checking)
   - InvalidSnapshot (snapshot initialization)
 - Called from (representative examples):
-  - brinbeginscan (BRIN index access method)
-  - ginbeginscan (GIN index access method)
-  - gistbeginscan (GiST index access method)
-  - hashbeginscan (Hash index access method)
-  - btbeginscan (B-tree index access method)
-  - spgbeginscan (SP-GiST index access method)
+  - [brinbeginscan](../b/brinbeginscan.md) (BRIN index access method)
+  - [ginbeginscan](../g/ginbeginscan.md) (GIN index access method)
+  - [gistbeginscan](../g/gistbeginscan.md) (GiST index access method)
+  - [hashbeginscan](../h/hashbeginscan.md) (Hash index access method)
+  - [btbeginscan](../b/btbeginscan.md) (B-tree index access method)
+  - [spgbeginscan](../s/spgbeginscan.md) (SP-GiST index access method)
 
 ## Notes and Other Information
 - The function allocates workspace for scan keys but does not populate them - this occurs later during amrescan

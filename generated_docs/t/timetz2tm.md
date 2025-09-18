@@ -23,14 +23,14 @@ The function performs integer arithmetic to extract each time component by succe
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimeTzADT: Input structure type containing time and zone components
-  - pg_tm: Standard PostgreSQL time structure
+  - [pg_tm](../p/pg_tm.md): Standard PostgreSQL time structure
   - TimeOffset: Type for time offset calculations
   - USECS_PER_HOUR: Conversion constant (3600000000 microseconds)
   - USECS_PER_MINUTE: Conversion constant (60000000 microseconds) 
   - USECS_PER_SEC: Conversion constant (1000000 microseconds)
 - Called from (representative examples):
-  - timetz_out: For text output formatting
-  - timetz_part_common: For EXTRACT() function implementation
+  - [timetz_out](timetz_out.md): For text output formatting
+  - [timetz_part_common](timetz_part_common.md): For EXTRACT() function implementation
   - JsonEncodeDateTime: For JSON serialization
 
 ## Notes and Other Information

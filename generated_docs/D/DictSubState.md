@@ -34,8 +34,8 @@ The bidirectional communication is facilitated through the isend and getnext fla
 - Functions called/Symbols referenced:
   - (No direct symbol references - uses basic C types only)
 - Called from (representative examples):
-  - ts_lexize (src/backend/tsearch/dict.c:36)
-  - thesaurus_lexize (src/backend/tsearch/dict_thesaurus.c:791)
+  - [ts_lexize](../t/ts_lexize.md) (src/backend/tsearch/dict.c:36)
+  - [thesaurus_lexize](../t/thesaurus_lexize.md) (src/backend/tsearch/dict_thesaurus.c:791)
 
 ## Notes and Other Information
 - This structure is specifically designed for complex dictionaries that cannot complete lexicalization in a single call

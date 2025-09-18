@@ -19,13 +19,13 @@ This function is called during backend startup (whether standalone or under the 
 - Functions called/Symbols referenced:
   - HASHCTL (hash table control structure)
   - PrivateRefCountEntry (hash table entry type)
-  - hash_create (creates the private reference count hash table)
+  - [hash_create](../h/hash_create.md) (creates the private reference count hash table)
   - HASH_ELEM (hash table creation flag)
   - HASH_BLOBS (hash table creation flag)
-  - AtProcExit_Buffers (cleanup function)
-  - on_shmem_exit (registers shutdown callback)
+  - [AtProcExit_Buffers](../A/AtProcExit_Buffers.md) (cleanup function)
+  - [on_shmem_exit](../o/on_shmem_exit.md) (registers shutdown callback)
 - Called from (representative examples):
-  - BaseInit
+  - [BaseInit](../B/BaseInit.md)
 
 ## Notes and Other Information
 - Part of the buffer management initialization sequence during backend startup

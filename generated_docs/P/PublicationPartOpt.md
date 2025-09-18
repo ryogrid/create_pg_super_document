@@ -23,10 +23,10 @@ The enum is designed to work with PostgreSQL's partitioned table system, where t
 - Functions called/Symbols referenced:
   - None (enumeration definition)
 - Called from (representative examples):
-  - GetPublicationRelations (in pg_publication.c:716)
-  - GetSchemaPublicationRelations (in pg_publication.c:925)
-  - GetAllSchemaPublicationRelations (in pg_publication.c:982)
-  - GetPubPartitionOptionRelations (in pg_publication.c:267)
+  - [GetPublicationRelations](../G/GetPublicationRelations.md) (in pg_publication.c:716)
+  - [GetSchemaPublicationRelations](../G/GetSchemaPublicationRelations.md) (in pg_publication.c:925)
+  - [GetAllSchemaPublicationRelations](../G/GetAllSchemaPublicationRelations.md) (in pg_publication.c:982)
+  - [GetPubPartitionOptionRelations](../G/GetPubPartitionOptionRelations.md) (in pg_publication.c:267)
 
 ## Notes and Other Information
 - Used primarily in logical replication context for publication management

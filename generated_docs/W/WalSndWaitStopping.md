@@ -28,10 +28,10 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - SpinLockAcquire (acquires spin lock for thread-safe access)
   - SpinLockRelease (releases spin lock)
-  - pg_usleep (sleeps for specified microseconds)
+  - [pg_usleep](../p/pg_usleep.md) (sleeps for specified microseconds)
   - WALSNDSTATE_STOPPING (WAL sender stopping state constant)
 - Called from (representative examples):
-  - ShutdownXLOG (during WAL system shutdown, after calling WalSndInitStopping)
+  - [ShutdownXLOG](../S/ShutdownXLOG.md) (during WAL system shutdown, after calling WalSndInitStopping)
 
 ## Notes and Other Information
 - This function is the second phase of WAL sender shutdown (after WalSndInitStopping)

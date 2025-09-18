@@ -32,15 +32,15 @@ The function handles edge cases like concurrent root splits where the stack migh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_newlevel (for creating new root level)
-  - _bt_getstackbuf (to re-find and lock parent page)
-  - _bt_insertonpg (recursive call to insert downlink)
-  - _bt_get_endpoint (to find leftmost page when stack is NULL)
-  - CopyIndexTuple, BTreeTupleSetDownLink (to create parent downlink tuple)
+  - [_bt_newlevel](_bt_newlevel.md) (for creating new root level)
+  - [_bt_getstackbuf](_bt_getstackbuf.md) (to re-find and lock parent page)
+  - [_bt_insertonpg](_bt_insertonpg.md) (recursive call to insert downlink)
+  - [_bt_get_endpoint](_bt_get_endpoint.md) (to find leftmost page when stack is NULL)
+  - [CopyIndexTuple](../C/CopyIndexTuple.md), BTreeTupleSetDownLink (to create parent downlink tuple)
   - Buffer management functions (_bt_relbuf)
 - Called from (representative examples):
-  - _bt_insertonpg (after page split completion)
-  - _bt_finish_split (during split completion in certain scenarios)
+  - [_bt_insertonpg](_bt_insertonpg.md) (after page split completion)
+  - [_bt_finish_split](_bt_finish_split.md) (during split completion in certain scenarios)
 
 ## Notes and Other Information
 - This is a static function within nbtinsert.c, not exposed externally

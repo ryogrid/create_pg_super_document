@@ -22,13 +22,13 @@ Note that this function is called before EquivalenceClass merging is complete, s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - op_input_types
+  - [op_input_types](../o/op_input_types.md)
   - OpExpr (struct type)
-  - get_eclass_for_sort_expr
-  - get_leftop
-  - get_rightop
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
+  - [get_leftop](../g/get_leftop.md)
+  - [get_rightop](../g/get_rightop.md)
 - Called from (representative examples):
-  - distribute_qual_to_rels
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
 
 ## Notes and Other Information
 - Must be called on mergeclauses before EC merging is complete

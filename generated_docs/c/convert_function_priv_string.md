@@ -19,17 +19,17 @@ This is a static helper function used by all has_function_privilege functions to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string(): Generic privilege string conversion function (already processed)
+  - [convert_any_priv_string](convert_any_priv_string.md)(): Generic privilege string conversion function (already processed)
   - priv_map: Structure type for privilege mapping tables
   - ACL_EXECUTE: Bitmask constant for execute privilege
   - ACL_GRANT_OPTION_FOR(): Macro to create grant option bitmask for a given privilege
 - Called from (representative examples):
-  - has_function_privilege_name_name
-  - has_function_privilege_name
-  - has_function_privilege_name_id
-  - has_function_privilege_id
-  - has_function_privilege_id_name
-  - has_function_privilege_id_id
+  - [has_function_privilege_name_name](../h/has_function_privilege_name_name.md)
+  - [has_function_privilege_name](../h/has_function_privilege_name.md)
+  - [has_function_privilege_name_id](../h/has_function_privilege_name_id.md)
+  - [has_function_privilege_id](../h/has_function_privilege_id.md)
+  - [has_function_privilege_id_name](../h/has_function_privilege_id_name.md)
+  - [has_function_privilege_id_id](../h/has_function_privilege_id_id.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the acl.c file

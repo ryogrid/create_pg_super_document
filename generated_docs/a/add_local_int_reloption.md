@@ -28,13 +28,13 @@ This function provides the interface for adding integer-type local relation opti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_int_reloption
-  - add_local_reloption
+  - [init_int_reloption](../i/init_int_reloption.md)
+  - [add_local_reloption](add_local_reloption.md)
   - RELOPT_KIND_LOCAL
-  - relopt_gen
+  - [relopt_gen](../r/relopt_gen.md)
 - Called from (representative examples):
-  - brin_minmax_multi_options
-  - gtsvector_options
+  - [brin_minmax_multi_options](../b/brin_minmax_multi_options.md)
+  - [gtsvector_options](../g/gtsvector_options.md)
   - Various access method and extension option setup functions
 
 ## Notes and Other Information

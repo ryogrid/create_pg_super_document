@@ -29,14 +29,14 @@ This function takes no parameters but operates on global state:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - start_table_sync
-  - ReplicationOriginNameForLogicalRep
-  - set_apply_error_context_origin
-  - set_stream_options
+  - [start_table_sync](../s/start_table_sync.md)
+  - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
+  - [set_apply_error_context_origin](../s/set_apply_error_context_origin.md)
+  - [set_stream_options](../s/set_stream_options.md)
   - walrcv_startstreaming
-  - start_apply
+  - [start_apply](../s/start_apply.md)
 - Called from (representative examples):
-  - TablesyncWorkerMain
+  - [TablesyncWorkerMain](../T/TablesyncWorkerMain.md)
 
 ## Notes and Other Information
 - Represents the top-level workflow for table synchronization workers

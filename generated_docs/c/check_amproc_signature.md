@@ -25,19 +25,19 @@ This function verifies that a support function has the correct signature for use
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc (function catalog tuple form)
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - GETSTRUCT (macro to extract tuple structure)
-  - IsBinaryCoercible (type coercibility check)
-  - ReleaseSysCache (cache entry release)
-  - ObjectIdGetDatum (OID to datum conversion)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (type coercibility check)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache entry release)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to datum conversion)
   - HeapTupleIsValid (tuple validity check)
 - Called from (representative examples):
-  - brinvalidate (multiple calls)
-  - ginvalidate (multiple calls)
-  - gistvalidate (multiple calls)
-  - check_amoptsproc_signature
-  - btvalidate (multiple calls)
-  - spgvalidate (multiple calls)
+  - [brinvalidate](../b/brinvalidate.md) (multiple calls)
+  - [ginvalidate](../g/ginvalidate.md) (multiple calls)
+  - [gistvalidate](../g/gistvalidate.md) (multiple calls)
+  - [check_amoptsproc_signature](check_amoptsproc_signature.md)
+  - [btvalidate](../b/btvalidate.md) (multiple calls)
+  - [spgvalidate](../s/spgvalidate.md) (multiple calls)
 
 ## Notes and Other Information
 - Returns true if signature is valid, false otherwise

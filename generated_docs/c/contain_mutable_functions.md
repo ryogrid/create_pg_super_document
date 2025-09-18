@@ -23,17 +23,17 @@ This function is designed to work on clauses that have been processed through ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_mutable_functions_walker
+  - [contain_mutable_functions_walker](contain_mutable_functions_walker.md)
 - Called from (representative examples):
-  - ComputePartitionAttrs
-  - check_index_predicates
-  - create_indexscan_plan
-  - create_bitmap_scan_plan
-  - can_minmax_aggs
-  - contain_mutable_functions_after_planning
-  - eval_const_expressions_mutator
-  - inline_function
-  - relation_excluded_by_constraints
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md)
+  - [check_index_predicates](check_index_predicates.md)
+  - [create_indexscan_plan](create_indexscan_plan.md)
+  - [create_bitmap_scan_plan](create_bitmap_scan_plan.md)
+  - [can_minmax_aggs](can_minmax_aggs.md)
+  - [contain_mutable_functions_after_planning](contain_mutable_functions_after_planning.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [inline_function](../i/inline_function.md)
+  - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md)
 
 ## Notes and Other Information
 - This is a wrapper function that delegates actual work to 

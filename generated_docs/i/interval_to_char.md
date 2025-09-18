@@ -30,9 +30,9 @@ The function calls `datetime_to_char_body()` with `is_interval=true` to enable i
   - PG_GETARG_INTERVAL_P
   - PG_GETARG_TEXT_PP
   - INTERVAL_NOT_FINITE
-  - interval2itm
+  - [interval2itm](interval2itm.md)
   - ZERO_tmtc/tmtcTm (TmToChar manipulation macros)
-  - datetime_to_char_body (with is_interval=true)
+  - [datetime_to_char_body](../d/datetime_to_char_body.md) (with is_interval=true)
   - PG_GET_COLLATION
   - MONTHS_PER_YEAR/DAYS_PER_MONTH (constants for yday calculation)
 - Called from (representative examples):

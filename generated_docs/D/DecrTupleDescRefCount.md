@@ -23,11 +23,11 @@ The function includes an assertion to ensure the TupleDesc has a positive refere
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetTupleDesc (removes from resource owner tracking)
-  - FreeTupleDesc (deallocates when reference count reaches zero)
+  - [ResourceOwnerForgetTupleDesc](../R/ResourceOwnerForgetTupleDesc.md) (removes from resource owner tracking)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md) (deallocates when reference count reaches zero)
 - Called from (representative examples):
-  - ExecEvalConvertRowtype (in expression evaluation)
-  - cache_record_field_properties (in type cache management)
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md) (in expression evaluation)
+  - [cache_record_field_properties](../c/cache_record_field_properties.md) (in type cache management)
   - ReleaseTupleDesc (macro wrapper for safe release)
 
 ## Notes and Other Information

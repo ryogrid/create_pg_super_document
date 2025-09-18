@@ -23,7 +23,7 @@ This function implements the multiplication operation for mixed-precision floati
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Macro to extract float4 argument from function arguments
   - PG_GETARG_FLOAT8: Macro to extract float8 argument from function arguments  
-  - float8_mul: Function that performs double precision floating-point multiplication
+  - [float8_mul](float8_mul.md): Function that performs double precision floating-point multiplication
   - PG_RETURN_FLOAT8: Macro to return a float8 result
 - Called from (representative examples):
   - No direct references found in the codebase

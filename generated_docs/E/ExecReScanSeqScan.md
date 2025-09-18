@@ -19,14 +19,14 @@ This function implements the rescan functionality for sequential table scans in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_rescan
-  - ExecScanReScan
+  - [table_rescan](../t/table_rescan.md)
+  - [ExecScanReScan](ExecScanReScan.md)
 - Types referenced:
-  - SeqScanState
-  - TableScanDesc
-  - ScanState
+  - [SeqScanState](../S/SeqScanState.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
+  - [ScanState](../S/ScanState.md)
 - Called from (representative examples):
-  - ExecReScan (in execAmi.c)
+  - [ExecReScan](ExecReScan.md) (in execAmi.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's executor join support infrastructure

@@ -19,7 +19,7 @@ This function serves as a language-specific wrapper for creating a Snowball stem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (called with parameters 0, 2 indicating 0 string arrays and 2 integer arrays)
+  - [SN_create_env](../S/SN_create_env.md) (called with parameters 0, 2 indicating 0 string arrays and 2 integer arrays)
 - Called from (representative examples):
   - No direct references found in the codebase
 

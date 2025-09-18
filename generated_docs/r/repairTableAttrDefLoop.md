@@ -18,11 +18,11 @@ This function is part of PostgreSQL's pg_dump dependency resolution system. It s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency
+  - [removeObjectDependency](removeObjectDependency.md)
   - DumpableObject (struct type)
 - Called from (representative examples):
-  - repairDependencyLoop (at pg_dump_sort.c:1312)
-  - repairDependencyLoop (at pg_dump_sort.c:1320)
+  - [repairDependencyLoop](repairDependencyLoop.md) (at pg_dump_sort.c:1312)
+  - [repairDependencyLoop](repairDependencyLoop.md) (at pg_dump_sort.c:1320)
 
 ## Notes and Other Information
 - This is a static function within pg_dump_sort.c, indicating it's only used internally within the dependency sorting module

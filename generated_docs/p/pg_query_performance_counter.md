@@ -21,7 +21,7 @@ This function takes no parameters and returns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - QueryPerformanceCounter() (Windows API function)
-  - instr_time (PostgreSQL time structure)
+  - [instr_time](../i/instr_time.md) (PostgreSQL time structure)
   - LARGE_INTEGER (Windows data type)
 - Called from (representative examples):
   - INSTR_TIME_SET_CURRENT (macro, Windows version)

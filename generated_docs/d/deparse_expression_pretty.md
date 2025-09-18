@@ -28,10 +28,10 @@ This is the core function for converting PostgreSQL expression node trees back i
   - get_rule_expr
   - WRAP_COLUMN_DEFAULT (constant)
 - Called from (representative examples):
-  - deparse_expression (src/backend/utils/adt/ruleutils.c:3602)
-  - pg_get_indexdef_worker (src/backend/utils/adt/ruleutils.c:1424, 1541)
-  - pg_get_expr_worker (src/backend/utils/adt/ruleutils.c:2733)
-  - pg_get_constraintdef_worker (src/backend/utils/adt/ruleutils.c:2482)
+  - [deparse_expression](deparse_expression.md) (src/backend/utils/adt/ruleutils.c:3602)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (src/backend/utils/adt/ruleutils.c:1424, 1541)
+  - [pg_get_expr_worker](../p/pg_get_expr_worker.md) (src/backend/utils/adt/ruleutils.c:2733)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md) (src/backend/utils/adt/ruleutils.c:2482)
 
 ## Notes and Other Information
 This function is declared static and is not directly accessible from outside ruleutils.c. It serves as the workhorse for all expression deparsing operations in PostgreSQL. The deparse_context structure it creates contains all the necessary state for interpreting variable references, managing namespaces, and controlling output formatting. The function allocates the result string using palloc, so the caller is responsible for memory management.

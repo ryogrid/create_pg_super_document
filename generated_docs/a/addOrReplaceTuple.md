@@ -28,21 +28,21 @@ The function includes safety checks to ensure data integrity, such as verifying 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber (get maximum offset number on page)
-  - PageGetItem (retrieve item from page at offset)
-  - PageGetItemId (get item identifier for offset)
-  - PageIndexTupleDelete (remove tuple from page)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (get maximum offset number on page)
+  - [PageGetItem](../P/PageGetItem.md) (retrieve item from page at offset)
+  - [PageGetItemId](../P/PageGetItemId.md) (get item identifier for offset)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md) (remove tuple from page)
   - PageAddItem (add new item to page)
   - SpGistPageGetOpaque (get SP-GiST specific page data)
   - elog (error logging)
   - Assert (assertion checking)
   - SpGistDeadTuple, Item, SPGIST_PLACEHOLDER (data types and constants)
 - Called from (representative examples):
-  - spgRedoAddLeaf
-  - spgRedoMoveLeafs
-  - spgRedoAddNode
-  - spgRedoSplitTuple
-  - spgRedoPickSplit
+  - [spgRedoAddLeaf](../s/spgRedoAddLeaf.md)
+  - [spgRedoMoveLeafs](../s/spgRedoMoveLeafs.md)
+  - [spgRedoAddNode](../s/spgRedoAddNode.md)
+  - [spgRedoSplitTuple](../s/spgRedoSplitTuple.md)
+  - [spgRedoPickSplit](../s/spgRedoPickSplit.md)
 
 ## Notes and Other Information
 - This is a static function used only within the SP-GiST WAL replay module (spgxlog.c)

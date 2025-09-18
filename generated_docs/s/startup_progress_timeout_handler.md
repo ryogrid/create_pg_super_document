@@ -22,11 +22,11 @@ The function operates on a static volatile sig_atomic_t variable to ensure safe 
 This function takes no parameters.
 
 ## Dependencies
-- Variables accessed:
+- [Variables](../V/Variables.md) accessed:
   - `startup_progress_timer_expired` (static volatile sig_atomic_t in startup.c:71)
 
 - Called from:
-  - StartupXLOG (src/backend/access/transam/xlog.c:5488)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5488)
   - ereport_startup_progress (referenced in src/include/postmaster/startup.h:38)
 
 ## Notes and Other Information

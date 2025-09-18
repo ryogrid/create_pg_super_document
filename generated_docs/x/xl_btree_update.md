@@ -23,15 +23,15 @@ This structure is embedded within larger WAL records (such as xl_btree_delete an
   - SizeOfBtreeUpdate (size calculation macro)
   - BTVacuumPosting (data structure for processing)
 - Called from (representative examples):
-  - _bt_delitems_update (src/backend/access/nbtree/nbtpage.c:1443)
-  - btree_xlog_updates (src/backend/access/nbtree/nbtxlog.c:558, 591)
-  - btree_xlog_vacuum (src/backend/access/nbtree/nbtxlog.c:622, 626)
-  - btree_xlog_delete (src/backend/access/nbtree/nbtxlog.c:687, 691)
+  - [_bt_delitems_update](../b/_bt_delitems_update.md) (src/backend/access/nbtree/nbtpage.c:1443)
+  - [btree_xlog_updates](../b/btree_xlog_updates.md) (src/backend/access/nbtree/nbtxlog.c:558, 591)
+  - [btree_xlog_vacuum](../b/btree_xlog_vacuum.md) (src/backend/access/nbtree/nbtxlog.c:622, 626)
+  - [btree_xlog_delete](../b/btree_xlog_delete.md) (src/backend/access/nbtree/nbtxlog.c:687, 691)
 
 ## Notes and Other Information
 - The offsets following the struct header are 0-based positions within the original posting list, not page offset numbers
 - Multiple xl_btree_update structures can appear in sequence within a single WAL record's payload
 - Used in conjunction with _bt_update_posting() function to create modified posting list tuples
 - The page offset number for the tuple being updated comes from the parent WAL record structure
-- Variable-length structure due to the trailing array of TID offsets
+- [Variable](../V/Variable.md)-length structure due to the trailing array of TID offsets
 - Critical for maintaining posting list integrity during partial tuple updates

@@ -27,22 +27,22 @@ Width estimates are computed by weighting child relation widths proportionally t
   - check_stack_depth (prevents stack overflow in deep inheritance trees)
   - IS_SIMPLE_REL (checks if relation is a simple base relation)
   - bms_is_empty (checks if bitmap set is empty)
-  - find_base_rel (locates child relation's RelOptInfo)
+  - [find_base_rel](../f/find_base_rel.md) (locates child relation's RelOptInfo)
   - IS_DUMMY_REL (checks if relation produces no rows)
-  - relation_excluded_by_constraints (applies constraint exclusion)
-  - set_dummy_rel_pathlist (marks relation as producing no rows)
-  - bms_overlap (checks bitmap set overlap for nulling relations)
-  - adjust_appendrel_attrs (translates expressions between parent and child)
-  - has_useful_pathkeys (checks if relation has useful sort orders)
-  - add_child_rel_equivalences (creates equivalence class entries)
-  - set_rel_consider_parallel (determines parallel safety)
-  - set_rel_size (recursively computes child relation sizes)
+  - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md) (applies constraint exclusion)
+  - [set_dummy_rel_pathlist](set_dummy_rel_pathlist.md) (marks relation as producing no rows)
+  - [bms_overlap](../b/bms_overlap.md) (checks bitmap set overlap for nulling relations)
+  - [adjust_appendrel_attrs](../a/adjust_appendrel_attrs.md) (translates expressions between parent and child)
+  - [has_useful_pathkeys](../h/has_useful_pathkeys.md) (checks if relation has useful sort orders)
+  - [add_child_rel_equivalences](../a/add_child_rel_equivalences.md) (creates equivalence class entries)
+  - [set_rel_consider_parallel](set_rel_consider_parallel.md) (determines parallel safety)
+  - [set_rel_size](set_rel_size.md) (recursively computes child relation sizes)
   - forboth (macro for parallel iteration over two lists)
-  - get_typavgwidth (gets average width for a data type)
+  - [get_typavgwidth](../g/get_typavgwidth.md) (gets average width for a data type)
   - exprType/exprTypmod (extracts type information from expressions)
 
 - Called from (representative examples):
-  - set_rel_size (main relation sizing dispatcher)
+  - [set_rel_size](set_rel_size.md) (main relation sizing dispatcher)
 
 ## Notes and Other Information
 - This function is static and only used within allpaths.c
@@ -55,4 +55,4 @@ Width estimates are computed by weighting child relation widths proportionally t
 - Leaves rel->pages as zero to avoid double-counting in total_table_pages
 - Can result in a dummy append relation if all children are excluded by constraints
 - The function assumes child RelOptInfo structures have already been created during add_other_rels_to_query
-- Variable substitution between parent and child uses the AppendRelInfo translation mappings
+- [Variable](../V/Variable.md) substitution between parent and child uses the AppendRelInfo translation mappings

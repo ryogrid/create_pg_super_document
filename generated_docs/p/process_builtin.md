@@ -20,10 +20,10 @@ The `process_builtin` function serves as a wrapper that processes predefined bui
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseScript
-  - BuiltinScript (type)
+  - [ParseScript](../P/ParseScript.md)
+  - [BuiltinScript](../B/BuiltinScript.md) (type)
 - Called from (representative examples):
-  - main (multiple locations in src/bin/pgbench/pgbench.c: 6786, 6887, 6928, 7052)
+  - [main](../m/main.md) (multiple locations in src/bin/pgbench/pgbench.c: 6786, 6887, 6928, 7052)
 
 ## Notes and Other Information
 - This is a simple wrapper function that provides a consistent interface for processing built-in scripts

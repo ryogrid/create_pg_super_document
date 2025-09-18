@@ -19,11 +19,11 @@ This function is similar to pgstat_get_beentry_by_proc_number() but returns the 
 - Functions called/Symbols referenced:
   - pgstat_read_current_status
   - bsearch (C standard library function)
-  - cmp_lbestatus
+  - [cmp_lbestatus](../c/cmp_lbestatus.md)
   - ProcNumber (type)
-  - LocalPgBackendStatus (struct type)
+  - [LocalPgBackendStatus](../L/LocalPgBackendStatus.md) (struct type)
 - Called from (representative examples):
-  - pgstat_get_beentry_by_proc_number
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md)
   - PG_STAT_GET_SUBXACT_COLS
 
 ## Notes and Other Information

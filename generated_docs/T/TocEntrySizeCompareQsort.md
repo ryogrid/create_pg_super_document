@@ -22,10 +22,10 @@ The function follows the standard qsort comparator contract: it returns a negati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type, accessing dataLength and dumpId fields)
+  - [TocEntry](TocEntry.md) (struct type, accessing dataLength and dumpId fields)
 - Called from (representative examples):
-  - WriteDataChunks (for optimizing data writing order)
-  - TocEntrySizeCompareBinaryheap (as a comparison reference)
+  - [WriteDataChunks](../W/WriteDataChunks.md) (for optimizing data writing order)
+  - [TocEntrySizeCompareBinaryheap](TocEntrySizeCompareBinaryheap.md) (as a comparison reference)
   - Functions related to TEXT_DUMPALL_HEADER processing
 
 ## Notes and Other Information

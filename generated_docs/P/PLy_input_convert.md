@@ -24,13 +24,13 @@ Internally, the function delegates the actual conversion work to the appropriate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context
-  - PLy_get_scratch_context
-  - MemoryContextReset
-  - MemoryContextSwitchTo
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
+  - [PLy_get_scratch_context](PLy_get_scratch_context.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - PLy_function_build_args
-  - PLyObToDatum
+  - [PLy_function_build_args](PLy_function_build_args.md)
+  - [PLyObToDatum](PLyObToDatum.md)
 
 ## Notes and Other Information
 - This function is designed to be the single entry point for all input conversions, ensuring consistent memory management across all data type conversions

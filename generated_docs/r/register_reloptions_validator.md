@@ -24,7 +24,7 @@ The function uses lappend to add the validator to the existing list, allowing mu
 - Functions called/Symbols referenced:
   - lappend (list append function)
 - Data structures used:
-  - local_relopts (structure containing validators list)
+  - [local_relopts](../l/local_relopts.md) (structure containing validators list)
   - relopts_validator (function pointer type)
 - Called from:
   - GET_STRING_RELOPTION (macro)

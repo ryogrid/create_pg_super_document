@@ -26,7 +26,7 @@ Each method represents a fundamentally different approach to type conversion:
 - Functions called/Symbols referenced:
   - None (this is a simple enum definition)
 - Called from (representative examples):
-  - describe.c:4815-4816 (psql's \dC command)
+  - [describe](../d/describe.md).c:4815-4816 (psql's \dC command)
   - pg_dump.c:12767-12773 (pg_dump cast handling)
   - functioncmds.c:1585-1587 (CREATE CAST command processing)
 

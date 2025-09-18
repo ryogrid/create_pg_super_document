@@ -19,7 +19,7 @@ The function takes two HeapTupleHeader arguments through the PostgreSQL function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `record_image_cmp` - Internal byte-oriented comparison function that performs the actual comparison
+  - `[record_image_cmp](record_image_cmp.md)` - Internal byte-oriented comparison function that performs the actual comparison
   - `PG_RETURN_BOOL` - PostgreSQL macro for returning boolean values
   - `PG_FUNCTION_ARGS` - PostgreSQL function call interface
 

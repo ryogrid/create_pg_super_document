@@ -24,10 +24,10 @@ The function works in coordination with other semantic action handlers to mainta
   - appendStringInfoCharMacro (appends character to string buffer)
   - JSON_SUCCESS (return constant)
   - JsonParseErrorType (return type) 
-  - StripnullState (state structure)
+  - [StripnullState](../S/StripnullState.md) (state structure)
 
 - Called from (representative examples):
-  - json_strip_nulls
+  - [json_strip_nulls](../j/json_strip_nulls.md)
   - JsObjectFree
 
 ## Notes and Other Information

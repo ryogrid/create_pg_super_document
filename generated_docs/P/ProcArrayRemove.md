@@ -29,17 +29,17 @@ The function performs several cleanup operations:
   - LWLockAcquire
   - LWLockRelease
   - TransactionIdIsValid
-  - MaintainLatestCompletedXid
-  - DisplayXidCache (debug builds only)
+  - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md)
+  - [DisplayXidCache](../D/DisplayXidCache.md) (debug builds only)
   - memmove
-  - ProcArrayStruct
+  - [ProcArrayStruct](ProcArrayStruct.md)
   - ProcGlobal
   - TransamVariables
   - NUM_AUXILIARY_PROCS
 
 - Called from (representative examples):
-  - RemoveProcFromArray
-  - FinishPreparedTransaction
+  - [RemoveProcFromArray](../R/RemoveProcFromArray.md)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 
 ## Notes and Other Information
 - Requires exclusive locks on both ProcArrayLock and XidGenLock for atomic updates

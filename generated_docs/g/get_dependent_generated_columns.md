@@ -33,15 +33,15 @@ This is particularly important for UPDATE operations where modifying a base colu
   - table_close
   - RelationGetDescr
   - TupleDescAttr
-  - stringToNode
-  - pull_varattnos
-  - bms_overlap
-  - bms_add_member
-  - TupleConstr
-  - AttrDefault
+  - [stringToNode](../s/stringToNode.md)
+  - [pull_varattnos](../p/pull_varattnos.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [TupleConstr](../T/TupleConstr.md)
+  - [AttrDefault](../A/AttrDefault.md)
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - get_rel_all_updated_cols
+  - [get_rel_all_updated_cols](get_rel_all_updated_cols.md)
 
 ## Notes and Other Information
 - Column numbers in both input and output bitmapsets are offset by FirstLowInvalidHeapAttributeNumber

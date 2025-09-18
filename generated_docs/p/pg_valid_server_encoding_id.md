@@ -19,7 +19,7 @@ This function provides a simple wrapper around the PG_VALID_BE_ENCODING macro to
 - Functions called/Symbols referenced:
   - PG_VALID_BE_ENCODING (macro for validating backend/server encodings)
 - Called from (representative examples):
-  - setup_locale_encoding (src/bin/initdb/initdb.c:2717)
+  - [setup_locale_encoding](../s/setup_locale_encoding.md) (src/bin/initdb/initdb.c:2717)
   - PQnoPasswordSupplied (src/interfaces/libpq/libpq-fe.h:723)
 
 ## Notes and Other Information

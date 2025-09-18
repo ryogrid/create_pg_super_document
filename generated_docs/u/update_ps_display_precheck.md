@@ -27,9 +27,9 @@ The function serves as a common validation point used by multiple ps_display fun
   - IsUnderPostmaster (global process state variable)  
   - ps_buffer (global buffer pointer, when PS_USE_CLOBBER_ARGV is defined)
 - Called from (representative examples):
-  - set_ps_display_suffix (src/backend/utils/misc/ps_status.c:375)
-  - set_ps_display_remove_suffix (src/backend/utils/misc/ps_status.c:425)
-  - set_ps_display_with_len (src/backend/utils/misc/ps_status.c:457)
+  - [set_ps_display_suffix](../s/set_ps_display_suffix.md) (src/backend/utils/misc/ps_status.c:375)
+  - [set_ps_display_remove_suffix](../s/set_ps_display_remove_suffix.md) (src/backend/utils/misc/ps_status.c:425)
+  - [set_ps_display_with_len](../s/set_ps_display_with_len.md) (src/backend/utils/misc/ps_status.c:457)
 
 ## Notes and Other Information
 - Declared as static, making it internal to the ps_status.c module

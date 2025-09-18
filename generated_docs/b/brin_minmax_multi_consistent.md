@@ -36,10 +36,10 @@ The function deserializes the stored range summary data and systematically evalu
   - PG_GETARG_POINTER/PG_GETARG_INT32: Extract function arguments
   - PG_GET_COLLATION: Get collation for comparisons
   - PG_DETOAST_DATUM: Deserialize toasted datum
-  - brin_range_deserialize: Convert serialized ranges to memory format
-  - minmax_multi_get_strategy_procinfo: Get comparison function information
-  - FunctionCall2Coll: Execute comparison functions with collation
-  - DatumGetBool: Extract boolean result from datum
+  - [brin_range_deserialize](brin_range_deserialize.md): Convert serialized ranges to memory format
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md): Get comparison function information
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md): Execute comparison functions with collation
+  - [DatumGetBool](../D/DatumGetBool.md): Extract boolean result from datum
 - Called from (representative examples):
   - Not directly referenced by other symbols (likely called through function pointer mechanism during index scans)
 

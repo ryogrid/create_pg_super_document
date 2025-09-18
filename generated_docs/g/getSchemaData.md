@@ -20,19 +20,19 @@ The function carefully sequences the collection process to respect dependencies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getExtensions (reads extension information first)
-  - getExtensionMembership (identifies extension members)
-  - getNamespaces (reads schema information)
-  - getTables (reads table metadata)
-  - getTypes (reads user-defined types)
-  - getFuncs (reads user-defined functions)
-  - flagInhTables (processes inheritance relationships)
-  - flagInhAttrs (flags inherited columns)
-  - flagInhIndexes (flags inherited indexes)
-  - getIndexes, getConstraints, getTriggers (reads table-related objects)
-  - getPublications, getSubscriptions (reads logical replication objects)
+  - [getExtensions](getExtensions.md) (reads extension information first)
+  - [getExtensionMembership](getExtensionMembership.md) (identifies extension members)
+  - [getNamespaces](getNamespaces.md) (reads schema information)
+  - [getTables](getTables.md) (reads table metadata)
+  - [getTypes](getTypes.md) (reads user-defined types)
+  - [getFuncs](getFuncs.md) (reads user-defined functions)
+  - [flagInhTables](../f/flagInhTables.md) (processes inheritance relationships)
+  - [flagInhAttrs](../f/flagInhAttrs.md) (flags inherited columns)
+  - [flagInhIndexes](../f/flagInhIndexes.md) (flags inherited indexes)
+  - [getIndexes](getIndexes.md), getConstraints, getTriggers (reads table-related objects)
+  - [getPublications](getPublications.md), getSubscriptions (reads logical replication objects)
 - Called from (representative examples):
-  - main (src/bin/pg_dump/pg_dump.c:956)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:956)
 
 ## Notes and Other Information
 The function follows a strict ordering to ensure proper dependency resolution:

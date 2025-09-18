@@ -26,15 +26,15 @@ The binary search algorithm handles the special case where the rightmost Posting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsLeaf
   - GinPageIsData
   - GinPageGetOpaque
   - GinDataPageGetPostingItem
-  - ginCompareItemPointers
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
   - PostingItemGetBlockNumber
 - Called from (representative examples):
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

@@ -22,7 +22,7 @@ The function returns NULL if there's no active database connection.
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQparameterStatus (libpq function to query server parameters)
-  - PQuser (libpq function to get connection username)
+  - [PQuser](../P/PQuser.md) (libpq function to get connection username)
   - pset.db (global psql database connection)
 - Called from (representative examples):
   - Prompt generation functions in prompt.c
@@ -31,7 +31,7 @@ The function returns NULL if there's no active database connection.
 ## Notes and Other Information
 - This function is specific to psql client application, not the PostgreSQL backend
 - The function handles the PostgreSQL security model where session authorization can override the connection user
-- Session authorization is typically set using  command
+- [Session](../S/Session.md) authorization is typically set using  command
 - When session authorization is active, this function returns that user; otherwise, it returns the original connection user
 - This is commonly used in psql prompts to display the effective username
 - The returned pointer should not be freed as it points to libpq-managed memory

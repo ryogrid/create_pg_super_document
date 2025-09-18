@@ -34,12 +34,12 @@ This optimization allows the walker to skip deep recursion into aggregate sub-ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - preprocess_aggref
+  - [preprocess_aggref](preprocess_aggref.md)
   - expression_tree_walker
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - preprocess_aggrefs
-  - preprocess_aggrefs_walker (recursive self-call)
+  - [preprocess_aggrefs](preprocess_aggrefs.md)
+  - [preprocess_aggrefs_walker](preprocess_aggrefs_walker.md) (recursive self-call)
 
 ## Notes and Other Information
 - This is a static function only accessible within the same source file

@@ -23,10 +23,10 @@ This function serves as a PostgreSQL SQL function entry point for retrieving vie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVarFromNameList
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - textToQualifiedNameList
   - RangeVarGetRelid
-  - pg_get_viewdef_worker
+  - [pg_get_viewdef_worker](pg_get_viewdef_worker.md)
   - string_to_text
   - PG_RETURN_TEXT_P
   - PRETTYFLAG_INDENT

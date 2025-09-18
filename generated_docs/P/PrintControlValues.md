@@ -31,7 +31,7 @@ The display is carefully curated to show only fields that will not be reset by t
   - XidFromFullTransactionId (transaction ID extraction)
   - Various ControlFile structure members for display
 - Called from:
-  - main (in pg_resetwal.c:407)
+  - [main](../m/main.md) (in pg_resetwal.c:407)
 
 ## Notes and Other Information
 - This is a static function, accessible only within pg_resetwal.c

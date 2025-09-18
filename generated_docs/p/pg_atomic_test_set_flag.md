@@ -23,12 +23,12 @@ The function returns true if the flag was successfully set (meaning it was previ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_test_set_flag_impl
+  - [pg_atomic_test_set_flag_impl](pg_atomic_test_set_flag_impl.md)
 - Structures referenced:
-  - pg_atomic_flag
+  - [pg_atomic_flag](pg_atomic_flag.md)
 - Called from (representative examples):
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:2399, 2507)
-  - test_atomic_flag (src/test/regress/regress.c:718, 720, 723)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2399, 2507)
+  - [test_atomic_flag](../t/test_atomic_flag.md) (src/test/regress/regress.c:718, 720, 723)
 
 ## Notes and Other Information
 - This function implements the Test-And-Set atomic primitive, a fundamental building block for lock-free programming

@@ -20,18 +20,18 @@ The separator structure is a utility data type used across PostgreSQL's codebase
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - dataSplitPageInternal (src/backend/access/gin/gindatapage.c:1267)
-  - entrySplitPage (src/backend/access/gin/ginentrypage.c:611)
-  - show_memoize_info (src/backend/commands/explain.c:3333)
+  - [dataSplitPageInternal](../d/dataSplitPageInternal.md) (src/backend/access/gin/gindatapage.c:1267)
+  - [entrySplitPage](../e/entrySplitPage.md) (src/backend/access/gin/ginentrypage.c:611)
+  - [show_memoize_info](show_memoize_info.md) (src/backend/commands/explain.c:3333)
   - get_reloptions (src/backend/utils/adt/ruleutils.c:13271)
   - SplitIdentifierString (src/backend/utils/adt/varlena.c:3457)
   - SplitDirectoriesString (src/backend/utils/adt/varlena.c:3584)
-  - SplitGUCList (src/backend/utils/adt/varlena.c:3705)
+  - [SplitGUCList](../S/SplitGUCList.md) (src/backend/utils/adt/varlena.c:3705)
   - config_enum_get_options (src/backend/utils/misc/guc.c:3075)
   - fmt (src/bin/psql/command.c:4765)
-  - printPsetInfo (src/bin/psql/command.c:4941)
-  - print_separator (src/fe_utils/print.c:379)
-  - printTableOpt (src/include/fe_utils/print.h:132)
+  - [printPsetInfo](../p/printPsetInfo.md) (src/bin/psql/command.c:4941)
+  - [print_separator](../p/print_separator.md) (src/fe_utils/print.c:379)
+  - [printTableOpt](../p/printTableOpt.md) (src/include/fe_utils/print.h:132)
 
 ## Notes and Other Information
 This structure is widely used throughout PostgreSQL for various string manipulation tasks including GIN index operations, explain output formatting, configuration option parsing, psql command processing, and table printing utilities. The separator_zero flag provides flexibility in handling different types of separator scenarios, particularly useful when dealing with multi-character separators or special termination requirements.

@@ -23,20 +23,20 @@ This function processes GROUP BY clauses and window PARTITION BY clauses, handli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flatten_grouping_sets
-  - makeGroupingSet
-  - transformGroupingSet
-  - transformGroupClauseExpr
-  - bms_add_member
-  - exprLocation
+  - [flatten_grouping_sets](../f/flatten_grouping_sets.md)
+  - [makeGroupingSet](../m/makeGroupingSet.md)
+  - [transformGroupingSet](transformGroupingSet.md)
+  - [transformGroupClauseExpr](transformGroupClauseExpr.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [exprLocation](../e/exprLocation.md)
   - list_make1_int
   - GroupingSet (struct type)
-  - ParseExprKind (enum type)
+  - [ParseExprKind](../P/ParseExprKind.md) (enum type)
   - GROUPING_SET_EMPTY, GROUPING_SET_SIMPLE, GROUPING_SET_SETS, GROUPING_SET_CUBE, GROUPING_SET_ROLLUP (enum values)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformPLAssignStmt
-  - transformWindowDefinitions
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformPLAssignStmt](transformPLAssignStmt.md)
+  - [transformWindowDefinitions](transformWindowDefinitions.md)
 
 ## Notes and Other Information
 - This is a public function declared in parse_clause.h

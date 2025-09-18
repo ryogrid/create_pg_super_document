@@ -18,13 +18,13 @@ SimpleOidListCell represents a single node in a singly-linked list specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleOidListCell (self-reference for next pointer)
+  - [SimpleOidListCell](SimpleOidListCell.md) (self-reference for next pointer)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - simple_oid_list_append
-  - simple_oid_list_member
-  - simple_oid_list_destroy
-  - SimpleOidList (as the cell type for the list structure)
+  - [simple_oid_list_append](../s/simple_oid_list_append.md)
+  - [simple_oid_list_member](../s/simple_oid_list_member.md)
+  - [simple_oid_list_destroy](../s/simple_oid_list_destroy.md)
+  - [SimpleOidList](SimpleOidList.md) (as the cell type for the list structure)
 
 ## Notes and Other Information
 - This structure is defined in the frontend utilities header, indicating it's primarily used by client-side PostgreSQL tools rather than the backend server

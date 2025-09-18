@@ -23,12 +23,12 @@ This function is the core implementation of tuple fetching for heap tables withi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReleaseAndReadBuffer (buffer management)
-  - ItemPointerGetBlockNumber (extract block number from TID)
-  - heap_page_prune_opt (page pruning optimization)
-  - LockBuffer (buffer locking for concurrency control)
-  - heap_hot_search_buffer (HOT chain search and visibility checking)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (extract block number from TID)
+  - [heap_page_prune_opt](heap_page_prune_opt.md) (page pruning optimization)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking for concurrency control)
+  - [heap_hot_search_buffer](heap_hot_search_buffer.md) (HOT chain search and visibility checking)
   - IsMVCCSnapshot (snapshot type checking)
-  - ExecStoreBufferHeapTuple (store tuple in slot)
+  - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md) (store tuple in slot)
   - TTS_IS_BUFFERTUPLE (slot type verification)
 - Called from (representative examples):
   - Part of TableAmRoutine structure as a callback function

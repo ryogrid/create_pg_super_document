@@ -24,17 +24,17 @@ Before serialization, the function deduplicates values and performs various sani
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_deduplicate_values
-  - get_typbyval
-  - get_typlen
+  - [range_deduplicate_values](../r/range_deduplicate_values.md)
+  - [get_typbyval](../g/get_typbyval.md)
+  - [get_typlen](../g/get_typlen.md)
   - VARSIZE_ANY
-  - DatumGetCString
+  - [DatumGetCString](../D/DatumGetCString.md)
   - SET_VARSIZE
   - store_att_byval
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - brin_minmax_multi_serialize
-  - brin_minmax_multi_union
+  - [brin_minmax_multi_serialize](brin_minmax_multi_serialize.md)
+  - [brin_minmax_multi_union](brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - The function performs extensive sanity checks using Assert() to validate the input range structure

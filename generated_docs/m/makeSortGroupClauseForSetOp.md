@@ -23,10 +23,10 @@ The resulting SortGroupClause has its tleSortGroupRef set to 0 initially since n
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (SortGroupClause creation)
-  - get_sort_group_operators (operator determination for sorting and equality)
+  - [get_sort_group_operators](../g/get_sort_group_operators.md) (operator determination for sorting and equality)
 - Called from (representative examples):
-  - transformSetOperationTree (set operation tree processing)
-  - rewriteSearchAndCycle (recursive CTE processing)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (set operation tree processing)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (recursive CTE processing)
 
 ## Notes and Other Information
 - The function assumes hash support for record types when explicitly required, even if the type cache indicates otherwise

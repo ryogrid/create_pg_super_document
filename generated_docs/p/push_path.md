@@ -26,19 +26,19 @@ The function determines whether to create objects or arrays by attempting to par
 - Functions called/Symbols referenced:
   - TextDatumGetCString
   - strtoint
-  - pushJsonbValue
-  - push_null_elements
-  - palloc0
+  - [pushJsonbValue](pushJsonbValue.md)
+  - [push_null_elements](push_null_elements.md)
+  - [palloc0](palloc0.md)
 - Types used:
-  - JsonbParseState
+  - [JsonbParseState](../J/JsonbParseState.md)
   - jbvType
-  - JsonbValue
+  - [JsonbValue](../J/JsonbValue.md)
   - jbvString, jbvObject, jbvArray
   - WJB_BEGIN_OBJECT, WJB_BEGIN_ARRAY, WJB_END_OBJECT, WJB_END_ARRAY
   - WJB_KEY, WJB_VALUE, WJB_ELEM
 - Called from:
-  - setPathObject
-  - setPathArray
+  - [setPathObject](../s/setPathObject.md)
+  - [setPathArray](../s/setPathArray.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, not exposed externally
@@ -46,4 +46,4 @@ The function determines whether to create objects or arrays by attempting to par
 - The function creates a temporary type path (tpath) to track expected container types at each level
 - Array indices are created by pushing NULL elements up to the specified index
 - The function leaves the outermost container open for the caller to close
-- Path elements that cannot be parsed as integers are treated as object keys
+- [Path](../P/Path.md) elements that cannot be parsed as integers are treated as object keys

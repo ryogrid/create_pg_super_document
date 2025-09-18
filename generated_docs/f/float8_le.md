@@ -26,11 +26,11 @@ The implementation uses the same short-circuit evaluation pattern as float4_le: 
   - float8 (type definition for double-precision float)
   - isnan (standard library function for NaN detection)
 - Called from (representative examples):
-  - size_box (geometric operations in GiST indexing)
-  - gist_box_picksplit (GiST index splitting algorithm)
-  - float8le (wrapper function in src/backend/utils/adt/float.c:945)
-  - float48le (mixed precision comparison)
-  - float84le (mixed precision comparison)
+  - [size_box](../s/size_box.md) (geometric operations in GiST indexing)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md) (GiST index splitting algorithm)
+  - [float8le](float8le.md) (wrapper function in src/backend/utils/adt/float.c:945)
+  - [float48le](float48le.md) (mixed precision comparison)
+  - [float84le](float84le.md) (mixed precision comparison)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

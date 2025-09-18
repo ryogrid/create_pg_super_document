@@ -34,11 +34,11 @@ CastInfo represents type cast metadata in PostgreSQL's pg_dump utility. It exten
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
 - Called from (representative examples):
-  - selectDumpableCast (src/bin/pg_dump/pg_dump.c:1976)
-  - getCasts (src/bin/pg_dump/pg_dump.c:8604, 8640)
-  - dumpCast (src/bin/pg_dump/pg_dump.c:12728)
+  - [selectDumpableCast](../s/selectDumpableCast.md) (src/bin/pg_dump/pg_dump.c:1976)
+  - [getCasts](../g/getCasts.md) (src/bin/pg_dump/pg_dump.c:8604, 8640)
+  - [dumpCast](../d/dumpCast.md) (src/bin/pg_dump/pg_dump.c:12728)
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:242)
-  - describeDumpableObject (src/bin/pg_dump/pg_dump_sort.c:1608, 1609)
+  - [describeDumpableObject](../d/describeDumpableObject.md) (src/bin/pg_dump/pg_dump_sort.c:1608, 1609)
 
 ## Notes and Other Information
 - Cast contexts determine when the cast can be invoked: explicit (only with CAST or :: syntax), assignment (during assignment), or implicit (automatically)

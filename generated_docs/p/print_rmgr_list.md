@@ -20,9 +20,9 @@ The print_rmgr_list function iterates through all built-in PostgreSQL resource m
 ## Dependencies
 - Functions called/Symbols referenced:
   - RM_MAX_BUILTIN_ID (constant defining the maximum built-in resource manager ID)
-  - GetRmgrDesc (function to get resource manager descriptor by ID)
+  - [GetRmgrDesc](../G/GetRmgrDesc.md) (function to get resource manager descriptor by ID)
 - Called from (representative examples):
-  - main (called in pg_waldump.c:946)
+  - [main](../m/main.md) (called in pg_waldump.c:946)
 
 ## Notes and Other Information
 - This function only lists built-in resource managers, not custom or extension-provided ones

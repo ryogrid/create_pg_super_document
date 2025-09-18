@@ -93,8 +93,8 @@ The AmcheckOptions structure serves as the central configuration object for pg_a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PatternInfoArray (for include and exclude members)
-  - skip (string member)
+  - [PatternInfoArray](../P/PatternInfoArray.md) (for include and exclude members)
+  - [skip](../s/skip.md) (string member)
 - Called from (representative examples):
   - (Structure definition, not directly called)
 

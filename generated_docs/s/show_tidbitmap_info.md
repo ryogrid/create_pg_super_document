@@ -20,14 +20,14 @@ For exact pages, the bitmap can identify specific tuples within the page. For lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainPropertyInteger
-  - ExplainIndentText
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
+  - [ExplainIndentText](../E/ExplainIndentText.md)
   - appendStringInfoString
   - appendStringInfo
   - appendStringInfoChar
   - EXPLAIN_FORMAT_TEXT
 - Called from (representative examples):
-  - ExplainNode
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - This function is only called during EXPLAIN ANALYZE, not regular EXPLAIN

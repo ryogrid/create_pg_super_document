@@ -32,15 +32,15 @@ The function ensures thread-safe allocation while maintaining optimal performanc
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment)
-  - dsa_get_address (convert DSA pointer to local address)
+  - [dsa_get_address](../d/dsa_get_address.md) (convert DSA pointer to local address)
   - LWLockAcquire/LWLockRelease (exclusive locking)
   - dsa_allocate (shared memory allocation)
-  - ExecParallelHashIncreaseNumBatches (batch growth)
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (batch growth)
   - ExecParallelHashIncreaseNumBuckets (bucket growth)
   - BarrierPhase (parallel coordination)
   - HASH_CHUNK_DATA, HASH_CHUNK_HEADER_SIZE, HASH_CHUNK_THRESHOLD constants
 - Called from:
-  - ExecParallelHashRepartitionFirst (nodeHash.c:1341)
+  - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md) (nodeHash.c:1341)
   - ExecParallelHashTableInsert (nodeHash.c:1741)
   - ExecParallelHashTableInsertCurrentBatch (nodeHash.c:1800)
 

@@ -26,12 +26,12 @@ The function implements a careful protocol where it first saves the CurrentResou
   - RESOURCE_RELEASE_BEFORE_LOCKS
   - RESOURCE_RELEASE_LOCKS
   - RESOURCE_RELEASE_AFTER_LOCKS
-  - ResourceOwnerDelete
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md)
 
 - Called from:
-  - perform_base_backup (during base backup cleanup)
-  - WalSndErrorCleanup (during error recovery)
-  - UploadManifest (during manifest upload cleanup)
+  - [perform_base_backup](../p/perform_base_backup.md) (during base backup cleanup)
+  - [WalSndErrorCleanup](WalSndErrorCleanup.md) (during error recovery)
+  - [UploadManifest](../U/UploadManifest.md) (during manifest upload cleanup)
   - Referenced in CRSSnapshotAction header
 
 ## Notes and Other Information

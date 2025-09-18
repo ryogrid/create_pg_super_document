@@ -24,8 +24,8 @@ The function carefully calculates the required buffer size to accommodate all le
   - STRPTR: Get pointer to string data
   - POSDATAPTR: Get pointer to position data
   - POSDATALEN: Get length of position data
-  - pg_database_encoding_max_length: Get maximum character length for encoding
-  - pg_mblen: Get multibyte character length
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md): Get maximum character length for encoding
+  - [pg_mblen](../p/pg_mblen.md): Get multibyte character length
   - t_iseq: Test character equality
   - WEP_GETPOS: Extract position from word entry position data
   - WEP_GETWEIGHT: Extract weight from word entry position data

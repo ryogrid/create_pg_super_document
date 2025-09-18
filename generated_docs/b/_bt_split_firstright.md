@@ -24,11 +24,11 @@ This function complements _bt_split_lastleft to provide the complete boundary in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
-  - PageGetItem
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
 - Called from (representative examples):
-  - _bt_split_penalty
-  - _bt_strategy
+  - [_bt_split_penalty](_bt_split_penalty.md)
+  - [_bt_strategy](_bt_strategy.md)
 
 ## Notes and Other Information
 - This is a static inline function optimized for frequent use during B-tree split operations

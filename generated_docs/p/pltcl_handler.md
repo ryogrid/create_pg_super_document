@@ -26,13 +26,13 @@ The function establishes a call state context that tracks the current execution 
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling macros)
   - CALLED_AS_TRIGGER (macro to detect trigger calls)
   - CALLED_AS_EVENT_TRIGGER (macro to detect event trigger calls)
-  - pltcl_trigger_handler (trigger execution handler)
+  - [pltcl_trigger_handler](pltcl_trigger_handler.md) (trigger execution handler)
   - pltcl_event_trigger_handler (event trigger execution handler)
-  - pltcl_func_handler (function execution handler)
-  - MemoryContextDelete (memory management)
+  - [pltcl_func_handler](pltcl_func_handler.md) (function execution handler)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (memory management)
 - Called from (representative examples):
-  - pltcl_call_handler (trusted entry point)
-  - pltclu_call_handler (untrusted entry point)
+  - [pltcl_call_handler](pltcl_call_handler.md) (trusted entry point)
+  - [pltclu_call_handler](pltclu_call_handler.md) (untrusted entry point)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside the PL/Tcl module

@@ -33,8 +33,8 @@ Error handling is performed through PostgreSQL's `ereturn()` mechanism, which al
   - PG_INT16_MAX (maximum 16-bit signed integer constant)
   - ereturn (error return mechanism)
 - Called from (representative examples):
-  - int2in
-  - pg_strtoint16
+  - [int2in](../i/int2in.md)
+  - [pg_strtoint16](pg_strtoint16.md)
 
 ## Notes and Other Information
 - Implements a performance-optimized two-path parsing strategy: fast path for simple decimal numbers, slow path for complex formats

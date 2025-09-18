@@ -20,14 +20,14 @@ RemoveTriggerById is the fundamental function for deleting triggers in PostgreSQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - systable_beginscan/systable_getnext
-  - errdetail_relkind_not_supported
-  - IsSystemRelation
-  - CatalogTupleDelete
-  - CacheInvalidateRelcache
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [IsSystemRelation](../I/IsSystemRelation.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - Form_pg_trigger
 - Called from (representative examples):
-  - doDeletion
+  - [doDeletion](../d/doDeletion.md)
 
 ## Notes and Other Information
 - Takes AccessExclusiveLock on the trigger's relation to prevent concurrent modifications

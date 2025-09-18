@@ -29,14 +29,14 @@ The function resets the global counters (bufferedTuples and bufferedBytes) to ze
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertBufferFlush (flushes individual buffers)
+  - [CopyMultiInsertBufferFlush](CopyMultiInsertBufferFlush.md) (flushes individual buffers)
   - MAX_PARTITION_BUFFERS (constant defining maximum buffer count: 32)
   - list_delete_first, lappend (list manipulation functions)
-  - CopyMultiInsertBufferCleanup (cleanup of removed buffers)
+  - [CopyMultiInsertBufferCleanup](CopyMultiInsertBufferCleanup.md) (cleanup of removed buffers)
 - Called from (representative examples):
-  - CopyFrom (at src/backend/commands/copyfrom.c:1092)
-  - CopyFrom (at src/backend/commands/copyfrom.c:1230)
-  - CopyFrom (at src/backend/commands/copyfrom.c:1304)
+  - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1092)
+  - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1230)
+  - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1304)
 
 ## Notes and Other Information
 The buffer trimming mechanism is crucial for preventing quadratic memory growth when copying into highly partitioned tables. By limiting buffers to MAX_PARTITION_BUFFERS and removing the oldest first, it maintains reasonable memory usage while preserving performance. The special handling of curr_rri ensures that the currently active buffer is never prematurely removed, which would require immediate recreation and reduce efficiency.

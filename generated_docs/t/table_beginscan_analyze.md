@@ -22,7 +22,7 @@ The function acts as a wrapper around the table access method's scan_begin funct
   - SO_TYPE_ANALYZE (scan option flag)
   - rel->rd_tableam->scan_begin (table access method scan initialization)
 - Called from (representative examples):
-  - acquire_sample_rows (src/backend/commands/analyze.c:1196)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1196)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header file

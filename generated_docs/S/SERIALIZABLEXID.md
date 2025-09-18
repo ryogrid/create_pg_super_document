@@ -18,13 +18,13 @@ SERIALIZABLEXID serves as a bridge structure in PostgreSQL's serializable snapsh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SERIALIZABLEXIDTAG (hash key structure containing TransactionId)
-  - SERIALIZABLEXACT (target transaction data structure)
+  - [SERIALIZABLEXIDTAG](SERIALIZABLEXIDTAG.md) (hash key structure containing TransactionId)
+  - [SERIALIZABLEXACT](SERIALIZABLEXACT.md) (target transaction data structure)
 - Called from (representative examples):
-  - InitPredicateLocks (predicate locking system initialization)
-  - PredicateLockShmemSize (shared memory size calculation)
-  - RegisterPredicateLockingXid (transaction registration for predicate locking)
-  - CheckForSerializableConflictOut (serialization conflict detection)
+  - [InitPredicateLocks](../I/InitPredicateLocks.md) (predicate locking system initialization)
+  - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md) (shared memory size calculation)
+  - [RegisterPredicateLockingXid](../R/RegisterPredicateLockingXid.md) (transaction registration for predicate locking)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md) (serialization conflict detection)
   - PredicateLockTwoPhaseFinish (two-phase commit handling)
   - predicatelock_twophase_recover (two-phase commit recovery)
 

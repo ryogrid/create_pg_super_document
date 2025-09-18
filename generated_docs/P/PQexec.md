@@ -24,15 +24,15 @@ This function is ideal for simple, synchronous database operations where the app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendQuery  
-  - PQexecFinish
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendQuery](PQsendQuery.md)  
+  - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - PSQLexec
-  - SendQuery
-  - executeQuery
-  - ExecuteSqlStatement
-  - run_simple_query
+  - [PSQLexec](PSQLexec.md)
+  - [SendQuery](../S/SendQuery.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [run_simple_query](../r/run_simple_query.md)
 
 ## Notes and Other Information
 - Returns NULL if the query could not be sent; check conn->errorMessage for details

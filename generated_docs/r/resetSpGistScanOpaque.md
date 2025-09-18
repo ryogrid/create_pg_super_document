@@ -21,13 +21,13 @@ The function also performs cleanup for distance-ordered scans by freeing previou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - pairingheap_allocate
-  - pairingheap_SpGistSearchItem_cmp
-  - spgAddStartItem
-  - pfree (indirectly)
+  - [pairingheap_SpGistSearchItem_cmp](../p/pairingheap_SpGistSearchItem_cmp.md)
+  - [spgAddStartItem](../s/spgAddStartItem.md)
+  - [pfree](../p/pfree.md) (indirectly)
 - Called from:
-  - spgrescan (src/backend/access/spgist/spgscan.c:422)
+  - [spgrescan](../s/spgrescan.md) (src/backend/access/spgist/spgscan.c:422)
 
 ## Notes and Other Information
 - This is a static function internal to the spgscan.c module

@@ -29,15 +29,15 @@ The function prioritizes performance over absolute accuracy since it's used for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf: Acquires buffer for metadata page
+  - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for metadata page
   - _bt_getmeta: Gets metadata from metapage
-  - _bt_relbuf: Releases buffer
-  - MemoryContextAlloc: Allocates memory for caching metadata
-  - BTMetaPageData: Metadata structure type
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocates memory for caching metadata
+  - [BTMetaPageData](../B/BTMetaPageData.md): Metadata structure type
   - BTREE_METAPAGE: Metadata page constant
 - Called from (representative examples):
-  - get_relation_info: Planner function gathering relation statistics
-  - _bt_insertonpg: Internal B-tree insertion logic
+  - [get_relation_info](../g/get_relation_info.md): Planner function gathering relation statistics
+  - [_bt_insertonpg](_bt_insertonpg.md): Internal B-tree insertion logic
 
 ## Notes and Other Information
 - Designed specifically for query planning cost estimation rather than exact operations

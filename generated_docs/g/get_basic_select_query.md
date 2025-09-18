@@ -27,17 +27,17 @@ The function handles various SQL features including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_simple_values_rte (check for simple VALUES pattern)
-  - get_values_def (generate VALUES clause)
-  - get_target_list (generate SELECT target list)
+  - [get_simple_values_rte](get_simple_values_rte.md) (check for simple VALUES pattern)
+  - [get_values_def](get_values_def.md) (generate VALUES clause)
+  - [get_target_list](get_target_list.md) (generate SELECT target list)
   - get_from_clause (generate FROM clause)
   - get_rule_expr (generate WHERE/HAVING expressions)
-  - get_rule_sortgroupclause (generate GROUP BY/DISTINCT ON items)
-  - get_rule_groupingset (generate grouping sets)
-  - get_rule_windowclause (generate WINDOW clause)
+  - [get_rule_sortgroupclause](get_rule_sortgroupclause.md) (generate GROUP BY/DISTINCT ON items)
+  - [get_rule_groupingset](get_rule_groupingset.md) (generate grouping sets)
+  - [get_rule_windowclause](get_rule_windowclause.md) (generate WINDOW clause)
   - appendContextKeyword (format SQL keywords with proper spacing)
 - Called from (representative examples):
-  - get_select_query_def (src/backend/utils/adt/ruleutils.c:5728)
+  - [get_select_query_def](get_select_query_def.md) (src/backend/utils/adt/ruleutils.c:5728)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule decompilation system for converting internal Query structures back to SQL text

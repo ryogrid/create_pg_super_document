@@ -41,13 +41,13 @@ The catcache struct is the core data structure for PostgreSQL's catalog cache sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (doubly-linked list structure)
+  - [dlist_head](../d/dlist_head.md) (doubly-linked list structure)
   - CATCACHE_MAXKEYS (maximum number of cache keys)
-  - slist_node (singly-linked list node)
-  - ScanKeyData (scan key structure)
+  - [slist_node](../s/slist_node.md) (singly-linked list node)
+  - [ScanKeyData](../S/ScanKeyData.md) (scan key structure)
 - Called from (representative examples):
-  - InitCatCache (cache initialization)
-  - SearchCatCache functions (cache lookup operations)
+  - [InitCatCache](../I/InitCatCache.md) (cache initialization)
+  - [SearchCatCache](../S/SearchCatCache.md) functions (cache lookup operations)
 
 ## Notes and Other Information
 - Each catalog cache must have a corresponding unique index on the system table for key-based lookups

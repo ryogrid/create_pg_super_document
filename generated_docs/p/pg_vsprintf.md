@@ -20,9 +20,9 @@ pg_vsprintf provides a portable alternative to the standard vsprintf function. U
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct for managing output formatting)
-  - dopr (internal function that performs the actual formatting work)
+  - [dopr](../d/dopr.md) (internal function that performs the actual formatting work)
 - Called from (representative examples):
-  - pg_sprintf (wrapper function for sprintf functionality)
+  - [pg_sprintf](pg_sprintf.md) (wrapper function for sprintf functionality)
   - vsprintf (when PostgreSQL's implementation is used instead of system's)
   - printf (indirectly through PostgreSQL printf wrappers)
 

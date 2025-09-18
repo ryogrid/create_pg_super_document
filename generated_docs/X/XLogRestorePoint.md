@@ -21,16 +21,16 @@ The function creates an xl_restore_point structure containing the timestamp and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - strlcpy
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
-  - xl_restore_point (struct type)
+  - [XLogBeginInsert](XLogBeginInsert.md)
+  - [XLogRegisterData](XLogRegisterData.md)
+  - [XLogInsert](XLogInsert.md)
+  - [xl_restore_point](../x/xl_restore_point.md) (struct type)
   - XLOG_RESTORE_POINT (record type)
   - MAXFNAMELEN (constant)
 - Called from (representative examples):
-  - pg_create_restore_point (SQL function implementation)
+  - [pg_create_restore_point](../p/pg_create_restore_point.md) (SQL function implementation)
 
 ## Notes and Other Information
 - The restore point name is truncated to MAXFNAMELEN characters if it exceeds this limit

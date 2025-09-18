@@ -29,14 +29,14 @@ If the tablespace directory doesn't exist, it issues a warning and returns an em
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
   - AllocateDir
   - ReadDir
   - FreeDir
-  - directory_is_empty
+  - [directory_is_empty](../d/directory_is_empty.md)
   - atooid
   - tuplestore_putvalues
-  - psprintf
+  - [psprintf](psprintf.md)
 - Constants referenced:
   - GLOBALTABLESPACE_OID
   - DEFAULTTABLESPACE_OID

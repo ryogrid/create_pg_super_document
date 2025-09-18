@@ -22,8 +22,8 @@ This is a comparison function specifically designed for hash partition bounds. H
 - Functions called/Symbols referenced: None (pure comparison function)
 - Called from:
   - compare_range_bounds (at src/backend/partitioning/partbounds.c:217)
-  - partition_hash_bsearch (at src/backend/partitioning/partbounds.c:3756)
-  - qsort_partition_hbound_cmp (at src/backend/partitioning/partbounds.c:3783)
+  - [partition_hash_bsearch](partition_hash_bsearch.md) (at src/backend/partitioning/partbounds.c:3756)
+  - [qsort_partition_hbound_cmp](../q/qsort_partition_hbound_cmp.md) (at src/backend/partitioning/partbounds.c:3783)
 
 ## Notes and Other Information
 - Returns -1 if the first bound is less than the second, 1 if greater, and 0 if equal

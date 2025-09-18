@@ -24,7 +24,7 @@ This function takes no parameters and returns a Size value representing the requ
   - SizeOfScanLocations (macro)
   - SYNC_SCAN_NELEM (constant, value 20)
 - Called from (representative examples):
-  - CalculateShmemSize
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - The memory size calculation is based on SYNC_SCAN_NELEM (20), which defines the maximum number of large tables that can be tracked simultaneously in the LRU cache

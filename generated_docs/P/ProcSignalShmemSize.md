@@ -17,14 +17,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size
-  - add_size
+  - [mul_size](../m/mul_size.md)
+  - [add_size](../a/add_size.md)
   - NumProcSignalSlots (variable)
-  - ProcSignalSlot (type)
+  - [ProcSignalSlot](ProcSignalSlot.md) (type)
   - ProcSignalHeader (type)
 - Called from (representative examples):
-  - CalculateShmemSize
-  - ProcSignalShmemInit
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
+  - [ProcSignalShmemInit](ProcSignalShmemInit.md)
 
 ## Notes and Other Information
 - Uses safe arithmetic functions (mul_size, add_size) to prevent integer overflow

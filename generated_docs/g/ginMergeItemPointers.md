@@ -27,14 +27,14 @@ The function automatically detects duplicates during the merge process and ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - ginCompareItemPointers
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [ginCompareItemPointers](ginCompareItemPointers.md)
   - memcpy (for non-overlapping optimization)
 - Called from (representative examples):
-  - addItemsToLeaf (gin/gindatapage.c:1525)
-  - leafRepackItems (gin/gindatapage.c:1658)
-  - addItemPointersToLeafTuple (gin/gininsert.c:69)
-  - ginRedoRecompress (gin/ginxlog.c:233)
+  - [addItemsToLeaf](../a/addItemsToLeaf.md) (gin/gindatapage.c:1525)
+  - [leafRepackItems](../l/leafRepackItems.md) (gin/gindatapage.c:1658)
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md) (gin/gininsert.c:69)
+  - [ginRedoRecompress](ginRedoRecompress.md) (gin/ginxlog.c:233)
 
 ## Notes and Other Information
 - The function allocates space for the worst-case scenario (na + nb items) but the actual result may be smaller due to duplicate elimination

@@ -39,10 +39,10 @@ The function maintains execution state and coordinates between the plan tree exe
   - ExecProcNode (retrieves next tuple from plan tree)
   - TupIsNull (checks for null tuple indicating end of data)
   - ExecFilterJunk (removes junk attributes from tuples)
-  - ExecShutdownNode (releases resources when backward scanning not needed)
+  - [ExecShutdownNode](ExecShutdownNode.md) (releases resources when backward scanning not needed)
   - Various constants: CMD_SELECT, EXEC_FLAG_BACKWARD
 - Called from:
-  - standard_ExecutorRun (main entry point for standard executor execution)
+  - [standard_ExecutorRun](../s/standard_ExecutorRun.md) (main entry point for standard executor execution)
 
 ## Notes and Other Information
 - This is a static function accessible only within execMain.c

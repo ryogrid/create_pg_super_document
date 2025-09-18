@@ -23,7 +23,7 @@ This function takes no parameters.
   - pg_char_to_encoding
   - PG_SQL_ASCII (constant)
 - Called from (representative examples):
-  - main (in src/bin/psql/startup.c)
+  - [main](../m/main.md) (in src/bin/psql/startup.c)
   - PQnoPasswordSupplied (referenced in src/interfaces/libpq/libpq-fe.h)
 
 ## Notes and Other Information

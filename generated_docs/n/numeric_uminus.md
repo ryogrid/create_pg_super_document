@@ -18,7 +18,7 @@ This function performs sign negation on PostgreSQL NUMERIC values by directly ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts numeric argument from function call
-  - duplicate_numeric: Creates a copy of the numeric value
+  - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of the numeric value
   - NUMERIC_IS_SPECIAL: Checks if numeric is NaN or infinity
   - NUMERIC_IS_NAN: Checks if numeric is NaN (Not a Number)
   - NUMERIC_INF_SIGN_MASK: Mask for infinity sign bit
@@ -32,7 +32,7 @@ This function performs sign negation on PostgreSQL NUMERIC values by directly ma
   - PG_RETURN_NUMERIC: Returns numeric result
 
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget: JSON path execution context
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md): JSON path execution context
 
 ## Notes and Other Information
 - Implements direct bit manipulation for optimal performance

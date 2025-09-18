@@ -23,20 +23,20 @@ The function constructs a DROP PUBLICATION SQL statement with proper identifier 
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - PQescapeIdentifier
-  - appendPQExpBuffer
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - pg_log_info
   - pg_log_debug
   - pg_log_error
-  - PQexec
-  - PQresultStatus
-  - PQresultErrorMessage
-  - PQclear
-  - PQfreemem
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfreemem](../P/PQfreemem.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - cleanup_objects_atexit
-  - setup_subscriber
+  - [cleanup_objects_atexit](../c/cleanup_objects_atexit.md)
+  - [setup_subscriber](../s/setup_subscriber.md)
 
 ## Notes and Other Information
 - Used for both primary server cleanup (publication/replication slot errors) and subscriber cleanup (replicated publications removal)
@@ -44,5 +44,5 @@ The function constructs a DROP PUBLICATION SQL statement with proper identifier 
 - Sets made_publication flag to false on failure to prevent retry attempts
 - Supports dry run mode for testing without making actual changes
 - Provides detailed logging for both success and failure scenarios
-- Publication names are properly escaped to prevent SQL injection
+- [Publication](../P/Publication.md) names are properly escaped to prevent SQL injection
 - Part of the cleanup infrastructure for pg_createsubscriber error recovery

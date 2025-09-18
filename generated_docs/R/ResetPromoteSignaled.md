@@ -20,11 +20,11 @@ The function operates on a static volatile sig_atomic_t variable, ensuring threa
 This function takes no parameters.
 
 ## Dependencies
-- Variables accessed:
+- [Variables](../V/Variables.md) accessed:
   - `promote_signaled` (static volatile sig_atomic_t in startup.c:54)
 
 - Called from:
-  - CheckForStandbyTrigger (src/backend/access/transam/xlogrecovery.c:4443)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md) (src/backend/access/transam/xlogrecovery.c:4443)
   - ereport_startup_progress (referenced in src/include/postmaster/startup.h:33)
 
 ## Notes and Other Information

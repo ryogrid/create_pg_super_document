@@ -27,14 +27,14 @@ The function is designed to support the planner's optimization decisions, partic
   - Form_pg_amop
   - CatCList
 - Called from (representative examples):
-  - match_eclasses_to_foreign_key_col
-  - make_pathkey_from_sortinfo
-  - compute_semijoin_info
-  - check_mergejoinable
+  - [match_eclasses_to_foreign_key_col](../m/match_eclasses_to_foreign_key_col.md)
+  - [make_pathkey_from_sortinfo](../m/make_pathkey_from_sortinfo.md)
+  - [compute_semijoin_info](../c/compute_semijoin_info.md)
+  - [check_mergejoinable](../c/check_mergejoinable.md)
 
 ## Notes and Other Information
 - Returns NIL if the operator is not found in any btree opfamilies as an equality operator
 - The result list is typically ordered by OID, which the planner depends on for equality comparisons
 - Only considers operators registered for the btree access method with BTEqualStrategyNumber strategy
 - Critical for merge join planning and optimization opportunity recognition
-- List ordering may be unspecified when system index usage is disabled, potentially affecting planner optimization
+- [List](../L/List.md) ordering may be unspecified when system index usage is disabled, potentially affecting planner optimization

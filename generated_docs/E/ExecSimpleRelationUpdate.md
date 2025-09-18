@@ -29,18 +29,18 @@ The function supports intelligent index updates through the TU_UpdateIndexes mec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsCatalogRelation: Validates that the relation is not a system catalog
-  - CheckCmdReplicaIdentity: Validates replica identity requirements for UPDATE operations
-  - ExecBRUpdateTriggers: Executes BEFORE ROW UPDATE triggers
-  - ExecComputeStoredGenerated: Computes values for stored generated columns
-  - ExecConstraints: Validates tuple constraints
-  - ExecPartitionCheck: Validates partition constraints if applicable
-  - simple_table_tuple_update: Performs the actual tuple update in the table
-  - ExecInsertIndexTuples: Updates index entries as needed
-  - ExecARUpdateTriggers: Executes AFTER ROW UPDATE triggers
+  - [IsCatalogRelation](../I/IsCatalogRelation.md): Validates that the relation is not a system catalog
+  - [CheckCmdReplicaIdentity](../C/CheckCmdReplicaIdentity.md): Validates replica identity requirements for UPDATE operations
+  - [ExecBRUpdateTriggers](ExecBRUpdateTriggers.md): Executes BEFORE ROW UPDATE triggers
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md): Computes values for stored generated columns
+  - [ExecConstraints](ExecConstraints.md): Validates tuple constraints
+  - [ExecPartitionCheck](ExecPartitionCheck.md): Validates partition constraints if applicable
+  - [simple_table_tuple_update](../s/simple_table_tuple_update.md): Performs the actual tuple update in the table
+  - [ExecInsertIndexTuples](ExecInsertIndexTuples.md): Updates index entries as needed
+  - [ExecARUpdateTriggers](ExecARUpdateTriggers.md): Executes AFTER ROW UPDATE triggers
 - Called from (representative examples):
-  - apply_handle_update_internal: Logical replication worker for processing UPDATE operations
-  - apply_handle_tuple_routing: Handles updates with tuple routing for partitioned tables
+  - [apply_handle_update_internal](../a/apply_handle_update_internal.md): Logical replication worker for processing UPDATE operations
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md): Handles updates with tuple routing for partitioned tables
   - exec_rt_fetch: Through executor header inclusion
 
 ## Notes and Other Information

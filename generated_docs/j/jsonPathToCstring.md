@@ -22,14 +22,14 @@ This function converts a JsonPath value to its C-string representation. It provi
   - initStringInfo
   - enlargeStringInfo
   - appendStringInfoString
-  - jspInit
-  - printJsonPathItem
+  - [jspInit](jspInit.md)
+  - [printJsonPathItem](../p/printJsonPathItem.md)
   - JsonPath (struct type)
   - JsonPathItem (struct type)
   - JSONPATH_LAX (constant)
 - Called from (representative examples):
-  - jsonpath_out
-  - jsonpath_send
+  - [jsonpath_out](jsonpath_out.md)
+  - [jsonpath_send](jsonpath_send.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath.c

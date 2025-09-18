@@ -25,8 +25,8 @@ This function implements the SQL COT function for PostgreSQL, computing the cota
   - tan (standard C library function)
   - isinf
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

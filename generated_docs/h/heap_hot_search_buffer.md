@@ -25,19 +25,19 @@ The function handles both initial calls and continuation calls (when first_call 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage: Get page from buffer
-  - ItemPointerGetBlockNumber/ItemPointerGetOffsetNumber: Extract TID components
-  - PageGetItemId/PageGetItem: Access page-level tuple data
+  - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)/ItemPointerGetOffsetNumber: Extract TID components
+  - [PageGetItemId](../P/PageGetItemId.md)/PageGetItem: Access page-level tuple data
   - ItemIdIsRedirected/ItemIdGetRedirect: Handle redirected item pointers
   - HeapTupleIsHeapOnly: Check if tuple is heap-only
-  - HeapTupleSatisfiesVisibility: Test tuple visibility against snapshot
-  - PredicateLockTID: Acquire predicate locks for serializable isolation
-  - GlobalVisTestFor/HeapTupleIsSurelyDead: Test global tuple deadness
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md): Test tuple visibility against snapshot
+  - [PredicateLockTID](../P/PredicateLockTID.md): Acquire predicate locks for serializable isolation
+  - [GlobalVisTestFor](../G/GlobalVisTestFor.md)/HeapTupleIsSurelyDead: Test global tuple deadness
   - HeapTupleIsHotUpdated: Check if tuple continues the HOT chain
 - Called from (representative examples):
-  - heapam_index_fetch_tuple: Index access method tuple fetching
-  - heapam_scan_bitmap_next_block: Bitmap scan implementation
-  - heap_index_delete_tuples: Index tuple deletion
+  - [heapam_index_fetch_tuple](heapam_index_fetch_tuple.md): Index access method tuple fetching
+  - [heapam_scan_bitmap_next_block](heapam_scan_bitmap_next_block.md): Bitmap scan implementation
+  - [heap_index_delete_tuples](heap_index_delete_tuples.md): Index tuple deletion
 
 ## Notes and Other Information
 - Requires caller to already have the buffer pinned and locked (unlike heap_fetch)

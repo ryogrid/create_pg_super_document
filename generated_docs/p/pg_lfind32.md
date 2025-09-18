@@ -27,15 +27,15 @@ The function is conditionally compiled to fall back to scalar implementation whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vector32_broadcast (replicates key value across vector for SIMD operations)
+  - [vector32_broadcast](../v/vector32_broadcast.md) (replicates key value across vector for SIMD operations)
   - Vector32 (32-bit vector data type)
-  - pg_lfind32_one_by_one_helper (scalar fallback implementation)
-  - pg_lfind32_simd_helper (vectorized 4-register block processing)
+  - [pg_lfind32_one_by_one_helper](pg_lfind32_one_by_one_helper.md) (scalar fallback implementation)
+  - [pg_lfind32_simd_helper](pg_lfind32_simd_helper.md) (vectorized 4-register block processing)
   - USE_NO_SIMD (compilation flag controlling SIMD availability)
 - Called from (representative examples):
   - TransactionIdIsInProgress (transaction processing)
-  - XidIsConcurrent (concurrency control)
-  - XidInMVCCSnapshot (snapshot management)
+  - [XidIsConcurrent](../X/XidIsConcurrent.md) (concurrency control)
+  - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md) (snapshot management)
   - Various test functions in test_lfind module
 
 ## Notes and Other Information

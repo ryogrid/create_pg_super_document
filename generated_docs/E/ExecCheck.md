@@ -19,15 +19,15 @@ ExecCheck is used to evaluate check constraints in PostgreSQL. The function take
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalExprSwitchContext
-  - DatumGetBool
+  - [DatumGetBool](../D/DatumGetBool.md)
   - Assert
   - EEO_FLAG_IS_QUAL
 - Called from (representative examples):
-  - ATRewriteTable
-  - ExecRelCheck
-  - ExecPartitionCheck
-  - check_default_partition_contents
-  - domain_check_input
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ExecRelCheck](ExecRelCheck.md)
+  - [ExecPartitionCheck](ExecPartitionCheck.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
+  - [domain_check_input](../d/domain_check_input.md)
   - ExecQualAndReset
 
 ## Notes and Other Information

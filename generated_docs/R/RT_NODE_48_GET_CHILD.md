@@ -36,12 +36,12 @@ The returned value is a pointer to the RT_PTR_ALLOC element in the children arra
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
-  - RT_NODE_48 (structure type for 48-way radix tree nodes)
+  - [RT_NODE_48](RT_NODE_48.md) (structure type for 48-way radix tree nodes)
   - RT_PTR_ALLOC (type representing pointer allocation slots)
 - Called from (representative examples):
-  - RT_NODE_SEARCH (at src/include/lib/radixtree.h:1070)
-  - RT_FREE_RECURSE (at src/include/lib/radixtree.h:2019)
-  - RT_NODE_ITERATE_NEXT (at src/include/lib/radixtree.h:2178)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md) (at src/include/lib/radixtree.h:1070)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (at src/include/lib/radixtree.h:2019)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md) (at src/include/lib/radixtree.h:2178)
 
 ## Notes and Other Information
 This function is a critical part of the node48 implementation in PostgreSQL's radix tree. It provides O(1) access to child pointers while maintaining the memory efficiency of the sparse representation.

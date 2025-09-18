@@ -30,19 +30,19 @@ The function ensures atomicity and proper locking throughout the creation proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetAndCheckCreationNamespace
-  - checkMembershipInCurrentExtension  
-  - init_params
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)  
+  - [init_params](../i/init_params.md)
   - makeColumnDef
-  - DefineRelation
-  - sequence_open/sequence_close
-  - heap_form_tuple
-  - fill_seq_with_data
-  - process_owned_by
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [DefineRelation](DefineRelation.md)
+  - [sequence_open](../s/sequence_open.md)/sequence_close
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md)
+  - [process_owned_by](../p/process_owned_by.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1667)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1667)
 
 ## Notes and Other Information
 - Sequences are implemented as special relations with RELKIND_SEQUENCE

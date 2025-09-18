@@ -21,10 +21,10 @@ The function is part of the pg_receivewal utility's file management infrastructu
 ## Dependencies
 - Functions called/Symbols referenced:
   - closedir (system call)
-  - pg_fatal (PostgreSQL error handling)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - main (in pg_receivewal.c:825)
+  - [main](../m/main.md) (in pg_receivewal.c:825)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_receivewal.c source file

@@ -26,13 +26,13 @@ The function ensures that JIT instrumentation data survives beyond the parallel 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - InstrJitAgg  
-  - mul_size
-  - MemoryContextAlloc
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [InstrJitAgg](../I/InstrJitAgg.md)  
+  - [mul_size](../m/mul_size.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - memcpy
 - Called from (representative examples):
-  - ExecParallelCleanup
+  - [ExecParallelCleanup](ExecParallelCleanup.md)
 
 ## Notes and Other Information
 - This is a static function internal to execParallel.c

@@ -43,17 +43,17 @@ LC_ALL=: ICU locale specification with collation rules
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_icu_converter
-  - uchar_length
-  - uchar_convert
+  - [init_icu_converter](../i/init_icu_converter.md)
+  - [uchar_length](../u/uchar_length.md)
+  - [uchar_convert](../u/uchar_convert.md)
   - ucol_getSortKey
-  - palloc
-  - pfree
+  - [palloc](palloc.md)
+  - [pfree](pfree.md)
   - TEXTBUFLEN
   - COLLPROVIDER_ICU
 - Called from (representative examples):
-  - pg_strxfrm (src/backend/utils/adt/pg_locale.c:2412)
-  - pg_strnxfrm (src/backend/utils/adt/pg_locale.c:2449)
+  - [pg_strxfrm](pg_strxfrm.md) (src/backend/utils/adt/pg_locale.c:2412)
+  - [pg_strnxfrm](pg_strnxfrm.md) (src/backend/utils/adt/pg_locale.c:2449)
 
 ## Notes and Other Information
 - This is a static function compiled only when ICU support is available

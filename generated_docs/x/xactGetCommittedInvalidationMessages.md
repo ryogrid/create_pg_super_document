@@ -29,12 +29,12 @@ This ordering maintains consistency between original execution and replay scenar
 ## Dependencies
 - Functions called/Symbols referenced:
   - NumMessagesInGroup
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - ProcessMessageSubGroupMulti
   - SharedInvalidationMessage (type)
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - StartPrepare
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [StartPrepare](../S/StartPrepare.md)
 
 ## Notes and Other Information
 - Must always run before AtEOXact_Inval() since that function cleans up the data needed here

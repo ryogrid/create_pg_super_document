@@ -25,17 +25,17 @@ The function is designed to be used during semaphore set initialization, where e
 - Functions called/Symbols referenced:
   - semctl (system call)
   - ereport
-  - errmsg_internal
-  - errhint
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errhint](../e/errhint.md)
 - Constants referenced:
   - SETVAL (semctl operation)
   - ERANGE (errno value)
 - Types used:
   - union semun
 - Called from (representative examples):
-  - IpcSemaphoreCreate
-  - PGSemaphoreCreate
-  - PGSemaphoreReset
+  - [IpcSemaphoreCreate](IpcSemaphoreCreate.md)
+  - [PGSemaphoreCreate](../P/PGSemaphoreCreate.md)
+  - [PGSemaphoreReset](../P/PGSemaphoreReset.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_sema.c file

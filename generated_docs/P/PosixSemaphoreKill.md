@@ -28,7 +28,7 @@ Key behaviors:
   - elog (PostgreSQL logging)
 
 - Called from:
-  - ReleaseSemaphores (PostgreSQL semaphore cleanup during shutdown)
+  - [ReleaseSemaphores](../R/ReleaseSemaphores.md) (PostgreSQL semaphore cleanup during shutdown)
 
 ## Notes and Other Information
 - The function is static and internal to the POSIX semaphore implementation

@@ -23,16 +23,16 @@ This mechanism enables responsive synchronous replication by ensuring that apply
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - SetLatch
-  - Latch (data type)
+  - [SetLatch](../S/SetLatch.md)
+  - [Latch](../L/Latch.md) (data type)
 - Called from (representative examples):
-  - ApplyWalRecord
-  - WaitForWALToBecomeAvailable
+  - [ApplyWalRecord](../A/ApplyWalRecord.md)
+  - [WaitForWALToBecomeAvailable](WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 - This function is called by the startup process when applying interesting XLog records
 - The force_reply flag is checked by the WAL receiver main loop to trigger immediate replies
-- Latch access is protected by spinlocks because fetching the latch pointer might not be atomic
+- [Latch](../L/Latch.md) access is protected by spinlocks because fetching the latch pointer might not be atomic
 - Critical for synchronous replication performance, particularly with remote_apply synchronous_commit levels
 - The function is non-blocking and simply signals the WAL receiver; the actual reply sending happens in the main WAL receiver loop
 - Thread-safe design allows safe calling from different processes in the PostgreSQL multi-process architecture

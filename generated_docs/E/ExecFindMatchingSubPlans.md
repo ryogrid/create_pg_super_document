@@ -23,18 +23,18 @@ The function uses a temporary memory context to avoid memory leaks in the execut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_matching_subplans_recurse
+  - [find_matching_subplans_recurse](../f/find_matching_subplans_recurse.md)
   - ResetExprContext 
-  - bms_add_members
-  - bms_copy
-  - MemoryContextSwitchTo
-  - MemoryContextReset
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - ExecInitPartitionPruning
-  - choose_next_subplan_locally
-  - choose_next_subplan_for_leader
-  - choose_next_subplan_for_worker
-  - ExecAppendAsyncBegin
+  - [ExecInitPartitionPruning](ExecInitPartitionPruning.md)
+  - [choose_next_subplan_locally](../c/choose_next_subplan_locally.md)
+  - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md)
+  - [choose_next_subplan_for_worker](../c/choose_next_subplan_for_worker.md)
+  - [ExecAppendAsyncBegin](ExecAppendAsyncBegin.md)
   - ExecMergeAppend
 
 ## Notes and Other Information

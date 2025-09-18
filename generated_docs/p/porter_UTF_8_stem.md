@@ -36,13 +36,13 @@ The algorithm ensures proper morphological analysis by respecting region boundar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_U (tests character group membership for UTF-8)
-  - out_grouping_U (finds characters outside a group for UTF-8)
-  - skip_utf8 (advances cursor by UTF-8 characters)
-  - slice_from_s (replaces text slice with string)
-  - r_Step_1a, r_Step_1b, r_Step_1c (Step 1 implementations)
-  - r_Step_2, r_Step_3, r_Step_4 (Steps 2-4 implementations)
-  - r_Step_5a, r_Step_5b (Step 5 implementations)
+  - [in_grouping_U](../i/in_grouping_U.md) (tests character group membership for UTF-8)
+  - [out_grouping_U](../o/out_grouping_U.md) (finds characters outside a group for UTF-8)
+  - [skip_utf8](../s/skip_utf8.md) (advances cursor by UTF-8 characters)
+  - [slice_from_s](../s/slice_from_s.md) (replaces text slice with string)
+  - [r_Step_1a](../r/r_Step_1a.md), r_Step_1b, r_Step_1c (Step 1 implementations)
+  - [r_Step_2](../r/r_Step_2.md), r_Step_3, r_Step_4 (Steps 2-4 implementations)
+  - [r_Step_5a](../r/r_Step_5a.md), r_Step_5b (Step 5 implementations)
 - Called from:
   - External stemming interfaces (not shown in current symbol database)
 

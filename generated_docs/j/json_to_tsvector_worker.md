@@ -21,16 +21,16 @@ This function serves as the core worker for converting JSON text data to TSVecto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - iterate_json_values
-  - add_to_tsvector
-  - make_tsvector
-  - TSVectorBuildState (struct)
+  - [iterate_json_values](../i/iterate_json_values.md)
+  - [add_to_tsvector](../a/add_to_tsvector.md)
+  - [make_tsvector](../m/make_tsvector.md)
+  - [TSVectorBuildState](../T/TSVectorBuildState.md) (struct)
   - ParsedText (struct)
 - Called from (representative examples):
-  - json_string_to_tsvector_byid
-  - json_string_to_tsvector
-  - json_to_tsvector_byid
-  - json_to_tsvector
+  - [json_string_to_tsvector_byid](json_string_to_tsvector_byid.md)
+  - [json_string_to_tsvector](json_string_to_tsvector.md)
+  - [json_to_tsvector_byid](json_to_tsvector_byid.md)
+  - [json_to_tsvector](json_to_tsvector.md)
 
 ## Notes and Other Information
 - Located in src/backend/tsearch/to_tsany.c:364-379

@@ -33,16 +33,16 @@ Finally, it constructs and returns a multirange from the deserialized ranges.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_multirange_io_data
+  - [get_multirange_io_data](../g/get_multirange_io_data.md)
   - IOFunc_receive
-  - pq_getmsgint
-  - pq_getmsgbytes
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md)
   - resetStringInfo
   - appendBinaryStringInfo
-  - ReceiveFunctionCall
+  - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md)
   - DatumGetRangeTypeP
-  - pq_getmsgend
-  - make_multirange
+  - [pq_getmsgend](../p/pq_getmsgend.md)
+  - [make_multirange](make_multirange.md)
   - PG_RETURN_MULTIRANGE_P
 - Called from:
   - PostgreSQL type system (receive function registration)

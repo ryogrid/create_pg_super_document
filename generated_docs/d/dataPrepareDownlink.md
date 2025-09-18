@@ -20,13 +20,13 @@ The function is part of the GIN data page management infrastructure and is speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - BufferGetPage  
-  - BufferGetBlockNumber
+  - [palloc](../p/palloc.md)
+  - [BufferGetPage](../B/BufferGetPage.md)  
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - PostingItemSetBlockNumber
   - GinDataPageGetRightBound
 - Called from (representative examples):
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the gindatapage.c file

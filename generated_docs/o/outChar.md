@@ -23,7 +23,7 @@ This approach ensures that single characters receive the same escaping treatment
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendStringInfoString (for null character '<>' representation)
-  - outToken (for delegating character escaping and formatting)
+  - [outToken](outToken.md) (for delegating character escaping and formatting)
 
 - Called from (representative examples):
   - WRITE_CHAR_FIELD (macro in outfuncs.c:70)

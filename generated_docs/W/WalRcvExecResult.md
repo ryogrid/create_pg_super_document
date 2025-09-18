@@ -25,14 +25,14 @@ The structure is primarily used in PostgreSQL's logical replication and subscrip
 - Functions called/Symbols referenced:
   - WalRcvExecStatus
   - Tuplestorestate
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
 
 - Called from (representative examples):
-  - check_publications (src/backend/commands/subscriptioncmds.c:488)
-  - ReplicationSlotDropAtPubNode (src/backend/commands/subscriptioncmds.c:1857)
-  - libpqrcv_exec (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1239)
-  - fetch_remote_table_info (src/backend/replication/logical/tablesync.c:823)
-  - copy_table (src/backend/replication/logical/tablesync.c:1146)
+  - [check_publications](../c/check_publications.md) (src/backend/commands/subscriptioncmds.c:488)
+  - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md) (src/backend/commands/subscriptioncmds.c:1857)
+  - [libpqrcv_exec](../l/libpqrcv_exec.md) (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1239)
+  - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (src/backend/replication/logical/tablesync.c:823)
+  - [copy_table](../c/copy_table.md) (src/backend/replication/logical/tablesync.c:1146)
 
 ## Notes and Other Information
 - The structure is typically used in conjunction with walrcv_clear_result() for proper memory management and cleanup

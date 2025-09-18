@@ -21,17 +21,17 @@ This operation is commonly used in scenarios where the list is being used as a q
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty
-  - dlist_delete
-  - dlist_head (type)
-  - dlist_node (type)
+  - [dlist_is_empty](dlist_is_empty.md)
+  - [dlist_delete](dlist_delete.md)
+  - [dlist_head](dlist_head.md) (type)
+  - [dlist_node](dlist_node.md) (type)
 - Called from (representative examples):
-  - do_start_worker
-  - ReorderBufferIterTXNNext
-  - ReorderBufferIterTXNFinish
-  - CreatePredXact
+  - [do_start_worker](do_start_worker.md)
+  - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md)
+  - [ReorderBufferIterTXNFinish](../R/ReorderBufferIterTXNFinish.md)
+  - [CreatePredXact](../C/CreatePredXact.md)
   - InitProcess
-  - dclist_pop_head_node
+  - [dclist_pop_head_node](dclist_pop_head_node.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

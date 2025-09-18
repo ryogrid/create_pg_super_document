@@ -18,18 +18,18 @@ CheckConnection is a comprehensive connection management function that ensures p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConnectionUp (checks if connection is active)
-  - PQreset (libpq function to reset/reconnect)
-  - PQfinish (libpq function to close connections)
-  - ResetCancelConn (resets cancellation connection state)
-  - UnsyncVariables (cleans up variable synchronization)
-  - SyncVariables (re-synchronizes variables after reconnection)
-  - connection_warnings (displays connection-related warnings)
+  - [ConnectionUp](ConnectionUp.md) (checks if connection is active)
+  - [PQreset](../P/PQreset.md) (libpq function to reset/reconnect)
+  - [PQfinish](../P/PQfinish.md) (libpq function to close connections)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (resets cancellation connection state)
+  - [UnsyncVariables](../U/UnsyncVariables.md) (cleans up variable synchronization)
+  - [SyncVariables](../S/SyncVariables.md) (re-synchronizes variables after reconnection)
+  - [connection_warnings](../c/connection_warnings.md) (displays connection-related warnings)
   - pg_log_error (logs error messages)
   - EXIT_BADCONN (exit code for bad connections)
 - Called from (representative examples):
-  - AcceptResult (before processing query results)
-  - ExecQueryAndProcessResults (before executing queries)
+  - [AcceptResult](../A/AcceptResult.md) (before processing query results)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (before executing queries)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the common.c compilation unit

@@ -34,11 +34,11 @@ The function enforces strict calling context validation - it will raise an error
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF (initializes set-returning function infrastructure)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function infrastructure)
   - slist_foreach, slist_container (iterates through SQLDropList)
-  - ObjectIdGetDatum, Int32GetDatum, BoolGetDatum, CStringGetTextDatum (datum conversion)
-  - strlist_to_textarray (converts string lists to PostgreSQL arrays)
-  - construct_empty_array (creates empty arrays for null cases)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md), Int32GetDatum, BoolGetDatum, CStringGetTextDatum (datum conversion)
+  - [strlist_to_textarray](../s/strlist_to_textarray.md) (converts string lists to PostgreSQL arrays)
+  - [construct_empty_array](../c/construct_empty_array.md) (creates empty arrays for null cases)
   - tuplestore_putvalues (adds rows to result tuplestore)
 - Called from:
   - No direct references (invoked by SQL as built-in function)

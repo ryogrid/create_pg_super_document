@@ -43,17 +43,17 @@ The structure uses a red-black tree for efficient insertion and lookup during th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTNode (red-black tree infrastructure)
+  - [RBTNode](../R/RBTNode.md) (red-black tree infrastructure)
   - GinNullCategory (key categorization)
-  - ItemPointerData (tuple identifier storage)
+  - [ItemPointerData](../I/ItemPointerData.md) (tuple identifier storage)
   - Datum (PostgreSQL's generic data type)
 
 - Called from (representative examples):
   - ginCombineData (combines accumulators when duplicate keys found)
-  - cmpEntryAccumulator (compares accumulators for tree ordering)
-  - ginAllocEntryAccumulator (allocates new accumulator instances)
-  - ginInsertBAEntry (inserts entries into build accumulator)
-  - ginGetBAEntry (retrieves entries from build accumulator)
+  - [cmpEntryAccumulator](../c/cmpEntryAccumulator.md) (compares accumulators for tree ordering)
+  - [ginAllocEntryAccumulator](../g/ginAllocEntryAccumulator.md) (allocates new accumulator instances)
+  - [ginInsertBAEntry](../g/ginInsertBAEntry.md) (inserts entries into build accumulator)
+  - [ginGetBAEntry](../g/ginGetBAEntry.md) (retrieves entries from build accumulator)
 
 ## Notes and Other Information
 - Used exclusively during GIN index construction via ginbulk.c routines

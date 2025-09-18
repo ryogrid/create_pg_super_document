@@ -23,16 +23,16 @@ This function is the foundation for SPI_prepare (which calls it with cursorOptio
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call
-  - _SPI_prepare_plan
+  - [_SPI_prepare_plan](_SPI_prepare_plan.md)
   - _SPI_make_plan_non_temp
   - _SPI_end_call
   - _SPI_plan
-  - SPIPlanPtr
+  - [SPIPlanPtr](SPIPlanPtr.md)
   - _SPI_PLAN_MAGIC
   - RAW_PARSE_DEFAULT
   - SPI_ERROR_ARGUMENT
 - Called from (representative examples):
-  - SPI_prepare
+  - [SPI_prepare](SPI_prepare.md)
 
 ## Notes and Other Information
 - Returns SPIPlanPtr on success, NULL on failure (check SPI_result for error details)

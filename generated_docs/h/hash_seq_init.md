@@ -22,19 +22,19 @@ The function supports both regular and partitioned hash tables. For partitioned 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - register_seq_scan (registers the scan for cleanup tracking on non-frozen tables)
+  - [register_seq_scan](../r/register_seq_scan.md) (registers the scan for cleanup tracking on non-frozen tables)
 - Called from (representative examples):
-  - LockReleaseAll (in lock manager for releasing locks)
-  - RelationCacheInvalidate (for invalidating relation cache entries)
-  - GetLockStatusData (for collecting lock status information)
-  - DropAllPreparedStatements (for cleaning up prepared statements)
-  - AtEOXact_RelationCache (for end-of-transaction cleanup)
-  - compute_array_stats (for statistical analysis of arrays)
+  - [LockReleaseAll](../L/LockReleaseAll.md) (in lock manager for releasing locks)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md) (for invalidating relation cache entries)
+  - [GetLockStatusData](../G/GetLockStatusData.md) (for collecting lock status information)
+  - [DropAllPreparedStatements](../D/DropAllPreparedStatements.md) (for cleaning up prepared statements)
+  - [AtEOXact_RelationCache](../A/AtEOXact_RelationCache.md) (for end-of-transaction cleanup)
+  - [compute_array_stats](../c/compute_array_stats.md) (for statistical analysis of arrays)
   - Various other cleanup and administrative functions
 
 ## Notes and Other Information
 - Must be followed by hash_seq_search() calls to iterate through entries
-- hash_seq_term() should be called if the scan is abandoned before completion
+- [hash_seq_term](hash_seq_term.md)() should be called if the scan is abandoned before completion
 - If hash_seq_search() returns NULL, end-of-scan cleanup is automatic
 - The caller may delete the currently returned element during iteration
 - Deleting other elements during scan is undefined behavior

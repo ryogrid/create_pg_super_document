@@ -19,9 +19,9 @@ ReorderBufferReturnTupleBuf is a simple wrapper function that deallocates memory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ReorderBufferReturnChange
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
 
 ## Notes and Other Information
 This function should only be called on HeapTuple objects that were allocated using ReorderBufferGetTupleBuf(). The function assumes that the HeapTuple was allocated as a single memory block containing both the HeapTuple structure and its associated data, which is the allocation pattern used by ReorderBufferGetTupleBuf(). It's part of the memory management pair for tuple handling in logical replication.

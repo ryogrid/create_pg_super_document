@@ -21,7 +21,7 @@ The cmpaliases function serves as a comparison callback for the qsort() library 
   - strcmp (standard C library function)
   - CollAliasData (struct type)
 - Called from (representative examples):
-  - pg_import_system_collations (via qsort callback)
+  - [pg_import_system_collations](../p/pg_import_system_collations.md) (via qsort callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within collationcmds.c

@@ -29,15 +29,15 @@ The function returns 1 if a short vowel pattern is detected, 0 otherwise.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping_b: Tests if character at position is outside a character group (backwards)
-  - in_grouping_b: Tests if character at position is inside a character group (backwards)
+  - [out_grouping_b](../o/out_grouping_b.md): Tests if character at position is outside a character group (backwards)
+  - [in_grouping_b](../i/in_grouping_b.md): Tests if character at position is inside a character group (backwards)
   - g_v_WXY: Character grouping for vowels excluding w, x, y
   - g_v: Character grouping for vowels (97-121, 'a'-'y')
 
 - Called from (representative examples):
-  - r_Step_1b: Uses short vowel test in stemming step 1b rules
-  - r_Step_5: Uses short vowel test in final stemming step
-  - r_Step_5a: Porter stemmer variant usage
+  - [r_Step_1b](r_Step_1b.md): Uses short vowel test in stemming step 1b rules
+  - [r_Step_5](r_Step_5.md): Uses short vowel test in final stemming step
+  - [r_Step_5a](r_Step_5a.md): Porter stemmer variant usage
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

@@ -34,11 +34,11 @@ The hist_weight parameter represents the total number of rows in the histogram p
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall2
-  - DatumGetBool
-  - inet_hist_value_sel
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [inet_hist_value_sel](inet_hist_value_sel.md)
   - Min
 - Called from (representative examples):
-  - networkjoinsel_semi
+  - [networkjoinsel_semi](../n/networkjoinsel_semi.md)
 
 ## Notes and Other Information
 - Returns 1.0 immediately upon finding any MCV match, optimizing for the most common case

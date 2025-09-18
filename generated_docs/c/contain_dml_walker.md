@@ -32,10 +32,10 @@ The recursive nature ensures that nested subqueries are also examined, making it
   - IsA (macro)
   - query_tree_walker
   - expression_tree_walker
-  - contain_dml_walker (recursive self-reference)
+  - [contain_dml_walker](contain_dml_walker.md) (recursive self-reference)
 - Called from (representative examples):
-  - contain_dml
-  - contain_dml_walker (recursive calls)
+  - [contain_dml](contain_dml.md)
+  - [contain_dml_walker](contain_dml_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Follows PostgreSQL's standard tree walker pattern with recursive self-calls

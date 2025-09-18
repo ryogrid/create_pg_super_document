@@ -20,14 +20,14 @@ The function operates by moving the "extra blackness" problem up the tree throug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbt_rotate_left
-  - rbt_rotate_right
+  - [rbt_rotate_left](rbt_rotate_left.md)
+  - [rbt_rotate_right](rbt_rotate_right.md)
   - RBTBLACK (color constant)
   - RBTRED (color constant)
-  - RBTree (tree structure type)
-  - RBTNode (node structure type)
+  - [RBTree](../R/RBTree.md) (tree structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)
 - Called from (representative examples):
-  - rbt_delete_node
+  - [rbt_delete_node](rbt_delete_node.md)
 
 ## Notes and Other Information
 - The function assumes that  is always a black node upon entry

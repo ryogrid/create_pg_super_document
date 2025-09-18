@@ -21,22 +21,22 @@ The security-definer mechanism allows functions to execute with the privileges o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - fmgr_info_cxt_security  
-  - SearchSysCache1
-  - SysCacheGetAttr
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md)  
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - TransformGUCArray
-  - get_config_handle
-  - GetUserIdAndSecContext
-  - SetUserIdAndSecContext
-  - NewGUCNestLevel
-  - set_config_with_handle
+  - [get_config_handle](../g/get_config_handle.md)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md)
+  - [set_config_with_handle](../s/set_config_with_handle.md)
   - FunctionCallInvoke
-  - pgstat_init_function_usage
-  - pgstat_end_function_usage
-  - AtEOXact_GUC
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md)
+  - [pgstat_end_function_usage](../p/pgstat_end_function_usage.md)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
 - Called from (representative examples):
-  - fmgr_info_cxt_security
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md)
 
 ## Notes and Other Information
 - Caches execution context information in fn_extra for performance

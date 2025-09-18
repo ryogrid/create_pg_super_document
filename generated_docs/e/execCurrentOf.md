@@ -26,12 +26,12 @@ The function validates that the cursor exists, is a SELECT query, is not a held 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_cursor_param_value (for parameterized cursor names)
-  - get_rel_name (for error messages)
+  - [fetch_cursor_param_value](../f/fetch_cursor_param_value.md) (for parameterized cursor names)
+  - [get_rel_name](../g/get_rel_name.md) (for error messages)
   - GetPortalByName (to locate the cursor portal)
   - PortalIsValid (cursor validation)
-  - search_plan_tree (to find scan nodes in non-FOR-UPDATE cases)
-  - ItemPointerIsValid (TID validation)
+  - [search_plan_tree](../s/search_plan_tree.md) (to find scan nodes in non-FOR-UPDATE cases)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md) (TID validation)
   - slot_getsysattr (to extract TID from tuple slots)
 - Called from (representative examples):
   - TidListEval (in nodeTidscan.c for TID scan execution)

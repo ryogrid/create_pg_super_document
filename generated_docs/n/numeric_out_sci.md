@@ -21,12 +21,12 @@ The  function is responsible for converting PostgreSQL's internal Numeric data t
   - NUMERIC_IS_SPECIAL
   - NUMERIC_IS_PINF
   - NUMERIC_IS_NINF
-  - pstrdup
-  - init_var_from_num
-  - get_str_from_var_sci
+  - [pstrdup](../p/pstrdup.md)
+  - [init_var_from_num](../i/init_var_from_num.md)
+  - [get_str_from_var_sci](../g/get_str_from_var_sci.md)
 - Called from (representative examples):
-  - numeric_to_char (src/backend/utils/adt/formatting.c:6433)
-  - int8_to_char (src/backend/utils/adt/formatting.c:6647)
+  - [numeric_to_char](numeric_to_char.md) (src/backend/utils/adt/formatting.c:6433)
+  - [int8_to_char](../i/int8_to_char.md) (src/backend/utils/adt/formatting.c:6647)
 
 ## Notes and Other Information
 - The function handles PostgreSQL's special numeric values (NaN, ±Infinity) by returning predefined string literals

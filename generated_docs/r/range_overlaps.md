@@ -22,9 +22,9 @@ The function follows PostgreSQL's standard function interface pattern using the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P (to extract range arguments)
-  - range_get_typcache (to get type cache information)
+  - [range_get_typcache](range_get_typcache.md) (to get type cache information)
   - RangeTypeGetOid (to get the OID of the range type)
-  - range_overlaps_internal (performs the actual overlap test)
+  - [range_overlaps_internal](range_overlaps_internal.md) (performs the actual overlap test)
 - Called from (representative examples):
   - No direct references found in the codebase (typically called via SQL operator &&)
 

@@ -24,14 +24,14 @@ This function searches through all operator classes belonging to a specific acce
   - CatCList (catalog cache list structure)
   - SearchSysCacheList1 (system cache list lookup)
   - Form_pg_opclass (operator class catalog tuple form)
-  - ReleaseCatCacheList (cache list release)
-  - ObjectIdGetDatum (OID to datum conversion)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md) (cache list release)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to datum conversion)
   - GETSTRUCT (macro to extract tuple structure)
   - InvalidOid (invalid OID constant)
 - Called from (representative examples):
-  - hashadjustmembers
-  - opfamily_can_sort_type
-  - btadjustmembers
+  - [hashadjustmembers](../h/hashadjustmembers.md)
+  - [opfamily_can_sort_type](opfamily_can_sort_type.md)
+  - [btadjustmembers](../b/btadjustmembers.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching operator class is found

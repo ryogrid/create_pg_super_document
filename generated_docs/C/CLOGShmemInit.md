@@ -28,10 +28,10 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CLOGShmemBuffers (calculates optimal buffer count)
-  - SetConfigOption (sets configuration parameters)
-  - CLOGPagePrecedes (page ordering function)
-  - SimpleLruInit (initializes SLRU structure)
-  - SlruPagePrecedesUnitTests (runs unit tests)
+  - [SetConfigOption](../S/SetConfigOption.md) (sets configuration parameters)
+  - [CLOGPagePrecedes](CLOGPagePrecedes.md) (page ordering function)
+  - [SimpleLruInit](../S/SimpleLruInit.md) (initializes SLRU structure)
+  - [SlruPagePrecedesUnitTests](../S/SlruPagePrecedesUnitTests.md) (runs unit tests)
 - Constants referenced:
   - PGC_POSTMASTER, PGC_S_DYNAMIC_DEFAULT, PGC_S_OVERRIDE (configuration scopes)
   - CLOG_LSNS_PER_PAGE, CLOG_XACTS_PER_PAGE (CLOG layout constants)
@@ -41,7 +41,7 @@ This function takes no parameters.
   - transaction_buffers (configuration parameter)
   - XactCtl (CLOG SLRU control structure)
 - Called from:
-  - CreateOrAttachShmemStructs (during shared memory initialization)
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md) (during shared memory initialization)
 
 ## Notes and Other Information
 - This function is called once during PostgreSQL server startup as part of shared memory initialization

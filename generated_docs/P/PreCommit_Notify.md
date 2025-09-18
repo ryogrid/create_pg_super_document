@@ -27,20 +27,20 @@ The function uses serialization through heavyweight locks to ensure notification
 ## Dependencies
 - Functions called/Symbols referenced:
   - `elog()` - Logging function with DEBUG1 level
-  - `ListenAction` - Structure representing queued LISTEN/NOTIFY operations
+  - `[ListenAction](../L/ListenAction.md)` - Structure representing queued LISTEN/NOTIFY operations
   - `LISTEN_LISTEN`, `LISTEN_UNLISTEN`, `LISTEN_UNLISTEN_ALL` - Action type constants
-  - `Exec_ListenPreCommit()` - Registers backend in shared listener array
-  - `GetCurrentTransactionId()` - Assigns XID to current transaction
-  - `LockSharedObject()` - Acquires heavyweight lock for serialization
+  - `[Exec_ListenPreCommit](../E/Exec_ListenPreCommit.md)()` - Registers backend in shared listener array
+  - `[GetCurrentTransactionId](../G/GetCurrentTransactionId.md)()` - Assigns XID to current transaction
+  - `[LockSharedObject](../L/LockSharedObject.md)()` - Acquires heavyweight lock for serialization
   - `AccessExclusiveLock` - Lock mode constant
   - `list_head()` - Gets first element of PostgreSQL List
-  - `asyncQueueFillWarning()` - Issues warning when queue is getting full
-  - `asyncQueueIsFull()` - Checks if notification queue is full
-  - `asyncQueueAddEntries()` - Adds notification entries to the queue
+  - `[asyncQueueFillWarning](../a/asyncQueueFillWarning.md)()` - Issues warning when queue is getting full
+  - `[asyncQueueIsFull](../a/asyncQueueIsFull.md)()` - Checks if notification queue is full
+  - `[asyncQueueAddEntries](../a/asyncQueueAddEntries.md)()` - Adds notification entries to the queue
   - `LWLockAcquire()`, `LWLockRelease()` - Light-weight locking functions
   - `pendingActions`, `pendingNotifies` - Global variables tracking pending operations
 - Called from:
-  - `CommitTransaction()` - Main transaction commit function
+  - `[CommitTransaction](../C/CommitTransaction.md)()` - Main transaction commit function
   - Referenced in `src/include/commands/async.h` - Header file declaration
 
 ## Notes and Other Information

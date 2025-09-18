@@ -20,16 +20,16 @@ This function serves as the cleanup and finalization routine for ZSTD compressio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ZstdCompressorState (cast target for private_data)
+  - [ZstdCompressorState](../Z/ZstdCompressorState.md) (cast target for private_data)
   - Assert (debugging assertion)
   - ZSTD_freeDStream (from ZSTD library for decompression cleanup)
-  - pg_free (PostgreSQL memory management)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory management)
   - unconstify (PostgreSQL utility for const casting)
-  - _ZstdWriteCommon (internal helper for compression finalization)
+  - [_ZstdWriteCommon](../Z/_ZstdWriteCommon.md) (internal helper for compression finalization)
   - ZSTD_freeCStream (from ZSTD library for compression cleanup)
-  - CompressorState (compression state structure)
+  - [CompressorState](../C/CompressorState.md) (compression state structure)
 - Called from (representative examples):
-  - InitCompressorZstd (registered as cleanup callback)
+  - [InitCompressorZstd](../I/InitCompressorZstd.md) (registered as cleanup callback)
 
 ## Notes and Other Information
 - This is a static function internal to the compress_zstd.c module

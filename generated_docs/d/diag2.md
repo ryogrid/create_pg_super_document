@@ -26,9 +26,9 @@ The function maintains error state management by setting the global `found_err` 
 - Functions called/Symbols referenced:
   - fprintf (standard library)
 - Called from (representative examples):
-  - main (from indent.c at multiple locations: 324, 393, 462, 483, 747, 796, 844, 853, 896, 907, 1138, 1142, 1150)
-  - lexi (from lexi.c at lines 270, 470)
-  - parse (from parse.c at lines 157, 176, 200)
+  - [main](../m/main.md) (from indent.c at multiple locations: 324, 393, 462, 483, 747, 796, 844, 853, 896, 907, 1138, 1142, 1150)
+  - [lexi](../l/lexi.md) (from lexi.c at lines 270, 470)
+  - [parse](../p/parse.md) (from parse.c at lines 157, 176, 200)
 
 ## Notes and Other Information
 - Part of the pg_bsd_indent tool's comprehensive diagnostic system

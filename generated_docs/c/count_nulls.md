@@ -24,19 +24,19 @@ The function returns a boolean indicating success (true) or failure (false). On 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_variadic
+  - [get_fn_expr_variadic](../g/get_fn_expr_variadic.md)
   - PG_NARGS
   - PG_ARGISNULL
-  - get_base_element_type
-  - get_fn_expr_argtype
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
   - PG_GETARG_ARRAYTYPE_P
   - ARR_NDIM
   - ARR_DIMS
   - ArrayGetNItems
   - ARR_NULLBITMAP
 - Called from (representative examples):
-  - pg_num_nulls
-  - pg_num_nonnulls
+  - [pg_num_nulls](../p/pg_num_nulls.md)
+  - [pg_num_nonnulls](../p/pg_num_nonnulls.md)
 
 ## Notes and Other Information
 - This is a static function internal to misc.c, not exposed in the public API

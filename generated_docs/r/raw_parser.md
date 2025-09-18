@@ -32,13 +32,13 @@ The parsing process involves:
   - scanner_finish
   - RawParseMode (enum)
   - core_yyscan_t (type)
-  - base_yy_extra_type (type)
+  - [base_yy_extra_type](../b/base_yy_extra_type.md) (type)
 - Called from (representative examples):
-  - ATPostAlterTypeParse
-  - _SPI_prepare_plan
-  - _SPI_prepare_oneshot_plan
-  - typeStringToTypeName
-  - pg_parse_query
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
+  - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md)
+  - [_SPI_prepare_oneshot_plan](../S/_SPI_prepare_oneshot_plan.md)
+  - [typeStringToTypeName](../t/typeStringToTypeName.md)
+  - [pg_parse_query](../p/pg_parse_query.md)
 
 ## Notes and Other Information
 - Returns NIL on parsing errors

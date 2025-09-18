@@ -23,17 +23,17 @@ The tm2time function performs a conversion from a broken-down time representatio
   - SECS_PER_MINUTE (constant)
   - USECS_PER_SEC (constant)
 - Types used:
-  - pg_tm (struct)
+  - [pg_tm](../p/pg_tm.md) (struct)
   - fsec_t (fractional seconds type)
   - TimeADT (time abstract data type)
 - Called from (representative examples):
-  - GetSQLLocalTime
-  - time_in
-  - parse_datetime
+  - [GetSQLLocalTime](../G/GetSQLLocalTime.md)
+  - [time_in](time_in.md)
+  - [parse_datetime](../p/parse_datetime.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information
 - Always returns 0 (success), indicating this function does not perform overflow checking
 - The function assumes input values are valid and within reasonable ranges
-- Result is stored in microseconds since midnight
+- [Result](../R/Result.md) is stored in microseconds since midnight
 - Part of PostgreSQL's date/time handling infrastructure in src/backend/utils/adt/date.c

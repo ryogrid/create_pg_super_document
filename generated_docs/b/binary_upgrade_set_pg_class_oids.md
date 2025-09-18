@@ -30,20 +30,20 @@ A key complexity addressed is that older databases might have TOAST tables that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer/destroyPQExpBuffer (buffer management)
-  - appendPQExpBuffer/appendPQExpBufferStr/appendPQExpBufferChar (SQL construction)
-  - ExecuteSqlQueryForSingleRow (database query execution)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr/appendPQExpBufferChar (SQL construction)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (database query execution)
   - atooid (string to OID conversion)
-  - PQgetvalue/PQfnumber/PQclear (query result handling)
+  - [PQgetvalue](../P/PQgetvalue.md)/PQfnumber/PQclear (query result handling)
   - RelFileNumberIsValid (relfilenode validation)
   - OidIsValid (OID validation)
-  - RelFileNumber (type for relation file numbers)
+  - [RelFileNumber](../R/RelFileNumber.md) (type for relation file numbers)
   - RELKIND_PARTITIONED_TABLE (constant for partitioned table relation kind)
 - Called from (representative examples):
-  - dumpTableSchema (src/bin/pg_dump/pg_dump.c:15989, 16091)
-  - dumpIndex (src/bin/pg_dump/pg_dump.c:17003)
-  - dumpConstraint (src/bin/pg_dump/pg_dump.c:17271)
-  - dumpSequence (src/bin/pg_dump/pg_dump.c:17690)
-  - dumpCompositeType (src/bin/pg_dump/pg_dump.c:11855)
+  - [dumpTableSchema](../d/dumpTableSchema.md) (src/bin/pg_dump/pg_dump.c:15989, 16091)
+  - [dumpIndex](../d/dumpIndex.md) (src/bin/pg_dump/pg_dump.c:17003)
+  - [dumpConstraint](../d/dumpConstraint.md) (src/bin/pg_dump/pg_dump.c:17271)
+  - [dumpSequence](../d/dumpSequence.md) (src/bin/pg_dump/pg_dump.c:17690)
+  - [dumpCompositeType](../d/dumpCompositeType.md) (src/bin/pg_dump/pg_dump.c:11855)
 
 ## Notes and Other Information
 - Essential for maintaining storage file identity during binary upgrades, enabling direct file copying

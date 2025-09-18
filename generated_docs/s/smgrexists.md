@@ -22,15 +22,15 @@ The function uses the storage manager switch (smgrsw) to call the appropriate ex
 - Functions called/Symbols referenced:
   - smgrsw (storage manager switch table)
   - SMgrRelation (relation structure type)
-  - ForkNumber (fork identifier type)
+  - [ForkNumber](../F/ForkNumber.md) (fork identifier type)
 - Called from (representative examples):
-  - heapam_relation_copy_data (heap access method)
-  - visibilitymap_prepare_truncate (visibility map operations)
-  - vm_readbuf (visibility map buffer management)
-  - XLogPrefetcherNextBlock (WAL prefetching)
-  - index_build (index construction)
-  - RelationTruncate (relation truncation operations)
-  - ExtendBufferedRelTo (buffer management)
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md) (heap access method)
+  - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md) (visibility map operations)
+  - [vm_readbuf](../v/vm_readbuf.md) (visibility map buffer management)
+  - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md) (WAL prefetching)
+  - [index_build](../i/index_build.md) (index construction)
+  - [RelationTruncate](../R/RelationTruncate.md) (relation truncation operations)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (buffer management)
   - CreateAndCopyRelationData (relation data copying)
 
 ## Notes and Other Information

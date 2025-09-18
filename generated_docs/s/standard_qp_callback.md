@@ -47,16 +47,16 @@ The function operates through several key phases:
   - RollupData
   - WindowClause
   - linitial_node
-  - grouping_is_sortable
-  - make_pathkeys_for_sortclauses
-  - make_pathkeys_for_sortclauses_extended
-  - adjust_group_pathkeys_for_groupagg
-  - make_pathkeys_for_window
-  - set_operation_ordered_results_useful
-  - generate_setop_child_grouplist
-  - list_copy
+  - [grouping_is_sortable](../g/grouping_is_sortable.md)
+  - [make_pathkeys_for_sortclauses](../m/make_pathkeys_for_sortclauses.md)
+  - [make_pathkeys_for_sortclauses_extended](../m/make_pathkeys_for_sortclauses_extended.md)
+  - [adjust_group_pathkeys_for_groupagg](../a/adjust_group_pathkeys_for_groupagg.md)
+  - [make_pathkeys_for_window](../m/make_pathkeys_for_window.md)
+  - [set_operation_ordered_results_useful](set_operation_ordered_results_useful.md)
+  - [generate_setop_child_grouplist](../g/generate_setop_child_grouplist.md)
+  - [list_copy](../l/list_copy.md)
 - Called from (representative examples):
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
   - standard_qp_extra
 
 ## Notes and Other Information

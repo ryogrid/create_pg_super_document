@@ -22,14 +22,14 @@ The function is particularly useful during database initialization (initdb) when
 ## Dependencies
 - Functions called/Symbols referenced:
   - escape_single_quotes_ascii (performs the actual character escaping)
-  - pg_fatal (error reporting for out-of-memory conditions)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting for out-of-memory conditions)
 - Called from (representative examples):
-  - escape_quotes_bki (BKI file escaping)
-  - replace_guc_value (GUC parameter value escaping)
-  - setup_auth (authentication configuration setup)
-  - setup_privileges (privilege configuration setup)
-  - setup_schema (schema setup operations)
-  - GenerateRecoveryConfig (recovery configuration generation)
+  - [escape_quotes_bki](escape_quotes_bki.md) (BKI file escaping)
+  - [replace_guc_value](../r/replace_guc_value.md) (GUC parameter value escaping)
+  - [setup_auth](../s/setup_auth.md) (authentication configuration setup)
+  - [setup_privileges](../s/setup_privileges.md) (privilege configuration setup)
+  - [setup_schema](../s/setup_schema.md) (schema setup operations)
+  - [GenerateRecoveryConfig](../G/GenerateRecoveryConfig.md) (recovery configuration generation)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

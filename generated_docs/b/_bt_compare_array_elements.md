@@ -21,13 +21,13 @@ The function supports both forward and reverse sorting through the reverse flag 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTSortArrayContext
-  - FunctionCall2Coll
-  - DatumGetInt32
+  - [BTSortArrayContext](../B/BTSortArrayContext.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - INVERT_COMPARE_RESULT
 - Called from (representative examples):
-  - _bt_sort_array_elements (via qsort_arg and qunique_arg)
-  - _bt_merge_arrays
+  - [_bt_sort_array_elements](_bt_sort_array_elements.md) (via qsort_arg and qunique_arg)
+  - [_bt_merge_arrays](_bt_merge_arrays.md)
 
 ## Notes and Other Information
 - Compatible with the qsort_arg function signature for use as a comparison callback

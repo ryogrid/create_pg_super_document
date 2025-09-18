@@ -29,14 +29,14 @@ The caller is responsible for setting the `handle` field after creation, as this
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerEnlarge
-  - MemoryContextAlloc
-  - dlist_push_head
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [dlist_push_head](dlist_push_head.md)
   - ResourceOwnerRememberDSM
-  - slist_init
+  - [slist_init](../s/slist_init.md)
   - INVALID_CONTROL_SLOT
 - Called from (representative examples):
-  - dsm_create
-  - dsm_attach
+  - [dsm_create](dsm_create.md)
+  - [dsm_attach](dsm_attach.md)
 
 ## Notes and Other Information
 - Static function - internal to dsm.c implementation

@@ -27,24 +27,24 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPublication
+  - [GetPublication](../G/GetPublication.md)
   - SearchSysCacheExists2
-  - check_publication_add_relation
-  - publication_translate_columns
-  - GetNewOidWithIndex
-  - nodeToString
-  - buildint2vector
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [check_publication_add_relation](../c/check_publication_add_relation.md)
+  - [publication_translate_columns](publication_translate_columns.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [nodeToString](../n/nodeToString.md)
+  - [buildint2vector](../b/buildint2vector.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - recordDependencyOnSingleRelExpr
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnSingleRelExpr](../r/recordDependencyOnSingleRelExpr.md)
   - ObjectAddressSubSet
-  - GetPubPartitionOptionRelations
-  - InvalidatePublicationRels
+  - [GetPubPartitionOptionRelations](../G/GetPubPartitionOptionRelations.md)
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md)
 - Called from (representative examples):
-  - PublicationAddTables (src/backend/commands/publicationcmds.c:1765)
+  - [PublicationAddTables](../P/PublicationAddTables.md) (src/backend/commands/publicationcmds.c:1765)
 
 ## Notes and Other Information
 - The function uses RowExclusiveLock on the pg_publication_rel catalog to ensure consistency

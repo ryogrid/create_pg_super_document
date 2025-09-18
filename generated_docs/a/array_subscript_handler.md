@@ -20,10 +20,10 @@ This function serves as the entry point for PostgreSQL's array subscripting fram
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubscriptRoutines (struct)
-  - array_subscript_transform
-  - array_exec_setup
+  - [array_subscript_transform](array_subscript_transform.md)
+  - [array_exec_setup](array_exec_setup.md)
 - Called from (representative examples):
-  - CATALOG (pg_type system catalog)
+  - [CATALOG](../C/CATALOG.md) (pg_type system catalog)
 
 ## Notes and Other Information
 - Returns a static SubscriptRoutines structure with predefined function pointers

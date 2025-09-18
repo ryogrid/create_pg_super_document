@@ -22,9 +22,9 @@ This structure records information needed to replay TRUNCATE operations during c
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - ExecuteTruncateGuts (creates WAL records for TRUNCATE commands)
-  - heap_desc (describes truncate WAL records for debugging)
-  - DecodeTruncate (logical replication decoding of truncate operations)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (creates WAL records for TRUNCATE commands)
+  - [heap_desc](../h/heap_desc.md) (describes truncate WAL records for debugging)
+  - [DecodeTruncate](../D/DecodeTruncate.md) (logical replication decoding of truncate operations)
 
 ## Notes and Other Information
 - Uses FLEXIBLE_ARRAY_MEMBER to store variable numbers of relation OIDs efficiently

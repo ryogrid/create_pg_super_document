@@ -24,7 +24,7 @@ This function calculates whether a line segment (LSEG) intersects with an infini
   -  - Finds intersection point of two infinite lines
   -  - Checks if point lies on line segment
   -  - Tests equality of two points
-  -  - Point data structure
+  -  - [Point](../P/Point.md) data structure
   -  - Line segment data structure
   -  - Infinite line data structure
 - Called from (representative examples):

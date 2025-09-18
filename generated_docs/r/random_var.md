@@ -31,16 +31,16 @@ The core challenge is generating uniform random values for arbitrary-precision d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sub_var (computes range length)
+  - [sub_var](../s/sub_var.md) (computes range length)
   - init_var, alloc_var, free_var (memory management)
-  - set_var_from_var (copying values)
+  - [set_var_from_var](../s/set_var_from_var.md) (copying values)
   - pg_prng_uint64_range (random number generation)
-  - cmp_var (comparison for rejection sampling)
-  - add_var (shifting result to target range)
-  - strip_var (removing leading/trailing zeros)
+  - [cmp_var](../c/cmp_var.md) (comparison for rejection sampling)
+  - [add_var](../a/add_var.md) (shifting result to target range)
+  - [strip_var](../s/strip_var.md) (removing leading/trailing zeros)
   - Constants: NUMERIC_NEG, NUMERIC_POS, NBASE, DEC_DIGITS
 - Called from (representative examples):
-  - random_numeric (public numeric random function)
+  - [random_numeric](random_numeric.md) (public numeric random function)
   - NUMERIC_CAN_BE_SHORT (numeric optimization checks)
 
 ## Notes and Other Information

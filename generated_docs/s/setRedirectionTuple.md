@@ -26,13 +26,13 @@ This pattern is used during SPGiST operations where tuples may need to be moved 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItem/PageGetItemId (page item access functions)
-  - ItemPointerGetBlockNumber (gets block number from item pointer)
-  - ItemPointerSet (sets block and offset in item pointer)
+  - [PageGetItem](../P/PageGetItem.md)/PageGetItemId (page item access functions)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (gets block number from item pointer)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (sets block and offset in item pointer)
   - SPGIST_METAPAGE_BLKNO (constant for metapage block number used as placeholder)
 - Called from (representative examples):
-  - doPickSplit (at src/backend/access/spgist/spgdoinsert.c:1286)
-  - doPickSplit (at src/backend/access/spgist/spgdoinsert.c:1323)
+  - [doPickSplit](../d/doPickSplit.md) (at src/backend/access/spgist/spgdoinsert.c:1286)
+  - [doPickSplit](../d/doPickSplit.md) (at src/backend/access/spgist/spgdoinsert.c:1323)
 
 ## Notes and Other Information
 - The function includes assertions to verify the tuple is actually a SPGIST_REDIRECT tuple

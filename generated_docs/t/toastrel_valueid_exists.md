@@ -20,18 +20,18 @@ The function follows the same safety principles as GetNewOidWithIndex() by consi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_open_indexes
-  - toast_close_indexes
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - ObjectIdGetDatum
+  - [toast_open_indexes](toast_open_indexes.md)
+  - [toast_close_indexes](toast_close_indexes.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - RelationGetRelid
   - SnapshotAny
 - Called from (representative examples):
-  - toast_save_datum
-  - toastid_valueid_exists
+  - [toast_save_datum](toast_save_datum.md)
+  - [toastid_valueid_exists](toastid_valueid_exists.md)
 
 ## Notes and Other Information
 - Declared as static function, internal to toast_internals.c

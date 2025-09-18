@@ -21,11 +21,11 @@ PQhost is a libpq client library function that retrieves the host identifier ass
 - Functions called/Symbols referenced:
   - None (simple accessor function with conditional logic)
 - Called from (representative examples):
-  - libpqrcv_get_senderinfo (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:430)
-  - main (src/bin/pgbench/pgbench.c:7249)
-  - exec_command_conninfo (src/bin/psql/command.c:681)
-  - do_connect (src/bin/psql/command.c:3801)
-  - pg_GSS_load_servicename (src/interfaces/libpq/fe-gssapi-common.c:94)
+  - [libpqrcv_get_senderinfo](../l/libpqrcv_get_senderinfo.md) (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:430)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:7249)
+  - [exec_command_conninfo](../e/exec_command_conninfo.md) (src/bin/psql/command.c:681)
+  - [do_connect](../d/do_connect.md) (src/bin/psql/command.c:3801)
+  - [pg_GSS_load_servicename](../p/pg_GSS_load_servicename.md) (src/interfaces/libpq/fe-gssapi-common.c:94)
 
 ## Notes and Other Information
 - Returns a pointer to the host string; the caller should not modify or free this string

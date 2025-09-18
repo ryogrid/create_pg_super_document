@@ -21,19 +21,19 @@ The function is central to the streaming replication protocol implementation and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckCopyStreamStop
-  - feGetCurrentTimestamp
-  - sendFeedback
-  - feTimestampDifferenceExceeds
-  - CalculateCopyStreamSleeptime
-  - CopyStreamReceive
-  - HandleEndOfCopyStream
-  - ProcessKeepaliveMsg
-  - ProcessXLogDataMsg
-  - GetLastWalMethodError
-  - PQfreemem
+  - [CheckCopyStreamStop](../C/CheckCopyStreamStop.md)
+  - [feGetCurrentTimestamp](../f/feGetCurrentTimestamp.md)
+  - [sendFeedback](../s/sendFeedback.md)
+  - [feTimestampDifferenceExceeds](../f/feTimestampDifferenceExceeds.md)
+  - [CalculateCopyStreamSleeptime](../C/CalculateCopyStreamSleeptime.md)
+  - [CopyStreamReceive](../C/CopyStreamReceive.md)
+  - [HandleEndOfCopyStream](HandleEndOfCopyStream.md)
+  - [ProcessKeepaliveMsg](../P/ProcessKeepaliveMsg.md)
+  - [ProcessXLogDataMsg](../P/ProcessXLogDataMsg.md)
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
+  - [PQfreemem](../P/PQfreemem.md)
 - Called from (representative examples):
-  - ReceiveXlogStream
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md)
 
 ## Notes and Other Information
 - Implements the main message processing loop for streaming replication

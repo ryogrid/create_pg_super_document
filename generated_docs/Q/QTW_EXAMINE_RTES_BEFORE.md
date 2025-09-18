@@ -21,13 +21,13 @@ Range Table Entries (RTEs) represent table references in a query's FROM clause, 
 - Functions called/Symbols referenced:
   - (This is a constant definition - no function calls)
 - Called from (representative examples):
-  - range_table_entry_walker_impl (src/backend/nodes/nodeFuncs.c:2820)
-  - flatten_unplanned_rtes (src/backend/optimizer/plan/setrefs.c:488)
-  - flatten_rtes_walker (src/backend/optimizer/plan/setrefs.c:519)
-  - contain_outer_selfref_walker (src/backend/optimizer/plan/subselect.c:1124)
-  - IncrementVarSublevelsUp_walker (src/backend/rewrite/rewriteManip.c:841)
-  - IncrementVarSublevelsUp (src/backend/rewrite/rewriteManip.c:865)
-  - IncrementVarSublevelsUp_rtable (src/backend/rewrite/rewriteManip.c:884)
+  - [range_table_entry_walker_impl](../r/range_table_entry_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2820)
+  - [flatten_unplanned_rtes](../f/flatten_unplanned_rtes.md) (src/backend/optimizer/plan/setrefs.c:488)
+  - [flatten_rtes_walker](../f/flatten_rtes_walker.md) (src/backend/optimizer/plan/setrefs.c:519)
+  - [contain_outer_selfref_walker](../c/contain_outer_selfref_walker.md) (src/backend/optimizer/plan/subselect.c:1124)
+  - [IncrementVarSublevelsUp_walker](../I/IncrementVarSublevelsUp_walker.md) (src/backend/rewrite/rewriteManip.c:841)
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (src/backend/rewrite/rewriteManip.c:865)
+  - [IncrementVarSublevelsUp_rtable](../I/IncrementVarSublevelsUp_rtable.md) (src/backend/rewrite/rewriteManip.c:884)
 
 ## Notes and Other Information
 - This flag is part of a family of QTW (Query Tree Walker) flags defined in src/include/nodes/nodeFuncs.h

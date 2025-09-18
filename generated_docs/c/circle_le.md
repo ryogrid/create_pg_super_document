@@ -22,8 +22,8 @@ The `circle_le` function implements the "less than or equal" comparison operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves CIRCLE arguments)
-  - circle_ar (calculates circle area)
-  - FPle (floating-point less-than-or-equal comparison with epsilon tolerance)
+  - [circle_ar](circle_ar.md) (calculates circle area)
+  - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison with epsilon tolerance)
   - PG_RETURN_BOOL (returns boolean result)
 - Called from (representative examples):
   - No direct references found in codebase

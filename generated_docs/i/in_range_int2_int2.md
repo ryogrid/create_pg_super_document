@@ -25,10 +25,10 @@ The function uses PostgreSQL's function call interface, accepting arguments thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_range_int2_int4
+  - [in_range_int2_int4](in_range_int2_int4.md)
   - DirectFunctionCall5
   - PG_GETARG_INT16
-  - Int32GetDatum
+  - [Int32GetDatum](../I/Int32GetDatum.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

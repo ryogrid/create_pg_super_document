@@ -21,14 +21,14 @@ The function performs a multi-step check: first verifying if the page is new (un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsNew
+  - [PageIsNew](../P/PageIsNew.md)
   - GinPageIsDeleted
   - GinPageGetDeleteXid
   - TransactionIdIsValid
-  - GlobalVisCheckRemovableXid
+  - [GlobalVisCheckRemovableXid](GlobalVisCheckRemovableXid.md)
 - Called from (representative examples):
-  - GinNewBuffer
-  - ginvacuumcleanup
+  - [GinNewBuffer](GinNewBuffer.md)
+  - [ginvacuumcleanup](../g/ginvacuumcleanup.md)
 
 ## Notes and Other Information
 - Returns true if the page can be safely recycled, false otherwise

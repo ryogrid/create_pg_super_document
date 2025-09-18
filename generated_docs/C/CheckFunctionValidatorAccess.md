@@ -28,23 +28,23 @@ The function performs comprehensive privilege checking to prevent potential secu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookups)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookups)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (extract structure from heap tuple)
-  - object_aclcheck (access control checking)
-  - aclcheck_error (access control error reporting)
-  - GetUserId (current user identification)
-  - ReleaseSysCache (cache cleanup)
+  - [object_aclcheck](../o/object_aclcheck.md) (access control checking)
+  - [aclcheck_error](../a/aclcheck_error.md) (access control error reporting)
+  - [GetUserId](../G/GetUserId.md) (current user identification)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - ereport/errmsg/errcode (error reporting)
   - Form_pg_proc, Form_pg_language (catalog structure types)
   - AclResult, ACL_USAGE, ACL_EXECUTE (access control types/constants)
   - OBJECT_LANGUAGE, OBJECT_FUNCTION (object type constants)
 - Called from (representative examples):
-  - fmgr_internal_validator (internal function validator)
-  - fmgr_c_validator (C language validator)
-  - fmgr_sql_validator (SQL language validator)
-  - plperl_validator (Perl language validator)
-  - plpython3_validator (Python language validator)
+  - [fmgr_internal_validator](../f/fmgr_internal_validator.md) (internal function validator)
+  - [fmgr_c_validator](../f/fmgr_c_validator.md) (C language validator)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md) (SQL language validator)
+  - [plperl_validator](../p/plperl_validator.md) (Perl language validator)
+  - [plpython3_validator](../p/plpython3_validator.md) (Python language validator)
 
 ## Notes and Other Information
 - Located in src/backend/utils/fmgr/fmgr.c:2145-2200

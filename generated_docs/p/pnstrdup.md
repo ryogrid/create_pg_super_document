@@ -21,15 +21,15 @@ The function uses strnlen() to determine the actual length to copy (which may be
 ## Dependencies
 - Functions called/Symbols referenced:
   - strnlen
-  - palloc
+  - [palloc](palloc.md)
   - memcpy
 - Called from (representative examples):
-  - makeMultirangeTypeName
-  - llvm_split_symbol_name
-  - exec_bind_message
-  - pgstat_clip_activity
-  - jsonb_put_escaped_value
-  - pchomp
+  - [makeMultirangeTypeName](../m/makeMultirangeTypeName.md)
+  - [llvm_split_symbol_name](../l/llvm_split_symbol_name.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [pgstat_clip_activity](pgstat_clip_activity.md)
+  - [jsonb_put_escaped_value](../j/jsonb_put_escaped_value.md)
+  - [pchomp](pchomp.md)
 
 ## Notes and Other Information
 - Unlike pstrdup, this function can safely handle non-null-terminated input strings

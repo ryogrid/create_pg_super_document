@@ -32,15 +32,15 @@ The algorithm ensures optimal update paths while providing flexibility for diffe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_nearest_unprocessed_vertex
-  - ExtensionVersionInfo (struct type)
+  - [get_nearest_unprocessed_vertex](../g/get_nearest_unprocessed_vertex.md)
+  - [ExtensionVersionInfo](../E/ExtensionVersionInfo.md) (struct type)
   - lfirst (list iteration)
-  - lcons (list construction)
+  - [lcons](../l/lcons.md) (list construction)
   - strcmp (string comparison for tie-breaking)
   - Assert (debugging assertions)
 - Called from (representative examples):
-  - identify_update_path
-  - find_install_path
+  - [identify_update_path](../i/identify_update_path.md)
+  - [find_install_path](find_install_path.md)
   - pg_extension_update_paths
 
 ## Notes and Other Information

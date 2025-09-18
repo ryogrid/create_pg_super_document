@@ -24,14 +24,14 @@ The materialization process resets the deformation state (tts_nvalid and off) to
   - HeapTupleTableSlot (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
   - TTS_SHOULDFREE (macro for checking materialization status)
-  - heap_form_tuple (creates new tuple from values array)
-  - heap_copytuple (copies existing tuple)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates new tuple from values array)
+  - [heap_copytuple](../h/heap_copytuple.md) (copies existing tuple)
   - TTS_FLAG_SHOULDFREE (flag indicating materialized tuple)
 - Called from (representative examples):
-  - tts_heap_get_heap_tuple
-  - tts_heap_copy_heap_tuple
-  - tts_heap_copy_minimal_tuple
-  - slot_deform_heap_tuple
+  - [tts_heap_get_heap_tuple](tts_heap_get_heap_tuple.md)
+  - [tts_heap_copy_heap_tuple](tts_heap_copy_heap_tuple.md)
+  - [tts_heap_copy_minimal_tuple](tts_heap_copy_minimal_tuple.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to the execTuples.c compilation unit

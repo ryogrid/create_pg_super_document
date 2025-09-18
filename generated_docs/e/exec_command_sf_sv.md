@@ -27,14 +27,14 @@ The function checks for the presence of a `+` modifier in the command to determi
 ## Dependencies
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option` - Parse object name from command line
-  - `lookup_object_oid` - Validate and get OID of the specified object
-  - `get_create_object_cmd` - Retrieve the CREATE statement for the object
-  - `count_lines_in_buf` - Count lines in output buffer for paging decisions
-  - `PageOutput` - Set up paged output if needed
-  - `print_with_linenumbers` - Output with line number formatting
-  - `ignore_slash_whole_line` - Skip parsing when not in active branch
+  - `[lookup_object_oid](../l/lookup_object_oid.md)` - Validate and get OID of the specified object
+  - `[get_create_object_cmd](../g/get_create_object_cmd.md)` - Retrieve the CREATE statement for the object
+  - `[count_lines_in_buf](../c/count_lines_in_buf.md)` - Count lines in output buffer for paging decisions
+  - `[PageOutput](../P/PageOutput.md)` - Set up paged output if needed
+  - `[print_with_linenumbers](../p/print_with_linenumbers.md)` - Output with line number formatting
+  - `[ignore_slash_whole_line](../i/ignore_slash_whole_line.md)` - Skip parsing when not in active branch
 - Called from:
-  - `exec_command` - Main command dispatcher for `\sf` and `\sv` commands
+  - `[exec_command](exec_command.md)` - Main command dispatcher for `\sf` and `\sv` commands
 
 ## Notes and Other Information
 - Supports both functions (`\sf`) and views (`\sv`) through the `is_func` parameter

@@ -28,15 +28,15 @@ The parser maintains strict protocol compliance and provides detailed error mess
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (PostgreSQL string duplication)
-  - sanitize_char (at Line 990, 1020, 1052, 1067)
-  - read_attr_value (at Line 1035, 1089, 1092)  
-  - sanitize_str (at Line 1045)
-  - is_scram_printable (at Line 1093)
-  - read_any_attr (at Line 1103)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
+  - [sanitize_char](../s/sanitize_char.md) (at Line 990, 1020, 1052, 1067)
+  - [read_attr_value](read_attr_value.md) (at Line 1035, 1089, 1092)  
+  - [sanitize_str](../s/sanitize_str.md) (at Line 1045)
+  - [is_scram_printable](../i/is_scram_printable.md) (at Line 1093)
+  - [read_any_attr](read_any_attr.md) (at Line 1103)
   - ereport/errcode/errmsg/errdetail (PostgreSQL error reporting system)
 - Called from (representative examples):
-  - scram_exchange (at src/backend/libpq/auth-scram.c:395)
+  - [scram_exchange](../s/scram_exchange.md) (at src/backend/libpq/auth-scram.c:395)
   - scram_state (at src/backend/libpq/auth-scram.c:173)
 
 ## Notes and Other Information

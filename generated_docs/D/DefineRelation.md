@@ -21,25 +21,25 @@ DefineRelation serves as the primary entry point for creating database relations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildDescForRelation
-  - heap_create_with_catalog
-  - MergeAttributes
-  - RangeVarGetAndCheckCreationNamespace
-  - transformRelOptions
-  - view_reloptions
-  - partitioned_table_reloptions
-  - heap_reloptions
-  - AddRelationNewConstraints
-  - StorePartitionBound
-  - StoreCatalogInheritance
-  - relation_open
-  - relation_close
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [transformRelOptions](../t/transformRelOptions.md)
+  - [view_reloptions](../v/view_reloptions.md)
+  - [partitioned_table_reloptions](../p/partitioned_table_reloptions.md)
+  - [heap_reloptions](../h/heap_reloptions.md)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
+  - [StorePartitionBound](../S/StorePartitionBound.md)
+  - [StoreCatalogInheritance](../S/StoreCatalogInheritance.md)
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
-  - DefineSequence
-  - DefineCompositeType
-  - DefineVirtualRelation
-  - create_ctas_internal
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
+  - [DefineSequence](DefineSequence.md)
+  - [DefineCompositeType](DefineCompositeType.md)
+  - [DefineVirtualRelation](DefineVirtualRelation.md)
+  - [create_ctas_internal](../c/create_ctas_internal.md)
 
 ## Notes and Other Information
 DefineRelation is a complex function spanning nearly 600 lines that orchestrates the entire relation creation process. It performs extensive validation including permission checks, tablespace verification, and inheritance consistency. The function handles special cases for partitioned tables, temporary tables, and security-restricted operations. It processes both raw and cooked defaults/constraints, with raw expressions requiring later transformation after the relation exists. For partitioned tables, it sets up partition keys and validates partition bounds. When creating partitions, it automatically inherits indexes, triggers, and foreign key constraints from the parent table.

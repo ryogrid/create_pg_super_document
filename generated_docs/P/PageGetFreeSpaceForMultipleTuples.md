@@ -21,10 +21,10 @@ Like PageGetFreeSpace, this function uses signed arithmetic to handle edge cases
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header fields)
-  - ItemIdData (sizeof to calculate line pointer space requirement)
+  - [ItemIdData](../I/ItemIdData.md) (sizeof to calculate line pointer space requirement)
 - Called from (representative examples):
-  - _hash_squeezebucket
-  - _hash_splitbucket
+  - [_hash_squeezebucket](../h/_hash_squeezebucket.md)
+  - [_hash_splitbucket](../h/_hash_splitbucket.md)
   - PageIsVerified
 
 ## Notes and Other Information

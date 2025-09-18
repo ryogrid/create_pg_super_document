@@ -20,17 +20,17 @@ CollInfo is a structure used by pg_dump to encapsulate information about collati
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - getRoleName
-  - findNamespace
-  - AssignDumpId
-  - selectDumpableObject
+  - [getRoleName](../g/getRoleName.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
 - Called from (representative examples):
-  - getCollations (src/bin/pg_dump/pg_dump.c:6106)
-  - dumpCollation (src/bin/pg_dump/pg_dump.c:13842)
-  - findCollationByOid (src/bin/pg_dump/common.c:970)
+  - [getCollations](../g/getCollations.md) (src/bin/pg_dump/pg_dump.c:6106)
+  - [dumpCollation](../d/dumpCollation.md) (src/bin/pg_dump/pg_dump.c:13842)
+  - [findCollationByOid](../f/findCollationByOid.md) (src/bin/pg_dump/common.c:970)
 
 ## Notes and Other Information
-- CollInfo objects are allocated as arrays in getCollations() function based on the number of collations found in pg_collation
+- [CollInfo](CollInfo.md) objects are allocated as arrays in getCollations() function based on the number of collations found in pg_collation
 - The structure inherits all functionality from DumpableObject including dependency tracking and selective dumping
 - Collation encoding information is stored as an integer corresponding to PostgreSQL encoding IDs
 - Used exclusively within the pg_dump utility for backup and restore operations

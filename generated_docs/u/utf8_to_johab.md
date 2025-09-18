@@ -31,7 +31,7 @@ The function uses PostgreSQL's radix tree-based conversion mechanism with a diff
   - PG_GETARG_INT32: Extract integer arguments from function call
   - PG_GETARG_BOOL: Extract boolean arguments from function call
   - CHECK_ENCODING_CONVERSION_ARGS: Validate source and destination encodings
-  - UtfToLocal: Core conversion function that performs UTF-8 to local encoding transformation
+  - [UtfToLocal](../U/UtfToLocal.md): Core conversion function that performs UTF-8 to local encoding transformation
   - PG_RETURN_INT32: Return integer result to PostgreSQL
   - johab_from_unicode_tree: Radix tree structure for Unicode to JOHAB mapping
 - Called from (representative examples):

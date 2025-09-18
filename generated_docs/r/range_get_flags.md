@@ -19,14 +19,14 @@ This function provides an efficient way to access just the flags information fro
 - Functions called/Symbols referenced:
   - VARSIZE
 - Called from (representative examples):
-  - range_out
-  - range_send
-  - range_empty
-  - range_lower_inc
-  - range_upper_inc
-  - range_lower_inf
-  - range_upper_inf
-  - hash_range
+  - [range_out](range_out.md)
+  - [range_send](range_send.md)
+  - [range_empty](range_empty.md)
+  - [range_lower_inc](range_lower_inc.md)
+  - [range_upper_inc](range_upper_inc.md)
+  - [range_lower_inf](range_lower_inf.md)
+  - [range_upper_inf](range_upper_inf.md)
+  - [hash_range](../h/hash_range.md)
   - RangeIsEmpty
   - RangeIsOrContainsEmpty
 

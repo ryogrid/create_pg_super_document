@@ -30,10 +30,10 @@ After sorting, the clauses are extracted back into a list in their optimal execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval_node
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
   - cpu_operator_cost (global variable)
 - Called from (representative examples):
-  - order_qual_clauses (internal usage only)
+  - [order_qual_clauses](../o/order_qual_clauses.md) (internal usage only)
 
 ## Notes and Other Information
 - This is a local typedef within the order_qual_clauses function, not globally visible

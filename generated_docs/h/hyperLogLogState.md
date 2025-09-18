@@ -33,8 +33,8 @@ The structure is designed to work with hash values that are processed through th
   - addHyperLogLog
   - estimateHyperLogLog
   - freeHyperLogLog
-  - hashagg_spill_init
-  - HashAggSpill
+  - [hashagg_spill_init](hashagg_spill_init.md)
+  - [HashAggSpill](../H/HashAggSpill.md)
 
 ## Notes and Other Information
 - The implementation uses a sparse representation for efficiency, particularly beneficial when dealing with small to medium-sized sets

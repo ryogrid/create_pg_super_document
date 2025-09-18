@@ -19,19 +19,19 @@ The function handles the complex task of converting textual rule representations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc, RuleLock, RewriteRule (data structure types)
+  - [SysScanDesc](../S/SysScanDesc.md), RuleLock, RewriteRule (data structure types)
   - AllocSetContextCreate, ALLOCSET_SMALL_SIZES (memory context creation)
   - MemoryContextCopyAndSetIdentifier, MemoryContextAlloc (memory management)
-  - systable_beginscan, systable_getnext (system catalog scanning)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (system catalog scanning)
   - Form_pg_rewrite (pg_rewrite tuple structure type)
-  - heap_getattr (attribute extraction from tuples)
+  - [heap_getattr](../h/heap_getattr.md) (attribute extraction from tuples)
   - TextDatumGetCString, stringToNode (text parsing and node tree construction)
   - CMD_SELECT, RELKIND_VIEW (constants for rule type checking)
   - RelationHasSecurityInvoker (security invoker view detection)
-  - setRuleCheckAsUser (security context setup for rule trees)
-  - repalloc, MemoryContextDelete (memory management utilities)
+  - [setRuleCheckAsUser](../s/setRuleCheckAsUser.md) (security context setup for rule trees)
+  - [repalloc](../r/repalloc.md), MemoryContextDelete (memory management utilities)
 - Called from (representative examples):
-  - RelationBuildDesc (during complete relation descriptor construction)
+  - [RelationBuildDesc](RelationBuildDesc.md) (during complete relation descriptor construction)
 
 ## Notes and Other Information
 - Creates a dedicated memory context (rd_rulescxt) for rule data to enable efficient cleanup

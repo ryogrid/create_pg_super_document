@@ -29,9 +29,9 @@ This function serves as the implementation for PostgreSQL's overlap operator `&&
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P: Extracts CIRCLE arguments from function call
-  - point_dt: Calculates distance between two points (circle centers)
-  - float8_pl: Adds two floating-point values (radii sum)
-  - FPle: Floating-point less-than-or-equal comparison
+  - [point_dt](../p/point_dt.md): Calculates distance between two points (circle centers)
+  - [float8_pl](../f/float8_pl.md): Adds two floating-point values (radii sum)
+  - [FPle](../F/FPle.md): Floating-point less-than-or-equal comparison
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using the `&&` operator for circles

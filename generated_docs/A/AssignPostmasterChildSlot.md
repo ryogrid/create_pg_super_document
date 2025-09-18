@@ -24,9 +24,9 @@ This function manages the allocation of slots in the PMChildFlags array for new 
   - PM_CHILD_ASSIGNED (enum constant for assigned state)
   - elog (error logging function)
 - Called from (representative examples):
-  - BackendStartup (src/backend/postmaster/postmaster.c:3587)
-  - StartAutovacuumWorker (src/backend/postmaster/postmaster.c:3996)
-  - assign_backendlist_entry (src/backend/postmaster/postmaster.c:4388)
+  - [BackendStartup](../B/BackendStartup.md) (src/backend/postmaster/postmaster.c:3587)
+  - [StartAutovacuumWorker](../S/StartAutovacuumWorker.md) (src/backend/postmaster/postmaster.c:3996)
+  - [assign_backendlist_entry](../a/assign_backendlist_entry.md) (src/backend/postmaster/postmaster.c:4388)
 
 ## Notes and Other Information
 - Only the postmaster process should call this function (no locking needed)

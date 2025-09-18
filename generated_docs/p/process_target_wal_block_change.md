@@ -27,18 +27,18 @@ The function is a critical component of pg_rewind's incremental synchronization 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - file_entry_t (structure type)
-  - datasegpath (function to construct data segment file path)
-  - lookup_filehash_entry (function to find file entry in hash table)
-  - pfree (memory deallocation function)
+  - [file_entry_t](../f/file_entry_t.md) (structure type)
+  - [datasegpath](../d/datasegpath.md) (function to construct data segment file path)
+  - [lookup_filehash_entry](../l/lookup_filehash_entry.md) (function to find file entry in hash table)
+  - [pfree](pfree.md) (memory deallocation function)
   - Assert (assertion macro)
   - FILE_TYPE_REGULAR (file type enum value)
-  - pg_fatal (error reporting function)
-  - datapagemap_add (function to add block to bitmap)
+  - [pg_fatal](pg_fatal.md) (error reporting function)
+  - [datapagemap_add](../d/datapagemap_add.md) (function to add block to bitmap)
   - RELSEG_SIZE (constant for relation segment size)
   - BLCKSZ (constant for block size)
 - Called from (representative examples):
-  - extractPageInfo (in parsexlog.c:481)
+  - [extractPageInfo](../e/extractPageInfo.md) (in parsexlog.c:481)
 
 ## Notes and Other Information
 - This function requires that all files in both source and target systems have already been processed and added to the filehash table

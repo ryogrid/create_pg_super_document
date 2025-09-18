@@ -19,9 +19,9 @@ The  function provides functionality to export a PostgreSQL large object to an e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_open (PostgreSQL large object opening)
-  - lo_read (PostgreSQL large object reading)
-  - lo_close (PostgreSQL large object closing)
+  - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)
+  - [lo_read](../l/lo_read.md) (PostgreSQL large object reading)
+  - [lo_close](../l/lo_close.md) (PostgreSQL large object closing)
   - open (Unix system call for file operations)
   - write (Unix system call for writing file data)
   - close (Unix system call for closing file)

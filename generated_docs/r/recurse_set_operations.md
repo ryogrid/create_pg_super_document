@@ -41,22 +41,22 @@ The function manages target list generation carefully, ensuring that column name
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - build_simple_rel
-  - subquery_planner
-  - generate_setop_tlist
+  - [build_simple_rel](../b/build_simple_rel.md)
+  - [subquery_planner](../s/subquery_planner.md)
+  - [generate_setop_tlist](../g/generate_setop_tlist.md)
   - create_pathtarget
-  - generate_union_paths
-  - generate_nonunion_paths
-  - tlist_same_datatypes
-  - tlist_same_collations
-  - apply_projection_to_path
-  - create_projection_path
-  - postprocess_setop_rel
+  - [generate_union_paths](../g/generate_union_paths.md)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md)
+  - [tlist_same_datatypes](../t/tlist_same_datatypes.md)
+  - [tlist_same_collations](../t/tlist_same_collations.md)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md)
+  - [create_projection_path](../c/create_projection_path.md)
+  - [postprocess_setop_rel](../p/postprocess_setop_rel.md)
 - Called from (representative examples):
-  - plan_set_operations (src/backend/optimizer/prep/prepunion.c:166)
-  - generate_recursion_path (src/backend/optimizer/prep/prepunion.c:412, 424)
-  - generate_nonunion_paths (src/backend/optimizer/prep/prepunion.c:1051, 1064)
-  - plan_union_children (src/backend/optimizer/prep/prepunion.c:1254)
+  - [plan_set_operations](../p/plan_set_operations.md) (src/backend/optimizer/prep/prepunion.c:166)
+  - [generate_recursion_path](../g/generate_recursion_path.md) (src/backend/optimizer/prep/prepunion.c:412, 424)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md) (src/backend/optimizer/prep/prepunion.c:1051, 1064)
+  - [plan_union_children](../p/plan_union_children.md) (src/backend/optimizer/prep/prepunion.c:1254)
 
 ## Notes and Other Information
 - This is a static function, internal to the prepunion.c module

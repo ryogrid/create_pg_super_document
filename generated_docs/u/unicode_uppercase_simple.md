@@ -26,7 +26,7 @@ The function uses PostgreSQL's optimized case mapping table which provides dense
   - CaseUpper (enum value)
 - Called from (representative examples):
   - pg_wc_toupper
-  - icu_test_simple
+  - [icu_test_simple](../i/icu_test_simple.md)
 
 ## Notes and Other Information
 - Returns the original codepoint if no uppercase mapping exists

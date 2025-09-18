@@ -29,10 +29,10 @@ This function serves as a defensive programming measure and debugging aid, using
   - TupleDescAttr (gets attribute descriptor)
   - att_isnull (checks if specific attribute is NULL)
 - Called from (representative examples):
-  - CatalogTupleInsert
-  - CatalogTupleInsertWithInfo
-  - CatalogTupleUpdate
-  - CatalogTupleUpdateWithInfo
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [CatalogTupleInsertWithInfo](CatalogTupleInsertWithInfo.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [CatalogTupleUpdateWithInfo](CatalogTupleUpdateWithInfo.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within the indexing.c module

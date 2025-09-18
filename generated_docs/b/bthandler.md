@@ -20,15 +20,15 @@ This function takes no specific parameters (uses PG_FUNCTION_ARGS macro for Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create IndexAmRoutine)
-  - IndexAmRoutine (structure type)
+  - [IndexAmRoutine](../I/IndexAmRoutine.md) (structure type)
   - BTMaxStrategyNumber, BTNProcs, BTOPTIONS_PROC (constants)
-  - btbuild, btbuildempty, btinsert (build/insert operations)
-  - btbulkdelete, btvacuumcleanup (maintenance operations)  
-  - btcanreturn, btcostestimate, btoptions (utility functions)
-  - btproperty, btbuildphasename, btvalidate, btadjustmembers (metadata functions)
-  - btbeginscan, btrescan, btgettuple, btgetbitmap, btendscan (scan operations)
-  - btmarkpos, btrestrpos (position management)
-  - btestimateparallelscan, btinitparallelscan, btparallelrescan (parallel operations)
+  - [btbuild](btbuild.md), btbuildempty, btinsert (build/insert operations)
+  - [btbulkdelete](btbulkdelete.md), btvacuumcleanup (maintenance operations)  
+  - [btcanreturn](btcanreturn.md), btcostestimate, btoptions (utility functions)
+  - [btproperty](btproperty.md), btbuildphasename, btvalidate, btadjustmembers (metadata functions)
+  - [btbeginscan](btbeginscan.md), btrescan, btgettuple, btgetbitmap, btendscan (scan operations)
+  - [btmarkpos](btmarkpos.md), btrestrpos (position management)
+  - [btestimateparallelscan](btestimateparallelscan.md), btinitparallelscan, btparallelrescan (parallel operations)
 - Called from (representative examples):
   - PostgreSQL's access method framework during index operations
   - System catalog lookups for B-tree access method

@@ -19,10 +19,10 @@ PGTYPESdate_new is a memory allocation function specifically designed for creati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_alloc
+  - [pgtypes_alloc](../p/pgtypes_alloc.md)
   - date (type reference)
 - Called from (representative examples):
-  - main (in test cases)
+  - [main](../m/main.md) (in test cases)
   - Various ECPG applications requiring date object allocation
 
 ## Notes and Other Information

@@ -20,15 +20,15 @@ The function first validates the input parameters, extracts offset data from the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_tidstore_available - Validates that tidstore is available for operations  
-  - sanity_check_array - Validates the input array structure
-  - TidStoreLockExclusive - Acquires exclusive lock on the TidStore
-  - TidStoreSetBlockOffsets - Core function to set block offsets in TidStore
-  - TidStoreUnlock - Releases the TidStore lock
-  - purge_from_verification_array - Removes existing entries from verification data
+  - [check_tidstore_available](../c/check_tidstore_available.md) - Validates that tidstore is available for operations  
+  - [sanity_check_array](../s/sanity_check_array.md) - Validates the input array structure
+  - [TidStoreLockExclusive](../T/TidStoreLockExclusive.md) - Acquires exclusive lock on the TidStore
+  - [TidStoreSetBlockOffsets](../T/TidStoreSetBlockOffsets.md) - Core function to set block offsets in TidStore
+  - [TidStoreUnlock](../T/TidStoreUnlock.md) - Releases the TidStore lock
+  - [purge_from_verification_array](../p/purge_from_verification_array.md) - Removes existing entries from verification data
   - ArrayGetNItems, ARR_NDIM, ARR_DIMS, ARR_DATA_PTR - PostgreSQL array manipulation functions
-  - ItemPointerSet - Sets tuple identifier values
-  - repalloc - PostgreSQL memory reallocation function
+  - [ItemPointerSet](../I/ItemPointerSet.md) - Sets tuple identifier values
+  - [repalloc](../r/repalloc.md) - PostgreSQL memory reallocation function
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface in tests)
 

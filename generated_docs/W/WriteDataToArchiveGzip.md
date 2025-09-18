@@ -24,11 +24,11 @@ This is typically called repeatedly during the dump process as data needs to be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeflateCompressorCommon (for actual compression processing)
+  - [DeflateCompressorCommon](../D/DeflateCompressorCommon.md) (for actual compression processing)
 - Types referenced:
-  - ArchiveHandle
-  - CompressorState
-  - GzipCompressorState
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [CompressorState](../C/CompressorState.md)
+  - [GzipCompressorState](../G/GzipCompressorState.md)
 - Called from (representative examples):
   - No direct references found (likely used via function pointer in compression interface)
 

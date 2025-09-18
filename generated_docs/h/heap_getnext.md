@@ -20,27 +20,27 @@ The function includes important safety mechanisms: it validates that the relatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetHeapamTableAmRoutine
-  - heapgettup_pagemode
-  - heapgettup
+  - [GetHeapamTableAmRoutine](../G/GetHeapamTableAmRoutine.md)
+  - [heapgettup_pagemode](heapgettup_pagemode.md)
+  - [heapgettup](heapgettup.md)
   - pgstat_count_heap_getnext
 - Data structures used:
-  - HeapScanDesc
-  - TableScanDesc
+  - [HeapScanDesc](../H/HeapScanDesc.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
   - ScanDirection
   - HeapTuple
 - Scan flags:
   - SO_ALLOW_PAGEMODE
 - Called from (representative examples):
-  - heapam_index_build_range_scan
-  - heapam_index_validate_scan
-  - populate_typ_list
-  - objectsInSchemaToOids
-  - getRelationsInNamespace
-  - get_tables_to_cluster
-  - ReindexMultipleTables
-  - get_all_vacuum_rels
-  - do_autovacuum
+  - [heapam_index_build_range_scan](heapam_index_build_range_scan.md)
+  - [heapam_index_validate_scan](heapam_index_validate_scan.md)
+  - [populate_typ_list](../p/populate_typ_list.md)
+  - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md)
+  - [getRelationsInNamespace](../g/getRelationsInNamespace.md)
+  - [get_tables_to_cluster](../g/get_tables_to_cluster.md)
+  - [ReindexMultipleTables](../R/ReindexMultipleTables.md)
+  - [get_all_vacuum_rels](../g/get_all_vacuum_rels.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information
 - Includes a safety check to ensure only heap AM is supported, which can be downgraded to an assert in future versions

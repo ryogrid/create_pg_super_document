@@ -22,17 +22,17 @@ The function performs two validation checks: first ensuring the tuple has altern
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetOffsetNumberNoCheck
+  - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)
   - INDEX_ALT_TID_MASK (bitmask constant)
   - BT_IS_POSTING (flag constant)
 - Called from (representative examples):
-  - _bt_dedup_start_pending
-  - _bt_check_unique
-  - _bt_insertonpg
-  - _bt_binsrch_posting
-  - _bt_compare
-  - BTreeTupleGetNPosting
-  - BTreeTupleGetPostingOffset
+  - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
+  - [_bt_check_unique](../b/_bt_check_unique.md)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md)
+  - [_bt_binsrch_posting](../b/_bt_binsrch_posting.md)
+  - [_bt_compare](../b/_bt_compare.md)
+  - [BTreeTupleGetNPosting](BTreeTupleGetNPosting.md)
+  - [BTreeTupleGetPostingOffset](BTreeTupleGetPostingOffset.md)
 
 ## Notes and Other Information
 Posting list tuples are a key feature of PostgreSQL's B-tree deduplication optimization, introduced to handle indexes with many duplicate values more efficiently. This function is extensively used throughout B-tree operations to distinguish posting tuples from regular leaf tuples and pivot tuples, as they require different processing logic. The posting list format allows multiple heap TIDs to be stored in a single index tuple, significantly reducing index bloat for non-unique indexes with high cardinality of duplicate values.

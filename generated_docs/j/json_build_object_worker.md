@@ -28,19 +28,19 @@ The function validates that the number of arguments is even (since each key must
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeStringInfo
-  - json_unique_builder_init
-  - json_unique_builder_get_throwawaybuf
+  - [json_unique_builder_init](json_unique_builder_init.md)
+  - [json_unique_builder_get_throwawaybuf](json_unique_builder_get_throwawaybuf.md)
   - add_json
-  - json_unique_check_key
+  - [json_unique_check_key](json_unique_check_key.md)
   - cstring_to_text_with_len
   - appendStringInfoChar
   - appendStringInfoString
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
 - Types referenced:
   - JsonUniqueBuilderState
 - Called from (representative examples):
-  - json_build_object
-  - ExecEvalJsonConstructor
+  - [json_build_object](json_build_object.md)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md)
 
 ## Notes and Other Information
 - The function requires an even number of arguments and will error if this constraint is violated

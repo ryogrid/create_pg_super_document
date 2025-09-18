@@ -97,21 +97,21 @@ views: Directory path to list (pre-validated by caller)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF (initializes set-returning function with custom tuple descriptor)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function with custom tuple descriptor)
   - AllocateDir (opens directory for reading)
   - ReadDir (reads directory entries)
-  - stat (gets file attributes for size and modification time)
+  - [stat](../s/stat.md) (gets file attributes for size and modification time)
   - S_ISREG (macro to check if file is a regular file)
-  - Int64GetDatum, TimestampTzGetDatum (convert file attributes to PostgreSQL datum types)
-  - time_t_to_timestamptz (converts Unix timestamp to PostgreSQL timestamp)
+  - [Int64GetDatum](../I/Int64GetDatum.md), TimestampTzGetDatum (convert file attributes to PostgreSQL datum types)
+  - [time_t_to_timestamptz](../t/time_t_to_timestamptz.md) (converts Unix timestamp to PostgreSQL timestamp)
   - tuplestore_putvalues (adds result rows with 3 columns to output)
   - FreeDir (closes directory handle)
   - ReturnSetInfo, DIR, dirent (data structures)
 - Called from (representative examples):
-  - pg_ls_logdir (lists log directory files)
-  - pg_ls_waldir (lists WAL directory files)
-  - pg_ls_tmpdir (lists temporary directory files)
-  - pg_ls_replslotdir (lists replication slot directory files)
+  - [pg_ls_logdir](pg_ls_logdir.md) (lists log directory files)
+  - [pg_ls_waldir](pg_ls_waldir.md) (lists WAL directory files)
+  - [pg_ls_tmpdir](pg_ls_tmpdir.md) (lists temporary directory files)
+  - [pg_ls_replslotdir](pg_ls_replslotdir.md) (lists replication slot directory files)
 
 ## Notes and Other Information
 - This is a static function used internally by other pg_ls_* functions, not directly accessible from SQL

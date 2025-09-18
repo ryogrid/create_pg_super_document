@@ -18,10 +18,10 @@ PLyLong_FromOid is a specialized conversion function within PostgreSQL's PL/Pyth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetObjectId: Extracts Oid value from Datum
+  - [DatumGetObjectId](../D/DatumGetObjectId.md): Extracts Oid value from Datum
   - PyLong_FromUnsignedLong: Creates Python long object from unsigned long
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for PostgreSQL to Python data conversion
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for PostgreSQL to Python data conversion
 
 ## Notes and Other Information
 - This is a static function within the PL/Python type conversion system

@@ -28,12 +28,12 @@ The algorithm processes digits from most significant to least significant, using
 ## Dependencies
 - Functions called/Symbols referenced:
   - `init_var`: Initialize temporary numeric variable
-  - `set_var_from_var`: Copy numeric variable content  
-  - `round_var`: Round to specified decimal places
-  - `strip_var`: Remove leading/trailing zeros
-  - `free_var`: Free numeric variable memory
-  - `pg_mul_s64_overflow`: Overflow-safe 64-bit multiplication
-  - `pg_sub_s64_overflow`: Overflow-safe 64-bit subtraction
+  - `[set_var_from_var](../s/set_var_from_var.md)`: Copy numeric variable content  
+  - `[round_var](../r/round_var.md)`: Round to specified decimal places
+  - `[strip_var](../s/strip_var.md)`: Remove leading/trailing zeros
+  - `[free_var](../f/free_var.md)`: Free numeric variable memory
+  - `[pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md)`: Overflow-safe 64-bit multiplication
+  - `[pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md)`: Overflow-safe 64-bit subtraction
   - `NBASE`: Numeric digit base constant
   - `NUMERIC_NEG`: Constant for negative sign
   - `PG_INT64_MIN`: Minimum int64 value constant
@@ -41,10 +41,10 @@ The algorithm processes digits from most significant to least significant, using
 
 - Called from (representative examples):
   - `NUMERIC_CAN_BE_SHORT`: Short numeric validation
-  - `numericvar_to_int32`: 32-bit integer conversion
-  - `numeric_int8_opt_error`: int8 conversion with error handling
-  - `numeric_int2`: int2 conversion
-  - `power_var`: Exponentiation operations
+  - `[numericvar_to_int32](numericvar_to_int32.md)`: 32-bit integer conversion
+  - `[numeric_int8_opt_error](numeric_int8_opt_error.md)`: int8 conversion with error handling
+  - `[numeric_int2](numeric_int2.md)`: int2 conversion
+  - `[power_var](../p/power_var.md)`: Exponentiation operations
 
 ## Notes and Other Information
 - Returns `true` on successful conversion, `false` on overflow (no exceptions thrown)

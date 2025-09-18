@@ -20,11 +20,11 @@ The function uses PostgreSQL's MAKE_SQLSTATE macro to convert the 5-character st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_AsString: Converts Python Unicode string to C string
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md): Converts Python Unicode string to C string
   - MAKE_SQLSTATE: PostgreSQL macro to create SQLSTATE from 5 characters
 - Called from (representative examples):
-  - PLy_get_spi_error_data: Processes SPI-specific error information
-  - PLy_get_error_data: Processes general PostgreSQL error information
+  - [PLy_get_spi_error_data](PLy_get_spi_error_data.md): Processes SPI-specific error information
+  - [PLy_get_error_data](PLy_get_error_data.md): Processes general PostgreSQL error information
 
 ## Notes and Other Information
 - Validates sqlstate format: exactly 5 characters, alphanumeric only

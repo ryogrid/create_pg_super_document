@@ -25,8 +25,8 @@ pqTraceFormatTimestamp is an internal utility function that generates formatted 
   - localtime (converts time_t to local time structure)
   - strlen, snprintf (string manipulation functions)
 - Called from (representative examples):
-  - pqTraceOutputMessage (line 526 in fe-trace.c)
-  - pqTraceOutputNoTypeByteMessage (line 705 in fe-trace.c)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (line 526 in fe-trace.c)
+  - [pqTraceOutputNoTypeByteMessage](pqTraceOutputNoTypeByteMessage.md) (line 705 in fe-trace.c)
 
 ## Notes and Other Information
 - Static function - internal to fe-trace.c module

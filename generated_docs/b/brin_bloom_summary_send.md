@@ -21,7 +21,7 @@ This function serves as the binary output routine for the brin_bloom_summary dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byteasend (PostgreSQL's standard binary output function for bytea type)
+  - [byteasend](byteasend.md) (PostgreSQL's standard binary output function for bytea type)
 - Called from (representative examples):
   - PostgreSQL type system (during binary output operations like network protocol transfers)
   - COPY TO BINARY operations

@@ -20,11 +20,11 @@ This function is a critical component of PostgreSQL's logical replication parall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockApplyTransactionForSession
+  - [LockApplyTransactionForSession](../L/LockApplyTransactionForSession.md)
   - PARALLEL_APPLY_LOCK_XACT
 - Called from (representative examples):
-  - pa_wait_for_xact_finish
-  - apply_handle_stream_start
+  - [pa_wait_for_xact_finish](pa_wait_for_xact_finish.md)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)
 
 ## Notes and Other Information
 - Uses PARALLEL_APPLY_LOCK_XACT in the locktag_field4 to distinguish it as a transaction lock

@@ -22,10 +22,10 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputInt16
-  - pqTraceOutputInt32
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

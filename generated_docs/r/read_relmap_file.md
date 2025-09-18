@@ -30,9 +30,9 @@ The function manages concurrent access by acquiring RelationMappingLock unless t
   - RELMAPPER_FILENAME constant
   - RELMAPPER_FILEMAGIC/MAX_MAPPINGS constants
 - Called from (representative examples):
-  - RelationMapOidToFilenumberForDatabase (at src/backend/utils/cache/relmapper.c:271)
-  - RelationMapCopy (at src/backend/utils/cache/relmapper.c:299)
-  - load_relmap_file (at src/backend/utils/cache/relmapper.c:768, 770)
+  - [RelationMapOidToFilenumberForDatabase](../R/RelationMapOidToFilenumberForDatabase.md) (at src/backend/utils/cache/relmapper.c:271)
+  - [RelationMapCopy](../R/RelationMapCopy.md) (at src/backend/utils/cache/relmapper.c:299)
+  - [load_relmap_file](../l/load_relmap_file.md) (at src/backend/utils/cache/relmapper.c:768, 770)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relmapper.c file

@@ -24,13 +24,13 @@ The function ignores NULL values during hash computation, meaning tuples with NU
 ## Dependencies
 - Functions called/Symbols referenced:
   - HASH_PARTITION_SEED
-  - UInt64GetDatum
-  - FunctionCall2Coll
-  - hash_combine64
-  - DatumGetUInt64
+  - [UInt64GetDatum](../U/UInt64GetDatum.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [hash_combine64](../h/hash_combine64.md)
+  - [DatumGetUInt64](../D/DatumGetUInt64.md)
 - Called from (representative examples):
-  - get_partition_for_tuple
-  - get_matching_hash_bounds
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md)
+  - [get_matching_hash_bounds](../g/get_matching_hash_bounds.md)
 
 ## Notes and Other Information
 - The function uses a fixed seed value (HASH_PARTITION_SEED) to ensure consistent hash values across different sessions and installations

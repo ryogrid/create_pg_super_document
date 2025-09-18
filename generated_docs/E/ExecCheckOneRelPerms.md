@@ -30,17 +30,17 @@ The user ID for permission checking is determined either from the checkAsUser fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclmask
-  - pg_attribute_aclcheck_all
-  - pg_attribute_aclcheck
-  - ExecCheckPermissionsModified
+  - [pg_class_aclmask](../p/pg_class_aclmask.md)
+  - [pg_attribute_aclcheck_all](../p/pg_attribute_aclcheck_all.md)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
+  - [ExecCheckPermissionsModified](ExecCheckPermissionsModified.md)
   - bms_is_empty
-  - bms_next_member
-  - GetUserId
+  - [bms_next_member](../b/bms_next_member.md)
+  - [GetUserId](../G/GetUserId.md)
   - OidIsValid
 - Called from (representative examples):
-  - ExecCheckPermissions
-  - subquery_planner
+  - [ExecCheckPermissions](ExecCheckPermissions.md)
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
 - Returns true if all required permissions are satisfied, false otherwise

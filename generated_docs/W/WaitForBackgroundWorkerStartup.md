@@ -20,13 +20,13 @@ The function implements a safety mechanism to detect postmaster death, returning
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBackgroundWorkerPid
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
   - CHECK_FOR_INTERRUPTS
-  - WaitLatch (with MyLatch, WL_LATCH_SET, WL_POSTMASTER_DEATH)
-  - ResetLatch
-  - BgwHandleStatus enum values (BGWH_STARTED, BGWH_NOT_YET_STARTED, BGWH_POSTMASTER_DIED)
+  - [WaitLatch](WaitLatch.md) (with MyLatch, WL_LATCH_SET, WL_POSTMASTER_DEATH)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [BgwHandleStatus](../B/BgwHandleStatus.md) enum values (BGWH_STARTED, BGWH_NOT_YET_STARTED, BGWH_POSTMASTER_DIED)
 - Called from (representative examples):
-  - worker_spi_launch
+  - [worker_spi_launch](../w/worker_spi_launch.md)
 
 ## Notes and Other Information
 - Never returns BGWH_NOT_YET_STARTED (always waits until state changes)

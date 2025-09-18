@@ -22,14 +22,14 @@ The function is designed to be called during heap scanning phases of VACUUM when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TidStoreSetBlockOffsets
-  - TidStoreMemoryUsage
-  - pgstat_progress_update_multi_param
+  - [TidStoreSetBlockOffsets](../T/TidStoreSetBlockOffsets.md)
+  - [TidStoreMemoryUsage](../T/TidStoreMemoryUsage.md)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
   - PROGRESS_VACUUM_NUM_DEAD_ITEM_IDS
   - PROGRESS_VACUUM_DEAD_TUPLE_BYTES
 - Called from (representative examples):
-  - lazy_scan_prune
-  - lazy_scan_noprune
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
+  - [lazy_scan_noprune](../l/lazy_scan_noprune.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within vacuumlazy.c

@@ -28,19 +28,19 @@ This design allows PostgreSQL to support both error-on-failure (default) and ret
 ## Dependencies
 - Functions called/Symbols referenced:
   - MCXT_ALLOC_NO_OOM (flag constant for controlling failure behavior)
-  - MemoryContextStats (for printing debugging information)
+  - [MemoryContextStats](MemoryContextStats.md) (for printing debugging information)
   - ereport/errcode/errmsg/errdetail (for error reporting)
 - Called from (representative examples):
-  - AlignedAllocRealloc
-  - AllocSetAllocLarge  
-  - AllocSetAllocFromNewBlock
-  - BumpAllocLarge
-  - GenerationAllocLarge
-  - SlabAllocFromNewBlock
+  - [AlignedAllocRealloc](../A/AlignedAllocRealloc.md)
+  - [AllocSetAllocLarge](../A/AllocSetAllocLarge.md)  
+  - [AllocSetAllocFromNewBlock](../A/AllocSetAllocFromNewBlock.md)
+  - [BumpAllocLarge](../B/BumpAllocLarge.md)
+  - [GenerationAllocLarge](../G/GenerationAllocLarge.md)
+  - [SlabAllocFromNewBlock](../S/SlabAllocFromNewBlock.md)
 
 ## Notes and Other Information
 - This function is intended for use only by MemoryContextMethods implementations, not general application code
 - The function always returns NULL, but may not return at all if it raises an ERROR
 - When raising errors, it includes helpful context like the requested size and context name for debugging
-- MemoryContextStats output helps diagnose memory usage patterns leading to allocation failures
+- [MemoryContextStats](MemoryContextStats.md) output helps diagnose memory usage patterns leading to allocation failures
 - The MCXT_ALLOC_NO_OOM flag enables 'try-allocate' semantics similar to C++'s nothrow new operator

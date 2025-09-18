@@ -57,22 +57,22 @@ EState serves as the comprehensive execution context for PostgreSQL queries, mai
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirection (enum type)
-  - ExecRowMark (struct type)
-  - PlannedStmt (struct type)
-  - JunkFilter (struct type)
+  - [ExecRowMark](ExecRowMark.md) (struct type)
+  - [PlannedStmt](../P/PlannedStmt.md) (struct type)
+  - [JunkFilter](../J/JunkFilter.md) (struct type)
   - CommandId (type)
-  - PartitionDirectory (struct type)
-  - ParamListInfo (struct type)
-  - ParamExecData (struct type)
+  - [PartitionDirectory](../P/PartitionDirectory.md) (struct type)
+  - [ParamListInfo](../P/ParamListInfo.md) (struct type)
+  - [ParamExecData](../P/ParamExecData.md) (struct type)
   - QueryEnvironment (struct type)
-  - EPQState (struct type)
+  - [EPQState](EPQState.md) (struct type)
   - dsa_area (struct type)
-  - JitContext (struct type)
-  - JitInstrumentation (struct type)
+  - [JitContext](../J/JitContext.md) (struct type)
+  - [JitInstrumentation](../J/JitInstrumentation.md) (struct type)
 - Called from (representative examples):
-  - ExecutorStart (creates and initializes EState)
-  - ExecutorRun (operates on EState)
-  - ExecutorFinish (finalizes EState)
+  - [ExecutorStart](ExecutorStart.md) (creates and initializes EState)
+  - [ExecutorRun](ExecutorRun.md) (operates on EState)
+  - [ExecutorFinish](ExecutorFinish.md) (finalizes EState)
 
 ## Notes and Other Information
 EState is the cornerstone of PostgreSQL's execution engine, created once per query execution and passed to all executor nodes. It supports advanced features like parallel execution through shared memory areas, JIT compilation for performance optimization, and complex DML operations with partitioning and triggers. The structure's design allows for incremental tuple processing and maintains comprehensive statistics for monitoring and optimization purposes.

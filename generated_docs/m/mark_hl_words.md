@@ -25,13 +25,13 @@ The function can operate in two modes: normal mode where it finds the optimal fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hlCover (finds query word covers/spans)
-  - mark_fragment (marks the selected fragment for highlighting)
+  - [hlCover](../h/hlCover.md) (finds query word covers/spans)
+  - [mark_fragment](mark_fragment.md) (marks the selected fragment for highlighting)
   - NONWORDTOKEN (macro to check if token is a non-word)
   - INTERESTINGWORD (macro to check if word is interesting/relevant)
   - BADENDPOINT (macro to check if position is a bad fragment endpoint)
 - Called from:
-  - prsd_headline (main headline generation function)
+  - [prsd_headline](../p/prsd_headline.md) (main headline generation function)
 
 ## Notes and Other Information
 - Uses a multi-criteria selection algorithm with priority ordering: cover inclusion > interesting word count > endpoint quality

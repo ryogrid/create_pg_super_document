@@ -27,12 +27,12 @@ The function uses a recursive approach to handle nested bitmap operations, ensur
 - Functions called/Symbols referenced:
   - BitmapAndPath (struct type)
   - BitmapOrPath (struct type) 
-  - IndexPath (struct type)
+  - [IndexPath](../I/IndexPath.md) (struct type)
   - nodeTag (function)
-  - get_indexpath_pages (recursive self-call)
+  - [get_indexpath_pages](get_indexpath_pages.md) (recursive self-call)
 
 - Called from:
-  - compute_bitmap_pages (in costsize.c:6459)
+  - [compute_bitmap_pages](../c/compute_bitmap_pages.md) (in costsize.c:6459)
 
 ## Notes and Other Information
 - This is a static function internal to the cost estimation module

@@ -31,17 +31,17 @@ The function supports various node types including operators (OpExpr, DistinctEx
   - nodeTag
   - InvalidAttrNumber
   - FirstNormalObjectId
-  - contain_mutable_or_user_functions_checker
+  - [contain_mutable_or_user_functions_checker](contain_mutable_or_user_functions_checker.md)
   - check_functions_in_node
   - exprType
-  - exprCollation
-  - exprInputCollation
-  - errdetail_internal
-  - exprLocation
+  - [exprCollation](../e/exprCollation.md)
+  - [exprInputCollation](../e/exprInputCollation.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [exprLocation](../e/exprLocation.md)
   - expression_tree_walker
 - Called from:
-  - check_simple_rowfilter_expr
-  - check_simple_rowfilter_expr_walker (recursive)
+  - [check_simple_rowfilter_expr](check_simple_rowfilter_expr.md)
+  - [check_simple_rowfilter_expr_walker](check_simple_rowfilter_expr_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function used internally within publicationcmds.c

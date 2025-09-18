@@ -27,13 +27,13 @@ This design allows for multiple bulk delete passes within a single VACUUM operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - spgvacuumscan
-  - IndexBulkDeleteResult
-  - IndexVacuumInfo
+  - [palloc0](../p/palloc0.md)
+  - [spgvacuumscan](spgvacuumscan.md)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
   - IndexBulkDeleteCallback
 - Called from (representative examples):
-  - spghandler (via function pointer in index AM handler)
+  - [spghandler](spghandler.md) (via function pointer in index AM handler)
 
 ## Notes and Other Information
 - Implements the standard PostgreSQL index access method interface for bulk delete

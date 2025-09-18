@@ -19,13 +19,13 @@ The function performs validation to ensure the ItemPointer is valid and that the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - GinItemPointerGetBlockNumber
   - GinItemPointerGetOffsetNumber
   - MaxHeapTuplesPerPageBits
 - Called from (representative examples):
-  - ginCompressPostingList
-  - ginPostingListDecodeAllSegments
+  - [ginCompressPostingList](../g/ginCompressPostingList.md)
+  - [ginPostingListDecodeAllSegments](../g/ginPostingListDecodeAllSegments.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance since it's called frequently during GIN index operations

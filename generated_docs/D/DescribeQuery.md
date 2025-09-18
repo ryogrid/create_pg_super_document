@@ -25,18 +25,18 @@ The function constructs a formatted output showing column names and their Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQprepare
-  - PQdescribePrepared
-  - PQexec
-  - AcceptResult
-  - PrintQueryResult
-  - SetResultVariables
-  - ClearOrSaveResult
-  - PQnfields, PQfname, PQftype, PQfmod
-  - PQescapeLiteral, PQfreemem
+  - [PQprepare](../P/PQprepare.md)
+  - [PQdescribePrepared](../P/PQdescribePrepared.md)
+  - [PQexec](../P/PQexec.md)
+  - [AcceptResult](../A/AcceptResult.md)
+  - [PrintQueryResult](../P/PrintQueryResult.md)
+  - [SetResultVariables](../S/SetResultVariables.md)
+  - [ClearOrSaveResult](../C/ClearOrSaveResult.md)
+  - [PQnfields](../P/PQnfields.md), PQfname, PQftype, PQfmod
+  - [PQescapeLiteral](../P/PQescapeLiteral.md), PQfreemem
   - initPQExpBuffer, printfPQExpBuffer, termPQExpBuffer
 - Called from (representative examples):
-  - SendQuery (when pset.gdesc_flag is true)
+  - [SendQuery](../S/SendQuery.md) (when pset.gdesc_flag is true)
 
 ## Notes and Other Information
 - Returns true if the operation executed successfully, false otherwise

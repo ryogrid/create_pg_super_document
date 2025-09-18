@@ -19,11 +19,11 @@ This is a pointer typedef, so it does not have direct member variables. It point
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelTableScanDescData
+  - [ParallelTableScanDescData](ParallelTableScanDescData.md)
 - Called from (representative examples):
   - Parallel table scan initialization functions
   - Table access method parallel scan implementations
-  - Query execution nodes that support parallel scanning
+  - [Query](../Q/Query.md) execution nodes that support parallel scanning
 
 ## Notes and Other Information
 This typedef is defined in src/include/access/relscan.h (line 70). It serves as the standard handle type for parallel table scan coordination and is used throughout PostgreSQL's parallel execution infrastructure. The pointer-based approach allows multiple backend processes to reference the same shared memory structure while maintaining their own private scan state. This design enables efficient parallel table scanning by allowing workers to coordinate their efforts while minimizing synchronization overhead.

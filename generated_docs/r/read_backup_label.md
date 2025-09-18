@@ -34,7 +34,7 @@ The function parses various fields from the backup_label file:
   - BACKUP_LABEL_FILE (backup_label filename constant)
   - MAXFNAMELEN (maximum filename length constant)
 - Called from:
-  - InitWalRecovery (during WAL recovery initialization)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization)
 
 ## Notes and Other Information
 - Returns false if backup_label file doesn't exist (normal case)

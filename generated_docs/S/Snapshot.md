@@ -21,9 +21,9 @@ Snapshot serves as the standard handle for passing snapshot information througho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapshotData (the underlying structure)
+  - [SnapshotData](SnapshotData.md) (the underlying structure)
 - Called from (representative examples):
-  - Snapshot management functions in snapmgr.c
+  - [Snapshot](Snapshot.md) management functions in snapmgr.c
   - Heap access methods
   - Index access methods
   - Various visibility checking functions

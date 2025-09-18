@@ -27,13 +27,13 @@ The function initializes a bbstreamer_recovery_injector structure with the appro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - bbstreamer_recovery_injector_ops
-  - bbstreamer_recovery_injector (struct type)
-  - bbstreamer_ops (struct type)
+  - [bbstreamer_recovery_injector](bbstreamer_recovery_injector.md) (struct type)
+  - [bbstreamer_ops](bbstreamer_ops.md) (struct type)
 - Called from (representative examples):
-  - CreateBackupStreamer
-  - bbstreamer_buffer_until
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md)
 
 ## Notes and Other Information
 - The input should be a series of typed chunks following bbstreamer.h conventions

@@ -29,15 +29,15 @@ This approach ensures that JSONB "stickiness" is preserved - if any input to a J
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonOutput
+  - [transformJsonOutput](transformJsonOutput.md)
   - OidIsValid
   - lfirst
   - exprType
 - Called from (representative examples):
-  - transformJsonObjectConstructor
-  - transformJsonObjectAgg  
-  - transformJsonArrayAgg
-  - transformJsonArrayConstructor
+  - [transformJsonObjectConstructor](transformJsonObjectConstructor.md)
+  - [transformJsonObjectAgg](transformJsonObjectAgg.md)  
+  - [transformJsonArrayAgg](transformJsonArrayAgg.md)
+  - [transformJsonArrayConstructor](transformJsonArrayConstructor.md)
 
 ## Notes and Other Information
 - This is a static function specialized for JSON constructor function parsing

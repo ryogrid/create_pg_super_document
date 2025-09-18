@@ -22,15 +22,15 @@ When a clause needs reordering (when the right side references the outer relatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause
-  - bms_is_subset
+  - [is_opclause](../i/is_opclause.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
   - makeNode
-  - list_copy
-  - CommuteOpExpr
+  - [list_copy](../l/list_copy.md)
+  - [CommuteOpExpr](../C/CommuteOpExpr.md)
   - lappend
 - Called from (representative examples):
-  - create_mergejoin_plan
-  - create_hashjoin_plan
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md)
 
 ## Notes and Other Information
 - The function performs shallow copying rather than deep copying for efficiency when commuting clauses

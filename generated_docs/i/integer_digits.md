@@ -19,8 +19,8 @@ The  function is a utility function that counts the number of consecutive digits
 - Functions called/Symbols referenced:
   - strspn (standard C library function)
 - Called from (representative examples):
-  - additional_numeric_locale_len
-  - format_numeric_locale
+  - [additional_numeric_locale_len](../a/additional_numeric_locale_len.md)
+  - [format_numeric_locale](../f/format_numeric_locale.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (src/fe_utils/print.c)

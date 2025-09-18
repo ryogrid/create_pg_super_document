@@ -22,22 +22,22 @@ The generated archive entry is placed in the SECTION_POST_DATA section, ensuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableInfo (structure type)
+  - [TableInfo](../T/TableInfo.md) (structure type)
   - fmtQualifiedDumpable
-  - ArchiveEntry
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - ARCHIVE_OPTS (macro)
   - createPQExpBuffer/destroyPQExpBuffer
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - DUMP_COMPONENT_DATA (flag)
   - SECTION_POST_DATA (section constant)
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:207)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10592)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10592)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c
 - Only creates archive entries for populated materialized views (relispopulated = true)
-- Archive entry is placed in SECTION_POST_DATA to ensure proper restore ordering
+- [Archive](../A/Archive.md) entry is placed in SECTION_POST_DATA to ensure proper restore ordering
 - Essential for maintaining materialized view consistency during database restoration
 - Complements regular table data dumping for materialized views
 - Part of PostgreSQL's comprehensive backup and restore infrastructure

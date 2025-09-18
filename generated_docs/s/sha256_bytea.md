@@ -21,7 +21,7 @@ This function implements PostgreSQLs SHA256() SQL function for bytea input. It s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cryptohash_internal
+  - [cryptohash_internal](../c/cryptohash_internal.md)
   - PG_GETARG_BYTEA_PP
   - PG_RETURN_BYTEA_P
 - Constants referenced:

@@ -20,23 +20,23 @@ The `executeStatement` function is a utility wrapper around PostgreSQL's libpq P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec (executes SQL statement via libpq)
-  - PQresultStatus (checks result status)
-  - PQerrorMessage (retrieves error message from connection)
-  - PQclear (frees result memory)
+  - [PQexec](../P/PQexec.md) (executes SQL statement via libpq)
+  - [PQresultStatus](../P/PQresultStatus.md) (checks result status)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (retrieves error message from connection)
+  - [PQclear](../P/PQclear.md) (frees result memory)
   - pg_log_error (logs error message)
   - pg_log_error_detail (logs additional error details)
   - exit (terminates program on failure)
 - Constants used:
   - PGRES_COMMAND_OK (successful command completion status)
 - Called from (representative examples):
-  - initDropTables (table initialization)
-  - createPartitions (partition creation)
-  - ddlinfo (DDL operations)
-  - initTruncateTables (table truncation)
-  - initGenerateDataClientSide/ServerSide (data generation)
-  - initVacuum (vacuum operations)
-  - initCreatePKeys/FKeys (constraint creation)
+  - [initDropTables](../i/initDropTables.md) (table initialization)
+  - [createPartitions](../c/createPartitions.md) (partition creation)
+  - [ddlinfo](../d/ddlinfo.md) (DDL operations)
+  - [initTruncateTables](../i/initTruncateTables.md) (table truncation)
+  - [initGenerateDataClientSide](../i/initGenerateDataClientSide.md)/ServerSide (data generation)
+  - [initVacuum](../i/initVacuum.md) (vacuum operations)
+  - [initCreatePKeys](../i/initCreatePKeys.md)/FKeys (constraint creation)
 
 ## Notes and Other Information
 - This function is intended for initialization-phase SQL operations where failure should be fatal

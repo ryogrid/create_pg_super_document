@@ -20,16 +20,16 @@ This function serves as a convenient public API for access control checking in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclcheck_ext
+  - [object_aclcheck_ext](object_aclcheck_ext.md)
 - Called from (representative examples):
-  - RangeVarGetAndCheckCreationNamespace
-  - LookupExplicitNamespace  
-  - CreateFunction
-  - DefineIndex
-  - DefineOperator
-  - CreateSchemaCommand
-  - DefineRelation
-  - has_database_privilege_name_name (and many other privilege checking functions)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)  
+  - [CreateFunction](../C/CreateFunction.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [DefineOperator](../D/DefineOperator.md)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [has_database_privilege_name_name](../h/has_database_privilege_name_name.md) (and many other privilege checking functions)
 
 ## Notes and Other Information
 - This is the standard entry point for permission checking throughout the PostgreSQL codebase

@@ -24,19 +24,19 @@ The function is only available when PostgreSQL is compiled with ICU support (`US
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - uloc_toLanguageTag (ICU function for locale conversion)
-  - repalloc (PostgreSQL memory reallocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - ereport (PostgreSQL error reporting)
   - u_errorName (ICU error name function)
   - MaxAllocSize (PostgreSQL memory limit constant)
   - Min (PostgreSQL minimum macro)
 - Called from (representative examples):
-  - DefineCollation (src/backend/commands/collationcmds.c:287)
-  - pg_import_system_collations (src/backend/commands/collationcmds.c:1002)
-  - createdb (src/backend/commands/dbcommands.c:1128)
-  - setlocales (src/bin/initdb/initdb.c:2475)
+  - [DefineCollation](../D/DefineCollation.md) (src/backend/commands/collationcmds.c:287)
+  - [pg_import_system_collations](../p/pg_import_system_collations.md) (src/backend/commands/collationcmds.c:1002)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1128)
+  - [setlocales](../s/setlocales.md) (src/bin/initdb/initdb.c:2475)
 
 ## Notes and Other Information
 - Only available when compiled with ICU support (`USE_ICU`)

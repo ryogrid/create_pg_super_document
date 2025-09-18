@@ -22,10 +22,10 @@ This function is commonly used in join planning where the optimizer needs to sel
   - bms_is_empty
   - PATH_REQ_OUTER
 - Called from (representative examples):
-  - add_paths_to_append_rel
-  - sort_inner_and_outer
-  - match_unsorted_outer
-  - hash_inner_and_outer
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md)
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md)
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
+  - [hash_inner_and_outer](../h/hash_inner_and_outer.md)
 
 ## Notes and Other Information
 - Returns the first matching path, assuming paths are pre-sorted by cost

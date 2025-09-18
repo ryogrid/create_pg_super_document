@@ -25,7 +25,7 @@ This function takes no parameters and returns a boolean value.
 - Global variables used:
   - promote_signaled (returned as the result)
 - Called from (representative examples):
-  - CheckForStandbyTrigger (in xlogrecovery.c)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md) (in xlogrecovery.c)
 
 ## Notes and Other Information
 - This function provides read-only access to the promotion signal state

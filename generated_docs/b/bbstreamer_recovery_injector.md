@@ -39,12 +39,12 @@ The streamer processes the archive stream chunk by chunk, intercepting relevant 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - bbstreamer_member (member structure)
   - PQExpBuffer (PostgreSQL string buffer type)
 - Called from (representative examples):
-  - bbstreamer_recovery_injector_new (constructor function)
-  - bbstreamer_recovery_injector_content (content processing function)
+  - [bbstreamer_recovery_injector_new](bbstreamer_recovery_injector_new.md) (constructor function)
+  - [bbstreamer_recovery_injector_content](bbstreamer_recovery_injector_content.md) (content processing function)
 
 ## Notes and Other Information
 - This struct is part of the pg_basebackup utilitys streaming backup infrastructure

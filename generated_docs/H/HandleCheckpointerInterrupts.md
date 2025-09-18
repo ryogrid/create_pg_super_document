@@ -24,16 +24,16 @@ None - the function takes no parameters and processes global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessProcSignalBarrier
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)
   - ProcessConfigFile
-  - UpdateSharedMemoryConfig
-  - ShutdownXLOG
-  - pgstat_report_checkpointer
+  - [UpdateSharedMemoryConfig](../U/UpdateSharedMemoryConfig.md)
+  - [ShutdownXLOG](../S/ShutdownXLOG.md)
+  - [pgstat_report_checkpointer](../p/pgstat_report_checkpointer.md)
   - pgstat_report_wal
-  - proc_exit
-  - ProcessLogMemoryContextInterrupt
+  - [proc_exit](../p/proc_exit.md)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md)
 - Called from (representative examples):
-  - CheckpointerMain (checkpointer.c:355, 516)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (checkpointer.c:355, 516)
 
 ## Notes and Other Information
 - Sets ExitOnAnyError flag during shutdown to ensure clean exit on errors

@@ -34,16 +34,16 @@ The function accesses the pg_proc system catalog to retrieve function metadata n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_function_arguments
+  - [expand_function_arguments](../e/expand_function_arguments.md)
   - expression_tree_mutator
-  - eval_const_expressions_mutator
-  - evaluate_function
-  - inline_function
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [evaluate_function](../e/evaluate_function.md)
+  - [inline_function](../i/inline_function.md)
   - Form_pg_proc
   - SupportRequestSimplify
   - FuncExpr
 - Called from (representative examples):
-  - eval_const_expressions_mutator
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
 
 ## Notes and Other Information
 - The function modifies the argument list in-place via the args_p parameter

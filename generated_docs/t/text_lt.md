@@ -21,7 +21,7 @@ PostgreSQL function implementing the less-than comparison operator (`<`) for tex
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (macro)
-  - text_cmp
+  - [text_cmp](text_cmp.md)
   - PG_GET_COLLATION
   - PG_FREE_IF_COPY (macro)
   - PG_RETURN_BOOL (macro)

@@ -23,7 +23,7 @@ This function provides a wrapper around zlib's gzread() function for reading com
   - gzeof
   - gzerror
   - strerror
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

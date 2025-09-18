@@ -28,12 +28,12 @@ This function parses individual function attribute definition elements and categ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errorConflictingDefElem: Reports duplicate attribute errors with location
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports duplicate attribute errors with location
   - lappend: Appends SET configuration items to list
-  - parser_errposition: Provides error position information
+  - [parser_errposition](../p/parser_errposition.md): Provides error position information
 - Called from (representative examples):
-  - compute_function_attributes: Function attribute processing during creation
-  - AlterFunction: Function attribute modification during alteration
+  - [compute_function_attributes](compute_function_attributes.md): Function attribute processing during creation
+  - [AlterFunction](../A/AlterFunction.md): Function attribute modification during alteration
 
 ## Notes and Other Information
 - Returns true if the attribute was recognized and processed, false otherwise

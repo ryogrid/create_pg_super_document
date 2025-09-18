@@ -23,11 +23,11 @@ The function returns the total memory footprint including the tree structure, bi
   - shared_ts_memory_usage
   - local_ts_memory_usage
 - Called from (representative examples):
-  - lazy_scan_heap
-  - lazy_vacuum
-  - dead_items_add
-  - test_create
-  - test_is_full
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
+  - [lazy_vacuum](../l/lazy_vacuum.md)
+  - [dead_items_add](../d/dead_items_add.md)
+  - [test_create](../t/test_create.md)
+  - [test_is_full](../t/test_is_full.md)
 
 ## Notes and Other Information
 - The returned size includes all memory associated with the TidStore structure

@@ -22,9 +22,9 @@ The function validates that both ranges are of the same type and returns false i
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](range_get_typcache.md)
   - RangeTypeGetOid
-  - range_after_internal
+  - [range_after_internal](range_after_internal.md)
 - Called from (representative examples):
   - No direct callers found (SQL operator function)
 

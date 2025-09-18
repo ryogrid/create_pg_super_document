@@ -22,14 +22,14 @@ The connection's parameters (user, host, port, etc.) should match those configur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_unconnected_slot
-  - disconnectDatabase
-  - ParallelSlotArray
+  - [find_unconnected_slot](../f/find_unconnected_slot.md)
+  - [disconnectDatabase](../d/disconnectDatabase.md)
+  - [ParallelSlotArray](ParallelSlotArray.md)
 - Called from (representative examples):
-  - main (src/bin/pg_amcheck/pg_amcheck.c:705)
-  - reindex_one_database (src/bin/scripts/reindexdb.c:421)
-  - vacuum_one_database (src/bin/scripts/vacuumdb.c:829)
-  - ParallelSlotClearHandler (src/include/fe_utils/parallel_slot.h:68)
+  - [main](../m/main.md) (src/bin/pg_amcheck/pg_amcheck.c:705)
+  - [reindex_one_database](../r/reindex_one_database.md) (src/bin/scripts/reindexdb.c:421)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (src/bin/scripts/vacuumdb.c:829)
+  - [ParallelSlotClearHandler](ParallelSlotClearHandler.md) (src/include/fe_utils/parallel_slot.h:68)
 
 ## Notes and Other Information
 - This function is part of the frontend utilities parallel slot management system

@@ -33,7 +33,7 @@ This approach is particularly important when dealing with multiple inheritance p
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - find_all_inheritors (used as hash table entry type)
+  - [find_all_inheritors](../f/find_all_inheritors.md) (used as hash table entry type)
 
 ## Notes and Other Information
 - This structure is used exclusively as a hash table entry type with PostgreSQL's hash table implementation (HTAB)

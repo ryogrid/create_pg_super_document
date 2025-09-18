@@ -27,17 +27,17 @@ The structure also tracks cost information for evaluating expressions, estimated
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (PostgreSQL's list structure)
+  - [List](../L/List.md) (PostgreSQL's list structure)
   - QualCost (for cost estimation)
   - Index (for sortgrouprefs array)
   - VolatileFunctionStatus (volatile function indicator)
 
 - Called from (representative examples):
-  - set_pathtarget_cost_width (src/backend/optimizer/path/costsize.c:6259)
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md) (src/backend/optimizer/path/costsize.c:6259)
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:151-220)
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1343-1655)
-  - create_projection_path (src/backend/optimizer/util/pathnode.c:2688)
-  - make_pathtarget_from_tlist (src/backend/optimizer/util/tlist.c:593)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1343-1655)
+  - [create_projection_path](../c/create_projection_path.md) (src/backend/optimizer/util/pathnode.c:2688)
+  - [make_pathtarget_from_tlist](../m/make_pathtarget_from_tlist.md) (src/backend/optimizer/util/tlist.c:593)
 
 ## Notes and Other Information
 - Contains bare expressions without TargetEntry nodes for efficiency during planning

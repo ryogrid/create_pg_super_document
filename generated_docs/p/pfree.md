@@ -21,7 +21,7 @@ For Valgrind-enabled builds, the function provides additional debugging support 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMemoryChunkMethodID (when USE_VALGRIND defined)
+  - [GetMemoryChunkMethodID](../G/GetMemoryChunkMethodID.md) (when USE_VALGRIND defined)
   - GetMemoryChunkContext (when USE_VALGRIND defined)
   - MCXT_METHOD
   - MCTX_ALIGNED_REDIRECT_ID (when USE_VALGRIND defined)

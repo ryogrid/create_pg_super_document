@@ -19,22 +19,22 @@ pa_wait_for_xact_finish ensures proper transaction coordination and deadlock det
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelApplyWorkerInfo
-  - pa_wait_for_xact_state
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md)
+  - [pa_wait_for_xact_state](pa_wait_for_xact_state.md)
   - PARALLEL_TRANS_STARTED
-  - pa_lock_transaction
-  - pa_unlock_transaction
-  - pa_get_xact_state
+  - [pa_lock_transaction](pa_lock_transaction.md)
+  - [pa_unlock_transaction](pa_unlock_transaction.md)
+  - [pa_get_xact_state](pa_get_xact_state.md)
   - PARALLEL_TRANS_FINISHED
   - AccessShareLock
   - ereport
   - ERROR
-  - errcode
+  - [errcode](../e/errcode.md)
   - ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE
-  - errmsg
+  - [errmsg](../e/errmsg.md)
 
 - Called from (representative examples):
-  - pa_xact_finish
+  - [pa_xact_finish](pa_xact_finish.md)
 
 ## Notes and Other Information
 - Implements a two-phase waiting strategy to prevent race conditions between leader and parallel workers

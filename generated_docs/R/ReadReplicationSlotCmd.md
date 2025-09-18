@@ -27,7 +27,7 @@ ReadReplicationSlotCmd represents the READ_REPLICATION_SLOT command in PostgreSQ
   - (No direct symbol references)
 - Called from (representative examples):
   - ReadReplicationSlot (src/backend/replication/walsender.c:494)
-  - exec_replication_command (src/backend/replication/walsender.c:2116)
+  - [exec_replication_command](../e/exec_replication_command.md) (src/backend/replication/walsender.c:2116)
 
 ## Notes and Other Information
 - This is a read-only operation that does not modify the replication slot

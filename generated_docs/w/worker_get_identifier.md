@@ -25,7 +25,7 @@ This function provides a thread-safe mechanism for assigning unique worker ident
   - Tuplesortstate
   - Sharedsort
 - Called from (representative examples):
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](../t/tuplesort_begin_common.md)
 
 ## Notes and Other Information
 - Function is marked as static, indicating internal use within the tuplesort module

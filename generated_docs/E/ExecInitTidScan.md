@@ -25,15 +25,15 @@ ExecInitTidScan performs comprehensive initialization of a TID scan node for exe
   - makeNode (to create TidScanState structure)
   - ExecAssignExprContext (to create expression context)
   - ExecOpenScanRelation (to open the target relation)
-  - ExecInitScanTupleSlot (to initialize scan tuple slot)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (to initialize scan tuple slot)
   - RelationGetDescr (to get relation tuple descriptor)
-  - table_slot_callbacks (to get table-specific slot callbacks)
-  - ExecInitResultTypeTL (to initialize result tuple descriptor)
-  - ExecAssignScanProjectionInfo (to set up scan projection)
-  - ExecInitQual (to initialize qualification expressions)
-  - TidExprListCreate (to create TID expression list)
+  - [table_slot_callbacks](../t/table_slot_callbacks.md) (to get table-specific slot callbacks)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (to initialize result tuple descriptor)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md) (to set up scan projection)
+  - [ExecInitQual](ExecInitQual.md) (to initialize qualification expressions)
+  - [TidExprListCreate](../T/TidExprListCreate.md) (to create TID expression list)
 - Called from (representative examples):
-  - ExecInitNode (generic executor node initialization dispatch function)
+  - [ExecInitNode](ExecInitNode.md) (generic executor node initialization dispatch function)
   - NODETIDSCAN_H (header file declaration)
 
 ## Notes and Other Information

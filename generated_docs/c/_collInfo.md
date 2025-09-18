@@ -21,9 +21,9 @@ The  structure is part of PostgreSQL's pg_dump utility framework, designed to st
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
 - Called from (representative examples):
-  - getCollations (allocation and initialization of collation arrays)
-  - dumpCollation (for dumping collation definitions)
-  - findCollationByOid (for collation lookup operations)
+  - [getCollations](../g/getCollations.md) (allocation and initialization of collation arrays)
+  - [dumpCollation](../d/dumpCollation.md) (for dumping collation definitions)
+  - [findCollationByOid](../f/findCollationByOid.md) (for collation lookup operations)
   - Comparison functions in pg_dump_sort.c (for sorting collations during dump)
   - Various functions in pg_dump.c that reference collations in other objects
 

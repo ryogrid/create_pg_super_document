@@ -30,13 +30,13 @@ PermutationStep is a core data structure in PostgreSQL's isolation testing frame
 ## Dependencies
 - Functions called/Symbols referenced:
   - PermutationStepBlocker
-  - Step
+  - [Step](../S/Step.md)
 - Called from (representative examples):
-  - check_testspec
-  - run_all_permutations
-  - run_permutation
-  - try_complete_steps
-  - step_has_blocker
+  - [check_testspec](../c/check_testspec.md)
+  - [run_all_permutations](../r/run_all_permutations.md)
+  - [run_permutation](../r/run_permutation.md)
+  - [try_complete_steps](../t/try_complete_steps.md)
+  - [step_has_blocker](../s/step_has_blocker.md)
 
 ## Notes and Other Information
 - Part of the isolation testing framework located in src/test/isolation/

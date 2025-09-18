@@ -27,12 +27,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogPrefetchStats
-  - ShmemInitStruct
-  - GetCurrentTimestamp
-  - pg_atomic_init_u64
+  - [XLogPrefetchStats](XLogPrefetchStats.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This function is called during PostgreSQL server startup as part of shared memory initialization

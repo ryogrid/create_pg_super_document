@@ -20,7 +20,7 @@ This static function assigns numeric priority values to JSON path operations acc
   - JsonPathItemType (enum parameter)
   - jpi* enumeration constants (jpiOr, jpiAnd, jpiEqual, jpiAdd, jpiMul, jpiPlus, etc.)
 - Called from (representative examples):
-  - printJsonPathItem (multiple locations for precedence checking and parentheses placement)
+  - [printJsonPathItem](../p/printJsonPathItem.md) (multiple locations for precedence checking and parentheses placement)
 
 ## Notes and Other Information
 - Precedence levels from 0 (lowest) to 6 (highest): OR(0), AND(1), comparisons(2), addition/subtraction(3), multiplication/division/modulo(4), unary plus/minus(5), default(6)

@@ -17,16 +17,16 @@ The  function provides a conceptual "close" operation for SMgrRelation objects. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrrelease (performs the actual resource cleanup)
+  - [smgrrelease](smgrrelease.md) (performs the actual resource cleanup)
 - Called from (representative examples):
-  - heapam_relation_set_new_filelocator
-  - heapam_relation_copy_data
-  - smgrDoPendingDeletes
-  - ScanSourceDatabasePgClass
-  - fill_seq_with_data
-  - index_copy_data
-  - DropRelationFiles
-  - RelationSetNewRelfilenumber
+  - [heapam_relation_set_new_filelocator](../h/heapam_relation_set_new_filelocator.md)
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md)
+  - [smgrDoPendingDeletes](smgrDoPendingDeletes.md)
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md)
+  - [index_copy_data](../i/index_copy_data.md)
+  - [DropRelationFiles](../D/DropRelationFiles.md)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
   - RelationCloseSmgr
 
 ## Notes and Other Information

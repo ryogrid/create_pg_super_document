@@ -20,8 +20,8 @@ This function detaches a backend process from a shared memory radix tree by prop
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert
-  - MemoryContextDelete
-  - pfree
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [pfree](../p/pfree.md)
   - RT_RADIX_TREE_MAGIC
 - Called from (representative examples):
   - RT_HANDLE (as referenced)

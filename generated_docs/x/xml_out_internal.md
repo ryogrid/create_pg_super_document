@@ -23,15 +23,15 @@ This static function performs the core logic for converting PostgreSQL's interna
   - print_xml_decl
   - initStringInfo
   - appendStringInfoString
-  - pfree
+  - [pfree](../p/pfree.md)
   - ereport
-  - errcode
-  - errmsg_internal
+  - [errcode](../e/errcode.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
   - errdetail_for_xml_code
 - Called from (representative examples):
-  - xml_out
-  - xml_send
-  - XmlTableSetDocument
+  - [xml_out](xml_out.md)
+  - [xml_send](xml_send.md)
+  - [XmlTableSetDocument](../X/XmlTableSetDocument.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within xml.c

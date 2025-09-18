@@ -20,11 +20,11 @@ This function completes the restoration of an individual Large Object. It ensure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dump_lo_buf
-  - lo_close
-  - ahprintf
+  - [dump_lo_buf](../d/dump_lo_buf.md)
+  - [lo_close](../l/lo_close.md)
+  - [ahprintf](../a/ahprintf.md)
 - Called from (representative examples):
-  - _LoadLOs (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
+  - [_LoadLOs](../L/_LoadLOs.md) (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
 
 ## Notes and Other Information
 - Flushes any remaining data in the LO buffer before closing to ensure complete data transfer

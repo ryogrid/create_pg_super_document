@@ -29,12 +29,12 @@ This is essential for window functions that need to understand row equivalence, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - window_gettupleslot
+  - [window_gettupleslot](../w/window_gettupleslot.md)
   - are_peers
   - ExecClearTuple
 - Called from (representative examples):
-  - rank_up
-  - window_cume_dist
+  - [rank_up](../r/rank_up.md)
+  - [window_cume_dist](../w/window_cume_dist.md)
 
 ## Notes and Other Information
 - The function does not consider window frame modes - it only compares based on ORDER BY columns

@@ -19,11 +19,11 @@ The function checks for the presence of core PostgreSQL directories including ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_major_server_version
-  - check_single_dir
+  - [get_major_server_version](../g/get_major_server_version.md)
+  - [check_single_dir](check_single_dir.md)
   - GET_MAJOR_VERSION
 - Called from (representative examples):
-  - verify_directories
+  - [verify_directories](../v/verify_directories.md)
 
 ## Notes and Other Information
 - Exits the program with an error message if any required directory is missing or inaccessible

@@ -21,9 +21,9 @@ The function expects that the caller has already performed necessary permission 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckAndCreateToastTable
+  - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)
 - Called from (representative examples):
-  - ATRewriteCatalogs (in src/backend/commands/tablecmds.c:5224)
+  - [ATRewriteCatalogs](ATRewriteCatalogs.md) (in src/backend/commands/tablecmds.c:5224)
 
 ## Notes and Other Information
 - This is a specialized variant of TOAST table creation specifically for ALTER TABLE scenarios

@@ -24,12 +24,12 @@ The function also handles lock groups by checking both the current process and o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FindLockCycleRecurseMember
+  - [FindLockCycleRecurseMember](FindLockCycleRecurseMember.md)
   - dlist_foreach
   - dlist_container
 - Called from (representative examples):
   - FindLockCycle
-  - FindLockCycleRecurseMember (recursive calls)
+  - [FindLockCycleRecurseMember](FindLockCycleRecurseMember.md) (recursive calls)
 
 ## Notes and Other Information
 - Uses global variables visitedProcs and nVisitedProcs to track the current path in the dependency graph

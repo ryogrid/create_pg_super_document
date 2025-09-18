@@ -19,11 +19,11 @@ This function is a simple wrapper that drops a replication slot by calling the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotDrop - Core function that performs the actual slot deletion
-  - DropReplicationSlotCmd - Command structure type
+  - [ReplicationSlotDrop](../R/ReplicationSlotDrop.md) - Core function that performs the actual slot deletion
+  - [DropReplicationSlotCmd](DropReplicationSlotCmd.md) - [Command](../C/Command.md) structure type
 - Called from (representative examples):
-  - exec_replication_command (walsender.c:2138)
-  - main (pg_receivewal.c:880, pg_recvlogical.c:974)
+  - [exec_replication_command](../e/exec_replication_command.md) (walsender.c:2138)
+  - [main](../m/main.md) (pg_receivewal.c:880, pg_recvlogical.c:974)
 
 ## Notes and Other Information
 - This is a thin wrapper function that delegates the actual work to ReplicationSlotDrop

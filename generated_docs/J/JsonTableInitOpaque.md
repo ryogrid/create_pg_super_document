@@ -25,11 +25,11 @@ The function bridges the SQL execution infrastructure with the JSON table proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTableExecContext (struct allocation)
+  - [JsonTableExecContext](JsonTableExecContext.md) (struct allocation)
   - castNode (for TableFuncScan and JsonExpr casting)
-  - palloc0/palloc (memory allocation)
+  - [palloc0](../p/palloc0.md)/palloc (memory allocation)
   - ExecEvalExpr (expression evaluation)
-  - JsonTableInitPlan (recursive plan initialization)
+  - [JsonTableInitPlan](JsonTableInitPlan.md) (recursive plan initialization)
   - exprType/exprTypmod (expression type information)
 - Called from (representative examples):
   - Table function scan initialization routines

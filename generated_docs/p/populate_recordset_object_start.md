@@ -22,16 +22,16 @@ The function implements different behaviors based on the lexical nesting level:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateRecordsetState (struct type)
+  - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (struct type)
   - HASHCTL (struct type)
   - JSON_SUCCESS (return value constant)
   - NAMEDATALEN (constant for hash key size)
-  - JsonHashEntry (struct type for hash table entries)
-  - hash_create (function to create hash table)
+  - [JsonHashEntry](../J/JsonHashEntry.md) (struct type for hash table entries)
+  - [hash_create](../h/hash_create.md) (function to create hash table)
   - HASH_ELEM, HASH_STRINGS, HASH_CONTEXT (hash table creation flags)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

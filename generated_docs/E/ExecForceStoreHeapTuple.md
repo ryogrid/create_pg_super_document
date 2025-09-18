@@ -28,21 +28,21 @@ The function manages memory correctly for each case, respecting the shouldFree p
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_IS_HEAPTUPLE (type checking macro)
-  - ExecStoreHeapTuple (optimized heap tuple storage)
+  - [ExecStoreHeapTuple](ExecStoreHeapTuple.md) (optimized heap tuple storage)
   - TTS_IS_BUFFERTUPLE (type checking macro)
   - BufferHeapTupleTableSlot (buffer slot type)
   - ExecClearTuple (slot clearing function)
-  - heap_copytuple (tuple copying function)
-  - heap_deform_tuple (tuple deformation function)
-  - ExecStoreVirtualTuple (virtual tuple storage)
+  - [heap_copytuple](../h/heap_copytuple.md) (tuple copying function)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md) (tuple deformation function)
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md) (virtual tuple storage)
   - ExecMaterializeSlot (slot materialization)
 - Called from (representative examples):
-  - ExecBRInsertTriggers
-  - ExecARDeleteTriggers
-  - agg_retrieve_direct
-  - IndexOnlyNext
-  - ExecDelete
-  - ExecMergeMatched
+  - [ExecBRInsertTriggers](ExecBRInsertTriggers.md)
+  - [ExecARDeleteTriggers](ExecARDeleteTriggers.md)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [IndexOnlyNext](../I/IndexOnlyNext.md)
+  - [ExecDelete](ExecDelete.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
 
 ## Notes and Other Information
 - This function provides a universal interface for storing heap tuples regardless of the target slot type

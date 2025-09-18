@@ -30,7 +30,7 @@ This function is optimized for comparing 32-bit values such as integers, array i
   - `vceqq_u32` (NEON intrinsic for 32-bit equality comparison)
   - Vector32 type
 - Called from (representative examples):
-  - `pg_lfind32_simd_helper` (optimized linear search for 32-bit values)
+  - `[pg_lfind32_simd_helper](../p/pg_lfind32_simd_helper.md)` (optimized linear search for 32-bit values)
 
 ## Notes and Other Information
 - Defined as static inline for optimal performance

@@ -29,14 +29,14 @@ This cleanup ensures that plan tree optimizations don't lose critical execution 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SS_compute_initplan_cost: Calculates cost and safety implications of initplans
-  - list_concat: Combines parent and child initplan lists
-  - apply_tlist_labeling: Transfers column labeling from parent to child targetlist
+  - [SS_compute_initplan_cost](../S/SS_compute_initplan_cost.md): Calculates cost and safety implications of initplans
+  - [list_concat](../l/list_concat.md): Combines parent and child initplan lists
+  - [apply_tlist_labeling](../a/apply_tlist_labeling.md): Transfers column labeling from parent to child targetlist
   - Cost: Type for representing query execution costs
 - Called from (representative examples):
-  - set_subqueryscan_references: When eliminating trivial SubqueryScan nodes
-  - set_append_references: When simplifying Append nodes with single children
-  - set_mergeappend_references: When simplifying MergeAppend nodes with single children
+  - [set_subqueryscan_references](../s/set_subqueryscan_references.md): When eliminating trivial SubqueryScan nodes
+  - [set_append_references](../s/set_append_references.md): When simplifying Append nodes with single children
+  - [set_mergeappend_references](../s/set_mergeappend_references.md): When simplifying MergeAppend nodes with single children
 
 ## Notes and Other Information
 The function is essential for maintaining query execution correctness during plan optimization. The initplan transfer logic is particularly important because initplans represent subqueries that must execute exactly once before the main query, and losing them would cause incorrect results. The cost adjustment ensures that query planning decisions remain accurate after node elimination. The column labeling transfer is critical for client applications that depend on proper column metadata - without this step, eliminated top-level nodes would cause columns to appear with internal names rather than the expected user-visible names. The ordering preservation in initplan concatenation is conservative but safe, ensuring that any subtle dependencies between initialization subqueries are maintained.

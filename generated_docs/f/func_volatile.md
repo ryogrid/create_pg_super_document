@@ -25,18 +25,18 @@ This information is critical for query optimization, determining when functions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - contain_mutable_or_user_functions_checker (src/backend/commands/publicationcmds.c:440)
-  - findTypeInputFunction (src/backend/commands/typecmds.c:2006)
-  - contain_mutable_functions_checker (src/backend/optimizer/util/clauses.c:378)
-  - contain_volatile_functions_checker (src/backend/optimizer/util/clauses.c:546)
-  - ece_function_is_safe (src/backend/optimizer/util/clauses.c:3754)
+  - [contain_mutable_or_user_functions_checker](../c/contain_mutable_or_user_functions_checker.md) (src/backend/commands/publicationcmds.c:440)
+  - [findTypeInputFunction](findTypeInputFunction.md) (src/backend/commands/typecmds.c:2006)
+  - [contain_mutable_functions_checker](../c/contain_mutable_functions_checker.md) (src/backend/optimizer/util/clauses.c:378)
+  - [contain_volatile_functions_checker](../c/contain_volatile_functions_checker.md) (src/backend/optimizer/util/clauses.c:546)
+  - [ece_function_is_safe](../e/ece_function_is_safe.md) (src/backend/optimizer/util/clauses.c:3754)
 
 ## Notes and Other Information
 - Part of the lsyscache.c module which provides convenient access functions for system catalog information

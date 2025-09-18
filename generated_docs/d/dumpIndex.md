@@ -35,15 +35,15 @@ The function follows PostgreSQL's dump architecture by creating both creation an
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - fmtId  
+  - [fmtId](../f/fmtId.md)  
   - fmtQualifiedDumpable
-  - binary_upgrade_set_pg_class_oids
-  - parsePGArray
-  - append_depends_on_extension
-  - ArchiveEntry
-  - dumpComment
+  - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
+  - [parsePGArray](../p/parsePGArray.md)
+  - [append_depends_on_extension](../a/append_depends_on_extension.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode

@@ -28,21 +28,21 @@ The function ensures proper escaping for each format to prevent injection attack
 - Functions called/Symbols referenced:
   - ExplainState (struct type)
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (enum values)
-  - ExplainIndentText
-  - ExplainXMLTag
-  - ExplainJSONLineEnding
-  - ExplainYAMLLineStarting
+  - [ExplainIndentText](ExplainIndentText.md)
+  - [ExplainXMLTag](ExplainXMLTag.md)
+  - [ExplainJSONLineEnding](ExplainJSONLineEnding.md)
+  - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md)
   - appendStringInfo, appendStringInfoString, appendStringInfoChar, appendStringInfoSpaces
-  - escape_xml, escape_json, escape_yaml
+  - [escape_xml](../e/escape_xml.md), escape_json, escape_yaml
   - lfirst (PostgreSQL list macro)
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - show_plan_tlist (at src/backend/commands/explain.c:2480)
-  - show_sort_group_keys (at src/backend/commands/explain.c:2811, 2813)
-  - show_tablesample (at src/backend/commands/explain.c:2935)
-  - show_incremental_sort_group_info (at src/backend/commands/explain.c:3105)
-  - show_modifytable_info (at src/backend/commands/explain.c:4294)
-  - ExplainPropertyListNested (at src/backend/commands/explain.c:4705)
+  - [show_plan_tlist](../s/show_plan_tlist.md) (at src/backend/commands/explain.c:2480)
+  - [show_sort_group_keys](../s/show_sort_group_keys.md) (at src/backend/commands/explain.c:2811, 2813)
+  - [show_tablesample](../s/show_tablesample.md) (at src/backend/commands/explain.c:2935)
+  - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md) (at src/backend/commands/explain.c:3105)
+  - [show_modifytable_info](../s/show_modifytable_info.md) (at src/backend/commands/explain.c:4294)
+  - [ExplainPropertyListNested](ExplainPropertyListNested.md) (at src/backend/commands/explain.c:4705)
 
 ## Notes and Other Information
 - This is a public function (not static), available for use throughout the PostgreSQL codebase

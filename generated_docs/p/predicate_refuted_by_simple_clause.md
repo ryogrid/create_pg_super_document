@@ -28,12 +28,12 @@ The main motivation is supporting partition pruning with IS NULL/IS NOT NULL con
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (for node type checking)
-  - equal (for expression equality testing)
-  - clause_is_strict_for (for strictness testing)
-  - operator_predicate_proof (for operator-based refutation proofs)
+  - [equal](../e/equal.md) (for expression equality testing)
+  - [clause_is_strict_for](../c/clause_is_strict_for.md) (for strictness testing)
+  - [operator_predicate_proof](../o/operator_predicate_proof.md) (for operator-based refutation proofs)
 - Called from (representative examples):
   - iterate_end
-  - predicate_refuted_by_recurse
+  - [predicate_refuted_by_recurse](predicate_refuted_by_recurse.md)
 
 ## Notes and Other Information
 - Includes CHECK_FOR_INTERRUPTS() to allow interruption of long proof attempts

@@ -21,13 +21,13 @@ This function extracts the single argument from a NOT clause. It assumes the inp
 - Functions called/Symbols referenced:
   - BoolExpr (structure type)
   - linitial (macro to get the first element of a list)
-  - Expr (return type)
+  - [Expr](../E/Expr.md) (return type)
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - match_boolean_index_clause
-  - predicate_implied_by_simple_clause
-  - dependency_is_compatible_clause
-  - match_boolean_partition_clause
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [match_boolean_index_clause](../m/match_boolean_index_clause.md)
+  - [predicate_implied_by_simple_clause](../p/predicate_implied_by_simple_clause.md)
+  - [dependency_is_compatible_clause](../d/dependency_is_compatible_clause.md)
+  - [match_boolean_partition_clause](../m/match_boolean_partition_clause.md)
 
 ## Notes and Other Information
 - This is an inline function defined in a header file for performance

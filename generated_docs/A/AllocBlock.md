@@ -18,16 +18,16 @@ AllocBlock is a fundamental type in PostgreSQL's allocation set memory managemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocBlockData (the structure this typedef points to)
+  - [AllocBlockData](AllocBlockData.md) (the structure this typedef points to)
 - Called from (representative examples):
-  - AllocSetContext (uses AllocBlock pointers for managing blocks)
-  - AllocSetAllocLarge (handles large allocation blocks)
-  - AllocSetFree (manages block deallocation)
-  - AllocSetReset (resets allocation blocks)
-  - AllocSetDelete (deletes allocation blocks)
+  - [AllocSetContext](AllocSetContext.md) (uses AllocBlock pointers for managing blocks)
+  - [AllocSetAllocLarge](AllocSetAllocLarge.md) (handles large allocation blocks)
+  - [AllocSetFree](AllocSetFree.md) (manages block deallocation)
+  - [AllocSetReset](AllocSetReset.md) (resets allocation blocks)
+  - [AllocSetDelete](AllocSetDelete.md) (deletes allocation blocks)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's custom memory management system that provides efficient allocation and deallocation
 - Used extensively throughout the allocation set implementation (aset.c)
 - The forward reference pattern is commonly used in C for self-referential or mutually referential data structures
-- AllocBlock pointers are used to maintain linked lists of memory blocks within allocation sets
+- [AllocBlock](AllocBlock.md) pointers are used to maintain linked lists of memory blocks within allocation sets

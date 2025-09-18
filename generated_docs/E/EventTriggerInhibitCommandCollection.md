@@ -21,11 +21,11 @@ The function performs a safety check by returning early if  is NULL, ensuring it
 - Functions called/Symbols referenced:
   - currentEventTriggerState (global state variable)
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1687)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1687)
   - CALLED_AS_EVENT_TRIGGER macro context
 
 ## Notes and Other Information
 - This function is part of the DDL command collection framework that supports event triggers
 - It works in conjunction with EventTriggerUndoInhibitCommandCollection to provide temporary inhibition of command collection
 - The inhibition affects the collection of DDL commands that would otherwise be made available to event trigger functions via pg_event_trigger_ddl_commands()
-- Command collection can be restored by calling EventTriggerUndoInhibitCommandCollection
+- [Command](../C/Command.md) collection can be restored by calling EventTriggerUndoInhibitCommandCollection

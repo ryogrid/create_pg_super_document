@@ -28,12 +28,12 @@ The algorithm ensures efficient tree traversal while maintaining the SP-GiST inv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgChooseIn, spgChooseOut (SP-GiST data structures)
+  - [spgChooseIn](spgChooseIn.md), spgChooseOut (SP-GiST data structures)
   - Name, DatumGetName (PostgreSQL name type handling)
   - DatumGetTextPP (text datum extraction)
-  - commonPrefix (prefix length calculation)
-  - formTextDatum (text datum creation)
-  - searchChar (binary search in node labels)
+  - [commonPrefix](../c/commonPrefix.md) (prefix length calculation)
+  - [formTextDatum](../f/formTextDatum.md) (text datum creation)
+  - [searchChar](searchChar.md) (binary search in node labels)
   - Int16GetDatum (int16 to datum conversion)
   - spgSplitTuple, spgMatchNode, spgAddNode (SP-GiST result types)
   - PG_RETURN_VOID (PostgreSQL return macro)

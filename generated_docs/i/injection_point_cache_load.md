@@ -24,11 +24,11 @@ This function loads injection point callbacks from external libraries into the l
 - Functions called/Symbols referenced:
   - snprintf: Constructs the full library path
   - pg_file_exists: Checks if the library file exists on disk
-  - load_external_function: Dynamically loads the callback function from the library
+  - [load_external_function](../l/load_external_function.md): Dynamically loads the callback function from the library
   - elog: Reports errors if library or function cannot be found
-  - injection_point_cache_add: Adds the loaded callback to the local cache
+  - [injection_point_cache_add](injection_point_cache_add.md): Adds the loaded callback to the local cache
 - Called from (representative examples):
-  - InjectionPointCacheRefresh: Loads new injection points during cache refresh operations
+  - [InjectionPointCacheRefresh](../I/InjectionPointCacheRefresh.md): Loads new injection points during cache refresh operations
 
 ## Notes and Other Information
 - The function is static (internal to injection_point.c)

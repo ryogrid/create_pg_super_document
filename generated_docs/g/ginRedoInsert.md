@@ -24,19 +24,19 @@ Key functionality includes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - BlockIdGetBlockNumber  
-  - ginRedoClearIncompleteSplit
+  - [BlockIdGetBlockNumber](../B/BlockIdGetBlockNumber.md)  
+  - [ginRedoClearIncompleteSplit](ginRedoClearIncompleteSplit.md)
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
-  - ginRedoInsertData
-  - ginRedoInsertEntry
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [ginRedoInsertData](ginRedoInsertData.md)
+  - [ginRedoInsertEntry](ginRedoInsertEntry.md)
   - GinPageIsData
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - Uses ginxlogInsert structure to access WAL record data

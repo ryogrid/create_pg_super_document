@@ -21,17 +21,17 @@ The function operates in two main phases: state initialization (first call) wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbInState, JsonbAggState, JsonbIterator, Jsonb
-  - AggCheckCallContext, MemoryContextSwitchTo
-  - pushJsonbValue, JsonbIteratorInit, JsonbIteratorNext
+  - [JsonbInState](../J/JsonbInState.md), JsonbAggState, JsonbIterator, Jsonb
+  - [AggCheckCallContext](../A/AggCheckCallContext.md), MemoryContextSwitchTo
+  - [pushJsonbValue](../p/pushJsonbValue.md), JsonbIteratorInit, JsonbIteratorNext
   - datum_to_jsonb_internal, JsonbValueToJsonb
-  - get_fn_expr_argtype, json_categorize_type
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md), json_categorize_type
   - WJB_BEGIN_OBJECT, WJB_KEY, WJB_VALUE, WJB_END_ARRAY, etc.
 - Called from (representative examples):
-  - jsonb_object_agg_transfn
-  - jsonb_object_agg_strict_transfn
-  - jsonb_object_agg_unique_transfn
-  - jsonb_object_agg_unique_strict_transfn
+  - [jsonb_object_agg_transfn](jsonb_object_agg_transfn.md)
+  - [jsonb_object_agg_strict_transfn](jsonb_object_agg_strict_transfn.md)
+  - [jsonb_object_agg_unique_transfn](jsonb_object_agg_unique_transfn.md)
+  - [jsonb_object_agg_unique_strict_transfn](jsonb_object_agg_unique_strict_transfn.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the same compilation unit

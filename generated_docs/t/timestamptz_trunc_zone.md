@@ -23,8 +23,8 @@ This function provides timezone-aware truncation of timestamp with timezone valu
   - PG_GETARG_TIMESTAMPTZ (for extracting timestamptz argument)
   - TIMESTAMP_NOT_FINITE (macro for checking infinite timestamps)
   - PG_RETURN_TIMESTAMP (for returning infinite timestamps unchanged)
-  - lookup_timezone (for resolving timezone specification)
-  - timestamptz_trunc_internal (for performing the actual truncation)
+  - [lookup_timezone](../l/lookup_timezone.md) (for resolving timezone specification)
+  - [timestamptz_trunc_internal](timestamptz_trunc_internal.md) (for performing the actual truncation)
   - PG_RETURN_TIMESTAMPTZ (for returning the result)
 - Called from (representative examples):
   - No direct references found (likely called through SQL function interface)

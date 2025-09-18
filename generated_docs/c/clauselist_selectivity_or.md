@@ -42,15 +42,15 @@ The function is essential for estimating selectivity of OR expressions in WHERE 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_single_rel_for_clauses
-  - statext_clauselist_selectivity
-  - bms_is_member
-  - clause_selectivity_ext
+  - [find_single_rel_for_clauses](../f/find_single_rel_for_clauses.md)
+  - [statext_clauselist_selectivity](../s/statext_clauselist_selectivity.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [clause_selectivity_ext](clause_selectivity_ext.md)
   - RTE_RELATION
   - JoinType
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
 - Called from (representative examples):
-  - clause_selectivity_ext
+  - [clause_selectivity_ext](clause_selectivity_ext.md)
 
 ## Notes and Other Information
 This function implements the probabilistic OR formula s1 + s2 - s1*s2, which correctly accounts for tuple set overlap. The formula derives from set theory: |A ∪ B| = |A| + |B| - |A ∩ B|, where the intersection term prevents double-counting overlapping selections.

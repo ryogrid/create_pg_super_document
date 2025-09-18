@@ -20,15 +20,15 @@ This function builds upon `get_typsubscript()` by not only finding the subscript
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typsubscript
+  - [get_typsubscript](get_typsubscript.md)
   - OidIsValid
   - OidFunctionCall0
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - ExecInitSubscriptingRef
-  - contain_nonstrict_functions_walker
-  - contain_leaked_vars_walker
-  - transformContainerSubscripts
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md)
+  - [contain_nonstrict_functions_walker](../c/contain_nonstrict_functions_walker.md)
+  - [contain_leaked_vars_walker](../c/contain_leaked_vars_walker.md)
+  - [transformContainerSubscripts](../t/transformContainerSubscripts.md)
 
 ## Notes and Other Information
 - Returns NULL if the type is not subscriptable (no valid subscripting handler)

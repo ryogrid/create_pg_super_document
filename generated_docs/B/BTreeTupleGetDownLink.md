@@ -19,14 +19,14 @@ The function is implemented as a static inline function for performance, as it's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumberNoCheck
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
 - Called from (representative examples):
-  - _bt_getstackbuf
-  - _bt_mark_page_halfdead
-  - _bt_unlink_halfdead_page
-  - _bt_search
-  - _bt_get_endpoint
-  - btree_xlog_mark_page_halfdead
+  - [_bt_getstackbuf](../b/_bt_getstackbuf.md)
+  - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md)
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
+  - [_bt_search](../b/_bt_search.md)
+  - [_bt_get_endpoint](../b/_bt_get_endpoint.md)
+  - [btree_xlog_mark_page_halfdead](../b/btree_xlog_mark_page_halfdead.md)
 
 ## Notes and Other Information
 - The function does not assert that the input tuple is actually a pivot tuple to avoid false positive assertion failures in !heapkeyspace indexes

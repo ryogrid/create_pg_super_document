@@ -20,14 +20,14 @@ This function takes a list of namespace OIDs and produces the final search path 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid
+  - [list_member_oid](../l/list_member_oid.md)
   - InvokeNamespaceSearchHook
   - lappend_oid
   - linitial_oid
-  - lcons_oid
-  - SearchPathCacheEntry
+  - [lcons_oid](../l/lcons_oid.md)
+  - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md)
 - Called from (representative examples):
-  - cachedNamespacePath
+  - [cachedNamespacePath](../c/cachedNamespacePath.md)
 
 ## Notes and Other Information
 - Removes duplicate namespace entries from the input list

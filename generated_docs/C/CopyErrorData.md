@@ -19,9 +19,9 @@ This function takes no parameters and returns a pointer to the copied ErrorData 
 - Functions called/Symbols referenced:
   - ErrorData (structure type)
   - CHECK_STACK_DEPTH (macro)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copy)
-  - pstrdup (string duplication)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
   - CurrentMemoryContext (global variable)
   - ErrorContext (global variable)
   - errordata (global array)
@@ -29,9 +29,9 @@ This function takes no parameters and returns a pointer to the copied ErrorData 
 
 - Called from (representative examples):
   - _SPI_commit
-  - _SPI_rollback  
-  - plperl_spi_exec
-  - PLy_output
+  - [_SPI_rollback](../S/_SPI_rollback.md)  
+  - [plperl_spi_exec](../p/plperl_spi_exec.md)
+  - [PLy_output](../P/PLy_output.md)
   - pltcl_elog
 
 ## Notes and Other Information

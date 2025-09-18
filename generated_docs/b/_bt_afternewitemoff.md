@@ -36,14 +36,14 @@ This optimization helps maintain consistent page density in composite indexes wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes: Get number of key attributes in relation
-  - PageGetItemId: Get item ID from page offset
-  - PageGetItem: Get item data from page and item ID
-  - _bt_keep_natts_fast: Fast comparison of tuple attributes
-  - BTreeTupleIsPosting: Check if tuple is a posting list
-  - _bt_adjacenthtid: Check heap TID adjacency for recent insertion detection
+  - [PageGetItemId](../P/PageGetItemId.md): Get item ID from page offset
+  - [PageGetItem](../P/PageGetItem.md): Get item data from page and item ID
+  - [_bt_keep_natts_fast](_bt_keep_natts_fast.md): Fast comparison of tuple attributes
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md): Check if tuple is a posting list
+  - [_bt_adjacenthtid](_bt_adjacenthtid.md): Check heap TID adjacency for recent insertion detection
   - OffsetNumberPrev: Get previous offset number
 - Called from:
-  - _bt_findsplitloc: Main split location finder for leaf page optimization
+  - [_bt_findsplitloc](_bt_findsplitloc.md): Main split location finder for leaf page optimization
 
 ## Notes and Other Information
 - Only applies to composite indexes (single key indexes return false immediately)

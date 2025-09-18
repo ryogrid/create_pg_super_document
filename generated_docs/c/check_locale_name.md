@@ -36,15 +36,15 @@ LC_ALL=: The locale name string to validate (NULL or empty string uses environme
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_is_ascii (validates ASCII-only locale names on Windows)
-  - save_global_locale (saves current locale state)
+  - [save_global_locale](../s/save_global_locale.md) (saves current locale state)
   - setlocale (attempts to set the locale for validation)
-  - restore_global_locale (restores original locale state)
-  - pg_strdup (duplicates the canonical locale name string)
+  - [restore_global_locale](../r/restore_global_locale.md) (restores original locale state)
+  - [pg_strdup](../p/pg_strdup.md) (duplicates the canonical locale name string)
   - pg_log_error (logs error messages)
   - pg_log_error_hint (provides helpful error hints)
-  - pg_fatal (terminates with fatal error)
+  - [pg_fatal](../p/pg_fatal.md) (terminates with fatal error)
 - Called from (representative examples):
-  - setlocales (during locale configuration setup)
+  - [setlocales](../s/setlocales.md) (during locale configuration setup)
 
 ## Notes and Other Information
 - Provides specific error handling for empty locale strings (environment-based configuration)

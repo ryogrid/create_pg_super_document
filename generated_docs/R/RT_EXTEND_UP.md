@@ -26,12 +26,12 @@ The function is marked as `pg_noinline` since tree extension is a relatively rar
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
-  - RT_KEY_GET_SHIFT (calculates required shift level for the key)
-  - RT_ALLOC_NODE (allocates new node-4 structures)
-  - RT_SHIFT_GET_MAX_VAL (calculates maximum value for given shift)
+  - [RT_KEY_GET_SHIFT](RT_KEY_GET_SHIFT.md) (calculates required shift level for the key)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (allocates new node-4 structures)
+  - [RT_SHIFT_GET_MAX_VAL](RT_SHIFT_GET_MAX_VAL.md) (calculates maximum value for given shift)
   - RT_SPAN (defines bits per tree level - 8 bits)
 - Called from (representative examples):
-  - RT_SET (when tree height is insufficient for the key being inserted)
+  - [RT_SET](RT_SET.md) (when tree height is insufficient for the key being inserted)
 
 ## Notes and Other Information
 - Critical for handling keys that exceed the current tree capacity

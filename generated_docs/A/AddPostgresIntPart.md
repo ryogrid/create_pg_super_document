@@ -24,8 +24,8 @@ This function is responsible for formatting individual components of PostgreSQL 
   - sprintf (standard C library function)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - EncodeInterval (in src/backend/utils/adt/datetime.c)
-  - EncodeInterval (in src/interfaces/ecpg/pgtypeslib/interval.c)
+  - [EncodeInterval](../E/EncodeInterval.md) (in src/backend/utils/adt/datetime.c)
+  - [EncodeInterval](../E/EncodeInterval.md) (in src/interfaces/ecpg/pgtypeslib/interval.c)
 
 ## Notes and Other Information
 - The function only appends content when the value is non-zero, which helps create clean interval representations

@@ -19,8 +19,8 @@ The  function is a minimal test function that serves as part of the ECPG test su
 - Functions called/Symbols referenced:
   - printf (standard C library function)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/test/expected/preproc-init.c:188)
-  - main (in src/interfaces/ecpg/test/expected/preproc-init.c:212)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-init.c:188)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-init.c:212)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within its compilation unit

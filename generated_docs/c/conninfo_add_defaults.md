@@ -27,17 +27,17 @@ The function also implements advanced SSL configuration logic, automatically upg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseServiceInfo
-  - libpq_append_error  
+  - [parseServiceInfo](../p/parseServiceInfo.md)
+  - [libpq_append_error](../l/libpq_append_error.md)  
   - pg_fe_getauthname
   - getenv (standard C library function)
   - strcmp, strdup, free (standard C library functions)
 - Called from (representative examples):
   - internalPQconninfoOption (src/interfaces/libpq/fe-connect.c:418)
   - PQconndefaults (src/interfaces/libpq/fe-connect.c:1895)
-  - conninfo_parse (src/interfaces/libpq/fe-connect.c:5999)
-  - conninfo_array_parse (src/interfaces/libpq/fe-connect.c:6165)
-  - conninfo_uri_parse (src/interfaces/libpq/fe-connect.c:6343)
+  - [conninfo_parse](conninfo_parse.md) (src/interfaces/libpq/fe-connect.c:5999)
+  - [conninfo_array_parse](conninfo_array_parse.md) (src/interfaces/libpq/fe-connect.c:6165)
+  - [conninfo_uri_parse](conninfo_uri_parse.md) (src/interfaces/libpq/fe-connect.c:6343)
 
 ## Notes and Other Information
 - This is a static function, internal to the fe-connect.c file

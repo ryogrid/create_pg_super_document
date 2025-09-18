@@ -23,12 +23,12 @@ This function serves as the complementary cleanup operation to OpenTableList, en
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_close (closes the database relation)
-  - list_free_deep (frees list and contained structures)
-  - PublicationRelInfo (structure type for relation information)
+  - [list_free_deep](../l/list_free_deep.md) (frees list and contained structures)
+  - [PublicationRelInfo](../P/PublicationRelInfo.md) (structure type for relation information)
 - Called from (representative examples):
-  - CreatePublication (src/backend/commands/publicationcmds.c:840)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1237)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1240)
+  - [CreatePublication](CreatePublication.md) (src/backend/commands/publicationcmds.c:840)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1237)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1240)
 
 ## Notes and Other Information
 - Uses NoLock parameter for table_close() since locks were acquired during the opening phase and are released automatically

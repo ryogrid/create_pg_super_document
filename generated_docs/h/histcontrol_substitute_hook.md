@@ -17,9 +17,9 @@ This function serves as a substitute hook for the HISTCONTROL psql variable. Whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for duplicating the default string)
+  - [pg_strdup](../p/pg_strdup.md) (for duplicating the default string)
 - Called from (representative examples):
-  - EstablishVariableSpace (via SetVariableHooks for HISTCONTROL variable)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (via SetVariableHooks for HISTCONTROL variable)
 
 ## Notes and Other Information
 - The default value "none" indicates that no special history control behavior is enabled by default

@@ -22,14 +22,14 @@ The  function allocates and initializes a new NFA structure used in PostgreSQL's
   - MALLOC
   - ERR
   - newfstate
-  - newstate
-  - freenfa
-  - rainbow
-  - newarc
+  - [newstate](newstate.md)
+  - [freenfa](../f/freenfa.md)
+  - [rainbow](../r/rainbow.md)
+  - [newarc](newarc.md)
   - ISERR
 - Called from (representative examples):
   - CNOERR (in regcomp.c)
-  - nfanode (in regcomp.c)
+  - [nfanode](nfanode.md) (in regcomp.c)
 
 ## Notes and Other Information
 - Returns NULL on allocation failure or initialization error

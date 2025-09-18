@@ -27,7 +27,7 @@ The function relies entirely on the validation performed by `check_session_autho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetSessionAuthorization
+  - [SetSessionAuthorization](../S/SetSessionAuthorization.md)
   - role_auth_extra (structure type)
 - Called from (representative examples):
   - GUC system after successful validation by check_session_authorization

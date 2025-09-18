@@ -34,15 +34,15 @@ The function supports all PostgreSQL object types including tables, sequences, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for string duplication)
-  - dequoteAclUserName (for parsing and dequoting usernames)
-  - pg_free (for memory deallocation)
+  - [pg_strdup](pg_strdup.md) (for string duplication)
+  - [dequoteAclUserName](../d/dequoteAclUserName.md) (for parsing and dequoting usernames)
+  - [pg_free](pg_free.md) (for memory deallocation)
   - strchr (for finding characters in strings)
-  - resetPQExpBuffer/printfPQExpBuffer/appendPQExpBuffer (for buffer management)
-  - AddAcl (macro for adding privileges to buffers)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)/printfPQExpBuffer/appendPQExpBuffer (for buffer management)
+  - [AddAcl](../A/AddAcl.md) (macro for adding privileges to buffers)
 
 - Called from (representative examples):
-  - buildACLCommands (twice, for parsing grant and revoke items)
+  - [buildACLCommands](../b/buildACLCommands.md) (twice, for parsing grant and revoke items)
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on parse errors

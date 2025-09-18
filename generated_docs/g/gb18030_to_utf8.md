@@ -30,7 +30,7 @@ The function supports both strict and non-strict conversion modes through the `n
   - PG_GETARG_INT32 (PostgreSQL macro)  
   - PG_GETARG_BOOL (PostgreSQL macro)
   - CHECK_ENCODING_CONVERSION_ARGS (PostgreSQL validation macro)
-  - LocalToUtf (character conversion utility)
+  - [LocalToUtf](../L/LocalToUtf.md) (character conversion utility)
   - conv_18030_to_utf8 (conversion callback function)
   - PG_RETURN_INT32 (PostgreSQL return macro)
   - gb18030_to_unicode_tree (lookup table)

@@ -36,15 +36,15 @@ ArrayMetaState serves as a performance optimization by caching frequently-needed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo structure for function call management
+  - [FmgrInfo](../F/FmgrInfo.md) structure for function call management
   - Oid type for object identifiers
   - Type system catalogs for metadata lookup
 - Called from (representative examples):
-  - fetch_array_arg_replace_nulls() - array argument processing
-  - array_in() / array_out() - array input/output functions
-  - array_recv() / array_send() - array binary I/O functions
-  - array_append() / array_prepend() - array modification functions
-  - array_position_common() - array search operations
+  - [fetch_array_arg_replace_nulls](../f/fetch_array_arg_replace_nulls.md)() - array argument processing
+  - [array_in](../a/array_in.md)() / array_out() - array input/output functions
+  - [array_recv](../a/array_recv.md)() / array_send() - array binary I/O functions
+  - [array_append](../a/array_append.md)() / array_prepend() - array modification functions
+  - [array_position_common](../a/array_position_common.md)() - array search operations
 
 ## Notes and Other Information
 - Typically allocated in function memory context (fn_mcxt) for persistence across calls

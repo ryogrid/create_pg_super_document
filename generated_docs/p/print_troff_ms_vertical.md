@@ -28,10 +28,10 @@ The vertical format uses two-column troff tables where the first column contains
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - troff_ms_escaped_print (for escaping text content)
+  - [troff_ms_escaped_print](../t/troff_ms_escaped_print.md) (for escaping text content)
   - fputs, fputc, fprintf (standard C library functions)
 - Called from (representative examples):
-  - printTable (at src/fe_utils/print.c:3525)
+  - [printTable](printTable.md) (at src/fe_utils/print.c:3525)
 
 ## Notes and Other Information
 - This is a static function, accessible only within src/fe_utils/print.c

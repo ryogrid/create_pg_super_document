@@ -25,7 +25,7 @@ This ensures that all memory allocated for the Spanish stemming environment is p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct callers found (likely called through function pointer or external interface)
 

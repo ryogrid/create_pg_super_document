@@ -25,17 +25,17 @@ When such a dependency is found, the function returns the `refobjid`, which repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_depend
   - DEPENDENCY_EXTENSION
 - Called from (representative examples):
-  - recordDependencyOnCurrentExtension
-  - checkMembershipInCurrentExtension
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)
   - pg_extension_config_dump
   - AlterExtensionNamespace
-  - ExecAlterExtensionContentsRecurse
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the object is not part of any extension

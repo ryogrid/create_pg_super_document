@@ -31,16 +31,16 @@ The function is designed to handle the complexity of ACL updates efficiently by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - updateAclDependenciesWorker
+  - [updateAclDependenciesWorker](updateAclDependenciesWorker.md)
   - SHARED_DEPENDENCY_ACL
 - Called from (representative examples):
-  - SetDefaultACL
-  - ExecGrant_Attribute
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - ExecGrant_Largeobject
-  - AddRoleMems
-  - recordDependencyOnNewAcl
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [ExecGrant_Largeobject](../E/ExecGrant_Largeobject.md)
+  - [AddRoleMems](../A/AddRoleMems.md)
+  - [recordDependencyOnNewAcl](../r/recordDependencyOnNewAcl.md)
 
 ## Notes and Other Information
 - Both input arrays must be sorted and de-duplicated before calling (typically via aclmembers())

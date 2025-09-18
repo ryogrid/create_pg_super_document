@@ -29,19 +29,19 @@ The underlying AggStatePerHashData structure contains:
 ## Dependencies
 - Functions called/Symbols referenced:
   - AggStatePerHashData
-  - TupleHashTable
+  - [TupleHashTable](../T/TupleHashTable.md)
   - TupleHashIterator
   - TupleTableSlot
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
   - AttrNumber
   - Agg
 - Called from (representative examples):
-  - prepare_hash_slot
-  - build_hash_tables
-  - build_hash_table
-  - hash_agg_enter_spill_mode
-  - lookup_hash_entries
-  - ExecInitAgg
+  - [prepare_hash_slot](../p/prepare_hash_slot.md)
+  - [build_hash_tables](../b/build_hash_tables.md)
+  - [build_hash_table](../b/build_hash_table.md)
+  - [hash_agg_enter_spill_mode](../h/hash_agg_enter_spill_mode.md)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
 
 ## Notes and Other Information
 This type is central to PostgreSQL's hash aggregation strategy and is particularly important when dealing with grouping sets where multiple hash tables may be needed simultaneously. The structure supports both in-memory and spill-to-disk operations for handling large datasets that exceed available memory.

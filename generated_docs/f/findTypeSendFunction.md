@@ -20,15 +20,15 @@ This function locates and validates a type send function during type definition 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName: Looks up function by name with specified argument types
-  - func_signature_string: Creates a string representation of function signature for error messages
-  - get_func_rettype: Retrieves the return type OID of a function
-  - NameListToString: Converts a name list to string format for display
-  - func_volatile: Checks the volatility category of a function
+  - [LookupFuncName](../L/LookupFuncName.md): Looks up function by name with specified argument types
+  - [func_signature_string](func_signature_string.md): Creates a string representation of function signature for error messages
+  - [get_func_rettype](../g/get_func_rettype.md): Retrieves the return type OID of a function
+  - [NameListToString](../N/NameListToString.md): Converts a name list to string format for display
+  - [func_volatile](func_volatile.md): Checks the volatility category of a function
   - PROVOLATILE_VOLATILE: Constant representing volatile function category
 - Called from (representative examples):
-  - DefineType: When creating a new data type
-  - AlterType: When modifying an existing data type
+  - [DefineType](../D/DefineType.md): When creating a new data type
+  - [AlterType](../A/AlterType.md): When modifying an existing data type
   - AlterTypeRecurseParams: When modifying type parameters
 
 ## Notes and Other Information

@@ -21,9 +21,9 @@ This function determines if there are other processes waiting to acquire a lock 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to construct relation lock tag)
-  - LockHasWaiters (performs the actual waiter check)
+  - [LockHasWaiters](LockHasWaiters.md) (performs the actual waiter check)
 - Called from (representative examples):
-  - count_nondeletable_pages (in vacuum operations)
+  - [count_nondeletable_pages](../c/count_nondeletable_pages.md) (in vacuum operations)
 
 ## Notes and Other Information
 - Returns true if there are processes waiting for the specified lock on the relation

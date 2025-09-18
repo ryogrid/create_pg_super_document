@@ -24,25 +24,25 @@ The function is designed to work with PostgreSQL's operator family system, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for both operator family and access method)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for both operator family and access method)
   - HeapTupleIsValid (tuple validation)
   - elog (error logging)
   - GETSTRUCT (tuple data extraction)
-  - ObjectIdGetDatum (OID conversion)
-  - get_namespace_name_or_temp (namespace name lookup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID conversion)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md) (namespace name lookup)
   - appendStringInfo (formatted string buffer operations)
   - quote_qualified_identifier (schema-qualified identifier quoting)
   - NameStr (name extraction from catalog forms)
   - list_make3 (three-element list creation)
-  - pstrdup (string duplication)
-  - ReleaseSysCache (cache cleanup)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_opfamily (operator family catalog structure)
   - Form_pg_am (access method catalog structure)
 
 - Called from (representative examples):
-  - getObjectIdentityParts (within operator family case handling)
-  - getObjectIdentityParts (within access method operator case handling)
-  - getObjectIdentityParts (within access method procedure case handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (within operator family case handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (within access method operator case handling)
+  - [getObjectIdentityParts](getObjectIdentityParts.md) (within access method procedure case handling)
   - object_type_map (object type mapping structure)
 
 ## Notes and Other Information

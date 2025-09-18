@@ -24,7 +24,7 @@ The function takes a void pointer to an Oid value, casts it appropriately, deref
   - appendStringInfo
   - Oid (data type)
 - Called from (representative examples):
-  - heap_desc
+  - [heap_desc](../h/heap_desc.md)
 
 ## Notes and Other Information
 - This is a callback function specifically designed for use with array_desc

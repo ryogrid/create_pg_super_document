@@ -19,15 +19,15 @@ This function serves as a factory function for creating TQueueDestReceiver objec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - tqueueReceiveSlot (assigned as receiveSlot callback)
-  - tqueueStartupReceiver (assigned as rStartup callback)
-  - tqueueShutdownReceiver (assigned as rShutdown callback)
-  - tqueueDestroyReceiver (assigned as rDestroy callback)
+  - [palloc0](../p/palloc0.md)
+  - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md) (assigned as receiveSlot callback)
+  - [tqueueStartupReceiver](../t/tqueueStartupReceiver.md) (assigned as rStartup callback)
+  - [tqueueShutdownReceiver](../t/tqueueShutdownReceiver.md) (assigned as rShutdown callback)
+  - [tqueueDestroyReceiver](../t/tqueueDestroyReceiver.md) (assigned as rDestroy callback)
   - DestTupleQueue (destination type identifier)
 - Called from (representative examples):
-  - ExecParallelGetReceiver
-  - CreateDestReceiver
+  - [ExecParallelGetReceiver](../E/ExecParallelGetReceiver.md)
+  - [CreateDestReceiver](CreateDestReceiver.md)
 
 ## Notes and Other Information
 - Returns a DestReceiver pointer that can be used with PostgreSQL's executor framework

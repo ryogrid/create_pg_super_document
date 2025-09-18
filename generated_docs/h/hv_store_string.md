@@ -22,16 +22,16 @@ The function uses a negative key length parameter to signal to Perl's hv_store()
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
-  - pg_server_to_any (PostgreSQL encoding conversion function)
+  - [pg_server_to_any](../p/pg_server_to_any.md) (PostgreSQL encoding conversion function)
   - PG_UTF8 (PostgreSQL UTF-8 encoding constant)
   - hv_store (Perl hash storage function)
-  - pfree (PostgreSQL memory management)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management)
 - Called from (representative examples):
-  - plperl_trigger_build_args (multiple times for trigger argument construction)
-  - plperl_event_trigger_build_args (for event trigger arguments)
-  - plperl_create_sub (for subroutine creation)
-  - plperl_hash_from_tuple (for tuple to hash conversion)
-  - plperl_spi_execute_fetch_result (for SPI result processing)
+  - [plperl_trigger_build_args](../p/plperl_trigger_build_args.md) (multiple times for trigger argument construction)
+  - [plperl_event_trigger_build_args](../p/plperl_event_trigger_build_args.md) (for event trigger arguments)
+  - [plperl_create_sub](../p/plperl_create_sub.md) (for subroutine creation)
+  - [plperl_hash_from_tuple](../p/plperl_hash_from_tuple.md) (for tuple to hash conversion)
+  - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md) (for SPI result processing)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the plperl.c file

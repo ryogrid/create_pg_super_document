@@ -26,7 +26,7 @@ The function performs a straightforward mapping using a switch statement, handli
   - SQL3_DDT_TIME_WITH_TIME_ZONE
   - SQL3_DDT_ILLEGAL
 - Called from (representative examples):
-  - ECPGget_desc
+  - [ECPGget_desc](../E/ECPGget_desc.md)
 
 ## Notes and Other Information
 - Static function, only accessible within descriptor.c

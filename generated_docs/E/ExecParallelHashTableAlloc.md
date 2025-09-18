@@ -21,16 +21,16 @@ The allocated hash table uses atomic pointers for thread-safe access across para
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_allocate
-  - dsa_get_address  
+  - [dsa_get_address](../d/dsa_get_address.md)  
   - dsa_pointer_atomic_init
   - InvalidDsaPointer
 - Data types used:
-  - HashJoinTable
+  - [HashJoinTable](../H/HashJoinTable.md)
   - ParallelHashJoinBatch
   - dsa_pointer_atomic
 - Called from (representative examples):
   - ExecHashTableCreate
-  - ExecParallelHashJoinNewBatch
+  - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - This function is specifically designed for parallel hash join operations and requires shared memory context

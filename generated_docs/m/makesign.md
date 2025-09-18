@@ -20,15 +20,15 @@ The makesign function generates a bit signature from an array of integers stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - BITVECP (type definition for bit vector pointer)
-  - SignTSVector (data type for GiST signature representation)
+  - [SignTSVector](../S/SignTSVector.md) (data type for GiST signature representation)
   - ARRNELEM (macro to get number of elements in array)
   - GETARR (macro to get pointer to array data)
   - MemSet (memory initialization function)
-  - HASH (macro for hashing integers into bit positions)
+  - [HASH](../H/HASH.md) (macro for hashing integers into bit positions)
 - Called from (representative examples):
-  - gtsvector_compress (during index compression operations)
-  - gtsvector_penalty (for penalty calculation during insertions)
-  - fillcache (when filling signature cache structures)
+  - [gtsvector_compress](../g/gtsvector_compress.md) (during index compression operations)
+  - [gtsvector_penalty](../g/gtsvector_penalty.md) (for penalty calculation during insertions)
+  - [fillcache](../f/fillcache.md) (when filling signature cache structures)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the tsgistidx.c file

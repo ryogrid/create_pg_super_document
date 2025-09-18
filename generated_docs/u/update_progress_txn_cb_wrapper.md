@@ -28,12 +28,12 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer
-  - ReorderBufferTXN
-  - LogicalDecodingContext
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
   - LogicalErrorCallbackState
   - output_plugin_error_callback
-  - OutputPluginUpdateProgress
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
 - Called from (representative examples):
   - StartupDecodingContext
 

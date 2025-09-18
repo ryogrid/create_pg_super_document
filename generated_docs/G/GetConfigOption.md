@@ -27,9 +27,9 @@ The function performs privilege checking when restrict_privileged is true, ensur
   - config_generic, config_bool, config_int, config_real, config_string, config_enum
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM
 - Called from (representative examples):
-  - PostmasterMain
-  - be_tls_init
-  - CreateSharedMemoryAndSemaphores
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [be_tls_init](../b/be_tls_init.md)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

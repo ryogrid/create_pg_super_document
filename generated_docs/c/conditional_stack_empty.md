@@ -19,18 +19,18 @@ This function provides a simple boolean test to determine if the conditional sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionalStack (typedef)
+  - [ConditionalStack](../C/ConditionalStack.md) (typedef)
 - Called from (representative examples):
-  - advanceConnectionState (pgbench) - multiple locations
-  - executeMetaCommand (pgbench)
-  - CheckConditional (pgbench) - multiple locations
-  - MainLoop (psql) - multiple locations
-  - conditional_stack_peek (conditional utility)
-  - conditional_stack_poke (conditional utility)
-  - conditional_stack_set_query_len (conditional utility)
-  - conditional_stack_get_query_len (conditional utility)
-  - conditional_stack_set_paren_depth (conditional utility)
-  - conditional_stack_get_paren_depth (conditional utility)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (pgbench) - multiple locations
+  - [executeMetaCommand](../e/executeMetaCommand.md) (pgbench)
+  - [CheckConditional](../C/CheckConditional.md) (pgbench) - multiple locations
+  - [MainLoop](../M/MainLoop.md) (psql) - multiple locations
+  - [conditional_stack_peek](conditional_stack_peek.md) (conditional utility)
+  - [conditional_stack_poke](conditional_stack_poke.md) (conditional utility)
+  - [conditional_stack_set_query_len](conditional_stack_set_query_len.md) (conditional utility)
+  - [conditional_stack_get_query_len](conditional_stack_get_query_len.md) (conditional utility)
+  - [conditional_stack_set_paren_depth](conditional_stack_set_paren_depth.md) (conditional utility)
+  - [conditional_stack_get_paren_depth](conditional_stack_get_paren_depth.md) (conditional utility)
 
 ## Notes and Other Information
 - Simple and efficient O(1) operation that just checks the head pointer

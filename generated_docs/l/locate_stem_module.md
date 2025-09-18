@@ -18,15 +18,15 @@ The function searches for a compatible Snowball stemmer module through a two-pha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
-  - GetDatabaseEncodingName
-  - pg_strcasecmp
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - ereport
   - stemmer_modules (global array)
   - PG_SQL_ASCII (encoding constant)
   - PG_UTF8 (encoding constant)
 - Called from (representative examples):
-  - dsnowball_init
+  - [dsnowball_init](../d/dsnowball_init.md)
 
 ## Notes and Other Information
 - This is a static function internal to the Snowball dictionary implementation

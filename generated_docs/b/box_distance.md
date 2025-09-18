@@ -20,10 +20,10 @@ The `box_distance` function computes the Euclidean distance between the center p
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_BOX_P`: PostgreSQL macro to extract BOX pointer from function arguments
-  - `box_cn`: Function to calculate the center point of a box
-  - `point_dt`: Function to calculate the distance between two points
+  - `[box_cn](box_cn.md)`: Function to calculate the center point of a box
+  - `[point_dt](../p/point_dt.md)`: Function to calculate the distance between two points
   - `PG_RETURN_FLOAT8`: PostgreSQL macro to return a float8 value
-  - `Point`: PostgreSQL geometric point data type
+  - `[Point](../P/Point.md)`: PostgreSQL geometric point data type
 - Called from (representative examples):
   - No direct references found in the analyzed codebase
 

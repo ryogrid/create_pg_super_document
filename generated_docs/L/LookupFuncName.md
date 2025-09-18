@@ -22,13 +22,13 @@ This function serves as the primary public interface for function name lookup in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncNameInternal
+  - [LookupFuncNameInternal](LookupFuncNameInternal.md)
   - ereport
-  - errcode
-  - errmsg
-  - errhint
-  - NameListToString
-  - func_signature_string
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
+  - [NameListToString](../N/NameListToString.md)
+  - [func_signature_string](../f/func_signature_string.md)
   - ERRCODE_UNDEFINED_FUNCTION
   - ERRCODE_AMBIGUOUS_FUNCTION
 - Called from (representative examples):

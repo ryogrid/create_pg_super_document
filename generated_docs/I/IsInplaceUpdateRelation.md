@@ -23,13 +23,13 @@ The executor makes important assumptions about these relations: they are not par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInplaceUpdateOid
+  - [IsInplaceUpdateOid](IsInplaceUpdateOid.md)
   - RelationGetRelid (macro to extract OID from relation)
 - Called from (representative examples):
-  - check_lock_if_inplace_updateable_rel
-  - systable_inplace_update_begin
-  - CheckValidResultRel
-  - InitResultRelInfo
+  - [check_lock_if_inplace_updateable_rel](../c/check_lock_if_inplace_updateable_rel.md)
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)
+  - [CheckValidResultRel](../C/CheckValidResultRel.md)
+  - [InitResultRelInfo](InitResultRelInfo.md)
 
 ## Notes and Other Information
 - Currently only pg_class and pg_database relations support in-place updates in core PostgreSQL

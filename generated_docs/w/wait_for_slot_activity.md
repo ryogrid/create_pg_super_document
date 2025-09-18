@@ -27,8 +27,8 @@ This adaptive approach balances responsiveness (for active replication scenarios
 ## Dependencies
 - Functions called/Symbols referenced:
   - Min (macro)
-  - WaitLatch
-  - ResetLatch
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - MAX_SLOTSYNC_WORKER_NAPTIME_MS (constant)
   - MIN_SLOTSYNC_WORKER_NAPTIME_MS (constant)
   - WL_LATCH_SET, WL_TIMEOUT, WL_EXIT_ON_PM_DEATH (wait event flags)
@@ -37,7 +37,7 @@ This adaptive approach balances responsiveness (for active replication scenarios
   - sleep_ms (module-level variable)
   - MyLatch
 - Called from (representative examples):
-  - ReplSlotSyncWorkerMain (in src/backend/replication/logical/slotsync.c:1493)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (in src/backend/replication/logical/slotsync.c:1493)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the slotsync.c compilation unit  

@@ -21,14 +21,14 @@ This function takes no parameters as it operates on global transaction state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - NumMessagesInGroup
   - ProcessMessageSubGroupMulti
 - Data structures used:
   - xl_xact_invals
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
   - transInvalInfo (global variable)
 - Constants used:
@@ -38,8 +38,8 @@ This function takes no parameters as it operates on global transaction state.
   - CatCacheMsgs
   - RelCacheMsgs
 - Called from:
-  - RecordTransactionCommit (src/backend/access/transam/xact.c:1328)
-  - CommandEndInvalidationMessages (src/backend/utils/cache/inval.c:1188)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (src/backend/access/transam/xact.c:1328)
+  - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md) (src/backend/utils/cache/inval.c:1188)
 
 ## Notes and Other Information
 - This function performs a quick exit if  is NULL, indicating no invalidation activity has occurred in the current transaction

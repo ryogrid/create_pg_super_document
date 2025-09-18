@@ -75,8 +75,8 @@ The structure is designed with performance in mind - the type_id field must be f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintCache
-  - TypeCacheEnumData
+  - [DomainConstraintCache](../D/DomainConstraintCache.md)
+  - [TypeCacheEnumData](TypeCacheEnumData.md)
 - Called from (representative examples):
   - Various functions in typcache.c
   - Type comparison and hashing operations throughout PostgreSQL

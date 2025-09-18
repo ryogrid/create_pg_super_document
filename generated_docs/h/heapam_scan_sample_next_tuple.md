@@ -20,19 +20,19 @@ This function works with heapam_scan_sample_next_block to implement tuple-level 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TsmRoutine.NextSampleTuple (sampling method for tuple selection)
-  - LockBuffer/BUFFER_LOCK_SHARE/BUFFER_LOCK_UNLOCK (buffer locking)
-  - PageIsAllVisible (visibility optimization)
-  - PageGetMaxOffsetNumber (page bounds)
-  - PageGetItemId/ItemIdIsNormal (item access and validation)
-  - PageGetItem/ItemIdGetLength (tuple data access)
-  - ItemPointerSet (tuple identifier setup)
-  - SampleHeapTupleVisible (visibility checking)
-  - HeapCheckForSerializableConflictOut (isolation checks)
-  - ExecStoreBufferHeapTuple (slot population)
+  - [LockBuffer](../L/LockBuffer.md)/BUFFER_LOCK_SHARE/BUFFER_LOCK_UNLOCK (buffer locking)
+  - [PageIsAllVisible](../P/PageIsAllVisible.md) (visibility optimization)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (page bounds)
+  - [PageGetItemId](../P/PageGetItemId.md)/ItemIdIsNormal (item access and validation)
+  - [PageGetItem](../P/PageGetItem.md)/ItemIdGetLength (tuple data access)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (tuple identifier setup)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (visibility checking)
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md) (isolation checks)
+  - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md) (slot population)
   - pgstat_count_heap_getnext (statistics)
   - ExecClearTuple (slot cleanup)
 - Called from (representative examples):
-  - SampleHeapTupleVisible (as part of table access method interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (as part of table access method interface)
 
 ## Notes and Other Information
 - Implements the second phase of sample scanning after heapam_scan_sample_next_block

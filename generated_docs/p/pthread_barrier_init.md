@@ -22,7 +22,7 @@ The implementation uses a sense-reversing barrier algorithm with a mutex and con
 ## Dependencies
 - Functions called/Symbols referenced:
   - pthread_cond_init
-  - pthread_mutex_init
+  - [pthread_mutex_init](pthread_mutex_init.md)
   - pthread_cond_destroy
 - Called from (representative examples):
   - THREAD_BARRIER_INIT (macro in pgbench.c)

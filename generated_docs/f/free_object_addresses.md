@@ -20,18 +20,18 @@ This function performs proper memory deallocation for an ObjectAddresses structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - ObjectAddresses (structure type)
 - Called from (representative examples):
-  - performDeletion
-  - performMultipleDeletions  
-  - recordDependencyOnExpr
-  - heap_create_with_catalog
+  - [performDeletion](../p/performDeletion.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)  
+  - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
   - index_create
-  - AggregateCreate
-  - CreateConstraintEntry
-  - ProcedureCreate
-  - RemoveObjects
+  - [AggregateCreate](../A/AggregateCreate.md)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [RemoveObjects](../R/RemoveObjects.md)
 
 ## Notes and Other Information
 - This is a critical cleanup function used throughout PostgreSQL's dependency management system

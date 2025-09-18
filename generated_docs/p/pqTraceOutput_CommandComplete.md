@@ -26,9 +26,9 @@ The command completion tag typically contains information about the command that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputString (for the command completion tag)
+  - [pqTraceOutputString](pqTraceOutputString.md) (for the command completion tag)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message tracing dispatcher)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message tracing dispatcher)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, making it internal to the libpq tracing implementation

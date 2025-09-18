@@ -36,14 +36,14 @@ Zero-field rows vacuously satisfy both predicates according to this implementati
   - DatumGetHeapTupleHeader: Extract tuple header from Datum
   - HeapTupleHeaderGetTypeId: Get the type OID from tuple header
   - HeapTupleHeaderGetTypMod: Get the type modifier from tuple header
-  - get_cached_rowtype: Get cached tuple descriptor for the row type
+  - [get_cached_rowtype](../g/get_cached_rowtype.md): Get cached tuple descriptor for the row type
   - HeapTupleHeaderGetDatumLength: Get the length of the tuple data
-  - heap_attisnull: Check if a specific attribute in the tuple is null
+  - [heap_attisnull](../h/heap_attisnull.md): Check if a specific attribute in the tuple is null
   - TupleDescAttr: Access tuple descriptor attributes
-  - BoolGetDatum: Convert boolean to Datum
+  - [BoolGetDatum](../B/BoolGetDatum.md): Convert boolean to Datum
 - Called from (representative examples):
-  - ExecEvalRowNull: Wrapper for IS NULL testing
-  - ExecEvalRowNotNull: Wrapper for IS NOT NULL testing
+  - [ExecEvalRowNull](ExecEvalRowNull.md): Wrapper for IS NULL testing
+  - [ExecEvalRowNotNull](ExecEvalRowNotNull.md): Wrapper for IS NOT NULL testing
 
 ## Notes and Other Information
 - This function is static and only used internally within the expression interpreter

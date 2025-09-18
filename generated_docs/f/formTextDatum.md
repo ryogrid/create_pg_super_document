@@ -24,14 +24,14 @@ The function uses PostgreSQL's variable-length data (varlena) format, which incl
   - VARHDRSZ_SHORT (size of short varlena header)
   - SET_VARSIZE_SHORT (macro to set short varlena size)
   - SET_VARSIZE (macro to set standard varlena size)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - memcpy (memory copy function)
-  - PointerGetDatum (converts pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
 - Called from (representative examples):
-  - spg_text_choose
-  - spg_text_picksplit  
-  - spgist_name_choose
-  - spgist_name_compress
+  - [spg_text_choose](../s/spg_text_choose.md)
+  - [spg_text_picksplit](../s/spg_text_picksplit.md)  
+  - [spgist_name_choose](../s/spgist_name_choose.md)
+  - [spgist_name_compress](../s/spgist_name_compress.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/spgist/spgtextproc.c:113-137

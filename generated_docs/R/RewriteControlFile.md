@@ -35,7 +35,7 @@ This function takes no parameters and operates on the global ControlFile structu
   - WAL_LEVEL_MINIMAL (WAL level constant)
 
 - Called from:
-  - main (in pg_resetwal.c at line 494)
+  - [main](../m/main.md) (in pg_resetwal.c at line 494)
 
 ## Notes and Other Information
 - This is a static function local to pg_resetwal.c

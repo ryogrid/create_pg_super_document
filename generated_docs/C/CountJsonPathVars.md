@@ -19,13 +19,13 @@ This is a simple utility function that counts the number of variables available 
 - Functions called/Symbols referenced:
   - list_length (PostgreSQL list utility function to get list length)
 - Data types used:
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
   - RETURN_ERROR macro in jsonpath_exec.c:314
-  - JsonPathExists in jsonpath_exec.c:3893
-  - JsonPathQuery in jsonpath_exec.c:3922
-  - JsonPathValue in jsonpath_exec.c:4013
-  - JsonTableResetRowPattern in jsonpath_exec.c:4267
+  - [JsonPathExists](../J/JsonPathExists.md) in jsonpath_exec.c:3893
+  - [JsonPathQuery](../J/JsonPathQuery.md) in jsonpath_exec.c:3922
+  - [JsonPathValue](../J/JsonPathValue.md) in jsonpath_exec.c:4013
+  - [JsonTableResetRowPattern](../J/JsonTableResetRowPattern.md) in jsonpath_exec.c:4267
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module

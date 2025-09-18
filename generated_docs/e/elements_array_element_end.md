@@ -22,16 +22,16 @@ Memory management is carefully handled using temporary memory contexts to ensure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ElementsState (state structure)
+  - [ElementsState](../E/ElementsState.md) (state structure)
   - JSON_SUCCESS (return value constant)
   - cstring_to_text_with_len (text conversion)
-  - heap_form_tuple (tuple creation)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (tuple creation)
   - tuplestore_puttuple (tuple storage)
-  - MemoryContextReset (memory management)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (memory management)
   - JsonParseErrorType (return type)
 
 - Called from (representative examples):
-  - elements_worker (main processing function)
+  - [elements_worker](elements_worker.md) (main processing function)
   - JsObjectFree (cleanup context)
 
 ## Notes and Other Information

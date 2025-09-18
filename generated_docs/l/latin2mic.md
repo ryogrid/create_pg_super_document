@@ -29,15 +29,15 @@ The `latin2mic` function performs conversion from Latin character encodings (suc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `report_invalid_encoding`: Reports invalid character encoding errors
+  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Reports invalid character encoding errors
   - `IS_HIGHBIT_SET`: Macro to check if the high bit (0x80) is set in a character
 
 - Called from (representative examples):
-  - `koi8r_to_mic`: KOI8-R to MIC conversion
-  - `latin1_to_mic`: Latin1 to MIC conversion
-  - `latin2_to_mic`: Latin2 to MIC conversion
-  - `latin3_to_mic`: Latin3 to MIC conversion
-  - `latin4_to_mic`: Latin4 to MIC conversion
+  - `[koi8r_to_mic](../k/koi8r_to_mic.md)`: KOI8-R to MIC conversion
+  - `[latin1_to_mic](latin1_to_mic.md)`: Latin1 to MIC conversion
+  - `[latin2_to_mic](latin2_to_mic.md)`: Latin2 to MIC conversion
+  - `[latin3_to_mic](latin3_to_mic.md)`: Latin3 to MIC conversion
+  - `[latin4_to_mic](latin4_to_mic.md)`: Latin4 to MIC conversion
 
 ## Notes and Other Information
 - Returns the number of input bytes consumed, which may be less than input length if `noError` is true and an error occurs

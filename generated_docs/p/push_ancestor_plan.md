@@ -22,12 +22,12 @@ The function identifies the target ancestor plan using the ListCell that holds i
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (list access macro)
-  - list_copy_tail (copies list elements from a specified position)
-  - list_cell_number (returns the position number of a list cell)
-  - set_deparse_plan (sets the deparse context for a specific plan)
+  - [list_copy_tail](../l/list_copy_tail.md) (copies list elements from a specified position)
+  - [list_cell_number](../l/list_cell_number.md) (returns the position number of a list cell)
+  - [set_deparse_plan](../s/set_deparse_plan.md) (sets the deparse context for a specific plan)
 - Called from (representative examples):
-  - get_name_for_var_field
-  - get_parameter
+  - [get_name_for_var_field](../g/get_name_for_var_field.md)
+  - [get_parameter](../g/get_parameter.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c for internal use within the rule/query deparsing subsystem

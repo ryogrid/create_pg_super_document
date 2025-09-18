@@ -22,7 +22,7 @@ This function is a PostgreSQL interface routine called by the function manager t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Extracts text arguments from function arguments (for both source and pattern)
-  - RE_compile_and_execute: Compiles and executes the regular expression
+  - [RE_compile_and_execute](../R/RE_compile_and_execute.md): Compiles and executes the regular expression
   - VARDATA_ANY: Gets pointer to the actual text data within the varlena structure
   - VARSIZE_ANY_EXHDR: Gets the size of text data excluding the varlena header
   - PG_GET_COLLATION: Gets current collation for locale-aware matching

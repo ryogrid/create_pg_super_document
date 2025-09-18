@@ -25,15 +25,15 @@ The function implements sophisticated conflict resolution for concurrent inserti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_mkscankey: Creates scan key for the tuple
-  - _bt_search_insert: Finds and locks the target leaf page
-  - _bt_check_unique: Performs uniqueness validation
-  - _bt_findinsertloc: Finds exact insertion location on page
-  - _bt_insertonpg: Actually inserts the tuple onto the page
-  - _bt_relbuf: Releases buffer locks
-  - _bt_freestack: Frees search stack
+  - [_bt_mkscankey](_bt_mkscankey.md): Creates scan key for the tuple
+  - [_bt_search_insert](_bt_search_insert.md): Finds and locks the target leaf page
+  - [_bt_check_unique](_bt_check_unique.md): Performs uniqueness validation
+  - [_bt_findinsertloc](_bt_findinsertloc.md): Finds exact insertion location on page
+  - [_bt_insertonpg](_bt_insertonpg.md): Actually inserts the tuple onto the page
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer locks
+  - [_bt_freestack](_bt_freestack.md): Frees search stack
 - Called from (representative examples):
-  - btinsert: Main public B-tree insertion interface
+  - [btinsert](btinsert.md): Main public B-tree insertion interface
 
 ## Notes and Other Information
 - Implements retry logic using goto search when waiting for conflicting transactions

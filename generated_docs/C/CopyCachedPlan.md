@@ -29,11 +29,11 @@ The resulting copy is always marked as unsaved (regardless of the source's state
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - MemoryContextSetIdentifier
   - copyObject
-  - CreateTupleDescCopy
-  - CopySearchPathMatcher
+  - [CreateTupleDescCopy](CreateTupleDescCopy.md)
+  - [CopySearchPathMatcher](CopySearchPathMatcher.md)
   - CACHEDPLANSOURCE_MAGIC
   - ALLOCSET_START_SMALL_SIZES
 - Called from (representative examples):

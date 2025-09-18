@@ -21,10 +21,10 @@ DropErrorMsgWrongType is a static helper function that produces informative erro
 - Functions called/Symbols referenced:
   - dropmsgstringarray
   - ereport
-  - errhint
+  - [errhint](../e/errhint.md)
   - Assert
 - Called from (representative examples):
-  - RangeVarCallbackForDropRelation
+  - [RangeVarCallbackForDropRelation](../R/RangeVarCallbackForDropRelation.md)
 
 ## Notes and Other Information
 DropErrorMsgWrongType provides user-friendly guidance when type mismatches occur in DROP operations. The function uses the static dropmsgstringarray to map relation kinds to their corresponding error messages and hints. It handles cases where the wrongkind might not be found in the table by conditionally including the hint. The error uses ERRCODE_WRONG_OBJECT_TYPE to categorize the issue appropriately. This function is essential for making PostgreSQL's error messages more helpful by not just saying "relation not found" but explaining what the relation actually is and how to drop it correctly.

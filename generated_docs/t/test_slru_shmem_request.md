@@ -18,11 +18,11 @@ This function serves as a shmem_request_hook callback in the test_slru module. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - prev_shmem_request_hook (function pointer, may be NULL)
-  - RequestAddinShmemSpace
-  - SimpleLruShmemSize
+  - [RequestAddinShmemSpace](../R/RequestAddinShmemSpace.md)
+  - [SimpleLruShmemSize](../S/SimpleLruShmemSize.md)
   - NUM_TEST_BUFFERS (constant: 16)
 - Called from (representative examples):
-  - _PG_init
+  - [_PG_init](../P/_PG_init.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the test_slru.c file

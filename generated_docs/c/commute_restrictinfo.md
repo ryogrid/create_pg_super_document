@@ -22,7 +22,7 @@ This function produces a commuted version of a RestrictInfo containing a binary 
   - lsecond
   - list_make2
 - Called from (representative examples):
-  - match_opclause_to_indexcol
+  - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md)
   - make_simple_restrictinfo
 
 ## Notes and Other Information

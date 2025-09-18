@@ -19,16 +19,16 @@ This function provides a robust mechanism for canceling ongoing PostgreSQL opera
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGcancelConn
-  - PQcancelCreate
+  - [PQcancelCreate](../P/PQcancelCreate.md)
   - PG_TRY
-  - PQcancelStart
-  - pchomp
-  - PQcancelErrorMessage
+  - [PQcancelStart](../P/PQcancelStart.md)
+  - [pchomp](../p/pchomp.md)
+  - [PQcancelErrorMessage](../P/PQcancelErrorMessage.md)
   - PostgresPollingStatusType
-  - PQcancelPoll
+  - [PQcancelPoll](../P/PQcancelPoll.md)
   - PGRES_POLLING_OK
-  - GetCurrentTimestamp
-  - TimestampDifferenceMilliseconds
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
   - PGRES_POLLING_READING
   - PGRES_POLLING_WRITING
   - WL_LATCH_SET
@@ -36,14 +36,14 @@ This function provides a robust mechanism for canceling ongoing PostgreSQL opera
   - WL_EXIT_ON_PM_DEATH
   - WL_SOCKET_READABLE
   - WL_SOCKET_WRITEABLE
-  - WaitLatchOrSocket
-  - PQcancelSocket
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md)
+  - [PQcancelSocket](../P/PQcancelSocket.md)
   - PG_WAIT_CLIENT
   - MyLatch
-  - ResetLatch
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
   - PG_FINALLY
-  - PQcancelFinish
+  - [PQcancelFinish](../P/PQcancelFinish.md)
   - PG_END_TRY
 - Called from (representative examples):
   - No direct references found in current codebase

@@ -21,16 +21,16 @@ None - this is a parameter-less function.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildHardcodedDescriptor
+  - [BuildHardcodedDescriptor](../B/BuildHardcodedDescriptor.md)
   - Natts_pg_index (constant)
   - Desc_pg_index (constant)
 - Called from:
   - OpClassCacheEnt
-  - RelationInitIndexAccessInfo
-  - RelationGetIndexExpressions
-  - RelationGetDummyIndexExpressions
-  - RelationGetIndexPredicate
-  - RelationGetIndexAttrBitmap
+  - [RelationInitIndexAccessInfo](../R/RelationInitIndexAccessInfo.md)
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md)
+  - [RelationGetDummyIndexExpressions](../R/RelationGetDummyIndexExpressions.md)
+  - [RelationGetIndexPredicate](../R/RelationGetIndexPredicate.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
 
 ## Notes and Other Information
 - Uses static variable for caching to avoid rebuilding the descriptor on subsequent calls

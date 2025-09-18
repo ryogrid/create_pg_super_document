@@ -22,9 +22,9 @@ The implementation follows the standard circular list insertion pattern: it upda
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - restore_toc_entries_prefork (during restore preparation)
+  - [restore_toc_entries_prefork](../r/restore_toc_entries_prefork.md) (during restore preparation)
   - Functions related to TEXT_DUMPALL_HEADER processing
 
 ## Notes and Other Information

@@ -29,12 +29,12 @@ The function carefully manages transition capture to avoid double-capturing tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecARUpdateTriggers (for cross-partition UPDATE transition handling)
-  - ExecARDeleteTriggers (for AFTER ROW DELETE triggers)
+  - [ExecARUpdateTriggers](ExecARUpdateTriggers.md) (for cross-partition UPDATE transition handling)
+  - [ExecARDeleteTriggers](ExecARDeleteTriggers.md) (for AFTER ROW DELETE triggers)
   - CMD_UPDATE (command type constant)
 - Called from:
-  - ExecDelete (main deletion execution function)
-  - ExecMergeMatched (MERGE statement execution)
+  - [ExecDelete](ExecDelete.md) (main deletion execution function)
+  - [ExecMergeMatched](ExecMergeMatched.md) (MERGE statement execution)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeModifyTable.c

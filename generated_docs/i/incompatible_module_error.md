@@ -24,15 +24,15 @@ The function first checks for version mismatches, which indicate the module was 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Pg_magic_struct (struct type)
-  - StringInfoData (for building detailed error messages)
+  - [StringInfoData](../S/StringInfoData.md) (for building detailed error messages)
   - initStringInfo
   - appendStringInfo
   - appendStringInfoChar
   - appendStringInfoString
   - ereport
-  - errdetail_internal
+  - [errdetail_internal](../e/errdetail_internal.md)
 - Called from:
-  - internal_load_library
+  - [internal_load_library](internal_load_library.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's dynamic function management system located in src/backend/utils/fmgr/dfmgr.c

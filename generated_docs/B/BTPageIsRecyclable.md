@@ -25,14 +25,14 @@ The function performs visibility checks using the global visibility map to deter
 - Functions called/Symbols referenced:
   - BTPageGetOpaque
   - P_ISDELETED
-  - BTPageGetDeleteXid
-  - GlobalVisCheckRemovableFullXid
-  - PageIsNew (in assertions)
+  - [BTPageGetDeleteXid](BTPageGetDeleteXid.md)
+  - [GlobalVisCheckRemovableFullXid](../G/GlobalVisCheckRemovableFullXid.md)
+  - [PageIsNew](../P/PageIsNew.md) (in assertions)
   - BTPageOpaque (type)
   - FullTransactionId (type)
 - Called from (representative examples):
-  - _bt_allocbuf
-  - btvacuumpage
+  - [_bt_allocbuf](../b/_bt_allocbuf.md)
+  - [btvacuumpage](../b/btvacuumpage.md)
 
 ## Notes and Other Information
 This function is critical for B-tree space management and MVCC correctness. It includes detailed comments explaining the tombstone concept - deleted pages must remain as tombstones until no concurrent scans could reference them. The function explicitly excludes new pages (PageIsNew) which must be handled separately by callers. The logic is intentionally duplicated in _bt_pendingfsm_finalize() for performance reasons when working without direct page access. The function serves as the authoritative policy for page recycling decisions throughout the B-tree subsystem.

@@ -23,11 +23,11 @@ This function is typically used in scenarios where PostgreSQL's query planner an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustVarVirtImpl
+  - [ExecJustVarVirtImpl](ExecJustVarVirtImpl.md)
   - pg_attribute_always_inline (inline attribute)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation jump table)
-  - ExecReadyInterpretedExpr (expression preparation)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation)
 
 ## Notes and Other Information
 - This function is marked as static and is only used within the expression interpreter

@@ -27,14 +27,14 @@ This information is crucial for query optimization decisions, particularly in de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varnos (extracts all relation identifiers from the clause)
-  - bms_del_members (removes outer join relations from the relation set)
-  - bms_num_members (counts the number of relations in the bitmap set)
-  - bms_free (deallocates the bitmap memory)
+  - [pull_varnos](../p/pull_varnos.md) (extracts all relation identifiers from the clause)
+  - [bms_del_members](../b/bms_del_members.md) (removes outer join relations from the relation set)
+  - [bms_num_members](../b/bms_num_members.md) (counts the number of relations in the bitmap set)
+  - [bms_free](../b/bms_free.md) (deallocates the bitmap memory)
 - Called from (representative examples):
-  - clauselist_selectivity_ext (for selectivity estimation)
-  - treat_as_join_clause (to determine join clause handling)
-  - rowcomparesel (in selectivity functions)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md) (for selectivity estimation)
+  - [treat_as_join_clause](../t/treat_as_join_clause.md) (to determine join clause handling)
+  - [rowcomparesel](../r/rowcomparesel.md) (in selectivity functions)
 
 ## Notes and Other Information
 - Formerly named clause_relids, renamed for clarity

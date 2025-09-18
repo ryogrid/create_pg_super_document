@@ -28,8 +28,8 @@ This function takes no parameters and operates on global variables:
 - Functions called/Symbols referenced:
   - ConvertToXSegs
 - Called from:
-  - assign_max_wal_size
-  - assign_checkpoint_completion_target
+  - [assign_max_wal_size](../a/assign_max_wal_size.md)
+  - [assign_checkpoint_completion_target](../a/assign_checkpoint_completion_target.md)
   - ReadControlFile
 
 ## Notes and Other Information

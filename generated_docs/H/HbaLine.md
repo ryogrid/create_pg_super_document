@@ -58,22 +58,22 @@ HbaLine represents the complete parsed and structured form of a single line from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConnType
-  - IPCompareMethod
+  - [ConnType](../C/ConnType.md)
+  - [IPCompareMethod](../I/IPCompareMethod.md)
   - UserAuth
-  - ClientCertMode
+  - [ClientCertMode](../C/ClientCertMode.md)
   - ClientCertName
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - sockaddr_storage (POSIX socket address structure)
 - Called from (representative examples):
   - token_matches_insensitive
-  - parse_hba_line
-  - parse_hba_auth_opt
-  - check_hba
-  - load_hba
-  - get_hba_options
-  - fill_hba_line
-  - fill_hba_view
+  - [parse_hba_line](../p/parse_hba_line.md)
+  - [parse_hba_auth_opt](../p/parse_hba_auth_opt.md)
+  - [check_hba](../c/check_hba.md)
+  - [load_hba](../l/load_hba.md)
+  - [get_hba_options](../g/get_hba_options.md)
+  - [fill_hba_line](../f/fill_hba_line.md)
+  - [fill_hba_view](../f/fill_hba_view.md)
 
 ## Notes and Other Information
 - This structure is the core data structure for PostgreSQL's host-based authentication system

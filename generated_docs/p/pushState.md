@@ -21,10 +21,10 @@ The function initializes the new state with default values for unique_keys and s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - JsonbParseState (structure type)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
+  - [JsonbParseState](../J/JsonbParseState.md) (structure type)
 - Called from (representative examples):
-  - pushJsonbValueScalar (when beginning new arrays or objects)
+  - [pushJsonbValueScalar](pushJsonbValueScalar.md) (when beginning new arrays or objects)
 
 ## Notes and Other Information
 - This is a static function internal to jsonb_util.c, not exposed in the public API

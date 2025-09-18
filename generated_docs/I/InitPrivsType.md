@@ -24,10 +24,10 @@ This type ensures that the system can properly differentiate between core system
 - Functions called/Symbols referenced:
   - (This is an enum definition, no direct function calls)
 - Called from (representative examples):
-  - recordExtensionInitPriv (uses INITPRIVS_EXTENSION)
+  - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md) (uses INITPRIVS_EXTENSION)
   - InternalDefaultACL (privilege management function)
-  - ExecGrant_Attribute (attribute privilege granting)
-  - ExecGrant_Relation (relation privilege granting)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md) (attribute privilege granting)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md) (relation privilege granting)
 
 ## Notes and Other Information
 - This enum is defined in pg_init_privs.h alongside the pg_init_privs catalog definition

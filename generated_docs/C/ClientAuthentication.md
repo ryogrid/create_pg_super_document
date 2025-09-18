@@ -23,25 +23,25 @@ If authentication succeeds, it sends an AUTH_REQ_OK message to the client. If it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hba_getauthmethod (retrieve authentication method from HBA rules)
-  - secure_loaded_verify_locations (check SSL certificate store)
+  - [hba_getauthmethod](../h/hba_getauthmethod.md) (retrieve authentication method from HBA rules)
+  - [secure_loaded_verify_locations](../s/secure_loaded_verify_locations.md) (check SSL certificate store)
   - pg_getnameinfo_all (resolve client address information)
-  - sendAuthRequest (send authentication requests/responses to client)
-  - auth_failed (handle authentication failure and termination)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (send authentication requests/responses to client)
+  - [auth_failed](../a/auth_failed.md) (handle authentication failure and termination)
 - Authentication method handlers:
-  - pg_GSS_checkauth, pg_GSS_recvauth (GSS/Kerberos authentication)
-  - pg_SSPI_recvauth (Windows SSPI authentication)
-  - auth_peer (Peer authentication)
-  - ident_inet (Ident authentication)  
-  - CheckPWChallengeAuth (MD5/SCRAM password authentication)
-  - CheckPasswordAuth (plain password authentication)
-  - CheckPAMAuth (PAM authentication)
-  - CheckBSDAuth (BSD authentication)
-  - CheckLDAPAuth (LDAP authentication)
-  - CheckRADIUSAuth (RADIUS authentication)
-  - CheckCertAuth (certificate authentication)
+  - [pg_GSS_checkauth](../p/pg_GSS_checkauth.md), pg_GSS_recvauth (GSS/Kerberos authentication)
+  - [pg_SSPI_recvauth](../p/pg_SSPI_recvauth.md) (Windows SSPI authentication)
+  - [auth_peer](../a/auth_peer.md) (Peer authentication)
+  - [ident_inet](../i/ident_inet.md) (Ident authentication)  
+  - [CheckPWChallengeAuth](CheckPWChallengeAuth.md) (MD5/SCRAM password authentication)
+  - [CheckPasswordAuth](CheckPasswordAuth.md) (plain password authentication)
+  - [CheckPAMAuth](CheckPAMAuth.md) (PAM authentication)
+  - [CheckBSDAuth](CheckBSDAuth.md) (BSD authentication)
+  - [CheckLDAPAuth](CheckLDAPAuth.md) (LDAP authentication)
+  - [CheckRADIUSAuth](CheckRADIUSAuth.md) (RADIUS authentication)
+  - [CheckCertAuth](CheckCertAuth.md) (certificate authentication)
 - Called from:
-  - PerformAuthentication (main authentication entry point)
+  - [PerformAuthentication](../P/PerformAuthentication.md) (main authentication entry point)
 
 ## Notes and Other Information
 - The function never returns on authentication failure - the process is terminated

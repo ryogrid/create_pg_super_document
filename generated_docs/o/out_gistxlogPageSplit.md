@@ -27,10 +27,10 @@ The function provides a simple but informative output showing how many pages the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistxlogPageSplit (struct type)
+  - [gistxlogPageSplit](../g/gistxlogPageSplit.md) (struct type)
   - appendStringInfo (StringInfo formatting function)
 - Called from (representative examples):
-  - gist_desc (when processing XLOG_GIST_PAGE_SPLIT records)
+  - [gist_desc](../g/gist_desc.md) (when processing XLOG_GIST_PAGE_SPLIT records)
 
 ## Notes and Other Information
 - Output format: "page_split: splits to N pages"

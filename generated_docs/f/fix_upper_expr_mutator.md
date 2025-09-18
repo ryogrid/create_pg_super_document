@@ -38,19 +38,19 @@ The function ensures that all variable references are properly mapped and includ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - search_indexed_tlist_for_var
-  - search_indexed_tlist_for_phv
-  - search_indexed_tlist_for_non_var
-  - fix_param_node
-  - find_minmax_agg_replacement_param
+  - [search_indexed_tlist_for_var](../s/search_indexed_tlist_for_var.md)
+  - [search_indexed_tlist_for_phv](../s/search_indexed_tlist_for_phv.md)
+  - [search_indexed_tlist_for_non_var](../s/search_indexed_tlist_for_non_var.md)
+  - [fix_param_node](fix_param_node.md)
+  - [find_minmax_agg_replacement_param](find_minmax_agg_replacement_param.md)
   - copyObject
-  - fix_alternative_subplan
-  - fix_expr_common
+  - [fix_alternative_subplan](fix_alternative_subplan.md)
+  - [fix_expr_common](fix_expr_common.md)
   - expression_tree_mutator
 - Called from (representative examples):
   - fix_scan_list
-  - fix_upper_expr
-  - fix_upper_expr_mutator (recursive calls)
+  - [fix_upper_expr](fix_upper_expr.md)
+  - [fix_upper_expr_mutator](fix_upper_expr_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is the actual workhorse behind  and performs the detailed tree transformation

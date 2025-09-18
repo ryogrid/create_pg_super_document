@@ -26,14 +26,14 @@ The algorithm works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j (converts date to Julian day number)
+  - [date2j](date2j.md) (converts date to Julian day number)
   - j2day (converts Julian day to day of week)
 - Called from (representative examples):
-  - extract_date
-  - timestamp_trunc
-  - timestamptz_trunc_internal
-  - timestamp_part_common
-  - timestamptz_part_common
+  - [extract_date](../e/extract_date.md)
+  - [timestamp_trunc](../t/timestamp_trunc.md)
+  - [timestamptz_trunc_internal](../t/timestamptz_trunc_internal.md)
+  - [timestamp_part_common](../t/timestamp_part_common.md)
+  - [timestamptz_part_common](../t/timestamptz_part_common.md)
 
 ## Notes and Other Information
 - The function returns an integer representing the week number (1-53)

@@ -20,16 +20,16 @@ The function constructs a SQL query to fetch language metadata including permiss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - ProcLangInfo
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [ProcLangInfo](../P/ProcLangInfo.md)
   - pg_malloc
   - atooid
-  - AssignDumpId
-  - getRoleName
-  - selectDumpableProcLang
-  - PQgetisnull
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [getRoleName](getRoleName.md)
+  - [selectDumpableProcLang](../s/selectDumpableProcLang.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Must be executed after getFuncs() due to dependency on findFuncByOid() functionality

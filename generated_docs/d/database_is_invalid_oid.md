@@ -17,15 +17,15 @@ This function provides a convenient interface to check if a database is in an in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)  
   - elog (error logging)
   - GETSTRUCT (tuple structure access macro)
-  - database_is_invalid_form (core validity check)
-  - ReleaseSysCache (cache cleanup)
+  - [database_is_invalid_form](database_is_invalid_form.md) (core validity check)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_database (catalog structure type)
 - Called from (representative examples):
-  - createdb (database creation operations)
+  - [createdb](../c/createdb.md) (database creation operations)
 
 ## Notes and Other Information
 - Wrapper around database_is_invalid_form() that handles OID-to-catalog-entry conversion

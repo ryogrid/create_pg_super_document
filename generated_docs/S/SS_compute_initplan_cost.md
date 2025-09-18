@@ -31,15 +31,15 @@ The function makes a conservative assumption that each initPlan executes once du
 - Functions called/Symbols referenced:
   - lfirst_node (macro)
 - Data types referenced:
-  - List
+  - [List](../L/List.md)
   - Cost
   - SubPlan
   - ListCell
 - Called from (representative examples):
-  - SS_charge_for_initplans
-  - standard_planner
-  - materialize_finished_plan
-  - clean_up_removed_plan_level
+  - [SS_charge_for_initplans](SS_charge_for_initplans.md)
+  - [standard_planner](../s/standard_planner.md)
+  - [materialize_finished_plan](../m/materialize_finished_plan.md)
+  - [clean_up_removed_plan_level](../c/clean_up_removed_plan_level.md)
 
 ## Notes and Other Information
 - The conservative assumption of "each initPlan runs once during startup" may overestimate costs but ensures safe planning

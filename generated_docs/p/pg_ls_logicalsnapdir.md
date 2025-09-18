@@ -19,7 +19,7 @@ This function provides access to the contents of PostgreSQL's logical replicatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ls_dir_files (performs the actual directory listing without file sizes)
+  - [pg_ls_dir_files](pg_ls_dir_files.md) (performs the actual directory listing without file sizes)
 - Called from (representative examples):
   - SQL queries via function call interface
 
@@ -28,6 +28,6 @@ This function provides access to the contents of PostgreSQL's logical replicatio
 - Specifically targets the pg_logical/snapshots directory for logical replication monitoring
 - Uses show_size=false parameter, unlike most other directory listing functions
 - Essential for monitoring logical replication health and troubleshooting replication issues
-- Snapshot files in this directory are created and managed by logical replication slots
+- [Snapshot](../S/Snapshot.md) files in this directory are created and managed by logical replication slots
 - Part of PostgreSQL's administrative function suite for logical replication management
 - Useful for database administrators managing logical replication setups and monitoring replication slot states

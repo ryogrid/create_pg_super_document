@@ -22,9 +22,9 @@ For soft errors, the function performs minimal processing compared to errfinish(
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errfinish
+  - [errfinish](errfinish.md)
   - pg_unreachable
-  - set_stack_entry_location
+  - [set_stack_entry_location](../s/set_stack_entry_location.md)
   - palloc_object
 - Called from (representative examples):
   - errsave_domain

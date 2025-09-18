@@ -34,19 +34,19 @@ The function ensures proper alignment and sets up the tuple to be usable both as
   - ereport/ERROR (for validation)
   - offsetof/MAXALIGN (for size calculations)
   - BITMAPLEN (for null bitmap sizing)
-  - heap_compute_data_size
-  - palloc0
-  - ItemPointerSetInvalid
+  - [heap_compute_data_size](heap_compute_data_size.md)
+  - [palloc0](../p/palloc0.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - HeapTupleHeaderSetDatumLength
   - HeapTupleHeaderSetTypeId
   - HeapTupleHeaderSetTypMod
   - HeapTupleHeaderSetNatts
-  - heap_fill_tuple
+  - [heap_fill_tuple](heap_fill_tuple.md)
 - Called from (representative examples):
-  - heap_modify_tuple
-  - heap_modify_tuple_by_cols
-  - SPI_modifytuple
-  - record_in
+  - [heap_modify_tuple](heap_modify_tuple.md)
+  - [heap_modify_tuple_by_cols](heap_modify_tuple_by_cols.md)
+  - [SPI_modifytuple](../S/SPI_modifytuple.md)
+  - [record_in](../r/record_in.md)
   - Many catalog manipulation functions
 
 ## Notes and Other Information

@@ -26,10 +26,10 @@ The function extracts a check array indicating the presence of query operands, e
 - Functions called/Symbols referenced:
   - GETQUERY (macro to extract query items from TSQuery)
   - TS_execute_ternary (executes TSQuery with ternary logic)
-  - checkcondition_gin (callback function for term evaluation)
+  - [checkcondition_gin](../c/checkcondition_gin.md) (callback function for term evaluation)
 - Called from (representative examples):
-  - gin_tsquery_consistent_6args
-  - gin_tsquery_consistent_oldsig
+  - [gin_tsquery_consistent_6args](gin_tsquery_consistent_6args.md)
+  - [gin_tsquery_consistent_oldsig](gin_tsquery_consistent_oldsig.md)
 
 ## Notes and Other Information
 - Initially assumes no recheck is required (*recheck = false)

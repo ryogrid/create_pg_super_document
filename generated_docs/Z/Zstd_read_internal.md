@@ -20,8 +20,8 @@ This function implements the internal reading mechanism for Zstd-compressed file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (struct type)
-  - ZstdCompressorState (struct type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (struct type)
+  - [ZstdCompressorState](ZstdCompressorState.md) (struct type)
   - pg_malloc0 (memory allocation)
   - unconstify (utility function)
   - ZSTD_createDStream() (Zstd library function)
@@ -32,8 +32,8 @@ This function implements the internal reading mechanism for Zstd-compressed file
   - fread() (standard library function)
   - ferror() (standard library function)
 - Called from (representative examples):
-  - Zstd_gets (wrapper function)
-  - Zstd_read (wrapper function)
+  - [Zstd_gets](Zstd_gets.md) (wrapper function)
+  - [Zstd_read](Zstd_read.md) (wrapper function)
 
 ## Notes and Other Information
 - Implements lazy initialization of the decompression stream, allowing the function to be called before full initialization

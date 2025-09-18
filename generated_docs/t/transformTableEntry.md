@@ -18,11 +18,11 @@ The transformTableEntry function is a wrapper function that simplifies the trans
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - addRangeTableEntry
-  - RangeVar (struct type)
-  - ParseNamespaceItem (struct type)
+  - [addRangeTableEntry](../a/addRangeTableEntry.md)
+  - [RangeVar](../R/RangeVar.md) (struct type)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (struct type)
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c, indicating it's only used internally within that compilation unit

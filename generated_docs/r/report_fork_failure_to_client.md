@@ -20,12 +20,12 @@ This function provides a last-ditch effort to inform a client when the postmaste
 - Functions called/Symbols referenced:
   - snprintf (formats error message)
   - strerror (converts errno to string)
-  - pg_set_noblock (sets socket to non-blocking mode)
+  - [pg_set_noblock](../p/pg_set_noblock.md) (sets socket to non-blocking mode)
   - send (attempts to send error message)
   - strlen (calculates message length)
   - EINTR (interrupt signal constant)
 - Called from (representative examples):
-  - BackendStartup (when fork() fails during backend creation)
+  - [BackendStartup](../B/BackendStartup.md) (when fork() fails during backend creation)
 
 ## Notes and Other Information
 - Static function internal to postmaster.c

@@ -18,12 +18,12 @@ This function performs operator class resolution by searching through the curren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - GetSysCacheOid3
 - Called from (representative examples):
-  - OpclassIsVisibleExt
-  - ResolveOpClass
-  - OpClassCacheLookup
+  - [OpclassIsVisibleExt](OpclassIsVisibleExt.md)
+  - [ResolveOpClass](../R/ResolveOpClass.md)
+  - [OpClassCacheLookup](OpClassCacheLookup.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the operator class is not found in any namespace in the search path

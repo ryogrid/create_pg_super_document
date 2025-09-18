@@ -25,7 +25,7 @@ The function is designed to pass sanity checks that ensure all built-in function
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (macro for extracting text argument)
   - PG_GETARG_INT64 (macro for extracting 64-bit integer arguments)
-  - pg_read_binary_file_common (core binary file reading implementation)
+  - [pg_read_binary_file_common](pg_read_binary_file_common.md) (core binary file reading implementation)
   - PG_RETURN_NULL (macro for returning NULL)
   - PG_RETURN_BYTEA_P (macro for returning bytea datum)
 - Called from (representative examples):

@@ -21,13 +21,13 @@ The `cost_tidrangescan` function calculates the cost of performing a TID range s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clauselist_selectivity
-  - cost_qual_eval
-  - get_tablespace_page_costs
-  - get_restriction_qual_cost
+  - [clauselist_selectivity](clauselist_selectivity.md)
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [get_tablespace_page_costs](../g/get_tablespace_page_costs.md)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md)
   - JOIN_INNER (constant)
 - Called from (representative examples):
-  - create_tidrangescan_path
+  - [create_tidrangescan_path](create_tidrangescan_path.md)
 
 ## Notes and Other Information
 - Only applies to base relations, not joins or subqueries

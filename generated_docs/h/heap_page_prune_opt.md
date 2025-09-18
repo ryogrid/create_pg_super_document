@@ -25,22 +25,22 @@ When conditions are met, it attempts to acquire an exclusive buffer cleanup lock
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - RecoveryInProgress
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - TransactionIdIsValid
-  - GlobalVisTestFor
-  - GlobalVisTestIsRemovableXid
+  - [GlobalVisTestFor](../G/GlobalVisTestFor.md)
+  - [GlobalVisTestIsRemovableXid](../G/GlobalVisTestIsRemovableXid.md)
   - RelationGetTargetPageFreeSpace
-  - PageIsFull
-  - PageGetHeapFreeSpace
+  - [PageIsFull](../P/PageIsFull.md)
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
   - ConditionalLockBufferForCleanup
-  - heap_page_prune_and_freeze
-  - pgstat_update_heap_dead_tuples
-  - LockBuffer
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
+  - [pgstat_update_heap_dead_tuples](../p/pgstat_update_heap_dead_tuples.md)
+  - [LockBuffer](../L/LockBuffer.md)
 - Called from (representative examples):
-  - heap_prepare_pagescan
-  - heapam_index_fetch_tuple
-  - heapam_scan_bitmap_next_block
+  - [heap_prepare_pagescan](heap_prepare_pagescan.md)
+  - [heapam_index_fetch_tuple](heapam_index_fetch_tuple.md)
+  - [heapam_scan_bitmap_next_block](heapam_scan_bitmap_next_block.md)
 
 ## Notes and Other Information
 - This is a frequently called function, designed to exit quickly when pruning is not beneficial

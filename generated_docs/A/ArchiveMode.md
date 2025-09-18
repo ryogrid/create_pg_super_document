@@ -28,10 +28,10 @@ The `ArchiveMode` enum specifies the operational mode for archive handling in pg
 - Functions called/Symbols referenced:
   - None (primitive enum type)
 - Called from (representative examples):
-  - `CreateArchive` function in pg_backup_archiver.c for setting up new archives
+  - `[CreateArchive](../C/CreateArchive.md)` function in pg_backup_archiver.c for setting up new archives
   - `_archiveHandle` struct as a member variable to track current mode
-  - `main` function in pg_dump.c for determining operation mode
-  - Archive allocation and handling functions
+  - `[main](../m/main.md)` function in pg_dump.c for determining operation mode
+  - [Archive](Archive.md) allocation and handling functions
 
 ## Notes and Other Information
 This enum is essential for the proper operation of PostgreSQL's backup and restore utilities. The mode determines the file access patterns and internal state management of the archive handlers. Write mode is used during pg_dump operations, read mode during pg_restore, and append mode for incremental or continued operations. The mode affects buffer management, file positioning, and error handling within the archive system.

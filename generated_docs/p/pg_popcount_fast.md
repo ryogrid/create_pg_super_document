@@ -20,12 +20,12 @@ This function provides a fast implementation for counting the total number of 1-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount64_fast (for 64-bit chunk processing)
-  - pg_popcount32_fast (for 32-bit chunk processing)
+  - [pg_popcount64_fast](pg_popcount64_fast.md) (for 64-bit chunk processing)
+  - [pg_popcount32_fast](pg_popcount32_fast.md) (for 32-bit chunk processing)
   - TYPEALIGN (for alignment checking)
   - pg_number_of_ones (lookup table for remaining bytes)
 - Called from (representative examples):
-  - choose_popcount_functions
+  - [choose_popcount_functions](../c/choose_popcount_functions.md)
 
 ## Notes and Other Information
 - Uses conditional compilation based on SIZEOF_VOID_P to optimize for platform architecture

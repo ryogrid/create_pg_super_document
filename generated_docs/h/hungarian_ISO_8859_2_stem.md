@@ -34,16 +34,16 @@ Each suffix removal step is optional and protected - if one step fails, the algo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (identifies linguistic regions R1, R2, RV)
-  - r_instrum (removes instrumental case suffixes)
-  - r_case (removes regular case suffixes)
-  - r_case_special (removes special case suffixes)
-  - r_case_other (removes other case suffixes) 
-  - r_factive (removes factive suffixes)
-  - r_owned (removes possessive suffixes)
-  - r_sing_owner (removes singular possessor suffixes)
-  - r_plur_owner (removes plural possessor suffixes)
-  - r_plural (removes plural suffixes)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies linguistic regions R1, R2, RV)
+  - [r_instrum](../r/r_instrum.md) (removes instrumental case suffixes)
+  - [r_case](../r/r_case.md) (removes regular case suffixes)
+  - [r_case_special](../r/r_case_special.md) (removes special case suffixes)
+  - [r_case_other](../r/r_case_other.md) (removes other case suffixes) 
+  - [r_factive](../r/r_factive.md) (removes factive suffixes)
+  - [r_owned](../r/r_owned.md) (removes possessive suffixes)
+  - [r_sing_owner](../r/r_sing_owner.md) (removes singular possessor suffixes)
+  - [r_plur_owner](../r/r_plur_owner.md) (removes plural possessor suffixes)
+  - [r_plural](../r/r_plural.md) (removes plural suffixes)
 - Called from (representative examples):
   - No direct references found (external API function)
 

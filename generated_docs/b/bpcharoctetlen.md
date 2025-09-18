@@ -17,7 +17,7 @@ This function calculates and returns the octet (byte) length of a BPCHAR data ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_raw_datum_size
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
   - PG_GETARG_DATUM (macro)
   - PG_RETURN_INT32 (macro)
   - VARHDRSZ (constant)

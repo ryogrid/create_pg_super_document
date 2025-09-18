@@ -23,12 +23,12 @@ The function performs a two-step operation: first removing any existing default 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemoveAttrDefault
-  - StoreAttrDefault
+  - [RemoveAttrDefault](../R/RemoveAttrDefault.md)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md)
   - ObjectAddressSubSet
   - DROP_RESTRICT
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
 
 ## Notes and Other Information

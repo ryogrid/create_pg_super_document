@@ -17,7 +17,7 @@ int8dec_any is a simple wrapper function that delegates to the int8dec function.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - int8dec
+  - [int8dec](int8dec.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

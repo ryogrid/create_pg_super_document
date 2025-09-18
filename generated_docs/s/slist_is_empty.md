@@ -20,14 +20,14 @@ This function determines if a singly-linked list contains any elements by checki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_check (validation check for list integrity)
-  - slist_head (parameter type)
+  - [slist_check](slist_check.md) (validation check for list integrity)
+  - [slist_head](slist_head.md) (parameter type)
 - Called from (representative examples):
-  - EventTriggerSQLDrop (event trigger processing)
-  - dsm_detach (dynamic shared memory cleanup)
-  - reset_on_dsm_detach (shared memory cleanup)
-  - slist_pop_head_node (list manipulation)
-  - slist_head_element_off (element access)
+  - [EventTriggerSQLDrop](../E/EventTriggerSQLDrop.md) (event trigger processing)
+  - [dsm_detach](../d/dsm_detach.md) (dynamic shared memory cleanup)
+  - [reset_on_dsm_detach](../r/reset_on_dsm_detach.md) (shared memory cleanup)
+  - [slist_pop_head_node](slist_pop_head_node.md) (list manipulation)
+  - [slist_head_element_off](slist_head_element_off.md) (element access)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

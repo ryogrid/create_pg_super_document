@@ -20,18 +20,18 @@ During replay, the function reads the buffer specified in the WAL record, checks
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogReadBufferForRedo
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Types referenced:
   - HashPageOpaque
   - BLK_NEEDS_REDO
   - LH_BUCKET_NEEDS_SPLIT_CLEANUP
 - Called from:
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

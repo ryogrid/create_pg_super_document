@@ -21,11 +21,11 @@ This function is a simple wrapper around logicalrep_write_prepare_common that sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_write_prepare_common
+  - [logicalrep_write_prepare_common](logicalrep_write_prepare_common.md)
   - LOGICAL_REP_MSG_PREPARE
-  - ReorderBufferTXN
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
 - Called from (representative examples):
-  - pgoutput_prepare_txn
+  - [pgoutput_prepare_txn](../p/pgoutput_prepare_txn.md)
 
 ## Notes and Other Information
 - Simple wrapper function that delegates to logicalrep_write_prepare_common

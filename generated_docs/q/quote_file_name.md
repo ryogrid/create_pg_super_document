@@ -26,9 +26,9 @@ The function implements several heuristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - quote_if_needed
-  - pg_strdup
-  - stat
+  - [quote_if_needed](quote_if_needed.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [stat](../s/stat.md)
   - S_ISDIR
   - strlen
   - Assert

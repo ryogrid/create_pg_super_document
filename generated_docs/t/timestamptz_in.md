@@ -25,12 +25,12 @@ The `timestamptz_in` function is the input function for the timestamptz data typ
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING
   - PG_GETARG_INT32
-  - ParseDateTime
-  - DecodeDateTime
+  - [ParseDateTime](../P/ParseDateTime.md)
+  - [DecodeDateTime](../D/DecodeDateTime.md)
   - DateTimeParseError
-  - tm2timestamp
-  - SetEpochTimestamp
-  - AdjustTimestampForTypmod
+  - [tm2timestamp](tm2timestamp.md)
+  - [SetEpochTimestamp](../S/SetEpochTimestamp.md)
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)
   - PG_RETURN_TIMESTAMPTZ
   - PG_RETURN_NULL
   - ereturn
@@ -40,16 +40,16 @@ The `timestamptz_in` function is the input function for the timestamptz data typ
 - Types referenced:
   - TimestampTz
   - fsec_t
-  - pg_tm
+  - [pg_tm](../p/pg_tm.md)
   - DateTimeErrorExtra
 - Constants referenced:
   - MAXDATEFIELDS
   - MAXDATELEN
   - DTK_DATE, DTK_EPOCH, DTK_LATE, DTK_EARLY
 - Called from (representative examples):
-  - validateRecoveryParameters
-  - CreateRole
-  - AlterRole
+  - [validateRecoveryParameters](../v/validateRecoveryParameters.md)
+  - [CreateRole](../C/CreateRole.md)
+  - [AlterRole](../A/AlterRole.md)
 
 ## Notes and Other Information
 - Handles special timestamp values: epoch, infinity (-infinity, +infinity)

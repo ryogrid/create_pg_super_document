@@ -23,9 +23,9 @@ The function adds new callbacks to the end of the list and increments the index 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_ON_EXIT_NICELY (constant: 20)
-  - pg_fatal (for error handling when callback slots are exhausted)
+  - [pg_fatal](../p/pg_fatal.md) (for error handling when callback slots are exhausted)
 - Called from (representative examples):
-  - on_exit_close_archive (parallel.c:331)
+  - [on_exit_close_archive](on_exit_close_archive.md) (parallel.c:331)
 
 ## Notes and Other Information
 - Callbacks are executed in reverse order (LIFO - Last In, First Out) by exit_nicely

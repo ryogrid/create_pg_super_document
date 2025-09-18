@@ -30,21 +30,21 @@ Error handling is provided through _dosmaperr() which maps Windows error codes t
 - Functions called/Symbols referenced:
   - GetFileInformationByHandle (Windows API)
   - _dosmaperr (error mapping function)
-  - filetime_to_time (timestamp conversion)
-  - fileattr_to_unixmode (permission conversion)
+  - [filetime_to_time](filetime_to_time.md) (timestamp conversion)
+  - [fileattr_to_unixmode](fileattr_to_unixmode.md) (permission conversion)
   - GetLastError (Windows API)
 - Called from:
-  - _pglstat64 (at src/port/win32stat.c:143)
-  - _pgfstat64 (at src/port/win32stat.c:275)
+  - [_pglstat64](../p/_pglstat64.md) (at src/port/win32stat.c:143)
+  - [_pgfstat64](../p/_pgfstat64.md) (at src/port/win32stat.c:275)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filetime_to_time
-  - fileattr_to_unixmode  
+  - [filetime_to_time](filetime_to_time.md)
+  - [fileattr_to_unixmode](fileattr_to_unixmode.md)  
   - _dosmaperr
 - Called from (representative examples):
-  - _pglstat64
-  - _pgfstat64
+  - [_pglstat64](../p/_pglstat64.md)
+  - [_pgfstat64](../p/_pgfstat64.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the win32stat.c file

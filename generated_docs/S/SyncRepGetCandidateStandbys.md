@@ -26,13 +26,13 @@ In priority mode, if there are more candidates than needed (num_sync), the funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - SpinLockAcquire/SpinLockRelease (shared memory synchronization)
   - XLogRecPtrIsInvalid (WAL position validation)
   - qsort (sorting in priority mode)
-  - standby_priority_comparator (comparison function for sorting)
+  - [standby_priority_comparator](../s/standby_priority_comparator.md) (comparison function for sorting)
 - Called from (representative examples):
-  - SyncRepGetSyncRecPtr (src/backend/replication/syncrep.c:604)
+  - [SyncRepGetSyncRecPtr](SyncRepGetSyncRecPtr.md) (src/backend/replication/syncrep.c:604)
   - PG_STAT_GET_WAL_SENDERS_COLS (src/backend/replication/walsender.c:3919)
 
 ## Notes and Other Information

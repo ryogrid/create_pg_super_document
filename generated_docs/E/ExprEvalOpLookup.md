@@ -20,11 +20,11 @@ The structure is primarily used in conjunction with bsearch() to quickly find th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalOp (enumeration type for expression evaluation operations)
+  - [ExprEvalOp](ExprEvalOp.md) (enumeration type for expression evaluation operations)
 - Called from (representative examples):
-  - dispatch_compare_ptr (used as comparison function parameter type)
-  - ExecEvalStepOp (creates instances for bsearch lookups)
-  - ExecInitInterpreter (used in building reverse dispatch table)
+  - [dispatch_compare_ptr](../d/dispatch_compare_ptr.md) (used as comparison function parameter type)
+  - [ExecEvalStepOp](ExecEvalStepOp.md) (creates instances for bsearch lookups)
+  - [ExecInitInterpreter](ExecInitInterpreter.md) (used in building reverse dispatch table)
 
 ## Notes and Other Information
 - This structure is only relevant when EEO_USE_COMPUTED_GOTO is defined and direct threading is enabled

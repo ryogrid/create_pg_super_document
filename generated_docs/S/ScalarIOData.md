@@ -20,9 +20,9 @@ ScalarIOData serves as a caching structure that stores precompiled type conversi
 - Functions called/Symbols referenced:
   - (Uses built-in PostgreSQL types: Oid, FmgrInfo)
 - Called from (representative examples):
-  - ColumnIOData
+  - [ColumnIOData](../C/ColumnIOData.md)
   - JsObjectFree
-  - populate_scalar
+  - [populate_scalar](../p/populate_scalar.md)
 
 ## Notes and Other Information
 This structure is specifically designed for performance optimization in JSON processing scenarios where the same data types are converted repeatedly. By caching the type input function information (FmgrInfo) and its parameters (typioparam), the system avoids expensive function lookup operations during JSON-to-PostgreSQL type conversions. The structure is commonly used in conjunction with other JSON processing structures to maintain type conversion state across multiple scalar value conversions.

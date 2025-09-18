@@ -34,13 +34,13 @@ Key characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidFunctionCall6 (invokes the conversion procedure)
-  - CStringGetDatum (datum conversion utilities)
-  - DatumGetInt32 (result extraction)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion utilities)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (result extraction)
   - MAX_CONVERSION_GROWTH (expansion factor constant)
 - Called from (representative examples):
-  - CopyConvertBuf (COPY command encoding conversion)
-  - CopyConversionError (COPY error handling)
-  - test_enc_conversion (regression testing)
+  - [CopyConvertBuf](../C/CopyConvertBuf.md) (COPY command encoding conversion)
+  - [CopyConversionError](../C/CopyConversionError.md) (COPY error handling)
+  - [test_enc_conversion](../t/test_enc_conversion.md) (regression testing)
 
 ## Notes and Other Information
 - More memory-efficient than pg_do_encoding_conversion for controlled buffer scenarios

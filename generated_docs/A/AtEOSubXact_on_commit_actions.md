@@ -22,13 +22,13 @@ The function handles two types of subtransaction IDs for each OnCommitItem: crea
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubTransactionId (type representing subtransaction identifiers)
-  - OnCommitItem (struct representing on-commit entries)
+  - [OnCommitItem](../O/OnCommitItem.md) (struct representing on-commit entries)
   - foreach_delete_current (macro to safely delete current list element during iteration)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - InvalidSubTransactionId (constant representing invalid subtransaction ID)
 - Called from:
-  - CommitSubTransaction (during subtransaction commit cleanup)
-  - AbortSubTransaction (during subtransaction abort cleanup)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (during subtransaction commit cleanup)
+  - [AbortSubTransaction](AbortSubTransaction.md) (during subtransaction abort cleanup)
 
 ## Notes and Other Information
 - This function is the subtransaction counterpart to AtEOXact_on_commit_actions

@@ -21,13 +21,13 @@ A printable character is any character that produces visible output, including l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen
-  - char2wchar
+  - [pg_mblen](../p/pg_mblen.md)
+  - [char2wchar](../c/char2wchar.md)
   - isprint (standard C library)
   - iswprint (standard C library)
   - TOUCHAR
 - Called from (representative examples):
-  - NIImportDictionary (dictionary import)
+  - [NIImportDictionary](../N/NIImportDictionary.md) (dictionary import)
   - COPYCHAR
 
 ## Notes and Other Information

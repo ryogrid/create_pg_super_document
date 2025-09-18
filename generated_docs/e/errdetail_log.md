@@ -27,7 +27,7 @@ Like other error reporting functions, it operates within PostgreSQL's error hand
   - ErrorData (error data structure)
   - CHECK_STACK_DEPTH (recursion safety check)
   - EVALUATE_MESSAGE (message processing macro with translation enabled)
-  - MemoryContextSwitchTo (memory management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 
 - Called from (representative examples):
   - Dependency tracking functions (providing object dependency details)

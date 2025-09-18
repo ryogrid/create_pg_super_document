@@ -24,8 +24,8 @@ The function implements context-aware validation - when running outside of a tra
 ## Dependencies
 - Functions called/Symbols referenced:
   - GUC_check_errdetail
-  - IsTransactionState
-  - get_table_am_oid
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [get_table_am_oid](../g/get_table_am_oid.md)
   - ereport
   - NAMEDATALEN (constant)
   - PGC_S_TEST (enum value)

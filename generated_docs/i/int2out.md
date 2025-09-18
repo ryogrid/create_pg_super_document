@@ -20,7 +20,7 @@ int2out is a PostgreSQL output function that serves as the int2-to-string conver
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16
-  - pg_itoa
+  - [pg_itoa](../p/pg_itoa.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
   - No direct references found in the codebase

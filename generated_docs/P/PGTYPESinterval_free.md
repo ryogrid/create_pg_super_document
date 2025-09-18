@@ -20,7 +20,7 @@ This is a simple memory deallocation function that frees the memory pointed to b
   - free (standard C library function)
   - interval (data type)
 - Called from (representative examples):
-  - main (in test programs dt_test.c and dt_test2.c)
+  - [main](../m/main.md) (in test programs dt_test.c and dt_test2.c)
   - Various client applications using ECPG interval types
 
 ## Notes and Other Information

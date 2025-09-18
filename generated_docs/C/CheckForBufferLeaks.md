@@ -19,13 +19,13 @@ This static function serves as a debugging cross-check to ensure that no buffer 
 - Functions called/Symbols referenced:
   - PrivateRefCountEntry (reference count entry structure)
   - REFCOUNT_ARRAY_ENTRIES (size constant for the static array)
-  - DebugPrintBufferRefcount (generates detailed buffer information)
+  - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md) (generates detailed buffer information)
   - HASH_SEQ_STATUS (hash table iteration state)
-  - hash_seq_init (initializes hash table iteration)
-  - hash_seq_search (iterates through hash table entries)
+  - [hash_seq_init](../h/hash_seq_init.md) (initializes hash table iteration)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterates through hash table entries)
 - Called from (representative examples):
-  - AtEOXact_Buffers
-  - AtProcExit_Buffers
+  - [AtEOXact_Buffers](../A/AtEOXact_Buffers.md)
+  - [AtProcExit_Buffers](../A/AtProcExit_Buffers.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within bufmgr.c

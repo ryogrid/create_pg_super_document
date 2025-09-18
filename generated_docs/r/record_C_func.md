@@ -21,15 +21,15 @@ The function first ensures the CFuncHash table exists (creating it if necessary)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - hash_search
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
   - HeapTupleHeaderGetRawXmin
   - GETSTRUCT (macro)
   - HASH_ENTER
   - HASH_ELEM
   - HASH_BLOBS
 - Called from (representative examples):
-  - fmgr_info_C_lang
+  - [fmgr_info_C_lang](../f/fmgr_info_C_lang.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fmgr.c

@@ -21,14 +21,14 @@ This function is a core component of bitmap heap scans, responsible for processi
   - VM_ALL_VISIBLE (visibility map check)
   - IsolationIsSerializable (isolation level check)
   - ReleaseAndReadBuffer (buffer management)
-  - heap_page_prune_opt (page maintenance)
-  - heap_hot_search_buffer (HOT chain traversal)
-  - HeapTupleSatisfiesVisibility (tuple visibility)
-  - PredicateLockTID (predicate locking)
-  - HeapCheckForSerializableConflictOut (serializable isolation)
+  - [heap_page_prune_opt](heap_page_prune_opt.md) (page maintenance)
+  - [heap_hot_search_buffer](heap_hot_search_buffer.md) (HOT chain traversal)
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md) (tuple visibility)
+  - [PredicateLockTID](../P/PredicateLockTID.md) (predicate locking)
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md) (serializable isolation)
   - Various page and item manipulation functions
 - Called from (representative examples):
-  - SampleHeapTupleVisible (as part of table access method interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (as part of table access method interface)
 
 ## Notes and Other Information
 - Implements smart optimizations: skips fetching pages when tuples aren't needed and all tuples are visible

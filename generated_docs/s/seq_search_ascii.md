@@ -29,7 +29,7 @@ The search algorithm:
   - pg_ascii_tolower (called 4 times for case-insensitive ASCII comparisons)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1064)
-  - from_char_seq_search (formatting.c:2726)
+  - [from_char_seq_search](../f/from_char_seq_search.md) (formatting.c:2726)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

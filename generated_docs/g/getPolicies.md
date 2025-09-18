@@ -25,16 +25,16 @@ The function handles version differences in PostgreSQL (9.5+ for basic RLS, 10.0
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `TableInfo`, `PolicyInfo` (data structures)
+  - `[TableInfo](../T/TableInfo.md)`, `PolicyInfo` (data structures)
   - `createPQExpBuffer`, `appendPQExpBuffer` series (query building)
-  - `ExecuteSqlQuery` (SQL execution)
+  - `[ExecuteSqlQuery](../E/ExecuteSqlQuery.md)` (SQL execution)
   - `pg_malloc`, `pg_strdup` (memory management)
-  - `AssignDumpId` (dump object ID assignment)
-  - `findTableByOid` (table lookup)
+  - `[AssignDumpId](../A/AssignDumpId.md)` (dump object ID assignment)
+  - `[findTableByOid](../f/findTableByOid.md)` (table lookup)
   - `pg_log_info` (logging)
   - `DUMP_COMPONENT_POLICY` (component flags)
 - Called from (representative examples):
-  - `getSchemaData` (main schema information gathering)
+  - `[getSchemaData](getSchemaData.md)` (main schema information gathering)
 
 ## Notes and Other Information
 - Only available for PostgreSQL 9.5 and later (returns early for older versions)

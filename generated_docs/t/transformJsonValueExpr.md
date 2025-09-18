@@ -36,25 +36,25 @@ The function includes extensive error checking for invalid combinations of forma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse (to transform raw expression)
+  - [transformExprRecurse](transformExprRecurse.md) (to transform raw expression)
   - exprType, exprLocation (expression utilities)
-  - coerce_to_specific_type, coerce_to_target_type (type coercion)
-  - get_type_category_preferred (type category analysis)
-  - makeJsonByteaToTextConversion (bytea-to-text conversion)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md), coerce_to_target_type (type coercion)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md) (type category analysis)
+  - [makeJsonByteaToTextConversion](../m/makeJsonByteaToTextConversion.md) (bytea-to-text conversion)
   - makeFuncExpr (function expression creation)
   - copyObject (object copying)
   - Various type OIDs and constants (JSONOID, JSONBOID, BYTEAOID, etc.)
   - JSON format constants (JS_FORMAT_DEFAULT, JS_FORMAT_JSON, JS_FORMAT_JSONB)
   - Error reporting functions (ereport, errcode, errmsg, parser_errposition)
 - Called from (representative examples):
-  - transformJsonObjectConstructor
-  - transformJsonObjectAgg
-  - transformJsonArrayAgg
-  - transformJsonArrayConstructor
-  - transformJsonParseExpr
-  - transformJsonSerializeExpr
-  - transformJsonFuncExpr
-  - transformJsonPassingArgs
+  - [transformJsonObjectConstructor](transformJsonObjectConstructor.md)
+  - [transformJsonObjectAgg](transformJsonObjectAgg.md)
+  - [transformJsonArrayAgg](transformJsonArrayAgg.md)
+  - [transformJsonArrayConstructor](transformJsonArrayConstructor.md)
+  - [transformJsonParseExpr](transformJsonParseExpr.md)
+  - [transformJsonSerializeExpr](transformJsonSerializeExpr.md)
+  - [transformJsonFuncExpr](transformJsonFuncExpr.md)
+  - [transformJsonPassingArgs](transformJsonPassingArgs.md)
 
 ## Notes and Other Information
 - This is a static helper function within parse_expr.c

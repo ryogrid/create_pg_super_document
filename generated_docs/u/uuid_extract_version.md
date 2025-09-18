@@ -30,7 +30,7 @@ The function is implemented as a PostgreSQL internal function and is exposed as 
   - PG_GETARG_UUID_P: Macro to extract UUID argument from function call
   - PG_RETURN_NULL: Macro to return NULL value
   - PG_RETURN_UINT16: Macro to return 16-bit unsigned integer value
-  - pg_uuid_t: PostgreSQL UUID data type structure
+  - [pg_uuid_t](../p/pg_uuid_t.md): PostgreSQL UUID data type structure
 - Called from (representative examples):
   - No direct C function callers (exposed as SQL function only)
 

@@ -27,7 +27,7 @@ The enum is primarily used to restrict path generation based on the specific req
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (used in related data structures)
 - Called from (representative examples):
-  - build_index_paths (at src/backend/optimizer/path/indxpath.c:807)
+  - [build_index_paths](../b/build_index_paths.md) (at src/backend/optimizer/path/indxpath.c:807)
   - ec_member_matches_arg (at src/backend/optimizer/path/indxpath.c:108)
 
 ## Notes and Other Information

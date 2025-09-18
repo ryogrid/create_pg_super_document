@@ -27,13 +27,13 @@ The function operates in several phases:
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease (for process array synchronization)
   - lappend_int (for building list of process IDs)
-  - get_database_name (for error reporting)
+  - [get_database_name](../g/get_database_name.md) (for error reporting)
   - BackendPidGetProc (for process lookup)
   - superuser/superuser_arg (for permission checks)
   - has_privs_of_role (for role privilege validation)
   - kill (for sending termination signals)
 - Called from (representative examples):
-  - dropdb (in dbcommands.c)
+  - [dropdb](../d/dropdb.md) (in dbcommands.c)
 
 ## Notes and Other Information
 - The current backend is always ignored; caller must check if current backend uses the target database

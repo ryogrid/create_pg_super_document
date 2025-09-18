@@ -23,11 +23,11 @@ By returning true only for joins that have clear logical or semantic justificati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - have_relevant_joinclause (checks for WHERE clauses connecting the relations)
-  - have_join_order_restriction (checks for explicit join ordering constraints)
+  - [have_relevant_joinclause](../h/have_relevant_joinclause.md) (checks for WHERE clauses connecting the relations)
+  - [have_join_order_restriction](../h/have_join_order_restriction.md) (checks for explicit join ordering constraints)
 
 - Called from (representative examples):
-  - merge_clump (during clump merging decisions in gimme_tree)
+  - [merge_clump](../m/merge_clump.md) (during clump merging decisions in gimme_tree)
 
 ## Notes and Other Information
 - Implements a conservative approach - only approves joins with clear justification

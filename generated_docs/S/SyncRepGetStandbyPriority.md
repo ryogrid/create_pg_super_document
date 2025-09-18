@@ -29,12 +29,12 @@ The function uses case-insensitive comparison for standby names and supports exa
 ## Dependencies
 - Functions called/Symbols referenced:
   - SyncStandbysDefined (checks if sync standbys are configured)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - strcmp (string comparison for wildcard check)
   - strlen (string length calculation)
 - Called from (representative examples):
   - SyncStandbysDefined (src/backend/replication/syncrep.c:119)
-  - SyncRepInitConfig (src/backend/replication/syncrep.c:453)
+  - [SyncRepInitConfig](SyncRepInitConfig.md) (src/backend/replication/syncrep.c:453)
 
 ## Notes and Other Information
 - Returns 0 for non-sync standbys or when sync replication is disabled

@@ -28,19 +28,19 @@ The function ensures that child processes are properly isolated from the postmas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_forkexec (EXEC_BACKEND mode)
-  - fork_process (traditional mode)
-  - ClosePostmasterPorts
-  - InitPostmasterChild
-  - dsm_detach_all
-  - PGSharedMemoryDetach
-  - MemoryContextSwitchTo
+  - [internal_forkexec](../i/internal_forkexec.md) (EXEC_BACKEND mode)
+  - [fork_process](../f/fork_process.md) (traditional mode)
+  - [ClosePostmasterPorts](../C/ClosePostmasterPorts.md)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md)
+  - [dsm_detach_all](../d/dsm_detach_all.md)
+  - [PGSharedMemoryDetach](../P/PGSharedMemoryDetach.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - child_process_kinds (global array)
 - Called from (representative examples):
-  - BackendStartup (for client backends)
-  - StartChildProcess (for auxiliary processes)
-  - do_start_bgworker (for background workers)
-  - SysLogger_Start (for syslogger process)
+  - [BackendStartup](../B/BackendStartup.md) (for client backends)
+  - [StartChildProcess](../S/StartChildProcess.md) (for auxiliary processes)
+  - [do_start_bgworker](../d/do_start_bgworker.md) (for background workers)
+  - [SysLogger_Start](../S/SysLogger_Start.md) (for syslogger process)
 
 ## Notes and Other Information
 - Function asserts that it runs in postmaster environment only (IsPostmasterEnvironment && !IsUnderPostmaster)

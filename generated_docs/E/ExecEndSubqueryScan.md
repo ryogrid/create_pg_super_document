@@ -19,10 +19,10 @@ ExecEndSubqueryScan is the cleanup function for subquery scan operations in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (recursively shuts down the subplan)
-  - SubqueryScanState (execution state structure)
+  - [ExecEndNode](ExecEndNode.md) (recursively shuts down the subplan)
+  - [SubqueryScanState](../S/SubqueryScanState.md) (execution state structure)
 - Called from (representative examples):
-  - ExecEndNode (part of the general executor node cleanup framework)
+  - [ExecEndNode](ExecEndNode.md) (part of the general executor node cleanup framework)
 
 ## Notes and Other Information
 - The function has no return value as cleanup operations are expected to complete successfully

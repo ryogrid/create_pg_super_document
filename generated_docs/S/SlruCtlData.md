@@ -26,7 +26,7 @@ The structure defines key operational parameters including the banking configura
 - Functions called/Symbols referenced:
   - SlruShared (pointer to shared data type)
   - SyncRequestHandler (enumeration for sync handling)
-  - SlruSharedData (referenced through shared pointer)
+  - [SlruSharedData](SlruSharedData.md) (referenced through shared pointer)
 
 - Called from (representative examples):
   - CLOG operations (clog.c:108)

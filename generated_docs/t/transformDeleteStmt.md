@@ -32,17 +32,17 @@ The function carefully manages namespace visibility, ensuring that subqueries in
 - Functions called/Symbols referenced:
   - DeleteStmt, ParseNamespaceItem (structure types)
   - CMD_DELETE (command type constant)
-  - transformWithClause (CTE processing)
-  - setTargetTable (target relation setup with ACL_DELETE permission)
-  - transformFromClause (USING clause processing)
-  - transformWhereClause (WHERE condition analysis with EXPR_KIND_WHERE context)
-  - transformReturningList (RETURNING expressions with EXPR_KIND_RETURNING context)
-  - makeFromExpr (join tree construction)
-  - assign_query_collations (collation assignment)
-  - parseCheckAggregates (aggregate function validation)
+  - [transformWithClause](transformWithClause.md) (CTE processing)
+  - [setTargetTable](../s/setTargetTable.md) (target relation setup with ACL_DELETE permission)
+  - [transformFromClause](transformFromClause.md) (USING clause processing)
+  - [transformWhereClause](transformWhereClause.md) (WHERE condition analysis with EXPR_KIND_WHERE context)
+  - [transformReturningList](transformReturningList.md) (RETURNING expressions with EXPR_KIND_RETURNING context)
+  - [makeFromExpr](../m/makeFromExpr.md) (join tree construction)
+  - [assign_query_collations](../a/assign_query_collations.md) (collation assignment)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (aggregate function validation)
 
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 - The USING clause is PostgreSQL-specific SQL syntax that provides FROM-list functionality for DELETE statements (FROM is already a keyword in DELETE syntax)

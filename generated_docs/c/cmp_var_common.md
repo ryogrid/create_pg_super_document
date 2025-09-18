@@ -26,15 +26,15 @@ The comparison algorithm follows these rules: zero is handled specially, positiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_abs_common: Absolute value comparison function
+  - [cmp_abs_common](cmp_abs_common.md): Absolute value comparison function
   - NUMERIC_NEG: Constant for negative sign
   - NUMERIC_POS: Constant for positive sign
   - NumericDigit: Type for numeric digit storage
 
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT: Numeric optimization checking
-  - cmp_numerics: High-level numeric comparison function
-  - cmp_var: NumericVar comparison wrapper function
+  - [cmp_numerics](cmp_numerics.md): High-level numeric comparison function
+  - [cmp_var](cmp_var.md): NumericVar comparison wrapper function
 
 ## Notes and Other Information
 - Returns negative value if first number < second number, zero if equal, positive if first > second

@@ -26,20 +26,20 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_reloption_kind (creates a new relation option kind)
-  - add_int_reloption (registers integer option)
-  - add_real_reloption (registers real number option)
-  - add_bool_reloption (registers boolean option)
-  - add_enum_reloption (registers enumeration option)
-  - add_string_reloption (registers string option)
-  - validate_string_option (custom validation function)
+  - [add_reloption_kind](../a/add_reloption_kind.md) (creates a new relation option kind)
+  - [add_int_reloption](../a/add_int_reloption.md) (registers integer option)
+  - [add_real_reloption](../a/add_real_reloption.md) (registers real number option)
+  - [add_bool_reloption](../a/add_bool_reloption.md) (registers boolean option)
+  - [add_enum_reloption](../a/add_enum_reloption.md) (registers enumeration option)
+  - [add_string_reloption](../a/add_string_reloption.md) (registers string option)
+  - [validate_string_option](../v/validate_string_option.md) (custom validation function)
   - offsetof (macro for structure member offset)
   - AccessExclusiveLock (lock level constant)
   - Various RELOPT_TYPE_* constants (option type identifiers)
-  - DummyIndexOptions (structure type for option storage)
+  - [DummyIndexOptions](../D/DummyIndexOptions.md) (structure type for option storage)
   - DUMMY_AM_ENUM_ONE (default enum value)
 - Called from (representative examples):
-  - _PG_init (module initialization function at src/test/modules/dummy_index_am/dummy_index_am.c:332)
+  - [_PG_init](../P/_PG_init.md) (module initialization function at src/test/modules/dummy_index_am/dummy_index_am.c:332)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's test infrastructure for demonstrating relation option handling

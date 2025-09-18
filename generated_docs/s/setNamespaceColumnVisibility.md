@@ -18,11 +18,11 @@ This function is a utility routine used within the PostgreSQL parser to modify t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem (struct type)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (struct type)
   - lfirst (list access macro)
   - foreach (list iteration macro)
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](../t/transformFromClauseItem.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the parse_clause.c file

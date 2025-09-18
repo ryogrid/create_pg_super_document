@@ -22,13 +22,13 @@ SearchSysCache4 provides a convenient wrapper around the lower-level SearchCatCa
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - SearchCatCache4
+  - [SearchCatCache4](SearchCatCache4.md)
 - Called from (representative examples):
-  - inclusion_get_strategy_procinfo
-  - minmax_get_strategy_procinfo
-  - OpernameGetOprid
-  - OperatorGet
-  - get_opfamily_member
+  - [inclusion_get_strategy_procinfo](../i/inclusion_get_strategy_procinfo.md)
+  - [minmax_get_strategy_procinfo](../m/minmax_get_strategy_procinfo.md)
+  - [OpernameGetOprid](../O/OpernameGetOprid.md)
+  - [OperatorGet](../O/OperatorGet.md)
+  - [get_opfamily_member](../g/get_opfamily_member.md)
 
 ## Notes and Other Information
 - The function includes assertions to validate the cache ID is within bounds and that the specified cache exists

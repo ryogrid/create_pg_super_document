@@ -23,9 +23,9 @@ This function is a callback that gets invoked during backup manifest parsing for
 ## Dependencies
 - Functions called/Symbols referenced:
   - backup_file_insert
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
 - Called from (representative examples):
-  - IncrementalBackupInfo (as callback in manifest parsing)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (as callback in manifest parsing)
 
 ## Notes and Other Information
 - This is a static function local to basebackup_incremental.c

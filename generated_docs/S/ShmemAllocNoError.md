@@ -23,7 +23,7 @@ The function is implemented as a simple wrapper around ShmemAllocRaw, directly r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemAllocRaw
+  - [ShmemAllocRaw](ShmemAllocRaw.md)
 - Called from (representative examples):
   - ShmemInitHash
 

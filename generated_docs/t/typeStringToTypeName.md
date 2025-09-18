@@ -29,8 +29,8 @@ The function supports soft error handling through the escontext parameter, allow
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pts_error_callback
-  - raw_parser
+  - [pts_error_callback](../p/pts_error_callback.md)
+  - [raw_parser](../r/raw_parser.md)
   - RAW_PARSE_TYPE_NAME
   - linitial_node
   - unconstify
@@ -38,8 +38,8 @@ The function supports soft error handling through the escontext parameter, allow
   - strspn
   - strlen
 - Called from (representative examples):
-  - pg_get_object_address (src/backend/catalog/objectaddress.c:2147, 2203)
-  - parseTypeString (src/backend/parser/parse_type.c:791)
+  - [pg_get_object_address](../p/pg_get_object_address.md) (src/backend/catalog/objectaddress.c:2147, 2203)
+  - [parseTypeString](../p/parseTypeString.md) (src/backend/parser/parse_type.c:791)
 
 ## Notes and Other Information
 - Returns NULL on parse failure when escontext is provided for soft error handling

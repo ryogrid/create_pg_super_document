@@ -20,27 +20,27 @@ For foreign tables and filtered queries, it uses COPY (SELECT ...) TO syntax, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableDataInfo (struct)
-  - TableInfo (struct)  
-  - GetConnection
+  - [TableDataInfo](../T/TableDataInfo.md) (struct)
+  - [TableInfo](../T/TableInfo.md) (struct)  
+  - [GetConnection](../G/GetConnection.md)
   - pg_log_info
-  - fmtCopyColumnList
+  - [fmtCopyColumnList](../f/fmtCopyColumnList.md)
   - RELKIND_FOREIGN_TABLE
-  - set_restrict_relation_kind
+  - [set_restrict_relation_kind](../s/set_restrict_relation_kind.md)
   - fmtQualifiedDumpable
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_COPY_OUT
-  - PQgetCopyData
-  - WriteData
-  - PQfreemem
-  - archprintf
+  - [PQgetCopyData](../P/PQgetCopyData.md)
+  - [WriteData](../W/WriteData.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [archprintf](../a/archprintf.md)
   - pg_log_error_detail
-  - exit_nicely
-  - PQgetResult
+  - [exit_nicely](../e/exit_nicely.md)
+  - [PQgetResult](../P/PQgetResult.md)
   - PGRES_COMMAND_OK
   - pg_log_warning
 - Called from (representative examples):
-  - dumpTableData
+  - [dumpTableData](dumpTableData.md)
 
 ## Notes and Other Information
 - Uses explicit column listing to avoid issues with column ordering in inheritance scenarios

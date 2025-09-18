@@ -22,22 +22,22 @@ The deletion operation has O(n) time complexity proportional to the distance fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_list_invariants - Validates list structure integrity (called at start and optionally at end)
-  - list_free - Frees the entire list when deleting the last element
+  - [check_list_invariants](../c/check_list_invariants.md) - Validates list structure integrity (called at start and optionally at end)
+  - [list_free](list_free.md) - Frees the entire list when deleting the last element
   - memmove - Moves remaining elements when not in debug mode
   - GetMemoryChunkContext - Gets the memory context of the list for new allocations
-  - MemoryContextAlloc - Allocates new memory for list elements in debug mode
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) - Allocates new memory for list elements in debug mode
   - memcpy - Copies list elements in debug mode
-  - pfree - Frees old element array in debug mode
-  - wipe_mem - Clears freed memory when CLOBBER_FREED_MEMORY is enabled
+  - [pfree](../p/pfree.md) - Frees old element array in debug mode
+  - [wipe_mem](../w/wipe_mem.md) - Clears freed memory when CLOBBER_FREED_MEMORY is enabled
   - VALGRIND_MAKE_MEM_NOACCESS - Marks freed memory as inaccessible for debugging
 
 - Called from (representative examples):
-  - MergeAttributes - Used in table command processing
-  - list_delete_cell - Higher-level function for deleting cells by reference
+  - [MergeAttributes](../M/MergeAttributes.md) - Used in table command processing
+  - [list_delete_cell](list_delete_cell.md) - Higher-level function for deleting cells by reference
   - list_delete_first - Convenience function for deleting the first element
-  - process_equivalence - Used in query optimization equivalence class processing
-  - sort_inner_and_outer - Used in join path optimization
+  - [process_equivalence](../p/process_equivalence.md) - Used in query optimization equivalence class processing
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md) - Used in join path optimization
   - foreach_delete_current - Macro for safe deletion during iteration
 
 ## Notes and Other Information

@@ -22,8 +22,8 @@ The  structure is a core component of psql's tab completion system, specifically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VersionedQuery (structure type)
-  - SchemaQuery (structure type)
+  - [VersionedQuery](../V/VersionedQuery.md) (structure type)
+  - [SchemaQuery](../S/SchemaQuery.md) (structure type)
   - bits32 (type definition)
 - Called from (representative examples):
   - words_after_create (static array)

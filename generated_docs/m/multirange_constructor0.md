@@ -20,9 +20,9 @@ This function creates an empty multirange containing no range elements. It exist
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_NARGS
-  - get_fn_expr_rettype
-  - multirange_get_typcache
-  - make_multirange
+  - [get_fn_expr_rettype](../g/get_fn_expr_rettype.md)
+  - [multirange_get_typcache](multirange_get_typcache.md)
+  - [make_multirange](make_multirange.md)
   - PG_RETURN_MULTIRANGE_P
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)

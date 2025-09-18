@@ -22,24 +22,24 @@ The function handles several critical aspects of parallel execution including: s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - ExecParallelGetReceiver
-  - ExecParallelGetQueryDesc
-  - pgstat_report_activity
-  - dsa_attach_in_place
-  - ExecutorStart
-  - ExecutorRun
-  - ExecutorFinish
-  - ExecutorEnd
-  - dsa_get_address
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [ExecParallelGetReceiver](../E/ExecParallelGetReceiver.md)
+  - [ExecParallelGetQueryDesc](../E/ExecParallelGetQueryDesc.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [dsa_attach_in_place](../d/dsa_attach_in_place.md)
+  - [ExecutorStart](../E/ExecutorStart.md)
+  - [ExecutorRun](../E/ExecutorRun.md)
+  - [ExecutorFinish](../E/ExecutorFinish.md)
+  - [ExecutorEnd](../E/ExecutorEnd.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
   - RestoreParamExecParams
-  - ExecParallelInitializeWorker
-  - ExecSetTupleBound
-  - InstrStartParallelQuery
-  - InstrEndParallelQuery
-  - ExecParallelReportInstrumentation
+  - [ExecParallelInitializeWorker](../E/ExecParallelInitializeWorker.md)
+  - [ExecSetTupleBound](../E/ExecSetTupleBound.md)
+  - [InstrStartParallelQuery](../I/InstrStartParallelQuery.md)
+  - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
+  - [ExecParallelReportInstrumentation](../E/ExecParallelReportInstrumentation.md)
   - dsa_detach
-  - FreeQueryDesc
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
   - DsaPointerIsValid
 - Constants used:
   - PARALLEL_KEY_EXECUTOR_FIXED
@@ -54,15 +54,15 @@ The function handles several critical aspects of parallel execution including: s
   - debug_query_string
   - ParallelWorkerNumber
 - Types used:
-  - FixedParallelExecutorState
+  - [FixedParallelExecutorState](../F/FixedParallelExecutorState.md)
   - BufferUsage
   - WalUsage
   - DestReceiver
   - QueryDesc
-  - SharedExecutorInstrumentation
-  - SharedJitInstrumentation
+  - [SharedExecutorInstrumentation](../S/SharedExecutorInstrumentation.md)
+  - [SharedJitInstrumentation](../S/SharedJitInstrumentation.md)
   - dsa_area
-  - ParallelWorkerContext
+  - [ParallelWorkerContext](ParallelWorkerContext.md)
 
 ## Notes and Other Information
 - This function is called from ParallelWorkerMain after basic parallel environment setup is complete

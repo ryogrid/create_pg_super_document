@@ -27,13 +27,13 @@ For the general case where both lists are non-empty, the function iterates throu
   - forboth (iterates two lists simultaneously)
   - PathKey (pathkey structure type)
 - Called from (representative examples):
-  - generate_useful_gather_paths
-  - pathkeys_useful_for_ordering
-  - pathkeys_useful_for_setop
-  - create_window_paths
-  - create_one_window_path
-  - create_ordered_paths
-  - gather_grouping_paths
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
+  - [pathkeys_useful_for_ordering](pathkeys_useful_for_ordering.md)
+  - [pathkeys_useful_for_setop](pathkeys_useful_for_setop.md)
+  - [create_window_paths](../c/create_window_paths.md)
+  - [create_one_window_path](../c/create_one_window_path.md)
+  - [create_ordered_paths](../c/create_ordered_paths.md)
+  - [gather_grouping_paths](../g/gather_grouping_paths.md)
 
 ## Notes and Other Information
 This function is particularly valuable for incremental sort planning, where knowing the exact number of common pathkeys helps determine the cost and feasibility of incremental sorting operations. The performance optimizations for identical lists and empty lists provide significant planning time improvements in worst-case scenarios. The function is widely used throughout the planner for path costing and selection decisions where partial ordering compatibility matters.

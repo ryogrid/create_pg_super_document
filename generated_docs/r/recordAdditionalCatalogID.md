@@ -21,12 +21,12 @@ This function is part of pg_dump's internal catalog ID management system. It ass
   - catalogid_insert (for hash table insertion)
   - Assert (for integrity checking)
 - Data structures used:
-  - CatalogId
+  - [CatalogId](../C/CatalogId.md)
   - DumpableObject
-  - CatalogIdMapEntry
+  - [CatalogIdMapEntry](../C/CatalogIdMapEntry.md)
   - catalogIdHash (global hash table)
 - Called from (representative examples):
-  - getLOs (src/bin/pg_dump/pg_dump.c:3768)
+  - [getLOs](../g/getLOs.md) (src/bin/pg_dump/pg_dump.c:3768)
 
 ## Notes and Other Information
 - The function assumes that catalogIdHash has already been initialized

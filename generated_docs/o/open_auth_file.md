@@ -36,12 +36,12 @@ The function is designed to work with the include directive functionality in aut
   - CONF_FILE_START_DEPTH
   - ALLOCSET_START_SMALL_SIZES
 - Called from (representative examples):
-  - tokenize_include_file
-  - tokenize_expand_file
-  - load_hba
-  - load_ident
-  - fill_hba_view
-  - fill_ident_view
+  - [tokenize_include_file](../t/tokenize_include_file.md)
+  - [tokenize_expand_file](../t/tokenize_expand_file.md)
+  - [load_hba](../l/load_hba.md)
+  - [load_ident](../l/load_ident.md)
+  - [fill_hba_view](../f/fill_hba_view.md)
+  - [fill_ident_view](../f/fill_ident_view.md)
 
 ## Notes and Other Information
 - Returns NULL on failure with error details stored in err_msg parameter

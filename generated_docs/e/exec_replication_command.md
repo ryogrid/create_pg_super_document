@@ -41,20 +41,20 @@ The function supports a wide range of replication commands including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSndSetState, WALSNDSTATE_STOPPING
-  - SnapBuildClearExportedSnapshot
+  - [WalSndSetState](../W/WalSndSetState.md), WALSNDSTATE_STOPPING
+  - [SnapBuildClearExportedSnapshot](../S/SnapBuildClearExportedSnapshot.md)
   - AllocSetContextCreate, MemoryContextDelete
   - replication_scanner_init, replication_scanner_finish, replication_scanner_is_replication_command
   - replication_yyparse
-  - pgstat_report_activity, STATE_RUNNING
-  - IsAbortedTransactionBlockState
-  - PreventInTransactionBlock
-  - StartTransactionCommand, CommitTransactionCommand
+  - [pgstat_report_activity](../p/pgstat_report_activity.md), STATE_RUNNING
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md), CommitTransactionCommand
   - set_ps_display, EndReplicationCommand
-  - Command-specific handlers: IdentifySystem, ReadReplicationSlot, SendBaseBackup, CreateReplicationSlot, DropReplicationSlot, AlterReplicationSlot, StartReplication, StartLogicalReplication, SendTimeLineHistory, GetPGVariable, UploadManifest
+  - [Command](../C/Command.md)-specific handlers: IdentifySystem, ReadReplicationSlot, SendBaseBackup, CreateReplicationSlot, DropReplicationSlot, AlterReplicationSlot, StartReplication, StartLogicalReplication, SendTimeLineHistory, GetPGVariable, UploadManifest
 - Called from (representative examples):
-  - PostgresMain (at src/backend/tcop/postgres.c:4763)
-  - CRSSnapshotAction (referenced in src/include/replication/walsender.h:39)
+  - [PostgresMain](../P/PostgresMain.md) (at src/backend/tcop/postgres.c:4763)
+  - [CRSSnapshotAction](../C/CRSSnapshotAction.md) (referenced in src/include/replication/walsender.h:39)
 
 ## Notes and Other Information
 - Returns true if the command was recognized and processed as a replication command, false if it should be handled as a regular SQL command

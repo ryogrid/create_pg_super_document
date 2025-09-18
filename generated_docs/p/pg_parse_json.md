@@ -18,17 +18,17 @@ pg_parse_json serves as the main interface for parsing JSON data in PostgreSQL. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_parse_json_incremental (for non-recursive mode)
+  - [pg_parse_json_incremental](pg_parse_json_incremental.md) (for non-recursive mode)
   - json_lex (for initial token lexing)
-  - lex_peek (for token lookahead)
+  - [lex_peek](../l/lex_peek.md) (for token lookahead)
   - parse_object (for JSON object parsing)
   - parse_array (for JSON array parsing) 
-  - parse_scalar (for JSON scalar value parsing)
-  - lex_expect (for end-of-input validation)
+  - [parse_scalar](parse_scalar.md) (for JSON scalar value parsing)
+  - [lex_expect](../l/lex_expect.md) (for end-of-input validation)
 - Called from (representative examples):
-  - json_validate (src/backend/utils/adt/json.c:1687)
-  - pg_parse_json_or_errsave (src/backend/utils/adt/jsonfuncs.c:522)
-  - json_parse_manifest (src/common/parse_manifest.c:256)
+  - [json_validate](../j/json_validate.md) (src/backend/utils/adt/json.c:1687)
+  - [pg_parse_json_or_errsave](pg_parse_json_or_errsave.md) (src/backend/utils/adt/jsonfuncs.c:522)
+  - [json_parse_manifest](../j/json_parse_manifest.md) (src/common/parse_manifest.c:256)
 
 ## Notes and Other Information
 The function includes conditional compilation support for FORCE_JSON_PSTACK which enables the non-recursive parser for testing and validation. This mode may produce different error messages related to stack depth but should otherwise behave identically. The parser requires the lexing context to be properly initialized via makeJsonLexContext() before use and will return JSON_INVALID_LEXER_TYPE if called with an incremental lexer in standard mode.

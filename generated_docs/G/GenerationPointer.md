@@ -19,7 +19,7 @@ GenerationPointer is a basic type alias that represents a generic pointer (void 
 - Functions called/Symbols referenced:
   - None (basic typedef)
 - Called from (representative examples):
-  - GenerationRealloc
+  - [GenerationRealloc](GenerationRealloc.md)
 
 ## Notes and Other Information
 - This typedef provides a type-safe abstraction for void pointers in the generation memory context

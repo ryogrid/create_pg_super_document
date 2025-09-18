@@ -23,7 +23,7 @@ The position calculation uses the formula: `len - j - 1`, where `len` is the str
 - Functions called/Symbols referenced:
   - strlen (calculates the length of the input string)
 - Called from (representative examples):
-  - rfmtlong (uses this to determine decimal point positioning in format strings)
+  - [rfmtlong](../r/rfmtlong.md) (uses this to determine decimal point positioning in format strings)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

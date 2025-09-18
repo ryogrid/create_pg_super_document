@@ -21,10 +21,10 @@ The structure follows the standard pattern for shared statistics objects in Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common
-  - PgStat_StatSubEntry
+  - [PgStat_StatSubEntry](PgStat_StatSubEntry.md)
 - Called from (representative examples):
-  - pgstat_subscription_flush_cb
-  - pgstat_subscription_reset_timestamp_cb
+  - [pgstat_subscription_flush_cb](../p/pgstat_subscription_flush_cb.md)
+  - [pgstat_subscription_reset_timestamp_cb](../p/pgstat_subscription_reset_timestamp_cb.md)
   - SH_DECLARE (hash table declarations in pgstat.c)
 
 ## Notes and Other Information

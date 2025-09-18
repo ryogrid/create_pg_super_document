@@ -21,21 +21,21 @@ The function is part of the function cache utilities in lsyscache.c and provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for PROCOID)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for PROCOID)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
   - Form_pg_proc (procedure catalog structure)
   - NameStr (macro to extract string from Name type)
-  - pstrdup (palloc'd string duplication)
-  - ReleaseSysCache (cache cleanup)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [pstrdup](../p/pstrdup.md) (palloc'd string duplication)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
-  - lookup_agg_function (aggregate function processing)
-  - ExplainTargetRel (EXPLAIN output generation)
-  - AlterFunction (function modification commands)
-  - ExecInitFunc (executor function initialization)
-  - HandleFunctionRequest (fastpath function calls)
+  - [lookup_agg_function](../l/lookup_agg_function.md) (aggregate function processing)
+  - [ExplainTargetRel](../E/ExplainTargetRel.md) (EXPLAIN output generation)
+  - [AlterFunction](../A/AlterFunction.md) (function modification commands)
+  - [ExecInitFunc](../E/ExecInitFunc.md) (executor function initialization)
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md) (fastpath function calls)
   - print_expr (expression printing for debugging)
 
 ## Notes and Other Information

@@ -22,10 +22,10 @@ Unlike ExecInitQual's optimized short-circuit evaluation that immediately fails 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_ands_explicit (converts implicit-AND list to explicit AND expression)
-  - ExecInitExpr (compiles the resulting explicit AND expression)
+  - [make_ands_explicit](../m/make_ands_explicit.md) (converts implicit-AND list to explicit AND expression)
+  - [ExecInitExpr](ExecInitExpr.md) (compiles the resulting explicit AND expression)
 - Called from (representative examples):
-  - ExecPrepareCheck (for preparing standalone check constraints)
+  - [ExecPrepareCheck](ExecPrepareCheck.md) (for preparing standalone check constraints)
   - ExecProcNode (header inclusion)
 
 ## Notes and Other Information

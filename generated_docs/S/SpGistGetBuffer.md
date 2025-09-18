@@ -24,29 +24,29 @@ The function sets the isNew output parameter to indicate whether the returned pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgGetCache
+  - [spgGetCache](../s/spgGetCache.md)
   - SpGistGetTargetPageFreeSpace
   - GET_LUP
-  - allocNewBuffer
+  - [allocNewBuffer](../a/allocNewBuffer.md)
   - SpGistBlockIsFixed
-  - ReadBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
   - ConditionalLockBuffer
   - ReleaseBuffer
-  - BufferGetPage
-  - PageIsNew
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIsNew](../P/PageIsNew.md)
   - SpGistPageIsDeleted
-  - PageIsEmpty
-  - SpGistInitBuffer
-  - PageGetExactFreeSpace
+  - [PageIsEmpty](../P/PageIsEmpty.md)
+  - [SpGistInitBuffer](SpGistInitBuffer.md)
+  - [PageGetExactFreeSpace](../P/PageGetExactFreeSpace.md)
   - SpGistPageIsLeaf
   - SpGistPageStoresNulls
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - moveLeafs
-  - doPickSplit
-  - spgAddNodeAction
-  - spgSplitNodeAction
-  - spgdoinsert
+  - [moveLeafs](../m/moveLeafs.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgAddNodeAction](../s/spgAddNodeAction.md)
+  - [spgSplitNodeAction](../s/spgSplitNodeAction.md)
+  - [spgdoinsert](../s/spgdoinsert.md)
 
 ## Notes and Other Information
 The function includes error checking to prevent requests for impossible space amounts exceeding SPGIST_PAGE_CAPACITY. It uses ConditionalLockBuffer to avoid blocking on busy pages, preferring to allocate new pages rather than wait. The fillfactor consideration helps maintain index performance by preserving space for related tuples. Cache entries are updated with actual free space measurements after successful allocations to maintain accuracy.

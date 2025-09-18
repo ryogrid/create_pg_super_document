@@ -32,13 +32,13 @@ The function respects query semantics by avoiding modifications to columns refer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - coerce_to_target_type (performs the actual type coercion)
-  - assign_expr_collations (assigns collation information)
+  - [coerce_to_target_type](coerce_to_target_type.md) (performs the actual type coercion)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (assigns collation information)
   - makeVarFromTargetEntry (creates Var nodes referencing target entries)
-  - makeTargetEntry (creates new TargetEntry nodes)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (creates new TargetEntry nodes)
   - exprType (determines expression types)
 - Called from (representative examples):
-  - check_sql_fn_retval (during return type validation)
+  - [check_sql_fn_retval](check_sql_fn_retval.md) (during return type validation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within functions.c

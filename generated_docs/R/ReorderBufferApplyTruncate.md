@@ -32,7 +32,7 @@ TRUNCATE operations are special in logical replication because they can affect m
   - rb->stream_truncate (callback for streaming mode)
   - rb->apply_truncate (callback for regular mode)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization in the transaction processing path

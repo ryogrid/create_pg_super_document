@@ -23,27 +23,27 @@ The function implements a fail-fast approach - any query failure is considered f
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - PQexec
-  - PQresultStatus
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - PGRES_TUPLES_OK
-  - PQerrorMessage
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - pg_log_error
   - pg_log_error_detail
-  - PQfinish
-  - exit_nicely
+  - [PQfinish](../P/PQfinish.md)
+  - [exit_nicely](exit_nicely.md)
 - Called from (representative examples):
-  - dropRoles
-  - dumpRoles
-  - dumpRoleMembership
-  - dumpRoleGUCPrivs
-  - dropTablespaces
-  - dumpTablespaces
-  - dropDBs
-  - dumpUserConfig
-  - expand_dbname_patterns
-  - dumpDatabases
-  - buildShSecLabels
-  - connectDatabase
+  - [dropRoles](../d/dropRoles.md)
+  - [dumpRoles](../d/dumpRoles.md)
+  - [dumpRoleMembership](../d/dumpRoleMembership.md)
+  - [dumpRoleGUCPrivs](../d/dumpRoleGUCPrivs.md)
+  - [dropTablespaces](../d/dropTablespaces.md)
+  - [dumpTablespaces](../d/dumpTablespaces.md)
+  - [dropDBs](../d/dropDBs.md)
+  - [dumpUserConfig](../d/dumpUserConfig.md)
+  - [expand_dbname_patterns](expand_dbname_patterns.md)
+  - [dumpDatabases](../d/dumpDatabases.md)
+  - [buildShSecLabels](../b/buildShSecLabels.md)
+  - [connectDatabase](../c/connectDatabase.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dumpall.c, indicating internal use within that module

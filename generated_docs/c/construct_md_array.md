@@ -29,12 +29,12 @@ The function performs extensive validation on the input parameters, calculates t
 - Functions called/Symbols referenced:
   - ArrayGetNItems
   - ArrayCheckBounds
-  - construct_empty_array
+  - [construct_empty_array](construct_empty_array.md)
   - PG_DETOAST_DATUM
   - att_addlength_datum
   - att_align_nominal
   - AllocSizeIsValid
-  - CopyArrayEls
+  - [CopyArrayEls](../C/CopyArrayEls.md)
   - ARR_OVERHEAD_WITHNULLS
   - ARR_OVERHEAD_NONULLS
   - SET_VARSIZE
@@ -43,16 +43,16 @@ The function performs extensive validation on the input parameters, calculates t
   - MAXDIM (constant)
   - MaxAllocSize (constant)
 - Called from (representative examples):
-  - construct_array
-  - strlist_to_textarray
-  - ExecEvalArrayExpr
-  - array_shuffle_n
-  - array_set_element
-  - array_set_slice
-  - array_iterate
+  - [construct_array](construct_array.md)
+  - [strlist_to_textarray](../s/strlist_to_textarray.md)
+  - [ExecEvalArrayExpr](../E/ExecEvalArrayExpr.md)
+  - [array_shuffle_n](../a/array_shuffle_n.md)
+  - [array_set_element](../a/array_set_element.md)
+  - [array_set_slice](../a/array_set_slice.md)
+  - [array_iterate](../a/array_iterate.md)
   - makeMdArrayResult
-  - percentile_disc_multi_final
-  - build_regexp_match_result
+  - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md)
+  - [build_regexp_match_result](../b/build_regexp_match_result.md)
 
 ## Notes and Other Information
 - Validates that ndims is between 0 and MAXDIM, raising errors for invalid ranges

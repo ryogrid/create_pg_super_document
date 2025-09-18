@@ -23,18 +23,18 @@ This static function serves as the core parsing engine for relation options in P
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - VARDATA
   - VARSIZE
-  - parse_one_reloption
+  - [parse_one_reloption](parse_one_reloption.md)
   - TextDatumGetCString
   - strchr
   - strncmp
   - ereport
-  - pfree
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - parseRelOptions
-  - parseLocalRelOptions
+  - [parseRelOptions](parseRelOptions.md)
+  - [parseLocalRelOptions](parseLocalRelOptions.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reloptions.c file

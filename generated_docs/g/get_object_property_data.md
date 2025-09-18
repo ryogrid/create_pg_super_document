@@ -24,18 +24,18 @@ If the requested class_id is not found in the ObjectProperty table, the function
   - ereport, ERROR, errmsg_internal (error reporting)
 - Called from (representative examples):
   - object_type_map
-  - get_object_namespace
-  - get_object_class_descr
-  - get_object_oid_index
-  - get_object_catcache_oid
-  - get_object_catcache_name
-  - get_object_attnum_oid
-  - get_object_attnum_name
-  - get_object_attnum_namespace
-  - get_object_attnum_owner
-  - get_object_attnum_acl
-  - get_object_type
-  - get_object_namensp_unique
+  - [get_object_namespace](get_object_namespace.md)
+  - [get_object_class_descr](get_object_class_descr.md)
+  - [get_object_oid_index](get_object_oid_index.md)
+  - [get_object_catcache_oid](get_object_catcache_oid.md)
+  - [get_object_catcache_name](get_object_catcache_name.md)
+  - [get_object_attnum_oid](get_object_attnum_oid.md)
+  - [get_object_attnum_name](get_object_attnum_name.md)
+  - [get_object_attnum_namespace](get_object_attnum_namespace.md)
+  - [get_object_attnum_owner](get_object_attnum_owner.md)
+  - [get_object_attnum_acl](get_object_attnum_acl.md)
+  - [get_object_type](get_object_type.md)
+  - [get_object_namensp_unique](get_object_namensp_unique.md)
 
 ## Notes and Other Information
 - Static function (internal to objectaddress.c) for object property lookup

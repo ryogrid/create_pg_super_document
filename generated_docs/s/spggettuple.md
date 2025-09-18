@@ -128,19 +128,19 @@ write_data_to_archive_lz4_doc.md: Scan direction (only ForwardScanDirection is s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgWalk
-  - storeGettuple
-  - index_store_float8_orderby_distances
+  - [spgWalk](spgWalk.md)
+  - [storeGettuple](storeGettuple.md)
+  - [index_store_float8_orderby_distances](../i/index_store_float8_orderby_distances.md)
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanDirection  
   - SpGistScanOpaque
 - Constants:
   - ForwardScanDirection
 - Called from:
-  - spghandler (as part of the access method interface)
+  - [spghandler](spghandler.md) (as part of the access method interface)
 
 ## Notes and Other Information
 - Returns true when a tuple is found, false when the scan is complete

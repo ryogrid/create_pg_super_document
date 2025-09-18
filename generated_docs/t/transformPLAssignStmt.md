@@ -32,16 +32,16 @@ The transformation process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode, makeString, list_make1, list_copy, list_delete_first
-  - transformExpr, transformFromClause, transformTargetList
-  - transformAssignmentIndirection, coerce_to_target_type
-  - transformWhereClause, transformSortClause, transformGroupClause
-  - transformDistinctClause, transformDistinctOnClause
-  - transformLimitClause, transformWindowDefinitions
-  - transformLockingClause, assign_query_collations, parseCheckAggregates
+  - [transformExpr](transformExpr.md), transformFromClause, transformTargetList
+  - [transformAssignmentIndirection](transformAssignmentIndirection.md), coerce_to_target_type
+  - [transformWhereClause](transformWhereClause.md), transformSortClause, transformGroupClause
+  - [transformDistinctClause](transformDistinctClause.md), transformDistinctOnClause
+  - [transformLimitClause](transformLimitClause.md), transformWindowDefinitions
+  - [transformLockingClause](transformLockingClause.md), assign_query_collations, parseCheckAggregates
   - exprType, exprTypmod, exprCollation, exprLocation
-  - format_type_be, makeFromExpr
+  - [format_type_be](../f/format_type_be.md), makeFromExpr
 - Called from (representative examples):
-  - transformStmt
+  - [transformStmt](transformStmt.md)
 
 ## Notes and Other Information
 - Uses COERCION_PLPGSQL instead of COERCION_ASSIGNMENT for type coercion

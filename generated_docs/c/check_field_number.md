@@ -18,16 +18,16 @@ This function performs range validation for field (column) numbers in PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqInternalNotice (for error reporting)
+  - [pqInternalNotice](../p/pqInternalNotice.md) (for error reporting)
 - Called from (representative examples):
-  - PQsetvalue
-  - PQfname
+  - [PQsetvalue](../P/PQsetvalue.md)
+  - [PQfname](../P/PQfname.md)
   - PQftable
   - PQftablecol
   - PQfformat
   - PQftype
   - PQfsize
-  - PQfmod
+  - [PQfmod](../P/PQfmod.md)
 
 ## Notes and Other Information
 - Returns true if the field number is valid, false otherwise

@@ -22,19 +22,19 @@ Unlike permission-checking variants, this function focuses purely on namespace r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName (to parse the qualified name)
-  - AccessTempTableNamespace (for temp namespace initialization)  
-  - get_namespace_oid (to resolve schema names to OIDs)
-  - recomputeNamespacePath (to refresh namespace search path)
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md) (to parse the qualified name)
+  - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md) (for temp namespace initialization)  
+  - [get_namespace_oid](../g/get_namespace_oid.md) (to resolve schema names to OIDs)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to refresh namespace search path)
   - ereport/ERROR (for error reporting)
 - Called from (representative examples):
-  - DefineAggregate
-  - DefineCollation
-  - CreateFunction
-  - DefineOperator
-  - DefineType
-  - DefineDomain
-  - CreateStatistics
+  - [DefineAggregate](../D/DefineAggregate.md)
+  - [DefineCollation](../D/DefineCollation.md)
+  - [CreateFunction](../C/CreateFunction.md)
+  - [DefineOperator](../D/DefineOperator.md)
+  - [DefineType](../D/DefineType.md)
+  - [DefineDomain](../D/DefineDomain.md)
+  - [CreateStatistics](../C/CreateStatistics.md)
 
 ## Notes and Other Information
 - Does not perform permission checks - callers must validate CREATE rights separately

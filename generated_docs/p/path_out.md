@@ -25,13 +25,13 @@ The output process:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P (retrieves PATH argument)
-  - path_encode (performs the actual string encoding)
+  - [path_encode](path_encode.md) (performs the actual string encoding)
   - PG_RETURN_CSTRING (returns C string result)
 - Constants used:
   - PATH_CLOSED (constant for closed path type)
   - PATH_OPEN (constant for open path type)
 - Types used:
-  - PATH (geometric path type)
+  - [PATH](../P/PATH.md) (geometric path type)
   - Datum (PostgreSQL data type)
 - Called from:
   - No direct references found (likely called via SQL type output interface)

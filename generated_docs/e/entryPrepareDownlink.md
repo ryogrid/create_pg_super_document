@@ -30,14 +30,14 @@ This function is essential for maintaining the hierarchical structure of GIN ent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - BufferGetBlockNumber
-  - getRightMostTuple
-  - GinFormInteriorTuple
-  - palloc
-  - GinBtreeEntryInsertData (struct allocation and initialization)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [getRightMostTuple](../g/getRightMostTuple.md)
+  - [GinFormInteriorTuple](../G/GinFormInteriorTuple.md)
+  - [palloc](../p/palloc.md)
+  - [GinBtreeEntryInsertData](../G/GinBtreeEntryInsertData.md) (struct allocation and initialization)
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN entry page management system

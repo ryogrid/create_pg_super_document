@@ -29,7 +29,7 @@ The function delegates the actual work to the access method's specific `amgetbit
   - pgstat_count_index_tuples (statistics collection)
   - amgetbitmap (access method specific bitmap collection procedure)
 - Called from (representative examples):
-  - MultiExecBitmapIndexScan (bitmap index scan executor)
+  - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md) (bitmap index scan executor)
   - IndexScanIsValid (index scan validation)
 
 ## Notes and Other Information

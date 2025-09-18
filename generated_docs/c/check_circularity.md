@@ -21,14 +21,14 @@ This function implements a critical security check in PostgreSQL's privilege sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl: Validates ACL structure
-  - allocacl: Allocates memory for working copy of ACL
-  - aclupdate: Updates ACL by removing grant options (called recursively via goto)
-  - aclmask: Computes effective privileges for the grantor
+  - [check_acl](check_acl.md): Validates ACL structure
+  - [allocacl](../a/allocacl.md): Allocates memory for working copy of ACL
+  - [aclupdate](../a/aclupdate.md): Updates ACL by removing grant options (called recursively via goto)
+  - [aclmask](../a/aclmask.md): Computes effective privileges for the grantor
   - ACL manipulation macros (ACL_NUM, ACL_DAT, ACLITEM_GET_GOPTIONS, etc.)
   - Memory management functions (memcpy, pfree)
 - Called from (representative examples):
-  - aclupdate: During grant option operations to prevent circular dependencies
+  - [aclupdate](../a/aclupdate.md): During grant option operations to prevent circular dependencies
 
 ## Notes and Other Information
 - Static function, only accessible within the ACL module

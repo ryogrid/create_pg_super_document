@@ -26,13 +26,13 @@ The function performs several masking operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mask_page_lsn_and_checksum
-  - mask_page_hint_bits
-  - mask_unused_space
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md)
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md)
+  - [mask_unused_space](../m/mask_unused_space.md)
   - GistPageSetNSN
   - GistMarkFollowRight
   - GistPageIsLeaf
-  - mask_lp_flags
+  - [mask_lp_flags](../m/mask_lp_flags.md)
   - GistClearPageHasGarbage
   - MASK_MARKER
 - Called from (representative examples):

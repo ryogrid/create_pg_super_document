@@ -24,22 +24,22 @@ The function handles different comparison strategies (less than, equal, greater 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanKey
-  - BTArrayKeyInfo
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md)
   - SK_ISNULL, SK_ROW_HEADER, SK_ROW_MEMBER, SK_SEARCHARRAY
   - RegProcedure
-  - get_opfamily_proc
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
   - BTORDER_PROC
   - RegProcedureIsValid
-  - fmgr_info
-  - _bt_binsrch_array_skey
+  - [fmgr_info](../f/fmgr_info.md)
+  - [_bt_binsrch_array_skey](_bt_binsrch_array_skey.md)
   - NoMovementScanDirection
   - BTLessStrategyNumber, BTLessEqualStrategyNumber
   - BTEqualStrategyNumber
   - BTGreaterEqualStrategyNumber, BTGreaterStrategyNumber
 - Called from (representative examples):
-  - _bt_compare_scankey_args
+  - [_bt_compare_scankey_args](_bt_compare_scankey_args.md)
 
 ## Notes and Other Information
 - Returns true if comparison was successful, false if required comparison procedures are unavailable

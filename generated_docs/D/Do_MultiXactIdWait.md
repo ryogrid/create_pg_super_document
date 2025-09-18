@@ -33,17 +33,17 @@ The function handles pre-upgrade tuples as a special case and supports both cond
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAP_LOCKED_UPGRADED
-  - GetMultiXactIdMembers
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - HEAP_XMAX_IS_LOCKED_ONLY
-  - TransactionIdIsCurrentTransactionId
-  - DoLockModesConflict
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
+  - [DoLockModesConflict](DoLockModesConflict.md)
   - LOCKMODE_from_mxstatus
   - TransactionIdIsInProgress
-  - ConditionalXactLockTableWait
-  - XactLockTableWait
+  - [ConditionalXactLockTableWait](../C/ConditionalXactLockTableWait.md)
+  - [XactLockTableWait](../X/XactLockTableWait.md)
 - Called from (representative examples):
-  - MultiXactIdWait
-  - ConditionalMultiXactIdWait
+  - [MultiXactIdWait](../M/MultiXactIdWait.md)
+  - [ConditionalMultiXactIdWait](../C/ConditionalMultiXactIdWait.md)
 
 ## Notes and Other Information
 This is a static helper function that serves as the common implementation for both MultiXactIdWait and ConditionalMultiXactIdWait. It's critical for PostgreSQL's tuple locking mechanism, ensuring proper synchronization when multiple transactions compete for tuple access. The function carefully avoids waiting on transactions from the same backend to prevent assertion failures and deadlocks. The remaining count is unreliable when the function returns false (in nowait mode).

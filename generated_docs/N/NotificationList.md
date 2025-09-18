@@ -24,15 +24,15 @@ The linked structure through the  field creates a stack-like organization where 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (PostgreSQL hash table type)
-  - List (PostgreSQL list implementation)
-  - NotificationList (self-reference for hierarchy)
+  - [HTAB](../H/HTAB.md) (PostgreSQL hash table type)
+  - [List](../L/List.md) (PostgreSQL list implementation)
+  - [NotificationList](NotificationList.md) (self-reference for hierarchy)
   
 - Called from (representative examples):
   - NotificationHash (hash table operations)
-  - Async_Notify (main notification processing function)
-  - AtSubCommit_Notify (subtransaction commit handling)
-  - AtSubAbort_Notify (subtransaction abort handling)
+  - [Async_Notify](../A/Async_Notify.md) (main notification processing function)
+  - [AtSubCommit_Notify](../A/AtSubCommit_Notify.md) (subtransaction commit handling)
+  - [AtSubAbort_Notify](../A/AtSubAbort_Notify.md) (subtransaction abort handling)
 
 ## Notes and Other Information
 - Each subtransaction maintains its own NotificationList in its CurTransactionContext

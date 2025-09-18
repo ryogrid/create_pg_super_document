@@ -20,7 +20,7 @@ The text_to_table_null function is a separate entry point that delegates directl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_table (core text-to-table conversion function)
+  - [text_to_table](text_to_table.md) (core text-to-table conversion function)
 - Called from (representative examples):
   - No direct references found
 

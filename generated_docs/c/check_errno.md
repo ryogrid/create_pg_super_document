@@ -30,9 +30,9 @@ This function is primarily used in PostgreSQL's ECPG test suite to provide clear
   - PGTYPES_NUM_BAD_NUMERIC (error constant)
   - PGTYPES_NUM_DIVIDE_ZERO (error constant)
 - Called from (representative examples):
-  - print_double (in compat_informix-dec_test.c)
-  - main (multiple calls in various test files)
-  - ECPGdebug (in pgtypeslib-dt_test.c)
+  - [print_double](../p/print_double.md) (in compat_informix-dec_test.c)
+  - [main](../m/main.md) (multiple calls in various test files)
+  - [ECPGdebug](../E/ECPGdebug.md) (in pgtypeslib-dt_test.c)
 
 ## Notes and Other Information
 - This function is marked as , limiting its scope to the compilation unit where it's defined

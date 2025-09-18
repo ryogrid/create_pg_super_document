@@ -25,17 +25,17 @@ If a matching rule is found, it assigns that HbaLine to the port. If no rules ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid (role name to OID resolution)
-  - check_hostname (hostname-based address matching)
-  - check_ip (IP address and netmask matching)
-  - check_same_host_or_net (samehost/samenet address matching)
+  - [check_hostname](check_hostname.md) (hostname-based address matching)
+  - [check_ip](check_ip.md) (IP address and netmask matching)
+  - [check_same_host_or_net](check_same_host_or_net.md) (samehost/samenet address matching)
   - check_db (database name matching)
-  - check_role (role/user name matching)
-  - palloc0 (memory allocation)
+  - [check_role](check_role.md) (role/user name matching)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - Connection type constants (ctLocal, ctHostSSL, ctHostNoSSL, ctHostGSS, ctHostNoGSS)
   - IP comparison method constants (ipCmpMask, ipCmpAll, ipCmpSameHost, ipCmpSameNet)
   - Authentication method constants (uaImplicitReject)
 - Called from:
-  - hba_getauthmethod (src/backend/libpq/hba.c:3050)
+  - [hba_getauthmethod](../h/hba_getauthmethod.md) (src/backend/libpq/hba.c:3050)
 
 ## Notes and Other Information
 - Uses the global parsed_hba_lines list which contains pre-parsed HBA configuration rules

@@ -23,12 +23,12 @@ This is the function that gets called when performing explicit casts from Numeri
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC (macro to extract Numeric from function arguments)
-  - numeric_int4_opt_error (performs the actual conversion)
+  - [numeric_int4_opt_error](numeric_int4_opt_error.md) (performs the actual conversion)
   - PG_RETURN_INT32 (macro to return int32 result)
   - Numeric (data type)
 - Called from (representative examples):
-  - numeric_to_char (in formatting operations)
-  - jsonb_int4 (in JSONB processing)
+  - [numeric_to_char](numeric_to_char.md) (in formatting operations)
+  - [jsonb_int4](../j/jsonb_int4.md) (in JSONB processing)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/numeric.c:4463-4475

@@ -25,14 +25,14 @@ The function returns a "joinlist" - a hierarchical structure that guides make_on
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_node
-  - deconstruct_recurse
-  - bms_union
-  - bms_equal
-  - deconstruct_distribute
-  - deconstruct_distribute_oj_quals
-  - list_free_deep
+  - [deconstruct_recurse](deconstruct_recurse.md)
+  - [bms_union](../b/bms_union.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [deconstruct_distribute](deconstruct_distribute.md)
+  - [deconstruct_distribute_oj_quals](deconstruct_distribute_oj_quals.md)
+  - [list_free_deep](../l/list_free_deep.md)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - Sets root->placeholdersFrozen = true to prevent further PlaceHolderInfo creation during join tree processing

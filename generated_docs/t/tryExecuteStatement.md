@@ -20,16 +20,16 @@ The `tryExecuteStatement` function is a more permissive counterpart to `executeS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec (executes SQL statement via libpq)
-  - PQresultStatus (checks result status)
-  - PQerrorMessage (retrieves error message from connection)
-  - PQclear (frees result memory)
+  - [PQexec](../P/PQexec.md) (executes SQL statement via libpq)
+  - [PQresultStatus](../P/PQresultStatus.md) (checks result status)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (retrieves error message from connection)
+  - [PQclear](../P/PQclear.md) (frees result memory)
   - pg_log_error (logs error message)
   - pg_log_error_detail (logs additional error details with continuation notice)
 - Constants used:
   - PGRES_COMMAND_OK (successful command completion status)
 - Called from (representative examples):
-  - main (multiple calls for optional operations during pgbench startup/cleanup)
+  - [main](../m/main.md) (multiple calls for optional operations during pgbench startup/cleanup)
 
 ## Notes and Other Information
 - Designed for non-critical SQL operations where failure should not be fatal

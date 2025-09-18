@@ -22,12 +22,12 @@ This function serves as the callback mechanism for table_index_build_scan during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTBuildState (cast from state parameter)
-  - _bt_spool (called to insert tuples into spools)
+  - [BTBuildState](../B/BTBuildState.md) (cast from state parameter)
+  - [_bt_spool](_bt_spool.md) (called to insert tuples into spools)
   - BulkWriteBuffer (referenced in context)
 - Called from (representative examples):
-  - _bt_spools_heapscan
-  - _bt_parallel_scan_and_sort
+  - [_bt_spools_heapscan](_bt_spools_heapscan.md)
+  - [_bt_parallel_scan_and_sort](_bt_parallel_scan_and_sort.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nbtsort.c compilation unit

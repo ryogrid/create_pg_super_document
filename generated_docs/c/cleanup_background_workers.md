@@ -22,11 +22,11 @@ This function is critical for preventing orphaned worker processes that could co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
-  - TerminateBackgroundWorker
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [TerminateBackgroundWorker](../T/TerminateBackgroundWorker.md)
 - Called from (representative examples):
-  - test_shm_mq_setup (via cancel_on_dsm_detach)
-  - setup_background_workers (via on_dsm_detach)
+  - [test_shm_mq_setup](../t/test_shm_mq_setup.md) (via cancel_on_dsm_detach)
+  - [setup_background_workers](../s/setup_background_workers.md) (via on_dsm_detach)
 
 ## Notes and Other Information
 - This is a static function internal to the test_shm_mq module, located in `src/test/modules/test_shm_mq/setup.c:246-257`

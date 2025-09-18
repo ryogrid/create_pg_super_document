@@ -29,13 +29,13 @@ The function performs lazy initialization of expression evaluation state on firs
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
-  - ExecPrepareExprList
+  - [ExecPrepareExprList](../E/ExecPrepareExprList.md)
   - list_head
   - slot_getattr
   - ExecEvalExprSwitchContext
-  - lnext
+  - [lnext](../l/lnext.md)
 - Called from (representative examples):
-  - ExecFindPartition (for determining the correct partition for tuple routing)
+  - [ExecFindPartition](../E/ExecFindPartition.md) (for determining the correct partition for tuple routing)
 
 ## Notes and Other Information
 - The function requires that estate's per-tuple expression context (ecxt_scantuple) points to the input slot

@@ -18,12 +18,12 @@ This function formats tabular data in a vertical LaTeX layout using a two-column
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - latex_escaped_print (for escaping special LaTeX characters in headers and content)
-  - printTableContent (data structure)
-  - printTableFooter (data structure)
+  - [latex_escaped_print](../l/latex_escaped_print.md) (for escaping special LaTeX characters in headers and content)
+  - [printTableContent](printTableContent.md) (data structure)
+  - [printTableFooter](printTableFooter.md) (data structure)
   - cancel_pressed (global variable for interrupt handling)
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function, called for both regular vertical and when converting from other formats)
+  - [printTable](printTable.md) (main table printing dispatcher function, called for both regular vertical and when converting from other formats)
 
 ## Notes and Other Information
 - This is a static function within print.c used internally for vertical LaTeX table formatting

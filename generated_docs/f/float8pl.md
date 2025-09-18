@@ -22,7 +22,7 @@ The `float8pl` function is a PostgreSQL fmgr-compatible function that adds two f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 arguments)
-  - float8_pl (inline helper function that performs the actual addition with overflow checking)
+  - [float8_pl](float8_pl.md) (inline helper function that performs the actual addition with overflow checking)
   - PG_RETURN_FLOAT8 (macro to return float8 result as Datum)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager system for the '+' operator)

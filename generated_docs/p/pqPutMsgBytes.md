@@ -21,13 +21,13 @@ The function performs buffer space validation using  and then uses  to efficient
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqCheckOutBufferSpace
+  - [pqCheckOutBufferSpace](pqCheckOutBufferSpace.md)
   - memcpy (standard library)
 - Called from (representative examples):
-  - pqPutc
-  - pqPuts
-  - pqPutnchar
-  - pqPutInt
+  - [pqPutc](pqPutc.md)
+  - [pqPuts](pqPuts.md)
+  - [pqPutnchar](pqPutnchar.md)
+  - [pqPutInt](pqPutInt.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the fe-misc.c compilation unit

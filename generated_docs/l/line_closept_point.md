@@ -24,7 +24,7 @@ This function calculates the shortest distance from a point to an infinite line 
   -  - Finds intersection point of two infinite lines
   -  - Returns NaN float8 value for error cases
   -  - Calculates Euclidean distance between two points
-  -  - Point data structure
+  -  - [Point](../P/Point.md) data structure
   -  - Infinite line data structure
 - Called from (representative examples):
   -  - Distance from point to line

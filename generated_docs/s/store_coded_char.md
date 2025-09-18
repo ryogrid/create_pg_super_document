@@ -24,8 +24,8 @@ The function uses bit masking and shifting operations to extract individual byte
 - Functions called/Symbols referenced:
   - (none - uses only basic C operations)
 - Called from (representative examples):
-  - UtfToLocal (multiple call sites for character conversion)
-  - LocalToUtf (multiple call sites for character conversion)
+  - [UtfToLocal](../U/UtfToLocal.md) (multiple call sites for character conversion)
+  - [LocalToUtf](../L/LocalToUtf.md) (multiple call sites for character conversion)
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance with internal linkage

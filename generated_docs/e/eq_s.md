@@ -23,16 +23,16 @@ The function performs a bounds check to ensure there are sufficient characters r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_env struct members (z->c, z->l, z->p)
+  - [SN_env](../S/SN_env.md) struct members (z->c, z->l, z->p)
   - memcmp function for memory comparison
   - symbol type definition
 - Called from (representative examples):
-  - r_prelude (in French, German, Serbian, Yiddish stemmers)
-  - r_KER (in Indonesian stemmer)
-  - russian_UTF_8_stem (in Russian stemmer)
-  - r_fix_va_start (in Tamil stemmer)
-  - r_mark_regions (in Yiddish stemmer)
-  - eq_v function
+  - [r_prelude](../r/r_prelude.md) (in French, German, Serbian, Yiddish stemmers)
+  - [r_KER](../r/r_KER.md) (in Indonesian stemmer)
+  - [russian_UTF_8_stem](../r/russian_UTF_8_stem.md) (in Russian stemmer)
+  - [r_fix_va_start](../r/r_fix_va_start.md) (in Tamil stemmer)
+  - [r_mark_regions](../r/r_mark_regions.md) (in Yiddish stemmer)
+  - [eq_v](eq_v.md) function
 
 ## Notes and Other Information
 - Returns 0 if insufficient characters remain or if strings don't match

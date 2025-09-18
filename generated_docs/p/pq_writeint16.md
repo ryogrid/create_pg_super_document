@@ -26,8 +26,8 @@ The function is implemented as a static inline function for optimal performance 
   - Assert (macro)
   - memcpy (standard library function)
 - Called from (representative examples):
-  - SendRowDescriptionMessage
-  - pq_sendint16
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
+  - [pq_sendint16](pq_sendint16.md)
 
 ## Notes and Other Information
 - Automatically converts from host byte order to network byte order using pg_hton16

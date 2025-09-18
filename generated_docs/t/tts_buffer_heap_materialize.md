@@ -26,17 +26,17 @@ The materialization is performed in the slot's memory context to ensure proper m
   - BufferHeapTupleTableSlot (cast target)
   - TTS_EMPTY (macro to check if slot is empty)
   - TTS_SHOULDFREE (macro to check if slot owns its tuple)
-  - heap_form_tuple (creates HeapTuple from values/nulls arrays)
-  - heap_copytuple (creates copy of existing HeapTuple)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates HeapTuple from values/nulls arrays)
+  - [heap_copytuple](../h/heap_copytuple.md) (creates copy of existing HeapTuple)
   - likely (branch prediction hint macro)
   - ReleaseBuffer (releases buffer reference)
   - TTS_FLAG_SHOULDFREE (flag indicating slot owns tuple memory)
   
 - Called from (representative examples):
-  - tts_buffer_heap_get_heap_tuple
-  - tts_buffer_heap_copy_heap_tuple
-  - tts_buffer_heap_copy_minimal_tuple
-  - slot_deform_heap_tuple
+  - [tts_buffer_heap_get_heap_tuple](tts_buffer_heap_get_heap_tuple.md)
+  - [tts_buffer_heap_copy_heap_tuple](tts_buffer_heap_copy_heap_tuple.md)
+  - [tts_buffer_heap_copy_minimal_tuple](tts_buffer_heap_copy_minimal_tuple.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function includes an early return optimization if the slot is already materialized (TTS_SHOULDFREE flag is set)

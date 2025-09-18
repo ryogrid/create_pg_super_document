@@ -33,11 +33,11 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
   - InitFunctionCallInfoData (initializes function call context)
   - FunctionCallInvoke (performs the actual function invocation)
 - Called from (representative examples):
-  - directTriConsistentFn (GIN direct tri-consistent function handling)
-  - shimBoolConsistentFn (GIN boolean consistent function shimming)
-  - ginNewScanKey (GIN index scan key creation)
-  - gincost_pattern (GIN cost estimation for pattern matching)
-  - OidFunctionCall7Coll (OID-based function calling wrapper)
+  - [directTriConsistentFn](../d/directTriConsistentFn.md) (GIN direct tri-consistent function handling)
+  - [shimBoolConsistentFn](../s/shimBoolConsistentFn.md) (GIN boolean consistent function shimming)
+  - [ginNewScanKey](../g/ginNewScanKey.md) (GIN index scan key creation)
+  - [gincost_pattern](../g/gincost_pattern.md) (GIN cost estimation for pattern matching)
+  - [OidFunctionCall7Coll](../O/OidFunctionCall7Coll.md) (OID-based function calling wrapper)
 
 ## Notes and Other Information
 - This function is part of a family of FunctionCallNColl functions (where N ranges from 0 to 9) that handle different numbers of arguments

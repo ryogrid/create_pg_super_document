@@ -34,10 +34,10 @@ Error handling includes retry logic for file descriptor exhaustion (ENFILE/EMFIL
   - LOG_DESTINATION_STDERR
   - LOG_DESTINATION_CSVLOG
   - LOG_DESTINATION_JSONLOG
-  - logfile_getname
-  - logfile_open
+  - [logfile_getname](logfile_getname.md)
+  - [logfile_open](logfile_open.md)
 - Called from (representative examples):
-  - logfile_rotate
+  - [logfile_rotate](logfile_rotate.md)
 
 ## Notes and Other Information
 - Static function used internally within the syslogger module

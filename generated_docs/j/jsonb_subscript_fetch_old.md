@@ -26,10 +26,10 @@ The function directly uses the original subscript indices from the SubscriptingR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetJsonbP
-  - jsonb_get_element
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
+  - [jsonb_get_element](jsonb_get_element.md)
 - Called from:
-  - jsonb_exec_setup
+  - [jsonb_exec_setup](jsonb_exec_setup.md)
 
 ## Notes and Other Information
 - Only called when the new-value subexpression contains SubscriptingRef or FieldStore

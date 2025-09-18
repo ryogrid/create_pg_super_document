@@ -31,26 +31,26 @@ Each operation is timed and the results are accumulated in a statistics buffer. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (buffer structure for statistics)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for statistics)
   - initPQExpBuffer (initialize statistics buffer)
   - doConnect (establish database connection)
-  - setup_cancel_handler (set up signal handling)
-  - SetCancelConn (associate connection with cancel handler)
+  - [setup_cancel_handler](../s/setup_cancel_handler.md) (set up signal handling)
+  - [SetCancelConn](../S/SetCancelConn.md) (associate connection with cancel handler)
   - pg_time_usec_t (timestamp type)
-  - pg_time_now (get current timestamp)
-  - initDropTables (drop existing tables)
+  - [pg_time_now](../p/pg_time_now.md) (get current timestamp)
+  - [initDropTables](../i/initDropTables.md) (drop existing tables)
   - initCreateTables (create pgbench tables)
-  - initGenerateDataClientSide (populate tables client-side)
-  - initGenerateDataServerSide (populate tables server-side)
-  - initVacuum (vacuum tables)
-  - initCreatePKeys (create primary keys)
-  - initCreateFKeys (create foreign keys)
+  - [initGenerateDataClientSide](../i/initGenerateDataClientSide.md) (populate tables client-side)
+  - [initGenerateDataServerSide](../i/initGenerateDataServerSide.md) (populate tables server-side)
+  - [initVacuum](../i/initVacuum.md) (vacuum tables)
+  - [initCreatePKeys](../i/initCreatePKeys.md) (create primary keys)
+  - [initCreateFKeys](../i/initCreateFKeys.md) (create foreign keys)
   - PG_TIME_GET_DOUBLE (convert timestamp to double)
-  - ResetCancelConn (reset cancel connection)
-  - PQfinish (close database connection)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (reset cancel connection)
+  - [PQfinish](../P/PQfinish.md) (close database connection)
   - termPQExpBuffer (cleanup statistics buffer)
 - Called from (representative examples):
-  - main (during pgbench initialization mode)
+  - [main](../m/main.md) (during pgbench initialization mode)
 
 ## Notes and Other Information
 - This function assumes the initialize_steps string has already been validated by checkInitSteps

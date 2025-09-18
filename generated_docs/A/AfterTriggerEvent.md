@@ -20,15 +20,15 @@ Since this is a typedef for a pointer to AfterTriggerEventData, it doesn't have 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEventData (the pointed-to structure)
+  - [AfterTriggerEventData](AfterTriggerEventData.md) (the pointed-to structure)
 - Called from (representative examples):
   - for_each_event
   - for_each_event_from
-  - afterTriggerAddEvent
-  - AfterTriggerExecute
-  - afterTriggerMarkEvents
-  - afterTriggerInvokeEvents
-  - AfterTriggerEndSubXact
+  - [afterTriggerAddEvent](../a/afterTriggerAddEvent.md)
+  - [AfterTriggerExecute](AfterTriggerExecute.md)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
+  - [AfterTriggerEndSubXact](AfterTriggerEndSubXact.md)
   - AfterTriggerPendingOnRel
   - cancel_prior_stmt_triggers
 

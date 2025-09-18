@@ -23,9 +23,9 @@ The function only operates under the postmaster (not in standalone mode) and ens
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - GetCatalogSnapshot
+  - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md)
   - RegisterSnapshot
-  - ApplySetting
+  - [ApplySetting](../A/ApplySetting.md)
   - UnregisterSnapshot
   - table_close
   - PGC_S_DATABASE_USER
@@ -35,7 +35,7 @@ The function only operates under the postmaster (not in standalone mode) and ens
   - DbRoleSettingRelationId
   - AccessShareLock
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - This is a static function, only callable within the same source file

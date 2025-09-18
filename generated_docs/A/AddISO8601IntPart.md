@@ -31,8 +31,8 @@ This produces output components like "2Y", "6M", "7D", "1H", "30M", "45S" that c
   - sprintf - formats the output string with simple numeric and character formatting
   - strlen - calculates string length for advancing the buffer pointer
 - Called from:
-  - EncodeInterval (src/backend/utils/adt/datetime.c:4694-4696, 4699-4700) - for all date and time components
-  - EncodeInterval (src/interfaces/ecpg/pgtypeslib/interval.c:863-865, 868-869) - ECPG library version
+  - [EncodeInterval](../E/EncodeInterval.md) (src/backend/utils/adt/datetime.c:4694-4696, 4699-4700) - for all date and time components
+  - [EncodeInterval](../E/EncodeInterval.md) (src/interfaces/ecpg/pgtypeslib/interval.c:863-865, 868-869) - ECPG library version
 
 ## Notes and Other Information
 - Returns an updated buffer pointer positioned after the newly appended text

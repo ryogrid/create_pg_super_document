@@ -35,12 +35,12 @@ The function must be called after pg_cryptohash_create() and before any pg_crypt
   - **Generic version**: pg_md5_init, pg_sha1_init, pg_sha224_init, pg_sha256_init, pg_sha384_init, pg_sha512_init
   - **OpenSSL version**: EVP_DigestInit_ex, EVP_md5, EVP_sha1, EVP_sha224, EVP_sha256, EVP_sha384, EVP_sha512, SSLerrmessage, ERR_get_error, ERR_clear_error
 - Called from (representative examples):
-  - InitializeBackupManifest
-  - scram_mock_salt
-  - cryptohash_internal
+  - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
+  - [scram_mock_salt](../s/scram_mock_salt.md)
+  - [cryptohash_internal](../c/cryptohash_internal.md)
   - pg_checksum_init
-  - pg_hmac_init
-  - pg_md5_hash
+  - [pg_hmac_init](pg_hmac_init.md)
+  - [pg_md5_hash](pg_md5_hash.md)
   - scram_H
 
 ## Notes and Other Information

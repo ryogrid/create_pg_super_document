@@ -33,17 +33,17 @@ The function handles special cases like bootstrap and frozen XIDs by returning a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToCTsPage (to determine the SLRU page)
+  - [TransactionIdToCTsPage](TransactionIdToCTsPage.md) (to determine the SLRU page)
   - TransactionIdToCTsEntry (to calculate entry offset within page)
   - TransactionIdIsValid/TransactionIdIsNormal (validation functions)
-  - TransactionIdPrecedes (for range checking)
-  - error_commit_ts_disabled (error reporting when feature disabled)
-  - SimpleLruReadPage_ReadOnly (to read SLRU page)
-  - SimpleLruGetBankLock (to get page lock for release)
-  - CommitTimestampEntry (structure for timestamp data)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md) (for range checking)
+  - [error_commit_ts_disabled](../e/error_commit_ts_disabled.md) (error reporting when feature disabled)
+  - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md) (to read SLRU page)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (to get page lock for release)
+  - [CommitTimestampEntry](../C/CommitTimestampEntry.md) (structure for timestamp data)
 - Called from (representative examples):
-  - pg_xact_commit_timestamp (SQL function interface)
-  - pg_xact_commit_timestamp_origin (SQL function interface)
+  - [pg_xact_commit_timestamp](../p/pg_xact_commit_timestamp.md) (SQL function interface)
+  - [pg_xact_commit_timestamp_origin](../p/pg_xact_commit_timestamp_origin.md) (SQL function interface)
 
 ## Notes and Other Information
 - Uses shared lock (LW_SHARED) for reading commit timestamp shared state

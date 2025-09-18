@@ -25,14 +25,14 @@ For WAL record messages, the function extracts header information including the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initReadOnlyStringInfo
-  - pq_getmsgint64
-  - pq_getmsgbyte
-  - ProcessWalSndrMessage
-  - XLogWalRcvWrite
-  - XLogWalRcvSendReply
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md)
+  - [XLogWalRcvWrite](XLogWalRcvWrite.md)
+  - [XLogWalRcvSendReply](XLogWalRcvSendReply.md)
 - Called from (representative examples):
-  - WalReceiverMain
+  - [WalReceiverMain](../W/WalReceiverMain.md)
 
 ## Notes and Other Information
 - This is a static function internal to the walreceiver.c module

@@ -20,14 +20,14 @@ This function serves as the core implementation for JSON array element extractio
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Extract text argument from function call
-  - makeJsonLexContext/freeJsonLexContext: JSON lexical context management
-  - InitMaterializedSRF: Initialize set-returning function framework
-  - elements_object_start/elements_scalar/elements_array_element_start/elements_array_element_end: Semantic action callback functions
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)/freeJsonLexContext: JSON lexical context management
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md): Initialize set-returning function framework
+  - [elements_object_start](elements_object_start.md)/elements_scalar/elements_array_element_start/elements_array_element_end: Semantic action callback functions
   - pg_parse_json_or_ereport: Main JSON parsing function with error handling
   - AllocSetContextCreate/MemoryContextDelete: Memory management
 - Called from:
-  - json_array_elements: Main entry point for JSON array element extraction
-  - json_array_elements_text: Main entry point for text-mode array element extraction
+  - [json_array_elements](../j/json_array_elements.md): Main entry point for JSON array element extraction
+  - [json_array_elements_text](../j/json_array_elements_text.md): Main entry point for text-mode array element extraction
 
 ## Notes and Other Information
 - Uses callback-driven JSON parsing with semantic actions rather than iterating through pre-parsed structures

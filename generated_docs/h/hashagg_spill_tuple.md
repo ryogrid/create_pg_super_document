@@ -32,16 +32,16 @@ Key operations performed:
 - Functions called/Symbols referenced:
   - slot_getsomeattrs
   - ExecClearTuple
-  - bms_is_member
-  - ExecStoreVirtualTuple
-  - ExecFetchSlotMinimalTuple
+  - [bms_is_member](../b/bms_is_member.md)
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
+  - [ExecFetchSlotMinimalTuple](../E/ExecFetchSlotMinimalTuple.md)
   - addHyperLogLog
-  - hash_bytes_uint32
+  - [hash_bytes_uint32](hash_bytes_uint32.md)
   - LogicalTapeWrite
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - lookup_hash_entries
-  - agg_refill_hash_table
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - The function implements column pruning optimization by only spilling needed attributes when `all_cols_needed` is false

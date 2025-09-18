@@ -21,15 +21,15 @@ The function maintains proper schema locking throughout the operation to prevent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockSchemaList: Acquires locks on schemas to prevent concurrent modifications
-  - GetPublicationRelations: Retrieves existing publication relations for validation
-  - SearchSysCache2: Searches system cache for publication-relation mappings
-  - heap_attisnull: Checks if column list attributes are NULL in publication relations
-  - PublicationAddSchemas/PublicationDropSchemas: Core functions for adding/removing schemas from publications
-  - GetPublicationSchemas: Retrieves existing schema OIDs for the publication
-  - list_difference_oid: Calculates differences between schema OID lists
+  - [LockSchemaList](../L/LockSchemaList.md): Acquires locks on schemas to prevent concurrent modifications
+  - [GetPublicationRelations](../G/GetPublicationRelations.md): Retrieves existing publication relations for validation
+  - [SearchSysCache2](../S/SearchSysCache2.md): Searches system cache for publication-relation mappings
+  - [heap_attisnull](../h/heap_attisnull.md): Checks if column list attributes are NULL in publication relations
+  - [PublicationAddSchemas](../P/PublicationAddSchemas.md)/PublicationDropSchemas: Core functions for adding/removing schemas from publications
+  - [GetPublicationSchemas](../G/GetPublicationSchemas.md): Retrieves existing schema OIDs for the publication
+  - [list_difference_oid](../l/list_difference_oid.md): Calculates differences between schema OID lists
 - Called from (representative examples):
-  - AlterPublication: Main function handling publication alterations
+  - [AlterPublication](AlterPublication.md): Main function handling publication alterations
 
 ## Notes and Other Information
 - Enforces the constraint that schemas cannot be added when tables with column lists exist in the publication

@@ -58,11 +58,11 @@ SnapshotData represents all kinds of possible snapshots including normal MVCC sn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapshotType
+  - [SnapshotType](SnapshotType.md)
   - TransactionId
   - CommandId
-  - GlobalVisState
-  - pairingheap_node
+  - [GlobalVisState](../G/GlobalVisState.md)
+  - [pairingheap_node](../p/pairingheap_node.md)
   - TimestampTz
   - XLogRecPtr
 - Called from (representative examples):

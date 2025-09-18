@@ -27,16 +27,16 @@ The function ensures that only meaningful and valid I/O operation combinations a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_tracks_io_object() (validate object/context compatibility)
-  - BackendType, IOObject, IOContext, IOOp (enum types)
+  - [pgstat_tracks_io_object](pgstat_tracks_io_object.md)() (validate object/context compatibility)
+  - [BackendType](../B/BackendType.md), IOObject, IOContext, IOOp (enum types)
   - B_BG_WRITER, B_CHECKPOINTER, B_AUTOVAC_LAUNCHER (backend type constants)
   - IOOP_READ, IOOP_EVICT, IOOP_HIT, IOOP_EXTEND, IOOP_FSYNC, IOOP_WRITEBACK, IOOP_REUSE (operation constants)
   - IOOBJECT_TEMP_RELATION (object type constant)
   - IOCONTEXT_BULKREAD, IOCONTEXT_BULKWRITE, IOCONTEXT_VACUUM (context constants)
 - Called from (representative examples):
-  - pgstat_bktype_io_stats_valid() (validate statistics entries)
-  - pgstat_count_io_op_n() (before counting I/O operations)
-  - pg_stat_get_io() (filter valid operations when retrieving statistics)
+  - [pgstat_bktype_io_stats_valid](pgstat_bktype_io_stats_valid.md)() (validate statistics entries)
+  - [pgstat_count_io_op_n](pgstat_count_io_op_n.md)() (before counting I/O operations)
+  - [pg_stat_get_io](pg_stat_get_io.md)() (filter valid operations when retrieving statistics)
 
 ## Notes and Other Information
 - Background writer and checkpointer processes don't perform read, evict, or hit operations

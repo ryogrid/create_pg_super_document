@@ -19,13 +19,13 @@ This function implements a recursive tree walker that adjusts relation identifie
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
-  - offset_relid_set (for adjusting relation ID sets)
+  - [offset_relid_set](../o/offset_relid_set.md) (for adjusting relation ID sets)
   - query_tree_walker (for Query node recursion)
   - expression_tree_walker (for general expression recursion)
   - Assert (debugging assertions)
 - Called from (representative examples):
-  - OffsetVarNodes (main entry point)
-  - OffsetVarNodes_walker (recursive self-calls)
+  - [OffsetVarNodes](OffsetVarNodes.md) (main entry point)
+  - [OffsetVarNodes_walker](OffsetVarNodes_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static function used internally by the OffsetVarNodes system
@@ -33,10 +33,10 @@ This function implements a recursive tree walker that adjusts relation identifie
 - Includes assertions to ensure it doesn't encounter unexpected planner auxiliary nodes
 - Processes different node types with specific logic for each:
   - Var: adjusts varno, varnullingrels, and varnosyn
-  - CurrentOfExpr: adjusts cvarno at top level only
+  - [CurrentOfExpr](../C/CurrentOfExpr.md): adjusts cvarno at top level only
   - RangeTblRef: adjusts rtindex at top level only  
   - JoinExpr: adjusts rtindex if present
-  - PlaceHolderVar: adjusts phrels and phnullingrels
-  - AppendRelInfo: adjusts parent_relid and child_relid
+  - [PlaceHolderVar](../P/PlaceHolderVar.md): adjusts phrels and phnullingrels
+  - [AppendRelInfo](../A/AppendRelInfo.md): adjusts parent_relid and child_relid
 - Used during query rewriting when combining range tables or adjusting variable references
 - Critical for maintaining correct variable-to-relation mappings during query transformation

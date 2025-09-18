@@ -30,15 +30,15 @@ The hasho_prevblkno field is particularly important as it stores the max_bucket 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (gets page from buffer)
-  - _hash_pageinit (basic page initialization, if initpage is true)
-  - BufferGetPageSize (gets buffer page size)
+  - [BufferGetPage](../B/BufferGetPage.md) (gets page from buffer)
+  - [_hash_pageinit](_hash_pageinit.md) (basic page initialization, if initpage is true)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md) (gets buffer page size)
   - HashPageGetOpaque (accesses hash-specific page metadata)
   - HASHO_PAGE_ID, InvalidBlockNumber (constants)
 - Called from (representative examples):
-  - hash_xlog_add_ovfl_page (during WAL recovery of overflow page addition)
-  - hash_xlog_split_allocate_page (during WAL recovery of page splitting)
-  - _hash_init (during hash index creation)
+  - [hash_xlog_add_ovfl_page](hash_xlog_add_ovfl_page.md) (during WAL recovery of overflow page addition)
+  - [hash_xlog_split_allocate_page](hash_xlog_split_allocate_page.md) (during WAL recovery of page splitting)
+  - [_hash_init](_hash_init.md) (during hash index creation)
 
 ## Notes and Other Information
 - Works with pre-allocated buffers, unlike the buffer allocation functions

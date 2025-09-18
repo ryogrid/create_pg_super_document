@@ -25,7 +25,7 @@ The function configures the SP-GiST to:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut
+  - [spgConfigOut](spgConfigOut.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct callers found (registered as SP-GiST config function)

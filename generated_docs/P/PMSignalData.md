@@ -28,7 +28,7 @@ The structure supports bidirectional communication: child processes can signal t
 - Called from (representative examples):
   - PMSignalShmemSize (calculates shared memory size needed)
   - PMSignalShmemInit (initializes the structure in shared memory)
-  - SubPostmasterMain (accesses signal data in child processes)
+  - [SubPostmasterMain](../S/SubPostmasterMain.md) (accesses signal data in child processes)
 
 ## Notes and Other Information
 - The structure is allocated in shared memory to enable inter-process communication

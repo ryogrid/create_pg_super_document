@@ -26,7 +26,7 @@ This ensures that searches will correctly traverse the index tree, as the parent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GistEntryVector (struct type for entry collection)
+  - [GistEntryVector](../G/GistEntryVector.md) (struct type for entry collection)
   - TSQuerySign (signature type)
   - GETENTRY (macro to extract entry from vector)
   - PG_RETURN_TSQUERYSIGN (return macro for TSQuerySign)

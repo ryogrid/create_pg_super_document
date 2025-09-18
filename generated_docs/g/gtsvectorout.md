@@ -17,16 +17,16 @@ The gtsvectorout function serves as the output function for the gtsvector data t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SignTSVector (data type for signature representation)
+  - [SignTSVector](../S/SignTSVector.md) (data type for signature representation)
   - PG_DETOAST_DATUM (macro for detoasting PostgreSQL datums)
   - ISARRKEY (macro to check if key is array type)
   - ARRNELEM (macro to get array element count)
   - ISALLTRUE (macro to check if all signature bits are true)
   - GETSIGLEN (macro to get signature length)
   - GETSIGN (macro to get signature data)
-  - sizebitvec (function to count true bits in signature)
+  - [sizebitvec](../s/sizebitvec.md) (function to count true bits in signature)
   - SIGLENBIT (macro to convert signature length to bits)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - sprintf (string formatting)
 - Called from (representative examples):
   - No direct references found (typically called through PostgreSQL's type system)

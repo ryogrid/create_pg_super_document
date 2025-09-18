@@ -32,17 +32,17 @@ The algorithm uses a priority-based approach where higher-priority suffix remova
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude: Preprocessing operations
-  - r_mark_regions: Morphological region identification
-  - r_standard_suffix: Standard suffix removal
-  - r_i_verb_suffix: Infinitive verb suffix removal  
-  - r_verb_suffix: General verb suffix removal
-  - r_residual_suffix: Residual suffix cleanup
-  - r_un_double: Doubled consonant removal
-  - r_un_accent: Accent normalization
-  - r_postlude: Final postprocessing
-  - eq_s_b: Backward string matching
-  - slice_from_s: String replacement operations
+  - [r_prelude](../r/r_prelude.md): Preprocessing operations
+  - [r_mark_regions](../r/r_mark_regions.md): Morphological region identification
+  - [r_standard_suffix](../r/r_standard_suffix.md): Standard suffix removal
+  - [r_i_verb_suffix](../r/r_i_verb_suffix.md): Infinitive verb suffix removal  
+  - [r_verb_suffix](../r/r_verb_suffix.md): General verb suffix removal
+  - [r_residual_suffix](../r/r_residual_suffix.md): Residual suffix cleanup
+  - [r_un_double](../r/r_un_double.md): Doubled consonant removal
+  - [r_un_accent](../r/r_un_accent.md): Accent normalization
+  - [r_postlude](../r/r_postlude.md): Final postprocessing
+  - [eq_s_b](../e/eq_s_b.md): Backward string matching
+  - [slice_from_s](../s/slice_from_s.md): String replacement operations
 - Called from (representative examples):
   - External stemming interfaces (not directly referenced in the provided symbol data)
 

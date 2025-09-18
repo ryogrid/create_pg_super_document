@@ -20,16 +20,16 @@ ReorderBufferGetTupleBuf allocates memory for a HeapTuple structure along with i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - SizeofHeapTupleHeader
   - HEAPTUPLESIZE
   - HeapTupleHeader
 - Called from (representative examples):
-  - DecodeInsert
-  - DecodeUpdate
-  - DecodeDelete
-  - DecodeMultiInsert
-  - ReorderBufferRestoreChange
+  - [DecodeInsert](../D/DecodeInsert.md)
+  - [DecodeUpdate](../D/DecodeUpdate.md)
+  - [DecodeDelete](../D/DecodeDelete.md)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md)
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
 
 ## Notes and Other Information
 The function performs a single memory allocation that includes both the HeapTuple structure and the tuple data buffer. The t_data pointer is set to point immediately after the HeapTuple structure in the allocated memory block. This efficient allocation strategy minimizes memory fragmentation and improves performance in logical replication scenarios where many tuples are processed.

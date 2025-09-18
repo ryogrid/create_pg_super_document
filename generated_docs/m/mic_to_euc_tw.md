@@ -28,7 +28,7 @@ The conversion process transforms MIC characters back into EUC_TW format, genera
   - PG_GETARG_INT32 (macro for extracting integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validates source and target encodings)
-  - mic2euc_tw (performs the actual character conversion)
+  - [mic2euc_tw](mic2euc_tw.md) (performs the actual character conversion)
   - PG_RETURN_INT32 (macro for returning integer result)
   - PG_MULE_INTERNAL (encoding constant)
   - PG_EUC_TW (encoding constant)

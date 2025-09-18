@@ -22,12 +22,12 @@ This function is essential for text processing operations that need to identify 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_isalpha
-  - pg_u_isdigit
+  - [pg_u_isalpha](pg_u_isalpha.md)
+  - [pg_u_isdigit](pg_u_isdigit.md)
 - Called from (representative examples):
-  - pg_wc_isalnum (regex locale support)
-  - initcap_wbnext (word boundary detection in formatting)
-  - icu_test (Unicode category testing)
+  - [pg_wc_isalnum](pg_wc_isalnum.md) (regex locale support)
+  - [initcap_wbnext](../i/initcap_wbnext.md) (word boundary detection in formatting)
+  - [icu_test](../i/icu_test.md) (Unicode category testing)
 
 ## Notes and Other Information
 - Returns true if the character is either alphabetic or a digit, false otherwise

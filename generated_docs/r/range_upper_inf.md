@@ -21,7 +21,7 @@ This function examines a PostgreSQL range type to determine if its upper bound i
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_RANGE_P` - macro to extract range argument
-  - `range_get_flags` - function to extract flags byte from range
+  - `[range_get_flags](range_get_flags.md)` - function to extract flags byte from range
   - `RANGE_UB_INF` - constant (0x10) representing upper bound infinite flag
   - `PG_RETURN_BOOL` - macro to return boolean result
 

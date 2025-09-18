@@ -21,17 +21,17 @@ This function is the non-blocking variant of LockRelation. It attempts to acquir
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to set up lock tag for relation)
-  - LockAcquireExtended (performs the actual lock acquisition with extended options)
-  - AcceptInvalidationMessages (processes cache invalidation messages)
-  - MarkLockClear (marks the local lock state as clear)
+  - [LockAcquireExtended](../L/LockAcquireExtended.md) (performs the actual lock acquisition with extended options)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (processes cache invalidation messages)
+  - [MarkLockClear](../M/MarkLockClear.md) (marks the local lock state as clear)
 - Types referenced:
-  - Relation (relation descriptor structure)
+  - [Relation](../R/Relation.md) (relation descriptor structure)
   - LOCKTAG (lock tag structure)
-  - LOCALLOCK (local lock information)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (local lock information)
   - LockAcquireResult (result of lock acquisition)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
-  - lazy_truncate_heap (in vacuumlazy.c:2581)
+  - [lazy_truncate_heap](../l/lazy_truncate_heap.md) (in vacuumlazy.c:2581)
 
 ## Notes and Other Information
 - Returns true if lock was successfully acquired, false if lock was not available

@@ -34,12 +34,12 @@ This function is used both by the optimizer during query planning and by the par
 ## Dependencies
 - Functions called/Symbols referenced:
   - flatten_join_alias_vars_context
-  - flatten_join_alias_vars_mutator
+  - [flatten_join_alias_vars_mutator](flatten_join_alias_vars_mutator.md)
 - Called from (representative examples):
-  - subquery_planner (src/backend/optimizer/plan/planner.c:981)
-  - preprocess_expression (src/backend/optimizer/plan/planner.c:1180)
-  - pull_up_simple_subquery (src/backend/optimizer/prep/prepjointree.c:1254)
-  - parseCheckAggregates (src/backend/parser/parse_agg.c:1181)
+  - [subquery_planner](../s/subquery_planner.md) (src/backend/optimizer/plan/planner.c:981)
+  - [preprocess_expression](../p/preprocess_expression.md) (src/backend/optimizer/plan/planner.c:1180)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md) (src/backend/optimizer/prep/prepjointree.c:1254)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (src/backend/parser/parse_agg.c:1181)
 
 ## Notes and Other Information
 - The function asserts that the top node is not the Query itself, as it is designed to work on expressions or LATERAL subqueries

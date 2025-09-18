@@ -22,7 +22,7 @@ optional_setsockopt is an internal utility function in the libpq cancel mechanis
 - Functions called/Symbols referenced:
   - setsockopt (system call for setting socket options)
 - Called from (representative examples):
-  - PQcancel (src/interfaces/libpq/fe-cancel.c:507, 514, 523, 532, 555)
+  - [PQcancel](../P/PQcancel.md) (src/interfaces/libpq/fe-cancel.c:507, 514, 523, 532, 555)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the fe-cancel.c compilation unit

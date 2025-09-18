@@ -24,12 +24,12 @@ The function returns NULL if either the tuple descriptor has no constraints defi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stringToNode (converts string representation back to Node tree)
-  - AttrDefault (structure type for storing attribute defaults)
+  - [stringToNode](../s/stringToNode.md) (converts string representation back to Node tree)
+  - [AttrDefault](../A/AttrDefault.md) (structure type for storing attribute defaults)
 - Called from (representative examples):
-  - MergeAttributes (table inheritance processing)
-  - expandTableLikeClause (CREATE TABLE LIKE clause handling)
-  - build_column_default (rewrite rule processing)
+  - [MergeAttributes](../M/MergeAttributes.md) (table inheritance processing)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md) (CREATE TABLE LIKE clause handling)
+  - [build_column_default](../b/build_column_default.md) (rewrite rule processing)
 
 ## Notes and Other Information
 - Returns NULL if the tuple descriptor has no constraints or no default for the specified attribute

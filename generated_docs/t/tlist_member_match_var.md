@@ -20,7 +20,7 @@ The `tlist_member_match_var` function is a specialized version of `tlist_member`
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - apply_pathtarget_labeling_to_tlist
+  - [apply_pathtarget_labeling_to_tlist](../a/apply_pathtarget_labeling_to_tlist.md)
 
 ## Notes and Other Information
 - Only matches against TargetEntry expressions that are Var nodes

@@ -21,14 +21,14 @@ The function acts as a wrapper around IsSystemClass, extracting the relation OID
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSystemClass
+  - [IsSystemClass](IsSystemClass.md)
   - RelationGetRelid (macro to extract OID from relation)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
   - index_create
-  - ATRewriteTables
-  - CreateTriggerFiringOn
-  - get_relation_info
+  - [ATRewriteTables](../A/ATRewriteTables.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
+  - [get_relation_info](../g/get_relation_info.md)
 
 ## Notes and Other Information
 - This function is specifically designed for checking allow_system_table_mods restrictions

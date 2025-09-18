@@ -23,10 +23,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_destroy (from hash table utility functions)
+  - [hash_destroy](../h/hash_destroy.md) (from hash table utility functions)
 - Called from (representative examples):
-  - DiscardCommand (in src/backend/commands/discard.c:44)
-  - DiscardAll (in src/backend/commands/discard.c:77)
+  - [DiscardCommand](../D/DiscardCommand.md) (in src/backend/commands/discard.c:44)
+  - [DiscardAll](../D/DiscardAll.md) (in src/backend/commands/discard.c:77)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's sequence management subsystem

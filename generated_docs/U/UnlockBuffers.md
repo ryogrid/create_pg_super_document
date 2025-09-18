@@ -18,17 +18,17 @@ None - this function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockBufHdr, UnlockBufHdr
-  - BufferDesc (type)
+  - [BufferDesc](../B/BufferDesc.md) (type)
   - BM_PIN_COUNT_WAITER (buffer state flag)
   - PinCountWaitBuf (global variable)
   - MyProcNumber (global variable)
 - Called from (representative examples):
-  - AbortTransaction (transaction abort cleanup)
-  - AbortSubTransaction (subtransaction abort cleanup)
-  - BackgroundWriterMain (background process cleanup)
-  - CheckpointerMain (checkpointer process cleanup)
-  - WalWriterMain (WAL writer process cleanup)
-  - AtProcExit_Buffers (process exit cleanup)
+  - [AbortTransaction](../A/AbortTransaction.md) (transaction abort cleanup)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md) (subtransaction abort cleanup)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background process cleanup)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (checkpointer process cleanup)
+  - [WalWriterMain](../W/WalWriterMain.md) (WAL writer process cleanup)
+  - [AtProcExit_Buffers](../A/AtProcExit_Buffers.md) (process exit cleanup)
 
 ## Notes and Other Information
 - Part of PostgreSQL's error recovery mechanism

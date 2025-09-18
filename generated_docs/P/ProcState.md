@@ -39,10 +39,10 @@ The structure supports different backend operating modes, including send-only ba
   - pid_t
   - LocalTransactionId
 - Called from (representative examples):
-  - SISeg (as array member)
-  - SharedInvalBackendInit
-  - CleanupInvalidationState
-  - SIInsertDataEntries
+  - [SISeg](../S/SISeg.md) (as array member)
+  - [SharedInvalBackendInit](../S/SharedInvalBackendInit.md)
+  - [CleanupInvalidationState](../C/CleanupInvalidationState.md)
+  - [SIInsertDataEntries](../S/SIInsertDataEntries.md)
   - SIGetDataEntries
   - SICleanupQueue
 

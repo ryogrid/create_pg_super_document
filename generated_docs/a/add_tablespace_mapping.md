@@ -29,13 +29,13 @@ The function is designed to handle backslash-escaped equals signs, allowing dire
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cb_options (options structure type)
-  - cb_tablespace_mapping (tablespace mapping structure type)
+  - [cb_options](../c/cb_options.md) (options structure type)
+  - [cb_tablespace_mapping](../c/cb_tablespace_mapping.md) (tablespace mapping structure type)
   - pg_malloc0 (zero-initialized memory allocation)
   - is_absolute_path (path validation utility)
-  - canonicalize_path (path normalization utility)
+  - [canonicalize_path](../c/canonicalize_path.md) (path normalization utility)
 - Called from (representative examples):
-  - main (command-line argument processing)
+  - [main](../m/main.md) (command-line argument processing)
 
 ## Notes and Other Information
 - Located in src/bin/pg_combinebackup/pg_combinebackup.c:436-500

@@ -28,23 +28,23 @@ The function implements SQL99 compliance for substring operations, including pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_database_encoding_max_length
-  - pg_add_s32_overflow
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
   - cstring_to_text
   - DatumGetTextPSlice
-  - pg_mul_s32_overflow
+  - [pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)
   - VARATT_IS_COMPRESSED
   - VARATT_IS_EXTERNAL
-  - pg_mbstrlen_with_len
-  - pg_mblen
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [pg_mblen](../p/pg_mblen.md)
   - SET_VARSIZE
   - VARDATA
 - Called from (representative examples):
-  - text_substr
-  - text_substr_no_len
-  - text_overlay
-  - text_starts_with
-  - text_left
+  - [text_substr](text_substr.md)
+  - [text_substr_no_len](text_substr_no_len.md)
+  - [text_overlay](text_overlay.md)
+  - [text_starts_with](text_starts_with.md)
+  - [text_left](text_left.md)
   - DatumGetVarStringPP
 
 ## Notes and Other Information

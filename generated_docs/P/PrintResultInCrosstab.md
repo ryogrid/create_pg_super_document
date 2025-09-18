@@ -31,12 +31,12 @@ The function supports up to 4 optional arguments via pset.ctv_args:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - avlInit, avlFree, avlMergeValue, avlCollectFields
-  - PQresultStatus, PQnfields, PQntuples, PQgetisnull, PQgetvalue
-  - indexOfColumn, rankSort, printCrosstab
+  - [avlInit](../a/avlInit.md), avlFree, avlMergeValue, avlCollectFields
+  - [PQresultStatus](PQresultStatus.md), PQnfields, PQntuples, PQgetisnull, PQgetvalue
+  - [indexOfColumn](../i/indexOfColumn.md), rankSort, printCrosstab
   - pg_malloc, pg_free, pg_log_error
 - Called from (representative examples):
-  - PrintQueryResult (src/bin/psql/common.c:1022)
+  - [PrintQueryResult](PrintQueryResult.md) (src/bin/psql/common.c:1022)
 
 ## Notes and Other Information
 - Enforces a maximum of CROSSTABVIEW_MAX_COLUMNS columns to prevent excessive memory usage

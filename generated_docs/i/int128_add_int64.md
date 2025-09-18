@@ -23,7 +23,7 @@ This function performs an in-place addition operation, adding a signed 64-bit in
 - Functions called/Symbols referenced:
   - INT128 (type definition)
 - Called from (representative examples):
-  - main (in src/tools/testint128.c:113)
+  - [main](../m/main.md) (in src/tools/testint128.c:113)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for maximum performance

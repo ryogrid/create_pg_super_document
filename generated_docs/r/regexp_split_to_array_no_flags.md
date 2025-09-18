@@ -19,7 +19,7 @@ This function serves as a simple wrapper around regexp_split_to_array, providing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_split_to_array
+  - [regexp_split_to_array](regexp_split_to_array.md)
 - Called from:
   - SQL functions with 2-argument signature
 

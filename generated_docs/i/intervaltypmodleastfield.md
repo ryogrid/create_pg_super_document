@@ -35,7 +35,7 @@ This ordering differs from the standard dt.h macros and provides a consistent wa
   - YEAR, MONTH, DAY, HOUR, MINUTE, SECOND constants
   - elog (for error reporting)
 - Called from (representative examples):
-  - interval_support (multiple calls for type system integration)
+  - [interval_support](interval_support.md) (multiple calls for type system integration)
 
 ## Notes and Other Information
 - Returns 0 (SECOND) for negative typmod values, representing full precision

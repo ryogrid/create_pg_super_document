@@ -26,13 +26,13 @@ The colormapranges must be:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - chr (character type)
+  - [chr](chr.md) (character type)
 
 - Called from (representative examples):
-  - pg_reg_getcolor
-  - subcoloronechr
-  - subcoloronerange
-  - CDEND
+  - [pg_reg_getcolor](../p/pg_reg_getcolor.md)
+  - [subcoloronechr](../s/subcoloronechr.md)
+  - [subcoloronerange](../s/subcoloronerange.md)
+  - [CDEND](../C/CDEND.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's regex engine optimization for handling Unicode and large character sets

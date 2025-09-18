@@ -27,16 +27,16 @@ The structure is used extensively throughout the heap access methods and multi-t
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (from transaction system)
-  - MultiXactStatus (enumeration defined in same header)
+  - [MultiXactStatus](MultiXactStatus.md) (enumeration defined in same header)
 - Called from (representative examples):
-  - heap_lock_tuple: Uses MultiXactMember for tuple locking operations
-  - MultiXactIdCreate: Creates multi-transactions from MultiXactMember arrays
-  - GetMultiXactIdMembers: Retrieves MultiXactMember arrays from stored multi-transactions
-  - xl_multixact_create: WAL record structure that contains MultiXactMember arrays
+  - [heap_lock_tuple](../h/heap_lock_tuple.md): Uses MultiXactMember for tuple locking operations
+  - [MultiXactIdCreate](MultiXactIdCreate.md): Creates multi-transactions from MultiXactMember arrays
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md): Retrieves MultiXactMember arrays from stored multi-transactions
+  - [xl_multixact_create](../x/xl_multixact_create.md): WAL record structure that contains MultiXactMember arrays
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's sophisticated concurrency control mechanism that allows fine-grained locking
-- MultiXactMember arrays are stored both in memory (for active multi-transactions) and on disk (in the pg_multixact directory)
+- [MultiXactMember](MultiXactMember.md) arrays are stored both in memory (for active multi-transactions) and on disk (in the pg_multixact directory)
 - The structure is designed to be compact and efficient as it may be stored in large arrays
 - Used extensively in heap tuple operations, especially for row-level locking scenarios
 - Critical for implementing PostgreSQL's MVCC (Multi-Version Concurrency Control) system with multiple lock types

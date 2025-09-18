@@ -20,10 +20,10 @@ The operation runs in O(1) constant time and is implemented as an inline functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_has_next (to verify that a next node exists)
+  - [slist_has_next](slist_has_next.md) (to verify that a next node exists)
 - Data types used:
-  - slist_head
-  - slist_node
+  - [slist_head](slist_head.md)
+  - [slist_node](slist_node.md)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

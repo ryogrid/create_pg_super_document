@@ -25,12 +25,12 @@ The function uses system table scans with appropriate indexes (LargeObjectMetada
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc (system scan descriptor type)
-  - systable_beginscan (begins system table scan)
-  - systable_getnext (gets next tuple from system scan)
-  - CatalogTupleDelete (deletes tuple from catalog table)
+  - [SysScanDesc](../S/SysScanDesc.md) (system scan descriptor type)
+  - [systable_beginscan](../s/systable_beginscan.md) (begins system table scan)
+  - [systable_getnext](../s/systable_getnext.md) (gets next tuple from system scan)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (deletes tuple from catalog table)
 - Called from (representative examples):
-  - doDeletion (from src/backend/catalog/dependency.c:1404)
+  - [doDeletion](../d/doDeletion.md) (from src/backend/catalog/dependency.c:1404)
 
 ## Notes and Other Information
 - Raises ERROR with code ERRCODE_UNDEFINED_OBJECT if the large object does not exist

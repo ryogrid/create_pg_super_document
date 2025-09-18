@@ -19,18 +19,18 @@ ginFindParents is a complex tree navigation function that rebuilds the parent-ch
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReleaseBuffer (buffer deallocation)
-  - BufferGetBlockNumber (buffer metadata access)
-  - palloc (memory allocation)
-  - LockBuffer (buffer locking operations)
-  - BufferGetPage (page retrieval from buffer)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (buffer metadata access)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking operations)
+  - [BufferGetPage](../B/BufferGetPage.md) (page retrieval from buffer)
   - GinPageIsLeaf, GinPageIsIncompleteSplit (page type checking)
-  - ginFinishOldSplit (incomplete split handling)
+  - [ginFinishOldSplit](ginFinishOldSplit.md) (incomplete split handling)
   - GinPageGetOpaque (page metadata access)
-  - ginStepRight (rightward page navigation)
-  - ReadBuffer (buffer allocation and reading)
+  - [ginStepRight](ginStepRight.md) (rightward page navigation)
+  - [ReadBuffer](../R/ReadBuffer.md) (buffer allocation and reading)
   - elog (error logging)
 - Called from (representative examples):
-  - ginFinishSplit
+  - [ginFinishSplit](ginFinishSplit.md)
 
 ## Notes and Other Information
 The function implements a sophisticated algorithm that maintains the critical root buffer pin throughout the operation, preventing concurrent VACUUM from interfering with the tree structure. The parent reconstruction may require multiple iterations due to concurrent page splits, with ginFinishOldSplit recursively calling ginFindParents if needed. The function carefully handles edge cases like reaching the rightmost page without finding the target child, indicating the child has moved to a different level. This function is primarily used during page split operations when the original parent path becomes invalid due to structural changes in the tree.

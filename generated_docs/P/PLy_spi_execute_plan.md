@@ -21,19 +21,19 @@ The execution occurs within a subtransaction to provide proper error handling an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context: Gets current execution context
-  - PLy_exception_set/PLy_exception_set_plural: Error reporting functions
+  - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context
+  - [PLy_exception_set](PLy_exception_set.md)/PLy_exception_set_plural: Error reporting functions
   - PLy_elog: PL/Python logging function
-  - PLyUnicode_AsString: String conversion utility
-  - PLy_spi_subtransaction_begin/commit/abort: Subtransaction management
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md): String conversion utility
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)/commit/abort: Subtransaction management
   - AllocSetContextCreate: Creates temporary memory context
-  - PLy_output_convert: Converts Python values to PostgreSQL Datum
-  - SPI_execute_plan: PostgreSQL SPI function to execute prepared plan
-  - PLy_spi_execute_fetch_result: Processes and returns execution results
-  - MemoryContextDelete: Cleans up temporary memory context
+  - [PLy_output_convert](PLy_output_convert.md): Converts Python values to PostgreSQL Datum
+  - [SPI_execute_plan](../S/SPI_execute_plan.md): PostgreSQL SPI function to execute prepared plan
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md): Processes and returns execution results
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Cleans up temporary memory context
 - Called from (representative examples):
-  - PLy_spi_execute: When executing plan objects through plpy.execute()
-  - PLy_plan_execute: Direct plan execution method
+  - [PLy_spi_execute](PLy_spi_execute.md): When executing plan objects through plpy.execute()
+  - [PLy_plan_execute](PLy_plan_execute.md): Direct plan execution method
 
 ## Notes and Other Information
 - Validates that the number of provided parameters exactly matches the plan's requirements

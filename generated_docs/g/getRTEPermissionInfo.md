@@ -24,14 +24,14 @@ RTEPermissionInfo *getRTEPermissionInfo(List *rteperminfos, RangeTblEntry *rte)
   - list_length
   - elog
 - Data structures used:
-  - RTEPermissionInfo
-  - RangeTblEntry
-  - List
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
+  - [RangeTblEntry](../R/RangeTblEntry.md)
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - ExecCheckPermissions (src/backend/executor/execMain.c:598)
-  - GetResultRTEPermissionInfo (src/backend/executor/execUtils.c:1381)
-  - subquery_planner (src/backend/optimizer/plan/planner.c:841)
-  - markRTEForSelectPriv (src/backend/parser/parse_relation.c:1075)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md) (src/backend/executor/execMain.c:598)
+  - [GetResultRTEPermissionInfo](../G/GetResultRTEPermissionInfo.md) (src/backend/executor/execUtils.c:1381)
+  - [subquery_planner](../s/subquery_planner.md) (src/backend/optimizer/plan/planner.c:841)
+  - [markRTEForSelectPriv](../m/markRTEForSelectPriv.md) (src/backend/parser/parse_relation.c:1075)
 
 ## Notes and Other Information
 - The function performs extensive validation including bounds checking and relation ID verification

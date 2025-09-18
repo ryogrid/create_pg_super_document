@@ -19,12 +19,12 @@ The  function serves as the initialization routine for PostgreSQL's simple dicti
 ## Dependencies
 - Functions called/Symbols referenced:
   - DictSimple (structure type)
-  - DefElem (structure type for parameter definitions)
-  - defGetString (extracts string value from DefElem)
-  - defGetBoolean (extracts boolean value from DefElem)
-  - readstoplist (loads stopword list from file)
-  - lowerstr (function for lowercasing strings)
-  - palloc0 (PostgreSQL memory allocation)
+  - [DefElem](../D/DefElem.md) (structure type for parameter definitions)
+  - [defGetString](defGetString.md) (extracts string value from DefElem)
+  - [defGetBoolean](defGetBoolean.md) (extracts boolean value from DefElem)
+  - [readstoplist](../r/readstoplist.md) (loads stopword list from file)
+  - [lowerstr](../l/lowerstr.md) (function for lowercasing strings)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
   - ereport (PostgreSQL error reporting)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager)

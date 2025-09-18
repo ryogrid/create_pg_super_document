@@ -30,15 +30,15 @@ The locking protocol is designed to avoid holding locks longer than necessary du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckForSerializableConflictIn (serializable isolation conflict detection)
-  - BufferGetBlockNumber (buffer metadata access)
-  - gistplacetopage (core page modification and splitting logic)
-  - gistfinishsplit (recursive parent update handling)
-  - UnlockReleaseBuffer (buffer lock and pin release)
-  - LockBuffer (buffer locking operations)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md) (serializable isolation conflict detection)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (buffer metadata access)
+  - [gistplacetopage](gistplacetopage.md) (core page modification and splitting logic)
+  - [gistfinishsplit](gistfinishsplit.md) (recursive parent update handling)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (buffer lock and pin release)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking operations)
 - Called from (representative examples):
-  - gistinserttuple (single tuple insertion wrapper)
-  - gistfinishsplit (recursive parent updates during splits)
+  - [gistinserttuple](gistinserttuple.md) (single tuple insertion wrapper)
+  - [gistfinishsplit](gistfinishsplit.md) (recursive parent updates during splits)
 
 ## Notes and Other Information
 - Implements sophisticated lock management to minimize lock contention during recursive tree updates

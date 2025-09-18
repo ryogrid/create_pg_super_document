@@ -24,30 +24,30 @@ The function first checks for an existing cached entry and updates the local rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_partmap_init
-  - hash_search
+  - [logicalrep_partmap_init](logicalrep_partmap_init.md)
+  - [hash_search](../h/hash_search.md)
   - RelationGetRelid
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - memset
-  - free_attrmap
-  - pstrdup
-  - palloc
-  - bms_copy
-  - make_attrmap
+  - [free_attrmap](../f/free_attrmap.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [palloc](../p/palloc.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [make_attrmap](../m/make_attrmap.md)
   - memcpy
   - logicalrep_rel_mark_updatable
-  - FindLogicalRepLocalIndex
+  - [FindLogicalRepLocalIndex](../F/FindLogicalRepLocalIndex.md)
 - Types referenced:
-  - LogicalRepRelMapEntry
-  - LogicalRepPartMapEntry
-  - LogicalRepRelation
-  - AttrMap
-  - MemoryContext
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md)
+  - [LogicalRepPartMapEntry](../L/LogicalRepPartMapEntry.md)
+  - [LogicalRepRelation](../L/LogicalRepRelation.md)
+  - [AttrMap](../A/AttrMap.md)
+  - [MemoryContext](../M/MemoryContext.md)
   - AttrNumber
 - Hash operation flags:
   - HASH_ENTER
 - Called from (representative examples):
-  - apply_handle_tuple_routing
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - No corresponding close function exists as the caller handles closing the component relation

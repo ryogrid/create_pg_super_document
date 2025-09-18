@@ -28,7 +28,7 @@ The function processes SupportRequestSimplify requests, examining the function c
   - SupportRequestSimplify
   - FuncExpr
   - lsecond
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - exprTypmod
   - relabel_to_typmod
 - Called from:

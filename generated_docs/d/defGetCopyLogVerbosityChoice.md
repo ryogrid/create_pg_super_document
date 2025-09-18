@@ -18,13 +18,13 @@ This function parses and validates the LOG_VERBOSITY option value for COPY state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString
-  - pg_strcasecmp
+  - [defGetString](defGetString.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - ereport  
-  - parser_errposition
+  - [parser_errposition](../p/parser_errposition.md)
   - COPY_LOG_VERBOSITY_DEFAULT/VERBOSE constants
 - Called from (representative examples):
-  - ProcessCopyOptions
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md)
 
 ## Notes and Other Information
 - Accepts only "default" and "verbose" as valid string values with case-insensitive comparison

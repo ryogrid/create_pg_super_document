@@ -28,7 +28,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessRecoveryConflictInterrupt (handles individual conflict types)
+  - [ProcessRecoveryConflictInterrupt](ProcessRecoveryConflictInterrupt.md) (handles individual conflict types)
   - ProcSignalReason (enum type used for iteration bounds)
   - PROCSIG_RECOVERY_CONFLICT_FIRST (start of conflict reason range)
   - PROCSIG_RECOVERY_CONFLICT_LAST (end of conflict reason range)

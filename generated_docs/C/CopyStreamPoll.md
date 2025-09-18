@@ -19,14 +19,14 @@ This function implements a blocking wait mechanism using select() to monitor fil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsocket
+  - [PQsocket](../P/PQsocket.md)
   - select
   - FD_ZERO, FD_SET, FD_ISSET (file descriptor set macros)
   - Max (macro for maximum value)
   - pg_log_error (logging function)
-  - PQerrorMessage
+  - [PQerrorMessage](../P/PQerrorMessage.md)
 - Called from (representative examples):
-  - CopyStreamReceive
+  - [CopyStreamReceive](CopyStreamReceive.md)
 
 ## Notes and Other Information
 - Returns 1 if data is available for reading, 0 if timed out or interrupted, -1 on error

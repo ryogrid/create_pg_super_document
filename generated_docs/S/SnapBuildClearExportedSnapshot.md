@@ -29,16 +29,16 @@ This function takes no parameters and operates on global state variables related
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - AbortCurrentTransaction
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md)
   - ResourceOwner (type)
 - Called from (representative examples):
-  - exec_replication_command
+  - [exec_replication_command](../e/exec_replication_command.md)
 
 ## Notes and Other Information
 - Only performs cleanup if ExportInProgress flag indicates an active export
 - Must be called when the backend is in a valid transaction state
-- AbortCurrentTransaction() automatically handles snapshot state cleanup
+- [AbortCurrentTransaction](../A/AbortCurrentTransaction.md)() automatically handles snapshot state cleanup
 - Restores the original resource owner to maintain proper resource management
 - This function ensures that exported snapshot transactions don't remain open indefinitely
 - Typically called when replication commands complete or encounter errors

@@ -19,13 +19,13 @@ This function safely removes the head chunk from a query's after-trigger event l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
   - Assert
-  - AfterTriggersQueryData (structure type)
-  - AfterTriggerEventChunk (structure type)
-  - AfterTriggersTableData (structure type)
+  - [AfterTriggersQueryData](../A/AfterTriggersQueryData.md) (structure type)
+  - [AfterTriggerEventChunk](../A/AfterTriggerEventChunk.md) (structure type)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (structure type)
 - Called from (representative examples):
-  - AfterTriggerEndQuery
+  - [AfterTriggerEndQuery](../A/AfterTriggerEndQuery.md)
 
 ## Notes and Other Information
 - Critical for memory management during long-running trigger event processing

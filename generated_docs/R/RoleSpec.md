@@ -20,20 +20,20 @@ RoleSpec is a parse tree node that represents role specifications in SQL stateme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RoleSpecType
+  - [RoleSpecType](RoleSpecType.md)
   - ParseLoc
 - Called from (representative examples):
-  - ExecuteGrantStmt
-  - CreateRole
-  - DropRole
-  - roleSpecsToIds
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md)
+  - [CreateRole](../C/CreateRole.md)
+  - [DropRole](../D/DropRole.md)
+  - [roleSpecsToIds](../r/roleSpecsToIds.md)
   - get_rolespec_oid
-  - AddRoleMems
-  - DelRoleMems
-  - CreateUserMapping
+  - [AddRoleMems](../A/AddRoleMems.md)
+  - [DelRoleMems](../D/DelRoleMems.md)
+  - [CreateUserMapping](../C/CreateUserMapping.md)
 
 ## Notes and Other Information
-- RoleSpec provides abstraction for different ways to specify roles: by name, CURRENT_USER, SESSION_USER, or PUBLIC
+- [RoleSpec](RoleSpec.md) provides abstraction for different ways to specify roles: by name, CURRENT_USER, SESSION_USER, or PUBLIC
 - The rolename field is only meaningful when roletype is ROLESPEC_CSTRING
 - Used extensively in security and access control contexts throughout PostgreSQL
 - Supports role resolution functions that convert RoleSpec to actual role OIDs

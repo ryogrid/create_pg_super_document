@@ -30,20 +30,20 @@ If any validation fails, the function leaves the output buffer empty and returns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_fnumber
+  - [SPI_fnumber](../S/SPI_fnumber.md)
   - SPI_getbinval
-  - SPI_getvalue
-  - DatumGetChar
-  - DatumGetObjectId
-  - DatumGetBool
-  - stringToNode
-  - get_query_def
+  - [SPI_getvalue](../S/SPI_getvalue.md)
+  - [DatumGetChar](../D/DatumGetChar.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [get_query_def](../g/get_query_def.md)
   - table_open
   - table_close
   - RelationGetDescr
   - CMD_SELECT
 - Called from (representative examples):
-  - pg_get_viewdef_worker
+  - [pg_get_viewdef_worker](../p/pg_get_viewdef_worker.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's rule system utilities and is specifically designed for view definition reconstruction. It's a static function within ruleutils.c, indicating it's an internal implementation detail not exposed to external modules. The function is careful to validate the rule structure before attempting reconstruction, ensuring that only proper view definition rules are processed. The use of AccessShareLock when opening the relation indicates read-only access for metadata extraction.

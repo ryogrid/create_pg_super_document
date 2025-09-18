@@ -36,13 +36,13 @@ The function assumes that constraints like CHECK, NOT NULL, and FOREIGN KEY have
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - ATTypedTableRecursion
+  - [ATTypedTableRecursion](ATTypedTableRecursion.md)
   - AlterTableCmd
   - AlterTableUtilityContext
   - RELKIND_COMPOSITE_TYPE
 - Called from (representative examples):
   - child_dependency_type
-  - ATPrepCmd
+  - [ATPrepCmd](ATPrepCmd.md)
 
 ## Notes and Other Information
 - The function is static, indicating internal use within tablecmds.c

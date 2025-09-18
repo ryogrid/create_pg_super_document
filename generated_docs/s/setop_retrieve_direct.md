@@ -28,7 +28,7 @@ The function processes one group at a time, scanning through all tuples in the c
   - ExecProcNode (executes outer plan to get next tuple) 
   - TupIsNull (checks if tuple slot is empty)
   - ExecCopySlotHeapTuple (creates heap tuple copy)
-  - ExecStoreHeapTuple (stores tuple in slot)
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md) (stores tuple in slot)
   - initialize_counts (resets per-group counters)
   - advance_counts (updates counters for a tuple)
   - fetch_tuple_flag (gets tuple's flag value)
@@ -36,7 +36,7 @@ The function processes one group at a time, scanning through all tuples in the c
   - set_output_count (determines output count for group)
   - ExecClearTuple (clears tuple slot)
 - Called from (representative examples):
-  - ExecSetOp (when using direct strategy)
+  - [ExecSetOp](../E/ExecSetOp.md) (when using direct strategy)
 
 ## Notes and Other Information
 - Used for sorted inputs where tuples can be grouped by consecutive scanning

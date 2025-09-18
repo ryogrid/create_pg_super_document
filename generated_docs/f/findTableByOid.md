@@ -19,17 +19,17 @@ This function is essential for resolving table references throughout pg_dump's o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId (generic object lookup by catalog ID)
-  - CatalogId (structure for identifying catalog objects)
+  - [findObjectByCatalogId](findObjectByCatalogId.md) (generic object lookup by catalog ID)
+  - [CatalogId](../C/CatalogId.md) (structure for identifying catalog objects)
   - DumpableObject (base structure type for dumpable objects)
   - DO_TABLE (enum value for table object type)
-  - TableInfo (structure type for table information)
+  - [TableInfo](../T/TableInfo.md) (structure type for table information)
 - Called from (representative examples):
-  - flagInhTables (in src/bin/pg_dump/common.c:320,332)
-  - selectDumpableType (in src/bin/pg_dump/pg_dump.c:1915)
-  - getTableDataFKConstraints (in src/bin/pg_dump/pg_dump.c:3033)
-  - getConstraints (in src/bin/pg_dump/pg_dump.c:7946)
-  - processExtensionTables (in src/bin/pg_dump/pg_dump.c:18436,18521,18522)
+  - [flagInhTables](flagInhTables.md) (in src/bin/pg_dump/common.c:320,332)
+  - [selectDumpableType](../s/selectDumpableType.md) (in src/bin/pg_dump/pg_dump.c:1915)
+  - [getTableDataFKConstraints](../g/getTableDataFKConstraints.md) (in src/bin/pg_dump/pg_dump.c:3033)
+  - [getConstraints](../g/getConstraints.md) (in src/bin/pg_dump/pg_dump.c:7946)
+  - [processExtensionTables](../p/processExtensionTables.md) (in src/bin/pg_dump/pg_dump.c:18436,18521,18522)
 
 ## Notes and Other Information
 - Returns NULL if no table with the specified OID is found in the dump object registry

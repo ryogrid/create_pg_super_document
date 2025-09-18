@@ -35,11 +35,11 @@ If the spidata attribute is not present (e.g., when someone manually raises an S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_get_sqlerrcode: Fallback function to extract SQL error code
+  - [PLy_get_sqlerrcode](PLy_get_sqlerrcode.md): Fallback function to extract SQL error code
   - PyArg_ParseTuple: Python C API function for tuple parsing
   - Py_XDECREF: Python reference counting cleanup
 - Called from (representative examples):
-  - PLy_elog_impl: Main error logging function for SPI errors
+  - [PLy_elog_impl](PLy_elog_impl.md): Main error logging function for SPI errors
 
 ## Notes and Other Information
 - Part of the PL/Python SPI error handling subsystem

@@ -30,13 +30,13 @@ The function handles the transition from all-null state to having actual data an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_bloom_get_ndistinct
+  - [brin_bloom_get_ndistinct](brin_bloom_get_ndistinct.md)
   - BloomGetFalsePositiveRate
-  - bloom_init
-  - bloom_get_procinfo
-  - bloom_add_value
-  - FunctionCall1Coll
-  - DatumGetUInt32
+  - [bloom_init](bloom_init.md)
+  - [bloom_get_procinfo](bloom_get_procinfo.md)
+  - [bloom_add_value](bloom_add_value.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
   - PG_DETOAST_DATUM
 - Called from (representative examples):
   - This is a BRIN operator function called by the BRIN indexing infrastructure

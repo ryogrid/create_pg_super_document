@@ -20,7 +20,7 @@ This function serves as a support function for hash indexes on inet and cidr dat
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP - retrieves inet argument from function call
   - ip_addrsize - determines the size of the IP address portion
-  - hash_any - PostgreSQL's generic hash function
+  - [hash_any](hash_any.md) - PostgreSQL's generic hash function
   - VARDATA_ANY - macro to get variable-length data portion
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via function pointer in hash index operations)

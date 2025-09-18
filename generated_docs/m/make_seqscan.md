@@ -24,7 +24,7 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
   - SeqScan (the plan node type being created)
   - makeNode (PostgreSQL's node allocation macro)
 - Called from (representative examples):
-  - create_seqscan_plan
+  - [create_seqscan_plan](../c/create_seqscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal module use

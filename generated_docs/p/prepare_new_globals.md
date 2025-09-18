@@ -23,17 +23,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_frozenxids: Sets frozen XIDs for initdb-created tables
-  - prep_status: Displays status message to user
-  - exec_prog: Executes external programs (psql in this case)
-  - cluster_conn_opts: Generates connection options for the cluster
-  - check_ok: Verifies the previous operation completed successfully
+  - [set_frozenxids](../s/set_frozenxids.md): Sets frozen XIDs for initdb-created tables
+  - [prep_status](prep_status.md): Displays status message to user
+  - [exec_prog](../e/exec_prog.md): Executes external programs (psql in this case)
+  - [cluster_conn_opts](../c/cluster_conn_opts.md): Generates connection options for the cluster
+  - [check_ok](../c/check_ok.md): Verifies the previous operation completed successfully
 - Constants used:
   - UTILITY_LOG_FILE: Log file for utility operations
   - EXEC_PSQL_ARGS: Standard arguments for psql execution
   - GLOBALS_DUMP_FILE: Filename containing dumped global objects
 - Called from:
-  - main: Part of the main pg_upgrade workflow
+  - [main](../m/main.md): Part of the main pg_upgrade workflow
 
 ## Notes and Other Information
 - This function is called during the restoration phase of pg_upgrade after the schema has been created

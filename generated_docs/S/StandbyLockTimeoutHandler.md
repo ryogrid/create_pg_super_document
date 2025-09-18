@@ -19,7 +19,7 @@ This function serves as a timeout handler specifically for standby lock operatio
 - Functions called/Symbols referenced:
   - got_standby_lock_timeout (global variable)
 - Called from (representative examples):
-  - StartupProcessMain (src/backend/postmaster/startup.c:248)
+  - [StartupProcessMain](StartupProcessMain.md) (src/backend/postmaster/startup.c:248)
   - Referenced in STANDBY_H header (src/include/storage/standby.h:45)
 
 ## Notes and Other Information

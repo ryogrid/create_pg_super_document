@@ -20,10 +20,10 @@ The `descriptor_key_init` function initializes a pthread-specific key (`descript
 ## Dependencies
 - Functions called/Symbols referenced:
   - pthread_key_create
-  - descriptor_destructor
-  - descriptor (key variable)
+  - [descriptor_destructor](descriptor_destructor.md)
+  - [descriptor](descriptor.md) (key variable)
 - Called from (representative examples):
-  - get_descriptors
+  - [get_descriptors](../g/get_descriptors.md)
 
 ## Notes and Other Information
 - This function is declared as static, meaning it has internal linkage and is only accessible within the descriptor.c compilation unit

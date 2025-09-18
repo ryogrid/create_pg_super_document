@@ -28,14 +28,14 @@ This function is designed to be called throughout the manifest generation proces
 - Functions called/Symbols referenced:
   - strlen (implicit)
   - Assert (for input validation)
-  - pg_cryptohash_update
-  - pg_cryptohash_error
+  - [pg_cryptohash_update](../p/pg_cryptohash_update.md)
+  - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
   - BufFileWrite
 - Called from (representative examples):
   - AppendToManifest (src/backend/backup/backup_manifest.c:44)
-  - AddFileToBackupManifest (src/backend/backup/backup_manifest.c:201)
-  - AddWALInfoToBackupManifest (src/backend/backup/backup_manifest.c:225, 231, 309)
-  - SendBackupManifest (src/backend/backup/backup_manifest.c:341, 346, 347)
+  - [AddFileToBackupManifest](AddFileToBackupManifest.md) (src/backend/backup/backup_manifest.c:201)
+  - [AddWALInfoToBackupManifest](AddWALInfoToBackupManifest.md) (src/backend/backup/backup_manifest.c:225, 231, 309)
+  - [SendBackupManifest](../S/SendBackupManifest.md) (src/backend/backup/backup_manifest.c:341, 346, 347)
 
 ## Notes and Other Information
 - This is a static function, meaning it is only accessible within the backup_manifest.c file

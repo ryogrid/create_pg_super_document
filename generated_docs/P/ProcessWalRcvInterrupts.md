@@ -25,17 +25,17 @@ The function also calls CHECK_FOR_INTERRUPTS() to ensure proper signal reception
   - ShutdownRequestPending (global variable)
   - ereport
   - FATAL
-  - errcode
+  - [errcode](../e/errcode.md)
   - ERRCODE_ADMIN_SHUTDOWN
-  - errmsg
+  - [errmsg](../e/errmsg.md)
 
 - Called from (representative examples):
-  - libpqrcv_connect
-  - libpqrcv_PQgetResult
-  - libpqrcv_processTuples
-  - WalReceiverMain
-  - WalRcvWaitForStartPosition
-  - walrcv_clear_result
+  - [libpqrcv_connect](../l/libpqrcv_connect.md)
+  - [libpqrcv_PQgetResult](../l/libpqrcv_PQgetResult.md)
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [WalRcvWaitForStartPosition](../W/WalRcvWaitForStartPosition.md)
+  - [walrcv_clear_result](../w/walrcv_clear_result.md)
 
 ## Notes and Other Information
 - The function is designed to be called from any location where the WAL receiver process might block for extended periods

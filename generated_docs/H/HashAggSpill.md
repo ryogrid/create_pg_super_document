@@ -22,20 +22,20 @@ HashAggSpill is a core data structure used in PostgreSQL's hash aggregation spil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape
-  - hyperLogLogState
+  - [LogicalTape](../L/LogicalTape.md)
+  - [hyperLogLogState](../h/hyperLogLogState.md)
 - Called from (representative examples):
-  - hash_agg_enter_spill_mode
-  - lookup_hash_entries
-  - agg_refill_hash_table
-  - hashagg_spill_init
-  - hashagg_spill_tuple
-  - hashagg_finish_initial_spills
-  - hashagg_spill_finish
-  - hashagg_reset_spill_state
+  - [hash_agg_enter_spill_mode](../h/hash_agg_enter_spill_mode.md)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [hashagg_spill_init](../h/hashagg_spill_init.md)
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
+  - [hashagg_finish_initial_spills](../h/hashagg_finish_initial_spills.md)
+  - [hashagg_spill_finish](../h/hashagg_spill_finish.md)
+  - [hashagg_reset_spill_state](../h/hashagg_reset_spill_state.md)
 
 ## Notes and Other Information
 - Used as part of the AggState structure (src/include/nodes/execnodes.h:2509)
 - The partitioning scheme supports recursive spilling by using different bit ranges of hash values at different levels
 - HyperLogLog cardinality estimation helps optimize memory management and processing decisions
-- LogicalTape provides the underlying temporary storage abstraction for spilled data
+- [LogicalTape](../L/LogicalTape.md) provides the underlying temporary storage abstraction for spilled data

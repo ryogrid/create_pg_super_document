@@ -51,17 +51,17 @@ The function validates each option for conflicts (duplicate specifications) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type for definition elements)
-  - errorConflictingDefElem (reports conflicting option errors)
-  - compute_common_attribute (processes common function/procedure attributes)
-  - interpret_func_volatility (interprets volatility specifications)
-  - interpret_func_support (validates and resolves support functions)
-  - interpret_func_parallel (interprets parallel safety specifications)
-  - update_proconfig_value (processes configuration parameter settings)
+  - [DefElem](../D/DefElem.md) (structure type for definition elements)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md) (reports conflicting option errors)
+  - [compute_common_attribute](compute_common_attribute.md) (processes common function/procedure attributes)
+  - [interpret_func_volatility](../i/interpret_func_volatility.md) (interprets volatility specifications)
+  - [interpret_func_support](../i/interpret_func_support.md) (validates and resolves support functions)
+  - [interpret_func_parallel](../i/interpret_func_parallel.md) (interprets parallel safety specifications)
+  - [update_proconfig_value](../u/update_proconfig_value.md) (processes configuration parameter settings)
   - boolVal (extracts boolean values from nodes)
-  - defGetNumeric (extracts numeric values from DefElem)
+  - [defGetNumeric](../d/defGetNumeric.md) (extracts numeric values from DefElem)
 - Called from (representative examples):
-  - CreateFunction (src/backend/commands/functioncmds.c:1075)
+  - [CreateFunction](../C/CreateFunction.md) (src/backend/commands/functioncmds.c:1075)
 
 ## Notes and Other Information
 - Validates that COST and ROWS values are positive when specified

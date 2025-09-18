@@ -32,13 +32,13 @@ The function handles both commit and abort scenarios, with additional validation
   - pairingheap_reset
   - ExportedSnapshot
   - unlink
-  - InvalidateCatalogSnapshot
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
   - ActiveSnapshotElt
-  - SnapshotResetXmin
+  - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
-  - CleanupTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [CleanupTransaction](../C/CleanupTransaction.md)
   - IsMVCCSnapshot (via header inclusion)
 
 ## Notes and Other Information

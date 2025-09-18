@@ -26,13 +26,13 @@ The function handles cases where RTSameStrategyNumber and RTContainsStrategyNumb
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (for calling box operators)  
-  - box_overright, box_right, box_overlap, box_left, box_overleft
-  - box_contain, box_above, box_overabove, box_overbelow, box_below
+  - [box_overright](../b/box_overright.md), box_right, box_overlap, box_left, box_overleft
+  - [box_contain](../b/box_contain.md), box_above, box_overabove, box_overbelow, box_below
   - Strategy number constants (RTLeftStrategyNumber, RTOverlapStrategyNumber, etc.)
 - Called from (representative examples):
-  - gist_box_consistent
-  - gist_poly_consistent  
-  - gist_circle_consistent
+  - [gist_box_consistent](../g/gist_box_consistent.md)
+  - [gist_poly_consistent](../g/gist_poly_consistent.md)  
+  - [gist_circle_consistent](../g/gist_circle_consistent.md)
 
 ## Notes and Other Information
 - This is a static helper function shared by multiple R-tree data types (box, polygon, circle)

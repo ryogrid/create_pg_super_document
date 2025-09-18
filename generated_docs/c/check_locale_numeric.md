@@ -23,7 +23,7 @@ When a user attempts to change the LC_NUMERIC setting via configuration files, S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_locale (validates locale using LC_NUMERIC category)
+  - [check_locale](check_locale.md) (validates locale using LC_NUMERIC category)
   - GucSource (enum type for configuration sources)
 - Called from (representative examples):
   - GUC system when LC_NUMERIC configuration is being validated

@@ -23,7 +23,7 @@ The copy operation is a direct field-by-field assignment, making it an efficient
   - interval (data type)
 - Called from (representative examples):
   - ecpg_get_data (ECPG data retrieval operations)
-  - main (in test programs dt_test.c and dt_test2.c)
+  - [main](../m/main.md) (in test programs dt_test.c and dt_test2.c)
   - Client applications needing to duplicate interval values
 
 ## Notes and Other Information

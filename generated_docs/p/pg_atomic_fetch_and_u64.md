@@ -22,9 +22,9 @@ The function acts as a wrapper around the platform-specific implementation pg_at
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for pointer alignment verification when not using simulation)
-  - pg_atomic_fetch_and_u64_impl (platform-specific implementation)
+  - [pg_atomic_fetch_and_u64_impl](pg_atomic_fetch_and_u64_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - test_atomic_uint64 (regression testing - multiple test cases)
+  - [test_atomic_uint64](../t/test_atomic_uint64.md) (regression testing - multiple test cases)
 
 ## Notes and Other Information
 - Returns the original value before the AND operation, not the result after the operation

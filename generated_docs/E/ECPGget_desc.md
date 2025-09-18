@@ -28,13 +28,13 @@ The function operates by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_result_by_descriptor
-  - PQntuples, PQnfields, PQfname, PQfsize, PQfmod, PQftype, PQgetlength, PQgetisnull
-  - get_char_item, get_int_item
-  - ecpg_dynamic_type, ecpg_dynamic_type_DDT
+  - [ecpg_result_by_descriptor](../e/ecpg_result_by_descriptor.md)
+  - [PQntuples](../P/PQntuples.md), PQnfields, PQfname, PQfsize, PQfmod, PQftype, PQgetlength, PQgetisnull
+  - [get_char_item](../g/get_char_item.md), get_int_item
+  - [ecpg_dynamic_type](../e/ecpg_dynamic_type.md), ecpg_dynamic_type_DDT
   - ecpg_store_result
   - ecpg_auto_alloc
-  - ecpg_raise, ecpg_log
+  - [ecpg_raise](../e/ecpg_raise.md), ecpg_log
 - Called from (representative examples):
   - ECPG test programs (sql-describe.c, sql-dyntest.c, sql-dynalloc.c)
   - Dynamic SQL applications using DESCRIBE statements

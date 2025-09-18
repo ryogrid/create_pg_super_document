@@ -31,16 +31,16 @@ The same hashtable entry cannot simultaneously serve both exact and lossy purpos
   - WORDS_PER_CHUNK
   - bitmapword
 - Called from (representative examples):
-  - tbm_create_pagetable
-  - tbm_add_tuples
+  - [tbm_create_pagetable](../t/tbm_create_pagetable.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
   - tbm_union_page
   - tbm_intersect_page
-  - tbm_iterate
-  - tbm_find_pageentry
+  - [tbm_iterate](../t/tbm_iterate.md)
+  - [tbm_find_pageentry](../t/tbm_find_pageentry.md)
   - tbm_get_pageentry
 
 ## Notes and Other Information
 - The structure is designed to optimize memory usage while maintaining query performance through its dual-mode operation
 - The recheck mechanism ensures correctness in index scans where bitmap entries represent candidate matches rather than definitive results
-- PagetableEntry is fundamental to PostgreSQL's bitmap index scan optimization, particularly important for queries involving multiple indexes or large result sets
+- [PagetableEntry](PagetableEntry.md) is fundamental to PostgreSQL's bitmap index scan optimization, particularly important for queries involving multiple indexes or large result sets
 - The lossy chunk mechanism allows the system to gracefully handle memory pressure by trading precision for reduced memory consumption

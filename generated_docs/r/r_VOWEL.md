@@ -17,7 +17,7 @@ This function checks if the character at the current position in the stemmer env
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping (Snowball framework function for character group testing)
+  - [in_grouping](../i/in_grouping.md) (Snowball framework function for character group testing)
   - g_vowel (character grouping array defining Indonesian vowels)
 - Called from (representative examples):
   - Used as validation function in a_3 array for prefix 'meny' and 'peny' patterns

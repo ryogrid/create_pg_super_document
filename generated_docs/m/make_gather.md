@@ -27,7 +27,7 @@ The function initializes all necessary fields of the Gather node, including the 
   - makeNode (creates a new Gather node)
   - Gather (the plan node type being created)
 - Called from (representative examples):
-  - create_gather_plan
+  - [create_gather_plan](../c/create_gather_plan.md)
   - CP_IGNORE_TLIST
 
 ## Notes and Other Information

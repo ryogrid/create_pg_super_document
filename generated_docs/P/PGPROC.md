@@ -78,14 +78,14 @@ Some fields are mirrored in dense arrays within ProcGlobal for performance optim
 - Functions called/Symbols referenced:
   - ProcNumber (for virtual transaction ID)
   - LocalTransactionId (for virtual transaction ID)
-  - XidCache (for subtransaction caching)
+  - [XidCache](../X/XidCache.md) (for subtransaction caching)
   - Various lock and latch types (LOCK, PROCLOCK, LWLock, etc.)
 - Called from (representative examples):
   - InitProcess (process initialization)
-  - ProcArrayAdd (adding to process array)
+  - [ProcArrayAdd](ProcArrayAdd.md) (adding to process array)
   - ProcSleep (lock waiting)
-  - GetSnapshotData (transaction visibility)
-  - DeadLockCheck (deadlock detection)
+  - [GetSnapshotData](../G/GetSnapshotData.md) (transaction visibility)
+  - [DeadLockCheck](../D/DeadLockCheck.md) (deadlock detection)
 
 ## Notes and Other Information
 - The  field MUST be the first field in the structure for proper operation of ProcSleep/ProcWakeup functions

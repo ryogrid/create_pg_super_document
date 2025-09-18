@@ -21,10 +21,10 @@ The jspGetNumeric function is a type-specific accessor function that extracts nu
   - jpiNumeric (enumeration constant)
   - Numeric (PostgreSQL numeric data type)
 - Called from (representative examples):
-  - printJsonPathItem
-  - executeItemOptUnwrapTarget
-  - executeDateTimeMethod
-  - getJsonPathItem
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
+  - [getJsonPathItem](../g/getJsonPathItem.md)
 
 ## Notes and Other Information
 - Returns the numeric value as a PostgreSQL Numeric type, not a primitive C numeric type

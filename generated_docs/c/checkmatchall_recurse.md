@@ -35,10 +35,10 @@ The function marks states as "busy" during traversal to detect cycles and preven
   - MALLOC (memory allocation)
   - DUPINF (maximum finite duplication count)
   - RAINBOW (color constant for any-character arcs)
-  - checkmatchall_recurse (recursive self-call)
+  - [checkmatchall_recurse](checkmatchall_recurse.md) (recursive self-call)
 - Called from (representative examples):
-  - checkmatchall (src/backend/regex/regc_nfa.c:3185)
-  - checkmatchall_recurse (self-recursive call at 3339)
+  - [checkmatchall](checkmatchall.md) (src/backend/regex/regc_nfa.c:3185)
+  - [checkmatchall_recurse](checkmatchall_recurse.md) (self-recursive call at 3339)
   - REPLACEARC macro (src/backend/regex/regcomp.c:226)
 
 ## Notes and Other Information

@@ -33,13 +33,13 @@ This function is crucial for proper stemming of verbs with attached pronouns in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1 (tests if position is within R1 region)
-  - find_among_b (backward pattern matching function)
-  - slice_del (deletes text between bra and ket positions)
+  - [r_R1](r_R1.md) (tests if position is within R1 region)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching function)
+  - [slice_del](../s/slice_del.md) (deletes text between bra and ket positions)
 - Called from (representative examples):
-  - catalan_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1404)
-  - italian_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:980)
-  - spanish_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:992)
+  - [catalan_ISO_8859_1_stem](../c/catalan_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1404)
+  - [italian_ISO_8859_1_stem](../i/italian_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:980)
+  - [spanish_ISO_8859_1_stem](../s/spanish_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:992)
 
 ## Notes and Other Information
 - The function uses bit manipulation for character class checking (checking if character is a letter)

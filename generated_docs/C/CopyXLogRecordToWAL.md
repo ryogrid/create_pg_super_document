@@ -25,7 +25,7 @@ CopyXLogRecordToWAL performs the actual copying of WAL record data to the reserv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXLogBuffer
+  - [GetXLogBuffer](../G/GetXLogBuffer.md)
   - INSERT_FREESPACE
   - XLogSegmentOffset
   - memcpy
@@ -33,7 +33,7 @@ CopyXLogRecordToWAL performs the actual copying of WAL record data to the reserv
   - MAXALIGN64
   - ereport
 - Called from (representative examples):
-  - XLogInsertRecord
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

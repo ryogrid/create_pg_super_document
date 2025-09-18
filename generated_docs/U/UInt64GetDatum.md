@@ -22,18 +22,18 @@ This conditional compilation ensures optimal performance on 64-bit platforms whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum (conditionally, when USE_FLOAT8_BYVAL is not defined)
+  - [Int64GetDatum](../I/Int64GetDatum.md) (conditionally, when USE_FLOAT8_BYVAL is not defined)
   - USE_FLOAT8_BYVAL (compilation flag)
 - Called from (representative examples):
-  - compute_partition_hash_value
-  - hash_aclitem_extended
-  - JsonbHashScalarValueExtended
-  - hash_numeric_extended
+  - [compute_partition_hash_value](../c/compute_partition_hash_value.md)
+  - [hash_aclitem_extended](../h/hash_aclitem_extended.md)
+  - [JsonbHashScalarValueExtended](../J/JsonbHashScalarValueExtended.md)
+  - [hash_numeric_extended](../h/hash_numeric_extended.md)
   - PG_STAT_GET_ACTIVITY_COLS
-  - hash_any_extended
-  - hash_uint32_extended
+  - [hash_any_extended](../h/hash_any_extended.md)
+  - [hash_uint32_extended](../h/hash_uint32_extended.md)
   - PG_RETURN_UINT64
-  - FullTransactionIdGetDatum
+  - [FullTransactionIdGetDatum](../F/FullTransactionIdGetDatum.md)
 
 ## Notes and Other Information
 - The function is declared as  for performance optimization

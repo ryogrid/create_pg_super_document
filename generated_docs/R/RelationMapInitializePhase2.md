@@ -20,7 +20,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - load_relmap_file
+  - [load_relmap_file](../l/load_relmap_file.md)
 - Called from (representative examples):
   - RelationCacheInitializePhase2 (at src/backend/utils/cache/relcache.c:4050)
 

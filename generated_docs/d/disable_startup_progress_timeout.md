@@ -28,13 +28,13 @@ This function takes no parameters.
 - Constants referenced:
   - `STARTUP_PROGRESS_TIMEOUT` (timeout identifier)
 
-- Variables accessed:
+- [Variables](../V/Variables.md) accessed:
   - `log_startup_progress_interval` (configuration variable)
   - `startup_progress_timer_expired` (timer expiration flag)
 
 - Called from:
-  - EnableStandbyMode (src/backend/access/transam/xlogrecovery.c:488)
-  - begin_startup_progress_phase (src/backend/postmaster/startup.c:349)
+  - [EnableStandbyMode](../E/EnableStandbyMode.md) (src/backend/access/transam/xlogrecovery.c:488)
+  - [begin_startup_progress_phase](../b/begin_startup_progress_phase.md) (src/backend/postmaster/startup.c:349)
   - ereport_startup_progress (referenced in src/include/postmaster/startup.h:36)
 
 ## Notes and Other Information

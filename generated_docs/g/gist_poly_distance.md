@@ -21,7 +21,7 @@ This function serves as a GiST distance operator for polygon data types, impleme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gist_bbox_distance
+  - [gist_bbox_distance](gist_bbox_distance.md)
   - PG_GETARG_POINTER
   - PG_GETARG_DATUM
   - PG_GETARG_UINT16

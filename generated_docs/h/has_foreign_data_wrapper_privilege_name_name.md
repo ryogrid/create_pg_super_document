@@ -22,9 +22,9 @@ This SQL-callable function determines whether a user (specified by username) has
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public: Converts username to role OID, handles "public" role
-  - convert_foreign_data_wrapper_name: Converts FDW name to OID
-  - convert_foreign_data_wrapper_priv_string: Converts privilege string to AclMode bitmask
-  - object_aclcheck: Performs the actual privilege check using ForeignDataWrapperRelationId
+  - [convert_foreign_data_wrapper_name](../c/convert_foreign_data_wrapper_name.md): Converts FDW name to OID
+  - [convert_foreign_data_wrapper_priv_string](../c/convert_foreign_data_wrapper_priv_string.md): Converts privilege string to AclMode bitmask
+  - [object_aclcheck](../o/object_aclcheck.md): Performs the actual privilege check using ForeignDataWrapperRelationId
   - Name: PostgreSQL name type for usernames
   - AclResult: Enum type for access control results
 - Called from (representative examples):

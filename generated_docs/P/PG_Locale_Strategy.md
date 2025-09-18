@@ -31,9 +31,9 @@ The chosen strategy affects how character classification functions (isalpha, isd
 
 ## Dependencies
 - Functions that use this strategy:
-  - pg_set_regex_collation (sets the strategy in src/backend/regex/regc_pg_locale.c:234)
-  - pg_wc_isdigit, pg_wc_isalpha, pg_wc_isalnum, pg_wc_isupper, pg_wc_islower
-  - pg_wc_isgraph, pg_wc_isprint, pg_wc_ispunct, pg_wc_isspace
+  - [pg_set_regex_collation](../p/pg_set_regex_collation.md) (sets the strategy in src/backend/regex/regc_pg_locale.c:234)
+  - [pg_wc_isdigit](../p/pg_wc_isdigit.md), pg_wc_isalpha, pg_wc_isalnum, pg_wc_isupper, pg_wc_islower
+  - [pg_wc_isgraph](../p/pg_wc_isgraph.md), pg_wc_isprint, pg_wc_ispunct, pg_wc_isspace
   - pg_wc_toupper, pg_wc_tolower
 - Static variable:
   - pg_regex_strategy (stores the current strategy)

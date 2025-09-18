@@ -27,16 +27,16 @@ None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareClientEncoding (prepares the pending client encoding)
-  - SetClientEncoding (activates the pending client encoding)
-  - GetDatabaseEncodingName (gets server encoding name for error messages)
-  - GetDatabaseEncoding (gets current server encoding ID)
-  - IsTransactionState (verifies transaction state for catalog access)
-  - FindDefaultConversionProc (finds UTF8-to-server conversion function)
-  - MemoryContextAlloc (allocates memory for conversion function info)
-  - fmgr_info_cxt (loads function manager info)
+  - [PrepareClientEncoding](../P/PrepareClientEncoding.md) (prepares the pending client encoding)
+  - [SetClientEncoding](../S/SetClientEncoding.md) (activates the pending client encoding)
+  - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md) (gets server encoding name for error messages)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current server encoding ID)
+  - [IsTransactionState](IsTransactionState.md) (verifies transaction state for catalog access)
+  - [FindDefaultConversionProc](../F/FindDefaultConversionProc.md) (finds UTF8-to-server conversion function)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for conversion function info)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (loads function manager info)
 - Called from:
-  - InitPostgres (in postinit.c:1002, 1233)
+  - [InitPostgres](InitPostgres.md) (in postinit.c:1002, 1233)
 
 ## Notes and Other Information
 - Called exactly once during backend startup process

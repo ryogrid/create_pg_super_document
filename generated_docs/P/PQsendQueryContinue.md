@@ -24,7 +24,7 @@ The function is not exported from the libpq library, making it an internal utili
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQueryInternal (internal implementation function)
+  - [PQsendQueryInternal](PQsendQueryInternal.md) (internal implementation function)
 - Called from (representative examples):
   - pgunlock_thread (threading utilities)
 

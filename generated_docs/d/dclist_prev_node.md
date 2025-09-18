@@ -21,7 +21,7 @@ The `dclist_prev_node` function retrieves the previous node in a doubly-linked c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_prev_node
+  - [dlist_prev_node](dlist_prev_node.md)
 - Called from (representative examples):
   - No direct callers found in codebase
 

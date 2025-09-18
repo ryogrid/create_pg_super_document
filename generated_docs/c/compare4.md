@@ -22,9 +22,9 @@ This function performs a simple numerical comparison between the search key (loc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_local_to_utf_combined (structure type accessed via casting)
+  - [pg_local_to_utf_combined](../p/pg_local_to_utf_combined.md) (structure type accessed via casting)
 - Called from (representative examples):
-  - LocalToUtf (used as comparison function in bsearch() call)
+  - [LocalToUtf](../L/LocalToUtf.md) (used as comparison function in bsearch() call)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the conv.c translation unit

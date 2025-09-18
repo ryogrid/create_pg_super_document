@@ -17,17 +17,17 @@ This function implements the core waiting and result processing logic for parall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsocket (gets socket file descriptor from connection)
-  - SetCancelConn (sets up cancellation handling)
-  - select_loop (waits for socket activity)
-  - ResetCancelConn (cleans up cancellation handling)
-  - PQconsumeInput (consumes available input from connection)
-  - PQisBusy (checks if connection is busy processing)
-  - PQgetResult (retrieves query result)
-  - processQueryResult (handles query result)
-  - ParallelSlotClearHandler (cleans up slot handler)
+  - [PQsocket](../P/PQsocket.md) (gets socket file descriptor from connection)
+  - [SetCancelConn](../S/SetCancelConn.md) (sets up cancellation handling)
+  - [select_loop](../s/select_loop.md) (waits for socket activity)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (cleans up cancellation handling)
+  - [PQconsumeInput](../P/PQconsumeInput.md) (consumes available input from connection)
+  - [PQisBusy](../P/PQisBusy.md) (checks if connection is busy processing)
+  - [PQgetResult](../P/PQgetResult.md) (retrieves query result)
+  - [processQueryResult](../p/processQueryResult.md) (handles query result)
+  - [ParallelSlotClearHandler](../P/ParallelSlotClearHandler.md) (cleans up slot handler)
 - Called from (representative examples):
-  - ParallelSlotsGetIdle
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md)
 
 ## Notes and Other Information
 - Returns true on success, false on cancellation, error, or if no slots are connected

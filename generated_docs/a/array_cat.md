@@ -45,11 +45,11 @@ The function performs extensive validation to ensure arrays are compatible for c
   - ARR_OVERHEAD_NONULLS
   - ArrayGetNItems
   - ArrayCheckBounds
-  - array_bitmap_copy
+  - [array_bitmap_copy](array_bitmap_copy.md)
   - SET_VARSIZE
-  - format_type_be
-  - palloc
-  - palloc0
+  - [format_type_be](../f/format_type_be.md)
+  - [palloc](../p/palloc.md)
+  - [palloc0](../p/palloc0.md)
   - memcpy
 - Called from (representative examples):
   - SQL array concatenation operations (||)

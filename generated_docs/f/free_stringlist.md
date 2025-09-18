@@ -20,10 +20,10 @@ This function recursively traverses and deallocates an entire `_stringlist` link
 ## Dependencies
 - Functions called/Symbols referenced:
   - `free` - Standard C library memory deallocation function
-  - `free_stringlist` - Recursive self-call for next nodes
+  - `[free_stringlist](free_stringlist.md)` - Recursive self-call for next nodes
   - `_stringlist` - Structure type for linked list nodes
 - Called from (representative examples):
-  - `regression_main` - in pg_regress test framework for cleanup
+  - `[regression_main](../r/regression_main.md)` - in pg_regress test framework for cleanup
   - Various test cleanup routines that use MAX_PARALLEL_TESTS context
 
 ## Notes and Other Information

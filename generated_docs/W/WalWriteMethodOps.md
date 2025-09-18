@@ -41,14 +41,14 @@ The structure enables a clean separation between the generic WAL writing logic a
 ## Dependencies
 - Functions called/Symbols referenced:
   - Walfile
-  - WalWriteMethod
+  - [WalWriteMethod](WalWriteMethod.md)
   - WalCloseMethod
   - ssize_t
 
 - Called from (representative examples):
   - WalDirectoryMethodOps (src/bin/pg_basebackup/walmethods.c:58)
   - WalTarMethodOps (src/bin/pg_basebackup/walmethods.c:679)
-  - WalWriteMethod.ops field (src/bin/pg_basebackup/walmethods.h:105)
+  - [WalWriteMethod](WalWriteMethod.md).ops field (src/bin/pg_basebackup/walmethods.h:105)
 
 ## Notes and Other Information
 - Two concrete implementations exist: WalDirectoryMethodOps for regular file operations and WalTarMethodOps for tar archive operations

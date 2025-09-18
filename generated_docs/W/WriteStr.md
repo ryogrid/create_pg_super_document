@@ -18,14 +18,14 @@ WriteStr serializes a C string to an archive stream using a length-prefixed form
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteInt (for writing the string length or NULL indicator)
+  - [WriteInt](WriteInt.md) (for writing the string length or NULL indicator)
   - strlen (for calculating string length)
   - AH->WriteBufPtr (function pointer for writing buffer data)
 - Called from (representative examples):
-  - WriteToc (extensively used for table of contents string fields)
-  - WriteHead (for archive header string fields)
+  - [WriteToc](WriteToc.md) (extensively used for table of contents string fields)
+  - [WriteHead](WriteHead.md) (for archive header string fields)
   - appendByteaLiteralAHX (for bytea literal handling)
-  - _WriteExtraToc (across multiple archive format implementations)
+  - [_WriteExtraToc](_WriteExtraToc.md) (across multiple archive format implementations)
 
 ## Notes and Other Information
 - Returns the total number of bytes written (length + string content)

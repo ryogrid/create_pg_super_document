@@ -20,11 +20,11 @@ The function is commonly used in PostgreSQL's procedural language implementation
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
-  - deconstruct_array_builtin  
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)  
   - lappend_oid
 - Called from (representative examples):
-  - compile_plperl_function
-  - PLy_procedure_create
+  - [compile_plperl_function](../c/compile_plperl_function.md)
+  - [PLy_procedure_create](../P/PLy_procedure_create.md)
 
 ## Notes and Other Information
 - Returns a List containing the OID values from the input array

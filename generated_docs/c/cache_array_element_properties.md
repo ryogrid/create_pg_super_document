@@ -19,8 +19,8 @@ This function is the core implementation that determines and caches what operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_base_element_type
-  - lookup_type_cache
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_EQ_OPR (flag constant)
   - TYPECACHE_CMP_PROC (flag constant)
   - TYPECACHE_HASH_PROC (flag constant)
@@ -31,10 +31,10 @@ This function is the core implementation that determines and caches what operati
   - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
 - Called from (representative examples):
-  - array_element_has_equality (at line 1430)
-  - array_element_has_compare (at line 1438)
-  - array_element_has_hashing (at line 1446)  
-  - array_element_has_extended_hashing (at line 1454)
+  - [array_element_has_equality](../a/array_element_has_equality.md) (at line 1430)
+  - [array_element_has_compare](../a/array_element_has_compare.md) (at line 1438)
+  - [array_element_has_hashing](../a/array_element_has_hashing.md) (at line 1446)  
+  - [array_element_has_extended_hashing](../a/array_element_has_extended_hashing.md) (at line 1454)
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as the central implementation for determining array element capabilities. It implements a lazy caching pattern where element properties are only computed when first needed. The function handles the mapping between element type operations and array-level capability flags. This is crucial for PostgreSQL operations that need to know whether array elements can be compared, hashed, or tested for equality, which affects query planning and execution strategies for operations involving arrays.

@@ -30,15 +30,15 @@ For variable-length data, it relies on caller-provided offset calculations for p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getJsonbLength
+  - [getJsonbLength](../g/getJsonbLength.md)
   - JBE_ISNULL, JBE_ISSTRING, JBE_ISNUMERIC, JBE_ISBOOL_TRUE, JBE_ISBOOL_FALSE, JBE_ISCONTAINER (macros)
   - INTALIGN (alignment macro)
   - jbvNull, jbvString, jbvNumeric, jbvBool, jbvBinary (enum values)
 - Called from (representative examples):
-  - findJsonbValueFromContainer
-  - getKeyJsonValueFromContainer
-  - getIthJsonbValueFromContainer
-  - JsonbIteratorNext
+  - [findJsonbValueFromContainer](findJsonbValueFromContainer.md)
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md)
+  - [getIthJsonbValueFromContainer](../g/getIthJsonbValueFromContainer.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
 
 ## Notes and Other Information
 - Static function: internal to jsonb_util.c, not exposed in headers

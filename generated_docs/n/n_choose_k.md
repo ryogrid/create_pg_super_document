@@ -21,7 +21,7 @@ This function calculates the binomial coefficient "n choose k" (C(n,k)), which r
   - Assert (macro for debugging assertions)
   - Min (macro to find minimum of two values)
 - Called from (representative examples):
-  - generator_init
+  - [generator_init](../g/generator_init.md)
 
 ## Notes and Other Information
 - The function is declared as static, meaning it's only accessible within the mvdistinct.c compilation unit

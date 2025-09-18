@@ -37,28 +37,28 @@ The unwrap parameter controls whether single-element arrays are automatically un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPathExecContext (execution context structure)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (execution context structure)
   - JsonPathItem (path item structure)
-  - JsonbValue (JSONB value representation)
-  - JsonValueList (result collection)
-  - JsonPathExecResult (execution result enumeration)
+  - [JsonbValue](../J/JsonbValue.md) (JSONB value representation)
+  - [JsonValueList](../J/JsonValueList.md) (result collection)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (execution result enumeration)
   - Multiple JSONPath operation handlers:
-    - executeBoolItem (boolean operations)
-    - executeBinaryArithmExpr (arithmetic operations)
-    - executeNumericItemMethod (numeric methods)
-    - executeDateTimeMethod (datetime operations)
-    - executeKeyValueMethod (key-value operations)
-    - executeAnyItem (recursive descent operations)
-    - executeItemUnwrapTargetArray (array processing)
-    - executeNextItem (continuation processing)
+    - [executeBoolItem](executeBoolItem.md) (boolean operations)
+    - [executeBinaryArithmExpr](executeBinaryArithmExpr.md) (arithmetic operations)
+    - [executeNumericItemMethod](executeNumericItemMethod.md) (numeric methods)
+    - [executeDateTimeMethod](executeDateTimeMethod.md) (datetime operations)
+    - [executeKeyValueMethod](executeKeyValueMethod.md) (key-value operations)
+    - [executeAnyItem](executeAnyItem.md) (recursive descent operations)
+    - [executeItemUnwrapTargetArray](executeItemUnwrapTargetArray.md) (array processing)
+    - [executeNextItem](executeNextItem.md) (continuation processing)
   - Utility functions:
-    - jspGetNext, jspGetArg, jspGetString (JSONPath parsing)
-    - JsonbType, JsonbArraySize (JSONB inspection)
-    - getJsonPathItem, findJsonbValueFromContainer (JSONB navigation)
+    - [jspGetNext](../j/jspGetNext.md), jspGetArg, jspGetString (JSONPath parsing)
+    - [JsonbType](../J/JsonbType.md), JsonbArraySize (JSONB inspection)
+    - [getJsonPathItem](../g/getJsonPathItem.md), findJsonbValueFromContainer (JSONB navigation)
     - Various PostgreSQL type conversion functions
 - Called from (representative examples):
-  - executeItem (standard wrapper)
-  - executeAnyItem (recursive descent)
+  - [executeItem](executeItem.md) (standard wrapper)
+  - [executeAnyItem](executeAnyItem.md) (recursive descent)
 
 ## Notes and Other Information
 - This function implements the complete JSONPath specification as per SQL/JSON standards

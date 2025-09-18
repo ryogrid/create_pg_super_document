@@ -30,12 +30,12 @@ The conversion is performed using the dt2local function which applies the timezo
   - PG_GETARG_TIMESTAMP  
   - TIMESTAMP_NOT_FINITE
   - INTERVAL_NOT_FINITE
-  - dt2local
+  - [dt2local](../d/dt2local.md)
   - IS_VALID_TIMESTAMP
   - PG_RETURN_TIMESTAMPTZ
   - DirectFunctionCall1
-  - DatumGetCString
-  - interval_out
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [interval_out](../i/interval_out.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

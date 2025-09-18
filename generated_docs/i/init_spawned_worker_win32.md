@@ -19,12 +19,12 @@ The function extracts the ArchiveHandle and ParallelSlot from the WorkerInfo str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RunWorker
-  - WorkerInfo (type)
-  - ParallelSlot (type)
-  - ParallelState (type)
+  - [RunWorker](../R/RunWorker.md)
+  - [WorkerInfo](../W/WorkerInfo.md) (type)
+  - [ParallelSlot](../P/ParallelSlot.md) (type)
+  - [ParallelState](../P/ParallelState.md) (type)
 - Called from (representative examples):
-  - ParallelBackupStart
+  - [ParallelBackupStart](../P/ParallelBackupStart.md)
 
 ## Notes and Other Information
 - Windows-specific function using __stdcall calling convention

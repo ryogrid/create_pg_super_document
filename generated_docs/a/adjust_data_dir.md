@@ -28,27 +28,27 @@ This function takes no parameters but operates on several global variables.
 - Functions called/Symbols referenced:
   - snprintf (string formatting)
   - fopen, fclose (file operations)
-  - find_other_exec_or_die (executable location)
-  - pg_strdup (memory allocation and string duplication)
-  - psprintf (formatted string allocation)
+  - [find_other_exec_or_die](../f/find_other_exec_or_die.md) (executable location)
+  - [pg_strdup](../p/pg_strdup.md) (memory allocation and string duplication)
+  - [psprintf](../p/psprintf.md) (formatted string allocation)
   - popen, pclose (process execution)
   - fgets (line reading)
   - fflush (output flushing)
-  - write_stderr (error output)
+  - [write_stderr](../w/write_stderr.md) (error output)
   - pg_strip_crlf (line ending cleanup)
-  - canonicalize_path (path normalization)
+  - [canonicalize_path](../c/canonicalize_path.md) (path normalization)
   - free (memory deallocation)
   - exit (program termination)
   - PG_BACKEND_VERSIONSTR (version constant)
 
 - Global variables accessed:
-  - pg_config, pg_data (directory paths)
+  - [pg_config](../p/pg_config.md), pg_data (directory paths)
   - exec_path, argv0 (executable information)
   - pgdata_opt, post_opts (command-line options)
 
 - Called from (representative examples):
-  - main (during pg_ctl initialization in src/bin/pg_ctl/pg_ctl.c:2424)
-  - main (in pg_upgrade for data directory resolution)
+  - [main](../m/main.md) (during pg_ctl initialization in src/bin/pg_ctl/pg_ctl.c:2424)
+  - [main](../m/main.md) (in pg_upgrade for data directory resolution)
 
 ## Notes and Other Information
 - This function is crucial for supporting PostgreSQL installations with separated configuration and data directories

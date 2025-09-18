@@ -28,11 +28,11 @@ The function ensures proper concurrency control by acquiring both the partition 
   - FAST_PATH_GET_BITS: Macro to check if a fast-path slot is in use
   - FAST_PATH_CHECK_LOCKMODE: Macro to verify specific lock modes in fast-path slots
   - FAST_PATH_CLEAR_LOCKMODE: Macro to clear specific lock modes from fast-path slots
-  - SetupLockInTable: Creates or finds lock objects in the shared hash table
-  - GrantLock: Grants the transferred lock in the shared lock table
+  - [SetupLockInTable](../S/SetupLockInTable.md): Creates or finds lock objects in the shared hash table
+  - [GrantLock](../G/GrantLock.md): Grants the transferred lock in the shared lock table
   - FAST_PATH_LOCKNUMBER_OFFSET and FAST_PATH_BITS_PER_SLOT: Constants defining fast-path slot structure
 - Called from (representative examples):
-  - LockAcquireExtended: When fast-path optimization needs to be disabled
+  - [LockAcquireExtended](../L/LockAcquireExtended.md): When fast-path optimization needs to be disabled
   - ConflictsWithRelationFastPath: When checking for potential fast-path conflicts
 
 ## Notes and Other Information

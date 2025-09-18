@@ -24,14 +24,14 @@ WorkTableScanState provides the execution state for scanning work tables that ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - RecursiveUnionState
+  - [ScanState](../S/ScanState.md)
+  - [RecursiveUnionState](../R/RecursiveUnionState.md)
 - Called from (representative examples):
-  - ExecWorkTableScan
-  - ExecInitWorkTableScan
-  - ExecReScanWorkTableScan
-  - WorkTableScanNext
-  - WorkTableScanRecheck
+  - [ExecWorkTableScan](../E/ExecWorkTableScan.md)
+  - [ExecInitWorkTableScan](../E/ExecInitWorkTableScan.md)
+  - [ExecReScanWorkTableScan](../E/ExecReScanWorkTableScan.md)
+  - [WorkTableScanNext](WorkTableScanNext.md)
+  - [WorkTableScanRecheck](WorkTableScanRecheck.md)
 
 ## Notes and Other Information
 - Specifically designed for recursive query execution where work tables store intermediate results

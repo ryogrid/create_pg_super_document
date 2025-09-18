@@ -18,16 +18,16 @@ FillPortalStore is a specialized function used to execute queries and store thei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitializeQueryCompletion
-  - PortalCreateHoldStore
-  - CreateDestReceiver
-  - SetTuplestoreDestReceiverParams
-  - PortalRunMulti
-  - PortalRunUtility
+  - [InitializeQueryCompletion](../I/InitializeQueryCompletion.md)
+  - [PortalCreateHoldStore](../P/PortalCreateHoldStore.md)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
+  - [SetTuplestoreDestReceiverParams](../S/SetTuplestoreDestReceiverParams.md)
+  - [PortalRunMulti](../P/PortalRunMulti.md)
+  - [PortalRunUtility](../P/PortalRunUtility.md)
   - CopyQueryCompletion
 - Called from (representative examples):
-  - PortalRun
-  - PortalRunFetch
+  - [PortalRun](../P/PortalRun.md)
+  - [PortalRunFetch](../P/PortalRunFetch.md)
 
 ## Notes and Other Information
 - This function is static and only used within pquery.c
@@ -35,5 +35,5 @@ FillPortalStore is a specialized function used to execute queries and store thei
 - The function sets up a tuplestore destination receiver to capture query output
 - For PORTAL_ONE_RETURNING and PORTAL_ONE_MOD_WITH, it delegates to PortalRunMulti
 - For PORTAL_UTIL_SELECT, it delegates to PortalRunUtility
-- Query completion information is preserved and copied to the portal's completion data
+- [Query](../Q/Query.md) completion information is preserved and copied to the portal's completion data
 - The destination receiver is properly destroyed after use to prevent memory leaks

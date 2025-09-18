@@ -23,23 +23,23 @@ The resulting WAL data contains a complete description of all changes needed to 
 - Functions called/Symbols referenced:
   - dlist_foreach
   - dlist_container
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - elog
   - SizeOfGinPostingList
   - SHORTALIGN
   - leafSegmentInfo (structure type)
   - ginxlogRecompressDataLeaf (structure type)
-  - dlist_iter (structure type)
+  - [dlist_iter](../d/dlist_iter.md) (structure type)
   - GIN_SEGMENT_UNMODIFIED (constant)
   - GIN_SEGMENT_DELETE (constant)
   - GIN_SEGMENT_ADDITEMS (constant)
   - GIN_SEGMENT_INSERT (constant)
   - GIN_SEGMENT_REPLACE (constant)
-  - ItemPointerData (structure type)
+  - [ItemPointerData](../I/ItemPointerData.md) (structure type)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
-  - ginVacuumPostingTreeLeaf
+  - [dataBeginPlaceToPageLeaf](../d/dataBeginPlaceToPageLeaf.md)
+  - [ginVacuumPostingTreeLeaf](../g/ginVacuumPostingTreeLeaf.md)
 
 ## Notes and Other Information
 - Must be called before entering critical sections due to palloc usage

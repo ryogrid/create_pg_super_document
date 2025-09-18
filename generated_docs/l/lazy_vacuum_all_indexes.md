@@ -19,19 +19,19 @@ lazy_vacuum_all_indexes orchestrates the index vacuuming phase of the VACUUM ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lazy_check_wraparound_failsafe
-  - pgstat_progress_update_multi_param
+  - [lazy_check_wraparound_failsafe](lazy_check_wraparound_failsafe.md)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
   - ParallelVacuumIsActive
-  - lazy_vacuum_one_index
-  - pgstat_progress_update_param
-  - parallel_vacuum_bulkdel_all_indexes
+  - [lazy_vacuum_one_index](lazy_vacuum_one_index.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [parallel_vacuum_bulkdel_all_indexes](../p/parallel_vacuum_bulkdel_all_indexes.md)
   - PROGRESS_VACUUM_PHASE
   - PROGRESS_VACUUM_INDEXES_TOTAL
   - PROGRESS_VACUUM_INDEXES_PROCESSED
   - PROGRESS_VACUUM_NUM_INDEX_VACUUMS
   - PROGRESS_VACUUM_PHASE_VACUUM_INDEX
 - Called from:
-  - lazy_vacuum
+  - [lazy_vacuum](lazy_vacuum.md)
 
 ## Notes and Other Information
 - Returns true if all indexes were successfully vacuumed, false if wraparound failsafe triggered

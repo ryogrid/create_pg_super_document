@@ -20,11 +20,11 @@ The `get_gating_quals` function is a utility used during query plan creation to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - order_qual_clauses
-  - extract_actual_clauses
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
 - Called from (representative examples):
-  - create_scan_plan (multiple locations)
-  - create_join_plan
+  - [create_scan_plan](../c/create_scan_plan.md) (multiple locations)
+  - [create_join_plan](../c/create_join_plan.md)
 
 ## Notes and Other Information
 - Returns NIL if no pseudoconstant quals are present (determined by root->hasPseudoConstantQuals flag)

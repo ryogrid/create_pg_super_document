@@ -17,17 +17,17 @@ The `pq_getmsgint64` function reads a fixed 8-byte (64-bit) integer from a messa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_copymsgbytes (copies 8 bytes from message buffer)
+  - [pq_copymsgbytes](pq_copymsgbytes.md) (copies 8 bytes from message buffer)
   - pg_ntoh64 (network-to-host 64-bit conversion)
 - Called from (representative examples):
-  - HandleParallelMessage
-  - logicalrep_read_begin
-  - logicalrep_read_commit
-  - XLogWalRcvProcessMsg
-  - ProcessStandbyReplyMessage
-  - timestamp_recv
-  - int8recv
-  - pq_getmsgfloat8
+  - [HandleParallelMessage](../H/HandleParallelMessage.md)
+  - [logicalrep_read_begin](../l/logicalrep_read_begin.md)
+  - [logicalrep_read_commit](../l/logicalrep_read_commit.md)
+  - [XLogWalRcvProcessMsg](../X/XLogWalRcvProcessMsg.md)
+  - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md)
+  - [timestamp_recv](../t/timestamp_recv.md)
+  - [int8recv](../i/int8recv.md)
+  - [pq_getmsgfloat8](pq_getmsgfloat8.md)
 
 ## Notes and Other Information
 - Always reads exactly 8 bytes from the message buffer

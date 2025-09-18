@@ -23,10 +23,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrDoPendingDeletes (executes pending relation deletions, called with 'false' for abort scenario)
+  - [smgrDoPendingDeletes](../s/smgrDoPendingDeletes.md) (executes pending relation deletions, called with 'false' for abort scenario)
 
 - Called from (representative examples):
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5289)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5289)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's nested transaction (savepoint) rollback implementation

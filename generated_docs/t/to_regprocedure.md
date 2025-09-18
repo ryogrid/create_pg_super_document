@@ -28,9 +28,9 @@ This function is typically used in SQL contexts where NULL handling is preferred
 ## Dependencies
 - Functions called/Symbols referenced:
   - `text_to_cstring`: Converts PostgreSQL text type to C string
-  - `regprocedurein`: Core procedure name resolution function
-  - `DirectInputFunctionCallSafe`: Safe function call wrapper with error context
-  - `ErrorSaveContext`: Error handling context structure
+  - `[regprocedurein](../r/regprocedurein.md)`: Core procedure name resolution function
+  - `[DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md)`: Safe function call wrapper with error context
+  - `[ErrorSaveContext](../E/ErrorSaveContext.md)`: Error handling context structure
 - Called from (representative examples):
   - No direct references found (likely used via SQL function calls)
 

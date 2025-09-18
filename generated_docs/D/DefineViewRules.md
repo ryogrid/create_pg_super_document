@@ -29,14 +29,14 @@ Since the query has already undergone parse analysis, the function can directly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefineQueryRewrite
-  - pstrdup
+  - [DefineQueryRewrite](DefineQueryRewrite.md)
+  - [pstrdup](../p/pstrdup.md)
   - list_make1
   - ViewSelectRuleName (constant/macro)
   - CMD_SELECT (constant)
 
 - Called from:
-  - StoreViewQuery
+  - [StoreViewQuery](../S/StoreViewQuery.md)
 
 ## Notes and Other Information
 - Currently only implements ON SELECT rules; automatic INSERT/UPDATE/DELETE rules are planned for future implementation

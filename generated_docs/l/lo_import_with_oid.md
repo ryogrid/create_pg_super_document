@@ -21,12 +21,12 @@ The internal implementation attempts to create a large object with the requested
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_import_internal
+  - [lo_import_internal](lo_import_internal.md)
 - Internal implementation uses:
-  - lo_create
-  - lo_open
-  - lo_write
-  - lo_close
+  - [lo_create](lo_create.md)
+  - [lo_open](lo_open.md)
+  - [lo_write](lo_write.md)
+  - [lo_close](lo_close.md)
 - Called from (representative examples):
   - Client applications requiring specific OID assignment
   - Large object migration or restoration tools

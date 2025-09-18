@@ -43,22 +43,22 @@ The HMAC algorithm requires two derived keys from the original key: an inner pad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_ctx
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md)
   - pg_cryptohash_type
   - pg_hmac_errno
   - PG_SHA512_BLOCK_LENGTH
 
 - Called from (representative examples):
-  - pg_hmac_create
-  - pg_hmac_init
-  - pg_hmac_update
-  - pg_hmac_final
-  - pg_hmac_free
-  - pg_hmac_error
-  - verify_client_proof (SCRAM authentication)
-  - build_server_final_message (SCRAM authentication)
+  - [pg_hmac_create](pg_hmac_create.md)
+  - [pg_hmac_init](pg_hmac_init.md)
+  - [pg_hmac_update](pg_hmac_update.md)
+  - [pg_hmac_final](pg_hmac_final.md)
+  - [pg_hmac_free](pg_hmac_free.md)
+  - [pg_hmac_error](pg_hmac_error.md)
+  - [verify_client_proof](../v/verify_client_proof.md) (SCRAM authentication)
+  - [build_server_final_message](../b/build_server_final_message.md) (SCRAM authentication)
   - scram_SaltedPassword
-  - calculate_client_proof
+  - [calculate_client_proof](../c/calculate_client_proof.md)
 
 ## Notes and Other Information
 - This structure is internal to the HMAC implementation and should not be accessed directly by client code

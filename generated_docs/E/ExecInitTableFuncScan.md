@@ -24,13 +24,13 @@ Key initialization steps include creating a per-table memory context, setting up
 ## Dependencies
 - Functions called/Symbols referenced:
   - TableFuncScan, TableFuncScanState, TableFunc (struct types)
-  - ExecTableFuncScan (assigned as execution function)
+  - [ExecTableFuncScan](ExecTableFuncScan.md) (assigned as execution function)
   - ExecAssignExprContext, ExecInitScanTupleSlot, ExecInitResultTypeTL
-  - BuildDescFromLists, ExecAssignScanProjectionInfo, ExecInitQual
-  - ExecInitExpr, ExecInitExprList (expression initialization)
+  - [BuildDescFromLists](../B/BuildDescFromLists.md), ExecAssignScanProjectionInfo, ExecInitQual
+  - [ExecInitExpr](ExecInitExpr.md), ExecInitExprList (expression initialization)
   - AllocSetContextCreate, getTypeInputInfo, fmgr_info
 - Called from:
-  - ExecInitNode (main executor initialization)
+  - [ExecInitNode](ExecInitNode.md) (main executor initialization)
   - Referenced in nodeTableFuncscan.h header
 
 ## Notes and Other Information

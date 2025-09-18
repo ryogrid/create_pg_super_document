@@ -23,15 +23,15 @@ The function initializes flags to sensible defaults (REG_ADVANCED flavor with gl
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARDATA_ANY, VARSIZE_ANY_EXHDR (text data extraction macros)
-  - pg_mblen (multibyte character length calculation)
-  - pg_re_flags (output structure type)
+  - [pg_mblen](pg_mblen.md) (multibyte character length calculation)
+  - [pg_re_flags](pg_re_flags.md) (output structure type)
   - REG_ADVANCED, REG_EXTENDED, REG_ICASE, REG_NEWLINE, REG_NLSTOP, REG_NLANCH, REG_QUOTE, REG_EXPANDED (regex compilation flags)
 - Called from (representative examples):
-  - textregexreplace, textregexreplace_extended
-  - regexp_count, regexp_instr, regexp_like
-  - regexp_match, regexp_matches
-  - regexp_split_to_table, regexp_split_to_array
-  - regexp_substr
+  - [textregexreplace](../t/textregexreplace.md), textregexreplace_extended
+  - [regexp_count](../r/regexp_count.md), regexp_instr, regexp_like
+  - [regexp_match](../r/regexp_match.md), regexp_matches
+  - [regexp_split_to_table](../r/regexp_split_to_table.md), regexp_split_to_array
+  - [regexp_substr](../r/regexp_substr.md)
 
 ## Notes and Other Information
 - Supported flags include:

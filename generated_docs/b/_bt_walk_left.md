@@ -24,15 +24,15 @@ The algorithm handles the complexity of concurrent B-tree modifications by check
   - P_LEFTMOST
   - P_ISDELETED  
   - P_RIGHTMOST
-  - _bt_relbuf
-  - _bt_getbuf
-  - _bt_relandgetbuf
-  - BufferGetBlockNumber
+  - [_bt_relbuf](_bt_relbuf.md)
+  - [_bt_getbuf](_bt_getbuf.md)
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - CHECK_FOR_INTERRUPTS
   - BTPageOpaque (type)
   - BT_READ (constant)
 - Called from (representative examples):
-  - _bt_readnextpage
+  - [_bt_readnextpage](_bt_readnextpage.md)
 
 ## Notes and Other Information
 - Returns InvalidBuffer if no left page exists or if traversal fails

@@ -26,8 +26,8 @@ This function takes no parameters.
   - tzdirpath (global variable, when SYSTEMTZDIR not defined)
   - SYSTEMTZDIR (preprocessor macro, when defined)
 - Called from (representative examples):
-  - pg_open_tzfile (in src/bin/initdb/findtimezone.c and src/timezone/pgtz.c)
-  - pg_tzenumerate_start (in src/timezone/pgtz.c)
+  - [pg_open_tzfile](pg_open_tzfile.md) (in src/bin/initdb/findtimezone.c and src/timezone/pgtz.c)
+  - [pg_tzenumerate_start](pg_tzenumerate_start.md) (in src/timezone/pgtz.c)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the file where it's defined

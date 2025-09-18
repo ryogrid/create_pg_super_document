@@ -25,13 +25,13 @@ This design provides extensibility for query analysis plugins while maintaining 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainOneUtility
-  - standard_ExplainOneQuery
+  - [ExplainOneUtility](ExplainOneUtility.md)
+  - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md)
   - ExplainOneQuery_hook (function pointer)
   - CMD_UTILITY (enum value)
 - Called from (representative examples):
-  - ExplainQuery
-  - ExplainOneUtility (for nested utility statements)
+  - [ExplainQuery](ExplainQuery.md)
+  - [ExplainOneUtility](ExplainOneUtility.md) (for nested utility statements)
 
 ## Notes and Other Information
 - Static function, only accessible within explain.c

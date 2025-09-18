@@ -28,22 +28,22 @@ The  function is a central component of the ECPG preprocessor's code generation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_strdup (string duplication with error checking)
-  - find_variable (variable lookup function)
+  - [mm_strdup](../m/mm_strdup.md) (string duplication with error checking)
+  - [find_variable](../f/find_variable.md) (variable lookup function)
   - mmerror (error reporting function)
   - mmfatal (fatal error reporting function)
-  - ECPGdump_a_simple (simple type dumping function)
-  - ECPGdump_a_struct (struct type dumping function)
+  - [ECPGdump_a_simple](ECPGdump_a_simple.md) (simple type dumping function)
+  - [ECPGdump_a_struct](ECPGdump_a_struct.md) (struct type dumping function)
   - base_yyerror (parser error function)
   - free (memory deallocation)
   - strcmp (string comparison)
   - Various type constants (ECPGt_array, ECPGt_struct, etc.)
   - Error constants (PARSE_ERROR, ET_ERROR, ET_WARNING, etc.)
 - Called from (representative examples):
-  - output_get_descr
-  - output_set_descr
-  - ECPGdump_a_struct
-  - dump_variables
+  - [output_get_descr](../o/output_get_descr.md)
+  - [output_set_descr](../o/output_set_descr.md)
+  - [ECPGdump_a_struct](ECPGdump_a_struct.md)
+  - [dump_variables](../d/dump_variables.md)
 
 ## Notes and Other Information
 - Performs extensive variable shadowing detection and type compatibility checking

@@ -21,13 +21,13 @@ The function handles various time components including hours, minutes, seconds (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timetz_part_common
+  - [timetz_part_common](timetz_part_common.md)
   - PG_GETARG_TEXT_PP
   - PG_GETARG_TIMETZADT_P
-  - downcase_truncate_identifier
-  - DecodeUnits
-  - DecodeSpecial
-  - timetz2tm
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md)
+  - [DecodeUnits](../D/DecodeUnits.md)
+  - [DecodeSpecial](../D/DecodeSpecial.md)
+  - [timetz2tm](timetz2tm.md)
   - PG_RETURN_FLOAT8
   - ereport
 - Called from (representative examples):

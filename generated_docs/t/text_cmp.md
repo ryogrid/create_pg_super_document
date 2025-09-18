@@ -19,17 +19,17 @@ Internal comparison function that extracts variable-length string data from Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varstr_cmp
+  - [varstr_cmp](../v/varstr_cmp.md)
   - VARDATA_ANY (macro)
   - VARSIZE_ANY_EXHDR (macro)
 - Called from (representative examples):
-  - texteq
-  - textne
-  - text_lt
-  - text_le
-  - text_gt
-  - text_ge
-  - bttextcmp
+  - [texteq](texteq.md)
+  - [textne](textne.md)
+  - [text_lt](text_lt.md)
+  - [text_le](text_le.md)
+  - [text_gt](text_gt.md)
+  - [text_ge](text_ge.md)
+  - [bttextcmp](../b/bttextcmp.md)
 
 ## Notes and Other Information
 - Static function serving as internal implementation detail

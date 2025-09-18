@@ -23,15 +23,15 @@ Note that while this function works as advertised, it's primarily maintained for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stringToQualifiedNameList
-  - makeRangeVarFromNameList
-  - relation_openrv
-  - CreateTupleDescCopy
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
+  - [relation_openrv](../r/relation_openrv.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - RelationGetDescr
-  - relation_close
-  - RangeVar (type)
-  - Relation (type)
-  - List (type)
+  - [relation_close](../r/relation_close.md)
+  - [RangeVar](RangeVar.md) (type)
+  - [Relation](Relation.md) (type)
+  - [List](../L/List.md) (type)
 - Called from (representative examples):
   - TypeFuncClass
 

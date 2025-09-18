@@ -29,17 +29,17 @@ The function includes safeguards for shutdown scenarios where sending replies mi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - issue_xlog_fsync
-  - WakeupRecovery
+  - [issue_xlog_fsync](../i/issue_xlog_fsync.md)
+  - [WakeupRecovery](../W/WakeupRecovery.md)
   - AllowCascadeReplication
-  - WalSndWakeup
+  - [WalSndWakeup](../W/WalSndWakeup.md)
   - set_ps_display
-  - XLogWalRcvSendReply
-  - XLogWalRcvSendHSFeedback
+  - [XLogWalRcvSendReply](XLogWalRcvSendReply.md)
+  - [XLogWalRcvSendHSFeedback](XLogWalRcvSendHSFeedback.md)
 - Called from (representative examples):
-  - WalReceiverMain
-  - WalRcvDie
-  - XLogWalRcvClose
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [WalRcvDie](../W/WalRcvDie.md)
+  - [XLogWalRcvClose](XLogWalRcvClose.md)
 
 ## Notes and Other Information
 - This is a static function internal to the walreceiver.c module

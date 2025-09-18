@@ -21,15 +21,15 @@ This is a static helper function used by the has_function_privilege family of fu
 - Functions called/Symbols referenced:
   - text_to_cstring(): Converts PostgreSQL text type to C string
   - DirectFunctionCall1(): Calls a PostgreSQL function with one argument
-  - regprocedurein(): PostgreSQL input function that converts string to regprocedure
-  - DatumGetObjectId(): Extracts OID from a Datum
-  - CStringGetDatum(): Converts C string to Datum
+  - [regprocedurein](../r/regprocedurein.md)(): PostgreSQL input function that converts string to regprocedure
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)(): Extracts OID from a Datum
+  - [CStringGetDatum](../C/CStringGetDatum.md)(): Converts C string to Datum
   - OidIsValid(): Checks if an OID is valid
   - ereport(): Reports errors
 - Called from (representative examples):
-  - has_function_privilege_name_name
-  - has_function_privilege_name
-  - has_function_privilege_id_name
+  - [has_function_privilege_name_name](../h/has_function_privilege_name_name.md)
+  - [has_function_privilege_name](../h/has_function_privilege_name.md)
+  - [has_function_privilege_id_name](../h/has_function_privilege_id_name.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the acl.c file

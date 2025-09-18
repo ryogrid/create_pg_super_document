@@ -17,15 +17,15 @@ This function creates a new entry in the pg_parameter_acl catalog for the specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_GUC_name_for_parameter_acl
-  - convert_GUC_name_for_parameter_acl
-  - GetNewOidWithIndex
+  - [check_GUC_name_for_parameter_acl](../c/check_GUC_name_for_parameter_acl.md)
+  - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - cstring_to_text
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - objectNamesToOids
+  - [objectNamesToOids](../o/objectNamesToOids.md)
 
 ## Notes and Other Information
 - Creates entries with null ACL fields, representing default permissions

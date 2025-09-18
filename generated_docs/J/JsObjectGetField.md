@@ -21,12 +21,12 @@ This function provides a unified interface for field lookup in JSON objects rega
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
-  - getKeyJsonValueFromContainer
+  - [hash_search](../h/hash_search.md)
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md)
   - strlen
 - Called from (representative examples):
   - JsObjectFree
-  - populate_record
+  - [populate_record](../p/populate_record.md)
 
 ## Notes and Other Information
 This function abstracts the differences between JSON text and binary JSONB field access, providing a consistent interface for JSON object field retrieval. For JSON text, it leverages PostgreSQL's hash table implementation for efficient field lookup. For JSONB, it uses the specialized container functions that work with the binary format. The function properly handles null/missing fields by setting appropriate null indicators and return values. The field length for JSON text is set to -1 to indicate null-terminated strings, while JSONB values are handled through their container pointers. This abstraction is crucial for the JSON population functions that need to work with both JSON formats uniformly.

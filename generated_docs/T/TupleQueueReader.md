@@ -26,16 +26,16 @@ This structure is extensively used in parallel execution nodes like Gather and G
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_handle
+  - [shm_mq_handle](../s/shm_mq_handle.md)
 - Called from (representative examples):
-  - ExecParallelCreateReaders
-  - ExecGather
-  - gather_readnext
-  - ExecGatherMerge
-  - gm_readnext_tuple
-  - CreateTupleQueueReader
-  - DestroyTupleQueueReader
-  - TupleQueueReaderNext
+  - [ExecParallelCreateReaders](../E/ExecParallelCreateReaders.md)
+  - [ExecGather](../E/ExecGather.md)
+  - [gather_readnext](../g/gather_readnext.md)
+  - [ExecGatherMerge](../E/ExecGatherMerge.md)
+  - [gm_readnext_tuple](../g/gm_readnext_tuple.md)
+  - [CreateTupleQueueReader](../C/CreateTupleQueueReader.md)
+  - [DestroyTupleQueueReader](../D/DestroyTupleQueueReader.md)
+  - [TupleQueueReaderNext](TupleQueueReaderNext.md)
 
 ## Notes and Other Information
 - Located in src/backend/executor/tqueue.c:43-53

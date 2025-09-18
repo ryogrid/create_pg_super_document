@@ -33,18 +33,18 @@ The function is designed with error safety in mind - slots are created as epheme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotCreate
+  - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md)
   - CreateInitDecodingContext
-  - DecodingContextFindStartpoint
-  - FreeDecodingContext
-  - LogicalDecodingContext (type)
+  - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (type)
   - RS_TEMPORARY, RS_EPHEMERAL (slot persistence types)
   - XL_ROUTINE, read_local_xlog_page, wal_segment_open, wal_segment_close (WAL reading functions)
 
 - Called from (representative examples):
-  - pg_create_logical_replication_slot
-  - copy_replication_slot
-  - setup_publisher (in pg_createsubscriber)
+  - [pg_create_logical_replication_slot](../p/pg_create_logical_replication_slot.md)
+  - [copy_replication_slot](copy_replication_slot.md)
+  - [setup_publisher](../s/setup_publisher.md) (in pg_createsubscriber)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the slotfuncs.c file

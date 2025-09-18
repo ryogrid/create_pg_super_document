@@ -23,10 +23,10 @@ This is part of the private archiver API and is designed to support scenarios wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (type cast)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (type cast)
 - Called from (representative examples):
-  - RestoreArchive
-  - PrintTOCSummary
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md)
 
 ## Notes and Other Information
 - This is a private static function internal to the archiver routines

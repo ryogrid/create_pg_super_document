@@ -21,13 +21,13 @@ The function includes an important optimization: if the current database encodin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_database_encoding_max_length` (checks if encoding is single-byte)
-  - `pg_mblen` (gets byte length of individual characters)
+  - `[pg_database_encoding_max_length](pg_database_encoding_max_length.md)` (checks if encoding is single-byte)
+  - `[pg_mblen](pg_mblen.md)` (gets byte length of individual characters)
   - `strlen` (standard C library function for single-byte optimization)
 - Called from (representative examples):
-  - `NUM_processor` (numeric formatting operations)
-  - `get_iso_localename` (locale name processing)
-  - `text_format_append_string` (text formatting operations)
+  - `[NUM_processor](../N/NUM_processor.md)` (numeric formatting operations)
+  - `[get_iso_localename](../g/get_iso_localename.md)` (locale name processing)
+  - `[text_format_append_string](../t/text_format_append_string.md)` (text formatting operations)
 
 ## Notes and Other Information
 - Returns the number of characters (not bytes) in the string

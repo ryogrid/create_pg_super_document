@@ -20,8 +20,8 @@ The  function is the simplest PostgreSQL built-in text search ranking function. 
 - Functions called/Symbols referenced:
   - PG_GETARG_TSVECTOR: Extracts TSVector from function arguments
   - PG_GETARG_TSQUERY: Extracts TSQuery from function arguments
-  - getWeights: Called with NULL to use default weight values for all word classes
-  - calc_rank: Performs the actual ranking calculation with default settings
+  - [getWeights](../g/getWeights.md): Called with NULL to use default weight values for all word classes
+  - [calc_rank](../c/calc_rank.md): Performs the actual ranking calculation with default settings
   - DEF_NORM_METHOD: Default normalization method constant (RANK_NO_NORM)
   - PG_FREE_IF_COPY: Frees detoasted copies of arguments
   - PG_RETURN_FLOAT4: Returns the calculated rank as a float4 value

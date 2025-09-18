@@ -26,17 +26,17 @@ For TOAST pointer datums, this returns the size of the pointer datum itself, not
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - PointerIsValid
   - VARSIZE_ANY
   - strlen
   - ereport/elog (for error handling)
 - Called from (representative examples):
-  - outDatum
-  - datumCopy
-  - datumIsEqual
-  - datumEstimateSpace
-  - datumSerialize
+  - [outDatum](../o/outDatum.md)
+  - [datumCopy](datumCopy.md)
+  - [datumIsEqual](datumIsEqual.md)
+  - [datumEstimateSpace](datumEstimateSpace.md)
+  - [datumSerialize](datumSerialize.md)
   - writetup_datum
 
 ## Notes and Other Information

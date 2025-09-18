@@ -23,14 +23,14 @@ The lock state is managed through atomic operations on the state field, which tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (atomic operations)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic operations)
   - proclist_head (process list management)
-  - PGPROC (process control block)
+  - [PGPROC](../P/PGPROC.md) (process control block)
 - Called from (representative examples):
-  - BufferDesc (buffer management)
-  - ReplicationSlot (replication slot management)
+  - [BufferDesc](../B/BufferDesc.md) (buffer management)
+  - [ReplicationSlot](../R/ReplicationSlot.md) (replication slot management)
   - SlruCtl (SLRU cache control)
-  - BufTableHashPartition (buffer hash table partitions)
+  - [BufTableHashPartition](../B/BufTableHashPartition.md) (buffer hash table partitions)
 
 ## Notes and Other Information
 - LWLocks are designed to be embedded in other structures rather than allocated separately

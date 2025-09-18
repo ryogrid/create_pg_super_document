@@ -28,9 +28,9 @@ The function relies on transformExpr() having already rejected inappropriate con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_mutable_functions_after_planning
+  - [contain_mutable_functions_after_planning](../c/contain_mutable_functions_after_planning.md)
 - Called from (representative examples):
-  - DefineIndex
+  - [DefineIndex](../D/DefineIndex.md)
 
 ## Notes and Other Information
 - Static function only used within indexcmds.c for internal validation

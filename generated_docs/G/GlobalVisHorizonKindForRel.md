@@ -27,15 +27,15 @@ The function implements a hierarchical decision tree, checking from most conserv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - IsCatalogRelation
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
   - RelationIsAccessibleInLogicalDecoding
   - RELATION_IS_LOCAL
   - RELKIND_RELATION, RELKIND_MATVIEW, RELKIND_TOASTVALUE (constants)
   - VISHORIZON_SHARED, VISHORIZON_CATALOG, VISHORIZON_DATA, VISHORIZON_TEMP (enum values)
 - Called from:
-  - GetOldestNonRemovableTransactionId
-  - GlobalVisTestFor
+  - [GetOldestNonRemovableTransactionId](GetOldestNonRemovableTransactionId.md)
+  - [GlobalVisTestFor](GlobalVisTestFor.md)
 
 ## Notes and Other Information
 - The function is marked as `static inline` for performance optimization since it's called frequently during vacuum operations

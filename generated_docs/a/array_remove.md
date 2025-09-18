@@ -29,7 +29,7 @@ This function is registered in PostgreSQL's system catalogs and is directly acce
   - PG_GET_COLLATION (macro for getting collation info)
   - PG_RETURN_NULL (macro for returning NULL)
   - PG_RETURN_ARRAYTYPE_P (macro for returning array result)
-  - array_replace_internal
+  - [array_replace_internal](array_replace_internal.md)
 - Called from (representative examples):
   - SQL queries using array_remove(array, element) syntax
   - PostgreSQL system catalog function invocations

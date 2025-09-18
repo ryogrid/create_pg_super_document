@@ -17,9 +17,9 @@ This function serves as the destroy callback for a DestReceiver that handles wri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CreateTransientRelDestReceiver (callback assignment)
+  - [CreateTransientRelDestReceiver](../C/CreateTransientRelDestReceiver.md) (callback assignment)
 
 ## Notes and Other Information
 - Simple wrapper around pfree for consistent memory deallocation

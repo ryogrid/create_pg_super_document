@@ -22,13 +22,13 @@ The function leverages shared infrastructure with execUtils.c for opening and cl
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates ResultRelInfo node)
-  - ExecOpenIndices (opens the actual indexes)
+  - [ExecOpenIndices](../E/ExecOpenIndices.md) (opens the actual indexes)
 - Called from (representative examples):
-  - CatalogTupleInsert
-  - CatalogTupleUpdate
-  - InsertPgAttributeTuples
-  - AddNewAttributeTuples
-  - recordMultipleDependencies
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
+  - [recordMultipleDependencies](../r/recordMultipleDependencies.md)
 
 ## Notes and Other Information
 - Returns a CatalogIndexState (which is actually a ResultRelInfo pointer) that must be closed with CatalogCloseIndexes

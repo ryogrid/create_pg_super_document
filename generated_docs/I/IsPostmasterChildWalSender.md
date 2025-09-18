@@ -23,8 +23,8 @@ This function determines whether a specific child process slot is occupied by a 
   - PMSignalState->PMChildFlags (shared memory slot state array)
   - PM_CHILD_WALSENDER (enum constant for WAL sender state)
 - Called from (representative examples):
-  - SignalSomeChildren (src/backend/postmaster/postmaster.c:3489)
-  - CountChildren (src/backend/postmaster/postmaster.c:3903)
+  - [SignalSomeChildren](../S/SignalSomeChildren.md) (src/backend/postmaster/postmaster.c:3489)
+  - [CountChildren](../C/CountChildren.md) (src/backend/postmaster/postmaster.c:3903)
 
 ## Notes and Other Information
 - Only called by the postmaster process

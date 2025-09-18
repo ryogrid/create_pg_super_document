@@ -26,11 +26,11 @@ This structure serves as a context object passed during the DSM initialization p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelContext (core parallel execution context structure)
-  - SharedExecutorInstrumentation (shared memory structure for performance metrics)
+  - [ParallelContext](../P/ParallelContext.md) (core parallel execution context structure)
+  - [SharedExecutorInstrumentation](../S/SharedExecutorInstrumentation.md) (shared memory structure for performance metrics)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM (primary function that uses this context for DSM initialization)
-  - ExecInitParallelPlan (during the parallel plan initialization process)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (primary function that uses this context for DSM initialization)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md) (during the parallel plan initialization process)
 
 ## Notes and Other Information
 - This structure is used during the DSM setup phase, after estimation but before worker processes are launched

@@ -26,19 +26,19 @@ The function ensures proper memory management by using a temporary context and r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initGISTstate (initializes GiST state structure)
-  - createTempGistContext (creates temporary memory context)
+  - [initGISTstate](../i/initGISTstate.md) (initializes GiST state structure)
+  - [createTempGistContext](../c/createTempGistContext.md) (creates temporary memory context)
   - gistFormTuple (forms index tuple from values)
-  - gistdoinsert (performs the actual insertion)
-  - MemoryContextSwitchTo (switches memory contexts)
-  - MemoryContextReset (resets temporary context)
+  - [gistdoinsert](gistdoinsert.md) (performs the actual insertion)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (resets temporary context)
 - Types used:
-  - GISTSTATE (GiST state structure)
-  - IndexTuple (index tuple structure)
+  - [GISTSTATE](../G/GISTSTATE.md) (GiST state structure)
+  - [IndexTuple](../I/IndexTuple.md) (index tuple structure)
   - IndexInfo (index information structure)
   - IndexUniqueCheck (uniqueness checking enumeration)
 - Called from:
-  - gisthandler (assigned as aminsert callback at src/backend/access/gist/gist.c:88)
+  - [gisthandler](gisthandler.md) (assigned as aminsert callback at src/backend/access/gist/gist.c:88)
 
 ## Notes and Other Information
 - Always returns false since GiST doesn't support unique indexes

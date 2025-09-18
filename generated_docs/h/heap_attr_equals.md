@@ -28,11 +28,11 @@ The comparison logic follows these steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetObjectId (for system column comparison)
-  - datumIsEqual (for binary datum comparison)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md) (for system column comparison)
+  - [datumIsEqual](../d/datumIsEqual.md) (for binary datum comparison)
   - TupleDescAttr (macro to access attribute descriptor)
 - Called from (representative examples):
-  - HeapDetermineColumnsInfo
+  - [HeapDetermineColumnsInfo](../H/HeapDetermineColumnsInfo.md)
 
 ## Notes and Other Information
 - Uses conservative binary comparison to avoid false positives

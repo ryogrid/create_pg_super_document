@@ -27,8 +27,8 @@ The function performs validation to ensure the scan uses an MVCC snapshot, which
   - table_index_fetch_reset (resets heap fetch resources)
   - amrestrpos (access method-specific position restoration routine)
 - Called from (representative examples):
-  - ExecIndexRestrPos
-  - ExecIndexOnlyRestrPos
+  - [ExecIndexRestrPos](../E/ExecIndexRestrPos.md)
+  - [ExecIndexOnlyRestrPos](../E/ExecIndexOnlyRestrPos.md)
 
 ## Notes and Other Information
 - Requires MVCC snapshots to work correctly with HOT chains - this ensures at most one returnable tuple per HOT chain

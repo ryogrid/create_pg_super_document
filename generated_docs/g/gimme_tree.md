@@ -23,14 +23,14 @@ The process occurs in two phases: first, relations are joined using only desirab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth (accesses relations from initial_rels list)
-  - merge_clump (merges clumps using join heuristics)
-  - palloc (memory allocation for clump structures)
+  - [list_nth](../l/list_nth.md) (accesses relations from initial_rels list)
+  - [merge_clump](../m/merge_clump.md) (merges clumps using join heuristics)
+  - [palloc](../p/palloc.md) (memory allocation for clump structures)
   - GeqoPrivateData, Clump, Gene (data structure types)
 
 - Called from (representative examples):
-  - geqo_eval (fitness evaluation in genetic algorithm)
-  - geqo (main genetic optimization routine)
+  - [geqo_eval](geqo_eval.md) (fitness evaluation in genetic algorithm)
+  - [geqo](geqo.md) (main genetic optimization routine)
 
 ## Notes and Other Information
 - Can generate bushy plans, unlike earlier left-sided-only implementations

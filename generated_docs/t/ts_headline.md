@@ -20,8 +20,8 @@ The function takes two arguments (accessed via ) and returns a highlighted versi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ts_headline_byid_opt: The core function that performs the actual headline generation
-  - getTSCurrentConfig: Retrieves the current default text search configuration
+  - [ts_headline_byid_opt](ts_headline_byid_opt.md): The core function that performs the actual headline generation
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md): Retrieves the current default text search configuration
   - DirectFunctionCall3: PostgreSQL macro for calling functions with 3 arguments
   - PG_RETURN_DATUM: PostgreSQL macro for returning function results
 - Called from (representative examples):

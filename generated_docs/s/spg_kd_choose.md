@@ -19,14 +19,14 @@ This function implements the choose logic for SP-GiST k-d tree operations. When 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgChooseIn (structure type)
-  - spgChooseOut (structure type)  
-  - Point (structure type)
-  - DatumGetPointP (PostgreSQL datum conversion macro)
-  - DatumGetFloat8 (PostgreSQL datum conversion macro)
+  - [spgChooseIn](spgChooseIn.md) (structure type)
+  - [spgChooseOut](spgChooseOut.md) (structure type)  
+  - [Point](../P/Point.md) (structure type)
+  - [DatumGetPointP](../D/DatumGetPointP.md) (PostgreSQL datum conversion macro)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md) (PostgreSQL datum conversion macro)
   - spgMatchNode (SP-GiST result type constant)
-  - getSide (helper function for coordinate comparison)
-  - PointPGetDatum (PostgreSQL datum conversion macro)
+  - [getSide](../g/getSide.md) (helper function for coordinate comparison)
+  - [PointPGetDatum](../P/PointPGetDatum.md) (PostgreSQL datum conversion macro)
   - PG_RETURN_VOID (PostgreSQL return macro)
 - Called from (representative examples):
   - No direct references found in the codebase

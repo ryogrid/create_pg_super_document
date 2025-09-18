@@ -24,20 +24,20 @@ The function creates a pairing heap-based priority queue for organizing search i
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - RelationGetNumberOfAttributes
   - IndexRelationGetNumberOfKeyAttributes
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
   - pairingheap_allocate
-  - pairingheap_GISTSearchItem_cmp
-  - fmgr_info_copy
-  - get_func_rettype
-  - palloc
+  - [pairingheap_GISTSearchItem_cmp](../p/pairingheap_GISTSearchItem_cmp.md)
+  - [fmgr_info_copy](../f/fmgr_info_copy.md)
+  - [get_func_rettype](get_func_rettype.md)
+  - [palloc](../p/palloc.md)
   - memmove
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - gisthandler
+  - [gisthandler](gisthandler.md)
 
 ## Notes and Other Information
 - Implements a three-tier memory context strategy: first scan uses scanCxt, second scan creates queueCxt, subsequent scans reset queueCxt

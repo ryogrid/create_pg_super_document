@@ -29,15 +29,15 @@ This operation is critical during certain DDL operations where a relation is reb
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_statistic catalog relation
-  - ScanKeyInit: Initializes scan key for searching by relation ID
-  - systable_beginscan: Begins system catalog scan with index
-  - systable_getnext: Retrieves next tuple from the scan
-  - heap_copytuple: Creates a modifiable copy of a heap tuple
-  - CatalogOpenIndexes: Opens indexes for efficient catalog updates
-  - CatalogTupleInsertWithInfo: Inserts tuple with index information
-  - heap_freetuple: Frees memory allocated for a heap tuple
-  - CatalogCloseIndexes: Closes catalog indexes
-  - systable_endscan: Ends the system catalog scan
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for searching by relation ID
+  - [systable_beginscan](../s/systable_beginscan.md): Begins system catalog scan with index
+  - [systable_getnext](../s/systable_getnext.md): Retrieves next tuple from the scan
+  - [heap_copytuple](../h/heap_copytuple.md): Creates a modifiable copy of a heap tuple
+  - [CatalogOpenIndexes](CatalogOpenIndexes.md): Opens indexes for efficient catalog updates
+  - [CatalogTupleInsertWithInfo](CatalogTupleInsertWithInfo.md): Inserts tuple with index information
+  - [heap_freetuple](../h/heap_freetuple.md): Frees memory allocated for a heap tuple
+  - [CatalogCloseIndexes](CatalogCloseIndexes.md): Closes catalog indexes
+  - [systable_endscan](../s/systable_endscan.md): Ends the system catalog scan
   - table_close: Closes the catalog relation
 
 - Called from (representative examples):

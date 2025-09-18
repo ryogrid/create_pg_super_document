@@ -26,14 +26,14 @@ This macro expands to a function that typically takes:
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
 - Called from (representative examples):
-  - RT_NODE_INSERT (when handling RT_NODE_KIND_4 case and node doesn't need to grow)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (when handling RT_NODE_KIND_4 case and node doesn't need to grow)
 - Related symbols:
-  - RT_GROW_NODE_4 (used when node-4 reaches capacity)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md) (used when node-4 reaches capacity)
   - RT_NODE_MUST_GROW (condition check for growth)
 
 ## Notes and Other Information
 - Part of PostgreSQL's adaptive radix tree implementation designed for memory efficiency
-- Node-4 is the smallest internal node type (RT_NODE_KIND_4 = 0x00)
+- [Node](../N/Node.md)-4 is the smallest internal node type (RT_NODE_KIND_4 = 0x00)
 - Uses linear search for child lookup due to small fanout
 - Most memory-efficient option for sparsely populated subtrees
 - Automatically promotes to node-16 when capacity is exceeded

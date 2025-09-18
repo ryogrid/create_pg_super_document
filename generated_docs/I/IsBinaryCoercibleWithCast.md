@@ -31,20 +31,20 @@ For types not covered by hardwired rules, it searches pg_cast for an implicit, b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType
+  - [getBaseType](../g/getBaseType.md)
   - type_is_array
-  - type_is_enum
-  - type_is_range
-  - type_is_multirange
+  - [type_is_enum](../t/type_is_enum.md)
+  - [type_is_range](../t/type_is_range.md)
+  - [type_is_multirange](../t/type_is_multirange.md)
   - ISCOMPLEX
-  - is_complex_array
-  - SearchSysCache2
+  - [is_complex_array](../i/is_complex_array.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
   - Form_pg_cast
   - COERCION_METHOD_BINARY
   - COERCION_CODE_IMPLICIT
 - Called from (representative examples):
-  - IsBinaryCoercible (src/backend/parser/parse_coerce.c:3036)
-  - CreateCast (src/backend/commands/functioncmds.c:1607, 1623)
+  - [IsBinaryCoercible](IsBinaryCoercible.md) (src/backend/parser/parse_coerce.c:3036)
+  - [CreateCast](../C/CreateCast.md) (src/backend/commands/functioncmds.c:1607, 1623)
 
 ## Notes and Other Information
 - This is the workhorse function that implements the actual binary coercion logic

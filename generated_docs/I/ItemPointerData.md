@@ -22,9 +22,9 @@ The ItemPointerData structure enables PostgreSQL's heap storage model where data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockIdData (block identifier structure)
+  - [BlockIdData](../B/BlockIdData.md) (block identifier structure)
   - OffsetNumber (typedef for uint16, represents position in line pointer array)
-  - pg_attribute_aligned (compiler attribute for memory alignment)
+  - [pg_attribute_aligned](../p/pg_attribute_aligned.md) (compiler attribute for memory alignment)
   - pg_attribute_packed (compiler attribute to prevent structure padding)
 
 - Called from (representative examples):

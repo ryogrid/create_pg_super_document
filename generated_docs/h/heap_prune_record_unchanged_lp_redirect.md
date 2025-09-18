@@ -30,7 +30,7 @@ This simplicity reflects the nature of redirect line pointers as metadata rather
   - PruneState (structure for tracking pruning state)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - heap_prune_chain
+  - [heap_prune_chain](heap_prune_chain.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pruneheap.c

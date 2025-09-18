@@ -29,13 +29,13 @@ The function follows the same synchronous execution pattern as other libpq exec 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendPrepare
-  - PQexecFinish
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendPrepare](PQsendPrepare.md)
+  - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - init_libpq_conn
-  - prepareCommand
-  - DescribeQuery
+  - [init_libpq_conn](../i/init_libpq_conn.md)
+  - [prepareCommand](../p/prepareCommand.md)
+  - [DescribeQuery](../D/DescribeQuery.md)
   - prepare_common
 
 ## Notes and Other Information

@@ -20,17 +20,17 @@ This function implements the registration mechanism for ON COMMIT actions on tem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentSubTransactionId
-  - MemoryContextSwitchTo
-  - palloc
-  - lcons
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [lcons](../l/lcons.md)
 - Called from (representative examples):
-  - heap_create_with_catalog
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
 
 ## Notes and Other Information
 - Only processes actions that require commit-time handling (excludes NOOP and PRESERVE ROWS)
 - Uses CacheMemoryContext to ensure registrations survive across transaction boundaries
 - Processes actions in reverse registration order using lcons for list prepending
 - Tracks subtransaction IDs for proper cleanup in case of subtransaction rollback
-- Backend-local storage is sufficient since temp tables are session-specific
+- [Backend](../B/Backend.md)-local storage is sufficient since temp tables are session-specific
 - Critical component of PostgreSQL's temporary table lifecycle management

@@ -25,25 +25,25 @@ This function implements a sophisticated selectivity estimation algorithm using 
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - has_stats_of_kind
-  - bms_is_member
-  - statext_is_compatible_clause
-  - choose_best_statistics
-  - bms_is_subset
-  - stat_covers_expressions
-  - bms_membership
-  - bms_add_member
-  - bms_free
-  - list_free
-  - statext_mcv_load
-  - clause_selectivity_ext
-  - clauselist_selectivity_ext
-  - mcv_clause_selectivity_or
+  - [has_stats_of_kind](../h/has_stats_of_kind.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [statext_is_compatible_clause](statext_is_compatible_clause.md)
+  - [choose_best_statistics](../c/choose_best_statistics.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [stat_covers_expressions](stat_covers_expressions.md)
+  - [bms_membership](../b/bms_membership.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_free](../b/bms_free.md)
+  - [list_free](../l/list_free.md)
+  - [statext_mcv_load](statext_mcv_load.md)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
+  - [mcv_clause_selectivity_or](../m/mcv_clause_selectivity_or.md)
   - mcv_clauselist_selectivity
   - mcv_combine_selectivities
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - statext_clauselist_selectivity
+  - [statext_clauselist_selectivity](statext_clauselist_selectivity.md)
 
 ## Notes and Other Information
 The function uses a two-phase approach: first, it preprocesses clauses to extract attribute numbers and expressions, then it iteratively applies the best available statistics. For OR clauses, it implements the complex inclusion-exclusion formula P(A OR B) = P(A) + P(B) - P(A AND B) iteratively. The algorithm prioritizes simple single-column clauses by using traditional selectivity estimates for them while leveraging multi-column statistics for complex clauses. The greedy selection ensures that statistics with the most coverage are applied first, maximizing the benefit of extended statistics while falling back to traditional methods for uncovered clauses.

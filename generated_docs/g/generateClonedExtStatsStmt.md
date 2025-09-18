@@ -23,20 +23,20 @@ This function creates a complete CreateStatsStmt that recreates an existing exte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - SysCacheGetAttrNotNull
-  - SysCacheGetAttr
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetArrayTypeP
   - TextDatumGetCString
-  - stringToNode
-  - makeString
+  - [stringToNode](../s/stringToNode.md)
+  - [makeString](../m/makeString.md)
   - makeNode
-  - get_attname
-  - map_variable_attnos
+  - [get_attname](get_attname.md)
+  - [map_variable_attnos](../m/map_variable_attnos.md)
   - list_make1
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - expandTableLikeClause
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
 
 ## Notes and Other Information
 - Processes four types of extended statistics: ndistinct, dependencies, mcv, and expressions

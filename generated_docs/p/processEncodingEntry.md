@@ -20,13 +20,13 @@ This function handles the special processing required for ENCODING entries in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
-  - pg_strdup (string duplication)
+  - [TocEntry](../T/TocEntry.md) (struct type)
+  - [pg_strdup](pg_strdup.md) (string duplication)
   - pg_char_to_encoding (encoding name to ID conversion)
-  - setFmtEncoding (format-specific encoding configuration)
-  - pg_fatal (error handling)
+  - [setFmtEncoding](../s/setFmtEncoding.md) (format-specific encoding configuration)
+  - [pg_fatal](pg_fatal.md) (error handling)
 - Called from (representative examples):
-  - ReadToc
+  - [ReadToc](../R/ReadToc.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_backup_archiver.c

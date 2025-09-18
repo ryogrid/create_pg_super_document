@@ -28,11 +28,11 @@ This function is the entry point for reading all item pointers from a posting tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginPrepareDataScan
-  - ginFindLeafPage
+  - [ginPrepareDataScan](ginPrepareDataScan.md)
+  - [ginFindLeafPage](ginFindLeafPage.md)
 - Called from (representative examples):
-  - scanPostingTree
-  - startScanEntry
+  - [scanPostingTree](../s/scanPostingTree.md)
+  - [startScanEntry](../s/startScanEntry.md)
 
 ## Notes and Other Information
 - The function sets up for a left-to-right sequential scan of all leaf pages in the posting tree

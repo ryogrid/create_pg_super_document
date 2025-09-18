@@ -25,15 +25,15 @@ The function implements an optimization by checking for cases that don't require
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_FE_ENCODING (macro to validate frontend encoding)
-  - GetDatabaseEncoding (gets current server encoding)
-  - IsTransactionState (checks if in a live transaction)
-  - FindDefaultConversionProc (finds conversion functions in catalogs)
-  - MemoryContextAlloc (allocates memory for conversion info)
-  - fmgr_info_cxt (loads function manager info)
-  - lcons (adds to conversion procedure list)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current server encoding)
+  - [IsTransactionState](../I/IsTransactionState.md) (checks if in a live transaction)
+  - [FindDefaultConversionProc](../F/FindDefaultConversionProc.md) (finds conversion functions in catalogs)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for conversion info)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (loads function manager info)
+  - [lcons](../l/lcons.md) (adds to conversion procedure list)
 - Called from:
-  - check_client_encoding (in variable.c:707)
-  - InitializeClientEncoding (in mbutils.c:288)
+  - [check_client_encoding](../c/check_client_encoding.md) (in variable.c:707)
+  - [InitializeClientEncoding](../I/InitializeClientEncoding.md) (in mbutils.c:288)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (bad encoding or unsupported conversion)

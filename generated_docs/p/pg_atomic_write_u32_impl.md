@@ -22,15 +22,15 @@ The implementation includes an important design note: even unlocked writes must 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (structure type)
-  - slock_t (spinlock type)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (structure type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
   - SpinLockAcquire (spinlock acquisition function)
   - SpinLockRelease (spinlock release function)
 - Called from (representative examples):
-  - pg_atomic_write_u32 (wrapper function in atomics.h)
+  - [pg_atomic_write_u32](pg_atomic_write_u32.md) (wrapper function in atomics.h)
   - PG_HAVE_ATOMIC_WRITE_U32 (feature detection macro)
-  - pg_atomic_init_flag_impl (flag initialization)
-  - pg_atomic_clear_flag_impl (flag clearing)
+  - [pg_atomic_init_flag_impl](pg_atomic_init_flag_impl.md) (flag initialization)
+  - [pg_atomic_clear_flag_impl](pg_atomic_clear_flag_impl.md) (flag clearing)
 
 ## Notes and Other Information
 - Always acquires the spinlock even for simple writes to maintain atomic semantics

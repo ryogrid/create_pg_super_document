@@ -22,7 +22,7 @@ This function constructs a TidScan plan node, which implements a highly speciali
 - Functions called/Symbols referenced:
   - makeNode (to create the TidScan node)
 - Called from (representative examples):
-  - create_tidscan_plan
+  - [create_tidscan_plan](../c/create_tidscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal plan construction

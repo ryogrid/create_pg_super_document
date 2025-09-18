@@ -19,16 +19,16 @@ The function works as part of PostgreSQL's SRF framework, being called repeatedl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - walkStatEntryTree
-  - palloc
+  - [walkStatEntryTree](../w/walkStatEntryTree.md)
+  - [palloc](../p/palloc.md)
   - memcpy
   - sprintf
-  - BuildTupleFromCStrings
-  - HeapTupleGetDatum
-  - pfree
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ts_stat1
-  - ts_stat2
+  - [ts_stat1](ts_stat1.md)
+  - [ts_stat2](ts_stat2.md)
 
 ## Notes and Other Information
 - Returns a tuple with three text columns: lexeme (word), ndoc (document count), nentry (occurrence count)

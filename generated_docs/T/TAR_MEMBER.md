@@ -25,13 +25,13 @@ TAR_MEMBER is a core data structure in PostgreSQL's tar archive format implement
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgoff_t (PostgreSQL offset type for large files)
-  - ArchiveHandle (archive management structure)
+  - [ArchiveHandle](../A/ArchiveHandle.md) (archive management structure)
 - Called from (representative examples):
-  - tarOpen (opens a tar member for reading/writing)
-  - tarClose (closes a tar member)
-  - tarRead (reads data from a tar member)
-  - tarWrite (writes data to a tar member)
-  - _tarAddFile (adds a new file to the tar archive)
+  - [tarOpen](../t/tarOpen.md) (opens a tar member for reading/writing)
+  - [tarClose](../t/tarClose.md) (closes a tar member)
+  - [tarRead](../t/tarRead.md) (reads data from a tar member)
+  - [tarWrite](../t/tarWrite.md) (writes data to a tar member)
+  - [_tarAddFile](../t/_tarAddFile.md) (adds a new file to the tar archive)
 
 ## Notes and Other Information
 - This structure is specifically used in the tar format implementation of pg_dump's archive system

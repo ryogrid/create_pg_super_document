@@ -22,14 +22,14 @@ The `makeRangeVar` function creates a RangeVar node that represents a reference 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - RangeVar (struct type)
+  - [RangeVar](../R/RangeVar.md) (struct type)
   - RELPERSISTENCE_PERMANENT (constant)
 - Called from (representative examples):
-  - makeRangeVarFromNameList
-  - DoCopy
-  - LookupTypeNameExtended
-  - transformAlterTableStmt
-  - autovacuum_do_vac_analyze
+  - [makeRangeVarFromNameList](makeRangeVarFromNameList.md)
+  - [DoCopy](../D/DoCopy.md)
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
+  - [autovacuum_do_vac_analyze](../a/autovacuum_do_vac_analyze.md)
 
 ## Notes and Other Information
 - Sets catalogname to NULL (no cross-database references)

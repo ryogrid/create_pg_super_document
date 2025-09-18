@@ -20,14 +20,14 @@ The function is implemented as a static inline function for performance, as it's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSetBlockNumber
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)
 - Called from (representative examples):
-  - _bt_insert_parent
-  - _bt_newlevel
-  - _bt_mark_page_halfdead
+  - [_bt_insert_parent](../b/_bt_insert_parent.md)
+  - [_bt_newlevel](../b/_bt_newlevel.md)
+  - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md)
   - _bt_buildadd
   - _bt_uppershutdown
-  - btree_xlog_mark_page_halfdead
+  - [btree_xlog_mark_page_halfdead](../b/btree_xlog_mark_page_halfdead.md)
 
 ## Notes and Other Information
 - This is the counterpart to BTreeTupleGetDownLink, used for modifying rather than reading downlink information

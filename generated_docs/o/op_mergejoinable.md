@@ -20,16 +20,16 @@ This function checks if an operator can potentially be used in merge join operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_CMP_PROC
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_operator
 - Called from (representative examples):
-  - compute_semijoin_info
-  - check_mergejoinable
+  - [compute_semijoin_info](../c/compute_semijoin_info.md)
+  - [check_mergejoinable](../c/check_mergejoinable.md)
 
 ## Notes and Other Information
 - The function provides special handling for ARRAY_EQ_OP and RECORD_EQ_OP operators

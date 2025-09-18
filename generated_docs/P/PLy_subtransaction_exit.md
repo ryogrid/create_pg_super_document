@@ -22,16 +22,16 @@ This function handles the exit from PL/Python subtransactions, following Python'
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple
-  - PLy_exception_set
-  - RollbackAndReleaseCurrentSubTransaction  
-  - ReleaseCurrentSubTransaction
+  - [PLy_exception_set](PLy_exception_set.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)  
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
   - linitial
   - list_delete_first
-  - MemoryContextSwitchTo
-  - pfree
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [pfree](../p/pfree.md)
   - Py_RETURN_NONE
-  - PLySubtransactionData (struct type)
-  - PLySubtransactionObject (struct type)
+  - [PLySubtransactionData](PLySubtransactionData.md) (struct type)
+  - [PLySubtransactionObject](PLySubtransactionObject.md) (struct type)
 - Called from:
   - Python method dispatch system (registered as `__exit__` or `exit`)
 

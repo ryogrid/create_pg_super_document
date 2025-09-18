@@ -26,7 +26,7 @@ The function operates on a global list (sock_paths) that contains paths to all s
   - sock_paths (global list variable containing socket file paths)
 
 - Called from (representative examples):
-  - ServerLoop (periodically called during normal server operation to maintain socket files)
+  - [ServerLoop](../S/ServerLoop.md) (periodically called during normal server operation to maintain socket files)
 
 ## Notes and Other Information
 - This function was created as a workaround for the design decision to place socket files in /tmp directory

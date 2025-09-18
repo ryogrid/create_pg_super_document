@@ -17,9 +17,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogPrefetchStats
+  - [XLogPrefetchStats](XLogPrefetchStats.md)
 - Called from (representative examples):
-  - CalculateShmemSize
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's shared memory subsystem initialization

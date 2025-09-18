@@ -27,18 +27,18 @@ The function includes extensive safety checks to handle edge cases like wraparou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruScanDirectory
-  - SlruScanDirCbFindEarliest
-  - find_multixact_start
-  - PerformMembersTruncation
-  - PerformOffsetsTruncation
-  - WriteMTruncateXlogRec
-  - RecoveryInProgress
+  - [SlruScanDirectory](../S/SlruScanDirectory.md)
+  - [SlruScanDirCbFindEarliest](../S/SlruScanDirCbFindEarliest.md)
+  - [find_multixact_start](../f/find_multixact_start.md)
+  - [PerformMembersTruncation](../P/PerformMembersTruncation.md)
+  - [PerformOffsetsTruncation](../P/PerformOffsetsTruncation.md)
+  - [WriteMTruncateXlogRec](../W/WriteMTruncateXlogRec.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - MultiXactIdIsValid
-  - MultiXactIdPrecedesOrEquals
-  - MultiXactIdPrecedes
+  - [MultiXactIdPrecedesOrEquals](../M/MultiXactIdPrecedesOrEquals.md)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
 - Called from (representative examples):
-  - vac_truncate_clog
+  - [vac_truncate_clog](../v/vac_truncate_clog.md)
 
 ## Notes and Other Information
 - Only runs on primary servers, never during recovery

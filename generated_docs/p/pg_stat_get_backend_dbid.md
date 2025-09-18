@@ -19,8 +19,8 @@ This function retrieves the database OID for a PostgreSQL backend process identi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_beentry_by_proc_number: Retrieves backend status entry by process number
-  - PgBackendStatus: Structure containing backend status information including st_databaseid
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md): Retrieves backend status entry by process number
+  - [PgBackendStatus](../P/PgBackendStatus.md): Structure containing backend status information including st_databaseid
   - PG_GETARG_INT32: Macro to extract int32 argument from function call
   - PG_RETURN_OID: Macro to return OID value from PostgreSQL function
   - PG_RETURN_NULL: Macro to return NULL from PostgreSQL function

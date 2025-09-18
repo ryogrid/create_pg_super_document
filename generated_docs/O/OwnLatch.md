@@ -19,14 +19,14 @@ OwnLatch takes ownership of a shared latch by setting the latch's owner_pid to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Latch (structure type)
+  - [Latch](../L/Latch.md) (structure type)
   - WAIT_USE_SELF_PIPE (conditional compilation flag)
   - WAIT_USE_SIGNALFD (conditional compilation flag)
   - PANIC (error level)
 - Called from (representative examples):
-  - InitWalRecovery
+  - [InitWalRecovery](../I/InitWalRecovery.md)
   - InitProcess
-  - InitAuxiliaryProcess
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md)
 
 ## Notes and Other Information
 - Only works with shared latches (latch->is_shared must be true)

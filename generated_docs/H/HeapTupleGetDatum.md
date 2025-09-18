@@ -19,14 +19,14 @@ The function is commonly used in PostgreSQL's function API when returning tuple 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleHeaderGetDatum
-  - HeapTupleData (struct type)
+  - [HeapTupleHeaderGetDatum](HeapTupleHeaderGetDatum.md)
+  - [HeapTupleData](HeapTupleData.md) (struct type)
 - Called from (representative examples):
   - TupleGetDatum
-  - pg_last_committed_xact
-  - pg_xact_commit_timestamp_origin
-  - ExecEvalRow
-  - ExecEvalConvertRowtype
+  - [pg_last_committed_xact](../p/pg_last_committed_xact.md)
+  - [pg_xact_commit_timestamp_origin](../p/pg_xact_commit_timestamp_origin.md)
+  - [ExecEvalRow](../E/ExecEvalRow.md)
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)
   - Various PostgreSQL system functions returning composite types
 
 ## Notes and Other Information

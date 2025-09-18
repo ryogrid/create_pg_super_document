@@ -22,8 +22,8 @@ This function computes the current utilization of the asynchronous notification 
   - QUEUE_TAIL (macro/variable representing current tail position)
   - max_notify_queue_pages (global variable defining maximum queue size)
 - Called from:
-  - pg_notification_queue_usage (SQL-callable function for monitoring)
-  - asyncQueueFillWarning (checks if queue is getting full)
+  - [pg_notification_queue_usage](../p/pg_notification_queue_usage.md) (SQL-callable function for monitoring)
+  - [asyncQueueFillWarning](asyncQueueFillWarning.md) (checks if queue is getting full)
   - NotificationHash (context reference in async.c)
 
 ## Notes and Other Information

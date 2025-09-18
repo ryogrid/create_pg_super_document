@@ -33,11 +33,11 @@ The implementation uses a forward-scanning approach: when the rank changes or fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_WINDOW_OBJECT (macro to get WindowObject)
-  - WinGetPartitionRowCount (gets total number of rows in partition)
-  - rank_up (utility function to check if rank should increase)
-  - WinGetPartitionLocalMemory (allocates partition-local memory)
-  - WinGetCurrentPosition (gets current row position)
-  - WinRowsArePeers (checks if two rows have equivalent ORDER BY values)
+  - [WinGetPartitionRowCount](../W/WinGetPartitionRowCount.md) (gets total number of rows in partition)
+  - [rank_up](../r/rank_up.md) (utility function to check if rank should increase)
+  - [WinGetPartitionLocalMemory](../W/WinGetPartitionLocalMemory.md) (allocates partition-local memory)
+  - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md) (gets current row position)
+  - [WinRowsArePeers](../W/WinRowsArePeers.md) (checks if two rows have equivalent ORDER BY values)
   - PG_RETURN_FLOAT8 (macro to return double-precision float result)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in SQL execution)

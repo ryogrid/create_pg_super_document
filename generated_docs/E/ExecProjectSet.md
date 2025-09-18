@@ -23,14 +23,14 @@ The function handles the complex lifecycle of SRFs by maintaining state about wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProjectSRF
+  - [ExecProjectSRF](ExecProjectSRF.md)
   - ResetExprContext  
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - ExecProcNode
   - TupIsNull
   - outerPlanState
 - Called from (representative examples):
-  - ExecInitProjectSet (assigned as the ExecProcNode function)
+  - [ExecInitProjectSet](ExecInitProjectSet.md) (assigned as the ExecProcNode function)
 
 ## Notes and Other Information
 - The function includes interrupt checking via CHECK_FOR_INTERRUPTS()

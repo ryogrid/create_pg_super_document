@@ -21,13 +21,13 @@ The function manages detailed progress reporting throughout the cleanup process,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_multi_param
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
   - ParallelVacuumIsActive
-  - lazy_cleanup_one_index  
-  - parallel_vacuum_cleanup_all_indexes
-  - pgstat_progress_update_param
+  - [lazy_cleanup_one_index](lazy_cleanup_one_index.md)  
+  - [parallel_vacuum_cleanup_all_indexes](../p/parallel_vacuum_cleanup_all_indexes.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
 - Called from:
-  - lazy_scan_heap
+  - [lazy_scan_heap](lazy_scan_heap.md)
 
 ## Notes and Other Information
 - Only executes when do_index_cleanup is enabled and nindexes > 0

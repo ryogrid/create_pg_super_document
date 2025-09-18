@@ -33,12 +33,12 @@ After preprocessing, it delegates to specialized functions:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_array
+  - [deconstruct_array](../d/deconstruct_array.md)
   - qsort_arg with element_compare
-  - mcelem_array_contain_overlap_selec
-  - mcelem_array_contained_selec
+  - [mcelem_array_contain_overlap_selec](mcelem_array_contain_overlap_selec.md)
+  - [mcelem_array_contained_selec](mcelem_array_contained_selec.md)
 - Called from:
-  - calc_arraycontsel (multiple calls at lines 382, 394, 407)
+  - [calc_arraycontsel](../c/calc_arraycontsel.md) (multiple calls at lines 382, 394, 407)
 
 ## Notes and Other Information
 - Static function (internal to array_selfuncs.c)

@@ -18,12 +18,12 @@ CloneArchive creates a deep clone of an ArchiveHandle for parallel processing in
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - RestoreOptions
-  - ConnectDatabase
+  - [RestoreOptions](../R/RestoreOptions.md)
+  - [ConnectDatabase](ConnectDatabase.md)
   - archModeRead
-  - _doSetFixedOutputState
+  - [_doSetFixedOutputState](../d/_doSetFixedOutputState.md)
 - Called from (representative examples):
-  - RunWorker (from src/bin/pg_dump/parallel.c:846)
+  - [RunWorker](../R/RunWorker.md) (from src/bin/pg_dump/parallel.c:846)
   - ARCHIVE_OPTS (from src/bin/pg_dump/pg_backup_archiver.h:421)
 
 ## Notes and Other Information

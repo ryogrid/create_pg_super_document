@@ -28,16 +28,16 @@ Common examples of types requiring length coercion include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typeidType
+  - [typeidType](../t/typeidType.md)
   - IsTrueArrayType
-  - SearchSysCache2
+  - [SearchSysCache2](../S/SearchSysCache2.md)
   - Form_pg_type
   - Form_pg_cast
   - COERCION_PATH_FUNC
   - COERCION_PATH_ARRAYCOERCE  
   - COERCION_PATH_NONE
 - Called from (representative examples):
-  - coerce_type_typmod (src/backend/parser/parse_coerce.c:777)
+  - [coerce_type_typmod](../c/coerce_type_typmod.md) (src/backend/parser/parse_coerce.c:777)
 
 ## Notes and Other Information
 - The function specifically searches for casts where source and target types are identical

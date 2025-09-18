@@ -24,18 +24,18 @@ The function handles several important cases: numeric OID input for symmetry wit
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING
-  - parseNumericOid
+  - [parseNumericOid](../p/parseNumericOid.md)
   - PG_RETURN_OID
   - IsBootstrapProcessingMode
   - elog
-  - stringToQualifiedNameList
-  - OpernameGetCandidates
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md)
+  - [OpernameGetCandidates](../O/OpernameGetCandidates.md)
   - ereturn
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - FuncCandidateList (type)
 - Called from (representative examples):
-  - to_regoper (src/backend/utils/adt/regproc.c:533)
+  - [to_regoper](../t/to_regoper.md) (src/backend/utils/adt/regproc.c:533)
 
 ## Notes and Other Information
 - This is a standard PostgreSQL type input function following the naming convention of [typename]in

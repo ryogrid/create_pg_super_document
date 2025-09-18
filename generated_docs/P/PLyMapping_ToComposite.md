@@ -28,17 +28,17 @@ The conversion process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyMapping_Check (Python API validation)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - TupleDescAttr (tuple descriptor attribute access)
   - PyMapping_GetItemString (Python mapping value extraction)
-  - heap_form_tuple (creates HeapTuple from arrays)
-  - heap_copy_tuple_as_datum (converts HeapTuple to Datum)
-  - heap_freetuple (frees HeapTuple memory)
-  - pfree (PostgreSQL memory deallocation)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates HeapTuple from arrays)
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md) (converts HeapTuple to Datum)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees HeapTuple memory)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - PG_TRY/PG_CATCH/PG_RE_THROW/PG_END_TRY (exception handling)
   - Py_XDECREF (Python reference counting)
 - Called from (representative examples):
-  - PLyObject_ToComposite (src/pl/plpython/plpy_typeio.c:1007)
+  - [PLyObject_ToComposite](PLyObject_ToComposite.md) (src/pl/plpython/plpy_typeio.c:1007)
 
 ## Notes and Other Information
 - Validates input with PyMapping_Check assertion to ensure proper type handling

@@ -22,7 +22,7 @@ The function enables users to duplicate existing physical replication slots whil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - copy_replication_slot (with logical_slot=false)
+  - [copy_replication_slot](../c/copy_replication_slot.md) (with logical_slot=false)
 - Called from (representative examples):
   - SQL interface as pg_copy_physical_replication_slot function
   - Database administrators and replication management systems

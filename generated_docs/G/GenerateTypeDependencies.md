@@ -29,19 +29,19 @@ When rebuilding dependencies (for ALTER TYPE operations or shell type completion
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr, stringToNode, TextDatumGetCString, DatumGetAclPCopy
-  - deleteDependencyRecordsFor, deleteSharedDependencyRecordsFor
+  - [heap_getattr](../h/heap_getattr.md), stringToNode, TextDatumGetCString, DatumGetAclPCopy
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md), deleteSharedDependencyRecordsFor
   - ObjectAddressSet
-  - new_object_addresses, add_exact_object_address, free_object_addresses
-  - record_object_address_dependencies
-  - recordDependencyOnOwner, recordDependencyOnNewAcl
-  - recordDependencyOnCurrentExtension
-  - recordDependencyOn, recordDependencyOnExpr
+  - [new_object_addresses](../n/new_object_addresses.md), add_exact_object_address, free_object_addresses
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md), recordDependencyOnNewAcl
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md), recordDependencyOnExpr
 - Called from (representative examples):
-  - TypeShellMake (src/backend/catalog/pg_type.c:160)
-  - TypeCreate (src/backend/catalog/pg_type.c:497)
-  - AlterDomainDefault (src/backend/commands/typecmds.c:2676)
-  - AlterTypeRecurse (src/backend/commands/typecmds.c:4625)
+  - [TypeShellMake](../T/TypeShellMake.md) (src/backend/catalog/pg_type.c:160)
+  - [TypeCreate](../T/TypeCreate.md) (src/backend/catalog/pg_type.c:497)
+  - [AlterDomainDefault](../A/AlterDomainDefault.md) (src/backend/commands/typecmds.c:2676)
+  - [AlterTypeRecurse](../A/AlterTypeRecurse.md) (src/backend/commands/typecmds.c:4625)
 
 ## Notes and Other Information
 - Extracts default expression and ACL from tuple if not provided by caller for efficiency

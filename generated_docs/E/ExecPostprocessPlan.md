@@ -22,7 +22,7 @@ ExecPostprocessPlan performs final cleanup and completion tasks during executor 
   - ExecProcNode  
   - TupIsNull
 - Called from (representative examples):
-  - standard_ExecutorFinish (execMain.c:433)
+  - [standard_ExecutorFinish](../s/standard_ExecutorFinish.md) (execMain.c:433)
 
 ## Notes and Other Information
 - Forces forward scan direction to ensure consistent execution behavior

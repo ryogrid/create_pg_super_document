@@ -23,13 +23,13 @@ The `make_row_distinct_op` function handles row-level DISTINCT FROM operations b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_distinct_op
-  - makeBoolExpr
+  - [make_distinct_op](make_distinct_op.md)
+  - [makeBoolExpr](makeBoolExpr.md)
   - list_make2
-  - makeBoolConst
+  - [makeBoolConst](makeBoolConst.md)
   - list_length
   - forboth
-  - parser_errposition
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
   - transformAExprDistinct
 

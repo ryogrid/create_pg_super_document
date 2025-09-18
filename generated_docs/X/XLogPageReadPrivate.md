@@ -24,13 +24,13 @@ The structure is typically allocated and initialized in InitWalRecovery and pass
 - Functions called/Symbols referenced:
   - TimeLineID (type)
 - Called from (representative examples):
-  - InitWalRecovery (allocation and initialization at src/backend/access/transam/xlogrecovery.c:515,554)
-  - ReadRecord (usage at src/backend/access/transam/xlogrecovery.c:3136)
-  - XLogPageRead (dereferenced at src/backend/access/transam/xlogrecovery.c:3301,3302)
-  - extractPageMap (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:72)
-  - readOneRecord (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:130)
-  - findLastCheckpoint (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:177)
-  - SimpleXLogPageRead (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:278)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (allocation and initialization at src/backend/access/transam/xlogrecovery.c:515,554)
+  - [ReadRecord](../R/ReadRecord.md) (usage at src/backend/access/transam/xlogrecovery.c:3136)
+  - [XLogPageRead](XLogPageRead.md) (dereferenced at src/backend/access/transam/xlogrecovery.c:3301,3302)
+  - [extractPageMap](../e/extractPageMap.md) (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:72)
+  - [readOneRecord](../r/readOneRecord.md) (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:130)
+  - [findLastCheckpoint](../f/findLastCheckpoint.md) (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:177)
+  - [SimpleXLogPageRead](../S/SimpleXLogPageRead.md) (pg_rewind usage at src/bin/pg_rewind/parsexlog.c:278)
 
 ## Notes and Other Information
 - This structure is defined in src/backend/access/transam/xlogrecovery.c at lines 194-200

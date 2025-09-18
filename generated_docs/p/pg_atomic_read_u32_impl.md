@@ -19,11 +19,11 @@ The function is marked as  for performance optimization, allowing the compiler t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (atomic variable type)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (atomic variable type)
   - PG_HAVE_ATOMIC_WRITE_U32 (conditional compilation flag)
 - Called from (representative examples):
-  - pg_atomic_read_u32
-  - pg_atomic_unlocked_test_flag_impl
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [pg_atomic_unlocked_test_flag_impl](pg_atomic_unlocked_test_flag_impl.md)
 
 ## Notes and Other Information
 - This is a generic fallback implementation that may not provide the memory ordering guarantees of true atomic operations

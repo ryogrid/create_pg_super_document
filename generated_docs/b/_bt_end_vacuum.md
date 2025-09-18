@@ -26,10 +26,10 @@ This design allows the caller to use PG_TRY blocks around the start_vacuum opera
 - Functions called/Symbols referenced:
   - LWLockAcquire (with BtreeVacuumLock)
   - LWLockRelease
-  - BTOneVacInfo (structure access)
+  - [BTOneVacInfo](../B/BTOneVacInfo.md) (structure access)
 - Called from (representative examples):
-  - btbulkdelete
-  - _bt_end_vacuum_callback
+  - [btbulkdelete](btbulkdelete.md)
+  - [_bt_end_vacuum_callback](_bt_end_vacuum_callback.md)
 
 ## Notes and Other Information
 - Deliberately designed not to raise errors if the entry is not found

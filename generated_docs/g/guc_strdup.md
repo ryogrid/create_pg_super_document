@@ -20,22 +20,22 @@ The function leverages the existing  infrastructure for memory allocation, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_malloc (for memory allocation)
+  - [guc_malloc](guc_malloc.md) (for memory allocation)
   - strlen (for determining string length)
   - memcpy (for copying string data)
   - likely (for branch prediction optimization)
 
 - Called from (representative examples):
-  - check_datestyle
-  - check_client_encoding
-  - check_application_name
-  - check_cluster_name
-  - add_placeholder_variable
-  - InitializeOneGUCOption
-  - ReportGUCOption
+  - [check_datestyle](../c/check_datestyle.md)
+  - [check_client_encoding](../c/check_client_encoding.md)
+  - [check_application_name](../c/check_application_name.md)
+  - [check_cluster_name](../c/check_cluster_name.md)
+  - [add_placeholder_variable](../a/add_placeholder_variable.md)
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [ReportGUCOption](../R/ReportGUCOption.md)
   - parse_and_validate_value
-  - set_config_sourcefile
-  - init_custom_variable
+  - [set_config_sourcefile](../s/set_config_sourcefile.md)
+  - [init_custom_variable](../i/init_custom_variable.md)
 
 ## Notes and Other Information
 - Part of the GUC infrastructure for memory management

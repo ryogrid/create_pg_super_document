@@ -27,7 +27,7 @@ The function accounts for the reverse storage order in the previous_words array,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - word_matches (performs individual word comparison with case sensitivity support)
+  - [word_matches](../w/word_matches.md) (performs individual word comparison with case sensitivity support)
 
 - Called from (representative examples):
   - HeadMatches (macro wrapper for case-insensitive head matching)

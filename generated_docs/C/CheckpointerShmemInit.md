@@ -27,17 +27,17 @@ The function uses PostgreSQL's shared memory infrastructure and handles both the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckpointerShmemSize
-  - ShmemInitStruct
+  - [CheckpointerShmemSize](CheckpointerShmemSize.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
   - MemSet
   - SpinLockInit
-  - ConditionVariableInit
+  - [ConditionVariableInit](ConditionVariableInit.md)
   - Min
   - NBuffers (global variable)
   - MAX_CHECKPOINT_REQUESTS
-  - CheckpointerShmemStruct (struct type)
+  - [CheckpointerShmemStruct](CheckpointerShmemStruct.md) (struct type)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Sets the global CheckpointerShmem pointer to the allocated shared memory

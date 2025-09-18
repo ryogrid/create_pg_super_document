@@ -26,13 +26,13 @@ This mapping is crucial for the predicate locking system because other parts of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (PostgreSQL hash table search/insert function)
-  - SERIALIZABLEXIDTAG (key structure for XID hash table)
-  - SERIALIZABLEXID (entry structure in XID hash table)
+  - [hash_search](../h/hash_search.md) (PostgreSQL hash table search/insert function)
+  - [SERIALIZABLEXIDTAG](../S/SERIALIZABLEXIDTAG.md) (key structure for XID hash table)
+  - [SERIALIZABLEXID](../S/SERIALIZABLEXID.md) (entry structure in XID hash table)
   - HASH_ENTER (hash operation flag for insert)
   - InvalidSerializableXact (constant for uninitialized serializable transactions)
 - Called from (representative examples):
-  - AssignTransactionId (in src/backend/access/transam/xact.c:716 when XID is first assigned)
+  - [AssignTransactionId](../A/AssignTransactionId.md) (in src/backend/access/transam/xact.c:716 when XID is first assigned)
 
 ## Notes and Other Information
 - Must only be called once per transaction - includes assertion to prevent duplicate registration

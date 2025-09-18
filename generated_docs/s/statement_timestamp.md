@@ -21,7 +21,7 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GetCurrentStatementStartTimestamp`: Retrieves the cached statement start timestamp
+  - `[GetCurrentStatementStartTimestamp](../G/GetCurrentStatementStartTimestamp.md)`: Retrieves the cached statement start timestamp
   - `PG_RETURN_TIMESTAMPTZ`: PostgreSQL macro to return a timestamptz value
 
 - Called from (representative examples):

@@ -19,9 +19,9 @@ This function checks if a given character can legally appear within a PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_ident_start (for checking if character is valid identifier start)
+  - [is_ident_start](is_ident_start.md) (for checking if character is valid identifier start)
 - Called from (representative examples):
-  - parse_ident
+  - [parse_ident](../p/parse_ident.md)
 
 ## Notes and Other Information
 - This is a static function used internally within misc.c

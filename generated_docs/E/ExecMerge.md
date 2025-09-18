@@ -29,11 +29,11 @@ The execution flow involves calling ExecMergeMatched() for matched cases, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecMergeMatched
-  - ExecMergeNotMatched
-  - ModifyTableContext
+  - [ExecMergeMatched](ExecMergeMatched.md)
+  - [ExecMergeNotMatched](ExecMergeNotMatched.md)
+  - [ModifyTableContext](../M/ModifyTableContext.md)
 - Called from (representative examples):
-  - ExecModifyTable (multiple locations in nodeModifyTable.c)
+  - [ExecModifyTable](ExecModifyTable.md) (multiple locations in nodeModifyTable.c)
 
 ## Notes and Other Information
 - Handles concurrent update scenarios gracefully by supporting transitions from MATCHED to NOT MATCHED cases

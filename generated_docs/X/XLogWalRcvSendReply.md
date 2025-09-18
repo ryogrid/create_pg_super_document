@@ -29,17 +29,17 @@ The function uses static variables to track the last reported positions and avoi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - WalRcvComputeNextWakeup
-  - GetXLogReplayRecPtr
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [WalRcvComputeNextWakeup](../W/WalRcvComputeNextWakeup.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
   - resetStringInfo
-  - pq_sendbyte
-  - pq_sendint64
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
   - walrcv_send
 - Called from (representative examples):
-  - WalReceiverMain
-  - XLogWalRcvProcessMsg
-  - XLogWalRcvFlush
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [XLogWalRcvProcessMsg](XLogWalRcvProcessMsg.md)
+  - [XLogWalRcvFlush](XLogWalRcvFlush.md)
 
 ## Notes and Other Information
 - This is a static function internal to the walreceiver.c module

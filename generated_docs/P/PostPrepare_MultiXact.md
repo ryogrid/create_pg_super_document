@@ -20,11 +20,11 @@ This function handles the transfer of MultiXact state from the current backend p
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - TwoPhaseGetDummyProcNumber
+  - [TwoPhaseGetDummyProcNumber](../T/TwoPhaseGetDummyProcNumber.md)
   - LWLockAcquire (MultiXactGenLock, LW_EXCLUSIVE)
   - LWLockRelease
   - InvalidMultiXactId (constant)
-  - dclist_init
+  - [dclist_init](../d/dclist_init.md)
 - Global variables modified:
   - OldestMemberMXactId[dummyProcNumber]
   - OldestMemberMXactId[MyProcNumber]
@@ -32,7 +32,7 @@ This function handles the transfer of MultiXact state from the current backend p
   - MXactContext
   - MXactCache
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](PrepareTransaction.md)
 
 ## Notes and Other Information
 - Only transfers OldestMemberMXactId, not OldestVisibleMXactId (prepared transactions don't need visibility tracking)

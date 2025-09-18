@@ -33,19 +33,19 @@ The function is designed to handle edge cases like tuple updates during deletion
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleSatisfiesUpdate
-  - GetCurrentTransactionId
-  - CheckForSerializableConflictIn
-  - ExtractReplicaIdentity
-  - compute_new_xmax_infomask
-  - heap_toast_delete
-  - CacheInvalidateHeapTuple
-  - UpdateXmaxHintBits
-  - xmax_infomask_changed
-  - compute_infobits
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
+  - [ExtractReplicaIdentity](../E/ExtractReplicaIdentity.md)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md)
+  - [heap_toast_delete](heap_toast_delete.md)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
+  - [UpdateXmaxHintBits](../U/UpdateXmaxHintBits.md)
+  - [xmax_infomask_changed](../x/xmax_infomask_changed.md)
+  - [compute_infobits](../c/compute_infobits.md)
 - Called from (representative examples):
-  - simple_heap_delete
-  - heapam_tuple_delete
+  - [simple_heap_delete](../s/simple_heap_delete.md)
+  - [heapam_tuple_delete](heapam_tuple_delete.md)
 
 ## Notes and Other Information
 - The function prohibits execution during parallel operations to prevent combo CID allocation issues

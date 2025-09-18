@@ -21,13 +21,13 @@ The function modifies the internal seed based on the input length using the magi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fasthash_state (state structure)
-  - fasthash_init (initialization function)
-  - fasthash_accum (data accumulation function)
-  - fasthash_final64 (finalization function returning 64-bit result)
+  - [fasthash_state](fasthash_state.md) (state structure)
+  - [fasthash_init](fasthash_init.md) (initialization function)
+  - [fasthash_accum](fasthash_accum.md) (data accumulation function)
+  - [fasthash_final64](fasthash_final64.md) (finalization function returning 64-bit result)
   - FH_SIZEOF_ACCUM (optimal chunk size constant)
 - Called from (representative examples):
-  - fasthash32 (uses fasthash64 internally and truncates to 32-bit)
+  - [fasthash32](fasthash32.md) (uses fasthash64 internally and truncates to 32-bit)
 
 ## Notes and Other Information
 - Declared as static inline for optimal performance in header file src/include/common/hashfn_unstable.h

@@ -27,13 +27,13 @@ The function skips locking for BLOBS entries since they don't correspond to actu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtQualifiedId (formats qualified table identifier)
-  - PQexec (executes SQL command)
+  - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats qualified table identifier)
+  - [PQexec](../P/PQexec.md) (executes SQL command)
   - PGRES_COMMAND_OK (success status constant)
-  - TocEntry (table of contents entry structure)
+  - [TocEntry](../T/TocEntry.md) (table of contents entry structure)
 
 - Called from (representative examples):
-  - WaitForCommands (parallel worker command processing)
+  - [WaitForCommands](../W/WaitForCommands.md) (parallel worker command processing)
 
 ## Notes and Other Information
 - Uses NOWAIT semantics to prevent deadlocks in parallel dump operations

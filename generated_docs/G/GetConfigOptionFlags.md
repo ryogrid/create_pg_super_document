@@ -24,8 +24,8 @@ The function provides flexibility in error handling through the missing_ok param
 - Data structures used:
   - config_generic
 - Called from (representative examples):
-  - PostmasterMain
-  - pg_get_functiondef
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [pg_get_functiondef](../p/pg_get_functiondef.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

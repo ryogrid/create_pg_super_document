@@ -19,7 +19,7 @@ None - this function takes no parameters.
 - Functions called/Symbols referenced:
   - puts (standard C library function for output)
 - Called from (representative examples):
-  - exec_command_copyright (in src/bin/psql/command.c:740)
+  - [exec_command_copyright](../e/exec_command_copyright.md) (in src/bin/psql/command.c:740)
 
 ## Notes and Other Information
 - This function implements the \\copyright backslash command in psql

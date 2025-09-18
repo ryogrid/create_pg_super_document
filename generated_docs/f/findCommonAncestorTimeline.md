@@ -32,10 +32,10 @@ The function handles edge cases where clusters might have used the same timeline
 ## Dependencies
 - Functions called/Symbols referenced:
   - Min (standard minimum macro)
-  - MinXLogRecPtr (specialized minimum function for XLogRecPtr values)
-  - pg_fatal (fatal error reporting)
+  - [MinXLogRecPtr](../M/MinXLogRecPtr.md) (specialized minimum function for XLogRecPtr values)
+  - [pg_fatal](../p/pg_fatal.md) (fatal error reporting)
 - Called from (representative examples):
-  - main (part of the main pg_rewind timeline analysis process)
+  - [main](../m/main.md) (part of the main pg_rewind timeline analysis process)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

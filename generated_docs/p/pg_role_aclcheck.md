@@ -29,12 +29,12 @@ The `pg_role_aclcheck` function is a static helper function that provides "quick
   - ACL_SET
   - ACLCHECK_NO_PRIV
 - Called from (representative examples):
-  - pg_has_role_name_name
-  - pg_has_role_name
-  - pg_has_role_name_id
-  - pg_has_role_id
-  - pg_has_role_id_name
-  - pg_has_role_id_id
+  - [pg_has_role_name_name](pg_has_role_name_name.md)
+  - [pg_has_role_name](pg_has_role_name.md)
+  - [pg_has_role_name_id](pg_has_role_name_id.md)
+  - [pg_has_role_id](pg_has_role_id.md)
+  - [pg_has_role_id_name](pg_has_role_id_name.md)
+  - [pg_has_role_id_id](pg_has_role_id_id.md)
 
 ## Notes and Other Information
 - Uses ACL_CREATE to represent membership privileges due to lack of dedicated membership ACL bit

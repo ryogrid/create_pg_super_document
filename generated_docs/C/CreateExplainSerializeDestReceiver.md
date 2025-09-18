@@ -19,16 +19,16 @@ This factory function creates a SerializeDestReceiver instance specifically desi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - serializeAnalyzeReceive
-  - serializeAnalyzeStartup
-  - serializeAnalyzeShutdown
-  - serializeAnalyzeDestroy
+  - [palloc0](../p/palloc0.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [serializeAnalyzeStartup](../s/serializeAnalyzeStartup.md)
+  - [serializeAnalyzeShutdown](../s/serializeAnalyzeShutdown.md)
+  - [serializeAnalyzeDestroy](../s/serializeAnalyzeDestroy.md)
   - DestExplainSerialize
-  - SerializeDestReceiver
+  - [SerializeDestReceiver](../S/SerializeDestReceiver.md)
 - Called from (representative examples):
-  - ExplainOnePlan
-  - CreateDestReceiver
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [CreateDestReceiver](CreateDestReceiver.md)
 
 ## Notes and Other Information
 - This function implements the factory pattern for creating destination receivers in PostgreSQL

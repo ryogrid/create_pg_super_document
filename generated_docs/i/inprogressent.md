@@ -19,7 +19,7 @@ The  structure is used as part of PostgreSQL's relation cache invalidation syste
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)
-  - bool (built-in type)
+  - [bool](../b/bool.md) (built-in type)
 - Called from (representative examples):
   - Used by  stack management
   - Referenced during  processing

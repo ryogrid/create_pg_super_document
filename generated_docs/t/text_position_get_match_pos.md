@@ -18,7 +18,7 @@ This function converts the byte-based position of a match to a character-based p
 ## Dependencies
 - Functions called/Symbols referenced:
   - TextPositionState (structure accessed and modified)
-  - pg_mbstrlen_with_len (multibyte string length calculation)
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md) (multibyte string length calculation)
 - Called from (representative examples):
   - text_position (main text position function)
 

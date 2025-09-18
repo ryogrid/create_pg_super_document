@@ -29,11 +29,11 @@ This function takes no parameters but operates on global backend-local variables
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_destroy (PostgreSQL hash table cleanup function)
+  - [hash_destroy](../h/hash_destroy.md) (PostgreSQL hash table cleanup function)
   - InvalidSerializableXact (null sentinel value)
 - Called from:
-  - SerialControl (during serializable transaction setup/cleanup)
-  - ReleasePredicateLocks (multiple call sites for different cleanup scenarios)
+  - [SerialControl](../S/SerialControl.md) (during serializable transaction setup/cleanup)
+  - [ReleasePredicateLocks](ReleasePredicateLocks.md) (multiple call sites for different cleanup scenarios)
 
 ## Notes and Other Information
 - This is a static (internal) function used only within the predicate locking subsystem

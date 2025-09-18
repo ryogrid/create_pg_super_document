@@ -21,8 +21,8 @@ This function provides the most flexible way to convert JSON text data to a TSVe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_jsonb_index_flags
-  - json_to_tsvector_worker
+  - [parse_jsonb_index_flags](../p/parse_jsonb_index_flags.md)
+  - [json_to_tsvector_worker](json_to_tsvector_worker.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_P
   - PG_GETARG_JSONB_P

@@ -21,13 +21,13 @@ The function calculates the total memory needed by combining the fixed header si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (implicit via memory allocation)
+  - [palloc0](../p/palloc0.md) (implicit via memory allocation)
   - offsetof (implicit via structure layout calculation)
 - Data structures referenced:
-  - Ranges
+  - [Ranges](../R/Ranges.md)
 - Called from (representative examples):
-  - brin_range_deserialize
-  - brin_minmax_multi_add_value
+  - [brin_range_deserialize](../b/brin_range_deserialize.md)
+  - [brin_minmax_multi_add_value](../b/brin_minmax_multi_add_value.md)
 
 ## Notes and Other Information
 - Uses palloc0 to ensure the structure is zero-initialized

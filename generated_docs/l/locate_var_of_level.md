@@ -27,13 +27,13 @@ Unlike `contain_vars_of_level()` which only checks for existence, this function 
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_walker (for traversing the expression tree)
-  - locate_var_of_level_walker (the actual tree walker implementation)
+  - [locate_var_of_level_walker](locate_var_of_level_walker.md) (the actual tree walker implementation)
 - Data structures used:
-  - locate_var_of_level_context (context structure for tracking search state)
+  - [locate_var_of_level_context](locate_var_of_level_context.md) (context structure for tracking search state)
 - Called from:
-  - transformSetOperationTree (src/backend/parser/analyze.c:2093)
-  - check_agg_arguments (src/backend/parser/parse_agg.c:703)
-  - checkExprIsVarFree (src/backend/parser/parse_clause.c:1935)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (src/backend/parser/analyze.c:2093)
+  - [check_agg_arguments](../c/check_agg_arguments.md) (src/backend/parser/parse_agg.c:703)
+  - [checkExprIsVarFree](../c/checkExprIsVarFree.md) (src/backend/parser/parse_clause.c:1935)
 
 ## Notes and Other Information
 - Designed specifically for error reporting scenarios where location information is needed

@@ -29,17 +29,17 @@ The function uses PostgreSQL's function call mechanism to invoke encoding-specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_verify_mbstr (validates multibyte string)
-  - IsTransactionState (checks transaction context)
-  - FindDefaultConversionProc (finds conversion function)
+  - [pg_verify_mbstr](pg_verify_mbstr.md) (validates multibyte string)
+  - [IsTransactionState](../I/IsTransactionState.md) (checks transaction context)
+  - [FindDefaultConversionProc](../F/FindDefaultConversionProc.md) (finds conversion function)
   - pg_encoding_to_char (encoding name lookup)
-  - MemoryContextAllocHuge (memory allocation)
+  - [MemoryContextAllocHuge](../M/MemoryContextAllocHuge.md) (memory allocation)
   - OidFunctionCall6 (invokes conversion function)
-  - repalloc (memory reallocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
 - Called from (representative examples):
-  - pg_convert (SQL function wrapper)
-  - pg_any_to_server (server encoding conversion)
-  - pg_server_to_any (client encoding conversion)
+  - [pg_convert](pg_convert.md) (SQL function wrapper)
+  - [pg_any_to_server](pg_any_to_server.md) (server encoding conversion)
+  - [pg_server_to_any](pg_server_to_any.md) (client encoding conversion)
   - xml_parse (XML processing)
 
 ## Notes and Other Information

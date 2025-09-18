@@ -21,7 +21,7 @@ For pass-by-value types or null constants, it simply copies the datum value dire
 - Functions called/Symbols referenced:
   - makeNode (to create new Const node)
   - COPY_SCALAR_FIELD (macro for copying scalar fields)
-  - datumCopy (for deep copying pass-by-reference values)  
+  - [datumCopy](../d/datumCopy.md) (for deep copying pass-by-reference values)  
   - COPY_LOCATION_FIELD (macro for copying location information)
 - Called from (representative examples):
   - Part of the node copying system (called indirectly through copyObject)

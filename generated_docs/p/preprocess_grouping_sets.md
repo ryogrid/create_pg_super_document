@@ -29,12 +29,12 @@ The function creates a grouping_sets_data structure containing all the informati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_grouping_sets, extract_rollup_sets, reorder_grouping_sets
-  - preprocess_groupclause, remap_to_groupclause_idx
-  - bms_add_member, bms_overlap_list, bms_is_empty
+  - [expand_grouping_sets](../e/expand_grouping_sets.md), extract_rollup_sets, reorder_grouping_sets
+  - [preprocess_groupclause](preprocess_groupclause.md), remap_to_groupclause_idx
+  - [bms_add_member](../b/bms_add_member.md), bms_overlap_list, bms_is_empty
   - makeNode (GroupingSetData, RollupData)
 - Called from (representative examples):
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/plan/planner.c:2077-2257

@@ -25,13 +25,13 @@ The function uses the same bitmask approach as `in_grouping` but with inverted l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_env struct members (z->c, z->l, z->p)
-  - repeat parameter
+  - [SN_env](../S/SN_env.md) struct members (z->c, z->l, z->p)
+  - [repeat](../r/repeat.md) parameter
 - Called from (representative examples):
-  - r_mark_regions (extensively across all language stemmers)
-  - porter_ISO_8859_1_stem (in Porter stemmer)
-  - indonesian_ISO_8859_1_stem (in Indonesian stemmer)
-  - r_KER (in Indonesian stemmer)
+  - [r_mark_regions](../r/r_mark_regions.md) (extensively across all language stemmers)
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md) (in Porter stemmer)
+  - [indonesian_ISO_8859_1_stem](../i/indonesian_ISO_8859_1_stem.md) (in Indonesian stemmer)
+  - [r_KER](../r/r_KER.md) (in Indonesian stemmer)
 
 ## Notes and Other Information
 - Returns -1 if at end of string buffer (z->c >= z->l)

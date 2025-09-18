@@ -28,12 +28,12 @@ The function bridges the gap between autovacuum's table selection logic and Post
 - Functions called/Symbols referenced:
   - autovac_report_activity
   - AllocSetContextCreate
-  - makeRangeVar
-  - makeVacuumRelation
+  - [makeRangeVar](../m/makeRangeVar.md)
+  - [makeVacuumRelation](../m/makeVacuumRelation.md)
   - vacuum
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - do_autovacuum
+  - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information
 - Assumes caller has switched to a memory context that survives transaction commit

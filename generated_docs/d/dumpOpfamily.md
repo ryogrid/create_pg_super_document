@@ -24,15 +24,15 @@ The function generates both the CREATE command for the basic operator family def
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - ExecuteSqlQueryForSingleRow
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - fmtQualifiedDumpable
-  - fmtId
-  - ArchiveEntry
-  - dumpComment
-  - binary_upgrade_extension_member
+  - [fmtId](../f/fmtId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Only operates in schema dump mode (skipped when dopt->dataOnly is true)

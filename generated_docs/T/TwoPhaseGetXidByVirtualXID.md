@@ -26,8 +26,8 @@ TwoPhaseGetXidByVirtualXID searches through prepared transactions to find one th
 - Data structures accessed:
   - TwoPhaseState (global two-phase commit state)
   - GlobalTransaction (transaction structure)
-  - PGPROC (process information)
-  - VirtualTransactionId (virtual transaction ID structure)
+  - [PGPROC](../P/PGPROC.md) (process information)
+  - [VirtualTransactionId](../V/VirtualTransactionId.md) (virtual transaction ID structure)
 - Called from:
   - XactLockForVirtualXact (in lock manager)
 

@@ -18,14 +18,14 @@ This function implements the psql configuration file loading logic by searching 
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_my_exec (executable path resolution)
-  - get_etc_path (system configuration directory path)
+  - [get_etc_path](../g/get_etc_path.md) (system configuration directory path)
   - process_psqlrc_file (actual file processing)
-  - expand_tilde (tilde expansion in paths)
+  - [expand_tilde](../e/expand_tilde.md) (tilde expansion in paths)
   - get_home_path (user home directory resolution)
-  - pstrdup (string duplication)
+  - [pstrdup](pstrdup.md) (string duplication)
   - getenv (environment variable access)
 - Called from (representative examples):
-  - adhoc_opts
+  - [adhoc_opts](../a/adhoc_opts.md)
   - PARAMS_ARRAY_SIZE (startup processing)
 
 ## Notes and Other Information

@@ -25,10 +25,10 @@ The conflict resolution mirrors the visibility logic used during normal page rec
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract WAL record data
   - InHotStandby: Global variable indicating if running in hot standby mode
-  - ResolveRecoveryConflictWithSnapshotFullXid: Resolve conflicts with concurrent snapshots
-  - gistxlogPageReuse: WAL record structure containing reuse information
+  - [ResolveRecoveryConflictWithSnapshotFullXid](../R/ResolveRecoveryConflictWithSnapshotFullXid.md): Resolve conflicts with concurrent snapshots
+  - [gistxlogPageReuse](gistxlogPageReuse.md): WAL record structure containing reuse information
 - Called from:
-  - gist_redo: Main GiST WAL redo dispatcher
+  - [gist_redo](gist_redo.md): Main GiST WAL redo dispatcher
 
 ## Notes and Other Information
 - This function only executes meaningful work when `InHotStandby` is true

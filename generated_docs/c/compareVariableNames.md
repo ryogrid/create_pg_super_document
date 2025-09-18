@@ -22,9 +22,9 @@ The `compareVariableNames` function serves as a comparison function for sorting 
 - Functions called/Symbols referenced:
   - strcmp (standard C library string comparison function)
 - Data types used:
-  - Variable (pgbench variable structure containing name field)
+  - [Variable](../V/Variable.md) (pgbench variable structure containing name field)
 - Called from (representative examples):
-  - lookupVariable (for both qsort and bsearch operations)
+  - [lookupVariable](../l/lookupVariable.md) (for both qsort and bsearch operations)
 
 ## Notes and Other Information
 - Implements the standard qsort/bsearch comparator function signature

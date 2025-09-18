@@ -27,7 +27,7 @@ The function also manages error state by setting the global `found_err` flag whe
 - Functions called/Symbols referenced:
   - fprintf (standard library)
 - Called from (representative examples):
-  - main (from indent.c at lines 538, 593, 811)
+  - [main](../m/main.md) (from indent.c at lines 538, 593, 811)
 
 ## Notes and Other Information
 - Part of the pg_bsd_indent tool's diagnostic system

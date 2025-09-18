@@ -23,17 +23,17 @@ The function handles two scenarios for memory management:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc (for initial array allocation)
-  - repalloc (for array expansion)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for initial array allocation)
+  - [repalloc](../r/repalloc.md) (for array expansion)
 - Data structures used:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
-  - InvalMessageArray
+  - [InvalMessageArray](../I/InvalMessageArray.md)
 - Called from:
-  - AddCatcacheInvalidationMessage
-  - AddCatalogInvalidationMessage
-  - AddRelcacheInvalidationMessage
-  - AddSnapshotInvalidationMessage
+  - [AddCatcacheInvalidationMessage](AddCatcacheInvalidationMessage.md)
+  - [AddCatalogInvalidationMessage](AddCatalogInvalidationMessage.md)
+  - [AddRelcacheInvalidationMessage](AddRelcacheInvalidationMessage.md)
+  - [AddSnapshotInvalidationMessage](AddSnapshotInvalidationMessage.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c file

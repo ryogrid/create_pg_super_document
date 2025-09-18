@@ -22,13 +22,13 @@ FreeQueryDesc is the destructor function for QueryDesc structures created by Cre
   - QueryDesc
   - UnregisterSnapshot (called twice)
   - Assert (for safety check)
-  - pfree (for memory deallocation)
+  - [pfree](../p/pfree.md) (for memory deallocation)
 - Called from (representative examples):
-  - ProcessQuery
-  - PortalCleanup
-  - _SPI_execute_plan
-  - ExplainOnePlan
-  - postquel_end
+  - [ProcessQuery](../P/ProcessQuery.md)
+  - [PortalCleanup](../P/PortalCleanup.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [postquel_end](../p/postquel_end.md)
 
 ## Notes and Other Information
 The function must only be called when the QueryDesc is not actively being used for query execution (estate must be NULL). This is enforced by an assertion check. The snapshots are unregistered rather than simply freed because PostgreSQL uses reference counting for snapshot management. Calling this function on an active QueryDesc will trigger an assertion failure in debug builds.

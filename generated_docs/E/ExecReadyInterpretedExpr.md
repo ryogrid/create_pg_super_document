@@ -27,14 +27,14 @@ The function implements an important optimization strategy by recognizing common
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitInterpreter
-  - ExecInterpExprStillValid
-  - ExecJustInnerVar, ExecJustOuterVar, ExecJustScanVar (fast-path functions)
-  - ExecJustAssignInnerVar, ExecJustAssignOuterVar, ExecJustAssignScanVar (assignment fast-paths)
-  - ExecJustConst, ExecJustInnerVarVirt, ExecJustOuterVarVirt, ExecJustScanVarVirt (virtual fast-paths)
-  - ExecInterpExpr (main interpreter function)
+  - [ExecInitInterpreter](ExecInitInterpreter.md)
+  - [ExecInterpExprStillValid](ExecInterpExprStillValid.md)
+  - [ExecJustInnerVar](ExecJustInnerVar.md), ExecJustOuterVar, ExecJustScanVar (fast-path functions)
+  - [ExecJustAssignInnerVar](ExecJustAssignInnerVar.md), ExecJustAssignOuterVar, ExecJustAssignScanVar (assignment fast-paths)
+  - [ExecJustConst](ExecJustConst.md), ExecJustInnerVarVirt, ExecJustOuterVarVirt, ExecJustScanVarVirt (virtual fast-paths)
+  - [ExecInterpExpr](ExecInterpExpr.md) (main interpreter function)
 - Called from:
-  - ExecReadyExpr (src/backend/executor/execExpr.c:882)
+  - [ExecReadyExpr](ExecReadyExpr.md) (src/backend/executor/execExpr.c:882)
 
 ## Notes and Other Information
 - The function sets state->evalfunc initially to ExecInterpExprStillValid, which performs validation on first execution before switching to the actual evaluation function

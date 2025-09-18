@@ -17,16 +17,16 @@ proc_exit serves as the central exit point for PostgreSQL processes, implementin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proc_exit_prepare
+  - [proc_exit_prepare](proc_exit_prepare.md)
   - AmAutoVacuumWorkerProcess (conditionally)
   - mkdir (conditionally) 
   - elog
 - Called from (representative examples):
-  - PostgresMain (main backend process)
-  - AutoVacWorkerMain (autovacuum worker)
-  - WalReceiverMain (WAL receiver process)
+  - [PostgresMain](../P/PostgresMain.md) (main backend process)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker)
+  - [WalReceiverMain](../W/WalReceiverMain.md) (WAL receiver process)
   - ProcessInterrupts (interrupt handling)
-  - errfinish (error handling)
+  - [errfinish](../e/errfinish.md) (error handling)
 
 ## Notes and Other Information
 - Should be the only function calling exit() directly in PostgreSQL

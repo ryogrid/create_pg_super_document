@@ -18,12 +18,12 @@ This function converts an IntervalAggState structure into a serialized bytea for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate context)
   - PG_GETARG_POINTER (macro for retrieving pointer arguments)
-  - pq_begintypsend (begins binary serialization)
-  - pq_sendint64 (serializes 64-bit integers)
-  - pq_sendint32 (serializes 32-bit integers)
-  - pq_endtypsend (completes binary serialization)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (begins binary serialization)
+  - [pq_sendint64](../p/pq_sendint64.md) (serializes 64-bit integers)
+  - [pq_sendint32](../p/pq_sendint32.md) (serializes 32-bit integers)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (completes binary serialization)
   - PG_RETURN_BYTEA_P (macro for returning bytea values)
   - elog (error logging function)
 - Called from (representative examples):

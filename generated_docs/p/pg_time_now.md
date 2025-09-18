@@ -17,20 +17,20 @@ pg_time_now is a utility function in pgbench that provides a convenient way to o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time (type for time measurement)
+  - [instr_time](../i/instr_time.md) (type for time measurement)
   - INSTR_TIME_SET_CURRENT (macro to set current time)
   - pg_time_usec_t (return type for microsecond timestamps)
   - INSTR_TIME_GET_MICROSEC (macro to extract microseconds)
 
 - Called from (representative examples):
-  - pg_time_now_lazy
-  - advanceConnectionState
-  - doLog
-  - initPopulateTable
-  - runInitSteps
-  - set_random_seed
-  - main
-  - threadRun
+  - [pg_time_now_lazy](pg_time_now_lazy.md)
+  - [advanceConnectionState](../a/advanceConnectionState.md)
+  - [doLog](../d/doLog.md)
+  - [initPopulateTable](../i/initPopulateTable.md)
+  - [runInitSteps](../r/runInitSteps.md)
+  - [set_random_seed](../s/set_random_seed.md)
+  - [main](../m/main.md)
+  - [threadRun](../t/threadRun.md)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization, avoiding function call overhead

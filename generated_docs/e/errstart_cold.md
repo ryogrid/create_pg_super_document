@@ -20,7 +20,7 @@ The function provides identical functionality to errstart but with better optimi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errstart
+  - [errstart](errstart.md)
 - Called from (representative examples):
   - ereport_domain
 

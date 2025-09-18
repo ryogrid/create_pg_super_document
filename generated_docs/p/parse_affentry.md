@@ -32,10 +32,10 @@ The parser handles multibyte characters properly and validates syntax, reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq: Character comparison for text search
-  - t_isspace: Space character testing
-  - t_isalpha: Alphabetic character testing
+  - [t_isspace](../t/t_isspace.md): Space character testing
+  - [t_isalpha](../t/t_isalpha.md): Alphabetic character testing
   - COPYCHAR: Macro for copying multibyte characters
-  - pg_mblen: Get multibyte character length
+  - [pg_mblen](pg_mblen.md): Get multibyte character length
   - ereport/elog: Error reporting functions
 - Called from (representative examples):
   - NIImportAffixes: Imports affixes from configuration files

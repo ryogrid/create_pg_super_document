@@ -22,14 +22,14 @@ When the internal buffer reaches its capacity (MAX_BUFFERED_VALUES), the functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_flush_buffered_values
+  - [intset_flush_buffered_values](intset_flush_buffered_values.md)
   - MAX_BUFFERED_VALUES
-  - IntegerSet
+  - [IntegerSet](../I/IntegerSet.md)
 - Called from (representative examples):
-  - gistvacuumpage
-  - test_pattern
-  - test_single_value
-  - test_single_value_and_filler
+  - [gistvacuumpage](../g/gistvacuumpage.md)
+  - [test_pattern](../t/test_pattern.md)
+  - [test_single_value](../t/test_single_value.md)
+  - [test_single_value_and_filler](../t/test_single_value_and_filler.md)
 
 ## Notes and Other Information
 - Values must be added in strictly ascending order; adding out-of-order values will result in an ERROR

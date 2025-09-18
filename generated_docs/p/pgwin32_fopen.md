@@ -34,7 +34,7 @@ The function handles all standard fopen() mode combinations:
 - Functions called/Symbols referenced:
   - strstr
   - strchr
-  - pgwin32_open
+  - [pgwin32_open](pgwin32_open.md)
   - _fdopen
 - Called from (representative examples):
   - System fopen() calls (through macro redefinition)

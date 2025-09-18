@@ -28,20 +28,20 @@ The function distinguishes itself from PSQLexec() by being designed for user-fac
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQtransactionStatus
-  - command_no_begin
-  - PQexec
-  - DescribeQuery
-  - ExecQueryAndProcessResults
-  - SetCancelConn/ResetCancelConn
-  - PQclientEncoding
-  - PrintTiming
-  - PrintNotifications
-  - ClearOrSaveResult
-  - clean_bind_state
+  - [command_no_begin](../c/command_no_begin.md)
+  - [PQexec](../P/PQexec.md)
+  - [DescribeQuery](../D/DescribeQuery.md)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md)
+  - [SetCancelConn](SetCancelConn.md)/ResetCancelConn
+  - [PQclientEncoding](../P/PQclientEncoding.md)
+  - [PrintTiming](../P/PrintTiming.md)
+  - [PrintNotifications](../P/PrintNotifications.md)
+  - [ClearOrSaveResult](../C/ClearOrSaveResult.md)
+  - [clean_bind_state](../c/clean_bind_state.md)
 - Called from (representative examples):
-  - MainLoop (in mainloop.c)
-  - do_copy (in copy.c)
-  - ExecQueryTuples (in common.c)
+  - [MainLoop](../M/MainLoop.md) (in mainloop.c)
+  - [do_copy](../d/do_copy.md) (in copy.c)
+  - [ExecQueryTuples](../E/ExecQueryTuples.md) (in common.c)
 
 ## Notes and Other Information
 - Returns true if query executed successfully, false otherwise

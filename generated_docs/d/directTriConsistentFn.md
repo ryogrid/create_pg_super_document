@@ -17,13 +17,13 @@ This function serves as a wrapper for calling user-defined ternary consistent fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanKey (struct type)
-  - FunctionCall7Coll (function call interface with collation for 7 parameters)
+  - [GinScanKey](../G/GinScanKey.md) (struct type)
+  - [FunctionCall7Coll](../F/FunctionCall7Coll.md) (function call interface with collation for 7 parameters)
   - DatumGetGinTernaryValue (datum conversion to GinTernaryValue)
-  - UInt16GetDatum (datum conversion for strategy)
-  - UInt32GetDatum (datum conversion for user entries count)
+  - [UInt16GetDatum](../U/UInt16GetDatum.md) (datum conversion for strategy)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md) (datum conversion for user entries count)
 - Called from (representative examples):
-  - ginInitConsistentFunction
+  - [ginInitConsistentFunction](../g/ginInitConsistentFunction.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the ginlogic.c compilation unit

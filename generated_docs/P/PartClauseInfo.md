@@ -24,14 +24,14 @@ The structure serves as an intermediate representation that bridges the gap betw
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (expression tree structure)
+  - [Expr](../E/Expr.md) (expression tree structure)
   - Oid (object identifier type)
 
 - Called from (representative examples):
-  - gen_partprune_steps_internal
-  - gen_prune_steps_from_opexps
-  - match_clause_to_partition_key
-  - get_steps_using_prefix_recurse
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md)
+  - [gen_prune_steps_from_opexps](../g/gen_prune_steps_from_opexps.md)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md)
+  - [get_steps_using_prefix_recurse](../g/get_steps_using_prefix_recurse.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's partition pruning optimization, which can significantly improve query performance by eliminating irrelevant partitions from consideration

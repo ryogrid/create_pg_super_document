@@ -25,12 +25,12 @@ The function is designed to work with the `array_desc` utility for handling arra
 - Functions called/Symbols referenced:
   - appendStringInfo
   - appendStringInfoString
-  - array_desc
-  - offset_elem_desc
-  - xlhp_freeze_plan (struct type)
+  - [array_desc](../a/array_desc.md)
+  - [offset_elem_desc](../o/offset_elem_desc.md)
+  - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md) (struct type)
   - OffsetNumber (type)
 - Called from:
-  - heap2_desc
+  - [heap2_desc](../h/heap2_desc.md)
 
 ## Notes and Other Information
 - The function modifies the data pointer to advance through offset arrays, enabling correct processing of sequential freeze plans

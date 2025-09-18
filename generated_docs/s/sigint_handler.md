@@ -19,7 +19,7 @@ The sigint_handler function is a signal handler specifically designed to handle 
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (macro for signal handler signature)
 - Called from (representative examples):
-  - main (registered as signal handler in pg_waldump.c:831)
+  - [main](../m/main.md) (registered as signal handler in pg_waldump.c:831)
 
 ## Notes and Other Information
 - This handler is registered in the main function to provide interrupt capability during WAL processing

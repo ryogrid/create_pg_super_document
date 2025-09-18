@@ -22,8 +22,8 @@ The `bpcharge` function compares two BpChar values and returns true if the first
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_BPCHAR_PP` - Extract BpChar arguments from function call
-  - `bcTruelen` - Calculate true length of BpChar (excluding trailing spaces)
-  - `varstr_cmp` - Perform collation-aware string comparison
+  - `[bcTruelen](bcTruelen.md)` - Calculate true length of BpChar (excluding trailing spaces)
+  - `[varstr_cmp](../v/varstr_cmp.md)` - Perform collation-aware string comparison
   - `VARDATA_ANY` - Get pointer to variable-length data
   - `PG_GET_COLLATION` - Get current collation for comparison
   - `PG_FREE_IF_COPY` - Free memory if argument was copied

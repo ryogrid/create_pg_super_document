@@ -20,10 +20,10 @@ This structure contains the metadata needed to record and replay heap tuple inse
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - heap_insert (creates WAL records for tuple insertions)
-  - heap_xlog_insert (replays insertion from WAL records during recovery)
-  - heap_desc (describes insertion WAL records for debugging purposes)
-  - DecodeInsert (logical replication decoding of insert operations)
+  - [heap_insert](../h/heap_insert.md) (creates WAL records for tuple insertions)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md) (replays insertion from WAL records during recovery)
+  - [heap_desc](../h/heap_desc.md) (describes insertion WAL records for debugging purposes)
+  - [DecodeInsert](../D/DecodeInsert.md) (logical replication decoding of insert operations)
 
 ## Notes and Other Information
 - The actual tuple header (xl_heap_header) and tuple data are stored in backup block 0, not in this structure

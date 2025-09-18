@@ -26,16 +26,16 @@ The function includes comprehensive error handling and provides detailed error m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (macro to get node type)
   - intVal (macro to extract integer value)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - strVal (macro to extract string value)
-  - TypeNameToString (function to convert TypeName to string)
-  - TypeName (structure type)
-  - defGetString (function to get string representation)
+  - [TypeNameToString](../T/TypeNameToString.md) (function to convert TypeName to string)
+  - [TypeName](../T/TypeName.md) (structure type)
+  - [defGetString](defGetString.md) (function to get string representation)
 - Called from (representative examples):
-  - DefineType (type definition commands)
+  - [DefineType](../D/DefineType.md) (type definition commands)
   - Functions declared in defrem.h
 
 ## Notes and Other Information

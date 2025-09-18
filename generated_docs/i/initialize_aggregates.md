@@ -21,13 +21,13 @@ This function orchestrates the initialization of all aggregate functions for a n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState (struct type)
-  - AggStatePerGroup (struct type)
-  - AggStatePerTrans (struct type)
-  - select_current_set
-  - initialize_aggregate
+  - [AggState](../A/AggState.md) (struct type)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md) (struct type)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct type)
+  - [select_current_set](../s/select_current_set.md)
+  - [initialize_aggregate](initialize_aggregate.md)
 - Called from (representative examples):
-  - agg_retrieve_direct
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
 
 ## Notes and Other Information
 The function includes an important restriction: it cannot be used for hash aggregates because those require the grouping set number to be specified from higher-level calling code. The function uses Max() to handle cases where there might be no explicit grouping sets (defaulting to 1). The nested loop structure (grouping sets outer, transitions inner) ensures that all aggregates within each relevant grouping set are properly initialized. The function assumes CurrentMemoryContext is the per-query context when called, which is important for proper memory management during initialization.

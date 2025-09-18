@@ -30,10 +30,10 @@ The NSN (Node Sequence Number) is a critical component used for detecting concur
   - PageGistNSN
   - BlockNumber
 - Called from (representative examples):
-  - gistInitBuffering
-  - calculatePagesPerBuffer
-  - gistinitpage
-  - gistcheckpage
+  - [gistInitBuffering](../g/gistInitBuffering.md)
+  - [calculatePagesPerBuffer](../c/calculatePagesPerBuffer.md)
+  - [gistinitpage](../g/gistinitpage.md)
+  - [gistcheckpage](../g/gistcheckpage.md)
   - GISTPageOpaque (type alias)
 
 ## Notes and Other Information

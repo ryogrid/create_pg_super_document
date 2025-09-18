@@ -23,8 +23,8 @@ The function is part of PostgreSQL's resource management infrastructure that hel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (converts Datum to pointer)
-  - psprintf (PostgreSQL's sprintf equivalent for formatted string creation)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (converts Datum to pointer)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf equivalent for formatted string creation)
 - Called from (resource owner system):
   - Resource owner debug/logging mechanisms when displaying TupleDesc resources
 

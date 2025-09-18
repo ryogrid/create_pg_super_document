@@ -19,7 +19,7 @@ The function is part of PostgreSQL's full-text search infrastructure, specifical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env
+  - [SN_create_env](../S/SN_create_env.md)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

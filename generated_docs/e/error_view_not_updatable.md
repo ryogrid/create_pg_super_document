@@ -28,16 +28,16 @@ This function is typically called from the rewriter during query planning, but c
 - Functions called/Symbols referenced:
   - RelationGetRelationName
   - ereport
-  - errcode
-  - errmsg
-  - errdetail_internal
-  - errhint
+  - [errcode](errcode.md)
+  - [errmsg](errmsg.md)
+  - [errdetail_internal](errdetail_internal.md)
+  - [errhint](errhint.md)
   - foreach_node
   - elog
 - Called from (representative examples):
-  - CheckValidResultRel (src/backend/executor/execMain.c:1056)
-  - rewriteTargetView (src/backend/rewrite/rewriteHandler.c:3275)
-  - RewriteQuery (src/backend/rewrite/rewriteHandler.c:4203)
+  - [CheckValidResultRel](../C/CheckValidResultRel.md) (src/backend/executor/execMain.c:1056)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (src/backend/rewrite/rewriteHandler.c:3275)
+  - [RewriteQuery](../R/RewriteQuery.md) (src/backend/rewrite/rewriteHandler.c:4203)
 
 ## Notes and Other Information
 - Uses PostgreSQL error reporting system with appropriate error codes (ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE)

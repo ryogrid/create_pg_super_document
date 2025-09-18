@@ -26,10 +26,10 @@ The AffixData array is populated during dictionary import and contains only the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsAffixFlagInUse
+  - [IsAffixFlagInUse](../I/IsAffixFlagInUse.md)
   - IspellDict
 - Called from (representative examples):
-  - NISortAffixes
+  - [NISortAffixes](../N/NISortAffixes.md)
 
 ## Notes and Other Information
 - Returns true if the affix flag is found in any AffixData entry, false otherwise

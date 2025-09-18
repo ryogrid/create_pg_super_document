@@ -30,20 +30,20 @@ The key insight is that recursive queries work by first executing the non-recurs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recurse_set_operations
-  - build_setop_child_paths  
-  - generate_append_tlist
+  - [recurse_set_operations](../r/recurse_set_operations.md)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)  
+  - [generate_append_tlist](generate_append_tlist.md)
   - fetch_upper_rel
   - create_pathtarget
-  - generate_setop_grouplist
-  - grouping_is_hashable
-  - create_recursiveunion_path
-  - add_path
-  - postprocess_setop_rel
+  - [generate_setop_grouplist](generate_setop_grouplist.md)
+  - [grouping_is_hashable](grouping_is_hashable.md)
+  - [create_recursiveunion_path](../c/create_recursiveunion_path.md)
+  - [add_path](../a/add_path.md)
+  - [postprocess_setop_rel](../p/postprocess_setop_rel.md)
   - list_make2
-  - bms_union
+  - [bms_union](../b/bms_union.md)
 - Called from (representative examples):
-  - plan_set_operations (src/backend/optimizer/prep/prepunion.c:152)
+  - [plan_set_operations](../p/plan_set_operations.md) (src/backend/optimizer/prep/prepunion.c:152)
 
 ## Notes and Other Information
 - This is a static function, internal to the prepunion.c module

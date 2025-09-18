@@ -28,11 +28,11 @@ This ensures that the resulting summary correctly represents the union of all va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc (structure type)
-  - BrinValues (structure type)
-  - minmax_get_strategy_procinfo (function to get comparison procedures)
-  - FunctionCall2Coll (function call with collation)
-  - datumCopy (function for copying datum values)
+  - [BrinDesc](../B/BrinDesc.md) (structure type)
+  - [BrinValues](../B/BrinValues.md) (structure type)
+  - [minmax_get_strategy_procinfo](../m/minmax_get_strategy_procinfo.md) (function to get comparison procedures)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (function call with collation)
+  - [datumCopy](../d/datumCopy.md) (function for copying datum values)
   - BTLessStrategyNumber (B-tree strategy constant)
   - BTGreaterStrategyNumber (B-tree strategy constant)
   - PG_GET_COLLATION (macro to get collation)

@@ -19,7 +19,7 @@ tts_buffer_heap_release is a specialized cleanup function designed for buffer-ba
 - Functions called/Symbols referenced:
   - None (empty function body)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the execTuples.c compilation unit

@@ -24,18 +24,18 @@ For each new buffer page, the function properly initializes the page header with
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrToBufIdx
-  - pg_atomic_read_u64
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - RefreshXLogWriteResult
-  - WaitXLogInsertionsToFinish
-  - XLogWrite
-  - pg_atomic_write_u64
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
+  - [XLogWrite](../X/XLogWrite.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
   - pg_write_barrier
   - MemSet
   - XLogSegmentOffset
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - GetXLogBuffer
-  - XLogBackgroundFlush
+  - [GetXLogBuffer](../G/GetXLogBuffer.md)
+  - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md)
 
 ## Notes and Other Information
 - Uses WALBufMappingLock for coordinating buffer mapping changes and WALWriteLock for actual WAL writing

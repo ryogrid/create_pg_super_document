@@ -25,17 +25,17 @@ The function ensures that the BRIN index's revmap structure is correctly reconst
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract record data from WAL
-  - XLogRecGetBlockTag: Get block information from WAL record
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md): Get block information from WAL record
   - XLogReadBufferForRedo: Read and prepare buffer for redo operation
   - XLogInitBufferForRedo: Initialize buffer for redo operation
-  - BufferGetPage: Get page from buffer
-  - PageGetContents: Get page contents
-  - brin_page_init: Initialize BRIN page with specific type
-  - PageSetLSN: Set LSN on page
+  - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer
+  - [PageGetContents](../P/PageGetContents.md): Get page contents
+  - [brin_page_init](brin_page_init.md): Initialize BRIN page with specific type
+  - [PageSetLSN](../P/PageSetLSN.md): Set LSN on page
   - MarkBufferDirty: Mark buffer as modified
-  - UnlockReleaseBuffer: Release buffer locks
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md): Release buffer locks
 - Called from (representative examples):
-  - brin_redo: Main BRIN WAL replay dispatcher function
+  - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function
 
 ## Notes and Other Information
 - This is a static function used only within the BRIN WAL replay subsystem

@@ -31,10 +31,10 @@ Returns true if any slots reference the specified database, false otherwise. The
   - SpinLockAcquire
   - SpinLockRelease
   - SlotIsLogical
-  - ReplicationSlot (struct access)
+  - [ReplicationSlot](ReplicationSlot.md) (struct access)
 
 - Called from (representative examples):
-  - dropdb (database drop command)
+  - [dropdb](../d/dropdb.md) (database drop command)
 
 ## Notes and Other Information
 - Only considers logical replication slots since physical slots are not database-specific

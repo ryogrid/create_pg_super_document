@@ -26,22 +26,22 @@ The function uses AccessExclusiveLock to ensure exclusive access during the sche
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - relation_open
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [relation_open](../r/relation_open.md)
   - RelationGetNamespace
-  - sequenceIsOwned
-  - get_rel_name
-  - makeRangeVar
-  - RangeVarGetAndCheckCreationNamespace
-  - CheckSetNamespace
-  - new_object_addresses
-  - AlterTableNamespaceInternal
-  - free_object_addresses
+  - [sequenceIsOwned](../s/sequenceIsOwned.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [makeRangeVar](../m/makeRangeVar.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [CheckSetNamespace](../C/CheckSetNamespace.md)
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - ObjectAddressSet
-  - relation_close
+  - [relation_close](../r/relation_close.md)
 
 - Called from (representative examples):
-  - ExecAlterObjectSchemaStmt (main schema alteration dispatcher)
+  - [ExecAlterObjectSchemaStmt](../E/ExecAlterObjectSchemaStmt.md) (main schema alteration dispatcher)
 
 ## Notes and Other Information
 - Returns InvalidObjectAddress if the relation doesn't exist and missing_ok is true

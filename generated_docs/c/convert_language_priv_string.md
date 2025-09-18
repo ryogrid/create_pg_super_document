@@ -17,15 +17,15 @@ This function is a specialized privilege string converter for procedural languag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string: Generic function that parses privilege strings using a provided mapping table
+  - [convert_any_priv_string](convert_any_priv_string.md): Generic function that parses privilege strings using a provided mapping table
   - priv_map: Structure type for privilege mapping entries
   - ACL_USAGE: Constant representing the usage privilege bit
   - ACL_GRANT_OPTION_FOR: Macro that adds the grant option bit to a privilege
 - Called from (representative examples):
-  - has_language_privilege_name_name: Checks language privileges using role name and language name
-  - has_language_privilege_name: Checks language privileges for current user using language name
-  - has_language_privilege_id_id: Checks language privileges using role OID and language OID
-  - has_language_privilege_id: Checks language privileges for current user using language OID
+  - [has_language_privilege_name_name](../h/has_language_privilege_name_name.md): Checks language privileges using role name and language name
+  - [has_language_privilege_name](../h/has_language_privilege_name.md): Checks language privileges for current user using language name
+  - [has_language_privilege_id_id](../h/has_language_privilege_id_id.md): Checks language privileges using role OID and language OID
+  - [has_language_privilege_id](../h/has_language_privilege_id.md): Checks language privileges for current user using language OID
 
 ## Notes and Other Information
 - This is a static helper function, not exposed outside of acl.c

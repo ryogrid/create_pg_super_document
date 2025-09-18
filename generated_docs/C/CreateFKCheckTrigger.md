@@ -27,13 +27,13 @@ The created trigger inherits deferability settings from the foreign key constrai
 - Functions called/Symbols referenced:
   - makeNode
   - SystemFuncName
-  - CreateTrigger
+  - [CreateTrigger](CreateTrigger.md)
   - CommandCounterIncrement
   - TRIGGER_TYPE_INSERT
   - TRIGGER_TYPE_UPDATE
   - TRIGGER_TYPE_AFTER
 - Called from (representative examples):
-  - createForeignKeyCheckTriggers
+  - [createForeignKeyCheckTriggers](../c/createForeignKeyCheckTriggers.md)
 
 ## Notes and Other Information
 - Uses "RI_ConstraintTrigger_c_" naming prefix to ensure proper trigger firing order

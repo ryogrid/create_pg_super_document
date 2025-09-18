@@ -31,16 +31,16 @@ The function supports both unique and non-unique indexes, with unique indexes re
 ## Dependencies
 - Functions called/Symbols referenced:
   - EnterParallelMode: Enter PostgreSQL's parallel execution mode
-  - CreateParallelContext: Create context for parallel worker coordination
-  - _bt_parallel_estimate_shared: Estimate shared memory for B-tree specific state
-  - tuplesort_estimate_shared: Estimate memory for tuplesort operations
-  - InitializeParallelDSM: Initialize dynamic shared memory segment
-  - table_parallelscan_initialize: Set up parallel heap scanning
-  - LaunchParallelWorkers: Start the worker processes
-  - _bt_leader_participate_as_worker: Have leader process participate as worker
-  - _bt_end_parallel: Cleanup function for parallel mode termination
+  - [CreateParallelContext](../C/CreateParallelContext.md): Create context for parallel worker coordination
+  - [_bt_parallel_estimate_shared](_bt_parallel_estimate_shared.md): Estimate shared memory for B-tree specific state
+  - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md): Estimate memory for tuplesort operations
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md): Initialize dynamic shared memory segment
+  - [table_parallelscan_initialize](../t/table_parallelscan_initialize.md): Set up parallel heap scanning
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md): Start the worker processes
+  - [_bt_leader_participate_as_worker](_bt_leader_participate_as_worker.md): Have leader process participate as worker
+  - [_bt_end_parallel](_bt_end_parallel.md): Cleanup function for parallel mode termination
 - Called from (representative examples):
-  - _bt_spools_heapscan: Main heap scanning function that decides whether to use parallel processing
+  - [_bt_spools_heapscan](_bt_spools_heapscan.md): Main heap scanning function that decides whether to use parallel processing
 
 ## Notes and Other Information
 - Falls back to serial build if DSM segment allocation fails or no workers can be launched

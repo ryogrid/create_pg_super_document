@@ -28,9 +28,9 @@ A key design principle is that unfrozen XIDs or MXIDs remaining after VACUUM mus
   - MultiXactId
   - TransactionId
 - Called from (representative examples):
-  - FreezeMultiXactId (src/backend/access/heap/heapam.c:6661)
-  - heap_prepare_freeze_tuple (src/backend/access/heap/heapam.c:7011)
-  - heap_freeze_tuple (src/backend/access/heap/heapam.c:7389)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md) (src/backend/access/heap/heapam.c:6661)
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md) (src/backend/access/heap/heapam.c:7011)
+  - [heap_freeze_tuple](../h/heap_freeze_tuple.md) (src/backend/access/heap/heapam.c:7389)
 
 ## Notes and Other Information
 The structure supports a flexible "freeze the page" definition that doesn't overspecify MultiXact handling, allowing heap_prepare_freeze_tuple to balance between eager MultiXact removal and lazy processing. When freeze_required is false after examining all tuples, the final freezing decision is delegated to vacuumlazy.c based on its own criteria. It's recommended that vacuumlazy.c avoid early freezing when it won't enable setting the target page as all-frozen in the visibility map, as this optimization provides the primary benefit of the freezing operation.

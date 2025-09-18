@@ -22,12 +22,12 @@ The escape_string_conn function provides a wrapper around libpq's PQescapeString
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar
-  - enlargePQExpBuffer
-  - PQescapeStringConn
-  - appendPQExpBuffer
-  - PQerrorMessage
+  - [enlargePQExpBuffer](enlargePQExpBuffer.md)
+  - [PQescapeStringConn](../P/PQescapeStringConn.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
 - Called from (representative examples):
-  - escape_fmt_id
+  - [escape_fmt_id](escape_fmt_id.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating escape functionality. It returns true on success and false on failure, with error details stored in the escape_err buffer. The function manually manages the single quote delimiters and pre-enlarges the buffer to accommodate the worst-case scenario where every character needs escaping (unescaped_len * 2 + 1). This approach provides more direct control over the escaping process compared to the higher-level PQescapeLiteral function used in escape_literal.

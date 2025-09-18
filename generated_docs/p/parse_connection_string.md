@@ -25,14 +25,14 @@ The function acts as a format-agnostic interface that simplifies connection stri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - uri_prefix_length
-  - conninfo_uri_parse
-  - conninfo_parse
+  - [uri_prefix_length](../u/uri_prefix_length.md)
+  - [conninfo_uri_parse](../c/conninfo_uri_parse.md)
+  - [conninfo_parse](../c/conninfo_parse.md)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - connectOptions1
-  - PQconninfoParse
-  - conninfo_array_parse
+  - [connectOptions1](../c/connectOptions1.md)
+  - [PQconninfoParse](../P/PQconninfoParse.md)
+  - [conninfo_array_parse](../c/conninfo_array_parse.md)
 
 ## Notes and Other Information
 - Returns a malloc'd PQconninfoOption array on success, NULL on failure

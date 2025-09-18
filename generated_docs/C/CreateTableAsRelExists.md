@@ -23,13 +23,13 @@ The function also validates that pre-existing objects are members of the current
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetCreationNamespace
-  - get_relname_relid
+  - [RangeVarGetCreationNamespace](../R/RangeVarGetCreationNamespace.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
   - ObjectAddressSet
-  - checkMembershipInCurrentExtension
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)
 - Called from (representative examples):
-  - ExecCreateTableAs
-  - ExplainOneUtility
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOneUtility](../E/ExplainOneUtility.md)
 
 ## Notes and Other Information
 - This is a public function exported through createas.h for use by explain and other subsystems

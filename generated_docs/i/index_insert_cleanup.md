@@ -20,11 +20,11 @@ This function serves as a wrapper that calls the access method-specific cleanup 
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (macro for relation validation)
   - IndexInfo (structure type)
-  - IndexScanDesc (structure type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (structure type)
 - Called from (representative examples):
-  - validate_index (src/backend/catalog/index.c:3401)
-  - unique_key_recheck (src/backend/commands/constraint.c:179)
-  - ExecCloseIndices (src/backend/executor/execIndexing.c:248)
+  - [validate_index](../v/validate_index.md) (src/backend/catalog/index.c:3401)
+  - [unique_key_recheck](../u/unique_key_recheck.md) (src/backend/commands/constraint.c:179)
+  - [ExecCloseIndices](../E/ExecCloseIndices.md) (src/backend/executor/execIndexing.c:248)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's index access method abstraction layer

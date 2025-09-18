@@ -24,11 +24,11 @@ The function intelligently handles tuple descriptor sharing based on the source 
 - Functions called/Symbols referenced:
   - expanded_record_get_tupdesc
   - AllocSetContextCreate
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - EOH_init_header
-  - MemoryContextRegisterResetCallback
-  - CreateTupleDescCopy
-  - MemoryContextSwitchTo
+  - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from:
   - (No direct references found in the analyzed codebase)
 

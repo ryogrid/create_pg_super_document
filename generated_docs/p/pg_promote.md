@@ -32,11 +32,11 @@ If waiting is requested, the function polls the recovery status every 100ms for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL, PG_GETARG_INT32 (parameter extraction macros)
-  - RecoveryInProgress (checks if server is in recovery mode)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (checks if server is in recovery mode)
   - AllocateFile, FreeFile (file operations for promotion signal)
   - kill (sends signal to postmaster process)
   - unlink (removes promotion signal file on error)
-  - ResetLatch, WaitLatch (waiting mechanism when wait=true)
+  - [ResetLatch](../R/ResetLatch.md), WaitLatch (waiting mechanism when wait=true)
   - ereport (error reporting)
   - PROMOTE_SIGNAL_FILE (constant for signal file path)
 - Called from (representative examples):

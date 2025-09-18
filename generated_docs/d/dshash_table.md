@@ -33,21 +33,21 @@ The dshash_table struct serves as the per-backend interface to PostgreSQL's dyna
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_area
-  - dshash_parameters  
-  - dshash_table_control
+  - [dshash_parameters](dshash_parameters.md)  
+  - [dshash_table_control](dshash_table_control.md)
   - dsa_pointer
 - Called from (representative examples):
   - dshash_create
   - dshash_attach
   - dshash_detach
   - dshash_destroy
-  - dshash_find
-  - dshash_find_or_insert
-  - dshash_delete_key
-  - dshash_delete_entry
+  - [dshash_find](dshash_find.md)
+  - [dshash_find_or_insert](dshash_find_or_insert.md)
+  - [dshash_delete_key](dshash_delete_key.md)
+  - [dshash_delete_entry](dshash_delete_entry.md)
   - BUCKET_FOR_HASH (macro)
   - find_in_bucket
-  - insert_into_bucket
+  - [insert_into_bucket](../i/insert_into_bucket.md)
 
 ## Notes and Other Information
 - Each backend process has its own dshash_table instance even when accessing the same shared hash table

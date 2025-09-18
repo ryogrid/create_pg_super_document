@@ -20,16 +20,16 @@ The design philosophy is that publications, along with their associated schemas 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
   - DUMP_COMPONENT_ALL
   - DUMP_COMPONENT_NONE
   - DumpableObject (struct)
 - Called from (representative examples):
-  - getPublicationNamespaces
-  - getPublicationTables
+  - [getPublicationNamespaces](../g/getPublicationNamespaces.md)
+  - [getPublicationTables](../g/getPublicationTables.md)
 
 ## Notes and Other Information
-- Publication objects are only dumped during complete database dumps (include_everything = true)
+- [Publication](../P/Publication.md) objects are only dumped during complete database dumps (include_everything = true)
 - Extension membership takes precedence over all other dumping policies
 - This function ignores schemas and tables associated with publications in the decision-making process
 - The function is part of the pg_dump utility's selective dumping mechanism

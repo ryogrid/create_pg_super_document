@@ -19,7 +19,7 @@ This function implements the cursor() method for PLyPlan Python objects. It serv
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple (Python C API for argument parsing)
-  - PLy_cursor_plan (actual cursor creation implementation)
+  - [PLy_cursor_plan](PLy_cursor_plan.md) (actual cursor creation implementation)
 - Called from (representative examples):
   - Python code via PLyPlan.cursor() method calls
 

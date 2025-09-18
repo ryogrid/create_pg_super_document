@@ -19,17 +19,17 @@ The function first creates a hash table with specific configuration: it uses bit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (hash table type)
+  - [HTAB](../H/HTAB.md) (hash table type)
   - HASHCTL (hash table control structure)
-  - JoinHashEntry (hash table entry structure)
-  - bitmap_hash (hash function for Relids)
-  - bitmap_match (match function for Relids)
-  - hash_create (creates the hash table)
-  - hash_search (inserts entries into hash table)
+  - [JoinHashEntry](../J/JoinHashEntry.md) (hash table entry structure)
+  - [bitmap_hash](bitmap_hash.md) (hash function for Relids)
+  - [bitmap_match](bitmap_match.md) (match function for Relids)
+  - [hash_create](../h/hash_create.md) (creates the hash table)
+  - [hash_search](../h/hash_search.md) (inserts entries into hash table)
   - HASH_ELEM, HASH_FUNCTION, HASH_COMPARE, HASH_CONTEXT (hash table flags)
   - HASH_ENTER (hash operation flag)
 - Called from (representative examples):
-  - find_join_rel
+  - [find_join_rel](../f/find_join_rel.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within relnode.c

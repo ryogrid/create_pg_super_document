@@ -18,16 +18,16 @@ The printResults function produces a comprehensive final report of pgbench execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getFailures - Calculates total failures from statistics
+  - [getFailures](../g/getFailures.md) - Calculates total failures from statistics
   - PG_TIME_GET_DOUBLE - Converts time to double precision
-  - printSimpleStats - Displays formatted statistics for latency and other metrics
+  - [printSimpleStats](printSimpleStats.md) - Displays formatted statistics for latency and other metrics
   - printf - Output formatting function
-  - StatsData - Structure type for statistics data
-  - Command - Structure type for individual SQL commands
+  - [StatsData](../S/StatsData.md) - Structure type for statistics data
+  - [Command](../C/Command.md) - Structure type for individual SQL commands
   - SimpleStats - Structure type for basic statistical data
   - INT64_FORMAT - Platform-specific format string for 64-bit integers
 - Called from (representative examples):
-  - main - Called at the end of benchmark execution to display final results
+  - [main](../m/main.md) - Called at the end of benchmark execution to display final results
 
 ## Notes and Other Information
 - Reports test parameters including scaling factor, client/thread counts, and execution mode

@@ -23,19 +23,19 @@ The function treats empty strings as NULL comments, effectively deleting any exi
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_description relation for modification
-  - systable_beginscan: Initiates indexed scan for existing comment
-  - systable_getnext: Retrieves matching tuples from the scan
-  - CatalogTupleDelete: Removes existing comment tuple
-  - heap_modify_tuple: Creates updated tuple with new comment
-  - CatalogTupleUpdate: Updates existing tuple in catalog
-  - heap_form_tuple: Creates new tuple for insertion
-  - CatalogTupleInsert: Inserts new comment tuple
-  - heap_freetuple: Frees allocated tuple memory
+  - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan for existing comment
+  - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuples from the scan
+  - [CatalogTupleDelete](CatalogTupleDelete.md): Removes existing comment tuple
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates updated tuple with new comment
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md): Updates existing tuple in catalog
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates new tuple for insertion
+  - [CatalogTupleInsert](CatalogTupleInsert.md): Inserts new comment tuple
+  - [heap_freetuple](../h/heap_freetuple.md): Frees allocated tuple memory
 - Called from (representative examples):
-  - CommentObject: Main COMMENT ON command handler
-  - DefineIndex: Adds comments during index creation
-  - CreateStatistics: Adds comments during statistics object creation
-  - CreateExtensionInternal: Handles extension object comments
+  - [CommentObject](CommentObject.md): Main COMMENT ON command handler
+  - [DefineIndex](../D/DefineIndex.md): Adds comments during index creation
+  - [CreateStatistics](CreateStatistics.md): Adds comments during statistics object creation
+  - [CreateExtensionInternal](CreateExtensionInternal.md): Handles extension object comments
 
 ## Notes and Other Information
 - Uses DescriptionObjIndexId for efficient lookups by (objoid, classoid, objsubid)

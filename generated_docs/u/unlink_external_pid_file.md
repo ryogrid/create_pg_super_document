@@ -24,7 +24,7 @@ This cleanup mechanism is essential for proper system integration, preventing ac
 - Functions called/Symbols referenced:
   - unlink: System call to remove file from filesystem
 - Called from (representative examples):
-  - PostmasterMain: Registered as on_proc_exit callback at line 1289
+  - [PostmasterMain](../P/PostmasterMain.md): Registered as on_proc_exit callback at line 1289
   - Referenced in SIGKILL_CHILDREN_AFTER_SECS context for shutdown sequencing
 
 ## Notes and Other Information

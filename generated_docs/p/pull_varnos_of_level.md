@@ -23,14 +23,14 @@ The function uses the same walker pattern as `pull_varnos` but configures the co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varnos_context (struct used for walker context)
+  - [pull_varnos_context](pull_varnos_context.md) (struct used for walker context)
   - query_or_expression_tree_walker
-  - pull_varnos_walker
+  - [pull_varnos_walker](pull_varnos_walker.md)
 - Called from (representative examples):
-  - convert_ANY_sublink_to_join
-  - is_simple_subquery
-  - jointree_contains_lateral_outer_refs
-  - add_nullingrels_if_needed
+  - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md)
+  - [is_simple_subquery](../i/is_simple_subquery.md)
+  - [jointree_contains_lateral_outer_refs](../j/jointree_contains_lateral_outer_refs.md)
+  - [add_nullingrels_if_needed](../a/add_nullingrels_if_needed.md)
 
 ## Notes and Other Information
 - The levelsup parameter determines which query level's variables are collected

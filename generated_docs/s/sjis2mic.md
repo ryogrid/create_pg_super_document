@@ -23,14 +23,14 @@ This function performs the complex conversion from Shift JIS encoding to Mule In
   - IS_HIGHBIT_SET: Check if character has high bit set
   - ISSJISHEAD: Validate SJIS lead byte
   - ISSJISTAIL: Validate SJIS trail byte
-  - report_invalid_encoding: Report encoding conversion errors
+  - [report_invalid_encoding](../r/report_invalid_encoding.md): Report encoding conversion errors
   - LC_JISX0201K: Language character code for JIS X0201 katakana
   - LC_JISX0208: Language character code for JIS X0208
   - LC_JISX0212: Language character code for JIS X0212
   - PGEUCALTCODE: Alternative encoding code for unmappable characters
   - ibmkanji: Lookup table for IBM kanji mappings
 - Called from (representative examples):
-  - sjis_to_mic: PostgreSQL function wrapper for SJIS to MIC conversion
+  - [sjis_to_mic](sjis_to_mic.md): PostgreSQL function wrapper for SJIS to MIC conversion
   - PGEUCALTCODE: Referenced in encoding conversion system
 
 ## Notes and Other Information

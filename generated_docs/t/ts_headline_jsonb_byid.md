@@ -21,7 +21,7 @@ This function is useful when you need to use a specific text search configuratio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ts_headline_jsonb_byid_opt: The core function that performs the actual JSONB headline generation with options
+  - [ts_headline_jsonb_byid_opt](ts_headline_jsonb_byid_opt.md): The core function that performs the actual JSONB headline generation with options
   - DirectFunctionCall3: PostgreSQL macro for calling functions with 3 arguments
   - PG_RETURN_DATUM: PostgreSQL macro for returning function results
 - Called from (representative examples):

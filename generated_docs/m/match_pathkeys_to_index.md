@@ -28,12 +28,12 @@ For indexes that support ordering operations (amcanorderbyop), the function buil
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst
-  - bms_equal
-  - match_clause_to_ordering_op
+  - [bms_equal](../b/bms_equal.md)
+  - [match_clause_to_ordering_op](match_clause_to_ordering_op.md)
   - lappend
   - lappend_int
 - Called from (representative examples):
-  - build_index_paths
+  - [build_index_paths](../b/build_index_paths.md)
 
 ## Notes and Other Information
 - Only works with indexes that have the amcanorderbyop property (like GiST)

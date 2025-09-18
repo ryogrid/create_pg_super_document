@@ -20,10 +20,10 @@ This function is a PostgreSQL SQL-callable function that verifies whether the cu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId (to get current user's OID)
-  - convert_foreign_data_wrapper_name (converts text name to OID)
-  - convert_foreign_data_wrapper_priv_string (converts privilege string to AclMode)
-  - object_aclcheck (performs the actual privilege check)
+  - [GetUserId](../G/GetUserId.md) (to get current user's OID)
+  - [convert_foreign_data_wrapper_name](../c/convert_foreign_data_wrapper_name.md) (converts text name to OID)
+  - [convert_foreign_data_wrapper_priv_string](../c/convert_foreign_data_wrapper_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck](../o/object_aclcheck.md) (performs the actual privilege check)
   - PG_GETARG_TEXT_PP (macro to extract text arguments)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):

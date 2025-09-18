@@ -22,7 +22,7 @@ The function uses the standard PostgreSQL SRF framework with  for initialization
 - Functions called/Symbols referenced:
   -  - PostgreSQL SRF context structure
   -  - Macro to check if this is the first call
-  -  - Initialize SRF context
+  -  - [Initialize](../I/Initialize.md) SRF context
   -  - Setup for each call
   -  - Get length of PostgreSQL List
   -  - Get nth element from PostgreSQL List

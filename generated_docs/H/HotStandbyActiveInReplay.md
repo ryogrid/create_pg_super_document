@@ -25,7 +25,7 @@ This function takes no parameters and returns a boolean value indicating Hot Sta
   - IsPostmasterEnvironment (assertion check)
   - LocalHotStandbyActive (local static variable)
 - Called from (representative examples):
-  - RecoveryRequiresIntParameter
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the same source file (xlogrecovery.c)

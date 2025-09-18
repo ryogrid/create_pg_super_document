@@ -19,9 +19,9 @@ pqBuildStartupPacket3 serves as a memory-allocating wrapper around the build_sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_startup_packet (core packet construction function)
+  - [build_startup_packet](../b/build_startup_packet.md) (core packet construction function)
   - malloc (memory allocation)
-  - PQEnvironmentOption (structure type for environment options)
+  - [PQEnvironmentOption](../P/PQEnvironmentOption.md) (structure type for environment options)
 - Called from (representative examples):
   - CONNECTION_FAILED state handling (in src/interfaces/libpq/fe-connect.c)
 

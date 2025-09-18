@@ -25,17 +25,17 @@ Unlike add_path_precheck, this function always compares pathkeys since partial_p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_pathkeys
-  - add_path_precheck
+  - [compare_pathkeys](../c/compare_pathkeys.md)
+  - [add_path_precheck](add_path_precheck.md)
   - PathKeysComparison (enum)
   - PATHKEYS_DIFFERENT, PATHKEYS_BETTER1, PATHKEYS_BETTER2 (constants)
   - STD_FUZZ_FACTOR (constant)
   - Cost (type)
 
 - Called from (representative examples):
-  - try_partial_nestloop_path
-  - try_partial_mergejoin_path 
-  - try_partial_hashjoin_path
+  - [try_partial_nestloop_path](../t/try_partial_nestloop_path.md)
+  - [try_partial_mergejoin_path](../t/try_partial_mergejoin_path.md) 
+  - [try_partial_hashjoin_path](../t/try_partial_hashjoin_path.md)
 
 ## Notes and Other Information
 - Returns true if the path should be considered further, false if it should be rejected immediately

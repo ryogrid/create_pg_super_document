@@ -31,7 +31,7 @@ The function is particularly important for configuration parameters that represe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canonicalize_path
+  - [canonicalize_path](canonicalize_path.md)
   - GucSource (type definition)
 - Called from (representative examples):
   - GUC system framework (as check hook for path parameters)

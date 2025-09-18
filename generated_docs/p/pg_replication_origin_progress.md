@@ -28,7 +28,7 @@ The function performs prerequisite checks to ensure replication origins are prop
   - text_to_cstring
   - PG_GETARG_BOOL
   - replorigin_by_name
-  - replorigin_get_progress
+  - [replorigin_get_progress](../r/replorigin_get_progress.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

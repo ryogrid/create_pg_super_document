@@ -23,15 +23,15 @@ This static helper function constructs the result string for regexp split operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_wchar2mb_with_len
+  - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
   - cstring_to_text_with_len
-  - text_substr
+  - [text_substr](../t/text_substr.md)
   - DirectFunctionCall3
-  - PointerGetDatum, Int32GetDatum
-  - regexp_matches_ctx
+  - [PointerGetDatum](../P/PointerGetDatum.md), Int32GetDatum
+  - [regexp_matches_ctx](../r/regexp_matches_ctx.md)
 - Called from:
-  - regexp_split_to_table
-  - regexp_split_to_array
+  - [regexp_split_to_table](../r/regexp_split_to_table.md)
+  - [regexp_split_to_array](../r/regexp_split_to_array.md)
 
 ## Notes and Other Information
 - Static function, not exposed outside regexp.c

@@ -27,13 +27,13 @@ The function ensures that administrators cannot accidentally start the old clust
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting initialization)
+  - [prep_status](../p/prep_status.md) (status reporting initialization)
   - pg_mv_file (safe file moving utility)  
-  - check_ok (status completion reporting)
-  - pg_log (logging with PG_REPORT level)
+  - [check_ok](../c/check_ok.md) (status completion reporting)
+  - [pg_log](../p/pg_log.md) (logging with PG_REPORT level)
   - old_cluster (global cluster information structure)
 - Called from (representative examples):
-  - main (src/bin/pg_upgrade/pg_upgrade.c:181)
+  - [main](../m/main.md) (src/bin/pg_upgrade/pg_upgrade.c:181)
 
 ## Notes and Other Information
 - Critical safety function that prevents data corruption in link-mode upgrades

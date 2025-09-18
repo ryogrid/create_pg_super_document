@@ -32,9 +32,9 @@ The function accumulates the absolute value in negative form to handle the full 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (data type)
-  - PGLC_localeconv (locale conversion settings)
-  - pg_mul_s64_overflow (safe multiplication with overflow detection)
-  - pg_sub_s64_overflow (safe subtraction with overflow detection)
+  - [PGLC_localeconv](../P/PGLC_localeconv.md) (locale conversion settings)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (safe multiplication with overflow detection)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (safe subtraction with overflow detection)
   - ereturn (soft error return mechanism)
   - PG_RETURN_CASH (return macro for Cash values)
   - PG_INT64_MIN (minimum 64-bit integer constant)

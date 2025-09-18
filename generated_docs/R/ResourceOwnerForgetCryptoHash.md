@@ -23,10 +23,10 @@ The function is implemented as a static inline function in the cryptohash_openss
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForget
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - cryptohash_resowner_desc (resource descriptor)
 - Called from (representative examples):
-  - pg_cryptohash_free
+  - [pg_cryptohash_free](../p/pg_cryptohash_free.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/common/cryptohash_openssl.c:96-102

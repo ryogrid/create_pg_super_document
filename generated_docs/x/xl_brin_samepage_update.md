@@ -21,9 +21,9 @@ Unlike cross-page updates that require multiple backup blocks, samepage updates 
 - Functions called/Symbols referenced:
   - OffsetNumber (type)
 - Called from (representative examples):
-  - brin_doupdate (in src/backend/access/brin/brin_pageops.c:186)
-  - brin_xlog_samepage_update (in src/backend/access/brin/brin_xlog.c:173, 177)
-  - brin_desc (in src/backend/access/rmgrdesc/brindesc.c:54)
+  - [brin_doupdate](../b/brin_doupdate.md) (in src/backend/access/brin/brin_pageops.c:186)
+  - [brin_xlog_samepage_update](../b/brin_xlog_samepage_update.md) (in src/backend/access/brin/brin_xlog.c:173, 177)
+  - [brin_desc](../b/brin_desc.md) (in src/backend/access/rmgrdesc/brindesc.c:54)
 
 ## Notes and Other Information
 - This is the most efficient BRIN update operation as it requires only one backup block

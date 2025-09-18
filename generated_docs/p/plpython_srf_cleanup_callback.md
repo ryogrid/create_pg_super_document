@@ -20,10 +20,10 @@ This callback function is registered with PostgreSQL's memory context system to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Py_XDECREF (Python C API macro for safely decrementing reference counts)
-  - PLy_function_drop_args (frees saved function arguments)
-  - PLySRFState (set-returning function state structure)
+  - [PLy_function_drop_args](../P/PLy_function_drop_args.md) (frees saved function arguments)
+  - [PLySRFState](../P/PLySRFState.md) (set-returning function state structure)
 - Called from (representative examples):
-  - PLy_exec_function (registered as callback at src/pl/plpython/plpy_exec.c:84)
+  - [PLy_exec_function](../P/PLy_exec_function.md) (registered as callback at src/pl/plpython/plpy_exec.c:84)
 
 ## Notes and Other Information
 - This is a static function internal to plpy_exec.c

@@ -20,15 +20,15 @@ The avlInsertNode function implements the recursive insertion algorithm for AVL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - pivotFieldCompare
-  - avlInsertNode (recursive call)
-  - avlAdjustBalance
+  - [pivotFieldCompare](../p/pivotFieldCompare.md)
+  - [avlInsertNode](avlInsertNode.md) (recursive call)
+  - [avlAdjustBalance](avlAdjustBalance.md)
   - pivot_field
   - avl_tree
   - avl_node
 - Called from (representative examples):
-  - avlInsertNode (recursive)
-  - avlMergeValue
+  - [avlInsertNode](avlInsertNode.md) (recursive)
+  - [avlMergeValue](avlMergeValue.md)
 
 ## Notes and Other Information
 This function is a core component of PostgreSQL's crosstab view implementation, which uses AVL trees to efficiently store and organize pivot field values for cross-tabulated query results. The recursive nature allows for natural tree traversal while maintaining the call stack for proper balance adjustment on the way back up. The function increments the tree's count only when actually inserting a new node, ensuring accurate tree size tracking. The use of tree->end as a sentinel value simplifies boundary checking and tree structure management.

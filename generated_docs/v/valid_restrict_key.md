@@ -24,9 +24,9 @@ The function uses strspn() to count how many characters from the beginning of th
   - restrict_chars: Static constant string containing valid characters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 - Called from (representative examples):
-  - main (pg_dump): Used to validate restrict keys in the pg_dump utility
-  - main (pg_dumpall): Used to validate restrict keys in the pg_dumpall utility
-  - main (pg_restore): Used to validate restrict keys in the pg_restore utility
+  - [main](../m/main.md) (pg_dump): Used to validate restrict keys in the pg_dump utility
+  - [main](../m/main.md) (pg_dumpall): Used to validate restrict keys in the pg_dumpall utility
+  - [main](../m/main.md) (pg_restore): Used to validate restrict keys in the pg_restore utility
 
 ## Notes and Other Information
 - Returns true if the restrict key is valid, false otherwise

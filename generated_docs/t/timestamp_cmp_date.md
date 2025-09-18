@@ -25,7 +25,7 @@ The comparison is performed by delegating to `date_cmp_timestamp_internal(dateVa
 - Functions called/Symbols referenced:
   - `PG_GETARG_TIMESTAMP` - Extracts timestamp argument
   - `PG_GETARG_DATEADT` - Extracts date argument  
-  - `date_cmp_timestamp_internal` - Performs the actual comparison
+  - `[date_cmp_timestamp_internal](../d/date_cmp_timestamp_internal.md)` - Performs the actual comparison
   - `PG_RETURN_INT32` - Returns integer result
 - Called from (representative examples):
   - No direct references found (likely called via SQL operator system)

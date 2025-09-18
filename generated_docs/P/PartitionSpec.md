@@ -25,11 +25,11 @@ The structure encapsulates all the necessary information needed to define how a 
   - PartitionStrategy
   - ParseLoc
   - NodeTag (inherited)
-  - List (PostgreSQL list type)
+  - [List](../L/List.md) (PostgreSQL list type)
 - Called from (representative examples):
-  - transformPartitionSpec
+  - [transformPartitionSpec](../t/transformPartitionSpec.md)
   - CreateStmt
-  - RangeVarCallbackForAlterRelation
+  - [RangeVarCallbackForAlterRelation](../R/RangeVarCallbackForAlterRelation.md)
 
 ## Notes and Other Information
 - This is a parse-time only structure that gets transformed into catalog entries during table creation

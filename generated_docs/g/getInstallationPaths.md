@@ -29,13 +29,13 @@ The function is designed to fail fast with informative error messages if the Pos
 - Functions called/Symbols referenced:
   - find_my_exec: Resolve full path to current executable
   - find_other_exec: Locate matching postgres backend (EXEC_BACKEND builds only)
-  - get_pkglib_path: Calculate package library directory path
+  - [get_pkglib_path](get_pkglib_path.md): Calculate package library directory path
   - AllocateDir: Open directory for validation
   - FreeDir: Close directory after validation
   - DIR: Directory handle type
   - PG_BACKEND_VERSIONSTR: Version string for backend matching
 - Called from (representative examples):
-  - PostmasterMain: Called early in startup sequence at line 532
+  - [PostmasterMain](../P/PostmasterMain.md): Called early in startup sequence at line 532
   - Referenced in SIGKILL_CHILDREN_AFTER_SECS context
 
 ## Notes and Other Information

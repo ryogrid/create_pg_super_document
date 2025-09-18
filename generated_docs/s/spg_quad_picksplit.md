@@ -26,15 +26,15 @@ The quadtree partitioning divides the 2D space into four quadrants (NE, NW, SE, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgPickSplitIn
-  - spgPickSplitOut
-  - Point
-  - DatumGetPointP
-  - x_cmp
-  - y_cmp
+  - [spgPickSplitIn](spgPickSplitIn.md)
+  - [spgPickSplitOut](spgPickSplitOut.md)
+  - [Point](../P/Point.md)
+  - [DatumGetPointP](../D/DatumGetPointP.md)
+  - [x_cmp](../x/x_cmp.md)
+  - [y_cmp](../y/y_cmp.md)
   - qsort
-  - getQuadrant
-  - PointPGetDatum
+  - [getQuadrant](../g/getQuadrant.md)
+  - [PointPGetDatum](../P/PointPGetDatum.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - SP-GiST framework (via function pointers in operator class)

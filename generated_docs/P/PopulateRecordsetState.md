@@ -40,22 +40,22 @@ This state structure is essential for handling complex JSON-to-recordset transfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (JSON parsing context)
-  - HTAB (hash table for JSON data storage)
-  - JsonTokenType (enumeration for JSON token types)
+  - [JsonLexContext](../J/JsonLexContext.md) (JSON parsing context)
+  - [HTAB](../H/HTAB.md) (hash table for JSON data storage)
+  - [JsonTokenType](../J/JsonTokenType.md) (enumeration for JSON token types)
   - Tuplestorestate (tuple storage management)
   - HeapTupleHeader (tuple header structure)
-  - PopulateRecordCache (metadata caching structure)
+  - [PopulateRecordCache](PopulateRecordCache.md) (metadata caching structure)
 - Called from (representative examples):
   - JsObjectFree (for cleanup operations)
-  - populate_recordset_record
-  - populate_recordset_worker
-  - populate_recordset_object_start
-  - populate_recordset_object_end
-  - populate_recordset_array_element_start
-  - populate_recordset_scalar
-  - populate_recordset_object_field_start
-  - populate_recordset_object_field_end
+  - [populate_recordset_record](../p/populate_recordset_record.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
+  - [populate_recordset_object_start](../p/populate_recordset_object_start.md)
+  - [populate_recordset_object_end](../p/populate_recordset_object_end.md)
+  - [populate_recordset_array_element_start](../p/populate_recordset_array_element_start.md)
+  - [populate_recordset_scalar](../p/populate_recordset_scalar.md)
+  - [populate_recordset_object_field_start](../p/populate_recordset_object_field_start.md)
+  - [populate_recordset_object_field_end](../p/populate_recordset_object_field_end.md)
 
 ## Notes and Other Information
 - This structure is allocated per function call and maintains state throughout the entire recordset population operation

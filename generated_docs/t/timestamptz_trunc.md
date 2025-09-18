@@ -31,7 +31,7 @@ Key characteristics:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_TIMESTAMPTZ
   - TIMESTAMP_NOT_FINITE
-  - timestamptz_trunc_internal
+  - [timestamptz_trunc_internal](timestamptz_trunc_internal.md)
   - session_timezone (global variable)
   - PG_RETURN_TIMESTAMPTZ
 - Called from (representative examples):

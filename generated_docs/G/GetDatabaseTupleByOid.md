@@ -22,16 +22,16 @@ The function opens the pg_database relation, performs a scan to find the tuple m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit (for setting up scan key)
-  - ObjectIdGetDatum (for converting database OID to datum)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (for setting up scan key)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (for converting database OID to datum)
   - table_open (for opening pg_database relation)
-  - systable_beginscan (for starting system catalog scan)
-  - systable_getnext (for getting next tuple from scan)
-  - heap_copytuple (for copying tuple before releasing buffer)
-  - systable_endscan (for ending scan)
+  - [systable_beginscan](../s/systable_beginscan.md) (for starting system catalog scan)
+  - [systable_getnext](../s/systable_getnext.md) (for getting next tuple from scan)
+  - [heap_copytuple](../h/heap_copytuple.md) (for copying tuple before releasing buffer)
+  - [systable_endscan](../s/systable_endscan.md) (for ending scan)
   - table_close (for closing relation)
 - Called from:
-  - InitPostgres (src/backend/utils/init/postinit.c:1088)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:1088)
 
 ## Notes and Other Information
 - This is a static function, only accessible within postinit.c

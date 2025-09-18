@@ -23,10 +23,10 @@ This function finalizes a partial aggregate by preparing its transition value fo
 - Functions called/Symbols referenced:
   - MakeExpandedObjectReadOnly
   - FunctionCallInvoke
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - OidIsValid
 - Called from (representative examples):
-  - finalize_aggregates
+  - [finalize_aggregates](finalize_aggregates.md)
 
 ## Notes and Other Information
 - The serialization function will be run in the output-tuple context, making the caller's CurrentMemoryContext irrelevant

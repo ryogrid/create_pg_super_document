@@ -34,12 +34,12 @@ After this deformation step, subsequent evaluation steps will overwrite specific
 - Functions called/Symbols referenced:
   - DatumGetHeapTupleHeader: Converts Datum to HeapTupleHeader
   - HeapTupleHeaderGetDatumLength: Gets tuple length for HeapTuple construction
-  - ItemPointerSetInvalid: Sets invalid item pointer for temporary tuple
-  - get_cached_rowtype: Retrieves cached tuple descriptor for the result type
-  - heap_deform_tuple: Decomposes tuple into individual field values and null flags
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md): Sets invalid item pointer for temporary tuple
+  - [get_cached_rowtype](../g/get_cached_rowtype.md): Retrieves cached tuple descriptor for the result type
+  - [heap_deform_tuple](../h/heap_deform_tuple.md): Decomposes tuple into individual field values and null flags
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation context
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation context
 
 ## Notes and Other Information
 - This is the first step in a multi-step FieldStore evaluation process

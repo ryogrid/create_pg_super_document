@@ -17,16 +17,16 @@ This function provides critical security validation for CREATE IF NOT EXISTS ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getExtensionOfObject
-  - getObjectDescription  
-  - get_extension_name
+  - [getExtensionOfObject](../g/getExtensionOfObject.md)
+  - [getObjectDescription](../g/getObjectDescription.md)  
+  - [get_extension_name](../g/get_extension_name.md)
 - Called from (representative examples):
-  - CollationCreate
-  - CreateTableAsRelExists
-  - CreateForeignServer
-  - CreateSchemaCommand
-  - DefineSequence
-  - transformCreateStmt
+  - [CollationCreate](../C/CollationCreate.md)
+  - [CreateTableAsRelExists](../C/CreateTableAsRelExists.md)
+  - [CreateForeignServer](../C/CreateForeignServer.md)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md)
+  - [DefineSequence](../D/DefineSequence.md)
+  - [transformCreateStmt](../t/transformCreateStmt.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/pg_depend.c:259-301

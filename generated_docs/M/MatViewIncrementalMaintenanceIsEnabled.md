@@ -27,7 +27,7 @@ None - this is a parameter-less function that returns a boolean value.
 - Functions called/Symbols referenced:
   - matview_maintenance_depth (global variable)
 - Called from (representative examples):
-  - CheckValidResultRel
+  - [CheckValidResultRel](../C/CheckValidResultRel.md)
 
 ## Notes and Other Information
 - The function name suggests future incremental maintenance functionality, though it's currently used primarily for REFRESH operations

@@ -24,18 +24,18 @@ The function includes important assertions to ensure that the read pointer has t
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufFileSeek (for file-based tuplestores)
-  - errcode_for_file_access (for error reporting)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (for error reporting)
   - ereport/errmsg (for error handling)
 - Types referenced:
   - TSReadPointer
   - EXEC_FLAG_REWIND
   - TSS_INMEM, TSS_WRITEFILE, TSS_READFILE
 - Called from (representative examples):
-  - ExecReScanMaterial
-  - ExecReScanCteScan
-  - ExecReScanFunctionScan
-  - DoPortalRewind
-  - PersistHoldablePortal
+  - [ExecReScanMaterial](../E/ExecReScanMaterial.md)
+  - [ExecReScanCteScan](../E/ExecReScanCteScan.md)
+  - [ExecReScanFunctionScan](../E/ExecReScanFunctionScan.md)
+  - [DoPortalRewind](../D/DoPortalRewind.md)
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
 
 ## Notes and Other Information
 - Requires that the read pointer was created with EXEC_FLAG_REWIND capability

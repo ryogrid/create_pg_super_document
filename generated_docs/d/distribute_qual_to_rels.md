@@ -52,16 +52,16 @@ The function implements complex logic for determining whether clauses should be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varnos
-  - check_redundant_nullability_qual
-  - make_restrictinfo
-  - process_equivalence
-  - initialize_mergeclause_eclasses
-  - distribute_restrictinfo_to_rels
-  - check_mergejoinable
-  - add_vars_to_targetlist
+  - [pull_varnos](../p/pull_varnos.md)
+  - [check_redundant_nullability_qual](../c/check_redundant_nullability_qual.md)
+  - [make_restrictinfo](../m/make_restrictinfo.md)
+  - [process_equivalence](../p/process_equivalence.md)
+  - [initialize_mergeclause_eclasses](../i/initialize_mergeclause_eclasses.md)
+  - [distribute_restrictinfo_to_rels](distribute_restrictinfo_to_rels.md)
+  - [check_mergejoinable](../c/check_mergejoinable.md)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md)
 - Called from (representative examples):
-  - distribute_quals_to_rels
+  - [distribute_quals_to_rels](distribute_quals_to_rels.md)
 
 ## Notes and Other Information
 This function implements sophisticated logic for handling different types of qualifications:

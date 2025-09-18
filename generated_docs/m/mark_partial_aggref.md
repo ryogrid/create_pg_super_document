@@ -28,8 +28,8 @@ The function updates both the aggregation split mode and adjusts the result type
   - INTERNALOID (constant)
   - BYTEAOID (constant)
 - Called from (representative examples):
-  - make_partial_grouping_target (src/backend/optimizer/plan/planner.c:5691)
-  - convert_combining_aggrefs (src/backend/optimizer/plan/setrefs.c:2592, 2599)
+  - [make_partial_grouping_target](make_partial_grouping_target.md) (src/backend/optimizer/plan/planner.c:5691)
+  - [convert_combining_aggrefs](../c/convert_combining_aggrefs.md) (src/backend/optimizer/plan/setrefs.c:2592, 2599)
 
 ## Notes and Other Information
 - The function assumes that aggtranstype has already been computed and is valid

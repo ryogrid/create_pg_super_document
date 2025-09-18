@@ -24,16 +24,16 @@ The function is part of PostgreSQL's MultiXact system, which tracks multiple tra
   - MULTIXACT_OFFSETS_PER_PAGE (constant defining entries per page)
   - MultiXactId (type definition)
 - Called from (representative examples):
-  - MultiXactIdToOffsetSegment
-  - RecordNewMultiXact
-  - GetMultiXactIdMembers
-  - MaybeExtendOffsetSlru
-  - StartupMultiXact
-  - TrimMultiXact
-  - ExtendMultiXactOffset
-  - find_multixact_start
-  - PerformOffsetsTruncation
-  - multixact_redo
+  - [MultiXactIdToOffsetSegment](MultiXactIdToOffsetSegment.md)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [MaybeExtendOffsetSlru](MaybeExtendOffsetSlru.md)
+  - [StartupMultiXact](../S/StartupMultiXact.md)
+  - [TrimMultiXact](../T/TrimMultiXact.md)
+  - [ExtendMultiXactOffset](../E/ExtendMultiXactOffset.md)
+  - [find_multixact_start](../f/find_multixact_start.md)
+  - [PerformOffsetsTruncation](../P/PerformOffsetsTruncation.md)
+  - [multixact_redo](../m/multixact_redo.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance, as it's called frequently during MultiXact operations

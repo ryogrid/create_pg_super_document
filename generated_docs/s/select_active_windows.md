@@ -31,13 +31,13 @@ The sorting approach ensures that windows with identical partitioning and orderi
 - Functions called/Symbols referenced:
   - WindowFuncLists, WindowClause (struct types)
   - WindowClauseSortData (struct type for sorting)
-  - list_concat_unique (removes duplicates while concatenating)
-  - list_copy (creates list copy)
-  - common_prefix_cmp (comparison function for sorting)
+  - [list_concat_unique](../l/list_concat_unique.md) (removes duplicates while concatenating)
+  - [list_copy](../l/list_copy.md) (creates list copy)
+  - [common_prefix_cmp](../c/common_prefix_cmp.md) (comparison function for sorting)
   - qsort (standard library sorting function)
 - Called from (representative examples):
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:213)
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1504)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1504)
 
 ## Notes and Other Information
 - Implements SQL standard General Rule 4 for window clause ordering to ensure peer rows appear in the same order across order-equivalent windows

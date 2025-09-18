@@ -28,7 +28,7 @@ The function is intentionally conservative - it checks only what's necessary to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (macro)
-  - dsm_control_bytes_needed
+  - [dsm_control_bytes_needed](dsm_control_bytes_needed.md)
   - PG_DYNSHMEM_CONTROL_MAGIC
 - Called from (representative examples):
   - dsm_cleanup_using_control_segment

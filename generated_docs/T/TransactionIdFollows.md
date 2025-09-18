@@ -22,10 +22,10 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
 - Called from (representative examples):
-  - HeapTupleHeaderAdvanceConflictHorizon
-  - heap_prune_record_unchanged_lp_normal
-  - SubTransSetParent
-  - SnapBuildInitialSnapshot
+  - [HeapTupleHeaderAdvanceConflictHorizon](../H/HeapTupleHeaderAdvanceConflictHorizon.md)
+  - [heap_prune_record_unchanged_lp_normal](../h/heap_prune_record_unchanged_lp_normal.md)
+  - [SubTransSetParent](../S/SubTransSetParent.md)
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md)
   - GetConflictingVirtualXIDs
   - SerialAdd
 

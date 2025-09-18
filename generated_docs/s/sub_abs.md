@@ -22,14 +22,14 @@ The  function performs subtraction of absolute values between two NumericVar ope
   - NumericDigit (type for individual digits)
   - digitbuf_alloc (allocates digit buffer)
   - digitbuf_free (frees digit buffer)
-  - strip_var (removes leading/trailing zeros)
+  - [strip_var](strip_var.md) (removes leading/trailing zeros)
   - NBASE (numeric base constant)
 - Called from (representative examples):
-  - add_var (addition operations)
-  - sub_var (subtraction operations)
-  - PGTYPESnumeric_add (ECPG numeric addition)
-  - PGTYPESnumeric_sub (ECPG numeric subtraction)
-  - PGTYPESnumeric_div (ECPG numeric division)
+  - [add_var](../a/add_var.md) (addition operations)
+  - [sub_var](sub_var.md) (subtraction operations)
+  - [PGTYPESnumeric_add](../P/PGTYPESnumeric_add.md) (ECPG numeric addition)
+  - [PGTYPESnumeric_sub](../P/PGTYPESnumeric_sub.md) (ECPG numeric subtraction)
+  - [PGTYPESnumeric_div](../P/PGTYPESnumeric_div.md) (ECPG numeric division)
 
 ## Notes and Other Information
 - Critical precondition: ABS(var1) MUST BE GREATER OR EQUAL ABS(var2) - violation will cause assertion failure

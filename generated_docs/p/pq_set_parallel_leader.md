@@ -27,8 +27,8 @@ The function includes an assertion to ensure that the communication method has b
   - pq_mq_parallel_leader_pid (global variable)
   - pq_mq_parallel_leader_proc_number (global variable)
 - Called from (representative examples):
-  - ParallelWorkerMain
-  - ParallelApplyWorkerMain
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
 
 ## Notes and Other Information
 - Must be called after pq_redirect_to_shm_mq has been invoked

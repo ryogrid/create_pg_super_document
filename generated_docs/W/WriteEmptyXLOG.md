@@ -41,11 +41,11 @@ This function takes no parameters and operates on:
   - INIT_CRC32C, COMP_CRC32C, FIN_CRC32C (CRC calculation macros)
   - PGAlignedXLogBlock (aligned buffer for WAL data)
   - XLogPageHeader, XLogLongPageHeader (WAL page header structures)
-  - XLogRecord (WAL record structure)
+  - [XLogRecord](../X/XLogRecord.md) (WAL record structure)
   - Various constants: XLOG_PAGE_MAGIC, XLP_LONG_HEADER, XLOG_CHECKPOINT_SHUTDOWN, etc.
 
 - Called from:
-  - main (in pg_resetwal.c at line 498)
+  - [main](../m/main.md) (in pg_resetwal.c at line 498)
 
 ## Notes and Other Information
 - This is a static function local to pg_resetwal.c

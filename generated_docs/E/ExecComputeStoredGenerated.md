@@ -31,20 +31,20 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
-  - ExecInitStoredGenerated  
+  - [ExecInitStoredGenerated](ExecInitStoredGenerated.md)  
   - GetPerTupleMemoryContext
   - slot_getallattrs
   - ExecEvalExpr
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
   - ExecMaterializeSlot
 - Called from (representative examples):
-  - CopyFrom
-  - ExecSimpleRelationInsert
-  - ExecSimpleRelationUpdate
-  - ExecInsert
-  - ExecUpdatePrepareSlot
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md)
+  - [ExecSimpleRelationUpdate](ExecSimpleRelationUpdate.md)
+  - [ExecInsert](ExecInsert.md)
+  - [ExecUpdatePrepareSlot](ExecUpdatePrepareSlot.md)
 
 ## Notes and Other Information
 - The function assumes the relation has stored generated columns (asserted via tupdesc->constr->has_generated_stored)

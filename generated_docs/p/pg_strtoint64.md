@@ -19,7 +19,7 @@ The function uses unsigned arithmetic internally to correctly handle two's compl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strtoint64_safe (the underlying implementation function)
+  - [pg_strtoint64_safe](pg_strtoint64_safe.md) (the underlying implementation function)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase
 

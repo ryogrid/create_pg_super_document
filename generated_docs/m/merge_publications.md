@@ -22,13 +22,13 @@ The function validates that publications being added don't already exist in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy
-  - check_duplicates_in_publist
+  - [list_copy](../l/list_copy.md)
+  - [check_duplicates_in_publist](../c/check_duplicates_in_publist.md)
   - ERRCODE_DUPLICATE_OBJECT
   - foreach_delete_current
-  - makeString
+  - [makeString](makeString.md)
 - Called from (representative examples):
-  - AlterSubscription
+  - [AlterSubscription](../A/AlterSubscription.md)
 
 ## Notes and Other Information
 - The function creates a copy of the original list, leaving the input list unchanged

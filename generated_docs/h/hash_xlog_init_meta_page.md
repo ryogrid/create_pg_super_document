@@ -19,15 +19,15 @@ The function extracts the metapage initialization parameters from the WAL record
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_hash_init_meta_page (WAL record structure)
+  - [xl_hash_init_meta_page](../x/xl_hash_init_meta_page.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
   - XLogInitBufferForRedo (initializes buffer for recovery)
-  - _hash_init_metabuffer (initializes the metapage buffer)
-  - XLogRecGetBlockTag (gets block information)
+  - [_hash_init_metabuffer](_hash_init_metabuffer.md) (initializes the metapage buffer)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block information)
   - INIT_FORKNUM (fork number constant)
   - FlushOneBuffer (flushes buffer to disk)
 - Called from:
-  - hash_redo (main hash WAL replay function)
+  - [hash_redo](hash_redo.md) (main hash WAL replay function)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

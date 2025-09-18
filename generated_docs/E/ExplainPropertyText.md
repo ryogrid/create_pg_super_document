@@ -26,22 +26,22 @@ This function provides a clean, type-safe interface for the most common use case
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExplainState (struct type)
-  - ExplainProperty
+  - [ExplainProperty](ExplainProperty.md)
 - Called from (representative examples):
-  - ExplainPrintSettings (at src/backend/commands/explain.c:830, 861)
+  - [ExplainPrintSettings](ExplainPrintSettings.md) (at src/backend/commands/explain.c:830, 861)
   - ExplainPrintSerialize (at src/backend/commands/explain.c:1152)
   - ExplainQueryText (at src/backend/commands/explain.c:1172)
   - ExplainQueryParameters (at src/backend/commands/explain.c:1194)
-  - report_triggers (at src/backend/commands/explain.c:1254, 1256, 1257)
-  - ExplainNode (at src/backend/commands/explain.c:1654, 1656, 1658, 1660, 1662, 1664, 1666, 1721, 1772, 1800)
-  - show_expression (at src/backend/commands/explain.c:2503)
-  - show_grouping_set_keys (at src/backend/commands/explain.c:2722)
-  - show_tablesample (at src/backend/commands/explain.c:2934, 2937)
-  - show_sort_info (at src/backend/commands/explain.c:2971, 2973, 3016, 3018)
-  - show_memoize_info (at src/backend/commands/explain.c:3363, 3364)
-  - ExplainIndexScanDetails (at src/backend/commands/explain.c:4003, 4004)
-  - ExplainTargetRel (at src/backend/commands/explain.c:4156, 4158, 4159)
-  - show_modifytable_info (at src/backend/commands/explain.c:4284)
+  - [report_triggers](../r/report_triggers.md) (at src/backend/commands/explain.c:1254, 1256, 1257)
+  - [ExplainNode](ExplainNode.md) (at src/backend/commands/explain.c:1654, 1656, 1658, 1660, 1662, 1664, 1666, 1721, 1772, 1800)
+  - [show_expression](../s/show_expression.md) (at src/backend/commands/explain.c:2503)
+  - [show_grouping_set_keys](../s/show_grouping_set_keys.md) (at src/backend/commands/explain.c:2722)
+  - [show_tablesample](../s/show_tablesample.md) (at src/backend/commands/explain.c:2934, 2937)
+  - [show_sort_info](../s/show_sort_info.md) (at src/backend/commands/explain.c:2971, 2973, 3016, 3018)
+  - [show_memoize_info](../s/show_memoize_info.md) (at src/backend/commands/explain.c:3363, 3364)
+  - [ExplainIndexScanDetails](ExplainIndexScanDetails.md) (at src/backend/commands/explain.c:4003, 4004)
+  - [ExplainTargetRel](ExplainTargetRel.md) (at src/backend/commands/explain.c:4156, 4158, 4159)
+  - [show_modifytable_info](../s/show_modifytable_info.md) (at src/backend/commands/explain.c:4284)
 
 ## Notes and Other Information
 - This is a public function (not static), widely available throughout the PostgreSQL codebase

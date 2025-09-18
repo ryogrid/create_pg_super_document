@@ -31,15 +31,15 @@ Key limitations include potential race conditions during concurrent DDL operatio
 - Functions called/Symbols referenced:
   - check_stack_depth (prevent stack overflow in recursion)
   - table_open/relation_open/relation_close (relation access)
-  - systable_beginscan/systable_getnext/systable_endscan (catalog scanning)
-  - get_typtype (determine if dependent type is a domain)
-  - find_composite_type_dependencies (check for container type usage)
-  - list_concat (combine results from recursive calls)
-  - format_type_be (format domain type name for error messages)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan (catalog scanning)
+  - [get_typtype](get_typtype.md) (determine if dependent type is a domain)
+  - [find_composite_type_dependencies](../f/find_composite_type_dependencies.md) (check for container type usage)
+  - [list_concat](../l/list_concat.md) (combine results from recursive calls)
+  - [format_type_be](../f/format_type_be.md) (format domain type name for error messages)
 - Called from:
-  - validateDomainCheckConstraint (when validating check constraints)
-  - validateDomainNotNullConstraint (when validating NOT NULL constraints)
-  - get_rels_with_domain (recursive calls for sub-domains)
+  - [validateDomainCheckConstraint](../v/validateDomainCheckConstraint.md) (when validating check constraints)
+  - [validateDomainNotNullConstraint](../v/validateDomainNotNullConstraint.md) (when validating NOT NULL constraints)
+  - [get_rels_with_domain](get_rels_with_domain.md) (recursive calls for sub-domains)
 
 ## Notes and Other Information
 - Contains known concurrency issues due to inability to lock domains during operation

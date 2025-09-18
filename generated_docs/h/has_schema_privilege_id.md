@@ -20,9 +20,9 @@ The function handles cases where the schema might not exist by checking for miss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
-  - convert_schema_priv_string
-  - object_aclcheck_ext
+  - [GetUserId](../G/GetUserId.md)
+  - [convert_schema_priv_string](../c/convert_schema_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - AclResult (type)

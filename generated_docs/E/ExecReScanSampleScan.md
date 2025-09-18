@@ -17,10 +17,10 @@ ExecReScanSampleScan is responsible for resetting the state of a sample scan ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecScanReScan (to reset the underlying scan state)
-  - SampleScanState (the state structure being modified)
+  - [ExecScanReScan](ExecScanReScan.md) (to reset the underlying scan state)
+  - [SampleScanState](../S/SampleScanState.md) (the state structure being modified)
 - Called from (representative examples):
-  - ExecReScan (in execAmi.c:169)
+  - [ExecReScan](ExecReScan.md) (in execAmi.c:169)
   - NODESAMPLESCAN_H (header declaration in nodeSamplescan.h:21)
 
 ## Notes and Other Information

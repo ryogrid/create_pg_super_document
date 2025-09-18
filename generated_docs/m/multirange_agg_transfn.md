@@ -21,15 +21,15 @@ The function validates that it's being called in a proper aggregate context and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - get_fn_expr_argtype
-  - type_is_multirange
-  - multirange_get_typcache
-  - initArrayResult
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [type_is_multirange](../t/type_is_multirange.md)
+  - [multirange_get_typcache](multirange_get_typcache.md)
+  - [initArrayResult](../i/initArrayResult.md)
   - PG_GETARG_MULTIRANGE_P
-  - multirange_deserialize
-  - accumArrayResult
-  - make_empty_range
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [accumArrayResult](../a/accumArrayResult.md)
+  - [make_empty_range](make_empty_range.md)
   - RangeTypePGetDatum
   - PG_ARGISNULL
   - PG_GETARG_POINTER

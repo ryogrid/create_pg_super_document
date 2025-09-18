@@ -19,17 +19,17 @@ The sset structure is a fundamental component of PostgreSQL's regular expression
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - longest (longest match function)
-  - shortest (shortest match function)  
-  - matchuntil (match until function)
-  - newdfa (DFA construction)
-  - hash (state hashing)
-  - initialize (state initialization)
-  - miss (cache miss handling)
-  - getvacant (vacant state management)
-  - arcp (arc pointer structure)
-  - dfa (DFA execution)
-  - smalldfa (small DFA execution)
+  - [longest](../l/longest.md) (longest match function)
+  - [shortest](shortest.md) (shortest match function)  
+  - [matchuntil](../m/matchuntil.md) (match until function)
+  - [newdfa](../n/newdfa.md) (DFA construction)
+  - [hash](../h/hash.md) (state hashing)
+  - [initialize](../i/initialize.md) (state initialization)
+  - [miss](../m/miss.md) (cache miss handling)
+  - [getvacant](../g/getvacant.md) (vacant state management)
+  - [arcp](../a/arcp.md) (arc pointer structure)
+  - [dfa](../d/dfa.md) (DFA execution)
+  - [smalldfa](smalldfa.md) (small DFA execution)
 
 ## Notes and Other Information
 The sset structure is designed for memory efficiency and fast set operations. The bitvector representation allows for quick set union, intersection, and membership testing operations that are essential for DFA state management. This structure is extensively used throughout the regex engine's DFA implementation for tracking which states are active at any given point during pattern matching.

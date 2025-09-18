@@ -24,10 +24,10 @@ Each pct_info entry represents one percentile calculation within a multi-percent
 - Functions called/Symbols referenced:
   - (No direct references - this is a data structure)
 - Called from (representative examples):
-  - pct_info_cmp (comparison function for sorting pct_info arrays)
-  - setup_pct_info (function that populates pct_info arrays)
-  - percentile_disc_multi_final (uses pct_info for discrete percentiles)
-  - percentile_cont_multi_final_common (uses pct_info for continuous percentiles)
+  - [pct_info_cmp](pct_info_cmp.md) (comparison function for sorting pct_info arrays)
+  - [setup_pct_info](../s/setup_pct_info.md) (function that populates pct_info arrays)
+  - [percentile_disc_multi_final](percentile_disc_multi_final.md) (uses pct_info for discrete percentiles)
+  - [percentile_cont_multi_final_common](percentile_cont_multi_final_common.md) (uses pct_info for continuous percentiles)
 
 ## Notes and Other Information
 - The constraint that second_row should be equal to or exactly one more than first_row ensures efficient interpolation logic

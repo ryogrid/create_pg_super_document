@@ -23,16 +23,16 @@ The function creates a message buffer, writes the UUID's raw 16-byte binary data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pq_begintypsend` (initializes message buffer for type sending)
+  - `[pq_begintypsend](../p/pq_begintypsend.md)` (initializes message buffer for type sending)
   - `pq_sendbytes` (writes binary data to message buffer)
-  - `pq_endtypsend` (finalizes message buffer and returns bytea)
+  - `[pq_endtypsend](../p/pq_endtypsend.md)` (finalizes message buffer and returns bytea)
   - `PG_GETARG_UUID_P` (argument retrieval macro for UUID)
   - `PG_RETURN_BYTEA_P` (return value macro for bytea)
 - Constants used:
   - `UUID_LEN` (UUID length in bytes, typically 16)
 - Types used:
-  - `pg_uuid_t` (internal UUID structure)
-  - `StringInfoData` (PostgreSQL message buffer type)
+  - `[pg_uuid_t](../p/pg_uuid_t.md)` (internal UUID structure)
+  - `[StringInfoData](../S/StringInfoData.md)` (PostgreSQL message buffer type)
 - Called from:
   - PostgreSQL type system (automatically during binary protocol communication)
 

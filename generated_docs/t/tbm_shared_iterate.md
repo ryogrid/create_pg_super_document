@@ -21,19 +21,19 @@ The function uses shared page and chunk index arrays to access the actual Pageta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_advance_schunkbit
-  - tbm_extract_page_tuple
+  - [tbm_advance_schunkbit](tbm_advance_schunkbit.md)
+  - [tbm_extract_page_tuple](tbm_extract_page_tuple.md)
   - LWLockAcquire
   - LWLockRelease
-  - TBMSharedIterator
-  - TBMSharedIteratorState
+  - [TBMSharedIterator](../T/TBMSharedIterator.md)
+  - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md)
   - TBMIterateResult
-  - PagetableEntry
+  - [PagetableEntry](../P/PagetableEntry.md)
   - PAGES_PER_CHUNK
 - Called from (representative examples):
-  - BitmapHeapNext (src/backend/executor/nodeBitmapHeapscan.c:241)
-  - BitmapAdjustPrefetchIterator (src/backend/executor/nodeBitmapHeapscan.c:408)
-  - BitmapPrefetch (src/backend/executor/nodeBitmapHeapscan.c:534)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (src/backend/executor/nodeBitmapHeapscan.c:241)
+  - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md) (src/backend/executor/nodeBitmapHeapscan.c:408)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md) (src/backend/executor/nodeBitmapHeapscan.c:534)
 
 ## Notes and Other Information
 Critical for parallel bitmap heap scans where multiple worker processes need to coordinate access to the same bitmap. The LWLock ensures atomic updates to shared iteration state. All shared memory pointers must be properly initialized before calling this function. The function releases the lock before returning, whether successful or at end of iteration.

@@ -23,9 +23,9 @@ The structure forms a singly-linked list where each node represents a directory 
 - Functions called/Symbols referenced:
   - (Self-referential structure member)
 - Called from (representative examples):
-  - cleanup_directories_atexit
-  - remember_to_cleanup_directory
-  - reset_directory_cleanup_list
+  - [cleanup_directories_atexit](cleanup_directories_atexit.md)
+  - [remember_to_cleanup_directory](../r/remember_to_cleanup_directory.md)
+  - [reset_directory_cleanup_list](../r/reset_directory_cleanup_list.md)
 
 ## Notes and Other Information
 - Part of pg_combinebackup's error handling and cleanup infrastructure

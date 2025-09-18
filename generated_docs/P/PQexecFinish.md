@@ -21,20 +21,20 @@ The function implements backward compatibility by returning the last result when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetResult
+  - [PQgetResult](PQgetResult.md)
   - PGRES_COPY_IN
   - PGRES_COPY_OUT  
   - PGRES_COPY_BOTH
   - CONNECTION_BAD
 - Called from (representative examples):
-  - PQexec
-  - PQexecParams
-  - PQprepare
-  - PQexecPrepared
-  - PQdescribePrepared
-  - PQdescribePortal
-  - PQclosePrepared
-  - PQclosePortal
+  - [PQexec](PQexec.md)
+  - [PQexecParams](PQexecParams.md)
+  - [PQprepare](PQprepare.md)
+  - [PQexecPrepared](PQexecPrepared.md)
+  - [PQdescribePrepared](PQdescribePrepared.md)
+  - [PQdescribePortal](PQdescribePortal.md)
+  - [PQclosePrepared](PQclosePrepared.md)
+  - [PQclosePortal](PQclosePortal.md)
 
 ## Notes and Other Information
 - Returns the last PGresult from a potentially multi-result response sequence

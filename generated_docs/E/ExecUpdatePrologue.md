@@ -30,14 +30,14 @@ The function serves as a critical preparation phase that ensures all prerequisit
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecMaterializeSlot (ensures slot data is materialized)
-  - ExecOpenIndices (opens table indexes for index entry updates)
-  - ExecPendingInserts (flushes pending bulk inserts)
-  - ExecBRUpdateTriggersNew (executes BEFORE ROW UPDATE triggers)
+  - [ExecOpenIndices](ExecOpenIndices.md) (opens table indexes for index entry updates)
+  - [ExecPendingInserts](ExecPendingInserts.md) (flushes pending bulk inserts)
+  - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md) (executes BEFORE ROW UPDATE triggers)
   - TM_Ok (tuple modification result constant)
   - CMD_MERGE (command type constant for MERGE operations)
 - Called from:
-  - ExecUpdate (main update execution function)
-  - ExecMergeMatched (MERGE statement matched case execution)
+  - [ExecUpdate](ExecUpdate.md) (main update execution function)
+  - [ExecMergeMatched](ExecMergeMatched.md) (MERGE statement matched case execution)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeModifyTable.c

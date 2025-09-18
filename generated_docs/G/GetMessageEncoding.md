@@ -28,9 +28,9 @@ The function simply returns the encoding field from the global MessageEncoding v
   - MessageEncoding - global static variable pointing to current message encoding info
 
 - Called from (representative examples):
-  - write_eventlog - Windows event log writing (src/backend/utils/error/elog.c:2543)
-  - pg_bind_textdomain_codeset - text domain binding (src/backend/utils/mb/mbutils.c:1248)
-  - pgwin32_message_to_UTF16 - Windows message conversion (src/backend/utils/mb/mbutils.c:1776)
+  - [write_eventlog](../w/write_eventlog.md) - Windows event log writing (src/backend/utils/error/elog.c:2543)
+  - [pg_bind_textdomain_codeset](../p/pg_bind_textdomain_codeset.md) - [text](../t/text.md) domain binding (src/backend/utils/mb/mbutils.c:1248)
+  - [pgwin32_message_to_UTF16](../p/pgwin32_message_to_UTF16.md) - Windows message conversion (src/backend/utils/mb/mbutils.c:1776)
 
 ## Notes and Other Information
 - MessageEncoding is a static global variable in mbutils.c initialized to PG_SQL_ASCII

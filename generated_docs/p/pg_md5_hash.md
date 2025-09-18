@@ -22,20 +22,20 @@ The implementation uses PostgreSQL's cryptohash API for secure MD5 computation, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_create
-  - pg_cryptohash_init
-  - pg_cryptohash_update
-  - pg_cryptohash_final
-  - pg_cryptohash_error
-  - pg_cryptohash_free
-  - bytesToHex
+  - [pg_cryptohash_create](pg_cryptohash_create.md)
+  - [pg_cryptohash_init](pg_cryptohash_init.md)
+  - [pg_cryptohash_update](pg_cryptohash_update.md)
+  - [pg_cryptohash_final](pg_cryptohash_final.md)
+  - [pg_cryptohash_error](pg_cryptohash_error.md)
+  - [pg_cryptohash_free](pg_cryptohash_free.md)
+  - [bytesToHex](../b/bytesToHex.md)
   - MD5_DIGEST_LENGTH
   - PG_MD5
-  - pg_cryptohash_ctx
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md)
 - Called from (representative examples):
-  - md5_text
-  - md5_bytea
-  - pg_md5_encrypt
+  - [md5_text](../m/md5_text.md)
+  - [md5_bytea](../m/md5_bytea.md)
+  - [pg_md5_encrypt](pg_md5_encrypt.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

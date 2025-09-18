@@ -34,15 +34,15 @@ For each partial outer path, the function examines all suitable inner paths, ens
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinType (enum type)
-  - JoinPathExtraData (struct type)
+  - [JoinPathExtraData](../J/JoinPathExtraData.md) (struct type)
   - JOIN_UNIQUE_INNER (enum value)
   - JOIN_INNER (enum value)
-  - build_join_pathkeys
-  - create_unique_path
-  - try_partial_nestloop_path
-  - get_memoize_path
+  - [build_join_pathkeys](../b/build_join_pathkeys.md)
+  - [create_unique_path](create_unique_path.md)
+  - [try_partial_nestloop_path](../t/try_partial_nestloop_path.md)
+  - [get_memoize_path](../g/get_memoize_path.md)
 - Called from (representative examples):
-  - match_unsorted_outer
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the joinpath.c compilation unit

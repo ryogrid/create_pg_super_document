@@ -19,9 +19,9 @@ The function delegates all actual work to FunctionIsVisibleExt, passing NULL for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionIsVisibleExt
+  - [FunctionIsVisibleExt](FunctionIsVisibleExt.md)
 - Called from (representative examples):
-  - format_procedure_extended
+  - [format_procedure_extended](../f/format_procedure_extended.md)
 
 ## Notes and Other Information
 - This is the public interface for function visibility checking with standard error handling

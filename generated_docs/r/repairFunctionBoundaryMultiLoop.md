@@ -27,12 +27,12 @@ This is acknowledged as a workaround solution since the ideal approach of splitt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency (removes the problematic dependency relationship)
+  - [removeObjectDependency](removeObjectDependency.md) (removes the problematic dependency relationship)
   - DO_FUNC (constant identifying function-type objects)
   - DumpableObject (base structure for dumpable database objects)
   - FuncInfo (structure containing function-specific information)
 - Called from:
-  - repairDependencyLoop (main dependency loop repair dispatcher)
+  - [repairDependencyLoop](repairDependencyLoop.md) (main dependency loop repair dispatcher)
 
 ## Notes and Other Information
 - This is explicitly described as a stopgap solution since proper function splitting is not currently implemented

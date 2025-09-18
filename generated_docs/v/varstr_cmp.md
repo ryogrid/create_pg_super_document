@@ -21,14 +21,14 @@ Core string comparison function for text strings with given lengths that provide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_collation_set
-  - lc_collate_is_c
-  - pg_newlocale_from_collation
-  - pg_strncoll
-  - pg_locale_deterministic
+  - [check_collation_set](../c/check_collation_set.md)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [pg_strncoll](../p/pg_strncoll.md)
+  - [pg_locale_deterministic](../p/pg_locale_deterministic.md)
 - Called from (representative examples):
-  - text_cmp
-  - bpcharcmp
+  - [text_cmp](../t/text_cmp.md)
+  - [bpcharcmp](../b/bpcharcmp.md)
   - namecmp
   - Various text comparison operators
 

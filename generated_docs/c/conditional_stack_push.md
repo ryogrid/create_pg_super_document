@@ -19,14 +19,14 @@ This function creates a new conditional branch by pushing a new IfStackElem onto
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (memory allocation for new stack element)
-  - IfStackElem (structure type for stack elements)
+  - [IfStackElem](../I/IfStackElem.md) (structure type for stack elements)
   - ifState (enum type for conditional states)
 - Called from (representative examples):
-  - advanceConnectionState (in pgbench)
-  - executeMetaCommand (in pgbench)
-  - CheckConditional (in pgbench)
-  - HandleSlashCmds (in psql)
-  - exec_command_if (in psql)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (in pgbench)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (in pgbench)
+  - [CheckConditional](../C/CheckConditional.md) (in pgbench)
+  - [HandleSlashCmds](../H/HandleSlashCmds.md) (in psql)
+  - [exec_command_if](../e/exec_command_if.md) (in psql)
 
 ## Notes and Other Information
 - Creates a new IfStackElem on the heap, so each push must eventually have a corresponding pop to avoid memory leaks

@@ -22,7 +22,7 @@ DefElemAction provides action semantics for DefElem nodes, which represent gener
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - DefElem (in defaction field)
+  - [DefElem](DefElem.md) (in defaction field)
   - makeDefElemExtended
 
 ## Notes and Other Information

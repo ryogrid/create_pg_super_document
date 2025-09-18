@@ -19,9 +19,9 @@ This utility function provides a simple count of all logical replication slots p
 - Functions called/Symbols referenced:
   - None (only accesses global old_cluster structure)
 - Called from (representative examples):
-  - check_new_cluster_logical_replication_slots
-  - get_loadable_libraries
-  - main
+  - [check_new_cluster_logical_replication_slots](check_new_cluster_logical_replication_slots.md)
+  - [get_loadable_libraries](../g/get_loadable_libraries.md)
+  - [main](../m/main.md)
   - fopen_priv
 
 ## Notes and Other Information

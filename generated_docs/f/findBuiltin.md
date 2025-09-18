@@ -23,11 +23,11 @@ The `findBuiltin` function implements a smart lookup mechanism for built-in benc
   - strncmp (standard library) 
   - lengthof (macro)
   - pg_log_error
-  - listAvailableScripts
+  - [listAvailableScripts](../l/listAvailableScripts.md)
   - exit (standard library)
   - builtin_script (global array)
 - Called from (representative examples):
-  - main (multiple locations in src/bin/pgbench/pgbench.c: 6786, 6887, 6928, 6994, 7052)
+  - [main](../m/main.md) (multiple locations in src/bin/pgbench/pgbench.c: 6786, 6887, 6928, 6994, 7052)
 
 ## Notes and Other Information
 - Uses prefix matching, allowing users to specify partial script names (e.g., "tpc" for "tpcb-like")

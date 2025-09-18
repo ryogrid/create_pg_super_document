@@ -23,9 +23,9 @@ The object follows Python's context manager protocol, allowing it to be used wit
 - Functions called/Symbols referenced:
   - PyObject_HEAD (Python C API)
 - Called from (representative examples):
-  - PLy_subtransaction_new
-  - PLy_subtransaction_enter
-  - PLy_subtransaction_exit
+  - [PLy_subtransaction_new](PLy_subtransaction_new.md)
+  - [PLy_subtransaction_enter](PLy_subtransaction_enter.md)
+  - [PLy_subtransaction_exit](PLy_subtransaction_exit.md)
 
 ## Notes and Other Information
 - The object is created through PLy_subtransaction_new() function when plpy.subtransaction() is called in Python

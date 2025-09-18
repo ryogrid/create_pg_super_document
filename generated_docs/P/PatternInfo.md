@@ -25,11 +25,11 @@ The PatternInfo structure is a core component of pg_amcheck's pattern matching s
 - Functions called/Symbols referenced:
   - (No direct function calls from struct definition)
 - Called from (representative examples):
-  - PatternInfoArray (as array element type)
-  - extend_pattern_info_array
-  - append_database_pattern
-  - append_schema_pattern
-  - append_relation_pattern_helper
+  - [PatternInfoArray](PatternInfoArray.md) (as array element type)
+  - [extend_pattern_info_array](../e/extend_pattern_info_array.md)
+  - [append_database_pattern](../a/append_database_pattern.md)
+  - [append_schema_pattern](../a/append_schema_pattern.md)
+  - [append_relation_pattern_helper](../a/append_relation_pattern_helper.md)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_amcheck/pg_amcheck.c:32-45

@@ -34,17 +34,17 @@ The function handles arbitrarily large numbers of messages by breaking them into
   - SpinLockRelease
 - Data types referenced:
   - SharedInvalidationMessage
-  - SISeg
-  - ProcState
+  - [SISeg](SISeg.md)
+  - [ProcState](../P/ProcState.md)
 - Constants referenced:
   - WRITE_QUANTUM
   - MAXNUMMESSAGES
   - LW_EXCLUSIVE
-- Variables referenced:
+- [Variables](../V/Variables.md) referenced:
   - shmInvalBuffer
   - SInvalWriteLock
 - Called from (representative examples):
-  - SendSharedInvalidMessages
+  - [SendSharedInvalidMessages](SendSharedInvalidMessages.md)
 
 ## Notes and Other Information
 - The function is designed to handle large batches of invalidation messages efficiently without monopolizing system resources

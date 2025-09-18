@@ -20,22 +20,22 @@ This function handles the replay of a complete hash index squeeze operation duri
   - XLogRecGetData
   - XLogReadBufferForRedoExtended
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - XLogRecHasBlockRef
-  - BufferGetPage
-  - BufferGetPageSize
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
   - IndexTupleSize
   - PageAddItem
   - HashPageGetOpaque
   - HashPageGetBitmap
   - HashPageGetMeta
-  - _hash_pageinit
-  - PageSetLSN
+  - [_hash_pageinit](_hash_pageinit.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - CLRBIT
-  - xl_hash_squeeze_page
+  - [xl_hash_squeeze_page](../x/xl_hash_squeeze_page.md)
   - XLogRedoAction
   - HashPageOpaque
   - HashMetaPage
@@ -48,7 +48,7 @@ This function handles the replay of a complete hash index squeeze operation duri
   - HASHO_PAGE_ID
   - Item
 - Called from (representative examples):
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery module

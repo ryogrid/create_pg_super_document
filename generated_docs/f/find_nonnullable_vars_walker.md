@@ -32,13 +32,13 @@ The function uses different semantics based on the top_level parameter: at top l
   - mbms_add_member
   - mbms_add_members
   - mbms_int_members
-  - func_strict
+  - [func_strict](func_strict.md)
   - set_opfuncid
-  - is_strict_saop
-  - find_nonnullable_vars_walker (recursive calls)
+  - [is_strict_saop](../i/is_strict_saop.md)
+  - [find_nonnullable_vars_walker](find_nonnullable_vars_walker.md) (recursive calls)
 - Called from (representative examples):
-  - find_nonnullable_vars
-  - find_nonnullable_vars_walker (recursive)
+  - [find_nonnullable_vars](find_nonnullable_vars.md)
+  - [find_nonnullable_vars_walker](find_nonnullable_vars_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function internal to clauses.c

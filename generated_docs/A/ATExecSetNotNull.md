@@ -30,13 +30,13 @@ The function is designed to be efficient by skipping unnecessary validation when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheCopyAttName (to lookup column in system catalog)
-  - CatalogTupleUpdate (to update the pg_attribute catalog)
-  - NotNullImpliedByRelConstraints (to check if existing constraints guarantee NOT NULL)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md) (to lookup column in system catalog)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (to update the pg_attribute catalog)
+  - [NotNullImpliedByRelConstraints](../N/NotNullImpliedByRelConstraints.md) (to check if existing constraints guarantee NOT NULL)
   - ObjectAddressSubSet (to create return address for the modified column)
   - InvokeObjectPostAlterHook (to trigger post-alter processing)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command execution dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command execution dispatcher)
 
 ## Notes and Other Information
 - Returns InvalidObjectAddress if the column was already NOT NULL, indicating no change was made

@@ -20,15 +20,15 @@ The  function provides the capability to modify JSONB data structures by setting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - JsonbIteratorInit (iterator initialization)
-  - setPath (core path modification logic)
-  - pfree (memory deallocation)
-  - JsonbValueToJsonb (convert JsonbValue to Jsonb)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md) (iterator initialization)
+  - [setPath](../s/setPath.md) (core path modification logic)
+  - [pfree](../p/pfree.md) (memory deallocation)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md) (convert JsonbValue to Jsonb)
   - PG_RETURN_JSONB_P (return JSONB result)
   - Constants: JB_PATH_CREATE, JB_PATH_FILL_GAPS, JB_PATH_CONSISTENT_POSITION
 - Called from (representative examples):
-  - jsonb_subscript_assign (subscript assignment operations)
+  - [jsonb_subscript_assign](jsonb_subscript_assign.md) (subscript assignment operations)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/jsonfuncs.c:1677-1699

@@ -25,16 +25,16 @@ The cleanup process follows a specific order:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecDropSingleTupleTableSlot
-  - ExecCleanupTupleRouting
-  - EvalPlanQualEnd
-  - ExecEndNode
+  - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md)
+  - [ExecCleanupTupleRouting](ExecCleanupTupleRouting.md)
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md)
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState
 - Data structures used:
-  - ModifyTableState
-  - ResultRelInfo
+  - [ModifyTableState](../M/ModifyTableState.md)
+  - [ResultRelInfo](../R/ResultRelInfo.md)
 - Called from:
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - Must be called to properly clean up resources allocated by ExecInitModifyTable

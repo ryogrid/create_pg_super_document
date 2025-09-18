@@ -21,10 +21,10 @@ When called with a string argument, it creates a cursor for a simple SQL query v
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple (Python C API)
-  - PLy_cursor_query
-  - PLy_cursor_plan
+  - [PLy_cursor_query](PLy_cursor_query.md)
+  - [PLy_cursor_plan](PLy_cursor_plan.md)
   - PyErr_Clear (Python C API)
-  - PLy_exception_set
+  - [PLy_exception_set](PLy_exception_set.md)
 - Called from (representative examples):
   - Not directly referenced (likely exposed through Python module interface)
 

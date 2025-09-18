@@ -32,14 +32,14 @@ Unlike other cost functions, this routine makes actual execution decisions rathe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_parallel_divisor
-  - clamp_row_est
-  - cost_qual_eval
-  - approx_tuple_count
-  - ExecSupportsMarkRestore
-  - relation_byte_size
+  - [get_parallel_divisor](../g/get_parallel_divisor.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [cost_qual_eval](../c/cost_qual_eval.md)
+  - [approx_tuple_count](../a/approx_tuple_count.md)
+  - [ExecSupportsMarkRestore](../E/ExecSupportsMarkRestore.md)
+  - [relation_byte_size](../r/relation_byte_size.md)
 - Called from (representative examples):
-  - create_mergejoin_path
+  - [create_mergejoin_path](../c/create_mergejoin_path.md)
 
 ## Notes and Other Information
 - Sets path->skip_mark_restore and path->materialize_inner flags based on cost analysis

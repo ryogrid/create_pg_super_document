@@ -27,13 +27,13 @@ The function processes each tuple by iterating through all row marks associated 
 - Functions called/Symbols referenced:
   - ExecProcNode (to get tuples from outer plan)
   - TupIsNull (to check for null tuples)
-  - EvalPlanQualEnd/Begin/SetSlot/Next (EPQ machinery)
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md)/Begin/SetSlot/Next (EPQ machinery)
   - ExecGetJunkAttribute (to extract ctid and tableoid)
-  - GetFdwRoutineForRelation (for foreign table operations)
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md) (for foreign table operations)
   - table_tuple_lock (core tuple locking function)
   - IsolationUsesXactSnapshot (isolation level checking)
 - Called from (representative examples):
-  - ExecInitLockRows (sets this as the ExecProcNode function)
+  - [ExecInitLockRows](ExecInitLockRows.md) (sets this as the ExecProcNode function)
 
 ## Notes and Other Information
 - The function uses a goto label lnext for retry logic when tuples cannot be locked or fail EPQ checks

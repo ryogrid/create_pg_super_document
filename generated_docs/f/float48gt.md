@@ -30,7 +30,7 @@ This function is part of PostgreSQL's type system that allows seamless compariso
 - Functions called/Symbols referenced:
   - `PG_GETARG_FLOAT4`: Macro to extract float4 from function arguments
   - `PG_GETARG_FLOAT8`: Macro to extract float8 from function arguments
-  - `float8_gt`: Core function that performs greater-than comparison on two float8 values
+  - `[float8_gt](float8_gt.md)`: Core function that performs greater-than comparison on two float8 values
   - `PG_RETURN_BOOL`: Macro to return boolean result
 - Called from (representative examples):
   - No direct references found in the analyzed codebase

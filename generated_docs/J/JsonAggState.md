@@ -27,10 +27,10 @@ JsonAggState serves as the accumulator state for PostgreSQL's JSON aggregation f
   - StringInfo
   - Oid
 - Called from (representative examples):
-  - json_agg_transfn_worker
-  - json_agg_finalfn
-  - json_object_agg_transfn_worker
-  - json_object_agg_finalfn
+  - [json_agg_transfn_worker](../j/json_agg_transfn_worker.md)
+  - [json_agg_finalfn](../j/json_agg_finalfn.md)
+  - [json_object_agg_transfn_worker](../j/json_object_agg_transfn_worker.md)
+  - [json_object_agg_finalfn](../j/json_object_agg_finalfn.md)
 
 ## Notes and Other Information
 - This structure is primarily used internally by the PostgreSQL JSON aggregation system and is not exposed to SQL users directly

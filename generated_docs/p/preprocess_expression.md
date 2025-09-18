@@ -33,16 +33,16 @@ The function is context-aware, applying different optimizations based on the exp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flatten_join_alias_vars (alias expansion)
-  - eval_const_expressions (constant folding)
-  - canonicalize_qual (qualification normalization)
-  - convert_saop_to_hashed_saop (array operation optimization)
-  - SS_process_sublinks (SubLink to SubPlan transformation)
-  - SS_replace_correlation_vars (parameter substitution)
-  - make_ands_implicit (AND format conversion)
+  - [flatten_join_alias_vars](../f/flatten_join_alias_vars.md) (alias expansion)
+  - [eval_const_expressions](../e/eval_const_expressions.md) (constant folding)
+  - [canonicalize_qual](../c/canonicalize_qual.md) (qualification normalization)
+  - [convert_saop_to_hashed_saop](../c/convert_saop_to_hashed_saop.md) (array operation optimization)
+  - [SS_process_sublinks](../S/SS_process_sublinks.md) (SubLink to SubPlan transformation)
+  - [SS_replace_correlation_vars](../S/SS_replace_correlation_vars.md) (parameter substitution)
+  - [make_ands_implicit](../m/make_ands_implicit.md) (AND format conversion)
 - Called from (representative examples):
-  - subquery_planner (extensive usage across all expression types)
-  - preprocess_qual_conditions (recursive qualification processing)
+  - [subquery_planner](../s/subquery_planner.md) (extensive usage across all expression types)
+  - [preprocess_qual_conditions](preprocess_qual_conditions.md) (recursive qualification processing)
   - standard_qp_extra (additional expression handling)
 
 ## Notes and Other Information

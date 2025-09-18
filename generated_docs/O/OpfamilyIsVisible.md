@@ -19,9 +19,9 @@ The visibility check is essential for PostgreSQL's schema system, as it determin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpfamilyIsVisibleExt
+  - [OpfamilyIsVisibleExt](OpfamilyIsVisibleExt.md)
 - Called from (representative examples):
-  - getOpFamilyDescription (src/backend/catalog/objectaddress.c:4187)
+  - [getOpFamilyDescription](../g/getOpFamilyDescription.md) (src/backend/catalog/objectaddress.c:4187)
 
 ## Notes and Other Information
 - This function is a thin wrapper that calls OpfamilyIsVisibleExt with NULL as the second parameter

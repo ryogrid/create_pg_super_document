@@ -36,18 +36,18 @@ This centralized approach ensures consistent memory limit calculations across al
   - SIZE_MAX (constant)
 - Called from:
   - BuildTupleHashTableExt
-  - hash_agg_set_limits
-  - hash_choose_num_partitions
+  - [hash_agg_set_limits](../h/hash_agg_set_limits.md)
+  - [hash_choose_num_partitions](../h/hash_choose_num_partitions.md)
   - ExecChooseHashTableSize
-  - ExecParallelHashIncreaseNumBatches
-  - ExecInitMemoize
-  - cost_memoize_rescan
-  - final_cost_hashjoin
-  - consider_groupingsets_paths
-  - subplan_is_hashable
-  - subpath_is_hashable
-  - choose_hashed_setop
-  - create_unique_path
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md)
+  - [ExecInitMemoize](../E/ExecInitMemoize.md)
+  - [cost_memoize_rescan](../c/cost_memoize_rescan.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md)
+  - [subplan_is_hashable](../s/subplan_is_hashable.md)
+  - [subpath_is_hashable](../s/subpath_is_hashable.md)
+  - [choose_hashed_setop](../c/choose_hashed_setop.md)
+  - [create_unique_path](../c/create_unique_path.md)
 
 ## Notes and Other Information
 - The function performs overflow protection by using double arithmetic and clamping to SIZE_MAX

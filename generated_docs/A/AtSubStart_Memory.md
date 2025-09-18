@@ -29,9 +29,9 @@ The new context is created as a child of the parent's CurTransactionContext, est
   - AllocSetContextCreate (at line 1259)
   - ALLOCSET_DEFAULT_SIZES (at line 1261)
   - CurrentTransactionState (global variable)
-  - MemoryContextSwitchTo (implicit)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicit)
 - Called from (representative examples):
-  - StartSubTransaction (src/backend/access/transam/xact.c:5026)
+  - [StartSubTransaction](../S/StartSubTransaction.md) (src/backend/access/transam/xact.c:5026)
 
 ## Notes and Other Information
 - This is a static function, only accessible within xact.c

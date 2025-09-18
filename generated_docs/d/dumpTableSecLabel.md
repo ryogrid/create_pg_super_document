@@ -21,18 +21,18 @@ The function respects dump options, skipping execution if --no-security-labels i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findSecLabels: Searches for security labels associated with the table
+  - [findSecLabels](../f/findSecLabels.md): Searches for security labels associated with the table
   - createPQExpBuffer: Creates buffer for SQL statement construction
-  - resetPQExpBuffer: Resets buffer contents for reuse
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Resets buffer contents for reuse
   - fmtQualifiedDumpable: Formats qualified object name for SQL
-  - getAttrName: Retrieves column name by attribute number
-  - fmtId: Formats identifier with proper quoting
+  - [getAttrName](../g/getAttrName.md): Retrieves column name by attribute number
+  - [fmtId](../f/fmtId.md): Formats identifier with proper quoting
   - appendStringLiteralAH: Appends properly escaped string literal
-  - createDumpId: Creates unique dump identifier
-  - ArchiveEntry: Adds entry to archive with dependencies
+  - [createDumpId](../c/createDumpId.md): Creates unique dump identifier
+  - [ArchiveEntry](../A/ArchiveEntry.md): Adds entry to archive with dependencies
   - destroyPQExpBuffer: Cleans up allocated buffers
 - Called from:
-  - dumpTableSchema: Called to dump security labels as part of table schema dumping
+  - [dumpTableSchema](dumpTableSchema.md): Called to dump security labels as part of table schema dumping
 
 ## Notes and Other Information
 - Security labels are schema objects, not data, so they are skipped when dataOnly option is set

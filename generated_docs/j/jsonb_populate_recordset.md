@@ -29,7 +29,7 @@ The function acts as a thin wrapper around populate_recordset_worker, providing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_recordset_worker (the core implementation function)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md) (the core implementation function)
   - Datum (PostgreSQL data type for function returns)
   - PG_FUNCTION_ARGS (PostgreSQL function argument structure)
 - Called from (representative examples):

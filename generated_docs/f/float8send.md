@@ -21,9 +21,9 @@ The function creates a StringInfo buffer, writes the float8 value in network byt
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)
-  - pq_begintypsend (initialize binary output buffer)
-  - pq_sendfloat8 (write 8-byte float to message buffer with proper byte order)
-  - pq_endtypsend (finalize binary output buffer)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initialize binary output buffer)
+  - [pq_sendfloat8](../p/pq_sendfloat8.md) (write 8-byte float to message buffer with proper byte order)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalize binary output buffer)
   - PG_RETURN_BYTEA_P (macro to return binary data as bytea Datum)
 
 - Called from (representative examples):

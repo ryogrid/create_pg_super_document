@@ -27,7 +27,7 @@ The function includes proper interrupt handling by retrying the sem_wait() call 
   - errno constant: EINTR
 - Called from (representative examples):
   - TransactionGroupUpdateXidStatus (transaction status updates)
-  - ProcArrayGroupClearXid (process array management)
+  - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md) (process array management)
   - LWLockDequeueSelf (lightweight lock management)
   - LWLockAcquire (lightweight lock acquisition)
   - LWLockAcquireOrWait (conditional lightweight lock acquisition)

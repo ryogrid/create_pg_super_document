@@ -37,17 +37,17 @@ The function also handles special column types:
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes
-  - process_matched_tle
-  - flatCopyTargetEntry
-  - findDefaultOnlyColumns
-  - build_column_default
-  - coerce_null_to_domain
-  - makeTargetEntry
-  - bms_is_member
-  - bms_add_member
-  - list_concat
+  - [process_matched_tle](../p/process_matched_tle.md)
+  - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
+  - [findDefaultOnlyColumns](../f/findDefaultOnlyColumns.md)
+  - [build_column_default](../b/build_column_default.md)
+  - [coerce_null_to_domain](../c/coerce_null_to_domain.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - RewriteQuery (multiple call sites)
+  - [RewriteQuery](../R/RewriteQuery.md) (multiple call sites)
 
 ## Notes and Other Information
 - This is a static function, only accessible within rewriteHandler.c

@@ -23,11 +23,11 @@ The function is designed as part of PostgreSQL's text search parser to identify 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
-  - _make_compiler_happy (at line 535)
+  - [TParser](../T/TParser.md) (structure type)
+  - [_make_compiler_happy](../m/_make_compiler_happy.md) (at line 535)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1462)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1472)
+  - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1462)
+  - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1472)
 
 ## Notes and Other Information
 - Returns 1 if the character is a valid URL character, 0 otherwise

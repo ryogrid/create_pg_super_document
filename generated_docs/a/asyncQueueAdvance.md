@@ -32,8 +32,8 @@ The function implements the queue's page-based storage model where each page has
   - AsyncQueueEntryEmptySize (minimum entry size)
 
 - Called from:
-  - asyncQueueAddEntries (when adding new notification entries)
-  - asyncQueueProcessPageEntries (when reading/processing entries)
+  - [asyncQueueAddEntries](asyncQueueAddEntries.md) (when adding new notification entries)
+  - [asyncQueueProcessPageEntries](asyncQueueProcessPageEntries.md) (when reading/processing entries)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

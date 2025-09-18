@@ -34,14 +34,14 @@ The function handles the special requirements of the EXCLUDED relation:
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes (gets column count from relation)
-  - makeNullConst (creates NULL constants for dropped columns)
+  - [makeNullConst](../m/makeNullConst.md) (creates NULL constants for dropped columns)
   - makeVar (creates variable references for active columns)
-  - makeTargetEntry (creates target list entries)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (creates target list entries)
   - TupleDescAttr (accesses attribute metadata)
 
 - Called from (representative examples):
-  - transformOnConflictClause (during ON CONFLICT processing)
-  - rewriteTargetView (for view rewriting with ON CONFLICT)
+  - [transformOnConflictClause](../t/transformOnConflictClause.md) (during ON CONFLICT processing)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (for view rewriting with ON CONFLICT)
 
 ## Notes and Other Information
 - Exported function available to the rewriter for view processing

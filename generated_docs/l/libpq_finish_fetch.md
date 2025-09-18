@@ -21,10 +21,10 @@ This function is typically called at the end of a pg_rewind operation to guarant
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - process_queued_fetch_requests (processes all remaining requests in the queue)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (processes all remaining requests in the queue)
   - libpq_source (cast type for accessing the libpq-specific source structure)
 - Called from:
-  - init_libpq_source (as part of libpq_source function table initialization)
+  - [init_libpq_source](../i/init_libpq_source.md) (as part of libpq_source function table initialization)
 
 ## Notes and Other Information
 - This is a simple wrapper function that ensures completion of all pending operations

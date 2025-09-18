@@ -21,11 +21,11 @@ The caching mechanism allows the system to maintain a reference to the current s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelApplyWorkerInfo (worker information structure)
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md) (worker information structure)
   - stream_apply_worker (global variable for caching worker info)
 - Called from (representative examples):
-  - apply_handle_stream_start (multiple locations)
-  - apply_handle_stream_stop (multiple locations)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md) (multiple locations)
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md) (multiple locations)
 
 ## Notes and Other Information
 - This function is located in src/backend/replication/logical/applyparallelworker.c:1334-1347

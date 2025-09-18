@@ -23,11 +23,11 @@ This function assumes it will be called at most once per scan key, as  only allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginFillScanEntry
+  - [ginFillScanEntry](ginFillScanEntry.md)
   - InvalidStrategy (constant)
 - Called from:
-  - ginFillScanKey (multiple locations)
-  - ginNewScanKey
+  - [ginFillScanKey](ginFillScanKey.md) (multiple locations)
+  - [ginNewScanKey](ginNewScanKey.md)
 
 ## Notes and Other Information
 - Should be called at most once per scan key due to space limitations

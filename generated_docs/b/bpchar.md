@@ -32,9 +32,9 @@ When the target length is larger than the input, the function pads the result wi
   - PG_GETARG_BOOL
   - VARSIZE_ANY_EXHDR
   - VARDATA_ANY
-  - pg_mbstrlen_with_len
-  - pg_mbcharcliplen
-  - palloc
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md)
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - VARDATA
   - memcpy

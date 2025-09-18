@@ -22,14 +22,14 @@ The function performs a sequential scan through heap nodes rather than strictly 
 - Functions called/Symbols referenced:
   - binaryheap_size
   - binaryheap_get_node
-  - has_lock_conflicts
-  - binaryheap_remove_node
+  - [has_lock_conflicts](../h/has_lock_conflicts.md)
+  - [binaryheap_remove_node](../b/binaryheap_remove_node.md)
   - pg_log_debug
-  - TocEntry
-  - binaryheap
-  - ParallelState
+  - [TocEntry](../T/TocEntry.md)
+  - [binaryheap](../b/binaryheap.md)
+  - [ParallelState](../P/ParallelState.md)
 - Called from (representative examples):
-  - restore_toc_entries_parallel
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
 
 ## Notes and Other Information
 - Returns the selected TOC entry or NULL if no suitable item is available

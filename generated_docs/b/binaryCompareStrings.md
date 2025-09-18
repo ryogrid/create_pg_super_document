@@ -23,7 +23,7 @@ The binaryCompareStrings function performs a straightforward per-byte comparison
   - memcmp (standard C library function)
   - Min macro
 - Called from (representative examples):
-  - compareStrings (multiple call sites for UTF-8/ASCII and fallback scenarios)
+  - [compareStrings](../c/compareStrings.md) (multiple call sites for UTF-8/ASCII and fallback scenarios)
 
 ## Notes and Other Information
 This function is optimized for UTF-8 and ASCII encodings where byte-order comparison yields correct Unicode codepoint ordering. It's used both directly for UTF-8/ASCII strings and as a fallback for binary comparison when Unicode codepoint comparison results are equal but the original byte representations differ. The function handles strings that may not be null-terminated by relying on explicit length parameters.

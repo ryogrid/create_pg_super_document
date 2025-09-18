@@ -19,14 +19,14 @@ This function provides verbose logging output for database information during th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log
-  - print_rel_infos
-  - print_slot_infos
-  - DbInfoArr (struct type)
-  - DbInfo (struct type)
+  - [pg_log](pg_log.md)
+  - [print_rel_infos](print_rel_infos.md)
+  - [print_slot_infos](print_slot_infos.md)
+  - [DbInfoArr](../D/DbInfoArr.md) (struct type)
+  - [DbInfo](../D/DbInfo.md) (struct type)
   - PG_VERBOSE (log level constant)
 - Called from (representative examples):
-  - get_db_rel_and_slot_infos
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md)
 
 ## Notes and Other Information
 - This is a static function only used within src/bin/pg_upgrade/info.c

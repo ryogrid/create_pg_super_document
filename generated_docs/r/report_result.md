@@ -32,13 +32,13 @@ The function increments the test counter for each call and conditionally prints 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pe_test_config (struct type)
+  - [pe_test_config](../p/pe_test_config.md) (struct type)
   - printf (standard library function)
 - Called from (representative examples):
-  - test_gb18030_page_multiple
-  - test_gb18030_json
-  - test_psql_parse
-  - test_one_vector_escape
+  - [test_gb18030_page_multiple](../t/test_gb18030_page_multiple.md)
+  - [test_gb18030_json](../t/test_gb18030_json.md)
+  - [test_psql_parse](../t/test_psql_parse.md)
+  - [test_one_vector_escape](../t/test_one_vector_escape.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the test_escape.c file

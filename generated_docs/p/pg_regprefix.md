@@ -21,12 +21,12 @@ The function performs several validation steps before delegating the core analys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_set_regex_collation
-  - findprefix
+  - [pg_set_regex_collation](pg_set_regex_collation.md)
+  - [findprefix](../f/findprefix.md)
   - MALLOC
   - FREE
 - Called from (representative examples):
-  - regexp_fixed_prefix
+  - [regexp_fixed_prefix](../r/regexp_fixed_prefix.md)
 
 ## Return Values
 - : No common prefix exists among strings matching the regex

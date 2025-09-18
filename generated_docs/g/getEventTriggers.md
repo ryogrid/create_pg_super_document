@@ -29,20 +29,20 @@ Each event trigger is processed through the standard dumpable object system, all
 - Functions called/Symbols referenced:
   - EventTriggerInfo (struct type)
   - createPQExpBuffer, appendPQExpBufferStr (query building)
-  - ExecuteSqlQuery (query execution)
-  - PQntuples, PQfnumber, PQgetvalue (libpq result processing functions)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
+  - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq result processing functions)
   - pg_malloc (memory allocation)
   - atooid (OID conversion)
-  - AssignDumpId (dump ID assignment)
-  - pg_strdup (string duplication)
-  - getRoleName (role name resolution)
-  - selectDumpableObject (dump selection logic)
+  - [AssignDumpId](../A/AssignDumpId.md) (dump ID assignment)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
+  - [getRoleName](getRoleName.md) (role name resolution)
+  - [selectDumpableObject](../s/selectDumpableObject.md) (dump selection logic)
   - destroyPQExpBuffer (cleanup)
   - DO_EVENT_TRIGGER (object type enum)
   - PGRES_TUPLES_OK (result status)
 
 - Called from (representative examples):
-  - getSchemaData (primary caller during schema data collection phase)
+  - [getSchemaData](getSchemaData.md) (primary caller during schema data collection phase)
 
 ## Notes and Other Information
 - Returns NULL for PostgreSQL versions before 9.3, where event triggers were not supported

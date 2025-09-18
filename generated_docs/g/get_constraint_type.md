@@ -21,16 +21,16 @@ The returned character represents the constraint type using PostgreSQL's interna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_constraint
 
 - Called from (representative examples):
-  - AttachPartitionEnsureIndexes (src/backend/commands/tablecmds.c:18931, 18932)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md) (src/backend/commands/tablecmds.c:18931, 18932)
 
 ## Notes and Other Information
 - This function will raise an ERROR if the constraint OID is not found in the system catalog

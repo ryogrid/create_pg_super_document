@@ -40,17 +40,17 @@ The underlying WindowStatePerAggData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowStatePerAggData
-  - FmgrInfo
-  - MemoryContext
+  - [WindowStatePerAggData](WindowStatePerAggData.md)
+  - [FmgrInfo](../F/FmgrInfo.md)
+  - [MemoryContext](../M/MemoryContext.md)
   - Datum
 - Called from (representative examples):
-  - initialize_windowaggregate
-  - advance_windowaggregate
-  - finalize_windowaggregate
-  - eval_windowaggregates
+  - [initialize_windowaggregate](../i/initialize_windowaggregate.md)
+  - [advance_windowaggregate](../a/advance_windowaggregate.md)
+  - [finalize_windowaggregate](../f/finalize_windowaggregate.md)
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
   - initialize_peragg
-  - ExecInitWindowAgg
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
 
 ## Notes and Other Information
 This structure is specifically designed for plain aggregate functions that are used in window contexts, providing optimization opportunities through inverse transition functions when available. The cached result values and transition state management enable efficient computation over sliding windows without recalculating the entire aggregate for each frame position. The structure supports both simple aggregates and complex ones requiring final functions, with proper memory management through dedicated aggregate contexts.

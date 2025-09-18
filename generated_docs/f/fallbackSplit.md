@@ -28,14 +28,14 @@ For each group, the function computes the union (minimal bounding box) of all en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP: Extracts BOX pointer from Datum
-  - adjustBox: Adjusts bounding box to include another box
-  - BoxPGetDatum: Converts BOX pointer to Datum
-  - palloc: PostgreSQL memory allocation function
+  - [DatumGetBoxP](../D/DatumGetBoxP.md): Extracts BOX pointer from Datum
+  - [adjustBox](../a/adjustBox.md): Adjusts bounding box to include another box
+  - [BoxPGetDatum](../B/BoxPGetDatum.md): Converts BOX pointer to Datum
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - FirstOffsetNumber: Constant for the first valid offset number
   - OffsetNumberNext: Macro to get the next offset number
 - Called from (representative examples):
-  - gist_box_picksplit: Uses this as a fallback splitting method
+  - [gist_box_picksplit](../g/gist_box_picksplit.md): Uses this as a fallback splitting method
 
 ## Notes and Other Information
 - Location: src/backend/access/gist/gistproc.c:216-276

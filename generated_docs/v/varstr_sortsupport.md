@@ -19,26 +19,26 @@ The `varstr_sortsupport` function is the central implementation for character ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_collation_set
-  - lc_collate_is_c
-  - bpcharfastcmp_c
-  - namefastcmp_c
-  - varstrfastcmp_c
-  - pg_newlocale_from_collation
-  - namefastcmp_locale
-  - varlenafastcmp_locale
-  - pg_strxfrm_enabled
+  - [check_collation_set](../c/check_collation_set.md)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md)
+  - [bpcharfastcmp_c](../b/bpcharfastcmp_c.md)
+  - [namefastcmp_c](../n/namefastcmp_c.md)
+  - [varstrfastcmp_c](varstrfastcmp_c.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [namefastcmp_locale](../n/namefastcmp_locale.md)
+  - [varlenafastcmp_locale](varlenafastcmp_locale.md)
+  - [pg_strxfrm_enabled](../p/pg_strxfrm_enabled.md)
   - initHyperLogLog
   - ssup_datum_unsigned_cmp
-  - varstr_abbrev_convert
-  - varstr_abbrev_abort
+  - [varstr_abbrev_convert](varstr_abbrev_convert.md)
+  - [varstr_abbrev_abort](varstr_abbrev_abort.md)
 - Called from (representative examples):
-  - bttextsortsupport
+  - [bttextsortsupport](../b/bttextsortsupport.md)
   - btnamesortsupport
-  - bpchar_sortsupport
-  - btbpchar_pattern_sortsupport
-  - bttext_pattern_sortsupport
-  - bytea_sortsupport
+  - [bpchar_sortsupport](../b/bpchar_sortsupport.md)
+  - [btbpchar_pattern_sortsupport](../b/btbpchar_pattern_sortsupport.md)
+  - [bttext_pattern_sortsupport](../b/bttext_pattern_sortsupport.md)
+  - [bytea_sortsupport](../b/bytea_sortsupport.md)
 
 ## Notes and Other Information
 - Assumes that text, VarChar, BpChar, and bytea all have the same internal representation

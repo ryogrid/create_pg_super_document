@@ -29,9 +29,9 @@ The function is conservative in its approach - it only approves subqueries that 
 - Functions called/Symbols referenced:
   - SetOperationStmt
   - CMD_SELECT  
-  - is_simple_union_all_recurse
+  - [is_simple_union_all_recurse](is_simple_union_all_recurse.md)
 - Called from:
-  - pull_up_subqueries_recurse
+  - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md)
 
 ## Notes and Other Information
 - All setops must be UNION ALL (no mixing with INTERSECT or EXCEPT)

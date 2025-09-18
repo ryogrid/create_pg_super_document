@@ -24,15 +24,15 @@ The function handles NULL values appropriately by skipping the output function c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfo
-  - DatumGetCString
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
   - FunctionCallInvoke
-  - ErrorSaveContext
+  - [ErrorSaveContext](ErrorSaveContext.md)
   - SOFT_ERROR_OCCURRED
   - ExprEvalStep
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Implements EEOP_IOCOERCE_SAFE operation type

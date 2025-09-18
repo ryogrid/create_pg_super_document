@@ -25,11 +25,11 @@ The function ensures that variable level adjustments are handled correctly when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_rte_variables
-  - pullup_replace_vars_callback
+  - [replace_rte_variables](../r/replace_rte_variables.md)
+  - [pullup_replace_vars_callback](pullup_replace_vars_callback.md)
   - pullup_replace_vars_context
 - Called from (representative examples):
-  - replace_vars_in_jointree
+  - [replace_vars_in_jointree](../r/replace_vars_in_jointree.md)
 
 ## Notes and Other Information
 - Uses `sublevels_up = 1` instead of 0 to handle Query node processing correctly

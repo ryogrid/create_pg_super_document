@@ -28,9 +28,9 @@ This allows converting subscripts (i,j,k) to linear offset: i*prod[0] + j*prod[1
 - Functions called/Symbols referenced:
   - (No external function calls)
 - Called from (representative examples):
-  - array_slice_size
-  - array_extract_slice
-  - array_insert_slice
+  - [array_slice_size](../a/array_slice_size.md)
+  - [array_extract_slice](../a/array_extract_slice.md)
+  - [array_insert_slice](../a/array_insert_slice.md)
 
 ## Notes and Other Information
 - The function assumes caller has validated dimensions to prevent overflow

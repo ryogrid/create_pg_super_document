@@ -18,14 +18,14 @@ parse_scalar handles the parsing of JSON scalar values within the recursive desc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lex_peek (for token lookahead and validation)
+  - [lex_peek](../l/lex_peek.md) (for token lookahead and validation)
   - report_parse_error (for invalid token error reporting)
   - json_lex (for token consumption)
-  - pstrdup (for string duplication)
-  - palloc/memcpy (for raw lexeme extraction)
+  - [pstrdup](pstrdup.md) (for string duplication)
+  - [palloc](palloc.md)/memcpy (for raw lexeme extraction)
 - Called from (representative examples):
-  - pg_parse_json (src/common/jsonapi.c:569) - for bare scalar JSON values
-  - parse_object_field (src/common/jsonapi.c:1098) - for object field values
+  - [pg_parse_json](pg_parse_json.md) (src/common/jsonapi.c:569) - for bare scalar JSON values
+  - [parse_object_field](parse_object_field.md) (src/common/jsonapi.c:1098) - for object field values
   - parse_array_element (src/common/jsonapi.c:1215) - for array element values
 
 ## Notes and Other Information

@@ -33,19 +33,19 @@ CustomScanState serves as the foundation for implementing custom scan methods in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - List
-  - CustomExecMethods
+  - [ScanState](../S/ScanState.md)
+  - [List](../L/List.md)
+  - [CustomExecMethods](CustomExecMethods.md)
   - TupleTableSlotOps
 - Called from (representative examples):
-  - ExecCustomScan
-  - ExecInitCustomScan
-  - ExecEndCustomScan
-  - ExecReScanCustomScan
-  - ExecCustomMarkPos
-  - ExecCustomRestrPos
-  - ExecCustomScanEstimate
-  - ExecCustomScanInitializeDSM
+  - [ExecCustomScan](../E/ExecCustomScan.md)
+  - [ExecInitCustomScan](../E/ExecInitCustomScan.md)
+  - [ExecEndCustomScan](../E/ExecEndCustomScan.md)
+  - [ExecReScanCustomScan](../E/ExecReScanCustomScan.md)
+  - [ExecCustomMarkPos](../E/ExecCustomMarkPos.md)
+  - [ExecCustomRestrPos](../E/ExecCustomRestrPos.md)
+  - [ExecCustomScanEstimate](../E/ExecCustomScanEstimate.md)
+  - [ExecCustomScanInitializeDSM](../E/ExecCustomScanInitializeDSM.md)
 
 ## Notes and Other Information
 - Core component of PostgreSQL extensible nodes framework for custom scan implementations

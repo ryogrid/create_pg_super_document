@@ -27,8 +27,8 @@ This function maintains PostgreSQL's type system integrity by preventing confusi
   - OBJECT_DOMAIN (object type constant)
   - ereport, errcode, errmsg, errhint (error reporting)
 - Called from:
-  - ExecGrantStmt_oids (when processing type privileges)
-  - ExecGrant_common (as object_check callback)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (when processing type privileges)
+  - [ExecGrant_common](ExecGrant_common.md) (as object_check callback)
 
 ## Notes and Other Information
 - Prevents GRANT on array types - privileges should be set on the element type instead

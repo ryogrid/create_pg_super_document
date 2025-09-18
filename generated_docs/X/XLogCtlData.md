@@ -47,20 +47,20 @@ Key responsibilities include tracking WAL insertion progress, managing the WAL b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogCtlInsert (WAL insertion control structure)
-  - XLogwrtRqst (write request structure)
+  - [XLogCtlInsert](XLogCtlInsert.md) (WAL insertion control structure)
+  - [XLogwrtRqst](XLogwrtRqst.md) (write request structure)
   - FullTransactionId (transaction ID type)
   - XLogSegNo (WAL segment number type)
-  - pg_atomic_uint64 (atomic 64-bit integer type)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (atomic 64-bit integer type)
   - pg_time_t (time type)
-  - RecoveryState (recovery state enumeration)
+  - [RecoveryState](../R/RecoveryState.md) (recovery state enumeration)
   - CheckPoint (checkpoint record structure)
-  - slock_t (spinlock type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
 - Called from (representative examples):
-  - WalInsertClass
-  - XLOGShmemSize
-  - XLOGShmemInit
-  - RecoveryInProgress
+  - [WalInsertClass](../W/WalInsertClass.md)
+  - [XLOGShmemSize](XLOGShmemSize.md)
+  - [XLOGShmemInit](XLOGShmemInit.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
 
 ## Notes and Other Information
 - Central shared-memory structure for all WAL operations in PostgreSQL

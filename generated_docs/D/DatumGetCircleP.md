@@ -22,10 +22,10 @@ The function performs a simple cast operation, converting the generic pointer re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](DatumGetPointer.md)
   - CIRCLE (struct type)
 - Called from (representative examples):
-  - gist_circle_compress
+  - [gist_circle_compress](../g/gist_circle_compress.md)
   - PG_GETARG_CIRCLE_P (macro)
 
 ## Notes and Other Information

@@ -26,19 +26,19 @@ The function ensures proper cleanup, state management, and coordination between 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_stream_commit (parses commit message)
-  - set_apply_error_context_xact/reset_apply_error_context_info
-  - get_transaction_apply_action (determines processing strategy)
-  - apply_spooled_messages (processes serialized changes)
-  - apply_handle_commit_internal (actual commit processing)
-  - stream_cleanup_files/stream_close_file (file management)
+  - [logicalrep_read_stream_commit](../l/logicalrep_read_stream_commit.md) (parses commit message)
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)/reset_apply_error_context_info
+  - [get_transaction_apply_action](../g/get_transaction_apply_action.md) (determines processing strategy)
+  - [apply_spooled_messages](apply_spooled_messages.md) (processes serialized changes)
+  - [apply_handle_commit_internal](apply_handle_commit_internal.md) (actual commit processing)
+  - [stream_cleanup_files](../s/stream_cleanup_files.md)/stream_close_file (file management)
   - pa_send_data, pa_xact_finish, pa_switch_to_partial_serialize (parallel apply coordination)
-  - stream_open_and_write_change (serialization)
-  - pa_set_fileset_state, pa_set_xact_state, pa_unlock_transaction (state management)
-  - process_syncing_tables (parallel table sync)
-  - pgstat_report_activity (status reporting)
+  - [stream_open_and_write_change](../s/stream_open_and_write_change.md) (serialization)
+  - [pa_set_fileset_state](../p/pa_set_fileset_state.md), pa_set_xact_state, pa_unlock_transaction (state management)
+  - [process_syncing_tables](../p/process_syncing_tables.md) (parallel table sync)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (status reporting)
 - Called from (representative examples):
-  - apply_dispatch (main message dispatcher)
+  - [apply_dispatch](apply_dispatch.md) (main message dispatcher)
 
 ## Notes and Other Information
 - Static function used internally within the logical replication worker

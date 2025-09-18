@@ -19,19 +19,19 @@ InitArchiveFmt_Null sets up the function pointers in an ArchiveHandle structure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _WriteData
-  - _EndData
-  - _WriteByte
-  - _WriteBuf
-  - _CloseArchive
-  - _PrintTocData
-  - _StartLOs
-  - _StartLO
-  - _EndLO
-  - _EndLOs
+  - [_WriteData](../W/_WriteData.md)
+  - [_EndData](../E/_EndData.md)
+  - [_WriteByte](../W/_WriteByte.md)
+  - [_WriteBuf](../W/_WriteBuf.md)
+  - [_CloseArchive](../C/_CloseArchive.md)
+  - [_PrintTocData](../P/_PrintTocData.md)
+  - [_StartLOs](../S/_StartLOs.md)
+  - [_StartLO](../S/_StartLO.md)
+  - [_EndLO](../E/_EndLO.md)
+  - [_EndLOs](../E/_EndLOs.md)
   - archModeRead (constant)
 - Called from (representative examples):
-  - _allocAH
+  - [_allocAH](../a/_allocAH.md)
   - appendByteaLiteralAHX
 
 ## Notes and Other Information

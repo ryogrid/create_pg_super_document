@@ -23,19 +23,19 @@ The function properly handles predicate locking on the metapage to coordinate wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
-  - PredicateLockPage
-  - LockBuffer
-  - BufferGetPage
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageGetMeta
-  - UnlockReleaseBuffer
-  - scanGetCandidate
-  - collectMatchesForHeapRow
-  - MemoryContextSwitchTo
-  - MemoryContextReset
-  - tbm_add_tuples
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [scanGetCandidate](scanGetCandidate.md)
+  - [collectMatchesForHeapRow](../c/collectMatchesForHeapRow.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
 - Called from (representative examples):
-  - gingetbitmap
+  - [gingetbitmap](../g/gingetbitmap.md)
 
 ## Notes and Other Information
 Key entry point for pending list processing in GIN bitmap scans. The predicate locking ensures proper concurrency control with fast-update operations. Memory context management is essential to prevent memory leaks during consistent function evaluation, as these functions may allocate significant temporary memory. The function gracefully handles empty pending lists by returning immediately.

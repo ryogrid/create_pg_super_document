@@ -20,16 +20,16 @@ This function is a core component of the PostgreSQL parser responsible for proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr (expression transformation)
-  - coerce_to_boolean (type coercion to boolean)
-  - ParseExprKind (enumeration type)
+  - [transformExpr](transformExpr.md) (expression transformation)
+  - [coerce_to_boolean](../c/coerce_to_boolean.md) (type coercion to boolean)
+  - [ParseExprKind](../P/ParseExprKind.md) (enumeration type)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformDeleteStmt
-  - transformUpdateStmt
-  - transformJoinOnClause
-  - CreatePolicy
-  - CreateTriggerFiringOn
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformDeleteStmt](transformDeleteStmt.md)
+  - [transformUpdateStmt](transformUpdateStmt.md)
+  - [transformJoinOnClause](transformJoinOnClause.md)
+  - [CreatePolicy](../C/CreatePolicy.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
 
 ## Notes and Other Information
 - Returns NULL if the input clause is NULL, making WHERE clause optional in many contexts

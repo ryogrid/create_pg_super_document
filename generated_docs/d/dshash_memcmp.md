@@ -24,7 +24,7 @@ dshash_memcmp serves as a wrapper function around the standard library's memcmp 
 - Functions called/Symbols referenced:
   - memcmp (standard library function)
 - Called from (representative examples):
-  - shared_record_table_hash (in src/backend/utils/cache/typcache.c:269)
+  - [shared_record_table_hash](../s/shared_record_table_hash.md) (in src/backend/utils/cache/typcache.c:269)
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison and hashing. The unused `arg` parameter maintains compatibility with the expected function signature for dshash comparison functions, allowing for potential future extensions or use cases where additional context might be needed. The function directly returns the result from memcmp, which follows the standard convention of returning negative, zero, or positive values for less than, equal to, or greater than comparisons respectively.

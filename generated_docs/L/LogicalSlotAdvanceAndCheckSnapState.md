@@ -30,18 +30,18 @@ The operation is performed within a PG_TRY/PG_CATCH block to ensure proper clean
 - Functions called/Symbols referenced:
   - CreateDecodingContext - Creates logical decoding context in fast_forward mode
   - WaitForStandbyConfirmation - Waits for standby servers to confirm WAL receipt
-  - XLogBeginRead - Begins reading from slot's restart_lsn
-  - XLogReadRecord - Reads individual WAL records
-  - LogicalDecodingProcessRecord - Processes records for snapshot building
+  - [XLogBeginRead](../X/XLogBeginRead.md) - Begins reading from slot's restart_lsn
+  - [XLogReadRecord](../X/XLogReadRecord.md) - Reads individual WAL records
+  - [LogicalDecodingProcessRecord](LogicalDecodingProcessRecord.md) - Processes records for snapshot building
   - DecodingContextReady - Checks if decoding context has consistent snapshot
   - LogicalConfirmReceivedLocation - Updates slot's confirmed_flush position
-  - ReplicationSlotMarkDirty - Marks slot for checkpoint writing
-  - FreeDecodingContext - Cleans up decoding context
-  - InvalidateSystemCaches - Invalidates cached catalog information
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md) - Marks slot for checkpoint writing
+  - [FreeDecodingContext](../F/FreeDecodingContext.md) - Cleans up decoding context
+  - [InvalidateSystemCaches](../I/InvalidateSystemCaches.md) - Invalidates cached catalog information
 
 - Called from (representative examples):
-  - update_local_synced_slot - Updates synchronized replication slots
-  - pg_logical_replication_slot_advance - SQL interface for slot advancement
+  - [update_local_synced_slot](../u/update_local_synced_slot.md) - Updates synchronized replication slots
+  - [pg_logical_replication_slot_advance](../p/pg_logical_replication_slot_advance.md) - SQL interface for slot advancement
 
 ## Notes and Other Information
 - The function uses fast_forward mode to avoid generating actual decoded changes while still maintaining internal state

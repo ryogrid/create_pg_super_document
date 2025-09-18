@@ -26,7 +26,7 @@ This function processes a DocRepresentation entry and updates the corresponding 
   - MAXQROPOS (maximum query representation positions)
   - WEP_GETPOS (macro for extracting position from word entry position)
 - Called from (representative examples):
-  - Cover (called at lines 667 and 697)
+  - [Cover](../C/Cover.md) (called at lines 667 and 697)
 
 ## Notes and Other Information
 This is a static function within the tsrank.c module that plays a crucial role in building the data structures needed for text search ranking. The function carefully manages position arrays considering insertion direction and prevents duplicate entries for the same word position. The MAXQROPOS limit controls the maximum number of positions that can be stored per operand.

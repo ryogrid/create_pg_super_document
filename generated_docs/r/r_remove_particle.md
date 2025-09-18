@@ -27,12 +27,12 @@ The function returns 1 on successful removal, 0 if no particle suffix is found, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward pattern matching function)
-  - slice_del (suffix deletion function)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching function)
+  - [slice_del](../s/slice_del.md) (suffix deletion function)
   - a_0 (predefined array of particle patterns, likely containing 3 entries)
 - Called from (representative examples):
-  - indonesian_ISO_8859_1_stem (at src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:336)
-  - indonesian_UTF_8_stem (at src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:336)
+  - [indonesian_ISO_8859_1_stem](../i/indonesian_ISO_8859_1_stem.md) (at src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:336)
+  - [indonesian_UTF_8_stem](../i/indonesian_UTF_8_stem.md) (at src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:336)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's full-text search capabilities, specifically for Indonesian text processing

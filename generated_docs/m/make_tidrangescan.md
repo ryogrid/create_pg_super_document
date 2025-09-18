@@ -22,7 +22,7 @@ This function constructs a TidRangeScan plan node, which implements a specialize
 - Functions called/Symbols referenced:
   - makeNode (to create the TidRangeScan node)
 - Called from (representative examples):
-  - create_tidrangescan_plan
+  - [create_tidrangescan_plan](../c/create_tidrangescan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal plan construction

@@ -23,16 +23,16 @@ This function acquires a session-level lock specifically for logical replication
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_APPLY_TRANSACTION
-  - LockAcquire
+  - [LockAcquire](LockAcquire.md)
 - Types used:
   - LOCKTAG
   - TransactionId
 - Global variables used:
   - MyDatabaseId
 - Called from (representative examples):
-  - pa_lock_stream
-  - pa_lock_transaction
-  - XLTW_Oper
+  - [pa_lock_stream](../p/pa_lock_stream.md)
+  - [pa_lock_transaction](../p/pa_lock_transaction.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - Specialized for logical replication apply worker coordination

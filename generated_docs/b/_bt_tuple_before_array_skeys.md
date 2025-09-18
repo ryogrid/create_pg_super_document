@@ -148,14 +148,14 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getattr
-  - _bt_compare_array_skey
+  - [index_getattr](../i/index_getattr.md)
+  - [_bt_compare_array_skey](_bt_compare_array_skey.md)
   - ScanDirectionIsForward
   - ScanDirectionIsBackward
 - Called from (representative examples):
-  - _bt_advance_array_keys
-  - _bt_checkkeys
-  - _bt_checkkeys_look_ahead
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
+  - [_bt_checkkeys](_bt_checkkeys.md)
+  - [_bt_checkkeys_look_ahead](_bt_checkkeys_look_ahead.md)
 
 ## Notes and Other Information
 - The function assumes that array keys are already set in scan->opaque->keyData[]

@@ -19,8 +19,8 @@ This function implements the PostgreSQL SQL function json_build_object(variadic 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extract_variadic_args: Extracts arguments from the variadic function call
-  - json_build_object_worker: Performs the actual JSON object construction
+  - [extract_variadic_args](../e/extract_variadic_args.md): Extracts arguments from the variadic function call
+  - [json_build_object_worker](json_build_object_worker.md): Performs the actual JSON object construction
   - PG_RETURN_DATUM: PostgreSQL macro for returning a Datum value
   - PG_RETURN_NULL: PostgreSQL macro for returning NULL
 

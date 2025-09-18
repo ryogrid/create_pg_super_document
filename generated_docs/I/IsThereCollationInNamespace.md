@@ -23,13 +23,13 @@ If either check finds a match, it raises an appropriate error with detailed info
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3
-  - CStringGetDatum
-  - GetDatabaseEncoding
-  - GetDatabaseEncodingName
-  - get_namespace_name
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
 - Called from (representative examples):
-  - AlterObjectRename_internal
-  - AlterObjectNamespace_internal
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)
 
 ## Notes and Other Information
 - Used as a subroutine for ALTER COLLATION SET SCHEMA and RENAME operations

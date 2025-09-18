@@ -18,13 +18,13 @@ This function removes a specific publication-relation mapping from the pg_public
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (catalog access)
-  - SearchSysCache1 (cache lookup)
-  - GetPubPartitionOptionRelations (partition hierarchy resolution)
-  - InvalidatePublicationRels (cache invalidation)
-  - CatalogTupleDelete (catalog modification)
-  - ReleaseSysCache (cache cleanup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
+  - [GetPubPartitionOptionRelations](../G/GetPubPartitionOptionRelations.md) (partition hierarchy resolution)
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md) (cache invalidation)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (catalog modification)
+  - [ReleaseSysCache](ReleaseSysCache.md) (cache cleanup)
 - Called from (representative examples):
-  - doDeletion (dependency system)
+  - [doDeletion](../d/doDeletion.md) (dependency system)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock on PublicationRelRelationId for safe concurrent access

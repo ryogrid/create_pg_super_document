@@ -29,11 +29,11 @@ WALRead provides a convenient abstraction for reading WAL data by handling segme
   - pg_pread
   - pgstat_report_wait_end
 - Called from (representative examples):
-  - read_local_xlog_page_guts
-  - summarizer_read_local_xlog_page
-  - logical_read_xlog_page
-  - XLogSendPhysical
-  - WALDumpReadPage
+  - [read_local_xlog_page_guts](../r/read_local_xlog_page_guts.md)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md)
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
+  - [WALDumpReadPage](WALDumpReadPage.md)
 
 ## Notes and Other Information
 - The caller must provide a segment_open callback in the XLogReaderState, as this function relies on it for opening WAL segments

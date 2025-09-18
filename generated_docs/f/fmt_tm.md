@@ -27,11 +27,11 @@ The fmt_tm structure is a custom datetime representation used specifically by Po
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - TmToChar
-  - DCH_to_char
-  - timestamp_to_char
-  - timestamptz_to_char
-  - interval_to_char
+  - [TmToChar](../T/TmToChar.md)
+  - [DCH_to_char](../D/DCH_to_char.md)
+  - [timestamp_to_char](../t/timestamp_to_char.md)
+  - [timestamptz_to_char](../t/timestamptz_to_char.md)
+  - [interval_to_char](../i/interval_to_char.md)
 
 ## Notes and Other Information
 This structure is specifically designed for PostgreSQL's datetime formatting system in src/backend/utils/adt/formatting.c. The most notable feature is the 64-bit tm_hour field, which allows the structure to represent intervals with hour values that exceed the range of a standard 32-bit integer. This is particularly important for interval arithmetic where the hours component can become very large. The structure intentionally omits timezone-related fields (tm_isdst, tm_zone) that are present in standard tm structures since they are not required for formatting operations.

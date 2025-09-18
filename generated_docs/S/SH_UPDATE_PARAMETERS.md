@@ -18,13 +18,13 @@ SH_UPDATE_PARAMETERS is a macro that generates a function name for updating hash
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SH_COMPUTE_SIZE (computes optimal hash table size)
+  - [SH_COMPUTE_SIZE](SH_COMPUTE_SIZE.md) (computes optimal hash table size)
   - SH_MAX_SIZE (maximum allowable hash table size)
   - SH_FILLFACTOR (normal fill factor, typically 0.9)
   - SH_MAX_FILLFACTOR (maximum fill factor, typically 0.98)
 - Called from (representative examples):
   - SH_CREATE (when creating new hash tables)
-  - SH_GROW (when expanding existing hash tables)
+  - [SH_GROW](SH_GROW.md) (when expanding existing hash tables)
 
 ## Notes and Other Information
 - Sets tb->sizemask to (size - 1) for efficient modulo operations using bitwise AND

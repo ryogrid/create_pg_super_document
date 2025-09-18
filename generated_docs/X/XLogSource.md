@@ -31,9 +31,9 @@ The recovery system maintains several XLogSource variables to track different as
 
 ## Dependencies
 - Functions that use XLogSource:
-  - WaitForWALToBecomeAvailable
-  - XLogFileRead
-  - XLogFileReadAnyTLI
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
+  - [XLogFileRead](XLogFileRead.md)
+  - [XLogFileReadAnyTLI](XLogFileReadAnyTLI.md)
 - Related types:
   - XLogSegNo
 - Associated constants and arrays:

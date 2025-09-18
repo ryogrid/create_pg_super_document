@@ -29,14 +29,14 @@ This verification prevents data loss during binary upgrades by ensuring replicat
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_IS_BINARY_UPGRADE
-  - has_rolreplication
-  - GetUserId
+  - [has_rolreplication](../h/has_rolreplication.md)
+  - [GetUserId](../G/GetUserId.md)
   - PG_GETARG_NAME
-  - ReplicationSlotAcquire
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - SlotIsLogical
-  - GetFlushRecPtr
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
   - LogicalReplicationSlotHasPendingWal
-  - ReplicationSlotRelease
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct callers found (likely called via SQL during binary upgrades)

@@ -25,13 +25,13 @@ Like its forward counterpart, it uses inverted logic - returning 1 when a charac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_env struct members (z->c, z->lb, z->p)
-  - repeat parameter
+  - [SN_env](../S/SN_env.md) struct members (z->c, z->lb, z->p)
+  - [repeat](../r/repeat.md) parameter
 - Called from (representative examples):
-  - r_shortv (in English and Porter stemmers)
-  - r_standard_suffix (in Dutch and French stemmers)
-  - r_Step_1a, r_Step_1b, r_Step_1c (in English and Porter stemmers)
-  - r_main_suffix (in Norwegian stemmer)
+  - [r_shortv](../r/r_shortv.md) (in English and Porter stemmers)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (in Dutch and French stemmers)
+  - [r_Step_1a](../r/r_Step_1a.md), r_Step_1b, r_Step_1c (in English and Porter stemmers)
+  - [r_main_suffix](../r/r_main_suffix.md) (in Norwegian stemmer)
   - Various ending and suffix processing functions
 
 ## Notes and Other Information

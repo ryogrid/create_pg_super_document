@@ -22,7 +22,7 @@ This function calculates the header size needed for an incremental backup file t
   - BLCKSZ (constant defining block size)
   - BlockNumber (type for block numbering)
 - Called from (representative examples):
-  - GetIncrementalFileSize
+  - [GetIncrementalFileSize](GetIncrementalFileSize.md)
 
 ## Notes and Other Information
 - The function includes overflow protection by asserting that num_blocks_required doesn't exceed RELSEG_SIZE

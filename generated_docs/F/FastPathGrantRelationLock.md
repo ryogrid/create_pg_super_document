@@ -25,7 +25,7 @@ The fast-path mechanism is designed to optimize common locking scenarios where b
   - FAST_PATH_SET_LOCKMODE: Macro to set a lock mode in a fast-path slot
   - FP_LOCK_SLOTS_PER_BACKEND: Constant defining the number of fast-path slots per backend
 - Called from (representative examples):
-  - LockAcquireExtended: Main lock acquisition function
+  - [LockAcquireExtended](../L/LockAcquireExtended.md): Main lock acquisition function
   - ConflictsWithRelationFastPath: Function checking for lock conflicts
 
 ## Notes and Other Information

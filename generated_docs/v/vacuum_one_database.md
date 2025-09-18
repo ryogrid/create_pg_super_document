@@ -40,17 +40,17 @@ Key features include comprehensive server version compatibility checking, dynami
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectDatabase (establish database connection)
-  - PQserverVersion (get PostgreSQL server version)
-  - splitTableColumnsSpec (parse table and column specifications)
-  - executeCommand/executeQuery (execute SQL commands)
-  - ParallelSlotsSetup/ParallelSlotsGetIdle (parallel execution management)
-  - prepare_vacuum_command/run_vacuum_command (construct and execute vacuum commands)
-  - fmtQualifiedIdEnc (format qualified identifiers)
-  - simple_string_list_append (manage table lists)
+  - [connectDatabase](../c/connectDatabase.md) (establish database connection)
+  - [PQserverVersion](../P/PQserverVersion.md) (get PostgreSQL server version)
+  - [splitTableColumnsSpec](../s/splitTableColumnsSpec.md) (parse table and column specifications)
+  - [executeCommand](../e/executeCommand.md)/executeQuery (execute SQL commands)
+  - [ParallelSlotsSetup](../P/ParallelSlotsSetup.md)/ParallelSlotsGetIdle (parallel execution management)
+  - [prepare_vacuum_command](../p/prepare_vacuum_command.md)/run_vacuum_command (construct and execute vacuum commands)
+  - [fmtQualifiedIdEnc](../f/fmtQualifiedIdEnc.md) (format qualified identifiers)
+  - [simple_string_list_append](../s/simple_string_list_append.md) (manage table lists)
 - Called from (representative examples):
-  - main (vacuumdb main function for single database processing)
-  - vacuum_all_databases (for processing each database in all-databases mode)
+  - [main](../m/main.md) (vacuumdb main function for single database processing)
+  - [vacuum_all_databases](vacuum_all_databases.md) (for processing each database in all-databases mode)
 
 ## Notes and Other Information
 - Performs extensive PostgreSQL version compatibility checking for various vacuum options

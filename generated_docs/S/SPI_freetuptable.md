@@ -26,15 +26,15 @@ The function uses a singly-linked list to track tuple tables within each SPI con
 - Functions called/Symbols referenced:
   - slist_foreach_modify (iterate through tuple table list)
   - slist_container (get container from list node)
-  - slist_delete_current (remove current item from list)
-  - MemoryContextDelete (free memory context)
+  - [slist_delete_current](../s/slist_delete_current.md) (remove current item from list)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (free memory context)
   - elog (log warning messages)
 - Called from (representative examples):
-  - _SPI_execute_plan (internal SPI execution cleanup)
-  - tsquery_rewrite_query (text search query rewriting)
-  - ts_stat_sql (text search statistics)
-  - plperl_spi_execute_fetch_result (Perl procedural language)
-  - PLy_spi_execute_fetch_result (Python procedural language)
+  - [_SPI_execute_plan](_SPI_execute_plan.md) (internal SPI execution cleanup)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (text search query rewriting)
+  - [ts_stat_sql](../t/ts_stat_sql.md) (text search statistics)
+  - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md) (Perl procedural language)
+  - [PLy_spi_execute_fetch_result](../P/PLy_spi_execute_fetch_result.md) (Python procedural language)
   - pltcl_process_SPI_result (Tcl procedural language)
 
 ## Notes and Other Information

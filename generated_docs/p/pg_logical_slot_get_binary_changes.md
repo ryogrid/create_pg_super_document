@@ -39,7 +39,7 @@ The function decodes WAL records starting from the slots restart_lsn and returns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_logical_slot_get_changes_guts
+  - [pg_logical_slot_get_changes_guts](pg_logical_slot_get_changes_guts.md)
 - Called from (representative examples):
   - Direct SQL function calls from applications
   - Logical replication consumers

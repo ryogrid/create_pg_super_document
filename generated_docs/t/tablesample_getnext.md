@@ -17,13 +17,13 @@ This static function implements the core tuple retrieval logic for table samplin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SampleScanState (scan state structure)
-  - TableScanDesc (table scan descriptor)
+  - [SampleScanState](../S/SampleScanState.md) (scan state structure)
+  - [TableScanDesc](../T/TableScanDesc.md) (table scan descriptor)
   - ExecClearTuple (tuple slot management)
   - table_scan_sample_next_block (block-level sampling)
   - table_scan_sample_next_tuple (tuple-level sampling)
 - Called from (representative examples):
-  - SampleNext (in nodeSamplescan.c:53)
+  - [SampleNext](../S/SampleNext.md) (in nodeSamplescan.c:53)
 
 ## Notes and Other Information
 The function implements a state machine with the following logic:

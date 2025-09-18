@@ -20,12 +20,12 @@ This function implements a rollback mechanism for after-trigger event lists by r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - afterTriggerFreeEventList
-  - pfree
-  - AfterTriggerEventList (structure type)
-  - AfterTriggerEventChunk (structure type)
+  - [afterTriggerFreeEventList](afterTriggerFreeEventList.md)
+  - [pfree](../p/pfree.md)
+  - [AfterTriggerEventList](../A/AfterTriggerEventList.md) (structure type)
+  - [AfterTriggerEventChunk](../A/AfterTriggerEventChunk.md) (structure type)
 - Called from (representative examples):
-  - AfterTriggerEndSubXact
+  - [AfterTriggerEndSubXact](../A/AfterTriggerEndSubXact.md)
 
 ## Notes and Other Information
 - Used primarily for subtransaction rollback scenarios in trigger processing

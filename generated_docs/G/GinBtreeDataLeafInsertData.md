@@ -26,10 +26,10 @@ GinBtreeDataLeafInsertData is a structure used for bulk insertion operations int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (PostgreSQL item pointer type)
+  - [ItemPointerData](../I/ItemPointerData.md) (PostgreSQL item pointer type)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
-  - ginInsertItemPointers
+  - [dataBeginPlaceToPageLeaf](../d/dataBeginPlaceToPageLeaf.md)
+  - [ginInsertItemPointers](../g/ginInsertItemPointers.md)
 
 ## Notes and Other Information
 This structure is specifically designed for GIN posting tree leaf page operations and supports batch insertion scenarios where multiple TIDs need to be inserted efficiently. The curitem field allows for resumable operations and tracking of progress through large batches of items. The structure is part of the GIN access method's optimization strategy for handling bulk data insertion into posting trees, which are used to store the actual tuple identifiers for indexed values.

@@ -19,21 +19,21 @@ The `pqClosePGconn` function performs a comprehensive shutdown of a PostgreSQL c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sendTerminateConn
-  - pqDropConnection
+  - [sendTerminateConn](../s/sendTerminateConn.md)
+  - [pqDropConnection](pqDropConnection.md)
   - CONNECTION_BAD (status constant)
   - PGASYNC_IDLE (async status constant)
   - PQTRANS_IDLE (transaction status constant)
   - PQ_PIPELINE_OFF (pipeline status constant)
-  - pqClearAsyncResult
+  - [pqClearAsyncResult](pqClearAsyncResult.md)
   - pqClearConnErrorState
-  - release_conn_addrinfo
-  - pqDropServerData
+  - [release_conn_addrinfo](../r/release_conn_addrinfo.md)
+  - [pqDropServerData](pqDropServerData.md)
 - Called from (representative examples):
-  - PQcancelReset
-  - PQfinish
-  - PQreset
-  - PQresetStart
+  - [PQcancelReset](../P/PQcancelReset.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [PQreset](../P/PQreset.md)
+  - [PQresetStart](../P/PQresetStart.md)
 
 ## Notes and Other Information
 - This function is designed to be used as part of connection reset/cleanup operations

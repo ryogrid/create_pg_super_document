@@ -21,19 +21,19 @@ static inline void pq_sendint64(StringInfo buf, uint64 i)
 ## Dependencies
 - Functions called/Symbols referenced:
   - enlargeStringInfo
-  - pq_writeint64
+  - [pq_writeint64](pq_writeint64.md)
 - Called from (representative examples):
-  - logicalrep_write_begin
-  - logicalrep_write_commit
-  - logicalrep_write_prepare_common
-  - send_feedback
-  - XLogWalRcvSendReply
-  - WalSndPrepareWrite
-  - XLogSendPhysical
-  - timestamp_send
-  - int8send
-  - numeric_avg_serialize
-  - pg_lsn_send
+  - [logicalrep_write_begin](../l/logicalrep_write_begin.md)
+  - [logicalrep_write_commit](../l/logicalrep_write_commit.md)
+  - [logicalrep_write_prepare_common](../l/logicalrep_write_prepare_common.md)
+  - [send_feedback](../s/send_feedback.md)
+  - [XLogWalRcvSendReply](../X/XLogWalRcvSendReply.md)
+  - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
+  - [timestamp_send](../t/timestamp_send.md)
+  - [int8send](../i/int8send.md)
+  - [numeric_avg_serialize](../n/numeric_avg_serialize.md)
+  - [pg_lsn_send](pg_lsn_send.md)
 
 ## Notes and Other Information
 - Defined as a static inline function for optimal performance

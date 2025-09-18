@@ -30,19 +30,19 @@ The function ensures data consistency during recovery by properly setting LSNs a
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogInitBufferForRedo
-  - BufferGetBlockNumber
-  - GinInitMetabuffer
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
   - GinPageGetMeta
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - PageAddItem
   - GinPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN WAL recovery system

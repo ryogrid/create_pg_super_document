@@ -24,17 +24,17 @@ If the type fails validation, the function raises an error with an appropriate m
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type
-  - relation_open
-  - relation_close
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
   - ereport
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - TYPTYPE_COMPOSITE
   - RELKIND_COMPOSITE_TYPE
   - OidIsValid
   - Assert
 - Called from (representative examples):
-  - ATExecAddOf
-  - transformOfType
+  - [ATExecAddOf](../A/ATExecAddOf.md)
+  - [transformOfType](../t/transformOfType.md)
 
 ## Notes and Other Information
 - The function deliberately restricts typed tables to types created with CREATE TYPE AS to simplify DDL command implementation

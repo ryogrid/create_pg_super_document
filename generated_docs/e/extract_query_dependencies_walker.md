@@ -26,10 +26,10 @@ The walker uses standard PostgreSQL tree traversal patterns, returning false to 
 - Functions called/Symbols referenced:
   - IsA
   - Assert
-  - PlaceHolderVar
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - CMD_UTILITY
   - CallStmt
-  - extract_query_dependencies_walker (recursive)
+  - [extract_query_dependencies_walker](extract_query_dependencies_walker.md) (recursive)
   - UtilityContainsQuery
   - RTE_RELATION
   - RTE_SUBQUERY  
@@ -37,13 +37,13 @@ The walker uses standard PostgreSQL tree traversal patterns, returning false to 
   - OidIsValid
   - lappend_oid
   - query_tree_walker
-  - fix_expr_common
+  - [fix_expr_common](../f/fix_expr_common.md)
   - expression_tree_walker
 
 - Called from (representative examples):
-  - extract_query_dependencies (src/backend/optimizer/plan/setrefs.c:3573)
-  - expression_planner_with_deps (src/backend/optimizer/plan/planner.c:6717)
-  - extract_query_dependencies_walker (recursive calls)
+  - [extract_query_dependencies](extract_query_dependencies.md) (src/backend/optimizer/plan/setrefs.c:3573)
+  - [expression_planner_with_deps](expression_planner_with_deps.md) (src/backend/optimizer/plan/planner.c:6717)
+  - [extract_query_dependencies_walker](extract_query_dependencies_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - The function is exported specifically to allow `expression_planner_with_deps` to use it for simple expression dependency extraction
@@ -51,4 +51,4 @@ The walker uses standard PostgreSQL tree traversal patterns, returning false to 
 - The function properly handles subqueries and named tuple stores in range table entries, extracting relation OIDs where valid
 - Row security detection is accumulated in the `context->glob->dependsOnRole` flag
 - The walker pattern ensures complete traversal of complex nested query structures
-- PlaceHolderVar nodes are explicitly asserted against, indicating they should not appear at this stage of processing
+- [PlaceHolderVar](../P/PlaceHolderVar.md) nodes are explicitly asserted against, indicating they should not appear at this stage of processing

@@ -24,9 +24,9 @@ The serialization process copies the core snapshot metadata (xmin, xmax, transac
   - memcpy (for copying data to target memory)
   - Assert (for runtime validation)
 - Called from (representative examples):
-  - index_parallelscan_initialize (parallel index scanning)
-  - table_parallelscan_initialize (parallel table scanning)
-  - InitializeParallelDSM (parallel query setup)
+  - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md) (parallel index scanning)
+  - [table_parallelscan_initialize](../t/table_parallelscan_initialize.md) (parallel table scanning)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (parallel query setup)
 
 ## Notes and Other Information
 - The function handles overflow conditions by excluding SubXID arrays when suboverflowed is true, except during recovery where top-level XIDs are stored in subxip

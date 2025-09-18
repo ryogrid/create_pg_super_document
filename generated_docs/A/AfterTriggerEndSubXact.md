@@ -32,28 +32,28 @@ The function operates differently based on the commit/abort status:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - AfterTriggerFreeQuery
-  - afterTriggerRestoreEventList
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [AfterTriggerFreeQuery](AfterTriggerFreeQuery.md)
+  - [afterTriggerRestoreEventList](../a/afterTriggerRestoreEventList.md)
   - GetTriggerSharedData
   - for_each_event_chunk (macro)
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types used:
   - SetConstraintState
-  - AfterTriggerEvent
-  - AfterTriggerEventChunk
+  - [AfterTriggerEvent](AfterTriggerEvent.md)
+  - [AfterTriggerEventChunk](AfterTriggerEventChunk.md)
   - AfterTriggerShared
   - CommandId
 - Constants:
   - AFTER_TRIGGER_DONE
   - AFTER_TRIGGER_IN_PROGRESS
 - Called from (representative examples):
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5090)
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5257)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5090)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5257)
 
 ## Notes and Other Information
 - Handles the case where subtransaction start failed before AfterTriggerBeginSubXact was called
 - Uses firing IDs to identify events that need to be unmarked during abort
 - Assumes that subtransactions include all events from child subtransactions
 - Memory cleanup is carefully managed to avoid double-free errors
-- Query-level storage cleanup is performed only during abort scenarios
+- [Query](../Q/Query.md)-level storage cleanup is performed only during abort scenarios

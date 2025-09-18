@@ -25,13 +25,13 @@ The function uses the createdb_failure_params structure to access context inform
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DropDatabaseBuffers
-  - ForgetDatabaseSyncRequests  
-  - UnlockSharedObject
-  - remove_dbtablespaces
+  - [DropDatabaseBuffers](../D/DropDatabaseBuffers.md)
+  - [ForgetDatabaseSyncRequests](../F/ForgetDatabaseSyncRequests.md)  
+  - [UnlockSharedObject](../U/UnlockSharedObject.md)
+  - [remove_dbtablespaces](../r/remove_dbtablespaces.md)
   - createdb_failure_params (structure)
 - Called from (representative examples):
-  - createdb (registered as error callback via PG_ENSURE_ERROR_CLEANUP)
+  - [createdb](createdb.md) (registered as error callback via PG_ENSURE_ERROR_CLEANUP)
 
 ## Notes and Other Information
 - Only performs buffer and sync request cleanup for CREATEDB_WAL_LOG strategy since FILE_COPY strategy doesn't use shared buffers

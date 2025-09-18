@@ -19,15 +19,15 @@ PGTYPESdate_to_asc converts a PostgreSQL internal date representation (days sinc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - j2date (Julian date to calendar date conversion)
-  - date2j (Calendar date to Julian date conversion - for reference point)
-  - EncodeDateOnly (PostgreSQL date encoding function)
-  - pgtypes_strdup (string duplication function)
+  - [j2date](../j/j2date.md) (Julian date to calendar date conversion)
+  - [date2j](../d/date2j.md) (Calendar date to Julian date conversion - for reference point)
+  - [EncodeDateOnly](../E/EncodeDateOnly.md) (PostgreSQL date encoding function)
+  - [pgtypes_strdup](../p/pgtypes_strdup.md) (string duplication function)
   - MAXDATELEN (buffer size constant)
 - Called from (representative examples):
-  - rdatestr (Informix compatibility function)
+  - [rdatestr](../r/rdatestr.md) (Informix compatibility function)
   - ecpg_store_input (ECPG data storage function)
-  - main (extensive use in test cases)
+  - [main](../m/main.md) (extensive use in test cases)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

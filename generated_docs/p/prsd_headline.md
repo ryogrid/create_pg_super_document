@@ -34,14 +34,14 @@ Configuration options processed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString (extract string values from configuration options)
-  - pg_strtoint32 (parse integer configuration values)
+  - [defGetString](../d/defGetString.md) (extract string values from configuration options)
+  - [pg_strtoint32](pg_strtoint32.md) (parse integer configuration values)
   - TS_execute_locations (execute query against document to find matches)
   - GETQUERY (extract query from TSQuery structure)
-  - checkcondition_HL (condition checking function for highlighting)
-  - mark_hl_words (single fragment headline selection)
-  - mark_hl_fragments (multi-fragment headline selection)
-  - pstrdup (duplicate strings in PostgreSQL memory context)
+  - [checkcondition_HL](../c/checkcondition_HL.md) (condition checking function for highlighting)
+  - [mark_hl_words](../m/mark_hl_words.md) (single fragment headline selection)
+  - [mark_hl_fragments](../m/mark_hl_fragments.md) (multi-fragment headline selection)
+  - [pstrdup](pstrdup.md) (duplicate strings in PostgreSQL memory context)
 - Called from:
   - Used as a PostgreSQL function callable from SQL queries via the text search system
 

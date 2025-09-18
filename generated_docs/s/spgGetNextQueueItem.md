@@ -22,7 +22,7 @@ This function serves as a queue management utility for SP-GiST (Space-partitione
   - SpGistScanOpaque
   - SpGistSearchItem
 - Called from (representative examples):
-  - spgWalk
+  - [spgWalk](spgWalk.md)
 
 ## Notes and Other Information
 - This is a static function internal to spgscan.c

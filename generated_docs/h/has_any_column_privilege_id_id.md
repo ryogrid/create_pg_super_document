@@ -23,9 +23,9 @@ The function follows PostgreSQL's privilege inheritance model where table-level 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_column_priv_string: Converts privilege text to AclMode
-  - pg_class_aclcheck_ext: Checks table-level access control permissions
-  - pg_attribute_aclcheck_all_ext: Checks column-level access control for all columns
+  - [convert_column_priv_string](../c/convert_column_priv_string.md): Converts privilege text to AclMode
+  - [pg_class_aclcheck_ext](../p/pg_class_aclcheck_ext.md): Checks table-level access control permissions
+  - [pg_attribute_aclcheck_all_ext](../p/pg_attribute_aclcheck_all_ext.md): Checks column-level access control for all columns
   - AclResult: Enumeration type for access control results
   - ACLMASK_ANY: Flag for checking any column privilege
 - Called from (representative examples):

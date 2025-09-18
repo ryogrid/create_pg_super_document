@@ -21,9 +21,9 @@ The function acts as a thin wrapper around the generic `pgstat_fetch_entry` func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_entry
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
   - PGSTAT_KIND_FUNCTION
-  - PgStat_StatFuncEntry
+  - [PgStat_StatFuncEntry](../P/PgStat_StatFuncEntry.md)
   - MyDatabaseId
 - Called from (representative examples):
   - PG_STAT_GET_FUNCENTRY_FLOAT8_MS

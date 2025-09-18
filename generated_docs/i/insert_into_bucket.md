@@ -25,15 +25,15 @@ This function combines memory allocation and insertion operations for new hash t
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_allocate
-  - dsa_get_address
-  - copy_key
-  - insert_item_into_bucket
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [copy_key](../c/copy_key.md)
+  - [insert_item_into_bucket](insert_item_into_bucket.md)
   - ENTRY_FROM_ITEM
-  - dshash_table (type)
+  - [dshash_table](../d/dshash_table.md) (type)
   - dsa_pointer (type)
-  - dshash_table_item (type)
+  - [dshash_table_item](../d/dshash_table_item.md) (type)
 - Called from (representative examples):
-  - dshash_find_or_insert
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within dshash.c

@@ -26,11 +26,11 @@ Like its locking counterpart, this function is designed for database-scoped obje
 - Functions called/Symbols referenced:
   - LOCKTAG (data structure for lock identification)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag)
-  - LockRelease (core lock release function)
+  - [LockRelease](../L/LockRelease.md) (core lock release function)
 - Called from (representative examples):
-  - ReleaseDeletionLock (src/backend/catalog/dependency.c:1534)
-  - RangeVarGetAndCheckCreationNamespace (src/backend/catalog/namespace.c:804)
-  - get_object_address (src/backend/catalog/objectaddress.c:1162)
+  - [ReleaseDeletionLock](../R/ReleaseDeletionLock.md) (src/backend/catalog/dependency.c:1534)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md) (src/backend/catalog/namespace.c:804)
+  - [get_object_address](../g/get_object_address.md) (src/backend/catalog/objectaddress.c:1162)
 
 ## Notes and Other Information
 - Must be called with exactly the same parameters (classid, objid, objsubid, lockmode) that were used to acquire the lock

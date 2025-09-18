@@ -21,20 +21,20 @@ This function performs a system catalog lookup to find the OID of a relation (ta
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid2
-  - PointerGetDatum
-  - ObjectIdGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - RELNAMENSP (system cache identifier)
   - Anum_pg_class_oid
 - Called from (representative examples):
-  - heap_create_with_catalog
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
   - index_create
-  - RangeVarGetRelidExtended
-  - RangeVarGetAndCheckCreationNamespace
-  - cluster
-  - CreateTableAsRelExists
-  - RenameRelationInternal
-  - refnameNamespaceItem
-  - transformIndexConstraint
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [cluster](../c/cluster.md)
+  - [CreateTableAsRelExists](../C/CreateTableAsRelExists.md)
+  - [RenameRelationInternal](../R/RenameRelationInternal.md)
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
+  - [transformIndexConstraint](../t/transformIndexConstraint.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the relation is not found, rather than raising an error

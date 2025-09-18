@@ -20,7 +20,7 @@ The SubRemoveRels structure is a temporary data structure used internally during
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - AlterSubscription_refresh (local usage within the function)
+  - [AlterSubscription_refresh](../A/AlterSubscription_refresh.md) (local usage within the function)
 
 ## Notes and Other Information
 This structure is defined locally within the  function and is not exposed as part of the public API. It serves as a temporary container during the subscription refresh process where tables that were previously part of the subscription but are no longer in the publication need to be properly cleaned up. The state information is critical because different subscription states require different cleanup procedures - for instance, relations in SUBREL_STATE_READY don't need tablesync origin cleanup since it would have already been dropped, while other states do require this cleanup operation.

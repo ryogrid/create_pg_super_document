@@ -19,7 +19,7 @@ This function serves as the PostgreSQL system interface for converting float8 va
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)
-  - float8out_internal (internal implementation for float8 to string conversion)
+  - [float8out_internal](float8out_internal.md) (internal implementation for float8 to string conversion)
   - PG_RETURN_CSTRING (macro to return C string as Datum)
 
 - Called from (representative examples):

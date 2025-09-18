@@ -29,16 +29,16 @@ The use of 'IS NOT TRUE' instead of 'NOT' is crucial because it properly handles
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - acquireLocksOnSubLinks
-  - ChangeVarNodes
-  - ReplaceVarsFromTargetList
-  - AddInvertedQual
+  - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
+  - [ChangeVarNodes](ChangeVarNodes.md)
+  - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md)
+  - [AddInvertedQual](../A/AddInvertedQual.md)
   - rt_fetch
   - PRS2_OLD_VARNO, PRS2_NEW_VARNO (constants)
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE (enums)
   - REPLACEVARS_CHANGE_VARNO, REPLACEVARS_SUBSTITUTE_NULL (constants)
 - Called from (representative examples):
-  - fireRules
+  - [fireRules](../f/fireRules.md)
 
 ## Notes and Other Information
 - Uses 'IS NOT TRUE' instead of 'NOT' to handle NULL values correctly in three-valued logic

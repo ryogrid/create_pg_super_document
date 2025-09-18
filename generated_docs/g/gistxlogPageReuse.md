@@ -22,10 +22,10 @@ This structure is used to log GiST index page reuse operations in the write-ahea
 - Functions called/Symbols referenced:
   - FullTransactionId
 - Called from (representative examples):
-  - gistRedoPageReuse
-  - gistXLogPageReuse
-  - out_gistxlogPageReuse
-  - gist_desc
+  - [gistRedoPageReuse](gistRedoPageReuse.md)
+  - [gistXLogPageReuse](gistXLogPageReuse.md)
+  - [out_gistxlogPageReuse](../o/out_gistxlogPageReuse.md)
+  - [gist_desc](gist_desc.md)
   - SizeOfGistxlogPageReuse
 
 ## Notes and Other Information

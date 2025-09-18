@@ -32,14 +32,14 @@ This serialization is essential because EXEC_BACKEND child processes do not inhe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - write_inheritable_socket (socket inheritance handling)
-  - write_duplicated_handle (Windows handle duplication)  
-  - pgwin32_create_signal_listener (Windows signal handling)
+  - [write_inheritable_socket](../w/write_inheritable_socket.md) (socket inheritance handling)
+  - [write_duplicated_handle](../w/write_duplicated_handle.md) (Windows handle duplication)  
+  - [pgwin32_create_signal_listener](../p/pgwin32_create_signal_listener.md) (Windows signal handling)
   - strlcpy (safe string copying)
   - memcpy/memset (memory operations)
   - Various global variables (DataDir, MyCancelKey, SharedMemory pointers, etc.)
 - Called from (representative examples):
-  - internal_forkexec (to serialize state before launching child process)
+  - [internal_forkexec](../i/internal_forkexec.md) (to serialize state before launching child process)
 
 ## Notes and Other Information
 - This is a static function only available in EXEC_BACKEND builds

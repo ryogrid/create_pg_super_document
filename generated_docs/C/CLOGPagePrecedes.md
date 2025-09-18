@@ -24,13 +24,13 @@ The function returns true if page1 precedes page2, meaning that both the first t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (called twice)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (called twice)
 - Global variables/constants accessed:
   - CLOG_XACTS_PER_PAGE
   - FirstNormalTransactionId
 - Referenced by:
   - XactCtl (src/backend/access/transam/clog.c:114)
-  - CLOGShmemInit (src/backend/access/transam/clog.c:810)
+  - [CLOGShmemInit](CLOGShmemInit.md) (src/backend/access/transam/clog.c:810)
 
 ## Notes and Other Information
 - Static function used internally within the CLOG module

@@ -30,16 +30,16 @@ The delay calculation is based on the difference between the WAL record's timest
   - XLOG_XACT_OPMASK
   - XLOG_XACT_COMMIT
   - XLOG_XACT_COMMIT_PREPARED
-  - getRecordTimestamp
+  - [getRecordTimestamp](../g/getRecordTimestamp.md)
   - TimestampTzPlusMilliseconds
-  - GetCurrentTimestamp
-  - TimestampDifferenceMilliseconds
-  - ResetLatch
-  - HandleStartupProcInterrupts
-  - CheckForStandbyTrigger
-  - WaitLatch
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
+  - [WaitLatch](../W/WaitLatch.md)
 - Called from (representative examples):
-  - PerformWalRecovery
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
 
 ## Notes and Other Information
 - This is a static function within xlogrecovery.c, not exposed as a public API

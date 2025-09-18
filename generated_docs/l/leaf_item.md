@@ -24,11 +24,11 @@ The structure is part of PostgreSQL's memory-efficient integer set implementatio
 - Functions called/Symbols referenced:
   - No direct function calls (this is a data structure)
 - Used by (representative examples):
-  - intset_leaf_node (as items array member)
-  - intset_flush_buffered_values
-  - intset_is_member
-  - intset_iterate_next
-  - intset_binsrch_leaf
+  - [intset_leaf_node](../i/intset_leaf_node.md) (as items array member)
+  - [intset_flush_buffered_values](../i/intset_flush_buffered_values.md)
+  - [intset_is_member](../i/intset_is_member.md)
+  - [intset_iterate_next](../i/intset_iterate_next.md)
+  - [intset_binsrch_leaf](../i/intset_binsrch_leaf.md)
 
 ## Notes and Other Information
 - Each leaf_item can store a maximum of MAX_VALUES_PER_LEAF_ITEM (241) integers: 1 direct value + up to 240 Simple-8b encoded values

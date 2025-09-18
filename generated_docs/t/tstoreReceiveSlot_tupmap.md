@@ -26,7 +26,7 @@ This callback is selected when `tstoreStartupReceiver` determines that a target 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - execute_attr_map_slot
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - tuplestore_puttupleslot
 - Called from (representative examples):
   - Set as callback by tstoreStartupReceiver when tuple conversion is needed

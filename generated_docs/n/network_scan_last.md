@@ -25,12 +25,12 @@ The implementation leverages two key operations:
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (PostgreSQL function call interface for 2-argument functions)
   - DirectFunctionCall1 (PostgreSQL function call interface for 1-argument functions)
-  - inet_set_masklen (function to set network mask length, -1 sets to maximum)
-  - network_broadcast (function to compute broadcast address of a network)
-  - Int32GetDatum (converts integer to Datum type)
+  - [inet_set_masklen](../i/inet_set_masklen.md) (function to set network mask length, -1 sets to maximum)
+  - [network_broadcast](network_broadcast.md) (function to compute broadcast address of a network)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (converts integer to Datum type)
 
 - Called from (representative examples):
-  - match_network_subset (network subset matching function)
+  - [match_network_subset](../m/match_network_subset.md) (network subset matching function)
 
 ## Notes and Other Information
 - Works as the upper bound complement to network_scan_first for index scan range definition

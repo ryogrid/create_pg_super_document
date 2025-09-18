@@ -25,11 +25,11 @@ Unlike many other executor nodes, BitmapAnd nodes do not require expression cont
 - Functions called/Symbols referenced:
   - makeNode (to create BitmapAndState)
   - list_length (to count subplans)
-  - palloc0 (to allocate subplan state array)
-  - ExecInitNode (to initialize each subplan)
-  - ExecBitmapAnd (assigned as ExecProcNode function)
+  - [palloc0](../p/palloc0.md) (to allocate subplan state array)
+  - [ExecInitNode](ExecInitNode.md) (to initialize each subplan)
+  - [ExecBitmapAnd](ExecBitmapAnd.md) (assigned as ExecProcNode function)
 - Called from (representative examples):
-  - ExecInitNode (general node initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (general node initialization dispatcher)
 
 ## Notes and Other Information
 - Part of PostgreSQL's bitmap index scan optimization infrastructure

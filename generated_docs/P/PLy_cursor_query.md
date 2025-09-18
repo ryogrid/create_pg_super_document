@@ -20,20 +20,20 @@ The function operates within a subtransaction to ensure proper error handling an
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_New (Python C API)
-  - PLy_current_execution_context
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
   - AllocSetContextCreate
-  - PLy_input_setup_func
-  - PLy_spi_subtransaction_begin
-  - pg_verifymbstr
-  - SPI_prepare
-  - SPI_cursor_open
-  - SPI_freeplan
-  - MemoryContextStrdup
-  - PinPortal
-  - PLy_spi_subtransaction_commit
-  - PLy_spi_subtransaction_abort
+  - [PLy_input_setup_func](PLy_input_setup_func.md)
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)
+  - [pg_verifymbstr](../p/pg_verifymbstr.md)
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
+  - [SPI_freeplan](../S/SPI_freeplan.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
+  - [PinPortal](PinPortal.md)
+  - [PLy_spi_subtransaction_commit](PLy_spi_subtransaction_commit.md)
+  - [PLy_spi_subtransaction_abort](PLy_spi_subtransaction_abort.md)
 - Called from (representative examples):
-  - PLy_cursor
+  - [PLy_cursor](PLy_cursor.md)
 
 ## Notes and Other Information
 - Creates a dedicated memory context "PL/Python cursor context" for cursor-related allocations

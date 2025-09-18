@@ -31,11 +31,11 @@ The recovery mechanism detects failed I/O by attempting to conditionally acquire
   - LWLockAcquire (acquire lightweight locks) 
   - LWLockConditionalAcquire (conditionally acquire locks for error detection)
 - Called from (representative examples):
-  - SimpleLruReadPage
-  - SlruInternalWritePage
-  - SlruSelectLRUPage
-  - SimpleLruTruncate
-  - SlruDeleteSegment
+  - [SimpleLruReadPage](SimpleLruReadPage.md)
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
+  - [SlruSelectLRUPage](SlruSelectLRUPage.md)
+  - [SimpleLruTruncate](SimpleLruTruncate.md)
+  - [SlruDeleteSegment](SlruDeleteSegment.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the slru.c file

@@ -22,19 +22,19 @@ As an optimization, the function skips try/catch error handling since all errors
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQuery (for submitting the query asynchronously)
-  - libpqrcv_PQgetResult (for collecting query results)
-  - PQclear (for cleaning up previous results)
-  - PQresultStatus (for checking result status)
+  - [PQsendQuery](../P/PQsendQuery.md) (for submitting the query asynchronously)
+  - [libpqrcv_PQgetResult](libpqrcv_PQgetResult.md) (for collecting query results)
+  - [PQclear](../P/PQclear.md) (for cleaning up previous results)
+  - [PQresultStatus](../P/PQresultStatus.md) (for checking result status)
   - PQstatus (for checking connection status)
 - Used by:
-  - libpqrcv_connect (for connection setup queries)
-  - libpqrcv_identify_system (for system identification)
-  - libpqrcv_startstreaming (for starting replication)
-  - libpqrcv_readtimelinehistoryfile (for timeline history retrieval)
-  - libpqrcv_create_slot (for replication slot creation)
-  - libpqrcv_alter_slot (for replication slot modification)
-  - libpqrcv_exec (for general query execution)
+  - [libpqrcv_connect](libpqrcv_connect.md) (for connection setup queries)
+  - [libpqrcv_identify_system](libpqrcv_identify_system.md) (for system identification)
+  - [libpqrcv_startstreaming](libpqrcv_startstreaming.md) (for starting replication)
+  - [libpqrcv_readtimelinehistoryfile](libpqrcv_readtimelinehistoryfile.md) (for timeline history retrieval)
+  - [libpqrcv_create_slot](libpqrcv_create_slot.md) (for replication slot creation)
+  - [libpqrcv_alter_slot](libpqrcv_alter_slot.md) (for replication slot modification)
+  - [libpqrcv_exec](libpqrcv_exec.md) (for general query execution)
 
 ## Notes and Other Information
 - This is a static function, only accessible within libpqwalreceiver.c

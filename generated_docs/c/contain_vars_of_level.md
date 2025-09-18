@@ -27,16 +27,16 @@ This function is particularly useful for:
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_walker (tree traversal function)
-  - contain_vars_of_level_walker (callback function for tree walking)
+  - [contain_vars_of_level_walker](contain_vars_of_level_walker.md) (callback function for tree walking)
 - Called from (representative examples):
-  - convert_EXISTS_sublink_to_join (in src/backend/optimizer/plan/subselect.c)
-  - convert_EXISTS_to_ANY (in src/backend/optimizer/plan/subselect.c)
-  - pull_up_simple_values (in src/backend/optimizer/prep/prepjointree.c)
-  - apply_child_basequals (in src/backend/optimizer/util/inherit.c)
-  - transformInsertStmt (in src/backend/parser/analyze.c)
-  - transformValuesClause (in src/backend/parser/analyze.c)
-  - transformRangeFunction (in src/backend/parser/parse_clause.c)
-  - rewriteRuleAction (in src/backend/rewrite/rewriteHandler.c)
+  - [convert_EXISTS_sublink_to_join](convert_EXISTS_sublink_to_join.md) (in src/backend/optimizer/plan/subselect.c)
+  - [convert_EXISTS_to_ANY](convert_EXISTS_to_ANY.md) (in src/backend/optimizer/plan/subselect.c)
+  - [pull_up_simple_values](../p/pull_up_simple_values.md) (in src/backend/optimizer/prep/prepjointree.c)
+  - [apply_child_basequals](../a/apply_child_basequals.md) (in src/backend/optimizer/util/inherit.c)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (in src/backend/parser/analyze.c)
+  - [transformValuesClause](../t/transformValuesClause.md) (in src/backend/parser/analyze.c)
+  - [transformRangeFunction](../t/transformRangeFunction.md) (in src/backend/parser/parse_clause.c)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md) (in src/backend/rewrite/rewriteHandler.c)
 
 ## Notes and Other Information
 - Returns true if any variable at the specified level is found, false otherwise

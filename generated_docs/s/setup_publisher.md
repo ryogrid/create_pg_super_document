@@ -26,16 +26,16 @@ The function returns the LSN from the last created replication slot, which will 
 - Functions called/Symbols referenced:
   - pg_prng_seed
   - connect_database
-  - generate_object_name
-  - create_publication
-  - pg_free
-  - create_logical_replication_slot
+  - [generate_object_name](../g/generate_object_name.md)
+  - [create_publication](../c/create_publication.md)
+  - [pg_free](../p/pg_free.md)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
   - pg_log_info
-  - PQexec
-  - PQresultErrorMessage
-  - disconnect_database
+  - [PQexec](../P/PQexec.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [disconnect_database](../d/disconnect_database.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - The function processes databases sequentially but maintains the LSN from the last replication slot created

@@ -23,22 +23,22 @@ Like other similar relcache functions, RelationGetStatExtList carefully manages 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy
-  - ScanKeyInit
+  - [list_copy](../l/list_copy.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
   - lappend_oid
-  - list_sort
-  - list_oid_cmp
-  - MemoryContextSwitchTo
-  - list_free
+  - [list_sort](../l/list_sort.md)
+  - [list_oid_cmp](../l/list_oid_cmp.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [list_free](../l/list_free.md)
   - Form_pg_statistic_ext (struct type)
 - Called from (representative examples):
-  - get_relation_statistics
-  - expandTableLikeClause
+  - [get_relation_statistics](../g/get_relation_statistics.md)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
 
 ## Notes and Other Information
 - Implements caching via rd_statlist and rd_statvalid fields in the relation structure

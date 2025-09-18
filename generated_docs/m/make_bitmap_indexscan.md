@@ -22,7 +22,7 @@ This function constructs a BitmapIndexScan plan node, which is the first stage o
 - Functions called/Symbols referenced:
   - makeNode (to create the BitmapIndexScan node)
 - Called from (representative examples):
-  - create_bitmap_subplan
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal plan construction

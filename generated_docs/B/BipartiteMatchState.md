@@ -30,15 +30,15 @@ The algorithm uses the Hopcroft-Karp approach which alternates between breadth-f
 - Functions called/Symbols referenced:
   - HK_INFINITY (constant used in algorithm)
 - Called from (representative examples):
-  - BipartiteMatch (constructor function)
-  - BipartiteMatchFree (destructor function)
-  - hk_breadth_search (internal algorithm function)
-  - hk_depth_search (internal algorithm function)
-  - extract_rollup_sets (in query planner)
+  - [BipartiteMatch](BipartiteMatch.md) (constructor function)
+  - [BipartiteMatchFree](BipartiteMatchFree.md) (destructor function)
+  - [hk_breadth_search](../h/hk_breadth_search.md) (internal algorithm function)
+  - [hk_depth_search](../h/hk_depth_search.md) (internal algorithm function)
+  - [extract_rollup_sets](../e/extract_rollup_sets.md) (in query planner)
 
 ## Notes and Other Information
 - The structure is allocated and initialized by BipartiteMatch() and should be freed using BipartiteMatchFree()
-- Node indices are 1-based rather than 0-based throughout the implementation
+- [Node](../N/Node.md) indices are 1-based rather than 0-based throughout the implementation
 - The adjacency list is owned by the caller and not freed by BipartiteMatchFree()
 - Size limits are enforced (must be less than SHRT_MAX) due to the use of short integers
 - The algorithm implementation includes interrupt checks for long-running computations

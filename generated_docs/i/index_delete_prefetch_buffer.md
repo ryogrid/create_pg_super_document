@@ -27,13 +27,13 @@ The prefetching is done using PostgreSQL's buffer prefetch mechanism (PrefetchBu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - PrefetchBuffer
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [PrefetchBuffer](../P/PrefetchBuffer.md)
   - MAIN_FORKNUM
   - TM_IndexDelete (structure)
   - IndexDeletePrefetchState (structure)
 - Called from (representative examples):
-  - heap_index_delete_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
 
 ## Notes and Other Information
 - This is a static helper function specifically designed for heap_index_delete_tuples

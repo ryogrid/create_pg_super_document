@@ -18,13 +18,13 @@ SendNegotiateProtocolVersion constructs and sends a NegotiateProtocolVersion mes
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_beginmessage
-  - pq_sendint32
-  - pq_sendstring
-  - pq_endmessage
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
   - list_length
   - lfirst
 - Called from (representative examples):
-  - ProcessStartupPacket
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md)
 
 ## Notes and Other Information
 - Sends PqMsg_NegotiateProtocolVersion message type to the client

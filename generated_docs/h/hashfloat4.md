@@ -25,7 +25,7 @@ The `hashfloat4` function computes hash values for single-precision floating-poi
   - PG_RETURN_UINT32
   - isnan
   - get_float8_nan
-  - hash_any
+  - [hash_any](hash_any.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

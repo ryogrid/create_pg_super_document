@@ -23,12 +23,12 @@ Once unpinned, the portal becomes eligible for normal cleanup operations and can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Portal (type)
+  - [Portal](../P/Portal.md) (type)
 - Called from (representative examples):
-  - plperl_spi_fetchrow
-  - plperl_spi_cursor_close
-  - PLy_cursor_dealloc
-  - PLy_cursor_close
+  - [plperl_spi_fetchrow](../p/plperl_spi_fetchrow.md)
+  - [plperl_spi_cursor_close](../p/plperl_spi_cursor_close.md)
+  - [PLy_cursor_dealloc](../P/PLy_cursor_dealloc.md)
+  - [PLy_cursor_close](../P/PLy_cursor_close.md)
 
 ## Notes and Other Information
 - Throws an ERROR if the portal is not currently pinned, helping detect resource management bugs

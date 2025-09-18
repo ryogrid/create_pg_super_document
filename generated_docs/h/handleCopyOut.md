@@ -22,16 +22,16 @@ This function processes the data transfer phase of a COPY TO STDOUT command. Aft
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetCopyData (libpq function to read COPY data)
-  - PQfreemem (libpq memory management)
-  - PQgetResult (libpq result retrieval)
-  - PQerrorMessage (libpq error reporting)
-  - PQresultStatus (libpq result status)
+  - [PQgetCopyData](../P/PQgetCopyData.md) (libpq function to read COPY data)
+  - [PQfreemem](../P/PQfreemem.md) (libpq memory management)
+  - [PQgetResult](../P/PQgetResult.md) (libpq result retrieval)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (libpq error reporting)
+  - [PQresultStatus](../P/PQresultStatus.md) (libpq result status)
   - PGRES_COMMAND_OK (libpq status constant)
   - pg_log_error, pg_log_info (PostgreSQL logging)
   - fwrite, fflush (standard I/O)
 - Called from (representative examples):
-  - HandleCopyResult (src/bin/psql/common.c:915)
+  - [HandleCopyResult](../H/HandleCopyResult.md) (src/bin/psql/common.c:915)
 
 ## Notes and Other Information
 - Returns true on success, false on any error condition

@@ -45,11 +45,11 @@ Function arguments accessed via PostgreSQL's function call interface:
   - PG_GETARG_* macros, BackgroundWorker/BackgroundWorkerHandle structures
   - BGWORKER_SHMEM_ACCESS, BGWORKER_BACKEND_DATABASE_CONNECTION
   - BgWorkerStart_RecoveryFinished, BGW_NEVER_RESTART, BGW_MAXLEN
-  - RegisterDynamicBackgroundWorker, WaitForBackgroundWorkerStartup
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md), WaitForBackgroundWorkerStartup
   - ARR_NDIM, array_contains_nulls, ARR_ELEMTYPE, deconstruct_array_builtin
   - TextDatumGetCString, get_database_oid, get_role_oid
   - BGWORKER_BYPASS_ALLOWCONN, BGWORKER_BYPASS_ROLELOGINCHECK
-  - BgwHandleStatus constants (BGWH_STOPPED, BGWH_POSTMASTER_DIED, BGWH_STARTED)
+  - [BgwHandleStatus](../B/BgwHandleStatus.md) constants (BGWH_STOPPED, BGWH_POSTMASTER_DIED, BGWH_STARTED)
 - Called from (representative examples):
   - SQL function calls (available as worker_spi_launch SQL function)
 

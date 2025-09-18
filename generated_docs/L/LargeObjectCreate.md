@@ -25,12 +25,12 @@ The creation process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetNewOidWithIndex (generates new unique OID when needed)
-  - heap_form_tuple (creates heap tuple from values/nulls arrays)
-  - CatalogTupleInsert (inserts tuple into catalog table)
-  - heap_freetuple (frees memory allocated for heap tuple)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (generates new unique OID when needed)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates heap tuple from values/nulls arrays)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md) (inserts tuple into catalog table)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees memory allocated for heap tuple)
 - Called from (representative examples):
-  - inv_create (from src/backend/storage/large_object/inv_api.c:218)
+  - [inv_create](../i/inv_create.md) (from src/backend/storage/large_object/inv_api.c:218)
 
 ## Notes and Other Information
 - The function returns the OID of the newly created large object

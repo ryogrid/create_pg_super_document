@@ -27,11 +27,11 @@ This function provides the public interface for adding integer-type relation opt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_int_reloption
-  - add_reloption
-  - relopt_gen
+  - [init_int_reloption](../i/init_int_reloption.md)
+  - [add_reloption](add_reloption.md)
+  - [relopt_gen](../r/relopt_gen.md)
 - Called from (representative examples):
-  - create_reloptions_table
+  - [create_reloptions_table](../c/create_reloptions_table.md)
   - Various extension and index access method initialization functions
 
 ## Notes and Other Information

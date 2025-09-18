@@ -32,17 +32,17 @@ Key optimizations include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (for sorting transitions)
-  - atcomp (comparison function for transitions)
+  - [atcomp](../a/atcomp.md) (comparison function for transitions)
   - emalloc (memory allocation)
-  - limitrange (to limit transition ranges for 32/64-bit output)
+  - [limitrange](../l/limitrange.md) (to limit transition ranges for 32/64-bit output)
   - tadd (time addition with overflow checking)
-  - addtype (to add new timezone types)
-  - want_bloat (compatibility option checking)
-  - warning (for issuing warnings)
-  - mkdirs (directory creation)
+  - [addtype](../a/addtype.md) (to add new timezone types)
+  - [want_bloat](want_bloat.md) (compatibility option checking)
+  - [warning](warning.md) (for issuing warnings)
+  - [mkdirs](../m/mkdirs.md) (directory creation)
   - fopen (file operations)
 - Called from (representative examples):
-  - years_of_observations (in src/timezone/zic.c:3341)
+  - [years_of_observations](../y/years_of_observations.md) (in src/timezone/zic.c:3341)
 
 ## Notes and Other Information
 - The function handles both 32-bit and 64-bit timezone data formats

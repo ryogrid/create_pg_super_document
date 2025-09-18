@@ -26,11 +26,11 @@ The function operates in a short-lived memory context to avoid memory leaks duri
 ## Dependencies
 - Functions called/Symbols referenced:
   - expanded_record_get_tupdesc
-  - assign_record_type_typmod
-  - deconstruct_expanded_record
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
+  - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
   - VARATT_IS_EXTERNAL
-  - expanded_record_set_field_internal
-  - heap_compute_data_size
+  - [expanded_record_set_field_internal](../e/expanded_record_set_field_internal.md)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md)
   - BITMAPLEN
 - Called from (representative examples):
   - No direct references found (likely called via function pointer in ExpandedObjectMethods)

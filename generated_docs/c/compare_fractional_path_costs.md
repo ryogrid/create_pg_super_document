@@ -26,12 +26,12 @@ When fraction is <= 0 or >= 1, the function delegates to compare_path_costs with
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost (type)
-  - compare_path_costs
+  - [compare_path_costs](compare_path_costs.md)
   - TOTAL_COST (enum value)
 - Called from (representative examples):
-  - get_cheapest_fractional_path_for_pathkeys
-  - get_cheapest_fractional_path  
-  - choose_hashed_setop
+  - [get_cheapest_fractional_path_for_pathkeys](../g/get_cheapest_fractional_path_for_pathkeys.md)
+  - [get_cheapest_fractional_path](../g/get_cheapest_fractional_path.md)  
+  - [choose_hashed_setop](choose_hashed_setop.md)
 
 ## Notes and Other Information
 This function is crucial for optimizing queries with LIMIT clauses or when the query planner knows that only a fraction of the result will be consumed. The linear interpolation between startup and total cost provides a reasonable approximation of the actual cost for partial result fetching.

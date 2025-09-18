@@ -19,13 +19,13 @@ None - this function takes no parameters and operates on the global  variable.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfinish (libpq function to close PostgreSQL connection)
+  - [PQfinish](../P/PQfinish.md) (libpq function to close PostgreSQL connection)
 - Called from (representative examples):
-  - main (in pg_basebackup.c:2814)
-  - main (in pg_receivewal.c:835)  
-  - main (in pg_recvlogical.c:936)
-  - main (in pg_rewind.c:300)
-  - main (in isolationtester.c:151)
+  - [main](../m/main.md) (in pg_basebackup.c:2814)
+  - [main](../m/main.md) (in pg_receivewal.c:835)  
+  - [main](../m/main.md) (in pg_recvlogical.c:936)
+  - [main](../m/main.md) (in pg_rewind.c:300)
+  - [main](../m/main.md) (in isolationtester.c:151)
 
 ## Notes and Other Information
 - Static function registered as an atexit handler in various PostgreSQL utilities

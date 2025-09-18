@@ -17,13 +17,13 @@ The  function initializes a doubly-linked list node by setting both its  and  po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
-  - MarkAsPreparingGuts (src/backend/access/transam/twophase.c:446)
-  - InitPredicateLocks (src/backend/storage/lmgr/predicate.c:1264)
-  - GetSerializableTransactionSnapshotInt (src/backend/storage/lmgr/predicate.c:1855)
+  - [MarkAsPreparingGuts](../M/MarkAsPreparingGuts.md) (src/backend/access/transam/twophase.c:446)
+  - [InitPredicateLocks](../I/InitPredicateLocks.md) (src/backend/storage/lmgr/predicate.c:1264)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (src/backend/storage/lmgr/predicate.c:1855)
   - InitProcess (src/backend/storage/lmgr/proc.c:384)
-  - InitAuxiliaryProcess (src/backend/storage/lmgr/proc.c:582)
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (src/backend/storage/lmgr/proc.c:582)
 
 ## Notes and Other Information
 - This function is implemented as a static inline function for performance efficiency

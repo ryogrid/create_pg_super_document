@@ -25,17 +25,17 @@ This function ensures no memory leaks occur when hash aggregation operations are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - list_free_deep
+  - [pfree](../p/pfree.md)
+  - [list_free_deep](../l/list_free_deep.md)
   - LogicalTapeSetClose
 - Types used:
-  - AggState
-  - HashAggSpill
+  - [AggState](../A/AggState.md)
+  - [HashAggSpill](../H/HashAggSpill.md)
 - Constants used:
   - NIL
 - Called from (representative examples):
-  - ExecEndAgg (src/backend/executor/nodeAgg.c:4334)
-  - ExecReScanAgg (src/backend/executor/nodeAgg.c:4450)
+  - [ExecEndAgg](../E/ExecEndAgg.md) (src/backend/executor/nodeAgg.c:4334)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md) (src/backend/executor/nodeAgg.c:4450)
 
 ## Notes and Other Information
 - This is a static function internal to nodeAgg.c

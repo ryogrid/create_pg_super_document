@@ -20,30 +20,30 @@ Key features include special handling for generated columns (either excluded or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableDataInfo (struct)
-  - TableInfo (struct)
+  - [TableDataInfo](../T/TableDataInfo.md) (struct)
+  - [TableInfo](../T/TableInfo.md) (struct)
   - DumpOptions (struct)
   - RELKIND_FOREIGN_TABLE
-  - set_restrict_relation_kind
+  - [set_restrict_relation_kind](../s/set_restrict_relation_kind.md)
   - pg_malloc
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - ExecuteSqlStatement
-  - ExecuteSqlQuery
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK
-  - PQnfields
-  - forcePartitionRootLoad
-  - getRootTableInfo
+  - [PQnfields](../P/PQnfields.md)
+  - [forcePartitionRootLoad](../f/forcePartitionRootLoad.md)
+  - [getRootTableInfo](../g/getRootTableInfo.md)
   - appendPQExpBufferChar
-  - PQfname
-  - archputs
-  - PQgetisnull
+  - [PQfname](../P/PQfname.md)
+  - [archputs](../a/archputs.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
   - PQftype
-  - archprintf
-  - resetPQExpBuffer
+  - [archprintf](../a/archprintf.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - appendStringLiteralAH
 - Called from (representative examples):
-  - dumpTableData
+  - [dumpTableData](dumpTableData.md)
 
 ## Notes and Other Information
 - Generates INSERT statements that are compatible with pg_backup_db.c's ExecuteSimpleCommands()

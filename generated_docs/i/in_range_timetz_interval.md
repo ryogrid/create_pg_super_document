@@ -30,10 +30,10 @@ Unlike the standard timetz arithmetic functions, this function deliberately avoi
   - `PG_GETARG_INTERVAL_P`: Extracts Interval argument from function call
   - `PG_GETARG_BOOL`: Extracts boolean arguments from function call
   - `ereport`: PostgreSQL error reporting function
-  - `errcode`: Error code specification  
-  - `errmsg`: Error message specification
-  - `pg_add_s64_overflow`: Safe 64-bit integer addition with overflow detection
-  - `timetz_cmp_internal`: Internal comparison function for timetz values
+  - `[errcode](../e/errcode.md)`: Error code specification  
+  - `[errmsg](../e/errmsg.md)`: Error message specification
+  - `[pg_add_s64_overflow](../p/pg_add_s64_overflow.md)`: Safe 64-bit integer addition with overflow detection
+  - `[timetz_cmp_internal](../t/timetz_cmp_internal.md)`: Internal comparison function for timetz values
   - `PG_RETURN_BOOL`: Returns boolean result to caller
 - Constants referenced:
   - `ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE`: Error code for invalid window frame size

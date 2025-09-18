@@ -18,15 +18,15 @@ This function implements the guts of ALTER TABLE DROP COLUMN by actually marking
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
+  - [relation_open](../r/relation_open.md)
   - SearchSysCacheCopy2
   - namestrcpy
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - RemoveStatistics
-  - relation_close
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [RemoveStatistics](RemoveStatistics.md)
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - doDeletion
+  - [doDeletion](../d/doDeletion.md)
 
 ## Notes and Other Information
 - Acquires AccessExclusiveLock on the target relation which is held until end of transaction

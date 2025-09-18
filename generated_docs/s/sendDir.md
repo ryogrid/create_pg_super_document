@@ -40,15 +40,15 @@ Key processing logic includes:
   - lstat, readlink
   - parse_filename_for_nontemp_relation
   - looks_like_temp_rel_name
-  - sendFile
-  - _tarWriteHeader
-  - GetFileBackupMethod
-  - RecoveryInProgress
-  - convert_link_to_directory
+  - [sendFile](sendFile.md)
+  - [_tarWriteHeader](../t/_tarWriteHeader.md)
+  - [GetFileBackupMethod](../G/GetFileBackupMethod.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [convert_link_to_directory](../c/convert_link_to_directory.md)
 - Called from (representative examples):
-  - perform_base_backup
-  - sendTablespace
-  - sendDir (recursive calls)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [sendTablespace](sendTablespace.md)
+  - [sendDir](sendDir.md) (recursive calls)
 
 ## Notes and Other Information
 - Recursively calls itself for subdirectories, making it the primary directory traversal mechanism

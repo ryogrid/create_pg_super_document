@@ -24,12 +24,12 @@ The function automatically uses the planstate's expression context, result tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecBuildProjectionInfo (builds the actual projection infrastructure)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md) (builds the actual projection infrastructure)
 - Called from (representative examples):
-  - ExecConditionalAssignProjectionInfo (execUtils.c:580)
-  - ExecInitAgg (nodeAgg.c:3351)
-  - ExecInitGroup (nodeGroup.c:198)
-  - ExecInitHashJoin (nodeHashjoin.c:763)
+  - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (execUtils.c:580)
+  - [ExecInitAgg](ExecInitAgg.md) (nodeAgg.c:3351)
+  - [ExecInitGroup](ExecInitGroup.md) (nodeGroup.c:198)
+  - [ExecInitHashJoin](ExecInitHashJoin.md) (nodeHashjoin.c:763)
   - ExecInitMergeJoin (nodeMergejoin.c:1525)
   - Various executor node initialization functions
 

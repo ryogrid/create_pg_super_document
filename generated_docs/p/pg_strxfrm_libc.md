@@ -45,8 +45,8 @@ LC_ALL=: Locale specification for transformation rules
   - COLLPROVIDER_LIBC
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - pg_strnxfrm_libc (src/backend/utils/adt/pg_locale.c:2211)
-  - pg_strxfrm (src/backend/utils/adt/pg_locale.c:2409)
+  - [pg_strnxfrm_libc](pg_strnxfrm_libc.md) (src/backend/utils/adt/pg_locale.c:2211)
+  - [pg_strxfrm](pg_strxfrm.md) (src/backend/utils/adt/pg_locale.c:2409)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_locale.c

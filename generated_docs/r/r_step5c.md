@@ -35,13 +35,13 @@ The function employs a branching logic structure with multiple conditional paths
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Backward pattern matching function
-  - `slice_del`: Function to delete a substring slice
-  - `slice_from_s`: Function to replace slice with specific string
-  - `eq_s_b`: Backward string equality check function
-  - `in_grouping_b_U`: Backward Unicode character grouping check function
+  - `[find_among_b](../f/find_among_b.md)`: Backward pattern matching function
+  - `[slice_del](../s/slice_del.md)`: Function to delete a substring slice
+  - `[slice_from_s](../s/slice_from_s.md)`: Function to replace slice with specific string
+  - `[eq_s_b](../e/eq_s_b.md)`: Backward string equality check function
+  - `[in_grouping_b_U](../i/in_grouping_b_U.md)`: Backward Unicode character grouping check function
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function
 
 ## Notes and Other Information
 - This function is specific to Greek language morphology and handles UTF-8 encoded Greek text

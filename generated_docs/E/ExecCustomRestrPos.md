@@ -19,12 +19,12 @@ ExecCustomRestrPos is responsible for restoring a custom scan node to a position
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (structure type)
+  - [CustomScanState](../C/CustomScanState.md) (structure type)
   - ereport (error reporting function)
-  - errcode (error code macro)
-  - errmsg (error message macro)
+  - [errcode](../e/errcode.md) (error code macro)
+  - [errmsg](../e/errmsg.md) (error message macro)
 - Called from (representative examples):
-  - ExecRestrPos (general position restoration dispatcher)
+  - [ExecRestrPos](ExecRestrPos.md) (general position restoration dispatcher)
 
 ## Notes and Other Information
 - This function is part of the custom scan API that allows extension developers to implement their own scan methods

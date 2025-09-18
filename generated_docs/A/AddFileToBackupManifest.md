@@ -26,20 +26,20 @@ AddFileToBackupManifest creates and appends a JSON object representing a single 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsManifestEnabled (manifest enablement check)
+  - [IsManifestEnabled](../I/IsManifestEnabled.md) (manifest enablement check)
   - OidIsValid (PostgreSQL OID validation)
   - snprintf (C standard library)
   - initStringInfo, appendStringInfo* (PostgreSQL string buffer management)
-  - pg_verify_mbstr (PostgreSQL multibyte string validation)
-  - escape_json (PostgreSQL JSON escaping)
-  - hex_encode (PostgreSQL hexadecimal encoding)
+  - [pg_verify_mbstr](../p/pg_verify_mbstr.md) (PostgreSQL multibyte string validation)
+  - [escape_json](../e/escape_json.md) (PostgreSQL JSON escaping)
+  - [hex_encode](../h/hex_encode.md) (PostgreSQL hexadecimal encoding)
   - pg_strftime, pg_gmtime (PostgreSQL time formatting)
   - pg_checksum_final, pg_checksum_type_name (PostgreSQL checksum functions)
-  - AppendStringToManifest (internal manifest writing)
-  - pfree (PostgreSQL memory management)
+  - [AppendStringToManifest](AppendStringToManifest.md) (internal manifest writing)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management)
 - Called from (representative examples):
-  - sendFileWithContent (src/backend/backup/basebackup.c:1122)
-  - sendFile (src/backend/backup/basebackup.c:1823)
+  - [sendFileWithContent](../s/sendFileWithContent.md) (src/backend/backup/basebackup.c:1122)
+  - [sendFile](../s/sendFile.md) (src/backend/backup/basebackup.c:1823)
 
 ## Notes and Other Information
 - Returns early if manifest generation is disabled via IsManifestEnabled check

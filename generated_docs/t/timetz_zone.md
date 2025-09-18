@@ -24,15 +24,15 @@ The conversion process adjusts the time component by the difference between the 
   - PG_GETARG_TEXT_PP
   - PG_GETARG_TIMETZADT_P
   - text_to_cstring_buffer
-  - DecodeTimezoneName
-  - GetCurrentTransactionStartTimestamp
-  - DetermineTimeZoneAbbrevOffsetTS
-  - timestamp2tm
-  - palloc
+  - [DecodeTimezoneName](../D/DecodeTimezoneName.md)
+  - [GetCurrentTransactionStartTimestamp](../G/GetCurrentTransactionStartTimestamp.md)
+  - [DetermineTimeZoneAbbrevOffsetTS](../D/DetermineTimeZoneAbbrevOffsetTS.md)
+  - [timestamp2tm](timestamp2tm.md)
+  - [palloc](../p/palloc.md)
   - PG_RETURN_TIMETZADT_P
   - ereport
 - Called from (representative examples):
-  - timetz_at_local
+  - [timetz_at_local](timetz_at_local.md)
   - SQL timezone conversion operations
   - AT TIME ZONE expressions with TIMETZ values
 

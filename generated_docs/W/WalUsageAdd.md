@@ -27,8 +27,8 @@ This function focuses specifically on WAL activity that can be meaningfully meas
 - Functions called/Symbols referenced:
   - WalUsage (struct type definition)
 - Called from (representative examples):
-  - InstrAggNode
-  - InstrAccumParallelQuery
+  - [InstrAggNode](../I/InstrAggNode.md)
+  - [InstrAccumParallelQuery](../I/InstrAccumParallelQuery.md)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the same compilation unit (instrument.c)

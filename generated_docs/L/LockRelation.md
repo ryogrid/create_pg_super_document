@@ -21,13 +21,13 @@ This function acquires a lock on a relation that is already open. It creates a L
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to set up lock tag for relation)
-  - LockAcquireExtended (performs the actual lock acquisition with extended options)
-  - AcceptInvalidationMessages (processes cache invalidation messages)
-  - MarkLockClear (marks the local lock state as clear)
+  - [LockAcquireExtended](LockAcquireExtended.md) (performs the actual lock acquisition with extended options)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (processes cache invalidation messages)
+  - [MarkLockClear](../M/MarkLockClear.md) (marks the local lock state as clear)
 - Types referenced:
-  - Relation (relation descriptor structure)
+  - [Relation](../R/Relation.md) (relation descriptor structure)
   - LOCKTAG (lock tag structure)
-  - LOCALLOCK (local lock information)
+  - [LOCALLOCK](LOCALLOCK.md) (local lock information)
   - LockAcquireResult (result of lock acquisition)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):

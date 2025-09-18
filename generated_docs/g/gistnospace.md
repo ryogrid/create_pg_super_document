@@ -24,13 +24,13 @@ This function performs a space availability check for inserting a vector of inde
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize
-  - PageGetItem
-  - PageGetItemId
-  - PageGetFreeSpace
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
   - InvalidOffsetNumber
-  - ItemIdData
+  - [ItemIdData](../I/ItemIdData.md)
 - Called from (representative examples):
-  - gistplacetopage
+  - [gistplacetopage](gistplacetopage.md)
 
 ## Notes and Other Information
 The function name follows a negative logic pattern - it returns true when there is NO space available, which makes it convenient for use in conditional statements like "if (gistnospace(...)) then split page". The calculation includes ItemIdData overhead for each tuple, which is essential for accurate space accounting in PostgreSQL's page layout. When todelete is specified, the function accounts for the space that would be reclaimed by removing that tuple, allowing for more precise space calculations during tuple replacement operations.

@@ -23,21 +23,21 @@ The function extracts the posting tree creation data from the WAL record, initia
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogInitBufferForRedo
-  - BufferGetPage
-  - GinInitBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [GinInitBuffer](../G/GinInitBuffer.md)
   - GinDataLeafPageGetPostingList
   - GinDataPageSetDataSize
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Data structures used:
-  - ginxlogCreatePostingTree
+  - [ginxlogCreatePostingTree](ginxlogCreatePostingTree.md)
 - Constants used:
   - GIN_DATA
   - GIN_LEAF
   - GIN_COMPRESSED
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively in GIN WAL replay operations

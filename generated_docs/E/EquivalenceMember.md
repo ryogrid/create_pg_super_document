@@ -29,16 +29,16 @@ The em_datatype field handles binary-compatible operator families where the expr
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinDomain (for join domain tracking)
-  - Expr (base expression type)
+  - [Expr](Expr.md) (base expression type)
   - Relids (relation ID set)
   - NodeTag (PostgreSQL node system)
 
 - Called from (representative examples):
-  - process_equivalence (equivalence class processing)
-  - add_eq_member (adding new equivalence members)
-  - find_ec_member_matching_expr (finding matching expressions)
-  - generate_base_implied_equalities_const (generating implied equalities)
-  - create_join_clause (creating join clauses from equivalences)
+  - [process_equivalence](../p/process_equivalence.md) (equivalence class processing)
+  - [add_eq_member](../a/add_eq_member.md) (adding new equivalence members)
+  - [find_ec_member_matching_expr](../f/find_ec_member_matching_expr.md) (finding matching expressions)
+  - [generate_base_implied_equalities_const](../g/generate_base_implied_equalities_const.md) (generating implied equalities)
+  - [create_join_clause](../c/create_join_clause.md) (creating join clauses from equivalences)
 
 ## Notes and Other Information
 - Child members (em_is_child=true) should be ignored by most EquivalenceClass operations

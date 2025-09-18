@@ -19,12 +19,12 @@ This function implements a hash computation for SearchPathCacheKey structures us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheKey (key structure type)
-  - fasthash_state (hash state structure)
-  - fasthash_init (initializes hash state)
-  - fasthash_combine (combines accumulated value)
-  - fasthash_accum_cstring (accumulates string into hash)
-  - fasthash_final32 (finalizes 32-bit hash)
+  - [SearchPathCacheKey](../S/SearchPathCacheKey.md) (key structure type)
+  - [fasthash_state](../f/fasthash_state.md) (hash state structure)
+  - [fasthash_init](../f/fasthash_init.md) (initializes hash state)
+  - [fasthash_combine](../f/fasthash_combine.md) (combines accumulated value)
+  - [fasthash_accum_cstring](../f/fasthash_accum_cstring.md) (accumulates string into hash)
+  - [fasthash_final32](../f/fasthash_final32.md) (finalizes 32-bit hash)
 - Called from (representative examples):
   - SH_HASH_KEY macro (used in simplehash hash table implementation)
 

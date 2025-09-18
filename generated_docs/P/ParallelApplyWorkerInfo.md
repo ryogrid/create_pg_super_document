@@ -22,16 +22,16 @@ ParallelApplyWorkerInfo serves as the primary management interface for parallel 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_handle
+  - [shm_mq_handle](../s/shm_mq_handle.md)
   - dsm_segment
-  - ParallelApplyWorkerShared
+  - [ParallelApplyWorkerShared](ParallelApplyWorkerShared.md)
 - Called from (representative examples):
-  - pa_launch_parallel_worker
-  - pa_allocate_worker
-  - pa_free_worker
+  - [pa_launch_parallel_worker](../p/pa_launch_parallel_worker.md)
+  - [pa_allocate_worker](../p/pa_allocate_worker.md)
+  - [pa_free_worker](../p/pa_free_worker.md)
   - pa_send_data
-  - HandleParallelApplyMessages
-  - handle_streamed_transaction
+  - [HandleParallelApplyMessages](../H/HandleParallelApplyMessages.md)
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
 
 ## Notes and Other Information
 This structure is maintained by the leader apply worker to manage its pool of parallel workers. The dual message queue design enables efficient bidirectional communication while maintaining error isolation. The serialize_changes mechanism provides a fallback when shared memory becomes a bottleneck, allowing large transactions to be processed via file-based serialization. Worker reuse is facilitated through the in_use flag, enabling efficient resource utilization across multiple streaming transactions.

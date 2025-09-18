@@ -25,12 +25,12 @@ The function dynamically manages memory allocation for the dumpIdMap array, doub
   - catalogid_insert (inserts objects into catalog hash table)
   - CATALOGIDHASH_INITIAL_SIZE (initial hash table size constant)
 - Called from (representative examples):
-  - flagInhTables (src/bin/pg_dump/common.c:384)
-  - flagInhIndexes (src/bin/pg_dump/common.c:441)
-  - flagInhAttrs (src/bin/pg_dump/common.c:602)
-  - getNamespaces (src/bin/pg_dump/pg_dump.c:5682)
-  - getTypes (src/bin/pg_dump/pg_dump.c:5921)
-  - getIndexes (src/bin/pg_dump/pg_dump.c:7664)
+  - [flagInhTables](../f/flagInhTables.md) (src/bin/pg_dump/common.c:384)
+  - [flagInhIndexes](../f/flagInhIndexes.md) (src/bin/pg_dump/common.c:441)
+  - [flagInhAttrs](../f/flagInhAttrs.md) (src/bin/pg_dump/common.c:602)
+  - [getNamespaces](../g/getNamespaces.md) (src/bin/pg_dump/pg_dump.c:5682)
+  - [getTypes](../g/getTypes.md) (src/bin/pg_dump/pg_dump.c:5921)
+  - [getIndexes](../g/getIndexes.md) (src/bin/pg_dump/pg_dump.c:7664)
 
 ## Notes and Other Information
 The function maintains a global lastDumpId counter that ensures each object receives a unique sequential identifier. Default initialization assumes objects should be dumped completely (DUMP_COMPONENT_ALL) and are not extension members. The dumpIdMap array uses a doubling growth strategy starting at 256 entries to balance memory usage with allocation overhead.

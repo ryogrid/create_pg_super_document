@@ -20,9 +20,9 @@ This function provides a high-level interface for detecting the presence of PARA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_exec_param_walker
+  - [contain_exec_param_walker](contain_exec_param_walker.md)
 - Called from (representative examples):
-  - test_opexpr_is_hashable
+  - [test_opexpr_is_hashable](../t/test_opexpr_is_hashable.md)
   - Various optimizer functions that need to check parameter dependencies
 
 ## Notes and Other Information

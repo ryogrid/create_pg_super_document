@@ -19,17 +19,17 @@ This function provides a safe way to examine the current conditional state at th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_empty (function)
+  - [conditional_stack_empty](conditional_stack_empty.md) (function)
   - IFSTATE_NONE (enum value)
-  - ConditionalStack (typedef)
+  - [ConditionalStack](../C/ConditionalStack.md) (typedef)
 - Called from (representative examples):
-  - advanceConnectionState (pgbench)
-  - executeMetaCommand (pgbench)
-  - CheckConditional (pgbench)
-  - exec_command_elif (psql)
-  - exec_command_else (psql)
-  - exec_command_endif (psql)
-  - conditional_active (conditional utility)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (pgbench)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (pgbench)
+  - [CheckConditional](../C/CheckConditional.md) (pgbench)
+  - [exec_command_elif](../e/exec_command_elif.md) (psql)
+  - [exec_command_else](../e/exec_command_else.md) (psql)
+  - [exec_command_endif](../e/exec_command_endif.md) (psql)
+  - [conditional_active](conditional_active.md) (conditional utility)
 
 ## Notes and Other Information
 - Returns IFSTATE_NONE when the stack is empty or NULL, providing a safe default

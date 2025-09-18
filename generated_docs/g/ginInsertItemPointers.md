@@ -35,13 +35,13 @@ The function may execute multiple tree scans because items might need to be inse
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginPrepareDataScan
-  - ginFindLeafPage
-  - ginInsertValue
+  - [ginPrepareDataScan](ginPrepareDataScan.md)
+  - [ginFindLeafPage](ginFindLeafPage.md)
+  - [ginInsertValue](ginInsertValue.md)
 - Called from (representative examples):
-  - createPostingTree
-  - addItemPointersToLeafTuple
-  - ginEntryInsert
+  - [createPostingTree](../c/createPostingTree.md)
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md)
+  - [ginEntryInsert](ginEntryInsert.md)
 
 ## Notes and Other Information
 - The function comment notes that multiple tree scans are "very rare" but possible

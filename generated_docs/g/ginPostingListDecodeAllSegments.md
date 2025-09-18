@@ -23,19 +23,19 @@ The function supports processing multiple segments stored consecutively in memor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - repalloc (memory reallocation) 
-  - ItemPointerGetOffsetNumber
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation) 
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - OffsetNumberIsValid
-  - ginCompareItemPointers
-  - itemptr_to_uint64
-  - decode_varbyte
-  - uint64_to_itemptr
+  - [ginCompareItemPointers](ginCompareItemPointers.md)
+  - [itemptr_to_uint64](../i/itemptr_to_uint64.md)
+  - [decode_varbyte](../d/decode_varbyte.md)
+  - [uint64_to_itemptr](../u/uint64_to_itemptr.md)
   - GinNextPostingListSegment
 - Called from (representative examples):
-  - GinDataLeafPageGetItems (gin/gindatapage.c:160)
-  - ginPostingListDecode (gin/ginpostinglist.c:286)
-  - ginPostingListDecodeAllSegmentsToTbm (gin/ginpostinglist.c:364)
+  - [GinDataLeafPageGetItems](../G/GinDataLeafPageGetItems.md) (gin/gindatapage.c:160)
+  - [ginPostingListDecode](ginPostingListDecode.md) (gin/ginpostinglist.c:286)
+  - [ginPostingListDecodeAllSegmentsToTbm](ginPostingListDecodeAllSegmentsToTbm.md) (gin/ginpostinglist.c:364)
 
 ## Notes and Other Information
 - Dynamically allocates and grows the output array starting with an initial guess based on the first segment size

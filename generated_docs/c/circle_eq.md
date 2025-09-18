@@ -21,8 +21,8 @@ The `circle_eq` function compares two circles for area equality. Rather than com
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_CIRCLE_P`: Macro to extract CIRCLE argument from function call
-  - `circle_ar`: Function to calculate the area of a circle
-  - `FPeq`: Floating-point equality comparison with accuracy tolerance
+  - `[circle_ar](circle_ar.md)`: Function to calculate the area of a circle
+  - `[FPeq](../F/FPeq.md)`: Floating-point equality comparison with accuracy tolerance
   - `PG_RETURN_BOOL`: Macro to return boolean result
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -28,19 +28,19 @@ ReorderBufferReplay is the primary orchestrator for transaction replay in Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer (struct type)
-  - ReorderBufferTXN (struct type)
+  - [ReorderBuffer](ReorderBuffer.md) (struct type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (struct type)
   - RepOriginId (type)
   - CommandId/FirstCommandId (command ID management)
   - rbtxn_is_streamed (check if transaction was streamed)
-  - ReorderBufferStreamCommit (streaming commit handling)
+  - [ReorderBufferStreamCommit](ReorderBufferStreamCommit.md) (streaming commit handling)
   - rbtxn_prepared (check if transaction is prepared)
-  - ReorderBufferCleanupTXN (cleanup transaction resources)
-  - ReorderBufferProcessTXN (core transaction processing)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md) (cleanup transaction resources)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (core transaction processing)
 - Called from (representative examples):
-  - ReorderBufferCommit (regular transaction commit)
-  - ReorderBufferPrepare (prepared transaction handling)
-  - ReorderBufferFinishPrepared (finishing prepared transactions)
+  - [ReorderBufferCommit](ReorderBufferCommit.md) (regular transaction commit)
+  - [ReorderBufferPrepare](ReorderBufferPrepare.md) (prepared transaction handling)
+  - [ReorderBufferFinishPrepared](ReorderBufferFinishPrepared.md) (finishing prepared transactions)
 
 ## Notes and Other Information
 - This function serves as the main entry point for transaction replay in logical replication

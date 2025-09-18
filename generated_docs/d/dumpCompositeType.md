@@ -22,22 +22,22 @@ The function also handles dumping of associated comments, security labels, and a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlStatement
-  - ExecuteSqlQuery
-  - binary_upgrade_set_type_oids_by_type_oid
-  - binary_upgrade_set_pg_class_oids
-  - fmtId
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)
+  - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - findCollationByOid
+  - [findCollationByOid](../f/findCollationByOid.md)
   - appendStringLiteralAH
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
-  - dumpCompositeTypeColComments
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
+  - [dumpCompositeTypeColComments](dumpCompositeTypeColComments.md)
 - Called from (representative examples):
-  - dumpType
+  - [dumpType](dumpType.md)
 
 ## Notes and Other Information
 - Uses prepared statements for efficiency when dumping multiple composite types

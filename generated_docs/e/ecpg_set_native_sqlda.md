@@ -23,15 +23,15 @@ The function processes each field in the native SQLDA, calculates proper memory 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlda_native_empty_size
-  - ecpg_sqlda_align_add_size
-  - PQgetisnull
-  - PQgetvalue
-  - PGTYPESnumeric_from_asc
-  - PGTYPESnumeric_free
-  - ECPGset_noind_null
+  - [sqlda_native_empty_size](../s/sqlda_native_empty_size.md)
+  - [ecpg_sqlda_align_add_size](ecpg_sqlda_align_add_size.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
+  - [ECPGset_noind_null](../E/ECPGset_noind_null.md)
   - ecpg_get_data
-  - ecpg_log
+  - [ecpg_log](ecpg_log.md)
 - Called from (representative examples):
   - ecpg_process_output
 

@@ -21,12 +21,12 @@ This selective approach is particularly efficient when working with short values
 - Functions called/Symbols referenced:
   - VARATT_IS_COMPRESSED (macro to check if datum is compressed)
   - VARATT_IS_EXTERNAL (macro to check if datum is externally stored)
-  - detoast_attr (function to fully detoast extended datums)
+  - [detoast_attr](../d/detoast_attr.md) (function to fully detoast extended datums)
 - Called from (representative examples):
   - text_to_cstring
   - text_to_cstring_buffer
-  - makeJsonLexContext
-  - transform_jsonb_string_values
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
+  - [transform_jsonb_string_values](../t/transform_jsonb_string_values.md)
   - PG_DETOAST_DATUM_PACKED (macro)
 
 ## Notes and Other Information

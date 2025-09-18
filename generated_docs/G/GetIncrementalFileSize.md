@@ -17,12 +17,12 @@ This function calculates the total file size needed for an incremental backup fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetIncrementalHeaderSize (computes header size)
+  - [GetIncrementalHeaderSize](GetIncrementalHeaderSize.md) (computes header size)
   - Assert (macro for assertion checking)
   - RELSEG_SIZE (constant defining maximum blocks per segment)
   - BLCKSZ (constant defining block size)
 - Called from (representative examples):
-  - sendDir
+  - [sendDir](../s/sendDir.md)
 
 ## Notes and Other Information
 - The function includes overflow protection by asserting that num_blocks_required doesn't exceed RELSEG_SIZE

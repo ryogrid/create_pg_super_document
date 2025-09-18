@@ -23,9 +23,9 @@ ChangeToDataDir performs a critical initialization step by changing the process'
   - ereport, errcode_for_file_access, errmsg (error reporting functions)
   - Assert (validates DataDir is set)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
   - AmSpecialWorkerProcess
 
 ## Notes and Other Information

@@ -29,15 +29,15 @@ The function is essential for maintaining the reliability of the barrier system 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_or_u32 (atomic bitwise OR operation)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md) (atomic bitwise OR operation)
 - Global variables accessed:
   - MyProcSignalSlot (current process signal slot)
   - ProcSignalBarrierPending (barrier pending flag)
   - InterruptPending (global interrupt flag)
 
 - Called from (representative examples):
-  - ProcessProcSignalBarrier (when barrier processing fails)
-  - ProcessProcSignalBarrier (in exception handler)
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md) (when barrier processing fails)
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md) (in exception handler)
   - BARRIER_CLEAR_BIT (macro for barrier bit manipulation)
 
 ## Notes and Other Information

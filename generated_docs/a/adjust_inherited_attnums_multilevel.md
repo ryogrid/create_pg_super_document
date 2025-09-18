@@ -24,13 +24,13 @@ The recursive approach ensures that all intermediate inheritance mappings are pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (structure type)
-  - adjust_inherited_attnums_multilevel (recursive self-call)
-  - adjust_inherited_attnums (performs single-level attribute translation)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)
+  - [adjust_inherited_attnums_multilevel](adjust_inherited_attnums_multilevel.md) (recursive self-call)
+  - [adjust_inherited_attnums](adjust_inherited_attnums.md) (performs single-level attribute translation)
 - Called from (representative examples):
-  - grouping_planner
-  - adjust_inherited_attnums_multilevel (recursive calls)
-  - get_translated_update_targetlist
+  - [grouping_planner](../g/grouping_planner.md)
+  - [adjust_inherited_attnums_multilevel](adjust_inherited_attnums_multilevel.md) (recursive calls)
+  - [get_translated_update_targetlist](../g/get_translated_update_targetlist.md)
 
 ## Notes and Other Information
 - Implements recursive traversal of inheritance hierarchies to handle arbitrarily deep nesting

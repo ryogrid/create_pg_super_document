@@ -24,7 +24,7 @@ The function serves as a placeholder for potential future cleanup operations and
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (logging function with DEBUG1 level)
-  - ArchiveModuleState (parameter type)
+  - [ArchiveModuleState](../A/ArchiveModuleState.md) (parameter type)
 - Called from (representative examples):
   - Referenced indirectly through shell_archive_callbacks structure
 

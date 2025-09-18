@@ -17,11 +17,11 @@ This function is called by format handlers before beginning to restore a group o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestoreOptions
-  - StartTransaction
-  - ahprintf
+  - [RestoreOptions](../R/RestoreOptions.md)
+  - [StartTransaction](StartTransaction.md)
+  - [ahprintf](../a/ahprintf.md)
 - Called from (representative examples):
-  - _LoadLOs (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
+  - [_LoadLOs](../L/_LoadLOs.md) (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
 
 ## Notes and Other Information
 - LO restoration requires a transaction block because LO handles must stay open during the write process

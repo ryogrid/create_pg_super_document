@@ -30,10 +30,10 @@ The function follows PostgreSQL's standard privilege checking workflow:
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public: Converts role name to OID, handling "public" role
-  - convert_sequence_priv_string: Converts privilege string to AclMode for sequences
-  - convert_table_name: Resolves sequence name to OID (reused from table functions)
-  - get_rel_relkind: Retrieves the relation kind to validate it's a sequence
-  - pg_class_aclcheck: Performs the actual privilege check on the sequence
+  - [convert_sequence_priv_string](../c/convert_sequence_priv_string.md): Converts privilege string to AclMode for sequences
+  - [convert_table_name](../c/convert_table_name.md): Resolves sequence name to OID (reused from table functions)
+  - [get_rel_relkind](../g/get_rel_relkind.md): Retrieves the relation kind to validate it's a sequence
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md): Performs the actual privilege check on the sequence
   - text_to_cstring: Converts PostgreSQL text to C string for error messages
   - Name, AclResult: Type definitions for PostgreSQL names and ACL results
 - Called from (representative examples):

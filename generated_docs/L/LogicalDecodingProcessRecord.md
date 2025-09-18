@@ -36,14 +36,14 @@ Key responsibilities:
   - XLogRecGetRmid
   - ReorderBufferProcessXid
 - Data types used:
-  - LogicalDecodingContext
-  - XLogRecordBuffer
+  - [LogicalDecodingContext](LogicalDecodingContext.md)
+  - [XLogRecordBuffer](../X/XLogRecordBuffer.md)
   - RmgrData
 - Called from (representative examples):
-  - DecodingContextFindStartpoint
+  - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
   - LogicalReplicationSlotHasPendingWal
-  - pg_logical_slot_get_changes_guts
-  - XLogSendLogical
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [XLogSendLogical](../X/XLogSendLogical.md)
 
 ## Notes and Other Information
 - Every record's XID must be processed by the reorder buffer, regardless of whether the record content is relevant

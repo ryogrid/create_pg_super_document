@@ -22,10 +22,10 @@ This function is called internally when the current write chunk becomes full and
   - SharedTuplestoreAccessor (struct type)
   - STS_CHUNK_PAGES (constant)
   - BufFileWrite
-  - write_chunk (accessor field)
+  - [write_chunk](../w/write_chunk.md) (accessor field)
 - Called from (representative examples):
-  - sts_end_write
-  - sts_puttuple
+  - [sts_end_write](sts_end_write.md)
+  - [sts_puttuple](sts_puttuple.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

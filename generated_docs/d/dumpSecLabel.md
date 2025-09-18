@@ -33,19 +33,19 @@ The function queries the internal security label storage using  and generates SE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findSecLabels
+  - [findSecLabels](../f/findSecLabels.md)
   - createPQExpBuffer
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
-  - createDumpId
-  - ArchiveEntry
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpFunc
-  - dumpNamespace
-  - dumpEnumType
-  - dumpLO
-  - dumpPublication
+  - [dumpFunc](dumpFunc.md)
+  - [dumpNamespace](dumpNamespace.md)
+  - [dumpEnumType](dumpEnumType.md)
+  - [dumpLO](dumpLO.md)
+  - [dumpPublication](dumpPublication.md)
 
 ## Notes and Other Information
 - The function is designed to be called after  for the main object, as dependency sorting has already occurred

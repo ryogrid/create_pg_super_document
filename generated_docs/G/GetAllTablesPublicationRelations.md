@@ -24,19 +24,19 @@ The function performs two separate scans when `pubviaroot` is true: first for re
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - table_beginscan_catalog
-  - heap_getnext
-  - table_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [table_endscan](../t/table_endscan.md)
   - table_close
-  - is_publishable_class
+  - [is_publishable_class](../i/is_publishable_class.md)
   - lappend_oid
   - Form_pg_class
-  - TableScanDesc
+  - [TableScanDesc](../T/TableScanDesc.md)
   - ForwardScanDirection
   - RELKIND_RELATION
   - RELKIND_PARTITIONED_TABLE
-  - CharGetDatum
+  - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):
   - NUM_PUBLICATION_TABLES_ELEM
 

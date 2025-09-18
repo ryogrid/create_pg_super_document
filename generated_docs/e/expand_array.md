@@ -24,19 +24,19 @@ For other cases, it creates a flat representation by detoasting and copying the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - EOH_init_header
   - VARATT_IS_EXTERNAL_EXPANDED
   - DatumGetEOHP
-  - copy_byval_expanded_array
+  - [copy_byval_expanded_array](../c/copy_byval_expanded_array.md)
   - DatumGetArrayTypePCopy
-  - get_typlenbyvalalign
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - EOHPGetRWDatum
   - ARR_NDIM, ARR_DIMS, ARR_LBOUND, ARR_ELEMTYPE, ARR_DATA_PTR, ARR_SIZE
 - Called from (representative examples):
-  - DatumGetExpandedArray
+  - [DatumGetExpandedArray](../D/DatumGetExpandedArray.md)
   - DatumGetExpandedArrayX
-  - construct_empty_expanded_array
+  - [construct_empty_expanded_array](../c/construct_empty_expanded_array.md)
   - AARR_LBOUND
 
 ## Notes and Other Information

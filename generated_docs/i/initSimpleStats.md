@@ -26,9 +26,9 @@ This provides a clean starting state for subsequent statistical data accumulatio
   - SimpleStats (structure type)
   - memset (C library function)
 - Called from (representative examples):
-  - initStats
-  - create_sql_command 
-  - process_backslash_command
+  - [initStats](initStats.md)
+  - [create_sql_command](../c/create_sql_command.md) 
+  - [process_backslash_command](../p/process_backslash_command.md)
 
 ## Notes and Other Information
 - Simple wrapper around memset for type safety and code clarity

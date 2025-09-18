@@ -22,13 +22,13 @@ The function performs a simple bitwise AND operation between the page's pd_flags
   - PageHeader (type cast)
   - PD_ALL_VISIBLE (flag constant 0x0004)
 - Called from (representative examples):
-  - heap_prepare_pagescan
-  - heap_insert
-  - heap_multi_insert
-  - heap_delete
-  - heap_update
-  - lazy_scan_prune
-  - visibilitymap_set
+  - [heap_prepare_pagescan](../h/heap_prepare_pagescan.md)
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
+  - [visibilitymap_set](../v/visibilitymap_set.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

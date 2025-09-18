@@ -21,7 +21,7 @@ The hash table using this structure helps ensure that role membership grants are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_string (via SH_HASH_KEY macro)
+  - [hash_string](../h/hash_string.md) (via SH_HASH_KEY macro)
   - strcmp (via SH_EQUAL macro)
   - pg_malloc0 (via SH_RAW_ALLOCATOR macro)
 - Called from (representative examples):

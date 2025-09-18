@@ -34,18 +34,18 @@ The function is essential for PostgreSQL's ability to safely drop relations and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32
-  - UnlockBufHdr
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - LockBufHdr
-  - BufTableHashCode
-  - BufMappingPartitionLock
-  - BufferTagsEqual
+  - [BufTableHashCode](../B/BufTableHashCode.md)
+  - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md)
+  - [BufferTagsEqual](../B/BufferTagsEqual.md)
   - BUF_STATE_GET_REFCOUNT
-  - GetPrivateRefCount
-  - BufferDescriptorGetBuffer
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
   - WaitIO
-  - ClearBufferTag
-  - BufTableDelete
+  - [ClearBufferTag](../C/ClearBufferTag.md)
+  - [BufTableDelete](../B/BufTableDelete.md)
   - StrategyFreeBuffer
 - Constants used:
   - BM_LOCKED
@@ -54,10 +54,10 @@ The function is essential for PostgreSQL's ability to safely drop relations and 
   - BUF_USAGECOUNT_MASK
   - BM_TAG_VALID
 - Called from (representative examples):
-  - DropRelationBuffers
-  - DropRelationsAllBuffers
-  - FindAndDropRelationBuffers
-  - DropDatabaseBuffers
+  - [DropRelationBuffers](../D/DropRelationBuffers.md)
+  - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md)
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
+  - [DropDatabaseBuffers](../D/DropDatabaseBuffers.md)
 
 ## Notes and Other Information
 - Must be called with the buffer header spinlock held (BM_LOCKED state)

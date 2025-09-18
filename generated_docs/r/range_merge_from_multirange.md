@@ -39,7 +39,7 @@ This function is particularly useful for operations that need to work with the o
 
 - Called from (representative examples):
   - SQL functions that need to convert multiranges to ranges
-  - Query operations requiring the overall span of a multirange
+  - [Query](../Q/Query.md) operations requiring the overall span of a multirange
   - Range algebra operations
 
 ## Notes and Other Information

@@ -21,13 +21,13 @@ UniqueState maintains the execution state for Unique nodes, which are positioned
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited structure)
+  - [PlanState](../P/PlanState.md) (inherited structure)
   - ExprState (for equality function)
 - Called from (representative examples):
-  - ExecUnique (main execution function)
-  - ExecInitUnique (initialization function)
-  - ExecEndUnique (cleanup function)
-  - ExecReScanUnique (rescan function)
+  - [ExecUnique](../E/ExecUnique.md) (main execution function)
+  - [ExecInitUnique](../E/ExecInitUnique.md) (initialization function)
+  - [ExecEndUnique](../E/ExecEndUnique.md) (cleanup function)
+  - [ExecReScanUnique](../E/ExecReScanUnique.md) (rescan function)
 
 ## Notes and Other Information
 - Unique nodes are typically used in conjunction with sort nodes to implement SQL DISTINCT operations

@@ -23,15 +23,15 @@ None - this function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - directory_exists (check if directory exists)
-  - make_directory (create directory)
+  - [directory_exists](../d/directory_exists.md) (check if directory exists)
+  - [make_directory](../m/make_directory.md) (create directory)
   - fopen (open files for writing)
   - bail (error handling and exit)
-  - pg_strdup (string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - snprintf (formatted string creation)
   - fclose (close file handle)
 - Called from (representative examples):
-  - regression_main (main regression test entry point)
+  - [regression_main](../r/regression_main.md) (main regression test entry point)
 
 ## Notes and Other Information
 - This is a static function used internally by the pg_regress framework

@@ -34,16 +34,16 @@ The validation logic differs significantly based on:
   - IndexRelationGetNumberOfKeyAttributes
   - BTPageGetOpaque
   - P_IGNORE
-  - PageGetMaxOffsetNumber
-  - PageGetItem/PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)/PageGetItemId
   - BTreeTupleGetNAtts
-  - BTreeTupleIsPosting
-  - BTreeTupleIsPivot
-  - BTreeTupleGetHeapTID
-  - ItemPointerGetOffsetNumber
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - P_ISLEAF, P_FIRSTDATAKEY, P_RIGHTMOST, P_HIKEY
 - Called from (representative examples):
-  - _bt_compare
+  - [_bt_compare](_bt_compare.md)
   - Various B-tree verification routines
 
 ## Notes and Other Information

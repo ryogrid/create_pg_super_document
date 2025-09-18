@@ -17,9 +17,9 @@ This function serves as a substitute hook for the show_context parameter in psql
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
 - Called from (representative examples):
-  - EstablishVariableSpace (at src/bin/psql/startup.c:1260)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (at src/bin/psql/startup.c:1260)
 
 ## Notes and Other Information
 - This is a static function defined in src/bin/psql/startup.c

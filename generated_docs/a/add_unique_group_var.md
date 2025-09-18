@@ -30,13 +30,13 @@ The function is essential for accurate GROUP BY cardinality estimation, as it en
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_variable_numdistinct: Extract distinct value count from variable statistics
-  - remove_nulling_relids: Strip nulling relation markers for comparison
-  - equal: Test for exact node equality
-  - exprs_known_equal: Check if expressions are known to be equivalent
+  - [remove_nulling_relids](../r/remove_nulling_relids.md): Strip nulling relation markers for comparison
+  - [equal](../e/equal.md): Test for exact node equality
+  - [exprs_known_equal](../e/exprs_known_equal.md): Check if expressions are known to be equivalent
   - foreach_delete_current: Remove current element from list during iteration
   - GroupVarInfo: Structure to store variable information for group estimation
 - Called from (representative examples):
-  - estimate_num_groups: Uses this function to build the variable list for cardinality estimation
+  - [estimate_num_groups](../e/estimate_num_groups.md): Uses this function to build the variable list for cardinality estimation
 
 ## Notes and Other Information
 - Returns the updated varinfos list, which may be the same as input if variable was duplicate

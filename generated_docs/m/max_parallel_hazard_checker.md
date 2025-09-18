@@ -25,11 +25,11 @@ This design separates the concern of function lookup (handled here) from the haz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - max_parallel_hazard_test
-  - func_parallel
+  - [max_parallel_hazard_test](max_parallel_hazard_test.md)
+  - [func_parallel](../f/func_parallel.md)
   - max_parallel_hazard_context
 - Called from (representative examples):
-  - max_parallel_hazard_walker
+  - [max_parallel_hazard_walker](max_parallel_hazard_walker.md)
 
 ## Notes and Other Information
 - This is a static function designed specifically as a callback for the check_functions_in_node infrastructure

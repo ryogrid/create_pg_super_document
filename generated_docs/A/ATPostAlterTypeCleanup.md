@@ -21,24 +21,24 @@ This function performs the critical cleanup phase after column type alterations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_object_addresses
-  - SearchSysCache1
-  - get_typ_typrelid
-  - getBaseType
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [get_typ_typrelid](../g/get_typ_typrelid.md)
+  - [getBaseType](../g/getBaseType.md)
   - ObjectAddressSet
-  - add_exact_object_address
-  - LockRelationOid
-  - ATPostAlterTypeParse
-  - IndexGetRelation
-  - StatisticsGetRelation
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [ATPostAlterTypeParse](ATPostAlterTypeParse.md)
+  - [IndexGetRelation](../I/IndexGetRelation.md)
+  - [StatisticsGetRelation](../S/StatisticsGetRelation.md)
   - makeNode
-  - performMultipleDeletions
-  - free_object_addresses
-  - AlteredTableInfo (struct)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
+  - [AlteredTableInfo](AlteredTableInfo.md) (struct)
   - ObjectAddresses (struct)
   - Form_pg_constraint (struct)
 - Called from (representative examples):
-  - ATRewriteCatalogs
+  - [ATRewriteCatalogs](ATRewriteCatalogs.md)
   - child_dependency_type
 
 ## Notes and Other Information

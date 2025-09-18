@@ -25,10 +25,10 @@ The function includes a platform limitation check that prevents `sub_` from bein
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (type definition)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type definition)
   - AssertPointerAlignment (alignment check)
   - Assert (runtime assertion for INT_MIN check)
-  - pg_atomic_fetch_sub_u32_impl (platform-specific implementation)
+  - [pg_atomic_fetch_sub_u32_impl](pg_atomic_fetch_sub_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
   - LWLockDequeueSelf (src/backend/storage/lmgr/lwlock.c:1154)
   - LWLockAcquire (src/backend/storage/lmgr/lwlock.c:1301)

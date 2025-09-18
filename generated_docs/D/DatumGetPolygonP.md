@@ -18,10 +18,10 @@ This function serves as a specialized type conversion utility for PostgreSQL's p
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM (TOAST decompression macro)
-  - POLYGON (variable-length geometric data type)
+  - [POLYGON](../P/POLYGON.md) (variable-length geometric data type)
 - Called from (representative examples):
-  - gist_poly_compress
-  - spg_box_quad_get_scankey_bbox
+  - [gist_poly_compress](../g/gist_poly_compress.md)
+  - [spg_box_quad_get_scankey_bbox](../s/spg_box_quad_get_scankey_bbox.md)
   - PG_GETARG_POLYGON_P (macro)
 
 ## Notes and Other Information

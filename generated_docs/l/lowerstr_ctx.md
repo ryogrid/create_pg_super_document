@@ -20,11 +20,11 @@ This function provides a context-aware wrapper around the lowerstr() function. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (PostgreSQL memory management)
-  - lowerstr (string lowercasing function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (PostgreSQL memory management)
+  - [lowerstr](lowerstr.md) (string lowercasing function)
   - IspellDict (struct type)
 - Called from (representative examples):
-  - NIImportDictionary
+  - [NIImportDictionary](../N/NIImportDictionary.md)
   - NIImportOOAffixes
 
 ## Notes and Other Information

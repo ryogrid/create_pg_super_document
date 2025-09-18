@@ -22,7 +22,7 @@ The function follows the standard PostgreSQL notice processor callback signature
 - Functions called/Symbols referenced:
   - None (the function body is empty)
 - Called from (representative examples):
-  - main function in isolationtester.c via PQsetNoticeProcessor() for the control connection
+  - [main](../m/main.md) function in isolationtester.c via PQsetNoticeProcessor() for the control connection
 
 ## Notes and Other Information
 - This function is part of the PostgreSQL isolation testing framework located in 

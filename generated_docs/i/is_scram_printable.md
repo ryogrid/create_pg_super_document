@@ -24,7 +24,7 @@ The function iterates through each character in the string and returns false imm
   - (None - uses only basic C operations)
 - Called from (representative examples):
   - scram_state
-  - read_client_first_message
+  - [read_client_first_message](../r/read_client_first_message.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within auth-scram.c

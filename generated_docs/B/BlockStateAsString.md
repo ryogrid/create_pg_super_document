@@ -39,12 +39,12 @@ BlockStateAsString is a debugging support function that provides string represen
   - TBLOCK_SUBRESTART
   - TBLOCK_SUBABORT_RESTART
 - Called from (representative examples):
-  - StartTransactionCommand
-  - CommitTransactionCommandInternal
-  - BeginTransactionBlock
-  - EndTransactionBlock
-  - UserAbortTransactionBlock
-  - ShowTransactionStateRec
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md)
+  - [BeginTransactionBlock](BeginTransactionBlock.md)
+  - [EndTransactionBlock](../E/EndTransactionBlock.md)
+  - [UserAbortTransactionBlock](../U/UserAbortTransactionBlock.md)
+  - [ShowTransactionStateRec](../S/ShowTransactionStateRec.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively for debugging and diagnostic purposes

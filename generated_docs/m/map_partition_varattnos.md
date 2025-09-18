@@ -25,17 +25,17 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_attrmap_by_name
-  - map_variable_attnos
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
+  - [map_variable_attnos](map_variable_attnos.md)
   - RelationGetDescr (via macro)
   - RelationGetForm (via macro)
 - Called from (representative examples):
-  - QueuePartitionConstraintValidation
-  - ATExecAttachPartition
-  - CloneRowTriggersToPartition
-  - CreateTriggerFiringOn
-  - check_default_partition_contents
-  - generate_partition_qual
+  - [QueuePartitionConstraintValidation](../Q/QueuePartitionConstraintValidation.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
+  - [CloneRowTriggersToPartition](../C/CloneRowTriggersToPartition.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
+  - [generate_partition_qual](../g/generate_partition_qual.md)
 
 ## Notes and Other Information
 - The function can work on any node tree structure, not just Lists, but uses List type for convenience since most callers work with Lists

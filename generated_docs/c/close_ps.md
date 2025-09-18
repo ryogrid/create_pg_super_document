@@ -22,8 +22,8 @@ This function serves as the PostgreSQL SQL interface for finding the closest poi
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P: Extracts point argument from function call
   - PG_GETARG_LSEG_P: Extracts line segment argument from function call
-  - palloc: PostgreSQL memory allocation function
-  - lseg_closept_point: Internal function that performs the closest point calculation
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
+  - [lseg_closept_point](../l/lseg_closept_point.md): Internal function that performs the closest point calculation
   - isnan: Checks for NaN (Not a Number) values
   - PG_RETURN_POINT_P: Returns point result to SQL layer
 - Called from (representative examples):

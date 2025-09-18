@@ -29,13 +29,13 @@ The function includes robust error handling and security measures, including pas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `libpqrcv_check_conninfo` (validate connection parameters)
-  - `GetDatabaseEncodingName` (for logical replication encoding)
-  - `PQconnectStartParams` (initiate asynchronous connection)
-  - `PQconnectPoll` (advance connection state machine)
-  - `WaitLatchOrSocket` (wait for socket events)
-  - `ProcessWalRcvInterrupts` (handle interrupts during connection)
-  - `libpqrcv_PQexec` (execute secure search path SQL)
+  - `[libpqrcv_check_conninfo](libpqrcv_check_conninfo.md)` (validate connection parameters)
+  - `[GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md)` (for logical replication encoding)
+  - `[PQconnectStartParams](../P/PQconnectStartParams.md)` (initiate asynchronous connection)
+  - `[PQconnectPoll](../P/PQconnectPoll.md)` (advance connection state machine)
+  - `[WaitLatchOrSocket](../W/WaitLatchOrSocket.md)` (wait for socket events)
+  - `[ProcessWalRcvInterrupts](../P/ProcessWalRcvInterrupts.md)` (handle interrupts during connection)
+  - `[libpqrcv_PQexec](libpqrcv_PQexec.md)` (execute secure search path SQL)
   - Various libpq functions (PQstatus, PQconnectionUsedPassword, etc.)
 
 - Called from (representative examples):

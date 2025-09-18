@@ -29,10 +29,10 @@ ECPGconnect is the primary connection establishment function in ECPG that handle
   - ecpg_strdup
   - ecpg_get_connection
   - ecpg_alloc
-  - PQconnectdbParams
-  - PQsetNoticeReceiver
-  - ECPGnoticeReceiver
-  - pthread_mutex_lock/unlock
+  - [PQconnectdbParams](../P/PQconnectdbParams.md)
+  - [PQsetNoticeReceiver](../P/PQsetNoticeReceiver.md)
+  - [ECPGnoticeReceiver](ECPGnoticeReceiver.md)
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)/unlock
   - pthread_setspecific
 - Called from (representative examples):
   - ECPG-generated code for database connections

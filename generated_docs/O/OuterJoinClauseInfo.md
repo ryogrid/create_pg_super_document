@@ -24,14 +24,14 @@ The structure serves as a bridge between the restrictinfo representation of the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node identification)
-  - RestrictInfo (clause restriction information)
-  - SpecialJoinInfo (outer join metadata)
+  - [RestrictInfo](../R/RestrictInfo.md) (clause restriction information)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (outer join metadata)
 
 - Called from (representative examples):
-  - distribute_qual_to_rels
-  - reconsider_outer_join_clauses
-  - reconsider_outer_join_clause
-  - reconsider_full_join_clause
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
+  - [reconsider_outer_join_clauses](../r/reconsider_outer_join_clauses.md)
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md)
+  - [reconsider_full_join_clause](../r/reconsider_full_join_clause.md)
 
 ## Notes and Other Information
 - Transient structure used only during planning phase, not persisted in final plans

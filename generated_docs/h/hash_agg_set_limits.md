@@ -35,14 +35,14 @@ The function considers whether spilling is expected based on input size estimate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit
-  - hash_choose_num_partitions
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
+  - [hash_choose_num_partitions](hash_choose_num_partitions.md)
   - HASHAGG_READ_BUFFER_SIZE
   - HASHAGG_WRITE_BUFFER_SIZE
 - Called from (representative examples):
-  - agg_refill_hash_table
-  - ExecInitAgg
-  - cost_agg
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [cost_agg](../c/cost_agg.md)
 
 ## Notes and Other Information
 - The function implements a safety margin by ensuring limits don't drop below 75% of hash_mem when at minimum partitions

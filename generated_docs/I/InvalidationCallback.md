@@ -21,7 +21,7 @@ This static function serves as a syscache invalidation callback that is triggere
 - Functions called/Symbols referenced:
   - None (only modifies global variables)
 - Called from (representative examples):
-  - InitializeSearchPath (registered for NAMESPACEOID, AUTHOID, AUTHMEMROLEMEM, DATABASEOID caches)
+  - [InitializeSearchPath](InitializeSearchPath.md) (registered for NAMESPACEOID, AUTHOID, AUTHMEMROLEMEM, DATABASEOID caches)
 
 ## Notes and Other Information
 - Declared as static, so it's only accessible within namespace.c

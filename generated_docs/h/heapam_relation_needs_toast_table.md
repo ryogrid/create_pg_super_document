@@ -22,13 +22,13 @@ The function iterates through all non-dropped attributes, calculating the total 
 ## Dependencies
 - Functions called/Symbols referenced:
   - att_align_nominal
-  - type_maximum_size
+  - [type_maximum_size](../t/type_maximum_size.md)
   - TYPSTORAGE_PLAIN
   - SizeofHeapTupleHeader
   - BITMAPLEN
   - TOAST_TUPLE_THRESHOLD
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
 
 ## Notes and Other Information
 This function implements the logic for PostgreSQLs automatic TOAST table creation. It avoids creating unnecessary TOAST tables for relations with only small variable-length attributes (like "varchar(20)") while ensuring that relations with potentially large tuples get proper TOAST support. The calculation includes proper alignment considerations and accounts for tuple header overhead, providing an accurate assessment of storage requirements.

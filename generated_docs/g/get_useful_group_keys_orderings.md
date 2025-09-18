@@ -22,19 +22,19 @@ The function evaluates whether alternative orderings are beneficial by checking 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GroupByOrdering (structure for storing pathkey/clause pairs)
+  - [GroupByOrdering](../G/GroupByOrdering.md) (structure for storing pathkey/clause pairs)
   - makeNode (creates new node structures)
-  - pathkeys_contained_in (checks if path ordering satisfies group requirements)
-  - group_keys_reorder_by_pathkeys (reorders keys to match path)
-  - compare_pathkeys (compares pathkey lists)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md) (checks if path ordering satisfies group requirements)
+  - [group_keys_reorder_by_pathkeys](group_keys_reorder_by_pathkeys.md) (reorders keys to match path)
+  - [compare_pathkeys](../c/compare_pathkeys.md) (compares pathkey lists)
   - PATHKEYS_EQUAL (comparison result constant)
   - linitial_node (gets first list element safely)
   - for_each_from (iteration macro)
-  - list_difference (computes list differences)
+  - [list_difference](../l/list_difference.md) (computes list differences)
   - forboth (iterates two lists simultaneously)
 - Called from (representative examples):
-  - add_paths_to_grouping_rel
-  - create_partial_grouping_paths
+  - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md)
+  - [create_partial_grouping_paths](../c/create_partial_grouping_paths.md)
 
 ## Notes and Other Information
 This function is controlled by the enable_group_by_reordering GUC parameter and does not operate on queries with grouping sets, which have their own complex ordering logic. The function is essential for enabling incremental sort optimizations in GROUP BY operations, allowing the planner to take advantage of existing sort orders to minimize sorting costs. Debug builds include extensive assertion checking to validate the consistency and completeness of generated orderings.

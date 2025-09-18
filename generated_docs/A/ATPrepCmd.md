@@ -34,19 +34,19 @@ The function categorizes operations into execution passes (AT_PASS_*) that deter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ATGetQueueEntry
-  - ATSimplePermissions
-  - ATSimpleRecursion
-  - ATPrepAddColumn
-  - ATPrepDropColumn
-  - ATPrepSetNotNull
-  - ATPrepAlterColumnType
+  - [ATGetQueueEntry](ATGetQueueEntry.md)
+  - [ATSimplePermissions](ATSimplePermissions.md)
+  - [ATSimpleRecursion](ATSimpleRecursion.md)
+  - [ATPrepAddColumn](ATPrepAddColumn.md)
+  - [ATPrepDropColumn](ATPrepDropColumn.md)
+  - [ATPrepSetNotNull](ATPrepSetNotNull.md)
+  - [ATPrepAlterColumnType](ATPrepAlterColumnType.md)
   - Various AT_* subcommand constants
   - Multiple AT_PASS_* execution pass constants
 - Called from (representative examples):
-  - ATController
-  - ATSimpleRecursion
-  - ATTypedTableRecursion
+  - [ATController](ATController.md)
+  - [ATSimpleRecursion](ATSimpleRecursion.md)
+  - [ATTypedTableRecursion](ATTypedTableRecursion.md)
 
 ## Notes and Other Information
 - Static function scope limits access to internal ALTER TABLE implementation

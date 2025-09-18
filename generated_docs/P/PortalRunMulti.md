@@ -28,16 +28,16 @@ PortalRunMulti is the most comprehensive portal execution function, designed to 
   - RegisterSnapshot
   - PushCopiedSnapshot
   - UpdateActiveSnapshotCommandId
-  - ProcessQuery
+  - [ProcessQuery](ProcessQuery.md)
   - ShowUsage
-  - PortalRunUtility
-  - MemoryContextDeleteChildren
+  - [PortalRunUtility](PortalRunUtility.md)
+  - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)
   - CommandCounterIncrement
   - PopActiveSnapshot
   - CopyQueryCompletion
 - Called from (representative examples):
-  - PortalRun
-  - FillPortalStore
+  - [PortalRun](PortalRun.md)
+  - [FillPortalStore](../F/FillPortalStore.md)
 
 ## Notes and Other Information
 - This function is static and only used within pquery.c

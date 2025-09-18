@@ -26,9 +26,9 @@ The `TrackItem` structure is a simple container used internally by PostgreSQL's 
 - Functions called/Symbols referenced:
   - None (structure definition)
 - Called from (representative examples):
-  - compute_scalar_stats (implicitly through local typedef)
-  - compute_tsvector_stats
-  - compute_array_stats
+  - [compute_scalar_stats](../c/compute_scalar_stats.md) (implicitly through local typedef)
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
+  - [compute_array_stats](../c/compute_array_stats.md)
 
 ## Notes and Other Information
 - This is a local typedef typically defined within statistical analysis functions

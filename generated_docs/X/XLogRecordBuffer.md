@@ -22,25 +22,25 @@ The structure provides both positional information (where the record starts and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (typedef for WAL record pointer)
-  - XLogReaderState (structure for WAL record reading state)
+  - [XLogReaderState](XLogReaderState.md) (structure for WAL record reading state)
 - Called from (representative examples):
-  - LogicalDecodingProcessRecord
-  - xlog_decode
-  - xact_decode
-  - standby_decode
-  - heap2_decode
-  - heap_decode
-  - logicalmsg_decode
-  - DecodeCommit
-  - DecodePrepare
-  - DecodeAbort
-  - DecodeInsert
-  - DecodeUpdate
-  - DecodeDelete
-  - DecodeTruncate
-  - DecodeMultiInsert
-  - DecodeSpecConfirm
-  - DecodeTXNNeedSkip
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md)
+  - [xlog_decode](../x/xlog_decode.md)
+  - [xact_decode](../x/xact_decode.md)
+  - [standby_decode](../s/standby_decode.md)
+  - [heap2_decode](../h/heap2_decode.md)
+  - [heap_decode](../h/heap_decode.md)
+  - [logicalmsg_decode](../l/logicalmsg_decode.md)
+  - [DecodeCommit](../D/DecodeCommit.md)
+  - [DecodePrepare](../D/DecodePrepare.md)
+  - [DecodeAbort](../D/DecodeAbort.md)
+  - [DecodeInsert](../D/DecodeInsert.md)
+  - [DecodeUpdate](../D/DecodeUpdate.md)
+  - [DecodeDelete](../D/DecodeDelete.md)
+  - [DecodeTruncate](../D/DecodeTruncate.md)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md)
+  - [DecodeSpecConfirm](../D/DecodeSpecConfirm.md)
+  - [DecodeTXNNeedSkip](../D/DecodeTXNNeedSkip.md)
 
 ## Notes and Other Information
 - This structure is primarily used within the logical decoding framework (src/backend/replication/logical/)

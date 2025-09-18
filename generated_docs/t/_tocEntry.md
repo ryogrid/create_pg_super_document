@@ -69,14 +69,14 @@ This design enables efficient dependency resolution, selective restoration, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogId (PostgreSQL catalog identifier type)
+  - [CatalogId](../C/CatalogId.md) (PostgreSQL catalog identifier type)
   - DumpId (dump-specific identifier type)
   - teSection (table entry section enumeration)
   - pgoff_t (PostgreSQL offset type)
   - DataDumperPtr (function pointer type for data dumping)
   
 - Called from (representative examples):
-  - TocEntry (typedef wrapper)
+  - [TocEntry](../T/TocEntry.md) (typedef wrapper)
   - _archiveHandle (contains arrays and pointers to entries)
   - All archive format implementations (custom, tar, directory, null)
   - Parallel processing functions throughout pg_dump/pg_restore

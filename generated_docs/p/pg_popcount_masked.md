@@ -21,10 +21,10 @@ pg_popcount_masked extends the functionality of pg_popcount by applying a bitwis
 - Functions called/Symbols referenced:
   - bits8 (8-bit unsigned integer type for the mask)
   - pg_number_of_ones (lookup table for single byte bit counts)
-  - pg_popcount_masked_optimized (optimized implementation for larger buffers)
+  - [pg_popcount_masked_optimized](pg_popcount_masked_optimized.md) (optimized implementation for larger buffers)
 - Called from (representative examples):
-  - visibilitymap_count (counting visible tuples in heap visibility maps)
-  - pg_popcount_masked_choose (function pointer selection mechanism)
+  - [visibilitymap_count](../v/visibilitymap_count.md) (counting visible tuples in heap visibility maps)
+  - [pg_popcount_masked_choose](pg_popcount_masked_choose.md) (function pointer selection mechanism)
 
 ## Notes and Other Information
 - The function is declared as static inline for performance

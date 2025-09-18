@@ -38,19 +38,19 @@ The function handles whitespace trimming, validates input format, and provides d
   - text_to_cstring: Converts PostgreSQL text to C string
   - isspace, isdigit: Character classification functions
   - DirectFunctionCall3: PostgreSQL function call interface for 3 parameters
-  - numeric_in: Converts string to Numeric
-  - CStringGetDatum, ObjectIdGetDatum, Int32GetDatum: Datum conversion functions
-  - DatumGetNumeric: Converts Datum to Numeric
+  - [numeric_in](../n/numeric_in.md): Converts string to Numeric
+  - [CStringGetDatum](../C/CStringGetDatum.md), ObjectIdGetDatum, Int32GetDatum: Datum conversion functions
+  - [DatumGetNumeric](../D/DatumGetNumeric.md): Converts Datum to Numeric
   - size_pretty_units: Array of standard size unit definitions
   - size_bytes_aliases: Array of size unit aliases
-  - pg_strcasecmp: Case-insensitive string comparison
-  - int64_to_numeric: Converts int64 to Numeric
+  - [pg_strcasecmp](pg_strcasecmp.md): Case-insensitive string comparison
+  - [int64_to_numeric](../i/int64_to_numeric.md): Converts int64 to Numeric
   - DirectFunctionCall2: PostgreSQL function call interface for 2 parameters  
-  - numeric_mul: Numeric multiplication
-  - NumericGetDatum: Converts Numeric to Datum
+  - [numeric_mul](../n/numeric_mul.md): Numeric multiplication
+  - [NumericGetDatum](../N/NumericGetDatum.md): Converts Numeric to Datum
   - DirectFunctionCall1: PostgreSQL function call interface for 1 parameter
-  - numeric_int8: Converts Numeric to int64
-  - DatumGetInt64: Converts Datum to int64
+  - [numeric_int8](../n/numeric_int8.md): Converts Numeric to int64
+  - [DatumGetInt64](../D/DatumGetInt64.md): Converts Datum to int64
   - PG_RETURN_INT64: Returns int64 result from function
 - Called from (representative examples):
   - No direct references found (likely called via SQL)

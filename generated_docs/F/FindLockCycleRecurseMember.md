@@ -32,11 +32,11 @@ For relation extension locks, the function immediately returns false as these lo
   - dlist_foreach
   - dlist_container
   - dclist_foreach
-  - FindLockCycleRecurse
+  - [FindLockCycleRecurse](FindLockCycleRecurse.md)
   - LOCK_LOCKTAG
   - LOCKBIT_ON
 - Called from (representative examples):
-  - FindLockCycleRecurse
+  - [FindLockCycleRecurse](FindLockCycleRecurse.md)
 
 ## Notes and Other Information
 - Skips relation extension locks as they cannot cause deadlocks by design

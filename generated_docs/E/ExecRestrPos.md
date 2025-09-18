@@ -31,15 +31,15 @@ Unlike ExecMarkPos, this function throws a hard error for unsupported node types
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)
-  - ExecIndexRestrPos (index scan position restoration)
-  - ExecIndexOnlyRestrPos (index-only scan position restoration)  
-  - ExecCustomRestrPos (custom scan position restoration)
-  - ExecMaterialRestrPos (material node position restoration)
-  - ExecSortRestrPos (sort node position restoration)
-  - ExecResultRestrPos (result node position restoration)
+  - [ExecIndexRestrPos](ExecIndexRestrPos.md) (index scan position restoration)
+  - [ExecIndexOnlyRestrPos](ExecIndexOnlyRestrPos.md) (index-only scan position restoration)  
+  - [ExecCustomRestrPos](ExecCustomRestrPos.md) (custom scan position restoration)
+  - [ExecMaterialRestrPos](ExecMaterialRestrPos.md) (material node position restoration)
+  - [ExecSortRestrPos](ExecSortRestrPos.md) (sort node position restoration)
+  - [ExecResultRestrPos](ExecResultRestrPos.md) (result node position restoration)
 - Called from (representative examples):
   - ExecMergeJoin (merge join operations)
-  - ExecResultRestrPos (result node delegation)
+  - [ExecResultRestrPos](ExecResultRestrPos.md) (result node delegation)
 
 ## Notes and Other Information
 - The function provides strong semantic guarantees about tuple retrieval consistency after restore

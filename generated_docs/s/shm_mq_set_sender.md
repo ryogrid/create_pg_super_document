@@ -20,8 +20,8 @@ The shm_mq_set_sender function assigns a PGPROC structure (representing a Postgr
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - SetLatch
-  - PGPROC (structure)
+  - [SetLatch](../S/SetLatch.md)
+  - [PGPROC](../P/PGPROC.md) (structure)
 - Called from (representative examples):
   - Functions that set up parallel worker processes
   - Functions that establish inter-process communication channels

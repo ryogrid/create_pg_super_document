@@ -23,10 +23,10 @@ For dollar-quoted literals, position mapping is straightforward since there are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbstrlen_with_len
-  - match_prosrc_to_literal
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [match_prosrc_to_literal](match_prosrc_to_literal.md)
 - Called from (representative examples):
-  - function_parse_error_transpose
+  - [function_parse_error_transpose](../f/function_parse_error_transpose.md)
 
 ## Notes and Other Information
 - Returns the mapped character position in the original query, or 0 if unsuccessful

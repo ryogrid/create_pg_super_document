@@ -27,12 +27,12 @@ The function allocates arrays for both element values (Datum) and null flags (bo
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (creates new memory context when subcontext=true)
-  - MemoryContextAlloc (allocates memory for state structure and arrays)
-  - get_typlenbyvalalign (retrieves type information for the element type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for state structure and arrays)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md) (retrieves type information for the element type)
 - Called from (representative examples):
-  - initArrayResult (wrapper function with default sizes)
-  - array_agg_combine (combining array aggregation states)
-  - array_agg_deserialize (deserializing array aggregation states)
+  - [initArrayResult](initArrayResult.md) (wrapper function with default sizes)
+  - [array_agg_combine](../a/array_agg_combine.md) (combining array aggregation states)
+  - [array_agg_deserialize](../a/array_agg_deserialize.md) (deserializing array aggregation states)
 
 ## Notes and Other Information
 - This is the core initialization function that does the actual work for array building setup

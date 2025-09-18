@@ -28,18 +28,18 @@ The function handles both standalone and cascading replication scenarios, automa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSndWaitForWal
-  - RecoveryInProgress
-  - GetXLogReplayRecPtr
-  - GetWALInsertionTimeLine
-  - XLogReadDetermineTimeline
-  - WALRead
-  - WALReadRaiseError
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
+  - [GetWALInsertionTimeLine](../G/GetWALInsertionTimeLine.md)
+  - [XLogReadDetermineTimeline](../X/XLogReadDetermineTimeline.md)
+  - [WALRead](../W/WALRead.md)
+  - [WALReadRaiseError](../W/WALReadRaiseError.md)
   - XLByteToSeg
-  - CheckXLogRemoved
+  - [CheckXLogRemoved](../C/CheckXLogRemoved.md)
 - Called from:
-  - CreateReplicationSlot
-  - StartLogicalReplication
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
 
 ## Notes and Other Information
 - Optimized specifically for walsender processes performing logical decoding

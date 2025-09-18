@@ -22,18 +22,18 @@ ECPGtrans is a core ECPG function that handles transaction control operations. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - ecpg_get_connection
-  - ecpg_init
-  - ecpg_log
+  - [ecpg_init](../e/ecpg_init.md)
+  - [ecpg_log](../e/ecpg_log.md)
   - PQtransactionStatus
   - PQTRANS_IDLE
-  - PQexec
-  - ecpg_check_PQresult
+  - [PQexec](../P/PQexec.md)
+  - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md)
   - ECPG_COMPAT_PGSQL
 - Called from (representative examples):
   - Various ECPG test programs (main functions)
-  - varchar_1, string functions in cursor/define tests
-  - commitTable in declare tests
-  - test_thread in threading tests
+  - [varchar_1](../v/varchar_1.md), string functions in cursor/define tests
+  - [commitTable](../c/commitTable.md) in declare tests
+  - [test_thread](../t/test_thread.md) in threading tests
 
 ## Notes and Other Information
 - Automatically begins transactions when needed (unless in autocommit mode)

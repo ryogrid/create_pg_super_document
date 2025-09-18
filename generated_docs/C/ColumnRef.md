@@ -33,18 +33,18 @@ This node type is fundamental to SQL expression parsing and is transformed durin
   - ParseLoc
 - Called from (representative examples):
   - transformColumnRef
-  - ExpandColumnRefStar
-  - transformExprRecurse
-  - findTargetlistEntrySQL92
-  - transformTargetList
-  - transformExpressionList
-  - FigureColnameInternal
-  - transformPLAssignStmt
+  - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md)
+  - [transformTargetList](../t/transformTargetList.md)
+  - [transformExpressionList](../t/transformExpressionList.md)
+  - [FigureColnameInternal](../F/FigureColnameInternal.md)
+  - [transformPLAssignStmt](../t/transformPLAssignStmt.md)
 
 ## Notes and Other Information
 - The fields list represents the qualification hierarchy: ["table", "column"] for table.column
-- A_Star nodes are used for SELECT * and table.* expressions
-- ColumnRef nodes are created by the parser and resolved during semantic analysis
+- [A_Star](../A/A_Star.md) nodes are used for SELECT * and table.* expressions
+- [ColumnRef](ColumnRef.md) nodes are created by the parser and resolved during semantic analysis
 - Complex column references like array subscripts use additional A_Indirection nodes above ColumnRef
 - Essential for implementing SQL's column reference semantics and name resolution
 - Used extensively in target lists, WHERE clauses, and other expression contexts

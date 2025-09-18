@@ -19,10 +19,10 @@ The `boolout` function serves as the output conversion function for PostgreSQL's
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL (PostgreSQL function argument extraction macro for boolean)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - PG_RETURN_CSTRING (PostgreSQL return value macro for C strings)
 - Called from (representative examples):
-  - ExecGetJsonValueItemString (execExprInterp.c:4506)
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md) (execExprInterp.c:4506)
   - PostgreSQL type system (no direct references in indexed code)
 
 ## Notes and Other Information

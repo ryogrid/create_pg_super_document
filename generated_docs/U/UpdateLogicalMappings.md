@@ -28,19 +28,19 @@ The mapping files follow the LOGICAL_REWRITE_FORMAT naming convention and contai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSharedRelation
+  - [IsSharedRelation](../I/IsSharedRelation.md)
   - AllocateDir
   - ReadDir
   - FreeDir
-  - TransactionIdDidCommit
-  - TransactionIdInArray
-  - list_sort
-  - file_sort_by_lsn
-  - ApplyLogicalMappingFile
-  - RewriteMappingFile
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [TransactionIdInArray](../T/TransactionIdInArray.md)
+  - [list_sort](../l/list_sort.md)
+  - [file_sort_by_lsn](../f/file_sort_by_lsn.md)
+  - [ApplyLogicalMappingFile](../A/ApplyLogicalMappingFile.md)
+  - [RewriteMappingFile](../R/RewriteMappingFile.md)
   - LOGICAL_REWRITE_FORMAT
 - Called from (representative examples):
-  - ResolveCminCmaxDuringDecoding
+  - [ResolveCminCmaxDuringDecoding](../R/ResolveCminCmaxDuringDecoding.md)
 
 ## Notes and Other Information
 - This function is static and only used within the reorderbuffer.c module

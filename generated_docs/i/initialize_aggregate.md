@@ -21,18 +21,18 @@ This function handles the initialization of a single aggregate function within t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggStatePerTrans (struct type)
-  - AggState (struct type)
-  - AggStatePerGroup (struct type)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct type)
+  - [AggState](../A/AggState.md) (struct type)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md) (struct type)
   - tuplesort_end
-  - tuplesort_begin_datum
-  - tuplesort_begin_heap
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
   - TUPLESORT_NONE
-  - initValue
-  - datumCopy
+  - [initValue](initValue.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - initialize_aggregates
-  - initialize_hash_entry
+  - [initialize_aggregates](initialize_aggregates.md)
+  - [initialize_hash_entry](initialize_hash_entry.md)
 
 ## Notes and Other Information
 The function includes important memory management logic: when the initial value is pass-by-reference, it must be copied into the aggregate context since the original will be freed later. The function handles both scenarios where aggregates have explicit initial values and where they derive initial values from the first non-NULL input (indicated by the noTransValue flag). For DISTINCT/ORDER BY aggregates, it carefully manages tuplesort lifecycle, cleaning up any existing incomplete sorts during rescans. The choice between datum and heap sorting is an optimization for single-column vs multi-column scenarios.

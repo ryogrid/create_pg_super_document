@@ -22,7 +22,7 @@ T_WorkerStatus is an enumeration that tracks the lifecycle states of worker proc
 - Functions called/Symbols referenced:
   - None (this is a basic enum definition)
 - Called from (representative examples):
-  - ParallelSlot (as workerStatus member)
+  - [ParallelSlot](../P/ParallelSlot.md) (as workerStatus member)
   - WORKER_IS_RUNNING macro
 
 ## Notes and Other Information

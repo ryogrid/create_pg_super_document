@@ -28,12 +28,12 @@ The callback increments the build state's tuple counter to track the total numbe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTBuildState: Build state structure containing context information
-  - gistCompressValues: Compress index attribute values using GiST compress functions
-  - tuplesort_putindextuplevalues: Add compressed tuple values to the tuplesort
-  - MemoryContextReset: Reset temporary memory context after processing
+  - [GISTBuildState](../G/GISTBuildState.md): Build state structure containing context information
+  - [gistCompressValues](gistCompressValues.md): Compress index attribute values using GiST compress functions
+  - [tuplesort_putindextuplevalues](../t/tuplesort_putindextuplevalues.md): Add compressed tuple values to the tuplesort
+  - [MemoryContextReset](../M/MemoryContextReset.md): Reset temporary memory context after processing
 - Called from (representative examples):
-  - gistbuild: Main GiST build function during sorted build mode
+  - [gistbuild](gistbuild.md): Main GiST build function during sorted build mode
 
 ## Notes and Other Information
 - This callback is only used when all index attributes have sort support functions available

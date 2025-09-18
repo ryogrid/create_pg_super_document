@@ -19,8 +19,8 @@ This function provides a way to retrieve the full transaction ID of the current 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventCommandDuringRecovery
-  - GetTopFullTransactionId
+  - [PreventCommandDuringRecovery](../P/PreventCommandDuringRecovery.md)
+  - [GetTopFullTransactionId](../G/GetTopFullTransactionId.md)
   - PG_RETURN_FULLTRANSACTIONID
 - Called from (representative examples):
   - No direct references found (called via SQL function interface)

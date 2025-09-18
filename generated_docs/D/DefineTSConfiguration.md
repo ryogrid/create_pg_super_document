@@ -21,19 +21,19 @@ DefineTSConfiguration implements the CREATE TEXT SEARCH CONFIGURATION SQL comman
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace (resolves namespace and name)
-  - object_aclcheck (checks CREATE permission on namespace)
-  - get_ts_parser_oid (resolves parser name to OID)
-  - get_ts_config_oid (resolves source config name to OID)
-  - GetNewOidWithIndex (allocates new OID for configuration)
-  - heap_form_tuple/CatalogTupleInsert (creates configuration tuple)
-  - MakeSingleTupleTableSlot/ExecDropSingleTupleTableSlot (manages tuple slots)
-  - CatalogTuplesMultiInsertWithInfo (batch inserts map entries)
-  - makeConfigurationDependencies (establishes dependencies)
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md) (resolves namespace and name)
+  - [object_aclcheck](../o/object_aclcheck.md) (checks CREATE permission on namespace)
+  - [get_ts_parser_oid](../g/get_ts_parser_oid.md) (resolves parser name to OID)
+  - [get_ts_config_oid](../g/get_ts_config_oid.md) (resolves source config name to OID)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (allocates new OID for configuration)
+  - [heap_form_tuple](../h/heap_form_tuple.md)/CatalogTupleInsert (creates configuration tuple)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)/ExecDropSingleTupleTableSlot (manages tuple slots)
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md) (batch inserts map entries)
+  - [makeConfigurationDependencies](../m/makeConfigurationDependencies.md) (establishes dependencies)
   - InvokeObjectPostCreateHook (triggers post-creation hooks)
-  - heap_freetuple (cleanup)
+  - [heap_freetuple](../h/heap_freetuple.md) (cleanup)
 - Called from (representative examples):
-  - ProcessUtilitySlow (SQL command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (SQL command processing)
 
 ## Notes and Other Information
 - Validates mutually exclusive PARSER and COPY options

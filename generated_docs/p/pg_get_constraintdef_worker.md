@@ -24,19 +24,19 @@ The function supports generating either just the constraint clause (e.g., 'CHECK
 - Functions called/Symbols referenced:
   - RegisterSnapshot/UnregisterSnapshot (MVCC transaction snapshot management)
   - table_open/table_close (system catalog access)
-  - systable_beginscan/systable_getnext/systable_endscan (system catalog scanning)
-  - SysCacheGetAttrNotNull/SysCacheGetAttr (system cache attribute retrieval)
-  - decompile_column_index_array (column list decompilation)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan (system catalog scanning)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)/SysCacheGetAttr (system cache attribute retrieval)
+  - [decompile_column_index_array](../d/decompile_column_index_array.md) (column list decompilation)
   - generate_qualified_relation_name/generate_relation_name (relation name generation)
   - generate_qualified_type_name (type name generation)
-  - quote_identifier (SQL identifier quoting)
-  - deparse_expression_pretty (expression decompilation)
-  - pg_get_indexdef_worker (index definition generation for exclusion constraints)
+  - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting)
+  - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (expression decompilation)
+  - [pg_get_indexdef_worker](pg_get_indexdef_worker.md) (index definition generation for exclusion constraints)
   - Various constraint type constants (CONSTRAINT_FOREIGN, CONSTRAINT_PRIMARY, etc.)
 - Called from (representative examples):
-  - pg_get_constraintdef (basic constraint definition function)
-  - pg_get_constraintdef_ext (extended constraint definition function)
-  - pg_get_constraintdef_command (command generation function)
+  - [pg_get_constraintdef](pg_get_constraintdef.md) (basic constraint definition function)
+  - [pg_get_constraintdef_ext](pg_get_constraintdef_ext.md) (extended constraint definition function)
+  - [pg_get_constraintdef_command](pg_get_constraintdef_command.md) (command generation function)
 
 ## Notes and Other Information
 - Uses MVCC snapshots to ensure consistent reads of constraint metadata

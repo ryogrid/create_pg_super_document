@@ -17,7 +17,7 @@ pqWriteReady provides a non-blocking check to determine if the connection socket
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqSocketCheck
+  - [pqSocketCheck](pqSocketCheck.md)
 - Called from (representative examples):
   - pgunlock_thread
 

@@ -17,9 +17,9 @@ This function searches the PostgreSQL dependency system to find all foreign key 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_depend
   - DEPENDENCY_NORMAL
   - lappend_oid

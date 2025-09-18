@@ -26,8 +26,8 @@ This function is particularly useful in error recovery scenarios where validatio
 - Functions called/Symbols referenced:
   - No external functions or symbols are referenced
 - Called from (representative examples):
-  - XLogPageRead (at line 3478 in xlogrecovery.c)
-  - XLogPageReadResult (header function at line 376)
+  - [XLogPageRead](XLogPageRead.md) (at line 3478 in xlogrecovery.c)
+  - [XLogPageReadResult](XLogPageReadResult.md) (header function at line 376)
 
 ## Notes and Other Information
 - Public function (non-static) available for use by other WAL processing components

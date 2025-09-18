@@ -23,9 +23,9 @@ This structure is part of a test module that demonstrates how to implement a cus
 - Functions called/Symbols referenced:
   - (This structure itself doesn't call functions, but serves as a data container)
 - Called from (representative examples):
-  - testprs_start (initializes ParserState)
-  - testprs_getlexeme (uses ParserState to extract tokens)
-  - testprs_end (cleans up ParserState)
+  - [testprs_start](../t/testprs_start.md) (initializes ParserState)
+  - [testprs_getlexeme](../t/testprs_getlexeme.md) (uses ParserState to extract tokens)
+  - [testprs_end](../t/testprs_end.md) (cleans up ParserState)
 
 ## Notes and Other Information
 - This structure is allocated using PostgreSQL's palloc0() function in testprs_start() and freed using pfree() in testprs_end()

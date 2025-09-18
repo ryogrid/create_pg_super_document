@@ -26,7 +26,7 @@ The `float4smaller` function is a PostgreSQL built-in function that compares two
 - Functions called/Symbols referenced:
   - `PG_GETARG_FLOAT4` - macro to extract float4 arguments from function call
   - `PG_RETURN_FLOAT4` - macro to return float4 result as Datum
-  - `float4_lt` - function to compare two float4 values for less-than relationship
+  - `[float4_lt](float4_lt.md)` - function to compare two float4 values for less-than relationship
   - `float4` - PostgreSQL type for single-precision floating-point numbers
 - Called from (representative examples):
   - No direct references found in the codebase

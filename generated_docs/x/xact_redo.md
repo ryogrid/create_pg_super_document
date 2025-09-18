@@ -22,12 +22,12 @@ This function serves as the central dispatcher for all transaction-related WAL r
   - XLogRecGetData
   - XLogRecGetXid
   - XLogRecGetOrigin
-  - ParseCommitRecord
-  - ParseAbortRecord
-  - xact_redo_commit
-  - xact_redo_abort
-  - PrepareRedoAdd
-  - PrepareRedoRemove
+  - [ParseCommitRecord](../P/ParseCommitRecord.md)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md)
+  - [xact_redo_commit](xact_redo_commit.md)
+  - [xact_redo_abort](xact_redo_abort.md)
+  - [PrepareRedoAdd](../P/PrepareRedoAdd.md)
+  - [PrepareRedoRemove](../P/PrepareRedoRemove.md)
   - ProcArrayApplyXidAssignment
   - LWLockAcquire
   - LWLockRelease

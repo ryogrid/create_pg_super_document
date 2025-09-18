@@ -21,17 +21,17 @@ The function maintains progress reporting by logging a NOTICE message every 10 m
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReadNextFullTransactionId
-  - GetTopTransactionId  
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)  
   - GetNewTransactionId
-  - consume_xids_shortcut
+  - [consume_xids_shortcut](consume_xids_shortcut.md)
   - FullTransactionIdFollowsOrEquals
   - U64FromFullTransactionId
   - EpochFromFullTransactionId
   - XidFromFullTransactionId
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - consume_xids
-  - consume_xids_until
+  - [consume_xids](consume_xids.md)
+  - [consume_xids_until](consume_xids_until.md)
 
 ## Notes and Other Information
 - This function is part of the xid_wraparound test module located in src/test/modules/xid_wraparound/

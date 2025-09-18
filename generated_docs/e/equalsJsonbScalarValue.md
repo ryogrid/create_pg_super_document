@@ -18,14 +18,14 @@ This static function performs equality comparison between two JsonbValue scalar 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lengthCompareJsonbStringValue (for string comparison)
+  - [lengthCompareJsonbStringValue](../l/lengthCompareJsonbStringValue.md) (for string comparison)
   - DirectFunctionCall2 (for calling numeric_eq)
   - numeric_eq (for numeric equality comparison)
-  - PointerGetDatum (for datum conversion)
-  - DatumGetBool (for boolean result conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (for datum conversion)
+  - [DatumGetBool](../D/DatumGetBool.md) (for boolean result conversion)
 - Called from (representative examples):
-  - findJsonbValueFromContainer
-  - JsonbDeepContains
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md)
+  - [JsonbDeepContains](../J/JsonbDeepContains.md)
 
 ## Notes and Other Information
 The function is declared static, limiting its scope to the jsonb_util.c file. It requires both values to have identical types and will generate ERROR conditions for type mismatches or invalid scalar types. This strict type checking ensures that equality comparisons are semantically meaningful and prevents undefined behavior. The function is a key component in JSONB containment checking and value lookup operations.

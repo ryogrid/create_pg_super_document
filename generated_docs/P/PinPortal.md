@@ -23,12 +23,12 @@ However, pinning is not absolute protection - pinned portals are still automatic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Portal (type)
+  - [Portal](Portal.md) (type)
 - Called from (representative examples):
-  - plperl_spi_query
-  - plperl_spi_query_prepared
-  - PLy_cursor_query
-  - PLy_cursor_plan
+  - [plperl_spi_query](../p/plperl_spi_query.md)
+  - [plperl_spi_query_prepared](../p/plperl_spi_query_prepared.md)
+  - [PLy_cursor_query](PLy_cursor_query.md)
+  - [PLy_cursor_plan](PLy_cursor_plan.md)
 
 ## Notes and Other Information
 - Throws an ERROR if the portal is already pinned, preventing double-pinning bugs

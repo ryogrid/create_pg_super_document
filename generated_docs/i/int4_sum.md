@@ -30,7 +30,7 @@ The function is non-strict and must handle null inputs explicitly. When called i
   - PG_RETURN_NULL (return null result)
   - PG_RETURN_INT64 (return int8 result)  
   - PG_RETURN_POINTER (return pointer result)
-  - AggCheckCallContext (check if called in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if called in aggregate context)
 - Called from:
   - No direct references found (called through PostgreSQL's aggregate mechanism)
 

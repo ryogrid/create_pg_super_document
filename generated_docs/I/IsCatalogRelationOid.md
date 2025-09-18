@@ -25,10 +25,10 @@ The function is designed to be extremely lightweight, performing no catalog acce
 - Functions called/Symbols referenced:
   - FirstUnpinnedObjectId (constant defining the boundary between pinned and unpinned OIDs)
 - Called from (representative examples):
-  - IsSystemClass
-  - IsCatalogRelation
-  - is_publishable_class
-  - ReindexMultipleTables
+  - [IsSystemClass](IsSystemClass.md)
+  - [IsCatalogRelation](IsCatalogRelation.md)
+  - [is_publishable_class](../i/is_publishable_class.md)
+  - [ReindexMultipleTables](../R/ReindexMultipleTables.md)
   - read_stream_begin_relation
 
 ## Notes and Other Information

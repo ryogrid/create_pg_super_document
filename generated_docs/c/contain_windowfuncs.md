@@ -24,11 +24,11 @@ Window functions (such as ROW_NUMBER(), RANK(), LAG(), LEAD(), etc.) have specia
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_walker (tree traversal utility)
-  - contain_windowfuncs_walker (callback function for tree walking)
+  - [contain_windowfuncs_walker](contain_windowfuncs_walker.md) (callback function for tree walking)
 - Called from (representative examples):
-  - contain_window_function (optimizer clauses utility)
-  - transformWindowFuncCall (parser window function handling)
-  - checkTargetlistEntrySQL92 (SQL standard compliance checking)
+  - [contain_window_function](contain_window_function.md) (optimizer clauses utility)
+  - [transformWindowFuncCall](../t/transformWindowFuncCall.md) (parser window function handling)
+  - [checkTargetlistEntrySQL92](checkTargetlistEntrySQL92.md) (SQL standard compliance checking)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:216-228

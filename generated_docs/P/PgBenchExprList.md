@@ -18,7 +18,7 @@ PgBenchExprList provides an efficient way to manage linked lists of expressions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBenchExprLink (struct)
+  - [PgBenchExprLink](PgBenchExprLink.md) (struct)
 - Called from (representative examples):
   - Expression parsing functions
   - Function argument list construction

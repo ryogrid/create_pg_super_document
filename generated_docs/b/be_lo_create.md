@@ -21,8 +21,8 @@ This function implements the backend support for PostgreSQL's lo_create() large 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (OID parameter extraction macro)
-  - PreventCommandIfReadOnly (prevents execution in read-only transactions)
-  - inv_create (internal large object creation function)
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md) (prevents execution in read-only transactions)
+  - [inv_create](../i/inv_create.md) (internal large object creation function)
   - PG_RETURN_OID (OID return value macro)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function call mechanism)

@@ -17,7 +17,7 @@ SlabDelete is responsible for completely destroying a slab memory context. It pe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabReset
+  - [SlabReset](SlabReset.md)
   - free
 - Called from (representative examples):
   - BOGUS_MCTX (src/backend/utils/mmgr/mcxt.c:80)

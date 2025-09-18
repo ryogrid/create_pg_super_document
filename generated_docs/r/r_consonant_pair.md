@@ -30,15 +30,15 @@ The function includes boundary checking to ensure operations occur only within t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward pattern matching against doubled consonant list a_1)
-  - slice_del (consonant deletion operation)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching against doubled consonant list a_1)
+  - [slice_del](../s/slice_del.md) (consonant deletion operation)
   - a_1 (array of 4 doubled consonant patterns)
 - Called from (representative examples):
-  - r_other_suffix (within the same stemming process)
-  - danish_ISO_8859_1_stem (main Danish stemming function)
-  - norwegian_ISO_8859_1_stem (main Norwegian stemming function)
-  - swedish_ISO_8859_1_stem (main Swedish stemming function)
-  - danish_UTF_8_stem, norwegian_UTF_8_stem, swedish_UTF_8_stem (UTF-8 variants)
+  - [r_other_suffix](r_other_suffix.md) (within the same stemming process)
+  - [danish_ISO_8859_1_stem](../d/danish_ISO_8859_1_stem.md) (main Danish stemming function)
+  - [norwegian_ISO_8859_1_stem](../n/norwegian_ISO_8859_1_stem.md) (main Norwegian stemming function)
+  - [swedish_ISO_8859_1_stem](../s/swedish_ISO_8859_1_stem.md) (main Swedish stemming function)
+  - [danish_UTF_8_stem](../d/danish_UTF_8_stem.md), norwegian_UTF_8_stem, swedish_UTF_8_stem (UTF-8 variants)
 
 ## Notes and Other Information
 - Specifically targets characters 100 ('d') and 116 ('t') which are commonly doubled in Scandinavian languages

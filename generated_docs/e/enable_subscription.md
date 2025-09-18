@@ -18,17 +18,17 @@ This function is part of the pg_createsubscriber utility and is responsible for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeIdentifier (escapes subscription name for SQL safety)
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md) (escapes subscription name for SQL safety)
   - pg_log_info (logs informational messages)
   - pg_log_debug (logs debug-level command information)
-  - PQexec (executes the ALTER SUBSCRIPTION command)
-  - PQresultStatus (checks command execution result)
-  - PQresultErrorMessage (retrieves error messages on failure)
-  - disconnect_database (handles database disconnection on errors)
-  - PQfreemem (frees escaped identifier memory)
+  - [PQexec](../P/PQexec.md) (executes the ALTER SUBSCRIPTION command)
+  - [PQresultStatus](../P/PQresultStatus.md) (checks command execution result)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (retrieves error messages on failure)
+  - [disconnect_database](../d/disconnect_database.md) (handles database disconnection on errors)
+  - [PQfreemem](../P/PQfreemem.md) (frees escaped identifier memory)
   - createPQExpBuffer/destroyPQExpBuffer (manages query buffer)
 - Called from (representative examples):
-  - setup_subscriber (main subscription setup workflow)
+  - [setup_subscriber](../s/setup_subscriber.md) (main subscription setup workflow)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the pg_createsubscriber.c file

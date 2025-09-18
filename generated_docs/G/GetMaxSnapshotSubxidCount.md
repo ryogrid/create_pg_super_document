@@ -26,9 +26,9 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - TOTAL_MAX_CACHED_SUBXIDS (constant)
 - Called from (representative examples):
-  - GetSnapshotData
+  - [GetSnapshotData](GetSnapshotData.md)
   - SetTransactionSnapshot
-  - ExportSnapshot
+  - [ExportSnapshot](../E/ExportSnapshot.md)
   - ImportSnapshot
 
 ## Notes and Other Information

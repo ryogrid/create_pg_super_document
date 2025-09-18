@@ -24,9 +24,9 @@ This function divides a Cash value by a 64-bit signed integer while checking for
   - ereport (error reporting function)
   - unlikely (branch prediction hint macro)
 - Called from (representative examples):
-  - cash_div_int8
-  - cash_div_int4
-  - cash_div_int2
+  - [cash_div_int8](cash_div_int8.md)
+  - [cash_div_int4](cash_div_int4.md)
+  - [cash_div_int2](cash_div_int2.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the same compilation unit and is likely to be inlined at call sites

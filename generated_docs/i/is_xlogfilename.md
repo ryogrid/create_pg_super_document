@@ -26,9 +26,9 @@ The is_xlogfilename function performs comprehensive validation of WAL filenames 
   - PG_COMPRESSION_NONE (compression algorithm constant)
   - PG_COMPRESSION_GZIP (compression algorithm constant)
   - PG_COMPRESSION_LZ4 (compression algorithm constant)
-  - pg_compress_algorithm (enum type)
+  - [pg_compress_algorithm](../p/pg_compress_algorithm.md) (enum type)
 - Called from (representative examples):
-  - FindStreamingStart (in pg_receivewal.c)
+  - [FindStreamingStart](../F/FindStreamingStart.md) (in pg_receivewal.c)
 
 ## Notes and Other Information
 - This is a static function with file-local scope within pg_receivewal.c

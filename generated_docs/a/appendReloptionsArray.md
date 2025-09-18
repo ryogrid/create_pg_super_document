@@ -30,18 +30,18 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parsePGArray
+  - [parsePGArray](../p/parsePGArray.md)
   - strchr
-  - appendPQExpBufferStr  
-  - appendPQExpBuffer
-  - fmtId
-  - appendStringLiteral
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)  
+  - [appendPQExpBuffer](appendPQExpBuffer.md)
+  - [fmtId](../f/fmtId.md)
+  - [appendStringLiteral](appendStringLiteral.md)
   - free
   - strcmp
 
 - Called from (representative examples):
-  - appendReloptionsArrayAH (src/bin/pg_dump/pg_dump.c:19044)
-  - get_create_object_cmd (src/bin/psql/command.c:5776)
+  - [appendReloptionsArrayAH](appendReloptionsArrayAH.md) (src/bin/pg_dump/pg_dump.c:19044)
+  - [get_create_object_cmd](../g/get_create_object_cmd.md) (src/bin/psql/command.c:5776)
 
 ## Notes and Other Information
 - Located in src/fe_utils/string_utils.c:966-1052

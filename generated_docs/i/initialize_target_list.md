@@ -21,16 +21,16 @@ The function is called lazily by other functions (BaseBackupAddTarget and BaseBa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BaseBackupTargetType (struct)
+  - [BaseBackupTargetType](../B/BaseBackupTargetType.md) (struct)
   - builtin_backup_targets (static array)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - TopMemoryContext
   - lappend
   - BaseBackupTargetTypeList (global variable)
 
 - Called from (representative examples):
-  - BaseBackupAddTarget
-  - BaseBackupGetTargetHandle
+  - [BaseBackupAddTarget](../B/BaseBackupAddTarget.md)
+  - [BaseBackupGetTargetHandle](../B/BaseBackupGetTargetHandle.md)
 
 ## Notes and Other Information
 - Static function, not exported outside this compilation unit

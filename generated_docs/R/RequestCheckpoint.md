@@ -35,22 +35,22 @@ The function implements a sophisticated waiting mechanism when CHECKPOINT_WAIT i
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPostmasterEnvironment
-  - CreateCheckPoint
-  - smgrdestroyall
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [smgrdestroyall](../s/smgrdestroyall.md)
   - SpinLockAcquire/SpinLockRelease
   - kill (system call)
-  - ConditionVariablePrepareToSleep
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - CHECK_FOR_INTERRUPTS
-  - pg_usleep
+  - [pg_usleep](../p/pg_usleep.md)
   - elog/ereport
 - Called from (representative examples):
-  - XLogWrite
-  - StartupXLOG
-  - CreateDatabaseUsingFileCopy
-  - dropdb
-  - standard_ProcessUtility
+  - [XLogWrite](../X/XLogWrite.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [CreateDatabaseUsingFileCopy](../C/CreateDatabaseUsingFileCopy.md)
+  - [dropdb](../d/dropdb.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Uses MAX_SIGNAL_TRIES (600) with 0.1 second intervals for signaling retry

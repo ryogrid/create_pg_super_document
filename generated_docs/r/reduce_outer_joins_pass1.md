@@ -30,16 +30,16 @@ This information gathering phase is crucial for the optimizations efficiency, al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - bms_make_singleton
-  - bms_add_members
+  - [palloc](../p/palloc.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [bms_add_members](../b/bms_add_members.md)
   - lappend
   - IS_OUTER_JOIN
   - nodeTag
   - elog
 - Called from (representative examples):
-  - reduce_outer_joins (initial call)
-  - reduce_outer_joins_pass1 (recursive calls)
+  - [reduce_outer_joins](reduce_outer_joins.md) (initial call)
+  - [reduce_outer_joins_pass1](reduce_outer_joins_pass1.md) (recursive calls)
 
 ## Notes and Other Information
 - Returns a reduce_outer_joins_pass1_state structure containing collected information

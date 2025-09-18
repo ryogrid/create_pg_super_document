@@ -19,18 +19,18 @@ This function is part of PostgreSQL's type system infrastructure and is frequent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from heap tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_type (type catalog structure)
 - Called from (representative examples):
-  - DefineType (type creation command)
-  - ExecBuildProjectionInfo (executor projection setup)
-  - ExecInitExprRec (expression initialization)
-  - array_exec_setup (array subscription setup)
-  - pg_column_size (column size calculation)
-  - get_typavgwidth (average width calculation)
+  - [DefineType](../D/DefineType.md) (type creation command)
+  - [ExecBuildProjectionInfo](../E/ExecBuildProjectionInfo.md) (executor projection setup)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [array_exec_setup](../a/array_exec_setup.md) (array subscription setup)
+  - [pg_column_size](../p/pg_column_size.md) (column size calculation)
+  - [get_typavgwidth](get_typavgwidth.md) (average width calculation)
 
 ## Notes and Other Information
 - Returns 0 if the type OID is invalid or not found in the catalog

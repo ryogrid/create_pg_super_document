@@ -26,8 +26,8 @@ This function sets up the shared memory structures required for parallel tuple s
   - dsm_segment
   - Sharedsort
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - _bt_begin_parallel
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
 
 ## Notes and Other Information
 - Must be called before tuplesort_attach_shared() is used by worker processes

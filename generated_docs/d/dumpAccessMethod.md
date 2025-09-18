@@ -21,15 +21,15 @@ The function validates the access method type and logs warnings for invalid type
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer/destroyPQExpBuffer (for SQL statement building)
-  - pg_strdup/free (for memory management)
-  - fmtId (for proper identifier formatting)
-  - appendPQExpBuffer/appendPQExpBufferStr (for statement construction)
+  - [pg_strdup](../p/pg_strdup.md)/free (for memory management)
+  - [fmtId](../f/fmtId.md) (for proper identifier formatting)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr (for statement construction)
   - pg_log_warning (for error logging)
-  - binary_upgrade_extension_member (for binary upgrade support)
-  - ArchiveEntry (to register dump entry)
-  - dumpComment (to handle access method comments)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md) (for binary upgrade support)
+  - [ArchiveEntry](../A/ArchiveEntry.md) (to register dump entry)
+  - [dumpComment](dumpComment.md) (to handle access method comments)
 - Called from (representative examples):
-  - dumpDumpableObject (as part of general object dumping)
+  - [dumpDumpableObject](dumpDumpableObject.md) (as part of general object dumping)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

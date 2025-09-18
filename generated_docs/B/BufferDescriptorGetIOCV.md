@@ -19,7 +19,7 @@ This inline function provides access to the condition variable (CV) associated w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type containing buf_id field)
+  - [BufferDesc](BufferDesc.md) (structure type containing buf_id field)
   - ConditionVariable (synchronization primitive type)
   - BufferIOCVArray (global array containing condition variables for buffer I/O)
 - Called from (representative examples):

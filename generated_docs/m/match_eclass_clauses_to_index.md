@@ -19,15 +19,15 @@ This function processes EquivalenceClass (EC) information to find join clauses t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_implied_equalities_for_column
-  - ec_member_matches_indexcol
-  - match_clauses_to_index
+  - [generate_implied_equalities_for_column](../g/generate_implied_equalities_for_column.md)
+  - [ec_member_matches_indexcol](../e/ec_member_matches_indexcol.md)
+  - [match_clauses_to_index](match_clauses_to_index.md)
   - ec_member_matches_arg
-  - IndexOptInfo
+  - [IndexOptInfo](../I/IndexOptInfo.md)
   - IndexClauseSet
 - Called from (representative examples):
   - ec_member_matches_arg
-  - create_index_paths
+  - [create_index_paths](../c/create_index_paths.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the indxpath.c file

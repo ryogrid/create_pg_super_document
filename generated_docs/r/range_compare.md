@@ -19,10 +19,10 @@ The `range_compare` function serves as a callback for qsort operations on arrays
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_deserialize
-  - range_cmp_bounds
+  - [range_deserialize](range_deserialize.md)
+  - [range_cmp_bounds](range_cmp_bounds.md)
 - Called from (representative examples):
-  - multirange_canonicalize
+  - [multirange_canonicalize](../m/multirange_canonicalize.md)
 
 ## Notes and Other Information
 - Designed specifically as a qsort callback function with the standard three-parameter signature

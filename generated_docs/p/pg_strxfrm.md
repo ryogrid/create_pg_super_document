@@ -28,13 +28,13 @@ This transformation is particularly valuable for sorting operations where many c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strxfrm_libc
-  - pg_strnxfrm_icu
+  - [pg_strxfrm_libc](pg_strxfrm_libc.md)
+  - [pg_strnxfrm_icu](pg_strnxfrm_icu.md)
   - COLLPROVIDER_LIBC
   - COLLPROVIDER_ICU
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - varstr_abbrev_convert
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
   - Various sorting and indexing operations
 
 ## Notes and Other Information

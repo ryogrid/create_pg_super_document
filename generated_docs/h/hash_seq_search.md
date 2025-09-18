@@ -26,14 +26,14 @@ The function is designed to handle sparse hash tables efficiently by quickly ski
 ## Dependencies
 - Functions called/Symbols referenced:
   - ELEMENTKEY (macro to extract key from hash element)
-  - hash_seq_term (called automatically at end of scan for cleanup)
+  - [hash_seq_term](hash_seq_term.md) (called automatically at end of scan for cleanup)
   - MOD (macro for modulo operation)
 - Called from (representative examples):
-  - LockReleaseAll (for releasing all locks in lock manager)
-  - RelationCacheInvalidate (for cache invalidation)
-  - GetLockStatusData (for collecting lock information)
-  - DropAllPreparedStatements (for statement cleanup)
-  - compute_array_stats (for statistical analysis)
+  - [LockReleaseAll](../L/LockReleaseAll.md) (for releasing all locks in lock manager)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md) (for cache invalidation)
+  - [GetLockStatusData](../G/GetLockStatusData.md) (for collecting lock information)
+  - [DropAllPreparedStatements](../D/DropAllPreparedStatements.md) (for statement cleanup)
+  - [compute_array_stats](../c/compute_array_stats.md) (for statistical analysis)
   - Various cache invalidation and cleanup functions throughout PostgreSQL
 
 ## Notes and Other Information

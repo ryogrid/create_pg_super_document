@@ -20,19 +20,19 @@ The function does not protect against concurrent truncation, so callers must han
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdToOffsetPage
-  - MultiXactIdToOffsetEntry
-  - SimpleLruWriteAll
-  - SimpleLruDoesPhysicalPageExist
-  - SimpleLruReadPage_ReadOnly
-  - SimpleLruGetBankLock
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
+  - [MultiXactIdToOffsetEntry](../M/MultiXactIdToOffsetEntry.md)
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
+  - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
+  - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockRelease
   - MultiXactOffsetCtl
   - MultiXactMemberCtl
 - Called from (representative examples):
   - debug_elog6 (src/backend/access/transam/multixact.c:414)
-  - SetOffsetVacuumLimit (src/backend/access/transam/multixact.c:2759)
-  - TruncateMultiXact (src/backend/access/transam/multixact.c:3177, 3195)
+  - [SetOffsetVacuumLimit](../S/SetOffsetVacuumLimit.md) (src/backend/access/transam/multixact.c:2759)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md) (src/backend/access/transam/multixact.c:3177, 3195)
 
 ## Notes and Other Information
 - Returns false if the file containing the multixact does not exist on disk

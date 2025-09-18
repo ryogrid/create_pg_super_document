@@ -34,16 +34,16 @@ The function uses a callback-based approach through `replace_rte_variables`, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `replace_rte_variables`
-  - `ReplaceVarsFromTargetList_callback`
+  - `[replace_rte_variables](../r/replace_rte_variables.md)`
+  - `[ReplaceVarsFromTargetList_callback](ReplaceVarsFromTargetList_callback.md)`
   - `ReplaceVarsFromTargetList_context` (struct)
-  - `ReplaceVarsNoMatchOption` (enum)
+  - `[ReplaceVarsNoMatchOption](ReplaceVarsNoMatchOption.md)` (enum)
 
 - Called from (representative examples):
-  - `subquery_push_qual` (src/backend/optimizer/path/allpaths.c:3975)
-  - `rewriteRuleAction` (src/backend/rewrite/rewriteHandler.c:639, 671)
-  - `CopyAndAddInvertedQual` (src/backend/rewrite/rewriteHandler.c:2334)
-  - `rewriteTargetView` (src/backend/rewrite/rewriteHandler.c:3559, 3710)
+  - `[subquery_push_qual](../s/subquery_push_qual.md)` (src/backend/optimizer/path/allpaths.c:3975)
+  - `[rewriteRuleAction](../r/rewriteRuleAction.md)` (src/backend/rewrite/rewriteHandler.c:639, 671)
+  - `[CopyAndAddInvertedQual](../C/CopyAndAddInvertedQual.md)` (src/backend/rewrite/rewriteHandler.c:2334)
+  - `[rewriteTargetView](../r/rewriteTargetView.md)` (src/backend/rewrite/rewriteHandler.c:3559, 3710)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:1774-1793

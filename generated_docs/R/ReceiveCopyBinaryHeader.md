@@ -17,13 +17,13 @@ ReceiveCopyBinaryHeader reads and validates the header of a binary COPY file for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyReadBinaryData (read raw binary data from input)
-  - CopyGetInt32 (read 32-bit integer values)
+  - [CopyReadBinaryData](../C/CopyReadBinaryData.md) (read raw binary data from input)
+  - [CopyGetInt32](../C/CopyGetInt32.md) (read 32-bit integer values)
   - memcmp (compare binary signature)
   - ereport/errcode/errmsg (error reporting)
   - BinarySignature (constant defining expected signature)
 - Called from (representative examples):
-  - BeginCopyFrom (src/backend/commands/copyfrom.c:1766)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (src/backend/commands/copyfrom.c:1766)
 
 ## Notes and Other Information
 - The function strictly validates the binary format header and reports errors for any deviations

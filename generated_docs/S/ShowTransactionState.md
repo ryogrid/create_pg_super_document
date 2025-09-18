@@ -23,20 +23,20 @@ When debug output is enabled, it delegates to ShowTransactionStateRec to recursi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - message_level_is_interesting - checks if the specified log level would produce output
-  - ShowTransactionStateRec - performs the actual recursive transaction state display
+  - [message_level_is_interesting](../m/message_level_is_interesting.md) - checks if the specified log level would produce output
+  - [ShowTransactionStateRec](ShowTransactionStateRec.md) - performs the actual recursive transaction state display
 - Constants used:
   - DEBUG5 - the debug level used for transaction state logging
 - Structures used:
   - CurrentTransactionState - the root of the transaction hierarchy to display
 - Called from (representative examples):
-  - StartTransaction (src/backend/access/transam/xact.c:2168)
-  - CommitTransaction (src/backend/access/transam/xact.c:2190)
-  - PrepareTransaction (src/backend/access/transam/xact.c:2469)
-  - StartSubTransaction (src/backend/access/transam/xact.c:5038)
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5052)
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5219)
-  - CleanupSubTransaction (src/backend/access/transam/xact.c:5325)
+  - [StartTransaction](StartTransaction.md) (src/backend/access/transam/xact.c:2168)
+  - [CommitTransaction](../C/CommitTransaction.md) (src/backend/access/transam/xact.c:2190)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2469)
+  - [StartSubTransaction](StartSubTransaction.md) (src/backend/access/transam/xact.c:5038)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5052)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md) (src/backend/access/transam/xact.c:5219)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md) (src/backend/access/transam/xact.c:5325)
 
 ## Notes and Other Information
 - Used extensively throughout transaction management code for debugging transaction state transitions

@@ -22,16 +22,16 @@ This function displays the grouping keys used by an Agg plan node during EXPLAIN
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `show_grouping_sets`: Displays advanced grouping set information when grouping sets are used
-  - `show_sort_group_keys`: Displays standard grouping key information with "Group Key" label
+  - `[show_grouping_sets](show_grouping_sets.md)`: Displays advanced grouping set information when grouping sets are used
+  - `[show_sort_group_keys](show_sort_group_keys.md)`: Displays standard grouping key information with "Group Key" label
   - `outerPlanState`: Accesses the child plan state for key column references
-  - `lcons`: Adds current plan to ancestors list for context
+  - `[lcons](../l/lcons.md)`: Adds current plan to ancestors list for context
   - `list_delete_first`: Removes the added plan from ancestors list after processing
   - `Agg`: Plan node structure containing aggregation configuration
-  - `AggState`: Runtime state structure for aggregation operations
+  - `[AggState](../A/AggState.md)`: Runtime state structure for aggregation operations
   - `ExplainState`: State structure for EXPLAIN command formatting
 - Called from (representative examples):
-  - `ExplainNode`: Main function that handles explanation of different plan node types (at line 2201)
+  - `[ExplainNode](../E/ExplainNode.md)`: Main function that handles explanation of different plan node types (at line 2201)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's EXPLAIN command infrastructure located in src/backend/commands/explain.c:2607-2629

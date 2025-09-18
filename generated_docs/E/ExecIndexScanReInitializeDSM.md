@@ -18,9 +18,9 @@ This function resets shared state in a parallel index scan before beginning a fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_parallelrescan
+  - [index_parallelrescan](../i/index_parallelrescan.md)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework

@@ -22,13 +22,13 @@ A key optimization is the use of  to predict the decimal weight of the logarithm
   - PG_GETARG_NUMERIC: Extract numeric argument from function args
   - NUMERIC_IS_SPECIAL: Check if numeric is NaN or infinity
   - NUMERIC_IS_NINF: Check if numeric is negative infinity
-  - duplicate_numeric: Create copy of numeric value for NaN/+∞
-  - init_var_from_num: Initialize NumericVar from Numeric
+  - [duplicate_numeric](../d/duplicate_numeric.md): Create copy of numeric value for NaN/+∞
+  - [init_var_from_num](../i/init_var_from_num.md): Initialize NumericVar from Numeric
   - init_var: Initialize empty NumericVar
-  - estimate_ln_dweight: Estimate decimal weight of logarithm result
-  - ln_var: Core natural logarithm calculation function
-  - make_result: Convert NumericVar to Numeric result
-  - free_var: Free NumericVar memory
+  - [estimate_ln_dweight](../e/estimate_ln_dweight.md): Estimate decimal weight of logarithm result
+  - [ln_var](../l/ln_var.md): Core natural logarithm calculation function
+  - [make_result](../m/make_result.md): Convert NumericVar to Numeric result
+  - [free_var](../f/free_var.md): Free NumericVar memory
   - PG_RETURN_NUMERIC: Return numeric result
 - Called from (representative examples):
   - SQL ln() function calls
@@ -37,7 +37,7 @@ A key optimization is the use of  to predict the decimal weight of the logarithm
 ## Notes and Other Information
 - Raises  error for negative infinity inputs
 - Uses  for efficient scale pre-calculation
-- Result scale bounded by  and 
+- [Result](../R/Result.md) scale bounded by  and 
 - Delegates actual logarithm computation to  function
 - Preserves input scale as minimum result scale requirement
 - Located in 

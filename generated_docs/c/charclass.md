@@ -34,16 +34,16 @@ This function is used both for atom-level character classes (like \w) and for el
 ## Dependencies
 - Functions called/Symbols referenced:
   - char_classes (enum type)
-  - cvec (struct type)
+  - [cvec](cvec.md) (struct type)
   - NOTE (macro)
   - REG_ULOCALE (constant)
-  - cclasscvec
+  - [cclasscvec](cclasscvec.md)
   - REG_ICASE (flag)
   - NOERR (macro)
-  - subcolorcvec
+  - [subcolorcvec](../s/subcolorcvec.md)
 - Called from (representative examples):
   - ARCV (in regcomp.c)
-  - brackpart (multiple call sites in regcomp.c)
+  - [brackpart](../b/brackpart.md) (multiple call sites in regcomp.c)
 
 ## Notes and Other Information
 - This is a static function internal to the regex compilation module

@@ -27,14 +27,14 @@ The canonicalization process involves chasing up the equivalence class hierarchy
 - Functions called/Symbols referenced:
   - elog (error logging)
   - lfirst (list iteration)
-  - MemoryContextSwitchTo (memory management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
   - makeNode (node creation)
   - lappend (list append)
 - Called from (representative examples):
-  - make_pathkey_from_sortinfo
-  - convert_subquery_pathkeys
-  - select_outer_pathkeys_for_merge
-  - make_inner_pathkeys_for_merge
+  - [make_pathkey_from_sortinfo](make_pathkey_from_sortinfo.md)
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
+  - [select_outer_pathkeys_for_merge](../s/select_outer_pathkeys_for_merge.md)
+  - [make_inner_pathkeys_for_merge](make_inner_pathkeys_for_merge.md)
 
 ## Notes and Other Information
 - Must not be called until after equivalence class merging is complete ( must be true)

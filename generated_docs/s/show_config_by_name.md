@@ -21,7 +21,7 @@ The function follows PostgreSQL's standard function calling convention using the
 ## Dependencies
 - Functions called/Symbols referenced:
   - TextDatumGetCString
-  - GetConfigOptionByName
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

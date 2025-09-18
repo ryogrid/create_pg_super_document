@@ -22,12 +22,12 @@ The algorithm works in three phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGChecksummablePage (data structure)
+  - [PGChecksummablePage](../P/PGChecksummablePage.md) (data structure)
   - N_SUMS (constant defining number of parallel checksums)
   - CHECKSUM_COMP (macro for FNV-1a hash computation)
   - checksumBaseOffsets (array of initialization values)
 - Called from (representative examples):
-  - pg_checksum_page
+  - [pg_checksum_page](pg_checksum_page.md)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function in checksum_impl.h for performance

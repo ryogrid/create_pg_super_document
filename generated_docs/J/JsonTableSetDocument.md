@@ -26,9 +26,9 @@ This function effectively starts a new document processing cycle, resetting all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetJsonTableExecContext (context retrieval and validation)
-  - JsonTableResetRowPattern (row pattern reset and evaluation)
-  - JsonTableExecContext (struct type)
+  - [GetJsonTableExecContext](../G/GetJsonTableExecContext.md) (context retrieval and validation)
+  - [JsonTableResetRowPattern](JsonTableResetRowPattern.md) (row pattern reset and evaluation)
+  - [JsonTableExecContext](JsonTableExecContext.md) (struct type)
 - Called from (representative examples):
   - Table function scan execution routines
   - JSON_TABLE document iteration logic

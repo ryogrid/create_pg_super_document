@@ -23,10 +23,10 @@ The pg_node_attr annotation indicates that this node type uses custom implementa
   - NodeTag (type system)
   - pg_node_attr (attribute system)
 - Called from (representative examples):
-  - _copyExtensibleNode (copy functions)
-  - _equalExtensibleNode (equality functions) 
-  - _outExtensibleNode (output functions)
-  - _readExtensibleNode (read functions)
+  - [_copyExtensibleNode](../c/_copyExtensibleNode.md) (copy functions)
+  - [_equalExtensibleNode](../e/_equalExtensibleNode.md) (equality functions) 
+  - [_outExtensibleNode](../o/_outExtensibleNode.md) (output functions)
+  - [_readExtensibleNode](../r/_readExtensibleNode.md) (read functions)
 
 ## Notes and Other Information
 - This is the base structure for all extensible nodes - extensions should embed this as the first member of their custom node structures

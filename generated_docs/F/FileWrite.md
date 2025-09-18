@@ -27,15 +27,15 @@ The function constructs an iovec structure from the provided buffer and amount p
 - Functions called/Symbols referenced:
   - FileWriteV (the underlying vectored write function)
   - unconstify (macro to safely cast away const qualifier)
-  - iovec (POSIX structure for vectored I/O operations)
+  - [iovec](../i/iovec.md) (POSIX structure for vectored I/O operations)
   - File (PostgreSQL virtual file descriptor type)
   - ssize_t (POSIX signed size type)
 
 - Called from (representative examples):
-  - logical_heap_rewrite_flush_mappings (in src/backend/access/heap/rewriteheap.c:880)
-  - bbsink_server_archive_contents (in src/backend/backup/basebackup_server.c:165)
-  - bbsink_server_manifest_contents (in src/backend/backup/basebackup_server.c:258)
-  - WriteWalSummary (in src/backend/backup/walsummary.c:299)
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (in src/backend/access/heap/rewriteheap.c:880)
+  - [bbsink_server_archive_contents](../b/bbsink_server_archive_contents.md) (in src/backend/backup/basebackup_server.c:165)
+  - [bbsink_server_manifest_contents](../b/bbsink_server_manifest_contents.md) (in src/backend/backup/basebackup_server.c:258)
+  - [WriteWalSummary](../W/WriteWalSummary.md) (in src/backend/backup/walsummary.c:299)
   - BufFileDumpBuffer (in src/backend/storage/file/buffile.c:537)
   - mdextend (in src/backend/storage/smgr/md.c:495)
 

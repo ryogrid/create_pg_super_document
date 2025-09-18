@@ -19,9 +19,9 @@ string_compare serves as a HashCompareFunc for string keys in PostgreSQL's hash 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (referenced in broader context)
+  - [HTAB](../H/HTAB.md) (referenced in broader context)
 - Called from (representative examples):
-  - hash_create
+  - [hash_create](../h/hash_create.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within dynahash.c

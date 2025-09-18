@@ -20,14 +20,14 @@ This function is commonly used in executor nodes that need to rescan their input
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (scan descriptor type)
-  - ScanKeyData (scan key structure type)
+  - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)
+  - [ScanKeyData](../S/ScanKeyData.md) (scan key structure type)
   - scan->rs_rd->rd_tableam->scan_rescan (table access method rescan function)
 - Called from (representative examples):
-  - ExecReScanSeqScan (src/backend/executor/nodeSeqscan.c:219)
-  - ExecReScanBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:601)
-  - ExecReScanTidScan (src/backend/executor/nodeTidscan.c:457)
-  - RelationFindReplTupleSeq (src/backend/executor/execReplication.c:401)
+  - [ExecReScanSeqScan](../E/ExecReScanSeqScan.md) (src/backend/executor/nodeSeqscan.c:219)
+  - [ExecReScanBitmapHeapScan](../E/ExecReScanBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:601)
+  - [ExecReScanTidScan](../E/ExecReScanTidScan.md) (src/backend/executor/nodeTidscan.c:457)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md) (src/backend/executor/execReplication.c:401)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header file

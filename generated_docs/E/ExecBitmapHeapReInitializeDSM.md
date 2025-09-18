@@ -29,15 +29,15 @@ This function ensures that each fresh scan starts with clean state while reusing
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid
-  - tbm_free_shared_area
-  - BitmapHeapScanState (structure)
-  - ParallelContext (structure)
-  - ParallelBitmapHeapState (structure)
+  - [tbm_free_shared_area](../t/tbm_free_shared_area.md)
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md) (structure)
+  - [ParallelContext](../P/ParallelContext.md) (structure)
+  - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
   - dsa_area (structure)
   - BM_INITIAL (enum value)
   - InvalidDsaPointer (constant)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md)
 
 ## Notes and Other Information
 This function is called when a parallel plan node needs to be re-executed, such as in nested loops or when rescanning is required. It's important that this function properly frees shared memory resources to prevent memory leaks in long-running queries with many rescan operations. The function preserves the shared memory structure itself and synchronization primitives, only cleaning up scan-specific state. The safety check for DSA availability ensures graceful handling when parallel execution is not active.

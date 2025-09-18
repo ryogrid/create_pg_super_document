@@ -22,24 +22,24 @@ The function first checks for cancellation and whether output should be suppress
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsPagerNeeded (for automatic pager decision)
+  - [IsPagerNeeded](../I/IsPagerNeeded.md) (for automatic pager decision)
   - clearerr (to clear output stream errors)
-  - print_aligned_text (for aligned text output)
-  - print_unaligned_vertical/print_unaligned_text (for unaligned output)
-  - print_aligned_vertical/print_aligned_text (for aligned/wrapped output)
-  - print_csv_vertical/print_csv_text (for CSV output)
-  - print_html_vertical/print_html_text (for HTML output)
-  - print_asciidoc_vertical/print_asciidoc_text (for AsciiDoc output)
-  - print_latex_vertical/print_latex_text (for LaTeX output)
-  - print_latex_longtable_text (for LaTeX longtable output)
-  - print_troff_ms_vertical/print_troff_ms_text (for troff-ms output)
-  - ClosePager (to close locally opened pager)
+  - [print_aligned_text](print_aligned_text.md) (for aligned text output)
+  - [print_unaligned_vertical](print_unaligned_vertical.md)/print_unaligned_text (for unaligned output)
+  - [print_aligned_vertical](print_aligned_vertical.md)/print_aligned_text (for aligned/wrapped output)
+  - [print_csv_vertical](print_csv_vertical.md)/print_csv_text (for CSV output)
+  - [print_html_vertical](print_html_vertical.md)/print_html_text (for HTML output)
+  - [print_asciidoc_vertical](print_asciidoc_vertical.md)/print_asciidoc_text (for AsciiDoc output)
+  - [print_latex_vertical](print_latex_vertical.md)/print_latex_text (for LaTeX output)
+  - [print_latex_longtable_text](print_latex_longtable_text.md) (for LaTeX longtable output)
+  - [print_troff_ms_vertical](print_troff_ms_vertical.md)/print_troff_ms_text (for troff-ms output)
+  - [ClosePager](../C/ClosePager.md) (to close locally opened pager)
   - PRINT_* format constants
 - Called from (representative examples):
-  - printQuery (main query result printing)
-  - printCrosstab (crosstab view output)
-  - describeOneTableDetails (table description output)
-  - describeRoles (role description output)
+  - [printQuery](printQuery.md) (main query result printing)
+  - [printCrosstab](printCrosstab.md) (crosstab view output)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (table description output)
+  - [describeRoles](../d/describeRoles.md) (role description output)
 
 ## Notes and Other Information
 - The function handles cancellation gracefully by checking cancel_pressed at the start

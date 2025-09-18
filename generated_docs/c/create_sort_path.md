@@ -30,16 +30,16 @@ The sort operation does not project or transform the data - it simply reorders t
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates SortPath node)
-  - cost_sort (calculates full sorting costs)
+  - [cost_sort](cost_sort.md) (calculates full sorting costs)
   - SortPath (return type structure)
 - Called from (representative examples):
-  - generate_useful_gather_paths
-  - create_one_window_path
-  - create_partial_distinct_paths
-  - create_final_distinct_paths
-  - create_ordered_paths
-  - make_ordered_path
-  - gather_grouping_paths
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
+  - [create_one_window_path](create_one_window_path.md)
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md)
+  - [create_final_distinct_paths](create_final_distinct_paths.md)
+  - [create_ordered_paths](create_ordered_paths.md)
+  - [make_ordered_path](../m/make_ordered_path.md)
+  - [gather_grouping_paths](../g/gather_grouping_paths.md)
 
 ## Notes and Other Information
 - This is used when no existing order can be leveraged, requiring a complete sort of all input data

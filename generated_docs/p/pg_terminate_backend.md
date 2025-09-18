@@ -32,8 +32,8 @@ The function is typically used for forceful termination of problematic or unresp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_signal_backend (with SIGTERM signal)
-  - pg_wait_until_termination (when timeout > 0)
+  - [pg_signal_backend](pg_signal_backend.md) (with SIGTERM signal)
+  - [pg_wait_until_termination](pg_wait_until_termination.md) (when timeout > 0)
   - PG_GETARG_INT32
   - PG_GETARG_INT64
   - PG_RETURN_BOOL

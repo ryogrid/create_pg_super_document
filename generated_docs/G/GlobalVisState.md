@@ -25,13 +25,13 @@ PostgreSQL maintains four different instances of this structure optimized for di
   - FullTransactionId
 
 - Called from (representative examples):
-  - GlobalVisTestFor
-  - GlobalVisTestShouldUpdate
-  - GlobalVisTestIsRemovableFullXid
-  - GlobalVisTestIsRemovableXid
-  - HeapTupleIsSurelyDead
-  - heap_page_prune_opt
-  - heap_page_prune_and_freeze
+  - [GlobalVisTestFor](GlobalVisTestFor.md)
+  - [GlobalVisTestShouldUpdate](GlobalVisTestShouldUpdate.md)
+  - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
+  - [GlobalVisTestIsRemovableXid](GlobalVisTestIsRemovableXid.md)
+  - [HeapTupleIsSurelyDead](../H/HeapTupleIsSurelyDead.md)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information
 - The boundaries use FullTransactionId instead of TransactionId to prevent wraparound issues during long-running operations

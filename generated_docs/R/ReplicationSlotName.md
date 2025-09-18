@@ -24,7 +24,7 @@ The function includes a warning about Time-of-Check-Time-of-Use (TOCTOU) issues,
   - namestrcpy for copying the slot name
   - NameStr macro for accessing slot names
 - Called from (representative examples):
-  - pgstat_replslot_to_serialized_name_cb
+  - [pgstat_replslot_to_serialized_name_cb](../p/pgstat_replslot_to_serialized_name_cb.md)
 
 ## Notes and Other Information
 - Returns false if the slot at the given index is not in use, true otherwise

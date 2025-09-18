@@ -26,11 +26,11 @@ This information is crucial for understanding how PostgreSQL tracks which comman
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - elog (with DEBUG3 level)
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
   - Currently not referenced by any other functions (likely used conditionally for debugging)
 

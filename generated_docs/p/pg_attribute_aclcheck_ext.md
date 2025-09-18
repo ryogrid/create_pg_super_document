@@ -21,13 +21,13 @@ The  function is an exported routine that verifies whether a specified user (rol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_attribute_aclmask_ext
+  - [pg_attribute_aclmask_ext](pg_attribute_aclmask_ext.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
   - AclResult
 - Called from (representative examples):
-  - pg_attribute_aclcheck
-  - column_privilege_check
+  - [pg_attribute_aclcheck](pg_attribute_aclcheck.md)
+  - [column_privilege_check](../c/column_privilege_check.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's access control system for column-level privileges

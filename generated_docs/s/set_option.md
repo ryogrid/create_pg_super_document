@@ -34,19 +34,19 @@ The function expects arguments to start with "-" (which it skips) and uses the g
 ## Dependencies
 - Functions called/Symbols referenced:
   - pro (global parameter configuration table)
-  - eqin (prefix matching function)
-  - errx (error reporting and exit)
+  - [eqin](../e/eqin.md) (prefix matching function)
+  - [errx](../e/errx.md) (error reporting and exit)
   - atof (string to float conversion)
   - atoi (string to integer conversion)
   - isdigit (character classification)
-  - add_typename (adds custom type names)
+  - [add_typename](../a/add_typename.md) (adds custom type names)
   - add_typedefs_from_file (loads type definitions from file)
   - printf (standard output)
   - exit (program termination)
   - Various constants: PRO_SPECIAL, PRO_BOOL, PRO_INT, IGN, CLI, STDIN, KEY, KEY_FILE, VERSION, OFF, INDENT_VERSION
 - Called from (representative examples):
-  - scan_profile (src/tools/pg_bsd_indent/args.c:225)
-  - main (src/tools/pg_bsd_indent/indent.c:218)
+  - [scan_profile](scan_profile.md) (src/tools/pg_bsd_indent/args.c:225)
+  - [main](../m/main.md) (src/tools/pg_bsd_indent/indent.c:218)
 
 ## Notes and Other Information
 - The function modifies global state variables pointed to by the parameter configuration table entries

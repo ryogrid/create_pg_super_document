@@ -17,14 +17,14 @@ This function completes a transaction command by disabling the active statement 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - disable_statement_timeout
-  - CommitTransactionCommand
-  - MemoryContextCheck (when MEMORY_CONTEXT_CHECKING is defined)
-  - MemoryContextStats (when SHOW_MEMORY_STATS is defined)
+  - [disable_statement_timeout](../d/disable_statement_timeout.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [MemoryContextCheck](../M/MemoryContextCheck.md) (when MEMORY_CONTEXT_CHECKING is defined)
+  - [MemoryContextStats](../M/MemoryContextStats.md) (when SHOW_MEMORY_STATS is defined)
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_execute_message
-  - PostgresMain
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - Always disables statement timeout regardless of transaction state

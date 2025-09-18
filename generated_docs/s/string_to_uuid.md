@@ -35,7 +35,7 @@ The function validates each character, ensures proper hexadecimal format, and co
 - Error codes:
   - `ERRCODE_INVALID_TEXT_REPRESENTATION`
 - Called from:
-  - `uuid_in` (primary input function)
+  - `[uuid_in](../u/uuid_in.md)` (primary input function)
   - `uuid_sortsupport_state` (for sort support)
 
 ## Notes and Other Information

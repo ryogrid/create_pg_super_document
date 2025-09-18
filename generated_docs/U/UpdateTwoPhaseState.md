@@ -26,18 +26,18 @@ This function is critical for managing the progression of two-phase commit suppo
 - Functions called/Symbols referenced:
   - table_open
   - SearchSysCacheCopy1
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
-  - CharGetDatum
-  - heap_modify_tuple
+  - [CharGetDatum](../C/CharGetDatum.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
   - RelationGetDescr
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
   - Constants: LOGICALREP_TWOPHASE_STATE_DISABLED, LOGICALREP_TWOPHASE_STATE_PENDING, LOGICALREP_TWOPHASE_STATE_ENABLED
 - Called from (representative examples):
-  - CreateSubscription
-  - run_apply_worker
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [run_apply_worker](../r/run_apply_worker.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:1782-1816

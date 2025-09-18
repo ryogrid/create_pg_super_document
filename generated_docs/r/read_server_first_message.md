@@ -18,15 +18,15 @@ This function processes the server-first-message in the SCRAM authentication pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_attr_value (parses SCRAM message attributes)
+  - [read_attr_value](read_attr_value.md) (parses SCRAM message attributes)
   - pg_b64_decode (decodes base64-encoded salt)
   - pg_b64_dec_len (calculates decoded length)
   - strdup (duplicates strings)
   - malloc (allocates memory for salt)
   - strtol (converts iteration count string to integer)
-  - libpq_append_conn_error (error reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (error reporting)
 - Called from:
-  - scram_exchange (main SCRAM authentication handler)
+  - [scram_exchange](../s/scram_exchange.md) (main SCRAM authentication handler)
 
 ## Notes and Other Information
 - Validates that server nonce contains client nonce as prefix (prevents replay attacks)

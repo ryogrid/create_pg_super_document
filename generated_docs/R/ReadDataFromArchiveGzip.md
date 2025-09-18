@@ -22,8 +22,8 @@ This function handles the decompression of gzip-compressed data during the readi
   - inflateInit
   - inflate
   - inflateEnd
-  - ahwrite
-  - pg_fatal
+  - [ahwrite](../a/ahwrite.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - DEFAULT_IO_BUFFER_SIZE
 - Called from (representative examples):
   - No direct references found in the codebase

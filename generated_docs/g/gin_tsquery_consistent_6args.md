@@ -21,7 +21,7 @@ Following the same pattern as other compatibility functions in the file, this fu
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_NARGS (macro to get the number of function arguments)
-  - gin_tsquery_consistent (the actual implementation function)
+  - [gin_tsquery_consistent](gin_tsquery_consistent.md) (the actual implementation function)
   - elog (for error reporting)
 - Called from (representative examples):
   - No direct callers found (used by PostgreSQL function call infrastructure)

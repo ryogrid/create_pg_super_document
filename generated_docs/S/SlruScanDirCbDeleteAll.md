@@ -22,12 +22,12 @@ SlruScanDirCbDeleteAll is a straightforward callback function that provides unco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruInternalDeleteSegment
+  - [SlruInternalDeleteSegment](SlruInternalDeleteSegment.md)
   - SLRU_PAGES_PER_SEGMENT
 - Called from (representative examples):
-  - DeactivateCommitTs
-  - AsyncShmemInit
-  - test_slru_scan_cb
+  - [DeactivateCommitTs](../D/DeactivateCommitTs.md)
+  - [AsyncShmemInit](../A/AsyncShmemInit.md)
+  - [test_slru_scan_cb](../t/test_slru_scan_cb.md)
 
 ## Notes and Other Information
 - Always returns false to ensure all segments in the directory are processed and deleted

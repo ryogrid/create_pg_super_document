@@ -22,18 +22,18 @@ The `pg_class_aclcheck_ext` function is an extended version of table-level privi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclmask_ext
+  - [pg_class_aclmask_ext](pg_class_aclmask_ext.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
   - AclResult
 - Called from (representative examples):
-  - pg_class_aclcheck
-  - has_table_privilege_name_id
-  - has_table_privilege_id
-  - has_sequence_privilege_name_id
-  - has_sequence_privilege_id
-  - has_any_column_privilege_name_id
-  - column_privilege_check
+  - [pg_class_aclcheck](pg_class_aclcheck.md)
+  - [has_table_privilege_name_id](../h/has_table_privilege_name_id.md)
+  - [has_table_privilege_id](../h/has_table_privilege_id.md)
+  - [has_sequence_privilege_name_id](../h/has_sequence_privilege_name_id.md)
+  - [has_sequence_privilege_id](../h/has_sequence_privilege_id.md)
+  - [has_any_column_privilege_name_id](../h/has_any_column_privilege_name_id.md)
+  - [column_privilege_check](../c/column_privilege_check.md)
 
 ## Notes and Other Information
 - This is the extended interface for table-level privilege checking in PostgreSQL

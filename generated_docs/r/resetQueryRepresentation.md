@@ -20,7 +20,7 @@ This function initializes or resets a QueryRepresentation structure by iterating
 - Functions called/Symbols referenced:
   - QueryRepresentation (struct type)
 - Called from (representative examples):
-  - Cover (called at lines 658 and 687)
+  - [Cover](../C/Cover.md) (called at lines 658 and 687)
 
 ## Notes and Other Information
 This is a static function within the tsrank.c module, indicating it's an internal utility function for text search ranking operations. The function is essential for ensuring clean state before performing new ranking calculations on the same QueryRepresentation structure.

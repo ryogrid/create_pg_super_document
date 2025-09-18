@@ -26,15 +26,15 @@ The function is designed to be defensive, preventing clustering operations that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open
-  - index_close
-  - heap_attisnull
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
+  - [heap_attisnull](../h/heap_attisnull.md)
   - RelationGetRelid
   - RelationGetRelationName
 - Called from (representative examples):
-  - cluster
-  - cluster_rel
-  - ATExecClusterOn
+  - [cluster](cluster.md)
+  - [cluster_rel](cluster_rel.md)
+  - [ATExecClusterOn](../A/ATExecClusterOn.md)
 
 ## Notes and Other Information
 - The function obtains and retains the specified lock on the index even after closing it, ensuring the lock is held for the duration of the clustering operation

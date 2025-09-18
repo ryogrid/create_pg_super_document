@@ -25,7 +25,7 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfoData 
   - FunctionCallInvoke
   - elog (for error reporting)
 - Called from (representative examples):
-  - OidFunctionCall0Coll
+  - [OidFunctionCall0Coll](../O/OidFunctionCall0Coll.md)
 
 ## Notes and Other Information
 - This function explicitly checks for NULL results and throws an ERROR if the called function returns NULL, indicating that callers expect a non-NULL return value

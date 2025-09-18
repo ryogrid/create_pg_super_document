@@ -21,8 +21,8 @@ This is an inline utility function that performs type conversion from a 128-bit 
 - Functions called/Symbols referenced:
   - INT128 (type)
 - Called from (representative examples):
-  - interval_hash (src/backend/utils/adt/timestamp.c:2605)
-  - interval_hash_extended (src/backend/utils/adt/timestamp.c:2618)
+  - [interval_hash](interval_hash.md) (src/backend/utils/adt/timestamp.c:2605)
+  - [interval_hash_extended](interval_hash_extended.md) (src/backend/utils/adt/timestamp.c:2618)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/common/int128.h:94-115

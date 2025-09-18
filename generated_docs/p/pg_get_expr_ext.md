@@ -25,7 +25,7 @@ The function is commonly used by PostgreSQL's information schema views and syste
   - PG_GETARG_OID (macro for extracting OID argument)
   - PG_GETARG_BOOL (macro for extracting BOOL argument)
   - GET_PRETTY_FLAGS (macro for converting boolean to pretty flags)
-  - pg_get_expr_worker (core expression deparsing function)
+  - [pg_get_expr_worker](pg_get_expr_worker.md) (core expression deparsing function)
   - PG_RETURN_TEXT_P (macro for returning TEXT result)
 - Called from:
   - SQL function pg_get_expr_ext() available to users

@@ -25,11 +25,11 @@ This compression allows the GiST index to perform spatial operations efficiently
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract function arguments)
-  - DatumGetPolygonP (to convert Datum to POLYGON pointer)
-  - palloc (PostgreSQL's memory allocation)
+  - [DatumGetPolygonP](../D/DatumGetPolygonP.md) (to convert Datum to POLYGON pointer)
+  - [palloc](../p/palloc.md) (PostgreSQL's memory allocation)
   - memcpy (to copy bounding box data)
   - gistentryinit (to initialize new GISTENTRY)
-  - PointerGetDatum (to convert pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (to convert pointer to Datum)
   - PG_RETURN_POINTER (to return result)
 - Called from (representative examples):
   - GiST index access method framework (via function registration)

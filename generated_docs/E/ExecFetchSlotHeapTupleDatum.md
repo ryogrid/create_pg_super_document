@@ -21,12 +21,12 @@ The result is always freshly allocated in the caller's memory context, ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTuple
-  - heap_copy_tuple_as_datum
-  - pfree (conditionally)
+  - [ExecFetchSlotHeapTuple](ExecFetchSlotHeapTuple.md)
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md)
+  - [pfree](../p/pfree.md) (conditionally)
 - Called from (representative examples):
-  - ExecMakeFunctionResultSet
-  - postquel_get_single_result
+  - [ExecMakeFunctionResultSet](ExecMakeFunctionResultSet.md)
+  - [postquel_get_single_result](../p/postquel_get_single_result.md)
   - TupIsNull
 
 ## Notes and Other Information

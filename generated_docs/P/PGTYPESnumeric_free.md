@@ -21,10 +21,10 @@ This function performs complete cleanup of a numeric type structure by first fre
 - Functions called/Symbols referenced:
   - digitbuf_free (for releasing internal digit buffer)
   - free (standard library function for memory deallocation)
-  - numeric (type definition)
+  - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
-  - PGTYPESnumeric_from_asc (cleanup on error)
-  - PGTYPESnumeric_to_asc (cleanup of temporary copy)
+  - [PGTYPESnumeric_from_asc](PGTYPESnumeric_from_asc.md) (cleanup on error)
+  - [PGTYPESnumeric_to_asc](PGTYPESnumeric_to_asc.md) (cleanup of temporary copy)
   - Various Informix compatibility functions (deccall2, deccall3, etc.)
   - ECPG data handling functions (ecpg_get_data, ecpg_store_input)
   - Test functions and user applications

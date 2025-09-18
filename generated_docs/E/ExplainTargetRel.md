@@ -22,19 +22,19 @@ This function is responsible for showing the target relation of scan or modify n
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch
-  - list_nth  
+  - [list_nth](../l/list_nth.md)  
   - nodeTag
-  - get_rel_name
-  - get_namespace_name_or_temp
-  - get_rel_namespace
-  - get_func_name
-  - get_func_namespace
-  - quote_identifier
-  - ExplainPropertyText
+  - [get_rel_name](../g/get_rel_name.md)
+  - [get_namespace_name_or_temp](../g/get_namespace_name_or_temp.md)
+  - [get_rel_namespace](../g/get_rel_namespace.md)
+  - [get_func_name](../g/get_func_name.md)
+  - [get_func_namespace](../g/get_func_namespace.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [ExplainPropertyText](ExplainPropertyText.md)
 - Called from (representative examples):
-  - ExplainScanTarget
-  - ExplainModifyTarget
-  - show_modifytable_info
+  - [ExplainScanTarget](ExplainScanTarget.md)
+  - [ExplainModifyTarget](ExplainModifyTarget.md)
+  - [show_modifytable_info](../s/show_modifytable_info.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

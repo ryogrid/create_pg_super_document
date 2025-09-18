@@ -22,10 +22,10 @@ The function is designed to be safe to call regardless of the worker's current s
   - LWLockAcquire (with BackgroundWorkerLock and LW_EXCLUSIVE)
   - LWLockRelease
   - SendPostmasterSignal (with PMSIGNAL_BACKGROUND_WORKER_CHANGE)
-  - BackgroundWorkerSlot structure access
+  - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md) structure access
 - Called from (representative examples):
   - DestroyParallelContext
-  - cleanup_background_workers
+  - [cleanup_background_workers](../c/cleanup_background_workers.md)
 
 ## Notes and Other Information
 - Safe to call regardless of worker state (running, stopped, or unregistered)

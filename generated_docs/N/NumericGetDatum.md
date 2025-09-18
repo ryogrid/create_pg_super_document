@@ -20,34 +20,34 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (implicitly called, converts pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicitly called, converts pointer to Datum)
   - Numeric (data type)
 - Called from (representative examples):
-  - ExecGetJsonValueItemString
-  - cash_numeric
-  - numeric_cash
-  - numeric_to_cstring
-  - numeric_is_less
-  - numeric_absolute
-  - numeric_half_rounded
-  - numeric_truncated_divide
-  - pg_size_bytes
-  - numeric_to_number
-  - numeric_to_char
-  - jsonb_numeric
-  - jsonb_int2/int4/int8/float4/float8
-  - JsonbHashScalarValue
-  - executeItemOptUnwrapTarget
-  - executeUnaryArithmExpr
-  - executeNumericItemMethod
-  - compareNumeric
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md)
+  - [cash_numeric](../c/cash_numeric.md)
+  - [numeric_cash](../n/numeric_cash.md)
+  - [numeric_to_cstring](../n/numeric_to_cstring.md)
+  - [numeric_is_less](../n/numeric_is_less.md)
+  - [numeric_absolute](../n/numeric_absolute.md)
+  - [numeric_half_rounded](../n/numeric_half_rounded.md)
+  - [numeric_truncated_divide](../n/numeric_truncated_divide.md)
+  - [pg_size_bytes](../p/pg_size_bytes.md)
+  - [numeric_to_number](../n/numeric_to_number.md)
+  - [numeric_to_char](../n/numeric_to_char.md)
+  - [jsonb_numeric](../j/jsonb_numeric.md)
+  - [jsonb_int2](../j/jsonb_int2.md)/int4/int8/float4/float8
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
+  - [executeNumericItemMethod](../e/executeNumericItemMethod.md)
+  - [compareNumeric](../c/compareNumeric.md)
   - generate_series_step_numeric
-  - numeric_float8/float4
-  - numeric_poly_avg
-  - numeric_avg
-  - int8_sum/avg
-  - pg_lsn_pli/mii
-  - timestamp_part_common
+  - [numeric_float8](../n/numeric_float8.md)/float4
+  - [numeric_poly_avg](../n/numeric_poly_avg.md)
+  - [numeric_avg](../n/numeric_avg.md)
+  - [int8_sum](../i/int8_sum.md)/avg
+  - [pg_lsn_pli](../p/pg_lsn_pli.md)/mii
+  - [timestamp_part_common](../t/timestamp_part_common.md)
   - PG_RETURN_NUMERIC
 
 ## Notes and Other Information

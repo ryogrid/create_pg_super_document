@@ -27,13 +27,13 @@ Note that this function does not support SET FROM CURRENT functionality - it onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flatten_set_variable_args
+  - [flatten_set_variable_args](../f/flatten_set_variable_args.md)
   - set_config_option
   - superuser
 - Called from (representative examples):
-  - ExecSetVariableStmt (in src/backend/utils/misc/guc_funcs.c:88,91,94,110,113,116)
-  - standard_ProcessUtility (in src/backend/tcop/utility.c:615,619,623)
-  - DiscardAll (in src/backend/commands/discard.c:70)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md) (in src/backend/utils/misc/guc_funcs.c:88,91,94,110,113,116)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (in src/backend/tcop/utility.c:615,619,623)
+  - [DiscardAll](../D/DiscardAll.md) (in src/backend/commands/discard.c:70)
 
 ## Notes and Other Information
 - Exported function designed for easy C-callable access to SET functionality

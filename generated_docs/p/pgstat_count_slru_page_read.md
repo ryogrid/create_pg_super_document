@@ -21,9 +21,9 @@ The function increments the `blocks_read` counter for the specified SLRU instanc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_slru_entry
+  - [get_slru_entry](../g/get_slru_entry.md)
 - Called from (representative examples):
-  - SimpleLruReadPage
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

@@ -31,11 +31,11 @@ The enum is designed to capture key moments in object lifecycle management:
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a basic enum type)
 - Called from (representative examples):
-  - ObjectAccessNamespaceSearch
-  - REGRESS_object_access_hook_str
-  - REGRESS_object_access_hook
-  - accesstype_to_string
-  - accesstype_arg_to_string
+  - [ObjectAccessNamespaceSearch](ObjectAccessNamespaceSearch.md)
+  - [REGRESS_object_access_hook_str](../R/REGRESS_object_access_hook_str.md)
+  - [REGRESS_object_access_hook](../R/REGRESS_object_access_hook.md)
+  - [accesstype_to_string](../a/accesstype_to_string.md)
+  - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
 
 ## Notes and Other Information
 - The hook system allows extensions to use different MVCC snapshots (current snapshot for old tuple version, SnapshotSelf for new tuple version) depending on the access type

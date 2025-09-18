@@ -22,10 +22,10 @@ The `tsm_bernoulli_handler` function serves as the entry point for the BERNOULLI
 - Functions called/Symbols referenced:
   - makeNode (creates TsmRoutine node)
   - list_make1_oid (creates parameter type list)
-  - bernoulli_samplescangetsamplesize (sample size calculation callback)
-  - bernoulli_initsamplescan (scan initialization callback)
-  - bernoulli_beginsamplescan (scan begin callback)
-  - bernoulli_nextsampletuple (tuple sampling callback)
+  - [bernoulli_samplescangetsamplesize](../b/bernoulli_samplescangetsamplesize.md) (sample size calculation callback)
+  - [bernoulli_initsamplescan](../b/bernoulli_initsamplescan.md) (scan initialization callback)
+  - [bernoulli_beginsamplescan](../b/bernoulli_beginsamplescan.md) (scan begin callback)
+  - [bernoulli_nextsampletuple](../b/bernoulli_nextsampletuple.md) (tuple sampling callback)
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL's function call mechanism)
 

@@ -34,7 +34,7 @@ The implementation converts from radians to degrees using the same scaling appro
   - INIT_DEGREE_CONSTANTS: Initializes degree conversion constants including 
   - atan2: Standard C library two-argument arctangent function (returns radians)
   - isinf: Checks if result is infinite
-  - float_overflow_error: Reports overflow error
+  - [float_overflow_error](../f/float_overflow_error.md): Reports overflow error
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)
 

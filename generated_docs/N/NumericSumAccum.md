@@ -40,14 +40,14 @@ The accumulator dynamically resizes when encountering values with larger ndigits
 - Functions called/Symbols referenced:
   - (No direct symbol references, uses standard integer types)
 - Called from (representative examples):
-  - NumericAggState (aggregate state structure)
-  - accum_sum_reset (reset accumulator)
-  - accum_sum_add (add value to accumulator)
-  - accum_sum_carry (propagate carries)
-  - accum_sum_rescale (rescale accumulator)
-  - accum_sum_final (compute final result)
-  - accum_sum_copy (copy accumulator)
-  - accum_sum_combine (combine accumulators)
+  - [NumericAggState](NumericAggState.md) (aggregate state structure)
+  - [accum_sum_reset](../a/accum_sum_reset.md) (reset accumulator)
+  - [accum_sum_add](../a/accum_sum_add.md) (add value to accumulator)
+  - [accum_sum_carry](../a/accum_sum_carry.md) (propagate carries)
+  - [accum_sum_rescale](../a/accum_sum_rescale.md) (rescale accumulator)
+  - [accum_sum_final](../a/accum_sum_final.md) (compute final result)
+  - [accum_sum_copy](../a/accum_sum_copy.md) (copy accumulator)
+  - [accum_sum_combine](../a/accum_sum_combine.md) (combine accumulators)
 
 ## Notes and Other Information
 - Optimized for SUM() aggregates and similar operations requiring accumulation

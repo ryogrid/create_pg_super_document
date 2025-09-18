@@ -30,19 +30,19 @@ This function implements the critical flush operation for sorted GiST index cons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistextractpage: Extract all tuples from a completed page into an array
-  - gistjoinvector: Merge tuple arrays from multiple pages into a single vector
-  - gistSplit: Apply GiST split algorithm to determine optimal page partitioning
-  - gistunion: Create union tuple representing all tuples in a page
-  - gistfillitupvec: Convert tuple array into page layout format
-  - smgr_bulk_get_buf: Obtain buffer for bulk writing operations
-  - gistinitpage: Initialize new GiST page with appropriate type flags
+  - [gistextractpage](gistextractpage.md): Extract all tuples from a completed page into an array
+  - [gistjoinvector](gistjoinvector.md): Merge tuple arrays from multiple pages into a single vector
+  - [gistSplit](gistSplit.md): Apply GiST split algorithm to determine optimal page partitioning
+  - [gistunion](gistunion.md): Create union tuple representing all tuples in a page
+  - [gistfillitupvec](gistfillitupvec.md): Convert tuple array into page layout format
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md): Obtain buffer for bulk writing operations
+  - [gistinitpage](gistinitpage.md): Initialize new GiST page with appropriate type flags
   - PageAddItem: Add individual tuples to the target page
-  - smgr_bulk_write: Write completed page to storage via bulk writer
-  - gist_indexsortbuild_levelstate_add: Add union tuples to parent level recursively
+  - [smgr_bulk_write](../s/smgr_bulk_write.md): Write completed page to storage via bulk writer
+  - [gist_indexsortbuild_levelstate_add](gist_indexsortbuild_levelstate_add.md): Add union tuples to parent level recursively
 - Called from (representative examples):
-  - gist_indexsortbuild: Main build loop when processing sorted tuples
-  - gist_indexsortbuild_levelstate_add: Recursive calls when page batches become full
+  - [gist_indexsortbuild](gist_indexsortbuild.md): Main build loop when processing sorted tuples
+  - [gist_indexsortbuild_levelstate_add](gist_indexsortbuild_levelstate_add.md): Recursive calls when page batches become full
 
 ## Notes and Other Information
 - The function handles both leaf and internal page creation by preserving page type flags from the original pages

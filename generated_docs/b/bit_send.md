@@ -21,7 +21,7 @@ The binary format consists of:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varbit_send (delegates all functionality to this function)
+  - [varbit_send](../v/varbit_send.md) (delegates all functionality to this function)
 - Called from (representative examples):
   - PostgreSQL's type system for binary protocol operations
 

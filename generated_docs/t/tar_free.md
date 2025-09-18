@@ -17,12 +17,12 @@ This function serves as a cleanup routine for the tar-based WAL writing method. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_free (for memory deallocation)
-  - TarMethodData (structure being cleaned up)
-  - WalWriteMethod (base structure type)
+  - [pg_free](../p/pg_free.md) (for memory deallocation)
+  - [TarMethodData](../T/TarMethodData.md) (structure being cleaned up)
+  - [WalWriteMethod](../W/WalWriteMethod.md) (base structure type)
   - PG_COMPRESSION_GZIP (compression algorithm constant)
 - Called from (representative examples):
-  - CreateWalDirectoryMethod (cleanup on error paths)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (cleanup on error paths)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the walmethods.c file

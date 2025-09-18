@@ -24,7 +24,7 @@ This function implements PostgreSQLs MD5() SQL function for bytea (binary data) 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP
-  - pg_md5_hash
+  - [pg_md5_hash](../p/pg_md5_hash.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
 - Constants referenced:

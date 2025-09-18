@@ -38,10 +38,10 @@ When sizeonly is true, the function performs size calculation without actually w
   - ereport
   - elog
 - Called from (representative examples):
-  - sendFileWithContent
-  - sendDir
-  - sendFile
-  - _tarAddFile
+  - [sendFileWithContent](../s/sendFileWithContent.md)
+  - [sendDir](../s/sendDir.md)
+  - [sendFile](../s/sendFile.md)
+  - [_tarAddFile](_tarAddFile.md)
 
 ## Notes and Other Information
 - Returns TAR_BLOCK_SIZE (512 bytes) representing the size of the written header

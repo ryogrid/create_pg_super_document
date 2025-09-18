@@ -25,21 +25,21 @@ The function ensures proper error location reporting and UTF-8 handling across d
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
-  - croak_sv (Modern Perl error function, conditionally compiled)
+  - [croak_sv](croak_sv.md) (Modern Perl error function, conditionally compiled)
   - sv_2mortal (Perl function to mark SV for garbage collection)
-  - cstr2sv (Custom function to convert C string to Perl SV)
+  - [cstr2sv](cstr2sv.md) (Custom function to convert C string to Perl SV)
   - get_sv (Perl function to get special variables like @)
-  - utf_e2u (PostgreSQL database encoding to UTF-8 converter)
+  - [utf_e2u](../u/utf_e2u.md) (PostgreSQL database encoding to UTF-8 converter)
   - mess (Perl function to create formatted error message with location)
   - SvUTF8_on (Perl macro to mark SV as UTF-8)
   - sv_setsv (Perl function to copy SV contents)
   - croak (Standard Perl error function)
 - Called from (representative examples):
-  - plperl_spi_exec
-  - plperl_return_next
-  - plperl_spi_query
-  - plperl_spi_prepare
-  - plperl_util_elog
+  - [plperl_spi_exec](../p/plperl_spi_exec.md)
+  - [plperl_return_next](../p/plperl_return_next.md)
+  - [plperl_spi_query](../p/plperl_spi_query.md)
+  - [plperl_spi_prepare](../p/plperl_spi_prepare.md)
+  - [plperl_util_elog](../p/plperl_util_elog.md)
 
 ## Notes and Other Information
 - Never returns - always terminates execution with a Perl exception

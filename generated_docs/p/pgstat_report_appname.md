@@ -19,12 +19,12 @@ The function performs proper multi-byte character handling by clipping the appli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbcliplen
+  - [pg_mbcliplen](pg_mbcliplen.md)
   - PGSTAT_BEGIN_WRITE_ACTIVITY
   - PGSTAT_END_WRITE_ACTIVITY
 - Called from (representative examples):
-  - assign_application_name
-  - pgstat_bestart
+  - [assign_application_name](../a/assign_application_name.md)
+  - [pgstat_bestart](pgstat_bestart.md)
 
 ## Notes and Other Information
 - Application names are visible in monitoring views like pg_stat_activity

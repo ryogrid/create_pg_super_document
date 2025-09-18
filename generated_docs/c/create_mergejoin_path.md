@@ -31,10 +31,10 @@ This function constructs a MergePath node that represents a merge join execution
 - Functions called/Symbols referenced:
   - makeNode
   - get_joinrel_parampathinfo
-  - final_cost_mergejoin
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
 - Called from (representative examples):
-  - try_mergejoin_path
-  - try_partial_mergejoin_path
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [try_partial_mergejoin_path](../t/try_partial_mergejoin_path.md)
 
 ## Notes and Other Information
 The function sets up the basic MergePath structure but defers final cost calculation to final_cost_mergejoin. Some fields like skip_mark_restore and materialize_inner are set later during cost calculation. The parallel_workers estimation uses a simple heuristic that copies from the outer path, which the code comments acknowledge as suboptimal.

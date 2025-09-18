@@ -25,15 +25,15 @@ The function does not perform catalog accesses and will return false for tempora
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_TOAST_NAMESPACE (constant: OID 99, representing the global pg_toast namespace)
-  - isTempToastNamespace (checks if namespace is current session's temporary toast namespace)
+  - [isTempToastNamespace](../i/isTempToastNamespace.md) (checks if namespace is current session's temporary toast namespace)
 - Called from (representative examples):
-  - IsToastRelation (src/backend/catalog/catalog.c:185)
-  - IsToastClass (src/backend/catalog/catalog.c:199)
-  - heap_create (src/backend/catalog/heap.c:322)
-  - reindex_index (src/backend/catalog/index.c:3675)
-  - reindex_relation (src/backend/catalog/index.c:3993)
-  - check_publication_add_schema (src/backend/catalog/pg_publication.c:101)
-  - AlterTableMoveAll (src/backend/commands/tablecmds.c:15473)
+  - [IsToastRelation](IsToastRelation.md) (src/backend/catalog/catalog.c:185)
+  - [IsToastClass](IsToastClass.md) (src/backend/catalog/catalog.c:199)
+  - [heap_create](../h/heap_create.md) (src/backend/catalog/heap.c:322)
+  - [reindex_index](../r/reindex_index.md) (src/backend/catalog/index.c:3675)
+  - [reindex_relation](../r/reindex_relation.md) (src/backend/catalog/index.c:3993)
+  - [check_publication_add_schema](../c/check_publication_add_schema.md) (src/backend/catalog/pg_publication.c:101)
+  - [AlterTableMoveAll](../A/AlterTableMoveAll.md) (src/backend/commands/tablecmds.c:15473)
 
 ## Notes and Other Information
 - Does not perform any catalog accesses, making it efficient for frequent use

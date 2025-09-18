@@ -28,10 +28,10 @@ The directory uses a hash table to map relation OIDs to PartitionDirectoryEntry 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (hash table type from utils/hsearch.h)
+  - [HTAB](../H/HTAB.md) (hash table type from utils/hsearch.h)
 - Called from (representative examples):
-  - CreatePartitionDirectory
-  - PartitionDirectory (as typedef pointer)
+  - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md)
+  - [PartitionDirectory](PartitionDirectory.md) (as typedef pointer)
 
 ## Notes and Other Information
 - The structure is typically accessed through the PartitionDirectory typedef, which is a pointer to PartitionDirectoryData

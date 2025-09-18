@@ -34,11 +34,11 @@ The function handles the lazy compilation of WHEN expressions, converting stored
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member
-  - stringToNode
-  - ChangeVarNodes
-  - make_ands_implicit
-  - ExecPrepareQual
+  - [bms_is_member](../b/bms_is_member.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
+  - [ExecPrepareQual](../E/ExecPrepareQual.md)
   - GetPerTupleExprContext
   - ExecQual
   - TRIGGER_FIRED_BY_UPDATE
@@ -46,12 +46,12 @@ The function handles the lazy compilation of WHEN expressions, converting stored
   - TRIGGER_FIRES_ON_ORIGIN/TRIGGER_FIRES_ON_REPLICA
   - TRIGGER_DISABLED
 - Called from (representative examples):
-  - ExecBSInsertTriggers
-  - ExecBRInsertTriggers
-  - ExecBSDeleteTriggers
-  - ExecBRDeleteTriggersNew
-  - ExecBSUpdateTriggers
-  - ExecBRUpdateTriggersNew
+  - [ExecBSInsertTriggers](../E/ExecBSInsertTriggers.md)
+  - [ExecBRInsertTriggers](../E/ExecBRInsertTriggers.md)
+  - [ExecBSDeleteTriggers](../E/ExecBSDeleteTriggers.md)
+  - [ExecBRDeleteTriggersNew](../E/ExecBRDeleteTriggersNew.md)
+  - [ExecBSUpdateTriggers](../E/ExecBSUpdateTriggers.md)
+  - [ExecBRUpdateTriggersNew](../E/ExecBRUpdateTriggersNew.md)
   - AfterTriggerSaveEvent
 
 ## Notes and Other Information

@@ -22,11 +22,11 @@ This function is used in spatial indexing operations to optimize geometric queri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - higher2D
+  - [higher2D](../h/higher2D.md)
   - RectBox (type)
   - RangeBox (type)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the geo_spgist.c file

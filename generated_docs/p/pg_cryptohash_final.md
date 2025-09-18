@@ -32,14 +32,14 @@ The function acts as a dispatcher, calling the appropriate algorithm-specific fi
   - MD5_DIGEST_LENGTH, SHA1_DIGEST_LENGTH, PG_SHA224_DIGEST_LENGTH, PG_SHA256_DIGEST_LENGTH, PG_SHA384_DIGEST_LENGTH, PG_SHA512_DIGEST_LENGTH (digest length constants)
   - PG_CRYPTOHASH_ERROR_DEST_LEN (error code constant)
   - PG_MD5, PG_SHA1, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512 (enum constants)
-  - pg_cryptohash_ctx (context structure)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (context structure)
 - Called from (representative examples):
-  - SendBackupManifest
-  - scram_mock_salt
-  - cryptohash_internal
+  - [SendBackupManifest](../S/SendBackupManifest.md)
+  - [scram_mock_salt](../s/scram_mock_salt.md)
+  - [cryptohash_internal](../c/cryptohash_internal.md)
   - pg_checksum_final
-  - pg_hmac_final
-  - pg_md5_hash
+  - [pg_hmac_final](pg_hmac_final.md)
+  - [pg_md5_hash](pg_md5_hash.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (null context or insufficient buffer length)

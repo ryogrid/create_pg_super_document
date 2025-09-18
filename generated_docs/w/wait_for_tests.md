@@ -30,7 +30,7 @@ This function implements cross-platform process synchronization for PostgreSQL's
   - PID_TYPE, INVALID_PID (platform-specific process types)
 - Called from (representative examples):
   - Used in MAX_PARALLEL_TESTS context (multiple calls in src/test/regress/pg_regress.c: lines 1732, 1750, 1758, 1771)
-  - run_single_test (src/test/regress/pg_regress.c:1861)
+  - [run_single_test](../r/run_single_test.md) (src/test/regress/pg_regress.c:1861)
 
 ## Notes and Other Information
 - Implements platform-specific logic for Unix/Linux vs Windows process waiting

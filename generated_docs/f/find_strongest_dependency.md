@@ -25,14 +25,14 @@ The function performs cheap checks first (attribute count comparisons) before ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_num_members
-  - dependency_is_fully_matched
+  - [bms_num_members](../b/bms_num_members.md)
+  - [dependency_is_fully_matched](../d/dependency_is_fully_matched.md)
 - Types used:
-  - MVDependencies
+  - [MVDependencies](../M/MVDependencies.md)
   - MVDependency
 - Called from (representative examples):
   - DependencyGenerator
-  - dependencies_clauselist_selectivity
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Returns NULL if no dependency can be fully matched against the provided attributes

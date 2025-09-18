@@ -22,11 +22,11 @@ The function operates on a volatile slock_t pointer to ensure proper memory orde
 ## Dependencies
 - Functions called/Symbols referenced:
   - s_check_valid: Validates that the semaphore index is within valid bounds
-  - PGSemaphoreUnlock: Unlocks the semaphore by incrementing its count, potentially waking up blocked processes
-  - slock_t: The spinlock data type used to store semaphore array indices
+  - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md): Unlocks the semaphore by incrementing its count, potentially waking up blocked processes
+  - [slock_t](slock_t.md): The spinlock data type used to store semaphore array indices
 - Called from (representative examples):
   - S_UNLOCK: The main spinlock unlock macro that may delegate to this function
-  - slock_t: Used indirectly through the spinlock system when semaphore-based locking is active
+  - [slock_t](slock_t.md): Used indirectly through the spinlock system when semaphore-based locking is active
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's hybrid spinlock implementation that can fall back to semaphores when test-and-set operations are unavailable

@@ -21,12 +21,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proc_exit (called when shutdown was already requested)
+  - [proc_exit](../p/proc_exit.md) (called when shutdown was already requested)
 - Global variables used:
   - in_restore_command (set to true)
   - shutdown_requested (checked for pending shutdown)
 - Called from (representative examples):
-  - RestoreArchivedFile (in xlogarchive.c)
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) (in xlogarchive.c)
 
 ## Notes and Other Information
 - This function works in conjunction with PostRestoreCommand to bracket restore command execution

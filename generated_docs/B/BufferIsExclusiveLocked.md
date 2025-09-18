@@ -20,14 +20,14 @@ This function is critical for WAL logging operations and other scenarios where e
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal
-  - GetLocalBufferDescriptor
-  - GetBufferDescriptor
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - BufferIsPinned
   - LWLockHeldByMeInMode
-  - BufferDescriptorGetContentLock
+  - [BufferDescriptorGetContentLock](BufferDescriptorGetContentLock.md)
   - LW_EXCLUSIVE
 - Called from (representative examples):
-  - XLogRegisterBuffer
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
   - BUFFER_LOCK_EXCLUSIVE
 
 ## Notes and Other Information

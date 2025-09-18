@@ -48,20 +48,20 @@ The function includes extensive validation to ensure rules follow PostgreSQL's c
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_openrv
-  - make_parsestate
-  - addRangeTableEntryForRelation
-  - makeAlias
-  - addNSItemToQuery
-  - transformWhereClause
-  - assign_expr_collations
-  - makeFromExpr
-  - transformStmt
-  - getInsertSelectQuery
-  - rangeTableEntry_used
-  - free_parsestate
+  - [make_parsestate](../m/make_parsestate.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [makeAlias](../m/makeAlias.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
+  - [transformWhereClause](transformWhereClause.md)
+  - [assign_expr_collations](../a/assign_expr_collations.md)
+  - [makeFromExpr](../m/makeFromExpr.md)
+  - [transformStmt](transformStmt.md)
+  - [getInsertSelectQuery](../g/getInsertSelectQuery.md)
+  - [rangeTableEntry_used](../r/rangeTableEntry_used.md)
+  - [free_parsestate](../f/free_parsestate.md)
   - table_close
 - Called from (representative examples):
-  - DefineRule
+  - [DefineRule](../D/DefineRule.md)
 
 ## Notes and Other Information
 - Critical for PostgreSQL's rule system which enables view implementations and query rewriting

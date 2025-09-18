@@ -29,16 +29,16 @@ The comparison process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member (iterate through bitmapset)
-  - bms_add_member (add column to modified set)
-  - heap_getattr (extract attribute values from tuples)
-  - heap_attr_equals (compare attribute values)
-  - bms_is_member (check bitmapset membership)
+  - [bms_next_member](../b/bms_next_member.md) (iterate through bitmapset)
+  - [bms_add_member](../b/bms_add_member.md) (add column to modified set)
+  - [heap_getattr](../h/heap_getattr.md) (extract attribute values from tuples)
+  - [heap_attr_equals](../h/heap_attr_equals.md) (compare attribute values)
+  - [bms_is_member](../b/bms_is_member.md) (check bitmapset membership)
   - VARATT_IS_EXTERNAL (check if variable-length attribute is stored externally)
   - RelationGetDescr (get tuple descriptor)
   - TupleDescAttr (access attribute descriptor)
 - Called from (representative examples):
-  - heap_update
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - Critical component of HOT update optimization in PostgreSQL

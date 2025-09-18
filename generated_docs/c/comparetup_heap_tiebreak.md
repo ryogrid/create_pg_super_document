@@ -28,18 +28,18 @@ The function ensures stable sorting by examining all specified sort columns in o
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - heap_getattr
-  - ApplySortAbbrevFullComparator
-  - ApplySortComparator
-  - HeapTupleData (struct type)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [HeapTupleData](../H/HeapTupleData.md) (struct type)
   - MinimalTuple (type)
   - HeapTupleHeader (type)
   - MINIMAL_TUPLE_OFFSET (constant)
-  - TupleDesc (type)
+  - [TupleDesc](../T/TupleDesc.md) (type)
   - SortSupport (type)
 - Called from (representative examples):
-  - comparetup_heap
-  - tuplesort_begin_heap (via CLUSTER_SORT macro)
+  - [comparetup_heap](comparetup_heap.md)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (via CLUSTER_SORT macro)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tuplesortvariants.c file

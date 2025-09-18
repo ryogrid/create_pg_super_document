@@ -19,20 +19,20 @@ parse_fcall_arguments is responsible for extracting and processing function argu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fp_info
-  - FunctionCallInfo
-  - pq_getmsgint
+  - [fp_info](../f/fp_info.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
+  - [pq_getmsgint](pq_getmsgint.md)
   - FUNC_MAX_ARGS
-  - pq_getmsgbytes
+  - [pq_getmsgbytes](pq_getmsgbytes.md)
   - resetStringInfo
   - appendBinaryStringInfo
-  - getTypeInputInfo
-  - pg_client_to_server
-  - OidInputFunctionCall
-  - getTypeBinaryInputInfo
-  - OidReceiveFunctionCall
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [pg_client_to_server](pg_client_to_server.md)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md)
+  - [OidReceiveFunctionCall](../O/OidReceiveFunctionCall.md)
 - Called from (representative examples):
-  - HandleFunctionRequest
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the fast-path protocol implementation

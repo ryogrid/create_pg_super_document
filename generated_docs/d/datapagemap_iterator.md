@@ -20,13 +20,13 @@ The iterator works by maintaining a pointer to the datapagemap and tracking the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datapagemap_t (struct type used for the bitmap data)
+  - [datapagemap_t](datapagemap_t.md) (struct type used for the bitmap data)
   - BlockNumber (typedef for block numbering)
 
 - Called from (representative examples):
-  - datapagemap_iterate (creates and initializes the iterator)
-  - datapagemap_next (uses the iterator to find the next set bit)
-  - datapagemap_print (debugging function that uses the iterator)
+  - [datapagemap_iterate](datapagemap_iterate.md) (creates and initializes the iterator)
+  - [datapagemap_next](datapagemap_next.md) (uses the iterator to find the next set bit)
+  - [datapagemap_print](datapagemap_print.md) (debugging function that uses the iterator)
 
 ## Notes and Other Information
 - This is an opaque structure defined in the source file and exposed only through a typedef in the header file

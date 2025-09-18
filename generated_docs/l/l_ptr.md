@@ -24,12 +24,12 @@ The function abstracts the LLVM C API call and provides a more concise interface
 - Functions called/Symbols referenced:
   - LLVMPointerType (LLVM C API function)
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c for tuple slot deformation)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c for tuple slot deformation)
   - llvm_compile_expr (extensively used throughout llvmjit_expr.c for expression compilation)
   - BuildV1Call (in llvmjit_expr.c for function call generation)
   - build_EvalXFuncInt (in llvmjit_expr.c for evaluation function building)
   - create_LifetimeEnd (in llvmjit_expr.c for lifetime management)
-  - l_mcxt_switch (in llvmjit_emit.h for memory context switching)
+  - [l_mcxt_switch](l_mcxt_switch.md) (in llvmjit_emit.h for memory context switching)
 
 ## Notes and Other Information
 - This is a header-only inline function defined in src/include/jit/llvmjit_emit.h

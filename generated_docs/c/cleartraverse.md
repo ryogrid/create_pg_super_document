@@ -24,12 +24,12 @@ This function performs a recursive traversal of the NFA starting from state s, c
   - STACK_TOO_DEEP
   - NERR
   - REG_ETOOBIG
-  - cleartraverse (recursive call)
+  - [cleartraverse](cleartraverse.md) (recursive call)
 - Called from (representative examples):
-  - dupnfa
+  - [dupnfa](../d/dupnfa.md)
   - removeconstraints
-  - cleartraverse (recursive calls)
-  - cleanup
+  - [cleartraverse](cleartraverse.md) (recursive calls)
+  - [cleanup](cleanup.md)
 
 ## Notes and Other Information
 This is a simple but essential utility function that ensures proper cleanup after complex NFA traversal operations. It includes stack overflow protection like other recursive traversal functions in the regex engine. The function is designed to be safe to call multiple times on the same NFA portion, as it checks if tmp is already NULL before recursing. This cleanup is crucial for maintaining the integrity of the NFA data structure and preventing interference between different algorithmic phases of regex compilation.

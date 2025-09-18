@@ -19,16 +19,16 @@ The function iterates through any remaining entries in the unresolved tuples has
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - ItemPointerSetInvalid
-  - raw_heap_insert
-  - smgr_bulk_write
-  - smgr_bulk_finish
-  - logical_end_heap_rewrite
-  - MemoryContextDelete
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [raw_heap_insert](../r/raw_heap_insert.md)
+  - [smgr_bulk_write](../s/smgr_bulk_write.md)
+  - [smgr_bulk_finish](../s/smgr_bulk_finish.md)
+  - [logical_end_heap_rewrite](../l/logical_end_heap_rewrite.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 
 ## Notes and Other Information
 - Processes any remaining unresolved tuples by marking their CTIDs as invalid and inserting them via raw_heap_insert

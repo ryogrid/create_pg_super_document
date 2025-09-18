@@ -29,8 +29,8 @@ Each reduction also manages indentation levels by setting ps.i_l_follow (indenta
   - Accesses global parser state through ps structure (ps.p_stack, ps.tos, ps.i_l_follow, ps.il, ps.cstk)
   - References case_ind for switch statement indentation handling
 - Called from (representative examples):
-  - parse: The main parsing function in pg_bsd_indent calls reduce during parsing
-  - startScan: Called from GIN index scanning functions (different context)
+  - [parse](../p/parse.md): The main parsing function in pg_bsd_indent calls reduce during parsing
+  - [startScan](../s/startScan.md): Called from GIN index scanning functions (different context)
 
 ## Notes and Other Information
 - The function implements a classic LR-style parser reduction phase with specific rules for C language constructs

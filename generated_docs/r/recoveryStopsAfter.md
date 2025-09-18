@@ -25,12 +25,12 @@ A key additional responsibility of this function is tracking the timestamp of th
   - XLogRecGetRmid: Gets resource manager ID from WAL record
   - XLogRecGetData: Gets data portion of WAL record
   - XLogRecGetXid: Extracts transaction ID from WAL record
-  - getRecordTimestamp: Extracts timestamp from WAL records
-  - SetLatestXTime: Updates the latest transaction time tracker
-  - ParseCommitRecord: Parses commit record details for prepared transactions
-  - ParseAbortRecord: Parses abort record details for prepared transactions
+  - [getRecordTimestamp](../g/getRecordTimestamp.md): Extracts timestamp from WAL records
+  - [SetLatestXTime](../S/SetLatestXTime.md): Updates the latest transaction time tracker
+  - [ParseCommitRecord](../P/ParseCommitRecord.md): Parses commit record details for prepared transactions
+  - [ParseAbortRecord](../P/ParseAbortRecord.md): Parses abort record details for prepared transactions
   - strlcpy: Safe string copy function
-  - timestamptz_to_str: Converts timestamp to string for logging
+  - [timestamptz_to_str](../t/timestamptz_to_str.md): Converts timestamp to string for logging
 - Constants used:
   - XLR_INFO_MASK: Mask for info field bits
   - RECOVERY_TARGET_NAME: Recovery target type for named restore points
@@ -43,10 +43,10 @@ A key additional responsibility of this function is tracking the timestamp of th
   - XLOG_XACT_ABORT/XLOG_XACT_ABORT_PREPARED: Abort record types
   - MAXFNAMELEN: Maximum filename length constant
 - Structures used:
-  - xl_restore_point: Structure for restore point records
-  - xl_xact_commit: Structure for commit records
-  - xl_xact_abort: Structure for abort records
-  - xl_xact_parsed_commit: Parsed commit record structure
+  - [xl_restore_point](../x/xl_restore_point.md): Structure for restore point records
+  - [xl_xact_commit](../x/xl_xact_commit.md): Structure for commit records
+  - [xl_xact_abort](../x/xl_xact_abort.md): Structure for abort records
+  - [xl_xact_parsed_commit](../x/xl_xact_parsed_commit.md): Parsed commit record structure
   - xl_xact_parsed_abort: Parsed abort record structure
 - Global variables accessed:
   - ArchiveRecoveryRequested: Indicates if archive recovery is active
@@ -56,7 +56,7 @@ A key additional responsibility of this function is tracking the timestamp of th
   - reachedConsistency: Flag indicating consistency has been reached
   - recoveryStop* variables: Variables storing recovery stop information
 - Called from:
-  - PerformWalRecovery: Main recovery loop that uses this after applying records
+  - [PerformWalRecovery](../P/PerformWalRecovery.md): Main recovery loop that uses this after applying records
 
 ## Notes and Other Information
 - This is a static function, only accessible within xlogrecovery.c

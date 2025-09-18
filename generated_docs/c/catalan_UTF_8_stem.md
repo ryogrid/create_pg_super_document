@@ -28,12 +28,12 @@ The function uses careful cursor position management with backup/restore mechani
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (identifies morphological regions)
-  - r_attached_pronoun (removes attached pronouns)
-  - r_standard_suffix (processes standard morphological suffixes)
-  - r_verb_suffix (processes verbal suffixes)
-  - r_residual_suffix (handles remaining suffixes)
-  - r_cleaning (performs character normalization)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies morphological regions)
+  - [r_attached_pronoun](../r/r_attached_pronoun.md) (removes attached pronouns)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (processes standard morphological suffixes)
+  - [r_verb_suffix](../r/r_verb_suffix.md) (processes verbal suffixes)
+  - [r_residual_suffix](../r/r_residual_suffix.md) (handles remaining suffixes)
+  - [r_cleaning](../r/r_cleaning.md) (performs character normalization)
 - Called from (representative examples):
   - No direct references found - likely called via function pointers or external stemming interfaces
 

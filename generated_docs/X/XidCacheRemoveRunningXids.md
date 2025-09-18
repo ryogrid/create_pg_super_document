@@ -33,10 +33,10 @@ The removal process maintains consistency in the global process array while ensu
   - TransactionIdEquals (for XID comparison)
   - LWLockAcquire/LWLockRelease (for exclusive process array locking)
   - pg_write_barrier (for memory ordering)
-  - MaintainLatestCompletedXid (for global completion tracking)
+  - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md) (for global completion tracking)
   - elog (for warning messages)
 - Called from (representative examples):
-  - RecordTransactionAbort (in xact.c)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (in xact.c)
 
 ## Notes and Other Information
 - Requires exclusive ProcArrayLock to ensure atomic removal operations

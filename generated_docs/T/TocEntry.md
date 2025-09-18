@@ -32,15 +32,15 @@ Since TocEntry is a typedef, it inherits all members from :
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tocEntry (underlying structure definition)
-  - ParallelState (for parallel processing operations)
+  - [_tocEntry](../t/_tocEntry.md) (underlying structure definition)
+  - [ParallelState](../P/ParallelState.md) (for parallel processing operations)
   
 - Called from (representative examples):
-  - RestoreArchive (main restore coordination)
-  - ArchiveEntry (entry creation during dump)
-  - buildTocEntryArrays (dependency resolution)
-  - restore_toc_entry (individual entry restoration)
-  - WriteDataChunks (data output operations)
+  - [RestoreArchive](../R/RestoreArchive.md) (main restore coordination)
+  - [ArchiveEntry](../A/ArchiveEntry.md) (entry creation during dump)
+  - [buildTocEntryArrays](../b/buildTocEntryArrays.md) (dependency resolution)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (individual entry restoration)
+  - [WriteDataChunks](../W/WriteDataChunks.md) (data output operations)
   - parallel restore workers throughout the codebase
 
 ## Notes and Other Information

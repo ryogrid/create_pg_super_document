@@ -32,16 +32,16 @@ Returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - LWLockAcquire/LWLockRelease
   - GET_VXID_FROM_PGPROC
   - VirtualTransactionIdIsValid
 - Called from (representative examples):
-  - CreateCheckPoint (src/backend/access/transam/xlog.c:7143)
-  - CreateCheckPoint (src/backend/access/transam/xlog.c:7165)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (src/backend/access/transam/xlog.c:7143)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (src/backend/access/transam/xlog.c:7165)
 
 ## Notes and Other Information
-- Result array is allocated with palloc and must be freed by caller
+- [Result](../R/Result.md) array is allocated with palloc and must be freed by caller
 - The function checks delayChkptFlags without holding locks, making results somewhat indeterminate
 - This indeterminacy is acceptable since the function's purpose is coordination rather than strict consistency
 - Used primarily during checkpoint operations to identify blocking transactions

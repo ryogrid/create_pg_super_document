@@ -19,7 +19,7 @@ The function calls SN_close_env with parameter 0, indicating that no string arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic environment cleanup with 0 string slots parameter)
+  - [SN_close_env](../S/SN_close_env.md) (generic environment cleanup with 0 string slots parameter)
 - Called from (representative examples):
   - No direct callers found in codebase
 

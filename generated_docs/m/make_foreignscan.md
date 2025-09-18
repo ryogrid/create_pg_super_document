@@ -39,7 +39,7 @@ This function constructs a ForeignScan plan node, which is used to scan foreign 
   - CMD_SELECT (operation type constant)
   - InvalidOid (invalid object identifier constant)
 - Called from (representative examples):
-  - create_foreignscan_plan (inferred from cost comment)
+  - [create_foreignscan_plan](../c/create_foreignscan_plan.md) (inferred from cost comment)
 
 ## Notes and Other Information
 - Unlike the previous scan functions, this function is not static and can be called from other files

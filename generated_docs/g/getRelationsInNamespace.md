@@ -18,17 +18,17 @@ This function performs a catalog scan on the pg_class system table to find all r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
-  - ObjectIdGetDatum
-  - CharGetDatum
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [CharGetDatum](../C/CharGetDatum.md)
   - table_open
-  - table_beginscan_catalog
-  - heap_getnext
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
   - lappend_oid
-  - table_endscan
+  - [table_endscan](../t/table_endscan.md)
   - table_close
 - Called from (representative examples):
-  - objectsInSchemaToOids
+  - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md)
   - InternalDefaultACL
 
 ## Notes and Other Information

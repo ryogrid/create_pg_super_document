@@ -26,7 +26,7 @@ The function operates on:
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (PostgreSQL signal handling macro)
 - Called from (representative examples):
-  - main (in pg_basebackup.c via signal() registration)
+  - [main](../m/main.md) (in pg_basebackup.c via signal() registration)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within pg_basebackup.c

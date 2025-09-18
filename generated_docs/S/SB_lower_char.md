@@ -41,7 +41,7 @@ LC_ALL=: PostgreSQL locale object containing locale-specific information
 - Functions called/Symbols referenced:
   - pg_ascii_tolower (fast ASCII lowercasing)
   - tolower_l (locale-specific lowercasing)
-  - pg_tolower (PostgreSQL general lowercasing)
+  - [pg_tolower](../p/pg_tolower.md) (PostgreSQL general lowercasing)
   - pg_locale_t (locale type definition)
 - Called from (representative examples):
   - MATCH_LOWER macro in single-byte case-insensitive pattern matching

@@ -25,10 +25,10 @@ The `copy_file_clone` function implements high-performance file copying using pl
   - `close` - System call for file closing
   - `unlink` - System call to remove failed destination file
   - `strerror` - Convert errno to error string
-  - `checksum_file` - Calculate checksum of the cloned file
+  - `[checksum_file](checksum_file.md)` - Calculate checksum of the cloned file
   - `pg_file_create_mode` - File creation permissions
 - Called from:
-  - `copy_file` (src/bin/pg_combinebackup/copy_file.c:80) - as COPY_METHOD_CLONE strategy
+  - `[copy_file](copy_file.md)` (src/bin/pg_combinebackup/copy_file.c:80) - as COPY_METHOD_CLONE strategy
 
 ## Notes and Other Information
 - Platform-specific implementation with conditional compilation

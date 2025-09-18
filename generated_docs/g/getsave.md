@@ -35,10 +35,10 @@ This function is crucial for processing timezone rule definitions where save tim
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C string function)
-  - gethms (time parsing function)
+  - [gethms](gethms.md) (time parsing function)
   - zic_t (timezone time type)
 - Called from (representative examples):
-  - associate (for parsing zone save times)
+  - [associate](../a/associate.md) (for parsing zone save times)
   - inrule (for parsing rule save times)
 
 ## Notes and Other Information

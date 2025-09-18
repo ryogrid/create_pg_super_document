@@ -30,7 +30,7 @@ For example, given str="28the day12" and fmt="the day%h", it finds "the day" as 
   - strstr (standard C library function)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - pgtypes_defmt_scan
+  - [pgtypes_defmt_scan](../p/pgtypes_defmt_scan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dt_common.c file

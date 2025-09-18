@@ -21,10 +21,10 @@ The function safely handles the circular list structure by updating both the pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - move_to_ready_heap (when moving entries to ready state)
-  - reduce_dependencies (during dependency resolution)
+  - [move_to_ready_heap](../m/move_to_ready_heap.md) (when moving entries to ready state)
+  - [reduce_dependencies](../r/reduce_dependencies.md) (during dependency resolution)
   - Functions related to TEXT_DUMPALL_HEADER processing
 
 ## Notes and Other Information

@@ -29,23 +29,23 @@ The function supports both creating new languages and replacing existing ones wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser
-  - LookupFuncName
-  - get_func_rettype
-  - NameListToString
+  - [LookupFuncName](../L/LookupFuncName.md)
+  - [get_func_rettype](../g/get_func_rettype.md)
+  - [NameListToString](../N/NameListToString.md)
   - table_open
-  - SearchSysCache1
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - deleteDependencyRecordsFor
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
-  - record_object_address_dependencies
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Requires superuser privileges to create custom procedural languages

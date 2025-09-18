@@ -23,7 +23,7 @@ This function is used internally by the larger planstate tree walker to handle b
 - Functions called/Symbols referenced:
   - lfirst_node (macro for extracting typed node from list cell)
   - PSWALK (macro for recursive planstate walking)
-  - SubPlanState (node type for subplan execution state)
+  - [SubPlanState](../S/SubPlanState.md) (node type for subplan execution state)
 - Called from (representative examples):
   - PSWALK macro (indirectly when walking nodes that contain subplan lists)
   - Various planstate node walking operations

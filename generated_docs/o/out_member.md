@@ -24,7 +24,7 @@ The function handles all known MultiXact status values and provides a fallback "
 - Functions called/Symbols referenced:
   - appendStringInfo
   - appendStringInfoString
-  - MultiXactMember (struct)
+  - [MultiXactMember](../M/MultiXactMember.md) (struct)
   - MultiXactStatusForKeyShare
   - MultiXactStatusForShare
   - MultiXactStatusForNoKeyUpdate
@@ -32,7 +32,7 @@ The function handles all known MultiXact status values and provides a fallback "
   - MultiXactStatusNoKeyUpdate
   - MultiXactStatusUpdate
 - Called from (representative examples):
-  - multixact_desc
+  - [multixact_desc](../m/multixact_desc.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the mxactdesc.c file

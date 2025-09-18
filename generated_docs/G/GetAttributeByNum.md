@@ -26,8 +26,8 @@ The function uses AttributeNumberIsValid to validate the attribute number, ensur
   - AttributeNumberIsValid (validate attribute number)
   - HeapTupleHeaderGetTypeId (get tuple type OID)
   - HeapTupleHeaderGetTypMod (get tuple type modifier)
-  - lookup_rowtype_tupdesc (get tuple descriptor)
-  - heap_getattr (extract attribute value)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md) (get tuple descriptor)
+  - [heap_getattr](../h/heap_getattr.md) (extract attribute value)
   - ReleaseTupleDesc (release tuple descriptor)
 - Called from (representative examples):
   - exec_rt_fetch (runtime tuple access)

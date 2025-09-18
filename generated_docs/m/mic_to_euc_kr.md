@@ -27,7 +27,7 @@ This function serves as a PostgreSQL-callable wrapper for MULE to EUC-KR encodin
   - PG_GETARG_INT32 (extracts integer argument)
   - PG_GETARG_BOOL (extracts boolean argument)
   - CHECK_ENCODING_CONVERSION_ARGS (validates conversion request)
-  - mic2euc_kr (performs the actual encoding conversion)
+  - [mic2euc_kr](mic2euc_kr.md) (performs the actual encoding conversion)
   - PG_RETURN_INT32 (returns the result)
 - Constants referenced:
   - PG_MULE_INTERNAL (MULE internal encoding identifier)

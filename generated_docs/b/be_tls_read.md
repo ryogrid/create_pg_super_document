@@ -32,14 +32,14 @@ The function properly manages OpenSSL's per-thread error queue and provides comp
   - SSL_read (OpenSSL data read function)
   - SSL_get_error (SSL error analysis)
   - ERR_get_error / ERR_clear_error (OpenSSL error queue management)
-  - SSLerrmessage (error message formatting)
+  - [SSLerrmessage](../S/SSLerrmessage.md) (error message formatting)
   - ereport (PostgreSQL error reporting)
   - COMMERROR (error level constant)
   - WL_SOCKET_READABLE / WL_SOCKET_WRITEABLE (wait event types)
   - EWOULDBLOCK / ECONNRESET (errno constants)
 
 - Called from (representative examples):
-  - secure_read (in be-secure.c:188)
+  - [secure_read](../s/secure_read.md) (in be-secure.c:188)
 
 ## Notes and Other Information
 - Returns the number of bytes read on success, 0 on clean connection shutdown, or -1 on error

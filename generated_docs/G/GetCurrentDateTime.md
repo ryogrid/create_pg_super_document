@@ -23,12 +23,12 @@ The function fills the provided pg_tm structure with the current transaction tim
   - struct pg_tm
   - fsec_t
 - Called from (representative examples):
-  - GetSQLCurrentDate
-  - time_timetz
-  - DecodeDateTime
-  - DecodeTimeOnly
-  - PGTYPESdate_today
-  - PGTYPEStimestamp_current
+  - [GetSQLCurrentDate](GetSQLCurrentDate.md)
+  - [time_timetz](../t/time_timetz.md)
+  - [DecodeDateTime](../D/DecodeDateTime.md)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md)
+  - [PGTYPESdate_today](../P/PGTYPESdate_today.md)
+  - [PGTYPEStimestamp_current](../P/PGTYPEStimestamp_current.md)
 
 ## Notes and Other Information
 - This is a convenience wrapper that simplifies the interface when fractional seconds and timezone offsets are not needed

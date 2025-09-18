@@ -19,7 +19,7 @@ PQinitSSL is an exported function that provides applications with control over S
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtls_init_library
+  - [pgtls_init_library](../p/pgtls_init_library.md)
   - USE_SSL (conditional compilation flag)
 - Called from (representative examples):
   - Referenced in PQsetdb header (src/interfaces/libpq/libpq-fe.h:418)

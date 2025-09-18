@@ -19,18 +19,18 @@ This function performs a system catalog lookup to retrieve the textual name of a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure access)
-  - pstrdup (string duplication with palloc)
+  - [pstrdup](../p/pstrdup.md) (string duplication with palloc)
   - NameStr (name data extraction macro)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (catalog tuple structure)
 - Called from (representative examples):
-  - OperatorUpd (operator update operations)
-  - show_sortorder_options (EXPLAIN output formatting)
-  - DefineIndex (index definition processing)
-  - DefineOpClass (operator class definition)
+  - [OperatorUpd](../O/OperatorUpd.md) (operator update operations)
+  - [show_sortorder_options](../s/show_sortorder_options.md) (EXPLAIN output formatting)
+  - [DefineIndex](../D/DefineIndex.md) (index definition processing)
+  - [DefineOpClass](../D/DefineOpClass.md) (operator class definition)
   - print_expr (expression printing for debugging)
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ This function provides access to LocalPgBackendStatus entries using a 1-based ar
 - Called from (representative examples):
   - PG_STAT_GET_PROGRESS_COLS
   - PG_STAT_GET_ACTIVITY_COLS
-  - pg_stat_get_db_numbackends
+  - [pg_stat_get_db_numbackends](pg_stat_get_db_numbackends.md)
 
 ## Notes and Other Information
 - Unlike pgstat_get_beentry_by_proc_number(), this function uses a 1-based array index rather than a ProcNumber

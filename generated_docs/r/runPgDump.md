@@ -20,16 +20,16 @@ The function builds a connection string by appending the target database name to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (buffer data structure)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (buffer data structure)
   - initPQExpBuffer (buffer initialization)
-  - printfPQExpBuffer (formatted buffer output)
-  - appendConnStrVal (connection string value appending)
-  - appendShellString (shell-safe string appending)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formatted buffer output)
+  - [appendConnStrVal](../a/appendConnStrVal.md) (connection string value appending)
+  - [appendShellString](../a/appendShellString.md) (shell-safe string appending)
   - pg_log_info (logging utility)
   - system (system command execution)
   - termPQExpBuffer (buffer cleanup)
 - Called from (representative examples):
-  - dumpDatabases (in pg_dumpall.c at line 1655)
+  - [dumpDatabases](../d/dumpDatabases.md) (in pg_dumpall.c at line 1655)
 
 ## Notes and Other Information
 - Returns the exit status from the system() call, allowing caller to detect pg_dump failures
@@ -38,4 +38,4 @@ The function builds a connection string by appending the target database name to
 - Flushes output streams before executing system command to ensure proper log ordering
 - Relies on global variables like pg_dump_bin, pgdumpopts, filename, and connstr
 - The connection string construction assumes a properly formatted base connection string
-- Command execution is synchronous - function blocks until pg_dump completes
+- [Command](../C/Command.md) execution is synchronous - function blocks until pg_dump completes

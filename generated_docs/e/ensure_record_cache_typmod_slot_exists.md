@@ -19,13 +19,13 @@ The function uses PostgreSQL's memory management facilities, allocating memory i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - pg_nextpower2_32
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
   - repalloc0_array
-  - RecordCacheArrayEntry (type)
+  - [RecordCacheArrayEntry](../R/RecordCacheArrayEntry.md) (type)
 - Called from (representative examples):
-  - lookup_rowtype_tupdesc_internal
-  - assign_record_type_typmod
+  - [lookup_rowtype_tupdesc_internal](../l/lookup_rowtype_tupdesc_internal.md)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
 
 ## Notes and Other Information
 - This is a static function internal to typcache.c, not exposed to external modules

@@ -29,7 +29,7 @@ The captured information includes the next MultiXact ID to be assigned, the next
   - LWLockRelease
   - debug_elog6
 - Called from (representative examples):
-  - CreateCheckPoint
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
 
 ## Notes and Other Information
 - Must be called with appropriate output parameters allocated by the caller

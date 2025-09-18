@@ -36,11 +36,11 @@ RangeTableFuncCol defines a single column specification within a table function'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName
+  - [TypeName](../T/TypeName.md)
   - ParseLoc
 - Called from (representative examples):
-  - transformRangeTableFunc
-  - raw_expression_tree_walker_impl
+  - [transformRangeTableFunc](../t/transformRangeTableFunc.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:673-683

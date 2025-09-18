@@ -40,12 +40,12 @@ The function uses attribute mapping to handle differences in column ordering bet
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate, RelationGetIndexList, index_open, BuildIndexInfo
-  - build_attrmap_by_name, get_relation_idx_constraint_oid, CompareIndexInfo
-  - get_constraint_type, IndexSetParentIndex, ConstraintSetParentConstraint
-  - generateClonedIndexStmt, DefineIndex, CommandCounterIncrement
-  - index_close, MemoryContextDelete
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md), get_relation_idx_constraint_oid, CompareIndexInfo
+  - [get_constraint_type](../g/get_constraint_type.md), IndexSetParentIndex, ConstraintSetParentConstraint
+  - [generateClonedIndexStmt](../g/generateClonedIndexStmt.md), DefineIndex, CommandCounterIncrement
+  - [index_close](../i/index_close.md), MemoryContextDelete
 - Called from (representative examples):
-  - ATExecAttachPartition
+  - [ATExecAttachPartition](ATExecAttachPartition.md)
   - child_dependency_type
 
 ## Notes and Other Information

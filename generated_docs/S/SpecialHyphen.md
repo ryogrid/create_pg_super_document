@@ -23,14 +23,14 @@ The function is part of PostgreSQL's text search parser infrastructure that need
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1507)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1513)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1524)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1529)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1540)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1544)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1507)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1513)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1524)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1529)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1540)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1544)
 
 ## Notes and Other Information
 - The function only performs position rewinding and does not set any flags (unlike SpecialFURL which sets wanthost)

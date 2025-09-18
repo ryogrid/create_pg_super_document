@@ -36,7 +36,7 @@ The function displays the numeric's weight (position of most significant digit),
   - printf (standard C library)
 - Called from (representative examples):
   - NUMERIC_ABBREV_NINF
-  - make_result_opt_error
+  - [make_result_opt_error](../m/make_result_opt_error.md)
 
 ## Notes and Other Information
 - Static function - only accessible within numeric.c

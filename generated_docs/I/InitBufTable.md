@@ -29,7 +29,7 @@ InitBufTable creates and initializes the shared buffer lookup hashtable (SharedB
   - HASH_PARTITION
 - Called from (representative examples):
   - StrategyInitialize
-  - ResourceOwnerForgetBufferIO
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 The function assumes no locking is needed during initialization since it runs during system startup before concurrent access begins. The hashtable is configured with partitioning (NUM_BUFFER_PARTITIONS) to reduce lock contention in multi-process environments. The HASH_ELEM, HASH_BLOBS, and HASH_PARTITION flags specify that the table uses fixed-size elements, treats keys as binary data, and supports partitioned locking respectively.

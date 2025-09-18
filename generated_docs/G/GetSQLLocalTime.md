@@ -20,14 +20,14 @@ This function retrieves the current local time and returns it as a TimeADT value
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetCurrentTimeUsec
-  - tm2time
-  - AdjustTimeForTypmod
+  - [tm2time](../t/tm2time.md)
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)
 - Types used:
   - TimeADT
-  - pg_tm
+  - [pg_tm](../p/pg_tm.md)
   - fsec_t
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information

@@ -30,7 +30,7 @@ The function is essential for predicate testing logic where the optimizer needs 
   - IS_NOT_TRUE, IS_FALSE, IS_UNKNOWN (boolean test types)
 - Called from (representative examples):
   - iterate_end
-  - predicate_refuted_by_recurse (multiple call sites)
+  - [predicate_refuted_by_recurse](../p/predicate_refuted_by_recurse.md) (multiple call sites)
 
 ## Notes and Other Information
 - Returns NULL if the input clause is NULL or doesn't match any negation pattern

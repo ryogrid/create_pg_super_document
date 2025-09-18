@@ -29,9 +29,9 @@ The iterator structure provides a safe way to traverse hash table contents witho
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME
 - Called from (representative examples):
-  - SH_START_ITERATE
-  - SH_START_ITERATE_AT  
-  - SH_ITERATE
+  - [SH_START_ITERATE](SH_START_ITERATE.md)
+  - [SH_START_ITERATE_AT](SH_START_ITERATE_AT.md)  
+  - [SH_ITERATE](SH_ITERATE.md)
 
 ## Notes and Other Information
 - Part of the templated hash table generation system in src/include/lib/simplehash.h:110

@@ -22,11 +22,11 @@ This static function serves as the core implementation for aggregate function de
   - GroupingFunc
   - SubLink
   - expression_tree_walker
-  - contain_agg_clause_walker (recursive call)
+  - [contain_agg_clause_walker](contain_agg_clause_walker.md) (recursive call)
 - Called from (representative examples):
-  - contain_agg_clause
+  - [contain_agg_clause](contain_agg_clause.md)
   - max_parallel_hazard_context
-  - contain_agg_clause_walker (recursive)
+  - [contain_agg_clause_walker](contain_agg_clause_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

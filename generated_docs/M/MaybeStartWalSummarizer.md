@@ -19,15 +19,15 @@ Unlike WAL receivers which can start during various recovery states, WAL summari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartChildProcess (creates the WAL summarizer process with B_WAL_SUMMARIZER type)
-- Variables referenced:
+  - [StartChildProcess](../S/StartChildProcess.md) (creates the WAL summarizer process with B_WAL_SUMMARIZER type)
+- [Variables](../V/Variables.md) referenced:
   - summarize_wal (configuration parameter enabling WAL summarization)
   - WalSummarizerPID (tracks current summarizer process ID)
   - pmState (postmaster state - checked against PM_RUN and PM_HOT_STANDBY)
   - Shutdown (shutdown state - compared with SmartShutdown)
 - Called from (representative examples):
-  - ServerLoop (main postmaster loop for regular checks)
-  - process_pm_child_exit (restart after child process termination)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster loop for regular checks)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md) (restart after child process termination)
 
 ## Notes and Other Information
 - WAL summarization supports incremental backup functionality by creating summary information

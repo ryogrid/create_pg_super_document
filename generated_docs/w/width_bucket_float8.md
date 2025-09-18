@@ -25,7 +25,7 @@ The width_bucket_float8 function implements the SQL2003 standard width_bucket() 
   - PG_GETARG_INT32: Extracts int32 argument for bucket count
   - isnan: Checks for NaN values in floating-point arguments
   - isinf: Checks for infinite values in floating-point arguments
-  - pg_add_s32_overflow: Safely adds integers with overflow checking
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md): Safely adds integers with overflow checking
   - ereport: Reports errors with specific error codes
   - PG_RETURN_INT32: Returns integer result to PostgreSQL
 - Called from (representative examples):

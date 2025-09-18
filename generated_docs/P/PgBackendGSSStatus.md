@@ -37,11 +37,11 @@ The structure tracks both authentication and encryption aspects of GSSAPI connec
   - NAMEDATALEN (used for sizing the principal name field)
 - Used by:
   - NumBackendStatSlots (for memory calculation)
-  - BackendStatusShmemSize (for shared memory sizing)
-  - CreateSharedBackendStatus (for initialization)
-  - pgstat_bestart (for populating GSS status)
+  - [BackendStatusShmemSize](../B/BackendStatusShmemSize.md) (for shared memory sizing)
+  - [CreateSharedBackendStatus](../C/CreateSharedBackendStatus.md) (for initialization)
+  - [pgstat_bestart](../p/pgstat_bestart.md) (for populating GSS status)
   - pgstat_read_current_status (for reading GSS information)
-  - PgBackendStatus (as a member structure)
+  - [PgBackendStatus](PgBackendStatus.md) (as a member structure)
 
 ## Notes and Other Information
 - This structure is only allocated and populated when GSSAPI is enabled for a connection

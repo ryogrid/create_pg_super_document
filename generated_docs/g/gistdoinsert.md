@@ -34,24 +34,24 @@ The function operates in a short-lived memory context and doesn't bother releasi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistcheckpage
+  - [gistcheckpage](gistcheckpage.md)
   - gistchoose  
-  - gistfixsplit
+  - [gistfixsplit](gistfixsplit.md)
   - gistgetadjusted
-  - gistinserttuple
+  - [gistinserttuple](gistinserttuple.md)
   - GistFollowRight
   - GistPageGetNSN
   - GistPageIsDeleted
   - GistPageIsLeaf
   - GistTupleIsInvalid
-  - BufferGetLSNAtomic
-  - PageGetLSN
-  - ReadBuffer
-  - LockBuffer
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
+  - [PageGetLSN](../P/PageGetLSN.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - ReleaseBuffer
 - Called from (representative examples):
-  - gistinsert
-  - gistBuildCallback
+  - [gistinsert](gistinsert.md)
+  - [gistBuildCallback](gistBuildCallback.md)
 
 ## Notes and Other Information
 - The function implements an optimistic locking strategy, acquiring shared locks initially and upgrading to exclusive locks only when modifications are needed

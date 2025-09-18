@@ -54,20 +54,20 @@ The function carefully handles various aggregate scenarios including partial agg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_aggregate_transfn_expr, build_aggregate_serialfn_expr, build_aggregate_deserialfn_expr
-  - fmgr_info, fmgr_info_set_expr
+  - [build_aggregate_transfn_expr](build_aggregate_transfn_expr.md), build_aggregate_serialfn_expr, build_aggregate_deserialfn_expr
+  - [fmgr_info](../f/fmgr_info.md), fmgr_info_set_expr
   - InitFunctionCallInfoData, SizeForFunctionCallInfo
-  - get_typlenbyval, get_opcode, get_sortgroupclause_tle
-  - ExecTypeFromTL, ExecInitExtraTupleSlot
+  - [get_typlenbyval](../g/get_typlenbyval.md), get_opcode, get_sortgroupclause_tle
+  - [ExecTypeFromTL](../E/ExecTypeFromTL.md), ExecInitExtraTupleSlot
   - execTuplesMatchPrepare, exprCollation
 - Types used:
-  - AggStatePerTrans, AggState, EState, Aggref
-  - FunctionCallInfo, SortGroupClause, TargetEntry, Tuplesortstate
+  - [AggStatePerTrans](../A/AggStatePerTrans.md), AggState, EState, Aggref
+  - [FunctionCallInfo](../F/FunctionCallInfo.md), SortGroupClause, TargetEntry, Tuplesortstate
 - Constants used:
   - AGGKIND_IS_ORDERED_SET, DO_AGGSPLIT_COMBINE
   - AGG_HASHED, AGG_MIXED, TTSOpsMinimalTuple
 - Called from:
-  - ExecInitAgg (src/backend/executor/nodeAgg.c:3887, 3913)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (src/backend/executor/nodeAgg.c:3887, 3913)
 
 ## Notes and Other Information
 - This is a static function internal to nodeAgg.c

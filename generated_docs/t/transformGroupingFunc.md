@@ -19,10 +19,10 @@ This function processes GROUPING() expressions which are used in GROUP BY querie
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - transformExpr
-  - check_agglevels_and_constraints
+  - [transformExpr](transformExpr.md)
+  - [check_agglevels_and_constraints](../c/check_agglevels_and_constraints.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - GROUPING() is limited to fewer than 32 arguments due to its bitmask return value representation

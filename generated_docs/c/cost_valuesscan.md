@@ -27,16 +27,16 @@ The function follows PostgreSQL's standard cost model by separating startup cost
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_qual_cost (calculates cost of applying WHERE clause conditions)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying WHERE clause conditions)
   - cpu_operator_cost (global cost parameter)
   - cpu_tuple_cost (global cost parameter)
 - Types referenced:
-  - ParamPathInfo (parameterized path information)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
   - QualCost (qualification cost structure)
   - RTE_VALUES (enum value for VALUES range table entries)
 - Called from:
-  - create_valuesscan_path (in pathnode.c:2113)
+  - [create_valuesscan_path](create_valuesscan_path.md) (in pathnode.c:2113)
 
 ## Notes and Other Information
 - The function includes an assertion that the relation must be a VALUES RTE (rtekind == RTE_VALUES)

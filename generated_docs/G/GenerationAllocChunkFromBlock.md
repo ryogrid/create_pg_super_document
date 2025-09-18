@@ -23,15 +23,15 @@ The function positions the new chunk at the current freeptr location, advances t
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_MAKE_MEM_UNDEFINED
-  - MemoryChunkSetHdrMask
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING)
-  - randomize_mem (when RANDOMIZE_ALLOCATED_MEMORY)
+  - [MemoryChunkSetHdrMask](../M/MemoryChunkSetHdrMask.md)
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING)
+  - [randomize_mem](../r/randomize_mem.md) (when RANDOMIZE_ALLOCATED_MEMORY)
   - MemoryChunkGetPointer
   - VALGRIND_MAKE_MEM_NOACCESS
   - pg_noinline
 - Called from (representative examples):
-  - GenerationAllocFromNewBlock
-  - GenerationAlloc (multiple call sites)
+  - [GenerationAllocFromNewBlock](GenerationAllocFromNewBlock.md)
+  - [GenerationAlloc](GenerationAlloc.md) (multiple call sites)
 
 ## Notes and Other Information
 - The function is marked as static inline for performance, being called frequently during allocation

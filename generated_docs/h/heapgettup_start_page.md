@@ -20,13 +20,13 @@ This function initializes the scanning parameters for a heap page that's already
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
-  - BufferGetPage
-  - PageGetMaxOffsetNumber
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - ScanDirectionIsForward
   - FirstOffsetNumber
 - Called from (representative examples):
-  - heapgettup
+  - [heapgettup](heapgettup.md)
 
 ## Notes and Other Information
 - Assumes scan is already initialized (rs_inited must be true)

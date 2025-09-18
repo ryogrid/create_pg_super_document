@@ -32,11 +32,11 @@ The input Datum represents an int16 array stored in the catalog (typically from 
   - DatumGetArrayTypeP
   - ARR_DIMS
   - ARR_DATA_PTR
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
 - Called from (representative examples):
-  - pub_collist_contains_invalid_column (src/backend/commands/publicationcmds.c:382)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1164)
-  - pgoutput_column_list_init (src/backend/replication/pgoutput/pgoutput.c:1106)
+  - [pub_collist_contains_invalid_column](pub_collist_contains_invalid_column.md) (src/backend/commands/publicationcmds.c:382)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1164)
+  - [pgoutput_column_list_init](pgoutput_column_list_init.md) (src/backend/replication/pgoutput/pgoutput.c:1106)
 
 ## Notes and Other Information
 - The function handles memory context switching properly, restoring the original context after operations

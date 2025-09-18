@@ -29,15 +29,15 @@ The function performs several critical operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryChunkSetHdrMask
+  - [MemoryChunkSetHdrMask](../M/MemoryChunkSetHdrMask.md)
   - MemoryChunkGetPointer
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING enabled)
-  - randomize_mem (when RANDOMIZE_ALLOCATED_MEMORY enabled)
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING enabled)
+  - [randomize_mem](../r/randomize_mem.md) (when RANDOMIZE_ALLOCATED_MEMORY enabled)
   - VALGRIND_MAKE_MEM_UNDEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from:
-  - AllocSetAlloc
-  - AllocSetAllocFromNewBlock
+  - [AllocSetAlloc](AllocSetAlloc.md)
+  - [AllocSetAllocFromNewBlock](AllocSetAllocFromNewBlock.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's compiled directly into its callers for performance

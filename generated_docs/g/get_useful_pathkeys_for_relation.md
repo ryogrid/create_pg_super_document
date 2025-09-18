@@ -27,12 +27,12 @@ When parallel execution is involved, the function can enforce parallel-safe requ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_can_be_sorted_early
-  - list_copy_head
+  - [relation_can_be_sorted_early](../r/relation_can_be_sorted_early.md)
+  - [list_copy_head](../l/list_copy_head.md)
   - PathKey (type)
   - EquivalenceClass (type)
 - Called from (representative examples):
-  - generate_useful_gather_paths
+  - [generate_useful_gather_paths](generate_useful_gather_paths.md)
 
 ## Notes and Other Information
 - Currently returns at most a single-element list based on query_pathkeys, but designed for future extension

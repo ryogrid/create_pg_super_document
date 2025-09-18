@@ -25,14 +25,14 @@ The function first compares the high-order 24 bits (octets a, b, c), and only if
   - `hibits`: Macro that extracts the high-order 24 bits (octets a, b, c) as an unsigned long
   - `lobits`: Macro that extracts the low-order 24 bits (octets d, e, f) as an unsigned long
 - Called from (representative examples):
-  - `macaddr_cmp`: Public comparison function at src/backend/utils/adt/mac.c:202
-  - `macaddr_lt`: Less-than comparison at src/backend/utils/adt/mac.c:215
-  - `macaddr_le`: Less-than-or-equal comparison at src/backend/utils/adt/mac.c:224
-  - `macaddr_eq`: Equality comparison at src/backend/utils/adt/mac.c:233
-  - `macaddr_ge`: Greater-than-or-equal comparison at src/backend/utils/adt/mac.c:242
-  - `macaddr_gt`: Greater-than comparison at src/backend/utils/adt/mac.c:251
-  - `macaddr_ne`: Not-equal comparison at src/backend/utils/adt/mac.c:260
-  - `macaddr_fast_cmp`: Fast comparison for sorting at src/backend/utils/adt/mac.c:405
+  - `[macaddr_cmp](macaddr_cmp.md)`: Public comparison function at src/backend/utils/adt/mac.c:202
+  - `[macaddr_lt](macaddr_lt.md)`: Less-than comparison at src/backend/utils/adt/mac.c:215
+  - `[macaddr_le](macaddr_le.md)`: Less-than-or-equal comparison at src/backend/utils/adt/mac.c:224
+  - `[macaddr_eq](macaddr_eq.md)`: Equality comparison at src/backend/utils/adt/mac.c:233
+  - `[macaddr_ge](macaddr_ge.md)`: Greater-than-or-equal comparison at src/backend/utils/adt/mac.c:242
+  - `[macaddr_gt](macaddr_gt.md)`: Greater-than comparison at src/backend/utils/adt/mac.c:251
+  - `[macaddr_ne](macaddr_ne.md)`: Not-equal comparison at src/backend/utils/adt/mac.c:260
+  - `[macaddr_fast_cmp](macaddr_fast_cmp.md)`: Fast comparison for sorting at src/backend/utils/adt/mac.c:405
 
 ## Notes and Other Information
 - Returns -1 if a1 < a2, 0 if a1 == a2, and 1 if a1 > a2

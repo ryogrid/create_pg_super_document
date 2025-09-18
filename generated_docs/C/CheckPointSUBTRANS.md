@@ -19,12 +19,12 @@ The function uses SimpleLruWriteAll to write all dirty pages in the SUBTRANS buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruWriteAll
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
   - SubTransCtl
   - TRACE_POSTGRESQL_SUBTRANS_CHECKPOINT_START
   - TRACE_POSTGRESQL_SUBTRANS_CHECKPOINT_DONE
 - Called from (representative examples):
-  - CheckPointGuts (main checkpoint processing)
+  - [CheckPointGuts](CheckPointGuts.md) (main checkpoint processing)
 
 ## Notes and Other Information
 - Not required for correctness - subtransaction status can be recovered from WAL

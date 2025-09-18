@@ -19,14 +19,14 @@ This function performs a system catalog lookup to determine which index access m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - elog (error logging and reporting)
   - GETSTRUCT (tuple structure access)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_opclass (catalog tuple structure)
 - Called from (representative examples):
-  - get_equal_strategy_number (replication equality strategy lookup)
+  - [get_equal_strategy_number](get_equal_strategy_number.md) (replication equality strategy lookup)
 
 ## Notes and Other Information
 - Throws an ERROR (via elog) if the specified operator class OID is not found, unlike some similar functions that return false

@@ -29,10 +29,10 @@ This mechanism ensures that Hot Standby maintains consistent snapshots even when
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - ResolveRecoveryConflictWithSnapshotFullXid
+  - [ResolveRecoveryConflictWithSnapshotFullXid](../R/ResolveRecoveryConflictWithSnapshotFullXid.md)
   - InHotStandby (global variable)
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - This function only takes action when InHotStandby is true (running on a standby server)

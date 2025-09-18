@@ -29,7 +29,7 @@ The conversion logic:
   - FILE_ATTRIBUTE_READONLY (Windows constant)
   - _S_IFDIR, _S_IFREG, _S_IREAD, _S_IWRITE, _S_IEXEC (Unix mode constants)
 - Called from:
-  - fileinfo_to_stat (at src/port/win32stat.c:100)
+  - [fileinfo_to_stat](fileinfo_to_stat.md) (at src/port/win32stat.c:100)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the win32stat.c file

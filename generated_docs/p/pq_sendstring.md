@@ -20,16 +20,16 @@ The function first determines the length of the input string, then calls pg_serv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_client (performs character set conversion)
+  - [pg_server_to_client](pg_server_to_client.md) (performs character set conversion)
   - appendBinaryStringInfoNT (appends binary data including null terminator)
   - strlen (calculates string length)
-  - pfree (frees converted string if conversion occurred)
+  - [pfree](pfree.md) (frees converted string if conversion occurred)
 
 - Called from (representative examples):
-  - NotifyMyFrontEnd (async notification system)
+  - [NotifyMyFrontEnd](../N/NotifyMyFrontEnd.md) (async notification system)
   - logicalrep_write_* functions (logical replication protocol)
-  - ReportGUCOption (GUC parameter reporting)
-  - SendNegotiateProtocolVersion (protocol negotiation)
+  - [ReportGUCOption](../R/ReportGUCOption.md) (GUC parameter reporting)
+  - [SendNegotiateProtocolVersion](../S/SendNegotiateProtocolVersion.md) (protocol negotiation)
 
 ## Notes and Other Information
 - The input string must be null-terminated as documented

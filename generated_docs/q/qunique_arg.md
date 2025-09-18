@@ -25,10 +25,10 @@ The algorithm iterates through the array, comparing adjacent elements using the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare (user-provided comparator function with extra argument)
+  - [compare](../c/compare.md) (user-provided comparator function with extra argument)
   - memcpy (for moving array elements)
 - Called from (representative examples):
-  - _bt_sort_array_elements
+  - [_bt_sort_array_elements](../b/_bt_sort_array_elements.md)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function for performance optimization

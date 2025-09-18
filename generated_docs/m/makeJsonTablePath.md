@@ -27,7 +27,7 @@ The function includes an assertion to verify that the pathvalue parameter is ind
   - Const (input parameter type)
 
 - Called from (representative examples):
-  - makeJsonTablePathScan (in src/backend/parser/parse_jsontable.c:515)
+  - [makeJsonTablePathScan](makeJsonTablePathScan.md) (in src/backend/parser/parse_jsontable.c:515)
 
 ## Notes and Other Information
 - This function is defined in src/backend/nodes/makefuncs.c:998-1007

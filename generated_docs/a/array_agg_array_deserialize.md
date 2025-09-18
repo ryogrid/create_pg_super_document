@@ -18,14 +18,14 @@ This function is the counterpart to array_agg_array_serialize, taking a serializ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_GETARG_BYTEA_PP
-  - initReadOnlyStringInfo
-  - pq_getmsgint
-  - pq_getmsgbytes
-  - pq_getmsgend
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md)
+  - [pq_getmsgend](../p/pq_getmsgend.md)
   - initArrayResultArr
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
 - Called from (representative examples):
   - No direct references found (used as aggregate deserialize function)

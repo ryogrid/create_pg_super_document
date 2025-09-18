@@ -26,21 +26,21 @@ This is the most complex describe function in psql, handling the \df command wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - formatPGVersionNumber
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - printACLColumn
-  - validateSQLNamePattern
-  - map_typename_pattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [printACLColumn](../p/printACLColumn.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
+  - [map_typename_pattern](../m/map_typename_pattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - lengthof
 - Called from (representative examples):
-  - exec_command_dfo (in command.c:1062)
+  - [exec_command_dfo](../e/exec_command_dfo.md) (in command.c:1062)
 
 ## Notes and Other Information
 - Part of psql's describe functionality (\df command)

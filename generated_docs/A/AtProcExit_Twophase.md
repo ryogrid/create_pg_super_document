@@ -27,10 +27,10 @@ Unpacked 4988 files and folders to /home/ryo/.cursor-server/bin/031e7e0ff1e2eda9
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtAbort_Twophase (performs the actual cleanup logic)
+  - [AtAbort_Twophase](AtAbort_Twophase.md) (performs the actual cleanup logic)
 - Called from:
-  - MarkAsPreparing (in twophase.c:381) - registers this as exit hook
-  - LockGXact (in twophase.c:559) - registers this as exit hook
+  - [MarkAsPreparing](../M/MarkAsPreparing.md) (in twophase.c:381) - registers this as exit hook
+  - [LockGXact](../L/LockGXact.md) (in twophase.c:559) - registers this as exit hook
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the twophase.c file

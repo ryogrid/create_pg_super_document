@@ -26,7 +26,7 @@ The ACT_FILE action is typically triggered by the  command-line option, which te
   - Action processing logic (startup.c:413) - Used in conditional checks during execution
 
 ## Notes and Other Information
-- ACT_FILE is used in conjunction with the SimpleActionListCell structure to create a linked list of actions
+- [ACT_FILE](ACT_FILE.md) is used in conjunction with the SimpleActionListCell structure to create a linked list of actions
 - When ACT_FILE is processed, the associated  field in SimpleActionListCell contains the filename to be executed
 - In non-interactive mode, if no actions are specified, ACT_FILE with NULL filename is automatically added to execute stdin
 - The action is processed by calling  function with the specified filename

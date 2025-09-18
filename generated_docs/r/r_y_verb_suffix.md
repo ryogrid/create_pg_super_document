@@ -33,11 +33,11 @@ This function is crucial for handling Spanish verb forms like "construy-" (from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward pattern matching function)
-  - slice_del (deletes text between bra and ket positions)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching function)
+  - [slice_del](../s/slice_del.md) (deletes text between bra and ket positions)
 - Called from (representative examples):
-  - spanish_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1006)
-  - spanish_UTF_8_stem (src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:1010)
+  - [spanish_ISO_8859_1_stem](../s/spanish_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1006)
+  - [spanish_UTF_8_stem](../s/spanish_UTF_8_stem.md) (src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:1010)
 
 ## Notes and Other Information
 - This function is specific to Spanish language stemming and handles a particular morphological pattern

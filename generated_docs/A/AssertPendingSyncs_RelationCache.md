@@ -24,21 +24,21 @@ This function takes no parameters.
   - GetTransactionSnapshot
   - PushActiveSnapshot
   - PopActiveSnapshot
-  - GetLockMethodLocalHash
-  - hash_seq_init
-  - hash_seq_search
-  - RelationIdGetRelation
+  - [GetLockMethodLocalHash](../G/GetLockMethodLocalHash.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
   - RelationIsValid
-  - RelationClose
-  - AssertPendingSyncConsistency
-  - repalloc
+  - [RelationClose](../R/RelationClose.md)
+  - [AssertPendingSyncConsistency](AssertPendingSyncConsistency.md)
+  - [repalloc](../r/repalloc.md)
 - Data structures used:
   - HASH_SEQ_STATUS
-  - LOCALLOCK
+  - [LOCALLOCK](../L/LOCALLOCK.md)
   - RelIdCacheEnt
   - LOCKTAG_RELATION
 - Called from:
-  - smgrDoPendingSyncs (in storage.c)
+  - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md) (in storage.c)
 
 ## Notes and Other Information
 - This is primarily a debugging/assertion function used to catch inconsistencies between relcache and storage subsystems

@@ -19,14 +19,14 @@ The function allocates memory for the result string using PostgreSQL's memory ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_share_path (PostgreSQL path utility function)
-  - palloc (PostgreSQL memory allocation function)
+  - [get_share_path](get_share_path.md) (PostgreSQL path utility function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - snprintf (standard C library function)
 - Called from (representative examples):
-  - get_extension_script_directory
-  - pg_available_extensions
-  - pg_available_extension_versions
-  - extension_file_exists
+  - [get_extension_script_directory](get_extension_script_directory.md)
+  - [pg_available_extensions](../p/pg_available_extensions.md)
+  - [pg_available_extension_versions](../p/pg_available_extension_versions.md)
+  - [extension_file_exists](../e/extension_file_exists.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the src/backend/commands/extension.c file

@@ -21,12 +21,12 @@ The message format includes a message type byte, the 64-bit LSN where the origin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
+  - [pq_sendbyte](../p/pq_sendbyte.md)
   - LOGICAL_REP_MSG_ORIGIN
-  - pq_sendint64
-  - pq_sendstring
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
 - Called from (representative examples):
-  - send_repl_origin
+  - [send_repl_origin](../s/send_repl_origin.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's replication origin tracking system

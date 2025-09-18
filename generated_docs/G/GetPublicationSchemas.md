@@ -24,17 +24,17 @@ Each tuple found in the scan represents a publication-namespace relationship, fr
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
   - lappend_oid
   - Form_pg_publication_namespace
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):
-  - GetAllSchemaPublicationRelations
-  - AlterPublicationSchemas
+  - [GetAllSchemaPublicationRelations](GetAllSchemaPublicationRelations.md)
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md)
 
 ## Notes and Other Information
 - Specifically for FOR TABLES IN SCHEMA publications only

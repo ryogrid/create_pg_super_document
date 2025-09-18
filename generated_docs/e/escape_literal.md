@@ -21,13 +21,13 @@ The escape_literal function provides a wrapper around libpq's PQescapeLiteral fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeLiteral
-  - PQfreemem
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - PQerrorMessage
+  - [PQescapeLiteral](../P/PQescapeLiteral.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
 - Called from (representative examples):
-  - escape_fmt_id
+  - [escape_fmt_id](escape_fmt_id.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating escape functionality. It returns true on success and false on failure, with error details stored in the escape_err buffer. The function properly manages memory by freeing the escaped string returned by PQescapeLiteral using PQfreemem. When an error occurs, it strips the trailing newline from the error message for cleaner formatting.

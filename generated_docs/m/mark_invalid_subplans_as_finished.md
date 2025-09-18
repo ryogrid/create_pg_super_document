@@ -21,11 +21,11 @@ The function includes safety checks to ensure it's only called in appropriate co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_num_members (bitmap membership counting)
-  - bms_is_member (bitmap membership testing)
+  - [bms_num_members](../b/bms_num_members.md) (bitmap membership counting)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap membership testing)
 - Called from (representative examples):
-  - choose_next_subplan_for_leader (leader process initialization)
-  - choose_next_subplan_for_worker (worker process initialization)
+  - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md) (leader process initialization)
+  - [choose_next_subplan_for_worker](../c/choose_next_subplan_for_worker.md) (worker process initialization)
 
 ## Notes and Other Information
 - Only called in parallel Append mode with runtime pruning enabled

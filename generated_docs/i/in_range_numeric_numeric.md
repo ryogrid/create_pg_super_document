@@ -32,10 +32,10 @@ The function performs comprehensive validation and handling of edge cases:
   - NUMERIC_IS_NAN (NaN detection)
   - NUMERIC_IS_NINF/NUMERIC_IS_PINF (infinity detection)
   - NUMERIC_SIGN (sign determination)
-  - init_var_from_num (numeric variable initialization)
-  - add_var/sub_var (arithmetic operations)
-  - cmp_var (numeric comparison)
-  - free_var (memory cleanup)
+  - [init_var_from_num](init_var_from_num.md) (numeric variable initialization)
+  - [add_var](../a/add_var.md)/sub_var (arithmetic operations)
+  - [cmp_var](../c/cmp_var.md) (numeric comparison)
+  - [free_var](../f/free_var.md) (memory cleanup)
 - Called from (representative examples):
   - Window function range processing (not directly referenced in indexed code)
 

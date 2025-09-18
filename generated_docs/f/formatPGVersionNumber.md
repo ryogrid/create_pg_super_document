@@ -28,10 +28,10 @@ The function is reentrant as it requires the caller to provide the output buffer
 - Functions called/Symbols referenced:
   - `snprintf` (standard C library function)
 - Called from (representative examples):
-  - `printVersion` (src/bin/pgbench/pgbench.c:6373)
-  - `connection_warnings` (src/bin/psql/command.c:3929, 3950, 3952)
-  - `SyncVariables` (src/bin/psql/command.c:4064)
-  - `describeAccessMethods` (src/bin/psql/describe.c:153)
+  - `[printVersion](../p/printVersion.md)` (src/bin/pgbench/pgbench.c:6373)
+  - `[connection_warnings](../c/connection_warnings.md)` (src/bin/psql/command.c:3929, 3950, 3952)
+  - `[SyncVariables](../S/SyncVariables.md)` (src/bin/psql/command.c:4064)
+  - `[describeAccessMethods](../d/describeAccessMethods.md)` (src/bin/psql/describe.c:153)
 
 ## Notes and Other Information
 - Encapsulates knowledge of PostgreSQL's version numbering scheme changes

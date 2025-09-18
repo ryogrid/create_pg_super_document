@@ -20,10 +20,10 @@ This function packages the active relation map updates (both shared and local) i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializedActiveRelMaps (type reference)
-  - EstimateRelationMapSpace
+  - [SerializedActiveRelMaps](SerializedActiveRelMaps.md) (type reference)
+  - [EstimateRelationMapSpace](../E/EstimateRelationMapSpace.md)
 - Called from (representative examples):
-  - InitializeParallelDSM (at src/backend/access/transam/parallel.c:434)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (at src/backend/access/transam/parallel.c:434)
 
 ## Notes and Other Information
 - Asserts that maxSize is at least as large as EstimateRelationMapSpace() returns

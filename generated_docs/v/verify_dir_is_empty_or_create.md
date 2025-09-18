@@ -22,13 +22,13 @@ This function implements directory validation logic crucial for pg_basebackup op
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_check_dir (examines directory state and contents)
-  - pg_mkdir_p (creates directory hierarchy with proper permissions)
-  - pg_fatal (terminates program with error message)
+  - [pg_mkdir_p](../p/pg_mkdir_p.md) (creates directory hierarchy with proper permissions)
+  - [pg_fatal](../p/pg_fatal.md) (terminates program with error message)
 - Global variables accessed:
   - pg_dir_create_mode (directory creation permissions)
 - Called from (representative examples):
-  - BaseBackup function in pg_basebackup.c at line 2083
-  - main function in pg_basebackup.c at lines 2849 and 2860
+  - [BaseBackup](../B/BaseBackup.md) function in pg_basebackup.c at line 2083
+  - [main](../m/main.md) function in pg_basebackup.c at lines 2849 and 2860
 
 ## Notes and Other Information
 - The function handles all possible return values from pg_check_dir:

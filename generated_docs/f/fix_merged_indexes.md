@@ -24,13 +24,13 @@ The function operates in two main phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionMap (struct type)
+  - [PartitionMap](../P/PartitionMap.md) (struct type)
   - lfirst_int (list access macro)
-  - palloc (memory allocation)
-  - pfree (memory deallocation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
   - compare_range_bounds
-  - merge_list_bounds
+  - [merge_list_bounds](../m/merge_list_bounds.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the partbounds.c file

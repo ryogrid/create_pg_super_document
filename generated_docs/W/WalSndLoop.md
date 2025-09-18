@@ -21,24 +21,24 @@ The function handles both physical and logical replication through a callback me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - ResetLatch
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - ProcessConfigFile (with PGC_SIGHUP)
-  - SyncRepInitConfig
-  - ProcessRepliesIfAny
+  - [SyncRepInitConfig](../S/SyncRepInitConfig.md)
+  - [ProcessRepliesIfAny](../P/ProcessRepliesIfAny.md)
   - pq_is_send_pending
   - pq_flush_if_writable
-  - WalSndShutdown
-  - WalSndSetState
-  - WalSndDone
-  - WalSndCheckTimeOut
-  - WalSndKeepaliveIfNecessary
-  - WalSndComputeSleeptime
-  - WalSndWait
-  - pgstat_flush_io
+  - [WalSndShutdown](WalSndShutdown.md)
+  - [WalSndSetState](WalSndSetState.md)
+  - [WalSndDone](WalSndDone.md)
+  - [WalSndCheckTimeOut](WalSndCheckTimeOut.md)
+  - [WalSndKeepaliveIfNecessary](WalSndKeepaliveIfNecessary.md)
+  - [WalSndComputeSleeptime](WalSndComputeSleeptime.md)
+  - [WalSndWait](WalSndWait.md)
+  - [pgstat_flush_io](../p/pgstat_flush_io.md)
 - Called from:
-  - StartReplication (src/backend/replication/walsender.c:988)
-  - StartLogicalReplication (src/backend/replication/walsender.c:1525)
+  - [StartReplication](../S/StartReplication.md) (src/backend/replication/walsender.c:988)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md) (src/backend/replication/walsender.c:1525)
 
 ## Notes and Other Information
 - Initializes `last_reply_timestamp` to enable timeout processing

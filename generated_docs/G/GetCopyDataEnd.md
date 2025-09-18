@@ -21,9 +21,9 @@ The function is designed as a simple but critical safety check in the pg_basebac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReportCopyDataParseError
+  - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)
 - Called from (representative examples):
-  - ReceiveArchiveStreamChunk (multiple locations in pg_basebackup.c)
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md) (multiple locations in pg_basebackup.c)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the pg_basebackup.c compilation unit

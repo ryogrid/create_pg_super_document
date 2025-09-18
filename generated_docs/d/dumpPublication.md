@@ -35,13 +35,13 @@ The function dynamically builds the publish parameter list based on the boolean 
 - Functions called/Symbols referenced:
   - `DumpOptions` (data structure)
   - `createPQExpBuffer`, `appendPQExpBuffer` series (query building)
-  - `fmtId` (identifier formatting)
-  - `ArchiveEntry` (archive entry creation)
-  - `dumpComment`, `dumpSecLabel` (auxiliary object dumping)
+  - `[fmtId](../f/fmtId.md)` (identifier formatting)
+  - `[ArchiveEntry](../A/ArchiveEntry.md)` (archive entry creation)
+  - `[dumpComment](dumpComment.md)`, `dumpSecLabel` (auxiliary object dumping)
   - `DUMP_COMPONENT_DEFINITION`, `DUMP_COMPONENT_COMMENT`, `DUMP_COMPONENT_SECLABEL` (component flags)
   - `SECTION_POST_DATA` (archive section)
 - Called from (representative examples):
-  - `dumpDumpableObject` (main dump dispatch function)
+  - `[dumpDumpableObject](dumpDumpableObject.md)` (main dump dispatch function)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode

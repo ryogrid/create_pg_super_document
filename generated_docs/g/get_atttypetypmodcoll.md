@@ -24,18 +24,18 @@ This function performs a single system cache lookup to retrieve three related pi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 - performs the system cache lookup using ATTNUM cache
-  - ObjectIdGetDatum - converts relation OID to Datum format
+  - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - converts relation OID to Datum format
   - Int16GetDatum - converts attribute number to Datum format
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple
-  - ReleaseSysCache - releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) - releases the system cache entry
   - elog - logs error messages when attribute is not found
 
 - Called from (representative examples):
-  - transformAssignmentIndirection (parser/parse_target.c:799)
-  - pg_get_indexdef_worker (utils/adt/ruleutils.c:1410)
-  - pg_get_partkeydef_worker (utils/adt/ruleutils.c:2023)
+  - [transformAssignmentIndirection](../t/transformAssignmentIndirection.md) (parser/parse_target.c:799)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (utils/adt/ruleutils.c:1410)
+  - [pg_get_partkeydef_worker](../p/pg_get_partkeydef_worker.md) (utils/adt/ruleutils.c:2023)
 
 ## Notes and Other Information
 - More efficient than calling separate functions for type, typmod, and collation information

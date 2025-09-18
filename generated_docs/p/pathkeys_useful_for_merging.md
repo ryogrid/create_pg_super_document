@@ -29,12 +29,12 @@ The function supports the path optimization strategy of only retaining useful pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - right_merge_direction
-  - eclass_useful_for_merging
-  - update_mergeclause_eclasses
+  - [right_merge_direction](../r/right_merge_direction.md)
+  - [eclass_useful_for_merging](../e/eclass_useful_for_merging.md)
+  - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
   - PathKey
 - Called from (representative examples):
-  - truncate_useless_pathkeys (src/backend/optimizer/path/pathkeys.c:2219)
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md) (src/backend/optimizer/path/pathkeys.c:2219)
 
 ## Notes and Other Information
 - This is a static function within the pathkeys.c module

@@ -27,15 +27,15 @@ The pushedDown parameter tracks whether the locking requirement originated from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_parse_rowmark (checks for existing RowMarkClause)
+  - [get_parse_rowmark](../g/get_parse_rowmark.md) (checks for existing RowMarkClause)
   - makeNode (creates new RowMarkClause structures)
   - lappend (adds new clause to rowMarks list)
   - Max (macro for selecting maximum values)
   - Assert (assertion macro)
   - LCS_NONE (enum value for validation)
 - Called from (representative examples):
-  - transformLockingClause (multiple times during locking clause transformation)
-  - markQueryForLocking (in rewrite handler for view rewriting)
+  - [transformLockingClause](../t/transformLockingClause.md) (multiple times during locking clause transformation)
+  - [markQueryForLocking](../m/markQueryForLocking.md) (in rewrite handler for view rewriting)
 
 ## Notes and Other Information
 - Exported function accessible from other modules

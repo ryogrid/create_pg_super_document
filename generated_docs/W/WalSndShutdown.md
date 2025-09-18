@@ -23,15 +23,15 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - DestRemote (output destination enum value)
   - DestNone (output destination enum value)
-  - proc_exit
+  - [proc_exit](../p/proc_exit.md)
 
 - Called from:
-  - WalSndWriteData (when write operations fail)
-  - ProcessPendingWrites (during write processing errors)
-  - WalSndWaitForWal (when waiting for WAL fails)
-  - WalSndCheckTimeOut (when timeout conditions are detected)
-  - WalSndLoop (in the main sender loop on errors)
-  - WalSndKeepaliveIfNecessary (when keepalive operations fail)
+  - [WalSndWriteData](WalSndWriteData.md) (when write operations fail)
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md) (during write processing errors)
+  - [WalSndWaitForWal](WalSndWaitForWal.md) (when waiting for WAL fails)
+  - [WalSndCheckTimeOut](WalSndCheckTimeOut.md) (when timeout conditions are detected)
+  - [WalSndLoop](WalSndLoop.md) (in the main sender loop on errors)
+  - [WalSndKeepaliveIfNecessary](WalSndKeepaliveIfNecessary.md) (when keepalive operations fail)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the walsender.c file

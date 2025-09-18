@@ -25,14 +25,14 @@ The structure is designed to work with both regular tables (using BulkInsertStat
 - Functions called/Symbols referenced:
   - MAX_BUFFERED_TUPLES
   - TupleTableSlot
-  - ResultRelInfo
-  - BulkInsertState
+  - [ResultRelInfo](../R/ResultRelInfo.md)
+  - [BulkInsertState](../B/BulkInsertState.md)
 - Called from (representative examples):
-  - CopyMultiInsertBufferInit
-  - CopyMultiInsertBufferFlush
-  - CopyMultiInsertBufferCleanup
-  - CopyMultiInsertInfoSetupBuffer
-  - CopyMultiInsertInfoStore
+  - [CopyMultiInsertBufferInit](CopyMultiInsertBufferInit.md)
+  - [CopyMultiInsertBufferFlush](CopyMultiInsertBufferFlush.md)
+  - [CopyMultiInsertBufferCleanup](CopyMultiInsertBufferCleanup.md)
+  - [CopyMultiInsertInfoSetupBuffer](CopyMultiInsertInfoSetupBuffer.md)
+  - [CopyMultiInsertInfoStore](CopyMultiInsertInfoStore.md)
 
 ## Notes and Other Information
 - MAX_BUFFERED_TUPLES is deliberately limited to 1000 to prevent quadratic memory growth when copying into partitioned tables with many partitions

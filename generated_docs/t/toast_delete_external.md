@@ -23,9 +23,9 @@ This function is a key component of PostgreSQL's TOAST (The Oversized-Attribute 
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_ONDISK (macro to check if a value is externally stored on disk)
-  - toast_delete_datum (function to delete chunks of a single externally stored TOAST value)
+  - [toast_delete_datum](toast_delete_datum.md) (function to delete chunks of a single externally stored TOAST value)
 - Called from (representative examples):
-  - heap_toast_delete (main interface for TOAST deletion in heap operations)
+  - [heap_toast_delete](../h/heap_toast_delete.md) (main interface for TOAST deletion in heap operations)
 
 ## Notes and Other Information
 - The function only processes variable-length attributes (attlen == -1) as these are the only attributes that can be TOASTed

@@ -33,27 +33,27 @@ The function handles various dependency types (NORMAL, AUTO, INTERNAL, EXTENSION
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stack_address_present_add_flags
+  - [stack_address_present_add_flags](../s/stack_address_present_add_flags.md)
   - check_stack_depth
-  - object_address_present_add_flags
-  - IsPinnedObject
-  - getObjectDescription
-  - systable_beginscan/systable_getnext/systable_endscan
-  - systable_recheck_tuple
-  - AcquireDeletionLock/ReleaseDeletionLock
-  - object_address_present
+  - [object_address_present_add_flags](../o/object_address_present_add_flags.md)
+  - [IsPinnedObject](../I/IsPinnedObject.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan
+  - [systable_recheck_tuple](../s/systable_recheck_tuple.md)
+  - [AcquireDeletionLock](../A/AcquireDeletionLock.md)/ReleaseDeletionLock
+  - [object_address_present](../o/object_address_present.md)
   - qsort with object_address_comparator
-  - add_exact_object_address_extra
+  - [add_exact_object_address_extra](../a/add_exact_object_address_extra.md)
 - Data structures used:
-  - ObjectAddress/ObjectAddresses
-  - ObjectAddressStack/ObjectAddressAndFlags
+  - [ObjectAddress](../O/ObjectAddress.md)/ObjectAddresses
+  - [ObjectAddressStack](../O/ObjectAddressStack.md)/ObjectAddressAndFlags
   - ObjectAddressExtra
   - Form_pg_depend
   - Various DEPENDENCY_* and DEPFLAG_* constants
 - Called from (representative examples):
-  - performDeletion
-  - performMultipleDeletions
-  - findDependentObjects (recursive)
+  - [performDeletion](../p/performDeletion.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
+  - [findDependentObjects](findDependentObjects.md) (recursive)
   - find_expr_references_context
 
 ## Notes and Other Information

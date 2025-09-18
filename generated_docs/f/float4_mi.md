@@ -21,10 +21,10 @@ This inline function implements safe single-precision floating-point subtraction
 ## Dependencies
 - Functions called/Symbols referenced:
   - isinf (checks if value is infinite)
-  - float_overflow_error (reports overflow error)
+  - [float_overflow_error](float_overflow_error.md) (reports overflow error)
   - float4 (PostgreSQL's single-precision float type)
 - Called from (representative examples):
-  - float4mi (src/backend/utils/adt/float.c:735)
+  - [float4mi](float4mi.md) (src/backend/utils/adt/float.c:735)
 
 ## Notes and Other Information
 - Defined as a static inline function in src/include/utils/float.h:170-181

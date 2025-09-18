@@ -19,16 +19,16 @@ This function initializes a BuildAccumulator structure used during GIN index bul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbt_create
-  - cmpEntryAccumulator
+  - [rbt_create](../r/rbt_create.md)
+  - [cmpEntryAccumulator](../c/cmpEntryAccumulator.md)
   - ginCombineData
-  - ginAllocEntryAccumulator
-  - BuildAccumulator (struct)
-  - GinEntryAccumulator (struct)
+  - [ginAllocEntryAccumulator](ginAllocEntryAccumulator.md)
+  - [BuildAccumulator](../B/BuildAccumulator.md) (struct)
+  - [GinEntryAccumulator](../G/GinEntryAccumulator.md) (struct)
 - Called from (representative examples):
-  - ginInsertCleanup
-  - ginBuildCallback
-  - ginbuild
+  - [ginInsertCleanup](ginInsertCleanup.md)
+  - [ginBuildCallback](ginBuildCallback.md)
+  - [ginbuild](ginbuild.md)
 
 ## Notes and Other Information
 - The ginstate field is intentionally not set and must be initialized by the caller

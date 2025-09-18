@@ -19,13 +19,13 @@ The function uses PostgreSQL's bulk write infrastructure to efficiently create t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_allequalimage (determines equal image support)
-  - smgr_bulk_start_rel, smgr_bulk_get_buf, smgr_bulk_write, smgr_bulk_finish (bulk write operations)
+  - [_bt_allequalimage](_bt_allequalimage.md) (determines equal image support)
+  - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md), smgr_bulk_get_buf, smgr_bulk_write, smgr_bulk_finish (bulk write operations)
   - _bt_initmetapage (initializes the metapage structure)
-  - BulkWriteState, BulkWriteBuffer (bulk write types)
+  - [BulkWriteState](../B/BulkWriteState.md), BulkWriteBuffer (bulk write types)
   - INIT_FORKNUM, P_NONE, BTREE_METAPAGE (constants)
 - Called from (representative examples):
-  - bthandler (registered as ambuildempty callback)
+  - [bthandler](bthandler.md) (registered as ambuildempty callback)
   - Index creation and recovery processes
 
 ## Notes and Other Information

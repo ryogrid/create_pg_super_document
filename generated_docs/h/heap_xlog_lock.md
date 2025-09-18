@@ -28,15 +28,15 @@ The lock replay ensures that the tuple's visibility and locking state are correc
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_lock structure from WAL record)
-  - XLogRecGetBlockTag (retrieves block information from WAL record)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (retrieves block information from WAL record)
   - XLogReadBufferForRedo (reads and locks target buffer for redo)
-  - visibilitymap_pin, visibilitymap_clear (visibility map maintenance for frozen tuples)
-  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem (page-level tuple access)
-  - fix_infomask_from_infobits (reconstructs tuple visibility state from logged bits)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map maintenance for frozen tuples)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page-level tuple access)
+  - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md) (reconstructs tuple visibility state from logged bits)
   - HeapTupleHeaderSetXmax, HeapTupleHeaderSetCmax (tuple header transaction info)
   - HEAP_XMAX_IS_LOCKED_ONLY (macro to check if operation is lock-only)
 - Called from (representative examples):
-  - heap_redo (main heap WAL replay dispatcher)
+  - [heap_redo](heap_redo.md) (main heap WAL replay dispatcher)
 
 ## Notes and Other Information
 - **Lock-Only Operations**: Distinguishes between pure locking operations and lock-for-update operations using the HEAP_XMAX_IS_LOCKED_ONLY macro

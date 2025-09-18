@@ -22,7 +22,7 @@ The function serves as a thin wrapper that simply redirects the formatting reque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_vfprintf
+  - [pg_vfprintf](pg_vfprintf.md)
 - Called from (representative examples):
   - printf (via macro redefinition in src/include/port.h:218)
   - vprintf (via macro redefinition in src/include/port.h:244)

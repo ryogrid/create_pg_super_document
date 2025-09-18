@@ -33,18 +33,18 @@ The function uses backward searching (find_among_b) to match suffixes from the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward pattern matching against suffix list a_0)
-  - slice_del (suffix deletion operation)
-  - in_grouping_b (backward character group checking for g_s_ending, characters 97-229)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching against suffix list a_0)
+  - [slice_del](../s/slice_del.md) (suffix deletion operation)
+  - [in_grouping_b](../i/in_grouping_b.md) (backward character group checking for g_s_ending, characters 97-229)
   - a_0 (array of 32 Danish suffix patterns)
   - g_s_ending (character grouping for s-ending validation)
 - Called from (representative examples):
-  - danish_ISO_8859_1_stem
-  - norwegian_ISO_8859_1_stem
-  - swedish_ISO_8859_1_stem
-  - danish_UTF_8_stem
-  - norwegian_UTF_8_stem
-  - swedish_UTF_8_stem
+  - [danish_ISO_8859_1_stem](../d/danish_ISO_8859_1_stem.md)
+  - [norwegian_ISO_8859_1_stem](../n/norwegian_ISO_8859_1_stem.md)
+  - [swedish_ISO_8859_1_stem](../s/swedish_ISO_8859_1_stem.md)
+  - [danish_UTF_8_stem](../d/danish_UTF_8_stem.md)
+  - [norwegian_UTF_8_stem](../n/norwegian_UTF_8_stem.md)
+  - [swedish_UTF_8_stem](../s/swedish_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function is used in Scandinavian language stemmers (Danish, Norwegian, Swedish)

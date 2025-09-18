@@ -22,12 +22,12 @@ When DoingCommandRead is true, the function performs comprehensive interrupt pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (macro)
-  - ProcessCatchupInterrupt
-  - ProcessNotifyInterrupt
-  - SetLatch
+  - [ProcessCatchupInterrupt](ProcessCatchupInterrupt.md)
+  - [ProcessNotifyInterrupt](ProcessNotifyInterrupt.md)
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - secure_read (in be-secure.c)
-  - interactive_getc (in postgres.c)
+  - [secure_read](../s/secure_read.md) (in be-secure.c)
+  - [interactive_getc](../i/interactive_getc.md) (in postgres.c)
 
 ## Notes and Other Information
 - Must preserve errno value across the function call

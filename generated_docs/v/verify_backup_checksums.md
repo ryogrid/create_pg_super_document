@@ -21,17 +21,17 @@ The verification process involves reading each qualifying file from disk and com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - progress_report
+  - [progress_report](../p/progress_report.md)
   - pg_malloc
   - manifest_files_start_iterate
   - manifest_files_iterate
   - should_verify_checksum
-  - should_ignore_relpath
-  - psprintf
-  - verify_file_checksum
-  - pfree
+  - [should_ignore_relpath](../s/should_ignore_relpath.md)
+  - [psprintf](../p/psprintf.md)
+  - [verify_file_checksum](verify_file_checksum.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - main (in pg_verifybackup.c:367)
+  - [main](../m/main.md) (in pg_verifybackup.c:367)
 
 ## Notes and Other Information
 - This is a static function within pg_verifybackup.c used internally for backup verification

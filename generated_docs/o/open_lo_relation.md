@@ -18,13 +18,13 @@ This internal function ensures that the large object heap relation and its prima
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (via LargeObjectRelationId)
-  - index_open (via LargeObjectLOidPNIndexId) 
+  - [index_open](../i/index_open.md) (via LargeObjectLOidPNIndexId) 
   - ResourceOwner (resource management)
 - Called from (representative examples):
-  - inv_getsize
-  - inv_read
-  - inv_write 
-  - inv_truncate
+  - [inv_getsize](../i/inv_getsize.md)
+  - [inv_read](../i/inv_read.md)
+  - [inv_write](../i/inv_write.md) 
+  - [inv_truncate](../i/inv_truncate.md)
 
 ## Notes and Other Information
 - Function is static (internal to inv_api.c)

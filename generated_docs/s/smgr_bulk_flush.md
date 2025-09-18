@@ -20,18 +20,18 @@ This function performs the actual disk I/O for bulk write operations by processi
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort
-  - buffer_cmp
-  - log_newpages
-  - PageSetChecksumInplace
-  - smgrextend
+  - [buffer_cmp](../b/buffer_cmp.md)
+  - [log_newpages](../l/log_newpages.md)
+  - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
+  - [smgrextend](smgrextend.md)
   - smgrwrite
-  - pfree
-  - PendingWrite
+  - [pfree](../p/pfree.md)
+  - [PendingWrite](../P/PendingWrite.md)
   - MAX_PENDING_WRITES
   - zero_buffer
 - Called from (representative examples):
-  - smgr_bulk_finish
-  - smgr_bulk_write (when buffer is full)
+  - [smgr_bulk_finish](smgr_bulk_finish.md)
+  - [smgr_bulk_write](smgr_bulk_write.md) (when buffer is full)
 
 ## Notes and Other Information
 - This is a static function internal to the bulk_write.c module

@@ -28,20 +28,20 @@ The missing_ok parameter controls behavior when the tablespace doesn't exist - w
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - table_beginscan_catalog
-  - heap_getnext
-  - table_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [table_endscan](../t/table_endscan.md)
   - table_close
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - ForwardScanDirection
   - Form_pg_tablespace
 - Called from (representative examples):
-  - GetDefaultTablespace (src/backend/commands/tablespace.c:1165)
-  - check_temp_tablespaces (src/backend/commands/tablespace.c:1251)
-  - PrepareTempTablespaces (src/backend/commands/tablespace.c:1385)
-  - DefineRelation (src/backend/commands/tablecmds.c:813)
-  - createdb (src/backend/commands/dbcommands.c:1286)
+  - [GetDefaultTablespace](../G/GetDefaultTablespace.md) (src/backend/commands/tablespace.c:1165)
+  - [check_temp_tablespaces](../c/check_temp_tablespaces.md) (src/backend/commands/tablespace.c:1251)
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md) (src/backend/commands/tablespace.c:1385)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:813)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1286)
 
 ## Notes and Other Information
 - Uses heap scan instead of index lookup for performance reasons with small pg_tablespace tables

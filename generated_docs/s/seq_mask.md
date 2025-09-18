@@ -24,8 +24,8 @@ These operations ensure that when comparing pages for consistency, differences i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mask_page_lsn_and_checksum (masks LSN and checksum fields)
-  - mask_unused_space (masks uninitialized or unused space in the page)
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md) (masks LSN and checksum fields)
+  - [mask_unused_space](../m/mask_unused_space.md) (masks uninitialized or unused space in the page)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

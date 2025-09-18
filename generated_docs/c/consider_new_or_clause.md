@@ -32,14 +32,14 @@ The selectivity adjustment is described as a "MAJOR HACK" that prevents underest
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_restrictinfo
-  - clause_selectivity
+  - [make_restrictinfo](../m/make_restrictinfo.md)
+  - [clause_selectivity](clause_selectivity.md)
   - JOIN_INNER (constant)
-  - SpecialJoinInfo (struct)
-  - init_dummy_sjinfo
-  - bms_difference
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct)
+  - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
+  - [bms_difference](../b/bms_difference.md)
 - Called from (representative examples):
-  - extract_restriction_or_clauses
+  - [extract_restriction_or_clauses](../e/extract_restriction_or_clauses.md)
 
 ## Notes and Other Information
 - This is a static function only used within the orclauses.c module

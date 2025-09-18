@@ -17,20 +17,20 @@ This function performs validation of PL/Perl functions when they are created or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckFunctionValidatorAccess (security check for validator access)
-  - SearchSysCache1 (look up function in pg_proc catalog)
+  - [CheckFunctionValidatorAccess](../C/CheckFunctionValidatorAccess.md) (security check for validator access)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (look up function in pg_proc catalog)
   - HeapTupleIsValid (validate tuple from catalog lookup)
   - Form_pg_proc (pg_proc tuple structure)
-  - get_typtype (get PostgreSQL type category)
+  - [get_typtype](../g/get_typtype.md) (get PostgreSQL type category)
   - TYPTYPE_PSEUDO (pseudotype category constant)
   - TRIGGEROID, EVENT_TRIGGEROID, RECORDOID, VOIDOID (type OID constants)
-  - get_func_arg_info (extract function argument information)
-  - format_type_be (format type name for error messages)
-  - ReleaseSysCache (release catalog cache entry)
-  - compile_plperl_function (compile function body for validation)
+  - [get_func_arg_info](../g/get_func_arg_info.md) (extract function argument information)
+  - [format_type_be](../f/format_type_be.md) (format type name for error messages)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release catalog cache entry)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (compile function body for validation)
   - PG_RETURN_VOID (return void result)
 - Called from (representative examples):
-  - plperlu_validator
+  - [plperlu_validator](plperlu_validator.md)
 
 ## Notes and Other Information
 - Validates function signatures during CREATE FUNCTION and ALTER FUNCTION

@@ -26,14 +26,14 @@ The function uses a clever union-based storage allocation to create a properly s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (GiST state structure type)
-  - GISTENTRY (individual GIST entry type)
-  - GistEntryVector (structure for holding GIST entries)
+  - [GISTSTATE](../G/GISTSTATE.md) (GiST state structure type)
+  - [GISTENTRY](../G/GISTENTRY.md) (individual GIST entry type)
+  - [GistEntryVector](../G/GistEntryVector.md) (structure for holding GIST entries)
   - GEVHDRSZ (GistEntryVector header size constant)  
-  - FunctionCall2Coll (calls union function with collation support)
-  - PointerGetDatum (converts pointer to Datum)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (calls union function with collation support)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
 - Called from (representative examples):
-  - supportSecondarySplit (in gistsplit.c:328, 332)
+  - [supportSecondarySplit](../s/supportSecondarySplit.md) (in gistsplit.c:328, 332)
   - gistgetadjusted (in gistutil.c:335)
 
 ## Notes and Other Information

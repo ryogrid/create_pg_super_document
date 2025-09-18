@@ -22,12 +22,12 @@ This function optionally suppresses the STATEMENT: field from appearing in log e
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
-  - llvm_compile_module (src/backend/jit/llvm/llvmjit.c)
-  - exec_simple_query (src/backend/tcop/postgres.c)
-  - exec_parse_message (src/backend/tcop/postgres.c)
-  - exec_bind_message (src/backend/tcop/postgres.c)
-  - exec_execute_message (src/backend/tcop/postgres.c)
-  - MemoryContextStatsDetail (src/backend/utils/mmgr/mcxt.c)
+  - [llvm_compile_module](../l/llvm_compile_module.md) (src/backend/jit/llvm/llvmjit.c)
+  - [exec_simple_query](exec_simple_query.md) (src/backend/tcop/postgres.c)
+  - [exec_parse_message](exec_parse_message.md) (src/backend/tcop/postgres.c)
+  - [exec_bind_message](exec_bind_message.md) (src/backend/tcop/postgres.c)
+  - [exec_execute_message](exec_execute_message.md) (src/backend/tcop/postgres.c)
+  - [MemoryContextStatsDetail](../M/MemoryContextStatsDetail.md) (src/backend/utils/mmgr/mcxt.c)
   - errcontext (macro in src/include/utils/elog.h)
 
 ## Notes and Other Information

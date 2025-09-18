@@ -22,17 +22,17 @@ PortalRunUtility is responsible for executing utility statements (non-DML comman
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmtRequiresSnapshot
+  - [PlannedStmtRequiresSnapshot](PlannedStmtRequiresSnapshot.md)
   - GetTransactionSnapshot
   - RegisterSnapshot
   - PushActiveSnapshotWithLevel
   - GetActiveSnapshot
-  - ProcessUtility
+  - [ProcessUtility](ProcessUtility.md)
   - ActiveSnapshotSet
   - PopActiveSnapshot
 - Called from (representative examples):
-  - FillPortalStore
-  - PortalRunMulti
+  - [FillPortalStore](../F/FillPortalStore.md)
+  - [PortalRunMulti](PortalRunMulti.md)
 
 ## Notes and Other Information
 - This function is static and only used within pquery.c

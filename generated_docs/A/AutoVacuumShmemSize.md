@@ -26,16 +26,16 @@ This function takes no parameters and returns a Size value representing the requ
 - Functions called/Symbols referenced:
   - sizeof() (for structure size calculation)
   - MAXALIGN() (memory alignment macro)
-  - add_size() (overflow-safe addition)
-  - mul_size() (overflow-safe multiplication)
+  - [add_size](../a/add_size.md)() (overflow-safe addition)
+  - [mul_size](../m/mul_size.md)() (overflow-safe multiplication)
 - Data structures referenced:
-  - AutoVacuumShmemStruct (main autovacuum control structure)
-  - WorkerInfoData (per-worker information structure)
+  - [AutoVacuumShmemStruct](AutoVacuumShmemStruct.md) (main autovacuum control structure)
+  - [WorkerInfoData](../W/WorkerInfoData.md) (per-worker information structure)
 - Global variables used:
   - autovacuum_max_workers (configuration parameter)
 - Called from:
-  - CalculateShmemSize (at src/backend/storage/ipc/ipci.c:140)
-  - AutoVacuumShmemInit (at src/backend/postmaster/autovacuum.c:3325)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (at src/backend/storage/ipc/ipci.c:140)
+  - [AutoVacuumShmemInit](AutoVacuumShmemInit.md) (at src/backend/postmaster/autovacuum.c:3325)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's shared memory initialization sequence

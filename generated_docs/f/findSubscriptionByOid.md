@@ -19,14 +19,14 @@ This function is part of the pg_dump utility's object lookup system for PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
   - SubscriptionInfo (struct)
   - DO_SUBSCRIPTION (enum value)
   - SubscriptionRelationId (constant)
 - Called from (representative examples):
-  - getSubscriptionTables (src/bin/pg_dump/pg_dump.c:5043)
+  - [getSubscriptionTables](../g/getSubscriptionTables.md) (src/bin/pg_dump/pg_dump.c:5043)
 
 ## Notes and Other Information
 - Returns NULL if the subscription with the given OID is not found

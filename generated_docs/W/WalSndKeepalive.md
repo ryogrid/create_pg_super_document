@@ -22,20 +22,20 @@ WalSndKeepalive constructs and sends a keepalive message to the standby server a
 - Functions called/Symbols referenced:
   - elog (with DEBUG2 level)
   - resetStringInfo
-  - pq_sendbyte
+  - [pq_sendbyte](../p/pq_sendbyte.md)
   - XLogRecPtrIsInvalid
-  - pq_sendint64
-  - GetCurrentTimestamp
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - pq_putmessage_noblock
   - output_message (global StringInfo)
   - sentPtr (global variable)
   - waiting_for_ping_response (global flag)
 - Called from (representative examples):
   - WALSND_LOGICAL_LAG_TRACK_INTERVAL_MS
-  - WalSndWaitForWal
-  - ProcessStandbyReplyMessage
-  - WalSndDone
-  - WalSndKeepaliveIfNecessary
+  - [WalSndWaitForWal](WalSndWaitForWal.md)
+  - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md)
+  - [WalSndDone](WalSndDone.md)
+  - [WalSndKeepaliveIfNecessary](WalSndKeepaliveIfNecessary.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the walsender.c file

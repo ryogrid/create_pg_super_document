@@ -28,9 +28,9 @@ The function returns 0 if the database statistics entry doesn't exist, otherwise
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_dbentry
+  - [pgstat_fetch_stat_dbentry](pgstat_fetch_stat_dbentry.md)
 - Data types used:
-  - PgStat_StatDBEntry
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
 
 ## Notes and Other Information
 - This function aggregates all conflict types into a single total count

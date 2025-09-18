@@ -27,23 +27,23 @@ The function follows PostgreSQL's standard patterns for catalog updates, includi
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid (checks if LSN is invalid)
-  - am_parallel_apply_worker (checks if this is a parallel worker)
-  - IsTransactionState (checks transaction state)
-  - StartTransactionCommand (starts new transaction if needed)
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md) (checks if this is a parallel worker)
+  - [IsTransactionState](../I/IsTransactionState.md) (checks transaction state)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (starts new transaction if needed)
   - GetTransactionSnapshot/PushActiveSnapshot (snapshot management)
-  - LockSharedObject (prevents concurrent subscription updates)
+  - [LockSharedObject](../L/LockSharedObject.md) (prevents concurrent subscription updates)
   - SearchSysCacheCopy1 (retrieves subscription tuple)
-  - heap_modify_tuple (modifies the catalog tuple)
-  - CatalogTupleUpdate (updates the catalog)
-  - heap_freetuple (frees tuple memory)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (modifies the catalog tuple)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates the catalog)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees tuple memory)
   - PopActiveSnapshot (pops snapshot)
-  - CommitTransactionCommand (commits transaction if started)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commits transaction if started)
 - Called from (representative examples):
-  - apply_handle_prepare
-  - apply_handle_commit_prepared
-  - apply_handle_rollback_prepared
-  - apply_handle_stream_prepare
-  - apply_handle_commit_internal
+  - [apply_handle_prepare](../a/apply_handle_prepare.md)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_commit_internal](../a/apply_handle_commit_internal.md)
 
 ## Notes and Other Information
 - This is a static function only used within worker.c

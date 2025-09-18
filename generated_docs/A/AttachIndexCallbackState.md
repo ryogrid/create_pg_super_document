@@ -29,10 +29,10 @@ The key principle is that table locks must be acquired before their correspondin
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (data type)
-  - bool (data type)
+  - [bool](../b/bool.md) (data type)
 - Called from (representative examples):
-  - ATExecAttachPartitionIdx (src/backend/commands/tablecmds.c:19857)
-  - RangeVarCallbackForAttachIndex (src/backend/commands/tablecmds.c:19798, 19802)
+  - [ATExecAttachPartitionIdx](ATExecAttachPartitionIdx.md) (src/backend/commands/tablecmds.c:19857)
+  - [RangeVarCallbackForAttachIndex](../R/RangeVarCallbackForAttachIndex.md) (src/backend/commands/tablecmds.c:19798, 19802)
 
 ## Notes and Other Information
 - Critical for maintaining proper lock acquisition order during index partition attachment

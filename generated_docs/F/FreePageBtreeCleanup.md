@@ -35,12 +35,12 @@ The function tracks the largest contiguous range created during cleanup and retu
   - FREE_PAGE_LEAF_MAGIC, FREE_PAGE_INTERNAL_MAGIC (constants)
   - FreePageBtreeRecycle
   - fpm_pointer_to_page
-  - FreePagePopSpanLeader, FreePagePushSpanLeader
+  - [FreePagePopSpanLeader](FreePagePopSpanLeader.md), FreePagePushSpanLeader
   - FreePageBtreeGetRecycled
-  - FreePageManagerPutInternal
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 - Called from (representative examples):
   - FreePageManagerGet
-  - FreePageManagerPut
+  - [FreePageManagerPut](FreePageManagerPut.md)
 
 ## Notes and Other Information
 This is an internal static function that implements an important optimization for the free page management system. The cleanup is designed to be conservative and non-disruptive - it only performs operations that are clearly beneficial. The function's logic includes special handling for the case where B-tree pages themselves can be merged into the free space they manage, creating larger contiguous ranges. The returned value helps callers understand the effectiveness of the cleanup operation.

@@ -32,21 +32,21 @@ If safety conditions are not met, the function issues warnings and returns witho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (string formatting with memory allocation)
+  - [psprintf](../p/psprintf.md) (string formatting with memory allocation)
   - strlcpy (safe string copying)
-  - canonicalize_path (path normalization)
-  - path_is_prefix_of_path (path relationship checking)
-  - pg_log (logging with severity levels)
+  - [canonicalize_path](canonicalize_path.md) (path normalization)
+  - [path_is_prefix_of_path](../p/path_is_prefix_of_path.md) (path relationship checking)
+  - [pg_log](../p/pg_log.md) (logging with severity levels)
   - unlink (file deletion)
-  - pg_free (memory deallocation)
-  - prep_status (status reporting)
+  - [pg_free](../p/pg_free.md) (memory deallocation)
+  - [prep_status](../p/prep_status.md) (status reporting)
   - fopen_priv (secure file opening)
   - fclose (file closing)
   - chmod (file permission setting)
-  - check_ok (completion status reporting)
-  - fix_path_separator (path separator normalization)
+  - [check_ok](check_ok.md) (completion status reporting)
+  - [fix_path_separator](../f/fix_path_separator.md) (path separator normalization)
 - Called from (representative examples):
-  - main (from pg_upgrade.c main function)
+  - [main](../m/main.md) (from pg_upgrade.c main function)
 
 ## Notes and Other Information
 - This is a public function accessible from other compilation units

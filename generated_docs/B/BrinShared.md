@@ -29,13 +29,13 @@ The structure includes a condition variable for monitoring worker progress and a
 ## Dependencies
 - Functions called/Symbols referenced:
   - ConditionVariable
-  - slock_t
+  - [slock_t](../s/slock_t.md)
 - Called from (representative examples):
   - ParallelTableScanFromBrinShared
-  - BrinLeader
-  - _brin_begin_parallel
-  - _brin_parallel_heapscan
-  - _brin_parallel_estimate_shared
+  - [BrinLeader](BrinLeader.md)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_brin_parallel_heapscan](../b/_brin_parallel_heapscan.md)
+  - [_brin_parallel_estimate_shared](../b/_brin_parallel_estimate_shared.md)
 
 ## Notes and Other Information
 The structure is followed by ParallelTableScanDescData which cannot be directly embedded due to potential alignment requirements. The mutex protects all mutable fields, ensuring thread-safe updates to progress tracking information. The condition variable allows the leader to efficiently wait for all workers to complete before proceeding with index finalization.

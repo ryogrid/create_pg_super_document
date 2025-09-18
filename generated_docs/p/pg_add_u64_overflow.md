@@ -23,7 +23,7 @@ When overflow is detected in the fallback implementation, the function sets a du
 - Functions called/Symbols referenced:
   - `__builtin_add_overflow` (compiler built-in, when available)
 - Called from (representative examples):
-  - `numericvar_to_uint64` at src/backend/utils/adt/numeric.c:8218
+  - `[numericvar_to_uint64](../n/numericvar_to_uint64.md)` at src/backend/utils/adt/numeric.c:8218
 
 ## Notes and Other Information
 - The function uses conditional compilation with `HAVE__BUILTIN_OP_OVERFLOW` to choose between compiler built-in and manual overflow detection

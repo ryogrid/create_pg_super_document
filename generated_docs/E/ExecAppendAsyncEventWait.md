@@ -21,19 +21,19 @@ The function sets up a wait event set, allows each async subplan to register its
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateWaitEventSet
-  - AddWaitEventToSet  
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)  
   - ExecAsyncConfigureWait
   - GetNumRegisteredWaitEvents
   - WaitEventSetWait
   - ExecAsyncNotify
-  - FreeWaitEventSet
-  - bms_next_member
-  - ResetLatch
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - ExecAppend
-  - ExecAppendAsyncGetNext
+  - [ExecAppend](ExecAppend.md)
+  - [ExecAppendAsyncGetNext](ExecAppendAsyncGetNext.md)
 
 ## Notes and Other Information
 - The function asserts that there are valid async subplans remaining before proceeding

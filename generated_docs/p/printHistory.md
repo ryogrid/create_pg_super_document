@@ -27,18 +27,18 @@ The function was specifically designed to replace the previous use of  for displ
 ## Dependencies
 - Functions called/Symbols referenced:
   - useHistory (global variable indicating if history is enabled)
-  - PageOutput (initializes pager output stream for console display)
+  - [PageOutput](../P/PageOutput.md) (initializes pager output stream for console display)
   - fopen (opens file for writing when saving to file)
   - BEGIN_ITERATE_HISTORY (macro for starting history iteration)
   - END_ITERATE_HISTORY (macro for ending history iteration)
   - fprintf (writes history lines to output stream)
-  - ClosePager (finalizes pager output)
+  - [ClosePager](../C/ClosePager.md) (finalizes pager output)
   - fclose (closes file stream)
   - pg_log_error (error reporting)
   - pset.popt.topt (global pager options structure)
 
 - Called from (representative examples):
-  - exec_command_s (implements psql \s command in src/bin/psql/command.c:2404)
+  - [exec_command_s](../e/exec_command_s.md) (implements psql \s command in src/bin/psql/command.c:2404)
 
 ## Notes and Other Information
 - Returns true on successful output, false on failure or when history is not available

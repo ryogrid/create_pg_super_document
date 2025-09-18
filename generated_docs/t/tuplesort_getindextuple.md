@@ -21,11 +21,11 @@ This function retrieves the next IndexTuple from a completed sorting operation, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - tuplesort_gettuple_common
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md)
 - Called from (representative examples):
-  - gist_indexsortbuild
-  - _h_indexbuild
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
+  - [_h_indexbuild](../h/_h_indexbuild.md)
   - _bt_load (multiple locations in B-tree index building)
 
 ## Notes and Other Information

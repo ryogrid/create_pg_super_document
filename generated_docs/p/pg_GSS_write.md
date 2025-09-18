@@ -28,12 +28,12 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - gss_wrap (GSSAPI function for encryption)
   - gss_release_buffer (GSSAPI buffer cleanup)
-  - pqsecure_raw_write (low-level socket write function)
-  - pg_GSS_error (error reporting function)
+  - [pqsecure_raw_write](pqsecure_raw_write.md) (low-level socket write function)
+  - [pg_GSS_error](pg_GSS_error.md) (error reporting function)
   - pg_hton32 (network byte order conversion)
-  - libpq_gettext (internationalization)
+  - [libpq_gettext](../l/libpq_gettext.md) (internationalization)
 - Called from:
-  - pqsecure_write (main secure write dispatch function)
+  - [pqsecure_write](pqsecure_write.md) (main secure write dispatch function)
 
 ## Notes and Other Information
 - Uses global state variables PqGSSSendBuffer, PqGSSSendLength, PqGSSSendNext, and PqGSSSendConsumed for managing partial transmissions

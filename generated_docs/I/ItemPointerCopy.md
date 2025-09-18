@@ -22,11 +22,11 @@ The function uses simple structure assignment (*toPointer = *fromPointer) which 
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation for both parameters)
 - Called from (representative examples):
-  - heap_lock_tuple
-  - heapam_tuple_insert
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heapam_tuple_insert](../h/heapam_tuple_insert.md)
   - _bt_form_posting
   - AfterTriggerSaveEvent
-  - TidRangeEval
+  - [TidRangeEval](../T/TidRangeEval.md)
 
 ## Notes and Other Information
 - This is an inline function defined in itemptr.h for optimal performance

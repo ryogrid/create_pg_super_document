@@ -25,7 +25,7 @@ The notify_buffers parameter controls the size of the buffer pool used by the no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_slru_buffers (generic SLRU buffer validation function)
+  - [check_slru_buffers](check_slru_buffers.md) (generic SLRU buffer validation function)
   - GucSource (enumeration for configuration sources)
 - Called from (representative examples):
   - GUC system (during parameter validation)

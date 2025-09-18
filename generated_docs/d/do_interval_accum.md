@@ -24,11 +24,11 @@ For infinite intervals, the function maintains separate counters (nInfcount for 
 - Functions called/Symbols referenced:
   - INTERVAL_IS_NOBEGIN
   - INTERVAL_IS_NOEND
-  - finite_interval_pl
-  - IntervalAggState (type)
+  - [finite_interval_pl](../f/finite_interval_pl.md)
+  - [IntervalAggState](../I/IntervalAggState.md) (type)
   - Interval (type)
 - Called from:
-  - interval_avg_accum (in src/backend/utils/adt/timestamp.c:4013)
+  - [interval_avg_accum](../i/interval_avg_accum.md) (in src/backend/utils/adt/timestamp.c:4013)
 
 ## Notes and Other Information
 - Static function used internally by interval aggregate functions

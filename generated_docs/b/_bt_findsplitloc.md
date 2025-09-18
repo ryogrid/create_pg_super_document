@@ -32,17 +32,17 @@ The algorithm evaluates all possible split points, calculates space utilization 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPageGetOpaque: Get page opaque data
-  - PageGetMaxOffsetNumber: Get maximum offset number
-  - PageGetExactFreeSpace: Calculate available free space
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md): Get maximum offset number
+  - [PageGetExactFreeSpace](../P/PageGetExactFreeSpace.md): Calculate available free space
   - BTGetFillFactor: Get relation fill factor
-  - _bt_recsplitloc: Record potential split locations
-  - _bt_afternewitemoff: Check for split-after-new-item optimization
-  - _bt_deltasortsplits: Sort split points by delta values
-  - _bt_defaultinterval: Calculate default split interval
-  - _bt_strategy: Determine split strategy
-  - _bt_bestsplitloc: Select best split point from candidates
+  - [_bt_recsplitloc](_bt_recsplitloc.md): Record potential split locations
+  - [_bt_afternewitemoff](_bt_afternewitemoff.md): Check for split-after-new-item optimization
+  - [_bt_deltasortsplits](_bt_deltasortsplits.md): Sort split points by delta values
+  - [_bt_defaultinterval](_bt_defaultinterval.md): Calculate default split interval
+  - [_bt_strategy](_bt_strategy.md): Determine split strategy
+  - [_bt_bestsplitloc](_bt_bestsplitloc.md): Select best split point from candidates
 - Called from:
-  - _bt_split: Main page splitting function
+  - [_bt_split](_bt_split.md): Main page splitting function
 
 ## Notes and Other Information
 - Returns the offset number of the first tuple that should go on the right page

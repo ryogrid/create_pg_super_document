@@ -30,10 +30,10 @@ PgStat_Kind categorizes different types of statistics that PostgreSQL collects a
 - Functions called/Symbols referenced:
   - Used throughout the statistics system as a type identifier
 - Called from (representative examples):
-  - pgstat_reset
-  - pgstat_fetch_entry
-  - pgstat_get_kind_info
-  - pgstat_build_snapshot
+  - [pgstat_reset](../p/pgstat_reset.md)
+  - [pgstat_fetch_entry](../p/pgstat_fetch_entry.md)
+  - [pgstat_get_kind_info](../p/pgstat_get_kind_info.md)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md)
   - pgstat_init_entry
 
 ## Notes and Other Information

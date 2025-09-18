@@ -20,16 +20,16 @@ The function uses PostgreSQL's List data structure and associated macros (foreac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_jsp_expr_node (creates the base expression node structure)
+  - [make_jsp_expr_node](make_jsp_expr_node.md) (creates the base expression node structure)
   - list_length (PostgreSQL function to get List length)
   - foreach (PostgreSQL macro for List iteration)
   - lfirst (PostgreSQL macro to extract List cell content)
   - JsonPathGinNodeType (enum for node types)
   - JsonPathGinNode (main node structure)
-  - List and ListCell (PostgreSQL List data structures)
+  - [List](../L/List.md) and ListCell (PostgreSQL List data structures)
 
 - Called from:
-  - extract_jsp_path_expr (extracts JSON path expressions for indexing)
+  - [extract_jsp_path_expr](../e/extract_jsp_path_expr.md) (extracts JSON path expressions for indexing)
 
 ## Notes and Other Information
 This function represents a higher-level convenience wrapper that combines node creation with argument initialization, making it easier to create complex expression trees in the JSONB GIN indexing system. The function assumes that all elements in the args List are valid JsonPathGinNode pointers.

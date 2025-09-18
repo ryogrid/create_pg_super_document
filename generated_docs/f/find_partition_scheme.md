@@ -29,17 +29,17 @@ When creating a new scheme, the function allocates memory and copies all relevan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
-  - palloc0
-  - palloc
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [palloc0](../p/palloc0.md)
+  - [palloc](../p/palloc.md)
   - memcpy
-  - fmgr_info_copy
+  - [fmgr_info_copy](fmgr_info_copy.md)
   - lappend
-  - PartitionKey
+  - [PartitionKey](../P/PartitionKey.md)
   - PartitionScheme
   - PartitionSchemeData
 - Called from (representative examples):
-  - set_relation_partition_info
+  - [set_relation_partition_info](../s/set_relation_partition_info.md)
 
 ## Notes and Other Information
 - This is a static function only used within plancat.c

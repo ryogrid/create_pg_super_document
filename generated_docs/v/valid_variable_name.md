@@ -22,13 +22,13 @@ The function is designed to be consistent with variable name character definitio
   - IS_HIGHBIT_SET (macro for checking high-bit characters)
   - strchr (standard C library function)
 - Called from (representative examples):
-  - lookupCreateVariable
+  - [lookupCreateVariable](../l/lookupCreateVariable.md)
   - SetVariable (in psql)
   - SetVariableHooks (in psql)
 
 ## Notes and Other Information
 - The function explicitly disallows zero-length names
-- Variable names must start with a letter, underscore, or non-ASCII character (not digits)
+- [Variable](../V/Variable.md) names must start with a letter, underscore, or non-ASCII character (not digits)
 - After the first character, digits are allowed in subsequent positions
 - This implementation is synchronized with scanner definitions in multiple PostgreSQL components
 - The function is static and specific to pgbench, copied and modified from psql's implementation

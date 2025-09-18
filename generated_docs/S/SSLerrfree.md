@@ -22,10 +22,10 @@ The function is specifically designed to work with the SSL error handling system
   - free (standard C library function)
   - ssl_nomem (static string literal: "out of memory allocating error description")
 - Called from (representative examples):
-  - pgtls_read
-  - pgtls_write  
-  - initialize_SSL
-  - open_client_SSL
+  - [pgtls_read](../p/pgtls_read.md)
+  - [pgtls_write](../p/pgtls_write.md)  
+  - [initialize_SSL](../i/initialize_SSL.md)
+  - [open_client_SSL](../o/open_client_SSL.md)
 
 ## Notes and Other Information
 - This function is part of the internal SSL error handling infrastructure

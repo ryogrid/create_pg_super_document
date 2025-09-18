@@ -29,7 +29,7 @@ The target minimum cardinality threshold is conservatively set at 1 per 10k rows
   - estimateHyperLogLog (cardinality estimation)
   - elog (optional debug logging when TRACE_SORT enabled)
 - Called from (representative examples):
-  - numeric_sortsupport (as abbreviation abort callback)
+  - [numeric_sortsupport](numeric_sortsupport.md) (as abbreviation abort callback)
 
 ## Notes and Other Information
 - This is a static function internal to numeric.c module

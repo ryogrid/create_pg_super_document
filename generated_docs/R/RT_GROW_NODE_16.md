@@ -27,15 +27,15 @@ This function handles the growth of a full node16 through two possible transitio
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - RT_ALLOC_NODE (allocates new node)
-  - RT_COPY_COMMON (copies common node fields)
-  - RT_NODE_16_GET_INSERTPOS (finds insertion position in sorted array)
-  - RT_COPY_ARRAYS_FOR_INSERT (copies arrays with gap for insertion)
-  - RT_VERIFY_NODE (node verification macro)
-  - RT_FREE_NODE (deallocates old node)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (allocates new node)
+  - [RT_COPY_COMMON](RT_COPY_COMMON.md) (copies common node fields)
+  - [RT_NODE_16_GET_INSERTPOS](RT_NODE_16_GET_INSERTPOS.md) (finds insertion position in sorted array)
+  - [RT_COPY_ARRAYS_FOR_INSERT](RT_COPY_ARRAYS_FOR_INSERT.md) (copies arrays with gap for insertion)
+  - [RT_VERIFY_NODE](RT_VERIFY_NODE.md) (node verification macro)
+  - [RT_FREE_NODE](RT_FREE_NODE.md) (deallocates old node)
   - RT_BM_IDX/RT_BM_BIT (bitmap index/bit calculations)
 - Called from (representative examples):
-  - RT_NODE_INSERT (at src/include/lib/radixtree.h:1558)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (at src/include/lib/radixtree.h:1558)
 
 ## Notes and Other Information
 The function implements two distinct growth strategies based on the current fanout. For low-to-high capacity growth within node16, it maintains sorted order and uses array copying. For node16-to-node48 transition, it converts from sorted arrays to indirection mapping, setting up the `slot_idxs` array to map chunk values to child positions and initializing the `isset` bitmap efficiently with a single store operation since RT_FANOUT_16_HI fits within a bitmapword. The function is marked pg_noinline as node growth is relatively infrequent.

@@ -18,10 +18,10 @@ The  structure implements a linked list data structure used in the ECPG (Embedde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _include_path (self-reference for the linked list structure)
+  - [_include_path](_include_path.md) (self-reference for the linked list structure)
 - Called from (representative examples):
-  - add_include_path (in src/interfaces/ecpg/preproc/ecpg.c)
-  - main (in src/interfaces/ecpg/preproc/ecpg.c)
+  - [add_include_path](../a/add_include_path.md) (in src/interfaces/ecpg/preproc/ecpg.c)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c)
 
 ## Notes and Other Information
 - This structure is part of the ECPG preprocessor's include management system located in 

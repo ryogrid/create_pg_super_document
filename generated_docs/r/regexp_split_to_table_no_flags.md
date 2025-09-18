@@ -19,7 +19,7 @@ This function serves as a simple wrapper around regexp_split_to_table, providing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_split_to_table
+  - [regexp_split_to_table](regexp_split_to_table.md)
 - Called from:
   - SQL functions with 2-argument signature
 

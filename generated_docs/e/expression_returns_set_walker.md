@@ -29,7 +29,7 @@ This static function implements the core logic for detecting set-returning expre
   - expression_tree_walker (framework function for tree traversal)
 
 - Called from (representative examples):
-  - expression_returns_set (public wrapper function)
+  - [expression_returns_set](expression_returns_set.md) (public wrapper function)
   - Self-recursive calls during tree traversal
 
 ## Notes and Other Information

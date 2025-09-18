@@ -22,17 +22,17 @@ Each node contains a pivot_field with the actual data, height information for ba
 ## Dependencies
 - Functions called/Symbols referenced:
   - pivot_field (as member data type)
-  - _avl_node (self-reference for child pointers)
+  - [_avl_node](_avl_node.md) (self-reference for child pointers)
 - Called from (representative examples):
-  - _avl_tree (as node type in tree structure)
+  - [_avl_tree](_avl_tree.md) (as node type in tree structure)
   - avl_tree (in tree operations and management)
-  - avlInit (for tree initialization)
-  - avlFree (for memory cleanup)
-  - avlUpdateHeight (for balancing operations)
-  - avlRotate (for tree rotations)
-  - avlBalance (for maintaining AVL properties)
-  - avlInsertNode (for node insertion)
-  - avlCollectFields (for tree traversal)
+  - [avlInit](avlInit.md) (for tree initialization)
+  - [avlFree](avlFree.md) (for memory cleanup)
+  - [avlUpdateHeight](avlUpdateHeight.md) (for balancing operations)
+  - [avlRotate](avlRotate.md) (for tree rotations)
+  - [avlBalance](avlBalance.md) (for maintaining AVL properties)
+  - [avlInsertNode](avlInsertNode.md) (for node insertion)
+  - [avlCollectFields](avlCollectFields.md) (for tree traversal)
 
 ## Notes and Other Information
 - Part of psql's crosstabview AVL tree implementation located in src/bin/psql/crosstabview.c:50-66

@@ -20,14 +20,14 @@ _getFilePos obtains the current position in the archive file using the standard 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext (structure type)
+  - [lclContext](../l/lclContext.md) (structure type)
   - pgoff_t (type for file offsets)
   - ftello (standard library function for getting file position)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
 - Called from (representative examples):
-  - _StartData (to record data block positions)
-  - _StartLOs (to record large object positions)
-  - _PrintTocData (to track current position during TOC operations)
+  - [_StartData](../S/_StartData.md) (to record data block positions)
+  - [_StartLOs](../S/_StartLOs.md) (to record large object positions)
+  - [_PrintTocData](../P/_PrintTocData.md) (to track current position during TOC operations)
 
 ## Notes and Other Information
 - This is a static function internal to pg_backup_custom.c

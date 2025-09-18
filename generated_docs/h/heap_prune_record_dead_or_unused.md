@@ -22,10 +22,10 @@ The function uses the `unlikely` hint to indicate that immediate unused marking 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PruneState (structure)
-  - heap_prune_record_unused
-  - heap_prune_record_dead
+  - [heap_prune_record_unused](heap_prune_record_unused.md)
+  - [heap_prune_record_dead](heap_prune_record_dead.md)
 - Called from (representative examples):
-  - heap_prune_chain
+  - [heap_prune_chain](heap_prune_chain.md)
 
 ## Notes and Other Information
 - Acts as a conditional dispatcher between dead and unused marking strategies

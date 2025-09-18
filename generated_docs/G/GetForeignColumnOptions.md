@@ -20,16 +20,16 @@ GetForeignColumnOptions is a specialized function that extracts column-level for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
+  - [SearchSysCache2](../S/SearchSysCache2.md)
   - Int16GetDatum
-  - SysCacheGetAttr
-  - untransformRelOptions
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [untransformRelOptions](../u/untransformRelOptions.md)
   - elog
   - HeapTupleIsValid
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - Foreign data wrapper column analysis routines
-  - Query planning functions for foreign tables
+  - [Query](../Q/Query.md) planning functions for foreign tables
   - Column metadata inspection utilities
 
 ## Notes and Other Information

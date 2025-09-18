@@ -21,12 +21,12 @@ When a read operation fails due to interruption or would block, the function set
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - secure_raw_read
+  - [secure_raw_read](../s/secure_raw_read.md)
   - BIO_get_app_data
   - BIO_clear_retry_flags
   - BIO_set_retry_read
 - Called from (representative examples):
-  - my_BIO_s_socket (in BIO method structure initialization)
+  - [my_BIO_s_socket](my_BIO_s_socket.md) (in BIO method structure initialization)
 
 ## Notes and Other Information
 - This is a static function used internally within the OpenSSL security module

@@ -26,12 +26,12 @@ The key difference is that it works with nuchrs (Unicode/high character counts) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newsub (creates a new subcolor)
+  - [newsub](../n/newsub.md) (creates a new subcolor)
   - CISERR (macro to check for compilation errors)
   - COLORLESS (constant representing no color/error state)
 - Called from (representative examples):
-  - subcolorcvec (at src/backend/regex/regc_color.c:599)
-  - subcoloronerow (at src/backend/regex/regc_color.c:899)
+  - [subcolorcvec](subcolorcvec.md) (at src/backend/regex/regc_color.c:599)
+  - [subcoloronerow](subcoloronerow.md) (at src/backend/regex/regc_color.c:899)
 
 ## Notes and Other Information
 - Designed for high colormap entries that may represent multiple character codes

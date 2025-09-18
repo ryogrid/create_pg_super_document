@@ -33,20 +33,20 @@ The function handles several important aspects:
 - Functions called/Symbols referenced:
   - make_opclause (creates operator expression node)
   - copyObject (deep copies expression trees)
-  - eval_const_expressions (performs constant folding)
-  - pull_varnos (extracts relation IDs from expressions)
-  - bms_is_subset/bms_is_empty (bitmap set operations)
-  - get_join_domain_min_rels (determines safe evaluation level)
-  - make_restrictinfo (constructs RestrictInfo node)
-  - bms_membership (checks bitmap set cardinality)
-  - pull_var_clause (extracts variable references)
-  - add_vars_to_targetlist (ensures vars available at join)
-  - check_mergejoinable (analyzes merge join suitability)
-  - distribute_restrictinfo_to_rels (distributes clause to relation lists)
+  - [eval_const_expressions](../e/eval_const_expressions.md) (performs constant folding)
+  - [pull_varnos](pull_varnos.md) (extracts relation IDs from expressions)
+  - [bms_is_subset](../b/bms_is_subset.md)/bms_is_empty (bitmap set operations)
+  - [get_join_domain_min_rels](../g/get_join_domain_min_rels.md) (determines safe evaluation level)
+  - [make_restrictinfo](../m/make_restrictinfo.md) (constructs RestrictInfo node)
+  - [bms_membership](../b/bms_membership.md) (checks bitmap set cardinality)
+  - [pull_var_clause](pull_var_clause.md) (extracts variable references)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md) (ensures vars available at join)
+  - [check_mergejoinable](../c/check_mergejoinable.md) (analyzes merge join suitability)
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md) (distributes clause to relation lists)
 
 - Called from (representative examples):
-  - generate_base_implied_equalities_const (equivalence class constant processing)
-  - generate_base_implied_equalities_no_const (equivalence class non-constant processing)
+  - [generate_base_implied_equalities_const](../g/generate_base_implied_equalities_const.md) (equivalence class constant processing)
+  - [generate_base_implied_equalities_no_const](../g/generate_base_implied_equalities_no_const.md) (equivalence class non-constant processing)
 
 ## Notes and Other Information
 - Returns NULL when constant folding produces TRUE (clause can be eliminated)

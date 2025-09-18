@@ -30,11 +30,11 @@ This design choice trades memory usage for simplicity and performance predictabi
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (parameter validation)
-  - palloc0 (zero-initialized memory allocation)
-  - palloc (memory allocation)
-  - generate_dependencies (dependency generation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [generate_dependencies](../g/generate_dependencies.md) (dependency generation)
 - Called from (representative examples):
-  - statext_dependencies_build
+  - [statext_dependencies_build](../s/statext_dependencies_build.md)
 
 ## Notes and Other Information
 - This is a static function internal to the dependencies.c module

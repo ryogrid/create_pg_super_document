@@ -42,8 +42,8 @@ The function handles eight different range table entry types:
   - WRITE_STRING_FIELD
   - WRITE_FLOAT_FIELD
 - Types/Constants referenced:
-  - RangeTblEntry
-  - RTEKind enumeration values
+  - [RangeTblEntry](../R/RangeTblEntry.md)
+  - [RTEKind](../R/RTEKind.md) enumeration values
   - JoinType enumeration
 - Called from (representative examples):
   - No direct callers found (likely called through function pointer dispatch in the node output system)

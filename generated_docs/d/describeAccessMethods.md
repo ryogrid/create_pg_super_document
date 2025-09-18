@@ -20,19 +20,19 @@ This function generates and executes a SQL query to list access methods from the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - formatPGVersionNumber
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - lengthof
 - Called from (representative examples):
-  - exec_command_d (in command.c:813)
+  - [exec_command_d](../e/exec_command_d.md) (in command.c:813)
 
 ## Notes and Other Information
 - Part of psql's describe functionality (\dA command)

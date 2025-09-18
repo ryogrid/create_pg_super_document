@@ -32,16 +32,16 @@ The result is allocated in the current memory context and must be freed by the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_compute_data_size
-  - heap_fill_tuple
-  - palloc0
+  - [heap_compute_data_size](heap_compute_data_size.md)
+  - [heap_fill_tuple](heap_fill_tuple.md)
+  - [palloc0](../p/palloc0.md)
   - ereport
   - HeapTupleHeaderSetNatts
   - BITMAPLEN
   - MAXALIGN
 - Called from (representative examples):
-  - tts_virtual_copy_minimal_tuple
-  - tts_minimal_materialize
+  - [tts_virtual_copy_minimal_tuple](../t/tts_virtual_copy_minimal_tuple.md)
+  - [tts_minimal_materialize](../t/tts_minimal_materialize.md)
   - tuplestore_putvalues
   - HeapTupleClearHeapOnly
 

@@ -23,10 +23,10 @@ This function is a type-checking utility that determines whether a given clause 
   - NOT_EXPR (enum value)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - match_boolean_index_clause
-  - predicate_implied_by_simple_clause
-  - dependency_is_compatible_clause
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [match_boolean_index_clause](../m/match_boolean_index_clause.md)
+  - [predicate_implied_by_simple_clause](../p/predicate_implied_by_simple_clause.md)
+  - [dependency_is_compatible_clause](../d/dependency_is_compatible_clause.md)
   - mcv_get_match_bitmap
 
 ## Notes and Other Information

@@ -22,13 +22,13 @@ The  function searches through a relation's attributes to find the attribute num
   - RelationGetNumberOfAttributes
   - TupleDescAttr
   - namestrcmp
-  - specialAttNum
+  - [specialAttNum](../s/specialAttNum.md)
   - InvalidAttrNumber
 - Called from (representative examples):
-  - do_analyze_rel
-  - CreateTriggerFiringOn
-  - transformUpdateTargetList
-  - checkInsertTargets
+  - [do_analyze_rel](../d/do_analyze_rel.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
+  - [transformUpdateTargetList](../t/transformUpdateTargetList.md)
+  - [checkInsertTargets](../c/checkInsertTargets.md)
 
 ## Notes and Other Information
 - Returns InvalidAttrNumber if the attribute doesn't exist or is dropped

@@ -27,14 +27,14 @@ The function acquires an exclusive lock on the control file to ensure atomic upd
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
-  - GetCurrentReplayRecPtr
+  - [GetCurrentReplayRecPtr](../G/GetCurrentReplayRecPtr.md)
   - UpdateControlFile
   - LWLockAcquire/LWLockRelease
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - XLogFlush
-  - XLogInitNewTimeline
-  - CreateRestartPoint
+  - [XLogFlush](../X/XLogFlush.md)
+  - [XLogInitNewTimeline](../X/XLogInitNewTimeline.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
 
 ## Notes and Other Information
 - Only active during recovery operations (InRecovery must be true)

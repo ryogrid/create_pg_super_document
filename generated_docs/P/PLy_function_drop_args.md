@@ -18,11 +18,11 @@ This function is responsible for cleaning up a PLySavedArgs structure by properl
 ## Dependencies
 - Functions called/Symbols referenced:
   - Py_XDECREF (Python C API macro for safely decrementing reference counts)
-  - pfree (PostgreSQL memory deallocation function)
-  - PLySavedArgs (structure type definition)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [PLySavedArgs](PLySavedArgs.md) (structure type definition)
 - Called from (representative examples):
-  - PLy_exec_function (at src/pl/plpython/plpy_exec.c:276)
-  - plpython_srf_cleanup_callback (at src/pl/plpython/plpy_exec.c:690)
+  - [PLy_exec_function](PLy_exec_function.md) (at src/pl/plpython/plpy_exec.c:276)
+  - [plpython_srf_cleanup_callback](../p/plpython_srf_cleanup_callback.md) (at src/pl/plpython/plpy_exec.c:690)
 
 ## Notes and Other Information
 - This is a static function internal to plpy_exec.c

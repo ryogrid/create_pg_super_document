@@ -40,8 +40,8 @@ This function implements a numerically stable algorithm to compute the hypotenus
   - get_float8_infinity (returns floating-point infinity)
   - isnan (checks for NaN)
   - get_float8_nan (returns floating-point NaN)
-  - float_overflow_error (handles overflow errors)
-  - float_underflow_error (handles underflow errors)
+  - [float_overflow_error](../f/float_overflow_error.md) (handles overflow errors)
+  - [float_underflow_error](../f/float_underflow_error.md) (handles underflow errors)
 - Called from (representative examples):
   - HYPOT (macro definition)
   - PG_RETURN_CIRCLE_P (circle geometric operations)

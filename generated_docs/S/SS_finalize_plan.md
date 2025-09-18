@@ -28,9 +28,9 @@ The actual recursive processing is delegated to the finalize_plan function, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - finalize_plan
+  - [finalize_plan](../f/finalize_plan.md)
 - Called from (representative examples):
-  - standard_planner (src/backend/optimizer/plan/planner.c:515, 517)
+  - [standard_planner](../s/standard_planner.md) (src/backend/optimizer/plan/planner.c:515, 517)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's subselect processing subsystem

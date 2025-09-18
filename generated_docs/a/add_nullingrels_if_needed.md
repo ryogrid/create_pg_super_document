@@ -32,18 +32,18 @@ The evaluation placement logic for PlaceHolderVars is sophisticated:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_standard_join_alias_expression
-  - adjust_standard_join_alias_expression
-  - pull_varnos_of_level
+  - [is_standard_join_alias_expression](../i/is_standard_join_alias_expression.md)
+  - [adjust_standard_join_alias_expression](adjust_standard_join_alias_expression.md)
+  - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
   - bms_is_empty, bms_del_member, bms_copy
   - get_relids_for_join
-  - make_placeholder_expr
+  - [make_placeholder_expr](../m/make_placeholder_expr.md)
 - Called from (representative examples):
-  - flatten_join_alias_vars_mutator (for both regular and whole-row Var replacements)
+  - [flatten_join_alias_vars_mutator](../f/flatten_join_alias_vars_mutator.md) (for both regular and whole-row Var replacements)
 
 ## Notes and Other Information
 - Returns the original newnode unchanged if oldvar has no varnullingrels
 - The function will ERROR if called from the parser (root == NULL) with a non-standard expression, indicating missing parser support
-- PlaceHolderVar creation includes proper level adjustment (phlevelsup) and nullingrels copying (phnullingrels)
-- Variable-free expressions require special handling to determine appropriate evaluation placement
+- [PlaceHolderVar](../P/PlaceHolderVar.md) creation includes proper level adjustment (phlevelsup) and nullingrels copying (phnullingrels)
+- [Variable](../V/Variable.md)-free expressions require special handling to determine appropriate evaluation placement
 - The function assumes that standard join alias expressions can always accommodate direct nullingrels integration

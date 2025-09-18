@@ -21,20 +21,20 @@ RBTNode serves as the base structure for all nodes in PostgreSQL's red-black tre
 ## Dependencies
 - Functions called/Symbols referenced:
   - color (member access)
-  - RBTNode (self-referential pointers)
+  - [RBTNode](RBTNode.md) (self-referential pointers)
 - Called from (representative examples):
-  - RBTree (tree structure definition)
-  - rbt_create (tree creation)
-  - rbt_find (node searching)
-  - rbt_insert (node insertion)
-  - rbt_delete_node (node deletion)
-  - rbt_rotate_left (tree rotation)
-  - rbt_rotate_right (tree rotation)
-  - GinEntryAccumulator (GIN index usage)
+  - [RBTree](RBTree.md) (tree structure definition)
+  - [rbt_create](../r/rbt_create.md) (tree creation)
+  - [rbt_find](../r/rbt_find.md) (node searching)
+  - [rbt_insert](../r/rbt_insert.md) (node insertion)
+  - [rbt_delete_node](../r/rbt_delete_node.md) (node deletion)
+  - [rbt_rotate_left](../r/rbt_rotate_left.md) (tree rotation)
+  - [rbt_rotate_right](../r/rbt_rotate_right.md) (tree rotation)
+  - [GinEntryAccumulator](../G/GinEntryAccumulator.md) (GIN index usage)
   - IntRBTreeNode (test module usage)
 
 ## Notes and Other Information
-- RBTNode must be treated as an opaque structure by callers - direct manipulation of its fields should be avoided
+- [RBTNode](RBTNode.md) must be treated as an opaque structure by callers - direct manipulation of its fields should be avoided
 - The structure is designed for composition: applications should define structs with RBTNode as the first field
 - Parent pointers use NULL for root nodes, while child pointers use RBTNIL sentinel for missing children
 - The design enables efficient tree operations while maintaining type safety for application-specific data

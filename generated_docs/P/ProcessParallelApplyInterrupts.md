@@ -22,13 +22,13 @@ When a shutdown is requested, the function logs an informational message indicat
   - CHECK_FOR_INTERRUPTS (macro)
   - ShutdownRequestPending (global variable)
   - ereport
-  - proc_exit
+  - [proc_exit](../p/proc_exit.md)
   - ConfigReloadPending (global variable) 
   - ProcessConfigFile
   - PGC_SIGHUP
   - MySubscription (global variable)
 - Called from (representative examples):
-  - LogicalParallelApplyLoop
+  - [LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the applyparallelworker.c file

@@ -21,11 +21,11 @@ Since LockRows doesn't modify the target list, it simply passes through the tlis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - make_lockrows
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [make_lockrows](../m/make_lockrows.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module

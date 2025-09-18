@@ -19,22 +19,22 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DebugFileOpen
+  - [DebugFileOpen](../D/DebugFileOpen.md)
   - InitFileAccess
-  - pgstat_initialize
-  - InitSync
-  - smgrinit
-  - InitBufferPoolAccess
+  - [pgstat_initialize](../p/pgstat_initialize.md)
+  - [InitSync](../I/InitSync.md)
+  - [smgrinit](../s/smgrinit.md)
+  - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md)
   - InitTemporaryFileAccess
-  - InitXLogInsert
-  - ReplicationSlotInitialize
+  - [InitXLogInsert](../I/InitXLogInsert.md)
+  - [ReplicationSlotInitialize](../R/ReplicationSlotInitialize.md)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - AutoVacWorkerMain
-  - AuxiliaryProcessMainCommon
-  - BackgroundWorkerMain
-  - ReplSlotSyncWorkerMain
-  - PostgresMain
+  - [BootstrapModeMain](BootstrapModeMain.md)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md)
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
+  - [BackgroundWorkerMain](BackgroundWorkerMain.md)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md)
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - The function assumes MyProc != NULL and asserts this condition

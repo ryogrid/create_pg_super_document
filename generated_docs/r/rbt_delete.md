@@ -20,9 +20,9 @@ An important design consideration is that this function does not handle the deal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbt_delete_node
-  - RBTree (tree structure type)
-  - RBTNode (node structure type)
+  - [rbt_delete_node](rbt_delete_node.md)
+  - [RBTree](../R/RBTree.md) (tree structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)
 - Called from (representative examples):
   - testfindltgt (test function)
   - testdelete (test function)

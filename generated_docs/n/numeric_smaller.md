@@ -22,7 +22,7 @@ The `numeric_smaller` function implements the SQL `LEAST()` functionality for nu
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_NUMERIC`: Extracts numeric arguments from function call context
-  - `cmp_numerics`: Performs numeric comparison with proper NaN handling
+  - `[cmp_numerics](../c/cmp_numerics.md)`: Performs numeric comparison with proper NaN handling
   - `PG_RETURN_NUMERIC`: Returns numeric result to caller
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)

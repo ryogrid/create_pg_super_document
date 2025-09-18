@@ -25,7 +25,7 @@ This function is primarily used for SSPI (Security Support Provider Interface) a
   - bail (for error handling)
   - pg_malloc (for memory allocation)
 - Called from (representative examples):
-  - config_sspi_auth
+  - [config_sspi_auth](config_sspi_auth.md)
 
 ## Notes and Other Information
 - Windows-specific function that uses Win32 API calls (OpenProcessToken, GetTokenInformation, LookupAccountSid)

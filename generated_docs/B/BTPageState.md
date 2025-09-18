@@ -27,10 +27,10 @@ The structure supports both leaf and internal pages at different tree levels, wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - BulkWriteBuffer
-  - BTPageState (self-reference for linked list)
+  - [BTPageState](BTPageState.md) (self-reference for linked list)
 - Called from (representative examples):
-  - _bt_blwritepage
-  - _bt_pagestate
+  - [_bt_blwritepage](../b/_bt_blwritepage.md)
+  - [_bt_pagestate](../b/_bt_pagestate.md)
   - _bt_buildadd
   - _bt_sort_dedup_finish_pending
   - _bt_uppershutdown

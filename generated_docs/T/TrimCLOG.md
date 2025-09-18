@@ -22,13 +22,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId
-  - TransactionIdToPage
-  - SimpleLruGetBankLock
+  - [TransactionIdToPage](TransactionIdToPage.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire
   - TransactionIdToPgIndex
   - TransactionIdToByte
   - TransactionIdToBIndex
-  - SimpleLruReadPage
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md)
   - MemSet
   - LWLockRelease
 - Global variables accessed:
@@ -36,7 +36,7 @@ This function takes no parameters.
   - XactCtl
   - CLOG_BITS_PER_XACT
 - Called from:
-  - StartupXLOG (src/backend/access/transam/xlog.c:6077)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:6077)
 
 ## Notes and Other Information
 - Must be called exactly ONCE at the end of startup/recovery

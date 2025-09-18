@@ -18,12 +18,12 @@ DynaHashAlloc is a specialized memory allocation function that allocates memory 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid
-  - MemoryContextAllocExtended  
+  - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md)  
   - MCXT_ALLOC_NO_OOM
 - Called from (representative examples):
-  - hash_create
-  - hash_destroy
-  - dir_realloc
+  - [hash_create](../h/hash_create.md)
+  - [hash_destroy](../h/hash_destroy.md)
+  - [dir_realloc](../d/dir_realloc.md)
   - MOD
 
 ## Notes and Other Information

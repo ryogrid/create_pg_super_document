@@ -19,7 +19,7 @@ This implementation ensures that pg_lsn values can be used efficiently in hash i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashint8 (delegates the actual hash computation)
+  - [hashint8](../h/hashint8.md) (delegates the actual hash computation)
 - Called from (representative examples):
   - PostgreSQL's hash index operations when indexing pg_lsn columns
   - Hash-based join operations involving pg_lsn values

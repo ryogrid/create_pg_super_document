@@ -25,9 +25,9 @@ The function relies on the invariant that dest->nextmsg[subgroup] equals src->fi
 - Functions called/Symbols referenced:
   - SetSubGroupToFollow (to configure source group to follow destination)
 - Data structures used:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
 - Called from:
-  - AppendInvalidationMessages (called twice, once for each subgroup type)
+  - [AppendInvalidationMessages](AppendInvalidationMessages.md) (called twice, once for each subgroup type)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c file

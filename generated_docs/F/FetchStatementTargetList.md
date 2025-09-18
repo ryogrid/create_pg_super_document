@@ -21,12 +21,12 @@ For Query nodes, it checks the command type and returns either the main targetLi
 - Functions called/Symbols referenced:
   - GetPortalByName
   - PortalIsValid  
-  - FetchPortalTargetList
-  - FetchPreparedStatement
-  - FetchPreparedStatementTargetList
+  - [FetchPortalTargetList](FetchPortalTargetList.md)
+  - [FetchPreparedStatement](FetchPreparedStatement.md)
+  - [FetchPreparedStatementTargetList](FetchPreparedStatementTargetList.md)
 - Called from (representative examples):
-  - FetchPortalTargetList
-  - CachedPlanGetTargetList
+  - [FetchPortalTargetList](FetchPortalTargetList.md)
+  - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md)
 
 ## Notes and Other Information
 - The function is designed to be kept in sync with UtilityReturnsTuples

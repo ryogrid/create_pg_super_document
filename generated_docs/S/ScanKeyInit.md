@@ -21,7 +21,7 @@ ScanKeyInit is a streamlined function designed for common scan key initializatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
+  - [fmgr_info](../f/fmgr_info.md)
   - C_COLLATION_OID (constant)
   - InvalidOid (constant)
 - Called from (representative examples):

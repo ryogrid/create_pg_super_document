@@ -19,13 +19,13 @@ This function checks whether a PostgreSQL locale is deterministic. A determinist
 - Functions called/Symbols referenced:
   - pg_locale_t (data type used in function signature and parameter)
 - Called from (representative examples):
-  - hashtext (at line 283)
-  - hashtextextended (at line 339)
-  - pg_set_regex_collation (at line 259)
-  - GenericMatchText (at line 156)
-  - varstr_cmp (at line 1578)
-  - texteq (at line 1633)
-  - varstrfastcmp_locale (at line 2222)
+  - [hashtext](../h/hashtext.md) (at line 283)
+  - [hashtextextended](../h/hashtextextended.md) (at line 339)
+  - [pg_set_regex_collation](pg_set_regex_collation.md) (at line 259)
+  - [GenericMatchText](../G/GenericMatchText.md) (at line 156)
+  - [varstr_cmp](../v/varstr_cmp.md) (at line 1578)
+  - [texteq](../t/texteq.md) (at line 1633)
+  - [varstrfastcmp_locale](../v/varstrfastcmp_locale.md) (at line 2222)
 
 ## Notes and Other Information
 - The default locale (NULL parameter) is always considered deterministic by design

@@ -24,11 +24,11 @@ The function automatically suppresses zero counts in text mode to avoid clutteri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainPropertyFloat
+  - [ExplainPropertyFloat](../E/ExplainPropertyFloat.md)
   - EXPLAIN_FORMAT_TEXT
 - Called from (representative examples):
-  - ExplainNode (multiple locations for different plan node types)
-  - show_modifytable_info
+  - [ExplainNode](../E/ExplainNode.md) (multiple locations for different plan node types)
+  - [show_modifytable_info](show_modifytable_info.md)
 
 ## Notes and Other Information
 - Only operates during EXPLAIN ANALYZE when instrumentation is enabled

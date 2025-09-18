@@ -24,16 +24,16 @@ The function follows the same error handling and memory management patterns as _
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - raw_parser
-  - CreateOneShotCachedPlan
-  - CreateCommandTag
-  - _SPI_error_callback
+  - [raw_parser](../r/raw_parser.md)
+  - [CreateOneShotCachedPlan](../C/CreateOneShotCachedPlan.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
+  - [_SPI_error_callback](_SPI_error_callback.md)
   - lfirst_node
   - lappend
 - Called from (representative examples):
-  - SPI_execute
-  - SPI_execute_extended
-  - SPI_execute_with_args
+  - [SPI_execute](SPI_execute.md)
+  - [SPI_execute_extended](SPI_execute_extended.md)
+  - [SPI_execute_with_args](SPI_execute_with_args.md)
 
 ## Notes and Other Information
 - Sets plan->oneshot to true, indicating this is a single-use plan

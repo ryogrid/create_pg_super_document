@@ -23,16 +23,16 @@ The entry supports scenarios where multiple tuples may be returned for the same 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeKey
-  - MemoizeTuple
+  - [MemoizeKey](MemoizeKey.md)
+  - [MemoizeTuple](MemoizeTuple.md)
 - Called from (representative examples):
-  - entry_purge_tuples
-  - remove_cache_entry
-  - cache_reduce_memory
-  - cache_lookup
-  - cache_store_tuple
-  - ExecMemoize
-  - ExecEndMemoize
+  - [entry_purge_tuples](../e/entry_purge_tuples.md)
+  - [remove_cache_entry](../r/remove_cache_entry.md)
+  - [cache_reduce_memory](../c/cache_reduce_memory.md)
+  - [cache_lookup](../c/cache_lookup.md)
+  - [cache_store_tuple](../c/cache_store_tuple.md)
+  - [ExecMemoize](../E/ExecMemoize.md)
+  - [ExecEndMemoize](../E/ExecEndMemoize.md)
 
 ## Notes and Other Information
 - Used as SH_ELEMENT_TYPE in the specialized hash table implementation

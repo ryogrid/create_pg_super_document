@@ -20,9 +20,9 @@ This function provides the most optimized variant of language privilege checking
 - Functions called/Symbols referenced:
   - PG_GETARG_OID: Extract OID argument from function call
   - PG_GETARG_TEXT_PP: Extract text argument from function call
-  - GetUserId: Get the OID of the current user
-  - convert_language_priv_string: Convert privilege string to AclMode bitmask
-  - object_aclcheck_ext: Perform privilege check with missing object detection
+  - [GetUserId](../G/GetUserId.md): Get the OID of the current user
+  - [convert_language_priv_string](../c/convert_language_priv_string.md): Convert privilege string to AclMode bitmask
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Perform privilege check with missing object detection
 - Called from (representative examples):
   - No direct callers found (SQL-level function)
 

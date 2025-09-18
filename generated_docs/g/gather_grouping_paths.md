@@ -26,16 +26,16 @@ The function ensures optimal parallel result collection by balancing sorting cos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy_head
-  - generate_useful_gather_paths
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - create_gather_merge_path
-  - add_path
+  - [list_copy_head](../l/list_copy_head.md)
+  - [generate_useful_gather_paths](generate_useful_gather_paths.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](../c/create_sort_path.md)
+  - [create_incremental_sort_path](../c/create_incremental_sort_path.md)
+  - [create_gather_merge_path](../c/create_gather_merge_path.md)
+  - [add_path](../a/add_path.md)
 - Called from (representative examples):
-  - add_paths_to_grouping_rel
-  - create_ordinary_grouping_paths
+  - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md)
+  - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md)
   - standard_qp_extra
 
 ## Notes and Other Information

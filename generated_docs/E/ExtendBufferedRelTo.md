@@ -34,17 +34,17 @@ The function can optionally create the fork if it doesn't exist (with EB_CREATE_
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetSmgr
-  - smgrexists
-  - smgrcreate
+  - [smgrexists](../s/smgrexists.md)
+  - [smgrcreate](../s/smgrcreate.md)
   - smgrnblocks
   - LockRelationForExtension
   - UnlockRelationForExtension
-  - ExtendBufferedRelCommon
+  - [ExtendBufferedRelCommon](ExtendBufferedRelCommon.md)
   - ReleaseBuffer
-  - ReadBuffer_common
+  - [ReadBuffer_common](../R/ReadBuffer_common.md)
   - lengthof
 - Called from (representative examples):
-  - vm_extend (visibility map extension)
+  - [vm_extend](../v/vm_extend.md) (visibility map extension)
   - XLogReadBufferExtended (WAL recovery)
   - fsm_extend (free space map extension)
 

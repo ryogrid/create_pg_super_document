@@ -21,9 +21,9 @@ This WAL record works with two backup blocks: backup block 0 contains the metapa
 - Functions called/Symbols referenced:
   - BlockNumber (type)
 - Called from (representative examples):
-  - revmap_physical_extend (in src/backend/access/brin/brin_revmap.c:624)
-  - brin_xlog_revmap_extend (in src/backend/access/brin/brin_xlog.c:211, 218)
-  - brin_desc (in src/backend/access/rmgrdesc/brindesc.c:60)
+  - [revmap_physical_extend](../r/revmap_physical_extend.md) (in src/backend/access/brin/brin_revmap.c:624)
+  - [brin_xlog_revmap_extend](../b/brin_xlog_revmap_extend.md) (in src/backend/access/brin/brin_xlog.c:211, 218)
+  - [brin_desc](../b/brin_desc.md) (in src/backend/access/rmgrdesc/brindesc.c:60)
   - SizeOfBrinRevmapExtend (macro in src/include/access/brin_xlog.h:124)
 
 ## Notes and Other Information

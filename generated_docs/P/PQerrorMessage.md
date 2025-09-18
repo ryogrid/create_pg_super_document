@@ -23,7 +23,7 @@ The error messages are persistent until the next operation that might generate a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_gettext (for internationalized error messages)
+  - [libpq_gettext](../l/libpq_gettext.md) (for internationalized error messages)
   - PQExpBufferBroken (to check if error buffer is corrupted)
 - Called from (representative examples):
   - Widely used throughout PostgreSQL client applications and tools for error handling

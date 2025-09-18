@@ -21,21 +21,21 @@ The function is designed to handle the complexities of concurrent updates by req
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc (system scan descriptor type)
-  - GetNonHistoricCatalogSnapshot (for non-historic snapshot acquisition)
-  - systable_beginscan (to initiate system table scan)
-  - systable_getnext (to retrieve next tuple from scan)
-  - heap_copytuple (to create a copy of the retrieved tuple)
+  - [SysScanDesc](SysScanDesc.md) (system scan descriptor type)
+  - [GetNonHistoricCatalogSnapshot](../G/GetNonHistoricCatalogSnapshot.md) (for non-historic snapshot acquisition)
+  - [systable_beginscan](../s/systable_beginscan.md) (to initiate system table scan)
+  - [systable_getnext](../s/systable_getnext.md) (to retrieve next tuple from scan)
+  - [heap_copytuple](../h/heap_copytuple.md) (to create a copy of the retrieved tuple)
 - Called from (representative examples):
-  - RelationBuildDesc (main relcache building function)
-  - RelationInitPhysicalAddr (for physical address initialization)
-  - RelationReloadIndexInfo (for index information reloading)
-  - RelationReloadNailed (for reloading nailed relations)
+  - [RelationBuildDesc](../R/RelationBuildDesc.md) (main relcache building function)
+  - [RelationInitPhysicalAddr](../R/RelationInitPhysicalAddr.md) (for physical address initialization)
+  - [RelationReloadIndexInfo](../R/RelationReloadIndexInfo.md) (for index information reloading)
+  - [RelationReloadNailed](../R/RelationReloadNailed.md) (for reloading nailed relations)
 
 ## Notes and Other Information
 - The function includes a critical safety check preventing pg_class access before database selection
 - Uses AccessShareLock on pg_class during the scan operation
 - Supports both index and heap scans based on criticalRelcachesBuilt state and indexOK parameter
 - The returned tuple is a palloc'd copy that must be freed with heap_freetuple
-- Snapshot selection logic accommodates both normal and non-historic catalog access patterns
+- [Snapshot](Snapshot.md) selection logic accommodates both normal and non-historic catalog access patterns
 - Essential for maintaining relcache consistency during concurrent database operations

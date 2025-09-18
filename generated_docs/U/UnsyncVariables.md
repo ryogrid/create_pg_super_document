@@ -23,8 +23,8 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - SetVariable() (multiple calls to clear variables)
 - Called from:
-  - do_connect (at src/bin/psql/command.c:3773)
-  - CheckConnection (at src/bin/psql/common.c:373)
+  - [do_connect](../d/do_connect.md) (at src/bin/psql/command.c:3773)
+  - [CheckConnection](../C/CheckConnection.md) (at src/bin/psql/common.c:373)
 
 ## Notes and Other Information
 - Clears the following psql variables by setting them to NULL: DBNAME, USER, HOST, PORT, ENCODING, SERVER_VERSION_NAME, SERVER_VERSION_NUM

@@ -28,9 +28,9 @@ This enables proper lexicographical ordering of lexemes when constructing TSVect
 - Functions called/Symbols referenced:
   - VARDATA_ANY (macro to extract string data from varlena objects)
   - VARSIZE_ANY_EXHDR (macro to get string length excluding header)
-  - tsCompareString (TSVector-specific string comparison function)
+  - [tsCompareString](../t/tsCompareString.md) (TSVector-specific string comparison function)
 - Called from:
-  - array_to_tsvector (used with qsort to sort lexemes during TSVector construction)
+  - [array_to_tsvector](../a/array_to_tsvector.md) (used with qsort to sort lexemes during TSVector construction)
 
 ## Notes and Other Information
 - Designed specifically for use with qsort when processing text arrays for TSVector creation

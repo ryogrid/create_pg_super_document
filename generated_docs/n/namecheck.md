@@ -26,7 +26,7 @@ The function defines two character sets:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - warning (issues warnings for potentially problematic characters)
+  - [warning](../w/warning.md) (issues warnings for potentially problematic characters)
   - componentcheck (validates individual path components)
   - HAVE_SYMLINK (conditional compilation symbol)
 - Called from (representative examples):

@@ -22,11 +22,11 @@ The ValidJsonBehaviorDefaultExpr function performs recursive validation of expre
 - Functions called/Symbols referenced:
   - nodeTag
   - expression_tree_walker
-  - ValidJsonBehaviorDefaultExpr (recursive self-reference)
-  - Node type constants (T_Const, T_FuncExpr, T_OpExpr, T_CoerceViaIO, etc.)
+  - [ValidJsonBehaviorDefaultExpr](ValidJsonBehaviorDefaultExpr.md) (recursive self-reference)
+  - [Node](../N/Node.md) type constants (T_Const, T_FuncExpr, T_OpExpr, T_CoerceViaIO, etc.)
 - Called from (representative examples):
-  - transformJsonBehavior
-  - ValidJsonBehaviorDefaultExpr (recursive calls)
+  - [transformJsonBehavior](../t/transformJsonBehavior.md)
+  - [ValidJsonBehaviorDefaultExpr](ValidJsonBehaviorDefaultExpr.md) (recursive calls)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's security and validation framework for SQL/JSON functionality. It prevents potentially dangerous or meaningless expressions from being used as default values in JSON behavior clauses. The recursive nature handles complex nested expressions while maintaining strict control over what types of expressions are acceptable. The function is designed to be used with PostgreSQL's expression tree walker infrastructure for comprehensive validation. Located at src/backend/parser/parse_expr.c:4663-4695.

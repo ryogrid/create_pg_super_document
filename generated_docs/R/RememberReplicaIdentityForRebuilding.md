@@ -24,11 +24,11 @@ The replica identity index is crucial for logical replication as it provides a w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_index_isreplident
-  - get_rel_name
+  - [get_index_isreplident](../g/get_index_isreplident.md)
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - RememberConstraintForRebuilding
-  - RememberIndexForRebuilding
+  - [RememberConstraintForRebuilding](RememberConstraintForRebuilding.md)
+  - [RememberIndexForRebuilding](RememberIndexForRebuilding.md)
 
 ## Notes and Other Information
 - Only stores replica identity information if the index is actually marked as a replica identity

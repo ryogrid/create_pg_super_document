@@ -18,13 +18,13 @@ This function creates and stores the system user identifier by formatting the au
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's sprintf equivalent)
-  - MemoryContextStrdup (memory context string duplication)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf equivalent)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (memory context string duplication)
   - TopMemoryContext (top-level memory context)
-  - pfree (PostgreSQL's memory free function)
+  - [pfree](../p/pfree.md) (PostgreSQL's memory free function)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1534)
-  - InitPostgres (src/backend/utils/init/postinit.c:930)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1534)
+  - [InitPostgres](InitPostgres.md) (src/backend/utils/init/postinit.c:930)
   - AmSpecialWorkerProcess (src/include/miscadmin.h:420)
 
 ## Notes and Other Information

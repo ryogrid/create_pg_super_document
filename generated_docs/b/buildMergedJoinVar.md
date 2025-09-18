@@ -23,11 +23,11 @@ This function creates a unified expression for columns that appear in a JOIN USI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - select_common_type
-  - select_common_typmod
-  - coerce_type
-  - makeRelabelType
-  - assign_expr_collations
+  - [select_common_type](../s/select_common_type.md)
+  - [select_common_typmod](../s/select_common_typmod.md)
+  - [coerce_type](../c/coerce_type.md)
+  - [makeRelabelType](../m/makeRelabelType.md)
+  - [assign_expr_collations](../a/assign_expr_collations.md)
   - list_make2
 - Types referenced:
   - JoinType
@@ -37,7 +37,7 @@ This function creates a unified expression for columns that appear in a JOIN USI
   - JOIN_INNER, JOIN_LEFT, JOIN_RIGHT, JOIN_FULL
   - COERCION_IMPLICIT, COERCE_IMPLICIT_CAST
 - Called from (representative examples):
-  - transformFromClauseItem (for USING clause processing)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (for USING clause processing)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c used internally for JOIN USING processing

@@ -24,10 +24,10 @@ The function strips leading and trailing zeros from the digit representation and
   - NUMERIC_WEIGHT (decimal point position)
   - NUMERIC_DIGITS (digit array access)
   - NUMERIC_NDIGITS (digit count)
-  - hash_any (generic binary hash function)
+  - [hash_any](hash_any.md) (generic binary hash function)
   - PG_RETURN_UINT32/PG_RETURN_DATUM (return value macros)
 - Called from (representative examples):
-  - JsonbHashScalarValue (JSONB numeric hashing)
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md) (JSONB numeric hashing)
 
 ## Notes and Other Information
 - Returns hash value 0 for special values (NaN, infinity) to ensure consistent behavior

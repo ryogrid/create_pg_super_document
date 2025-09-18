@@ -31,12 +31,12 @@ The function handles version evolution gracefully, supporting multiple archive f
   - K_VERS_1_0, K_VERS_MAX, K_VERS_1_2, K_VERS_1_4, K_VERS_1_7, K_VERS_1_10, K_VERS_1_15 (version constants)
   - ReadBufPtr, ReadBytePtr, ReadInt, ReadStr (binary reading functions)
   - PG_COMPRESSION_GZIP (compression constant)
-  - supports_compression (compression support validation)
-  - pg_fatal, pg_log_warning, pg_free (error handling and logging)
+  - [supports_compression](../s/supports_compression.md) (compression support validation)
+  - [pg_fatal](../p/pg_fatal.md), pg_log_warning, pg_free (error handling and logging)
   - strncmp, mktime (standard C library functions)
   - struct tm (time structure)
 - Called from:
-  - InitArchiveFmt_Custom, InitArchiveFmt_Directory (archive format initialization)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md), InitArchiveFmt_Directory (archive format initialization)
 
 ## Notes and Other Information
 - Function is non-static and used by multiple archive format implementations

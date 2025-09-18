@@ -26,7 +26,7 @@ The function reports FATAL errors if write operations fail, ensuring data integr
   - fwrite (standard C library)
   - ereport/errcode_for_file_access (PostgreSQL error reporting)
 - Called from (representative examples):
-  - write_relcache_init_file (multiple calls for different data structures)
+  - [write_relcache_init_file](write_relcache_init_file.md) (multiple calls for different data structures)
 
 ## Notes and Other Information
 - Uses PostgreSQL's Size type for length field, ensuring consistency with memory allocation functions

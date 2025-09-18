@@ -28,17 +28,17 @@ The conversion process stops when a subquery pathkey cannot be represented in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupref_tle (to find targetlist entries by sortref)
-  - find_var_for_subquery_tle (to map subquery outputs to outer query variables)
-  - get_eclass_for_sort_expr (to find or create equivalence classes)
-  - make_canonical_pathkey (to create standardized pathkeys)
-  - canonicalize_ec_expression (to normalize expressions for comparison)
-  - equal (for expression equality testing)
-  - pathkey_is_redundant (to eliminate duplicate ordering information)
+  - [get_sortgroupref_tle](../g/get_sortgroupref_tle.md) (to find targetlist entries by sortref)
+  - [find_var_for_subquery_tle](../f/find_var_for_subquery_tle.md) (to map subquery outputs to outer query variables)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md) (to find or create equivalence classes)
+  - [make_canonical_pathkey](../m/make_canonical_pathkey.md) (to create standardized pathkeys)
+  - [canonicalize_ec_expression](canonicalize_ec_expression.md) (to normalize expressions for comparison)
+  - [equal](../e/equal.md) (for expression equality testing)
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md) (to eliminate duplicate ordering information)
 - Called from (representative examples):
-  - set_subquery_pathlist
-  - set_cte_pathlist
-  - build_setop_child_paths
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
+  - [set_cte_pathlist](../s/set_cte_pathlist.md)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)
 
 ## Notes and Other Information
 - Intentionally preserves raw ordering information instead of truncating useless pathkeys

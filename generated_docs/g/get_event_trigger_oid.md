@@ -21,12 +21,12 @@ This function performs a catalog lookup to find the OID of an event trigger give
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid1 (system cache lookup)
-  - CStringGetDatum (string to Datum conversion)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (string to Datum conversion)
   - EVENTTRIGGERNAME (system cache identifier)
   - OidIsValid (OID validation macro)
   - ereport (error reporting)
 - Called from (representative examples):
-  - get_object_address_unqualified
+  - [get_object_address_unqualified](get_object_address_unqualified.md)
   - CALLED_AS_EVENT_TRIGGER (macro context)
 
 ## Notes and Other Information

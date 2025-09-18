@@ -26,13 +26,13 @@ The function first searches the current backend's fast-path slots for the specif
   - FAST_PATH_GET_BITS: Macro to check if a fast-path slot is in use
   - FAST_PATH_CHECK_LOCKMODE: Macro to verify specific lock modes in fast-path slots
   - FAST_PATH_CLEAR_LOCKMODE: Macro to clear specific lock modes from fast-path slots
-  - SetupLockInTable: Creates or finds lock objects in the shared hash table
-  - GrantLock: Grants the transferred lock in the shared lock table
-  - hash_search_with_hash_value: Hash table search function for finding existing locks
-  - ProcLockHashCode: Computes hash code for PROCLOCK entries
+  - [SetupLockInTable](../S/SetupLockInTable.md): Creates or finds lock objects in the shared hash table
+  - [GrantLock](../G/GrantLock.md): Grants the transferred lock in the shared lock table
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md): Hash table search function for finding existing locks
+  - [ProcLockHashCode](../P/ProcLockHashCode.md): Computes hash code for PROCLOCK entries
   - ereport/elog: Error reporting functions
 - Called from (representative examples):
-  - AtPrepare_Locks: During prepared transaction processing
+  - [AtPrepare_Locks](../A/AtPrepare_Locks.md): During prepared transaction processing
   - ConflictsWithRelationFastPath: When checking for lock conflicts
 
 ## Notes and Other Information

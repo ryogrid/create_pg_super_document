@@ -29,23 +29,23 @@ None - the function takes no parameters and returns a new PerlInterpreter pointe
 ## Dependencies
 - Functions called/Symbols referenced:
   - setlocale (multiple calls for locale preservation)
-  - pstrdup
+  - [pstrdup](pstrdup.md)
   - perl_alloc
   - perl_construct
   - perl_parse
   - perl_run
   - PERL_SET_CONTEXT
   - PERL_SYS_INIT3 (conditional)
-  - pqsignal
-  - FloatExceptionHandler
+  - [pqsignal](pqsignal.md)
+  - [FloatExceptionHandler](../F/FloatExceptionHandler.md)
   - elog
   - ereport
-  - strip_trailing_ws
-  - sv2cstr
-  - plperl_init_shared_libs
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md)
+  - [plperl_init_shared_libs](plperl_init_shared_libs.md)
 - Called from (representative examples):
-  - _PG_init
-  - select_perl_context
+  - [_PG_init](../P/_PG_init.md)
+  - [select_perl_context](../s/select_perl_context.md)
 
 ## Notes and Other Information
 - Handles Windows-specific locale preservation to prevent Perl from corrupting PostgreSQL's locale settings

@@ -28,20 +28,20 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockHeldByMeInMode (assertion check for lock held)
-  - SimpleLruGetBankLock (bank lock acquisition)
-  - SlruSelectLRUPage (LRU page selection)
-  - SlruRecentlyUsed (mark page as recently used)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (bank lock acquisition)
+  - [SlruSelectLRUPage](SlruSelectLRUPage.md) (LRU page selection)
+  - [SlruRecentlyUsed](SlruRecentlyUsed.md) (mark page as recently used)
   - MemSet (zero the page buffer)
-  - SimpleLruZeroLSNs (zero LSN values)
-  - pg_atomic_write_u64 (atomic update of latest page number)
-  - pgstat_count_slru_page_zeroed (statistics update)
+  - [SimpleLruZeroLSNs](SimpleLruZeroLSNs.md) (zero LSN values)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md) (atomic update of latest page number)
+  - [pgstat_count_slru_page_zeroed](../p/pgstat_count_slru_page_zeroed.md) (statistics update)
 - Called from (representative examples):
-  - ZeroCLOGPage
-  - ZeroCommitTsPage
-  - ZeroMultiXactOffsetPage
-  - ZeroMultiXactMemberPage
+  - [ZeroCLOGPage](../Z/ZeroCLOGPage.md)
+  - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md)
+  - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
+  - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
   - ZeroSUBTRANSPage
-  - asyncQueueAddEntries
+  - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)
   - SerialAdd
 
 ## Notes and Other Information

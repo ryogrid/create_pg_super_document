@@ -25,7 +25,7 @@ This configuration is tailored to the requirements of the Spanish stemming algor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env
+  - [SN_create_env](../S/SN_create_env.md)
 - Called from (representative examples):
   - No direct callers found (likely called through function pointer or external interface)
 

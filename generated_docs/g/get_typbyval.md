@@ -23,14 +23,14 @@ This function is essential for the executor, type system, and serialization code
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from heap tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_type (type catalog structure)
 - Called from (representative examples):
-  - brin_range_serialize (BRIN index serialization)
-  - brin_range_deserialize (BRIN index deserialization)
+  - [brin_range_serialize](../b/brin_range_serialize.md) (BRIN index serialization)
+  - [brin_range_deserialize](../b/brin_range_deserialize.md) (BRIN index deserialization)
 
 ## Notes and Other Information
 - Returns false if the type OID is invalid or not found in the catalog

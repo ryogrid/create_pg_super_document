@@ -28,12 +28,12 @@ This distinction is critical for performance optimization in query planning, as 
 - Functions called/Symbols referenced:
   - FirstNormalObjectId
   - IsBuiltinBooleanOpfamily
-  - op_in_opfamily
+  - [op_in_opfamily](../o/op_in_opfamily.md)
   - BooleanEqualOperator (constant)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - match_clause_to_indexcol
-  - indexcol_is_bool_constant_for_query
+  - [match_clause_to_indexcol](../m/match_clause_to_indexcol.md)
+  - [indexcol_is_bool_constant_for_query](../i/indexcol_is_bool_constant_for_query.md)
 
 ## Notes and Other Information
 - Performance optimization: avoids catalog lookups for built-in opfamilies

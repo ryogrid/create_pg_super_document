@@ -18,15 +18,15 @@ This function retrieves a user's password from the PostgreSQL system catalog  an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (to find the role in pg_authid)
-  - SysCacheGetAttr (to extract rolpassword and rolvaliduntil attributes)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (to find the role in pg_authid)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (to extract rolpassword and rolvaliduntil attributes)
   - TextDatumGetCString (to convert password datum to C string)
   - DatumGetTimestampTz (to extract timestamp from rolvaliduntil)
-  - GetCurrentTimestamp (to get current time for expiration check)
-  - ReleaseSysCache (to release the system cache tuple)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (to get current time for expiration check)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (to release the system cache tuple)
 - Called from (representative examples):
-  - CheckPasswordAuth (in src/backend/libpq/auth.c)
-  - CheckPWChallengeAuth (in src/backend/libpq/auth.c)
+  - [CheckPasswordAuth](../C/CheckPasswordAuth.md) (in src/backend/libpq/auth.c)
+  - [CheckPWChallengeAuth](../C/CheckPWChallengeAuth.md) (in src/backend/libpq/auth.c)
 
 ## Notes and Other Information
 - Returns NULL on any error condition (role not found, no password, expired password)

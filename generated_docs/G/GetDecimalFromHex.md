@@ -22,7 +22,7 @@ For numeric characters, it subtracts the ASCII value of '0' to get the decimal v
   - isdigit: Standard library function to check if character is a decimal digit
   - tolower: Standard library function to convert character to lowercase
 - Called from (representative examples):
-  - CopyReadAttributesText: Uses this function when processing hexadecimal escape sequences in text mode parsing
+  - [CopyReadAttributesText](../C/CopyReadAttributesText.md): Uses this function when processing hexadecimal escape sequences in text mode parsing
 
 ## Notes and Other Information
 - Static function - only accessible within the copyfromparse.c module

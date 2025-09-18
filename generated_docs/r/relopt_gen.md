@@ -27,11 +27,11 @@ The structure is designed with the name field first specifically to serve as a l
   - bits32
   - relopt_type
 - Called from (representative examples):
-  - add_reloption
-  - add_bool_reloption
-  - add_int_reloption
-  - add_real_reloption
-  - allocate_reloption
+  - [add_reloption](../a/add_reloption.md)
+  - [add_bool_reloption](../a/add_bool_reloption.md)
+  - [add_int_reloption](../a/add_int_reloption.md)
+  - [add_real_reloption](../a/add_real_reloption.md)
+  - [allocate_reloption](../a/allocate_reloption.md)
 
 ## Notes and Other Information
 This structure is the cornerstone of PostgreSQL's relation options system, enabling type-safe handling of diverse option types while maintaining a unified interface. All specific option types (relopt_bool, relopt_int, etc.) embed this structure as their first member, allowing for polymorphic access through casting. The name field's position is critical for the option parsing machinery that relies on null-terminated arrays.

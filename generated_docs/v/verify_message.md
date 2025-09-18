@@ -28,11 +28,11 @@ If any discrepancy is found, the function reports a detailed error indicating th
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport: PostgreSQL's error reporting mechanism
-  - errmsg: Creates the main error message
-  - errdetail: Provides additional error detail information
+  - [errmsg](../e/errmsg.md): Creates the main error message
+  - [errdetail](../e/errdetail.md): Provides additional error detail information
 - Called from (representative examples):
-  - test_shm_mq: Uses verify_message to validate final message integrity after ring traversal
-  - test_shm_mq_pipelined: Optionally uses verify_message for each received message when verify=true
+  - [test_shm_mq](../t/test_shm_mq.md): Uses verify_message to validate final message integrity after ring traversal
+  - [test_shm_mq_pipelined](../t/test_shm_mq_pipelined.md): Optionally uses verify_message for each received message when verify=true
 
 ## Notes and Other Information
 - Static function scope - only accessible within the test_shm_mq module

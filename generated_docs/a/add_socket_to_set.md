@@ -24,7 +24,7 @@ This function adds a socket file descriptor to a socket_set structure for use wi
   - pg_log_error_hint
   - exit
 - Called from (representative examples):
-  - threadRun (in pgbench main thread execution)
+  - [threadRun](../t/threadRun.md) (in pgbench main thread execution)
 
 ## Notes and Other Information
 - The function terminates the program with exit(1) if validation fails, as socket descriptor limits are critical for proper operation

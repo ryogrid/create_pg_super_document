@@ -20,17 +20,17 @@ The err_generic_string function provides a low-level interface for setting speci
 - Functions called/Symbols referenced:
   - ErrorData (structure type)
   - CHECK_STACK_DEPTH (macro for stack validation)
-  - set_errdata_field (helper function for field assignment)
+  - [set_errdata_field](../s/set_errdata_field.md) (helper function for field assignment)
   - PG_DIAG_SCHEMA_NAME, PG_DIAG_TABLE_NAME, PG_DIAG_COLUMN_NAME, PG_DIAG_DATATYPE_NAME, PG_DIAG_CONSTRAINT_NAME (diagnostic field constants)
   - elog (for error reporting on unsupported fields)
 - Called from (representative examples):
   - errdatatype (in domains.c)
   - errdomainconstraint (in domains.c)
-  - errtable (in relcache.c)
-  - errtablecolname (in relcache.c)
-  - errtableconstraint (in relcache.c)
-  - PLy_elog_impl (in plpy_elog.c)
-  - PLy_output (in plpy_plpymodule.c)
+  - [errtable](errtable.md) (in relcache.c)
+  - [errtablecolname](errtablecolname.md) (in relcache.c)
+  - [errtableconstraint](errtableconstraint.md) (in relcache.c)
+  - [PLy_elog_impl](../P/PLy_elog_impl.md) (in plpy_elog.c)
+  - [PLy_output](../P/PLy_output.md) (in plpy_plpymodule.c)
 
 ## Notes and Other Information
 - The function always returns 0, indicating the return value is not significant

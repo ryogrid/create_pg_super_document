@@ -24,8 +24,8 @@ This function takes no parameters and returns a char pointer to the nonce string
   - ControlFile (global variable access)
   - Assert (assertion check)
 - Called from (representative examples):
-  - scram_mock_salt
-  - WALAvailability (header declaration)
+  - [scram_mock_salt](../s/scram_mock_salt.md)
+  - [WALAvailability](../W/WALAvailability.md) (header declaration)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure ControlFile is not NULL before accessing it

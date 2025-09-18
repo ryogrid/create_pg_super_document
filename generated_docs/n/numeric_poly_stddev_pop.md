@@ -21,8 +21,8 @@ The function extracts the aggregation state and delegates computation to numeric
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numeric_poly_stddev_internal (when HAVE_INT128 is defined)
-  - numeric_stddev_pop (fallback when HAVE_INT128 is not defined)
+  - [numeric_poly_stddev_internal](numeric_poly_stddev_internal.md) (when HAVE_INT128 is defined)
+  - [numeric_stddev_pop](numeric_stddev_pop.md) (fallback when HAVE_INT128 is not defined)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_RETURN_NULL

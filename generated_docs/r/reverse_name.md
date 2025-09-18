@@ -21,11 +21,11 @@ reverse_name is a PostgreSQL function that takes a C-string as input and returns
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (extracts C-string from function arguments)
-  - palloc0 (allocates zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - NAMEDATALEN (PostgreSQL constant defining maximum name length)
   - PG_RETURN_CSTRING (returns C-string result)
 - Called from (representative examples):
-  - pt_in_widget (appears in reference context)
+  - [pt_in_widget](../p/pt_in_widget.md) (appears in reference context)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's regression test suite, demonstrating string manipulation techniques

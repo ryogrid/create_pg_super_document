@@ -24,12 +24,12 @@ Like its array counterpart, it handles three key scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAddressStack (struct type)
-  - ObjectAddress (struct type)
+  - [ObjectAddressStack](../O/ObjectAddressStack.md) (struct type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
   - DEPFLAG_SUBOBJECT (flag constant)
 - Called from (representative examples):
   - find_expr_references_context (src/backend/catalog/dependency.c:174)
-  - findDependentObjects (src/backend/catalog/dependency.c:469, 649)
+  - [findDependentObjects](../f/findDependentObjects.md) (src/backend/catalog/dependency.c:469, 649)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dependency.c module

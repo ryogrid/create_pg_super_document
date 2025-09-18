@@ -21,10 +21,10 @@ The `decsub` function subtracts the second decimal number from the first (`n1` -
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deccall3
-  - PGTYPESnumeric_sub
+  - [deccall3](deccall3.md)
+  - [PGTYPESnumeric_sub](../P/PGTYPESnumeric_sub.md)
 - Called from (representative examples):
-  - main (in test files)
+  - [main](../m/main.md) (in test files)
 - Error constants used:
   - PGTYPES_NUM_OVERFLOW
   - ECPG_INFORMIX_NUM_OVERFLOW

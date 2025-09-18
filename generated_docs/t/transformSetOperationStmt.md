@@ -25,17 +25,17 @@ A key restriction is that ORDER BY clauses can only reference result columns by 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (Query creation)
-  - transformWithClause (WITH clause processing)
-  - transformSetOperationTree (recursive set operation tree processing)
+  - [transformWithClause](transformWithClause.md) (WITH clause processing)
+  - [transformSetOperationTree](transformSetOperationTree.md) (recursive set operation tree processing)
   - rt_fetch (range table entry retrieval)
   - makeVar/makeTargetEntry (dummy target list construction)
-  - addRangeTableEntryForJoin (temporary namespace creation for ORDER BY)
-  - transformSortClause (ORDER BY processing)
-  - transformLimitClause (LIMIT/OFFSET processing)
-  - assign_query_collations (collation assignment)
-  - parseCheckAggregates (aggregate validation)
+  - [addRangeTableEntryForJoin](../a/addRangeTableEntryForJoin.md) (temporary namespace creation for ORDER BY)
+  - [transformSortClause](transformSortClause.md) (ORDER BY processing)
+  - [transformLimitClause](transformLimitClause.md) (LIMIT/OFFSET processing)
+  - [assign_query_collations](../a/assign_query_collations.md) (collation assignment)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (aggregate validation)
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 - The function rejects FOR UPDATE/SHARE clauses with set operations as they are not currently supported

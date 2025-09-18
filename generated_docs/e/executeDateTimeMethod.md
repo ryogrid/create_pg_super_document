@@ -22,19 +22,19 @@ The `executeDateTimeMethod` function provides comprehensive datetime conversion 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getScalar: Converts input to string scalar
+  - [getScalar](../g/getScalar.md): Converts input to string scalar
   - cstring_to_text_with_len: Converts C strings to PostgreSQL text
-  - parse_datetime: Core datetime parsing function with template support
-  - jspGetArg/jspGetString/jspGetNumeric: Extract arguments from JSON path items
+  - [parse_datetime](../p/parse_datetime.md): Core datetime parsing function with template support
+  - [jspGetArg](../j/jspGetArg.md)/jspGetString/jspGetNumeric: Extract arguments from JSON path items
   - DirectFunctionCall1: Execute PostgreSQL type conversion functions
-  - checkTimezoneIsUsedForCast: Validate timezone usage in conversions
+  - [checkTimezoneIsUsedForCast](../c/checkTimezoneIsUsedForCast.md): Validate timezone usage in conversions
   - Various datetime conversion functions (timestamp_date, timetz_time, etc.)
-  - anytime_typmod_check/anytimestamp_typmod_check: Validate time precision
-  - AdjustTimeForTypmod/AdjustTimestampForTypmod: Apply precision to datetime values
+  - [anytime_typmod_check](../a/anytime_typmod_check.md)/anytimestamp_typmod_check: Validate time precision
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)/AdjustTimestampForTypmod: Apply precision to datetime values
   - DetermineTimeZoneOffset: Calculate timezone offsets
-  - executeNextItem: Continue JSON path evaluation
+  - [executeNextItem](executeNextItem.md): Continue JSON path evaluation
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget: Main item execution dispatcher
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md): Main item execution dispatcher
   - RETURN_ERROR: Error handling macro
 
 ## Notes and Other Information

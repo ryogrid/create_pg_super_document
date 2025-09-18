@@ -31,14 +31,14 @@ The bufferedTuples and bufferedBytes counters start at zero and will track the t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertInfo (struct type)
+  - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)
   - CopyFromState (struct type)
   - CommandId (type alias)
   - NIL (empty list constant)
-  - CopyMultiInsertInfoSetupBuffer (buffer setup function)
+  - [CopyMultiInsertInfoSetupBuffer](CopyMultiInsertInfoSetupBuffer.md) (buffer setup function)
   - RELKIND_PARTITIONED_TABLE (constant for partitioned table identification)
 - Called from (representative examples):
-  - CopyFrom (main COPY FROM function at src/backend/commands/copyfrom.c:916)
+  - [CopyFrom](CopyFrom.md) (main COPY FROM function at src/backend/commands/copyfrom.c:916)
 
 ## Notes and Other Information
 - This is a static function accessible only within copyfrom.c
@@ -46,5 +46,5 @@ The bufferedTuples and bufferedBytes counters start at zero and will track the t
 - Buffer setup is conditional based on relation kind - partitioned tables defer buffer creation until needed
 - All numeric counters (bufferedTuples, bufferedBytes) start at zero
 - The multiInsertBuffers list starts as NIL and will be populated as buffers are created
-- Command ID tracking is essential for proper transaction visibility and concurrency control
+- [Command](Command.md) ID tracking is essential for proper transaction visibility and concurrency control
 - The ti_options parameter allows fine-grained control over insertion behavior and optimizations

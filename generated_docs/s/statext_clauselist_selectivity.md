@@ -24,13 +24,13 @@ This function provides sophisticated selectivity estimation by leveraging Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - statext_mcv_clauselist_selectivity
-  - dependencies_clauselist_selectivity
+  - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md)
   - JoinType
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
 - Called from (representative examples):
-  - clauselist_selectivity_ext
-  - clauselist_selectivity_or
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
+  - [clauselist_selectivity_or](../c/clauselist_selectivity_or.md)
 
 ## Notes and Other Information
 The function implements a layered approach to selectivity estimation where more sophisticated statistics methods are tried first. MCV lists can provide exact selectivity for specific value combinations, while functional dependencies provide information about attribute correlation strength. The function is designed to handle both AND and OR clause combinations, but functional dependencies are only applicable to AND clauses due to their mathematical properties. The estimatedclauses parameter allows callers to track which clauses have been processed to avoid double-counting in subsequent estimation steps.

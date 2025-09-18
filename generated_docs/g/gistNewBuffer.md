@@ -21,22 +21,22 @@ This function implements a sophisticated page allocation strategy for GiST index
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetFreeIndexPage (to get candidate pages from FSM)
-  - ReadBuffer (to read pages from disk)
+  - [ReadBuffer](../R/ReadBuffer.md) (to read pages from disk)
   - ConditionalLockBuffer (for non-blocking buffer locking)
-  - BufferGetPage (to extract page from buffer)
-  - PageIsNew (to check if page is uninitialized)
-  - gistcheckpage (to validate page integrity)
-  - gistPageRecyclable (to check if page can be recycled)
+  - [BufferGetPage](../B/BufferGetPage.md) (to extract page from buffer)
+  - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
+  - [gistcheckpage](gistcheckpage.md) (to validate page integrity)
+  - [gistPageRecyclable](gistPageRecyclable.md) (to check if page can be recycled)
   - XLogStandbyInfoActive (to check if Hot Standby WAL is needed)
   - RelationNeedsWAL (to check if relation requires WAL logging)
-  - gistXLogPageReuse (to generate WAL record for page reuse)
-  - GistPageGetDeleteXid (to get deletion transaction ID)
-  - LockBuffer (to unlock buffer when recycling fails)
+  - [gistXLogPageReuse](gistXLogPageReuse.md) (to generate WAL record for page reuse)
+  - [GistPageGetDeleteXid](../G/GistPageGetDeleteXid.md) (to get deletion transaction ID)
+  - [LockBuffer](../L/LockBuffer.md) (to unlock buffer when recycling fails)
   - ReleaseBuffer (to release unusable buffers)
-  - ExtendBufferedRel (to extend the index file)
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (to extend the index file)
 - Called from (representative examples):
-  - gistplacetopage (during tuple insertion and page splits)
-  - gistbuild (during index construction)
+  - [gistplacetopage](gistplacetopage.md) (during tuple insertion and page splits)
+  - [gistbuild](gistbuild.md) (during index construction)
 
 ## Notes and Other Information
 - Returns a buffer that is already pinned and exclusive-locked

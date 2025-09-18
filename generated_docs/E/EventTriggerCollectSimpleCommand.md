@@ -28,12 +28,12 @@ The function allocates memory in the event trigger context, creates a CollectedC
   - CollectedCommand (struct type)
   - SCT_Simple (command type constant)
   - copyObject (for deep copying the parse tree)
-  - palloc, lappend (memory and list management)
+  - [palloc](../p/palloc.md), lappend (memory and list management)
 - Called from (representative examples):
-  - reindex_index (src/backend/catalog/index.c:3647)
-  - CreateOpFamily (src/backend/commands/opclasscmds.c:317)
-  - AlterPublicationOptions (src/backend/commands/publicationcmds.c:1048)
-  - ProcessUtilitySlow (multiple locations in src/backend/tcop/utility.c)
+  - [reindex_index](../r/reindex_index.md) (src/backend/catalog/index.c:3647)
+  - [CreateOpFamily](../C/CreateOpFamily.md) (src/backend/commands/opclasscmds.c:317)
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md) (src/backend/commands/publicationcmds.c:1048)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (multiple locations in src/backend/tcop/utility.c)
 
 ## Notes and Other Information
 - Part of the DDL command collection framework that supports event triggers

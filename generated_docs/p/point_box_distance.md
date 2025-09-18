@@ -24,13 +24,13 @@ The function is optimized for spatial indexing operations in PostgreSQL's SP-GiS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (data structure)
-  - BOX (data structure)  
+  - [Point](../P/Point.md) (data structure)
+  - [BOX](../B/BOX.md) (data structure)  
   - isnan (NaN checking function)
   - get_float8_nan (NaN value generator)
   - HYPOT (hypotenuse calculation macro)
 - Called from (representative examples):
-  - spg_key_orderbys_distances
+  - [spg_key_orderbys_distances](../s/spg_key_orderbys_distances.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the SP-GiST spatial indexing system

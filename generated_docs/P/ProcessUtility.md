@@ -28,15 +28,15 @@ This design pattern enables sophisticated extensions like logical replication, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - standard_ProcessUtility (default implementation when no hook is present)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (default implementation when no hook is present)
   - ProcessUtility_hook (function pointer for plugin extension points)
   - IsA (macro for type checking PlannedStmt)
 - Called from (representative examples):
-  - PortalRunUtility (portal execution system)
-  - execute_sql_string (extension loading)
-  - CreateSchemaCommand (schema creation with embedded statements)
-  - ProcessUtilitySlow (recursive processing)
-  - ProcessUtilityForAlterTable (ALTER TABLE subcommand processing)
+  - [PortalRunUtility](PortalRunUtility.md) (portal execution system)
+  - [execute_sql_string](../e/execute_sql_string.md) (extension loading)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md) (schema creation with embedded statements)
+  - [ProcessUtilitySlow](ProcessUtilitySlow.md) (recursive processing)
+  - [ProcessUtilityForAlterTable](ProcessUtilityForAlterTable.md) (ALTER TABLE subcommand processing)
 
 ## Notes and Other Information
 - The function includes comprehensive parameter validation with multiple Assert statements to catch programming errors early
@@ -44,4 +44,4 @@ This design pattern enables sophisticated extensions like logical replication, a
 - Multiple invocations may receive the same queryString when processing semicolon-separated statements; use pstmt->stmt_location and pstmt->stmt_len to identify individual statement boundaries
 - Some utility statements like CREATE SCHEMA recursively call ProcessUtility for sub-statements, often passing the same queryString and location information
 - The hook mechanism is designed for extensions that typically call standard_ProcessUtility after performing their own processing
-- Command completion tracking through QueryCompletion parameter supports proper statistics and monitoring
+- [Command](../C/Command.md) completion tracking through QueryCompletion parameter supports proper statistics and monitoring

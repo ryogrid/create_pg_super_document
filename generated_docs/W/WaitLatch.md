@@ -22,19 +22,19 @@ WaitLatch is the primary function for waiting on latch events in PostgreSQL. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Latch (structure type)
-  - WaitEvent (structure type)
+  - [Latch](../L/Latch.md) (structure type)
+  - [WaitEvent](WaitEvent.md) (structure type)
   - WL_EXIT_ON_PM_DEATH, WL_POSTMASTER_DEATH, WL_LATCH_SET, WL_TIMEOUT (wait event flags)
-  - ModifyWaitEvent
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
   - WaitEventSetWait
   - LatchWaitSetLatchPos
 - Called from (representative examples):
-  - BackgroundWriterMain
-  - CheckpointerMain  
-  - WalWriterMain
-  - ApplyLauncherMain
-  - SyncRepWaitForLSN
-  - shm_mq_wait_internal
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)  
+  - [WalWriterMain](WalWriterMain.md)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md)
+  - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md)
+  - [shm_mq_wait_internal](../s/shm_mq_wait_internal.md)
 
 ## Notes and Other Information
 - Processes under postmaster must handle postmaster death via WL_EXIT_ON_PM_DEATH or WL_POSTMASTER_DEATH

@@ -40,8 +40,8 @@ The flexible array member design allows for efficient memory allocation while su
   - ParserSetupHook (typedef)
 
 - Called from (representative examples):
-  - makeParamList (parameter list creation)
-  - ParamListInfo (as the underlying type)
+  - [makeParamList](../m/makeParamList.md) (parameter list creation)
+  - [ParamListInfo](ParamListInfo.md) (as the underlying type)
 
 ## Notes and Other Information
 - The params[] array can be empty (length zero) if paramFetch hook is provided for dynamic parameter resolution

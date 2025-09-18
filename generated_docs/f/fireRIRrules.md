@@ -27,24 +27,24 @@ The function modifies the parse tree in-place, potentially replacing simple tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rewriteSearchAndCycle
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md)
   - rt_fetch
-  - rangeTableEntry_used
+  - [rangeTableEntry_used](../r/rangeTableEntry_used.md)
   - table_open
-  - ApplyRetrieveRule
-  - get_row_security_policies
-  - acquireLocksOnSubLinks
-  - fireRIRonSubLink
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md)
+  - [get_row_security_policies](../g/get_row_security_policies.md)
+  - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
+  - [fireRIRonSubLink](fireRIRonSubLink.md)
   - query_tree_walker
   - expression_tree_walker
-  - list_member_oid
+  - [list_member_oid](../l/list_member_oid.md)
   - lappend_oid
   - list_delete_last
-  - list_concat
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - QueryRewrite
-  - ApplyRetrieveRule
-  - fireRIRonSubLink (for subqueries)
+  - [QueryRewrite](../Q/QueryRewrite.md)
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md)
+  - [fireRIRonSubLink](fireRIRonSubLink.md) (for subqueries)
 
 ## Notes and Other Information
 - Central function in PostgreSQL's rule rewriting system for view expansion

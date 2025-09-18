@@ -22,18 +22,18 @@ The function supports both basic privileges and their "WITH GRANT OPTION" varian
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string
+  - [convert_any_priv_string](convert_any_priv_string.md)
   - ACL_CREATE
   - ACL_USAGE  
   - ACL_GRANT_OPTION_FOR
   - priv_map (struct type)
 - Called from (representative examples):
-  - has_schema_privilege_name_name
-  - has_schema_privilege_name
-  - has_schema_privilege_name_id
-  - has_schema_privilege_id
-  - has_schema_privilege_id_name
-  - has_schema_privilege_id_id
+  - [has_schema_privilege_name_name](../h/has_schema_privilege_name_name.md)
+  - [has_schema_privilege_name](../h/has_schema_privilege_name.md)
+  - [has_schema_privilege_name_id](../h/has_schema_privilege_name_id.md)
+  - [has_schema_privilege_id](../h/has_schema_privilege_id.md)
+  - [has_schema_privilege_id_name](../h/has_schema_privilege_id_name.md)
+  - [has_schema_privilege_id_id](../h/has_schema_privilege_id_id.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the acl.c compilation unit

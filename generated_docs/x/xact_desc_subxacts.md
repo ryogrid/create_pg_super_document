@@ -25,9 +25,9 @@ This utility function is used internally by the xact description functions to ap
   - appendStringInfo
   - TransactionId (type)
 - Called from (representative examples):
-  - xact_desc_commit
-  - xact_desc_abort
-  - xact_desc_prepare
+  - [xact_desc_commit](xact_desc_commit.md)
+  - [xact_desc_abort](xact_desc_abort.md)
+  - [xact_desc_prepare](xact_desc_prepare.md)
 
 ## Notes and Other Information
 - Static function, only used within xactdesc.c

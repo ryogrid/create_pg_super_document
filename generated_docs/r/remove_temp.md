@@ -24,8 +24,8 @@ This function performs cleanup of the temporary Unix socket directory used durin
   - sockself (global variable)
   - socklock (global variable)
 - Called from (representative examples):
-  - signal_remove_temp
-  - make_temp_sockdir
+  - [signal_remove_temp](../s/signal_remove_temp.md)
+  - [make_temp_sockdir](../m/make_temp_sockdir.md)
 
 ## Notes and Other Information
 - Function is marked static (internal to pg_regress.c)

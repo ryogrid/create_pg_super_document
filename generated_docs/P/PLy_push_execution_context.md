@@ -17,13 +17,13 @@ PLy_push_execution_context allocates and initializes a new execution context for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyExecutionContext
-  - MemoryContextAlloc
+  - [PLyExecutionContext](PLyExecutionContext.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - TopTransactionContext
   - PortalContext
 - Called from (representative examples):
-  - plpython3_call_handler
-  - plpython3_inline_handler
+  - [plpython3_call_handler](../p/plpython3_call_handler.md)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the plpy_main.c module

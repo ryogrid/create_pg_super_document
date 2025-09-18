@@ -23,7 +23,7 @@ The `puttzcode` function takes a 32-bit integer value and writes it to the speci
   - convert (for converting int32 to binary representation)
   - fwrite (standard C library function for file writing)
 - Called from (representative examples):
-  - puttzcodepass
+  - [puttzcodepass](puttzcodepass.md)
 
 ## Notes and Other Information
 - The function uses a 4-byte buffer to hold the converted binary data

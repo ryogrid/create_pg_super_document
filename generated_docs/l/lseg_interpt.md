@@ -19,12 +19,12 @@ This is a PostgreSQL function interface that wraps the internal lseg_interpt_lse
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSEG_P (retrieve line segment arguments)
-  - palloc (memory allocation)
-  - lseg_interpt_lseg (internal intersection calculation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md) (internal intersection calculation)
   - PG_RETURN_NULL (return NULL value)
   - PG_RETURN_POINT_P (return point result)
 - Called from:
-  - interpt_pp (in test regression code)
+  - [interpt_pp](../i/interpt_pp.md) (in test regression code)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:2361-2389

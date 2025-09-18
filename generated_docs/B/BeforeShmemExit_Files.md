@@ -26,7 +26,7 @@ This ensures that no temporary files are left behind when a backend process term
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CleanupTempFiles (called with false, true to clean all temp files)
+  - [CleanupTempFiles](../C/CleanupTempFiles.md) (called with false, true to clean all temp files)
   - temporary_files_allowed (debug variable set to false)
 - Called from (representative examples):
   - AllocateDesc (registers this hook in src/backend/storage/file/fd.c:339)

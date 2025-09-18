@@ -20,9 +20,9 @@ The function performs a nested loop comparison, checking each of te1's exclusive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (structure type containing dependency and lock dependency arrays)
+  - [TocEntry](../T/TocEntry.md) (structure type containing dependency and lock dependency arrays)
 - Called from (representative examples):
-  - pop_next_work_item (twice - used in parallel restore scheduling to avoid lock conflicts)
+  - [pop_next_work_item](../p/pop_next_work_item.md) (twice - used in parallel restore scheduling to avoid lock conflicts)
 
 ## Notes and Other Information
 - Used specifically in parallel restore operations to prevent deadlocks

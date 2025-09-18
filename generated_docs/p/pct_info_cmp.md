@@ -23,9 +23,9 @@ The comparison follows standard C library comparator conventions, returning:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pct_info (struct type)
+  - [pct_info](pct_info.md) (struct type)
 - Called from (representative examples):
-  - setup_pct_info (via qsort or similar sorting mechanism)
+  - [setup_pct_info](../s/setup_pct_info.md) (via qsort or similar sorting mechanism)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within the orderedsetaggs.c compilation unit

@@ -21,9 +21,9 @@ audit_failure is a semantic wrapper function that provides a clear interface for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - emit_audit_message() (core audit message emission function)
+  - [emit_audit_message](../e/emit_audit_message.md)() (core audit message emission function)
 - Called from (representative examples):
-  - REGRESS_exec_check_perms() (for executor permission check failures)
+  - [REGRESS_exec_check_perms](../R/REGRESS_exec_check_perms.md)() (for executor permission check failures)
 
 ## Notes and Other Information
 - Part of the test_oat_hooks module for mandatory access control (MAC) testing

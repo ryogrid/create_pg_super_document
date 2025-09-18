@@ -23,11 +23,11 @@ The function assumes that the relation's targetlist and restrictinfo list have a
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - set_baserel_size_estimates
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
 - Constants used:
   - RTE_RESULT
 - Called from (representative examples):
-  - set_result_pathlist
+  - [set_result_pathlist](set_result_pathlist.md)
 
 ## Notes and Other Information
 - Only applicable to RTE_RESULT base relations (validated with assertions)

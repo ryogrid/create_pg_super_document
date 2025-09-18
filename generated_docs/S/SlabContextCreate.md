@@ -24,18 +24,18 @@ The function calculates a blocklist_shift value that maps the number of free chu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext (struct type)
+  - [SlabContext](SlabContext.md) (struct type)
   - StaticAssertDecl (macro for compile-time assertions)
   - Slab_CHUNKHDRSZ, Slab_BLOCKHDRSZ, Slab_CONTEXT_HDRSZ (size constants)
   - MEMORYCHUNK_MAX_BLOCKOFFSET, MEMORYCHUNK_MAX_VALUE (limit constants)
   - MEMORY_CONTEXT_CHECKING (conditional compilation macro)
   - malloc (system memory allocation)
-  - MemoryContextStats, MemoryContextCreate (memory context framework functions)
-  - dclist_init, dlist_init (doubly-linked list initialization)
+  - [MemoryContextStats](../M/MemoryContextStats.md), MemoryContextCreate (memory context framework functions)
+  - [dclist_init](../d/dclist_init.md), dlist_init (doubly-linked list initialization)
   - SLAB_BLOCKLIST_COUNT (constant for number of blocklists)
   - MCTX_SLAB_ID (memory context type identifier)
 - Called from (representative examples):
-  - ReorderBufferAllocate
+  - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md)
   - RT_CREATE (radix tree creation)
 
 ## Notes and Other Information

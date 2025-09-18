@@ -23,14 +23,14 @@ This is the most comprehensive version of the object address addition functions,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - repalloc (memory reallocation)
-  - ObjectAddress (struct type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
   - ObjectAddresses (struct type)
   - ObjectAddressExtra (struct type)
 - Called from (representative examples):
   - find_expr_references_context
-  - findDependentObjects
+  - [findDependentObjects](../f/findDependentObjects.md)
 
 ## Notes and Other Information
 - Static function, used internally within dependency.c

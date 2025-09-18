@@ -22,11 +22,11 @@ AccessMethodInfo stores metadata about PostgreSQL access methods for the dump an
   - DumpableObject (base structure for dump metadata)
 
 - Called from (representative examples):
-  - getAccessMethods (src/bin/pg_dump/pg_dump.c:6246, 6281)
-  - dumpAccessMethod (src/bin/pg_dump/pg_dump.c:13274)
-  - findAccessMethodByOid (src/bin/pg_dump/common.c:952)
-  - selectDumpableAccessMethod (src/bin/pg_dump/pg_dump.c:2034)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10559)
+  - [getAccessMethods](../g/getAccessMethods.md) (src/bin/pg_dump/pg_dump.c:6246, 6281)
+  - [dumpAccessMethod](../d/dumpAccessMethod.md) (src/bin/pg_dump/pg_dump.c:13274)
+  - [findAccessMethodByOid](../f/findAccessMethodByOid.md) (src/bin/pg_dump/common.c:952)
+  - [selectDumpableAccessMethod](../s/selectDumpableAccessMethod.md) (src/bin/pg_dump/pg_dump.c:2034)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10559)
 
 ## Notes and Other Information
 - Essential for preserving custom access methods during database migration and backup/restore operations

@@ -21,11 +21,11 @@ This function takes no parameters and returns a boolean value indicating paralle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsLogicalWorker (worker type checking)
-  - am_parallel_apply_worker (parallel apply worker type checking)
+  - [IsLogicalWorker](IsLogicalWorker.md) (worker type checking)
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md) (parallel apply worker type checking)
 
 - Called from:
-  - mq_putmessage (in pqmq.c:168)
+  - [mq_putmessage](../m/mq_putmessage.md) (in pqmq.c:168)
   - Referenced in header file logicalworker.h:24
 
 ## Notes and Other Information

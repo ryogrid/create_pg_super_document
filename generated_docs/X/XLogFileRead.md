@@ -29,17 +29,17 @@ The function updates various state variables to track the source of data and set
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFileName
-  - RestoreArchivedFile
-  - KeepFileRestoredFromArchive
+  - [XLogFileName](XLogFileName.md)
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md)
   - XLogFilePath
   - BasicOpenFile
   - set_ps_display
-  - GetCurrentTimestamp
-  - IsInstallXLogFileSegmentActive
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [IsInstallXLogFileSegmentActive](../I/IsInstallXLogFileSegmentActive.md)
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable
-  - XLogFileReadAnyTLI
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
+  - [XLogFileReadAnyTLI](XLogFileReadAnyTLI.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlogrecovery.c module

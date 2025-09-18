@@ -47,11 +47,11 @@ The implementation uses a sampling approach rather than throttling every individ
   - TimeOffset (for time calculations)
   - TimestampTz (for timestamp storage)
 - Called from (representative examples):
-  - bbsink_throttle_new
-  - bbsink_throttle_begin_backup
-  - bbsink_throttle_archive_contents
-  - bbsink_throttle_manifest_contents
-  - throttle
+  - [bbsink_throttle_new](bbsink_throttle_new.md)
+  - [bbsink_throttle_begin_backup](bbsink_throttle_begin_backup.md)
+  - [bbsink_throttle_archive_contents](bbsink_throttle_archive_contents.md)
+  - [bbsink_throttle_manifest_contents](bbsink_throttle_manifest_contents.md)
+  - [throttle](../t/throttle.md)
 
 ## Notes and Other Information
 - The throttling mechanism operates at a frequency of 8 samples per second (THROTTLING_FREQUENCY = 8)

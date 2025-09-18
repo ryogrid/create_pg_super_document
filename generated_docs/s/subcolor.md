@@ -26,14 +26,14 @@ When a new subcolor is successfully created, the function updates the character 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newsub (creates a new subcolor)
+  - [newsub](../n/newsub.md) (creates a new subcolor)
   - CISERR (macro to check for compilation errors)
   - MAX_SIMPLE_CHR (maximum value for simple characters)
   - CHR_MIN (minimum character value)
   - COLORLESS (constant representing no color/error state)
 - Called from (representative examples):
-  - subcolorcvec (at src/backend/regex/regc_color.c:555)
-  - subcoloronechr (at src/backend/regex/regc_color.c:640)
+  - [subcolorcvec](subcolorcvec.md) (at src/backend/regex/regc_color.c:555)
+  - [subcoloronechr](subcoloronechr.md) (at src/backend/regex/regc_color.c:640)
   - CNOERR (at src/backend/regex/regcomp.c:458)
 
 ## Notes and Other Information

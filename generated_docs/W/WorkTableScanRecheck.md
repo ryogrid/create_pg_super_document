@@ -18,10 +18,10 @@ WorkTableScanRecheck implements the recheck interface required for EvalPlanQual 
 
 ## Dependencies
 - Types used:
-  - WorkTableScanState (scan state structure)
+  - [WorkTableScanState](WorkTableScanState.md) (scan state structure)
   - TupleTableSlot (tuple storage slot)
 - Called from:
-  - ExecWorkTableScan (as part of the access method interface)
+  - [ExecWorkTableScan](../E/ExecWorkTableScan.md) (as part of the access method interface)
 
 ## Notes and Other Information
 - Always returns true since no actual checking is required for worktables

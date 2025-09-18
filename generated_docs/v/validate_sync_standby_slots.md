@@ -21,11 +21,11 @@ This function validates the synchronized_standby_slots GUC parameter by first pa
   - SplitIdentifierString (for parsing comma-separated identifiers)
   - GUC_check_errdetail (for setting error messages)
   - LWLockAcquire/LWLockRelease (for locking ReplicationSlotControlLock)
-  - SearchNamedReplicationSlot (to find slots by name)
+  - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md) (to find slots by name)
   - SlotIsPhysical (to check if slot is physical)
   - foreach_ptr (macro for iterating over list)
 - Called from (representative examples):
-  - check_synchronized_standby_slots
+  - [check_synchronized_standby_slots](../c/check_synchronized_standby_slots.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the slot.c module

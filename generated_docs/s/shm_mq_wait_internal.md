@@ -23,14 +23,14 @@ This function implements the core waiting mechanism for queue attachment synchro
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - GetBackgroundWorkerPid
-  - WaitLatch
-  - ResetLatch
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - shm_mq_receive
-  - shm_mq_wait_for_attach
-  - shm_mq_send_bytes
+  - [shm_mq_receive](shm_mq_receive.md)
+  - [shm_mq_wait_for_attach](shm_mq_wait_for_attach.md)
+  - [shm_mq_send_bytes](shm_mq_send_bytes.md)
 
 ## Notes and Other Information
 - Uses spinlocks to atomically check the attachment pointer without data races

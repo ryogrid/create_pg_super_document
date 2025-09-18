@@ -21,21 +21,21 @@ The function implements a round-robin search strategy starting from different po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecHashTableDetachBatch
-  - pg_atomic_fetch_add_u32
+  - [ExecHashTableDetachBatch](ExecHashTableDetachBatch.md)
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md)
   - BarrierAttach
   - BarrierArriveAndWait
-  - ExecParallelHashTableAlloc
-  - ExecParallelHashTableSetCurrentBatch
-  - sts_begin_parallel_scan
+  - [ExecParallelHashTableAlloc](ExecParallelHashTableAlloc.md)
+  - [ExecParallelHashTableSetCurrentBatch](ExecParallelHashTableSetCurrentBatch.md)
+  - [sts_begin_parallel_scan](../s/sts_begin_parallel_scan.md)
   - sts_parallel_scan_next
-  - ExecForceStoreMinimalTuple
+  - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md)
   - ExecParallelHashTableInsertCurrentBatch
-  - sts_end_parallel_scan
+  - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)
   - BarrierDetach
   - BarrierPhase
 - Called from (representative examples):
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - Returns true if a batch was successfully selected and is ready for probing, false if no more batches remain

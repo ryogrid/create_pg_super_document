@@ -23,13 +23,13 @@ The function explicitly ignores dropped columns since information about them is 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes
-  - get_attavgwidth  
-  - get_typavgwidth
-  - clamp_width_est
+  - [get_attavgwidth](get_attavgwidth.md)  
+  - [get_typavgwidth](get_typavgwidth.md)
+  - [clamp_width_est](../c/clamp_width_est.md)
 - Called from (representative examples):
-  - table_block_relation_estimate_size
-  - estimate_rel_size
-  - get_relation_data_width
+  - [table_block_relation_estimate_size](../t/table_block_relation_estimate_size.md)
+  - [estimate_rel_size](../e/estimate_rel_size.md)
+  - [get_relation_data_width](get_relation_data_width.md)
 
 ## Notes and Other Information
 - The function matches the logic in  in costsize.c for consistency

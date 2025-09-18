@@ -17,13 +17,13 @@ This function creates and initializes a bbstreamer_tar_parser instance that serv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - initStringInfo
   - bbstreamer_tar_parser_ops
   - BBSTREAMER_MEMBER_HEADER
 - Called from (representative examples):
-  - bbstreamer_buffer_until
-  - CreateBackupStreamer
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
 
 ## Notes and Other Information
 - The function allocates memory for the parser structure using palloc0, ensuring zero-initialization

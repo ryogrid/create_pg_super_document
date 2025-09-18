@@ -35,16 +35,16 @@ This information is crucial for understanding the logical structure of the syste
   - SRF_PERCALL_SETUP
   - SRF_RETURN_NEXT
   - SRF_RETURN_DONE
-  - get_call_result_type
-  - BlessTupleDesc
-  - fmgr_info
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
+  - [fmgr_info](../f/fmgr_info.md)
   - FunctionCall3
-  - heap_form_tuple
-  - HeapTupleGetDatum
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - lengthof
-  - CStringGetDatum
-  - ObjectIdGetDatum
-  - BoolGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
 - Global data structures referenced:
   - sys_fk_relationships (array of SysFKRelationship structs)
 - Constants referenced:

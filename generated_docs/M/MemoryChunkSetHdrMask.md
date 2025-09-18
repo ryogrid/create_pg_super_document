@@ -33,12 +33,12 @@ The function performs several validation checks to ensure the parameters are wit
   - MEMORYCHUNK_BLOCKOFFSET_BASEBIT
   - MEMORYCHUNK_VALUE_BASEBIT
 - Called from (representative examples):
-  - AllocSetAllocChunkFromBlock (aset.c:788)
-  - AllocSetAllocFromNewBlock (aset.c:872)
-  - BumpAllocChunkFromBlock (bump.c:398)
-  - GenerationAllocChunkFromBlock (generation.c:431)
-  - MemoryContextAllocAligned (mcxt.c:1472)
-  - SlabAllocSetupNewChunk (slab.c:514)
+  - [AllocSetAllocChunkFromBlock](../A/AllocSetAllocChunkFromBlock.md) (aset.c:788)
+  - [AllocSetAllocFromNewBlock](../A/AllocSetAllocFromNewBlock.md) (aset.c:872)
+  - [BumpAllocChunkFromBlock](../B/BumpAllocChunkFromBlock.md) (bump.c:398)
+  - [GenerationAllocChunkFromBlock](../G/GenerationAllocChunkFromBlock.md) (generation.c:431)
+  - [MemoryContextAllocAligned](MemoryContextAllocAligned.md) (mcxt.c:1472)
+  - [SlabAllocSetupNewChunk](../S/SlabAllocSetupNewChunk.md) (slab.c:514)
 
 ## Notes and Other Information
 - This is an inline function for performance efficiency since it's called frequently during memory allocation

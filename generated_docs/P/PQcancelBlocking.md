@@ -25,12 +25,12 @@ This is the simpler alternative to the non-blocking approach using PQcancelStart
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQcancelStart
-  - pqConnectDBComplete
+  - [PQcancelStart](PQcancelStart.md)
+  - [pqConnectDBComplete](../p/pqConnectDBComplete.md)
 - Called from (representative examples):
-  - disconnectDatabase (src/fe_utils/connect_utils.c:166)
-  - try_complete_step (src/test/isolation/isolationtester.c:951)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:288)
+  - [disconnectDatabase](../d/disconnectDatabase.md) (src/fe_utils/connect_utils.c:166)
+  - [try_complete_step](../t/try_complete_step.md) (src/test/isolation/isolationtester.c:951)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:288)
 
 ## Notes and Other Information
 - Returns 1 on successful cancellation, 0 on failure

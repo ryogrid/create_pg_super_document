@@ -19,10 +19,10 @@ This function extracts and returns the SQL name (not the internal Python procedu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyProcedure (procedure structure type)
+  - [PLyProcedure](PLyProcedure.md) (procedure structure type)
 - Called from (representative examples):
-  - PLy_traceback (error traceback generation)
-  - plpython_error_callback (error callback handler)
+  - [PLy_traceback](PLy_traceback.md) (error traceback generation)
+  - [plpython_error_callback](../p/plpython_error_callback.md) (error callback handler)
 
 ## Notes and Other Information
 - Returns "<unknown procedure>" when passed a NULL pointer for safety

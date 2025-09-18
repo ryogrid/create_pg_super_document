@@ -21,12 +21,12 @@ The function ensures proper formatting by wrapping all worker output in "Workers
 - Functions called/Symbols referenced:
   - ExplainState (struct type)
   - ExplainWorkersState (struct type)  
-  - ExplainOpenGroup
-  - ExplainCloseGroup
+  - [ExplainOpenGroup](ExplainOpenGroup.md)
+  - [ExplainCloseGroup](ExplainCloseGroup.md)
   - appendStringInfoString
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ExplainNode (at src/backend/commands/explain.c:2310)
+  - [ExplainNode](ExplainNode.md) (at src/backend/commands/explain.c:2310)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

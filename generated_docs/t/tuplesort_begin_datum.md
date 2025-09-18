@@ -25,17 +25,17 @@ This function creates a specialized tuplesort state for sorting raw datum values
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
-  - get_typlenbyval
+  - [get_typlenbyval](../g/get_typlenbyval.md)
   - PrepareSortSupportFromOrderingOp
-  - removeabbrev_datum, comparetup_datum, comparetup_datum_tiebreak
+  - [removeabbrev_datum](../r/removeabbrev_datum.md), comparetup_datum, comparetup_datum_tiebreak
   - writetup_datum, readtup_datum
 - Called from (representative examples):
-  - validate_index
-  - initialize_aggregate
-  - ExecSort
-  - ordered_set_startup
+  - [validate_index](../v/validate_index.md)
+  - [initialize_aggregate](../i/initialize_aggregate.md)
+  - [ExecSort](../E/ExecSort.md)
+  - [ordered_set_startup](../o/ordered_set_startup.md)
 
 ## Notes and Other Information
 - Always configured as single-column sort (nKeys = 1)

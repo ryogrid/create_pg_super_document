@@ -33,20 +33,20 @@ The function uses tuple stores to buffer partition data and maintains frame head
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (memory management)
-  - tuplestore_select_read_pointer (tuple store navigation)
-  - tuplestore_gettupleslot (tuple retrieval)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md) (tuple store navigation)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (tuple retrieval)
   - are_peers (peer comparison for RANGE/GROUPS modes)
-  - spool_tuples (tuple buffering)
+  - [spool_tuples](../s/spool_tuples.md) (tuple buffering)
   - slot_getattr (tuple attribute extraction)
-  - FunctionCall5Coll (in_range function calls for RANGE mode)
+  - [FunctionCall5Coll](../F/FunctionCall5Coll.md) (in_range function calls for RANGE mode)
   - ExecCopySlot/ExecClearTuple (tuple slot management)
-  - DatumGetInt64 (offset value extraction)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (offset value extraction)
 - Called from (representative examples):
-  - eval_windowaggregates (during aggregate window function evaluation)
-  - row_is_in_frame (for frame membership testing)
-  - ExecWindowAgg (main window aggregation execution)
-  - WinGetFuncArgInFrame (window function argument retrieval)
+  - [eval_windowaggregates](../e/eval_windowaggregates.md) (during aggregate window function evaluation)
+  - [row_is_in_frame](../r/row_is_in_frame.md) (for frame membership testing)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md) (main window aggregation execution)
+  - [WinGetFuncArgInFrame](../W/WinGetFuncArgInFrame.md) (window function argument retrieval)
 
 ## Notes and Other Information
 - The function may clobber  during GROUPS mode processing

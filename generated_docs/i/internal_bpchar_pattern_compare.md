@@ -27,16 +27,16 @@ The function is designed to be compatible with regular BPCHAR equality/inequalit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bcTruelen (determines true length of BPCHAR, excluding trailing spaces)
+  - [bcTruelen](../b/bcTruelen.md) (determines true length of BPCHAR, excluding trailing spaces)
   - VARDATA_ANY (extracts character data from variable-length type)
   - memcmp (performs binary memory comparison)
   - Min (macro to get minimum of two values)
 - Called from (representative examples):
-  - bpchar_pattern_lt (BPCHAR pattern less-than operator)
-  - bpchar_pattern_le (BPCHAR pattern less-than-or-equal operator)
-  - bpchar_pattern_ge (BPCHAR pattern greater-than-or-equal operator)
-  - bpchar_pattern_gt (BPCHAR pattern greater-than operator)
-  - btbpchar_pattern_cmp (btree comparison function for pattern operations)
+  - [bpchar_pattern_lt](../b/bpchar_pattern_lt.md) (BPCHAR pattern less-than operator)
+  - [bpchar_pattern_le](../b/bpchar_pattern_le.md) (BPCHAR pattern less-than-or-equal operator)
+  - [bpchar_pattern_ge](../b/bpchar_pattern_ge.md) (BPCHAR pattern greater-than-or-equal operator)
+  - [bpchar_pattern_gt](../b/bpchar_pattern_gt.md) (BPCHAR pattern greater-than operator)
+  - [btbpchar_pattern_cmp](../b/btbpchar_pattern_cmp.md) (btree comparison function for pattern operations)
 
 ## Notes and Other Information
 - Specifically designed for LIKE clause index support, not general string comparison

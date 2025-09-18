@@ -23,7 +23,7 @@ The int8mod function implements the modulo (remainder) operation for PostgreSQL'
   - PG_RETURN_INT64 (returns int64 result)
   - PG_RETURN_NULL (returns NULL on error path)
   - ereport (error reporting)
-  - errcode/errmsg (error code and message macros)
+  - [errcode](../e/errcode.md)/errmsg (error code and message macros)
 - Called from:
   - No direct references found (likely called via PostgreSQL function dispatch system)
 

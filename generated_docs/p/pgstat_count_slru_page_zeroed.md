@@ -21,9 +21,9 @@ This metric is valuable for understanding SLRU buffer allocation patterns and ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_slru_entry
+  - [get_slru_entry](../g/get_slru_entry.md)
 - Called from (representative examples):
-  - SimpleLruZeroPage
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

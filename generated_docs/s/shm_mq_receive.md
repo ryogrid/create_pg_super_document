@@ -31,16 +31,16 @@ The function processes messages in phases: sender attachment verification, optio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_receive_bytes (low-level data reading)
-  - shm_mq_inc_bytes_read (update consumption counters)
-  - shm_mq_counterparty_gone (sender status checking)
-  - shm_mq_wait_internal (blocking wait implementation)
-  - MemoryContextAlloc (buffer allocation)
+  - [shm_mq_receive_bytes](shm_mq_receive_bytes.md) (low-level data reading)
+  - [shm_mq_inc_bytes_read](shm_mq_inc_bytes_read.md) (update consumption counters)
+  - [shm_mq_counterparty_gone](shm_mq_counterparty_gone.md) (sender status checking)
+  - [shm_mq_wait_internal](shm_mq_wait_internal.md) (blocking wait implementation)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (buffer allocation)
   - pg_nextpower2_size_t (buffer size calculation)
 - Called from (representative examples):
-  - HandleParallelMessages (parallel query message processing)
-  - TupleQueueReaderNext (tuple queue operations)
-  - LogicalParallelApplyLoop (logical replication)
+  - [HandleParallelMessages](../H/HandleParallelMessages.md) (parallel query message processing)
+  - [TupleQueueReaderNext](../T/TupleQueueReaderNext.md) (tuple queue operations)
+  - [LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md) (logical replication)
 
 ## Notes and Other Information
 - Only the designated receiver process (mq->mq_receiver == MyProc) can call this function

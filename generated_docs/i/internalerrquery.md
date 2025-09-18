@@ -19,15 +19,15 @@ The  function manages the internal query text associated with the current error 
 - Functions called/Symbols referenced:
   - ErrorData (structure type)
   - CHECK_STACK_DEPTH (macro for stack validation)
-  - MemoryContextStrdup (memory allocation function)
-  - pfree (memory deallocation function)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (memory allocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - function_parse_error_transpose (in pg_proc.c)
-  - import_error_callback (in foreigncmds.c)
-  - sql_exec_error_callback (in functions.c)
-  - _SPI_error_callback (in spi.c)
-  - sql_inline_error_callback (in clauses.c)
-  - PLy_elog_impl (in plpy_elog.c)
+  - [function_parse_error_transpose](../f/function_parse_error_transpose.md) (in pg_proc.c)
+  - [import_error_callback](import_error_callback.md) (in foreigncmds.c)
+  - [sql_exec_error_callback](../s/sql_exec_error_callback.md) (in functions.c)
+  - [_SPI_error_callback](../S/_SPI_error_callback.md) (in spi.c)
+  - [sql_inline_error_callback](../s/sql_inline_error_callback.md) (in clauses.c)
+  - [PLy_elog_impl](../P/PLy_elog_impl.md) (in plpy_elog.c)
 
 ## Notes and Other Information
 - The function always returns 0, indicating the return value is not significant

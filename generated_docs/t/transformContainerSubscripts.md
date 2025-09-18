@@ -36,17 +36,17 @@ The function works for various container types including arrays, and is designed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformContainerType() (resolves domain types)
-  - getSubscriptingRoutines() (gets type-specific subscripting support functions)
+  - [transformContainerType](transformContainerType.md)() (resolves domain types)
+  - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md)() (gets type-specific subscripting support functions)
   - SubscriptingRef (result node type)
-  - A_Indices (subscript specification structure)
+  - [A_Indices](../A/A_Indices.md) (subscript specification structure)
   - makeNode() (creates new SubscriptingRef node)
   - ereport()/errcode() (error reporting)
-  - format_type_be() (type name formatting)
-  - exprLocation() (gets expression location for error reporting)
+  - [format_type_be](../f/format_type_be.md)() (type name formatting)
+  - [exprLocation](../e/exprLocation.md)() (gets expression location for error reporting)
 - Called from (representative examples):
-  - transformIndirection() (handles general indirection expressions)
-  - transformAssignmentSubscripts() (handles assignment targets)
+  - [transformIndirection](transformIndirection.md)() (handles general indirection expressions)
+  - [transformAssignmentSubscripts](transformAssignmentSubscripts.md)() (handles assignment targets)
 
 ## Notes and Other Information
 - The function distinguishes between single element access and slice operations by checking the is_slice field in A_Indices nodes

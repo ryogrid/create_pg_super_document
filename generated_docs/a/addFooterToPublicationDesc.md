@@ -28,15 +28,15 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PSQLexec
-  - printTableAddFooter
-  - printfPQExpBuffer
-  - PQgetisnull
-  - PQgetvalue
-  - PQntuples
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printTableAddFooter](../p/printTableAddFooter.md)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - describePublications (called twice for different footer sections)
+  - [describePublications](../d/describePublications.md) (called twice for different footer sections)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the describe.c file

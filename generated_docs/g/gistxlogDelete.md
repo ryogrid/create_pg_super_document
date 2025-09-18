@@ -22,10 +22,10 @@ This structure is used to log GiST index tuple deletion operations in the write-
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - gistRedoDeleteRecord
-  - gistXLogDelete
-  - out_gistxlogDelete
-  - gist_desc
+  - [gistRedoDeleteRecord](gistRedoDeleteRecord.md)
+  - [gistXLogDelete](gistXLogDelete.md)
+  - [out_gistxlogDelete](../o/out_gistxlogDelete.md)
+  - [gist_desc](gist_desc.md)
   - SizeOfGistxlogDelete
 
 ## Notes and Other Information

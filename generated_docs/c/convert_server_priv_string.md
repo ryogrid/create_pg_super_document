@@ -19,17 +19,17 @@ The `convert_server_priv_string` function is a support routine that converts tex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string
+  - [convert_any_priv_string](convert_any_priv_string.md)
   - priv_map (local structure type)
   - ACL_USAGE
   - ACL_GRANT_OPTION_FOR
 - Called from (representative examples):
-  - has_server_privilege_name_name
-  - has_server_privilege_name
-  - has_server_privilege_name_id
-  - has_server_privilege_id
-  - has_server_privilege_id_name
-  - has_server_privilege_id_id
+  - [has_server_privilege_name_name](../h/has_server_privilege_name_name.md)
+  - [has_server_privilege_name](../h/has_server_privilege_name.md)
+  - [has_server_privilege_name_id](../h/has_server_privilege_name_id.md)
+  - [has_server_privilege_id](../h/has_server_privilege_id.md)
+  - [has_server_privilege_id_name](../h/has_server_privilege_id_name.md)
+  - [has_server_privilege_id_id](../h/has_server_privilege_id_id.md)
 
 ## Notes and Other Information
 This function is declared static, making it internal to the acl.c compilation unit. The privilege mapping is specific to foreign servers, which only support USAGE privileges (unlike tables or functions which support multiple privilege types). The static `server_priv_map` array is null-terminated and follows the standard pattern used throughout PostgreSQL's privilege system. The function supports both basic privileges and grant option variants, indicated by the "WITH GRANT OPTION" suffix in the privilege string.

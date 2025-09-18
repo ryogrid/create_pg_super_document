@@ -19,13 +19,13 @@ This static function resolves operator class or operator family names into Objec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_index_am_oid (looks up access method OID and validates it's for indexes)
-  - list_copy_tail (creates list copy excluding first element)
-  - get_opclass_oid (retrieves operator class OID within specified access method)
-  - get_opfamily_oid (retrieves operator family OID within specified access method)
+  - [get_index_am_oid](get_index_am_oid.md) (looks up access method OID and validates it's for indexes)
+  - [list_copy_tail](../l/list_copy_tail.md) (creates list copy excluding first element)
+  - [get_opclass_oid](get_opclass_oid.md) (retrieves operator class OID within specified access method)
+  - [get_opfamily_oid](get_opfamily_oid.md) (retrieves operator family OID within specified access method)
 - Called from (representative examples):
-  - get_object_address (main object address resolution function)
-  - get_object_address_opf_member (for resolving operator family members)
+  - [get_object_address](get_object_address.md) (main object address resolution function)
+  - [get_object_address_opf_member](get_object_address_opf_member.md) (for resolving operator family members)
 
 ## Notes and Other Information
 - Expects the object list to have the access method name as the first element

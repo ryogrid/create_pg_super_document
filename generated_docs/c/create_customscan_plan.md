@@ -20,13 +20,13 @@ This function creates a CustomScan execution plan node from a CustomPath. Custom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - order_qual_clauses
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
   - castNode
-  - copy_generic_path_info
-  - replace_nestloop_params
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - Enables extensibility by allowing custom scan providers to implement specialized scan logic

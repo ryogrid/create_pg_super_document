@@ -21,9 +21,9 @@ This function is a PostgreSQL SQL-callable function that verifies whether a spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_foreign_data_wrapper_name (converts text name to OID)
-  - convert_foreign_data_wrapper_priv_string (converts privilege string to AclMode)
-  - object_aclcheck (performs the privilege check)
+  - [convert_foreign_data_wrapper_name](../c/convert_foreign_data_wrapper_name.md) (converts text name to OID)
+  - [convert_foreign_data_wrapper_priv_string](../c/convert_foreign_data_wrapper_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck](../o/object_aclcheck.md) (performs the privilege check)
   - PG_GETARG_OID (macro to extract OID argument)
   - PG_GETARG_TEXT_PP (macro to extract text arguments)
   - PG_RETURN_BOOL (macro to return boolean result)

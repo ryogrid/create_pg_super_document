@@ -22,7 +22,7 @@ This function is part of PostgreSQL's memory management error detection system, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)
-  - GetMemoryChunkHeader (to retrieve the header for diagnostic purposes)
+  - [GetMemoryChunkHeader](../G/GetMemoryChunkHeader.md) (to retrieve the header for diagnostic purposes)
 - Called from (representative examples):
   - BOGUS_MCTX (memory context method structure)
 

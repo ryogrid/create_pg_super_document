@@ -22,9 +22,9 @@ The function provides a centralized way to get consistent naming for different t
 ## Dependencies
 - Functions called/Symbols referenced:
   - child_process_kinds (global array)
-  - BackendType (enumeration type)
+  - [BackendType](../B/BackendType.md) (enumeration type)
 - Called from (representative examples):
-  - StartChildProcess (in postmaster.c)
+  - [StartChildProcess](../S/StartChildProcess.md) (in postmaster.c)
   - Various logging and error reporting functions
 
 ## Notes and Other Information

@@ -23,13 +23,13 @@ The function differs from the transaction-safe implementation in commands/tablec
   - table_open
   - AccessExclusiveLock
   - lappend
-  - heap_truncate_check_FKs
+  - [heap_truncate_check_FKs](heap_truncate_check_FKs.md)
   - lfirst
-  - heap_truncate_one_rel
+  - [heap_truncate_one_rel](heap_truncate_one_rel.md)
   - table_close
   - NoLock
 - Called from (representative examples):
-  - PreCommit_on_commit_actions
+  - [PreCommit_on_commit_actions](../P/PreCommit_on_commit_actions.md)
 
 ## Notes and Other Information
 - This function is NOT transaction-safe and cannot be rolled back

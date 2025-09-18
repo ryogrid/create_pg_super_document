@@ -20,13 +20,13 @@ FreeErrorData is the proper cleanup function for ErrorData structures created by
 ## Dependencies
 - Functions called/Symbols referenced:
   - ErrorData (structure type)
-  - FreeErrorDataContents (cleanup function for contents)
-  - pfree (memory deallocation)
+  - [FreeErrorDataContents](FreeErrorDataContents.md) (cleanup function for contents)
+  - [pfree](../p/pfree.md) (memory deallocation)
 
 - Called from (representative examples):
-  - PLy_output
-  - PLy_commit  
-  - PLy_rollback
+  - [PLy_output](../P/PLy_output.md)
+  - [PLy_commit](../P/PLy_commit.md)  
+  - [PLy_rollback](../P/PLy_rollback.md)
   - pltcl_elog
   - CHANGES_THRESHOLD
 

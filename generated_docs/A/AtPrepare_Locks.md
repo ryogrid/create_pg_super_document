@@ -28,17 +28,17 @@ This function takes no parameters and operates on global lock state.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CheckForSessionAndXactLocks
-  - hash_seq_init
-  - hash_seq_search
-  - FastPathGetRelationLockEntry
-  - RegisterTwoPhaseRecord
-  - TwoPhaseLockRecord
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [FastPathGetRelationLockEntry](../F/FastPathGetRelationLockEntry.md)
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md)
+  - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md)
   - TWOPHASE_RM_LOCK_ID
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](../P/PrepareTransaction.md)
 
 ## Notes and Other Information
-- Session-level locks are completely ignored and not transferred to the prepared transaction
+- [Session](../S/Session.md)-level locks are completely ignored and not transferred to the prepared transaction
 - Virtual transaction (VXID) locks are excluded as they are not meaningful after a database restart
 - Fast-path locks are converted to regular lock table entries to ensure proper 2PC handling
 - The holdsStrongLockCount flag is cleared to prevent premature strong lock count decrements

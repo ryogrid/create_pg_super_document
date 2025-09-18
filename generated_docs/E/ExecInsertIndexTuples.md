@@ -49,21 +49,21 @@ The function supports multiple operation modes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerIsValid: Validates the tuple ID pointer
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md): Validates the tuple ID pointer
   - GetPerTupleExprContext: Gets expression evaluation context for the current tuple
-  - ExecPrepareQual: Prepares partial index predicate expressions for evaluation
+  - [ExecPrepareQual](ExecPrepareQual.md): Prepares partial index predicate expressions for evaluation
   - ExecQual: Evaluates partial index predicates
-  - FormIndexDatum: Extracts index column values from the heap tuple
-  - list_member_oid: Checks if an index OID is in the arbiter list
-  - index_unchanged_by_update: Determines if an index was logically unchanged by an update
-  - index_insert: Performs the actual index tuple insertion with uniqueness checking
-  - check_exclusion_or_unique_constraint: Checks exclusion constraints
+  - [FormIndexDatum](../F/FormIndexDatum.md): Extracts index column values from the heap tuple
+  - [list_member_oid](../l/list_member_oid.md): Checks if an index OID is in the arbiter list
+  - [index_unchanged_by_update](../i/index_unchanged_by_update.md): Determines if an index was logically unchanged by an update
+  - [index_insert](../i/index_insert.md): Performs the actual index tuple insertion with uniqueness checking
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md): Checks exclusion constraints
   - lappend_oid: Adds index OIDs to the result list for deferred checking
 - Called from (representative examples):
-  - ExecInsert: Main insertion path in nodeModifyTable
-  - ExecUpdateEpilogue: After heap tuple updates in nodeModifyTable
-  - CopyFrom: Bulk data loading operations
-  - ExecSimpleRelationInsert/Update: Logical replication operations
+  - [ExecInsert](ExecInsert.md): Main insertion path in nodeModifyTable
+  - [ExecUpdateEpilogue](ExecUpdateEpilogue.md): After heap tuple updates in nodeModifyTable
+  - [CopyFrom](../C/CopyFrom.md): Bulk data loading operations
+  - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md)/Update: Logical replication operations
 
 ## Notes and Other Information
 - Returns a list of index OIDs for any unique or exclusion constraints that had potential conflicts and require deferred checking

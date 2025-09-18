@@ -19,12 +19,12 @@ The function performs the operation within a critical section to ensure atomicit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRel (extends the relation with a new buffer)
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (extends the relation with a new buffer)
   - BMR_REL (buffer manager relation macro)
-  - GISTInitBuffer (initializes the buffer as a GiST page)
+  - [GISTInitBuffer](../G/GISTInitBuffer.md) (initializes the buffer as a GiST page)
   - MarkBufferDirty (marks buffer as needing to be written)
-  - log_newpage_buffer (logs the new page for WAL)
-  - UnlockReleaseBuffer (unlocks and releases the buffer)
+  - [log_newpage_buffer](../l/log_newpage_buffer.md) (logs the new page for WAL)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (unlocks and releases the buffer)
   - START_CRIT_SECTION/END_CRIT_SECTION (critical section macros)
 - Constants used:
   - INIT_FORKNUM (initialization fork number)
@@ -32,7 +32,7 @@ The function performs the operation within a critical section to ensure atomicit
   - EB_LOCK_FIRST (lock first flag)
   - F_LEAF (leaf page flag)
 - Called from:
-  - gisthandler (assigned as ambuildempty callback at src/backend/access/gist/gist.c:87)
+  - [gisthandler](gisthandler.md) (assigned as ambuildempty callback at src/backend/access/gist/gist.c:87)
 
 ## Notes and Other Information
 - This function is part of the access method interface for GiST indexes

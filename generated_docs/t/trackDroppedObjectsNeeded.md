@@ -22,13 +22,13 @@ The function examines three types of events:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EventCacheLookup (called 3 times to check for different event types)
+  - [EventCacheLookup](../E/EventCacheLookup.md) (called 3 times to check for different event types)
   - EVT_SQLDrop (constant for SQL drop events)
   - EVT_TableRewrite (constant for table rewrite events) 
   - EVT_DDLCommandEnd (constant for DDL command end events)
 - Called from (representative examples):
-  - deleteObjectsInList (src/backend/catalog/dependency.c:193)
-  - EventTriggerBeginCompleteQuery (src/backend/commands/event_trigger.c:1194)
+  - [deleteObjectsInList](../d/deleteObjectsInList.md) (src/backend/catalog/dependency.c:193)
+  - [EventTriggerBeginCompleteQuery](../E/EventTriggerBeginCompleteQuery.md) (src/backend/commands/event_trigger.c:1194)
 
 ## Notes and Other Information
 - Returns true if any of the three event trigger types exist, false otherwise

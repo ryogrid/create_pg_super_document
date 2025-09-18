@@ -21,14 +21,14 @@ This function stores a MinimalTuple in a MinimalTupleTableSlot by first clearing
 - Functions called/Symbols referenced:
   - MinimalTuple (parameter type)
   - MinimalTupleTableSlot (struct type cast)
-  - tts_minimal_clear
+  - [tts_minimal_clear](tts_minimal_clear.md)
   - TTS_SHOULDFREE, TTS_EMPTY (slot state macros)
   - TTS_FLAG_EMPTY, TTS_FLAG_SHOULDFREE (slot flags)
   - MINIMAL_TUPLE_OFFSET (offset constant)
   - HeapTupleHeader (type cast)
 - Called from (representative examples):
-  - ExecStoreMinimalTuple
-  - ExecForceStoreMinimalTuple
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
+  - [ExecForceStoreMinimalTuple](../E/ExecForceStoreMinimalTuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to execTuples.c

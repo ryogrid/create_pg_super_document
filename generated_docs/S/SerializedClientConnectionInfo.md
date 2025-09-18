@@ -22,12 +22,12 @@ The design follows PostgreSQL's pattern for serializable structures: fixed-size 
 - Functions called/Symbols referenced:
   - UserAuth (enum type from libpq/hba.h)
 - Called from (representative examples):
-  - EstimateClientConnectionInfoSpace
-  - SerializeClientConnectionInfo
-  - RestoreClientConnectionInfo
+  - [EstimateClientConnectionInfoSpace](../E/EstimateClientConnectionInfoSpace.md)
+  - [SerializeClientConnectionInfo](SerializeClientConnectionInfo.md)
+  - [RestoreClientConnectionInfo](../R/RestoreClientConnectionInfo.md)
 
 ## Notes and Other Information
-- Variable-length fields (specifically authn_id strings) are allocated immediately after this header in memory, following PostgreSQL's serialization conventions
+- [Variable](../V/Variable.md)-length fields (specifically authn_id strings) are allocated immediately after this header in memory, following PostgreSQL's serialization conventions
 - The struct is used in conjunction with MyClientConnectionInfo global variable for serialization/deserialization operations
 - Part of the parallel worker infrastructure that ensures worker processes have access to the same authentication context as the main backend process
 - Located in src/backend/utils/init/miscinit.c:1071-1075

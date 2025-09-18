@@ -27,13 +27,13 @@ The function includes a comment noting that IndexInfo arrays are not explicitly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_insert_cleanup: Allows index access methods to perform post-insertion cleanup operations
-  - index_close: Closes the index relation and releases the RowExclusiveLock
+  - [index_insert_cleanup](../i/index_insert_cleanup.md): Allows index access methods to perform post-insertion cleanup operations
+  - [index_close](../i/index_close.md): Closes the index relation and releases the RowExclusiveLock
 - Called from (representative examples):
-  - ExecCloseResultRelations: Part of general executor cleanup when closing result relations
-  - CatalogCloseIndexes: Closes system catalog indices after catalog operations
-  - apply_handle_insert/update/delete: Cleanup in logical replication worker operations
-  - ExecCleanupTupleRouting: Cleanup when finishing partition tuple routing
+  - [ExecCloseResultRelations](ExecCloseResultRelations.md): Part of general executor cleanup when closing result relations
+  - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md): Closes system catalog indices after catalog operations
+  - [apply_handle_insert](../a/apply_handle_insert.md)/update/delete: Cleanup in logical replication worker operations
+  - [ExecCleanupTupleRouting](ExecCleanupTupleRouting.md): Cleanup when finishing partition tuple routing
 
 ## Notes and Other Information
 - Must be called for every ResultRelInfo that had ExecOpenIndices called on it to prevent resource leaks
@@ -41,4 +41,4 @@ The function includes a comment noting that IndexInfo arrays are not explicitly 
 - IndexInfo arrays are not explicitly freed - they rely on executor memory context cleanup
 - The function releases RowExclusiveLock that was acquired during ExecOpenIndices
 - Part of the executor resource cleanup protocol and should be called during executor shutdown
-- Does not return any error status - cleanup operations are expected to succeed
+- Does not return any error status - [cleanup](../c/cleanup.md) operations are expected to succeed

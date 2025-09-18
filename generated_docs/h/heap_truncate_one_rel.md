@@ -20,15 +20,15 @@ The truncation process involves: (1) truncating the underlying relation storage 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_relation_nontransactional_truncate
-  - RelationTruncateIndexes
+  - [RelationTruncateIndexes](../R/RelationTruncateIndexes.md)
   - OidIsValid
   - table_open
   - AccessExclusiveLock
   - table_close
   - NoLock
 - Called from (representative examples):
-  - heap_truncate
-  - ExecuteTruncateGuts
+  - [heap_truncate](heap_truncate.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 - This function is NOT transaction-safe and cannot be rolled back

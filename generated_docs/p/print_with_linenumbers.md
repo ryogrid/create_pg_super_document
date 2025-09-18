@@ -27,7 +27,7 @@ The function processes the input text line by line, temporarily modifying the in
   - strchr (standard C library)  
   - fprintf (standard C library)
 - Called from (representative examples):
-  - exec_command_sf_sv (in src/bin/psql/command.c:2580)
+  - [exec_command_sf_sv](../e/exec_command_sf_sv.md) (in src/bin/psql/command.c:2580)
 
 ## Notes and Other Information
 - The function modifies the input string temporarily by replacing newlines with null terminators, but restores them before advancing

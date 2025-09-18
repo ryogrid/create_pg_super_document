@@ -25,14 +25,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress: Checks if database is in recovery mode
-  - SetConfigOption: Sets configuration option value
+  - [RecoveryInProgress](RecoveryInProgress.md): Checks if database is in recovery mode
+  - [SetConfigOption](../S/SetConfigOption.md): Sets configuration option value
   - slist_foreach_modify: Iterates through singly-linked list with modification capability
   - slist_container: Extracts container structure from list node
-  - ReportGUCOption: Reports individual GUC option to frontend
-  - slist_delete_current: Removes current item from list during iteration
+  - [ReportGUCOption](ReportGUCOption.md): Reports individual GUC option to frontend
+  - [slist_delete_current](../s/slist_delete_current.md): Removes current item from list during iteration
 - Called from (representative examples):
-  - PostgresMain: Called in main query processing loop in src/backend/tcop/postgres.c:4682
+  - [PostgresMain](../P/PostgresMain.md): Called in main query processing loop in src/backend/tcop/postgres.c:4682
 
 ## Notes and Other Information
 - Only operates when reporting_enabled flag is true (set by BeginReportingGUCOptions)

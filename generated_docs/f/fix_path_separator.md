@@ -19,9 +19,9 @@ The function is essential for pg_upgrade operations that need to generate shell 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (Windows only)
+  - [pg_strdup](../p/pg_strdup.md) (Windows only)
 - Called from (representative examples):
-  - create_script_for_old_cluster_deletion
+  - [create_script_for_old_cluster_deletion](../c/create_script_for_old_cluster_deletion.md)
 
 ## Notes and Other Information
 - Windows-specific behavior: Creates a new string copy with converted separators and returns it

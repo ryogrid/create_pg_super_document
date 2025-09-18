@@ -19,19 +19,19 @@ This optimization function provides a fast way to determine if calling ereport()
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - should_output_to_server
-  - should_output_to_client
+  - [should_output_to_server](../s/should_output_to_server.md)
+  - [should_output_to_client](../s/should_output_to_client.md)
   - ERROR (constant)
 - Called from (representative examples):
-  - ShowTransactionState
-  - log_invalid_page
-  - forget_invalid_pages
-  - forget_invalid_pages_db
-  - reportDependentObjects
-  - VacuumUpdateCosts
-  - ProcessWalSndrMessage
-  - ProcessStandbyReplyMessage
-  - ProcessStandbyHSFeedbackMessage
+  - [ShowTransactionState](../S/ShowTransactionState.md)
+  - [log_invalid_page](../l/log_invalid_page.md)
+  - [forget_invalid_pages](../f/forget_invalid_pages.md)
+  - [forget_invalid_pages_db](../f/forget_invalid_pages_db.md)
+  - [reportDependentObjects](../r/reportDependentObjects.md)
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md)
+  - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md)
+  - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md)
+  - [ProcessStandbyHSFeedbackMessage](../P/ProcessStandbyHSFeedbackMessage.md)
   - ProcSleep
 
 ## Notes and Other Information

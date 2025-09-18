@@ -38,8 +38,8 @@ The function uses nested Min/Max operations to ensure all constraints are satisf
 - Called from (representative examples):
   - CLOGShmemBuffers
   - CommitTsShmemBuffers  
-  - SUBTRANSShmemBuffers
-  - SimpleLruGetBankLock
+  - [SUBTRANSShmemBuffers](SUBTRANSShmemBuffers.md)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
 
 ## Notes and Other Information
 - This function enables automatic scaling of SLRU buffers based on available shared memory

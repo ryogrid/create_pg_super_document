@@ -21,14 +21,14 @@ The function modifies and returns the first list parameter, making it the concat
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsOidList
-  - list_member_oid
+  - [list_member_oid](list_member_oid.md)
   - lappend_oid
   - lfirst_oid
-  - check_list_invariants
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - GetSchemaPublicationRelations
-  - AlterPublicationOptions
-  - RelationBuildPublicationDesc
+  - [GetSchemaPublicationRelations](../G/GetSchemaPublicationRelations.md)
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md)
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
 
 ## Notes and Other Information
 - The function asserts that both input lists contain OID values using IsOidList()

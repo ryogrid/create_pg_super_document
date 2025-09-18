@@ -26,11 +26,11 @@ This function is designed to be safe to call multiple times and in error conditi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecShutdownGatherMergeWorkers
-  - ExecParallelCleanup
+  - [ExecShutdownGatherMergeWorkers](ExecShutdownGatherMergeWorkers.md)
+  - [ExecParallelCleanup](ExecParallelCleanup.md)
 - Called from:
-  - ExecEndGatherMerge (during normal query cleanup)
-  - ExecShutdownNode_walker (during emergency shutdown scenarios)
+  - [ExecEndGatherMerge](ExecEndGatherMerge.md) (during normal query cleanup)
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md) (during emergency shutdown scenarios)
 
 ## Notes and Other Information
 - The shutdown sequence is carefully ordered: workers are shut down before the parallel context to ensure proper cleanup

@@ -20,12 +20,12 @@ As a static function, it's only accessible within the descriptor.c file and serv
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard library deallocation function)
-  - assignment (struct type)
+  - [assignment](../a/assignment.md) (struct type)
 - Called from (representative examples):
-  - output_get_descr_header
-  - output_get_descr  
-  - output_set_descr_header
-  - output_set_descr
+  - [output_get_descr_header](../o/output_get_descr_header.md)
+  - [output_get_descr](../o/output_get_descr.md)  
+  - [output_set_descr_header](../o/output_set_descr_header.md)
+  - [output_set_descr](../o/output_set_descr.md)
 
 ## Notes and Other Information
 - Static function with file-local scope in descriptor.c

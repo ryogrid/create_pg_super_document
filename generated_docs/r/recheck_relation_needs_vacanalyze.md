@@ -33,12 +33,12 @@ The function ensures that decisions are based on the most up-to-date statistical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_tabentry_ext (fetch current statistics for the relation)
-  - relation_needs_vacanalyze (core logic for determining maintenance needs)
-  - pfree (memory management for statistics entry)
+  - [pgstat_fetch_stat_tabentry_ext](../p/pgstat_fetch_stat_tabentry_ext.md) (fetch current statistics for the relation)
+  - [relation_needs_vacanalyze](relation_needs_vacanalyze.md) (core logic for determining maintenance needs)
+  - [pfree](../p/pfree.md) (memory management for statistics entry)
   - RELKIND_TOASTVALUE (constant for identifying TOAST tables)
 - Called from (representative examples):
-  - table_recheck_autovac (during table maintenance need validation)
+  - [table_recheck_autovac](../t/table_recheck_autovac.md) (during table maintenance need validation)
 
 ## Notes and Other Information
 - This function is specifically designed as a subroutine for table_recheck_autovac

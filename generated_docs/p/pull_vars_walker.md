@@ -34,13 +34,13 @@ The function maintains proper nesting level tracking when encountering Query nod
   - expression_tree_walker (recursive expression tree traversal)
   - Var, PlaceHolderVar (node type structures)
 - Called from (representative examples):
-  - pull_vars_of_level (primary caller via query_or_expression_tree_walker)
-  - pull_vars_walker (recursive self-calls)
+  - [pull_vars_of_level](pull_vars_of_level.md) (primary caller via query_or_expression_tree_walker)
+  - [pull_vars_walker](pull_vars_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static function, internal to var.c
 - Implements the visitor pattern for tree traversal
 - Handles proper scope management for nested queries
 - Does not copy variables, only links them into the result list
-- PlaceHolderVar nodes are treated specially - their contained expressions are not traversed
+- [PlaceHolderVar](../P/PlaceHolderVar.md) nodes are treated specially - their contained expressions are not traversed
 - Returns false to continue tree traversal, true would halt traversal early

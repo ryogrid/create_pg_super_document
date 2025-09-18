@@ -24,8 +24,8 @@ The function includes important safety measures: it validates that the reference
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_insert_after
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_insert_after](dlist_insert_after.md)
 - Called from (representative examples):
   - No references found in current codebase
 

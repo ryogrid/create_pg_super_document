@@ -21,9 +21,9 @@ This function is part of PostgreSQL's libpq tracing infrastructure, specifically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputString
+  - [pqTraceOutputString](pqTraceOutputString.md)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

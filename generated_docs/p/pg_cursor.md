@@ -25,18 +25,18 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - hash_seq_init
-  - hash_seq_search
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - CStringGetTextDatum
-  - BoolGetDatum
+  - [BoolGetDatum](../B/BoolGetDatum.md)
   - TimestampTzGetDatum
   - tuplestore_putvalues
 - Data types used:
   - ReturnSetInfo
   - HASH_SEQ_STATUS
   - PortalHashEnt
-  - Portal
+  - [Portal](../P/Portal.md)
   - Datum
 - Constants used:
   - CURSOR_OPT_HOLD

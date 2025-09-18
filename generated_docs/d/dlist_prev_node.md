@@ -22,14 +22,14 @@ This function is the backward navigation counterpart to dlist_next_node, providi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (struct type)
-  - dlist_node (struct type)
-  - dlist_has_prev (function to verify previous node exists)
+  - [dlist_head](dlist_head.md) (struct type)
+  - [dlist_node](dlist_node.md) (struct type)
+  - [dlist_has_prev](dlist_has_prev.md) (function to verify previous node exists)
   - Assert (macro for debug assertions)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf (src/backend/access/gin/gindatapage.c:665)
-  - leafRepackItems (src/backend/access/gin/gindatapage.c:1699)
-  - dclist_prev_node (src/include/lib/ilist.h:883)
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md) (src/backend/access/gin/gindatapage.c:665)
+  - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1699)
+  - [dclist_prev_node](dclist_prev_node.md) (src/include/lib/ilist.h:883)
 
 ## Notes and Other Information
 - The function assumes that the caller has verified a previous node exists, enforced by the assertion

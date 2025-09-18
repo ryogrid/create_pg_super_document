@@ -29,12 +29,12 @@ This function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gin_extract_jsonb (standard jsonb GIN extraction for containment queries)
-  - make_text_key (creates GIN entries for text keys with JGINFLAG_KEY flag)
-  - deconstruct_array_builtin (extracts elements from text arrays)
-  - extract_jsp_query (handles jsonpath query extraction)
+  - [gin_extract_jsonb](gin_extract_jsonb.md) (standard jsonb GIN extraction for containment queries)
+  - [make_text_key](../m/make_text_key.md) (creates GIN entries for text keys with JGINFLAG_KEY flag)
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) (extracts elements from text arrays)
+  - [extract_jsp_query](../e/extract_jsp_query.md) (handles jsonpath query extraction)
   - DirectFunctionCall2 (PostgreSQL function call mechanism)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
 - Called from (representative examples):
   - This is a top-level PostgreSQL function called by the GIN access method during query planning
 

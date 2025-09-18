@@ -34,12 +34,12 @@ This mechanism is essential for maintaining ACID properties, particularly in sce
   - table_tuple_satisfies_snapshot
   - slot_getsysattr
   - MinTransactionIdAttributeNumber
-  - DatumGetTransactionId
-  - TransactionIdIsCurrentTransactionId
+  - [DatumGetTransactionId](../D/DatumGetTransactionId.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - ERRCODE_T_R_SERIALIZATION_FAILURE
 - Called from (representative examples):
-  - ExecCheckTIDVisible
-  - ExecOnConflictUpdate
+  - [ExecCheckTIDVisible](ExecCheckTIDVisible.md)
+  - [ExecOnConflictUpdate](ExecOnConflictUpdate.md)
 
 ## Notes and Other Information
 - This function is static to nodeModifyTable.c and used internally for MVCC consistency checks

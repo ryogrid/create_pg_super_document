@@ -28,7 +28,7 @@ The function uses the parameter configuration structure where each entry contain
   - PRO_SPECIAL (constant indicating special parameter types)
   - ps.case_indent (global parser state variable for case statement indentation)
 - Called from (representative examples):
-  - main (src/tools/pg_bsd_indent/indent.c:187)
+  - [main](../m/main.md) (src/tools/pg_bsd_indent/indent.c:187)
 
 ## Notes and Other Information
 - The function handles the special case of ps.case_indent (float) separately because floating-point values cannot be initialized in static data structures in the same way as integers

@@ -31,9 +31,9 @@ This function takes no parameters.
   - Various signal constants (SIGTRAP, SIGABRT, SIGILL, SIGFPE, SIGSEGV, SIGBUS, SIGSYS, SIGCONT, SIGQUIT, SIGTERM, SIGALRM)
 
 - Called from (representative examples):
-  - PostmasterMain (src/backend/postmaster/postmaster.c:543)
-  - InitPostmasterChild (src/backend/utils/init/miscinit.c:133)
-  - InitStandaloneProcess (src/backend/utils/init/miscinit.c:206)
+  - [PostmasterMain](../P/PostmasterMain.md) (src/backend/postmaster/postmaster.c:543)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md) (src/backend/utils/init/miscinit.c:133)
+  - [InitStandaloneProcess](../I/InitStandaloneProcess.md) (src/backend/utils/init/miscinit.c:206)
 
 ## Notes and Other Information
 - This function must be called early in the PostgreSQL initialization process to ensure proper signal handling throughout the system

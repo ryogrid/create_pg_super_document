@@ -22,17 +22,17 @@ The function iterates through all line pointers on the page and sets the lp_flag
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type for line pointer offsets)
-  - PageGetMaxOffsetNumber (macro to get highest offset number on page)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (macro to get highest offset number on page)
   - FirstOffsetNumber (constant for first valid offset number)
   - OffsetNumberNext (macro to increment offset number)
-  - PageGetItemId (macro to get ItemId by offset)
+  - [PageGetItemId](../P/PageGetItemId.md) (macro to get ItemId by offset)
   - ItemId (type for line pointer structure)
   - ItemIdIsUsed (macro to check if line pointer is in use)
   - LP_UNUSED (constant flag value for unused line pointers)
 - Called from (representative examples):
-  - gist_mask (GiST index masking)
-  - hash_mask (hash index masking)
-  - btree_mask (B-tree index masking)
+  - [gist_mask](../g/gist_mask.md) (GiST index masking)
+  - [hash_mask](../h/hash_mask.md) (hash index masking)
+  - [btree_mask](../b/btree_mask.md) (B-tree index masking)
 
 ## Notes and Other Information
 - This function is specifically used for index pages where line pointer flags can change asynchronously

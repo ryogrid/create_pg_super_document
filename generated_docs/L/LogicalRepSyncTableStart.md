@@ -31,18 +31,18 @@ The function implements sophisticated error handling and recovery mechanisms, in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransactionCommand/CommitTransactionCommand
-  - GetSubscriptionRelState
-  - ReplicationSlotNameForTablesync
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand
+  - [GetSubscriptionRelState](../G/GetSubscriptionRelState.md)
+  - [ReplicationSlotNameForTablesync](../R/ReplicationSlotNameForTablesync.md)
   - walrcv_connect
-  - ReplicationSlotDropAtPubNode
-  - UpdateSubscriptionRelState
+  - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md)
+  - [UpdateSubscriptionRelState](../U/UpdateSubscriptionRelState.md)
   - walrcv_create_slot
   - replorigin_create/replorigin_session_setup
-  - copy_table
-  - wait_for_worker_state_change
+  - [copy_table](../c/copy_table.md)
+  - [wait_for_worker_state_change](../w/wait_for_worker_state_change.md)
 - Called from (representative examples):
-  - start_table_sync
+  - [start_table_sync](../s/start_table_sync.md)
 
 ## Notes and Other Information
 - The function uses REPEATABLE READ isolation level on the publisher to ensure consistency between slot creation and data copy

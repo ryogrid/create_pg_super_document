@@ -27,7 +27,7 @@ The function includes multiple safety assertions to prevent deletion of critical
   - ident (context member)
   - VALGRIND_DESTROY_MEMPOOL
 - Called from (representative examples):
-  - MemoryContextDelete
+  - [MemoryContextDelete](MemoryContextDelete.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the mcxt.c compilation unit

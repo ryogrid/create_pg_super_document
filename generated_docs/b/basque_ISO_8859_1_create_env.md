@@ -18,7 +18,7 @@ This function serves as a constructor for the Basque stemming environment using 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creator with parameters 0, 3)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creator with parameters 0, 3)
 - Called from (representative examples):
   - Client code initializing Basque stemming functionality
 

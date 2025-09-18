@@ -23,15 +23,15 @@ The function internally calls `tuplestore_gettuple` to retrieve the actual tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - tuplestore_gettuple
-  - heap_copy_minimal_tuple
-  - ExecStoreMinimalTuple
+  - [heap_copy_minimal_tuple](../h/heap_copy_minimal_tuple.md)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
   - ExecClearTuple
 - Called from (representative examples):
-  - ExecMaterial
-  - FunctionNext
-  - CteScanNext
-  - ExecWindowAgg
-  - WorkTableScanNext
+  - [ExecMaterial](../E/ExecMaterial.md)
+  - [FunctionNext](../F/FunctionNext.md)
+  - [CteScanNext](../C/CteScanNext.md)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
+  - [WorkTableScanNext](../W/WorkTableScanNext.md)
 
 ## Notes and Other Information
 - Returns true if a tuple was successfully retrieved and stored in the slot, false otherwise

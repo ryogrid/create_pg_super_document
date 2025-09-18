@@ -22,8 +22,8 @@ The seg_alloc function allocates memory for a new hash table segment and initial
   - MemSet
   - CurrentDynaHashCxt (global variable)
 - Called from (representative examples):
-  - init_htab
-  - expand_table
+  - [init_htab](../i/init_htab.md)
+  - [expand_table](../e/expand_table.md)
 
 ## Notes and Other Information
 - Returns a pointer to the allocated HASHSEGMENT on success, NULL on failure

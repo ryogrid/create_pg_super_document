@@ -30,14 +30,14 @@ The node operates in two phases: first, it reads all tuples from the underlying 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base scan execution state)
+  - [ScanState](../S/ScanState.md) (base scan execution state)
   - Tuplestorestate (temporary tuple storage structure)
 - Called from (representative examples):
-  - ExecMaterial
-  - ExecInitMaterial
-  - ExecEndMaterial
-  - ExecMaterialMarkPos
-  - ExecMaterialRestrPos
+  - [ExecMaterial](../E/ExecMaterial.md)
+  - [ExecInitMaterial](../E/ExecInitMaterial.md)
+  - [ExecEndMaterial](../E/ExecEndMaterial.md)
+  - [ExecMaterialMarkPos](../E/ExecMaterialMarkPos.md)
+  - [ExecMaterialRestrPos](../E/ExecMaterialRestrPos.md)
 
 ## Notes and Other Information
 - Materialization is used when plans need to be rescanned but the underlying plan does not support efficient rescanning

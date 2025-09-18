@@ -22,9 +22,9 @@ The JsonPath structure represents a compiled JSON path expression used for query
   - PG_DETOAST_DATUM (macro for detoasting PostgreSQL data)
   - JsonPath (structure type definition)
 - Called from (representative examples):
-  - ExecEvalJsonExprPath (src/backend/executor/execExprInterp.c:4293)
-  - contain_mutable_functions_walker (src/backend/optimizer/util/clauses.c:432)
-  - JsonTableInitPlan (src/backend/utils/adt/jsonpath_exec.c:4207)
+  - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md) (src/backend/executor/execExprInterp.c:4293)
+  - [contain_mutable_functions_walker](../c/contain_mutable_functions_walker.md) (src/backend/optimizer/util/clauses.c:432)
+  - [JsonTableInitPlan](../J/JsonTableInitPlan.md) (src/backend/utils/adt/jsonpath_exec.c:4207)
   - PG_GETARG_JSONPATH_P (macro wrapper in src/include/utils/jsonpath.h:46)
 
 ## Notes and Other Information

@@ -20,16 +20,16 @@ PGTYPESdate_from_asc is a comprehensive date parsing function that converts stri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime (PostgreSQL date parsing function)
-  - DecodeDateTime (PostgreSQL date decoding function)  
-  - GetEpochTime (epoch time handling function)
-  - date2j (Julian date conversion function)
+  - [ParseDateTime](ParseDateTime.md) (PostgreSQL date parsing function)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (PostgreSQL date decoding function)  
+  - [GetEpochTime](../G/GetEpochTime.md) (epoch time handling function)
+  - [date2j](../d/date2j.md) (Julian date conversion function)
   - MAXDATELEN, MAXDATEFIELDS (parsing buffer size constants)
   - DTK_DATE, DTK_EPOCH (date type constants)
   - PGTYPES_DATE_BAD_DATE (error constant)
 - Called from (representative examples):
   - ecpg_get_data (ECPG data retrieval function)
-  - main (in test cases and array handling)
+  - [main](../m/main.md) (in test cases and array handling)
 
 ## Notes and Other Information
 - Returns INT_MIN and sets errno to PGTYPES_DATE_BAD_DATE on parsing errors

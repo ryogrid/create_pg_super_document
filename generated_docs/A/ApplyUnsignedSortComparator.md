@@ -27,7 +27,7 @@ The function treats Datum values as unsigned integers and compares them directly
   - INVERT_COMPARE_RESULT (macro)
   - SIZEOF_DATUM (macro)
 - Called from (representative examples):
-  - qsort_tuple_unsigned_compare (src/backend/utils/sort/tuplesort.c:502)
+  - [qsort_tuple_unsigned_compare](../q/qsort_tuple_unsigned_compare.md) (src/backend/utils/sort/tuplesort.c:502)
 
 ## Notes and Other Information
 This function is a performance optimization for unsigned data types, avoiding the overhead of function pointer calls used in the general ApplySortComparator. It's specifically designed for sorting operations where the data type is known to be unsigned and can be safely compared using direct integer comparison. The direct comparison approach (datum1 < datum2 ? -1 : datum1 > datum2 ? 1 : 0) provides better performance than calling through a function pointer while maintaining the same 3-way comparison semantics.

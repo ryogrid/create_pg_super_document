@@ -26,15 +26,15 @@ The function operates in two phases:
   - SRF_PERCALL_SETUP
   - SRF_RETURN_NEXT
   - SRF_RETURN_DONE
-  - makeJsonLexContext
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - pg_parse_json_or_ereport
   - freeJsonLexContext
-  - okeys_array_start
-  - okeys_scalar
-  - okeys_object_field_start
-  - OkeysState
-  - JsonSemAction
-  - FuncCallContext
+  - [okeys_array_start](../o/okeys_array_start.md)
+  - [okeys_scalar](../o/okeys_scalar.md)
+  - [okeys_object_field_start](../o/okeys_object_field_start.md)
+  - [OkeysState](../O/OkeysState.md)
+  - [JsonSemAction](../J/JsonSemAction.md)
+  - [FuncCallContext](../F/FuncCallContext.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

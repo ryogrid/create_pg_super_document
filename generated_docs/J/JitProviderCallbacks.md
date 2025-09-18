@@ -22,11 +22,11 @@ JitProviderCallbacks serves as the plugin interface for JIT compilation provider
   - JitProviderResetAfterErrorCB (function pointer type)
   - JitProviderReleaseContextCB (function pointer type)
   - JitProviderCompileExprCB (function pointer type)
-  - JitContext (parameter type for release_context)
+  - [JitContext](JitContext.md) (parameter type for release_context)
   - ExprState (parameter type for compile_expr)
-  - _PG_jit_provider_init (initialization function that receives this structure)
+  - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (initialization function that receives this structure)
 - Called from (representative examples):
-  - _PG_jit_provider_init (in LLVM provider)
+  - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (in LLVM provider)
 
 ## Notes and Other Information
 - This is the primary extension point for implementing new JIT providers in PostgreSQL

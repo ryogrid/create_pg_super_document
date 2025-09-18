@@ -21,9 +21,9 @@ The function delegates the actual wait configuration to the FDW's ForeignAsyncCo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AsyncRequest (structure)
-  - ForeignScanState (structure)
-  - FdwRoutine (structure)
+  - [AsyncRequest](../A/AsyncRequest.md) (structure)
+  - [ForeignScanState](../F/ForeignScanState.md) (structure)
+  - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ForeignAsyncConfigureWait (FDW callback function)
 - Called from (representative examples):
   - ExecAsyncConfigureWait (in execAsync.c)

@@ -25,15 +25,15 @@ The function operates in a loop until no more deductions can be made, removing s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reconsider_outer_join_clause (processes LEFT/RIGHT join clauses)
-  - reconsider_full_join_clause (processes FULL join clauses)
-  - make_restrictinfo (creates new RestrictInfo structures)
-  - makeBoolConst (creates constant-TRUE expressions)
-  - distribute_restrictinfo_to_rels (redistributes clauses into regular processing)
+  - [reconsider_outer_join_clause](reconsider_outer_join_clause.md) (processes LEFT/RIGHT join clauses)
+  - [reconsider_full_join_clause](reconsider_full_join_clause.md) (processes FULL join clauses)
+  - [make_restrictinfo](../m/make_restrictinfo.md) (creates new RestrictInfo structures)
+  - [makeBoolConst](../m/makeBoolConst.md) (creates constant-TRUE expressions)
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md) (redistributes clauses into regular processing)
   - foreach_delete_current (removes processed clauses from lists)
-  - OuterJoinClauseInfo (struct type for outer join clause information)
+  - [OuterJoinClauseInfo](../O/OuterJoinClauseInfo.md) (struct type for outer join clause information)
 - Called from (representative examples):
-  - query_planner (main query planning entry point)
+  - [query_planner](../q/query_planner.md) (main query planning entry point)
 
 ## Notes and Other Information
 - Processes root->left_join_clauses, root->right_join_clauses, and root->full_join_clauses

@@ -19,7 +19,7 @@ The function executes on a thread created by the Windows operating system at the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_queue_signal
+  - [pg_queue_signal](pg_queue_signal.md)
 - Constants referenced:
   - CTRL_C_EVENT (Windows API)
   - CTRL_BREAK_EVENT (Windows API)
@@ -27,7 +27,7 @@ The function executes on a thread created by the Windows operating system at the
   - CTRL_SHUTDOWN_EVENT (Windows API)
   - SIGINT
 - Called from (representative examples):
-  - pgwin32_signal_initialize (in signal.c:109) - for registration
+  - [pgwin32_signal_initialize](pgwin32_signal_initialize.md) (in signal.c:109) - for registration
 
 ## Notes and Other Information
 - Executes on an OS-created thread, requiring careful synchronization considerations

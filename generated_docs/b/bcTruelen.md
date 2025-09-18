@@ -21,16 +21,16 @@ This function serves as a convenient wrapper around `bpchartruelen` for calculat
 - Functions called/Symbols referenced:
   - VARDATA_ANY (macro to extract data portion from variable-length structure)
   - VARSIZE_ANY_EXHDR (macro to get size excluding header)
-  - bpchartruelen (actual implementation for calculating true length)
+  - [bpchartruelen](bpchartruelen.md) (actual implementation for calculating true length)
 - Called from (representative examples):
-  - bpcharlen (length function for CHAR type)
-  - bpchareq (equality comparison for CHAR type)
-  - bpcharne (inequality comparison for CHAR type)
-  - bpcharlt/bpcharle/bpchargt/bpcharge (ordering comparisons for CHAR type)
-  - bpcharcmp (comparison function for CHAR type)
-  - bpchar_larger/bpchar_smaller (min/max functions for CHAR type)
-  - hashbpchar/hashbpcharextended (hashing functions for CHAR type)
-  - internal_bpchar_pattern_compare (pattern matching for CHAR type)
+  - [bpcharlen](bpcharlen.md) (length function for CHAR type)
+  - [bpchareq](bpchareq.md) (equality comparison for CHAR type)
+  - [bpcharne](bpcharne.md) (inequality comparison for CHAR type)
+  - [bpcharlt](bpcharlt.md)/bpcharle/bpchargt/bpcharge (ordering comparisons for CHAR type)
+  - [bpcharcmp](bpcharcmp.md) (comparison function for CHAR type)
+  - [bpchar_larger](bpchar_larger.md)/bpchar_smaller (min/max functions for CHAR type)
+  - [hashbpchar](../h/hashbpchar.md)/hashbpcharextended (hashing functions for CHAR type)
+  - [internal_bpchar_pattern_compare](../i/internal_bpchar_pattern_compare.md) (pattern matching for CHAR type)
 
 ## Notes and Other Information
 - This function is declared as static inline for performance optimization since it's frequently called by comparison and utility functions

@@ -20,13 +20,13 @@ This function provides a SQL interface for manually triggering cleanup of a GIN 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open, index_close (index access functions)
-  - RecoveryInProgress (check if database recovery is active)
-  - object_ownercheck (verify user ownership permissions)
-  - aclcheck_error (report access control errors)
+  - [index_open](../i/index_open.md), index_close (index access functions)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (check if database recovery is active)
+  - [object_ownercheck](../o/object_ownercheck.md) (verify user ownership permissions)
+  - [aclcheck_error](../a/aclcheck_error.md) (report access control errors)
   - RELATION_IS_OTHER_TEMP (check for temporary relations from other sessions)
-  - initGinState (initialize GIN state structure)
-  - ginInsertCleanup (perform the actual cleanup operation)
+  - [initGinState](../i/initGinState.md) (initialize GIN state structure)
+  - [ginInsertCleanup](ginInsertCleanup.md) (perform the actual cleanup operation)
   - PG_RETURN_INT64 (return 64-bit integer result)
 - Called from (representative examples):
   - SQL interface: `SELECT gin_clean_pending_list('index_name'::regclass);`

@@ -29,7 +29,7 @@ The returned OID can be used with other system functions or joined with pg_type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
   - PG_RETURN_OID
 - Accessed through:
   - fcinfo->flinfo (function call information structure)

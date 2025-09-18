@@ -20,24 +20,24 @@ LockViewRecurse_walker is a specialized tree walker that implements the deep loc
 - Functions called/Symbols referenced:
   - LockViewRecurse_context (structure type)
   - AclResult (enum type)
-  - get_rel_name
+  - [get_rel_name](../g/get_rel_name.md)
   - RELKIND_RELATION
   - RELKIND_PARTITIONED_TABLE
   - RELKIND_VIEW
-  - list_member_oid
-  - LockTableAclCheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - LockRelationOid
-  - ConditionalLockRelationOid
-  - LockViewRecurse
-  - LockTableRecurse
+  - [list_member_oid](../l/list_member_oid.md)
+  - [LockTableAclCheck](LockTableAclCheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [LockRelationOid](LockRelationOid.md)
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md)
+  - [LockViewRecurse](LockViewRecurse.md)
+  - [LockTableRecurse](LockTableRecurse.md)
   - query_tree_walker
   - expression_tree_walker
-  - QTW_IGNORE_JOINALIASES
+  - [QTW_IGNORE_JOINALIASES](../Q/QTW_IGNORE_JOINALIASES.md)
 - Called from (representative examples):
-  - LockViewRecurse
-  - LockViewRecurse_walker (recursive calls)
+  - [LockViewRecurse](LockViewRecurse.md)
+  - [LockViewRecurse_walker](LockViewRecurse_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the lockcmds.c module
@@ -45,5 +45,5 @@ LockViewRecurse_walker is a specialized tree walker that implements the deep loc
 - Cycle detection prevents infinite recursion in self-referential views using the ancestor_views list
 - Permission checking is performed with the appropriate user context (view owner or current user)
 - The function handles both tables and views recursively, with different logic for inheritance vs view expansion
-- QTW_IGNORE_JOINALIASES flag is used to avoid locking alias relations that don't represent real tables
+- [QTW_IGNORE_JOINALIASES](../Q/QTW_IGNORE_JOINALIASES.md) flag is used to avoid locking alias relations that don't represent real tables
 - The walker pattern allows for extensible traversal of complex query structures while maintaining consistent locking semantics

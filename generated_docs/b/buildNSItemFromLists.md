@@ -22,18 +22,18 @@ This function creates a ParseNamespaceItem for relations that don't have physica
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (list operations)
-  - palloc0 (zero-initialized memory allocation)
-  - palloc (memory allocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - forthree (parallel iteration macro)
   - lfirst_oid (list element access)
   - lfirst_int (list element access)
-  - ParseNamespaceItem (namespace item structure)
-  - ParseNamespaceColumn (namespace column structure)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (namespace item structure)
+  - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md) (namespace column structure)
 - Called from (representative examples):
-  - addRangeTableEntryForSubquery
-  - addRangeTableEntryForTableFunc
-  - addRangeTableEntryForValues
-  - addRangeTableEntryForCTE
+  - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md)
+  - [addRangeTableEntryForTableFunc](../a/addRangeTableEntryForTableFunc.md)
+  - [addRangeTableEntryForValues](../a/addRangeTableEntryForValues.md)
+  - [addRangeTableEntryForCTE](../a/addRangeTableEntryForCTE.md)
 
 ## Notes and Other Information
 - All input lists must have identical lengths, verified by assertions

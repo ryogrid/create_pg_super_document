@@ -25,12 +25,12 @@ This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - list_concat
-  - AsyncExistsPendingNotify
-  - AddEventToPendingNotifies
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [list_concat](../l/list_concat.md)
+  - [AsyncExistsPendingNotify](AsyncExistsPendingNotify.md)
+  - [AddEventToPendingNotifies](AddEventToPendingNotifies.md)
 - Called from (representative examples):
-  - CommitSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
 
 ## Notes and Other Information
 - The function must handle duplicate elimination for notifications but not for actions (as noted in the comment referencing queue_listen())

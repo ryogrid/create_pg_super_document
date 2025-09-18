@@ -37,9 +37,9 @@ The options list contains DefElem structures that specify various backup paramet
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from nodes/nodes.h)
-  - List (from nodes/pg_list.h)
+  - [List](../L/List.md) (from nodes/pg_list.h)
 - Called from (representative examples):
-  - walsender.c:2124 - SendBaseBackup((BaseBackupCmd *) cmd_node, uploaded_manifest)
+  - walsender.c:2124 - [SendBaseBackup](../S/SendBaseBackup.md)((BaseBackupCmd *) cmd_node, uploaded_manifest)
   - Processed in replication command switch statement at walsender.c:2120
 
 ## Notes and Other Information

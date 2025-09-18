@@ -31,11 +31,11 @@ Safety is ensured through careful usage constraints: the function can only be us
   - FullTransactionId (type)
 - Called from (representative examples):
   - xc_slow_answer_inc
-  - MaintainLatestCompletedXid
-  - MaintainLatestCompletedXidRecovery
-  - GetSnapshotData
-  - GlobalVisUpdateApply
-  - GlobalVisTestIsRemovableXid
+  - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md)
+  - [MaintainLatestCompletedXidRecovery](../M/MaintainLatestCompletedXidRecovery.md)
+  - [GetSnapshotData](../G/GetSnapshotData.md)
+  - [GlobalVisUpdateApply](../G/GlobalVisUpdateApply.md)
+  - [GlobalVisTestIsRemovableXid](../G/GlobalVisTestIsRemovableXid.md)
 
 ## Notes and Other Information
 - Critical safety requirement: xid must be within MaxTransactionId/2 of the reference transaction ID

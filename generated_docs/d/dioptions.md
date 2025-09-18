@@ -20,13 +20,13 @@ This function demonstrates how index access methods can define and parse custom 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions (PostgreSQL relation options parsing function)
-  - DummyIndexOptions (target structure type)
+  - [build_reloptions](../b/build_reloptions.md) (PostgreSQL relation options parsing function)
+  - [DummyIndexOptions](../D/DummyIndexOptions.md) (target structure type)
   - di_relopt_kind (dummy index relation option kind)
   - di_relopt_tab (option parsing table)
   - lengthof (macro for array length)
 - Called from (representative examples):
-  - dihandler (dummy index AM handler registration)
+  - [dihandler](dihandler.md) (dummy index AM handler registration)
 
 ## Notes and Other Information
 - This is a test module function demonstrating PostgreSQL's relation options framework

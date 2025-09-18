@@ -18,11 +18,11 @@ This function shows the nominal target relation for ModifyTable operations (INSE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainTargetRel
-  - ModifyTable (struct)
+  - [ExplainTargetRel](ExplainTargetRel.md)
+  - [ModifyTable](../M/ModifyTable.md) (struct)
   - ExplainState (struct)
 - Called from (representative examples):
-  - ExplainNode
+  - [ExplainNode](ExplainNode.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

@@ -23,26 +23,26 @@ The `float4_numeric` function converts a PostgreSQL `float4` (single precision f
   - `PG_GETARG_FLOAT4`: Retrieves the float4 argument from function parameters
   - `isnan`: Checks if the float4 value is NaN (Not a Number)
   - `isinf`: Checks if the float4 value is infinite
-  - `make_result`: Creates a Numeric result from a NumericVar
+  - `[make_result](../m/make_result.md)`: Creates a Numeric result from a NumericVar
   - `init_var`: Initializes a NumericVar structure
-  - `set_var_from_str`: Parses a string representation into a NumericVar
-  - `free_var`: Frees memory allocated for a NumericVar
+  - `[set_var_from_str](../s/set_var_from_str.md)`: Parses a string representation into a NumericVar
+  - `[free_var](free_var.md)`: Frees memory allocated for a NumericVar
   - `PG_RETURN_NUMERIC`: Returns the Numeric result
 - Called from (representative examples):
-  - `JsonItemFromDatum`: JSON item conversion from various data types
+  - `[JsonItemFromDatum](../J/JsonItemFromDatum.md)`: JSON item conversion from various data types
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_FLOAT4`: Retrieves the float4 argument from function parameters
   - `isnan`: Checks if the float4 value is NaN (Not a Number)
   - `isinf`: Checks if the float4 value is infinite
-  - `make_result`: Creates a Numeric result from a NumericVar
+  - `[make_result](../m/make_result.md)`: Creates a Numeric result from a NumericVar
   - `init_var`: Initializes a NumericVar structure
-  - `set_var_from_str`: Parses a string representation into a NumericVar
-  - `free_var`: Frees memory allocated for a NumericVar
+  - `[set_var_from_str](../s/set_var_from_str.md)`: Parses a string representation into a NumericVar
+  - `[free_var](free_var.md)`: Frees memory allocated for a NumericVar
   - `PG_RETURN_NUMERIC`: Returns the Numeric result
 - Called from (representative examples):
-  - `JsonItemFromDatum`: JSON item conversion from various data types
+  - `[JsonItemFromDatum](../J/JsonItemFromDatum.md)`: JSON item conversion from various data types
 
 ## Notes and Other Information
 - Uses `FLT_DIG` constant to determine appropriate precision for single precision float string conversion

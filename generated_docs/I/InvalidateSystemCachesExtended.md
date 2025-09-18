@@ -29,14 +29,14 @@ This function is typically used during major system events like cache poisoning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InvalidateCatalogSnapshot
-  - ResetCatalogCachesExt
-  - RelationCacheInvalidate
-  - SYSCACHECALLBACK (struct type)
-  - RELCACHECALLBACK (struct type)
+  - [InvalidateCatalogSnapshot](InvalidateCatalogSnapshot.md)
+  - [ResetCatalogCachesExt](../R/ResetCatalogCachesExt.md)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md)
+  - [SYSCACHECALLBACK](../S/SYSCACHECALLBACK.md) (struct type)
+  - [RELCACHECALLBACK](../R/RELCACHECALLBACK.md) (struct type)
 - Called from (representative examples):
-  - InvalidateSystemCaches
-  - AcceptInvalidationMessages
+  - [InvalidateSystemCaches](InvalidateSystemCaches.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
   - INVAL_H (header reference)
 
 ## Notes and Other Information

@@ -21,12 +21,12 @@ The function implements robust error handling through the escontext mechanism, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_safe_acl_char (determines if character is safe in ACL identifiers)
+  - [is_safe_acl_char](../i/is_safe_acl_char.md) (determines if character is safe in ACL identifiers)
   - NAMEDATALEN (maximum identifier length constant)
   - ereturn (error handling macro)
   - isspace (standard C library function)
 - Called from (representative examples):
-  - aclparse (multiple call sites for parsing ACL components)
+  - [aclparse](../a/aclparse.md) (multiple call sites for parsing ACL components)
 
 ## Notes and Other Information
 The function carefully handles quoted identifiers with escape sequences, where two consecutive double quotes within a quoted identifier represent a literal double quote character. The parsing state machine tracks whether currently inside quotes to properly handle quote characters. Length validation prevents buffer overflows and ensures compliance with PostgreSQL's identifier length restrictions.

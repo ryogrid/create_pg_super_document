@@ -34,17 +34,17 @@ The printQueryOpt structure is a specialized extension of printTableOpt designed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableOpt
+  - [printTableOpt](printTableOpt.md)
 - Called from (representative examples):
-  - printQuery
-  - PrintQueryTuples
-  - PrintQueryResult
-  - ExecQueryAndProcessResults
-  - printCrosstab
-  - describeAggregates
-  - listAllDbs
-  - listTables
-  - describeOneTableDetails
+  - [printQuery](printQuery.md)
+  - [PrintQueryTuples](../P/PrintQueryTuples.md)
+  - [PrintQueryResult](../P/PrintQueryResult.md)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md)
+  - [printCrosstab](printCrosstab.md)
+  - [describeAggregates](../d/describeAggregates.md)
+  - [listAllDbs](../l/listAllDbs.md)
+  - [listTables](../l/listTables.md)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md)
 
 ## Notes and Other Information
 This structure is extensively used throughout psql and other PostgreSQL frontend tools for displaying query results with proper formatting and localization. The embedded printTableOpt provides access to all standard table formatting options (borders, alignment, output format), while the additional fields handle query-specific requirements. The translation features support PostgreSQL's internationalization efforts, allowing for localized display of query results while maintaining control over which elements should be translated. The structure is commonly found in psql's settings and is used by the printing subsystem to format all types of query output.

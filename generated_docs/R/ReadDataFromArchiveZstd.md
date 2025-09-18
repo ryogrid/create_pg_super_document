@@ -18,16 +18,16 @@ This function implements the data reading and decompression logic for Zstd-compr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressorState (struct type)
-  - ZstdCompressorState (struct type)
+  - [CompressorState](../C/CompressorState.md) (struct type)
+  - [ZstdCompressorState](../Z/ZstdCompressorState.md) (struct type)
   - unconstify (utility function)
-  - ahwrite (archive write function)
+  - [ahwrite](../a/ahwrite.md) (archive write function)
   - ZSTD_DStreamInSize() (Zstd library function)
   - ZSTD_decompressStream() (Zstd library function)
   - ZSTD_isError() (Zstd library function)
   - ZSTD_getErrorName() (Zstd library function)
 - Called from (representative examples):
-  - InitCompressorZstd (assigned as cs->readData function pointer)
+  - [InitCompressorZstd](../I/InitCompressorZstd.md) (assigned as cs->readData function pointer)
 
 ## Notes and Other Information
 - The function is designed to handle variable-sized input buffers, with readF potentially resizing the buffer during operation

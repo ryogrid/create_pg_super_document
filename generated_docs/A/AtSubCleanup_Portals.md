@@ -25,8 +25,8 @@ This function ensures that no portal data structures remain after a subtransacti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - PointerIsValid
   - elog
   - PortalDrop
@@ -34,9 +34,9 @@ This function ensures that no portal data structures remain after a subtransacti
   - SubTransactionId
   - HASH_SEQ_STATUS
   - PortalHashEnt
-  - Portal
+  - [Portal](../P/Portal.md)
 - Called from:
-  - CleanupSubTransaction (src/backend/access/transam/xact.c:5331)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md) (src/backend/access/transam/xact.c:5331)
 
 ## Notes and Other Information
 - This function is called during the cleanup phase after subtransaction abort, following AtSubAbort_Portals

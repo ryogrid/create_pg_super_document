@@ -25,11 +25,11 @@ None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_libraries (called twice with different parameters)
+  - [load_libraries](../l/load_libraries.md) (called twice with different parameters)
   - session_preload_libraries_string (global variable)
   - local_preload_libraries_string (global variable)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
   - INIT_PG_OVERRIDE_ROLE_LOGIN
 
 ## Notes and Other Information
@@ -37,6 +37,6 @@ None (void function)
 - Loads libraries on a per-session basis, not server-wide like shared preload libraries
 - Implements a two-tier security model: unrestricted session libraries and restricted local libraries
 - The local_preload_libraries restriction to $libdir/plugins/ prevents potential security issues from user-controlled library loading
-- Session preload libraries are useful for debugging tools, session-specific extensions, and per-connection customizations
+- [Session](../S/Session.md) preload libraries are useful for debugging tools, session-specific extensions, and per-connection customizations
 - Libraries loaded here are not inherited by other sessions, providing isolation between different client connections
 - The order of loading (session_preload_libraries first, then local_preload_libraries) may be significant for library dependencies

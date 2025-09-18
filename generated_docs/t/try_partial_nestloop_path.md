@@ -26,15 +26,15 @@ Unlike the regular nestloop path creation, this function is simpler as it doesn'
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - PATH_PARAM_BY_PARENT
   - path_is_reparameterizable_by_child
-  - initial_cost_nestloop
-  - add_partial_path_precheck
-  - add_partial_path
-  - create_nestloop_path
+  - [initial_cost_nestloop](../i/initial_cost_nestloop.md)
+  - [add_partial_path_precheck](../a/add_partial_path_precheck.md)
+  - [add_partial_path](../a/add_partial_path.md)
+  - [create_nestloop_path](../c/create_nestloop_path.md)
 - Called from (representative examples):
-  - consider_parallel_nestloop
+  - [consider_parallel_nestloop](../c/consider_parallel_nestloop.md)
 
 ## Notes and Other Information
 - Specifically designed for parallel query execution with stricter parameterization constraints

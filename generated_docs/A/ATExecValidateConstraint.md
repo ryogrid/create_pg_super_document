@@ -34,27 +34,27 @@ The function updates the constraint catalog entry to mark it as validated only a
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - makeNode
-  - palloc0
-  - ATGetQueueEntry
+  - [palloc0](../p/palloc0.md)
+  - [ATGetQueueEntry](ATGetQueueEntry.md)
   - lappend
-  - find_all_inheritors
-  - ATExecValidateConstraint (recursive self-call)
-  - SysCacheGetAttrNotNull
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [ATExecValidateConstraint](ATExecValidateConstraint.md) (recursive self-call)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
-  - stringToNode
-  - CacheInvalidateRelcache
-  - heap_copytuple
-  - heap_freetuple
-  - CatalogTupleUpdate
+  - [stringToNode](../s/stringToNode.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSet
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
-  - ATExecValidateConstraint (recursive calls for child table constraints)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
+  - [ATExecValidateConstraint](ATExecValidateConstraint.md) (recursive calls for child table constraints)
 
 ## Notes and Other Information
 - Only works with foreign key and check constraints; other constraint types result in an error

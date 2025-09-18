@@ -25,7 +25,7 @@ This function probes a symbolic link file (commonly used by Unix systems to indi
   - strchr
   - strlen
   - strcpy
-  - perfect_timezone_match
+  - [perfect_timezone_match](../p/perfect_timezone_match.md)
 - Constants referenced:
   - HAVE_READLINK (conditional compilation)
   - MAXPGPATH

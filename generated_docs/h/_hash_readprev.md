@@ -25,16 +25,16 @@ When reaching the beginning of a split bucket during backward scan, the function
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid
-  - _hash_getbuf
-  - _hash_relbuf
-  - _hash_dropbuf
-  - _hash_readnext
-  - LockBuffer
-  - BufferGetPage
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [_hash_relbuf](_hash_relbuf.md)
+  - [_hash_dropbuf](_hash_dropbuf.md)
+  - [_hash_readnext](_hash_readnext.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - _hash_readpage
+  - [_hash_readpage](_hash_readpage.md)
 
 ## Notes and Other Information
 The function maintains pins on primary bucket pages throughout the scan operation for efficiency. During bucket splits in backward scans, it handles the transition from split bucket to populated bucket by moving to the end of the populated bucket chain. The hashso_buc_split flag tracks scan state transitions. Buffer management includes special logic to avoid double-pinning when encountering bucket pages that already have maintained pins.

@@ -34,7 +34,7 @@ For abstract sockets (indicated by a path starting with '@'), no file system ope
   - ereport/errmsg (PostgreSQL logging functions)
 
 - Called from (representative examples):
-  - ListenServerPort (during server startup to configure socket permissions)
+  - [ListenServerPort](../L/ListenServerPort.md) (during server startup to configure socket permissions)
 
 ## Notes and Other Information
 - On Windows platforms, the  configuration is not supported and generates a warning

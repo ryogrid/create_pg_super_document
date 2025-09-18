@@ -21,10 +21,10 @@ The function uses strcmp to perform case-sensitive name comparison and returns t
   - NameStr (macro to extract string from Name type)
   - SysAtt (static array of system attribute definitions)
 - Called from (representative examples):
-  - CheckAttributeNamesTypes (in src/backend/catalog/heap.c:483)
-  - SPI_fnumber (in src/backend/executor/spi.c:1189)
-  - specialAttNum (in src/backend/parser/parse_relation.c:3518)
-  - transformIndexConstraint (in src/backend/parser/parse_utilcmd.c:2454, 2597)
+  - [CheckAttributeNamesTypes](../C/CheckAttributeNamesTypes.md) (in src/backend/catalog/heap.c:483)
+  - [SPI_fnumber](SPI_fnumber.md) (in src/backend/executor/spi.c:1189)
+  - [specialAttNum](../s/specialAttNum.md) (in src/backend/parser/parse_relation.c:3518)
+  - [transformIndexConstraint](../t/transformIndexConstraint.md) (in src/backend/parser/parse_utilcmd.c:2454, 2597)
 
 ## Notes and Other Information
 - Performs linear search through the 6 predefined system attributes

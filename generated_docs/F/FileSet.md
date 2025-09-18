@@ -35,12 +35,12 @@ Each FileSet is uniquely identified by the combination of creator_pid and number
   - BufFileCreateFileSet
   - BufFileOpenFileSet
   - BufFileDeleteFileSet
-  - LogicalRepWorker (in replication workers)
-  - ParallelApplyWorkerShared (in parallel apply workers)
+  - [LogicalRepWorker](../L/LogicalRepWorker.md) (in replication workers)
+  - [ParallelApplyWorkerShared](../P/ParallelApplyWorkerShared.md) (in parallel apply workers)
 
 ## Notes and Other Information
 - The structure assumes it's rare to have more than 8 temporary tablespaces, which is why the tablespaces array is fixed at size 8
-- FileSet is designed for scenarios where temporary files need to survive across transactions or be accessed by multiple processes
+- [FileSet](FileSet.md) is designed for scenarios where temporary files need to survive across transactions or be accessed by multiple processes
 - Used extensively in logical replication workers for managing temporary data during replication operations
 - Integrates with PostgreSQL's buffer file (BufFile) system for efficient I/O operations
 - Files in a FileSet must be explicitly deleted by the application - they are not automatically cleaned up like regular temporary files

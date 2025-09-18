@@ -19,11 +19,11 @@ The `lseg_invsl` function is a utility function that calculates the inverse slop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_invsl: Calculates inverse slope between two points
-  - LSEG: Line segment data structure type
+  - [point_invsl](../p/point_invsl.md): Calculates inverse slope between two points
+  - [LSEG](../L/LSEG.md): Line segment data structure type
 
 - Called from (representative examples):
-  - lseg_perp: Checks if two line segments are perpendicular
+  - [lseg_perp](lseg_perp.md): Checks if two line segments are perpendicular
   - PATH_CLOSED: Used in path geometric operations
 
 ## Notes and Other Information

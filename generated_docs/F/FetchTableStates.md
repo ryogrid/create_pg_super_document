@@ -30,16 +30,16 @@ The function uses static variables to maintain state across calls, implementing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - StartTransactionCommand
-  - GetSubscriptionRelations
-  - HasSubscriptionRelations
-  - list_free_deep
-  - MemoryContextSwitchTo
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [GetSubscriptionRelations](../G/GetSubscriptionRelations.md)
+  - [HasSubscriptionRelations](../H/HasSubscriptionRelations.md)
+  - [list_free_deep](../l/list_free_deep.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - SyncingTablesState
-  - tablesync_start_time_mapping
-  - AllTablesyncsReady
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)
+  - [AllTablesyncsReady](../A/AllTablesyncsReady.md)
 
 ## Notes and Other Information
 - Uses static variables (has_subrels, table_states_validity) to maintain cache state across function calls

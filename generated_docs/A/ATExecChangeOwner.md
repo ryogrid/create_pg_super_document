@@ -25,20 +25,20 @@ When changing ownership, the function updates the pg_class catalog, adjusts ACLs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open, relation_close, table_open, table_close
-  - SearchSysCache1, ReleaseSysCache, SysCacheGetAttr
+  - [relation_open](../r/relation_open.md), relation_close, table_open, table_close
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache, SysCacheGetAttr
   - superuser, object_ownercheck, check_can_set_role, object_aclcheck
-  - aclnewowner, change_owner_fix_column_acls, changeDependencyOnOwner
-  - AlterTypeOwnerInternal, RelationGetIndexList
-  - change_owner_recurse_to_sequences
-  - sequenceIsOwned, errdetail_relkind_not_supported
-  - heap_modify_tuple, CatalogTupleUpdate, heap_freetuple
+  - [aclnewowner](../a/aclnewowner.md), change_owner_fix_column_acls, changeDependencyOnOwner
+  - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md), RelationGetIndexList
+  - [change_owner_recurse_to_sequences](../c/change_owner_recurse_to_sequences.md)
+  - [sequenceIsOwned](../s/sequenceIsOwned.md), errdetail_relkind_not_supported
+  - [heap_modify_tuple](../h/heap_modify_tuple.md), CatalogTupleUpdate, heap_freetuple
   - InvokeObjectPostAlterHook
 - Called from:
-  - ATExecCmd (main ALTER TABLE command execution)
-  - shdepReassignOwned_Owner (during REASSIGN OWNED operations)
-  - AlterTypeOwner_oid (for composite types)
-  - change_owner_recurse_to_sequences (for dependent sequences)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command execution)
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md) (during REASSIGN OWNED operations)
+  - [AlterTypeOwner_oid](AlterTypeOwner_oid.md) (for composite types)
+  - [change_owner_recurse_to_sequences](../c/change_owner_recurse_to_sequences.md) (for dependent sequences)
   - Recursively calls itself for indexes and toast tables
 
 ## Notes and Other Information

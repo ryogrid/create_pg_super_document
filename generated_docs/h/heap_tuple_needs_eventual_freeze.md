@@ -32,7 +32,7 @@ A tuple that passes all these checks is considered to not need eventual freezing
   - HEAP_XMAX_IS_MULTI
   - HEAP_MOVED
 - Called from (representative examples):
-  - heap_page_is_all_visible
+  - [heap_page_is_all_visible](heap_page_is_all_visible.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

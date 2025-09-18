@@ -20,7 +20,7 @@ The  function is a signal handler specifically designed to handle the SIGHUP sig
   - SIGNAL_ARGS (macro)
   - output_reopen (global variable)
 - Called from (representative examples):
-  - main (in pg_recvlogical.c)
+  - [main](../m/main.md) (in pg_recvlogical.c)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within its compilation unit

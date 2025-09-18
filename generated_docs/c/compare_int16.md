@@ -20,8 +20,8 @@ This is a standard qsort comparison function that takes two void pointers, casts
 - Functions called/Symbols referenced:
   - None (uses only basic pointer dereferencing and arithmetic)
 - Called from (representative examples):
-  - publication_translate_columns (src/backend/catalog/pg_publication.c:554)
-  - CreateStatistics (src/backend/commands/statscmds.c:407)
+  - [publication_translate_columns](../p/publication_translate_columns.md) (src/backend/catalog/pg_publication.c:554)
+  - [CreateStatistics](../C/CreateStatistics.md) (src/backend/commands/statscmds.c:407)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the pg_publication.c compilation unit

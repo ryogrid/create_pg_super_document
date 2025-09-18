@@ -22,14 +22,14 @@ For named composite types (non-RECORD types), the function consults the type cac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
-  - assign_record_type_identifier
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [assign_record_type_identifier](../a/assign_record_type_identifier.md)
   - AllocSetContextCreate
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - EOH_init_header
-  - MemoryContextRegisterResetCallback
-  - CreateTupleDescCopy
-  - MemoryContextSwitchTo
+  - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from:
   - (No direct references found in the analyzed codebase)
 

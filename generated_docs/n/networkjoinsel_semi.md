@@ -28,16 +28,16 @@ The algorithm implements decimation for large histograms to maintain performance
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_attstatsslot
-  - mcv_population
-  - inet_opr_codenum  
-  - fmgr_info
-  - get_opcode
-  - inet_semi_join_sel
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [mcv_population](../m/mcv_population.md)
+  - [inet_opr_codenum](../i/inet_opr_codenum.md)  
+  - [fmgr_info](../f/fmgr_info.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [inet_semi_join_sel](../i/inet_semi_join_sel.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - DEFAULT_SEL
 - Called from (representative examples):
-  - networkjoinsel
+  - [networkjoinsel](networkjoinsel.md)
 
 ## Notes and Other Information
 - Excludes first and last histogram elements as outliers, focusing on representative middle values

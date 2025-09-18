@@ -24,17 +24,17 @@ The function includes assertions to validate that segments are being opened in t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _mdfd_segpath (constructs segment file path)
+  - [_mdfd_segpath](_mdfd_segpath.md) (constructs segment file path)
   - PathNameOpenFile (opens the file)
-  - _mdfd_open_flags (gets default opening flags)
-  - pfree (frees allocated path)
-  - _fdvec_resize (expands segment descriptor array)
-  - _mdnblocks (validates segment size)
+  - [_mdfd_open_flags](_mdfd_open_flags.md) (gets default opening flags)
+  - [pfree](../p/pfree.md) (frees allocated path)
+  - [_fdvec_resize](../f/_fdvec_resize.md) (expands segment descriptor array)
+  - [_mdnblocks](_mdnblocks.md) (validates segment size)
 - Called from (representative examples):
-  - mdnblocks (src/backend/storage/smgr/md.c:1136)
-  - mdregistersync (src/backend/storage/smgr/md.c:1261)
-  - mdimmedsync (src/backend/storage/smgr/md.c:1312)
-  - _mdfd_getseg (src/backend/storage/smgr/md.c:1705)
+  - [mdnblocks](mdnblocks.md) (src/backend/storage/smgr/md.c:1136)
+  - [mdregistersync](mdregistersync.md) (src/backend/storage/smgr/md.c:1261)
+  - [mdimmedsync](mdimmedsync.md) (src/backend/storage/smgr/md.c:1312)
+  - [_mdfd_getseg](_mdfd_getseg.md) (src/backend/storage/smgr/md.c:1705)
 
 ## Notes and Other Information
 - Returns NULL on failure, allowing caller to handle errors appropriately

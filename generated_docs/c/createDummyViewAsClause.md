@@ -21,21 +21,21 @@ The function constructs a SELECT statement where each column is represented as "
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr  
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)  
   - appendPQExpBufferChar
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - OidIsValid
-  - findCollationByOid
+  - [findCollationByOid](../f/findCollationByOid.md)
   - fmtQualifiedDumpable
-  - fmtId
+  - [fmtId](../f/fmtId.md)
 - Types referenced:
-  - Archive
-  - TableInfo
-  - CollInfo
+  - [Archive](../A/Archive.md)
+  - [TableInfo](../T/TableInfo.md)
+  - [CollInfo](../C/CollInfo.md)
   - PQExpBuffer
 - Called from:
-  - dumpTableSchema
-  - dumpRule
+  - [dumpTableSchema](../d/dumpTableSchema.md)
+  - [dumpRule](../d/dumpRule.md)
 
 ## Notes and Other Information
 - Returns a newly allocated PQExpBuffer that must be freed by the caller

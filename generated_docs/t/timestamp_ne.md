@@ -22,7 +22,7 @@ timestamp_ne is a PostgreSQL built-in function that implements the inequality co
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP: Macro to extract Timestamp arguments from function call
-  - timestamp_cmp_internal: Internal comparison function
+  - [timestamp_cmp_internal](timestamp_cmp_internal.md): Internal comparison function
   - PG_RETURN_BOOL: Macro to return boolean result as Datum
   - Timestamp: PostgreSQL's internal timestamp data type
 

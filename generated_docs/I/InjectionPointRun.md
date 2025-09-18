@@ -23,10 +23,10 @@ The function is designed to be lightweight and fast, suitable for embedding thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InjectionPointCacheRefresh
-  - callback (function pointer from cached entry)
+  - [InjectionPointCacheRefresh](InjectionPointCacheRefresh.md)
+  - [callback](../c/callback.md) (function pointer from cached entry)
 - Types referenced:
-  - InjectionPointCacheEntry
+  - [InjectionPointCacheEntry](InjectionPointCacheEntry.md)
 - Called from:
   - INJECTION_POINT macro (src/include/utils/injection_point.h:18)
 

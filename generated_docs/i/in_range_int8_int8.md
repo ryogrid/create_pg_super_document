@@ -23,7 +23,7 @@ This function implements the in_range support for int8 (64-bit integer) data typ
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro to extract int8 arguments)
   - PG_GETARG_BOOL (macro to extract boolean arguments)
-  - pg_add_s64_overflow (function to perform safe addition with overflow detection)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (function to perform safe addition with overflow detection)
   - ereport (error reporting function)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):

@@ -26,14 +26,14 @@ The function performs two main operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinFormInteriorTuple
-  - getRightMostTuple
+  - [GinFormInteriorTuple](../G/GinFormInteriorTuple.md)
+  - [getRightMostTuple](getRightMostTuple.md)
   - PageAddItem
   - IndexTupleSize
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ginPrepareEntryScan (via btree->fillRoot function pointer)
-  - GinBtreeDataLeafInsertData (via function pointer assignment)
+  - [ginPrepareEntryScan](ginPrepareEntryScan.md) (via btree->fillRoot function pointer)
+  - [GinBtreeDataLeafInsertData](../G/GinBtreeDataLeafInsertData.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - This function is also called from ginxlog during WAL recovery, so it must not depend on btree-specific state

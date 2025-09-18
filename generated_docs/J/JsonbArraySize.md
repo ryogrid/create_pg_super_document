@@ -23,7 +23,7 @@ This utility function determines the size of a JSONB array by examining the Json
   - jbvArray (JsonbValue type constant for arrays)
   - jbvBinary (JsonbValue type constant for binary representations)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (JSON path execution function, multiple locations)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution function, multiple locations)
 
 ## Notes and Other Information
 - This is a static utility function, only accessible within the jsonpath_exec.c module

@@ -24,11 +24,11 @@ The function is typically called before adding new tuples to the buffer to deter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertInfo (struct type)
+  - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)
   - MAX_BUFFERED_TUPLES (constant defining maximum number of buffered tuples)
   - MAX_BUFFERED_BYTES (constant defining maximum buffered memory size)
 - Called from (representative examples):
-  - CopyFrom (main COPY FROM function at src/backend/commands/copyfrom.c:1229)
+  - [CopyFrom](CopyFrom.md) (main COPY FROM function at src/backend/commands/copyfrom.c:1229)
 
 ## Notes and Other Information
 - This is a static inline function optimized for performance within copyfrom.c

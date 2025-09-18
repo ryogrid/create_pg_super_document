@@ -21,14 +21,14 @@ JsonbAggState serves as the aggregation state structure for JSONB aggregate func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbInState
+  - [JsonbInState](JsonbInState.md)
   - JsonTypeCategory
   - Oid
 - Called from (representative examples):
-  - jsonb_agg_transfn_worker
-  - jsonb_agg_finalfn
-  - jsonb_object_agg_transfn_worker
-  - jsonb_object_agg_finalfn
+  - [jsonb_agg_transfn_worker](../j/jsonb_agg_transfn_worker.md)
+  - [jsonb_agg_finalfn](../j/jsonb_agg_finalfn.md)
+  - [jsonb_object_agg_transfn_worker](../j/jsonb_object_agg_transfn_worker.md)
+  - [jsonb_object_agg_finalfn](../j/jsonb_object_agg_finalfn.md)
 
 ## Notes and Other Information
 - Essential for implementing PostgreSQL's JSONB aggregation functions

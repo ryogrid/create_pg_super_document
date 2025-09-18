@@ -26,8 +26,8 @@ The function uses the GUC system to re-set the wal_consistency_checking paramete
   - config_generic (struct)
   - GUC_ACTION_SET
 - Called from (representative examples):
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
 
 ## Notes and Other Information
 - Must be called after process_shared_preload_libraries_done is true

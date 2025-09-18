@@ -29,17 +29,17 @@ The  function converts human-readable time components stored in a  structure int
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_VALID_JULIAN (macro to validate Julian date bounds)
-  - date2j (Gregorian to Julian day conversion)
-  - time2t (time components to microseconds conversion)
-  - dt2local (timezone adjustment)
+  - [date2j](../d/date2j.md) (Gregorian to Julian day conversion)
+  - [time2t](time2t.md) (time components to microseconds conversion)
+  - [dt2local](../d/dt2local.md) (timezone adjustment)
   - IS_VALID_TIMESTAMP (macro to validate timestamp range)
   - POSTGRES_EPOCH_JDATE, USECS_PER_DAY (epoch and time constants)
 - Called from (representative examples):
-  - timestamp_in (string to timestamp parsing)
-  - timestamptz_in (string to timestamptz parsing)
-  - timestamp_pl_interval (timestamp arithmetic)
-  - to_timestamp (formatting function)
-  - timestamp_trunc (date/time truncation)
+  - [timestamp_in](timestamp_in.md) (string to timestamp parsing)
+  - [timestamptz_in](timestamptz_in.md) (string to timestamptz parsing)
+  - [timestamp_pl_interval](timestamp_pl_interval.md) (timestamp arithmetic)
+  - [to_timestamp](to_timestamp.md) (formatting function)
+  - [timestamp_trunc](timestamp_trunc.md) (date/time truncation)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (out of range or overflow)

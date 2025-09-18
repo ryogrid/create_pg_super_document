@@ -23,19 +23,19 @@ The function operates in multiple phases: first building a list of relation OIDs
   - lfirst
   - RelationGetRelid
   - lappend_oid
-  - heap_truncate_find_FKs
+  - [heap_truncate_find_FKs](heap_truncate_find_FKs.md)
   - lfirst_oid
   - list_make1_oid
-  - list_member_oid
-  - get_rel_name
+  - [list_member_oid](../l/list_member_oid.md)
+  - [get_rel_name](../g/get_rel_name.md)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
+  - [errhint](../e/errhint.md)
 - Called from (representative examples):
-  - heap_truncate
-  - ExecuteTruncateGuts
+  - [heap_truncate](heap_truncate.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 - Shared by both transaction-safe and non-transaction-safe truncate implementations

@@ -24,23 +24,23 @@ This function performs the core catalog operations for extension registration. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetNewOidWithIndex
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - DirectFunctionCall1
   - namein
-  - CStringGetDatum
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOnOwner
-  - new_object_addresses
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [new_object_addresses](../n/new_object_addresses.md)
   - ObjectAddressSet
-  - add_exact_object_address
-  - record_object_address_dependencies
-  - free_object_addresses
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - CreateExtensionInternal
-  - binary_upgrade_create_empty_extension
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [binary_upgrade_create_empty_extension](../b/binary_upgrade_create_empty_extension.md)
 
 ## Notes and Other Information
 - This function is exported specifically for pg_upgrade support, allowing extension registration without script execution

@@ -19,7 +19,7 @@ This function computes a hash value for a macaddr8 (8-byte MAC address) value, e
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR8_P (macro to extract macaddr8 argument)
-  - hash_any (generic hash function for arbitrary byte sequences)
+  - [hash_any](hash_any.md) (generic hash function for arbitrary byte sequences)
   - sizeof (operator to get size of macaddr8 type)
 - Called from (representative examples):
   - No direct references found in the codebase

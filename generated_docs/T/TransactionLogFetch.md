@@ -35,8 +35,8 @@ The function is designed to be efficient for repeated queries of the same transa
   - TRANSACTION_STATUS_IN_PROGRESS
   - TRANSACTION_STATUS_SUB_COMMITTED
 - Called from (representative examples):
-  - TransactionIdDidCommit
-  - TransactionIdDidAbort
+  - [TransactionIdDidCommit](TransactionIdDidCommit.md)
+  - [TransactionIdDidAbort](TransactionIdDidAbort.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the transam.c file

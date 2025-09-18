@@ -29,16 +29,16 @@ The scanning logic remains fundamentally the same: iterate through the hash chai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinState (struct type)
-  - HashJoinTable (struct type)
-  - HashJoinTuple (struct type)
-  - ExecParallelHashNextTuple (parallel tuple navigation)
-  - ExecParallelHashFirstTuple (parallel bucket start)
-  - ExecStoreMinimalTuple (tuple storage function)
+  - [HashJoinState](../H/HashJoinState.md) (struct type)
+  - [HashJoinTable](../H/HashJoinTable.md) (struct type)
+  - [HashJoinTuple](../H/HashJoinTuple.md) (struct type)
+  - [ExecParallelHashNextTuple](ExecParallelHashNextTuple.md) (parallel tuple navigation)
+  - [ExecParallelHashFirstTuple](ExecParallelHashFirstTuple.md) (parallel bucket start)
+  - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md) (tuple storage function)
   - HJTUPLE_MINTUPLE (tuple extraction macro)
   - ExecQualAndReset (clause evaluation function)
 - Called from (representative examples):
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - Designed specifically for parallel hash joins where multiple workers may access the same hash table

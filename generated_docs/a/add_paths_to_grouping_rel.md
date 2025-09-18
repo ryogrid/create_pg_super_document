@@ -31,20 +31,20 @@ The function intelligently chooses between different aggregation strategies (AGG
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_useful_group_keys_orderings
-  - make_ordered_path
-  - consider_groupingsets_paths
-  - create_agg_path
-  - create_group_path
-  - add_path
-  - gather_grouping_paths
+  - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md)
+  - [make_ordered_path](../m/make_ordered_path.md)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md)
+  - [create_agg_path](../c/create_agg_path.md)
+  - [create_group_path](../c/create_group_path.md)
+  - [add_path](add_path.md)
+  - [gather_grouping_paths](../g/gather_grouping_paths.md)
 - Called from (representative examples):
-  - create_ordinary_grouping_paths
+  - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md)
   - standard_qp_extra
 
 ## Notes and Other Information
 - The function supports both parallel and non-parallel grouping strategies through partial aggregation paths
-- Path generation is controlled by GROUPING_CAN_USE_HASH and GROUPING_CAN_USE_SORT flags in the extra parameter
+- [Path](../P/Path.md) generation is controlled by GROUPING_CAN_USE_HASH and GROUPING_CAN_USE_SORT flags in the extra parameter
 - When partitionwise aggregation is enabled, the function handles fully aggregated paths from child relations
 - The function ensures optimal path selection by considering multiple grouping key orderings and aggregation strategies
 - Location: src/backend/optimizer/plan/planner.c:7044-7278

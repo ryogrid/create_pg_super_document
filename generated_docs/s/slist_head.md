@@ -21,12 +21,12 @@ The singly linked design is optimized for scenarios where forward-only traversal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_node (embedded as the head sentinel)
+  - [slist_node](slist_node.md) (embedded as the head sentinel)
 - Called from (representative examples):
-  - slist_init (initializes the list head)
-  - slist_push_head (adds nodes to the front of the list)
-  - slist_pop_head_node (removes nodes from the front of the list)
-  - slist_is_empty (checks if the list is empty)
+  - [slist_init](slist_init.md) (initializes the list head)
+  - [slist_push_head](slist_push_head.md) (adds nodes to the front of the list)
+  - [slist_pop_head_node](slist_pop_head_node.md) (removes nodes from the front of the list)
+  - [slist_is_empty](slist_is_empty.md) (checks if the list is empty)
   - Various PostgreSQL subsystems for managing collections
 
 ## Notes and Other Information

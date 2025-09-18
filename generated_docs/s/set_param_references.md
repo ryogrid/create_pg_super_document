@@ -21,12 +21,12 @@ The function walks up the planner hierarchy to collect all initplan parameters f
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - lfirst_int
-  - bms_intersect
+  - [bms_intersect](../b/bms_intersect.md)
 - Called from (representative examples):
   - fix_scan_list (src/backend/optimizer/plan/setrefs.c:165)
-  - set_plan_refs (src/backend/optimizer/plan/setrefs.c:855)
+  - [set_plan_refs](set_plan_refs.md) (src/backend/optimizer/plan/setrefs.c:855)
 
 ## Notes and Other Information
 - Only applies to Gather and GatherMerge nodes, which are the entry points for parallel execution

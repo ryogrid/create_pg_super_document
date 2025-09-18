@@ -25,12 +25,12 @@ The function ensures that all resources are properly released and that signal ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetShellResultVariables (to capture pipe command exit status)
-  - pclose (to close pipe and wait for process termination)
-  - restore_sigpipe_trap (to restore original SIGPIPE handling)
+  - [SetShellResultVariables](../S/SetShellResultVariables.md) (to capture pipe command exit status)
+  - [pclose](../p/pclose.md) (to close pipe and wait for process termination)
+  - [restore_sigpipe_trap](../r/restore_sigpipe_trap.md) (to restore original SIGPIPE handling)
   - fclose (to close regular files)
 - Called from (representative examples):
-  - ExecQueryAndProcessResults
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within common.c

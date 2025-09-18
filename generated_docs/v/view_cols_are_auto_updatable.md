@@ -27,28 +27,28 @@ The caller must have already verified that the view is auto-updatable using view
   - RangeTblRef (structure for range table references)
   - linitial_node (macro to get first list node with type checking)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute numbering)
-  - view_col_is_auto_updatable (function to check individual column updatability)
-  - bms_add_member (function to add member to bitmapset)
-  - bms_is_member (function to check bitmapset membership)
+  - [view_col_is_auto_updatable](view_col_is_auto_updatable.md) (function to check individual column updatability)
+  - [bms_add_member](../b/bms_add_member.md) (function to add member to bitmapset)
+  - [bms_is_member](../b/bms_is_member.md) (function to check bitmapset membership)
   - AttrNumber (type for attribute numbers)
   - ListCell (structure for list iteration)
-  - TargetEntry (structure for target list entries)
+  - [TargetEntry](../T/TargetEntry.md) (structure for target list entries)
 - Called from (representative examples):
-  - rewriteTargetView (in src/backend/rewrite/rewriteHandler.c:3337)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (in src/backend/rewrite/rewriteHandler.c:3337)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTblRef (structure for range table references)
   - linitial_node (macro to get first list node with type checking)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute numbering)
-  - view_col_is_auto_updatable (function to check individual column updatability)
-  - bms_add_member (function to add member to bitmapset)
-  - bms_is_member (function to check bitmapset membership)
+  - [view_col_is_auto_updatable](view_col_is_auto_updatable.md) (function to check individual column updatability)
+  - [bms_add_member](../b/bms_add_member.md) (function to add member to bitmapset)
+  - [bms_is_member](../b/bms_is_member.md) (function to check bitmapset membership)
   - AttrNumber (type for attribute numbers)
   - ListCell (structure for list iteration)
-  - TargetEntry (structure for target list entries)
+  - [TargetEntry](../T/TargetEntry.md) (structure for target list entries)
 - Called from (representative examples):
-  - rewriteTargetView (in src/backend/rewrite/rewriteHandler.c:3337)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (in src/backend/rewrite/rewriteHandler.c:3337)
 
 ## Notes and Other Information
 - The function assumes the view has already been validated as auto-updatable and contains exactly one base relation

@@ -19,15 +19,15 @@ This function serves as a GUC (Grand Unified Configuration) check hook for the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - validate_sync_standby_slots (for validating slot names)
-  - pstrdup (for creating modifiable copy)
-  - list_free (for cleaning up parsed list)
-  - guc_malloc (for allocating GUC extra data)
+  - [validate_sync_standby_slots](../v/validate_sync_standby_slots.md) (for validating slot names)
+  - [pstrdup](../p/pstrdup.md) (for creating modifiable copy)
+  - [list_free](../l/list_free.md) (for cleaning up parsed list)
+  - [guc_malloc](../g/guc_malloc.md) (for allocating GUC extra data)
   - list_length (for getting slot count)
   - strcpy/strlen (for string operations)
-  - pfree (for memory cleanup)
+  - [pfree](../p/pfree.md) (for memory cleanup)
   - foreach_ptr (macro for list iteration)
-  - SyncStandbySlotsConfigData (configuration structure)
+  - [SyncStandbySlotsConfigData](../S/SyncStandbySlotsConfigData.md) (configuration structure)
 - Called from (representative examples):
   - GUC system (referenced in guc_hooks.h)
 

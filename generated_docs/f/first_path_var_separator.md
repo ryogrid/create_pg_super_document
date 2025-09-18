@@ -29,7 +29,7 @@ This function is essential for parsing environment variables like PATH, LD_LIBRA
   - IS_PATH_VAR_SEP (macro for checking path variable separators)
   - unconstify (macro for casting away const qualifier)
 - Called from (representative examples):
-  - find_in_dynamic_libpath (in src/backend/utils/fmgr/dfmgr.c)
+  - [find_in_dynamic_libpath](find_in_dynamic_libpath.md) (in src/backend/utils/fmgr/dfmgr.c)
   - find_my_exec (in src/common/exec.c)
 
 ## Notes and Other Information

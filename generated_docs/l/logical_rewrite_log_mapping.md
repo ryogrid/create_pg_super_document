@@ -33,14 +33,14 @@ The mapping files are created in the pg_logical/mappings directory with a specif
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid (gets relation identifier)
-  - hash_search (hash table operations)
-  - GetCurrentTransactionId (transaction system)
-  - dclist_init, dclist_push_tail (doubly-linked list operations)
+  - [hash_search](../h/hash_search.md) (hash table operations)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md) (transaction system)
+  - [dclist_init](../d/dclist_init.md), dclist_push_tail (doubly-linked list operations)
   - PathNameOpenFile (file I/O)
-  - MemoryContextAlloc (memory management)
-  - logical_heap_rewrite_flush_mappings (mapping flush operations)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory management)
+  - [logical_heap_rewrite_flush_mappings](logical_heap_rewrite_flush_mappings.md) (mapping flush operations)
 - Called from (representative examples):
-  - logical_rewrite_heap_tuple (multiple calls)
+  - [logical_rewrite_heap_tuple](logical_rewrite_heap_tuple.md) (multiple calls)
 
 ## Notes and Other Information
 - This is a static function internal to the rewriteheap.c module

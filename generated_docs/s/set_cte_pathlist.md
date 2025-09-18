@@ -24,14 +24,14 @@ The function navigates up the planner hierarchy to find the CTE's definition and
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonTableExpr
-  - list_nth_int
-  - list_nth
-  - set_cte_size_estimates
-  - convert_subquery_pathkeys
-  - add_path
-  - create_ctescan_path
+  - [list_nth_int](../l/list_nth_int.md)
+  - [list_nth](../l/list_nth.md)
+  - [set_cte_size_estimates](set_cte_size_estimates.md)
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
+  - [add_path](../a/add_path.md)
+  - [create_ctescan_path](../c/create_ctescan_path.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - Does not support join-qual-parameterized paths for CTEs, eliminating the need for a separate set_cte_size phase

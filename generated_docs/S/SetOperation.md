@@ -26,7 +26,7 @@ SetOperation specifies the type of set operation used to combine multiple SELECT
   - SetOperationStmt (src/include/nodes/parsenodes.h:2188)
 
 ## Notes and Other Information
-- SetOperation is fundamental to PostgreSQL's compound query processing
+- [SetOperation](SetOperation.md) is fundamental to PostgreSQL's compound query processing
 - SETOP_NONE is used for leaf nodes in the SelectStmt tree structure
 - Set operations can be combined with ALL modifier to control duplicate handling
 - The enumeration is used in both SelectStmt (for parsing) and SetOperationStmt (for execution planning)

@@ -20,12 +20,12 @@ The function first retrieves the appropriate method structure for the specific e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetExtensibleNodeMethods
+  - [GetExtensibleNodeMethods](../G/GetExtensibleNodeMethods.md)
   - WRITE_NODE_TYPE
   - WRITE_STRING_FIELD
 - Types referenced:
-  - ExtensibleNode
-  - ExtensibleNodeMethods
+  - [ExtensibleNode](../E/ExtensibleNode.md)
+  - [ExtensibleNodeMethods](../E/ExtensibleNodeMethods.md)
 - Called from (representative examples):
   - No direct callers found (likely called through function pointer dispatch in the node output system)
 

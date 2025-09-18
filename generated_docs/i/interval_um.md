@@ -23,8 +23,8 @@ The function follows PostgreSQL's standard function interface pattern, extractin
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INTERVAL_P` - Extract interval argument from function call
-  - `palloc` - Allocate memory for result interval
-  - `interval_um_internal` - Perform the actual interval negation logic
+  - `[palloc](../p/palloc.md)` - Allocate memory for result interval
+  - `[interval_um_internal](interval_um_internal.md)` - Perform the actual interval negation logic
   - `PG_RETURN_INTERVAL_P` - Return the negated interval result
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL SQL function dispatch)

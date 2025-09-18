@@ -19,19 +19,19 @@ This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AutoVacuumUpdateCostLimit
-  - message_level_is_interesting
+  - [AutoVacuumUpdateCostLimit](../A/AutoVacuumUpdateCostLimit.md)
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
   - LWLockHeldByMe
   - LWLockAcquire
   - LWLockRelease
-  - pg_atomic_unlocked_test_flag
+  - [pg_atomic_unlocked_test_flag](../p/pg_atomic_unlocked_test_flag.md)
   - elog
   - Assert
 - Called from (representative examples):
   - vacuum (from vacuum.c)
-  - vacuum_delay_point
-  - parallel_vacuum_main
-  - do_autovacuum
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information
 The function differentiates between autovacuum workers and explicit vacuum operations through the MyWorkerInfo global variable. For autovacuum workers, cost parameters follow a three-tier hierarchy: storage parameters override autovacuum GUCs, which override general vacuum GUCs. The debug logging is conditionally compiled to avoid lock overhead when DEBUG2 logging is not enabled. The function ensures that VacuumCostActive and VacuumFailsafeActive states are mutually exclusive, with failsafe mode disabling cost-based delays.

@@ -35,16 +35,16 @@ The ForeignServer structure represents a configured foreign server instance in P
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)
-  - List (PostgreSQL list structure)
-  - DefElem (option definition element)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [DefElem](../D/DefElem.md) (option definition element)
 - Called from (representative examples):
-  - GetForeignServer
-  - GetForeignServerExtended
-  - CreateUserMapping
-  - CreateForeignTable
-  - AlterUserMapping
-  - RemoveUserMapping
-  - ImportForeignSchema
+  - [GetForeignServer](../G/GetForeignServer.md)
+  - [GetForeignServerExtended](../G/GetForeignServerExtended.md)
+  - [CreateUserMapping](../C/CreateUserMapping.md)
+  - [CreateForeignTable](../C/CreateForeignTable.md)
+  - [AlterUserMapping](../A/AlterUserMapping.md)
+  - [RemoveUserMapping](../R/RemoveUserMapping.md)
+  - [ImportForeignSchema](../I/ImportForeignSchema.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/foreign/foreign.h and is central to PostgreSQL's foreign server management

@@ -21,27 +21,27 @@ The function also handles hint validation - it checks if the PageHasFreeLinePoin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetFreeSpace
-  - PageGetMaxOffsetNumber
+  - [PageGetFreeSpace](PageGetFreeSpace.md)
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)
   - MaxHeapTuplesPerPage
-  - PageHasFreeLinePointers
+  - [PageHasFreeLinePointers](PageHasFreeLinePointers.md)
   - FirstOffsetNumber
   - OffsetNumberNext
-  - PageGetItemId
+  - [PageGetItemId](PageGetItemId.md)
   - ItemId
   - ItemIdIsUsed
 - Called from (representative examples):
-  - heap_multi_insert
-  - heap_update
-  - heap_xlog_prune_freeze
-  - heap_xlog_insert
-  - heap_xlog_multi_insert
-  - heap_xlog_update
-  - RelationGetBufferForTuple
-  - heap_page_prune_opt
-  - raw_heap_insert
-  - lazy_scan_heap
-  - lazy_vacuum_heap_rel
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md)
+  - [heap_xlog_update](../h/heap_xlog_update.md)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md)
+  - [raw_heap_insert](../r/raw_heap_insert.md)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
 
 ## Notes and Other Information
 - Specifically designed for heap pages, unlike PageGetFreeSpace which is primarily for index pages

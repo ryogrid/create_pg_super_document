@@ -19,10 +19,10 @@ The `initialize_acl` function is called during PostgreSQL initialization (specif
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
   - GetSysCacheHashValue1
-  - CacheRegisterSyscacheCallback
-  - RoleMembershipCacheCallback
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
+  - [RoleMembershipCacheCallback](../R/RoleMembershipCacheCallback.md)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - Called only once during PostgreSQL process initialization

@@ -22,7 +22,7 @@ The pg_try_advisory_xact_lock_shared_int8 function provides a non-blocking mecha
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: Extracts the 64-bit integer argument
   - SET_LOCKTAG_INT64: Sets up the lock tag structure with the key
-  - LockAcquire: Core lock acquisition function (called with sessionLock=false for transaction scope)
+  - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function (called with sessionLock=false for transaction scope)
   - ShareLock: Lock mode constant for shared locks
   - LOCKACQUIRE_NOT_AVAIL: Result constant indicating lock unavailability
 - Called from (representative examples):

@@ -41,7 +41,7 @@ LC_ALL=: The locale name string to check encoding compatibility against
   - pg_log_error_hint (offers suggestions for resolution)
   - PG_SQL_ASCII, PG_UTF8 (encoding constants)
 - Called from (representative examples):
-  - setup_locale_encoding (during database initialization encoding setup)
+  - [setup_locale_encoding](../s/setup_locale_encoding.md) (during database initialization encoding setup)
 
 ## Notes and Other Information
 - Returns true if encodings are compatible, false if they conflict

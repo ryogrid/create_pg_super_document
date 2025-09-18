@@ -25,11 +25,11 @@ The function performs a quick exit if the latch is already set to avoid unnecess
   - SetEvent (Windows event signaling)
   - MyProcPid (current process ID)
 - Called from (representative examples):
-  - HandleParallelMessageInterrupt (parallel processing)
-  - WakeupRecovery (WAL recovery coordination)
-  - ReqCheckpointHandler (checkpoint coordination)
+  - [HandleParallelMessageInterrupt](../H/HandleParallelMessageInterrupt.md) (parallel processing)
+  - [WakeupRecovery](../W/WakeupRecovery.md) (WAL recovery coordination)
+  - [ReqCheckpointHandler](../R/ReqCheckpointHandler.md) (checkpoint coordination)
   - ConditionVariableSignal (condition variable implementation)
-  - ProcessClientReadInterrupt (client communication)
+  - [ProcessClientReadInterrupt](../P/ProcessClientReadInterrupt.md) (client communication)
 
 ## Notes and Other Information
 - The function is designed to be safe for use in signal handlers and critical sections

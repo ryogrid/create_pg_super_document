@@ -26,7 +26,7 @@ For containment queries, the function implements conservative logic that never r
   - PG_GETARG_POINTER
   - PG_GETARG_UINT16  
   - PG_GETARG_INT32
-  - execute_jsp_gin_node
+  - [execute_jsp_gin_node](../e/execute_jsp_gin_node.md)
   - PG_RETURN_GIN_TERNARY_VALUE
   - elog
 - Types used:

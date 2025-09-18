@@ -28,9 +28,9 @@ The function maintains consistency with the initialization and execution phases 
   - EndForeignScan (via fdwroutine callback)
   - EndDirectModify (via fdwroutine callback)
   - outerPlanState
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 - Called from:
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - This function is void, indicating it performs cleanup without returning status information

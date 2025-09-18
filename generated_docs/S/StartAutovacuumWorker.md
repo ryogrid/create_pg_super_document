@@ -21,17 +21,17 @@ The function includes comprehensive error handling - if process creation fails, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canAcceptConnections (checks if system can accept new connections)
-  - RandomCancelKey (generates random cancel key for security)
-  - palloc_extended (memory allocation with no-OOM option)
-  - AssignPostmasterChildSlot (assigns child process slot)
-  - StartChildProcess (creates the actual worker process)
-  - dlist_push_head (adds to backend list)
-  - ShmemBackendArrayAdd (shared memory registration on EXEC_BACKEND)
-  - ReleasePostmasterChildSlot (cleanup on failure)
-  - AutoVacWorkerFailed (notifies launcher of failure)
+  - [canAcceptConnections](../c/canAcceptConnections.md) (checks if system can accept new connections)
+  - [RandomCancelKey](../R/RandomCancelKey.md) (generates random cancel key for security)
+  - [palloc_extended](../p/palloc_extended.md) (memory allocation with no-OOM option)
+  - [AssignPostmasterChildSlot](../A/AssignPostmasterChildSlot.md) (assigns child process slot)
+  - [StartChildProcess](StartChildProcess.md) (creates the actual worker process)
+  - [dlist_push_head](../d/dlist_push_head.md) (adds to backend list)
+  - [ShmemBackendArrayAdd](ShmemBackendArrayAdd.md) (shared memory registration on EXEC_BACKEND)
+  - [ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md) (cleanup on failure)
+  - [AutoVacWorkerFailed](../A/AutoVacWorkerFailed.md) (notifies launcher of failure)
 - Called from (representative examples):
-  - process_pm_pmsignal (signal handler for autovac worker requests)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md) (signal handler for autovac worker requests)
 
 ## Notes and Other Information
 - Creates Backend structures for proper process tracking and management

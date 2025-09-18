@@ -21,7 +21,7 @@ Operator classes are critical components of PostgreSQL's indexing system, defini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `OpclassIsVisibleExt`: Core function that performs the actual operator class visibility check
+  - `[OpclassIsVisibleExt](../O/OpclassIsVisibleExt.md)`: Core function that performs the actual operator class visibility check
   - `PG_GETARG_OID`: Macro to extract OID parameter from function arguments
   - `PG_RETURN_NULL`: Macro to return NULL when object is missing
   - `PG_RETURN_BOOL`: Macro to return boolean result
@@ -30,7 +30,7 @@ Operator classes are critical components of PostgreSQL's indexing system, defini
   - Index creation operations that need to resolve operator class names
   - psql describe commands for operator class queries
   - System views that display visible operator classes
-  - Query planner when determining available index access methods
+  - [Query](../Q/Query.md) planner when determining available index access methods
 
 ## Notes and Other Information
 - Defined in the pg_proc catalog as a stable function with cost 10

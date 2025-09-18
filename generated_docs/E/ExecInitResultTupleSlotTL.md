@@ -20,16 +20,16 @@ ExecInitResultTupleSlotTL provides a complete initialization sequence for a plan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitResultTypeTL: Initializes the result tuple descriptor from the target list
-  - ExecInitResultSlot: Allocates and initializes the result tuple slot
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md): Initializes the result tuple descriptor from the target list
+  - [ExecInitResultSlot](ExecInitResultSlot.md): Allocates and initializes the result tuple slot
   - TupleTableSlotOps: Structure defining slot operations
 - Called from (representative examples):
-  - ExecInitAgg: Aggregation node initialization
-  - ExecInitAppend: Append node initialization
-  - ExecInitHash: Hash node initialization
-  - ExecInitHashJoin: Hash join node initialization
+  - [ExecInitAgg](ExecInitAgg.md): Aggregation node initialization
+  - [ExecInitAppend](ExecInitAppend.md): Append node initialization
+  - [ExecInitHash](ExecInitHash.md): Hash node initialization
+  - [ExecInitHashJoin](ExecInitHashJoin.md): Hash join node initialization
   - ExecInitMergeJoin: Merge join node initialization
-  - ExecInitSort: Sort node initialization
+  - [ExecInitSort](ExecInitSort.md): Sort node initialization
   - And many other executor node initialization functions
 
 ## Notes and Other Information

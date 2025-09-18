@@ -29,9 +29,9 @@ The enum is used internally by PostgreSQL's authentication system to determine h
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - check_network_data (struct member)
-  - check_same_host_or_net
-  - HbaLine (struct member)
+  - [check_network_data](../c/check_network_data.md) (struct member)
+  - [check_same_host_or_net](../c/check_same_host_or_net.md)
+  - [HbaLine](../H/HbaLine.md) (struct member)
 
 ## Notes and Other Information
 - Defined in src/include/libpq/hba.h:49-55

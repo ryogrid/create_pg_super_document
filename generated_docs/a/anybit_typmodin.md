@@ -25,15 +25,15 @@ If any validation fails, it reports an appropriate error. Upon successful valida
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayGetIntegerTypmods
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md)
   - MaxAttrSize
   - BITS_PER_BYTE
   - ereport (error reporting)
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - bittypmodin
-  - varbittypmodin
+  - [bittypmodin](../b/bittypmodin.md)
+  - [varbittypmodin](../v/varbittypmodin.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the varbit.c file

@@ -24,11 +24,11 @@ The returned parameter ID can be used by execution nodes to coordinate special r
   - lappend_oid
   - InvalidOid (implicitly referenced)
 - Called from (representative examples):
-  - create_gather_plan
-  - create_gather_merge_plan
-  - subquery_planner
-  - grouping_planner
-  - SS_process_ctes
+  - [create_gather_plan](../c/create_gather_plan.md)
+  - [create_gather_merge_plan](../c/create_gather_merge_plan.md)
+  - [subquery_planner](../s/subquery_planner.md)
+  - [grouping_planner](../g/grouping_planner.md)
+  - [SS_process_ctes](../S/SS_process_ctes.md)
 
 ## Notes and Other Information
 This function is primarily used in parallel query execution and recursive query processing. The special parameters created by this function enable coordination between different execution nodes without the overhead of full parameter value management. The InvalidOid type marker clearly distinguishes these signaling parameters from data-carrying parameters.

@@ -20,18 +20,18 @@ This function manages phase transitions in multi-phase aggregate operations, par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState (struct type)
+  - [AggState](../A/AggState.md) (struct type)
   - tuplesort_end
   - tuplesort_performsort
-  - tuplesort_begin_heap
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
   - Sort (struct type)
   - outerPlanState
-  - ExecGetResultType
+  - [ExecGetResultType](../E/ExecGetResultType.md)
   - TUPLESORT_NONE
 - Called from (representative examples):
-  - agg_retrieve_direct
-  - ExecInitAgg
-  - ExecReScanAgg
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md)
 
 ## Notes and Other Information
 The function includes strict phase transition validation via Assert() - newphase must be 0 or 1 (for reset) or exactly current_phase + 1. This enforces sequential phase processing. Phase 0 handling is special as it's used for hashing and requires dropping all open sorts. The tuplesort management is complex: existing input sorts are always cleaned up, output sorts become input sorts for the next phase (with performsort() called), and new output sorts are created for non-final phases.

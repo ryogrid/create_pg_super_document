@@ -30,12 +30,12 @@ Key operations include:
   - CommandCounterIncrement
   - CookedConstraint
   - CONSTR_DEFAULT
-  - StoreAttrDefault
+  - [StoreAttrDefault](StoreAttrDefault.md)
   - CONSTR_CHECK
-  - StoreRelCheck
-  - SetRelationNumChecks
+  - [StoreRelCheck](StoreRelCheck.md)
+  - [SetRelationNumChecks](SetRelationNumChecks.md)
 - Called from (representative examples):
-  - heap_create_with_catalog
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
 
 ## Notes and Other Information
 - Only processes pre-cooked expressions inherited from existing relations; newly parsed expressions should use direct calls to StoreAttrDefault and StoreRelCheck

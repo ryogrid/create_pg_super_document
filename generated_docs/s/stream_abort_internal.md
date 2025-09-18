@@ -28,19 +28,19 @@ The function uses reverse iteration when scanning subtransactions for efficiency
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stream_cleanup_files
-  - begin_replication_step
-  - subxact_info_read
-  - cleanup_subxact_info
-  - end_replication_step
-  - CommitTransactionCommand
-  - changes_filename
+  - [stream_cleanup_files](stream_cleanup_files.md)
+  - [begin_replication_step](../b/begin_replication_step.md)
+  - [subxact_info_read](subxact_info_read.md)
+  - [cleanup_subxact_info](../c/cleanup_subxact_info.md)
+  - [end_replication_step](../e/end_replication_step.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [changes_filename](../c/changes_filename.md)
   - BufFileOpenFileSet
   - BufFileTruncateFileSet
   - BufFileClose
-  - subxact_info_write
+  - [subxact_info_write](subxact_info_write.md)
 - Called from:
-  - apply_handle_stream_abort
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 - Uses reverse iteration through subtransaction array for better performance

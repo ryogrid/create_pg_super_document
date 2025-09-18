@@ -27,16 +27,16 @@ For distance-ordered scans, it determines the return types of the ordering opera
 ## Dependencies
 - Functions called/Symbols referenced:
   - memmove (for copying scan keys)
-  - get_func_rettype
-  - spgPrepareScanKeys
-  - resetSpGistScanOpaque
+  - [get_func_rettype](../g/get_func_rettype.md)
+  - [spgPrepareScanKeys](spgPrepareScanKeys.md)
+  - [resetSpGistScanOpaque](../r/resetSpGistScanOpaque.md)
   - pgstat_count_index_scan
 - Called from:
-  - spghandler (src/backend/access/spgist/spgutils.c:85)
+  - [spghandler](spghandler.md) (src/backend/access/spgist/spgutils.c:85)
 
 ## Dependencies
 - Types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanKey
   - SpGistScanOpaque
 

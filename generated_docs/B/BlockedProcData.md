@@ -36,10 +36,10 @@ BlockedProcData represents detailed information about a single blocked process i
 - Functions called/Symbols referenced:
   - (No direct references - this is a data structure)
 - Called from (representative examples):
-  - GetBlockerStatusData
-  - GetSingleProcBlockerStatusData
-  - pg_blocking_pids
-  - BlockedProcsData
+  - [GetBlockerStatusData](../G/GetBlockerStatusData.md)
+  - [GetSingleProcBlockerStatusData](../G/GetSingleProcBlockerStatusData.md)
+  - [pg_blocking_pids](../p/pg_blocking_pids.md)
+  - [BlockedProcsData](BlockedProcsData.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/storage/lock.h:471-482

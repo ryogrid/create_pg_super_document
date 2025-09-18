@@ -32,12 +32,12 @@ The 4D coordinate system considers each box as having four coordinates: low.x, h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - DatumGetBoxP (converts Datum to BOX pointer)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (converts Datum to BOX pointer)
   - qsort (standard library sorting function)
-  - compareDoubles (comparator function for sorting coordinates)
-  - getQuadrant (determines quadrant based on centroid and box)
-  - BoxPGetDatum (converts BOX pointer to Datum)
+  - [compareDoubles](../c/compareDoubles.md) (comparator function for sorting coordinates)
+  - [getQuadrant](../g/getQuadrant.md) (determines quadrant based on centroid and box)
+  - [BoxPGetDatum](../B/BoxPGetDatum.md) (converts BOX pointer to Datum)
   - PG_RETURN_VOID (PostgreSQL function return macro)
 - Called from (representative examples):
   - SP-GiST index split operations

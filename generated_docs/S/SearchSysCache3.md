@@ -21,13 +21,13 @@ SearchSysCache3 provides a convenient wrapper around the lower-level SearchCatCa
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - SearchCatCache3
+  - [SearchCatCache3](SearchCatCache3.md)
 - Called from (representative examples):
-  - SetDefaultACL
-  - get_default_acl_internal
-  - lookup_collation
-  - ProcedureCreate
-  - ResolveOpClass
+  - [SetDefaultACL](SetDefaultACL.md)
+  - [get_default_acl_internal](../g/get_default_acl_internal.md)
+  - [lookup_collation](../l/lookup_collation.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [ResolveOpClass](../R/ResolveOpClass.md)
 
 ## Notes and Other Information
 - The function includes assertions to validate the cache ID is within bounds and that the specified cache exists

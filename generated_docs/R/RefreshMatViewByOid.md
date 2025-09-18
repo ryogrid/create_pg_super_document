@@ -31,25 +31,25 @@ Key validation steps include verifying the relation is a materialized view, chec
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close (relation access functions)
-  - GetUserIdAndSecContext, SetUserIdAndSecContext (security context management)
-  - NewGUCNestLevel, RestrictSearchPath (GUC and search path management)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md), SetUserIdAndSecContext (security context management)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md), RestrictSearchPath (GUC and search path management)
   - RelationIsPopulated (checks if materialized view is populated)
-  - RelationGetIndexList (retrieves list of indexes on relation)
-  - index_open, index_close (index access functions)
-  - is_usable_unique_index (validates unique index for concurrent refresh)
-  - CheckTableNotInUse (ensures relation is not actively being used)
-  - SetMatViewPopulatedState (updates materialized view populated flag)
-  - make_new_heap (creates transient table with same structure)
-  - CreateTransientRelDestReceiver (creates destination for query results)
-  - refresh_matview_datafill (populates transient table with query data)
-  - refresh_by_match_merge (concurrent refresh merge operation)
-  - refresh_by_heap_swap (non-concurrent refresh swap operation)
-  - pgstat_count_truncate, pgstat_count_heap_insert (statistics reporting)
-  - AtEOXact_GUC (rollback GUC changes at transaction end)
+  - [RelationGetIndexList](RelationGetIndexList.md) (retrieves list of indexes on relation)
+  - [index_open](../i/index_open.md), index_close (index access functions)
+  - [is_usable_unique_index](../i/is_usable_unique_index.md) (validates unique index for concurrent refresh)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md) (ensures relation is not actively being used)
+  - [SetMatViewPopulatedState](../S/SetMatViewPopulatedState.md) (updates materialized view populated flag)
+  - [make_new_heap](../m/make_new_heap.md) (creates transient table with same structure)
+  - [CreateTransientRelDestReceiver](../C/CreateTransientRelDestReceiver.md) (creates destination for query results)
+  - [refresh_matview_datafill](../r/refresh_matview_datafill.md) (populates transient table with query data)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (concurrent refresh merge operation)
+  - [refresh_by_heap_swap](../r/refresh_by_heap_swap.md) (non-concurrent refresh swap operation)
+  - [pgstat_count_truncate](../p/pgstat_count_truncate.md), pgstat_count_heap_insert (statistics reporting)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (rollback GUC changes at transaction end)
 
 - Called from (representative examples):
-  - ExecRefreshMatView (main REFRESH MATERIALIZED VIEW command handler)
-  - ExecCreateTableAs (when creating materialized views with initial data)
+  - [ExecRefreshMatView](../E/ExecRefreshMatView.md) (main REFRESH MATERIALIZED VIEW command handler)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md) (when creating materialized views with initial data)
 
 ## Notes and Other Information
 - The function preserves the original materialized view OID, maintaining all grants and references

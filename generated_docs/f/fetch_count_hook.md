@@ -19,9 +19,9 @@ The FETCH_COUNT variable in psql determines how many rows should be retrieved an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseVariableNum
+  - [ParseVariableNum](../P/ParseVariableNum.md)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
 
 ## Notes and Other Information
 - This is a static function within the psql startup module, making it internal to the psql implementation

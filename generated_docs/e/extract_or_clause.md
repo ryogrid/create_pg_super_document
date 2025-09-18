@@ -29,18 +29,18 @@ A key aspect is the handling of RestrictInfo nodes: the function uses embedded R
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_orclause
+  - [is_orclause](../i/is_orclause.md)
   - BoolExpr (struct access)
-  - is_andclause  
-  - restriction_is_or_clause
-  - extract_or_clause (recursive call)
-  - is_safe_restriction_clause_for
-  - make_ands_explicit
-  - list_concat
-  - make_orclause
+  - [is_andclause](../i/is_andclause.md)  
+  - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
+  - [extract_or_clause](extract_or_clause.md) (recursive call)
+  - [is_safe_restriction_clause_for](../i/is_safe_restriction_clause_for.md)
+  - [make_ands_explicit](../m/make_ands_explicit.md)
+  - [list_concat](../l/list_concat.md)
+  - [make_orclause](../m/make_orclause.md)
 - Called from (representative examples):
-  - extract_restriction_or_clauses
-  - extract_or_clause (recursive)
+  - [extract_restriction_or_clauses](extract_restriction_or_clauses.md)
+  - [extract_or_clause](extract_or_clause.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function only used within the orclauses.c module

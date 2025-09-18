@@ -20,11 +20,11 @@ This function determines if a database is in an invalid state by checking the da
   - Form_pg_database (catalog structure type)
   - DATCONNLIMIT_INVALID_DB (constant for invalid database marker)
 - Called from (representative examples):
-  - AlterDatabase (database alteration operations)
-  - database_is_invalid_oid (OID-based invalid check)
-  - vac_truncate_clog (vacuum operations)
-  - get_database_list (autovacuum daemon)
-  - InitPostgres (backend initialization)
+  - [AlterDatabase](../A/AlterDatabase.md) (database alteration operations)
+  - [database_is_invalid_oid](database_is_invalid_oid.md) (OID-based invalid check)
+  - [vac_truncate_clog](../v/vac_truncate_clog.md) (vacuum operations)
+  - [get_database_list](../g/get_database_list.md) (autovacuum daemon)
+  - [InitPostgres](../I/InitPostgres.md) (backend initialization)
 
 ## Notes and Other Information
 - Used during database drop operations to prevent connections to databases being dropped

@@ -20,10 +20,10 @@ The search_path setting controls which schemas are searched when resolving unqua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (PostgreSQL string duplication utility)
-  - TocEntry (struct type)
+  - [pg_strdup](pg_strdup.md) (PostgreSQL string duplication utility)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - ReadToc (during archive reading process)
+  - [ReadToc](../R/ReadToc.md) (during archive reading process)
 
 ## Notes and Other Information
 - The function performs no validation or parsing of the search_path command

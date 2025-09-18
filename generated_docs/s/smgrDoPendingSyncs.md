@@ -24,25 +24,25 @@ The function handles special cases including transaction abort (discards all pen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - AssertPendingSyncs_RelationCache
-  - hash_search
-  - hash_seq_init
-  - hash_seq_search
-  - smgropen
-  - smgrexists
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [AssertPendingSyncs_RelationCache](../A/AssertPendingSyncs_RelationCache.md)
+  - [hash_search](../h/hash_search.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [smgropen](smgropen.md)
+  - [smgrexists](smgrexists.md)
   - smgrnblocks
-  - smgrdosyncall
-  - CreateFakeRelcacheEntry
-  - log_newpage_range
-  - FreeFakeRelcacheEntry
-  - palloc
-  - repalloc
-  - pfree
+  - [smgrdosyncall](smgrdosyncall.md)
+  - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)
+  - [log_newpage_range](../l/log_newpage_range.md)
+  - [FreeFakeRelcacheEntry](../F/FreeFakeRelcacheEntry.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
-  - AbortTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [AbortTransaction](../A/AbortTransaction.md)
 
 ## Notes and Other Information
 - Only operates at the outermost transaction level (nesting level 1)

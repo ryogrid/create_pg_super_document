@@ -23,10 +23,10 @@ The function performs lazy initialization of the cache's tuple descriptor if nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogCacheInitializeCache
-  - CatalogCacheComputeHashValue
+  - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md)
+  - [CatalogCacheComputeHashValue](../C/CatalogCacheComputeHashValue.md)
 - Called from (representative examples):
-  - GetSysCacheHashValue
+  - [GetSysCacheHashValue](GetSysCacheHashValue.md)
   - CatCacheHeader
 
 ## Notes and Other Information

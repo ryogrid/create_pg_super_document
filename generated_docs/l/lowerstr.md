@@ -19,14 +19,14 @@ The underlying implementation (lowerstr_with_len) uses different strategies base
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lowerstr_with_len
+  - [lowerstr_with_len](lowerstr_with_len.md)
   - strlen
 - Called from (representative examples):
-  - dsnowball_init
-  - dispell_init
-  - dsimple_init
-  - dsynonym_init
-  - lowerstr_ctx
+  - [dsnowball_init](../d/dsnowball_init.md)
+  - [dispell_init](../d/dispell_init.md)
+  - [dsimple_init](../d/dsimple_init.md)
+  - [dsynonym_init](../d/dsynonym_init.md)
+  - [lowerstr_ctx](lowerstr_ctx.md)
   - NIImportAffixes
 
 ## Notes and Other Information

@@ -30,16 +30,16 @@ This approach is particularly useful for extensions, procedural languages, or ot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate: Creates parse state structure
-  - transformTopLevelStmt: Performs the main statement transformation
+  - [make_parsestate](../m/make_parsestate.md): Creates parse state structure
+  - [transformTopLevelStmt](../t/transformTopLevelStmt.md): Performs the main statement transformation
   - IsQueryIdEnabled: Checks if query ID generation is enabled
-  - JumbleQuery: Generates query ID for statistics
-  - free_parsestate: Cleanup parse state structure
-  - pgstat_report_query_id: Reports query ID for statistics collection
+  - [JumbleQuery](../J/JumbleQuery.md): Generates query ID for statistics
+  - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
+  - [pgstat_report_query_id](pgstat_report_query_id.md): Reports query ID for statistics collection
   - ParserSetupHook: Type for the parser setup callback function
 
 - Called from (representative examples):
-  - pg_analyze_and_rewrite_withcb: Main analysis entry point with callback
+  - [pg_analyze_and_rewrite_withcb](pg_analyze_and_rewrite_withcb.md): Main analysis entry point with callback
 
 ## Notes and Other Information
 - This is the most flexible of the three parse_analyze variants

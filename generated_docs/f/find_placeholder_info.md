@@ -24,15 +24,15 @@ The function performs sophisticated analysis to separate LATERAL references (var
 - Functions called/Symbols referenced:
   - makeNode (for creating PlaceHolderInfo)
   - copyObject (for copying PlaceHolderVar)
-  - pull_varnos (for extracting variable references)
-  - bms_difference, bms_int_members, bms_is_empty, bms_copy (bitmap set operations)
-  - get_typavgwidth, exprType, exprTypmod (type analysis functions)
+  - [pull_varnos](../p/pull_varnos.md) (for extracting variable references)
+  - [bms_difference](../b/bms_difference.md), bms_int_members, bms_is_empty, bms_copy (bitmap set operations)
+  - [get_typavgwidth](../g/get_typavgwidth.md), exprType, exprTypmod (type analysis functions)
   - repalloc0_array, palloc0_array (memory management)
-  - find_placeholders_in_expr (recursive placeholder processing)
+  - [find_placeholders_in_expr](find_placeholders_in_expr.md) (recursive placeholder processing)
 - Called from (representative examples):
-  - set_rel_width (in costsize.c)
-  - replace_nestloop_params_mutator (in createplan.c)
-  - add_vars_to_targetlist (in initsplan.c)
+  - [set_rel_width](../s/set_rel_width.md) (in costsize.c)
+  - [replace_nestloop_params_mutator](../r/replace_nestloop_params_mutator.md) (in createplan.c)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md) (in initsplan.c)
   - build_joinrel_tlist (in relnode.c)
 
 ## Notes and Other Information

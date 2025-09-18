@@ -27,7 +27,7 @@ This function should be called as the cleanup counterpart to english_UTF_8_creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Generic Snowball environment cleanup function (called with parameter 0)
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function (called with parameter 0)
 - Called from (representative examples):  
   - This appears to be an external API function with no internal PostgreSQL callers
 

@@ -27,9 +27,9 @@ The function maintains the same interface as other conversion functions, support
 ## Dependencies
 - Functions called/Symbols referenced:
   - base->func (base type conversion function via function pointer)
-  - domain_check
+  - [domain_check](../d/domain_check.md)
 - Called from (representative examples):
-  - PLy_output_setup_func
+  - [PLy_output_setup_func](PLy_output_setup_func.md)
 
 ## Notes and Other Information
 This function exemplifies PostgreSQL's layered type system where domain types build upon base types. The separation of base type conversion and constraint validation ensures proper code reuse and maintains consistency with PostgreSQL's internal domain handling. The function properly delegates memory context and other conversion parameters to maintain proper resource management throughout the conversion process.

@@ -19,17 +19,17 @@ This static function serves as a support routine for the has_type_privilege fami
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string: Generic function that parses privilege strings using the provided mapping
+  - [convert_any_priv_string](convert_any_priv_string.md): Generic function that parses privilege strings using the provided mapping
   - ACL_USAGE: Constant representing the USAGE privilege bit
   - ACL_GRANT_OPTION_FOR: Macro that adds grant option to a privilege
   - priv_map: Type definition for privilege mapping structure
 - Called from (representative examples):
-  - has_type_privilege_name_name: Privilege check with role name and type name
-  - has_type_privilege_name: Privilege check with current user and type name
-  - has_type_privilege_name_id: Privilege check with role name and type OID
-  - has_type_privilege_id: Privilege check with current user and type OID
-  - has_type_privilege_id_name: Privilege check with role OID and type name
-  - has_type_privilege_id_id: Privilege check with role OID and type OID
+  - [has_type_privilege_name_name](../h/has_type_privilege_name_name.md): Privilege check with role name and type name
+  - [has_type_privilege_name](../h/has_type_privilege_name.md): Privilege check with current user and type name
+  - [has_type_privilege_name_id](../h/has_type_privilege_name_id.md): Privilege check with role name and type OID
+  - [has_type_privilege_id](../h/has_type_privilege_id.md): Privilege check with current user and type OID
+  - [has_type_privilege_id_name](../h/has_type_privilege_id_name.md): Privilege check with role OID and type name
+  - [has_type_privilege_id_id](../h/has_type_privilege_id_id.md): Privilege check with role OID and type OID
 
 ## Notes and Other Information
 - This is a static (internal) function, not exposed outside acl.c

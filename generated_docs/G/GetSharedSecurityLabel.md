@@ -24,20 +24,20 @@ The function handles the case where no label exists by returning NULL, and prope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - heap_getattr
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [heap_getattr](../h/heap_getattr.md)
   - TextDatumGetCString
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - CStringGetTextDatum
   - RelationGetDescr
   - HeapTupleIsValid
 - Called from (representative examples):
-  - GetSecurityLabel
+  - [GetSecurityLabel](GetSecurityLabel.md)
 
 ## Notes and Other Information
 - Returns a dynamically allocated C string containing the security label, or NULL if no label exists for the specified object and provider

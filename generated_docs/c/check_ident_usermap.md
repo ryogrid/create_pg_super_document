@@ -37,17 +37,17 @@ The function also performs comprehensive error checking for regex compilation er
 - Functions called/Symbols referenced:
   - get_role_oid (converts role name to OID)
   - token_has_regexp (checks if token contains regex pattern)
-  - regexec_auth_token (executes regex against input string)
-  - pg_regerror (converts regex error codes to strings)
+  - [regexec_auth_token](../r/regexec_auth_token.md) (executes regex against input string)
+  - [pg_regerror](../p/pg_regerror.md) (converts regex error codes to strings)
   - token_is_member_check/token_matches/token_matches_insensitive (token matching)
-  - make_auth_token/free_auth_token (auth token management)
-  - check_role (validates role membership and permissions)
+  - [make_auth_token](../m/make_auth_token.md)/free_auth_token (auth token management)
+  - [check_role](check_role.md) (validates role membership and permissions)
   - list_make1 (creates single-element list)
-  - palloc0/pfree (memory management)
+  - [palloc0](../p/palloc0.md)/pfree (memory management)
   - ereport/errcode/errmsg (error reporting)
   - Data structures: IdentLine, AuthToken, regmatch_t
 - Called from:
-  - check_usermap (src/backend/libpq/hba.c:2935)
+  - [check_usermap](check_usermap.md) (src/backend/libpq/hba.c:2935)
 
 ## Notes and Other Information
 - Returns results through output parameters found_p and error_p rather than return value

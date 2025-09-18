@@ -22,11 +22,11 @@ The base sleep time is set to 10 seconds, but this is adjusted based on timeout 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimestampTzPlusMilliseconds
-  - TimestampDifferenceMilliseconds
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
 - Called from:
-  - ProcessPendingWrites (src/backend/replication/walsender.c:1636)
-  - WalSndWaitForWal (src/backend/replication/walsender.c:1960)
-  - WalSndLoop (src/backend/replication/walsender.c:2906)
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md) (src/backend/replication/walsender.c:1636)
+  - [WalSndWaitForWal](WalSndWaitForWal.md) (src/backend/replication/walsender.c:1960)
+  - [WalSndLoop](WalSndLoop.md) (src/backend/replication/walsender.c:2906)
 
 ## Notes and Other Information
 - Returns a default sleep time of 10 seconds when timeout management is disabled

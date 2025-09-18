@@ -27,17 +27,17 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId (converts full XID to regular XID)
 - Called from (representative examples):
-  - HeapCheckForSerializableConflictOut
-  - initSpGistState
-  - GetStableLatestTransactionId
-  - TransactionIdIsCurrentTransactionId
-  - RecordTransactionCommit
-  - XLogRecordAssemble
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
+  - [initSpGistState](../i/initSpGistState.md)
+  - [GetStableLatestTransactionId](GetStableLatestTransactionId.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [XLogRecordAssemble](../X/XLogRecordAssemble.md)
   - CreateInitDecodingContext
-  - XactLockTableWait
-  - write_csvlog
-  - write_jsonlog
-  - ExportSnapshot
+  - [XactLockTableWait](../X/XactLockTableWait.md)
+  - [write_csvlog](../w/write_csvlog.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
+  - [ExportSnapshot](../E/ExportSnapshot.md)
 
 ## Notes and Other Information
 - This function does not force transaction ID assignment, making it safe for non-intrusive queries

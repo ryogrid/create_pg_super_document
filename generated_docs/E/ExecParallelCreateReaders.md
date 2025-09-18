@@ -29,13 +29,13 @@ The function ensures that the coordinator has the necessary objects to read tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation for reader array)
-  - shm_mq_set_handle (associate queue with worker background handle)
-  - CreateTupleQueueReader (create reader object for tuple queue)
-  - TupleQueueReader (reader object type)
+  - [palloc](../p/palloc.md) (memory allocation for reader array)
+  - [shm_mq_set_handle](../s/shm_mq_set_handle.md) (associate queue with worker background handle)
+  - [CreateTupleQueueReader](../C/CreateTupleQueueReader.md) (create reader object for tuple queue)
+  - [TupleQueueReader](../T/TupleQueueReader.md) (reader object type)
 - Called from:
-  - ExecGather (Gather node execution setup)
-  - ExecGatherMerge (GatherMerge node execution setup)
+  - [ExecGather](ExecGather.md) (Gather node execution setup)
+  - [ExecGatherMerge](ExecGatherMerge.md) (GatherMerge node execution setup)
 
 ## Notes and Other Information
 - This function is separate from ExecInitParallelPlan to allow workers to start before readers are created

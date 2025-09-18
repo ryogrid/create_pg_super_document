@@ -28,13 +28,13 @@ All validation failures result in LOG-level error messages and NULL return value
 ## Dependencies
 - Functions called/Symbols referenced:
   - XRecOffIsValid
-  - XLogPrefetcherBeginRead
-  - ReadRecord
+  - [XLogPrefetcherBeginRead](../X/XLogPrefetcherBeginRead.md)
+  - [ReadRecord](ReadRecord.md)
   - XLR_INFO_MASK (for extracting record info)
   - XLOG_CHECKPOINT_SHUTDOWN/XLOG_CHECKPOINT_ONLINE (record type constants)
   - SizeOfXLogRecord, SizeOfXLogRecordDataHeaderShort, CheckPoint (size calculations)
 - Called from (representative examples):
-  - InitWalRecovery (multiple call sites for different checkpoint scenarios)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (multiple call sites for different checkpoint scenarios)
 
 ## Notes and Other Information
 - Returns a valid XLogRecord pointer on success, NULL on any validation failure

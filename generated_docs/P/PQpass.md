@@ -21,8 +21,8 @@ PQpass is a libpq client library function that retrieves the password associated
 - Functions called/Symbols referenced:
   - None (simple accessor function with conditional logic)
 - Called from (representative examples):
-  - ConnectDatabase (src/bin/pg_dump/pg_backup_db.c:208)
-  - PQconnectionNeedsPassword (src/interfaces/libpq/fe-connect.c:7216)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (src/bin/pg_dump/pg_backup_db.c:208)
+  - [PQconnectionNeedsPassword](PQconnectionNeedsPassword.md) (src/interfaces/libpq/fe-connect.c:7216)
 
 ## Notes and Other Information
 - Returns a pointer to the password string; the caller should not modify or free this string

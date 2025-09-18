@@ -27,22 +27,22 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RuleInfo (struct type)
+  - [RuleInfo](../R/RuleInfo.md) (struct type)
   - createPQExpBuffer, appendPQExpBufferStr (query building functions)
-  - ExecuteSqlQuery (query execution)
-  - PQntuples, PQfnumber, PQgetvalue (libpq result processing functions)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
+  - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq result processing functions)
   - pg_malloc (memory allocation)
   - atooid (string to OID conversion)
-  - AssignDumpId (dump ID assignment)
-  - findTableByOid (table lookup function)
-  - addObjectDependency (dependency management)
+  - [AssignDumpId](../A/AssignDumpId.md) (dump ID assignment)
+  - [findTableByOid](../f/findTableByOid.md) (table lookup function)
+  - [addObjectDependency](../a/addObjectDependency.md) (dependency management)
   - destroyPQExpBuffer (cleanup)
   - DO_RULE (object type enum)
   - RELKIND_VIEW, RELKIND_MATVIEW (relation kind enums)
   - PGRES_TUPLES_OK (libpq result status)
 
 - Called from (representative examples):
-  - getSchemaData (primary caller during schema data collection phase)
+  - [getSchemaData](getSchemaData.md) (primary caller during schema data collection phase)
 
 ## Notes and Other Information
 - Returns a dynamically allocated array of RuleInfo structures

@@ -21,14 +21,14 @@ This inline function implements safe double-precision floating-point addition by
 ## Dependencies
 - Functions called/Symbols referenced:
   - isinf (checks if value is infinite)
-  - float_overflow_error (reports overflow error)
+  - [float_overflow_error](float_overflow_error.md) (reports overflow error)
   - float8 (PostgreSQL's double-precision float type)
 - Called from (representative examples):
-  - float8pl (src/backend/utils/adt/float.c:768)
-  - float8_combine (src/backend/utils/adt/float.c:2912)
-  - float8_regr_combine (src/backend/utils/adt/float.c:3452)
-  - point_add_point (src/backend/utils/adt/geo_ops.c:4114)
-  - circle_distance (src/backend/utils/adt/geo_ops.c:5073)
+  - [float8pl](float8pl.md) (src/backend/utils/adt/float.c:768)
+  - [float8_combine](float8_combine.md) (src/backend/utils/adt/float.c:2912)
+  - [float8_regr_combine](float8_regr_combine.md) (src/backend/utils/adt/float.c:3452)
+  - [point_add_point](../p/point_add_point.md) (src/backend/utils/adt/geo_ops.c:4114)
+  - [circle_distance](../c/circle_distance.md) (src/backend/utils/adt/geo_ops.c:5073)
 
 ## Notes and Other Information
 - Defined as a static inline function in src/include/utils/float.h:158-169

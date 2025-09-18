@@ -25,7 +25,7 @@ The  function is a PostgreSQL C function designed for use in regression testing 
   - PG_RETURN_VOID: Returns void from PostgreSQL function
   - PG_FUNCTION_INFO_V1: Function version information macro
 - Called from (representative examples):
-  - get_environ: Referenced in the same regression test file
+  - [get_environ](../g/get_environ.md): Referenced in the same regression test file
 
 ## Notes and Other Information
 - This function is specifically designed for regression testing purposes and should not be used in production environments

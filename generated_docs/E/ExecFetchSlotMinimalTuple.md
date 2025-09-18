@@ -28,11 +28,11 @@ The shouldFree parameter indicates memory ownership - false means the slot owns 
   - slot->tts_ops->get_minimal_tuple
   - slot->tts_ops->copy_minimal_tuple
 - Called from (representative examples):
-  - hashagg_spill_tuple
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
   - ExecHashTableInsert
   - ExecParallelHashTableInsert
-  - ExecHashJoinImpl
-  - tqueueReceiveSlot
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
+  - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md)
 
 ## Notes and Other Information
 - MinimalTuples are more compact than HeapTuples, making them suitable for memory-intensive operations

@@ -27,16 +27,16 @@ The function uses sophisticated block list management to maintain performance by
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkGetBlock
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - SlabBlockIsValid
-  - sentinel_ok (debug builds)
-  - SlabBlocklistIndex
-  - dlist_delete_from
-  - dlist_push_head
-  - SlabFindNextBlockListIndex
-  - dclist_count
-  - dclist_push_head
-  - wipe_mem (debug builds)
+  - [sentinel_ok](../s/sentinel_ok.md) (debug builds)
+  - [SlabBlocklistIndex](SlabBlocklistIndex.md)
+  - [dlist_delete_from](../d/dlist_delete_from.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [SlabFindNextBlockListIndex](SlabFindNextBlockListIndex.md)
+  - [dclist_count](../d/dclist_count.md)
+  - [dclist_push_head](../d/dclist_push_head.md)
+  - [wipe_mem](../w/wipe_mem.md) (debug builds)
 - Called from (representative examples):
   - Memory context free operations
   - Slab context cleanup routines

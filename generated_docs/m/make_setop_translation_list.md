@@ -28,12 +28,12 @@ This translation mechanism is essential for PostgreSQL's append relation optimiz
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - makeVarFromTargetEntry
   - lappend
   - lfirst (macro for list traversal)
 - Called from (representative examples):
-  - pull_up_union_leaf_queries
+  - [pull_up_union_leaf_queries](../p/pull_up_union_leaf_queries.md)
 
 ## Notes and Other Information
 - The function is static, limiting its scope to the prepjointree.c compilation unit

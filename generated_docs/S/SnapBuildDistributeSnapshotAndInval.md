@@ -31,13 +31,13 @@ The invalidation message distribution ensures that cached catalog information is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_iter, dlist_foreach, dlist_container (doubly-linked list operations)
-  - ReorderBufferTXN (transaction structure)
-  - ReorderBufferXidHasBaseSnapshot
+  - [dlist_iter](../d/dlist_iter.md), dlist_foreach, dlist_container (doubly-linked list operations)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (transaction structure)
+  - [ReorderBufferXidHasBaseSnapshot](../R/ReorderBufferXidHasBaseSnapshot.md)
   - rbtxn_prepared, rbtxn_skip_prepared (transaction state checks)
-  - SnapBuildSnapIncRefcount
+  - [SnapBuildSnapIncRefcount](SnapBuildSnapIncRefcount.md)
   - ReorderBufferAddSnapshot
-  - ReorderBufferGetInvalidations
+  - [ReorderBufferGetInvalidations](../R/ReorderBufferGetInvalidations.md)
   - ReorderBufferAddDistributedInvalidations
   - SharedInvalidationMessage (invalidation message structure)
 - Called from (representative examples):

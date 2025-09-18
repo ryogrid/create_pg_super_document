@@ -23,11 +23,11 @@ When a matching integer is found, the cell is removed using `list_delete_cell()`
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList (macro for type checking)
-  - check_list_invariants
+  - [check_list_invariants](../c/check_list_invariants.md)
   - lfirst_int (macro to extract integer from list cell)
-  - list_delete_cell
+  - [list_delete_cell](list_delete_cell.md)
 - Called from (representative examples):
-  - reorder_grouping_sets (src/backend/optimizer/plan/planner.c:3213)
+  - [reorder_grouping_sets](../r/reorder_grouping_sets.md) (src/backend/optimizer/plan/planner.c:3213)
 
 ## Notes and Other Information
 - Only works with integer lists (IntList), not pointer or OID lists

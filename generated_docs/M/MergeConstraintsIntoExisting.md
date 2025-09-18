@@ -32,26 +32,26 @@ The function uses an O(N^2) algorithm but is considered acceptable for typical c
 - Functions called/Symbols referenced:
   - table_open
   - RelationGetRelid
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - GETSTRUCT
   - NameStr
   - strcmp
-  - constraints_equivalent
-  - heap_copytuple
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [constraints_equivalent](../c/constraints_equivalent.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
   - ereport
   - RelationGetRelationName
   - RelationGetDescr
   - Form_pg_constraint
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - CONSTRAINT_CHECK
 - Called from (representative examples):
-  - CreateInheritance
+  - [CreateInheritance](../C/CreateInheritance.md)
   - child_dependency_type
 
 ## Notes and Other Information

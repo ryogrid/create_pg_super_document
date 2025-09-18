@@ -28,13 +28,13 @@ This function analyzes tuples on both sides of a GiST split to find those that h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (structure type)
-  - GISTENTRY (structure type)
-  - GistSplitVector (structure type)
+  - [GISTSTATE](../G/GISTSTATE.md) (structure type)
+  - [GISTENTRY](../G/GISTENTRY.md) (structure type)
+  - [GistSplitVector](../G/GistSplitVector.md) (structure type)
   - gistentryinit (initializes GISTENTRY structures)
-  - gistpenalty (computes penalty for adding a tuple to a union)
+  - [gistpenalty](../g/gistpenalty.md) (computes penalty for adding a tuple to a union)
 - Called from:
-  - gistUserPicksplit (at src/backend/access/gist/gistsplit.c:506)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md) (at src/backend/access/gist/gistsplit.c:506)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistsplit.c file

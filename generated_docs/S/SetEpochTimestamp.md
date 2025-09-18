@@ -17,17 +17,17 @@ SetEpochTimestamp is a utility function that creates and returns a Timestamp val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetEpochTime: Retrieves the epoch time in broken-down format
-  - tm2timestamp: Converts broken-down time to PostgreSQL Timestamp format
+  - [GetEpochTime](../G/GetEpochTime.md): Retrieves the epoch time in broken-down format
+  - [tm2timestamp](../t/tm2timestamp.md): Converts broken-down time to PostgreSQL Timestamp format
   - Timestamp: PostgreSQL's internal timestamp data type
-  - pg_tm: PostgreSQL's time structure similar to struct tm
+  - [pg_tm](../p/pg_tm.md): PostgreSQL's time structure similar to struct tm
 
 - Called from (representative examples):
-  - timestamp_in: Used for parsing timestamp input
-  - timestamptz_in: Used for parsing timestamptz input  
-  - timestamp_part_common: Used in EXTRACT operations
-  - timestamptz_part_common: Used in EXTRACT operations for timestamptz
-  - PGTYPEStimestamp_from_asc: Used in ECPG library for timestamp parsing
+  - [timestamp_in](../t/timestamp_in.md): Used for parsing timestamp input
+  - [timestamptz_in](../t/timestamptz_in.md): Used for parsing timestamptz input  
+  - [timestamp_part_common](../t/timestamp_part_common.md): Used in EXTRACT operations
+  - [timestamptz_part_common](../t/timestamptz_part_common.md): Used in EXTRACT operations for timestamptz
+  - [PGTYPEStimestamp_from_asc](../P/PGTYPEStimestamp_from_asc.md): Used in ECPG library for timestamp parsing
 
 ## Notes and Other Information
 - This function is primarily used as a reference point for timestamp calculations and conversions

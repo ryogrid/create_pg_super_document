@@ -21,16 +21,16 @@ The function handles complex relationships between operator classes and their co
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer/destroyPQExpBuffer (for SQL statement building)
-  - appendPQExpBuffer/appendPQExpBufferStr/resetPQExpBuffer (for statement construction)
-  - ExecuteSqlQueryForSingleRow/ExecuteSqlQuery (for catalog queries)
-  - PQfnumber/PQgetvalue/PQntuples/PQclear (for result processing)
-  - pg_strdup/free (for memory management)
-  - fmtId/fmtQualifiedDumpable (for identifier formatting)
-  - binary_upgrade_extension_member (for binary upgrade support)
-  - ArchiveEntry (to register dump entry)
-  - dumpComment (to handle operator class comments)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr/resetPQExpBuffer (for statement construction)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)/ExecuteSqlQuery (for catalog queries)
+  - [PQfnumber](../P/PQfnumber.md)/PQgetvalue/PQntuples/PQclear (for result processing)
+  - [pg_strdup](../p/pg_strdup.md)/free (for memory management)
+  - [fmtId](../f/fmtId.md)/fmtQualifiedDumpable (for identifier formatting)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md) (for binary upgrade support)
+  - [ArchiveEntry](../A/ArchiveEntry.md) (to register dump entry)
+  - [dumpComment](dumpComment.md) (to handle operator class comments)
 - Called from (representative examples):
-  - dumpDumpableObject (as part of general object dumping)
+  - [dumpDumpableObject](dumpDumpableObject.md) (as part of general object dumping)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

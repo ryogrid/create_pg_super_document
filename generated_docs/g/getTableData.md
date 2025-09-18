@@ -25,13 +25,13 @@ This is a key initialization function in the pg_dump process that bridges the ga
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpOptions (structure type)
-  - TableInfo (structure type)  
-  - makeTableDataInfo
+  - [TableInfo](../T/TableInfo.md) (structure type)  
+  - [makeTableDataInfo](../m/makeTableDataInfo.md)
   - DUMP_COMPONENT_DATA (flag constant)
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:292)
-  - main (src/bin/pg_dump/pg_dump.c:960)
-  - main (src/bin/pg_dump/pg_dump.c:967)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:960)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:967)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c

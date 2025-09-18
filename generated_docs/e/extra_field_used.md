@@ -25,7 +25,7 @@ This function is essential for memory management in the GUC system, ensuring tha
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM (GUC variable type constants)
   - config_bool, config_int, config_real, config_string, config_enum (type-specific structures)
 - Called from (representative examples):
-  - set_extra_field
+  - [set_extra_field](../s/set_extra_field.md)
   - newval (in configuration validation contexts)
 
 ## Notes and Other Information

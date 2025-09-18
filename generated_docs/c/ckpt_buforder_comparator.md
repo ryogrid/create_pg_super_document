@@ -31,7 +31,7 @@ This ordering strategy optimizes I/O performance by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CkptSortItem (type)
+  - [CkptSortItem](../C/CkptSortItem.md) (type)
 - Called from (representative examples):
   - BufferIsPinned (checkpoint sorting operations)
 

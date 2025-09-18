@@ -22,22 +22,22 @@ This internal function implements the mathematical set union operation between t
 - Functions called/Symbols referenced:
   - RangeBound
   - RangeTypeGetOid
-  - range_deserialize
-  - range_overlaps_internal
-  - range_adjacent_internal
-  - range_cmp_bounds
-  - make_range
-  - DatumGetBool
+  - [range_deserialize](range_deserialize.md)
+  - [range_overlaps_internal](range_overlaps_internal.md)
+  - [range_adjacent_internal](range_adjacent_internal.md)
+  - [range_cmp_bounds](range_cmp_bounds.md)
+  - [make_range](../m/make_range.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
 - Called from (representative examples):
-  - range_union
-  - range_merge
-  - multirange_canonicalize
+  - [range_union](range_union.md)
+  - [range_merge](range_merge.md)
+  - [multirange_canonicalize](../m/multirange_canonicalize.md)
   - RANGESTRAT_EQ
 
 ## Notes and Other Information
 - Returns the other range unchanged if either input range is empty
 - In strict mode, throws DATA_EXCEPTION if ranges are neither overlapping nor adjacent
 - Validates that both ranges have the same type before processing
-- Result bounds are computed by taking the minimum of lower bounds and maximum of upper bounds
+- [Result](../R/Result.md) bounds are computed by taking the minimum of lower bounds and maximum of upper bounds
 - Essential component for range union operations and multirange canonicalization
 - Used internally by other range operations that need union functionality

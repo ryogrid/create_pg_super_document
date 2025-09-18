@@ -27,8 +27,8 @@ This structure is a PostgreSQL-specific replacement for the Windows API REPARSE_
   - FLEXIBLE_ARRAY_MEMBER (macro)
   - Windows API types: DWORD, WORD, WCHAR
 - Called from (representative examples):
-  - pgsymlink (src/port/dirmod.c:223, 226)
-  - pgreadlink (src/port/dirmod.c:313, 314)
+  - [pgsymlink](../p/pgsymlink.md) (src/port/dirmod.c:223, 226)
+  - [pgreadlink](../p/pgreadlink.md) (src/port/dirmod.c:313, 314)
   - REPARSE_JUNCTION_DATA_BUFFER_HEADER_SIZE (macro definition)
 
 ## Notes and Other Information

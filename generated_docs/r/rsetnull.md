@@ -20,19 +20,19 @@ The function always returns 0, indicating successful execution. The actual NULL-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGset_noind_null
+  - [ECPGset_noind_null](../E/ECPGset_noind_null.md)
 - Called from (representative examples):
-  - deccall3
-  - deccvasc 
-  - deccvdbl
-  - deccvint
-  - deccvlong
-  - dectoasc
+  - [deccall3](../d/deccall3.md)
+  - [deccvasc](../d/deccvasc.md) 
+  - [deccvdbl](../d/deccvdbl.md)
+  - [deccvint](../d/deccvint.md)
+  - [deccvlong](../d/deccvlong.md)
+  - [dectoasc](../d/dectoasc.md)
   - Various test functions in the ECPG test suite
 
 ## Notes and Other Information
 - This function is declared in 
 - It's part of the Informix compatibility layer, allowing existing Informix applications to be more easily ported to PostgreSQL
 - The function is used extensively in decimal/numeric conversion functions and test cases
-- Always returns 0 (success) - error handling is managed by the underlying ECPG library functions
+- Always returns 0 (success) - [error](../e/error.md) handling is managed by the underlying ECPG library functions
 - Works in conjunction with  which checks if a value is NULL

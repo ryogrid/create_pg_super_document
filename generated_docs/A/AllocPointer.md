@@ -22,7 +22,7 @@ AllocPointer is a simple typedef that wraps a void pointer to represent aligned 
 - Functions called/Symbols referenced:
   - void* (standard C pointer type)
 - Called from (representative examples):
-  - AllocSetRealloc (uses AllocPointer for memory reallocation operations)
+  - [AllocSetRealloc](AllocSetRealloc.md) (uses AllocPointer for memory reallocation operations)
 
 ## Notes and Other Information
 - Part of PostgreSQL's allocation set memory management system

@@ -25,19 +25,19 @@ The function uses a stack-based approach to track the hierarchical path through 
   - PG_GETARG_JSONB_P
   - PG_GETARG_POINTER
   - JB_ROOT_COUNT
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - JsonbHashScalarValue
-  - init_gin_entries
-  - add_gin_entry
-  - UInt32GetDatum
-  - palloc
-  - pfree
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md)
+  - [init_gin_entries](../i/init_gin_entries.md)
+  - [add_gin_entry](../a/add_gin_entry.md)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md)
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - elog
   - PG_RETURN_POINTER
 - Types and constants:
   - JsonbIterator
-  - JsonbValue
+  - [JsonbValue](../J/JsonbValue.md)
   - JsonbIteratorToken
   - PathHashStack
   - GinEntries
@@ -45,7 +45,7 @@ The function uses a stack-based approach to track the hierarchical path through 
   - WJB_KEY, WJB_ELEM, WJB_VALUE
   - WJB_END_ARRAY, WJB_END_OBJECT
 - Called from:
-  - gin_extract_jsonb_query_path (for query processing)
+  - [gin_extract_jsonb_query_path](gin_extract_jsonb_query_path.md) (for query processing)
 
 ## Notes and Other Information
 - Specifically designed for jsonb_path_ops opclass, not the standard jsonb_ops

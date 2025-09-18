@@ -23,8 +23,8 @@ The SYSCACHECALLBACK structure is part of PostgreSQL's cache invalidation system
   - MAX_SYSCACHE_CALLBACKS (constant defining array size)
   - SyscacheCallbackFunction (callback function type)
 - Called from (representative examples):
-  - InvalidateSystemCachesExtended (iterates through callback list and invokes functions)
-  - CallSyscacheCallbacks (processes callbacks for specific cache invalidation)
+  - [InvalidateSystemCachesExtended](../I/InvalidateSystemCachesExtended.md) (iterates through callback list and invokes functions)
+  - [CallSyscacheCallbacks](../C/CallSyscacheCallbacks.md) (processes callbacks for specific cache invalidation)
 
 ## Notes and Other Information
 - The structure is declared as static, limiting its visibility to the inval.c file

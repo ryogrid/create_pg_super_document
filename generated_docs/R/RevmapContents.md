@@ -31,11 +31,11 @@ Each ItemPointerData in the array points to a BRIN tuple that summarizes a speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (PostgreSQL item pointer type)
+  - [ItemPointerData](../I/ItemPointerData.md) (PostgreSQL item pointer type)
 - Called from (representative examples):
-  - brinSetHeapBlockItemptr (in brin_revmap.c:158, 164)
-  - brinGetTupleForHeapBlock (in brin_revmap.c:199, 239)
-  - brinRevmapDesummarizeRange (in brin_revmap.c:327, 354)
+  - [brinSetHeapBlockItemptr](../b/brinSetHeapBlockItemptr.md) (in brin_revmap.c:158, 164)
+  - [brinGetTupleForHeapBlock](../b/brinGetTupleForHeapBlock.md) (in brin_revmap.c:199, 239)
+  - [brinRevmapDesummarizeRange](../b/brinRevmapDesummarizeRange.md) (in brin_revmap.c:327, 354)
   - REVMAP_CONTENT_SIZE (in brin_page.h:90)
 
 ## Notes and Other Information

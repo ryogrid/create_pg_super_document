@@ -25,14 +25,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - merge_map_updates (called twice - once for shared updates, once for local updates)
+  - [merge_map_updates](../m/merge_map_updates.md) (called twice - once for shared updates, once for local updates)
 - Global variables accessed:
   - pending_shared_updates (static RelMapFile structure)
   - pending_local_updates (static RelMapFile structure) 
   - active_shared_updates (static RelMapFile structure)
   - active_local_updates (static RelMapFile structure)
 - Called from (representative examples):
-  - AtCCI_LocalCache (in src/backend/access/transam/xact.c)
+  - [AtCCI_LocalCache](AtCCI_LocalCache.md) (in src/backend/access/transam/xact.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's relation mapping infrastructure that handles the special case of "mapped catalogs" like pg_class itself

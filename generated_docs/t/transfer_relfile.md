@@ -26,16 +26,16 @@ The function includes error handling for missing files (which is acceptable for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - unlink
-  - pg_log
-  - rewriteVisibilityMap
-  - cloneFile
-  - copyFile
-  - copyFileByRange
-  - linkFile
+  - [pg_log](../p/pg_log.md)
+  - [rewriteVisibilityMap](../r/rewriteVisibilityMap.md)
+  - [cloneFile](../c/cloneFile.md)
+  - [copyFile](../c/copyFile.md)
+  - [copyFileByRange](../c/copyFileByRange.md)
+  - [linkFile](../l/linkFile.md)
   - TRANSFER_MODE_CLONE, TRANSFER_MODE_COPY, TRANSFER_MODE_COPY_FILE_RANGE, TRANSFER_MODE_LINK
   - PG_STATUS, PG_VERBOSE
 - Called from (representative examples):
-  - transfer_single_new_db
+  - [transfer_single_new_db](transfer_single_new_db.md)
 
 ## Notes and Other Information
 - The function processes all segments of a relation file in a loop, stopping when no more segments exist

@@ -34,11 +34,11 @@ For complex path types like ProjectionPath, the function recursively checks the 
 - Functions called/Symbols referenced:
   - castNode (safe type casting)
   - IsA (type checking)
-  - ExecSupportsMarkRestore (recursive calls)
+  - [ExecSupportsMarkRestore](ExecSupportsMarkRestore.md) (recursive calls)
   - linitial (list access)
   - list_length (list operations)
 - Called from (representative examples):
-  - final_cost_mergejoin (merge join costing)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md) (merge join costing)
   - Recursive self-calls for complex path analysis
 
 ## Notes and Other Information
@@ -48,4 +48,4 @@ For complex path types like ProjectionPath, the function recursively checks the 
 - Single-subpath Append and MergeAppend nodes will be optimized away during plan creation, so their mark/restore support is determined by their single child
 - The function returns false for any unrecognized path types, providing conservative behavior
 - Custom scan providers must explicitly set the CUSTOMPATH_SUPPORT_MARK_RESTORE flag to indicate support
-- Result nodes with multiple path types (ProjectionPath, MinMaxAggPath, GroupResultPath) have different support characteristics
+- [Result](../R/Result.md) nodes with multiple path types (ProjectionPath, MinMaxAggPath, GroupResultPath) have different support characteristics

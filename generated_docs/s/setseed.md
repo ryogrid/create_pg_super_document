@@ -26,7 +26,7 @@ The function validates that the input seed falls within the acceptable range of 
   - `pg_prng_fseed` - Seeds the PRNG with a floating-point value
   - `PG_RETURN_VOID` - Returns void from PostgreSQL function
 - Called from:
-  - `assign_random_seed` - Assignment function for random_seed GUC variable
+  - `[assign_random_seed](../a/assign_random_seed.md)` - Assignment function for random_seed GUC variable
 
 ## Notes and Other Information
 - This is a PostgreSQL SQL-callable function that follows the PG function interface conventions

@@ -20,7 +20,7 @@ This function serves as a type-safe wrapper for converting PostgreSQL Datum valu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (macro for simple pointer extraction)
+  - [DatumGetPointer](DatumGetPointer.md) (macro for simple pointer extraction)
   - LINE (geometric data type for infinite lines)
 - Called from (representative examples):
   - PG_GETARG_LINE_P (macro for function argument extraction)

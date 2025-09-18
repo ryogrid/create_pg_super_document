@@ -136,9 +136,9 @@ The RelationData struct contains numerous fields organized by functionality:
   - Lock management structures (LockInfoData)
 
 - Called from (representative examples):
-  - AllocateRelationDesc (src/backend/utils/cache/relcache.c:421)
-  - RelationBuildLocalRelation (src/backend/utils/cache/relcache.c:3593)
-  - formrdesc (src/backend/utils/cache/relcache.c:1886)
+  - [AllocateRelationDesc](../A/AllocateRelationDesc.md) (src/backend/utils/cache/relcache.c:421)
+  - [RelationBuildLocalRelation](RelationBuildLocalRelation.md) (src/backend/utils/cache/relcache.c:3593)
+  - [formrdesc](../f/formrdesc.md) (src/backend/utils/cache/relcache.c:1886)
   - XLogReadBufferExtended (src/backend/access/transam/xlogutils.c:561)
 
 ## Notes and Other Information

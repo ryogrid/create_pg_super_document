@@ -27,16 +27,16 @@ The function handles the case where the requested statistics data may not exist 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_statistic_ext_data
-  - SearchSysCache2
-  - statext_is_kind_built
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [statext_is_kind_built](../s/statext_is_kind_built.md)
   - StatisticExtInfo
-  - bms_copy
+  - [bms_copy](../b/bms_copy.md)
   - STATS_EXT_NDISTINCT
   - STATS_EXT_DEPENDENCIES
   - STATS_EXT_MCV
   - STATS_EXT_EXPRESSIONS
 - Called from (representative examples):
-  - get_relation_statistics
+  - [get_relation_statistics](get_relation_statistics.md)
 
 ## Notes and Other Information
 - This is a static helper function, not part of the external API

@@ -22,9 +22,9 @@ This function determines if a role has the CREATEROLE privilege, which allows cr
   - superuser_arg
   - Form_pg_authid
 - Called from (representative examples):
-  - check_object_ownership
-  - have_createrole_privilege
-  - CreateRole
+  - [check_object_ownership](../c/check_object_ownership.md)
+  - [have_createrole_privilege](have_createrole_privilege.md)
+  - [CreateRole](../C/CreateRole.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/aclchk.c:4228-4246

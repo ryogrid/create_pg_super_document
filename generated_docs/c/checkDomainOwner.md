@@ -22,18 +22,18 @@ The function operates on a heap tuple from the pg_type catalog, extracting the t
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (extract struct from heap tuple)
-  - format_type_be (format type name for error messages)
-  - object_ownercheck (verify ownership privileges)
-  - GetUserId (get current user ID)
-  - aclcheck_error_type (report access control errors)
+  - [format_type_be](../f/format_type_be.md) (format type name for error messages)
+  - [object_ownercheck](../o/object_ownercheck.md) (verify ownership privileges)
+  - [GetUserId](../G/GetUserId.md) (get current user ID)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md) (report access control errors)
   - ereport (error reporting)
 - Called from:
-  - AlterDomainDefault (when changing domain default values)
-  - AlterDomainNotNull (when modifying NOT NULL constraints)
-  - AlterDomainAddConstraint (when adding check constraints)
-  - AlterDomainDropConstraint (when removing constraints)
-  - AlterDomainValidateConstraint (when validating constraints)
-  - RenameConstraint (when renaming domain constraints)
+  - [AlterDomainDefault](../A/AlterDomainDefault.md) (when changing domain default values)
+  - [AlterDomainNotNull](../A/AlterDomainNotNull.md) (when modifying NOT NULL constraints)
+  - [AlterDomainAddConstraint](../A/AlterDomainAddConstraint.md) (when adding check constraints)
+  - [AlterDomainDropConstraint](../A/AlterDomainDropConstraint.md) (when removing constraints)
+  - [AlterDomainValidateConstraint](../A/AlterDomainValidateConstraint.md) (when validating constraints)
+  - [RenameConstraint](../R/RenameConstraint.md) (when renaming domain constraints)
 
 ## Notes and Other Information
 - Essential security function that prevents unauthorized domain modifications

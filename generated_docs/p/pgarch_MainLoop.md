@@ -27,14 +27,14 @@ The loop continues until either the postmaster dies or a graceful shutdown is re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResetLatch (clear the latch state)
-  - HandlePgArchInterrupts (process barrier events and config updates)
-  - pgarch_ArchiverCopyLoop (perform actual archiving work)
-  - WaitLatch (wait for signals or timeout)
+  - [ResetLatch](../R/ResetLatch.md) (clear the latch state)
+  - [HandlePgArchInterrupts](../H/HandlePgArchInterrupts.md) (process barrier events and config updates)
+  - [pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md) (perform actual archiving work)
+  - [WaitLatch](../W/WaitLatch.md) (wait for signals or timeout)
   - WL_LATCH_SET, WL_TIMEOUT, WL_POSTMASTER_DEATH (wait event flags)
   - PGARCH_AUTOWAKE_INTERVAL (60-second timeout constant)
 - Called from (representative examples):
-  - PgArchiverMain (main archiver entry point)
+  - [PgArchiverMain](../P/PgArchiverMain.md) (main archiver entry point)
 
 ## Notes and Other Information
 - This is a static function internal to the pgarch.c module

@@ -21,7 +21,7 @@ For stop and shutdown requests, it sets a wait hint of 10 seconds, updates the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_SetServiceStatus
+  - [pgwin32_SetServiceStatus](pgwin32_SetServiceStatus.md)
   - SetEvent (Windows API)
   - kill (signal function)
 - Uses global variables:

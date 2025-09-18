@@ -19,10 +19,10 @@ The function serves as the standard interface for releasing cache references wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCatCacheWithOwner
+  - [ReleaseCatCacheWithOwner](ReleaseCatCacheWithOwner.md)
   - CurrentResourceOwner
 - Called from (representative examples):
-  - ReleaseSysCache
+  - [ReleaseSysCache](ReleaseSysCache.md)
   - CatCacheHeader
 
 ## Notes and Other Information

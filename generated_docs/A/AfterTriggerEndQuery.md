@@ -21,18 +21,18 @@ The function processes events in a loop to handle cases where trigger functions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggersQueryData (struct type)
-  - afterTriggerMarkEvents (marks events for processing)
+  - [AfterTriggersQueryData](AfterTriggersQueryData.md) (struct type)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md) (marks events for processing)
   - CommandId (type for firing counter)
-  - AfterTriggerEventChunk (event storage structure)
-  - afterTriggerInvokeEvents (executes trigger events)
-  - afterTriggerDeleteHeadEventChunk (memory cleanup)
-  - AfterTriggerFreeQuery (releases query-level resources)
+  - [AfterTriggerEventChunk](AfterTriggerEventChunk.md) (event storage structure)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md) (executes trigger events)
+  - [afterTriggerDeleteHeadEventChunk](../a/afterTriggerDeleteHeadEventChunk.md) (memory cleanup)
+  - [AfterTriggerFreeQuery](AfterTriggerFreeQuery.md) (releases query-level resources)
 - Called from:
-  - CopyFrom (in src/backend/commands/copyfrom.c:1327)
-  - ExecuteTruncateGuts (in src/backend/commands/tablecmds.c:2279)
-  - standard_ExecutorFinish (in src/backend/executor/execMain.c:437)
-  - finish_edata (in src/backend/replication/logical/worker.c:716)
+  - [CopyFrom](../C/CopyFrom.md) (in src/backend/commands/copyfrom.c:1327)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (in src/backend/commands/tablecmds.c:2279)
+  - [standard_ExecutorFinish](../s/standard_ExecutorFinish.md) (in src/backend/executor/execMain.c:437)
+  - [finish_edata](../f/finish_edata.md) (in src/backend/replication/logical/worker.c:716)
 
 ## Notes and Other Information
 - Must be called BEFORE ExecutorEnd to access EState information about target relations

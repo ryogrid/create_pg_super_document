@@ -23,7 +23,7 @@ This function is essential for page traversal operations, space management, and 
 - Functions called/Symbols referenced:
   - PageHeader (type cast for accessing page header)
   - SizeOfPageHeaderData (constant defining page header size)
-  - ItemIdData (structure size used in calculation)
+  - [ItemIdData](../I/ItemIdData.md) (structure size used in calculation)
 - Called from (representative examples):
   - heap operations (heapgettup_continue_page, heap_fetch, heap_insert)
   - B-tree operations (_bt_binsrch, _bt_readpage, _bt_split)

@@ -25,11 +25,11 @@ The function includes error handling for both unrecognized options (which genera
 ## Dependencies
 - Functions called/Symbols referenced:
   - foreach_ptr
-  - defGetBoolean
+  - [defGetBoolean](../d/defGetBoolean.md)
   - ereport (for error handling)
   - elog (for error handling)
 - Called from (representative examples):
-  - AlterReplicationSlot
+  - [AlterReplicationSlot](../A/AlterReplicationSlot.md)
 
 ## Notes and Other Information
 - Currently only supports the "failover" option, but designed to be extensible for future options

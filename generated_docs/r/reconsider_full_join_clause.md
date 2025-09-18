@@ -24,18 +24,18 @@ The optimization is valid because if both sides can be constrained to the same c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_make_singleton (creates singleton relation bitmap for full join)
-  - is_opclause, op_input_types, get_leftop, get_rightop (clause analysis functions)
-  - select_equality_operator (finds suitable equality operators for both sides)
-  - build_implied_join_equality (constructs new RestrictInfo clauses)
-  - find_join_domain (locates appropriate join domains for left and right sides)
-  - process_equivalence (processes new equivalence relationships)
-  - remove_nulling_relids (strips nulling effects from COALESCE arguments)
-  - list_delete_nth_cell (removes COALESCE member from equivalence class)
-  - equal (tests expression equality)
+  - [bms_make_singleton](../b/bms_make_singleton.md) (creates singleton relation bitmap for full join)
+  - [is_opclause](../i/is_opclause.md), op_input_types, get_leftop, get_rightop (clause analysis functions)
+  - [select_equality_operator](../s/select_equality_operator.md) (finds suitable equality operators for both sides)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (constructs new RestrictInfo clauses)
+  - [find_join_domain](../f/find_join_domain.md) (locates appropriate join domains for left and right sides)
+  - [process_equivalence](../p/process_equivalence.md) (processes new equivalence relationships)
+  - [remove_nulling_relids](remove_nulling_relids.md) (strips nulling effects from COALESCE arguments)
+  - [list_delete_nth_cell](../l/list_delete_nth_cell.md) (removes COALESCE member from equivalence class)
+  - [equal](../e/equal.md) (tests expression equality)
   - foreach_current_index (tracks COALESCE member position)
 - Called from (representative examples):
-  - reconsider_outer_join_clauses (main outer join processing loop)
+  - [reconsider_outer_join_clauses](reconsider_outer_join_clauses.md) (main outer join processing loop)
 
 ## Notes and Other Information
 - Returns true only if both left and right variables can be successfully constrained to constants

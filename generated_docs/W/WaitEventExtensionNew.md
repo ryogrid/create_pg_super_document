@@ -21,13 +21,13 @@ Extensions can use the returned wait event ID to monitor specific waiting condit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventCustomNew (underlying custom wait event creation function)
+  - [WaitEventCustomNew](WaitEventCustomNew.md) (underlying custom wait event creation function)
   - PG_WAIT_EXTENSION (wait event class constant for extensions)
 
 - Called from (representative examples):
-  - wait_for_workers_to_become_ready (in src/test/modules/test_shm_mq/setup.c:286)
-  - test_shm_mq_pipelined (in src/test/modules/test_shm_mq/test.c:233)
-  - worker_spi_main (in src/test/modules/worker_spi/worker_spi.c:216)
+  - [wait_for_workers_to_become_ready](../w/wait_for_workers_to_become_ready.md) (in src/test/modules/test_shm_mq/setup.c:286)
+  - [test_shm_mq_pipelined](../t/test_shm_mq_pipelined.md) (in src/test/modules/test_shm_mq/test.c:233)
+  - [worker_spi_main](../w/worker_spi_main.md) (in src/test/modules/worker_spi/worker_spi.c:216)
   - PG_WAIT_INJECTIONPOINT (in src/include/utils/wait_event.h:58)
 
 ## Notes and Other Information

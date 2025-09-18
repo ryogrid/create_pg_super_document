@@ -31,18 +31,18 @@ This function implements view expansion by taking an ON SELECT rule and transfor
 - Functions called/Symbols referenced:
   - copyObject
   - rt_fetch
-  - ChangeVarNodes
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
   - makeWholeRowVar
-  - makeTargetEntry
-  - get_parse_rowmark
-  - AcquireRewriteLocks
-  - markQueryForLocking
-  - fireRIRrules
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [get_parse_rowmark](../g/get_parse_rowmark.md)
+  - [AcquireRewriteLocks](AcquireRewriteLocks.md)
+  - [markQueryForLocking](../m/markQueryForLocking.md)
+  - [fireRIRrules](../f/fireRIRrules.md)
   - RelationIsSecurityView
-  - ExecCleanTargetListLength
-  - makeString
+  - [ExecCleanTargetListLength](../E/ExecCleanTargetListLength.md)
+  - [makeString](../m/makeString.md)
 - Called from:
-  - fireRIRrules
+  - [fireRIRrules](../f/fireRIRrules.md)
 
 ## Notes and Other Information
 - Only handles single-action ON SELECT rules without qualifications

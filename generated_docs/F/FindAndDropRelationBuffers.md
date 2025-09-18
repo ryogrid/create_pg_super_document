@@ -22,24 +22,24 @@ FindAndDropRelationBuffers implements an optimized approach to buffer removal by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitBufferTag
-  - BufTableHashCode
-  - BufMappingPartitionLock
+  - [InitBufferTag](../I/InitBufferTag.md)
+  - [BufTableHashCode](../B/BufTableHashCode.md)
+  - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md)
   - LWLockAcquire
-  - BufTableLookup
+  - [BufTableLookup](../B/BufTableLookup.md)
   - LWLockRelease
-  - GetBufferDescriptor
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - LockBufHdr
-  - BufTagMatchesRelFileLocator
-  - BufTagGetForkNum
-  - InvalidateBuffer
-  - UnlockBufHdr
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BufferTag (type)
-  - LWLock (type)
-  - BufferDesc (type)
+  - [LWLock](../L/LWLock.md) (type)
+  - [BufferDesc](../B/BufferDesc.md) (type)
 - Called from (representative examples):
-  - DropRelationBuffers
-  - DropRelationsAllBuffers
+  - [DropRelationBuffers](../D/DropRelationBuffers.md)
+  - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md)
 
 ## Notes and Other Information
 - Static function - only used internally within bufmgr.c

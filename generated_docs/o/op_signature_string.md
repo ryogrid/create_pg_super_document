@@ -22,17 +22,17 @@ The function handles both unary and binary operators by checking the validity of
 ## Dependencies
 - Functions called/Symbols referenced:
   - initStringInfo
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - appendStringInfo
-  - NameListToString
+  - [NameListToString](../N/NameListToString.md)
   - appendStringInfoString
 - Called from (representative examples):
-  - ValidateOperatorReference
-  - LookupOperName
-  - compatible_oper
-  - op_error
-  - make_op
-  - make_scalar_array_op
+  - [ValidateOperatorReference](../V/ValidateOperatorReference.md)
+  - [LookupOperName](../L/LookupOperName.md)
+  - [compatible_oper](../c/compatible_oper.md)
+  - [op_error](op_error.md)
+  - [make_op](../m/make_op.md)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string buffer that should be freed by the caller

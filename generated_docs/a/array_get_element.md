@@ -34,7 +34,7 @@ The `array_get_element` function is a core array access routine that retrieves a
 ## Dependencies
 - Functions called/Symbols referenced:
   - `VARATT_IS_EXTERNAL_EXPANDED`: Checks if array is in expanded format
-  - `array_get_element_expanded`: Handles expanded arrays
+  - `[array_get_element_expanded](array_get_element_expanded.md)`: Handles expanded arrays
   - `DatumGetArrayTypeP`: Converts datum to ArrayType pointer
   - `ARR_NDIM`, `ARR_DIMS`, `ARR_LBOUND`: Array metadata accessors
   - `ARR_DATA_PTR`, `ARR_NULLBITMAP`: Array data accessors
@@ -43,10 +43,10 @@ The `array_get_element` function is a core array access routine that retrieves a
   - `array_seek`: Seeks to element position in array data
   - `ArrayCast`: Casts array element data to Datum
 - Called from (representative examples):
-  - `array_ref`: Array reference operations
-  - `array_subscript_fetch`: Array subscripting operations
-  - `ATExecAlterColumnType`: Column type alteration
-  - `RelationBuildTupleDesc`: Tuple descriptor building
+  - `[array_ref](array_ref.md)`: Array reference operations
+  - `[array_subscript_fetch](array_subscript_fetch.md)`: Array subscripting operations
+  - `[ATExecAlterColumnType](../A/ATExecAlterColumnType.md)`: Column type alteration
+  - `[RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md)`: Tuple descriptor building
 
 ## Notes and Other Information
 - Returns (Datum) 0 with *isNull=true for invalid subscripts or NULL elements

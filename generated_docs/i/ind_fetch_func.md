@@ -21,7 +21,7 @@ The  function is a specialized fetch function used during index analysis operati
 - Functions called/Symbols referenced:
   - VacAttrStatsP (structure type)
 - Called from (representative examples):
-  - compute_index_stats
+  - [compute_index_stats](../c/compute_index_stats.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the analyze.c file

@@ -24,11 +24,11 @@ This function provides a standardized way to test index column properties that a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttrNotNull (retrieve indoptions from system cache)
-  - int2vector (data type for indoptions array)
-  - DatumGetPointer (convert Datum to pointer)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (retrieve indoptions from system cache)
+  - [int2vector](../i/int2vector.md) (data type for indoptions array)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (convert Datum to pointer)
 - Called from (representative examples):
-  - indexam_property (multiple calls for different property tests)
+  - [indexam_property](../i/indexam_property.md) (multiple calls for different property tests)
 
 ## Notes and Other Information
 - The function is static and only used within amutils.c

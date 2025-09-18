@@ -21,16 +21,16 @@ The  function implements inner tuple splitting as requested by the opclass choos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgFormNodeTuple
-  - spgFormInnerTuple  
-  - SpGistGetBuffer
-  - PageIndexTupleDelete
+  - [spgFormNodeTuple](spgFormNodeTuple.md)
+  - [spgFormInnerTuple](spgFormInnerTuple.md)  
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - PageAddItem
-  - SpGistPageAddNewItem
-  - spgUpdateNodeLink
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md)
+  - [spgUpdateNodeLink](spgUpdateNodeLink.md)
   - SGITITERATE
 - Called from (representative examples):
-  - spgdoinsert
+  - [spgdoinsert](spgdoinsert.md)
 
 ## Notes and Other Information
 The function validates that the opclass provided reasonable split parameters (valid node counts and child node numbers). It cannot be applied to nulls pages and includes special handling for root page splits where both tuples cannot fit on the same page. The postfix tuple inherits the allTheSame property from the original tuple. WAL logging ensures crash recovery capability, and the function manages page allocation using triple parity rules to maintain proper tree structure. The prefix tuple must not exceed the size of the original tuple to ensure it fits in the replacement location.

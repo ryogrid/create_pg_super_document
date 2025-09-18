@@ -28,7 +28,7 @@ The output format is a JSON-like structure where each entry shows the attribute 
   - appendStringInfo (appends formatted string to buffer)
   - PG_RETURN_CSTRING (macro to return C string as Datum)
 - Data types used:
-  - MVNDistinct (multivariate n-distinct statistics structure)
+  - [MVNDistinct](../M/MVNDistinct.md) (multivariate n-distinct statistics structure)
   - MVNDistinctItem (individual n-distinct item structure)
   - AttrNumber (attribute number type)
 - Called from:

@@ -22,14 +22,14 @@ This function calculates the total storage space needed for a relation by multip
   - SizeofHeapTupleHeader (constant for tuple header size)
 - Called from (representative examples):
   - cost_qual_eval_context
-  - cost_tuplesort
-  - cost_material
-  - cost_memoize_rescan
-  - cost_agg
-  - final_cost_mergejoin
-  - final_cost_hashjoin
-  - cost_rescan
-  - page_size
+  - [cost_tuplesort](../c/cost_tuplesort.md)
+  - [cost_material](../c/cost_material.md)
+  - [cost_memoize_rescan](../c/cost_memoize_rescan.md)
+  - [cost_agg](../c/cost_agg.md)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
+  - [cost_rescan](../c/cost_rescan.md)
+  - [page_size](../p/page_size.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the cost estimation module

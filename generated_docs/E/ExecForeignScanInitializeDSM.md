@@ -20,9 +20,9 @@ This function initializes the shared memory segment used for coordinating parall
 - Functions called/Symbols referenced:
   - shm_toc_allocate
   - shm_toc_insert
-  - FdwRoutine.InitializeDSMForeignScan (if available)
+  - [FdwRoutine](../F/FdwRoutine.md).InitializeDSMForeignScan (if available)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)
 
 ## Notes and Other Information
 - Only performs initialization if the foreign data wrapper provides an InitializeDSMForeignScan routine

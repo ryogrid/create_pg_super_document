@@ -17,23 +17,23 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcSignalShmemSize
-  - ShmemInitStruct
-  - pg_atomic_init_u64
-  - pg_atomic_init_u32
+  - [ProcSignalShmemSize](ProcSignalShmemSize.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)
   - MemSet
-  - ConditionVariableInit
+  - [ConditionVariableInit](../C/ConditionVariableInit.md)
   - ProcSignalHeader (type)
-  - ProcSignalSlot (type)
+  - [ProcSignalSlot](ProcSignalSlot.md) (type)
   - NumProcSignalSlots (variable)
   - PG_UINT64_MAX (constant)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Only the first process to call this function performs initialization (checked via 'found' flag)
 - Each slot is initialized with pss_pid=0 to indicate it's not in use
-- Barrier generation in slots is set to PG_UINT64_MAX to indicate no active barrier participation
+- [Barrier](../B/Barrier.md) generation in slots is set to PG_UINT64_MAX to indicate no active barrier participation
 - Uses atomic operations for thread-safe initialization of barrier-related fields
 - Critical component of PostgreSQL's startup sequence for shared memory setup
 - Located in src/backend/storage/ipc/procsignal.c:125-157

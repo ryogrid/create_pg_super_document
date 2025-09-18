@@ -26,7 +26,7 @@ The function sets the scan status to `SUBQUERY_SCAN_UNKNOWN` initially, indicati
   - SubqueryScan (node type)
   - SUBQUERY_SCAN_UNKNOWN (initial scan status constant)
 - Called from (representative examples):
-  - create_subqueryscan_plan
+  - [create_subqueryscan_plan](../c/create_subqueryscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's an internal helper for plan creation

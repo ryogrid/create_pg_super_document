@@ -23,14 +23,14 @@ This function serves as a safety net to prevent parallel context leaks that coul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
   - DestroyParallelContext
   - elog
 
 - Called from (representative examples):
-  - CommitTransaction
-  - AbortTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [AbortTransaction](AbortTransaction.md)
   - IsParallelWorker (referenced in header)
 
 ## Notes and Other Information

@@ -25,13 +25,13 @@ The saved argument state can later be restored using PLy_function_restore_args t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero (PostgreSQL memory allocation)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (PostgreSQL memory allocation)
   - PyDict_GetItemString (Python dictionary access)
   - Py_XINCREF (Python reference counting)
-  - PLySavedArgs structure for holding saved state
+  - [PLySavedArgs](PLySavedArgs.md) structure for holding saved state
 - Called from (representative examples):
-  - PLy_exec_function (for set-returning function iteration state)
-  - PLy_global_args_push (for recursive call management)
+  - [PLy_exec_function](PLy_exec_function.md) (for set-returning function iteration state)
+  - [PLy_global_args_push](PLy_global_args_push.md) (for recursive call management)
 
 ## Notes and Other Information
 - Addresses the legacy design where arguments are accessible via global variables in PL/Python

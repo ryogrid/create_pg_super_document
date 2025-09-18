@@ -30,13 +30,13 @@ The DO_DUMMY_TYPE classification is crucial for maintaining the correct dump ord
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTableByOid (locate table associated with rowtype)
-  - checkExtensionMembership (check if type belongs to extension)
+  - [findTableByOid](../f/findTableByOid.md) (locate table associated with rowtype)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md) (check if type belongs to extension)
   - DO_DUMMY_TYPE (special object type for dump ordering)
   - RELKIND_COMPOSITE_TYPE (relation kind constant)
   - DUMP_COMPONENT_NONE (dump component constant)
 - Called from (representative examples):
-  - getTypes
+  - [getTypes](../g/getTypes.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c used during the dump planning phase

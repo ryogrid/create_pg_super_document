@@ -26,7 +26,7 @@ This function takes no parameters and returns:
 - Global variables accessed:
   -  - current position in send buffer
   -  - start of send buffer
-  -  - flag to prevent reentrant calls
+  -  - [flag](../f/flag.md) to prevent reentrant calls
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pqcomm.c file

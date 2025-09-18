@@ -17,9 +17,9 @@ pg_get_constraintdef_command is an internal PostgreSQL function that generates a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_constraintdef_worker (core worker function that generates constraint definition with command flag set to true)
+  - [pg_get_constraintdef_worker](pg_get_constraintdef_worker.md) (core worker function that generates constraint definition with command flag set to true)
 - Called from (representative examples):
-  - RememberConstraintForRebuilding (in table command processing)
+  - [RememberConstraintForRebuilding](../R/RememberConstraintForRebuilding.md) (in table command processing)
   - Various internal PostgreSQL rebuild operations
 
 ## Notes and Other Information

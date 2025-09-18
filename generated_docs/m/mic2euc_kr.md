@@ -23,15 +23,15 @@ This static function implements the core logic for converting MULE (Multi-byte U
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)
-  - pg_encoding_verifymbchar (validates multi-byte character sequences)
-  - report_invalid_encoding (reports encoding validation errors)
-  - report_untranslatable_char (reports untranslatable character errors)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md) (validates multi-byte character sequences)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (reports encoding validation errors)
+  - [report_untranslatable_char](../r/report_untranslatable_char.md) (reports untranslatable character errors)
 - Constants referenced:
   - PG_MULE_INTERNAL (MULE internal encoding identifier)
   - PG_EUC_KR (EUC-KR encoding identifier)
   - LC_KS5601 (MULE language code for Korean KS5601 character set)
 - Called from:
-  - mic_to_euc_kr (PostgreSQL wrapper function)
+  - [mic_to_euc_kr](mic_to_euc_kr.md) (PostgreSQL wrapper function)
 
 ## Notes and Other Information
 - This is a static (internal) function that implements the actual reverse conversion logic

@@ -34,15 +34,15 @@ The function includes stack overflow protection since it can recurse deeply on c
   - check_stack_depth
   - RangeTblRef
   - rt_fetch
-  - tlist_same_datatypes
+  - [tlist_same_datatypes](../t/tlist_same_datatypes.md)
   - SetOperationStmt
   - SETOP_UNION
   - nodeTag
-  - is_simple_union_all_recurse (recursive calls)
+  - [is_simple_union_all_recurse](is_simple_union_all_recurse.md) (recursive calls)
 - Called from:
-  - is_simple_union_all
-  - is_simple_union_all_recurse (recursive)
-  - flatten_simple_union_all
+  - [is_simple_union_all](is_simple_union_all.md)
+  - [is_simple_union_all_recurse](is_simple_union_all_recurse.md) (recursive)
+  - [flatten_simple_union_all](../f/flatten_simple_union_all.md)
 
 ## Notes and Other Information
 - Implements depth-first traversal of the set operation tree

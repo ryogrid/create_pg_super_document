@@ -25,10 +25,10 @@ The implementation first checks that val1 is not NaN (since NaN cannot be less t
   - isnan (standard C library function for NaN detection)
   - float4 (typedef for single-precision floating-point)
 - Called from (representative examples):
-  - float4lt (SQL-callable less-than function)
-  - float4smaller (minimum value function)
-  - float4_cmp_internal (comparison utility function)
-  - float4_min (inline minimum function)
+  - [float4lt](float4lt.md) (SQL-callable less-than function)
+  - [float4smaller](float4smaller.md) (minimum value function)
+  - [float4_cmp_internal](float4_cmp_internal.md) (comparison utility function)
+  - [float4_min](float4_min.md) (inline minimum function)
 
 ## Notes and Other Information
 - This is an inline function defined in utils/float.h for performance

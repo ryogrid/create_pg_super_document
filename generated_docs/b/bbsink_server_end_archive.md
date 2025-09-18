@@ -20,12 +20,12 @@ After successful synchronization, the function closes the file and resets the si
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileSync
-  - FilePathName
+  - [FilePathName](../F/FilePathName.md)
   - FileClose  
   - ereport
-  - errcode_for_file_access
-  - errmsg
-  - bbsink_forward_end_archive
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
+  - [bbsink_forward_end_archive](bbsink_forward_end_archive.md)
 - Called from (representative examples):
   - Referenced through bbsink_server_ops function table
 

@@ -29,11 +29,11 @@ Each validation failure triggers an ERROR with ERRCODE_INVALID_PARAMETER_VALUE, 
 - Functions called/Symbols referenced:
   - strlen (calculate string length)
   - strstr (search for substring)
-  - first_dir_separator (find directory separator characters)
+  - [first_dir_separator](../f/first_dir_separator.md) (find directory separator characters)
   - ereport (error reporting with detailed messages)
 
 - Called from (representative examples):
-  - CreateExtensionInternal (during extension creation with specific version)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (during extension creation with specific version)
   - ExecAlterExtensionStmt (during extension version updates/alterations)
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ The typedef serves as an abstraction layer that hides the pointer nature of tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDescData
+  - [TupleDescData](TupleDescData.md)
 - Called from (representative examples):
   - Used extensively throughout PostgreSQL codebase
   - Standard parameter type for tuple descriptor functions

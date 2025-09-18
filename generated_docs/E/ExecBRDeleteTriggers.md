@@ -26,13 +26,13 @@ The function delegates all actual trigger processing to ExecBRDeleteTriggersNew,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecBRDeleteTriggersNew
+  - [ExecBRDeleteTriggersNew](ExecBRDeleteTriggersNew.md)
 - Data types referenced:
-  - EPQState
+  - [EPQState](EPQState.md)
   - TM_Result
   - TM_FailureData
 - Called from (representative examples):
-  - ExecSimpleRelationDelete
+  - [ExecSimpleRelationDelete](ExecSimpleRelationDelete.md)
 
 ## Notes and Other Information
 - This is explicitly marked as an ABI-compatible wrapper and should not be used in new code

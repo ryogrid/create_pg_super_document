@@ -19,14 +19,14 @@ This function serves as an exported routine for checking access privileges to Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_parameter_aclmask
+  - [pg_parameter_aclmask](pg_parameter_aclmask.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
   - AclResult
 - Called from (representative examples):
-  - has_param_priv_byname
-  - set_config_with_handle
-  - AlterSystemSetConfigFile
+  - [has_param_priv_byname](../h/has_param_priv_byname.md)
+  - [set_config_with_handle](../s/set_config_with_handle.md)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
   - validate_option_array_item
 
 ## Notes and Other Information

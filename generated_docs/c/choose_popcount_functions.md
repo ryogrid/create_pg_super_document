@@ -24,18 +24,18 @@ The function uses a lazy initialization pattern - it's called only on the first 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount_available
-  - pg_popcount32_fast, pg_popcount32_slow
-  - pg_popcount64_fast, pg_popcount64_slow
-  - pg_popcount_fast, pg_popcount_slow
-  - pg_popcount_masked_fast, pg_popcount_masked_slow
-  - pg_popcount_avx512_available (conditionally)
-  - pg_popcount_avx512, pg_popcount_masked_avx512 (conditionally)
+  - [pg_popcount_available](../p/pg_popcount_available.md)
+  - [pg_popcount32_fast](../p/pg_popcount32_fast.md), pg_popcount32_slow
+  - [pg_popcount64_fast](../p/pg_popcount64_fast.md), pg_popcount64_slow
+  - [pg_popcount_fast](../p/pg_popcount_fast.md), pg_popcount_slow
+  - [pg_popcount_masked_fast](../p/pg_popcount_masked_fast.md), pg_popcount_masked_slow
+  - [pg_popcount_avx512_available](../p/pg_popcount_avx512_available.md) (conditionally)
+  - [pg_popcount_avx512](../p/pg_popcount_avx512.md), pg_popcount_masked_avx512 (conditionally)
 - Called from:
-  - pg_popcount32_choose at src/port/pg_bitutils.c:185
-  - pg_popcount64_choose at src/port/pg_bitutils.c:192
-  - pg_popcount_choose at src/port/pg_bitutils.c:199
-  - pg_popcount_masked_choose at src/port/pg_bitutils.c:206
+  - [pg_popcount32_choose](../p/pg_popcount32_choose.md) at src/port/pg_bitutils.c:185
+  - [pg_popcount64_choose](../p/pg_popcount64_choose.md) at src/port/pg_bitutils.c:192
+  - [pg_popcount_choose](../p/pg_popcount_choose.md) at src/port/pg_bitutils.c:199
+  - [pg_popcount_masked_choose](../p/pg_popcount_masked_choose.md) at src/port/pg_bitutils.c:206
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance during the one-time initialization

@@ -29,17 +29,17 @@ The function implements a key space movement strategy where deleted key ranges a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_rightsib_halfdeadflag (checks if right sibling is safe for deletion)
-  - _bt_lock_subtree_parent (determines subtree height and locks parent)
-  - BufferGetPage, BTPageGetOpaque (page access functions)
-  - PageGetItemId, PageGetItem (tuple access functions)
-  - BTreeTupleGetDownLink, BTreeTupleSetDownLink (downlink manipulation)
-  - BTreeTupleSetTopParent (stores top parent reference in leaf page)
-  - PageIndexTupleDelete, PageIndexTupleOverwrite (page modification functions)
-  - PredicateLockPageCombine (serializable isolation support)
-  - XLogBeginInsert, XLogRegisterBuffer, XLogRegisterData, XLogInsert (WAL logging)
+  - [_bt_rightsib_halfdeadflag](_bt_rightsib_halfdeadflag.md) (checks if right sibling is safe for deletion)
+  - [_bt_lock_subtree_parent](_bt_lock_subtree_parent.md) (determines subtree height and locks parent)
+  - [BufferGetPage](../B/BufferGetPage.md), BTPageGetOpaque (page access functions)
+  - [PageGetItemId](../P/PageGetItemId.md), PageGetItem (tuple access functions)
+  - [BTreeTupleGetDownLink](../B/BTreeTupleGetDownLink.md), BTreeTupleSetDownLink (downlink manipulation)
+  - [BTreeTupleSetTopParent](../B/BTreeTupleSetTopParent.md) (stores top parent reference in leaf page)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md), PageIndexTupleOverwrite (page modification functions)
+  - [PredicateLockPageCombine](../P/PredicateLockPageCombine.md) (serializable isolation support)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogRegisterData, XLogInsert (WAL logging)
 - Called from:
-  - _bt_pagedel (main page deletion coordinator)
+  - [_bt_pagedel](_bt_pagedel.md) (main page deletion coordinator)
 
 ## Notes and Other Information
 - Returns false if deletion cannot proceed safely (rightmost child or half-dead right sibling)

@@ -31,9 +31,9 @@ The optimization is most effective when run after expression preprocessing (whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - remove_useless_results_recurse
+  - [remove_useless_results_recurse](remove_useless_results_recurse.md)
   - bms_is_empty
-  - remove_nulling_relids
+  - [remove_nulling_relids](remove_nulling_relids.md)
   - rt_fetch
   - foreach_delete_current
   - FromExpr (type)
@@ -41,7 +41,7 @@ The optimization is most effective when run after expression preprocessing (whic
   - RTE_RESULT (constant)
 
 - Called from (representative examples):
-  - subquery_planner (src/backend/optimizer/plan/planner.c:1117)
+  - [subquery_planner](../s/subquery_planner.md) (src/backend/optimizer/plan/planner.c:1117)
 
 ## Notes and Other Information
 - Must be run after expression preprocessing for maximum effectiveness

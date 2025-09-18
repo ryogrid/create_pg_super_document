@@ -22,9 +22,9 @@ This function determines the inclusivity of the lower bound of a multirange. It 
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P
   - MultirangeIsEmpty
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeTypeGetOid
-  - multirange_get_bounds
+  - [multirange_get_bounds](multirange_get_bounds.md)
   - PG_RETURN_BOOL
   - MultirangeType
   - RangeBound

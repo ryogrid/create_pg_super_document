@@ -22,11 +22,11 @@ SH_NEXT is a macro that generates a function name for advancing to the next buck
   - tb->sizemask (bitmask for efficient wraparound)
   - Assert (assertion macro for debugging)
 - Called from (representative examples):
-  - SH_GROW (when redistributing elements during table growth)
-  - SH_INSERT_HASH_INTERNAL (when probing for insertion slots)
-  - SH_LOOKUP_HASH_INTERNAL (when searching through collisions)
-  - SH_DELETE (when probing during deletion)
-  - SH_DELETE_ITEM (when probing during item removal)
+  - [SH_GROW](SH_GROW.md) (when redistributing elements during table growth)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (when probing for insertion slots)
+  - [SH_LOOKUP_HASH_INTERNAL](SH_LOOKUP_HASH_INTERNAL.md) (when searching through collisions)
+  - [SH_DELETE](SH_DELETE.md) (when probing during deletion)
+  - [SH_DELETE_ITEM](SH_DELETE_ITEM.md) (when probing during item removal)
 
 ## Notes and Other Information
 - Uses (curelem + 1) & tb->sizemask for efficient wraparound without expensive modulo operations

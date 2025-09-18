@@ -111,27 +111,27 @@ PortalData is the core data structure that represents a query execution context 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwner
-  - Portal (for cleanup function pointer)
+  - [Portal](Portal.md) (for cleanup function pointer)
   - SubTransactionId
   - CommandTag
   - QueryCompletion
   - CachedPlan
-  - ParamListInfo
+  - [ParamListInfo](ParamListInfo.md)
   - QueryEnvironment
   - PortalStrategy
-  - PortalStatus
+  - [PortalStatus](PortalStatus.md)
   - QueryDesc
   - TuplestoreState
 - Called from (representative examples):
-  - Portal typedef (as the underlying structure)
-  - Portal management functions throughout the codebase
+  - [Portal](Portal.md) typedef (as the underlying structure)
+  - [Portal](Portal.md) management functions throughout the codebase
 
 ## Notes and Other Information
-- PortalData is the fundamental structure underlying all portal operations in PostgreSQL
+- [PortalData](PortalData.md) is the fundamental structure underlying all portal operations in PostgreSQL
 - Supports complex transaction semantics with subtransaction tracking
 - Memory management is carefully designed with dedicated contexts for different data lifetimes
 - The structure handles both simple query execution and complex cursor operations
-- Snapshot management ensures consistent reads for long-running operations
+- [Snapshot](../S/Snapshot.md) management ensures consistent reads for long-running operations
 - Position tracking enables bidirectional cursor movement and precise result set navigation
 - The cleanup mechanism allows for proper resource deallocation and custom cleanup operations
 - Integration with the resource owner system ensures proper cleanup on transaction abort

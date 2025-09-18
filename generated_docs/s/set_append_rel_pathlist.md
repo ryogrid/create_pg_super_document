@@ -24,12 +24,12 @@ The function handles parallel safety propagation by ensuring that if the parent 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (struct type for append relation information)
-  - set_rel_pathlist (generates paths for individual child relations)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (struct type for append relation information)
+  - [set_rel_pathlist](set_rel_pathlist.md) (generates paths for individual child relations)
   - IS_DUMMY_REL (macro to check if a relation is dummy/empty)
-  - add_paths_to_append_rel (combines child paths into parent append paths)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md) (combines child paths into parent append paths)
 - Called from (representative examples):
-  - set_rel_pathlist (main pathlist generation dispatcher)
+  - [set_rel_pathlist](set_rel_pathlist.md) (main pathlist generation dispatcher)
 
 ## Notes and Other Information
 - The function only processes child relations that belong to the current parent by checking `appinfo->parent_relid != parentRTindex`

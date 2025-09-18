@@ -51,14 +51,14 @@ The spgxlogMoveLeafs structure is used in SP-GiST WAL records to capture complex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgxlogState (embedded state structure)
+  - [spgxlogState](spgxlogState.md) (embedded state structure)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member)
   - OffsetNumber (PostgreSQL offset type)
   - uint16 (standard integer type)
 - Called from (representative examples):
-  - spg_desc (in spgdesc.c:42)
-  - moveLeafs (in spgdoinsert.c:403)
-  - spgRedoMoveLeafs (in spgxlog.c:175)
+  - [spg_desc](spg_desc.md) (in spgdesc.c:42)
+  - [moveLeafs](../m/moveLeafs.md) (in spgdoinsert.c:403)
+  - [spgRedoMoveLeafs](spgRedoMoveLeafs.md) (in spgxlog.c:175)
   - SizeOfSpgxlogMoveLeafs (in spgxlog.h:91)
 
 ## Notes and Other Information

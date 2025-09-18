@@ -23,7 +23,7 @@ The `byteaoverlay_no_len` function provides a simplified interface to the OVERLA
   - PG_GETARG_BYTEA_PP (for extracting bytea arguments)
   - PG_GETARG_INT32 (for extracting integer arguments)
   - VARSIZE_ANY_EXHDR (for getting the length of the replacement bytea)
-  - bytea_overlay (core overlay implementation)
+  - [bytea_overlay](bytea_overlay.md) (core overlay implementation)
   - PG_RETURN_BYTEA_P (for returning bytea result)
 - Called from:
   - SQL OVERLAY() function invocations on bytea data with three arguments

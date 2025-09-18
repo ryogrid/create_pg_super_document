@@ -27,16 +27,16 @@ The function is transaction-aware and will defer reloading if not in a transacti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationInitPhysicalAddr
-  - IsTransactionState
-  - RelationReloadIndexInfo
-  - ScanPgRelation
-  - heap_freetuple
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [RelationReloadIndexInfo](RelationReloadIndexInfo.md)
+  - [ScanPgRelation](../S/ScanPgRelation.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - RELKIND_INDEX
   - Form_pg_class
   - CLASS_TUPLE_SIZE
 - Called from (representative examples):
-  - RelationClearRelation
+  - [RelationClearRelation](RelationClearRelation.md)
 
 ## Notes and Other Information
 - Only operates on nailed relations (rd_isnailed must be true)

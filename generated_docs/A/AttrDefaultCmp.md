@@ -22,10 +22,10 @@ The comparison is performed using PostgreSQL's pg_cmp_s16 function, which provid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttrDefault (structure type)
-  - pg_cmp_s16
+  - [AttrDefault](AttrDefault.md) (structure type)
+  - [pg_cmp_s16](../p/pg_cmp_s16.md)
 - Called from:
-  - AttrDefaultFetch
+  - [AttrDefaultFetch](AttrDefaultFetch.md)
 
 ## Notes and Other Information
 - Used exclusively by AttrDefaultFetch for sorting the loaded default value array

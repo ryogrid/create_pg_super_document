@@ -21,10 +21,10 @@ This is a GCC-specific implementation of atomic exchange operation for 64-bit un
 ## Dependencies
 - Functions called/Symbols referenced:
   - __atomic_exchange_n (GCC builtin)
-  - pg_atomic_uint64 (type)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
 - Called from (representative examples):
-  - pg_atomic_exchange_u64
-  - pg_atomic_write_membarrier_u64_impl
+  - [pg_atomic_exchange_u64](pg_atomic_exchange_u64.md)
+  - [pg_atomic_write_membarrier_u64_impl](pg_atomic_write_membarrier_u64_impl.md)
 
 ## Notes and Other Information
 - This is a GCC-specific implementation using compiler intrinsics for optimal performance

@@ -24,11 +24,11 @@ This function simplifies the process of creating sorts in cases where the caller
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prepare_sort_from_pathkeys (to convert pathkeys into sort specification arrays)
-  - make_sort (to create the Sort plan node)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md) (to convert pathkeys into sort specification arrays)
+  - [make_sort](make_sort.md) (to create the Sort plan node)
 - Called from (representative examples):
-  - create_sort_plan (src/backend/optimizer/plan/createplan.c:2200)
-  - create_mergejoin_plan (src/backend/optimizer/plan/createplan.c:4530, 4544)
+  - [create_sort_plan](../c/create_sort_plan.md) (src/backend/optimizer/plan/createplan.c:2200)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (src/backend/optimizer/plan/createplan.c:4530, 4544)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the planner

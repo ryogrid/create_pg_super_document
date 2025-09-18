@@ -27,15 +27,15 @@ The function is specifically designed to handle Perl's quirks, such as SvPVutf8(
   - dTHX (Perl threading context macro)
   - isGV_with_GP (Perl macro to check for typeglobs)
   - SvREFCNT_inc_simple_void (Perl reference counting)
-  - GetDatabaseEncoding (PostgreSQL encoding function)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (PostgreSQL encoding function)
   - PG_SQL_ASCII (PostgreSQL encoding constant)
-  - utf_u2e (PostgreSQL UTF-8 to database encoding converter)
+  - [utf_u2e](../u/utf_u2e.md) (PostgreSQL UTF-8 to database encoding converter)
 - Called from (representative examples):
-  - plperl_sv_to_datum
-  - plperl_create_sub
-  - plperl_call_perl_func
-  - plperl_trigger_handler
-  - plperl_spi_prepare
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md)
+  - [plperl_create_sub](../p/plperl_create_sub.md)
+  - [plperl_call_perl_func](../p/plperl_call_perl_func.md)
+  - [plperl_trigger_handler](../p/plperl_trigger_handler.md)
+  - [plperl_spi_prepare](../p/plperl_spi_prepare.md)
 
 ## Notes and Other Information
 - Returns a palloc'ed string that must be freed by the caller

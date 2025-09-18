@@ -20,15 +20,15 @@ The function constructs a SQL query to select all relevant fields from pg_ts_con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery: Executes the SQL query against the database
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the SQL query against the database
   - pg_malloc: Allocates memory for the TSConfigInfo array
   - atooid: Converts string OID values to Oid type
-  - AssignDumpId: Assigns unique dump ID to each configuration object
-  - findNamespace: Looks up namespace information for the configuration
-  - getRoleName: Retrieves role name for the configuration owner
-  - selectDumpableObject: Determines if the configuration should be included in dump
+  - [AssignDumpId](../A/AssignDumpId.md): Assigns unique dump ID to each configuration object
+  - [findNamespace](../f/findNamespace.md): Looks up namespace information for the configuration
+  - [getRoleName](getRoleName.md): Retrieves role name for the configuration owner
+  - [selectDumpableObject](../s/selectDumpableObject.md): Determines if the configuration should be included in dump
 - Called from (representative examples):
-  - getSchemaData: Main schema data collection function
+  - [getSchemaData](getSchemaData.md): Main schema data collection function
 
 ## Notes and Other Information
 - The function queries pg_ts_config system catalog to retrieve configuration metadata including name, namespace, owner, and parser reference

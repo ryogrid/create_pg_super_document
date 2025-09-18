@@ -19,12 +19,12 @@ The function is straightforward in its operation: it first checks if a tuplestor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MaterialState
-  - tuplestore_end
-  - ExecEndNode
+  - [MaterialState](../M/MaterialState.md)
+  - [tuplestore_end](../t/tuplestore_end.md)
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - The function is defensive - it checks if tuplestorestate is NULL before attempting to release it

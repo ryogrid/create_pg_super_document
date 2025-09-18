@@ -29,13 +29,13 @@ Key processing steps include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_tablefuncscan
-  - copy_generic_path_info
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_tablefuncscan](../m/make_tablefuncscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - Only works with table function relations (RTE_TABLEFUNC), not regular functions or tables

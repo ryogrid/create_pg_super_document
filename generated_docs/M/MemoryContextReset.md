@@ -25,15 +25,15 @@ The function includes performance optimizations by checking conditions before ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (to validate the context parameter)
-  - MemoryContextDeleteChildren (to remove all child contexts)
-  - MemoryContextResetOnly (to free allocated memory within the context)
+  - [MemoryContextDeleteChildren](MemoryContextDeleteChildren.md) (to remove all child contexts)
+  - [MemoryContextResetOnly](MemoryContextResetOnly.md) (to free allocated memory within the context)
 - Called from (representative examples):
-  - brininsert, bringetbitmap (BRIN index operations)
-  - ginInsertCleanup, ginBuildCallback (GIN index operations)
-  - gistinsert, gistBuildCallback (GiST index operations)
-  - ExecHashTableReset, ExecProjectSet (query execution)
-  - do_autovacuum, perform_work_item (autovacuum operations)
-  - PostgresMain (main query processing loop)
+  - [brininsert](../b/brininsert.md), bringetbitmap (BRIN index operations)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md), ginBuildCallback (GIN index operations)
+  - [gistinsert](../g/gistinsert.md), gistBuildCallback (GiST index operations)
+  - [ExecHashTableReset](../E/ExecHashTableReset.md), ExecProjectSet (query execution)
+  - [do_autovacuum](../d/do_autovacuum.md), perform_work_item (autovacuum operations)
+  - [PostgresMain](../P/PostgresMain.md) (main query processing loop)
   - Many other locations throughout PostgreSQL for periodic memory cleanup
 
 ## Notes and Other Information

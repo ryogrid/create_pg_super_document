@@ -25,9 +25,9 @@ The function iterates through the string character by character until it reaches
 - Functions called/Symbols referenced:
   - Min (macro for minimum value calculation)
 - Called from (representative examples):
-  - pgstat_clip_activity (multiple calls)
-  - pg_encoding_mbcliplen
-  - pg_mbcharcliplen
+  - [pgstat_clip_activity](../p/pgstat_clip_activity.md) (multiple calls)
+  - [pg_encoding_mbcliplen](../p/pg_encoding_mbcliplen.md)
+  - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within mbutils.c

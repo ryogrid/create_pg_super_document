@@ -25,9 +25,9 @@ The function uses Valgrind's built-in macros  to get the current error count and
   - unlikely() (compiler hint macro)
 
 - Called from (representative examples):
-  - exec_bind_message (src/backend/tcop/postgres.c:2090)
-  - exec_execute_message (src/backend/tcop/postgres.c:2355)
-  - PostgresMain (multiple locations in src/backend/tcop/postgres.c)
+  - [exec_bind_message](../e/exec_bind_message.md) (src/backend/tcop/postgres.c:2090)
+  - [exec_execute_message](../e/exec_execute_message.md) (src/backend/tcop/postgres.c:2355)
+  - [PostgresMain](../P/PostgresMain.md) (multiple locations in src/backend/tcop/postgres.c)
 
 ## Notes and Other Information
 - This function is conditionally compiled and only active when PostgreSQL is built with Valgrind support

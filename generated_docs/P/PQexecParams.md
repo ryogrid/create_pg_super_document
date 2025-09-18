@@ -26,14 +26,14 @@ The function internally uses PQexecStart to prepare the connection, PQsendQueryP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendQueryParams  
-  - PQexecFinish
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendQueryParams](PQsendQueryParams.md)  
+  - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - libpq_fetch_file
+  - [libpq_fetch_file](../l/libpq_fetch_file.md)
   - ecpg_execute
-  - main (testlibpq3.c)
-  - main (isolationtester.c)
+  - [main](../m/main.md) (testlibpq3.c)
+  - [main](../m/main.md) (isolationtester.c)
 
 ## Notes and Other Information
 - Returns NULL if the query cannot be sent or if connection preparation fails

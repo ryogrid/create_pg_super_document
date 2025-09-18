@@ -21,19 +21,19 @@ RangeVar is PostgreSQL's standard way of representing relation references in par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVar (to create the initial RangeVar structure)
+  - [makeRangeVar](makeRangeVar.md) (to create the initial RangeVar structure)
   - list_length (to determine name components count)
   - strVal (to extract string values from list elements)
   - linitial/lsecond/lthird (to access list elements)
-  - NameListToString (for error message formatting)
+  - [NameListToString](../N/NameListToString.md) (for error message formatting)
   - ereport/ERROR (for error reporting)
 - Called from (representative examples):
-  - get_relation_by_qualified_name
-  - get_object_address_relobject
-  - RemoveRelations
-  - nextval (sequence operations)
-  - regclassin
-  - pg_get_viewdef_name
+  - [get_relation_by_qualified_name](../g/get_relation_by_qualified_name.md)
+  - [get_object_address_relobject](../g/get_object_address_relobject.md)
+  - [RemoveRelations](../R/RemoveRelations.md)
+  - [nextval](../n/nextval.md) (sequence operations)
+  - [regclassin](../r/regclassin.md)
+  - [pg_get_viewdef_name](../p/pg_get_viewdef_name.md)
   - Various utility and conversion functions
 
 ## Notes and Other Information

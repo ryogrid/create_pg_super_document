@@ -25,18 +25,18 @@ When reaching the end of a bucket during a split operation, the function transit
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid
-  - _hash_getbuf
-  - _hash_relbuf
-  - LockBuffer
-  - BufferGetPage
-  - BufferGetBlockNumber
-  - PredicateLockPage
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [_hash_relbuf](_hash_relbuf.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
   - HashPageGetOpaque
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - _hash_readprev
-  - _hash_first
-  - _hash_readpage
+  - [_hash_readprev](_hash_readprev.md)
+  - [_hash_first](_hash_first.md)
+  - [_hash_readpage](_hash_readpage.md)
 
 ## Notes and Other Information
 The function maintains pins on primary bucket pages throughout the scan operation for efficiency. During bucket splits, it handles the transition from the populated bucket to the split bucket seamlessly. Interrupt checking is performed while no buffer locks are held to ensure responsiveness. The hashso_buc_split flag tracks whether the scan has transitioned to scanning the split bucket.

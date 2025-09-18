@@ -17,7 +17,7 @@ This function provides hash functionality for PostgreSQL's OID data type, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32: Core 32-bit hash function that performs the actual hash computation
+  - [hash_uint32](hash_uint32.md): Core 32-bit hash function that performs the actual hash computation
   - PG_GETARG_OID: PostgreSQL macro to extract OID argument from function call (implicitly used)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through PostgreSQL's function dispatch system)

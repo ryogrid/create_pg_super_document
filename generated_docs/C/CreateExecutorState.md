@@ -35,16 +35,16 @@ Key EState fields initialized:
   - InvalidSnapshot
   - CommandId
   - makeNode
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 
 - Called from (representative examples):
-  - standard_ExecutorStart
-  - EvalPlanQualStart
-  - evaluate_expr
-  - CopyFrom
-  - compute_index_stats
-  - ATRewriteTable
-  - IndexCheckExclusion
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md)
+  - [EvalPlanQualStart](../E/EvalPlanQualStart.md)
+  - [evaluate_expr](../e/evaluate_expr.md)
+  - [CopyFrom](CopyFrom.md)
+  - [compute_index_stats](../c/compute_index_stats.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md)
 
 ## Notes and Other Information
 The function creates a memory context hierarchy where the ExecutorState context becomes a child of the current memory context. This design ensures proper memory management and cleanup when the query execution completes. The caller is responsible for initializing the es_snapshot field after calling this function, as it's left as InvalidSnapshot by design. The function is central to PostgreSQL's executor architecture and is called at the beginning of most query execution paths.

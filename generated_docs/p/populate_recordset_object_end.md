@@ -25,14 +25,14 @@ After processing a record, the function destroys the hash table to free memory a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateRecordsetState (struct type)
-  - JsObject (struct type for JSON object representation)
+  - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (struct type)
+  - [JsObject](../J/JsObject.md) (struct type for JSON object representation)
   - JSON_SUCCESS (return value constant)
-  - populate_recordset_record (function to process a complete record)
-  - hash_destroy (function to clean up hash table)
+  - [populate_recordset_record](populate_recordset_record.md) (function to process a complete record)
+  - [hash_destroy](../h/hash_destroy.md) (function to clean up hash table)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

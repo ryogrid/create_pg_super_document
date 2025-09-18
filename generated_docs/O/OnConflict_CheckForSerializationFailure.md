@@ -46,7 +46,7 @@ The function includes sophisticated optimizations for READ ONLY transactions and
   - dlist_container
   - ereport
 - Called from (representative examples):
-  - FlagRWConflict
+  - [FlagRWConflict](../F/FlagRWConflict.md)
 
 ## Notes and Other Information
 - This is a static function internal to predicate.c, implementing the heart of SSI anomaly prevention

@@ -28,17 +28,17 @@ Returns a palloc()'d copy of the found value or NULL if not found. For objects, 
   - JsonContainerSize
   - JsonContainerIsArray
   - JsonContainerIsObject
-  - fillJsonbValue
-  - equalsJsonbScalarValue
-  - getKeyJsonValueFromContainer
+  - [fillJsonbValue](fillJsonbValue.md)
+  - [equalsJsonbScalarValue](../e/equalsJsonbScalarValue.md)
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md)
   - JBE_ADVANCE_OFFSET
 - Called from (representative examples):
-  - jsonb_exists
-  - jsonb_exists_any
-  - jsonb_exists_all
-  - JsonbDeepContains
-  - executeItemOptUnwrapTarget
-  - getJsonPathVariableFromJsonb
+  - [jsonb_exists](../j/jsonb_exists.md)
+  - [jsonb_exists_any](../j/jsonb_exists_any.md)
+  - [jsonb_exists_all](../j/jsonb_exists_all.md)
+  - [JsonbDeepContains](../J/JsonbDeepContains.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [getJsonPathVariableFromJsonb](../g/getJsonPathVariableFromJsonb.md)
 
 ## Notes and Other Information
 - Quick optimization: returns NULL immediately for empty containers without memory allocation

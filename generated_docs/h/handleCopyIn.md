@@ -23,17 +23,17 @@ For text mode, the function reads data line by line to properly detect the EOF m
 ## Dependencies
 - Functions called/Symbols referenced:
   - sigsetjmp (signal handling for interrupts)
-  - PQputCopyEnd (ends the copy operation)
-  - PQprotocolVersion (checks PostgreSQL protocol version)
+  - [PQputCopyEnd](../P/PQputCopyEnd.md) (ends the copy operation)
+  - [PQprotocolVersion](../P/PQprotocolVersion.md) (checks PostgreSQL protocol version)
   - get_prompt (gets appropriate prompt string)
-  - PQputCopyData (sends copy data to server)
-  - PQgetResult (gets result from server)
+  - [PQputCopyData](../P/PQputCopyData.md) (sends copy data to server)
+  - [PQgetResult](../P/PQgetResult.md) (gets result from server)
   - pg_log_info (logs error messages)
   - PROMPT_COPY (prompt type constant)
   - COPYBUFSIZ (buffer size constant)
   - PGRES_COPY_IN, PGRES_COMMAND_OK (result status constants)
 - Called from (representative examples):
-  - HandleCopyResult (src/bin/psql/common.c:936)
+  - [HandleCopyResult](../H/HandleCopyResult.md) (src/bin/psql/common.c:936)
 
 ## Notes and Other Information
 - The function includes special handling for interactive terminals, showing prompts and usage instructions

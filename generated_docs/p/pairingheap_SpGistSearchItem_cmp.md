@@ -28,9 +28,9 @@ The function is designed specifically for KNN (K-Nearest Neighbors) searches whe
   - isnan (standard library function for NaN detection)
   - SpGistSearchItem (struct type for search queue items)
   - SpGistScanOpaque (scan operation context structure)
-  - pairingheap_node (base pairing heap node structure)
+  - [pairingheap_node](pairingheap_node.md) (base pairing heap node structure)
 - Called from (representative examples):
-  - resetSpGistScanOpaque (sets this as pairing heap comparison function)
+  - [resetSpGistScanOpaque](../r/resetSpGistScanOpaque.md) (sets this as pairing heap comparison function)
 
 ## Notes and Other Information
 - Returns negative value if 'a' has higher priority than 'b', positive if lower priority, zero if equal

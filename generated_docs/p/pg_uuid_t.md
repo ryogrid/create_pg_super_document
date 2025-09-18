@@ -27,14 +27,14 @@ The structure provides a type-safe way to handle UUID data throughout PostgreSQL
 - Functions called/Symbols referenced:
   - UUID_LEN (constant defining 16 bytes)
 - Called from (representative examples):
-  - brin_minmax_multi_distance_uuid
-  - uuid_in, uuid_out, uuid_recv, uuid_send
-  - uuid_lt, uuid_le, uuid_eq, uuid_ge, uuid_gt, uuid_ne
-  - uuid_cmp, uuid_fast_cmp
-  - uuid_hash, uuid_hash_extended
-  - gen_random_uuid
+  - [brin_minmax_multi_distance_uuid](../b/brin_minmax_multi_distance_uuid.md)
+  - [uuid_in](../u/uuid_in.md), uuid_out, uuid_recv, uuid_send
+  - [uuid_lt](../u/uuid_lt.md), uuid_le, uuid_eq, uuid_ge, uuid_gt, uuid_ne
+  - [uuid_cmp](../u/uuid_cmp.md), uuid_fast_cmp
+  - [uuid_hash](../u/uuid_hash.md), uuid_hash_extended
+  - [gen_random_uuid](../g/gen_random_uuid.md)
   - uuid_extract_timestamp, uuid_extract_version
-  - UUIDPGetDatum, DatumGetUUIDP
+  - [UUIDPGetDatum](../U/UUIDPGetDatum.md), DatumGetUUIDP
 
 ## Notes and Other Information
 - The 16-byte size accommodates the standard 128-bit UUID format

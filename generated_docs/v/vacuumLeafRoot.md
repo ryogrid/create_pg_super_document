@@ -32,14 +32,14 @@ This simplified approach is possible because:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIndexMultiDelete: Performs bulk tuple deletion from page
-  - BufferGetPage, PageGetItem, PageGetItemId: Page access functions
-  - ItemPointerIsValid: Validates tuple heap pointer
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md): Performs bulk tuple deletion from page
+  - [BufferGetPage](../B/BufferGetPage.md), PageGetItem, PageGetItemId: Page access functions
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md): Validates tuple heap pointer
   - XLog functions: WAL logging (XLogBeginInsert, XLogInsert, etc.)
   - STORE_STATE: Saves SP-GiST state information for WAL
-  - spgxlogVacuumRoot: WAL record structure for root vacuum operations
+  - [spgxlogVacuumRoot](../s/spgxlogVacuumRoot.md): WAL record structure for root vacuum operations
 - Called from (representative examples):
-  - spgvacuumpage: Main vacuum entry point when processing root pages that contain leaf data
+  - [spgvacuumpage](../s/spgvacuumpage.md): Main vacuum entry point when processing root pages that contain leaf data
 
 ## Notes and Other Information
 - This is a static function within the spgvacuum.c file

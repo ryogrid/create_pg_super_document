@@ -17,16 +17,16 @@ This function serves as a factory for creating DR_printtup structures, which are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
+  - [palloc0](palloc0.md) (memory allocation)
   - DR_printtup (structure type)
-  - printtup (tuple output function)
-  - printtup_startup (startup callback)
-  - printtup_shutdown (shutdown callback)
-  - printtup_destroy (destruction callback)
+  - [printtup](printtup.md) (tuple output function)
+  - [printtup_startup](printtup_startup.md) (startup callback)
+  - [printtup_shutdown](printtup_shutdown.md) (shutdown callback)
+  - [printtup_destroy](printtup_destroy.md) (destruction callback)
   - DestRemote (destination constant)
   - DestReceiver (base receiver type)
 - Called from (representative examples):
-  - CreateDestReceiver
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
 
 ## Notes and Other Information
 - The function automatically sets sendDescrip to true only for DestRemote destinations, but not for DestRemoteExecute

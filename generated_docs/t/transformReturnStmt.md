@@ -31,14 +31,14 @@ This transformation allows RETURN statements to be processed through the same ex
 - Functions called/Symbols referenced:
   - makeNode (creates Query node)
   - CMD_SELECT (command type constant)
-  - makeTargetEntry (creates target entry for return expression)
-  - transformExpr (transforms the return expression)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (creates target entry for return expression)
+  - [transformExpr](transformExpr.md) (transforms the return expression)
   - EXPR_KIND_SELECT_TARGET (expression context constant)
-  - resolveTargetListUnknowns (resolves unknown types)
-  - makeFromExpr (creates FROM clause expression)
-  - assign_query_collations (assigns collations to query)
+  - [resolveTargetListUnknowns](../r/resolveTargetListUnknowns.md) (resolves unknown types)
+  - [makeFromExpr](../m/makeFromExpr.md) (creates FROM clause expression)
+  - [assign_query_collations](../a/assign_query_collations.md) (assigns collations to query)
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 The function specifically handles RETURN statements found in PostgreSQL stored procedures and functions. The resulting Query has its isReturn flag set to distinguish it from regular SELECT statements during execution. The function ensures proper type resolution and collation assignment, which is critical for return value handling. The transformation maintains all parse state information that might be relevant for later processing phases, including sublinks, window functions, and aggregates detection.

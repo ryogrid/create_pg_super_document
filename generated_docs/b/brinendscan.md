@@ -24,11 +24,11 @@ This ensures that all memory allocated during scan initialization (brinbeginscan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brinRevmapTerminate: Cleans up and closes the revmap access structure
-  - brin_free_desc: Frees the BRIN descriptor and associated metadata
-  - pfree: Frees the BrinOpaque structure
+  - [brinRevmapTerminate](brinRevmapTerminate.md): Cleans up and closes the revmap access structure
+  - [brin_free_desc](brin_free_desc.md): Frees the BRIN descriptor and associated metadata
+  - [pfree](../p/pfree.md): Frees the BrinOpaque structure
 - Called from (representative examples):
-  - brinhandler: BRIN access method handler registration
+  - [brinhandler](brinhandler.md): BRIN access method handler registration
 
 ## Notes and Other Information
 - This function is called automatically by the PostgreSQL executor when a scan completes

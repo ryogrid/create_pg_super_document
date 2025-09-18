@@ -32,10 +32,10 @@ The function performs case-sensitive string comparison using strcmp() to match t
   - FDW_IMPORT_SCHEMA_ALL
   - FDW_IMPORT_SCHEMA_LIMIT_TO  
   - FDW_IMPORT_SCHEMA_EXCEPT
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - ImportForeignSchemaStmt
 - Called from (representative examples):
-  - ImportForeignSchema
+  - [ImportForeignSchema](ImportForeignSchema.md)
 
 ## Notes and Other Information
 - Used exclusively by IMPORT FOREIGN SCHEMA command processing

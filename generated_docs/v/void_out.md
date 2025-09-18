@@ -24,7 +24,7 @@ Together with `void_in` and `void_send`, this function completes the I/O interfa
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_RETURN_CSTRING
-  - pstrdup (implicitly called to allocate the empty string)
+  - [pstrdup](../p/pstrdup.md) (implicitly called to allocate the empty string)
 - Called from (representative examples):
   - No direct references found (used internally by PostgreSQL's type system)
 

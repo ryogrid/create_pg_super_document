@@ -29,14 +29,14 @@ The function assumes the input string is valid in the database encoding and hand
 - Functions called/Symbols referenced:
   - unconstify (type casting utility)
   - PG_SQL_ASCII (encoding constant)
-  - pg_verify_mbstr (multi-byte string validation)
-  - perform_default_encoding_conversion (client encoding conversion)
-  - pg_do_encoding_conversion (general encoding conversion)
+  - [pg_verify_mbstr](pg_verify_mbstr.md) (multi-byte string validation)
+  - [perform_default_encoding_conversion](perform_default_encoding_conversion.md) (client encoding conversion)
+  - [pg_do_encoding_conversion](pg_do_encoding_conversion.md) (general encoding conversion)
 - Called from (representative examples):
-  - DoCopyTo (COPY command processing)
-  - CopyAttributeOutText/CopyAttributeOutCSV (COPY output formatting)
+  - [DoCopyTo](../D/DoCopyTo.md) (COPY command processing)
+  - [CopyAttributeOutText](../C/CopyAttributeOutText.md)/CopyAttributeOutCSV (COPY output formatting)
   - sqlchar_to_unicode (XML processing)
-  - PLyUnicode_FromStringAndSize (Python interface)
+  - [PLyUnicode_FromStringAndSize](../P/PLyUnicode_FromStringAndSize.md) (Python interface)
 
 ## Notes and Other Information
 - This function will not work outside transactions for the general conversion case

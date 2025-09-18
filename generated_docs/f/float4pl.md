@@ -20,7 +20,7 @@ The  function is a PostgreSQL fmgr-compatible function that adds two float4 (sin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4 (macro to extract float4 arguments)
-  - float4_pl (inline helper function that performs the actual addition with overflow checking)
+  - [float4_pl](float4_pl.md) (inline helper function that performs the actual addition with overflow checking)
   - PG_RETURN_FLOAT4 (macro to return float4 result as Datum)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager system for the '+' operator)

@@ -39,17 +39,17 @@ The function is designed to be called during VACUUM operations and bucket squeez
 ## Dependencies
 - Functions called/Symbols referenced:
   - _hash_checkpage (page validation)
-  - BufferGetBlockNumber/BufferGetPage (buffer access)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)/BufferGetPage (buffer access)
   - HashPageGetOpaque/HashPageGetMeta/HashPageGetBitmap (page structure access)
-  - _hash_getbuf_with_strategy/_hash_getbuf (buffer management with strategy)
-  - _hash_ovflblkno_to_bitno (block number to bit number conversion)
-  - _hash_pgaddmultitup (adding multiple tuples to a page)
-  - _hash_pageinit (page initialization)
+  - [_hash_getbuf_with_strategy](_hash_getbuf_with_strategy.md)/_hash_getbuf (buffer management with strategy)
+  - [_hash_ovflblkno_to_bitno](_hash_ovflblkno_to_bitno.md) (block number to bit number conversion)
+  - [_hash_pgaddmultitup](_hash_pgaddmultitup.md) (adding multiple tuples to a page)
+  - [_hash_pageinit](_hash_pageinit.md) (page initialization)
   - CLRBIT/ISSET (bitmap manipulation)
   - XLog functions (WAL logging)
-  - _hash_relbuf (buffer release)
+  - [_hash_relbuf](_hash_relbuf.md) (buffer release)
 - Called from (representative examples):
-  - _hash_squeezebucket (during bucket squeeze operations)
+  - [_hash_squeezebucket](_hash_squeezebucket.md) (during bucket squeeze operations)
   - HASHNProcs (hash index procedure definitions)
 
 ## Notes and Other Information

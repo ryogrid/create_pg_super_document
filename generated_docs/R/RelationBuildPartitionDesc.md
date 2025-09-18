@@ -30,25 +30,25 @@ RelationBuildPartitionDesc is the core function responsible for constructing par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_inheritance_children_extended
-  - RelationGetPartitionKey
-  - SysCacheGetAttr
-  - stringToNode
+  - [find_inheritance_children_extended](../f/find_inheritance_children_extended.md)
+  - [RelationGetPartitionKey](RelationGetPartitionKey.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [stringToNode](../s/stringToNode.md)
   - TextDatumGetCString
-  - systable_beginscan/systable_getnext
-  - heap_getattr
-  - AcceptInvalidationMessages
-  - get_default_partition_oid
-  - get_rel_relkind
-  - partition_bounds_create
-  - partition_bounds_copy
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
+  - [heap_getattr](../h/heap_getattr.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [get_default_partition_oid](../g/get_default_partition_oid.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [partition_bounds_create](../p/partition_bounds_create.md)
+  - [partition_bounds_copy](../p/partition_bounds_copy.md)
   - AllocSetContextCreate
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - MemoryContextSetParent
   - ActiveSnapshotSet
 
 - Called from:
-  - RelationGetPartitionDesc
+  - [RelationGetPartitionDesc](RelationGetPartitionDesc.md)
 
 ## Notes and Other Information
 - The function is static and only called internally by RelationGetPartitionDesc

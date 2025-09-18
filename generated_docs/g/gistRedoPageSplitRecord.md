@@ -35,18 +35,18 @@ Critical locking protocol: The first page in the split remains locked throughout
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts gistxlogPageSplit structure)
-  - XLogRecGetBlockTag (gets block information for each page)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block information for each page)
   - XLogInitBufferForRedo (initializes buffers for new pages)
-  - XLogRecGetBlockData (gets serialized tuple data for each page)
-  - decodePageSplitRecord (deserializes tuple data)
-  - GISTInitBuffer (initializes page structure)
-  - gistfillbuffer (fills page with tuples)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets serialized tuple data for each page)
+  - [decodePageSplitRecord](../d/decodePageSplitRecord.md) (deserializes tuple data)
+  - [GISTInitBuffer](../G/GISTInitBuffer.md) (initializes page structure)
+  - [gistfillbuffer](gistfillbuffer.md) (fills page with tuples)
   - GistPageGetOpaque, GistPageSetNSN (page metadata management)
   - GistMarkFollowRight, GistClearFollowRight (follow-right flag management)
-  - gistRedoClearFollowRight (clears follow-right on child pages)
+  - [gistRedoClearFollowRight](gistRedoClearFollowRight.md) (clears follow-right on child pages)
   - GIST_ROOT_BLKNO, F_LEAF, FirstOffsetNumber (GiST constants)
 - Called from (representative examples):
-  - gist_redo (main GiST WAL redo dispatcher)
+  - [gist_redo](gist_redo.md) (main GiST WAL redo dispatcher)
 
 ## Notes and Other Information
 - This is a static function only used within gistxlog.c

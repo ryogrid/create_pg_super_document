@@ -22,13 +22,13 @@ This diagnostic information can include server-specific error messages, addition
 ## Dependencies
 - Functions called/Symbols referenced:
   - `ldap_get_option`: Retrieve LDAP connection options and diagnostic information
-  - `errdetail`: Add detail message to PostgreSQL's current error context
+  - `[errdetail](errdetail.md)`: Add detail message to PostgreSQL's current error context
   - `ldap_memfree`: Free memory allocated by LDAP library
   - LDAP_OPT_DIAGNOSTIC_MESSAGE: LDAP option constant for diagnostic messages
   - LDAP_SUCCESS: LDAP success return code constant
 - Called from (representative examples):
-  - `InitializeLDAPConnection` at src/backend/libpq/auth.c:2365, 2381
-  - `CheckLDAPAuth` at src/backend/libpq/auth.c:2546, 2574, 2617, 2643
+  - `[InitializeLDAPConnection](../I/InitializeLDAPConnection.md)` at src/backend/libpq/auth.c:2365, 2381
+  - `[CheckLDAPAuth](../C/CheckLDAPAuth.md)` at src/backend/libpq/auth.c:2546, 2574, 2617, 2643
 
 ## Notes and Other Information
 - Always returns 0 (the return value is not used by callers)

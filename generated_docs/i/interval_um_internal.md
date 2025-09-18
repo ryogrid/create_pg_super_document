@@ -25,17 +25,17 @@ This is an internal static function that implements interval negation by reversi
   - INTERVAL_IS_NOEND (macro to check if interval represents positive infinity) 
   - INTERVAL_NOBEGIN (macro to set interval to negative infinity)
   - INT64CONST (macro for 64-bit integer constant)
-  - pg_sub_s64_overflow (safe 64-bit subtraction with overflow checking)
-  - pg_sub_s32_overflow (safe 32-bit subtraction with overflow checking)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (safe 64-bit subtraction with overflow checking)
+  - [pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md) (safe 32-bit subtraction with overflow checking)
   - INTERVAL_NOT_FINITE (macro to check if interval is finite)
   - ereport (error reporting function)
 - Called from (representative examples):
   - IA_TOTAL_COUNT (at src/backend/utils/adt/timestamp.c:98)
-  - timestamp_mi_interval (at src/backend/utils/adt/timestamp.c:3172)
-  - timestamptz_mi_interval_internal (at src/backend/utils/adt/timestamp.c:3330)
-  - interval_um (at src/backend/utils/adt/timestamp.c:3411)
-  - interval_mul (at src/backend/utils/adt/timestamp.c:3595)
-  - interval_div (at src/backend/utils/adt/timestamp.c:3731)
+  - [timestamp_mi_interval](../t/timestamp_mi_interval.md) (at src/backend/utils/adt/timestamp.c:3172)
+  - [timestamptz_mi_interval_internal](../t/timestamptz_mi_interval_internal.md) (at src/backend/utils/adt/timestamp.c:3330)
+  - [interval_um](interval_um.md) (at src/backend/utils/adt/timestamp.c:3411)
+  - [interval_mul](interval_mul.md) (at src/backend/utils/adt/timestamp.c:3595)
+  - [interval_div](interval_div.md) (at src/backend/utils/adt/timestamp.c:3731)
 
 ## Notes and Other Information
 - This is a static internal function, not directly accessible from SQL

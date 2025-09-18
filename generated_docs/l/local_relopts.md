@@ -28,15 +28,15 @@ The `local_relopts` structure serves as a container for managing local relation 
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - init_local_reloptions (src/backend/access/common/reloptions.c:734)
-  - register_reloptions_validator (src/backend/access/common/reloptions.c:747)
-  - add_local_reloption (src/backend/access/common/reloptions.c:757)
-  - add_local_bool_reloption (src/backend/access/common/reloptions.c:865)
-  - add_local_int_reloption (src/backend/access/common/reloptions.c:918)
-  - parseLocalRelOptions (src/backend/access/common/reloptions.c:1550)
-  - build_local_reloptions (src/backend/access/common/reloptions.c:1954)
-  - brin_bloom_options (src/backend/access/brin/brin_bloom.c:749)
-  - index_opclass_options (src/backend/access/index/indexam.c:1002)
+  - [init_local_reloptions](../i/init_local_reloptions.md) (src/backend/access/common/reloptions.c:734)
+  - [register_reloptions_validator](../r/register_reloptions_validator.md) (src/backend/access/common/reloptions.c:747)
+  - [add_local_reloption](../a/add_local_reloption.md) (src/backend/access/common/reloptions.c:757)
+  - [add_local_bool_reloption](../a/add_local_bool_reloption.md) (src/backend/access/common/reloptions.c:865)
+  - [add_local_int_reloption](../a/add_local_int_reloption.md) (src/backend/access/common/reloptions.c:918)
+  - [parseLocalRelOptions](../p/parseLocalRelOptions.md) (src/backend/access/common/reloptions.c:1550)
+  - [build_local_reloptions](../b/build_local_reloptions.md) (src/backend/access/common/reloptions.c:1954)
+  - [brin_bloom_options](../b/brin_bloom_options.md) (src/backend/access/brin/brin_bloom.c:749)
+  - [index_opclass_options](../i/index_opclass_options.md) (src/backend/access/index/indexam.c:1002)
 
 ## Notes and Other Information
 This structure is extensively used by PostgreSQL extensions and access methods (like BRIN, GiST) to implement custom storage parameters. The relopt_struct_size field is crucial for memory allocation and ensures that the parsed bytea structure has sufficient space for all defined options. The validators list enables custom validation logic that goes beyond basic type checking, allowing complex inter-option dependencies and business rule enforcement.

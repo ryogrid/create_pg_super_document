@@ -23,9 +23,9 @@ For octal format, it reads digits from '0' to '7' and stops when it encounters a
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic bit operations and character manipulation)
 - Called from (representative examples):
-  - bbstreamer_tar_header (multiple calls for parsing various tar header fields)
-  - isValidTarHeader (for tar header validation in pg_dump)
-  - _tarGetHeader (for extracting header information in pg_backup_tar.c)
+  - [bbstreamer_tar_header](../b/bbstreamer_tar_header.md) (multiple calls for parsing various tar header fields)
+  - [isValidTarHeader](../i/isValidTarHeader.md) (for tar header validation in pg_dump)
+  - [_tarGetHeader](../t/_tarGetHeader.md) (for extracting header information in pg_backup_tar.c)
 
 ## Notes and Other Information
 - Returns a 64-bit unsigned integer representing the parsed value

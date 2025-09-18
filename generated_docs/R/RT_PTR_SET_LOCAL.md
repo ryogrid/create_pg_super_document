@@ -35,19 +35,19 @@ The function ensures that after calling RT_PTR_SET_LOCAL, the local field of the
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
-  - dsa_get_address (when RT_SHMEM is defined, converts DSA pointer to local pointer)
-  - RT_RADIX_TREE (the radix tree structure type)
+  - [dsa_get_address](../d/dsa_get_address.md) (when RT_SHMEM is defined, converts DSA pointer to local pointer)
+  - [RT_RADIX_TREE](RT_RADIX_TREE.md) (the radix tree structure type)
   - RT_CHILD_PTR (convenience type combining allocation and local pointers)
 - Called from (representative examples):
-  - RT_ALLOC_NODE (at src/include/lib/radixtree.h:849)
-  - RT_ALLOC_LEAF (at src/include/lib/radixtree.h:903)
-  - RT_FIND (at src/include/lib/radixtree.h:1114, 1127)
-  - RT_SET (at src/include/lib/radixtree.h:1733, 1780)
-  - RT_GET_SLOT_RECURSIVE (at src/include/lib/radixtree.h:1670)
-  - RT_FREE_RECURSE (at src/include/lib/radixtree.h:1972)
-  - RT_BEGIN_ITERATE (at src/include/lib/radixtree.h:2105)
-  - RT_ITERATE_NEXT (at src/include/lib/radixtree.h:2238, 2247)
-  - RT_DELETE_RECURSIVE (at src/include/lib/radixtree.h:2614)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (at src/include/lib/radixtree.h:849)
+  - [RT_ALLOC_LEAF](RT_ALLOC_LEAF.md) (at src/include/lib/radixtree.h:903)
+  - [RT_FIND](RT_FIND.md) (at src/include/lib/radixtree.h:1114, 1127)
+  - [RT_SET](RT_SET.md) (at src/include/lib/radixtree.h:1733, 1780)
+  - [RT_GET_SLOT_RECURSIVE](RT_GET_SLOT_RECURSIVE.md) (at src/include/lib/radixtree.h:1670)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (at src/include/lib/radixtree.h:1972)
+  - [RT_BEGIN_ITERATE](RT_BEGIN_ITERATE.md) (at src/include/lib/radixtree.h:2105)
+  - [RT_ITERATE_NEXT](RT_ITERATE_NEXT.md) (at src/include/lib/radixtree.h:2238, 2247)
+  - [RT_DELETE_RECURSIVE](RT_DELETE_RECURSIVE.md) (at src/include/lib/radixtree.h:2614)
 
 ## Notes and Other Information
 This function is a critical component of PostgreSQL's shared memory radix tree implementation. It abstracts the difference between local memory and shared memory configurations, allowing the same tree traversal code to work in both scenarios.

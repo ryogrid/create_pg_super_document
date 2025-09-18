@@ -21,10 +21,10 @@ As a cleanup function, it does not return any value and focuses solely on resour
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (recursively shuts down child subplans)
+  - [ExecEndNode](ExecEndNode.md) (recursively shuts down child subplans)
 
 - Called from (representative examples):
-  - ExecEndNode (part of the general node cleanup dispatch system)
+  - [ExecEndNode](ExecEndNode.md) (part of the general node cleanup dispatch system)
 
 ## Notes and Other Information
 - Performs null pointer checks before calling ExecEndNode on each child

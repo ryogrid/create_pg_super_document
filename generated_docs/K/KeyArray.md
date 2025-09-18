@@ -32,10 +32,10 @@ The structure maintains two synchronized arrays: one for the actual key data (`k
 - Functions called/Symbols referenced:
   - GinNullCategory
 - Called from (representative examples):
-  - initKeyArray
-  - addDatum
-  - processPendingPage
-  - ginInsertCleanup
+  - [initKeyArray](../i/initKeyArray.md)
+  - [addDatum](../a/addDatum.md)
+  - [processPendingPage](../p/processPendingPage.md)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md)
 
 ## Notes and Other Information
 - The KeyArray structure is used internally in GIN fast insert operations to accumulate keys before processing them

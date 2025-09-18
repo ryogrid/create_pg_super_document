@@ -26,13 +26,13 @@ The function guards against race conditions where worker statistics or other imp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SendProcSignal
+  - [SendProcSignal](../S/SendProcSignal.md)
   - PROCSIG_PARALLEL_MESSAGE (signal type constant)
-  - dsm_detach
+  - [dsm_detach](../d/dsm_detach.md)
   - dsm_segment (struct type)
-  - DatumGetPointer (macro for extracting pointer from Datum)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro for extracting pointer from Datum)
 - Called from (representative examples):
-  - ParallelWorkerMain (registered via before_shmem_exit)
+  - [ParallelWorkerMain](ParallelWorkerMain.md) (registered via before_shmem_exit)
 
 ## Notes and Other Information
 - Declared as `static` - only visible within parallel.c

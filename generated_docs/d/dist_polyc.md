@@ -21,7 +21,7 @@ This function serves as a PostgreSQL SQL-callable wrapper for polygon-to-circle 
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P - extracts POLYGON argument from function call
   - PG_GETARG_CIRCLE_P - extracts CIRCLE argument from function call
-  - dist_cpoly_internal - performs the actual distance calculation
+  - [dist_cpoly_internal](dist_cpoly_internal.md) - performs the actual distance calculation
   - PG_RETURN_FLOAT8 - returns float8 result to PostgreSQL
 - Called from:
   - No direct references found (likely called via SQL function registry)

@@ -39,20 +39,20 @@ The function distinguishes between "joinquals" and "otherquals" for outer joins,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rel_supports_distinctness
-  - is_innerrel_unique_for
-  - bms_is_subset
-  - bms_copy  
+  - [rel_supports_distinctness](../r/rel_supports_distinctness.md)
+  - [is_innerrel_unique_for](is_innerrel_unique_for.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_copy](../b/bms_copy.md)  
   - lappend
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data structures used:
-  - PlannerInfo
+  - [PlannerInfo](../P/PlannerInfo.md)
   - RelOptInfo
   - JoinType
   - Relids
 - Called from:
-  - add_paths_to_joinrel (src/backend/optimizer/path/joinpath.c:185, 194)
-  - reduce_unique_semijoins (src/backend/optimizer/plan/analyzejoins.c:783)
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md) (src/backend/optimizer/path/joinpath.c:185, 194)
+  - [reduce_unique_semijoins](../r/reduce_unique_semijoins.md) (src/backend/optimizer/plan/analyzejoins.c:783)
 
 ## Notes and Other Information
 - Results are cached in `innerrel->unique_for_rels` (positive) and `innerrel->non_unique_for_rels` (negative)

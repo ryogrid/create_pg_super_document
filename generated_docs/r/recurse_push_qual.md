@@ -38,18 +38,18 @@ The recursive approach ensures that every component subquery within complex nest
 - Functions called/Symbols referenced:
   - IsA (macro)
   - rt_fetch
-  - subquery_push_qual
-  - recurse_push_qual (recursive self-calls)
+  - [subquery_push_qual](../s/subquery_push_qual.md)
+  - [recurse_push_qual](recurse_push_qual.md) (recursive self-calls)
   - elog
   - nodeTag
 - Types referenced:
   - RangeTblRef
   - SetOperationStmt
-  - RangeTblEntry
-  - Query
+  - [RangeTblEntry](../R/RangeTblEntry.md)
+  - [Query](../Q/Query.md)
 - Called from (representative examples):
-  - subquery_push_qual (src/backend/optimizer/path/allpaths.c:3961)
-  - recurse_push_qual (recursive calls at src/backend/optimizer/path/allpaths.c:4019-4020)
+  - [subquery_push_qual](../s/subquery_push_qual.md) (src/backend/optimizer/path/allpaths.c:3961)
+  - [recurse_push_qual](recurse_push_qual.md) (recursive calls at src/backend/optimizer/path/allpaths.c:4019-4020)
 
 ## Notes and Other Information
 - Static helper function within allpaths.c, specifically designed for set operations tree traversal

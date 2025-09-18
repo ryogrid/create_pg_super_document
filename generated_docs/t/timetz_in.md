@@ -32,13 +32,13 @@ The function handles various time formats and timezone representations, making i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime
-  - DecodeTimeOnly
+  - [ParseDateTime](../P/ParseDateTime.md)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md)
   - DateTimeParseError
-  - tm2timetz
-  - AdjustTimeForTypmod
+  - [tm2timetz](tm2timetz.md)
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)
   - PG_RETURN_TIMETZADT_P
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
   - No direct callers found (typically invoked through PostgreSQL's type system during SQL parsing)
 

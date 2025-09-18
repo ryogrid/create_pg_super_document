@@ -17,18 +17,18 @@ ExecReadyExpr is a crucial function in PostgreSQL's expression evaluation pipeli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jit_compile_expr
-  - ExecReadyInterpretedExpr
+  - [jit_compile_expr](../j/jit_compile_expr.md)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md)
 - Called from (representative examples):
-  - ExecInitExpr
-  - ExecInitExprWithParams
-  - ExecInitQual
-  - ExecBuildProjectionInfo
-  - ExecBuildUpdateProjection
-  - ExecInitExprRec
-  - ExecBuildAggTrans
-  - ExecBuildGroupingEqual
-  - ExecBuildParamSetEqual
+  - [ExecInitExpr](ExecInitExpr.md)
+  - [ExecInitExprWithParams](ExecInitExprWithParams.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
+  - [ExecInitExprRec](ExecInitExprRec.md)
+  - [ExecBuildAggTrans](ExecBuildAggTrans.md)
+  - [ExecBuildGroupingEqual](ExecBuildGroupingEqual.md)
+  - [ExecBuildParamSetEqual](ExecBuildParamSetEqual.md)
 
 ## Notes and Other Information
 - This is a static function internal to execExpr.c

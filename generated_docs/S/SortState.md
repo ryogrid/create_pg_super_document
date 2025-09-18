@@ -284,16 +284,16 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - SharedSortInfo
+  - [ScanState](ScanState.md)
+  - [SharedSortInfo](SharedSortInfo.md)
 - Called from (representative examples):
-  - ExecSort
-  - ExecInitSort
-  - ExecEndSort
-  - ExecSortMarkPos
-  - ExecSortRestrPos
-  - ExecReScanSort
-  - show_sort_info
+  - [ExecSort](../E/ExecSort.md)
+  - [ExecInitSort](../E/ExecInitSort.md)
+  - [ExecEndSort](../E/ExecEndSort.md)
+  - [ExecSortMarkPos](../E/ExecSortMarkPos.md)
+  - [ExecSortRestrPos](../E/ExecSortRestrPos.md)
+  - [ExecReScanSort](../E/ExecReScanSort.md)
+  - [show_sort_info](../s/show_sort_info.md)
 
 ## Notes and Other Information
 SortState is a central component of PostgreSQL's query execution engine for handling ORDER BY clauses and other sorting requirements. It supports various optimization strategies including bounded sorts for LIMIT queries, parallel execution across multiple workers, and both tuple and datum sorting modes. The structure maintains careful state tracking to handle complex scenarios like rescanning and position marking/restoration. The integration with tuplesort.c provides access to sophisticated sorting algorithms including external sorting for large datasets that exceed memory limits.

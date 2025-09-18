@@ -28,11 +28,11 @@ This structure stores metadata about the bitmap management aspects of the operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)
-  - bool (type)
+  - [bool](../b/bool.md) (type)
 - Called from (representative examples):
-  - hash_xlog_add_ovfl_page (WAL replay function)
-  - _hash_addovflpage (overflow page addition implementation)
-  - hash_desc (WAL record description function)
+  - [hash_xlog_add_ovfl_page](../h/hash_xlog_add_ovfl_page.md) (WAL replay function)
+  - [_hash_addovflpage](../h/_hash_addovflpage.md) (overflow page addition implementation)
+  - [hash_desc](../h/hash_desc.md) (WAL record description function)
   - SizeOfHashAddOvflPage (macro for size calculation)
 
 ## Notes and Other Information

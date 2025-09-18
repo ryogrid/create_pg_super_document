@@ -32,12 +32,12 @@ For appendrel children (other relations), the function performs Var translation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - IS_OTHER_REL
-  - adjust_appendrel_attrs_multilevel
+  - [adjust_appendrel_attrs_multilevel](../a/adjust_appendrel_attrs_multilevel.md)
 - Called from (representative examples):
-  - generate_join_implied_equalities (src/backend/optimizer/path/equivclass.c:1454)
-  - generate_join_implied_equalities_for_ecs (src/backend/optimizer/path/equivclass.c:1530)
+  - [generate_join_implied_equalities](generate_join_implied_equalities.md) (src/backend/optimizer/path/equivclass.c:1454)
+  - [generate_join_implied_equalities_for_ecs](generate_join_implied_equalities_for_ecs.md) (src/backend/optimizer/path/equivclass.c:1530)
 
 ## Notes and Other Information
 - Used as a last resort when equivalence class member processing fails

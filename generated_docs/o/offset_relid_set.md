@@ -18,16 +18,16 @@ This function creates a new Relids set by applying a specified offset to each re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member (to iterate through set members)
-  - bms_add_member (to add members to the result set)
+  - [bms_next_member](../b/bms_next_member.md) (to iterate through set members)
+  - [bms_add_member](../b/bms_add_member.md) (to add members to the result set)
   - Relids (bitmap set type for relation identifiers)
 - Called from (representative examples):
-  - OffsetVarNodes_walker (for adjusting variable nulling relations)
+  - [OffsetVarNodes_walker](../O/OffsetVarNodes_walker.md) (for adjusting variable nulling relations)
   - fix_scan_list
-  - set_foreignscan_references
-  - set_customscan_references
-  - set_append_references
-  - set_mergeappend_references
+  - [set_foreignscan_references](../s/set_foreignscan_references.md)
+  - [set_customscan_references](../s/set_customscan_references.md)
+  - [set_append_references](../s/set_append_references.md)
+  - [set_mergeappend_references](../s/set_mergeappend_references.md)
 
 ## Notes and Other Information
 - This is a static function within setrefs.c, indicating internal use within the optimizer

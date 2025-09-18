@@ -22,12 +22,12 @@ The security model works by assigning security levels to different types of clau
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestrictInfo struct (security_level, leakproof fields)
+  - [RestrictInfo](../R/RestrictInfo.md) struct (security_level, leakproof fields)
   - RelOptInfo struct (baserestrict_min_security field)
 - Called from (representative examples):
-  - match_clause_to_index (src/backend/optimizer/path/indxpath.c:2104)
-  - RestrictInfoIsTidQual (src/backend/optimizer/path/tidpath.c:247)
-  - BuildParameterizedTidPaths (src/backend/optimizer/path/tidpath.c:440)
+  - [match_clause_to_index](../m/match_clause_to_index.md) (src/backend/optimizer/path/indxpath.c:2104)
+  - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md) (src/backend/optimizer/path/tidpath.c:247)
+  - [BuildParameterizedTidPaths](../B/BuildParameterizedTidPaths.md) (src/backend/optimizer/path/tidpath.c:440)
   - make_simple_restrictinfo (src/include/optimizer/restrictinfo.h:37)
 
 ## Notes and Other Information

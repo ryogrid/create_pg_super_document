@@ -27,10 +27,10 @@ The function only returns a valid PID when the connection is in CONNECTION_OK st
 - Functions called/Symbols referenced:
   - CONNECTION_OK (connection status constant)
 - Called from (representative examples):
-  - libpqrcv_get_backend_pid (in replication walreceiver)
-  - StartLogStreamer (in pg_basebackup)
+  - [libpqrcv_get_backend_pid](../l/libpqrcv_get_backend_pid.md) (in replication walreceiver)
+  - [StartLogStreamer](../S/StartLogStreamer.md) (in pg_basebackup)
   - MAX_PROMPT_SIZE (in psql prompt handling)
-  - send_cancellable_query_impl (in pipeline testing)
+  - [send_cancellable_query_impl](../s/send_cancellable_query_impl.md) (in pipeline testing)
 
 ## Notes and Other Information
 - Returns 0 for invalid connections (NULL pointer or not CONNECTION_OK status)

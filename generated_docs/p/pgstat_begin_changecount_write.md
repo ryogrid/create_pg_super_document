@@ -28,9 +28,9 @@ This follows a standard reader-writer synchronization pattern where odd counter 
   - START_CRIT_SECTION (macro to begin critical section)
   - pg_write_barrier (memory barrier function)
 - Called from (representative examples):
-  - pgstat_report_archiver
-  - pgstat_report_bgwriter
-  - pgstat_report_checkpointer
+  - [pgstat_report_archiver](pgstat_report_archiver.md)
+  - [pgstat_report_bgwriter](pgstat_report_bgwriter.md)
+  - [pgstat_report_checkpointer](pgstat_report_checkpointer.md)
 
 ## Notes and Other Information
 - This function must always be paired with pgstat_end_changecount_write

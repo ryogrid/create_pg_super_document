@@ -20,13 +20,13 @@ The algorithm exploits the property that 0 and -0 are identical in two's complem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext (struct type)
+  - [SlabContext](SlabContext.md) (struct type)
   - SLAB_BLOCKLIST_COUNT (constant)
 - Called from (representative examples):
-  - SlabAllocFromNewBlock
-  - SlabAlloc
-  - SlabFree
-  - SlabCheck
+  - [SlabAllocFromNewBlock](SlabAllocFromNewBlock.md)
+  - [SlabAlloc](SlabAlloc.md)
+  - [SlabFree](SlabFree.md)
+  - [SlabCheck](SlabCheck.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

@@ -27,19 +27,19 @@ The returned tuples are sorted by physical position (ItemPointer) to enable corr
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
-  - GetOldestNonRemovableTransactionId
+  - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
   - BlockSampler_Init
-  - table_beginscan_analyze
-  - table_scan_analyze_next_block
-  - table_scan_analyze_next_tuple
+  - [table_beginscan_analyze](../t/table_beginscan_analyze.md)
+  - [table_scan_analyze_next_block](../t/table_scan_analyze_next_block.md)
+  - [table_scan_analyze_next_tuple](../t/table_scan_analyze_next_tuple.md)
   - reservoir_init_selection_state
   - reservoir_get_next_S
-  - compare_rows (for sorting)
+  - [compare_rows](../c/compare_rows.md) (for sorting)
   - ExecCopySlotHeapTuple
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - analyze_rel
-  - acquire_inherited_sample_rows
+  - [analyze_rel](analyze_rel.md)
+  - [acquire_inherited_sample_rows](acquire_inherited_sample_rows.md)
 
 ## Notes and Other Information
 - Uses Vitter's reservoir sampling algorithm for statistically sound random sampling

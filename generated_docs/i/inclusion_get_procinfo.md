@@ -22,25 +22,25 @@ This function provides cached access to support procedures for BRIN inclusion op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getprocid
-  - index_getprocinfo
+  - [index_getprocid](index_getprocid.md)
+  - [index_getprocinfo](index_getprocinfo.md)
   - RegProcedureIsValid
-  - fmgr_info_copy
+  - [fmgr_info_copy](../f/fmgr_info_copy.md)
   - ereport
-  - errcode
-  - errmsg_internal
-  - errdetail_internal
+  - [errcode](../e/errcode.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
 - Constants:
   - PROCNUM_BASE
   - InvalidOid
   - ERRCODE_INVALID_OBJECT_DEFINITION
 - Data structures:
-  - BrinDesc
-  - InclusionOpaque
-  - FmgrInfo
+  - [BrinDesc](../B/BrinDesc.md)
+  - [InclusionOpaque](../I/InclusionOpaque.md)
+  - [FmgrInfo](../F/FmgrInfo.md)
 - Called from (representative examples):
-  - brin_inclusion_add_value (lines 182, 198, 213, 224)
-  - brin_inclusion_union (lines 508, 519)
+  - [brin_inclusion_add_value](../b/brin_inclusion_add_value.md) (lines 182, 198, 213, 224)
+  - [brin_inclusion_union](../b/brin_inclusion_union.md) (lines 508, 519)
 
 ## Notes and Other Information
 - Function is declared static, limiting its visibility to the brin_inclusion.c file

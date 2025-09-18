@@ -25,16 +25,16 @@ TransStateAsString is a debugging support function that provides string represen
   - TRANS_ABORT
   - TRANS_PREPARE
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
-  - AbortTransaction
-  - CleanupTransaction
-  - StartSubTransaction
-  - CommitSubTransaction
-  - AbortSubTransaction
-  - CleanupSubTransaction
-  - PopTransaction
-  - ShowTransactionStateRec
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [CleanupTransaction](../C/CleanupTransaction.md)
+  - [StartSubTransaction](../S/StartSubTransaction.md)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md)
+  - [PopTransaction](../P/PopTransaction.md)
+  - [ShowTransactionStateRec](../S/ShowTransactionStateRec.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively for debugging and diagnostic purposes

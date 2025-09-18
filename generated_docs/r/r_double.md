@@ -29,11 +29,11 @@ This is a non-consuming test function that checks for the presence of doubled co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function
   - a_2: Array containing 23 doubled consonant patterns
 - Called from (representative examples):
-  - r_instrum: Hungarian instrumental case processing
-  - r_factive: Hungarian factive case processing
+  - [r_instrum](r_instrum.md): Hungarian instrumental case processing
+  - [r_factive](r_factive.md): Hungarian factive case processing
 
 ## Notes and Other Information
 - This function is specific to Hungarian morphology where doubled consonants have special significance

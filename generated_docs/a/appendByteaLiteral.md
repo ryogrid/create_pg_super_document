@@ -24,7 +24,7 @@ The implementation directly manipulates the PQExpBuffer's internal data for effi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlargePQExpBuffer (ensures sufficient buffer space for the hex output)
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md) (ensures sufficient buffer space for the hex output)
 - Called from (representative examples):
   - appendByteaLiteralAHX (in pg_backup_archiver.h)
 

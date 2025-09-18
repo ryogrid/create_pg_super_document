@@ -21,9 +21,9 @@ The function implements a safety check to prevent the creation of a PostgreSQL c
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (C standard library)
-  - pg_fatal (PostgreSQL error handling function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling function)
 - Called from (representative examples):
-  - main (src/bin/initdb/initdb.c:3440)
+  - [main](../m/main.md) (src/bin/initdb/initdb.c:3440)
 
 ## Notes and Other Information
 - This function uses global variables `pwprompt` and `pwfilename` to determine if a password mechanism has been configured

@@ -21,12 +21,12 @@ The returned list contains expressions that represent the constraints inherited 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_partition_qual (constructs the actual partition qualification)
+  - [generate_partition_qual](../g/generate_partition_qual.md) (constructs the actual partition qualification)
 - Called from (representative examples):
-  - ATExecAttachPartition (src/backend/commands/tablecmds.c:18708)
-  - DetachAddConstraintIfNeeded (src/backend/commands/tablecmds.c:19685)
-  - ExecPartitionCheck (src/backend/executor/execMain.c:1814)
-  - set_baserel_partition_constraint (src/backend/optimizer/util/plancat.c:2638)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md) (src/backend/commands/tablecmds.c:18708)
+  - [DetachAddConstraintIfNeeded](../D/DetachAddConstraintIfNeeded.md) (src/backend/commands/tablecmds.c:19685)
+  - [ExecPartitionCheck](../E/ExecPartitionCheck.md) (src/backend/executor/execMain.c:1814)
+  - [set_baserel_partition_constraint](../s/set_baserel_partition_constraint.md) (src/backend/optimizer/util/plancat.c:2638)
 
 ## Notes and Other Information
 - Returns NIL immediately if the relation is not a partition (relispartition = false)

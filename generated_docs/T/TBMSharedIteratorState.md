@@ -32,12 +32,12 @@ This design is essential for parallel bitmap heap scans where multiple worker pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer
-  - LWLock
+  - [LWLock](../L/LWLock.md)
 - Called from (representative examples):
-  - tbm_free_shared_area
-  - tbm_prepare_shared_iterate
-  - tbm_shared_iterate
-  - tbm_attach_shared_iterate
+  - [tbm_free_shared_area](../t/tbm_free_shared_area.md)
+  - [tbm_prepare_shared_iterate](../t/tbm_prepare_shared_iterate.md)
+  - [tbm_shared_iterate](../t/tbm_shared_iterate.md)
+  - [tbm_attach_shared_iterate](../t/tbm_attach_shared_iterate.md)
 
 ## Notes and Other Information
 - The LWLock protection is critical for maintaining consistency when multiple parallel workers coordinate their iteration progress

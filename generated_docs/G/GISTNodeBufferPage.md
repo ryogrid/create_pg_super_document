@@ -26,9 +26,9 @@ The structure uses a flexible array member for tupledata, allowing it to store v
 - Called from (representative examples):
   - gistAllocateNewPageBuffer (allocates and initializes new buffer pages)
   - gistGetNodeBuffer (retrieves buffer pages)
-  - gistPlaceItupToPage (places tuples into buffer pages)
-  - gistGetItupFromPage (retrieves tuples from buffer pages)
-  - gistPushItupToNodeBuffer (adds tuples to node buffers)
+  - [gistPlaceItupToPage](../g/gistPlaceItupToPage.md) (places tuples into buffer pages)
+  - [gistGetItupFromPage](../g/gistGetItupFromPage.md) (retrieves tuples from buffer pages)
+  - [gistPushItupToNodeBuffer](../g/gistPushItupToNodeBuffer.md) (adds tuples to node buffers)
 
 ## Notes and Other Information
 - Buffer pages are allocated with BLCKSZ size to match PostgreSQL's standard block size

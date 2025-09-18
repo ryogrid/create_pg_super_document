@@ -26,8 +26,8 @@ The function serves as the foundation for JSONB's binary format by properly enco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendToBuffer (appends string and numeric data to buffer)
-  - padBufferToInt (aligns buffer for numeric values)
+  - [appendToBuffer](../a/appendToBuffer.md) (appends string and numeric data to buffer)
+  - [padBufferToInt](../p/padBufferToInt.md) (aligns buffer for numeric values)
   - JsonEncodeDateTime (converts datetime values to string representation)
   - VARSIZE_ANY (gets size of PostgreSQL varlena types)
 - Constants used:
@@ -42,8 +42,8 @@ The function serves as the foundation for JSONB's binary format by properly enco
   - jbvBool (JSON boolean)
   - jbvDatetime (PostgreSQL datetime extension)
 - Called from:
-  - convertJsonbValue (main conversion dispatcher for scalars)
-  - convertJsonbObject (for object keys, which must be strings)
+  - [convertJsonbValue](convertJsonbValue.md) (main conversion dispatcher for scalars)
+  - [convertJsonbObject](convertJsonbObject.md) (for object keys, which must be strings)
 
 ## Notes and Other Information
 - Handles all JSON primitive data types plus PostgreSQL's datetime extension

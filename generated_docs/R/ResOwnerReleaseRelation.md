@@ -19,8 +19,8 @@ The function is part of PostgreSQL's resource management infrastructure, which e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (to extract Relation pointer from Datum)
-  - RelationCloseCleanup (to perform additional cleanup for the relation)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (to extract Relation pointer from Datum)
+  - [RelationCloseCleanup](RelationCloseCleanup.md) (to perform additional cleanup for the relation)
 - Called from (representative examples):
   - Resource owner system via the relref_resowner_desc.ReleaseResource callback (src/backend/utils/cache/relcache.c:2136)
 

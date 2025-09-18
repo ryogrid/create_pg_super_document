@@ -31,7 +31,7 @@ The `array_length` function retrieves the length (size) of a specific dimension 
   - `PG_RETURN_NULL` - macro to return NULL value
 - Called from (representative examples):
   - SQL queries using `array_length()` function
-  - `trim_array` function for array manipulation operations
+  - `[trim_array](../t/trim_array.md)` function for array manipulation operations
   - Array processing routines requiring dimension size information
 
 ## Notes and Other Information

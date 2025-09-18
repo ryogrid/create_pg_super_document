@@ -30,22 +30,22 @@ The returned autovac_table contains all necessary parameters for the vacuum/anal
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy1 (fetch relation's pg_class tuple)
-  - extract_autovac_opts (extract autovacuum options from reloptions)
-  - recheck_relation_needs_vacanalyze (determine if maintenance is needed)
-  - hash_search (lookup TOAST table options)
-  - palloc (memory allocation for autovac_table)
-  - heap_freetuple (free catalog tuple)
+  - [extract_autovac_opts](../e/extract_autovac_opts.md) (extract autovacuum options from reloptions)
+  - [recheck_relation_needs_vacanalyze](../r/recheck_relation_needs_vacanalyze.md) (determine if maintenance is needed)
+  - [hash_search](../h/hash_search.md) (lookup TOAST table options)
+  - [palloc](../p/palloc.md) (memory allocation for autovac_table)
+  - [heap_freetuple](../h/heap_freetuple.md) (free catalog tuple)
 - Called from (representative examples):
-  - do_autovacuum (during table processing to recheck maintenance needs)
+  - [do_autovacuum](../d/do_autovacuum.md) (during table processing to recheck maintenance needs)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy1/extract_autovac_opts/recheck_relation_needs_vacanalyze
-  - hash_search (for TOAST table option lookup)  
-  - palloc/heap_freetuple (memory management)
+  - [hash_search](../h/hash_search.md) (for TOAST table option lookup)  
+  - [palloc](../p/palloc.md)/heap_freetuple (memory management)
   - VACOPT_* constants (vacuum option flags)
 - Called from (representative examples):
-  - do_autovacuum (recheck table maintenance needs before processing)
+  - [do_autovacuum](../d/do_autovacuum.md) (recheck table maintenance needs before processing)
 
 ## Notes and Other Information
 - Returns NULL if the relation no longer exists or no longer needs maintenance

@@ -292,22 +292,22 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetDummyProc (get dummy process for prepared transaction)
+  - [TwoPhaseGetDummyProc](../T/TwoPhaseGetDummyProc.md) (get dummy process for prepared transaction)
   - LockTagHashCode (compute hash code for lock tag)
   - LockHashPartition (determine lock partition)
   - LockHashPartitionLock (get partition lock)
-  - hash_search_with_hash_value (hash table search operations)
-  - dlist_init, dclist_init (initialize doubly-linked lists)
-  - dlist_push_tail (add to list tail)
-  - ProcLockHashCode (compute proclock hash code)
-  - GrantLock (grant lock to process)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (hash table search operations)
+  - [dlist_init](../d/dlist_init.md), dclist_init (initialize doubly-linked lists)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (add to list tail)
+  - [ProcLockHashCode](../P/ProcLockHashCode.md) (compute proclock hash code)
+  - [GrantLock](../G/GrantLock.md) (grant lock to process)
   - ConflictsWithRelationFastPath (check fast-path conflicts)
   - FastPathStrongLockHashPartition (fast-path hash partitioning)
 - Data structures used:
-  - TwoPhaseLockRecord (2PC lock record structure)
-  - PGPROC (process structure)
+  - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md) (2PC lock record structure)
+  - [PGPROC](../P/PGPROC.md) (process structure)
   - LOCK (lock object structure)
-  - PROCLOCK (process lock structure)
+  - [PROCLOCK](../P/PROCLOCK.md) (process lock structure)
   - LOCKTAG (lock identification tag)
   - PROCLOCKTAG (process lock tag)
 - Global variables accessed:

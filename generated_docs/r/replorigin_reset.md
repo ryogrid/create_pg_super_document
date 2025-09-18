@@ -34,8 +34,8 @@ Global variables modified:
   - InvalidRepOriginId: Constant representing an invalid replication origin ID
   - InvalidXLogRecPtr: Constant representing an invalid WAL LSN (implicitly used)
 - Called from:
-  - start_apply: Registers this function as an exit callback
-  - SetupApplyOrSyncWorker: Sets up exit callback for worker cleanup
+  - [start_apply](../s/start_apply.md): Registers this function as an exit callback
+  - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md): Sets up exit callback for worker cleanup
 
 ## Notes and Other Information
 - This is a static function, internal to the worker.c file

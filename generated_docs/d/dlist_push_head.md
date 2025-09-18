@@ -18,18 +18,18 @@ The  function adds a new node to the front of a doubly-linked list by updating t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (structure type)
-  - dlist_node (structure type)
-  - dlist_init (initialization function)
-  - dlist_check (integrity validation function)
+  - [dlist_head](dlist_head.md) (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
+  - [dlist_init](dlist_init.md) (initialization function)
+  - [dlist_check](dlist_check.md) (integrity validation function)
 - Called from (representative examples):
-  - CreateParallelContext (src/backend/access/transam/parallel.c:193)
-  - XLogPrefetcherAddFilter (src/backend/access/transam/xlogprefetcher.c:872)
-  - rebuild_database_list (src/backend/postmaster/autovacuum.c:1041)
-  - AutoVacWorkerMain (src/backend/postmaster/autovacuum.c:1513)
-  - BackendStartup (src/backend/postmaster/postmaster.c:3623)
-  - SyncRepQueueInsert (src/backend/replication/syncrep.c:399)
-  - BecomeLockGroupLeader (src/backend/storage/lmgr/proc.c:1913)
+  - [CreateParallelContext](../C/CreateParallelContext.md) (src/backend/access/transam/parallel.c:193)
+  - [XLogPrefetcherAddFilter](../X/XLogPrefetcherAddFilter.md) (src/backend/access/transam/xlogprefetcher.c:872)
+  - [rebuild_database_list](../r/rebuild_database_list.md) (src/backend/postmaster/autovacuum.c:1041)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (src/backend/postmaster/autovacuum.c:1513)
+  - [BackendStartup](../B/BackendStartup.md) (src/backend/postmaster/postmaster.c:3623)
+  - [SyncRepQueueInsert](../S/SyncRepQueueInsert.md) (src/backend/replication/syncrep.c:399)
+  - [BecomeLockGroupLeader](../B/BecomeLockGroupLeader.md) (src/backend/storage/lmgr/proc.c:1913)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function for performance efficiency

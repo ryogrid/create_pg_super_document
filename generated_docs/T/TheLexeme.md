@@ -20,15 +20,15 @@ TheLexeme serves as a fundamental data structure in the thesaurus dictionary fun
 - Functions called/Symbols referenced:
   - TSLexeme
 - Called from (representative examples):
-  - TheSubstitute
-  - newLexeme
-  - thesaurusRead
-  - addCompiledLexeme
-  - cmpLexeme
-  - cmpLexemeQ
-  - cmpTheLexeme
-  - compileTheLexeme
-  - findTheLexeme
+  - [TheSubstitute](TheSubstitute.md)
+  - [newLexeme](../n/newLexeme.md)
+  - [thesaurusRead](../t/thesaurusRead.md)
+  - [addCompiledLexeme](../a/addCompiledLexeme.md)
+  - [cmpLexeme](../c/cmpLexeme.md)
+  - [cmpLexemeQ](../c/cmpLexemeQ.md)
+  - [cmpTheLexeme](../c/cmpTheLexeme.md)
+  - [compileTheLexeme](../c/compileTheLexeme.md)
+  - [findTheLexeme](../f/findTheLexeme.md)
 
 ## Notes and Other Information
 - This structure is defined in src/backend/tsearch/dict_thesaurus.c at lines 39-43

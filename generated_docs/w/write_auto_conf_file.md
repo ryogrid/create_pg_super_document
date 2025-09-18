@@ -27,14 +27,14 @@ The function begins by writing a header comment warning users not to manually ed
   - escape_single_quotes_ascii
   - write
   - pg_fsync
-  - pfree
+  - [pfree](../p/pfree.md)
   - ereport
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
 - Data structures used:
   - ConfigVariable
-  - StringInfoData
+  - [StringInfoData](../S/StringInfoData.md)
 - Called from (representative examples):
-  - AlterSystemSetConfigFile
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c source file

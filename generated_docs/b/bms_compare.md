@@ -24,11 +24,11 @@ The comparison algorithm ensures that bms_compare returns 0 if and only if bms_e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation in Assert for both parameters)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation in Assert for both parameters)
   - bitmapword (type used for word comparison)
 - Called from (representative examples):
-  - append_total_cost_compare
-  - append_startup_cost_compare
+  - [append_total_cost_compare](../a/append_total_cost_compare.md)
+  - [append_startup_cost_compare](../a/append_startup_cost_compare.md)
 
 ## Notes and Other Information
 - Returns 0 if sets are equal, positive if a > b, negative if a < b

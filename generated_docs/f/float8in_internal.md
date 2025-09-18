@@ -29,17 +29,17 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereturn (error handling with context support)
-  - pg_strncasecmp (case-insensitive string comparison)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
   - get_float8_nan (retrieve NaN value)
   - get_float8_infinity (retrieve positive infinity value)
   - strtod (standard C library function)
   - isspace (standard C library function)
-  - pstrdup (PostgreSQL string duplication)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
 
 - Called from (representative examples):
-  - float8in (main float8 input function)
+  - [float8in](float8in.md) (main float8 input function)
   - single_decode (geometric operations)
-  - executeItemOptUnwrapTarget (JSON path execution)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution)
 
 ## Notes and Other Information
 - Handles platform differences in strtod() behavior for special values

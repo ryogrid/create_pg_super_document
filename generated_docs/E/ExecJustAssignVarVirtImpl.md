@@ -29,9 +29,9 @@ This function is part of PostgreSQL's expression evaluation optimization framewo
   - TTS_IS_VIRTUAL (macro for checking if slot is virtual)
   - TTS_FIXED (macro for checking if slot is fixed)
 - Called from (representative examples):
-  - ExecJustAssignInnerVarVirt
-  - ExecJustAssignOuterVarVirt  
-  - ExecJustAssignScanVarVirt
+  - [ExecJustAssignInnerVarVirt](ExecJustAssignInnerVarVirt.md)
+  - [ExecJustAssignOuterVarVirt](ExecJustAssignOuterVarVirt.md)  
+  - [ExecJustAssignScanVarVirt](ExecJustAssignScanVarVirt.md)
 
 ## Notes and Other Information
 - This function is marked with pg_attribute_always_inline for maximum performance

@@ -30,13 +30,13 @@ The function operates in 100-millisecond intervals, checking process existence u
 - Functions called/Symbols referenced:
   - kill (system call for process existence check)
   - CHECK_FOR_INTERRUPTS
-  - WaitLatch
-  - ResetLatch
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - MyLatch
   - ereport
-  - errmsg_plural
+  - [errmsg_plural](../e/errmsg_plural.md)
 - Called from (representative examples):
-  - pg_terminate_backend
+  - [pg_terminate_backend](pg_terminate_backend.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within signalfuncs.c

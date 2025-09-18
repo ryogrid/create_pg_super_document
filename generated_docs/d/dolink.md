@@ -26,17 +26,17 @@ The function carefully manages error conditions and provides appropriate warning
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - itsdir (checks if target is a directory)
-  - itssymlink (checks if linkname is a symbolic link)
-  - hardlinkerr (attempts to create hard link)
-  - relname (generates relative path for symbolic links)
-  - mkdirs (creates necessary parent directories)
+  - [itsdir](../i/itsdir.md) (checks if target is a directory)
+  - [itssymlink](../i/itssymlink.md) (checks if linkname is a symbolic link)
+  - [hardlinkerr](../h/hardlinkerr.md) (attempts to create hard link)
+  - [relname](../r/relname.md) (generates relative path for symbolic links)
+  - [mkdirs](../m/mkdirs.md) (creates necessary parent directories)
   - symlink (POSIX system call for symbolic links)
-  - warning (outputs warning messages)
-  - close_file (closes files safely)
+  - [warning](../w/warning.md) (outputs warning messages)
+  - [close_file](../c/close_file.md) (closes files safely)
   - Standard C library functions: strcmp, remove, strerror, fopen, getc, putc, free
 - Called from:
-  - main (three times, at lines 836, 846, and 851 in src/timezone/zic.c)
+  - [main](../m/main.md) (three times, at lines 836, 846, and 851 in src/timezone/zic.c)
 
 ## Notes and Other Information
 - This is a static function local to src/timezone/zic.c, part of PostgreSQL's timezone handling code

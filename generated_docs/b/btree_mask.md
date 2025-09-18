@@ -26,12 +26,12 @@ The function performs several masking operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPageOpaque (btree page opaque structure)
-  - mask_page_lsn_and_checksum (masks LSN and checksum)
-  - mask_page_hint_bits (masks hint bits)
-  - mask_unused_space (masks unused page space)
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md) (masks LSN and checksum)
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md) (masks hint bits)
+  - [mask_unused_space](../m/mask_unused_space.md) (masks unused page space)
   - BTPageGetOpaque (gets btree-specific page metadata)
   - P_ISLEAF (checks if page is a leaf page)
-  - mask_lp_flags (masks line pointer flags)
+  - [mask_lp_flags](../m/mask_lp_flags.md) (masks line pointer flags)
   - BTP_HAS_GARBAGE (btree flag for garbage presence)
   - BTP_SPLIT_END (btree flag for split end)
 

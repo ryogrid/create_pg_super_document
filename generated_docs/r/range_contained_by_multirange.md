@@ -26,9 +26,9 @@ The function follows the standard PostgreSQL function interface pattern, using P
   - PG_GETARG_RANGE_P (argument extraction macro)
   - MultirangeType (struct type)
   - PG_GETARG_MULTIRANGE_P (argument extraction macro)
-  - multirange_get_typcache (type cache retrieval)
+  - [multirange_get_typcache](../m/multirange_get_typcache.md) (type cache retrieval)
   - MultirangeTypeGetOid (OID extraction utility)
-  - multirange_contains_range_internal (core containment logic)
+  - [multirange_contains_range_internal](../m/multirange_contains_range_internal.md) (core containment logic)
 - Called from (representative examples):
   - No direct references found (called via PostgreSQL's function dispatch system)
 

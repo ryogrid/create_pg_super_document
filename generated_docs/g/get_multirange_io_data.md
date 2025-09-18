@@ -33,18 +33,18 @@ This caching mechanism significantly improves performance for repeated I/O opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
-  - lookup_type_cache
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_MULTIRANGE_INFO
-  - get_type_io_data  
-  - fmgr_info_cxt
+  - [get_type_io_data](get_type_io_data.md)  
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
   - IOFunc_receive (constant)
-  - format_type_be (in error messages)
+  - [format_type_be](../f/format_type_be.md) (in error messages)
 - Called from:
-  - multirange_in (src/backend/utils/adt/multirangetypes.c:138)
-  - multirange_out (src/backend/utils/adt/multirangetypes.c:311)
-  - multirange_recv (src/backend/utils/adt/multirangetypes.c:348)
-  - multirange_send (src/backend/utils/adt/multirangetypes.c:386)
+  - [multirange_in](../m/multirange_in.md) (src/backend/utils/adt/multirangetypes.c:138)
+  - [multirange_out](../m/multirange_out.md) (src/backend/utils/adt/multirangetypes.c:311)
+  - [multirange_recv](../m/multirange_recv.md) (src/backend/utils/adt/multirangetypes.c:348)
+  - [multirange_send](../m/multirange_send.md) (src/backend/utils/adt/multirangetypes.c:386)
 
 ## Notes and Other Information
 - Static function used internally by multirange I/O functions

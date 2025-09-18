@@ -286,18 +286,18 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (structure type)
+  - [PredIterInfo](../P/PredIterInfo.md) (structure type)
   - ScalarArrayOpExpr (structure type for scalar op ANY/ALL array expressions)
   - ArrayConstIterState (specialized state structure for array iteration)
   - lsecond (function to get the second element of a list)
   - DatumGetArrayTypeP (function to convert Datum to ArrayType)
-  - get_typlenbyvalalign (function to get type information)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md) (function to get type information)
   - ARR_ELEMTYPE (macro to get array element type)
-  - deconstruct_array (function to extract array elements)
-  - list_copy (function to copy a list)
+  - [deconstruct_array](../d/deconstruct_array.md) (function to extract array elements)
+  - [list_copy](../l/list_copy.md) (function to copy a list)
 - Called from (representative examples):
   - iterate_end (in predicate classification logic)
-  - predicate_classify (during predicate analysis for array operations)
+  - [predicate_classify](../p/predicate_classify.md) (during predicate analysis for array operations)
 
 ## Notes and Other Information
 - This function handles ScalarArrayOpExpr nodes like 'x = ANY(ARRAY[1,2,3])' or 'x = ALL(ARRAY[1,2,3])'

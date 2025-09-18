@@ -19,13 +19,13 @@ This function is part of PostgreSQL's compression infrastructure for pg_dump, al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LZ4Stream_read_internal (performs the actual decompression work)
-  - LZ4Stream_eof (checks for end of file condition)
-  - LZ4Stream_get_error (retrieves error messages)
-  - pg_fatal (reports fatal errors)
+  - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (performs the actual decompression work)
+  - [LZ4Stream_eof](LZ4Stream_eof.md) (checks for end of file condition)
+  - [LZ4Stream_get_error](LZ4Stream_get_error.md) (retrieves error messages)
+  - [pg_fatal](../p/pg_fatal.md) (reports fatal errors)
 - Types referenced:
-  - CompressFileHandle (compression file handle structure)
-  - LZ4State (LZ4 compression state structure)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (compression file handle structure)
+  - [LZ4State](LZ4State.md) (LZ4 compression state structure)
 - Called from (representative examples):
   - No direct callers found in the current codebase
 

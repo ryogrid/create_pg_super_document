@@ -52,13 +52,13 @@ RewriteStateData serves as the central control structure for PostgreSQL heap rew
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BulkWriteState
+  - [BulkWriteState](../B/BulkWriteState.md)
   - BulkWriteBuffer
   - MultiXactId
-  - HTAB
+  - [HTAB](../H/HTAB.md)
 - Called from (representative examples):
-  - begin_heap_rewrite
-  - RewriteState (typedef alias)
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md)
+  - [RewriteState](RewriteState.md) (typedef alias)
 
 ## Notes and Other Information
 This structure is intentionally opaque to users of the rewrite facility, encapsulating complex state management details. The dual hash table system (rs_unresolved_tups and rs_old_new_tid_map) handles the challenging problem of mapping tuples between old and new heap structures when rewrites occur in multiple passes. The logical rewrite functionality is crucial for maintaining referential integrity and supporting features like logical replication during major table restructuring operations.

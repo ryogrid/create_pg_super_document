@@ -29,7 +29,7 @@ The function is specifically exposed for JIT compiled tuple deforming and should
   - AttrMissing (struct type for missing value information)
   - memset (for bulk NULL/false assignment)
 - Called from (representative examples):
-  - slot_getsomeattrs_int
+  - [slot_getsomeattrs_int](slot_getsomeattrs_int.md)
   - JIT compiled tuple deforming code
 
 ## Notes and Other Information

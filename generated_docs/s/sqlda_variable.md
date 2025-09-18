@@ -26,11 +26,11 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (memory allocation function)
-  - mm_strdup (string duplication function)
+  - [mm_alloc](../m/mm_alloc.md) (memory allocation function)
+  - [mm_strdup](../m/mm_strdup.md) (string duplication function)
   - ECPGtype
   - ECPGt_sqlda
-  - element
+  - [element](../e/element.md)
 - Called from (representative examples):
   - Used in ecpg.trailer for handling SQLDA variables in dynamic SQL statements
   - Referenced in ECPG grammar processing for SQLDA operations

@@ -17,7 +17,7 @@ FetchPreparedStatementResultDesc extracts and returns the result tuple descripto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDescCopy (creates a copy of the tuple descriptor)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (creates a copy of the tuple descriptor)
   - Assert (for debugging validation)
 - Called from (representative examples):
   - UtilityTupleDescriptor

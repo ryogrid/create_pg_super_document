@@ -23,13 +23,13 @@ If a matching datum is found, the cell is removed using `list_delete_cell()` and
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList (macro for type checking)
-  - check_list_invariants
-  - equal (PostgreSQL's generic equality function)
-  - list_delete_cell
+  - [check_list_invariants](../c/check_list_invariants.md)
+  - [equal](../e/equal.md) (PostgreSQL's generic equality function)
+  - [list_delete_cell](list_delete_cell.md)
 - Called from (representative examples):
-  - check_publications (src/backend/commands/subscriptioncmds.c:522)
-  - unregister_ENR (src/backend/utils/misc/queryenvironment.c:88) 
-  - injection_points_detach (src/test/modules/injection_points/injection_points.c:399)
+  - [check_publications](../c/check_publications.md) (src/backend/commands/subscriptioncmds.c:522)
+  - [unregister_ENR](../u/unregister_ENR.md) (src/backend/utils/misc/queryenvironment.c:88) 
+  - [injection_points_detach](../i/injection_points_detach.md) (src/test/modules/injection_points/injection_points.c:399)
 
 ## Notes and Other Information
 - Only works with pointer lists, not integer or OID lists

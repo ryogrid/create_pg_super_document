@@ -27,16 +27,16 @@ The function includes careful resource management - if the target object is not 
 ## Dependencies
 - Functions called/Symbols referenced:
   - llast (to extract dependent object name)
-  - list_copy_head (to extract relation name components)
+  - [list_copy_head](../l/list_copy_head.md) (to extract relation name components)
   - table_openrv_extended (to open the relation)
-  - makeRangeVarFromNameList (to convert name list to RangeVar)
-  - get_rewrite_oid (for rules)
-  - get_trigger_oid (for triggers)
-  - get_relation_constraint_oid (for table constraints)
-  - get_relation_policy_oid (for policies)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md) (to convert name list to RangeVar)
+  - [get_rewrite_oid](get_rewrite_oid.md) (for rules)
+  - [get_trigger_oid](get_trigger_oid.md) (for triggers)
+  - [get_relation_constraint_oid](get_relation_constraint_oid.md) (for table constraints)
+  - [get_relation_policy_oid](get_relation_policy_oid.md) (for policies)
   - table_close (for cleanup on failure)
 - Called from (representative examples):
-  - get_object_address
+  - [get_object_address](get_object_address.md)
 
 ## Notes and Other Information
 This function is marked static and serves as a specialized helper within the objectaddress.c module. It uses AccessShareLock for the parent relation regardless of the lockmode requested for the target object, reflecting the principle that the lock applies to the object itself, not its container relation. The function handles the common pattern of relation-dependent objects where the object name must be qualified with its parent relation name. Proper resource management ensures that relations are not leaked when objects are not found.

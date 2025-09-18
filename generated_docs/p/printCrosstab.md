@@ -37,12 +37,12 @@ The function includes validation to ensure each cell receives at most one data v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableInit, printTableAddHeader, printTable, printTableCleanup
-  - PQfname, PQftype, PQgetisnull, PQgetvalue, PQntuples
-  - column_type_alignment, pivotFieldCompare
+  - [printTableInit](printTableInit.md), printTableAddHeader, printTable, printTableCleanup
+  - [PQfname](../P/PQfname.md), PQftype, PQgetisnull, PQgetvalue, PQntuples
+  - [column_type_alignment](../c/column_type_alignment.md), pivotFieldCompare
   - bsearch, pg_malloc, pg_free, pg_log_error
 - Called from (representative examples):
-  - PrintResultInCrosstab (src/bin/psql/crosstabview.c:267)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (src/bin/psql/crosstabview.c:267)
 
 ## Notes and Other Information
 - Uses binary search for efficient lookup of row and column positions during data placement

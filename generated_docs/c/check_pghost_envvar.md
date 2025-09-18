@@ -20,12 +20,12 @@ This function performs a security check to ensure that pg_upgrade operations onl
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQconndefaults
-  - PQconninfoFree
+  - [PQconninfoFree](../P/PQconninfoFree.md)
   - getenv
-  - is_unixsock_path
-  - pg_fatal
+  - [is_unixsock_path](../i/is_unixsock_path.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - setup (in pg_upgrade.c)
+  - [setup](../s/setup.md) (in pg_upgrade.c)
 
 ## Notes and Other Information
 - Accepts local values: "localhost", "127.0.0.1", "::1", and Unix socket paths

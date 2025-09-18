@@ -28,12 +28,12 @@ This ensures that instrumentation data remains available for analysis and report
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocates private memory)
+  - [palloc](../p/palloc.md) (allocates private memory)
   - memcpy (copies memory contents)
-  - SharedSortInfo (shared sort information structure)
+  - [SharedSortInfo](../S/SharedSortInfo.md) (shared sort information structure)
   - TuplesortInstrumentation (instrumentation data structure)
 - Called from (representative examples):
-  - ExecParallelRetrieveInstrumentation (parallel execution instrumentation collector)
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md) (parallel execution instrumentation collector)
 
 ## Notes and Other Information
 - The function safely handles cases where no shared instrumentation exists by returning early

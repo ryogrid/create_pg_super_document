@@ -27,14 +27,14 @@ The function handles cleanup of:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_detach (detach from shared message queues)
-  - stream_cleanup_files (clean up serialized transaction files)
-  - dsm_detach (detach from dynamic shared memory)
-  - list_delete_ptr (remove from worker pool list)
-  - pfree (free memory)
+  - [shm_mq_detach](../s/shm_mq_detach.md) (detach from shared message queues)
+  - [stream_cleanup_files](../s/stream_cleanup_files.md) (clean up serialized transaction files)
+  - [dsm_detach](../d/dsm_detach.md) (detach from dynamic shared memory)
+  - [list_delete_ptr](../l/list_delete_ptr.md) (remove from worker pool list)
+  - [pfree](pfree.md) (free memory)
 - Called from (representative examples):
-  - pa_launch_parallel_worker (cleanup on worker launch failure)
-  - pa_free_worker (when stopping a worker)
+  - [pa_launch_parallel_worker](pa_launch_parallel_worker.md) (cleanup on worker launch failure)
+  - [pa_free_worker](pa_free_worker.md) (when stopping a worker)
 
 ## Notes and Other Information
 - Function includes assertion to ensure winfo is not NULL

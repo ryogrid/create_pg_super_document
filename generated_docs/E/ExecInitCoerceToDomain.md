@@ -25,12 +25,12 @@ The function handles two types of domain constraints: NOT NULL constraints (whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitExprRec (to initialize the argument expression and constraint expressions)
-  - InitDomainConstraintRef (to collect domain constraints)
-  - ExprEvalPushStep (to add execution steps)
-  - get_typlen (to determine if type is variable-length)
+  - [ExecInitExprRec](ExecInitExprRec.md) (to initialize the argument expression and constraint expressions)
+  - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md) (to collect domain constraints)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (to add execution steps)
+  - [get_typlen](../g/get_typlen.md) (to determine if type is variable-length)
 - Called from (representative examples):
-  - ExecInitExprRec (during expression tree initialization)
+  - [ExecInitExprRec](ExecInitExprRec.md) (during expression tree initialization)
 
 ## Notes and Other Information
 - Constraints are baked into ExprState during initialization (not rechecked each evaluation)

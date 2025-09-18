@@ -23,17 +23,17 @@ The structure is designed to be used as a hash key, which requires careful handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (type)
-  - ForkNumber (type)
+  - [RelFileNumber](../R/RelFileNumber.md) (type)
+  - [ForkNumber](../F/ForkNumber.md) (type)
   - BlockNumber (type) 
   - Oid (type)
 - Called from (representative examples):
-  - BufTableHashCode (for hash table operations)
-  - BufTableLookup (for buffer lookups)
-  - BufferAlloc (for buffer allocation)
+  - [BufTableHashCode](../B/BufTableHashCode.md) (for hash table operations)
+  - [BufTableLookup](../B/BufTableLookup.md) (for buffer lookups)
+  - [BufferAlloc](../B/BufferAlloc.md) (for buffer allocation)
   - SyncOneBuffer (for buffer synchronization)
-  - InitBufferTag (for tag initialization)
-  - BufferTagsEqual (for tag comparison)
+  - [InitBufferTag](../I/InitBufferTag.md) (for tag initialization)
+  - [BufferTagsEqual](../B/BufferTagsEqual.md) (for tag comparison)
 
 ## Notes and Other Information
 - The structure must contain no padding bytes when used as a hash key, requiring careful initialization via InitBufferTag

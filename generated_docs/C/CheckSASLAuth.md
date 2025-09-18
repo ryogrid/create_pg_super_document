@@ -27,14 +27,14 @@ The function uses the provided SASL mechanism implementation (mech) to handle me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sendAuthRequest (sends authentication requests to client)
-  - pq_startmsgread (initiates message reading from client)
-  - pq_getbyte (reads message type byte)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (sends authentication requests to client)
+  - [pq_startmsgread](../p/pq_startmsgread.md) (initiates message reading from client)
+  - [pq_getbyte](../p/pq_getbyte.md) (reads message type byte)
   - pq_getmessage (reads SASL message payload)
-  - pq_getmsgrawstring (extracts mechanism name from initial response)
-  - pq_getmsgint (reads integer values from messages)
-  - pq_getmsgbytes (extracts byte arrays from messages)
-  - pq_getmsgend (finalizes message processing)
+  - [pq_getmsgrawstring](../p/pq_getmsgrawstring.md) (extracts mechanism name from initial response)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (reads integer values from messages)
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md) (extracts byte arrays from messages)
+  - [pq_getmsgend](../p/pq_getmsgend.md) (finalizes message processing)
   - mech->get_mechanisms (retrieves supported mechanisms)
   - mech->init (initializes mechanism state)
   - mech->exchange (processes SASL exchange messages)
@@ -51,7 +51,7 @@ The function uses the provided SASL mechanism implementation (mech) to handle me
   - STATUS_ERROR
   - STATUS_EOF
 - Called from (representative examples):
-  - CheckPWChallengeAuth
+  - [CheckPWChallengeAuth](CheckPWChallengeAuth.md)
 
 ## Notes and Other Information
 - **Security Design**: Implements constant-time authentication behavior to prevent timing attacks that could reveal valid usernames

@@ -20,13 +20,13 @@ The function includes what the code calls a "horrid kluge" - moving initPlans up
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost (type for cost calculations)
-  - make_material
-  - SS_compute_initplan_cost
-  - cost_material
+  - [make_material](make_material.md)
+  - [SS_compute_initplan_cost](../S/SS_compute_initplan_cost.md)
+  - [cost_material](../c/cost_material.md)
   - Memoize (related type)
 - Called from (representative examples):
-  - standard_planner
-  - build_subplan
+  - [standard_planner](../s/standard_planner.md)
+  - [build_subplan](../b/build_subplan.md)
 
 ## Notes and Other Information
 - This function is used when Material nodes need to be added after the main planning phase

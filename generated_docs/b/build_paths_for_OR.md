@@ -30,13 +30,13 @@ The function handles partial indexes carefully by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_clauses_to_index
-  - build_index_paths
-  - predicate_implied_by
-  - list_concat_copy
-  - list_concat
+  - [match_clauses_to_index](../m/match_clauses_to_index.md)
+  - [build_index_paths](build_index_paths.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - generate_bitmap_or_paths
+  - [generate_bitmap_or_paths](../g/generate_bitmap_or_paths.md)
 
 ## Notes and Other Information
 - Only considers indexes that support bitmap scans ()

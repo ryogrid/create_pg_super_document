@@ -24,15 +24,15 @@ The lookup process follows these steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName (to parse qualified names)
-  - LookupExplicitNamespace (to find specific schema)
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md) (to parse qualified names)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md) (to find specific schema)
   - GetSysCacheOid2 (to lookup template in pg_ts_template catalog)
-  - recomputeNamespacePath (to ensure current search path)
-  - NameListToString (for error message formatting)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to ensure current search path)
+  - [NameListToString](../N/NameListToString.md) (for error message formatting)
   - ereport (for error reporting)
 - Called from (representative examples):
-  - get_object_address (for object address resolution)
-  - DefineTSDictionary (when creating text search dictionaries)
+  - [get_object_address](get_object_address.md) (for object address resolution)
+  - [DefineTSDictionary](../D/DefineTSDictionary.md) (when creating text search dictionaries)
   - Various other text search management functions
 
 ## Notes and Other Information

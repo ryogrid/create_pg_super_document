@@ -30,7 +30,7 @@ This structure is logged as part of the WAL stream specifically for logical repl
   - uint32 (type)
   - XLogRecPtr (type)
 - Called from (representative examples):
-  - logical_heap_rewrite_flush_mappings (src/backend/access/heap/rewriteheap.c:827)
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (src/backend/access/heap/rewriteheap.c:827)
   - heap_xlog_logical_rewrite (src/backend/access/heap/rewriteheap.c:1077,1081)
 
 ## Notes and Other Information

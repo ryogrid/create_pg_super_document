@@ -20,14 +20,14 @@ The function includes an assertion to verify it's being called from within a par
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert
-  - am_parallel_apply_worker
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md)
   - SpinLockAcquire
   - SpinLockRelease  
   - MyParallelShared (global variable)
   - PartialFileSetState (enum type)
 - Called from (representative examples):
-  - pa_has_spooled_message_pending
-  - pa_process_spooled_messages_if_required
+  - [pa_has_spooled_message_pending](pa_has_spooled_message_pending.md)
+  - [pa_process_spooled_messages_if_required](pa_process_spooled_messages_if_required.md)
 
 ## Notes and Other Information
 - Static function only accessible within the applyparallelworker.c module

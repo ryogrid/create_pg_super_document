@@ -17,11 +17,11 @@ This function performs the initial setup when starting a basebackup operation us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - SendXlogRecPtrResult
-  - SendTablespaceList  
-  - pq_puttextmessage
-  - SendCopyOutResponse
+  - [palloc](../p/palloc.md)
+  - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md)
+  - [SendTablespaceList](../S/SendTablespaceList.md)  
+  - [pq_puttextmessage](../p/pq_puttextmessage.md)
+  - [SendCopyOutResponse](../S/SendCopyOutResponse.md)
   - MAXIMUM_ALIGNOF
   - PqMsg_CommandComplete
 - Called from (representative examples):

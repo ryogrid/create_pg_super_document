@@ -20,12 +20,12 @@ The function works by delegating to cstring_to_text, which handles the conversio
 ## Dependencies
 - Functions called/Symbols referenced:
   - cstring_to_text (converts C string to PostgreSQL text)
-  - xmltype (PostgreSQL XML data type)
+  - [xmltype](../x/xmltype.md) (PostgreSQL XML data type)
 - Called from:
-  - table_to_xmlschema (table to XML schema conversion)
-  - query_to_xmlschema (query to XML schema conversion)
-  - cursor_to_xmlschema (cursor to XML schema conversion)
-  - xml_xpathobjtoxmlarray (XPath object to XML array conversion)
+  - [table_to_xmlschema](../t/table_to_xmlschema.md) (table to XML schema conversion)
+  - [query_to_xmlschema](../q/query_to_xmlschema.md) (query to XML schema conversion)
+  - [cursor_to_xmlschema](cursor_to_xmlschema.md) (cursor to XML schema conversion)
+  - [xml_xpathobjtoxmlarray](../x/xml_xpathobjtoxmlarray.md) (XPath object to XML array conversion)
 
 ## Notes and Other Information
 - This is a static function, only available within the xml.c compilation unit

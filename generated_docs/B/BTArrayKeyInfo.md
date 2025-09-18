@@ -22,21 +22,21 @@ This structure is used to manage array-based scan keys in B-tree index operation
 - Functions called/Symbols referenced:
   - Datum
 - Called from (representative examples):
-  - _bt_parallel_seize
-  - _bt_parallel_primscan_schedule
-  - _bt_preprocess_array_keys
-  - _bt_preprocess_array_keys_final
-  - _bt_compare_array_scankey_args
-  - _bt_binsrch_array_skey
-  - _bt_start_array_keys
-  - _bt_advance_array_keys_increment
-  - _bt_rewind_nonrequired_arrays
-  - _bt_advance_array_keys
-  - _bt_preprocess_keys
-  - _bt_verify_arrays_bt_first
-  - _bt_verify_keys_with_arraykeys
-  - _bt_compare_scankey_args
-  - BTScanOpaqueData
+  - [_bt_parallel_seize](../b/_bt_parallel_seize.md)
+  - [_bt_parallel_primscan_schedule](../b/_bt_parallel_primscan_schedule.md)
+  - [_bt_preprocess_array_keys](../b/_bt_preprocess_array_keys.md)
+  - [_bt_preprocess_array_keys_final](../b/_bt_preprocess_array_keys_final.md)
+  - [_bt_compare_array_scankey_args](../b/_bt_compare_array_scankey_args.md)
+  - [_bt_binsrch_array_skey](../b/_bt_binsrch_array_skey.md)
+  - [_bt_start_array_keys](../b/_bt_start_array_keys.md)
+  - [_bt_advance_array_keys_increment](../b/_bt_advance_array_keys_increment.md)
+  - [_bt_rewind_nonrequired_arrays](../b/_bt_rewind_nonrequired_arrays.md)
+  - [_bt_advance_array_keys](../b/_bt_advance_array_keys.md)
+  - [_bt_preprocess_keys](../b/_bt_preprocess_keys.md)
+  - [_bt_verify_arrays_bt_first](../b/_bt_verify_arrays_bt_first.md)
+  - [_bt_verify_keys_with_arraykeys](../b/_bt_verify_keys_with_arraykeys.md)
+  - [_bt_compare_scankey_args](../b/_bt_compare_scankey_args.md)
+  - [BTScanOpaqueData](BTScanOpaqueData.md)
 
 ## Notes and Other Information
 - Essential for handling array-based search conditions in B-tree indexes

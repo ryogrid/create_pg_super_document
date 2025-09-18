@@ -37,7 +37,7 @@ The function is designed to work correctly across different PostgreSQL configura
   - isalpha (function)
 - Called from (representative examples):
   - Pattern_Prefix_Status
-  - like_fixed_prefix
+  - [like_fixed_prefix](../l/like_fixed_prefix.md)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, used internally for LIKE pattern processing

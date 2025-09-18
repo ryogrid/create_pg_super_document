@@ -19,10 +19,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct
-  - add_size
-  - mul_size
-  - ProcArrayStruct
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md)
   - PROCARRAY_MAXPROCS
   - TOTAL_MAX_CACHED_SUBXIDS
   - EnableHotStandby
@@ -30,7 +30,7 @@ This function takes no parameters.
   - TransamVariables
 
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This function is called only once during postmaster startup

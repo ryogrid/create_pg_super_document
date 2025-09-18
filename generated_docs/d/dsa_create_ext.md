@@ -21,20 +21,20 @@ The function requires a caller-provided LWLock tranche ID because these are scar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_create
+  - [dsm_create](dsm_create.md)
   - dsm_pin_segment
   - create_internal
   - dsm_segment_address
   - dsm_segment_handle
   - on_dsm_detach
-  - dsa_on_dsm_detach_release_in_place
+  - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
 - Called from (representative examples):
-  - TidStoreCreateShared
+  - [TidStoreCreateShared](../T/TidStoreCreateShared.md)
   - dsa_create (wrapper function)
 
 ## Notes and Other Information
 - All segments are pinned to allow DSA explicit control over segment lifetime
-- LWLock tranche IDs are limited to 64k and cannot be recycled, so caller must manage them
+- [LWLock](../L/LWLock.md) tranche IDs are limited to 64k and cannot be recycled, so caller must manage them
 - Registers cleanup callback for proper resource management when control segment detaches
 - Part of PostgreSQL's shared memory management infrastructure
 - Located in src/backend/utils/mmgr/dsa.c:421-470

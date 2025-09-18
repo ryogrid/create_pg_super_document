@@ -20,10 +20,10 @@ The validation is crucial for maintaining data integrity and preventing situatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_nested_generated_walker: The worker function that performs the recursive tree traversal and validation
+  - [check_nested_generated_walker](check_nested_generated_walker.md): The worker function that performs the recursive tree traversal and validation
 
 - Called from (representative examples):
-  - cookDefault: Called during default value processing for generated columns
+  - [cookDefault](cookDefault.md): Called during default value processing for generated columns
 
 ## Notes and Other Information
 - This is a static function used internally within heap.c as part of the generated column validation system

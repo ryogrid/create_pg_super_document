@@ -24,23 +24,23 @@ The function includes sophisticated handling of XID wraparound concerns and main
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_stream_abort
-  - set_apply_error_context_xact
-  - get_transaction_apply_action
-  - stream_abort_internal
-  - pa_unlock_stream
-  - pa_lock_stream
+  - [logicalrep_read_stream_abort](../l/logicalrep_read_stream_abort.md)
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)
+  - [get_transaction_apply_action](../g/get_transaction_apply_action.md)
+  - [stream_abort_internal](../s/stream_abort_internal.md)
+  - [pa_unlock_stream](../p/pa_unlock_stream.md)
+  - [pa_lock_stream](../p/pa_lock_stream.md)
   - pa_send_data
-  - pa_xact_finish
-  - pa_switch_to_partial_serialize
-  - stream_open_and_write_change
-  - pa_set_fileset_state
-  - stream_close_file
-  - pa_stream_abort
-  - pa_decr_and_wait_stream_block
-  - reset_apply_error_context_info
+  - [pa_xact_finish](../p/pa_xact_finish.md)
+  - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
+  - [stream_open_and_write_change](../s/stream_open_and_write_change.md)
+  - [pa_set_fileset_state](../p/pa_set_fileset_state.md)
+  - [stream_close_file](../s/stream_close_file.md)
+  - [pa_stream_abort](../p/pa_stream_abort.md)
+  - [pa_decr_and_wait_stream_block](../p/pa_decr_and_wait_stream_block.md)
+  - [reset_apply_error_context_info](../r/reset_apply_error_context_info.md)
 - Called from:
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - Validates that no streaming transaction is currently active (expects STREAM STOP first)

@@ -30,11 +30,11 @@ This dummy SpecialJoinInfo can be used by cost estimation functions, join relati
   - T_SpecialJoinInfo (node type)
   - JOIN_INNER (join type constant)
 - Called from (representative examples):
-  - compute_semi_anti_join_factors
-  - approx_tuple_count
-  - make_join_rel
-  - build_child_join_sjinfo
-  - consider_new_or_clause
+  - [compute_semi_anti_join_factors](../c/compute_semi_anti_join_factors.md)
+  - [approx_tuple_count](../a/approx_tuple_count.md)
+  - [make_join_rel](../m/make_join_rel.md)
+  - [build_child_join_sjinfo](../b/build_child_join_sjinfo.md)
+  - [consider_new_or_clause](../c/consider_new_or_clause.md)
 
 ## Notes and Other Information
 - Only populates essential fields needed for basic join planning operations

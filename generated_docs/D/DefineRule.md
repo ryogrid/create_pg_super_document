@@ -18,12 +18,12 @@ DefineRule acts as the primary interface for CREATE RULE command execution in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformRuleStmt
+  - [transformRuleStmt](../t/transformRuleStmt.md)
   - RangeVarGetRelid
   - AccessExclusiveLock
-  - DefineQueryRewrite
+  - [DefineQueryRewrite](DefineQueryRewrite.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - This function represents the public interface for rule creation and is called by the utility command processor

@@ -19,7 +19,7 @@ The `boolrecv` function serves as the binary input conversion function for Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (PostgreSQL function argument extraction macro for pointers)
-  - pq_getmsgbyte (PostgreSQL message parsing function to extract a byte)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (PostgreSQL message parsing function to extract a byte)
   - PG_RETURN_BOOL (PostgreSQL return value macro for boolean)
 - Called from:
   - PostgreSQL binary protocol system (no direct references in indexed code)

@@ -31,19 +31,19 @@ The function handles special XLOG records (checkpoints, end-of-recovery) differe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xlogrecovery_redo
+  - [xlogrecovery_redo](../x/xlogrecovery_redo.md)
   - AdvanceNextFullTransactionIdPastXid
-  - RecordKnownAssignedTransactionIds
-  - checkTimeLineSwitch
-  - verifyBackupPageConsistency
-  - CheckRecoveryConsistency
-  - RemoveNonParentXlogFiles
-  - WalSndWakeup
-  - WalRcvForceReply
-  - XLogPrefetchReconfigure
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
+  - [checkTimeLineSwitch](../c/checkTimeLineSwitch.md)
+  - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
+  - [CheckRecoveryConsistency](../C/CheckRecoveryConsistency.md)
+  - [RemoveNonParentXlogFiles](../R/RemoveNonParentXlogFiles.md)
+  - [WalSndWakeup](../W/WalSndWakeup.md)
+  - [WalRcvForceReply](../W/WalRcvForceReply.md)
+  - [XLogPrefetchReconfigure](../X/XLogPrefetchReconfigure.md)
   - GetRmgr
 - Called from:
-  - PerformWalRecovery (src/backend/access/transam/xlogrecovery.c:1822)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1822)
 
 ## Notes and Other Information
 - This is a static function only called from within the xlogrecovery.c module

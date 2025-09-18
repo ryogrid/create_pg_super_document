@@ -22,11 +22,11 @@ For the trivial case of exactly two members with one source clause (a simple "va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - distribute_restrictinfo_to_rels
-  - select_equality_operator
-  - process_implied_equality
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md)
+  - [select_equality_operator](../s/select_equality_operator.md)
+  - [process_implied_equality](../p/process_implied_equality.md)
 - Called from (representative examples):
-  - generate_base_implied_equalities
+  - [generate_base_implied_equalities](generate_base_implied_equalities.md)
 
 ## Notes and Other Information
 - Prefers actual Const nodes over other pseudoconstants for better constraint exclusion

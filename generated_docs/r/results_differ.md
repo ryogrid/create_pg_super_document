@@ -19,14 +19,14 @@ This function is the core comparison engine for PostgreSQL's regression testing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_expectfile (platform-specific expected file lookup)
-  - get_alternative_expectfile (numbered alternative file generation)
-  - run_diff (diff command execution)
-  - file_line_count, file_exists (file utility functions)
+  - [get_expectfile](../g/get_expectfile.md) (platform-specific expected file lookup)
+  - [get_alternative_expectfile](../g/get_alternative_expectfile.md) (numbered alternative file generation)
+  - [run_diff](run_diff.md) (diff command execution)
+  - [file_line_count](../f/file_line_count.md), file_exists (file utility functions)
   - strlcpy, unlink, fopen (system functions)
   - bail (error handling)
 - Called from (representative examples):
-  - run_single_test (in src/test/regress/pg_regress.c:1879)
+  - [run_single_test](run_single_test.md) (in src/test/regress/pg_regress.c:1879)
   - Referenced in MAX_PARALLEL_TESTS context (src/test/regress/pg_regress.c:1801)
 
 ## Notes and Other Information

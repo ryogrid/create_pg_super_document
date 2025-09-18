@@ -20,20 +20,20 @@ The function includes sophisticated recursive containment detection to prevent s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype (determines type category)
+  - [get_typtype](../g/get_typtype.md) (determines type category)
   - check_stack_depth (prevents stack overflow in recursion)
-  - getBaseType (gets base type for domains)
-  - get_typ_typrelid (gets relation OID for composite types)
-  - relation_open, relation_close (access composite type definitions)
-  - get_range_subtype, get_range_collation (range type introspection)
-  - get_element_type (array element type introspection)
-  - type_is_collatable (determines if type requires collation)
-  - list_member_oid, lappend_oid, list_delete_last (list manipulation for recursion tracking)
+  - [getBaseType](../g/getBaseType.md) (gets base type for domains)
+  - [get_typ_typrelid](../g/get_typ_typrelid.md) (gets relation OID for composite types)
+  - [relation_open](../r/relation_open.md), relation_close (access composite type definitions)
+  - [get_range_subtype](../g/get_range_subtype.md), get_range_collation (range type introspection)
+  - [get_element_type](../g/get_element_type.md) (array element type introspection)
+  - [type_is_collatable](../t/type_is_collatable.md) (determines if type requires collation)
+  - [list_member_oid](../l/list_member_oid.md), lappend_oid, list_delete_last (list manipulation for recursion tracking)
 - Called from (representative examples):
-  - CheckAttributeNamesTypes (in src/backend/catalog/heap.c:512)
-  - CheckAttributeType (recursive calls at multiple lines)
-  - ConstructTupleDescriptor (in src/backend/catalog/index.c:410)
-  - ATExecAddColumn (in src/backend/commands/tablecmds.c:7177)
+  - [CheckAttributeNamesTypes](CheckAttributeNamesTypes.md) (in src/backend/catalog/heap.c:512)
+  - [CheckAttributeType](CheckAttributeType.md) (recursive calls at multiple lines)
+  - [ConstructTupleDescriptor](ConstructTupleDescriptor.md) (in src/backend/catalog/index.c:410)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (in src/backend/commands/tablecmds.c:7177)
 
 ## Notes and Other Information
 - Recursively validates complex types including composites, domains, ranges, and arrays

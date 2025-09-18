@@ -19,14 +19,14 @@ StorePreparedStatement creates a new entry in the prepared statements hash table
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentStatementStartTimestamp (gets current statement start time)
-  - InitQueryHashTable (initializes hash table if needed)
-  - hash_search (searches/creates hash table entry)
-  - SaveCachedPlan (moves plan source to permanent memory)
+  - [GetCurrentStatementStartTimestamp](../G/GetCurrentStatementStartTimestamp.md) (gets current statement start time)
+  - [InitQueryHashTable](../I/InitQueryHashTable.md) (initializes hash table if needed)
+  - [hash_search](../h/hash_search.md) (searches/creates hash table entry)
+  - [SaveCachedPlan](SaveCachedPlan.md) (moves plan source to permanent memory)
   - HASH_ENTER (hash operation flag for entry creation)
 - Called from (representative examples):
-  - PrepareQuery (stores prepared statements from PREPARE command)
-  - exec_parse_message (stores prepared statements from protocol messages)
+  - [PrepareQuery](../P/PrepareQuery.md) (stores prepared statements from PREPARE command)
+  - [exec_parse_message](../e/exec_parse_message.md) (stores prepared statements from protocol messages)
 
 ## Notes and Other Information
 - Lazily initializes the prepared statements hash table on first use

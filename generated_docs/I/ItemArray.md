@@ -32,7 +32,7 @@ The structure supports dynamic resizing of its arrays and is used throughout the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (PostgreSQL tuple identifier structure)
+  - [ItemPointerData](ItemPointerData.md) (PostgreSQL tuple identifier structure)
 - Called from (representative examples):
   - Static variable `items` in test_tidstore.c
   - Used by test functions: test_create, do_set_block_offsets, check_set_block_offsets, test_destroy

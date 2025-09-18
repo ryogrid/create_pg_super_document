@@ -22,13 +22,13 @@ This function is part of the internal GUC system infrastructure and is typically
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_option
-  - guc_strdup
-  - guc_free
+  - [guc_strdup](../g/guc_strdup.md)
+  - [guc_free](../g/guc_free.md)
   - config_generic
   - DEBUG3, LOG constants
 - Called from (representative examples):
-  - define_custom_variable
-  - read_nondefault_variables
+  - [define_custom_variable](../d/define_custom_variable.md)
+  - [read_nondefault_variables](../r/read_nondefault_variables.md)
   - RestoreGUCState
   - GUCHashEntry
 

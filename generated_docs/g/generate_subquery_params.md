@@ -25,14 +25,14 @@ The function skips resjunk entries since these are internal working columns that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_new_exec_param
+  - [generate_new_exec_param](generate_new_exec_param.md)
   - exprType
   - exprTypmod
-  - exprCollation
+  - [exprCollation](../e/exprCollation.md)
   - lappend
   - lappend_int
 - Called from (representative examples):
-  - build_subplan (multiple times for different sublink types)
+  - [build_subplan](../b/build_subplan.md) (multiple times for different sublink types)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the subselect.c file

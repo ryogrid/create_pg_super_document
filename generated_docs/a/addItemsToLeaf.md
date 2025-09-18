@@ -28,24 +28,24 @@ Returns true if any new items were actually added (not all duplicates), false if
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty
-  - palloc
-  - dlist_push_tail
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [palloc](../p/palloc.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - dlist_foreach
   - dlist_container
-  - dlist_has_next
-  - dlist_next_node
-  - ginCompareItemPointers
-  - ginPostingListDecode
+  - [dlist_has_next](../d/dlist_has_next.md)
+  - [dlist_next_node](../d/dlist_next_node.md)
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
+  - [ginPostingListDecode](../g/ginPostingListDecode.md)
   - SizeOfGinPostingList
-  - ginMergeItemPointers
+  - [ginMergeItemPointers](../g/ginMergeItemPointers.md)
   - GIN_SEGMENT_INSERT
   - GIN_SEGMENT_UNMODIFIED
   - GIN_SEGMENT_ADDITEMS
   - GIN_SEGMENT_REPLACE
   - GinPostingListSegmentTargetSize
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
+  - [dataBeginPlaceToPageLeaf](../d/dataBeginPlaceToPageLeaf.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within gindatapage.c

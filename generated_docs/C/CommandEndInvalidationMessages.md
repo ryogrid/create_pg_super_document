@@ -23,14 +23,14 @@ The function includes safeguards to handle calls outside transactions, which can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessInvalidationMessages
-  - LocalExecuteInvalidationMessage
+  - [ProcessInvalidationMessages](../P/ProcessInvalidationMessages.md)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
   - XLogLogicalInfoActive
-  - LogLogicalInvalidations
-  - AppendInvalidationMessages
+  - [LogLogicalInvalidations](../L/LogLogicalInvalidations.md)
+  - [AppendInvalidationMessages](../A/AppendInvalidationMessages.md)
 - Called from (representative examples):
-  - AtCCI_LocalCache
-  - AtEOSubXact_Inval
+  - [AtCCI_LocalCache](../A/AtCCI_LocalCache.md)
+  - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md)
 
 ## Notes and Other Information
 - Called specifically during CommandCounterIncrement() after command ID advancement

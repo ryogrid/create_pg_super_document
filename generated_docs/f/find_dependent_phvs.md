@@ -21,12 +21,12 @@ The function uses a tree walker pattern to traverse both the main query parse tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_dependent_phvs_context (context structure)
-  - bms_make_singleton (creates a singleton bitmap set)
+  - [bms_make_singleton](../b/bms_make_singleton.md) (creates a singleton bitmap set)
   - query_tree_walker (traverses the query parse tree)
-  - find_dependent_phvs_walker (walker function for PHV detection)
+  - [find_dependent_phvs_walker](find_dependent_phvs_walker.md) (walker function for PHV detection)
   - expression_tree_walker (traverses expression trees)
 - Called from (representative examples):
-  - remove_useless_results_recurse (in prepjointree.c:3701)
+  - [remove_useless_results_recurse](../r/remove_useless_results_recurse.md) (in prepjointree.c:3701)
 
 ## Notes and Other Information
 - This function is static and only used within prepjointree.c

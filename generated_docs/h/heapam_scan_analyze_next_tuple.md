@@ -21,26 +21,26 @@ heapam_scan_analyze_next_tuple is a core function for ANALYZE operations that it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal, ItemIdIsDead
-  - ItemPointerSet
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - RelationGetRelid
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
-  - HeapTupleSatisfiesVacuum
-  - TransactionIdIsCurrentTransactionId
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - HeapTupleHeaderGetXmin, HeapTupleHeaderGetUpdateXid
-  - ExecStoreBufferHeapTuple
-  - UnlockReleaseBuffer
+  - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - ExecClearTuple
 - Constants referenced:
   - HEAPTUPLE_LIVE, HEAPTUPLE_DEAD, HEAPTUPLE_RECENTLY_DEAD
   - HEAPTUPLE_INSERT_IN_PROGRESS, HEAPTUPLE_DELETE_IN_PROGRESS
   - InvalidBuffer
 - Called from (representative examples):
-  - SampleHeapTupleVisible (referenced in heapam_handler.c:2634)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (referenced in heapam_handler.c:2634)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heapam_handler.c

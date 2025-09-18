@@ -19,11 +19,11 @@ The  function performs an "exact" match search for binary operators based on the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpernameGetOprid (called twice for operator lookup)
-  - getBaseType (to resolve domain types to base types)
+  - [OpernameGetOprid](../O/OpernameGetOprid.md) (called twice for operator lookup)
+  - [getBaseType](../g/getBaseType.md) (to resolve domain types to base types)
   - FuncDetailCode (referenced but usage context unclear from this snippet)
 - Called from (representative examples):
-  - oper (main operator resolution function)
+  - [oper](../o/oper.md) (main operator resolution function)
 
 ## Notes and Other Information
 - Returns InvalidOid when no exact match is found

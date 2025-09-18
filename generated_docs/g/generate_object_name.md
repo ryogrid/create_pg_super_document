@@ -19,20 +19,20 @@ The generated names are designed to fit within PostgreSQL's  limit (typically 64
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec (libpq function for executing SQL queries)
+  - [PQexec](../P/PQexec.md) (libpq function for executing SQL queries)
   - PGRES_TUPLES_OK (libpq constant for successful SELECT result)
-  - PQresultErrorMessage (libpq function to get error message from result)
-  - PQntuples (libpq function to get number of rows in result)
-  - PQgetvalue (libpq function to get field value from result)
-  - PQclear (libpq function to free result memory)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (libpq function to get error message from result)
+  - [PQntuples](../P/PQntuples.md) (libpq function to get number of rows in result)
+  - [PQgetvalue](../P/PQgetvalue.md) (libpq function to get field value from result)
+  - [PQclear](../P/PQclear.md) (libpq function to free result memory)
   - strtoul (standard C function to convert string to unsigned long)
-  - pg_prng_uint32 (PostgreSQL pseudo-random number generator function)
-  - psprintf (PostgreSQL string formatting function)
-  - disconnect_database (utility function for connection cleanup on error)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md) (PostgreSQL pseudo-random number generator function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL string formatting function)
+  - [disconnect_database](../d/disconnect_database.md) (utility function for connection cleanup on error)
 
 - Called from (representative examples):
-  - setup_publisher (function that creates publication objects)
-  - LogicalRepInfo structure operations
+  - [setup_publisher](../s/setup_publisher.md) (function that creates publication objects)
+  - [LogicalRepInfo](../L/LogicalRepInfo.md) structure operations
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c
@@ -40,7 +40,7 @@ The generated names are designed to fit within PostgreSQL's  limit (typically 64
 - Maximum name length is constrained to fit within NAMEDATALEN - 1 (typically 63 characters)
 - Current schema uses maximum 40 characters: "pg_createsubscriber" (20) + "_" (1) + OID (up to 10 digits) + "_" (1) + random hex (8 characters) + null terminator
 - Uses PostgreSQL's internal PRNG state () for random number generation
-- Query targets  to get the current database's OID
+- [Query](../Q/Query.md) targets  to get the current database's OID
 - Error conditions result in program termination via 
 - Located in src/bin/pg_basebackup/pg_createsubscriber.c:685-733
 - The returned string is allocated with psprintf and should be freed by the caller

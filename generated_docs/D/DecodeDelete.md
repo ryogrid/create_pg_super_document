@@ -23,17 +23,17 @@ When the XLH_DELETE_CONTAINS_OLD flag is set, the function extracts the old tupl
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - FilterByOrigin
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - XLogRecGetOrigin
-  - ReorderBufferGetChange
+  - [ReorderBufferGetChange](../R/ReorderBufferGetChange.md)
   - XLogRecGetDataLen
-  - ReorderBufferGetTupleBuf
-  - DecodeXLogTuple
-  - ReorderBufferQueueChange
+  - [ReorderBufferGetTupleBuf](../R/ReorderBufferGetTupleBuf.md)
+  - [DecodeXLogTuple](DecodeXLogTuple.md)
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md)
   - XLogRecGetXid
 - Called from (representative examples):
-  - heap_decode
+  - [heap_decode](../h/heap_decode.md)
 
 ## Notes and Other Information
 - Distinguishes between regular deletes and super deletes (speculative delete aborts) through the XLH_DELETE_IS_SUPER flag

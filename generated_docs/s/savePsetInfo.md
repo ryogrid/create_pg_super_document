@@ -20,12 +20,12 @@ The function is specifically designed for psql's printing system and includes as
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (for memory allocation)
-  - pg_strdup (for string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - memcpy (for structure copying)
-  - printQueryOpt (structure type)
+  - [printQueryOpt](../p/printQueryOpt.md) (structure type)
 - Called from (representative examples):
-  - exec_command_g
-  - process_command_g_options
+  - [exec_command_g](../e/exec_command_g.md)
+  - [process_command_g_options](../p/process_command_g_options.md)
 
 ## Notes and Other Information
 - The function handles NULL string pointers gracefully by only duplicating non-NULL strings

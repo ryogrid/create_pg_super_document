@@ -22,8 +22,8 @@ The structure is designed to support both concurrent and non-concurrent reindexi
 - Functions called/Symbols referenced:
   - ReindexParams
 - Called from (representative examples):
-  - RangeVarCallbackForReindexIndex
-  - ReindexIndex
+  - [RangeVarCallbackForReindexIndex](RangeVarCallbackForReindexIndex.md)
+  - [ReindexIndex](ReindexIndex.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for the callback mechanism used during range variable resolution for index reindexing

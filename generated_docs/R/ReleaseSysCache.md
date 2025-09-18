@@ -17,7 +17,7 @@ ReleaseSysCache is a simple wrapper function around ReleaseCatCache that decreme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCatCache
+  - [ReleaseCatCache](ReleaseCatCache.md)
 - Called from (representative examples):
   - (Note: No direct references found in current analysis, but this is a fundamental cleanup function)
 

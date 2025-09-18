@@ -35,12 +35,12 @@ The function uses snprintf to safely construct the path string and returns the n
   - MAXPGPATH (constant defining maximum path length)
 
 - Called from (representative examples):
-  - SimpleLruDoesPhysicalPageExist
-  - SlruPhysicalReadPage
-  - SlruPhysicalWritePage
-  - SlruReportIOError
-  - SlruInternalDeleteSegment
-  - SlruSyncFileTag
+  - [SimpleLruDoesPhysicalPageExist](SimpleLruDoesPhysicalPageExist.md)
+  - [SlruPhysicalReadPage](SlruPhysicalReadPage.md)
+  - [SlruPhysicalWritePage](SlruPhysicalWritePage.md)
+  - [SlruReportIOError](SlruReportIOError.md)
+  - [SlruInternalDeleteSegment](SlruInternalDeleteSegment.md)
+  - [SlruSyncFileTag](SlruSyncFileTag.md)
 
 ## Notes and Other Information
 - The function is marked as static inline for performance optimization since it's frequently called

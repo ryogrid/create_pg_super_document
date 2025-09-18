@@ -25,16 +25,16 @@ The function ensures proper memory allocation for container elements and maintai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushState (creates new parse state level)
-  - appendKey (adds key to object)
-  - appendValue (adds value to object)
-  - appendElement (adds element to array)
-  - uniqueifyJsonbObject (removes duplicate keys from objects)
+  - [pushState](pushState.md) (creates new parse state level)
+  - [appendKey](../a/appendKey.md) (adds key to object)
+  - [appendValue](../a/appendValue.md) (adds value to object)
+  - [appendElement](../a/appendElement.md) (adds element to array)
+  - [uniqueifyJsonbObject](../u/uniqueifyJsonbObject.md) (removes duplicate keys from objects)
   - IsAJsonbScalar (validates scalar values)
-  - palloc (memory allocation)
+  - [palloc](palloc.md) (memory allocation)
   - elog (error reporting)
 - Called from (representative examples):
-  - pushJsonbValue (main entry point for JSONB value pushing)
+  - [pushJsonbValue](pushJsonbValue.md) (main entry point for JSONB value pushing)
 
 ## Notes and Other Information
 - This is a static function internal to jsonb_util.c, not exposed in the public API

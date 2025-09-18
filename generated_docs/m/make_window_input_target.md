@@ -26,17 +26,17 @@ The algorithm collects sortgroupref numbers from window PARTITION/ORDER BY claus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_empty_pathtarget
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md)
   - get_pathtarget_sortgroupref
-  - bms_add_member
-  - bms_is_member
-  - add_column_to_pathtarget
-  - pull_var_clause
-  - add_new_columns_to_pathtarget
-  - set_pathtarget_cost_width
-  - list_free
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [add_column_to_pathtarget](../a/add_column_to_pathtarget.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [add_new_columns_to_pathtarget](../a/add_new_columns_to_pathtarget.md)
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)
+  - [list_free](../l/list_free.md)
 - Called from:
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1594)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1594)
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:214)
 
 ## Notes and Other Information

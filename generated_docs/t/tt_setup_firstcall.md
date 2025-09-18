@@ -26,15 +26,15 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_ts_parser_cache
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)
   - OidFunctionCall1
-  - get_call_result_type
-  - TupleDescGetAttInMetadata
-  - MemoryContextSwitchTo
-  - palloc
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - ts_token_type_byid
-  - ts_token_type_byname
+  - [ts_token_type_byid](ts_token_type_byid.md)
+  - [ts_token_type_byname](ts_token_type_byname.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wparser.c module

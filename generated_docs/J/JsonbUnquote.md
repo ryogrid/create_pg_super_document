@@ -20,18 +20,18 @@ This utility function converts JSONB values to C-string format with special hand
 ## Dependencies
 - Functions called/Symbols referenced:
   - `JB_ROOT_IS_SCALAR` - macro to check if JSONB root is a scalar value
-  - `JsonbExtractScalar` - extracts scalar value from JSONB root
-  - `pnstrdup` - duplicates string with specified length
-  - `pstrdup` - duplicates null-terminated string
-  - `DatumGetCString` - converts Datum to C-string
+  - `[JsonbExtractScalar](JsonbExtractScalar.md)` - extracts scalar value from JSONB root
+  - `[pnstrdup](../p/pnstrdup.md)` - duplicates string with specified length
+  - `[pstrdup](../p/pstrdup.md)` - duplicates null-terminated string
+  - `[DatumGetCString](../D/DatumGetCString.md)` - converts Datum to C-string
   - `DirectFunctionCall1` - calls another PostgreSQL function directly
-  - `numeric_out` - converts numeric to string representation
-  - `PointerGetDatum` - wraps pointer as Datum
+  - `[numeric_out](../n/numeric_out.md)` - converts numeric to string representation
+  - `[PointerGetDatum](../P/PointerGetDatum.md)` - wraps pointer as Datum
   - `elog` - logs error messages
-  - `JsonbToCString` - converts JSONB to complete JSON string
+  - `[JsonbToCString](JsonbToCString.md)` - converts JSONB to complete JSON string
   - `VARSIZE` - gets size of variable-length data
 - Called from (representative examples):
-  - `json_populate_type` at src/backend/utils/adt/jsonfuncs.c:3378
+  - `[json_populate_type](../j/json_populate_type.md)` at src/backend/utils/adt/jsonfuncs.c:3378
   - `PG_RETURN_JSONB_P` at src/include/utils/jsonb.h:425
 
 ## Notes and Other Information

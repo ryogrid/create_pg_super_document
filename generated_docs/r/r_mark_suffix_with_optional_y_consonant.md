@@ -25,20 +25,20 @@ This function is extensively used throughout the Turkish stemmer, reflecting the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b_U (called 2 times for vowel group checking)
-  - skip_b_utf8 (for UTF-8 character boundary handling)
+  - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for vowel group checking)
+  - [skip_b_utf8](../s/skip_b_utf8.md) (for UTF-8 character boundary handling)
   - g_vowel (vowel group definition)
 
 - Called from (representative examples):
   - r_mark_yU (possessive suffix)
   - r_mark_yA (dative suffix)
-  - r_mark_ylA (instrumental suffix)
-  - r_mark_yUm (first person suffix)
-  - r_mark_yUz (second person plural suffix)
-  - r_mark_yDU (past tense suffix)
-  - r_mark_ysA (conditional suffix)
-  - r_mark_ymUs_ (past tense first person plural)
-  - r_mark_yken (temporal suffix)
+  - [r_mark_ylA](r_mark_ylA.md) (instrumental suffix)
+  - [r_mark_yUm](r_mark_yUm.md) (first person suffix)
+  - [r_mark_yUz](r_mark_yUz.md) (second person plural suffix)
+  - [r_mark_yDU](r_mark_yDU.md) (past tense suffix)
+  - [r_mark_ysA](r_mark_ysA.md) (conditional suffix)
+  - [r_mark_ymUs_](r_mark_ymUs_.md) (past tense first person plural)
+  - [r_mark_yken](r_mark_yken.md) (temporal suffix)
 
 ## Notes and Other Information
 - Returns 1 if the optional 'y' consonant pattern is valid, 0 otherwise

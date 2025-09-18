@@ -26,22 +26,22 @@ The function performs several key operations during cache initialization:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero (allocate zeroed cache structure)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocate zeroed cache structure)
   - IndexRelationGetNumberOfKeyAttributes, IndexRelationGetNumberOfAttributes (index validation)
-  - GetIndexInputType (determine nominal input type)
-  - index_getprocinfo (get opclass procedure info)
-  - FunctionCall2Coll (call opclass config function)
-  - IsBinaryCoercible (check type coercion compatibility)
-  - fillTypeDesc (populate type descriptors)
-  - index_getprocid (check for compress procedure)
-  - ReadBuffer, LockBuffer, SpGistPageGetMeta (metapage access)
+  - [GetIndexInputType](../G/GetIndexInputType.md) (determine nominal input type)
+  - [index_getprocinfo](../i/index_getprocinfo.md) (get opclass procedure info)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (call opclass config function)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (check type coercion compatibility)
+  - [fillTypeDesc](../f/fillTypeDesc.md) (populate type descriptors)
+  - [index_getprocid](../i/index_getprocid.md) (check for compress procedure)
+  - [ReadBuffer](../R/ReadBuffer.md), LockBuffer, SpGistPageGetMeta (metapage access)
   - Constants: spgKeyColumn, SPGIST_CONFIG_PROC, SPGIST_COMPRESS_PROC, etc.
 - Called from (representative examples):
-  - spgcanreturn (at src/backend/access/spgist/spgscan.c:1092)
-  - initSpGistState (at src/backend/access/spgist/spgutils.c:347)
-  - allocNewBuffer (at src/backend/access/spgist/spgutils.c:507)
-  - SpGistGetBuffer (at src/backend/access/spgist/spgutils.c:563)
-  - SpGistSetLastUsedPage (at src/backend/access/spgist/spgutils.c:667)
+  - [spgcanreturn](spgcanreturn.md) (at src/backend/access/spgist/spgscan.c:1092)
+  - [initSpGistState](../i/initSpGistState.md) (at src/backend/access/spgist/spgutils.c:347)
+  - [allocNewBuffer](../a/allocNewBuffer.md) (at src/backend/access/spgist/spgutils.c:507)
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md) (at src/backend/access/spgist/spgutils.c:563)
+  - [SpGistSetLastUsedPage](../S/SpGistSetLastUsedPage.md) (at src/backend/access/spgist/spgutils.c:667)
 
 ## Notes and Other Information
 - Located in src/backend/access/spgist/spgutils.c:182-308

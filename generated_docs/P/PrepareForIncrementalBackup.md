@@ -30,19 +30,19 @@ The function ensures that the incremental backup will be consistent and complete
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readTimeLineHistory: Reads timeline history for validation
-  - WaitForWalSummarization: Ensures WAL summarization is caught up
-  - GetWalSummaries, FilterWalSummaries: Retrieves and filters WAL summary files
-  - WalSummariesAreComplete: Validates completeness of WAL summaries
+  - [readTimeLineHistory](../r/readTimeLineHistory.md): Reads timeline history for validation
+  - [WaitForWalSummarization](../W/WaitForWalSummarization.md): Ensures WAL summarization is caught up
+  - [GetWalSummaries](../G/GetWalSummaries.md), FilterWalSummaries: Retrieves and filters WAL summary files
+  - [WalSummariesAreComplete](../W/WalSummariesAreComplete.md): Validates completeness of WAL summaries
   - CreateEmptyBlockRefTable: Initializes block reference table
-  - OpenWalSummaryFile, CreateBlockRefTableReader: Reads WAL summary files
-  - BlockRefTableReaderNextRelation, BlockRefTableReaderGetBlocks: Parses summary data
+  - [OpenWalSummaryFile](../O/OpenWalSummaryFile.md), CreateBlockRefTableReader: Reads WAL summary files
+  - [BlockRefTableReaderNextRelation](../B/BlockRefTableReaderNextRelation.md), BlockRefTableReaderGetBlocks: Parses summary data
   - BlockRefTableSetLimitBlock, BlockRefTableMarkBlockModified: Builds block reference table
 - Types referenced:
-  - IncrementalBackupInfo, BackupState, TimeLineHistoryEntry
-  - backup_wal_range, WalSummaryFile, WalSummaryIO, BlockRefTableReader
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md), BackupState, TimeLineHistoryEntry
+  - [backup_wal_range](../b/backup_wal_range.md), WalSummaryFile, WalSummaryIO, BlockRefTableReader
 - Called from:
-  - perform_base_backup (src/backend/backup/basebackup.c:287)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:287)
 
 ## Notes and Other Information
 - This function performs extensive error checking and will throw detailed error messages if the manifest is inconsistent with the server's timeline history

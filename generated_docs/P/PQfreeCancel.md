@@ -20,11 +20,11 @@ PQfreeCancel is a simple memory management function in the libpq library that de
   - free (standard C library function)
   - PGcancel (structure type)
 - Called from (representative examples):
-  - set_archive_cancel_info (src/bin/pg_dump/parallel.c:757)
-  - SetCancelConn (src/fe_utils/cancel.c:92)
-  - ResetCancelConn (src/fe_utils/cancel.c:121)
-  - PQrequestCancel (src/interfaces/libpq/fe-cancel.c:687)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:277)
+  - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (src/bin/pg_dump/parallel.c:757)
+  - [SetCancelConn](../S/SetCancelConn.md) (src/fe_utils/cancel.c:92)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (src/fe_utils/cancel.c:121)
+  - [PQrequestCancel](PQrequestCancel.md) (src/interfaces/libpq/fe-cancel.c:687)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:277)
 
 ## Notes and Other Information
 - This function performs no validation on the input pointer, so passing NULL or an invalid pointer will result in undefined behavior

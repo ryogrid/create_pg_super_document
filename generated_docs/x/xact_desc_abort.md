@@ -288,17 +288,17 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_abort (struct type)
+  - [xl_xact_abort](xl_xact_abort.md) (struct type)
   - RepOriginId (type)
   - xl_xact_parsed_abort (struct type)
-  - ParseAbortRecord (parses abort record into structured format)
-  - timestamptz_to_str (formats timestamps)
-  - xact_desc_relations (formats relation information)
-  - xact_desc_subxacts (formats subtransaction information)
-  - xact_desc_stats (formats dropped statistics)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (parses abort record into structured format)
+  - [timestamptz_to_str](../t/timestamptz_to_str.md) (formats timestamps)
+  - [xact_desc_relations](xact_desc_relations.md) (formats relation information)
+  - [xact_desc_subxacts](xact_desc_subxacts.md) (formats subtransaction information)
+  - [xact_desc_stats](xact_desc_stats.md) (formats dropped statistics)
   - XACT_XINFO_HAS_ORIGIN (flag for origin information)
 - Called from (representative examples):
-  - xact_desc (src/backend/access/rmgrdesc/xactdesc.c:454)
+  - [xact_desc](xact_desc.md) (src/backend/access/rmgrdesc/xactdesc.c:454)
 
 ## Notes and Other Information
 - This is a static function, only visible within the xactdesc.c file

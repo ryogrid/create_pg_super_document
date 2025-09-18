@@ -26,10 +26,10 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsecure_raw_read (low-level socket read function)
-  - pqReadReady (checks if data is available to read on socket)
+  - [pqsecure_raw_read](../p/pqsecure_raw_read.md) (low-level socket read function)
+  - [pqReadReady](../p/pqReadReady.md) (checks if data is available to read on socket)
 - Called from:
-  - pqsecure_open_gss (used during GSSAPI transport negotiation at multiple points)
+  - [pqsecure_open_gss](../p/pqsecure_open_gss.md) (used during GSSAPI transport negotiation at multiple points)
 
 ## Notes and Other Information
 - Static function scope - only used within fe-secure-gssapi.c

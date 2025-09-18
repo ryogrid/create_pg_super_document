@@ -20,13 +20,13 @@ This function verifies if the current transaction has acquired a lock on the spe
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to construct relation lock tag)
-  - LockHeldByMe (performs the actual lock ownership check)
+  - [LockHeldByMe](../L/LockHeldByMe.md) (performs the actual lock ownership check)
 - Called from (representative examples):
-  - relation_open
-  - try_relation_open
-  - addFkRecurseReferenced
-  - addFkRecurseReferencing
-  - ExecGetRangeTableRelation
+  - [relation_open](../r/relation_open.md)
+  - [try_relation_open](../t/try_relation_open.md)
+  - [addFkRecurseReferenced](../a/addFkRecurseReferenced.md)
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
+  - [ExecGetRangeTableRelation](../E/ExecGetRangeTableRelation.md)
 
 ## Notes and Other Information
 - Returns true if the current transaction holds the specified lock or stronger

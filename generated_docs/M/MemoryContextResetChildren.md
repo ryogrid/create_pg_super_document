@@ -20,8 +20,8 @@ The function uses a depth-first traversal approach, visiting each descendant con
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid
-  - MemoryContextTraverseNext
-  - MemoryContextResetOnly
+  - [MemoryContextTraverseNext](MemoryContextTraverseNext.md)
+  - [MemoryContextResetOnly](MemoryContextResetOnly.md)
 - Called from (representative examples):
   - AllocHugeSizeIsValid
 

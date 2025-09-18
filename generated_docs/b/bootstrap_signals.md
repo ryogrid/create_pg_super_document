@@ -23,14 +23,14 @@ This simplified signal handling serves both functional and documentation purpose
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsignal (PostgreSQL's signal handling wrapper)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling wrapper)
   - SIG_DFL (default signal handler constant)
   - SIGHUP (hangup signal constant)
   - SIGINT (interrupt signal constant) 
   - SIGTERM (termination signal constant)
   - SIGQUIT (quit signal constant)
 - Called from (representative examples):
-  - BootstrapModeMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within bootstrap.c

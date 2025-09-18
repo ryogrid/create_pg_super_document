@@ -22,14 +22,14 @@ The function creates a complete PlannedStmt wrapper for the subcommand, inheriti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessUtility (main utility command dispatcher for executing the wrapped subcommand)
-  - EventTriggerAlterTableEnd (closes current ALTER TABLE event trigger context)
-  - EventTriggerAlterTableStart (re-establishes ALTER TABLE event trigger context)
-  - EventTriggerAlterTableRelid (sets the target relation for event trigger context)
+  - [ProcessUtility](ProcessUtility.md) (main utility command dispatcher for executing the wrapped subcommand)
+  - [EventTriggerAlterTableEnd](../E/EventTriggerAlterTableEnd.md) (closes current ALTER TABLE event trigger context)
+  - [EventTriggerAlterTableStart](../E/EventTriggerAlterTableStart.md) (re-establishes ALTER TABLE event trigger context)
+  - [EventTriggerAlterTableRelid](../E/EventTriggerAlterTableRelid.md) (sets the target relation for event trigger context)
   - makeNode (creates the PlannedStmt wrapper)
 - Called from (representative examples):
-  - ATParseTransformCmd (during ALTER TABLE command parsing and transformation)
-  - ATRewriteTables (during ALTER TABLE table rewriting phase)
+  - [ATParseTransformCmd](../A/ATParseTransformCmd.md) (during ALTER TABLE command parsing and transformation)
+  - [ATRewriteTables](../A/ATRewriteTables.md) (during ALTER TABLE table rewriting phase)
 
 ## Notes and Other Information
 - This function is specifically designed for ALTER TABLE's internal command generation and should not be used for other utility command scenarios

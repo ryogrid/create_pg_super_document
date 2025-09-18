@@ -21,8 +21,8 @@ This is a typedef to an opaque struct pointer, so the internal structure members
 - Functions called/Symbols referenced:
   - (None directly - this is a typedef)
 - Called from (representative examples):
-  - StackElem (used as buf member)
-  - PsqlScanStateData (used as scanbufhandle member)
+  - [StackElem](../S/StackElem.md) (used as buf member)
+  - [PsqlScanStateData](../P/PsqlScanStateData.md) (used as scanbufhandle member)
   - psqlscan_prepare_buffer (returns this type)
 
 ## Notes and Other Information

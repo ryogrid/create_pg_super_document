@@ -29,13 +29,13 @@ The function uses a sophisticated bit-shifting calculation to determine the divi
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts Numeric argument from function call
   - size_pretty_units: Array of size unit definitions
-  - numeric_is_less: Compares two Numeric values
-  - numeric_absolute: Gets absolute value of Numeric
-  - int64_to_numeric: Converts int64 to Numeric
-  - numeric_half_rounded: Applies half-rounding to Numeric
-  - numeric_to_cstring: Converts Numeric to C string
-  - numeric_truncated_divide: Performs truncated division
-  - psprintf: PostgreSQL sprintf function
+  - [numeric_is_less](../n/numeric_is_less.md): Compares two Numeric values
+  - [numeric_absolute](../n/numeric_absolute.md): Gets absolute value of Numeric
+  - [int64_to_numeric](../i/int64_to_numeric.md): Converts int64 to Numeric
+  - [numeric_half_rounded](../n/numeric_half_rounded.md): Applies half-rounding to Numeric
+  - [numeric_to_cstring](../n/numeric_to_cstring.md): Converts Numeric to C string
+  - [numeric_truncated_divide](../n/numeric_truncated_divide.md): Performs truncated division
+  - [psprintf](psprintf.md): PostgreSQL sprintf function
   - cstring_to_text: Converts C string to PostgreSQL text
   - PG_RETURN_TEXT_P: Returns text result from function
 - Called from (representative examples):

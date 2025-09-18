@@ -17,14 +17,14 @@ The  function performs a comprehensive release of resources for all SMgrRelation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init (initializes hash table iteration)
-  - hash_seq_search (iterates through hash table entries)
-  - smgrrelease (releases resources for individual relations)
+  - [hash_seq_init](../h/hash_seq_init.md) (initializes hash table iteration)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterates through hash table entries)
+  - [smgrrelease](smgrrelease.md) (releases resources for individual relations)
   - HASH_SEQ_STATUS (hash table iteration state structure)
   - SMgrRelationHash (global hash table of relations)
 - Called from (representative examples):
-  - ProcessBarrierSmgrRelease
-  - RelationCacheInvalidate
+  - [ProcessBarrierSmgrRelease](../P/ProcessBarrierSmgrRelease.md)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md)
 
 ## Notes and Other Information
 - This is a public function available to other modules

@@ -17,15 +17,15 @@ The r_izenak function processes Basque noun endings during stemming by matching 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_RV (region boundary test)
-  - r_R1 (region boundary test)
-  - r_R2 (region boundary test)
-  - find_among_b (suffix matching)
-  - slice_del (suffix deletion)
-  - slice_from_s (suffix replacement)
+  - [r_RV](r_RV.md) (region boundary test)
+  - [r_R1](r_R1.md) (region boundary test)
+  - [r_R2](r_R2.md) (region boundary test)
+  - [find_among_b](../f/find_among_b.md) (suffix matching)
+  - [slice_del](../s/slice_del.md) (suffix deletion)
+  - [slice_from_s](../s/slice_from_s.md) (suffix replacement)
 - Called from (representative examples):
-  - basque_ISO_8859_1_stem
-  - basque_UTF_8_stem
+  - [basque_ISO_8859_1_stem](../b/basque_ISO_8859_1_stem.md)
+  - [basque_UTF_8_stem](../b/basque_UTF_8_stem.md)
 
 ## Notes and Other Information
 This function is part of the Basque stemming algorithm and specifically handles noun morphology. It processes 295 different noun suffixes and applies context-sensitive transformations based on region boundaries (R1, R2, RV). The function returns 1 on successful processing and 0 if no matching suffix is found. Some cases perform simple deletion while others replace suffixes with specific strings (s_3 through s_9).

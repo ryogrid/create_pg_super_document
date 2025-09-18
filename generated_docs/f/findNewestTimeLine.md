@@ -23,11 +23,11 @@ An important guarantee provided by this function is that (result + 1) represents
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - existsTimeLineHistory - checks for existence of timeline history files
+  - [existsTimeLineHistory](../e/existsTimeLineHistory.md) - checks for existence of timeline history files
 - Called from (representative examples):
-  - StartupXLOG - during database startup to determine current timeline state
-  - validateRecoveryParameters - during recovery parameter validation
-  - rescanLatestTimeLine - when rescanning timeline information
+  - [StartupXLOG](../S/StartupXLOG.md) - during database startup to determine current timeline state
+  - [validateRecoveryParameters](../v/validateRecoveryParameters.md) - during recovery parameter validation
+  - [rescanLatestTimeLine](../r/rescanLatestTimeLine.md) - when rescanning timeline information
 
 ## Notes and Other Information
 - The algorithm assumes sequential timeline IDs without gaps, though comments suggest this assumption might be reconsidered

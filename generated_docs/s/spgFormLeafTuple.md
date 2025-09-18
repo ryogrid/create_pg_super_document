@@ -34,16 +34,16 @@ Key aspects of the tuple formation process:
 - Functions called/Symbols referenced:
   - SpGistState (index state structure)
   - SpGistLeafTuple (return type structure)
-  - heap_compute_data_size (data size calculation)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md) (data size calculation)
   - SGLTHDRSZ (header size macro)
   - SGDTSIZE (dead tuple size constant)
   - SGLT_SET_NEXTOFFSET (next offset setter macro)
   - SGLT_SET_HASNULLMASK (null mask flag setter)
-  - heap_fill_tuple (data population function)
+  - [heap_fill_tuple](../h/heap_fill_tuple.md) (data population function)
   - spgKeyColumn (key column identifier)
 - Called from (representative examples):
-  - doPickSplit (during node splitting operations)
-  - spgdoinsert (during index insertion)
+  - [doPickSplit](../d/doPickSplit.md) (during node splitting operations)
+  - [spgdoinsert](spgdoinsert.md) (during index insertion)
 
 ## Notes and Other Information
 - The function must stay synchronized with SpGistGetLeafTupleSize for consistent size calculations

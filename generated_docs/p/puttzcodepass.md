@@ -22,8 +22,8 @@ The `puttzcodepass` function provides dual-mode timezone data writing capability
 ## Dependencies
 - Functions called/Symbols referenced:
   - zic_t (type definition)
-  - puttzcode (for 32-bit output)
-  - convert64 (for 64-bit output)
+  - [puttzcode](puttzcode.md) (for 32-bit output)
+  - [convert64](../c/convert64.md) (for 64-bit output)
   - fwrite (standard C library function for file writing)
 - Called from (representative examples):
   - (Used internally in timezone compilation process)

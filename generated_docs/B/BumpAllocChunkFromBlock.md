@@ -23,14 +23,14 @@ This function centralizes the common chunk allocation logic shared between BumpA
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_MAKE_MEM_UNDEFINED (in MEMORY_CONTEXT_CHECKING builds)
-  - MemoryChunkSetHdrMask (in MEMORY_CONTEXT_CHECKING builds)
-  - set_sentinel (in MEMORY_CONTEXT_CHECKING builds)
+  - [MemoryChunkSetHdrMask](../M/MemoryChunkSetHdrMask.md) (in MEMORY_CONTEXT_CHECKING builds)
+  - [set_sentinel](../s/set_sentinel.md) (in MEMORY_CONTEXT_CHECKING builds)
   - MemoryChunkGetPointer (in MEMORY_CONTEXT_CHECKING builds)
-  - randomize_mem (if RANDOMIZE_ALLOCATED_MEMORY defined)
+  - [randomize_mem](../r/randomize_mem.md) (if RANDOMIZE_ALLOCATED_MEMORY defined)
   - VALGRIND_MAKE_MEM_NOACCESS (in MEMORY_CONTEXT_CHECKING builds)
 - Called from (representative examples):
-  - BumpAllocFromNewBlock
-  - BumpAlloc
+  - [BumpAllocFromNewBlock](BumpAllocFromNewBlock.md)
+  - [BumpAlloc](BumpAlloc.md)
 
 ## Notes and Other Information
 - The function is marked static inline for performance, as it's called frequently during allocation

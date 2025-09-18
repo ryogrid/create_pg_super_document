@@ -24,9 +24,9 @@ This effectively moves the parser state back to before the current token was pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1102)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1102)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the wparser_def.c file

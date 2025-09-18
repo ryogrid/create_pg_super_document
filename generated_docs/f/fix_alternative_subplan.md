@@ -29,9 +29,9 @@ The function also maintains tracking information in the PlannerInfo structure, m
   - SubPlan, AlternativeSubPlan, Cost (data type definitions)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - fix_scan_expr_mutator
-  - fix_join_expr_mutator
-  - fix_upper_expr_mutator
+  - [fix_scan_expr_mutator](fix_scan_expr_mutator.md)
+  - [fix_join_expr_mutator](fix_join_expr_mutator.md)
+  - [fix_upper_expr_mutator](fix_upper_expr_mutator.md)
 
 ## Notes and Other Information
 - Performs cost-based optimization by comparing startup_cost + num_exec * per_call_cost for each alternative

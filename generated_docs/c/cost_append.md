@@ -29,15 +29,15 @@ The function also adds a small per-tuple overhead cost using APPEND_CPU_COST_MUL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pathkeys_contained_in
-  - cost_sort
-  - get_parallel_divisor
-  - clamp_row_est
-  - append_nonpartial_cost
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [cost_sort](cost_sort.md)
+  - [get_parallel_divisor](../g/get_parallel_divisor.md)
+  - [clamp_row_est](clamp_row_est.md)
+  - [append_nonpartial_cost](../a/append_nonpartial_cost.md)
   - APPEND_CPU_COST_MULTIPLIER
   - AppendPath (struct)
 - Called from (representative examples):
-  - create_append_path
+  - [create_append_path](create_append_path.md)
 
 ## Notes and Other Information
 - Returns early if subpaths list is empty (NIL)

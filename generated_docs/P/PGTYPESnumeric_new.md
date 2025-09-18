@@ -17,13 +17,13 @@ The `PGTYPESnumeric_new` function serves as the primary constructor for creating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_alloc (allocates memory for the numeric structure)
-  - alloc_var (allocates and initializes the digit buffer)
+  - [pgtypes_alloc](../p/pgtypes_alloc.md) (allocates memory for the numeric structure)
+  - [alloc_var](../a/alloc_var.md) (allocates and initializes the digit buffer)
   - free (deallocates memory on error)
 - Called from (representative examples):
-  - deccall2 (in Informix compatibility layer)
-  - deccall3 (in Informix compatibility layer)
-  - deccvdbl (decimal conversion functions)
+  - [deccall2](../d/deccall2.md) (in Informix compatibility layer)
+  - [deccall3](../d/deccall3.md) (in Informix compatibility layer)
+  - [deccvdbl](../d/deccvdbl.md) (decimal conversion functions)
   - ecpg_get_data (ECPG data retrieval)
   - ecpg_store_input (ECPG input processing)
   - Various test programs

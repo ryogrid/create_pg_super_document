@@ -21,13 +21,13 @@ The function only advances the counters forward - it will not decrease them if t
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire (MultiXactGenLock, LW_EXCLUSIVE)
-  - MultiXactIdPrecedes
-  - MultiXactOffsetPrecedes  
+  - [MultiXactIdPrecedes](MultiXactIdPrecedes.md)
+  - [MultiXactOffsetPrecedes](MultiXactOffsetPrecedes.md)  
   - debug_elog3
   - LWLockRelease
 - Called from (representative examples):
-  - multixact_redo
-  - xlog_redo
+  - [multixact_redo](../m/multixact_redo.md)
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
 - This function is specifically designed for XLog replay scenarios

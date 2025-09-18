@@ -30,14 +30,14 @@ As a safety measure, the result is clamped to not exceed the base relation's row
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calc_joinrel_size_estimate
-  - SpecialJoinInfo (struct type)
+  - [calc_joinrel_size_estimate](../c/calc_joinrel_size_estimate.md)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct type)
 - Called from (representative examples):
   - get_joinrel_parampathinfo (src/backend/optimizer/util/relnode.c:1834)
 
 ## Notes and Other Information
 - Must be called after `set_joinrel_size_estimates` has been applied to establish the base estimate
-- Result is clamped to not exceed the base relation's row estimate for safety
+- [Result](../R/Result.md) is clamped to not exceed the base relation's row estimate for safety
 - Handles the complexity of parameterized joins where cardinality depends on outer parameter values
 - Like other join size estimation functions, results may vary slightly depending on the input path pair provided
 - Critical for accurate costing of nested loop joins with parameterized inner paths

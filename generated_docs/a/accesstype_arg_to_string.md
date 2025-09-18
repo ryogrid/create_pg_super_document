@@ -27,19 +27,19 @@ The function supports the following object access types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
-  - psprintf
+  - [pstrdup](../p/pstrdup.md)
+  - [psprintf](../p/psprintf.md)
   - OidIsValid
-  - ObjectAccessType (enum)
-  - ObjectAccessPostCreate (struct)
-  - ObjectAccessDrop (struct)
-  - ObjectAccessPostAlter (struct)
-  - ObjectAccessNamespaceSearch (struct)
+  - [ObjectAccessType](../O/ObjectAccessType.md) (enum)
+  - [ObjectAccessPostCreate](../O/ObjectAccessPostCreate.md) (struct)
+  - [ObjectAccessDrop](../O/ObjectAccessDrop.md) (struct)
+  - [ObjectAccessPostAlter](../O/ObjectAccessPostAlter.md) (struct)
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md) (struct)
   - PERFORM_DELETION_* flags
   - OAT_* enumeration values
 
 - Called from (representative examples):
-  - REGRESS_object_access_hook (lines 329, 336, 344)
+  - [REGRESS_object_access_hook](../R/REGRESS_object_access_hook.md) (lines 329, 336, 344)
 
 ## Notes and Other Information
 - This is a static function used exclusively within the test_oat_hooks testing module

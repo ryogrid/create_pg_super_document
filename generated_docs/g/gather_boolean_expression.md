@@ -24,11 +24,11 @@ The function is intentionally simple and does not perform any validation of the 
   - createPQExpBuffer (to create the return buffer for the expression)
   - psql_scan_slash_option (to extract individual tokens from the command line)
   - appendPQExpBufferChar (to add space separators between tokens)
-  - appendPQExpBufferStr (to append each token to the expression buffer)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (to append each token to the expression buffer)
   - free (to deallocate individual token strings)
 - Called from (representative examples):
-  - is_true_boolean_expression (to gather the expression before evaluation)
-  - ignore_boolean_expression (to consume arguments when not evaluating)
+  - [is_true_boolean_expression](../i/is_true_boolean_expression.md) (to gather the expression before evaluation)
+  - [ignore_boolean_expression](../i/ignore_boolean_expression.md) (to consume arguments when not evaluating)
 
 ## Notes and Other Information
 - Returns a PQExpBuffer containing the complete boolean expression string

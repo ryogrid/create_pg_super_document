@@ -19,15 +19,15 @@ The SerializeMetrics structure is used to collect and store performance instrume
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time (time measurement type)
+  - [instr_time](../i/instr_time.md) (time measurement type)
   - BufferUsage (buffer access statistics type)
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
   - ExplainPrintSerialize
-  - SerializeDestReceiver
-  - serializeAnalyzeStartup
-  - CreateExplainSerializeDestReceiver
-  - GetSerializationMetrics
+  - [SerializeDestReceiver](SerializeDestReceiver.md)
+  - [serializeAnalyzeStartup](../s/serializeAnalyzeStartup.md)
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
+  - [GetSerializationMetrics](../G/GetSerializationMetrics.md)
 
 ## Notes and Other Information
 - This struct is defined in src/backend/commands/explain.c at lines 53-58

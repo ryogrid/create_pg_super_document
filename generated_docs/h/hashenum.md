@@ -18,7 +18,7 @@ The  function is a specialized hash function for PostgreSQL enumeration types. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32
+  - [hash_uint32](hash_uint32.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

@@ -24,12 +24,12 @@ The function strips any sign from the input values and handles fractional second
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsec_t (type definition for fractional seconds)
-  - pg_ultostr_zeropad (for zero-padded integer-to-string conversion)
-  - pg_ultostr (for standard integer-to-string conversion)
+  - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (for zero-padded integer-to-string conversion)
+  - [pg_ultostr](../p/pg_ultostr.md) (for standard integer-to-string conversion)
 - Called from (representative examples):
   - AppendTimestampSeconds
   - EncodeTimeOnly
-  - EncodeInterval (multiple locations in both backend and ecpg interface)
+  - [EncodeInterval](../E/EncodeInterval.md) (multiple locations in both backend and ecpg interface)
 
 ## Notes and Other Information
 - The function does not null-terminate the output string; callers are responsible for proper string termination

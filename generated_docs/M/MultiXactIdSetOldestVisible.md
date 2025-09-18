@@ -28,7 +28,7 @@ The function handles MultiXactId wraparound by ensuring the computed value is at
   - MultiXactIdIsValid
   - LWLockAcquire (with LW_EXCLUSIVE)  
   - LWLockRelease
-  - MultiXactIdPrecedes
+  - [MultiXactIdPrecedes](MultiXactIdPrecedes.md)
   - debug_elog4
 - Global variables accessed:
   - OldestVisibleMXactId[MyProcNumber]
@@ -37,7 +37,7 @@ The function handles MultiXactId wraparound by ensuring the computed value is at
   - FirstMultiXactId
   - MaxOldestSlot
 - Called from (representative examples):
-  - GetMultiXactIdMembers (src/backend/access/transam/multixact.c:1330)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md) (src/backend/access/transam/multixact.c:1330)
   - debug_elog6 (src/backend/access/transam/multixact.c:388)
 
 ## Notes and Other Information

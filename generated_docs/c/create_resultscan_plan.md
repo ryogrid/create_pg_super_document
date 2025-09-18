@@ -25,16 +25,16 @@ This function creates a Result plan node for handling RTE_RESULT relations, whic
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_result
-  - copy_generic_path_info
-  - Result (return type)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_result](../m/make_result.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [Result](../R/Result.md) (return type)
   - RTE_RESULT (constant)
   - PG_USED_FOR_ASSERTS_ONLY (macro)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - The function assumes the scan_relid corresponds to a result relation (RTE_RESULT)

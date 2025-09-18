@@ -23,19 +23,19 @@ This function serves as a variable resolver in the jsonpath execution engine. It
 - Functions called/Symbols referenced:
   - lfirst (extracts list cell content)
   - strncmp (compares variable names)
-  - palloc (allocates memory for result)
-  - JsonItemFromDatum (converts Datum to JsonbValue)
+  - [palloc](../p/palloc.md) (allocates memory for result)
+  - [JsonItemFromDatum](../J/JsonItemFromDatum.md) (converts Datum to JsonbValue)
 - Data types used:
   - JsonPathVariable (structure holding variable information)
-  - List, ListCell (PostgreSQL list structures)
-  - JsonbValue (JSON value representation)
+  - [List](../L/List.md), ListCell (PostgreSQL list structures)
+  - [JsonbValue](../J/JsonbValue.md) (JSON value representation)
   - jbvNull (null JSON value type)
 - Called from (representative examples):
   - RETURN_ERROR macro in jsonpath_exec.c:312
-  - JsonPathExists in jsonpath_exec.c:3893
-  - JsonPathQuery in jsonpath_exec.c:3922
-  - JsonPathValue in jsonpath_exec.c:4013
-  - JsonTableResetRowPattern in jsonpath_exec.c:4267
+  - [JsonPathExists](../J/JsonPathExists.md) in jsonpath_exec.c:3893
+  - [JsonPathQuery](../J/JsonPathQuery.md) in jsonpath_exec.c:3922
+  - [JsonPathValue](../J/JsonPathValue.md) in jsonpath_exec.c:4013
+  - [JsonTableResetRowPattern](../J/JsonTableResetRowPattern.md) in jsonpath_exec.c:4267
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module

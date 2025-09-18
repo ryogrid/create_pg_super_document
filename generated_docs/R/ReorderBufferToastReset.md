@@ -27,18 +27,18 @@ This cleanup is essential to prevent memory leaks in long-running logical replic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - pfree
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [pfree](../p/pfree.md)
   - dlist_foreach_modify
   - dlist_container
-  - dlist_delete
-  - ReorderBufferReturnChange
-  - hash_destroy
+  - [dlist_delete](../d/dlist_delete.md)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
+  - [hash_destroy](../h/hash_destroy.md)
 - Called from (representative examples):
-  - ReorderBufferReturnTXN
-  - ReorderBufferResetTXN
-  - ReorderBufferProcessTXN
+  - [ReorderBufferReturnTXN](ReorderBufferReturnTXN.md)
+  - [ReorderBufferResetTXN](ReorderBufferResetTXN.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the reorderbuffer.c file

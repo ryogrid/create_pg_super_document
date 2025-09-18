@@ -18,7 +18,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced: None (only accesses static variables)
 - Called from (representative examples):
-  - RelationCacheInitialize (at src/backend/utils/cache/relcache.c:4028)
+  - [RelationCacheInitialize](RelationCacheInitialize.md) (at src/backend/utils/cache/relcache.c:4028)
 
 ## Notes and Other Information
 - This function explicitly zeros out static variables even though they should initialize to zero by default, ensuring deterministic behavior

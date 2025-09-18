@@ -18,15 +18,15 @@ This function retrieves the current time with timezone information and returns i
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetCurrentTimeUsec
-  - palloc
-  - tm2timetz
-  - AdjustTimeForTypmod
+  - [palloc](../p/palloc.md)
+  - [tm2timetz](../t/tm2timetz.md)
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)
 - Types used:
   - TimeTzADT
-  - pg_tm
+  - [pg_tm](../p/pg_tm.md)
   - fsec_t
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information

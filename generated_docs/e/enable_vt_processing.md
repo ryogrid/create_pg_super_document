@@ -28,7 +28,7 @@ This function takes no parameters and returns a boolean value indicating success
   - SetConsoleMode (Windows API)
   - ENABLE_VIRTUAL_TERMINAL_PROCESSING (Windows constant)
 - Called from (representative examples):
-  - pg_logging_init
+  - [pg_logging_init](../p/pg_logging_init.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function that only compiles on Windows platforms

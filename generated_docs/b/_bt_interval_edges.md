@@ -27,7 +27,7 @@ The function handles special cases where the new item becomes either the first-r
   - FindSplitData
   - SplitPoint
 - Called from (representative examples):
-  - _bt_strategy
+  - [_bt_strategy](_bt_strategy.md)
 
 ## Notes and Other Information
 - This is a static function used only within nbtsplitloc.c for split interval boundary determination

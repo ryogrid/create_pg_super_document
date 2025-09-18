@@ -26,11 +26,11 @@ The abbreviation matching is case-sensitive and should be provided in all-upper-
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_time_t (time type)
-  - pg_tz (timezone structure type)
-  - ttinfo (timezone transition info structure)
+  - [pg_tz](pg_tz.md) (timezone structure type)
+  - [ttinfo](../t/ttinfo.md) (timezone transition info structure)
   - strcmp (standard C string comparison)
 - Called from (representative examples):
-  - DetermineTimeZoneAbbrevOffsetInternal (src/backend/utils/adt/datetime.c:1834)
+  - [DetermineTimeZoneAbbrevOffsetInternal](../D/DetermineTimeZoneAbbrevOffsetInternal.md) (src/backend/utils/adt/datetime.c:1834)
 
 ## Notes and Other Information
 - Returns true on success with gmtoff and isdst set to appropriate values

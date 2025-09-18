@@ -22,16 +22,16 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentTransactionState (global variable)
-  - MemoryContextSwitchTo (memory context function)
-  - MemoryContextReset (memory context function)
-  - MemoryContextDelete (memory context function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context function)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (memory context function)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (memory context function)
   - TopMemoryContext (global memory context)
   - TransactionAbortContext (global memory context)
   - TopTransactionContext (global memory context)
   - CurTransactionContext (global memory context)
 - Called from (representative examples):
-  - CleanupTransaction
-  - AbortOutOfAnyTransaction
+  - [CleanupTransaction](../C/CleanupTransaction.md)
+  - [AbortOutOfAnyTransaction](AbortOutOfAnyTransaction.md)
 
 ## Notes and Other Information
 - This function is static and only used within the transaction management subsystem

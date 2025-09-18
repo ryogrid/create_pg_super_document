@@ -34,7 +34,7 @@ The implementation uses a three-way merge algorithm similar to merging sorted ar
   - compareEntry: Compare two word entries lexicographically
   - _POSVECPTR: Get pointer to position vector for a word entry
   - SHORTALIGN: Align memory addresses to short boundaries
-  - add_pos: Helper function to add positions with offset
+  - [add_pos](../a/add_pos.md): Helper function to add positions with offset
   - MAXSTRPOS: Maximum allowed string position
   - CALCDATASIZE: Calculate total data size for tsvector
   - PG_RETURN_POINTER: Return result pointer

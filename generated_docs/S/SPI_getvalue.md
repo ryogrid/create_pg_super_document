@@ -21,15 +21,15 @@ The function supports both regular attributes (positive attribute numbers) and s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr (to extract the raw attribute value)
+  - [heap_getattr](../h/heap_getattr.md) (to extract the raw attribute value)
   - TupleDescAttr (macro for accessing tuple descriptor attributes)
-  - SystemAttributeDefinition (for system attribute type information)
-  - getTypeOutputInfo (to get the output function for the data type)
-  - OidOutputFunctionCall (to convert the value to string using the appropriate output function)
+  - [SystemAttributeDefinition](SystemAttributeDefinition.md) (for system attribute type information)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md) (to get the output function for the data type)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md) (to convert the value to string using the appropriate output function)
 - Called from (representative examples):
-  - refresh_by_match_merge (materialized view operations)
-  - make_ruledef (rule definition utilities)
-  - make_viewdef (view definition utilities)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (materialized view operations)
+  - [make_ruledef](../m/make_ruledef.md) (rule definition utilities)
+  - [make_viewdef](../m/make_viewdef.md) (view definition utilities)
 
 ## Notes and Other Information
 - Sets SPI_result to SPI_ERROR_NOATTRIBUTE if fnumber is invalid (0, > natts, or <= FirstLowInvalidHeapAttributeNumber)

@@ -25,14 +25,14 @@ The function implements sophisticated parent page management, including handling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer (exclusive locking for parent page modifications)
+  - [LockBuffer](../L/LockBuffer.md) (exclusive locking for parent page modifications)
   - list_length, list_nth, lsecond, linitial (list manipulation for splitinfo processing)
-  - gistFindCorrectParent (parent page location and validation)
-  - gistinserttuples (recursive downlink insertion and updates)
-  - GISTPageSplitInfo (split page information structure)
+  - [gistFindCorrectParent](gistFindCorrectParent.md) (parent page location and validation)
+  - [gistinserttuples](gistinserttuples.md) (recursive downlink insertion and updates)
+  - [GISTPageSplitInfo](../G/GISTPageSplitInfo.md) (split page information structure)
 - Called from (representative examples):
-  - gistfixsplit (split completion during recovery)
-  - gistinserttuples (split handling during normal insertions)
+  - [gistfixsplit](gistfixsplit.md) (split completion during recovery)
+  - [gistinserttuples](gistinserttuples.md) (split handling during normal insertions)
 
 ## Notes and Other Information
 - Requires caller to hold locks on stack->buffer and all child pages in splitinfo

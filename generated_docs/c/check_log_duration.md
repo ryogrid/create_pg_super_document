@@ -26,16 +26,16 @@ The function calculates execution duration from statement start to current time 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimestampDifference (calculate time difference between timestamps)
-  - GetCurrentStatementStartTimestamp (get statement start time)
-  - GetCurrentTimestamp (get current timestamp)
-  - pg_prng_double (generate random number for sampling)
+  - [TimestampDifference](../T/TimestampDifference.md) (calculate time difference between timestamps)
+  - [GetCurrentStatementStartTimestamp](../G/GetCurrentStatementStartTimestamp.md) (get statement start time)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (get current timestamp)
+  - [pg_prng_double](../p/pg_prng_double.md) (generate random number for sampling)
 - Called from (representative examples):
-  - exec_simple_query (simple query execution)
-  - exec_parse_message (Parse message processing)
-  - exec_bind_message (Bind message processing)
-  - exec_execute_message (Execute message processing)
-  - HandleFunctionRequest (function call processing)
+  - [exec_simple_query](../e/exec_simple_query.md) (simple query execution)
+  - [exec_parse_message](../e/exec_parse_message.md) (Parse message processing)
+  - [exec_bind_message](../e/exec_bind_message.md) (Bind message processing)
+  - [exec_execute_message](../e/exec_execute_message.md) (Execute message processing)
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md) (function call processing)
 
 ## Notes and Other Information
 - **Return Values:**

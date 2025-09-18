@@ -28,16 +28,16 @@ The function carefully manages the SubLink tracking state, preserving and restor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExprHasSubLink
+  - [checkExprHasSubLink](../c/checkExprHasSubLink.md)
   - query_tree_mutator
   - expression_tree_mutator
-  - replace_rte_variables_context (struct)
-  - CurrentOfExpr (node type)
+  - [replace_rte_variables_context](replace_rte_variables_context.md) (struct)
+  - [CurrentOfExpr](../C/CurrentOfExpr.md) (node type)
 - Called from (representative examples):
-  - replace_rte_variables
-  - pullup_replace_vars_callback
-  - ReplaceVarsFromTargetList_callback
-  - replace_rte_variables_mutator (recursive calls)
+  - [replace_rte_variables](replace_rte_variables.md)
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md)
+  - [ReplaceVarsFromTargetList_callback](../R/ReplaceVarsFromTargetList_callback.md)
+  - [replace_rte_variables_mutator](replace_rte_variables_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - The function is publicly exposed (unlike typical mutator functions) because callbacks often need to recurse directly to it on sub-expressions

@@ -19,7 +19,7 @@ This function is particularly useful in contexts where unambiguous operator iden
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - format_operator_extended
+  - [format_operator_extended](format_operator_extended.md)
   - FORMAT_OPERATOR_FORCE_QUALIFY (flag constant)
 - Called from (representative examples):
   - Referenced in header file definitions (src/include/utils/regproc.h:35)

@@ -33,7 +33,7 @@ This function is specifically designed for dimension parsing where integers must
   - PG_INT32_MIN
   - PG_INT32_MAX
 - Called from (representative examples):
-  - ReadArrayDimensions (called twice per dimension specification)
+  - [ReadArrayDimensions](ReadArrayDimensions.md) (called twice per dimension specification)
 
 ## Notes and Other Information
 - Static function internal to arrayfuncs.c

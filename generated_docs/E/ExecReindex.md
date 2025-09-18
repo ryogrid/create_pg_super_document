@@ -26,16 +26,16 @@ The function enforces transaction block restrictions for concurrent operations a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventInTransactionBlock (prevents execution in transaction blocks for certain operations)
-  - defGetBoolean, defGetString (option parsing functions)
-  - get_tablespace_oid (tablespace name to OID conversion)
-  - object_aclcheck, aclcheck_error (permission checking)
-  - ReindexIndex (single index reindexing)
-  - ReindexTable (table reindexing)
-  - ReindexMultipleTables (schema/system/database reindexing)
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md) (prevents execution in transaction blocks for certain operations)
+  - [defGetBoolean](../d/defGetBoolean.md), defGetString (option parsing functions)
+  - [get_tablespace_oid](../g/get_tablespace_oid.md) (tablespace name to OID conversion)
+  - [object_aclcheck](../o/object_aclcheck.md), aclcheck_error (permission checking)
+  - [ReindexIndex](../R/ReindexIndex.md) (single index reindexing)
+  - [ReindexTable](../R/ReindexTable.md) (table reindexing)
+  - [ReindexMultipleTables](../R/ReindexMultipleTables.md) (schema/system/database reindexing)
   - Various REINDEXOPT_* and REINDEX_OBJECT_* constants
 - Called from:
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1567)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1567)
 
 ## Notes and Other Information
 - This is a public function declared in defrem.h

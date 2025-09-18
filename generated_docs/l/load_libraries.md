@@ -31,21 +31,21 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - SplitDirectoriesString
-  - list_free_deep
-  - pfree
+  - [list_free_deep](list_free_deep.md)
+  - [pfree](../p/pfree.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - lfirst
-  - first_dir_separator
-  - psprintf
-  - load_file
-  - errmsg_internal
+  - [first_dir_separator](../f/first_dir_separator.md)
+  - [psprintf](../p/psprintf.md)
+  - [load_file](load_file.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
 - Called from (representative examples):
-  - process_shared_preload_libraries
-  - process_session_preload_libraries
+  - [process_shared_preload_libraries](../p/process_shared_preload_libraries.md)
+  - [process_session_preload_libraries](../p/process_session_preload_libraries.md)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the miscinit.c file

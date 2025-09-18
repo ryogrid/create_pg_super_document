@@ -23,14 +23,14 @@ This function takes no parameters but relies on global variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - OpenSCManager (Windows API)
-  - write_stderr
-  - pgwin32_IsInstalled
+  - [write_stderr](../w/write_stderr.md)
+  - [pgwin32_IsInstalled](pgwin32_IsInstalled.md)
   - OpenService (Windows API)
   - DeleteService (Windows API)
   - CloseServiceHandle (Windows API)
   - GetLastError (Windows API)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function used only in pg_ctl on Windows platforms

@@ -27,12 +27,12 @@ The validation process helps catch common issues like missing shared libraries, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckFunctionValidatorAccess: Verifies permission to validate this function
-  - SearchSysCache1: Looks up the function tuple in pg_proc
-  - SysCacheGetAttrNotNull: Gets prosrc and probin attributes from the function tuple
+  - [CheckFunctionValidatorAccess](../C/CheckFunctionValidatorAccess.md): Verifies permission to validate this function
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up the function tuple in pg_proc
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md): Gets prosrc and probin attributes from the function tuple
   - TextDatumGetCString: Converts text attributes to C strings
-  - load_external_function: Loads the shared library and finds the function symbol
-  - fetch_finfo_record: Retrieves and validates the function information record
+  - [load_external_function](../l/load_external_function.md): Loads the shared library and finds the function symbol
+  - [fetch_finfo_record](fetch_finfo_record.md): Retrieves and validates the function information record
   - PG_RETURN_VOID: Returns void datum
 
 - Called from (representative examples):

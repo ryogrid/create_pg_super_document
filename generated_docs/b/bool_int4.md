@@ -23,7 +23,7 @@ This function implements the type conversion from PostgreSQL's boolean data type
   - `PG_GETARG_BOOL`: Macro to extract boolean argument from function arguments
   - `PG_RETURN_INT32`: Macro to return int32 value from PostgreSQL function
 - Called from (representative examples):
-  - `ExecEvalJsonCoercion`: Used in JSON coercion operations in expression evaluation
+  - `[ExecEvalJsonCoercion](../E/ExecEvalJsonCoercion.md)`: Used in JSON coercion operations in expression evaluation
 
 ## Notes and Other Information
 - Located in `src/backend/utils/adt/int.c:372-395`

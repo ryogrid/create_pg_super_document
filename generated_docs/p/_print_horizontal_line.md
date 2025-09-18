@@ -22,14 +22,14 @@ This utility function generates horizontal lines used to create borders and sepa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTextLineFormat (structure for line formatting rules)
-  - printTextRule (enum for line position types)
-  - printTextFormat (structure containing all formatting rules)
+  - [printTextLineFormat](printTextLineFormat.md) (structure for line formatting rules)
+  - [printTextRule](printTextRule.md) (enum for line position types)
+  - [printTextFormat](printTextFormat.md) (structure containing all formatting rules)
   - fputs (standard C library function for string output)
   - fprintf (standard C library function for formatted output)
   - fputc (standard C library function for character output)
 - Called from (representative examples):
-  - print_aligned_text (for drawing table borders and separators)
+  - [print_aligned_text](print_aligned_text.md) (for drawing table borders and separators)
 
 ## Notes and Other Information
 - Function name starts with underscore, indicating it's an internal helper function

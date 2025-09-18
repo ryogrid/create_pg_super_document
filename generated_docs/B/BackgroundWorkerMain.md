@@ -21,17 +21,17 @@ The function handles two distinct types of background workers: those that requir
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog, Assert (error handling and assertions)
-  - MemoryContextAlloc, memcpy (memory management)
-  - MemoryContextDelete (cleanup)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md), memcpy (memory management)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (cleanup)
   - init_ps_display (process display)
   - SetProcessingMode (processing mode setup)
-  - pg_usleep (authentication delay)
-  - pqsignal (signal handler setup)
-  - StatementCancelHandler, procsignal_sigusr1_handler, FloatExceptionHandler, bgworker_die
+  - [pg_usleep](../p/pg_usleep.md) (authentication delay)
+  - [pqsignal](../p/pqsignal.md) (signal handler setup)
+  - [StatementCancelHandler](../S/StatementCancelHandler.md), procsignal_sigusr1_handler, FloatExceptionHandler, bgworker_die
   - InitializeTimeouts, BackgroundWorkerUnblockSignals
   - sigsetjmp, HOLD_INTERRUPTS, EmitErrorReport, proc_exit (error handling)
   - InitProcess, BaseInit (PostgreSQL initialization)
-  - LookupBackgroundWorkerFunction (worker function lookup)
+  - [LookupBackgroundWorkerFunction](../L/LookupBackgroundWorkerFunction.md) (worker function lookup)
 - Constants referenced:
   - B_BG_WORKER, InitProcessing
   - BGWORKER_BACKEND_DATABASE_CONNECTION

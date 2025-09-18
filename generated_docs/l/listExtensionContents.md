@@ -23,15 +23,15 @@ The function workflow:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (data structure)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - listOneExtensionContents
+  - [PSQLexec](../P/PSQLexec.md)
+  - [listOneExtensionContents](listOneExtensionContents.md)
 - Called from (representative examples):
-  - exec_command_d (in src/bin/psql/command.c:1012)
+  - [exec_command_d](../e/exec_command_d.md) (in src/bin/psql/command.c:1012)
 
 ## Notes and Other Information
 - This function is part of psql's describe commands (\d family), specifically the verbose version of \dx

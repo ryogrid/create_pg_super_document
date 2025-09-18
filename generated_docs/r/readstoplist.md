@@ -21,20 +21,20 @@ The implementation uses PostgreSQL's tsearch_readline facility to read the file 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tsearch_config_filename (constructs full file path)
-  - tsearch_readline_begin (initializes file reading)
-  - tsearch_readline (reads each line)
-  - tsearch_readline_end (cleanup file reading)
-  - t_isspace (checks for whitespace characters)
-  - pg_mblen (gets multibyte character length)
-  - palloc/repalloc (PostgreSQL memory allocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [get_tsearch_config_filename](../g/get_tsearch_config_filename.md) (constructs full file path)
+  - [tsearch_readline_begin](../t/tsearch_readline_begin.md) (initializes file reading)
+  - [tsearch_readline](../t/tsearch_readline.md) (reads each line)
+  - [tsearch_readline_end](../t/tsearch_readline_end.md) (cleanup file reading)
+  - [t_isspace](../t/t_isspace.md) (checks for whitespace characters)
+  - [pg_mblen](../p/pg_mblen.md) (gets multibyte character length)
+  - [palloc](../p/palloc.md)/repalloc (PostgreSQL memory allocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - qsort (standard sorting function)
   - pg_qsort_strcmp (PostgreSQL string comparison for qsort)
 - Called from (representative examples):
-  - dsnowball_init (Snowball dictionary initialization)
-  - dispell_init (Ispell dictionary initialization)
-  - dsimple_init (Simple dictionary initialization)
+  - [dsnowball_init](../d/dsnowball_init.md) (Snowball dictionary initialization)
+  - [dispell_init](../d/dispell_init.md) (Ispell dictionary initialization)
+  - [dsimple_init](../d/dsimple_init.md) (Simple dictionary initialization)
 
 ## Notes and Other Information
 - If no filename is provided (fname is NULL or empty), the StopList will be initialized with zero length

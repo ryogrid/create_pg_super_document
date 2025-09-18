@@ -27,19 +27,19 @@ The initialization follows PostgreSQL's standard executor initialization pattern
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode: Creates new NamedTuplestoreScanState node
-  - ExecNamedTuplestoreScan: Sets as the main execution function
-  - get_ENR: Retrieves Ephemeral Named Relation by name from query environment
+  - [ExecNamedTuplestoreScan](ExecNamedTuplestoreScan.md): Sets as the main execution function
+  - [get_ENR](../g/get_ENR.md): Retrieves Ephemeral Named Relation by name from query environment
   - ENRMetadataGetTupDesc: Gets tuple descriptor from ENR metadata
   - tuplestore_alloc_read_pointer: Allocates new read pointer for tuple store access
-  - tuplestore_select_read_pointer: Selects the read pointer for operations
-  - tuplestore_rescan: Rewinds the tuple store to beginning
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Selects the read pointer for operations
+  - [tuplestore_rescan](../t/tuplestore_rescan.md): Rewinds the tuple store to beginning
   - ExecAssignExprContext: Creates expression evaluation context
-  - ExecInitScanTupleSlot: Initializes scan tuple slot with tuple descriptor
-  - ExecInitResultTypeTL: Initializes result tuple type from target list
-  - ExecAssignScanProjectionInfo: Sets up projection information
-  - ExecInitQual: Initializes qualification expressions
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md): Initializes scan tuple slot with tuple descriptor
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md): Initializes result tuple type from target list
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md): Sets up projection information
+  - [ExecInitQual](ExecInitQual.md): Initializes qualification expressions
 - Called from (representative examples):
-  - ExecInitNode: Generic node initialization dispatcher in executor framework
+  - [ExecInitNode](ExecInitNode.md): Generic node initialization dispatcher in executor framework
 
 ## Notes and Other Information
 - Function validates that the plan node has no child nodes (outer/inner plans must be NULL)

@@ -31,12 +31,12 @@ Upon successful validation, if caching is enabled, an empty cache entry is creat
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource
-  - spcache_init
-  - spcache_lookup
+  - [spcache_init](../s/spcache_init.md)
+  - [spcache_lookup](../s/spcache_lookup.md)
   - SplitIdentifierString
   - GUC_check_errdetail
-  - list_free
-  - spcache_insert
+  - [list_free](../l/list_free.md)
+  - [spcache_insert](../s/spcache_insert.md)
 - Called from (representative examples):
   - GUC system (referenced in guc_hooks.h)
 

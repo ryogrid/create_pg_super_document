@@ -46,13 +46,13 @@ TableScanDescData serves as the base class for all table scan descriptors in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapshotData
-  - ParallelTableScanDescData
+  - [SnapshotData](../S/SnapshotData.md)
+  - [ParallelTableScanDescData](../P/ParallelTableScanDescData.md)
 - Called from (representative examples):
-  - HeapScanDescData (src/include/access/heapam.h:55)
-  - TableScanDesc (src/include/access/relscan.h:52)
-  - SysScanDescData (src/include/access/relscan.h:185)
-  - ScanState (src/include/nodes/execnodes.h:1568)
+  - [HeapScanDescData](../H/HeapScanDescData.md) (src/include/access/heapam.h:55)
+  - [TableScanDesc](TableScanDesc.md) (src/include/access/relscan.h:52)
+  - [SysScanDescData](../S/SysScanDescData.md) (src/include/access/relscan.h:185)
+  - [ScanState](../S/ScanState.md) (src/include/nodes/execnodes.h:1568)
 
 ## Notes and Other Information
 This structure is defined in src/include/access/relscan.h (lines 31-51) and serves as the foundation for PostgreSQL's table access method abstraction layer. Access method implementations should embed this structure in their own scan descriptor types to maintain compatibility with the table AM interface. The parallel scanning capability allows multiple worker processes to cooperatively scan large tables efficiently.

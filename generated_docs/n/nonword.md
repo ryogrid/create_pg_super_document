@@ -140,8 +140,8 @@ write_data_to_archive_lz4_doc.md: Direction flag - either AHEAD or BEHIND to spe
 - Functions called/Symbols referenced:
   - AHEAD (constant)
   - BEHIND (constant)
-  - newarc
-  - colorcomplement
+  - [newarc](newarc.md)
+  - [colorcomplement](../c/colorcomplement.md)
   - wordchrs (from vars structure)
 - Called from (representative examples):
   - ARCV (multiple call sites in regcomp.c)

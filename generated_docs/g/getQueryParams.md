@@ -21,11 +21,11 @@ The `getQueryParams` function is used to prepare parameter arrays for SQL prepar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getVariable - Retrieves variable value from the Variables store using variable name
-  - Variables - Structure type for storing variable name-value pairs
-  - Command - Structure type containing command information and arguments
+  - [getVariable](getVariable.md) - Retrieves variable value from the Variables store using variable name
+  - [Variables](../V/Variables.md) - Structure type for storing variable name-value pairs
+  - [Command](../C/Command.md) - Structure type containing command information and arguments
 - Called from (representative examples):
-  - sendCommand - Uses getQueryParams to prepare parameters for prepared statement execution
+  - [sendCommand](../s/sendCommand.md) - Uses getQueryParams to prepare parameters for prepared statement execution
 
 ## Notes and Other Information
 - The function assumes command->argv[0] is the command name and starts parameter extraction from argv[1]

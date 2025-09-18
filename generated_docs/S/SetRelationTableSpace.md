@@ -21,18 +21,18 @@ This function performs the actual catalog update when moving a relation to a new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckRelationTableSpaceMove
-  - SearchSysCacheLockedCopy1
-  - CatalogTupleUpdate
-  - UnlockTuple
-  - changeDependencyOnTablespace
-  - heap_freetuple
+  - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md)
+  - [SearchSysCacheLockedCopy1](SearchSysCacheLockedCopy1.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [UnlockTuple](../U/UnlockTuple.md)
+  - [changeDependencyOnTablespace](../c/changeDependencyOnTablespace.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - RELKIND_HAS_STORAGE
   - RelFileNumberIsValid
 - Called from (representative examples):
-  - reindex_index
-  - ATExecSetTableSpace
-  - ATExecSetTableSpaceNoStorage
+  - [reindex_index](../r/reindex_index.md)
+  - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md)
+  - [ATExecSetTableSpaceNoStorage](../A/ATExecSetTableSpaceNoStorage.md)
 
 ## Notes and Other Information
 - The function asserts that CheckRelationTableSpaceMove returns true, ensuring validation was performed

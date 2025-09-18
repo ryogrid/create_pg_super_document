@@ -19,14 +19,14 @@ The function initializes global variables used by the cancel handling system, in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - consoleHandler
+  - [consoleHandler](../c/consoleHandler.md)
 - Called from (representative examples):
-  - main (pg_amcheck)
-  - runInitSteps (pgbench)
-  - psql_setup_cancel_handler (psql)
-  - main (clusterdb)
-  - main (reindexdb)
-  - main (vacuumdb)
+  - [main](../m/main.md) (pg_amcheck)
+  - [runInitSteps](../r/runInitSteps.md) (pgbench)
+  - [psql_setup_cancel_handler](../p/psql_setup_cancel_handler.md) (psql)
+  - [main](../m/main.md) (clusterdb)
+  - [main](../m/main.md) (reindexdb)
+  - [main](../m/main.md) (vacuumdb)
 
 ## Notes and Other Information
 - Windows-specific function that uses SetConsoleCtrlHandler API

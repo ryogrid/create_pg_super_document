@@ -23,10 +23,10 @@ Unlike the smaller integer conversion functions, this function uses PyLong_FromL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64: Extracts the 64-bit integer value from the PostgreSQL Datum
+  - [DatumGetInt64](../D/DatumGetInt64.md): Extracts the 64-bit integer value from the PostgreSQL Datum
   - PyLong_FromLongLong: Python C API function to create a Python long object from a C long long integer
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for various PostgreSQL data types
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for various PostgreSQL data types
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the plpy_typeio.c file

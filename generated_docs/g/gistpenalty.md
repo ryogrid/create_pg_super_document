@@ -26,23 +26,23 @@ This function computes the penalty for adding a new entry to an existing GiST in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall3Coll
+  - [FunctionCall3Coll](../F/FunctionCall3Coll.md)
   - isnan
   - get_float4_infinity
-  - GISTENTRY (struct)
-  - GISTSTATE (struct)
+  - [GISTENTRY](../G/GISTENTRY.md) (struct)
+  - [GISTSTATE](../G/GISTSTATE.md) (struct)
 - Called from (representative examples):
   - gistchoose
-  - findDontCares
-  - placeOne
-  - supportSecondarySplit
-  - gistRelocateBuildBuffersOnSplit
+  - [findDontCares](../f/findDontCares.md)
+  - [placeOne](../p/placeOne.md)
+  - [supportSecondarySplit](../s/supportSecondarySplit.md)
+  - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
 
 ## Notes and Other Information
 - The penalty function is crucial for GiST's insertion algorithm, helping determine the best path down the tree
 - Lower penalties indicate better placement choices, guiding the algorithm to minimize index bloat
 - The function respects the operator class penalty function's strict flag, only calling it with non-NULL values if strict
 - Special handling prevents mixing NULL and non-NULL values by assigning infinite penalty
-- Result validation ensures penalties are always non-negative finite values
+- [Result](../R/Result.md) validation ensures penalties are always non-negative finite values
 - Used extensively during index splits and node selection for insertions
 - The penalty value influences both insertion performance and index quality by minimizing key enlargement

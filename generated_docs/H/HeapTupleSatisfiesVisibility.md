@@ -23,22 +23,22 @@ The function assumes that the heap tuple is valid and that the buffer is at leas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleSatisfiesMVCC (for SNAPSHOT_MVCC)
-  - HeapTupleSatisfiesSelf (for SNAPSHOT_SELF)  
-  - HeapTupleSatisfiesAny (for SNAPSHOT_ANY)
-  - HeapTupleSatisfiesToast (for SNAPSHOT_TOAST)
-  - HeapTupleSatisfiesDirty (for SNAPSHOT_DIRTY)
-  - HeapTupleSatisfiesHistoricMVCC (for SNAPSHOT_HISTORIC_MVCC)
-  - HeapTupleSatisfiesNonVacuumable (for SNAPSHOT_NON_VACUUMABLE)
+  - [HeapTupleSatisfiesMVCC](HeapTupleSatisfiesMVCC.md) (for SNAPSHOT_MVCC)
+  - [HeapTupleSatisfiesSelf](HeapTupleSatisfiesSelf.md) (for SNAPSHOT_SELF)  
+  - [HeapTupleSatisfiesAny](HeapTupleSatisfiesAny.md) (for SNAPSHOT_ANY)
+  - [HeapTupleSatisfiesToast](HeapTupleSatisfiesToast.md) (for SNAPSHOT_TOAST)
+  - [HeapTupleSatisfiesDirty](HeapTupleSatisfiesDirty.md) (for SNAPSHOT_DIRTY)
+  - [HeapTupleSatisfiesHistoricMVCC](HeapTupleSatisfiesHistoricMVCC.md) (for SNAPSHOT_HISTORIC_MVCC)
+  - [HeapTupleSatisfiesNonVacuumable](HeapTupleSatisfiesNonVacuumable.md) (for SNAPSHOT_NON_VACUUMABLE)
   - SNAPSHOT_* constants for snapshot type comparison
 - Called from (representative examples):
-  - page_collect_tuples (heap garbage collection)
-  - heapgettup (sequential heap scan)
-  - heap_fetch (tuple fetching)
-  - heap_hot_search_buffer (HOT chain traversal)
-  - heap_delete (tuple deletion)
-  - heap_update (tuple update)
-  - heapam_tuple_satisfies_snapshot (table AM interface)
+  - [page_collect_tuples](../p/page_collect_tuples.md) (heap garbage collection)
+  - [heapgettup](../h/heapgettup.md) (sequential heap scan)
+  - [heap_fetch](../h/heap_fetch.md) (tuple fetching)
+  - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md) (HOT chain traversal)
+  - [heap_delete](../h/heap_delete.md) (tuple deletion)
+  - [heap_update](../h/heap_update.md) (tuple update)
+  - [heapam_tuple_satisfies_snapshot](../h/heapam_tuple_satisfies_snapshot.md) (table AM interface)
 
 ## Notes and Other Information
 This function is critical to PostgreSQL's MVCC implementation as it provides a unified interface for all visibility checks. The switch statement design allows for efficient dispatching to the appropriate visibility function while maintaining a clean separation of concerns for different snapshot types. The function may update hint bits as a performance optimization, caching visibility decisions in the tuple header to avoid repeated expensive visibility calculations.

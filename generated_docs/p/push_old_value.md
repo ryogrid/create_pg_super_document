@@ -26,10 +26,10 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - discard_stack_value
-  - set_stack_value  
-  - MemoryContextAllocZero
-  - slist_push_head
+  - [discard_stack_value](../d/discard_stack_value.md)
+  - [set_stack_value](../s/set_stack_value.md)  
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [slist_push_head](../s/slist_push_head.md)
   - GucStack (struct)
   - GucAction (enum)
   - GUC_ACTION_SET, GUC_ACTION_LOCAL, GUC_ACTION_SAVE (enum values)

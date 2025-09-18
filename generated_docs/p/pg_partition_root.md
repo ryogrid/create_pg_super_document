@@ -26,10 +26,10 @@ If the input relation is not part of a partition tree or cannot be processed as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_rel_can_be_partition: Validates if the relation can participate in partition trees
-  - get_partition_ancestors: Retrieves the list of ancestor relations in the partition hierarchy
+  - [check_rel_can_be_partition](../c/check_rel_can_be_partition.md): Validates if the relation can participate in partition trees
+  - [get_partition_ancestors](../g/get_partition_ancestors.md): Retrieves the list of ancestor relations in the partition hierarchy
   - llast_oid: Gets the last (topmost) OID from the ancestors list
-  - list_free: Frees the memory allocated for the ancestors list
+  - [list_free](../l/list_free.md): Frees the memory allocated for the ancestors list
   - PG_RETURN_OID: PostgreSQL macro for returning an OID value
   - PG_RETURN_NULL: PostgreSQL macro for returning NULL
 

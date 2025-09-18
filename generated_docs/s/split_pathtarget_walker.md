@@ -27,12 +27,12 @@ The function maintains and updates the context structure with information about 
 ## Dependencies
 - Functions called/Symbols referenced:
   - expression_tree_walker (recursively traverses expression trees)
-  - list_member (checks if expression already exists in input_target)
+  - [list_member](../l/list_member.md) (checks if expression already exists in input_target)
   - IS_SRF_CALL (macro to identify set-returning function calls)
   - Various list manipulation functions (lappend, list_concat, list_nth_cell)
-  - Node type checking macros (IsA for Var, PlaceHolderVar, Aggref, etc.)
+  - [Node](../N/Node.md) type checking macros (IsA for Var, PlaceHolderVar, Aggref, etc.)
 - Called from (representative examples):
-  - split_pathtarget_at_srfs (in src/backend/optimizer/util/tlist.c:943)
+  - [split_pathtarget_at_srfs](split_pathtarget_at_srfs.md) (in src/backend/optimizer/util/tlist.c:943)
   - Recursively calls itself (in src/backend/optimizer/util/tlist.c:1142, 1184)
 
 ## Notes and Other Information

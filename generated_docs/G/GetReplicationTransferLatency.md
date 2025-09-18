@@ -17,10 +17,10 @@ This function measures the network latency by calculating the time difference be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData (shared memory structure)
-  - TimestampDifferenceMilliseconds (time difference calculation)
+  - [WalRcvData](../W/WalRcvData.md) (shared memory structure)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md) (time difference calculation)
 - Called from (representative examples):
-  - ProcessWalSndrMessage (multiple calls in walreceiver process)
+  - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md) (multiple calls in walreceiver process)
 
 ## Notes and Other Information
 - Returns transfer latency in milliseconds based on message timestamps

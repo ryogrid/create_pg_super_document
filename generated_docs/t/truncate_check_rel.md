@@ -36,14 +36,14 @@ The function raises appropriate errors for invalid relations or insufficient per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetForeignServerIdByRelId
-  - GetFdwRoutineByServerId
-  - IsSystemClass
+  - [GetForeignServerIdByRelId](../G/GetForeignServerIdByRelId.md)
+  - [GetFdwRoutineByServerId](../G/GetFdwRoutineByServerId.md)
+  - [IsSystemClass](../I/IsSystemClass.md)
   - InvokeObjectTruncateHook
 - Called from (representative examples):
-  - ExecuteTruncate
-  - ExecuteTruncateGuts
-  - RangeVarCallbackForTruncate
+  - [ExecuteTruncate](../E/ExecuteTruncate.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
+  - [RangeVarCallbackForTruncate](../R/RangeVarCallbackForTruncate.md)
 
 ## Notes and Other Information
 - This function is a subroutine shared by multiple truncate-related functions to ensure consistent validation

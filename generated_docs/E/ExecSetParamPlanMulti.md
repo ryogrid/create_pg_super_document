@@ -22,14 +22,14 @@ The function checks each parameter in the provided bitmapset and evaluates only 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
-  - ParamExecData
-  - ExecSetParamPlan
+  - [bms_next_member](../b/bms_next_member.md)
+  - [ParamExecData](../P/ParamExecData.md)
+  - [ExecSetParamPlan](ExecSetParamPlan.md)
 - Called from (representative examples):
-  - EvalPlanQualBegin
-  - EvalPlanQualStart
-  - ExecInitParallelPlan
-  - ExecParallelReinitialize
+  - [EvalPlanQualBegin](EvalPlanQualBegin.md)
+  - [EvalPlanQualStart](EvalPlanQualStart.md)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md)
+  - [ExecParallelReinitialize](ExecParallelReinitialize.md)
 
 ## Notes and Other Information
 - The function uses lazy evaluation - parameters are only computed when needed and haven't been computed before

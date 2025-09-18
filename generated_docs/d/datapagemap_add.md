@@ -21,7 +21,7 @@ This function sets the bit corresponding to a specific block number in the datap
   - pg_realloc (for expanding the bitmap when needed)
   - memset (for zeroing newly allocated bitmap regions)
 - Called from (representative examples):
-  - process_target_wal_block_change (in filemap.c:399)
+  - [process_target_wal_block_change](../p/process_target_wal_block_change.md) (in filemap.c:399)
 
 ## Notes and Other Information
 - The bitmap is byte-oriented with 8 bits per byte, using simple modulo arithmetic to determine byte offset and bit position

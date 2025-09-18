@@ -29,22 +29,22 @@ The function implements multiple safety mechanisms including detection of alread
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReadNextTransactionId
-  - table_beginscan_catalog
-  - heap_getnext
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
   - TransactionIdIsNormal
   - MultiXactIdIsValid
-  - database_is_invalid_form
-  - TransactionIdPrecedes
-  - MultiXactIdPrecedes
-  - table_endscan
-  - AdvanceOldestCommitTsXid
-  - TruncateCLOG
-  - TruncateCommitTs
-  - TruncateMultiXact
-  - SetTransactionIdLimit
-  - SetMultiXactIdLimit
+  - [database_is_invalid_form](../d/database_is_invalid_form.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [table_endscan](../t/table_endscan.md)
+  - [AdvanceOldestCommitTsXid](../A/AdvanceOldestCommitTsXid.md)
+  - [TruncateCLOG](../T/TruncateCLOG.md)
+  - [TruncateCommitTs](../T/TruncateCommitTs.md)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
+  - [SetTransactionIdLimit](../S/SetTransactionIdLimit.md)
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
 - Called from (representative examples):
-  - vac_update_datfrozenxid
+  - [vac_update_datfrozenxid](vac_update_datfrozenxid.md)
 
 ## Notes and Other Information
 - This is a static function, only called from within the same source file

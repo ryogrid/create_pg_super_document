@@ -24,11 +24,11 @@ The queue uses a ring buffer design to efficiently manage pending read operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LsnReadQueue (struct type)
-  - palloc (memory allocation)
+  - [LsnReadQueue](../L/LsnReadQueue.md) (struct type)
+  - [palloc](../p/palloc.md) (memory allocation)
   - offsetof (macro for structure member offset)
 - Called from (representative examples):
-  - XLogPrefetcherReadRecord
+  - [XLogPrefetcherReadRecord](../X/XLogPrefetcherReadRecord.md)
 
 ## Notes and Other Information
 - The function includes an assertion that max_distance >= max_inflight to ensure valid queue configuration

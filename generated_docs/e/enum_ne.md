@@ -28,7 +28,7 @@ The function follows PostgreSQL's standard function calling convention using PG_
 - Called from:
   - SQL queries using <> or != operator with enum types
   - System catalog functions
-  - Query optimizer and executor
+  - [Query](../Q/Query.md) optimizer and executor
 
 ## Notes and Other Information
 - Part of PostgreSQL's operator implementation framework for enum types

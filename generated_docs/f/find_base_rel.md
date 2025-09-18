@@ -25,13 +25,13 @@ The function uses an unsigned comparison trick `(uint32) relid < (uint32) root->
   - elog (for error reporting when relation not found)
 - Data structures used:
   - RelOptInfo (return type)
-  - PlannerInfo (contains simple_rel_array)
+  - [PlannerInfo](../P/PlannerInfo.md) (contains simple_rel_array)
 - Called from (representative examples):
-  - set_base_rel_consider_startup (src/backend/optimizer/path/allpaths.c:272)
-  - make_rel_from_joinlist (src/backend/optimizer/path/allpaths.c:3337)
-  - clause_selectivity_ext (src/backend/optimizer/path/clausesel.c:922)
-  - join_is_removable (src/backend/optimizer/plan/analyzejoins.c:188)
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1839)
+  - [set_base_rel_consider_startup](../s/set_base_rel_consider_startup.md) (src/backend/optimizer/path/allpaths.c:272)
+  - [make_rel_from_joinlist](../m/make_rel_from_joinlist.md) (src/backend/optimizer/path/allpaths.c:3337)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (src/backend/optimizer/path/clausesel.c:922)
+  - [join_is_removable](../j/join_is_removable.md) (src/backend/optimizer/plan/analyzejoins.c:188)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1839)
 
 ## Notes and Other Information
 - Raises ERROR if relation does not exist, making it unsuitable for tentative lookups

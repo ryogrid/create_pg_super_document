@@ -23,16 +23,16 @@ The function receives its parameters through PostgreSQL's standard function argu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkMatch
-  - lookup_ts_dictionary_cache
+  - [checkMatch](../c/checkMatch.md)
+  - [lookup_ts_dictionary_cache](../l/lookup_ts_dictionary_cache.md)
   - FunctionCall4
-  - findTheLexeme
-  - findVariant
+  - [findTheLexeme](../f/findTheLexeme.md)
+  - [findVariant](../f/findVariant.md)
 - Types referenced:
   - DictThesaurus
-  - DictSubState
+  - [DictSubState](../D/DictSubState.md)
   - TSLexeme
-  - LexemeInfo
+  - [LexemeInfo](../L/LexemeInfo.md)
 - Called from (representative examples):
   - PostgreSQL text search system (via function call infrastructure)
 

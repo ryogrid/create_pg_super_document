@@ -21,20 +21,20 @@ This function implements the CREATE USER MAPPING SQL command by creating a new e
 - Functions called/Symbols referenced:
   - table_open
   - get_rolespec_oid
-  - GetForeignServerByName
-  - user_mapping_ddl_aclcheck
+  - [GetForeignServerByName](../G/GetForeignServerByName.md)
+  - [user_mapping_ddl_aclcheck](../u/user_mapping_ddl_aclcheck.md)
   - GetSysCacheOid2
-  - GetForeignDataWrapper
-  - GetNewOidWithIndex
-  - transformGenericOptions
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
-  - recordDependencyOnOwner
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 The function creates dependencies on both the foreign server and the mapped user to ensure proper cleanup when either is dropped. User mappings are intentionally not made members of extensions since roles themselves cannot be extension members. The function includes special handling for the PUBLIC role and supports conditional creation with IF NOT EXISTS to avoid duplicate mapping errors.

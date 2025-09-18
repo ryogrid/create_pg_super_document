@@ -22,12 +22,12 @@ This function implements the core connection lookup logic for the ECPG library. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ecpg_pthreads_init` (ensures thread infrastructure is ready)
+  - `[ecpg_pthreads_init](ecpg_pthreads_init.md)` (ensures thread infrastructure is ready)
   - `pthread_getspecific` (retrieves thread-specific connection)
   - `strcmp` (string comparison for connection names)
 - Called from (representative examples):
   - `ecpg_get_connection` (public connection retrieval interface)
-  - `ECPGdisconnect` (when disconnecting specific connections)
+  - `[ECPGdisconnect](../E/ECPGdisconnect.md)` (when disconnecting specific connections)
 
 ## Notes and Other Information
 - This is a static function, only accessible within connect.c

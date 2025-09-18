@@ -20,14 +20,14 @@ This function serves as a wrapper around pg_encoding_mblen() specifically design
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_mblen
+  - [pg_encoding_mblen](../p/pg_encoding_mblen.md)
 - Called from (representative examples):
   - MAX_PROMPT_SIZE (src/bin/psql/prompt.c:364)
-  - pg_wcswidth (src/fe_utils/mbprint.c:186)
-  - pg_wcssize (src/fe_utils/mbprint.c:223)
-  - pg_wcsformat (src/fe_utils/mbprint.c:304)
+  - [pg_wcswidth](../p/pg_wcswidth.md) (src/fe_utils/mbprint.c:186)
+  - [pg_wcssize](../p/pg_wcssize.md) (src/fe_utils/mbprint.c:223)
+  - [pg_wcsformat](../p/pg_wcsformat.md) (src/fe_utils/mbprint.c:304)
   - strlen_max_width (src/fe_utils/print.c:3767)
-  - appendStringLiteral (src/fe_utils/string_utils.c:385)
+  - [appendStringLiteral](../a/appendStringLiteral.md) (src/fe_utils/string_utils.c:385)
 
 ## Notes and Other Information
 - Returns the byte length of the multibyte character at the start of string s

@@ -22,8 +22,8 @@ The structure is used as part of a static array  that contains all valid libpq c
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - is_conninfo_option (foreign.c:603)
-  - postgresql_fdw_validator (foreign.c:638)
+  - [is_conninfo_option](../i/is_conninfo_option.md) (foreign.c:603)
+  - [postgresql_fdw_validator](../p/postgresql_fdw_validator.md) (foreign.c:638)
 
 ## Notes and Other Information
 - The structure is used in a static array that ends with a NULL sentinel entry {NULL, InvalidOid}

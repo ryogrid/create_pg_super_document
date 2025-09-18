@@ -22,14 +22,14 @@ This function is designed to be called without locks on the heap page, making it
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK/HEAPBLK_TO_MAPBYTE/HEAPBLK_TO_OFFSET (heap-to-map conversion macros)
-  - BufferGetBlockNumber (gets block number from buffer)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
   - ReleaseBuffer (releases buffer when wrong page is pinned)
-  - vm_readbuf (reads visibility map page, with extend=false)
-  - PageGetContents (gets page contents from buffer)
+  - [vm_readbuf](vm_readbuf.md) (reads visibility map page, with extend=false)
+  - [PageGetContents](../P/PageGetContents.md) (gets page contents from buffer)
   - VISIBILITYMAP_VALID_BITS (mask for extracting valid visibility bits)
 - Called from (representative examples):
-  - find_next_unskippable_block (checks if vacuum can skip pages)
-  - lazy_scan_prune (determines page visibility status during vacuum)
+  - [find_next_unskippable_block](../f/find_next_unskippable_block.md) (checks if vacuum can skip pages)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md) (determines page visibility status during vacuum)
   - VM_ALL_VISIBLE/VM_ALL_FROZEN (macro expansions for visibility checks)
 
 ## Notes and Other Information

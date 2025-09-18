@@ -19,10 +19,10 @@ The workspace includes arrays for tracking initialization status, string buffers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocates memory for the main structure)
-  - palloc0 (allocates zero-initialized arrays for worker data)
+  - [palloc](../p/palloc.md) (allocates memory for the main structure)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized arrays for worker data)
 - Called from:
-  - ExplainNode (when processing nodes with parallel workers)
+  - [ExplainNode](ExplainNode.md) (when processing nodes with parallel workers)
 
 ## Notes and Other Information
 - Creates arrays sized according to the number of workers: worker_inited (bool), worker_str (StringInfoData), and worker_state_save (int)

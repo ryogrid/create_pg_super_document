@@ -24,10 +24,10 @@ This function serves as a fallback mechanism in PostgreSQL's join planning when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap
-  - make_join_rel
+  - [bms_overlap](../b/bms_overlap.md)
+  - [make_join_rel](make_join_rel.md)
 - Called from (representative examples):
-  - join_search_one_level (used in two different contexts)
+  - [join_search_one_level](../j/join_search_one_level.md) (used in two different contexts)
 
 ## Notes and Other Information
 - Creates Cartesian product joins, which can be expensive but are sometimes necessary for query correctness

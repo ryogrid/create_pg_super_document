@@ -20,14 +20,14 @@ This function is particularly useful for processing text data where trailing new
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen
-  - pnstrdup
+  - [pnstrdup](pnstrdup.md)
 - Called from (representative examples):
-  - libpqrcv_connect
-  - libpqrcv_identify_system
-  - libpqrcv_startstreaming
-  - libpqrcv_endstreaming
-  - libpqrcv_receive
-  - libpqrcv_exec
+  - [libpqrcv_connect](../l/libpqrcv_connect.md)
+  - [libpqrcv_identify_system](../l/libpqrcv_identify_system.md)
+  - [libpqrcv_startstreaming](../l/libpqrcv_startstreaming.md)
+  - [libpqrcv_endstreaming](../l/libpqrcv_endstreaming.md)
+  - [libpqrcv_receive](../l/libpqrcv_receive.md)
+  - [libpqrcv_exec](../l/libpqrcv_exec.md)
 
 ## Notes and Other Information
 - The function removes ALL trailing newline characters, not just the last one

@@ -25,18 +25,18 @@ This function is essential for proper state management during asynchronous query
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQclear (for freeing both conn->result and conn->saved_result)
+  - [PQclear](../P/PQclear.md) (for freeing both conn->result and conn->saved_result)
 
 - Called from (representative examples):
-  - PQconnectPoll (during connection establishment)
-  - pqClosePGconn (during connection cleanup)
-  - pqSaveErrorResult (before saving error results)
-  - PQsendQueryStart (when starting new queries)
+  - [PQconnectPoll](../P/PQconnectPoll.md) (during connection establishment)
+  - [pqClosePGconn](pqClosePGconn.md) (during connection cleanup)
+  - [pqSaveErrorResult](pqSaveErrorResult.md) (before saving error results)
+  - [PQsendQueryStart](../P/PQsendQueryStart.md) (when starting new queries)
   - pqPipelineProcessQueue (during pipeline processing)
-  - getRowDescriptions (during result processing)
-  - getParamDescriptions (during parameter description processing)
-  - getAnotherTuple (during tuple fetching)
-  - pqGetErrorNotice3 (during error/notice processing)
+  - [getRowDescriptions](../g/getRowDescriptions.md) (during result processing)
+  - [getParamDescriptions](../g/getParamDescriptions.md) (during parameter description processing)
+  - [getAnotherTuple](../g/getAnotherTuple.md) (during tuple fetching)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md) (during error/notice processing)
 
 ## Notes and Other Information
 - **Internal function**: This is an internal libpq function, not part of the public API

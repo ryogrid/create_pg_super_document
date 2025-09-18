@@ -20,16 +20,16 @@ The  function serves as the primary entry point for JSON_EXISTS operations in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeJsonPath
-  - GetJsonPathVar
-  - CountJsonPathVars
-  - DatumGetJsonbP
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [GetJsonPathVar](../G/GetJsonPathVar.md)
+  - [CountJsonPathVars](../C/CountJsonPathVars.md)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
   - jperIsError
   - jperOk (enum value)
   - JsonPath (type)
-  - JsonPathExecResult (type)
+  - [JsonPathExecResult](JsonPathExecResult.md) (type)
 - Called from (representative examples):
-  - ExecEvalJsonExprPath
+  - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)
 
 ## Notes and Other Information
 - Returns true if the JSON path exists/matches, false otherwise

@@ -28,11 +28,11 @@ The function assumes there should only be one pg_inherits entry for a partition 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan: Begins system table scan on pg_inherits
-  - systable_getnext: Gets next tuple from the system scan  
+  - [systable_beginscan](../s/systable_beginscan.md): Begins system table scan on pg_inherits
+  - [systable_getnext](../s/systable_getnext.md): Gets next tuple from the system scan  
   - Form_pg_inherits: Accesses structured data from pg_inherits tuple
 - Called from (representative examples):
-  - ATPrepCmd: During ALTER TABLE command preparation to check partition state
+  - [ATPrepCmd](../A/ATPrepCmd.md): During ALTER TABLE command preparation to check partition state
 
 ## Notes and Other Information
 - The function comments note there's no good way to verify the relation is actually a partition before checking

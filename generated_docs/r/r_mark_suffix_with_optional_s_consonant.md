@@ -23,8 +23,8 @@ This type of consonant insertion is part of Turkish morphophonological processes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b_U (called 2 times for vowel group checking)
-  - skip_b_utf8 (for UTF-8 character boundary handling)
+  - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for vowel group checking)
+  - [skip_b_utf8](../s/skip_b_utf8.md) (for UTF-8 character boundary handling)
   - g_vowel (vowel group definition)
 
 - Called from (representative examples):

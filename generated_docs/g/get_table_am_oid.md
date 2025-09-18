@@ -18,12 +18,12 @@ get_table_am_oid is a specialized wrapper function that provides type-safe looku
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_am_type_oid: Internal worker function for access method lookup
+  - [get_am_type_oid](get_am_type_oid.md): Internal worker function for access method lookup
   - AMTYPE_TABLE: Constant defining the table access method type
 - Called from (representative examples):
-  - check_default_table_access_method: Validates default table access method settings
-  - DefineRelation: Table creation processing
-  - ATPrepSetAccessMethod: ALTER TABLE SET ACCESS METHOD preparation
+  - [check_default_table_access_method](../c/check_default_table_access_method.md): Validates default table access method settings
+  - [DefineRelation](../D/DefineRelation.md): Table creation processing
+  - [ATPrepSetAccessMethod](../A/ATPrepSetAccessMethod.md): ALTER TABLE SET ACCESS METHOD preparation
 
 ## Notes and Other Information
 - Provides type-safe interface specifically for table access methods

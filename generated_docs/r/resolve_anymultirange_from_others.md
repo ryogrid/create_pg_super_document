@@ -19,15 +19,15 @@ When anyrange_type is valid, the function uses get_range_multirange() to find th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType: Gets the base type of a potentially domain type
-  - get_range_multirange: Finds the multirange type corresponding to a range type
+  - [getBaseType](../g/getBaseType.md): Gets the base type of a potentially domain type
+  - [get_range_multirange](../g/get_range_multirange.md): Finds the multirange type corresponding to a range type
   - OidIsValid: Macro to check if an OID is valid
   - ereport/elog: Error reporting functions
-  - format_type_be: Formats type OID as string for error messages
+  - [format_type_be](../f/format_type_be.md): Formats type OID as string for error messages
 
 - Called from (representative examples):
-  - resolve_polymorphic_tupdesc: When resolving tuple descriptors with polymorphic types
-  - resolve_polymorphic_argtypes: When resolving function argument types
+  - [resolve_polymorphic_tupdesc](resolve_polymorphic_tupdesc.md): When resolving tuple descriptors with polymorphic types
+  - [resolve_polymorphic_argtypes](resolve_polymorphic_argtypes.md): When resolving function argument types
 
 ## Notes and Other Information
 - This is a static function, only used within funcapi.c

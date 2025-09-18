@@ -21,10 +21,10 @@ Like other SPI cursor functions, it wraps _SPI_cursor_operation and uses the Des
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_cursor_operation (internal cursor operation handler)
-  - CreateDestReceiver (creates destination for query results)
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md) (internal cursor operation handler)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md) (creates destination for query results)
   - DestSPI (SPI destination receiver type)
-  - FetchDirection (enum type for cursor directions)
+  - [FetchDirection](../F/FetchDirection.md) (enum type for cursor directions)
 - Called from (representative examples):
   - Limited direct usage in core PostgreSQL (mainly referenced in header files)
 

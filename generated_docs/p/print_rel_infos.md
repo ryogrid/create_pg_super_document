@@ -19,16 +19,16 @@ This function provides verbose logging output for relation information during th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log
+  - [pg_log](pg_log.md)
   - RelInfoArr (struct type)
   - PG_VERBOSE (log level constant)
 - Called from (representative examples):
-  - print_db_infos
+  - [print_db_infos](print_db_infos.md)
 
 ## Notes and Other Information
 - This is a static function only used within src/bin/pg_upgrade/info.c
 - Uses PG_VERBOSE logging level, so output is only visible when verbose logging is enabled
 - Output format: "relname: "namespace.relation", reloid: OID, reltblspace: "tablespace""
-- Relation names and tablespace names are quoted in the output for clarity
+- [Relation](../R/Relation.md) names and tablespace names are quoted in the output for clarity
 - Part of the pg_upgrade utility's debugging and monitoring system for relation metadata
 - Provides essential information for troubleshooting upgrade issues related to specific relations

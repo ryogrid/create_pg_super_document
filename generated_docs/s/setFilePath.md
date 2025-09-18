@@ -19,20 +19,20 @@ The  function is a utility function used by the directory archive format in pg_d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext
-  - pg_fatal (for error handling)
+  - [lclContext](../l/lclContext.md)
+  - [pg_fatal](../p/pg_fatal.md) (for error handling)
   - strlen, strcpy, strcat (standard C string functions)
 - Called from (representative examples):
-  - _StartData
-  - _PrintTocData
-  - _LoadLOs
-  - _CloseArchive
-  - _StartLOs
-  - _PrepParallelRestore
+  - [_StartData](../S/_StartData.md)
+  - [_PrintTocData](../P/_PrintTocData.md)
+  - [_LoadLOs](../L/_LoadLOs.md)
+  - [_CloseArchive](../C/_CloseArchive.md)
+  - [_StartLOs](../S/_StartLOs.md)
+  - [_PrepParallelRestore](../P/_PrepParallelRestore.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_backup_directory.c
 - The function includes thread-safety considerations, avoiding static buffers for multithreaded Windows environments
-- Path length validation prevents buffer overflows by checking against MAXPGPATH
+- [Path](../P/Path.md) length validation prevents buffer overflows by checking against MAXPGPATH
 - Uses forward slashes as directory separators, which works across platforms
 - Critical for the directory archive format's file organization and access patterns

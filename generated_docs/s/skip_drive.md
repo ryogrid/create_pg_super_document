@@ -26,13 +26,13 @@ The function returns a pointer to the portion of the path after the drive specif
 - Functions called/Symbols referenced:
   - IS_DIR_SEP (macro for checking directory separators)
 - Called from (representative examples):
-  - has_drive_prefix
-  - first_dir_separator
-  - last_dir_separator
-  - join_path_components
-  - canonicalize_path_enc
-  - path_contains_parent_reference
-  - get_progname
+  - [has_drive_prefix](../h/has_drive_prefix.md)
+  - [first_dir_separator](../f/first_dir_separator.md)
+  - [last_dir_separator](../l/last_dir_separator.md)
+  - [join_path_components](../j/join_path_components.md)
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md)
+  - [path_contains_parent_reference](../p/path_contains_parent_reference.md)
+  - [get_progname](../g/get_progname.md)
   - trim_directory
   - trim_trailing_separator
 

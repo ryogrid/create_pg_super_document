@@ -25,15 +25,15 @@ The function uses a state machine approach to process incoming messages, handlin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPutMsgStart, pqPutMsgEnd
-  - pqPutInt, pqPutnchar
-  - pqFlush, pqWait, pqReadData
-  - pqGetc, pqGetInt, pqGetnchar
-  - handleSyncLoss, pqCheckInBufferSpace
-  - pqGetErrorNotice3, getNotify, getReadyForQuery, getParameterStatus
+  - [pqPutMsgStart](pqPutMsgStart.md), pqPutMsgEnd
+  - [pqPutInt](pqPutInt.md), pqPutnchar
+  - [pqFlush](pqFlush.md), pqWait, pqReadData
+  - [pqGetc](pqGetc.md), pqGetInt, pqGetnchar
+  - [handleSyncLoss](../h/handleSyncLoss.md), pqCheckInBufferSpace
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md), getNotify, getReadyForQuery, getParameterStatus
   - pgHavePendingResult, PQmakeEmptyPGresult
-  - pqSaveErrorResult, pqPrepareAsyncResult
-  - pqTraceOutputMessage
+  - [pqSaveErrorResult](pqSaveErrorResult.md), pqPrepareAsyncResult
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
   - PqMsg_FunctionCall (message type)
   - PGRES_COMMAND_OK, PGRES_FATAL_ERROR (result status constants)
   - PQ_PIPELINE_OFF (pipeline status)

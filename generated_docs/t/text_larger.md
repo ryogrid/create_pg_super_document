@@ -19,7 +19,7 @@ This function implements a max operation for text data types. It compares two te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_cmp
+  - [text_cmp](text_cmp.md)
   - PG_GET_COLLATION
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

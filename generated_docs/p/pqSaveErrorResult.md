@@ -29,19 +29,19 @@ This design allows libpq to maintain error information even under memory pressur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqClearAsyncResult (to clear pending results before marking error state)
+  - [pqClearAsyncResult](pqClearAsyncResult.md) (to clear pending results before marking error state)
 
 - Called from (representative examples):
-  - pqSaveWriteError (for handling write errors)
-  - PQgetResult (during result retrieval)
-  - getCopyResult (during COPY operations)
+  - [pqSaveWriteError](pqSaveWriteError.md) (for handling write errors)
+  - [PQgetResult](../P/PQgetResult.md) (during result retrieval)
+  - [getCopyResult](../g/getCopyResult.md) (during COPY operations)
   - pqPipelineProcessQueue (during pipeline processing)
-  - pqParseInput3 (during protocol message parsing)
-  - handleSyncLoss (during synchronization loss recovery)
-  - getRowDescriptions (during row description processing)
-  - getParamDescriptions (during parameter description processing)
-  - getAnotherTuple (during tuple fetching)
-  - pqFunctionCall3 (during function call processing)
+  - [pqParseInput3](pqParseInput3.md) (during protocol message parsing)
+  - [handleSyncLoss](../h/handleSyncLoss.md) (during synchronization loss recovery)
+  - [getRowDescriptions](../g/getRowDescriptions.md) (during row description processing)
+  - [getParamDescriptions](../g/getParamDescriptions.md) (during parameter description processing)
+  - [getAnotherTuple](../g/getAnotherTuple.md) (during tuple fetching)
+  - [pqFunctionCall3](pqFunctionCall3.md) (during function call processing)
 
 ## Notes and Other Information
 - **Internal function**: This is an internal libpq function, not part of the public API

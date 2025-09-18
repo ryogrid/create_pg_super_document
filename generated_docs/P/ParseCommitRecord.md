@@ -301,12 +301,12 @@ Text creation and manipulation
   - XACT_XINFO_HAS_GID
   - XACT_XINFO_HAS_ORIGIN
 - Called from (representative examples):
-  - xact_desc_commit
-  - xact_redo
-  - recoveryStopsBefore
-  - recoveryStopsAfter
-  - SummarizeXactRecord
-  - xact_decode
+  - [xact_desc_commit](../x/xact_desc_commit.md)
+  - [xact_redo](../x/xact_redo.md)
+  - [recoveryStopsBefore](../r/recoveryStopsBefore.md)
+  - [recoveryStopsAfter](../r/recoveryStopsAfter.md)
+  - [SummarizeXactRecord](../S/SummarizeXactRecord.md)
+  - [xact_decode](../x/xact_decode.md)
 
 ## Notes and Other Information
 - Located in xactdesc.c to allow sharing between backend and frontend code

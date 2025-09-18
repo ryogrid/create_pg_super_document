@@ -33,8 +33,8 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlot
-  - TransactionIdPrecedesOrEquals
+  - [ReplicationSlot](../R/ReplicationSlot.md)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
   - LogicalConfirmReceivedLocation
 - Called from (representative examples):
   - SnapBuildProcessRunningXacts

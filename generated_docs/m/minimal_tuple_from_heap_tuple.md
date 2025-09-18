@@ -23,14 +23,14 @@ The function allocates memory for the new MinimalTuple in the current memory con
 - Functions called/Symbols referenced:
   - MinimalTuple (type)
   - MINIMAL_TUPLE_OFFSET (constant)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copy)
   - Assert (assertion macro)
 
 - Called from (representative examples):
-  - tts_heap_copy_minimal_tuple
-  - tts_buffer_heap_copy_minimal_tuple
-  - copytup_heap
+  - [tts_heap_copy_minimal_tuple](../t/tts_heap_copy_minimal_tuple.md)
+  - [tts_buffer_heap_copy_minimal_tuple](../t/tts_buffer_heap_copy_minimal_tuple.md)
+  - [copytup_heap](../c/copytup_heap.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

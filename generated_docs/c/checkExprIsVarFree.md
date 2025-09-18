@@ -19,13 +19,13 @@ This function is a validation utility used within the PostgreSQL parser to enfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_vars_of_level (checks for variables at specified query level)
-  - locate_var_of_level (locates first variable at specified query level for error positioning)
+  - [contain_vars_of_level](contain_vars_of_level.md) (checks for variables at specified query level)
+  - [locate_var_of_level](../l/locate_var_of_level.md) (locates first variable at specified query level for error positioning)
   - ereport (error reporting function)
-  - parser_errposition (provides cursor position in error messages)
+  - [parser_errposition](../p/parser_errposition.md) (provides cursor position in error messages)
 - Called from (representative examples):
-  - transformLimitClause
-  - transformFrameOffset
+  - [transformLimitClause](../t/transformLimitClause.md)
+  - [transformFrameOffset](../t/transformFrameOffset.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_clause.c

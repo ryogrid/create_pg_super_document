@@ -27,16 +27,16 @@ Important note: The costs of initially evaluating/computing the CTE query itself
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_qual_cost (calculates cost of applying restriction qualifiers)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying restriction qualifiers)
   - cpu_tuple_cost (global cost parameter for tuple processing)
 - Types referenced:
-  - ParamPathInfo (parameterized path information)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
   - QualCost (qualification cost structure)
   - RTE_CTE (enum value for CTE range table entries)
 - Called from:
-  - create_ctescan_path (in pathnode.c:2139)
-  - create_worktablescan_path (in pathnode.c:2218)
+  - [create_ctescan_path](create_ctescan_path.md) (in pathnode.c:2139)
+  - [create_worktablescan_path](create_worktablescan_path.md) (in pathnode.c:2218)
 
 ## Notes and Other Information
 - The function handles both regular CTEs and recursive CTE work tables with the same cost model, as the differences are considered below the threshold of accurate estimation

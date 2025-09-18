@@ -19,7 +19,7 @@ The function examines the marked tuple slot in the merge join state and prints e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MergeJoinState (merge join state structure)
+  - [MergeJoinState](../M/MergeJoinState.md) (merge join state structure)
   - TupIsNull (macro to check if tuple slot is null)
   - MJ_debugtup (debug macro to print tuple contents)
   - printf (standard C library function for formatted output)

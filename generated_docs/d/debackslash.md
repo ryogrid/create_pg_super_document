@@ -22,10 +22,10 @@ The function is commonly used in conjunction with pg_strtok to process tokens th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
 - Called from (representative examples):
-  - nodeRead
-  - nullable_string
+  - [nodeRead](../n/nodeRead.md)
+  - [nullable_string](../n/nullable_string.md)
 
 ## Notes and Other Information
 - Creates a new palloc'd string that must be freed by the caller

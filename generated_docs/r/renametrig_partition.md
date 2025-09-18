@@ -25,22 +25,22 @@ The function maintains the parent-child relationship between triggers by using t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
-  - ObjectIdGetDatum
-  - systable_beginscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
   - HeapTupleIsValid
-  - systable_getnext
+  - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
   - table_open
-  - renametrig_internal
-  - RelationGetPartitionDesc
-  - renametrig_partition (recursive call)
+  - [renametrig_internal](renametrig_internal.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [renametrig_partition](renametrig_partition.md) (recursive call)
   - NameStr
   - table_close
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
 - Called from (representative examples):
-  - renametrig
-  - renametrig_partition (recursive)
+  - [renametrig](renametrig.md)
+  - [renametrig_partition](renametrig_partition.md) (recursive)
 
 ## Notes and Other Information
 - Uses tgparentid to identify child triggers that correspond to the parent trigger being renamed

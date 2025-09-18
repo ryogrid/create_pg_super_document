@@ -20,10 +20,10 @@ This is a standard qsort-style comparison function that compares two PendingWrit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PendingWrite (structure type)
+  - [PendingWrite](../P/PendingWrite.md) (structure type)
   - Assert (debugging macro)
 - Called from (representative examples):
-  - smgr_bulk_flush (used in qsort operation)
+  - [smgr_bulk_flush](../s/smgr_bulk_flush.md) (used in qsort operation)
 
 ## Notes and Other Information
 - This is a static function internal to the bulk_write.c module

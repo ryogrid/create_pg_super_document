@@ -26,9 +26,9 @@ This pattern is commonly used in PostgreSQL for "safe" conversion functions that
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring (converts text input to C string)
-  - ErrorSaveContext (error context type for safe handling)
-  - regnamespacein (underlying conversion function)
-  - DirectInputFunctionCallSafe (safe function call wrapper)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md) (error context type for safe handling)
+  - [regnamespacein](../r/regnamespacein.md) (underlying conversion function)
+  - [DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md) (safe function call wrapper)
   - PG_RETURN_DATUM (returns the result Datum)
 - Called from (representative examples):
   - This function is typically used in SQL queries where safe namespace lookups are needed

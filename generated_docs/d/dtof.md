@@ -20,8 +20,8 @@ This function performs type conversion from PostgreSQL's float8 data type (doubl
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (double-precision argument extraction macro)
   - isinf (infinity detection function)
-  - float_overflow_error (overflow error reporting function)
-  - float_underflow_error (underflow error reporting function) 
+  - [float_overflow_error](../f/float_overflow_error.md) (overflow error reporting function)
+  - [float_underflow_error](../f/float_underflow_error.md) (underflow error reporting function) 
   - PG_RETURN_FLOAT4 (single-precision return macro)
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL's type conversion system)

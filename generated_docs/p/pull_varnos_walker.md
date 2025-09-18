@@ -32,15 +32,15 @@ The PlaceHolderVar handling is particularly sophisticated, dealing with ph_eval_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member, bms_add_members (bitmapset operations)
-  - bms_equal, bms_difference, bms_join (bitmapset comparisons/operations)
+  - [bms_add_member](../b/bms_add_member.md), bms_add_members (bitmapset operations)
+  - [bms_equal](../b/bms_equal.md), bms_difference, bms_join (bitmapset comparisons/operations)
   - query_tree_walker, expression_tree_walker (tree traversal)
-  - pull_varnos_context (walker context structure)
-  - CurrentOfExpr, PlaceHolderVar, PlaceHolderInfo (node types)
+  - [pull_varnos_context](pull_varnos_context.md) (walker context structure)
+  - [CurrentOfExpr](../C/CurrentOfExpr.md), PlaceHolderVar, PlaceHolderInfo (node types)
 - Called from (representative examples):
-  - pull_varnos
-  - pull_varnos_of_level
-  - pull_varnos_walker (recursive calls)
+  - [pull_varnos](pull_varnos.md)
+  - [pull_varnos_of_level](pull_varnos_of_level.md)
+  - [pull_varnos_walker](pull_varnos_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Implements the visitor pattern for expression tree traversal

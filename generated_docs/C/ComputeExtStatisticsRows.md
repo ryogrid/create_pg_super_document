@@ -19,14 +19,14 @@ This function determines the sample size requirements for extended statistics co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_statentries_for_relation
-  - lookup_var_attr_stats
-  - statext_compute_stattarget
-  - bms_num_members
+  - [fetch_statentries_for_relation](../f/fetch_statentries_for_relation.md)
+  - [lookup_var_attr_stats](../l/lookup_var_attr_stats.md)
+  - [statext_compute_stattarget](../s/statext_compute_stattarget.md)
+  - [bms_num_members](../b/bms_num_members.md)
   - AllocSetContextCreate
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from:
-  - do_analyze_rel (in src/backend/commands/analyze.c:510)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (in src/backend/commands/analyze.c:510)
 
 ## Notes and Other Information
 - Returns 0 if no columns are being analyzed

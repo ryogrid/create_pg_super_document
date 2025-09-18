@@ -18,18 +18,18 @@ WalSndSetState is a function used within the WAL sender process to update its cu
 ## Dependencies
 - Functions called/Symbols referenced:
   - WalSndState (enum type)
-  - WalSnd (struct type)
+  - [WalSnd](WalSnd.md) (struct type)
   - MyWalSnd (global variable)
   - SpinLockAcquire
   - SpinLockRelease
 - Called from (representative examples):
-  - SendBaseBackup
-  - WalSndErrorCleanup
-  - StartReplication
-  - StartLogicalReplication
-  - exec_replication_command
-  - WalSndLoop
-  - XLogSendPhysical
+  - [SendBaseBackup](../S/SendBaseBackup.md)
+  - [WalSndErrorCleanup](WalSndErrorCleanup.md)
+  - [StartReplication](../S/StartReplication.md)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
+  - [exec_replication_command](../e/exec_replication_command.md)
+  - [WalSndLoop](WalSndLoop.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
 
 ## Notes and Other Information
 - This function can only be called from within a walsender process (enforced by Assert(am_walsender))

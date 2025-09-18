@@ -32,16 +32,16 @@ ProjectSetState manages the execution state for ProjectSet nodes, which are spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited base structure)
+  - [PlanState](PlanState.md) (inherited base structure)
   - ExprDoneCond (for tracking SRF completion states)
-  - Node (for expression state array)
-  - MemoryContext (for SRF argument memory management)
+  - [Node](../N/Node.md) (for expression state array)
+  - [MemoryContext](../M/MemoryContext.md) (for SRF argument memory management)
 - Called from (representative examples):
-  - ExecProjectSet
-  - ExecInitProjectSet
-  - ExecEndProjectSet
-  - ExecReScanProjectSet
-  - ExecProjectSRF
+  - [ExecProjectSet](../E/ExecProjectSet.md)
+  - [ExecInitProjectSet](../E/ExecInitProjectSet.md)
+  - [ExecEndProjectSet](../E/ExecEndProjectSet.md)
+  - [ExecReScanProjectSet](../E/ExecReScanProjectSet.md)
+  - [ExecProjectSRF](../E/ExecProjectSRF.md)
 
 ## Notes and Other Information
 ProjectSet nodes are crucial for handling complex queries involving set-returning functions like generate_series(), unnest(), or custom SRFs. The pending_srf_tuples flag is essential for coordinating multiple SRFs that may finish at different times. The argcontext provides memory isolation for SRF arguments, preventing memory leaks during repeated SRF evaluations. This node type represents a key component in PostgreSQL's ability to handle lateral joins and complex projections involving functions that return multiple rows.

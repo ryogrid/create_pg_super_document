@@ -21,9 +21,9 @@ ExecCustomScan is a thin wrapper function that serves as the main execution entr
 - Functions called/Symbols referenced:
   - castNode (to cast PlanState to CustomScanState)
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
-  - ExecCustomScan (via node->methods callback)
+  - [ExecCustomScan](ExecCustomScan.md) (via node->methods callback)
 - Called from (representative examples):
-  - ExecInitCustomScan (assigned as ExecProcNode)
+  - [ExecInitCustomScan](ExecInitCustomScan.md) (assigned as ExecProcNode)
   - PostgreSQL executor framework
 
 ## Notes and Other Information

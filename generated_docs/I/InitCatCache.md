@@ -28,17 +28,17 @@ The cache is initially created without list search buckets (cc_lbucket), which a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateCacheMemoryContext
-  - palloc_aligned
-  - palloc0
-  - slist_init
-  - slist_push_head
-  - on_proc_exit
-  - CatCachePrintStats
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md)
+  - [palloc_aligned](../p/palloc_aligned.md)
+  - [palloc0](../p/palloc0.md)
+  - [slist_init](../s/slist_init.md)
+  - [slist_push_head](../s/slist_push_head.md)
+  - [on_proc_exit](../o/on_proc_exit.md)
+  - [CatCachePrintStats](../C/CatCachePrintStats.md)
   - AttributeNumberIsValid
   - InitCatCache_DEBUG2
 - Called from (representative examples):
-  - InitCatalogCache
+  - [InitCatalogCache](InitCatalogCache.md)
   - Referenced in CatCacheHeader
 
 ## Notes and Other Information
@@ -48,5 +48,5 @@ The cache is initially created without list search buckets (cc_lbucket), which a
 - Initializes cache in CacheMemoryContext to ensure persistence across transactions
 - Sets up global cache header on first cache creation
 - Supports optional statistics collection when CATCACHE_STATS is enabled
-- List search buckets (cc_lbucket) are allocated lazily only when needed
+- [List](../L/List.md) search buckets (cc_lbucket) are allocated lazily only when needed
 - All dlist headers are initialized correctly through zero-initialization

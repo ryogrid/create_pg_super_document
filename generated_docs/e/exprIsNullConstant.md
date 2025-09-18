@@ -21,10 +21,10 @@ This function is commonly used during expression transformation to identify NULL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - A_Const (constant node type from abstract syntax tree)
+  - [A_Const](../A/A_Const.md) (constant node type from abstract syntax tree)
   - IsA (macro for type checking nodes)
 - Called from (representative examples):
-  - transformAExprOp
+  - [transformAExprOp](../t/transformAExprOp.md)
   - transformAExprDistinct
 
 ## Notes and Other Information

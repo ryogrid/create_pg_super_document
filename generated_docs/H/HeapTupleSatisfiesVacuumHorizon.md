@@ -40,18 +40,18 @@ The function returns detailed HTSV_Result values and sets *dead_after to enable 
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderGetRawXmin
   - HeapTupleHeaderGetRawXmax
-  - HeapTupleHeaderIsOnlyLocked
+  - [HeapTupleHeaderIsOnlyLocked](HeapTupleHeaderIsOnlyLocked.md)
   - HeapTupleHeaderGetUpdateXid
-  - HeapTupleGetUpdateXid
-  - TransactionIdIsCurrentTransactionId
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
-  - MultiXactIdIsRunning
-  - SetHintBits
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
+  - [SetHintBits](../S/SetHintBits.md)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVacuum
-  - HeapTupleSatisfiesNonVacuumable
-  - heap_prune_satisfies_vacuum
+  - [HeapTupleSatisfiesVacuum](HeapTupleSatisfiesVacuum.md)
+  - [HeapTupleSatisfiesNonVacuumable](HeapTupleSatisfiesNonVacuumable.md)
+  - [heap_prune_satisfies_vacuum](../h/heap_prune_satisfies_vacuum.md)
 
 ## Notes and Other Information
 The function returns HTSV_Result values indicating specific vacuum states:

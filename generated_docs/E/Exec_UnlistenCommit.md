@@ -26,11 +26,11 @@ The function gracefully handles attempts to unlisten from channels that weren't 
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Logging function for debug output
-  -  - List iteration macro
+  -  - [List](../L/List.md) iteration macro
   -  - String comparison function
-  -  - List manipulation function for safe deletion during iteration
+  -  - [List](../L/List.md) manipulation function for safe deletion during iteration
   -  - Memory deallocation function
-  -  - List access macro
+  -  - [List](../L/List.md) access macro
 
 - Called from:
   -  (src/backend/commands/async.c:995) - Main commit-time notification handler

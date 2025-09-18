@@ -23,7 +23,7 @@ This function serves as the timezone-aware version of JSONPath array query opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_query_array_internal (with timezone=true)
+  - [jsonb_path_query_array_internal](jsonb_path_query_array_internal.md) (with timezone=true)
 - Called from (representative examples):
   - SQL function calls via PostgreSQL's function manager
 

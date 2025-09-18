@@ -23,17 +23,17 @@ The underlying pgstat_fetch_entry() function handles various consistency modes, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_entry
-  - PgStat_StatDBEntry (data structure)
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md) (data structure)
   - PGSTAT_KIND_DATABASE (constant)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - rebuild_database_list (in src/backend/postmaster/autovacuum.c:928, 952, 976)
-  - do_start_worker (in src/backend/postmaster/autovacuum.c:1181)
+  - [rebuild_database_list](../r/rebuild_database_list.md) (in src/backend/postmaster/autovacuum.c:928, 952, 976)
+  - [do_start_worker](../d/do_start_worker.md) (in src/backend/postmaster/autovacuum.c:1181)
   - PG_STAT_GET_DBENTRY_INT64 (in src/backend/utils/adt/pgstatfuncs.c:998)
-  - pg_stat_get_db_conflict_all (in src/backend/utils/adt/pgstatfuncs.c:1098)
-  - pg_stat_get_db_checksum_failures (in src/backend/utils/adt/pgstatfuncs.c:1121)
-  - pg_stat_get_db_checksum_last_failure (in src/backend/utils/adt/pgstatfuncs.c:1139)
+  - [pg_stat_get_db_conflict_all](pg_stat_get_db_conflict_all.md) (in src/backend/utils/adt/pgstatfuncs.c:1098)
+  - [pg_stat_get_db_checksum_failures](pg_stat_get_db_checksum_failures.md) (in src/backend/utils/adt/pgstatfuncs.c:1121)
+  - [pg_stat_get_db_checksum_last_failure](pg_stat_get_db_checksum_last_failure.md) (in src/backend/utils/adt/pgstatfuncs.c:1139)
 
 ## Notes and Other Information
 - Returns NULL when no statistics exist for the database (not when database doesn't exist)

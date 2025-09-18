@@ -27,12 +27,12 @@ The combinations are stored as consecutive sequences of k integers in the combin
 - Functions called/Symbols referenced:
   - No direct references from the struct itself (it's a data structure)
 - Called from (representative examples):
-  - generator_init (creates and initializes the generator)
-  - generator_next (iterates through combinations)
-  - generator_free (deallocates the generator)
+  - [generator_init](../g/generator_init.md) (creates and initializes the generator)
+  - [generator_next](../g/generator_next.md) (iterates through combinations)
+  - [generator_free](../g/generator_free.md) (deallocates the generator)
   - statext_ndistinct_build (uses generator for multivariate statistics)
-  - generate_combinations (populates the combinations array)
-  - num_combinations (calculates the total number of combinations)
+  - [generate_combinations](../g/generate_combinations.md) (populates the combinations array)
+  - [num_combinations](../n/num_combinations.md) (calculates the total number of combinations)
 
 ## Notes and Other Information
 - The generator is specifically designed for use in PostgreSQL's extended statistics system for analyzing column dependencies

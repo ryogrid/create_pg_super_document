@@ -22,7 +22,7 @@ The `bytea_4` struct is defined in the ECPG test suite and serves as a structure
 - Functions called/Symbols referenced:
   - DATA_SIZE (constant used in size calculation)
   - LACK_SIZE (constant subtracted from DATA_SIZE to create smaller buffer)
-  - ind (referenced within the structure context)
+  - [ind](../i/ind.md) (referenced within the structure context)
 - Called from (representative examples):
   - init function (referenced at lines 154, 282, 343)
 

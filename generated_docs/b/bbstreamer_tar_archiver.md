@@ -18,18 +18,18 @@ The `bbstreamer_tar_archiver` structure is designed to generate or modify TAR ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - tarCreateHeader (for generating TAR headers)
-  - tarPaddingBytesRequired (for calculating padding bytes)
-  - bbstreamer_content (for forwarding processed data)
+  - [tarPaddingBytesRequired](../t/tarPaddingBytesRequired.md) (for calculating padding bytes)
+  - [bbstreamer_content](bbstreamer_content.md) (for forwarding processed data)
 - Called from (representative examples):
-  - bbstreamer_tar_archiver_new (constructor function)
-  - bbstreamer_tar_archiver_content (content processing function)
+  - [bbstreamer_tar_archiver_new](bbstreamer_tar_archiver_new.md) (constructor function)
+  - [bbstreamer_tar_archiver_content](bbstreamer_tar_archiver_content.md) (content processing function)
 
 ## Notes and Other Information
 - This structure is defined in src/bin/pg_basebackup/bbstreamer_tar.c:39-43
 - The archiver validates and fixes TAR format compliance by replacing zero-length headers with properly constructed ones
 - It handles TAR block alignment by generating appropriate padding bytes  
-- Archive trailers are standardized to two blocks of zero bytes for compatibility
+- [Archive](../A/Archive.md) trailers are standardized to two blocks of zero bytes for compatibility
 - The `rearchive_member` flag ensures consistent handling when headers are regenerated and corresponding trailers need adjustment
 - Designed to work in streaming fashion, processing data incrementally without requiring the entire archive in memory

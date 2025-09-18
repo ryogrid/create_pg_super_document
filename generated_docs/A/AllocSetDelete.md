@@ -27,11 +27,11 @@ For contexts that cannot be recycled (freeListIndex < 0), it performs traditiona
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetIsValid (context validation)
-  - AllocSetCheck (optional corruption/leak checking)
+  - [AllocSetCheck](AllocSetCheck.md) (optional corruption/leak checking)
   - KeeperBlock (macro to access initial block)
   - IsKeeperBlock (tests if block is the keeper block)
-  - MemoryContextResetOnly (resets context without calling callbacks)
-  - wipe_mem (memory wiping for debugging)
+  - [MemoryContextResetOnly](../M/MemoryContextResetOnly.md) (resets context without calling callbacks)
+  - [wipe_mem](../w/wipe_mem.md) (memory wiping for debugging)
   - free (system memory deallocation)
 
 - Referenced constants/macros:
@@ -41,7 +41,7 @@ For contexts that cannot be recycled (freeListIndex < 0), it performs traditiona
   - PG_USED_FOR_ASSERTS_ONLY (assertion-only variable marking)
 
 - Data structures:
-  - AllocSetFreeList (freelist management structure)
+  - [AllocSetFreeList](AllocSetFreeList.md) (freelist management structure)
   - context_freelists (global freelist array)
 
 - Called from (representative examples):

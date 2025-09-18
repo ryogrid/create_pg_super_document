@@ -33,16 +33,16 @@ The function is primarily used internally for generic type consistency checking 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType
-  - get_type_category_preferred  
-  - can_coerce_type
-  - format_type_be
+  - [getBaseType](../g/getBaseType.md)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)  
+  - [can_coerce_type](../c/can_coerce_type.md)
+  - [format_type_be](../f/format_type_be.md)
   - ereport (for error handling)
   - COERCION_IMPLICIT (constant)
   - TYPCATEGORY (type)
 - Called from (representative examples):
-  - check_generic_type_consistency (src/backend/parser/parse_coerce.c:2002)
-  - enforce_generic_type_consistency (src/backend/parser/parse_coerce.c:2586)
+  - [check_generic_type_consistency](../c/check_generic_type_consistency.md) (src/backend/parser/parse_coerce.c:2002)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md) (src/backend/parser/parse_coerce.c:2586)
 
 ## Notes and Other Information
 - Marked as static - internal function not exposed outside parse_coerce.c

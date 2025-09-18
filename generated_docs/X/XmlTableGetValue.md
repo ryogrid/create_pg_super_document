@@ -31,17 +31,17 @@ The function includes comprehensive error handling using PostgreSQL's PG_TRY/PG_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - xmlSetStructuredErrorFunc (libxml2)
   - xml_errorHandler
   - xmlXPathCompiledEval (libxml2)
   - xml_ereport
-  - xml_xmlnodetoxmltype
-  - appendStringInfoText
+  - [xml_xmlnodetoxmltype](../x/xml_xmlnodetoxmltype.md)
+  - [appendStringInfoText](../a/appendStringInfoText.md)
   - xml_pstrdup_and_free
-  - escape_xml
-  - get_type_category_preferred
-  - InputFunctionCall
+  - [escape_xml](../e/escape_xml.md)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
+  - [InputFunctionCall](../I/InputFunctionCall.md)
   - xmlXPathFreeObject (libxml2)
   - NO_XML_SUPPORT
 - Called from (representative examples):

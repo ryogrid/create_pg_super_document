@@ -22,7 +22,7 @@ The function preserves the original address family and netmask bits while creati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - ip_addrsize
   - ip_addr
   - ip_bits
@@ -30,8 +30,8 @@ The function preserves the original address family and netmask bits while creati
   - SET_INET_VARSIZE
   - ereport
 - Called from (representative examples):
-  - inetpl
-  - inetmi_int8
+  - [inetpl](inetpl.md)
+  - [inetmi_int8](inetmi_int8.md)
 
 ## Notes and Other Information
 - Uses careful bit manipulation to avoid platform-specific right-shift behavior on negative numbers

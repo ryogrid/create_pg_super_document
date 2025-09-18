@@ -24,22 +24,22 @@ The function includes comprehensive error handling through the escontext paramet
 - Functions called/Symbols referenced:
   - SplitIdentifierString
   - ereturn
-  - makeString
-  - list_free
+  - [makeString](../m/makeString.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - regprocin
-  - regoperin
-  - regclassin
-  - regcollationin
-  - regconfigin
-  - regdictionaryin
-  - regrolein
-  - regnamespacein
-  - parseNameAndArgTypes
-  - thesaurus_init
-  - tsvector_update_trigger
-  - getTSCurrentConfig
-  - RelationNameGetTupleDesc
+  - [regprocin](../r/regprocin.md)
+  - [regoperin](../r/regoperin.md)
+  - [regclassin](../r/regclassin.md)
+  - [regcollationin](../r/regcollationin.md)
+  - [regconfigin](../r/regconfigin.md)
+  - [regdictionaryin](../r/regdictionaryin.md)
+  - [regrolein](../r/regrolein.md)
+  - [regnamespacein](../r/regnamespacein.md)
+  - [parseNameAndArgTypes](../p/parseNameAndArgTypes.md)
+  - [thesaurus_init](../t/thesaurus_init.md)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md)
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md)
+  - [RelationNameGetTupleDesc](../R/RelationNameGetTupleDesc.md)
 
 ## Notes and Other Information
 - Creates a modifiable copy of the input string using pstrdup() to avoid modifying the original

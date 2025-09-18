@@ -20,8 +20,8 @@ This function implements the backend support for PostgreSQL's lo_creat() large o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventCommandIfReadOnly (prevents execution in read-only transactions)
-  - inv_create (internal large object creation function)
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md) (prevents execution in read-only transactions)
+  - [inv_create](../i/inv_create.md) (internal large object creation function)
   - PG_RETURN_OID (OID return value macro)
   - InvalidOid (constant for auto-generated OID assignment)
 - Called from (representative examples):

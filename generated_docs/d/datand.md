@@ -31,7 +31,7 @@ This function implements the PostgreSQL SQL function  with degree output. It tak
   - INIT_DEGREE_CONSTANTS: Initializes degree conversion constants including 
   - atan: Standard C library arctangent function (returns radians)
   - isinf: Checks if result is infinite
-  - float_overflow_error: Reports overflow error
+  - [float_overflow_error](../f/float_overflow_error.md): Reports overflow error
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)
 

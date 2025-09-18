@@ -29,15 +29,15 @@ The function handles edge cases like empty arrays by constructing zero-dimension
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
-  - get_element_type (extracts element type from array type)
-  - _sv_to_datum_finfo (sets up conversion function info)
-  - array_to_datum_internal (performs recursive array processing)
-  - construct_empty_array (creates zero-dimensional arrays)
+  - [get_element_type](../g/get_element_type.md) (extracts element type from array type)
+  - [_sv_to_datum_finfo](../s/_sv_to_datum_finfo.md) (sets up conversion function info)
+  - [array_to_datum_internal](../a/array_to_datum_internal.md) (performs recursive array processing)
+  - [construct_empty_array](../c/construct_empty_array.md) (creates zero-dimensional arrays)
   - makeMdArrayResult (constructs final multidimensional array datum)
   - MAXDIM (maximum dimensions constant)
-  - ArrayBuildState (array construction state type)
+  - [ArrayBuildState](../A/ArrayBuildState.md) (array construction state type)
 - Called from (representative examples):
-  - plperl_sv_to_datum
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md)
 
 ## Notes and Other Information  
 - Assumes input src is already validated as an array reference

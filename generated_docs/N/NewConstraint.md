@@ -37,11 +37,11 @@ NewConstraint is used specifically during the Phase 3 table scan of ALTER TABLE 
   - ConstrType (enum type)
   - Standard PostgreSQL types (Node, ExprState, Oid)
 - Called from (representative examples):
-  - ATRewriteTables
-  - ATRewriteTable
-  - ATAddCheckConstraint
-  - addFkRecurseReferencing
-  - ATExecValidateConstraint
+  - [ATRewriteTables](../A/ATRewriteTables.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ATAddCheckConstraint](../A/ATAddCheckConstraint.md)
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
+  - [ATExecValidateConstraint](../A/ATExecValidateConstraint.md)
 
 ## Notes and Other Information
 - This structure is specifically for Phase 3 constraint validation during table rewrites

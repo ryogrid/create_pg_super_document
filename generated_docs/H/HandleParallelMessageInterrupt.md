@@ -23,9 +23,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md)
   - IsParallelWorker (referenced in header)
 
 ## Notes and Other Information

@@ -28,8 +28,8 @@ The function ensures that the startup process can properly detect when slot sync
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotRelease
-  - ReplicationSlotCleanup
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
+  - [ReplicationSlotCleanup](../R/ReplicationSlotCleanup.md)
   - SpinLockAcquire
   - SpinLockRelease
   - InvalidPid (constant)
@@ -38,7 +38,7 @@ The function ensures that the startup process can properly detect when slot sync
   - SlotSyncCtx
   - syncing_slots
 - Called from (representative examples):
-  - ReplSlotSyncWorkerMain (registered as exit callback at src/backend/replication/logical/slotsync.c:1406)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (registered as exit callback at src/backend/replication/logical/slotsync.c:1406)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the slotsync.c compilation unit

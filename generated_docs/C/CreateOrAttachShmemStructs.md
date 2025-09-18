@@ -22,17 +22,17 @@ The initialization order is critical - for example, LWLocks must be initialized 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateLWLocks (lightweight lock initialization)
-  - InitShmemIndex (shared memory index setup)
+  - [InitShmemIndex](../I/InitShmemIndex.md) (shared memory index setup)
   - dsm_shmem_init, DSMRegistryShmemInit (dynamic shared memory)
   - VarsupShmemInit, XLOGShmemInit, XLogPrefetchShmemInit, XLogRecoveryShmemInit (WAL subsystems)
-  - CLOGShmemInit, CommitTsShmemInit, SUBTRANSShmemInit, MultiXactShmemInit (transaction status)
+  - [CLOGShmemInit](CLOGShmemInit.md), CommitTsShmemInit, SUBTRANSShmemInit, MultiXactShmemInit (transaction status)
   - InitBufferPool (buffer cache initialization)
   - InitLocks, InitPredicateLocks (lock management)
   - InitProcGlobal, CreateSharedProcArray, CreateSharedBackendStatus (process management)
   - Multiple other subsystem initialization functions
 - Called from (representative examples):
-  - CreateSharedMemoryAndSemaphores (postmaster startup)
-  - AttachSharedMemoryStructs (child process attachment)
+  - [CreateSharedMemoryAndSemaphores](CreateSharedMemoryAndSemaphores.md) (postmaster startup)
+  - [AttachSharedMemoryStructs](../A/AttachSharedMemoryStructs.md) (child process attachment)
 
 ## Notes and Other Information
 - Static function - internal to ipci.c module

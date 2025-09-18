@@ -98,19 +98,19 @@ The structure tracks multiple categories of information: process identification,
 
 ## Dependencies
 - Types referenced:
-  - BackendType (backend process classification)
-  - SockAddr (network address structure)
-  - PgBackendSSLStatus (SSL connection details)
-  - PgBackendGSSStatus (GSS connection details)
+  - [BackendType](../B/BackendType.md) (backend process classification)
+  - [SockAddr](../S/SockAddr.md) (network address structure)
+  - [PgBackendSSLStatus](PgBackendSSLStatus.md) (SSL connection details)
+  - [PgBackendGSSStatus](PgBackendGSSStatus.md) (GSS connection details)
   - BackendState (backend activity state)
-  - ProgressCommandType (progress reporting command types)
+  - [ProgressCommandType](ProgressCommandType.md) (progress reporting command types)
 - Constants referenced:
   - PGSTAT_NUM_PROGRESS_PARAM (size of progress parameter array)
 - Used by:
   - Progress reporting functions (pgstat_progress_*)
-  - Backend status management functions (pgstat_bestart, pgstat_report_*, etc.)
+  - [Backend](../B/Backend.md) status management functions (pgstat_bestart, pgstat_report_*, etc.)
   - System statistics functions (pg_stat_get_backend_*)
-  - LocalPgBackendStatus (as base structure)
+  - [LocalPgBackendStatus](../L/LocalPgBackendStatus.md) (as base structure)
 
 ## Notes and Other Information
 - Allocated per ProcNumber in shared memory but ProcNumber assignment is not critical to functionality
@@ -118,6 +118,6 @@ The structure tracks multiple categories of information: process identification,
 - The st_activity_raw field may contain truncated multi-byte characters; use pgstat_clip_activity() for proper display
 - SSL and GSS status pointers are only valid when corresponding boolean flags are true
 - Progress reporting is optional and command-specific - not all commands populate progress fields
-- Query ID computation depends on post_parse_analyze_hook configuration
+- [Query](../Q/Query.md) ID computation depends on post_parse_analyze_hook configuration
 - Accessible through various system views including pg_stat_activity, pg_stat_progress_*, pg_stat_ssl, and pg_stat_gssapi
 - Unrelated to the cumulative statistics system (pgstat.c) - this is for real-time activity monitoring only

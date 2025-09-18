@@ -21,12 +21,12 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_get_num_entries (to get count of hash table entries)
+  - [hash_get_num_entries](../h/hash_get_num_entries.md) (to get count of hash table entries)
   - uncommitted_enum_types (global hash table variable)
   - uncommitted_enum_values (global hash table variable)
 - Called from (representative examples):
-  - InitializeParallelDSM (at src/backend/access/transam/parallel.c:288)
-  - SerializeUncommittedEnums (at src/backend/catalog/pg_enum.c:835)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (at src/backend/access/transam/parallel.c:288)
+  - [SerializeUncommittedEnums](../S/SerializeUncommittedEnums.md) (at src/backend/catalog/pg_enum.c:835)
 
 ## Notes and Other Information
 - Returns the size in bytes needed for serialization

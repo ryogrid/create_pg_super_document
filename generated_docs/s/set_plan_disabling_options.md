@@ -19,12 +19,12 @@ This function provides a convenient mechanism to disable various query execution
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetConfigOption: Sets individual GUC parameters programmatically to disable execution strategies
+  - [SetConfigOption](../S/SetConfigOption.md): Sets individual GUC parameters programmatically to disable execution strategies
   - GucContext: Context type for GUC operations
   - GucSource: Source type for GUC operations
 - Called from (representative examples):
-  - PostmasterMain: Processes command-line options during postmaster startup
-  - process_postgres_switches: Processes various PostgreSQL command-line switches
+  - [PostmasterMain](../P/PostmasterMain.md): Processes command-line options during postmaster startup
+  - [process_postgres_switches](../p/process_postgres_switches.md): Processes various PostgreSQL command-line switches
 
 ## Notes and Other Information
 - Supported single-character codes and their corresponding strategies:

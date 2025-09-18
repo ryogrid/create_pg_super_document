@@ -31,7 +31,7 @@ This function manages the syslog identifier string used by PostgreSQL when loggi
 
 ## Notes and Other Information
 - Only compiled and functional when HAVE_SYSLOG is defined
-- Gracefully handles strdup failure - write_syslog() will cope with NULL syslog_ident
+- Gracefully handles strdup failure - [write_syslog](../w/write_syslog.md)() will cope with NULL syslog_ident
 - Avoids unnecessary syslog connection cycling by comparing old and new values
 - The syslog connection is reopened lazily when needed rather than immediately
 - Properly manages memory by freeing the old identifier before setting the new one

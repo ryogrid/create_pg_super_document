@@ -23,11 +23,11 @@ XLogFromFileName performs the reverse operation of XLogFileName by parsing a WAL
   - XLogSegmentsPerXLogId
   - sscanf (standard C library)
 - Called from (representative examples):
-  - XLogGetOldestSegno
-  - UpdateLastRemovedPtr
-  - perform_base_backup
-  - FindStreamingStart
-  - main (in pg_waldump)
+  - [XLogGetOldestSegno](XLogGetOldestSegno.md)
+  - [UpdateLastRemovedPtr](../U/UpdateLastRemovedPtr.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [FindStreamingStart](../F/FindStreamingStart.md)
+  - [main](../m/main.md) (in pg_waldump)
 
 ## Notes and Other Information
 - This is an inline function defined in xlog_internal.h for performance

@@ -20,17 +20,17 @@ This function retrieves MCV statistics data from the pg_statistic_ext_data syste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - SysCacheGetAttr
-  - statext_mcv_deserialize
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [statext_mcv_deserialize](statext_mcv_deserialize.md)
   - DatumGetByteaP
-  - ObjectIdGetDatum
-  - BoolGetDatum
-  - ReleaseSysCache
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - HeapTupleIsValid
   - STATS_EXT_MCV
 - Called from (representative examples):
-  - statext_mcv_clauselist_selectivity
+  - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)
   - mcv_clauselist_selectivity
 
 ## Notes and Other Information

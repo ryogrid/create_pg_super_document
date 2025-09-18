@@ -33,26 +33,26 @@ Key safety features include namespace locking to prevent schema dropping during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_name
-  - RangeVarGetCreationNamespace
-  - get_relname_relid
+  - [get_database_name](../g/get_database_name.md)
+  - [RangeVarGetCreationNamespace](RangeVarGetCreationNamespace.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
   - IsBootstrapProcessingMode
-  - object_aclcheck
-  - aclcheck_error
-  - get_namespace_name
-  - LockDatabaseObject
-  - UnlockDatabaseObject
-  - object_ownercheck
-  - get_relkind_objtype
-  - get_rel_relkind
-  - LockRelationOid
-  - UnlockRelationOid
-  - RangeVarAdjustRelationPersistence
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [LockDatabaseObject](../L/LockDatabaseObject.md)
+  - [UnlockDatabaseObject](../U/UnlockDatabaseObject.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [RangeVarAdjustRelationPersistence](RangeVarAdjustRelationPersistence.md)
 - Called from (representative examples):
-  - DefineRelation
-  - DefineSequence
-  - DefineCompositeType
-  - DefineVirtualRelation
+  - [DefineRelation](../D/DefineRelation.md)
+  - [DefineSequence](../D/DefineSequence.md)
+  - [DefineCompositeType](../D/DefineCompositeType.md)
+  - [DefineVirtualRelation](../D/DefineVirtualRelation.md)
 
 ## Notes and Other Information
 - Acquires AccessShareLock on target namespace to prevent concurrent schema drops

@@ -22,8 +22,8 @@ The function allocates memory for the result string and is designed to be reusab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - double_to_shortest_decimal_buf (shortest decimal representation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [double_to_shortest_decimal_buf](../d/double_to_shortest_decimal_buf.md) (shortest decimal representation)
   - pg_strfromd (PostgreSQL's snprintf-style double formatting)
   
 - Global variables used:
@@ -31,14 +31,14 @@ The function allocates memory for the result string and is designed to be reusab
   - DBL_DIG (system constant for double precision digits)
 
 - Called from (representative examples):
-  - float8out (main float8 output function)
+  - [float8out](float8out.md) (main float8 output function)
   - single_encode (geometric operations)
   - pair_encode (geometric operations)  
-  - line_out (line type output function)
+  - [line_out](../l/line_out.md) (line type output function)
 
 ## Notes and Other Information
 - Always returns a palloc'd string that must be freed by the caller
-- Result string buffer is allocated with 32 bytes, sufficient for any double representation
+- [Result](../R/Result.md) string buffer is allocated with 32 bytes, sufficient for any double representation
 - Precision is controlled by the  GUC parameter
 - When , uses the shortest representation for better round-trip accuracy
 - Designed for reuse in composite geometric types (point, line, etc.) that contain floating-point coordinates

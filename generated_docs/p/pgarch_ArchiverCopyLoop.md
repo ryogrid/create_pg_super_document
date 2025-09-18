@@ -31,19 +31,19 @@ The function includes robust error handling for various failure scenarios includ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgarch_readyXlog (find next WAL file ready for archival)
-  - PostmasterIsAlive (check if postmaster process is running)
-  - HandlePgArchInterrupts (process configuration updates and barriers)
+  - [pgarch_readyXlog](pgarch_readyXlog.md) (find next WAL file ready for archival)
+  - [PostmasterIsAlive](../P/PostmasterIsAlive.md) (check if postmaster process is running)
+  - [HandlePgArchInterrupts](../H/HandlePgArchInterrupts.md) (process configuration updates and barriers)
   - StatusFilePath (construct status file paths)
-  - pgarch_archiveXlog (perform actual WAL file archival)
-  - pgarch_archiveDone (mark file as successfully archived)
-  - pgstat_report_archiver (report archival statistics)
-  - pg_usleep (sleep between retries)
+  - [pgarch_archiveXlog](pgarch_archiveXlog.md) (perform actual WAL file archival)
+  - [pgarch_archiveDone](pgarch_archiveDone.md) (mark file as successfully archived)
+  - [pgstat_report_archiver](pgstat_report_archiver.md) (report archival statistics)
+  - [pg_usleep](pg_usleep.md) (sleep between retries)
   - unlink (remove orphan status files)
 - Constants used:
   - MAX_XFN_CHARS, NUM_ARCHIVE_RETRIES, NUM_ORPHAN_CLEANUP_RETRIES, XLOGDIR
 - Called from (representative examples):
-  - pgarch_MainLoop (main archiver loop)
+  - [pgarch_MainLoop](pgarch_MainLoop.md) (main archiver loop)
 
 ## Notes and Other Information
 - This is a static function internal to the pgarch.c module

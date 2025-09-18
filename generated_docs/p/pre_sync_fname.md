@@ -34,15 +34,15 @@ Error handling is minimal since this is only an optimization hint - failures are
   - posix_fadvise (POSIX)
   - PG_BINARY
 - Called from (representative examples):
-  - sync_pgdata (via walkdir)
-  - sync_dir_recurse (via walkdir)
+  - [sync_pgdata](../s/sync_pgdata.md) (via walkdir)
+  - [sync_dir_recurse](../s/sync_dir_recurse.md) (via walkdir)
   - SyncDataDirectory (backend version)
 
 ## Notes and Other Information
 - This function is only compiled when PG_FLUSH_DATA_WORKS is defined at build time
 - The function is declared , making it internal to file_utils.c
 - Return value: 0 for success/ignored errors, -1 for critical errors (frontend version)
-- Backend version uses PostgreSQL's file management functions and includes progress reporting
+- [Backend](../B/Backend.md) version uses PostgreSQL's file management functions and includes progress reporting
 - Access permission errors (EACCES) and directory access errors (EISDIR) are silently ignored
 - The optimization is most beneficial for large files and bulk operations like database initialization or backup restoration
 - Errors in the hint operation are ignored because the hint is optional for correctness

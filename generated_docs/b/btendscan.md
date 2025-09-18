@@ -18,13 +18,13 @@ The btendscan function performs cleanup operations when ending a B-tree index sc
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanPosIsValid
-  - _bt_killitems
+  - [_bt_killitems](_bt_killitems.md)
   - BTScanPosUnpinIfPinned
-  - MemoryContextDelete
-  - IndexScanDesc
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - Processes any remaining killed items before releasing the current page to maintain index consistency

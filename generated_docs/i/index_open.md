@@ -20,15 +20,15 @@ The function will raise an error if the index does not exist or if the relation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - validate_relation_kind
+  - [relation_open](../r/relation_open.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Called from (representative examples):
-  - brin_summarize_range
-  - toast_open_indexes
-  - systable_beginscan
-  - DefineIndex
-  - ExecOpenIndices
-  - get_relation_info
+  - [brin_summarize_range](../b/brin_summarize_range.md)
+  - [toast_open_indexes](../t/toast_open_indexes.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
+  - [get_relation_info](../g/get_relation_info.md)
 
 ## Notes and Other Information
 - This is a convenience function specifically designed for index operations

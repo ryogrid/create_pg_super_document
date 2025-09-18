@@ -17,10 +17,10 @@ PLyTransformToOb handles conversion of PostgreSQL data types that have custom tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)
 - Called from (representative examples):
-  - PLyDatumToOb (as part of the union)
-  - PLyObject_FromTransform
+  - [PLyDatumToOb](PLyDatumToOb.md) (as part of the union)
+  - [PLyObject_FromTransform](PLyObject_FromTransform.md)
 
 ## Notes and Other Information
 Transform functions are registered in PostgreSQL using CREATE TRANSFORM and provide a mechanism for type authors to define custom conversion behavior. This struct is used when such transforms are available and preferred over the default conversion methods for better performance or functionality.

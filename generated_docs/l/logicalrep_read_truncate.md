@@ -22,12 +22,12 @@ This function is the counterpart to logicalrep_write_truncate, responsible for p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
+  - [pq_getmsgint](../p/pq_getmsgint.md)
   - lappend_oid
   - TRUNCATE_CASCADE
   - TRUNCATE_RESTART_SEQS
 - Called from (representative examples):
-  - apply_handle_truncate
+  - [apply_handle_truncate](../a/apply_handle_truncate.md)
 
 ## Notes and Other Information
 - Part of the logical replication protocol infrastructure for message deserialization

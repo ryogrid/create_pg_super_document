@@ -27,15 +27,15 @@ The returned path is allocated using palloc and must be freed by the caller usin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (struct type)
-  - ForkNumber (enum type)
+  - [RelFileLocator](../R/RelFileLocator.md) (struct type)
+  - [ForkNumber](../F/ForkNumber.md) (enum type)
   - BlockNumber (typedef)
   - relpathperm
-  - psprintf
-  - pfree
+  - [psprintf](../p/psprintf.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - process_target_wal_block_change
-  - isRelDataFile
+  - [process_target_wal_block_change](../p/process_target_wal_block_change.md)
+  - [isRelDataFile](../i/isRelDataFile.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the filemap.c compilation unit

@@ -21,10 +21,10 @@ For directories, it replaces trailing quotes with slashes for better usability. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - rl_filename_completion_function
-  - strtokx
-  - quote_if_needed
+  - [strtokx](../s/strtokx.md)
+  - [quote_if_needed](../q/quote_if_needed.md)
   - S_ISDIR
-  - stat
+  - [stat](../s/stat.md)
 - Called from (representative examples):
   - HeadMatchesCS (multiple locations in tab-complete.c)
   - THING_NO_SHOW completion generator

@@ -17,11 +17,11 @@ This function implements single-character reading from Zstd-compressed files by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (struct type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (struct type)
   - CFH->read_func (function pointer for reading compressed data)
-  - pg_fatal() (PostgreSQL fatal error function)
+  - [pg_fatal](../p/pg_fatal.md)() (PostgreSQL fatal error function)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (assigned as getc function pointer)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (assigned as getc function pointer)
 
 ## Notes and Other Information
 - Returns the character as an unsigned char cast to int, following standard C library conventions

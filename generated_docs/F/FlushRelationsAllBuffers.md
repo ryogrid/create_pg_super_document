@@ -22,23 +22,23 @@ The optimization strategy switches between linear search (O(n*m) where n=buffers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - RelFileLocatorBackendIsTemp
   - qsort
   - rlocator_comparator
-  - GetBufferDescriptor
-  - BufTagMatchesRelFileLocator
-  - BufTagGetRelFileLocator
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - bsearch
-  - ReservePrivateRefCountEntry
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
   - ResourceOwnerEnlarge
   - LockBufHdr
   - PinBuffer_Locked
-  - BufferDescriptorGetContentLock
-  - FlushBuffer
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [FlushBuffer](FlushBuffer.md)
   - UnpinBuffer
-  - UnlockBufHdr
-  - pfree
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
+  - [pfree](../p/pfree.md)
 - Constants used:
   - RELS_BSEARCH_THRESHOLD
   - BM_VALID, BM_DIRTY
@@ -47,7 +47,7 @@ The optimization strategy switches between linear search (O(n*m) where n=buffers
 - Types used:
   - SMgrRelation, SMgrSortArray, BufferDesc, RelFileLocator
 - Called from (representative examples):
-  - smgrdosyncall
+  - [smgrdosyncall](../s/smgrdosyncall.md)
 
 ## Notes and Other Information
 - Optimized for bulk operations - more efficient than calling FlushRelationBuffers repeatedly

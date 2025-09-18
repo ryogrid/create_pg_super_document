@@ -20,18 +20,18 @@ This function performs essential validation checks before creating a PRIMARY KEY
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relationHasPrimaryKey: Checks if the relation already has a primary key
+  - [relationHasPrimaryKey](../r/relationHasPrimaryKey.md): Checks if the relation already has a primary key
   - IndexInfo: Structure containing index metadata
   - IndexStmt: Structure representing index creation statement
-  - SearchSysCache2: Searches system cache for attribute information
+  - [SearchSysCache2](../S/SearchSysCache2.md): Searches system cache for attribute information
   - Int16GetDatum: Converts integer to PostgreSQL Datum format
   - RelationGetRelationName: Gets relation name for error messages
   - RelationGetRelid: Gets relation OID
   - HeapTupleIsValid: Validates heap tuple
   - Form_pg_attribute: PostgreSQL system catalog structure for attribute information
 - Called from (representative examples):
-  - DefineIndex: During index creation operations
-  - ATExecAddIndexConstraint: During ALTER TABLE operations that add constraints
+  - [DefineIndex](../D/DefineIndex.md): During index creation operations
+  - [ATExecAddIndexConstraint](../A/ATExecAddIndexConstraint.md): During ALTER TABLE operations that add constraints
 
 ## Notes and Other Information
 - The function performs different checks based on whether it's an ALTER TABLE operation or partition table creation

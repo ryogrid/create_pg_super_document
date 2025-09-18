@@ -19,10 +19,10 @@ DatumGetChar provides type conversion from PostgreSQL Datum format to a C char v
 - Functions called/Symbols referenced:
   - None (simple type cast)
 - Called from (representative examples):
-  - AlterPolicy (src/backend/commands/policy.c:896)
-  - fetch_remote_table_info (src/backend/replication/logical/tablesync.c:865, 867)
-  - EnableDisableRule (src/backend/rewrite/rewriteDefine.c:728)
-  - make_ruledef (src/backend/utils/adt/ruleutils.c:5187)
+  - [AlterPolicy](../A/AlterPolicy.md) (src/backend/commands/policy.c:896)
+  - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (src/backend/replication/logical/tablesync.c:865, 867)
+  - [EnableDisableRule](../E/EnableDisableRule.md) (src/backend/rewrite/rewriteDefine.c:728)
+  - [make_ruledef](../m/make_ruledef.md) (src/backend/utils/adt/ruleutils.c:5187)
   - chareqfast (src/backend/utils/cache/catcache.c:193)
   - PG_GETARG_CHAR (src/include/fmgr.h:273)
 

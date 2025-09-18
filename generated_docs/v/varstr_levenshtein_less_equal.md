@@ -30,16 +30,16 @@ The algorithm handles both single-byte and multi-byte character encodings proper
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEVENSHTEIN_LESS_EQUAL (preprocessor macro)
-  - pg_mbstrlen_with_len
-  - pg_mblen
-  - palloc
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [pg_mblen](../p/pg_mblen.md)
+  - [palloc](../p/palloc.md)
   - ereport
-  - rest_of_char_same
+  - [rest_of_char_same](../r/rest_of_char_same.md)
   - Min (macro)
 - Called from (representative examples):
-  - updateFuzzyAttrMatchState (src/backend/parser/parse_relation.c:608)
-  - searchRangeTableForCol (src/backend/parser/parse_relation.c:991)
-  - updateClosestMatch (src/backend/utils/adt/varlena.c:6226)
+  - [updateFuzzyAttrMatchState](../u/updateFuzzyAttrMatchState.md) (src/backend/parser/parse_relation.c:608)
+  - [searchRangeTableForCol](../s/searchRangeTableForCol.md) (src/backend/parser/parse_relation.c:991)
+  - [updateClosestMatch](../u/updateClosestMatch.md) (src/backend/utils/adt/varlena.c:6226)
 
 ## Notes and Other Information
 This function is created through conditional compilation of levenshtein.c when LEVENSHTEIN_LESS_EQUAL is defined. The same source file generates both varstr_levenshtein() (standard version) and varstr_levenshtein_less_equal() (bounded version) by being included twice in varlena.c with different preprocessor definitions.

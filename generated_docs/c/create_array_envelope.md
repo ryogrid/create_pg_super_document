@@ -27,13 +27,13 @@ Return value:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (allocates zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - SET_VARSIZE (macro to set the variable-length object size)
   - ARR_DIMS (macro to access dimension array in ArrayType)
   - ARR_LBOUND (macro to access lower bounds array in ArrayType)
   - memcpy (copies dimension and lower bound arrays)
 - Called from (representative examples):
-  - array_fill_internal (twice, for different array construction scenarios)
+  - [array_fill_internal](../a/array_fill_internal.md) (twice, for different array construction scenarios)
 
 ## Notes and Other Information
 - This is a static function, only accessible within arrayfuncs.c

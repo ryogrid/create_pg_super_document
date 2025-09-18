@@ -50,16 +50,16 @@ The bidirectional chain pointers allow efficient insertion, deletion, and traver
 ## Dependencies
 - Functions called/Symbols referenced:
   - color (color type for character matching)
-  - state (state structure for NFA nodes)
-  - arc (self-reference for linked list chains)
+  - [state](../s/state.md) (state structure for NFA nodes)
+  - [arc](arc.md) (self-reference for linked list chains)
 
 - Called from (representative examples):
-  - newarc, createarc, allocarc (arc creation)
-  - freearc (arc cleanup)
-  - changearcsource, changearctarget (arc modification)
-  - findarc, cparc (arc searching and copying)
-  - sortins, sortouts (arc sorting)
-  - moveins, moveouts, copyins, copyouts (arc manipulation)
+  - [newarc](../n/newarc.md), createarc, allocarc (arc creation)
+  - [freearc](../f/freearc.md) (arc cleanup)
+  - [changearcsource](../c/changearcsource.md), changearctarget (arc modification)
+  - [findarc](../f/findarc.md), cparc (arc searching and copying)
+  - [sortins](../s/sortins.md), sortouts (arc sorting)
+  - [moveins](../m/moveins.md), moveouts, copyins, copyouts (arc manipulation)
   - Various NFA analysis and optimization functions
   - Regex compilation and execution functions
 

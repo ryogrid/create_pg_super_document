@@ -27,9 +27,9 @@ This variant combines the efficiency of OID-based tablespace identification with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId (to get current user's OID)
-  - convert_tablespace_priv_string (converts privilege string to AclMode)
-  - object_aclcheck_ext (performs extended privilege check with missing object detection)
+  - [GetUserId](../G/GetUserId.md) (to get current user's OID)
+  - [convert_tablespace_priv_string](../c/convert_tablespace_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md) (performs extended privilege check with missing object detection)
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)
 

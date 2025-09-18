@@ -29,17 +29,17 @@ The function performs constraint name validation or generation, checks for exist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConstraintNameIsUsed
-  - ChooseConstraintName
-  - CreateConstraintEntry
+  - [ConstraintNameIsUsed](../C/ConstraintNameIsUsed.md)
+  - [ChooseConstraintName](../C/ChooseConstraintName.md)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
   - ObjectAddressSet
   - CONSTR_NOTNULL
   - CONSTRAINT_DOMAIN
   - CONSTRAINT_NOTNULL
 - Called from (representative examples):
-  - DefineDomain
-  - AlterDomainNotNull
-  - AlterDomainAddConstraint
+  - [DefineDomain](../D/DefineDomain.md)
+  - [AlterDomainNotNull](../A/AlterDomainNotNull.md)
+  - [AlterDomainAddConstraint](../A/AlterDomainAddConstraint.md)
 
 ## Notes and Other Information
 - This is a static function local to typecmds.c, indicating it's an internal implementation detail

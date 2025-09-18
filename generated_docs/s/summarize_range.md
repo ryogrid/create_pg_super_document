@@ -23,29 +23,29 @@ This static function performs the core BRIN summarization operation for a specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_form_placeholder_tuple
-  - brin_doinsert
+  - [brin_form_placeholder_tuple](../b/brin_form_placeholder_tuple.md)
+  - [brin_doinsert](../b/brin_doinsert.md)
   - RelationGetNumberOfBlocks
-  - table_index_build_range_scan
-  - brinbuildCallback
-  - brin_form_tuple
-  - brin_can_do_samepage_update
-  - brin_doupdate
-  - brin_free_tuple
-  - brinGetTupleForHeapBlock
-  - brin_copy_tuple
-  - union_tuples
+  - [table_index_build_range_scan](../t/table_index_build_range_scan.md)
+  - [brinbuildCallback](../b/brinbuildCallback.md)
+  - [brin_form_tuple](../b/brin_form_tuple.md)
+  - [brin_can_do_samepage_update](../b/brin_can_do_samepage_update.md)
+  - [brin_doupdate](../b/brin_doupdate.md)
+  - [brin_free_tuple](../b/brin_free_tuple.md)
+  - [brinGetTupleForHeapBlock](../b/brinGetTupleForHeapBlock.md)
+  - [brin_copy_tuple](../b/brin_copy_tuple.md)
+  - [union_tuples](../u/union_tuples.md)
   - ReleaseBuffer
 - Types referenced:
   - IndexInfo
-  - BrinBuildState
-  - BrinTuple
+  - [BrinBuildState](../B/BrinBuildState.md)
+  - [BrinTuple](../B/BrinTuple.md)
   - BlockNumber
   - Buffer
   - Size
   - OffsetNumber
 - Called from (representative examples):
-  - brinsummarize
+  - [brinsummarize](../b/brinsummarize.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin.c module

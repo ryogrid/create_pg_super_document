@@ -19,22 +19,22 @@ This function performs a system cache lookup to retrieve the attribute name (col
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 - performs the system cache lookup using ATTNUM cache
+  - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache
   - Int16GetDatum - converts attribute number to Datum format
-  - ObjectIdGetDatum - converts relation OID to Datum format
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - converts relation OID to Datum format
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple
   - NameStr - extracts string from Name type
-  - pstrdup - creates a palloc'ed copy of the string
-  - ReleaseSysCache - releases the system cache entry
+  - [pstrdup](../p/pstrdup.md) - creates a palloc'ed copy of the string
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) - releases the system cache entry
   - elog - logs error messages
 
 - Called from (representative examples):
-  - AddRelationNewConstraints (catalog/heap.c:2495)
-  - getObjectDescription (catalog/objectaddress.c:2918)
-  - get_rte_attribute_name (parser/parse_relation.c:3272)
-  - pg_get_triggerdef_worker (utils/adt/ruleutils.c:971)
-  - errtablecol (utils/cache/relcache.c:5983)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md) (catalog/heap.c:2495)
+  - [getObjectDescription](getObjectDescription.md) (catalog/objectaddress.c:2918)
+  - [get_rte_attribute_name](get_rte_attribute_name.md) (parser/parse_relation.c:3272)
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md) (utils/adt/ruleutils.c:971)
+  - [errtablecol](../e/errtablecol.md) (utils/cache/relcache.c:5983)
 
 ## Notes and Other Information
 - Returns a palloc'ed string that must be freed by the caller

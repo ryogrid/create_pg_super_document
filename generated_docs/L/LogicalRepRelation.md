@@ -29,16 +29,16 @@ The structure is particularly important for handling schema differences between 
 - Functions called/Symbols referenced:
   - LogicalRepRelId
   - Oid
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - logicalrep_write_rel
-  - logicalrep_read_rel
+  - [logicalrep_write_rel](../l/logicalrep_write_rel.md)
+  - [logicalrep_read_rel](../l/logicalrep_read_rel.md)
   - logicalrep_read_attrs
   - logicalrep_relmap_update
   - logicalrep_rel_open
-  - apply_handle_relation
-  - fetch_remote_table_info
-  - copy_table
+  - [apply_handle_relation](../a/apply_handle_relation.md)
+  - [fetch_remote_table_info](../f/fetch_remote_table_info.md)
+  - [copy_table](../c/copy_table.md)
 
 ## Notes and Other Information
 - This structure represents the remote table's metadata, which may differ from the local table's structure

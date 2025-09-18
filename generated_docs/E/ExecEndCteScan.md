@@ -24,9 +24,9 @@ This design ensures that the shared tuplestore is freed exactly once, regardless
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_end: Free tuplestore and its associated memory
+  - [tuplestore_end](../t/tuplestore_end.md): Free tuplestore and its associated memory
 - Called from (representative examples):
-  - ExecEndNode: Called during plan tree cleanup phase
+  - [ExecEndNode](ExecEndNode.md): Called during plan tree cleanup phase
 
 ## Notes and Other Information
 - Only the leader node performs actual cleanup; follower nodes are no-ops

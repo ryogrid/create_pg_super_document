@@ -34,12 +34,12 @@ This function writes a tuple to the shared tuplestore associated with the given 
   - MinimalTuple (tuple type)
   - sts_filename (function to generate filename)
   - BufFileCreateFileSet (function to create buffer file)
-  - sts_flush_chunk (function to flush chunks to disk)
-  - MemoryContextAllocZero (memory allocation function)
+  - [sts_flush_chunk](sts_flush_chunk.md) (function to flush chunks to disk)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (memory allocation function)
   - STS_CHUNK_PAGES, STS_CHUNK_DATA_SIZE (constants)
 - Called from (representative examples):
-  - ExecParallelHashRepartitionFirst (in nodeHash.c:1356)
-  - ExecParallelHashRepartitionRest (in nodeHash.c:1424)
+  - [ExecParallelHashRepartitionFirst](../E/ExecParallelHashRepartitionFirst.md) (in nodeHash.c:1356)
+  - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md) (in nodeHash.c:1424)
   - ExecParallelHashTableInsert (in nodeHash.c:1771)
   - ExecParallelHashJoinPartitionOuter (in nodeHashjoin.c:1529)
 

@@ -19,13 +19,13 @@ This function performs TAR header validation by first verifying the checksum int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tarChecksum (calculates header checksum)
-  - read_tar_number (reads numeric values from TAR header fields)
+  - [tarChecksum](../t/tarChecksum.md) (calculates header checksum)
+  - [read_tar_number](../r/read_tar_number.md) (reads numeric values from TAR header fields)
   - TAR_OFFSET_CHECKSUM (offset constant for checksum field)
   - TAR_OFFSET_MAGIC (offset constant for magic number field)
   - TAR_OFFSET_VERSION (offset constant for version field)
 - Called from (representative examples):
-  - _discoverArchiveFormat (archive format detection)
+  - [_discoverArchiveFormat](../d/_discoverArchiveFormat.md) (archive format detection)
   - appendByteaLiteralAHX (utility function)
 
 ## Notes and Other Information

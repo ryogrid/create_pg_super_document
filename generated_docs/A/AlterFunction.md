@@ -28,24 +28,24 @@ The function handles both regular functions and procedures, with appropriate val
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - LookupFuncWithArgs
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
   - ObjectAddressSet
   - SearchSysCacheCopy1
-  - object_ownercheck
-  - aclcheck_error
-  - compute_common_attribute
-  - interpret_func_volatility
-  - interpret_func_support
-  - interpret_func_parallel
-  - changeDependencyFor
-  - recordDependencyOn
-  - update_proconfig_value
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [compute_common_attribute](../c/compute_common_attribute.md)
+  - [interpret_func_volatility](../i/interpret_func_volatility.md)
+  - [interpret_func_support](../i/interpret_func_support.md)
+  - [interpret_func_parallel](../i/interpret_func_parallel.md)
+  - [changeDependencyFor](../c/changeDependencyFor.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [update_proconfig_value](../u/update_proconfig_value.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility.c:1659)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility.c:1659)
 
 ## Notes and Other Information
 - Excludes RENAME and OWNER operations which are handled by the generic ALTER framework

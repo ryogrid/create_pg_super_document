@@ -21,11 +21,11 @@ This function uses the standard PostgreSQL function interface:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_atomic_flag: Tests atomic flag operations
-  - test_atomic_uint32: Tests 32-bit atomic unsigned integer operations
-  - test_atomic_uint64: Tests 64-bit atomic unsigned integer operations  
+  - [test_atomic_flag](test_atomic_flag.md): Tests atomic flag operations
+  - [test_atomic_uint32](test_atomic_uint32.md): Tests 32-bit atomic unsigned integer operations
+  - [test_atomic_uint64](test_atomic_uint64.md): Tests 64-bit atomic unsigned integer operations  
   - test_spinlock: Tests spinlock functionality
-  - test_atomic_spin_nest: Tests nested spinlock operations
+  - [test_atomic_spin_nest](test_atomic_spin_nest.md): Tests nested spinlock operations
   - PG_RETURN_BOOL: Returns boolean true to indicate successful completion
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase (likely called via SQL function interface)

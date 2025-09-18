@@ -22,13 +22,13 @@ This function prepares the recovery configuration for a PostgreSQL standby serve
 ## Dependencies
 - Functions called/Symbols referenced:
   - connect_database (connects using publisher connection info)
-  - GenerateRecoveryConfig (generates base recovery configuration)
-  - appendPQExpBuffer (builds recovery configuration content)
-  - WriteRecoveryConfig (writes the configuration to disk)
-  - disconnect_database (closes database connection)
+  - [GenerateRecoveryConfig](../G/GenerateRecoveryConfig.md) (generates base recovery configuration)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (builds recovery configuration content)
+  - [WriteRecoveryConfig](../W/WriteRecoveryConfig.md) (writes the configuration to disk)
+  - [disconnect_database](../d/disconnect_database.md) (closes database connection)
   - pg_log_debug (logs recovery parameters for debugging)
 - Called from:
-  - main (primary entry point of pg_createsubscriber utility)
+  - [main](../m/main.md) (primary entry point of pg_createsubscriber utility)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c

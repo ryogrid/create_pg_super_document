@@ -23,21 +23,21 @@ This function encodes a relation description into the logical replication protoc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint32
-  - pq_sendstring
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
   - logicalrep_write_namespace
-  - logicalrep_write_attrs
+  - [logicalrep_write_attrs](logicalrep_write_attrs.md)
   - RelationGetRelid
   - RelationGetNamespace
   - RelationGetRelationName
   - LOGICAL_REP_MSG_RELATION
 - Called from (representative examples):
-  - send_relation_and_attrs
+  - [send_relation_and_attrs](../s/send_relation_and_attrs.md)
 
 ## Notes and Other Information
 - Part of the logical replication protocol for schema transmission
-- Relation descriptions are sent before data changes to ensure subscribers have current schema information
+- [Relation](../R/Relation.md) descriptions are sent before data changes to ensure subscribers have current schema information
 - Uses relation OID as the primary identifier for efficient lookups
 - Includes replica identity information crucial for UPDATE/DELETE operations
 - The columns parameter allows selective transmission of column metadata

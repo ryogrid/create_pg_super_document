@@ -26,11 +26,11 @@ For streamed transactions, the function notifies the remote node about the crash
 - Functions called/Symbols referenced:
   - dlist_foreach_modify
   - dlist_container
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - rbtxn_is_streamed
-  - ReorderBufferCleanupTXN
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
 - Called from (representative examples):
-  - standby_decode (in decode.c)
+  - [standby_decode](../s/standby_decode.md) (in decode.c)
 
 ## Notes and Other Information
 - Specifically designed for handling transactions after server crashes or immediate restarts

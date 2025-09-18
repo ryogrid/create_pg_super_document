@@ -25,16 +25,16 @@ All array indices are validated to ensure they fall within the valid range, and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus (struct type)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (struct type)
   - PGSTAT_BEGIN_WRITE_ACTIVITY (macro)
   - PGSTAT_NUM_PROGRESS_PARAM (constant)
   - PGSTAT_END_WRITE_ACTIVITY (macro)
 - Called from (representative examples):
-  - lazy_scan_heap (VACUUM progress with multiple related metrics)
-  - index_build (CREATE INDEX progress with multiple phases)
-  - heapam_relation_copy_for_cluster (CLUSTER progress tracking)
-  - validate_index (index validation progress)
-  - WaitForLockersMultiple (lock waiting progress)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (VACUUM progress with multiple related metrics)
+  - [index_build](../i/index_build.md) (CREATE INDEX progress with multiple phases)
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md) (CLUSTER progress tracking)
+  - [validate_index](../v/validate_index.md) (index validation progress)
+  - [WaitForLockersMultiple](../W/WaitForLockersMultiple.md) (lock waiting progress)
 
 ## Notes and Other Information
 - Provides atomicity guarantee - readers will never see partial updates across multiple parameters

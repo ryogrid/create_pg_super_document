@@ -22,15 +22,15 @@ The function includes proper sanitization of the username for safe display in co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printfPQExpBuffer: Formats the SQL query string
-  - appendStringLiteralConn: Safely appends username as string literal to query
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats the SQL query string
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md): Safely appends username as string literal to query
   - appendPQExpBufferChar: Adds closing parenthesis to query
-  - executeQuery: Executes the constructed query
-  - sanitize_line: Sanitizes username for safe display in comments
-  - resetPQExpBuffer: Clears buffer for reuse
-  - makeAlterConfigCommand: Generates ALTER ROLE SET command from configuration data
+  - [executeQuery](../e/executeQuery.md): Executes the constructed query
+  - [sanitize_line](../s/sanitize_line.md): Sanitizes username for safe display in comments
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Clears buffer for reuse
+  - [makeAlterConfigCommand](../m/makeAlterConfigCommand.md): Generates ALTER ROLE SET command from configuration data
 - Called from (representative examples):
-  - dumpRoles: Called for each role during role dumping process
+  - [dumpRoles](dumpRoles.md): Called for each role during role dumping process
 
 ## Notes and Other Information
 - Only dumps role-level settings that apply across all databases (setdatabase = 0)

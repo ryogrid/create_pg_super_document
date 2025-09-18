@@ -27,13 +27,13 @@ The audit messages follow a structured format that includes user privilege infor
   - REGRESS_audit (global variable controlling audit output)
   - IsParallelWorker() (checks if running in parallel worker process)
   - superuser_arg() (checks superuser status)
-  - GetUserId() (gets current user ID)
+  - [GetUserId](../G/GetUserId.md)() (gets current user ID)
   - ereport() (PostgreSQL error/notice reporting)
-  - pfree() (PostgreSQL memory deallocation)
+  - [pfree](../p/pfree.md)() (PostgreSQL memory deallocation)
 - Called from (representative examples):
-  - audit_attempt() (for logging access attempts)
-  - audit_success() (for logging successful operations)
-  - audit_failure() (for logging denied operations)
+  - [audit_attempt](../a/audit_attempt.md)() (for logging access attempts)
+  - [audit_success](../a/audit_success.md)() (for logging successful operations)
+  - [audit_failure](../a/audit_failure.md)() (for logging denied operations)
 
 ## Notes and Other Information
 - This function is part of the object access testing framework for mandatory access control (MAC)

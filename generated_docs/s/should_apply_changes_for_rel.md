@@ -25,7 +25,7 @@ The function is critical for coordinating parallel table synchronization and ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepRelMapEntry (relation mapping structure)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (relation mapping structure)
   - WORKERTYPE_TABLESYNC, WORKERTYPE_PARALLEL_APPLY, WORKERTYPE_APPLY, WORKERTYPE_UNKNOWN (worker type constants)
   - SUBREL_STATE_READY, SUBREL_STATE_UNKNOWN, SUBREL_STATE_SYNCDONE (relation state constants)
   - MyLogicalRepWorker (global worker state)
@@ -33,10 +33,10 @@ The function is critical for coordinating parallel table synchronization and ens
   - remote_final_lsn (transaction LSN tracking)
   - ereport, elog (error reporting functions)
 - Called from (representative examples):
-  - apply_handle_insert (INSERT operation processing)
-  - apply_handle_update (UPDATE operation processing)
-  - apply_handle_delete (DELETE operation processing)
-  - apply_handle_truncate (TRUNCATE operation processing)
+  - [apply_handle_insert](../a/apply_handle_insert.md) (INSERT operation processing)
+  - [apply_handle_update](../a/apply_handle_update.md) (UPDATE operation processing)
+  - [apply_handle_delete](../a/apply_handle_delete.md) (DELETE operation processing)
+  - [apply_handle_truncate](../a/apply_handle_truncate.md) (TRUNCATE operation processing)
 
 ## Notes and Other Information
 - Uses <= comparison for SYNCDONE state because the state LSN might hold the position of the end of initial slot consistent point + 1

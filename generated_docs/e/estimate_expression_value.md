@@ -25,11 +25,11 @@ This more permissive approach enables better cost estimates and planning decisio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eval_const_expressions_context  
-  - eval_const_expressions_mutator
+  - [eval_const_expressions_context](eval_const_expressions_context.md)  
+  - [eval_const_expressions_mutator](eval_const_expressions_mutator.md)
 - Called from (representative examples):
-  - clause_selectivity_ext (clausesel.c:783)
-  - preprocess_limit (planner.c:2489, 2512)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (clausesel.c:783)
+  - [preprocess_limit](../p/preprocess_limit.md) (planner.c:2489, 2512)
   - scalararraysel (selfuncs.c:1844, 1845)
   - get_restriction_variable (selfuncs.c:4924, 4932)
 

@@ -29,12 +29,12 @@ The function must be called before processing invalidation messages because duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - hash_search
-  - AtEOXact_cleanup
-  - FreeTupleDesc
-  - pfree
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_search](../h/hash_search.md)
+  - [AtEOXact_cleanup](AtEOXact_cleanup.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [pfree](../p/pfree.md)
 - Data structures used:
   - HASH_SEQ_STATUS
   - RelIdCacheEnt
@@ -49,9 +49,9 @@ The function must be called before processing invalidation messages because duri
   - EOXactTupleDescArrayLen
   - NextEOXactTupleDescNum
 - Called from:
-  - CommitTransaction (in xact.c)
-  - PrepareTransaction (in xact.c) 
-  - AbortTransaction (in xact.c)
+  - [CommitTransaction](../C/CommitTransaction.md) (in xact.c)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (in xact.c) 
+  - [AbortTransaction](AbortTransaction.md) (in xact.c)
 
 ## Notes and Other Information
 - This function must be called before processing invalidation messages during transaction termination

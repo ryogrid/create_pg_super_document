@@ -22,10 +22,10 @@ This function is useful for list traversal operations where you need to check if
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_has_next
-  - dclist_head (structure type)
-  - dlist_node (structure type)
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_has_next](dlist_has_next.md)
+  - [dclist_head](dclist_head.md) (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

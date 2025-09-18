@@ -31,7 +31,7 @@ Key behavioral notes:
   - ExecCopySlot
   - ExecProject
 - Called from (representative examples):
-  - ExecModifyTable
+  - [ExecModifyTable](ExecModifyTable.md)
 
 ## Notes and Other Information
 - This is a static function only used within nodeModifyTable.c

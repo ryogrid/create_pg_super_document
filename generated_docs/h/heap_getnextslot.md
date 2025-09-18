@@ -21,20 +21,20 @@ This function is part of the table access method interface and provides better m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heapgettup_pagemode
-  - heapgettup
+  - [heapgettup_pagemode](heapgettup_pagemode.md)
+  - [heapgettup](heapgettup.md)
   - ExecClearTuple
   - pgstat_count_heap_getnext
-  - ExecStoreBufferHeapTuple
+  - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md)
 - Data structures used:
-  - HeapScanDesc
-  - TableScanDesc
+  - [HeapScanDesc](../H/HeapScanDesc.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
   - ScanDirection
   - TupleTableSlot
 - Scan flags:
   - SO_ALLOW_PAGEMODE
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

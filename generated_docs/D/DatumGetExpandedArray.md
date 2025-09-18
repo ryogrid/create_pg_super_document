@@ -22,13 +22,13 @@ If the input is not a writable expanded array (it could be a flat array, read-on
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTERNAL_EXPANDED_RW
-  - DatumGetPointer
+  - [DatumGetPointer](DatumGetPointer.md)
   - DatumGetEOHP
-  - expand_array
+  - [expand_array](../e/expand_array.md)
   - CurrentMemoryContext
 - Called from (representative examples):
-  - statext_expressions_load
-  - array_set_element_expanded
+  - [statext_expressions_load](../s/statext_expressions_load.md)
+  - [array_set_element_expanded](../a/array_set_element_expanded.md)
   - PG_GETARG_EXPANDED_ARRAY (macro)
   - AARR_LBOUND
 

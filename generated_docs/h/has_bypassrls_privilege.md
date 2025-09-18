@@ -23,10 +23,10 @@ This function determines if a role has the BYPASSRLS privilege, which allows the
   - Form_pg_authid
   - Acl
 - Called from (representative examples):
-  - CreateRole
-  - AlterRole
-  - RI_Initial_Check
-  - check_enable_rls
+  - [CreateRole](../C/CreateRole.md)
+  - [AlterRole](../A/AlterRole.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [check_enable_rls](../c/check_enable_rls.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/aclchk.c:4247-4270

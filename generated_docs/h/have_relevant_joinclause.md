@@ -29,13 +29,13 @@ For efficiency, it scans the shorter of the two joininfo lists.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap
-  - have_relevant_eclass_joinclause
+  - [bms_overlap](../b/bms_overlap.md)
+  - [have_relevant_eclass_joinclause](have_relevant_eclass_joinclause.md)
 - Called from (representative examples):
-  - desirable_join
-  - join_search_one_level
-  - make_rels_by_clause_joins
-  - has_legal_joinclause
+  - [desirable_join](../d/desirable_join.md)
+  - [join_search_one_level](../j/join_search_one_level.md)
+  - [make_rels_by_clause_joins](../m/make_rels_by_clause_joins.md)
+  - [has_legal_joinclause](has_legal_joinclause.md)
 
 ## Notes and Other Information
 - The function prioritizes performance by choosing to scan the shorter joininfo list

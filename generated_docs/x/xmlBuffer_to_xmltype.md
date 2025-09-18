@@ -22,11 +22,11 @@ The function extracts both the content pointer and length from the xmlBuffer usi
   - xmlBufferContent (libxml2 function to get buffer content pointer)
   - xmlBufferLength (libxml2 function to get buffer length)
   - cstring_to_text_with_len (creates PostgreSQL text with specified length)
-  - xmltype (PostgreSQL XML data type)
+  - [xmltype](xmltype.md) (PostgreSQL XML data type)
 - Called from:
-  - xmltotext_with_options (XML to text conversion with options)
-  - xmlelement (XML element creation)
-  - xml_xmlnodetoxmltype (XML node to xmltype conversion)
+  - [xmltotext_with_options](xmltotext_with_options.md) (XML to text conversion with options)
+  - [xmlelement](xmlelement.md) (XML element creation)
+  - [xml_xmlnodetoxmltype](xml_xmlnodetoxmltype.md) (XML node to xmltype conversion)
 
 ## Notes and Other Information
 - This is a static function, only available within the xml.c compilation unit

@@ -22,15 +22,15 @@ The function implements a two-part check: first testing if the relation is a cat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsCatalogRelationOid
-  - IsToastClass
+  - [IsCatalogRelationOid](IsCatalogRelationOid.md)
+  - [IsToastClass](IsToastClass.md)
   - Form_pg_class (type)
 - Called from (representative examples):
-  - IsSystemRelation
-  - pg_class_aclmask_ext
-  - swap_relation_files
-  - RangeVarCallbackForPolicy
-  - truncate_check_rel
+  - [IsSystemRelation](IsSystemRelation.md)
+  - [pg_class_aclmask_ext](../p/pg_class_aclmask_ext.md)
+  - [swap_relation_files](../s/swap_relation_files.md)
+  - [RangeVarCallbackForPolicy](../R/RangeVarCallbackForPolicy.md)
+  - [truncate_check_rel](../t/truncate_check_rel.md)
 
 ## Notes and Other Information
 - More efficient than IsSystemRelation when you already have the Form_pg_class tuple

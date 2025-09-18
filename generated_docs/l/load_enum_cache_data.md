@@ -29,14 +29,14 @@ The function uses a heuristic approach to find the optimal bitmap, trading some 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport, errcode, errmsg, format_type_be (error handling)
-  - palloc, repalloc, pfree (memory management)
-  - ScanKeyInit, table_open, systable_beginscan, systable_getnext, systable_endscan, table_close (catalog access)
+  - [palloc](../p/palloc.md), repalloc, pfree (memory management)
+  - [ScanKeyInit](../S/ScanKeyInit.md), table_open, systable_beginscan, systable_getnext, systable_endscan, table_close (catalog access)
   - qsort, enum_oid_cmp (sorting)
-  - bms_make_singleton, bms_add_member, bms_copy, bms_free (bitmap operations)
-  - MemoryContextSwitchTo (memory context management)
-  - TypeCacheEnumData, EnumItem, Form_pg_enum (data structures)
+  - [bms_make_singleton](../b/bms_make_singleton.md), bms_add_member, bms_copy, bms_free (bitmap operations)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
+  - [TypeCacheEnumData](../T/TypeCacheEnumData.md), EnumItem, Form_pg_enum (data structures)
 - Called from (representative examples):
-  - compare_values_of_enum
+  - [compare_values_of_enum](../c/compare_values_of_enum.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

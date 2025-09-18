@@ -21,9 +21,9 @@ This function is typically called automatically by the PostgreSQL system when a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (retrieves BOX argument)
-  - pq_begintypsend (initializes binary output buffer)
-  - pq_sendfloat8 (sends 8-byte float values)
-  - pq_endtypsend (finalizes binary output)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initializes binary output buffer)
+  - [pq_sendfloat8](../p/pq_sendfloat8.md) (sends 8-byte float values)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary output)
   - PG_RETURN_BYTEA_P (returns binary data)
 - Called from:
   - PostgreSQL's binary protocol system (automatically invoked)

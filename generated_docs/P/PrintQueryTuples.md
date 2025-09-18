@@ -28,11 +28,11 @@ The function serves as a standardized interface for result tuple printing throug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printQueryOpt (structure type for formatting configuration)
-  - printQuery (core function that performs the actual result formatting and output)
+  - [printQueryOpt](../p/printQueryOpt.md) (structure type for formatting configuration)
+  - [printQuery](../p/printQuery.md) (core function that performs the actual result formatting and output)
 
 - Called from (representative examples):
-  - PrintQueryResult (higher-level result printing coordination)
+  - [PrintQueryResult](PrintQueryResult.md) (higher-level result printing coordination)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/bin/psql/common.c

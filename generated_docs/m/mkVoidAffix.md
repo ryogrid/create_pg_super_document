@@ -27,14 +27,14 @@ This design allows the spell checker to efficiently handle deletion patterns alo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - cpalloc
   - ANHRDSZ (AffixNode header size constant)
   - AffixNode
-  - AffixNodeData
+  - [AffixNodeData](../A/AffixNodeData.md)
   - AFFIX
 - Called from (representative examples):
-  - NISortAffixes
+  - [NISortAffixes](../N/NISortAffixes.md)
 
 ## Notes and Other Information
 - Only processes affixes where replen (replacement length) equals 0

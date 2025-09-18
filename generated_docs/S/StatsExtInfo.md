@@ -25,15 +25,15 @@ The structure is part of PostgreSQL's advanced query optimization infrastructure
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (inherited base structure)
-  - TableInfo (referenced via stattable pointer)
+  - [TableInfo](../T/TableInfo.md) (referenced via stattable pointer)
 - Called from (representative examples):
-  - getExtendedStatistics (creates and populates StatsExtInfo structures)
-  - dumpStatisticsExt (generates CREATE STATISTICS commands)
-  - selectDumpableStatisticsObject (determines if statistics should be dumped)
-  - dumpDumpableObject (generic dump processing)
+  - [getExtendedStatistics](../g/getExtendedStatistics.md) (creates and populates StatsExtInfo structures)
+  - [dumpStatisticsExt](../d/dumpStatisticsExt.md) (generates CREATE STATISTICS commands)
+  - [selectDumpableStatisticsObject](../s/selectDumpableStatisticsObject.md) (determines if statistics should be dumped)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (generic dump processing)
 
 ## Notes and Other Information
-- StatsExtInfo objects correspond to CREATE STATISTICS commands in PostgreSQL
+- [StatsExtInfo](StatsExtInfo.md) objects correspond to CREATE STATISTICS commands in PostgreSQL
 - Extended statistics help the query planner with complex multi-column WHERE clauses and JOINs
 - The stattarget value controls how much data is sampled when ANALYZE updates the statistics
 - These statistics are particularly useful for detecting functional dependencies and cross-column correlations

@@ -25,17 +25,17 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport/ERROR (error reporting)
-  - errcode (ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE)
+  - [errmsg](../e/errmsg.md) (error message formatting)
   - WAL_LEVEL_REPLICA (WAL level constant)
   - max_replication_slots (GUC variable)
   - wal_level (GUC variable)
 
 - Called from (representative examples):
   - CheckLogicalDecodingRequirements
-  - pg_create_physical_replication_slot
-  - pg_drop_replication_slot
-  - copy_replication_slot
+  - [pg_create_physical_replication_slot](../p/pg_create_physical_replication_slot.md)
+  - [pg_drop_replication_slot](../p/pg_drop_replication_slot.md)
+  - [copy_replication_slot](../c/copy_replication_slot.md)
 
 ## Notes and Other Information
 - This is a validation function that errors out rather than returning a boolean result

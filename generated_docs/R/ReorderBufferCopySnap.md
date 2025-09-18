@@ -41,16 +41,16 @@ The resulting snapshot maintains all the properties of the original while incorp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - memcpy
   - dlist_foreach
   - dlist_container
   - qsort
-  - xidComparator
+  - [xidComparator](../x/xidComparator.md)
 - Called from (representative examples):
-  - ReorderBufferSaveTXNSnapshot
-  - ReorderBufferProcessTXN (multiple calls)
-  - ReorderBufferStreamTXN (multiple calls)
+  - [ReorderBufferSaveTXNSnapshot](ReorderBufferSaveTXNSnapshot.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (multiple calls)
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md) (multiple calls)
 
 ## Notes and Other Information
 - This is a static function, accessible only within reorderbuffer.c

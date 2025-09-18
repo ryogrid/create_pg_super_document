@@ -25,10 +25,10 @@ This function is designed to fetch the existing slice value from an array before
 - Functions called/Symbols referenced:
   - ExprEvalStep (struct)
   - SubscriptingRefState (struct)  
-  - ArraySubWorkspace (struct)
-  - array_get_slice
+  - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)
+  - [array_get_slice](array_get_slice.md)
 - Called from (representative examples):
-  - array_exec_setup
+  - [array_exec_setup](array_exec_setup.md)
 
 ## Notes and Other Information
 - This is currently dead code - not reachable under current PostgreSQL array operation semantics

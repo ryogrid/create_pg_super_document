@@ -23,15 +23,15 @@ This hook function is called during query parsing to coerce variable parameters 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VarParamState (structure type)
+  - [VarParamState](../V/VarParamState.md) (structure type)
   - Param (node type)
   - PARAM_EXTERN (parameter kind constant)
-  - get_typcollation (function to get type collation)
-  - format_type_be (function to format type names for error messages)
+  - [get_typcollation](../g/get_typcollation.md) (function to get type collation)
+  - [format_type_be](../f/format_type_be.md) (function to format type names for error messages)
   - UNKNOWNOID (type OID constant)
   - ERRCODE_AMBIGUOUS_PARAMETER/ERRCODE_UNDEFINED_PARAMETER (error codes)
 - Called from (representative examples):
-  - setup_parse_variable_parameters (installed as hook)
+  - [setup_parse_variable_parameters](../s/setup_parse_variable_parameters.md) (installed as hook)
 
 ## Notes and Other Information
 - This is a static function used exclusively as a callback hook

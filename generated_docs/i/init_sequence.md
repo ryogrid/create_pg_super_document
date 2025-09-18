@@ -26,20 +26,20 @@ After obtaining the hash table entry, the function opens and locks the sequence 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SeqTable (sequence table entry structure)
-  - create_seq_hashtable (creates sequence hash table)
-  - hash_search (searches/inserts hash table entries)
+  - [create_seq_hashtable](../c/create_seq_hashtable.md) (creates sequence hash table)
+  - [hash_search](../h/hash_search.md) (searches/inserts hash table entries)
   - HASH_ENTER (hash operation flag)
   - InvalidRelFileNumber (invalid file number constant)
   - InvalidLocalTransactionId (invalid transaction ID constant)
-  - lock_and_open_sequence (locks and opens sequence relation)
+  - [lock_and_open_sequence](../l/lock_and_open_sequence.md) (locks and opens sequence relation)
 - Called from (representative examples):
-  - ResetSequence
-  - AlterSequence
-  - SequenceChangePersistence
-  - nextval_internal
-  - currval_oid
-  - do_setval
-  - pg_sequence_last_value
+  - [ResetSequence](../R/ResetSequence.md)
+  - [AlterSequence](../A/AlterSequence.md)
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md)
+  - [nextval_internal](../n/nextval_internal.md)
+  - [currval_oid](../c/currval_oid.md)
+  - [do_setval](../d/do_setval.md)
+  - [pg_sequence_last_value](../p/pg_sequence_last_value.md)
 
 ## Notes and Other Information
 - Hash table entries persist for the lifetime of a backend process unless explicitly discarded

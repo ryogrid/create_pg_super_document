@@ -17,17 +17,17 @@ This function allocates a new temporary page in local memory that mirrors the sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetPageSize
-  - palloc
+  - [PageGetPageSize](PageGetPageSize.md)
+  - [palloc](../p/palloc.md)
   - PageInit
-  - PageGetSpecialSize
-  - PageGetSpecialPointer
+  - [PageGetSpecialSize](PageGetSpecialSize.md)
+  - [PageGetSpecialPointer](PageGetSpecialPointer.md)
   - memcpy
 - Called from (representative examples):
-  - gistplacetopage (in GiST index operations)
-  - _bt_dedup_pass (in B-tree deduplication)
-  - btree_xlog_split (in B-tree WAL recovery)
-  - btree_xlog_dedup (in B-tree deduplication WAL recovery)
+  - [gistplacetopage](../g/gistplacetopage.md) (in GiST index operations)
+  - [_bt_dedup_pass](../b/_bt_dedup_pass.md) (in B-tree deduplication)
+  - [btree_xlog_split](../b/btree_xlog_split.md) (in B-tree WAL recovery)
+  - [btree_xlog_dedup](../b/btree_xlog_dedup.md) (in B-tree deduplication WAL recovery)
   - PageIsVerified (for page verification)
 
 ## Notes and Other Information

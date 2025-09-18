@@ -35,10 +35,10 @@ The function first clears relevant bits in both infomask fields, then selectivel
   - XLHL_KEYS_UPDATED: WAL compressed keys updated bit
 
 - Called from (representative examples):
-  - heap_xlog_delete: During delete operation recovery
-  - heap_xlog_update: During update operation recovery
-  - heap_xlog_lock: During tuple lock recovery
-  - heap_xlog_lock_updated: During lock-updated operation recovery
+  - [heap_xlog_delete](../h/heap_xlog_delete.md): During delete operation recovery
+  - [heap_xlog_update](../h/heap_xlog_update.md): During update operation recovery
+  - [heap_xlog_lock](../h/heap_xlog_lock.md): During tuple lock recovery
+  - [heap_xlog_lock_updated](../h/heap_xlog_lock_updated.md): During lock-updated operation recovery
 
 ## Notes and Other Information
 - This is a static utility function used exclusively during WAL recovery

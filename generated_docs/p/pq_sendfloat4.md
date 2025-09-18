@@ -20,12 +20,12 @@ The implementation uses a union to perform a type-punning operation, treating th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendint32 (handles the actual serialization and byte-swapping of the 32-bit representation)
+  - [pq_sendint32](pq_sendint32.md) (handles the actual serialization and byte-swapping of the 32-bit representation)
   - float4 (PostgreSQL's single-precision floating-point type)
   - uint32 (32-bit unsigned integer type used in the union)
 
 - Called from (representative examples):
-  - float4send (float4 datatype's send function for binary output)
+  - [float4send](../f/float4send.md) (float4 datatype's send function for binary output)
 
 ## Notes and Other Information
 - Uses a union for type-punning to convert float4 to uint32 without changing bit representation

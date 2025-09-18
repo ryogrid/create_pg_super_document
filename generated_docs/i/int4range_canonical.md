@@ -20,12 +20,12 @@ The canonical form ensures that ranges like [1,5) and (0,5) are represented cons
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
-  - range_deserialize
-  - DatumGetInt32
-  - Int32GetDatum
-  - range_serialize
+  - [range_deserialize](../r/range_deserialize.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
+  - [range_serialize](../r/range_serialize.md)
   - PG_RETURN_RANGE_P
   - ereturn (for error handling)
 - Called from (representative examples):

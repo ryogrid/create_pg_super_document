@@ -25,11 +25,11 @@ The function uses write_item() as a helper to write individual data structures w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - write_item
+  - [write_item](write_item.md)
   - AllocateFile/FreeFile
-  - RelationIdIsInInitFile
-  - hash_seq_init/hash_seq_search
-  - AcceptInvalidationMessages
+  - [RelationIdIsInInitFile](../R/RelationIdIsInInitFile.md)
+  - [hash_seq_init](../h/hash_seq_init.md)/hash_seq_search
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
   - LWLockAcquire/LWLockRelease
 - Called from (representative examples):
   - RelationCacheInitializePhase3 (inferred from context)

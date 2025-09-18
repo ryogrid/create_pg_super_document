@@ -22,7 +22,7 @@ The function performs minimal validation, only checking the plan's magic number 
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_PLAN_MAGIC (for integrity verification)
-  - SPIPlanPtr (plan structure type)
+  - [SPIPlanPtr](SPIPlanPtr.md) (plan structure type)
   - CachedPlan (referenced in context)
 - Called from (representative examples):
   - Primarily used by PL/pgSQL (not directly visible in references)

@@ -23,15 +23,15 @@ The function implements a dynamic array growth strategy, starting with an initia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc: PostgreSQL memory allocation function
-  - repalloc: PostgreSQL memory reallocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
+  - [repalloc](../r/repalloc.md): PostgreSQL memory reallocation function
   - memcpy: Standard C library function for memory copying
   - DictThesaurus: The main thesaurus dictionary structure
-  - TheLexeme: Structure representing individual lexeme entries
-  - LexemeInfo: Structure containing lexeme metadata and substitution information
+  - [TheLexeme](../T/TheLexeme.md): Structure representing individual lexeme entries
+  - [LexemeInfo](../L/LexemeInfo.md): Structure containing lexeme metadata and substitution information
 
 - Called from (representative examples):
-  - thesaurusRead: Main parsing function that processes thesaurus configuration files
+  - [thesaurusRead](../t/thesaurusRead.md): Main parsing function that processes thesaurus configuration files
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dict_thesaurus.c file

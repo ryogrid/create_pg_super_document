@@ -27,18 +27,18 @@ The algorithm:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typeOrDomainTypeRelid: Converts type OID to relation OID, handling domains
-  - typeidTypeRelid: Converts type OID to relation OID for complex types only
-  - has_subclass: Checks if a relation has any child relations
+  - [typeOrDomainTypeRelid](typeOrDomainTypeRelid.md): Converts type OID to relation OID, handling domains
+  - [typeidTypeRelid](typeidTypeRelid.md): Converts type OID to relation OID for complex types only
+  - [has_subclass](../h/has_subclass.md): Checks if a relation has any child relations
   - list_make1_oid: Creates a list with one OID element
-  - list_member_oid: Checks if OID is already in the list
+  - [list_member_oid](../l/list_member_oid.md): Checks if OID is already in the list
   - lappend_oid: Appends OID to list
-  - systable_beginscan: Begins system table scan
-  - systable_getnext: Gets next tuple from system scan
-  - list_free: Frees memory allocated for lists
+  - [systable_beginscan](../s/systable_beginscan.md): Begins system table scan
+  - [systable_getnext](../s/systable_getnext.md): Gets next tuple from system scan
+  - [list_free](../l/list_free.md): Frees memory allocated for lists
 - Called from (representative examples):
-  - coerce_type: Type coercion logic in parser
-  - can_coerce_type: Type coercion checking in parser
+  - [coerce_type](../c/coerce_type.md): Type coercion logic in parser
+  - [can_coerce_type](../c/can_coerce_type.md): Type coercion checking in parser
 
 ## Notes and Other Information
 - Uses breadth-first search to efficiently traverse inheritance hierarchies

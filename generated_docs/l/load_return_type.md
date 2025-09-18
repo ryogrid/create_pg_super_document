@@ -29,7 +29,7 @@ This function is particularly useful when setting up PostgreSQL's internal LLVM 
   - LLVMGetFunctionReturnType (wrapper function in llvmjit_wrap.cpp)
   - elog (PostgreSQL error reporting)
 - Called from (representative examples):
-  - llvm_create_types
+  - [llvm_create_types](llvm_create_types.md)
 
 ## Notes and Other Information
 - The function is specifically designed as a helper for type system initialization

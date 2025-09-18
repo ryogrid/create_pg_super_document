@@ -23,15 +23,15 @@ The function performs comprehensive setup including SPI connection establishment
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_initialize: Initializes the Python language environment
+  - [PLy_initialize](../P/PLy_initialize.md): Initializes the Python language environment
   - SPI_connect_ext: Establishes SPI connection for database access
   - AllocSetContextCreate: Creates memory context for the procedure
-  - PLy_push_execution_context: Sets up execution context stack
-  - PLy_procedure_compile: Compiles the Python source code
-  - PLy_exec_function: Executes the compiled Python procedure
-  - PLy_pop_execution_context: Cleans up execution context
-  - PLy_procedure_delete: Deallocates procedure resources
-  - plpython_inline_error_callback: Error callback for inline execution
+  - [PLy_push_execution_context](../P/PLy_push_execution_context.md): Sets up execution context stack
+  - [PLy_procedure_compile](../P/PLy_procedure_compile.md): Compiles the Python source code
+  - [PLy_exec_function](../P/PLy_exec_function.md): Executes the compiled Python procedure
+  - [PLy_pop_execution_context](../P/PLy_pop_execution_context.md): Cleans up execution context
+  - [PLy_procedure_delete](../P/PLy_procedure_delete.md): Deallocates procedure resources
+  - [plpython_inline_error_callback](plpython_inline_error_callback.md): Error callback for inline execution
 - Called from (representative examples):
   - Called directly by PostgreSQL's function call mechanism for DO blocks
 

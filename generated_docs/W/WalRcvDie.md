@@ -28,17 +28,17 @@ The function includes assertions to verify that the WAL receiver is in a valid s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogWalRcvFlush
+  - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md)
   - SpinLockAcquire, SpinLockRelease
   - ConditionVariableBroadcast
   - walrcv_disconnect
-  - WakeupRecovery
-  - DatumGetPointer
+  - [WakeupRecovery](WakeupRecovery.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - WALRCV_STREAMING, WALRCV_RESTARTING, WALRCV_STARTING, WALRCV_WAITING, WALRCV_STOPPING, WALRCV_STOPPED
-  - WalRcvData structure and its fields
+  - [WalRcvData](WalRcvData.md) structure and its fields
 
 - Called from (representative examples):
-  - WalReceiverMain (via on_shmem_exit registration)
+  - [WalReceiverMain](WalReceiverMain.md) (via on_shmem_exit registration)
   - WalRcvWakeupReason
 
 ## Notes and Other Information

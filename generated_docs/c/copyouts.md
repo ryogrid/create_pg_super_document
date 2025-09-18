@@ -21,17 +21,17 @@ The function iterates through all outgoing arcs of the old state and creates cor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createarc
+  - [createarc](createarc.md)
   - BULK_ARC_OP_USE_SORT (in conditional compilation sections)
-  - cparc (in conditional compilation sections)
+  - [cparc](cparc.md) (in conditional compilation sections)
   - INTERRUPT (in conditional compilation sections)
-  - sortouts (in conditional compilation sections)
+  - [sortouts](../s/sortouts.md) (in conditional compilation sections)
   - NISERR (in conditional compilation sections)
-  - sortouts_cmp (in conditional compilation sections)
+  - [sortouts_cmp](../s/sortouts_cmp.md) (in conditional compilation sections)
   - NOTREACHED (in conditional compilation sections)
 - Called from (representative examples):
   - push
-  - makesearch
+  - [makesearch](../m/makesearch.md)
 
 ## Notes and Other Information
 - The function assumes newState has no existing outgoing arcs (assertion check)

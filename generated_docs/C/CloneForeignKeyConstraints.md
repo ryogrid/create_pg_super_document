@@ -30,12 +30,12 @@ The function assumes that the partition has the same column structure as the par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CloneFkReferencing
-  - CloneFkReferenced
+  - [CloneFkReferencing](CloneFkReferencing.md)
+  - [CloneFkReferenced](CloneFkReferenced.md)
   - Assert (for validation)
 - Called from (representative examples):
-  - DefineRelation
-  - ATExecAttachPartition
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, part of the partitioning infrastructure

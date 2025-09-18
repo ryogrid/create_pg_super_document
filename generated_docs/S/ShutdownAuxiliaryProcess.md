@@ -21,7 +21,7 @@ This function is registered as a before-shutdown callback during auxiliary proce
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockReleaseAll
-  - ConditionVariableCancelSleep
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - pgstat_report_wait_end
 
 - Called from:

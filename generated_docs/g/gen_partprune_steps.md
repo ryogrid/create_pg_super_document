@@ -29,13 +29,13 @@ A special optimization is applied when the partitioned table is itself a partiti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gen_partprune_steps_internal
+  - [gen_partprune_steps_internal](gen_partprune_steps_internal.md)
   - partition_bound_has_default
-  - list_concat_copy
+  - [list_concat_copy](../l/list_concat_copy.md)
   - memset
 - Called from (representative examples):
-  - make_partitionedrel_pruneinfo
-  - prune_append_rel_partitions
+  - [make_partitionedrel_pruneinfo](../m/make_partitionedrel_pruneinfo.md)
+  - [prune_append_rel_partitions](../p/prune_append_rel_partitions.md)
 
 ## Notes and Other Information
 - Initializes all output values in the context to zero/false/NULL before processing

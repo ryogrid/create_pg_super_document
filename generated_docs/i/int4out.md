@@ -19,11 +19,11 @@ The int4out function is a PostgreSQL type output function that converts a 32-bit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ltoa
+  - [pg_ltoa](../p/pg_ltoa.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
-  - int4_to_char
-  - jsonb_subscript_check_subscripts
+  - [int4_to_char](int4_to_char.md)
+  - [jsonb_subscript_check_subscripts](../j/jsonb_subscript_check_subscripts.md)
 
 ## Notes and Other Information
 - Allocates 12 bytes for the result string (sign + 10 digits + null terminator)

@@ -25,28 +25,28 @@ Key copying behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumCopy
-  - bms_copy
-  - palloc
+  - [datumCopy](../d/datumCopy.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [palloc](palloc.md)
   - memcpy
 - Data types used:
-  - PartitionBoundInfo
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
   - PartitionBoundInfoData
-  - PartitionKey
-  - PartitionRangeDatumKind
+  - [PartitionKey](../P/PartitionKey.md)
+  - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md)
 - Constants used:
   - PARTITION_STRATEGY_HASH
   - PARTITION_STRATEGY_RANGE
   - PARTITION_STRATEGY_LIST
   - PARTITION_RANGE_DATUM_VALUE
 - Called from:
-  - RelationBuildPartitionDesc
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md)
   - partition_bound_has_default
 
 ## Notes and Other Information
 - Designed for long-lived memory contexts - avoids catalog access and memory leaks
 - Optimizes memory allocation by using single large arrays instead of many small ones
-- List partitions are constrained to single partition key (partnatts == 1)
+- [List](../L/List.md) partitions are constrained to single partition key (partnatts == 1)
 - Hash partitions always use int32 for modulus/remainder values
 - Only copies actual datum values for PARTITION_RANGE_DATUM_VALUE kinds
 - Critical for relation descriptor building and caching infrastructure

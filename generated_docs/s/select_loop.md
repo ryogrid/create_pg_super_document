@@ -23,8 +23,8 @@ This function implements a robust wrapper around the system `select()` call that
   - select (system call for I/O multiplexing)
   - EINTR (error code for interrupted system calls)
 - Called from (representative examples):
-  - getMessageFromWorker
-  - wait_on_slots
+  - [getMessageFromWorker](../g/getMessageFromWorker.md)
+  - [wait_on_slots](../w/wait_on_slots.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parallel.c file

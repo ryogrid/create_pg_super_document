@@ -24,18 +24,18 @@ The validation process involves retrieving the row filter expression from the pg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTopMostAncestorInPublication
-  - SearchSysCache2
-  - SysCacheGetAttr
-  - RelationGetIndexAttrBitmap
-  - stringToNode
+  - [GetTopMostAncestorInPublication](../G/GetTopMostAncestorInPublication.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
+  - [stringToNode](../s/stringToNode.md)
   - TextDatumGetCString
-  - contain_invalid_rfcolumn_walker
+  - [contain_invalid_rfcolumn_walker](../c/contain_invalid_rfcolumn_walker.md)
   - REPLICA_IDENTITY_FULL
   - INDEX_ATTR_BITMAP_IDENTITY_KEY
-  - rf_context
+  - [rf_context](../r/rf_context.md)
 - Called from (representative examples):
-  - RelationBuildPublicationDesc
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
   - MAX_RELCACHE_INVAL_MSGS (referenced in header)
 
 ## Notes and Other Information

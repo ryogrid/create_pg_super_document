@@ -25,16 +25,16 @@ The function has limited subquery support - it handles already-planned SubPlan n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varattnos_context (struct used for walker context)
-  - pull_varattnos_walker
+  - [pull_varattnos_context](pull_varattnos_context.md) (struct used for walker context)
+  - [pull_varattnos_walker](pull_varattnos_walker.md)
 - Called from (representative examples):
-  - has_partition_attrs
-  - DefineIndex
-  - CreateStatistics
-  - ComputePartitionAttrs
-  - remove_unused_subquery_outputs
-  - check_index_only
-  - RelationGetIndexAttrBitmap
+  - [has_partition_attrs](../h/has_partition_attrs.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [CreateStatistics](../C/CreateStatistics.md)
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md)
+  - [remove_unused_subquery_outputs](../r/remove_unused_subquery_outputs.md)
+  - [check_index_only](../c/check_index_only.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
 
 ## Notes and Other Information
 - Modifies the varattnos parameter in-place rather than returning a new bitmapset

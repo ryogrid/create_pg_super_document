@@ -27,17 +27,17 @@ This utility is essential for maintaining expression correctness when table sche
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_mutator
-  - map_variable_attnos_mutator
+  - [map_variable_attnos_mutator](map_variable_attnos_mutator.md)
   - map_variable_attnos_context (struct)
-  - AttrMap (struct)
+  - [AttrMap](../A/AttrMap.md) (struct)
 - Called from (representative examples):
-  - CompareIndexInfo
-  - map_partition_varattnos
-  - MergeAttributes
-  - ATPrepAlterColumnType
-  - ExecInitPartitionInfo
-  - expandTableLikeClause
-  - generateClonedIndexStmt
+  - [CompareIndexInfo](../C/CompareIndexInfo.md)
+  - [map_partition_varattnos](map_partition_varattnos.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
+  - [generateClonedIndexStmt](../g/generateClonedIndexStmt.md)
 
 ## Notes and Other Information
 - Widely used throughout PostgreSQL for schema transformation operations

@@ -22,11 +22,11 @@ The function is intended only for internal use within error handling contexts, a
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
-  - function_parse_error_transpose
-  - import_error_callback
-  - sql_exec_error_callback
-  - _SPI_error_callback
-  - sql_inline_error_callback
+  - [function_parse_error_transpose](../f/function_parse_error_transpose.md)
+  - [import_error_callback](../i/import_error_callback.md)
+  - [sql_exec_error_callback](../s/sql_exec_error_callback.md)
+  - [_SPI_error_callback](../S/_SPI_error_callback.md)
+  - [sql_inline_error_callback](../s/sql_inline_error_callback.md)
   - errcontext
 
 ## Notes and Other Information

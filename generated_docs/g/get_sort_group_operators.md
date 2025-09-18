@@ -27,16 +27,16 @@ get_sort_group_operators efficiently fetches the three fundamental comparison op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_LT_OPR
   - TYPECACHE_EQ_OPR
   - TYPECACHE_GT_OPR
   - TYPECACHE_HASH_PROC
 - Called from (representative examples):
-  - std_typanalyze
-  - makeSortGroupClauseForSetOp
-  - addTargetToSortList
-  - addTargetToGroupList
+  - [std_typanalyze](../s/std_typanalyze.md)
+  - [makeSortGroupClauseForSetOp](../m/makeSortGroupClauseForSetOp.md)
+  - [addTargetToSortList](../a/addTargetToSortList.md)
+  - [addTargetToGroupList](../a/addTargetToGroupList.md)
 
 ## Notes and Other Information
 - Results are guaranteed to be exact or binary-compatible matches

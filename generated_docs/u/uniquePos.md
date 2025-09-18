@@ -21,14 +21,14 @@ This function processes an array of WordEntryPos structures to eliminate duplica
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (standard library sorting function)
-  - compareWordEntryPos (comparator for WordEntryPos sorting)
+  - [compareWordEntryPos](../c/compareWordEntryPos.md) (comparator for WordEntryPos sorting)
   - WEP_GETPOS (macro to extract position from WordEntryPos)
   - WEP_GETWEIGHT (macro to extract weight from WordEntryPos)
   - WEP_SETWEIGHT (macro to set weight in WordEntryPos)
   - MAXNUMPOS (maximum number of positions allowed)
   - MAXENTRYPOS (maximum position value allowed)
 - Called from (representative examples):
-  - uniqueentry (during tsvector entry processing)
+  - [uniqueentry](uniqueentry.md) (during tsvector entry processing)
 
 ## Notes and Other Information
 - Returns the new length of the array after duplicate removal

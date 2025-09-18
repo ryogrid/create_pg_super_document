@@ -21,14 +21,14 @@ This function performs a simple comparison to determine if the time difference b
 - Functions called/Symbols referenced:
   - INT64CONST (macro for 64-bit integer constants)
 - Called from (representative examples):
-  - heap_vacuum_rel (vacuum operations)
-  - XLogBackgroundFlush (WAL flushing)
-  - WaitForWALToBecomeAvailable (WAL recovery)
-  - do_analyze_rel (table analysis)
-  - WalSndWaitForWal (WAL sender operations)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md) (vacuum operations)
+  - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md) (WAL flushing)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (WAL recovery)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (table analysis)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md) (WAL sender operations)
   - LockBufferForCleanup (buffer management)
   - ProcSleep (process sleeping/waiting)
-  - pgstat_report_stat (statistics reporting)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md) (statistics reporting)
 
 ## Notes and Other Information
 - The function assumes both input timestamps are ordinary finite values

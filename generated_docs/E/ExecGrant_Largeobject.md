@@ -20,18 +20,18 @@ Large objects have their own privilege set (SELECT and UPDATE privileges) define
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close (with LargeObjectMetadataRelationId)
-  - ScanKeyInit, systable_beginscan, systable_getnext, systable_endscan
-  - heap_getattr, heap_modify_tuple
-  - acldefault, aclmembers (with OBJECT_LARGEOBJECT)
+  - [ScanKeyInit](../S/ScanKeyInit.md), systable_beginscan, systable_getnext, systable_endscan
+  - [heap_getattr](../h/heap_getattr.md), heap_modify_tuple
+  - [acldefault](../a/acldefault.md), aclmembers (with OBJECT_LARGEOBJECT)
   - select_best_grantor
-  - restrict_and_check_grant
-  - merge_acl_with_grant
-  - CatalogTupleUpdate
-  - updateAclDependencies (with LargeObjectRelationId)
-  - recordExtensionInitPriv
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [updateAclDependencies](../u/updateAclDependencies.md) (with LargeObjectRelationId)
+  - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
   - CommandCounterIncrement
 - Called from:
-  - ExecGrantStmt_oids (when processing large object privileges)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (when processing large object privileges)
 
 ## Notes and Other Information
 - Cannot use ExecGrant_common because pg_largeobject_metadata lacks syscache support

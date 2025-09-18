@@ -21,7 +21,7 @@ SpGistDeadTupleData defines the structure for non-live tuples in SP-GiST indexes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (implicitly referenced)
+  - [ItemPointerData](../I/ItemPointerData.md) (implicitly referenced)
   - TransactionId (implicitly referenced)
 - Called from (representative examples):
   - SpGistDeadTuple

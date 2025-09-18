@@ -24,13 +24,13 @@ Unlike the parallel-safe index processing, this function uses a simple sequentia
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - pg_atomic_add_fetch_u32
-  - pg_atomic_sub_fetch_u32
-  - parallel_vacuum_process_one_index
+  - [pg_atomic_add_fetch_u32](pg_atomic_add_fetch_u32.md)
+  - [pg_atomic_sub_fetch_u32](pg_atomic_sub_fetch_u32.md)
+  - [parallel_vacuum_process_one_index](parallel_vacuum_process_one_index.md)
   - VacuumActiveNWorkers
-  - PVIndStats
+  - [PVIndStats](../P/PVIndStats.md)
 - Called from (representative examples):
-  - parallel_vacuum_process_all_indexes
+  - [parallel_vacuum_process_all_indexes](parallel_vacuum_process_all_indexes.md)
 
 ## Notes and Other Information
 - Must only be called by the leader process (enforced by Assert(!IsParallelWorker()))

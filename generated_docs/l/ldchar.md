@@ -21,7 +21,7 @@ This function is essential for working with fixed-length database fields in Info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byleng() - to calculate effective length without trailing spaces
+  - [byleng](../b/byleng.md)() - to calculate effective length without trailing spaces
   - memmove() - standard C library function for memory copying
 - Called from (representative examples):
   - Test cases in compat_informix-charfuncs.c

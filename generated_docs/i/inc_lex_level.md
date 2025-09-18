@@ -17,12 +17,12 @@ The inc_lex_level function manages the nesting depth tracking in JSON parsing an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (structure access)
+  - [JsonLexContext](../J/JsonLexContext.md) (structure access)
   - JS_STACK_CHUNK_SIZE (stack expansion increment constant)
-  - repalloc (memory reallocation function)
+  - [repalloc](../r/repalloc.md) (memory reallocation function)
   - JS_MAX_PROD_LEN (maximum production length constant)
 - Called from (representative examples):
-  - pg_parse_json_incremental (multiple call sites)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md) (multiple call sites)
 
 ## Notes and Other Information
 This function is specifically designed for incremental JSON parsing where the parser must maintain state across multiple input chunks. The dynamic stack expansion ensures that deeply nested JSON structures can be parsed without predetermined limits. The function only performs expensive memory reallocation when actually needed (when incremental mode is enabled and the stack is nearly full), making it efficient for both regular and incremental parsing scenarios. The expansion happens in chunks (JS_STACK_CHUNK_SIZE) to amortize allocation costs.

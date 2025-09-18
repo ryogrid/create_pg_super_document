@@ -22,7 +22,7 @@ This function returns the WAL level stored in the control file, which represents
   - ControlFile (global variable access)
 - Called from (representative examples):
   - CheckLogicalDecodingRequirements
-  - WALAvailability (header reference)
+  - [WALAvailability](../W/WALAvailability.md) (header reference)
 
 ## Notes and Other Information
 - Essential for standby servers to determine their effective WAL level

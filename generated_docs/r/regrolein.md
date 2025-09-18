@@ -29,14 +29,14 @@ The function includes comprehensive error handling for invalid names, non-existe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseDashOrOid (handles dash notation and numeric OID parsing)
+  - [parseDashOrOid](../p/parseDashOrOid.md) (handles dash notation and numeric OID parsing)
   - PG_RETURN_OID (returns OID values)
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
-  - stringToQualifiedNameList (parses input string to name list)
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md) (parses input string to name list)
   - ereturn (error return with context support)
   - get_role_oid (looks up role OID by name)
 - Called from (representative examples):
-  - to_regrole (conversion function)
+  - [to_regrole](../t/to_regrole.md) (conversion function)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/regproc.c:1541-1582

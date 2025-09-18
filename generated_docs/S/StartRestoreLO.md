@@ -25,13 +25,13 @@ This function prepares for the restoration of an individual Large Object. It ini
   - LOBBUFSIZE
   - pg_malloc
   - pg_log_info
-  - DropLOIfExists
-  - lo_create
-  - lo_open
+  - [DropLOIfExists](../D/DropLOIfExists.md)
+  - [lo_create](../l/lo_create.md)
+  - [lo_open](../l/lo_open.md)
   - INV_WRITE
-  - ahprintf
+  - [ahprintf](../a/ahprintf.md)
 - Called from (representative examples):
-  - _LoadLOs (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
+  - [_LoadLOs](../L/_LoadLOs.md) (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
 
 ## Notes and Other Information
 - Allocates LO buffer (LOBBUFSIZE) on first use per process

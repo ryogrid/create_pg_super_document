@@ -24,7 +24,7 @@ The function serves as a "bypass" for the normal MVCC visibility checks, allowin
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 - This is a dummy function that always returns true

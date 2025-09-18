@@ -26,22 +26,22 @@ The function assumes that related operators will not return one NULL and one non
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause
-  - equal
-  - operator_same_subexprs_proof
-  - get_commutator
-  - op_strict
-  - get_btree_test_op
-  - CreateExecutorState
+  - [is_opclause](../i/is_opclause.md)
+  - [equal](../e/equal.md)
+  - [operator_same_subexprs_proof](operator_same_subexprs_proof.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [op_strict](op_strict.md)
+  - [get_btree_test_op](../g/get_btree_test_op.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
   - make_opclause
-  - fix_opfuncids
-  - ExecInitExpr
+  - [fix_opfuncids](../f/fix_opfuncids.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
   - ExecEvalExprSwitchContext
   - GetPerTupleExprContext
-  - FreeExecutorState
+  - [FreeExecutorState](../F/FreeExecutorState.md)
 - Called from:
-  - predicate_implied_by_simple_clause
-  - predicate_refuted_by_simple_clause
+  - [predicate_implied_by_simple_clause](../p/predicate_implied_by_simple_clause.md)
+  - [predicate_refuted_by_simple_clause](../p/predicate_refuted_by_simple_clause.md)
 
 ## Notes and Other Information
 The function requires both expressions to be binary operator clauses with matching collations. It handles various expression patterns by commuting operators when necessary to standardize the comparison. For constant comparisons, it creates an executor state to evaluate the test expression safely at plan time, assuming immutable operators.

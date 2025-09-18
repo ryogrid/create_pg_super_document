@@ -23,8 +23,8 @@ This is primarily used by the object address subsystem to validate whether opera
   - ObjectPropertyType (via ObjectProperty array access)
 - Called from (representative examples):
   - pg_identify_object
-  - EventTriggerSQLDropAddObject  
-  - pg_event_trigger_ddl_commands
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)  
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

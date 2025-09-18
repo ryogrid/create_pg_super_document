@@ -27,13 +27,13 @@ The function employs cursor management to process the word from right-to-left wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude: Text preprocessing and character normalization
-  - r_mark_regions: Vowel/consonant region identification
-  - r_step_0: Initial Romanian-specific suffix removal
-  - r_standard_suffix: Common morphological suffix processing
-  - r_verb_suffix: Verb-specific suffix removal (conditional)
-  - r_vowel_suffix: Vowel suffix and consonant-vowel combination removal
-  - r_postlude: Final text transformations
+  - [r_prelude](r_prelude.md): Text preprocessing and character normalization
+  - [r_mark_regions](r_mark_regions.md): Vowel/consonant region identification
+  - [r_step_0](r_step_0.md): Initial Romanian-specific suffix removal
+  - [r_standard_suffix](r_standard_suffix.md): Common morphological suffix processing
+  - [r_verb_suffix](r_verb_suffix.md): Verb-specific suffix removal (conditional)
+  - [r_vowel_suffix](r_vowel_suffix.md): Vowel suffix and consonant-vowel combination removal
+  - [r_postlude](r_postlude.md): Final text transformations
 - Called from: 
   - External interfaces (likely through stemmer wrapper functions)
 

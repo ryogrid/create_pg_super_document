@@ -22,22 +22,22 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmCheckpointerProcess
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - START_CRIT_SECTION
   - END_CRIT_SECTION
-  - RememberSyncRequest
-  - pfree
+  - [RememberSyncRequest](../R/RememberSyncRequest.md)
+  - [pfree](../p/pfree.md)
   - LWLockAcquire/LWLockRelease (CheckpointerCommLock)
 - Types used:
-  - CheckpointerRequest
+  - [CheckpointerRequest](../C/CheckpointerRequest.md)
 - Called from:
-  - CreateCheckPoint
-  - CheckpointerMain
-  - CheckpointWriteDelay
-  - SyncPreCheckpoint
-  - SyncPostCheckpoint
-  - ProcessSyncRequests
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md)
+  - [SyncPreCheckpoint](../S/SyncPreCheckpoint.md)
+  - [SyncPostCheckpoint](../S/SyncPostCheckpoint.md)
+  - [ProcessSyncRequests](../P/ProcessSyncRequests.md)
 
 ## Notes and Other Information
 - Only executes when called from within the checkpointer process; returns immediately if called from other processes

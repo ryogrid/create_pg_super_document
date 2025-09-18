@@ -19,10 +19,10 @@ The JsonValueListClear function resets a JsonValueList structure to its initial 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure type)
+  - [JsonValueList](JsonValueList.md) (structure type)
   - NIL (PostgreSQL empty list constant)
 - Called from (representative examples):
-  - JsonTableResetRowPattern (row pattern reset operations)
+  - [JsonTableResetRowPattern](JsonTableResetRowPattern.md) (row pattern reset operations)
 
 ## Notes and Other Information
 - This is a simple utility function that performs a complete reset of JsonValueList state

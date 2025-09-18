@@ -23,14 +23,14 @@ The function is implemented as a static inline function for performance, as it's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (struct type)
+  - [dlist_node](dlist_node.md) (struct type)
   - Assert (macro for debug assertions)
 - Called from (representative examples):
-  - SyncRepWaitForLSN (src/backend/replication/syncrep.c:189, 356)
-  - SyncRepCancelWait (src/backend/replication/syncrep.c:409)
-  - SyncRepCleanupAtProcExit (src/backend/replication/syncrep.c:422, 427)
+  - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md) (src/backend/replication/syncrep.c:189, 356)
+  - [SyncRepCancelWait](../S/SyncRepCancelWait.md) (src/backend/replication/syncrep.c:409)
+  - [SyncRepCleanupAtProcExit](../S/SyncRepCleanupAtProcExit.md) (src/backend/replication/syncrep.c:422, 427)
   - SxactIsOnFinishedList (src/backend/storage/lmgr/predicate.c:267)
-  - LockErrorCleanup (src/backend/storage/lmgr/proc.c:769)
+  - [LockErrorCleanup](../L/LockErrorCleanup.md) (src/backend/storage/lmgr/proc.c:769)
   - ProcWakeup (src/backend/storage/lmgr/proc.c:1685)
 
 ## Notes and Other Information

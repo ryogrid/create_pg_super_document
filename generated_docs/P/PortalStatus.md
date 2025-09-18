@@ -34,9 +34,9 @@ PortalStatus represents the execution state machine for portals in PostgreSQL. I
 - Functions called/Symbols referenced:
   - No direct symbol references (this is an enum definition)
 - Called from (representative examples):
-  - PortalData (as the status field)
-  - Portal state management functions
-  - Query execution routines
+  - [PortalData](PortalData.md) (as the status field)
+  - [Portal](Portal.md) state management functions
+  - [Query](../Q/Query.md) execution routines
 
 ## Notes and Other Information
 - The status serves as a critical safety mechanism preventing invalid portal operations

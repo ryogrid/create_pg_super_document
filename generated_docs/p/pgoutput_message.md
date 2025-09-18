@@ -32,12 +32,12 @@ The function respects the publication's message configuration and only sends mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgoutput_send_begin
-  - logicalrep_write_message
-  - OutputPluginPrepareWrite
-  - OutputPluginWrite
+  - [pgoutput_send_begin](pgoutput_send_begin.md)
+  - [logicalrep_write_message](../l/logicalrep_write_message.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (as callback registration)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (as callback registration)
 
 ## Notes and Other Information
 - Messages are only sent if the publication has messages enabled (data->messages is true)

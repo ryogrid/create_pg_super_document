@@ -17,15 +17,15 @@ This function serves as an adapter that allows binary logic consistency checking
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanKey (struct type)
+  - [GinScanKey](../G/GinScanKey.md) (struct type)
   - GinTernaryValue (enum type)
-  - FunctionCall7Coll (function call interface with collation)
+  - [FunctionCall7Coll](../F/FunctionCall7Coll.md) (function call interface with collation)
   - DatumGetGinTernaryValue (datum conversion to GinTernaryValue)
-  - UInt16GetDatum (datum conversion for strategy)
-  - UInt32GetDatum (datum conversion for user entries count)
+  - [UInt16GetDatum](../U/UInt16GetDatum.md) (datum conversion for strategy)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md) (datum conversion for user entries count)
   - GIN_MAYBE (enum value)
 - Called from (representative examples):
-  - ginInitConsistentFunction
+  - [ginInitConsistentFunction](../g/ginInitConsistentFunction.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the ginlogic.c compilation unit

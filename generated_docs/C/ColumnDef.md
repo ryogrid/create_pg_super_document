@@ -60,17 +60,17 @@ ColumnDef is a comprehensive structure representing column definitions in CREATE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName
+  - [TypeName](../T/TypeName.md)
   - storage
-  - storage_name
-  - RangeVar
-  - CollateClause
+  - [storage_name](../s/storage_name.md)
+  - [RangeVar](../R/RangeVar.md)
+  - [CollateClause](CollateClause.md)
   - ParseLoc
 - Called from (representative examples):
-  - transformCreateStmt
-  - ATExecAddColumn
-  - MergeAttributes
-  - transformColumnDefinition
+  - [transformCreateStmt](../t/transformCreateStmt.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [transformColumnDefinition](../t/transformColumnDefinition.md)
   - makeColumnDef
 
 ## Notes and Other Information

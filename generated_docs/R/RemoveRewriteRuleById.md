@@ -27,16 +27,16 @@ The function ensures data consistency by using appropriate locking mechanisms an
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (to access pg_rewrite and event relations)
-  - ScanKeyInit (to initialize scan key for rule lookup)
-  - systable_beginscan (to begin system table scan)
-  - systable_getnext (to retrieve rule tuple)
-  - systable_endscan (to end system table scan)
-  - IsSystemRelation (to check if target relation is a system catalog)
-  - CatalogTupleDelete (to delete the rule tuple)
-  - CacheInvalidateRelcache (to invalidate relation cache)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (to initialize scan key for rule lookup)
+  - [systable_beginscan](../s/systable_beginscan.md) (to begin system table scan)
+  - [systable_getnext](../s/systable_getnext.md) (to retrieve rule tuple)
+  - [systable_endscan](../s/systable_endscan.md) (to end system table scan)
+  - [IsSystemRelation](../I/IsSystemRelation.md) (to check if target relation is a system catalog)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (to delete the rule tuple)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md) (to invalidate relation cache)
   - table_close (to close opened relations)
 - Called from (representative examples):
-  - doDeletion (from dependency.c:1412 - part of dependency deletion cascade)
+  - [doDeletion](../d/doDeletion.md) (from dependency.c:1412 - part of dependency deletion cascade)
 
 ## Notes and Other Information
 - The function acquires AccessExclusiveLock on the event relation to ensure no concurrent queries depend on the rule being deleted

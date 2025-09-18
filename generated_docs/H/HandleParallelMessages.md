@@ -27,15 +27,15 @@ This function takes no parameters.
   - HOLD_INTERRUPTS
   - RESUME_INTERRUPTS
   - AllocSetContextCreate
-  - MemoryContextReset
-  - MemoryContextSwitchTo
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - dlist_foreach
   - dlist_container
-  - shm_mq_receive
+  - [shm_mq_receive](../s/shm_mq_receive.md)
   - initStringInfo
   - appendBinaryStringInfo
-  - HandleParallelMessage
-  - pfree
+  - [HandleParallelMessage](HandleParallelMessage.md)
+  - [pfree](../p/pfree.md)
   - ereport
 
 - Called from (representative examples):

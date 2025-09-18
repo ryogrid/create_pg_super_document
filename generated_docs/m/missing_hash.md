@@ -20,10 +20,10 @@ This function serves as a hash function callback for the missing attribute cache
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `hash_bytes`: Core hash function that performs the actual hashing
+  - `[hash_bytes](../h/hash_bytes.md)`: Core hash function that performs the actual hashing
   - `missing_cache_key`: Structure type that contains the value and length to hash
 - Called from (representative examples):
-  - `init_missing_cache`: Used as hash function callback when initializing the missing attribute cache
+  - `[init_missing_cache](../i/init_missing_cache.md)`: Used as hash function callback when initializing the missing attribute cache
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage within heaptuple.c

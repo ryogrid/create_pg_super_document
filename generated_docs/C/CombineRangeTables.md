@@ -21,14 +21,14 @@ This function combines two range tables by appending the source range table entr
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (to calculate offset)
-  - list_concat (to merge lists)
+  - [list_concat](../l/list_concat.md) (to merge lists)
   - lfirst_node (to access RangeTblEntry nodes)
   - foreach (list iteration macro)
 - Called from (representative examples):
-  - convert_EXISTS_sublink_to_join
-  - pull_up_simple_subquery
-  - pull_up_simple_union_all
-  - rewriteRuleAction
+  - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)
+  - [pull_up_simple_union_all](../p/pull_up_simple_union_all.md)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
 
 ## Notes and Other Information
 - This function modifies both destination parameters destructively

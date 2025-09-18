@@ -32,15 +32,15 @@ The function cannot work on root pages and includes special handling for DEAD tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistGetBuffer (allocates a new leaf page with required space)
-  - SpGistPageAddNewItem (adds items to the new page)
-  - spgPageIndexMultiDelete (deletes old tuples and sets redirection)
-  - saveNodeLink (updates parent's downlink)
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md) (allocates a new leaf page with required space)
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md) (adds items to the new page)
+  - [spgPageIndexMultiDelete](../s/spgPageIndexMultiDelete.md) (deletes old tuples and sets redirection)
+  - [saveNodeLink](../s/saveNodeLink.md) (updates parent's downlink)
   - SGLT_SET_NEXTOFFSET/SGLT_GET_NEXTOFFSET (chain manipulation macros)
   - Various page access functions (PageGetItem, PageGetItemId, etc.)
   - WAL logging functions (XLogBeginInsert, XLogInsert, etc.)
 - Called from (representative examples):
-  - spgdoinsert (at src/backend/access/spgist/spgdoinsert.c:2133)
+  - [spgdoinsert](../s/spgdoinsert.md) (at src/backend/access/spgist/spgdoinsert.c:2133)
 
 ## Notes and Other Information
 - Cannot operate on root pages (assertion enforced)

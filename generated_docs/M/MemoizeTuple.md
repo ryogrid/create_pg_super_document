@@ -22,10 +22,10 @@ The structure is lightweight and uses MinimalTuple format for space efficiency, 
 - Functions called/Symbols referenced:
   - MinimalTuple
 - Called from (representative examples):
-  - entry_purge_tuples
-  - cache_store_tuple
-  - ExecEndMemoize
-  - ExecEstimateCacheEntryOverheadBytes
+  - [entry_purge_tuples](../e/entry_purge_tuples.md)
+  - [cache_store_tuple](../c/cache_store_tuple.md)
+  - [ExecEndMemoize](../E/ExecEndMemoize.md)
+  - [ExecEstimateCacheEntryOverheadBytes](../E/ExecEstimateCacheEntryOverheadBytes.md)
 
 ## Notes and Other Information
 - Used in conjunction with MemoizeEntry and MemoizeKey to implement the complete memoization cache

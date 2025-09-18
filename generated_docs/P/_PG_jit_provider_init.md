@@ -25,7 +25,7 @@ This follows PostgreSQL's plugin architecture pattern where providers implement 
 ## Dependencies
 - Functions called/Symbols referenced:
   - llvm_reset_after_error (assigned to reset_after_error callback)
-  - llvm_release_context (assigned to release_context callback)
+  - [llvm_release_context](../l/llvm_release_context.md) (assigned to release_context callback)
   - llvm_compile_expr (assigned to compile_expr callback)
 - Called from (representative examples):
   - PostgreSQL JIT infrastructure during provider loading

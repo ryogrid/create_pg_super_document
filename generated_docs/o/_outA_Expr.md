@@ -27,14 +27,14 @@ After handling the kind-specific information, the function serializes the common
   - WRITE_LOCATION_FIELD
   - appendStringInfoString
 - Types/Constants referenced:
-  - A_Expr
-  - A_Expr_Kind enumeration values (AEXPR_OP, AEXPR_OP_ANY, AEXPR_OP_ALL, AEXPR_DISTINCT, AEXPR_NOT_DISTINCT, AEXPR_NULLIF, AEXPR_IN, AEXPR_LIKE, AEXPR_ILIKE, AEXPR_SIMILAR, AEXPR_BETWEEN, AEXPR_NOT_BETWEEN, AEXPR_BETWEEN_SYM, AEXPR_NOT_BETWEEN_SYM)
+  - [A_Expr](../A/A_Expr.md)
+  - [A_Expr_Kind](../A/A_Expr_Kind.md) enumeration values (AEXPR_OP, AEXPR_OP_ANY, AEXPR_OP_ALL, AEXPR_DISTINCT, AEXPR_NOT_DISTINCT, AEXPR_NULLIF, AEXPR_IN, AEXPR_LIKE, AEXPR_ILIKE, AEXPR_SIMILAR, AEXPR_BETWEEN, AEXPR_NOT_BETWEEN, AEXPR_BETWEEN_SYM, AEXPR_NOT_BETWEEN_SYM)
 - Called from (representative examples):
   - No direct callers found (likely called through function pointer dispatch in the node output system)
 
 ## Notes and Other Information
 - This is a static function, used only within the outfuncs.c compilation unit
-- A_Expr nodes represent "raw" expressions from the parser, before semantic analysis and transformation
+- [A_Expr](../A/A_Expr.md) nodes represent "raw" expressions from the parser, before semantic analysis and transformation
 - The function handles 14 different expression kinds, covering most SQL expression constructs
 - Each expression kind gets a descriptive string tag to aid in debugging and visualization of parse trees
 - The  field typically contains the operator or function name associated with the expression

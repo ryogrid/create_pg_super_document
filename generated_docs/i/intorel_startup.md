@@ -20,18 +20,18 @@ This function serves as the startup callback for DR_intorel destination receiver
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - makeColumnDef
-  - type_is_collatable
-  - create_ctas_internal
+  - [type_is_collatable](../t/type_is_collatable.md)
+  - [create_ctas_internal](../c/create_ctas_internal.md)
   - table_open
-  - check_enable_rls
-  - SetMatViewPopulatedState
-  - GetCurrentCommandId
-  - GetBulkInsertState
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [SetMatViewPopulatedState](../S/SetMatViewPopulatedState.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [GetBulkInsertState](../G/GetBulkInsertState.md)
   - RelationGetTargetBlock
 - Called from (representative examples):
-  - CreateIntoRelDestReceiver (sets as callback)
+  - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (sets as callback)
   - DR_intorel structure initialization
 
 ## Notes and Other Information

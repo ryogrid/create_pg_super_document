@@ -22,19 +22,19 @@ The function implements careful state checking to ensure signals are only proces
   - CheckPostmasterSignal (multiple signal types)
   - ereport (for logging)
   - XLogArchivingAlways (archiving check)
-  - StartChildProcess (process spawning)
-  - AddToDataDirLockFile (status reporting)
-  - BackgroundWorkerStateChange (worker management)
+  - [StartChildProcess](../S/StartChildProcess.md) (process spawning)
+  - [AddToDataDirLockFile](../A/AddToDataDirLockFile.md) (status reporting)
+  - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md) (worker management)
   - maybe_start_bgworkers (worker startup)
-  - CheckLogrotateSignal (log rotation detection)
-  - signal_child (process signaling)
-  - RemoveLogrotateSignalFiles (cleanup)
-  - StartAutovacuumWorker (autovacuum management)
-  - MaybeStartWalReceiver (WAL receiver management)
-  - PostmasterStateMachine (state transitions)
-  - CheckPromoteSignal (promotion detection)
+  - [CheckLogrotateSignal](../C/CheckLogrotateSignal.md) (log rotation detection)
+  - [signal_child](../s/signal_child.md) (process signaling)
+  - [RemoveLogrotateSignalFiles](../R/RemoveLogrotateSignalFiles.md) (cleanup)
+  - [StartAutovacuumWorker](../S/StartAutovacuumWorker.md) (autovacuum management)
+  - [MaybeStartWalReceiver](../M/MaybeStartWalReceiver.md) (WAL receiver management)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md) (state transitions)
+  - [CheckPromoteSignal](../C/CheckPromoteSignal.md) (promotion detection)
 - Called from (representative examples):
-  - ServerLoop (main postmaster event loop)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster event loop)
 
 ## Notes and Other Information
 - Sets pending_pm_pmsignal to false at the beginning to clear the signal condition
@@ -43,4 +43,4 @@ The function implements careful state checking to ensure signals are only proces
 - Implements defensive programming against race conditions in process startup/shutdown sequences
 - Background worker changes are accepted only when not in stopping state
 - Autovacuum launcher can be started even when autovacuuming is disabled as defense against transaction ID wraparound
-- The function ordering is important - PostmasterStateMachine is called before CheckPromoteSignal to ensure proper state evaluation
+- The function ordering is important - [PostmasterStateMachine](../P/PostmasterStateMachine.md) is called before CheckPromoteSignal to ensure proper state evaluation

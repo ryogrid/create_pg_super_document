@@ -22,10 +22,10 @@ The function is essential for returning CIRCLE values from PostgreSQL functions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - CIRCLE (struct type)
 - Called from (representative examples):
-  - gist_point_consistent
+  - [gist_point_consistent](../g/gist_point_consistent.md)
   - PG_RETURN_CIRCLE_P (macro)
 
 ## Notes and Other Information

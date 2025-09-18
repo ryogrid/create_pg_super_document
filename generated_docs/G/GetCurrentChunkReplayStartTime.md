@@ -23,8 +23,8 @@ This function fetches the timestamp that marks the start time of the current chu
   - SpinLockRelease (for thread-safe access)
   - XLogRecoveryCtl (global recovery control structure)
 - Called from (representative examples):
-  - GetReplicationApplyDelay
-  - EndOfWalRecoveryInfo
+  - [GetReplicationApplyDelay](GetReplicationApplyDelay.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md)
 
 ## Notes and Other Information
 - Returns a TimestampTz value representing the start time of the current WAL chunk being processed

@@ -21,14 +21,14 @@ The function includes stack depth checking before recursing to prevent stack ove
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
   - TParserCopyInit (creates a copy of the parser)
   - check_stack_depth (checks for stack overflow)
-  - TParserGet (parses the next token)
+  - [TParserGet](../T/TParserGet.md) (parses the next token)
   - HOST (token type constant)
   - TParserCopyClose (cleans up the temporary parser)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1393)
+  - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1393)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the wparser_def.c file

@@ -23,13 +23,13 @@ Important: This function does not read new data from the socket - applications s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseInput
+  - [parseInput](../p/parseInput.md)
   - PGnotify
 - Called from (representative examples):
-  - PrintNotifications (in psql)
+  - [PrintNotifications](PrintNotifications.md) (in psql)
   - ecpg_process_output (in ECPG)
-  - main (in testlibpq2 example)
-  - try_complete_step (in isolation tester)
+  - [main](../m/main.md) (in testlibpq2 example)
+  - [try_complete_step](../t/try_complete_step.md) (in isolation tester)
 
 ## Notes and Other Information
 - Returns a PGnotify pointer to the notification structure, or NULL if no notifications are pending

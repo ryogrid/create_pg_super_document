@@ -33,13 +33,13 @@ The function validates that the partition operator family is a built-in boolean 
 - Functions called/Symbols referenced:
   - IsBuiltinBooleanOpfamily
   - IsA
-  - equal
-  - makeBoolConst
-  - is_notclause
-  - get_notclausearg
-  - negate_clause
+  - [equal](../e/equal.md)
+  - [makeBoolConst](makeBoolConst.md)
+  - [is_notclause](../i/is_notclause.md)
+  - [get_notclausearg](../g/get_notclausearg.md)
+  - [negate_clause](../n/negate_clause.md)
 - Called from (representative examples):
-  - match_clause_to_partition_key
+  - [match_clause_to_partition_key](match_clause_to_partition_key.md)
 
 ## Notes and Other Information
 - Returns PARTCLAUSE_MATCH_CLAUSE for "IS [NOT] (TRUE|FALSE)" clauses

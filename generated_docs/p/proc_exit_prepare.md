@@ -17,11 +17,11 @@ proc_exit_prepare implements the critical phase of process termination where all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shmem_exit
+  - [shmem_exit](../s/shmem_exit.md)
   - elog (for debugging)
 - Called from (representative examples):
-  - proc_exit (normal termination path)
-  - atexit_callback (emergency termination path)
+  - [proc_exit](proc_exit.md) (normal termination path)
+  - [atexit_callback](../a/atexit_callback.md) (emergency termination path)
 
 ## Notes and Other Information
 - Declared as static, only accessible within the same source file

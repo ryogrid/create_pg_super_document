@@ -19,16 +19,16 @@ This function computes the complex multiplication of two Point structures by tre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_construct
-  - float8_mul
-  - float8_mi
-  - float8_pl
-  - Point (data type)
+  - [point_construct](point_construct.md)
+  - [float8_mul](../f/float8_mul.md)
+  - [float8_mi](../f/float8_mi.md)
+  - [float8_pl](../f/float8_pl.md)
+  - [Point](../P/Point.md) (data type)
 - Called from (representative examples):
-  - point_mul
-  - box_mul
-  - path_mul_pt
-  - circle_mul_pt
+  - [point_mul](point_mul.md)
+  - [box_mul](../b/box_mul.md)
+  - [path_mul_pt](path_mul_pt.md)
+  - [circle_mul_pt](../c/circle_mul_pt.md)
 
 ## Notes and Other Information
 - This is a static inline function for internal use within the geometric operations module

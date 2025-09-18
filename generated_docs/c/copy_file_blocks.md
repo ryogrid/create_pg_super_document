@@ -24,11 +24,11 @@ The `copy_file_blocks` function implements a straightforward block-by-block file
   - `read` - System call for reading data
   - `write` - System call for writing data
   - `pg_checksum_update` - Updates checksum with copied data
-  - `pg_free` - PostgreSQL memory deallocation
+  - `[pg_free](../p/pg_free.md)` - PostgreSQL memory deallocation
   - `close` - System call for file closing
   - `pg_file_create_mode` - File creation permissions
 - Called from:
-  - `copy_file` (src/bin/pg_combinebackup/copy_file.c:84) - as COPY_METHOD_COPY strategy
+  - `[copy_file](copy_file.md)` (src/bin/pg_combinebackup/copy_file.c:84) - as COPY_METHOD_COPY strategy
 
 ## Notes and Other Information
 - Uses 50-block buffer size (50 * BLCKSZ) for I/O efficiency

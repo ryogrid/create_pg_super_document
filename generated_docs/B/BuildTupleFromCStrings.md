@@ -22,20 +22,20 @@ After converting all string values to Datums and determining their null status, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - TupleDescAttr
-  - InputFunctionCall
-  - heap_form_tuple
-  - pfree
+  - [InputFunctionCall](../I/InputFunctionCall.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [pfree](../p/pfree.md)
 
 - Called from (representative examples):
-  - mxact
-  - libpqrcv_processTuples
-  - tt_process_call
-  - prs_process_call
-  - pg_get_keywords
-  - ts_process_call
-  - show_all_settings
+  - [mxact](../m/mxact.md)
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
+  - [tt_process_call](../t/tt_process_call.md)
+  - [prs_process_call](../p/prs_process_call.md)
+  - [pg_get_keywords](../p/pg_get_keywords.md)
+  - [ts_process_call](../t/ts_process_call.md)
+  - [show_all_settings](../s/show_all_settings.md)
   - pltcl_build_tuple_result
 
 ## Notes and Other Information

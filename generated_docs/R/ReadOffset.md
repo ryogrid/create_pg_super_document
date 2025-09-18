@@ -18,14 +18,14 @@ ReadOffset is the counterpart to WriteOffset, reading a PostgreSQL file offset f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadInt (for backward compatibility with older archive versions)
+  - [ReadInt](ReadInt.md) (for backward compatibility with older archive versions)
   - pgoff_t (PostgreSQL offset type)
   - K_VERS_1_7, K_OFFSET_POS_NOT_SET, K_OFFSET_NO_DATA, K_OFFSET_POS_SET (archive format constants)
   - AH->ReadBytePtr (function pointer for reading single bytes)
-  - pg_fatal (error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting function)
 - Called from (representative examples):
   - appendByteaLiteralAHX
-  - _ReadExtraToc
+  - [_ReadExtraToc](_ReadExtraToc.md)
 
 ## Notes and Other Information
 - Returns status flags: K_OFFSET_POS_SET, K_OFFSET_POS_NOT_SET, or K_OFFSET_NO_DATA

@@ -27,17 +27,17 @@ This function serves as the entry point for window function run condition optimi
   - IsA (type checking macro)
   - list_length (list utility function)
   - set_opfuncid (set operator function ID)
-  - func_strict (check if function is strict)
+  - [func_strict](../f/func_strict.md) (check if function is strict)
   - linitial (get first list element)
   - lsecond (get second list element)
-  - list_nth (get nth list element)
-  - find_window_run_conditions (analyze specific window function)
+  - [list_nth](../l/list_nth.md) (get nth list element)
+  - [find_window_run_conditions](../f/find_window_run_conditions.md) (analyze specific window function)
   - OpExpr (struct type)
   - Var (struct type)
-  - TargetEntry (struct type)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
   - WindowFunc (struct type)
 - Called from (representative examples):
-  - set_subquery_pathlist
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within allpaths.c

@@ -22,7 +22,7 @@ SH_PREV is a macro that generates a function name for moving to the previous buc
   - tb->sizemask (bitmask for efficient wraparound)
   - Assert (assertion macro for debugging)
 - Called from (representative examples):
-  - SH_INSERT_HASH_INTERNAL (when performing backward probing during insertion)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (when performing backward probing during insertion)
 
 ## Notes and Other Information
 - Uses (curelem - 1) & tb->sizemask for efficient wraparound without expensive modulo operations

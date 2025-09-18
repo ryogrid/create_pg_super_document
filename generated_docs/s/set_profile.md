@@ -27,10 +27,10 @@ The function follows PostgreSQL's configuration precedence where local directory
   - snprintf (standard C library)
   - getenv (standard C library) 
   - fopen (standard C library)
-  - scan_profile (processes the opened profile file)
+  - [scan_profile](scan_profile.md) (processes the opened profile file)
   - fclose (standard C library)
 - Called from (representative examples):
-  - main (src/tools/pg_bsd_indent/indent.c:189)
+  - [main](../m/main.md) (src/tools/pg_bsd_indent/indent.c:189)
 
 ## Notes and Other Information
 - Uses MAXPGPATH constant for buffer sizing to ensure safe string operations

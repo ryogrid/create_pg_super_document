@@ -20,7 +20,7 @@ SpGistOptions is a configuration structure used to store index-specific options 
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - spgoptions (in src/backend/access/spgist/spgutils.c)
+  - [spgoptions](../s/spgoptions.md) (in src/backend/access/spgist/spgutils.c)
   - SpGistGetFillFactor (in src/include/access/spgist_private.h)
 
 ## Notes and Other Information

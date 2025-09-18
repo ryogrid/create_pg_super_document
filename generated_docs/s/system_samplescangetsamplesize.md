@@ -28,14 +28,14 @@ This function is responsible for calculating how many pages and tuples the SYSTE
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial (gets first element from parameter list)
-  - estimate_expression_value (evaluates expression to get constant value)
+  - [estimate_expression_value](../e/estimate_expression_value.md) (evaluates expression to get constant value)
   - IsA (type checking macro)
-  - DatumGetFloat4 (extracts float4 value from Datum)
+  - [DatumGetFloat4](../D/DatumGetFloat4.md) (extracts float4 value from Datum)
   - isnan (checks for NaN values)
-  - clamp_row_est (clamps row estimates to valid ranges)
+  - [clamp_row_est](../c/clamp_row_est.md) (clamps row estimates to valid ranges)
 - Called from (representative examples):
-  - tsm_system_handler (as function pointer in TsmRoutine)
-  - Query planner during sampling cost estimation
+  - [tsm_system_handler](../t/tsm_system_handler.md) (as function pointer in TsmRoutine)
+  - [Query](../Q/Query.md) planner during sampling cost estimation
 
 ## Notes and Other Information
 - Uses a default sampling fraction of 0.1 (10%) when the parameter cannot be evaluated or is invalid

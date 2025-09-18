@@ -19,12 +19,12 @@ The function creates a hash table using the  as the key and  as the entry struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - AllocSetContextCreate  
   - MemoryContextAllowInCriticalSection
-  - hash_create
-  - on_shmem_exit
-  - print_lwlock_stats
+  - [hash_create](../h/hash_create.md)
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [print_lwlock_stats](../p/print_lwlock_stats.md)
 - Types referenced:
   - HASHCTL
   - lwlock_stats_key

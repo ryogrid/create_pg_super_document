@@ -27,16 +27,16 @@ Rules are closely associated with PostgreSQL's view system, where ON SELECT rule
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (inherited base structure)
-  - TableInfo (referenced via ruletable pointer)
+  - [TableInfo](../T/TableInfo.md) (referenced via ruletable pointer)
 - Called from (representative examples):
-  - getRules (creates and populates RuleInfo structures)
-  - dumpRule (generates CREATE RULE commands)
-  - repairViewRuleMultiLoop (handles circular dependencies in view rules)
-  - repairDependencyLoop (resolves rule-related dependency cycles)
-  - addBoundaryDependencies (manages rule dependencies)
+  - [getRules](../g/getRules.md) (creates and populates RuleInfo structures)
+  - [dumpRule](../d/dumpRule.md) (generates CREATE RULE commands)
+  - [repairViewRuleMultiLoop](../r/repairViewRuleMultiLoop.md) (handles circular dependencies in view rules)
+  - [repairDependencyLoop](../r/repairDependencyLoop.md) (resolves rule-related dependency cycles)
+  - [addBoundaryDependencies](../a/addBoundaryDependencies.md) (manages rule dependencies)
 
 ## Notes and Other Information
-- RuleInfo objects are created during schema discovery by getRules()
+- [RuleInfo](RuleInfo.md) objects are created during schema discovery by getRules()
 - ON SELECT rules for views are typically not dumped separately but are recreated implicitly with CREATE VIEW
 - INSTEAD rules are commonly used to make views updatable by defining how INSERT/UPDATE/DELETE operations should be handled
 - The ev_enabled field supports PostgreSQL's rule enabling/disabling mechanism for replication scenarios

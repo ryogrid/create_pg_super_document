@@ -27,16 +27,16 @@ The function stops as soon as it finds a difference between the tuples on any so
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - TupIsNull
   - slot_getattr
-  - ApplySortComparator
+  - [ApplySortComparator](../A/ApplySortComparator.md)
   - INVERT_COMPARE_RESULT
-  - GatherMergeState
+  - [GatherMergeState](../G/GatherMergeState.md)
   - SlotNumber
   - SortSupport
 - Called from (representative examples):
-  - gather_merge_setup
+  - [gather_merge_setup](../g/gather_merge_setup.md)
   - ExecInitMergeAppend (in nodeMergeAppend.c)
 
 ## Notes and Other Information

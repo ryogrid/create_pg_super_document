@@ -29,24 +29,24 @@ For some relation types (subqueries, CTEs, named tuplestores, result relations),
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_excluded_by_constraints
-  - set_dummy_rel_pathlist
-  - set_append_rel_size
-  - set_foreign_size
-  - set_tablesample_rel_size
-  - set_plain_rel_size
-  - set_subquery_pathlist
-  - set_function_size_estimates
-  - set_tablefunc_size_estimates
-  - set_values_size_estimates
-  - set_worktable_pathlist
-  - set_cte_pathlist
-  - set_namedtuplestore_pathlist
-  - set_result_pathlist
+  - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md)
+  - [set_dummy_rel_pathlist](set_dummy_rel_pathlist.md)
+  - [set_append_rel_size](set_append_rel_size.md)
+  - [set_foreign_size](set_foreign_size.md)
+  - [set_tablesample_rel_size](set_tablesample_rel_size.md)
+  - [set_plain_rel_size](set_plain_rel_size.md)
+  - [set_subquery_pathlist](set_subquery_pathlist.md)
+  - [set_function_size_estimates](set_function_size_estimates.md)
+  - [set_tablefunc_size_estimates](set_tablefunc_size_estimates.md)
+  - [set_values_size_estimates](set_values_size_estimates.md)
+  - [set_worktable_pathlist](set_worktable_pathlist.md)
+  - [set_cte_pathlist](set_cte_pathlist.md)
+  - [set_namedtuplestore_pathlist](set_namedtuplestore_pathlist.md)
+  - [set_result_pathlist](set_result_pathlist.md)
   - Various RTE type constants (RTE_RELATION, RTE_SUBQUERY, etc.)
 - Called from (representative examples):
-  - set_base_rel_sizes
-  - set_append_rel_size
+  - [set_base_rel_sizes](set_base_rel_sizes.md)
+  - [set_append_rel_size](set_append_rel_size.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/allpaths.c:360-468

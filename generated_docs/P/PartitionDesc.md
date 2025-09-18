@@ -30,15 +30,15 @@ The caching fields (last_found_*) provide significant performance improvements f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PartitionDescData (underlying structure)
-  - PartitionBoundInfo (partition boundary information)
+  - [PartitionBoundInfo](PartitionBoundInfo.md) (partition boundary information)
   - Oid (object identifier for partitions)
 
 - Called from (representative examples):
-  - RelationGetPartitionDesc/RelationBuildPartitionDesc (descriptor construction and caching)
-  - ExecFindPartition (tuple routing during INSERT/UPDATE)
-  - CreatePartitionPruneState (partition pruning setup)
-  - get_partition_for_tuple (runtime partition selection)
-  - expand_partitioned_rtentry (planner partition expansion)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)/RelationBuildPartitionDesc (descriptor construction and caching)
+  - [ExecFindPartition](../E/ExecFindPartition.md) (tuple routing during INSERT/UPDATE)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md) (partition pruning setup)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md) (runtime partition selection)
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md) (planner partition expansion)
 
 ## Notes and Other Information
 - Cached in relation descriptor for repeated access during operations

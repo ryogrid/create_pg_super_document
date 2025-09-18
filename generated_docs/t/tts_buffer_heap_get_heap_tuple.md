@@ -23,10 +23,10 @@ After this function returns, the caller can be confident that the slot contains 
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (cast to access slot-specific fields)
   - TTS_EMPTY (assertion check to ensure slot is not empty)
-  - tts_buffer_heap_materialize (materializes virtual tuples when needed)
+  - [tts_buffer_heap_materialize](tts_buffer_heap_materialize.md) (materializes virtual tuples when needed)
 
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the slot is not empty before attempting to access tuple data

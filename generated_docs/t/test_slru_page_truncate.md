@@ -22,7 +22,7 @@ The truncation operation is atomic and ensures that the SLRU remains in a consis
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT64`: Extracts the int64 argument from function call
-  - `SimpleLruTruncate`: Performs the truncation operation on the SLRU
+  - `[SimpleLruTruncate](../S/SimpleLruTruncate.md)`: Performs the truncation operation on the SLRU
   - `TestSlruCtl`: The test SLRU control structure
   - `PG_RETURN_VOID`: Returns void to SQL
 - Called from (representative examples):

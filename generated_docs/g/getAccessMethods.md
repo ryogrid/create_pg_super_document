@@ -20,14 +20,14 @@ The getAccessMethods function is part of pg_dump's catalog scanning infrastructu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - AssignDumpId
-  - selectDumpableAccessMethod
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [selectDumpableAccessMethod](../s/selectDumpableAccessMethod.md)
   - pg_malloc
   - atooid
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Handles version compatibility between PostgreSQL 9.6+ (which introduced CREATE ACCESS METHOD) and earlier versions

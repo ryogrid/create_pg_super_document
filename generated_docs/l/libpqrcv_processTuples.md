@@ -23,19 +23,19 @@ This function serves as a bridge between libpq query results and PostgreSQL's in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields/PQntuples: libpq functions to get result dimensions
-  - PQfname: libpq function to get column names from results
-  - PQgetisnull/PQgetvalue: libpq functions to extract field values and NULL status
+  - [PQnfields](../P/PQnfields.md)/PQntuples: libpq functions to get result dimensions
+  - [PQfname](../P/PQfname.md): libpq function to get column names from results
+  - [PQgetisnull](../P/PQgetisnull.md)/PQgetvalue: libpq functions to extract field values and NULL status
   - tuplestore_begin_heap: PostgreSQL function to create a new tuplestore
-  - CreateTemplateTupleDesc: PostgreSQL function to create tuple descriptor template
-  - TupleDescInitEntry: PostgreSQL function to initialize tuple descriptor attributes
-  - TupleDescGetAttInMetadata: PostgreSQL function to build metadata for tuple conversion
-  - BuildTupleFromCStrings: PostgreSQL function to construct tuples from C string arrays
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md): PostgreSQL function to create tuple descriptor template
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md): PostgreSQL function to initialize tuple descriptor attributes
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md): PostgreSQL function to build metadata for tuple conversion
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md): PostgreSQL function to construct tuples from C string arrays
   - tuplestore_puttuple: PostgreSQL function to add tuples to tuplestore
   - AllocSetContextCreate/MemoryContextSwitchTo: PostgreSQL memory management functions
-  - ProcessWalRcvInterrupts: WAL receiver interrupt processing function
+  - [ProcessWalRcvInterrupts](../P/ProcessWalRcvInterrupts.md): WAL receiver interrupt processing function
 - Called from (representative examples):
-  - libpqrcv_exec: Main query execution function that processes different result types
+  - [libpqrcv_exec](libpqrcv_exec.md): Main query execution function that processes different result types
 
 ## Notes and Other Information
 - This is a static function, accessible only within libpqwalreceiver.c

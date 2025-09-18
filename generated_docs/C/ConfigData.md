@@ -45,10 +45,10 @@ The ConfigData structure is typically used in arrays, with functions like  popul
 ## Dependencies
 - Functions called/Symbols referenced: None (simple struct definition)
 - Called from (representative examples):
-  - get_configdata (src/common/config_info.c:35, 42)
-  - show_item (src/bin/pg_config/pg_config.c:117)
-  - main (src/bin/pg_config/pg_config.c:132)
-  - pg_config (src/backend/utils/misc/pg_config.c:27)
+  - [get_configdata](../g/get_configdata.md) (src/common/config_info.c:35, 42)
+  - [show_item](../s/show_item.md) (src/bin/pg_config/pg_config.c:117)
+  - [main](../m/main.md) (src/bin/pg_config/pg_config.c:132)
+  - [pg_config](../p/pg_config.md) (src/backend/utils/misc/pg_config.c:27)
 
 ## Notes and Other Information
 - Defined in  as part of the common configuration information interface

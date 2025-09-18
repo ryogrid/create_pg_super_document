@@ -23,7 +23,7 @@ The function implements a safe linked list removal by maintaining a pointer to t
   - strcmp (string comparison function)
   - free (memory deallocation function)
   - mmerror (error reporting function)
-  - descriptor (struct type)
+  - [descriptor](descriptor.md) (struct type)
   - PARSE_ERROR, ET_WARNING (error reporting constants)
 - Called from (representative examples):
   - Grammar rules in ecpg.trailer for descriptor cleanup

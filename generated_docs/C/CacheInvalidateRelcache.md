@@ -19,16 +19,16 @@ The function extracts the relation OID from the relation structure and determine
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareInvalidationState
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
   - RelationGetRelid (macro)
-  - RegisterRelcacheInvalidation
+  - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)
 - Called from (representative examples):
   - index_create
-  - index_drop
-  - SetRelationNumChecks
-  - RemoveTriggerById
-  - CreatePolicy
-  - AlterPolicy
+  - [index_drop](../i/index_drop.md)
+  - [SetRelationNumChecks](../S/SetRelationNumChecks.md)
+  - [RemoveTriggerById](../R/RemoveTriggerById.md)
+  - [CreatePolicy](CreatePolicy.md)
+  - [AlterPolicy](../A/AlterPolicy.md)
 
 ## Notes and Other Information
 - This function handles both shared and database-specific relations by checking the relisshared flag

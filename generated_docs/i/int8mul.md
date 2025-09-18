@@ -20,13 +20,13 @@ This function performs multiplication of two 64-bit signed integer arguments. It
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro for extracting int64 arguments)
-  - pg_mul_s64_overflow (overflow-safe multiplication function)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (overflow-safe multiplication function)
   - PG_RETURN_INT64 (macro for returning int64 result)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - int4_cash (currency conversion function)
-  - int8_cash (currency conversion function) 
-  - int8_to_char (formatting function)
+  - [int4_cash](int4_cash.md) (currency conversion function)
+  - [int8_cash](int8_cash.md) (currency conversion function) 
+  - [int8_to_char](int8_to_char.md) (formatting function)
 
 ## Notes and Other Information
 - Uses pg_mul_s64_overflow for safe arithmetic that detects overflow conditions before they occur

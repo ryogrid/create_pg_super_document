@@ -21,11 +21,11 @@ The `cost_functionscan` function calculates the cost of scanning a table-valued 
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - cost_qual_eval_node
-  - get_restriction_qual_cost
+  - [cost_qual_eval_node](cost_qual_eval_node.md)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md)
   - RTE_FUNCTION (constant)
 - Called from (representative examples):
-  - create_functionscan_path
+  - [create_functionscan_path](create_functionscan_path.md)
 
 ## Notes and Other Information
 - Only applies to base relations that are functions (RTE_FUNCTION)

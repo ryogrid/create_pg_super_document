@@ -34,13 +34,13 @@ The function skips dropped columns and generated columns, and only processes col
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
   - TupleDescAttr
-  - build_column_default
-  - expression_planner
-  - ExecInitExpr
+  - [build_column_default](../b/build_column_default.md)
+  - [expression_planner](../e/expression_planner.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
   - ExecEvalExpr
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - apply_handle_insert
+  - [apply_handle_insert](../a/apply_handle_insert.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication worker

@@ -21,7 +21,7 @@ The `be_lo_lseek` function provides seeking functionality for PostgreSQL large o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inv_seek
+  - [inv_seek](../i/inv_seek.md)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function call mechanism)
 

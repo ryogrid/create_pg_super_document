@@ -30,20 +30,20 @@ The function balances performance optimization (avoiding unnecessary work on sub
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerData (struct for trigger context)
-  - StartTransactionCommand (begin transaction)
-  - EventTriggerCommonSetup (identifies applicable triggers, called twice)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (begin transaction)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers, called twice)
   - EVT_Login (event type constant)
   - GetTransactionSnapshot/PushActiveSnapshot/PopActiveSnapshot (snapshot management)
-  - EventTriggerInvoke (executes the triggers)
-  - ConditionalLockSharedObject (non-blocking lock acquisition)
+  - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
+  - [ConditionalLockSharedObject](../C/ConditionalLockSharedObject.md) (non-blocking lock acquisition)
   - AccessExclusiveLock (lock type for database metadata)
   - Form_pg_database (database catalog structure)
-  - systable_inplace_update_begin/finish/cancel (atomic flag updates)
-  - heap_freetuple (memory cleanup)
-  - list_free (memory cleanup)
-  - CommitTransactionCommand (commit transaction)
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)/finish/cancel (atomic flag updates)
+  - [heap_freetuple](../h/heap_freetuple.md) (memory cleanup)
+  - [list_free](../l/list_free.md) (memory cleanup)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commit transaction)
 - Called from (representative examples):
-  - PostgresMain (database connection setup)
+  - [PostgresMain](../P/PostgresMain.md) (database connection setup)
 
 ## Notes and Other Information
 - Operates within its own transaction context unlike other event trigger functions

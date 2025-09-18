@@ -28,13 +28,13 @@ The function dynamically resizes the output array when needed using `repalloc`, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - repalloc (memory reallocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - memcpy (memory copying)
-  - plainnode (recursive self-call)
-  - pfree (memory deallocation)
+  - [plainnode](plainnode.md) (recursive self-call)
+  - [pfree](pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - plainnode (recursive calls)
-  - plaintree
+  - [plainnode](plainnode.md) (recursive calls)
+  - [plaintree](plaintree.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search query cleanup and optimization system

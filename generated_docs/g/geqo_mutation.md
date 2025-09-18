@@ -27,10 +27,10 @@ This function is conditionally compiled and only available when the CX (Cycle Cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geqo_randint: Generates random integers within specified ranges using the GEQO random state
+  - [geqo_randint](geqo_randint.md): Generates random integers within specified ranges using the GEQO random state
   - Gene: Typedef for int, representing a relation identifier in the genetic algorithm
 - Called from (representative examples):
-  - geqo: Main GEQO algorithm in geqo_main.c:206
+  - [geqo](geqo.md): Main GEQO algorithm in geqo_main.c:206
 
 ## Notes and Other Information
 - This function is only compiled when CX (Cycle Crossover) mode is enabled through preprocessor definitions

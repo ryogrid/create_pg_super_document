@@ -26,18 +26,18 @@ This function converts a textual snapshot representation (in the format "xmin:xm
   - FullTransactionIdPrecedes
   - FullTransactionIdFollowsOrEquals
   - FullTransactionIdEquals
-  - buf_init
-  - buf_add_txid
-  - buf_finalize
+  - [buf_init](../b/buf_init.md)
+  - [buf_add_txid](../b/buf_add_txid.md)
+  - [buf_finalize](../b/buf_finalize.md)
   - ereturn
 - Types referenced:
   - FullTransactionId
   - InvalidFullTransactionId
-  - pg_snapshot
-  - Node
+  - [pg_snapshot](pg_snapshot.md)
+  - [Node](../N/Node.md)
   - StringInfo
 - Called from (representative examples):
-  - pg_snapshot_in
+  - [pg_snapshot_in](pg_snapshot_in.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/xid8funcs.c

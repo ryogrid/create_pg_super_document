@@ -27,14 +27,14 @@ The structure tracks both general information about all entries being split (tot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (geometric data type)
+  - [BOX](../B/BOX.md) (geometric data type)
   - float8, float4 (PostgreSQL numeric types)
   - int, bool (standard types)
 - Called from (representative examples):
-  - g_box_consider_split
-  - gist_box_picksplit
-  - range_gist_consider_split
-  - range_gist_double_sorting_split
+  - [g_box_consider_split](../g/g_box_consider_split.md)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md)
+  - [range_gist_consider_split](../r/range_gist_consider_split.md)
+  - [range_gist_double_sorting_split](../r/range_gist_double_sorting_split.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's implementation of an advanced R-tree node splitting algorithm that aims to minimize overlap between sibling pages while maintaining balanced distribution of entries. The algorithm considers splits along both X and Y axes and uses double sorting to efficiently evaluate split quality. The context structure allows the algorithm to maintain state across multiple split evaluations and select the optimal split based on combined metrics of overlap, ratio, and spatial distribution. This is particularly important for maintaining good query performance in GiST indexes used for geometric and range data types.

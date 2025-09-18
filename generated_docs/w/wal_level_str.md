@@ -28,9 +28,9 @@ The function handles the three main WAL levels:
   - WAL_LEVEL_LOGICAL constant
   - _() macro for internationalization (for error case)
 - Called from (representative examples):
-  - main function in pg_controldata.c for displaying control file WAL level
-  - get_wal_level_string function in xlogdesc.c for WAL record descriptions
-  - xlog_desc function in xlogdesc.c for WAL record formatting
+  - [main](../m/main.md) function in pg_controldata.c for displaying control file WAL level
+  - [get_wal_level_string](../g/get_wal_level_string.md) function in xlogdesc.c for WAL record descriptions
+  - [xlog_desc](../x/xlog_desc.md) function in xlogdesc.c for WAL record formatting
 
 ## Notes and Other Information
 - This is a static function local to pg_controldata.c

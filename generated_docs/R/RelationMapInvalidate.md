@@ -18,11 +18,11 @@ The  function is part of PostgreSQL's shared invalidation system, responsible fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELMAPPER_FILEMAGIC (constant)
-  - load_relmap_file (function)
+  - [load_relmap_file](../l/load_relmap_file.md) (function)
   - shared_map (global variable)
   - local_map (global variable)
 - Called from (representative examples):
-  - LocalExecuteInvalidationMessage
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
   - MinSizeOfRelmapUpdate (referenced in header)
 
 ## Notes and Other Information

@@ -39,13 +39,13 @@ The structure tracks both metadata (function name, type information, flags) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_interp_desc (interpreter reference)
+  - [plperl_interp_desc](plperl_interp_desc.md) (interpreter reference)
 - Called from (representative examples):
-  - compile_plperl_function (function compilation)
-  - plperl_call_perl_func (function execution)
-  - plperl_trigger_handler (trigger execution)
-  - free_plperl_function (cleanup)
-  - validate_plperl_function (validation)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation)
+  - [plperl_call_perl_func](plperl_call_perl_func.md) (function execution)
+  - [plperl_trigger_handler](plperl_trigger_handler.md) (trigger execution)
+  - [free_plperl_function](../f/free_plperl_function.md) (cleanup)
+  - [validate_plperl_function](../v/validate_plperl_function.md) (validation)
 
 ## Notes and Other Information
 - Reference counting enables safe sharing of compiled procedures across multiple call sites

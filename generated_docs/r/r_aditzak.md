@@ -32,14 +32,14 @@ The function performs sophisticated morphological analysis by checking bit patte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward suffix pattern matching)
-  - r_RV (RV region boundary check)
-  - r_R2 (R2 region boundary check)  
-  - slice_del (suffix deletion)
-  - slice_from_s (suffix replacement)
+  - [find_among_b](../f/find_among_b.md) (backward suffix pattern matching)
+  - [r_RV](r_RV.md) (RV region boundary check)
+  - [r_R2](r_R2.md) (R2 region boundary check)  
+  - [slice_del](../s/slice_del.md) (suffix deletion)
+  - [slice_from_s](../s/slice_from_s.md) (suffix replacement)
 - Called from (representative examples):
-  - basque_ISO_8859_1_stem (main Basque stemming function)
-  - basque_UTF_8_stem (UTF-8 variant)
+  - [basque_ISO_8859_1_stem](../b/basque_ISO_8859_1_stem.md) (main Basque stemming function)
+  - [basque_UTF_8_stem](../b/basque_UTF_8_stem.md) (UTF-8 variant)
 
 ## Notes and Other Information
 - Returns 1 on successful processing, 0 if no matching suffix found

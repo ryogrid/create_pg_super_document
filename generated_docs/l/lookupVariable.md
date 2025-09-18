@@ -22,15 +22,15 @@ The `lookupVariable` function provides efficient variable lookup functionality i
 - Functions called/Symbols referenced:
   - qsort (standard C library sorting function)
   - bsearch (standard C library binary search function)
-  - compareVariableNames (custom comparator for Variable structures)
+  - [compareVariableNames](../c/compareVariableNames.md) (custom comparator for Variable structures)
 - Data types used:
-  - Variables (structure containing variable array and sorting metadata)
-  - Variable (individual variable structure with name field)
+  - [Variables](../V/Variables.md) (structure containing variable array and sorting metadata)
+  - [Variable](../V/Variable.md) (individual variable structure with name field)
 - Called from (representative examples):
-  - getVariable (variable access function)
-  - lookupCreateVariable (variable creation/lookup function)
-  - evaluateExpr (expression evaluation)
-  - main (command-line variable processing)
+  - [getVariable](../g/getVariable.md) (variable access function)
+  - [lookupCreateVariable](lookupCreateVariable.md) (variable creation/lookup function)
+  - [evaluateExpr](../e/evaluateExpr.md) (expression evaluation)
+  - [main](../m/main.md) (command-line variable processing)
 
 ## Notes and Other Information
 - Implements lazy sorting strategy - only sorts when vars_sorted flag is false

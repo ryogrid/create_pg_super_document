@@ -21,12 +21,12 @@ The structure follows PostgreSQL's index access method convention where scan-spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinRevmap
-  - BrinDesc
+  - [BrinRevmap](BrinRevmap.md)
+  - [BrinDesc](BrinDesc.md)
 - Called from (representative examples):
-  - brinbeginscan
-  - bringetbitmap
-  - brinendscan
+  - [brinbeginscan](../b/brinbeginscan.md)
+  - [bringetbitmap](../b/bringetbitmap.md)
+  - [brinendscan](../b/brinendscan.md)
 
 ## Notes and Other Information
 This structure is allocated during brinbeginscan and freed during brinendscan, maintaining scan state throughout the index scan lifecycle. The opaque structure pattern allows the generic index scan infrastructure to work with BRIN-specific data without knowing the internal details. All three fields are essential for proper BRIN scan operation and are initialized once at scan start to avoid repeated setup overhead.

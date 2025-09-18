@@ -25,15 +25,15 @@ The function uses defensive programming practices with proper error handling - i
 ## Dependencies
 - Functions called/Symbols referenced:
   - calloc (memory allocation)
-  - create_s (creates symbol structures)
-  - SN_close_env (cleanup on error)
+  - [create_s](../c/create_s.md) (creates symbol structures)
+  - [SN_close_env](SN_close_env.md) (cleanup on error)
   - symbol (type reference)
 
 - Called from (representative examples):
   - Language-specific environment creation functions across all Snowball stemmers
-  - basque_ISO_8859_1_create_env
-  - english_UTF_8_create_env
-  - german_UTF_8_create_env
+  - [basque_ISO_8859_1_create_env](../b/basque_ISO_8859_1_create_env.md)
+  - [english_UTF_8_create_env](../e/english_UTF_8_create_env.md)
+  - [german_UTF_8_create_env](../g/german_UTF_8_create_env.md)
   - (and 40+ other language-specific stemmer initialization functions)
 
 ## Notes and Other Information

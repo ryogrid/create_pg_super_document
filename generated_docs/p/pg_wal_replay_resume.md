@@ -26,9 +26,9 @@ Unlike pg_wal_replay_pause(), this function does not need to wake up the recover
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress: Checks if database is in recovery mode
-  - PromoteIsTriggered: Checks if standby promotion is ongoing
-  - SetRecoveryPause: Sets the recovery pause state to false (resume)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if database is in recovery mode
+  - [PromoteIsTriggered](../P/PromoteIsTriggered.md): Checks if standby promotion is ongoing
+  - [SetRecoveryPause](../S/SetRecoveryPause.md): Sets the recovery pause state to false (resume)
   - PG_RETURN_VOID: Returns void from SQL function
 
 ## Notes and Other Information

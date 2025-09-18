@@ -28,10 +28,10 @@ Checksum failures indicate potential hardware issues, storage corruption, or oth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DataChecksumsEnabled
-  - pgstat_fetch_stat_dbentry
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
+  - [pgstat_fetch_stat_dbentry](pgstat_fetch_stat_dbentry.md)
 - Data types used:
-  - PgStat_StatDBEntry
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
 
 ## Notes and Other Information
 - Returns NULL if data checksums are not enabled for the PostgreSQL cluster

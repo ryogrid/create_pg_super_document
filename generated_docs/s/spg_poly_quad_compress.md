@@ -21,9 +21,9 @@ This function implements the compression step for SP-GiST quadtree indexes on po
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (macro for extracting polygon argument)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - PG_RETURN_BOX_P (macro for returning box result)
-  - POLYGON, BOX (data type structures)
+  - [POLYGON](../P/POLYGON.md), BOX (data type structures)
 - Called from (representative examples):
   - Used as SP-GiST compress function in polygon operator class definitions
 

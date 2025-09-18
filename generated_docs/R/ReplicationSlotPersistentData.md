@@ -98,15 +98,15 @@ This structure contains all the critical state information for a replication slo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NameData (for name and plugin fields)
+  - [NameData](../N/NameData.md) (for name and plugin fields)
   - ReplicationSlotPersistency (for persistency behavior)
-  - ReplicationSlotInvalidationCause (for invalidation status)
+  - [ReplicationSlotInvalidationCause](ReplicationSlotInvalidationCause.md) (for invalidation status)
 - Called from (representative examples):
-  - ReplicationSlotOnDisk
-  - ReplicationSlotCreate
-  - SaveSlotToPath
-  - RestoreSlotFromDisk
-  - ReplicationSlot
+  - [ReplicationSlotOnDisk](ReplicationSlotOnDisk.md)
+  - [ReplicationSlotCreate](ReplicationSlotCreate.md)
+  - [SaveSlotToPath](../S/SaveSlotToPath.md)
+  - [RestoreSlotFromDisk](RestoreSlotFromDisk.md)
+  - [ReplicationSlot](ReplicationSlot.md)
 
 ## Notes and Other Information
 This structure is designed for disk serialization and must maintain binary compatibility across PostgreSQL versions for upgrade scenarios. The xmin and catalog_xmin values may represent uncommitted state that hasn't been written to disk yet, requiring careful handling during persistence operations. The structure supports both physical and logical replication scenarios, with logical-specific fields like plugin name and two-phase commit settings.

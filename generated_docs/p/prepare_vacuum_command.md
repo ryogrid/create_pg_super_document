@@ -43,13 +43,13 @@ The function uses version checks to ensure compatibility, as different options w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - appendPQExpBufferChar
   - vacuumingOptions (structure)
 - Called from:
-  - vacuum_one_database
+  - [vacuum_one_database](../v/vacuum_one_database.md)
 
 ## Notes and Other Information
 - The function is static and only used within vacuumdb.c

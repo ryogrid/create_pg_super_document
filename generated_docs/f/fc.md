@@ -19,7 +19,7 @@ The `fc` function is a test function that takes a constant string pointer parame
 - Functions called/Symbols referenced:
   - printf (standard C library function)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/test/expected/preproc-init.c:230)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-init.c:230)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within its compilation unit

@@ -20,11 +20,11 @@ This function provides a simplified interface to getObjectDescription by accepti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getObjectDescription (the main implementation function)
+  - [getObjectDescription](getObjectDescription.md) (the main implementation function)
 
 - Called from (representative examples):
-  - AlterObjectRename_internal (object renaming operations)
-  - AlterObjectNamespace_internal (namespace change operations)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (object renaming operations)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (namespace change operations)
   - ObjectAddressSet (object address construction helper)
 
 ## Notes and Other Information

@@ -23,16 +23,16 @@ The function is part of libpq's preferred modern connection API, offering better
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconnectStartParams
-  - pqConnectDBComplete
+  - [PQconnectStartParams](PQconnectStartParams.md)
+  - [pqConnectDBComplete](../p/pqConnectDBComplete.md)
   - CONNECTION_BAD (constant)
 
 - Called from (representative examples):
-  - GetConnection (pg_basebackup)
-  - ConnectDatabase (pg_dump)
-  - connectDatabase (pg_dumpall, fe_utils)
-  - ECPGconnect (ECPG interface)
-  - copy_connection (libpq_pipeline test module)
+  - [GetConnection](../G/GetConnection.md) (pg_basebackup)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (pg_dump)
+  - [connectDatabase](../c/connectDatabase.md) (pg_dumpall, fe_utils)
+  - [ECPGconnect](../E/ECPGconnect.md) (ECPG interface)
+  - [copy_connection](../c/copy_connection.md) (libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns a PGconn pointer that must be freed with PQfinish regardless of connection success

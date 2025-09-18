@@ -23,20 +23,20 @@ This function is essential during index creation and restoration operations, est
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinInitPage: Core page initialization with GIN_META flag
-  - BufferGetPage: Extracts page pointer from buffer
-  - BufferGetPageSize: Gets page size from buffer
+  - [GinInitPage](GinInitPage.md): Core page initialization with GIN_META flag
+  - [BufferGetPage](../B/BufferGetPage.md): Extracts page pointer from buffer
+  - [BufferGetPageSize](../B/BufferGetPageSize.md): Gets page size from buffer
   - GinPageGetMeta: Retrieves metadata structure from the page
-  - GinMetaPageData: Structure containing all GIN index metadata
+  - [GinMetaPageData](GinMetaPageData.md): Structure containing all GIN index metadata
   - GIN_META: Flag constant identifying this as a metapage
   - GIN_CURRENT_VERSION: Current version number for GIN indexes
   - PageHeader: PostgreSQL page header structure
 
 - Called from (representative examples):
-  - ginbuild: During initial index construction
-  - ginbuildempty: When creating empty GIN indexes
-  - ginRedoUpdateMetapage: During WAL replay for metapage updates
-  - ginRedoDeleteListPages: During WAL replay when cleaning up list pages
+  - [ginbuild](../g/ginbuild.md): During initial index construction
+  - [ginbuildempty](../g/ginbuildempty.md): When creating empty GIN indexes
+  - [ginRedoUpdateMetapage](../g/ginRedoUpdateMetapage.md): During WAL replay for metapage updates
+  - [ginRedoDeleteListPages](../g/ginRedoDeleteListPages.md): During WAL replay when cleaning up list pages
 
 ## Notes and Other Information
 - The metapage is always block 0 of a GIN index

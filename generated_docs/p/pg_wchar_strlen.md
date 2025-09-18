@@ -20,7 +20,7 @@ The implementation is optimized for simplicity and efficiency, using a straightf
 ## Dependencies
 - Functions called/Symbols referenced: None (implements basic length calculation)
 - Called from:
-  - pg_wchar2mb (src/backend/utils/mb/mbutils.c:1003)
+  - [pg_wchar2mb](pg_wchar2mb.md) (src/backend/utils/mb/mbutils.c:1003)
 
 ## Notes and Other Information
 - This is a utility function for wide character string operations in PostgreSQL's multibyte character support system

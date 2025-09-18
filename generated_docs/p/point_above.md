@@ -22,14 +22,14 @@ The function operates on the vertical axis and is part of a family of relational
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (data type)
+  - [Point](../P/Point.md) (data type)
   - PG_GETARG_POINT_P (macro for extracting Point arguments)
-  - FPgt (floating-point greater-than comparison function)
+  - [FPgt](../F/FPgt.md) (floating-point greater-than comparison function)
   - PG_RETURN_BOOL (macro for returning boolean result)
 - Called from (representative examples):
-  - getQuadrant (in spgquadtreeproc.c)
-  - spg_quad_inner_consistent (in spgquadtreeproc.c)
-  - spg_quad_leaf_consistent (in spgquadtreeproc.c)
+  - [getQuadrant](../g/getQuadrant.md) (in spgquadtreeproc.c)
+  - [spg_quad_inner_consistent](../s/spg_quad_inner_consistent.md) (in spgquadtreeproc.c)
+  - [spg_quad_leaf_consistent](../s/spg_quad_leaf_consistent.md) (in spgquadtreeproc.c)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:1919-1927

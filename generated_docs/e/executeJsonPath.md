@@ -38,26 +38,26 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPathExecContext (execution context structure)
-  - JsonPathExecResult (return type enumeration)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (execution context structure)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (return type enumeration)
   - JsonPathItem (path parsing structure)
-  - JsonbValue (JSONB value representation)
-  - jspInit (JSONPath parser initialization)
-  - JsonbExtractScalar (JSONB scalar extraction)
-  - JsonbInitBinary (JSONB binary initialization)
+  - [JsonbValue](../J/JsonbValue.md) (JSONB value representation)
+  - [jspInit](../j/jspInit.md) (JSONPath parser initialization)
+  - [JsonbExtractScalar](../J/JsonbExtractScalar.md) (JSONB scalar extraction)
+  - [JsonbInitBinary](../J/JsonbInitBinary.md) (JSONB binary initialization)
   - jspStrictAbsenceOfErrors (strict mode checking)
-  - executeItem (recursive item execution)
+  - [executeItem](executeItem.md) (recursive item execution)
   - jperIsError (error result checking)
-  - JsonValueListIsEmpty (result list checking)
+  - [JsonValueListIsEmpty](../J/JsonValueListIsEmpty.md) (result list checking)
 - Called from (representative examples):
-  - jsonb_path_exists_internal
-  - jsonb_path_query_internal
-  - jsonb_path_query_first_internal
-  - jsonb_path_query_array_internal
-  - JsonPathExists
-  - JsonPathQuery
-  - JsonPathValue
-  - JsonTableResetRowPattern
+  - [jsonb_path_exists_internal](../j/jsonb_path_exists_internal.md)
+  - [jsonb_path_query_internal](../j/jsonb_path_query_internal.md)
+  - [jsonb_path_query_first_internal](../j/jsonb_path_query_first_internal.md)
+  - [jsonb_path_query_array_internal](../j/jsonb_path_query_array_internal.md)
+  - [JsonPathExists](../J/JsonPathExists.md)
+  - [JsonPathQuery](../J/JsonPathQuery.md)
+  - [JsonPathValue](../J/JsonPathValue.md)
+  - [JsonTableResetRowPattern](../J/JsonTableResetRowPattern.md)
 
 ## Notes and Other Information
 - This is a static function serving as the primary JSONPath execution interface

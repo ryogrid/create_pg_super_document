@@ -20,17 +20,17 @@ log_smgrcreate performs XLogInsert of an XLOG_SMGR_CREATE record to the Write-Ah
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - xl_smgr_create
   - XLOG_SMGR_CREATE
   - XLR_SPECIAL_REL_UPDATE
 - Called from (representative examples):
-  - RelationCreateStorage
-  - heapam_relation_set_new_filelocator
-  - index_build
-  - heapam_relation_copy_data
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)
+  - [heapam_relation_set_new_filelocator](../h/heapam_relation_set_new_filelocator.md)
+  - [index_build](../i/index_build.md)
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md)
 
 ## Notes and Other Information
 - The function creates an xl_smgr_create structure containing the rlocator and forkNum before logging

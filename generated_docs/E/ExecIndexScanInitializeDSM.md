@@ -28,12 +28,12 @@ This function ensures that all parallel workers can coordinate their scanning ef
 ## Dependencies
 - Functions called/Symbols referenced:
   - shm_toc_allocate
-  - index_parallelscan_initialize
+  - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md)
   - shm_toc_insert
-  - index_beginscan_parallel
-  - index_rescan
+  - [index_beginscan_parallel](../i/index_beginscan_parallel.md)
+  - [index_rescan](../i/index_rescan.md)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM (in execParallel.c:470)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (in execParallel.c:470)
 
 ## Notes and Other Information
 - This function works in conjunction with ExecIndexScanEstimate which calculates the required shared memory size

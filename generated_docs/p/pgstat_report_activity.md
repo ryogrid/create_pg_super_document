@@ -27,26 +27,26 @@ The function implements a protocol where all status updates are bracketed by inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentStatementStartTimestamp
-  - GetCurrentTimestamp
-  - TimestampDifference
+  - [GetCurrentStatementStartTimestamp](../G/GetCurrentStatementStartTimestamp.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifference](../T/TimestampDifference.md)
   - pgstat_count_conn_active_time
   - pgstat_count_conn_txn_idle_time
   - PGSTAT_BEGIN_WRITE_ACTIVITY
   - PGSTAT_END_WRITE_ACTIVITY
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_parse_message
-  - exec_bind_message
-  - exec_execute_message
-  - PostgresMain
-  - LogicalRepApplyLoop
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
+  - [PostgresMain](../P/PostgresMain.md)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md)
 
 ## Notes and Other Information
 - Called from tcop/postgres.c to report what the backend is actually doing
 - Uses volatile pointers to prevent compiler optimizations that could break the change-counting protocol
 - Includes DTrace/SystemTap tracing support via TRACE_POSTGRESQL_STATEMENT_STATUS
-- Command strings are truncated to pgstat_track_activity_query_size - 1 characters for performance
+- [Command](../C/Command.md) strings are truncated to pgstat_track_activity_query_size - 1 characters for performance
 - When activity tracking is disabled, the function performs a final cleanup to set STATE_DISABLED
 - State duration tracking helps with performance analysis by measuring time spent in different backend states
 - Part of PostgreSQL's comprehensive statistics collection framework for monitoring database activity

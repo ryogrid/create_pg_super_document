@@ -29,13 +29,13 @@ The function includes special handling for frozen hashtables (updates are disall
 ## Dependencies
 - Functions called/Symbols referenced:
   - ELEMENT_FROM_KEY (macro for converting entry pointer to element)
-  - hash_initial_lookup (locates the appropriate hash bucket)
+  - [hash_initial_lookup](hash_initial_lookup.md) (locates the appropriate hash bucket)
   - ELEMENTKEY (macro for extracting key from hash element)
   - hashp->hash (hash function for calculating new hash value)
   - hashp->match (comparison function for key matching)
   - hashp->keycopy (function for copying key data)
 - Called from (representative examples):
-  - PostPrepare_Locks (in lock manager for updating lock entries)
+  - [PostPrepare_Locks](../P/PostPrepare_Locks.md) (in lock manager for updating lock entries)
 
 ## Notes and Other Information
 - Returns true if successful, false if the new hash key already exists

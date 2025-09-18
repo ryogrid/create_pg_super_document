@@ -28,19 +28,19 @@ The function also includes safety checks for background process termination and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetResult (libpq function to get query result)
-  - PQresultStatus (libpq function to check result status)
-  - PQclear (libpq function to free result memory)
-  - PQgetCopyData (libpq function to receive COPY data chunks)
-  - PQerrorMessage (libpq function to get error message)
-  - PQfreemem (libpq function to free allocated memory)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [PQgetResult](../P/PQgetResult.md) (libpq function to get query result)
+  - [PQresultStatus](../P/PQresultStatus.md) (libpq function to check result status)
+  - [PQclear](../P/PQclear.md) (libpq function to free result memory)
+  - [PQgetCopyData](../P/PQgetCopyData.md) (libpq function to receive COPY data chunks)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (libpq function to get error message)
+  - [PQfreemem](../P/PQfreemem.md) (libpq function to free allocated memory)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
   - PGRES_COPY_OUT (libpq constant for COPY OUT result status)
 - Called from (representative examples):
-  - ReceiveArchiveStream
-  - ReceiveTarFile
-  - ReceiveBackupManifest
-  - ReceiveBackupManifestInMemory
+  - [ReceiveArchiveStream](ReceiveArchiveStream.md)
+  - [ReceiveTarFile](ReceiveTarFile.md)
+  - [ReceiveBackupManifest](ReceiveBackupManifest.md)
+  - [ReceiveBackupManifestInMemory](ReceiveBackupManifestInMemory.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within pg_basebackup.c

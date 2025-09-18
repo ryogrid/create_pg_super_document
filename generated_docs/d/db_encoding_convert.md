@@ -27,13 +27,13 @@ The function modifies the string in-place through the double pointer parameter, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_any_to_server (PostgreSQL's encoding conversion function)
+  - [pg_any_to_server](../p/pg_any_to_server.md) (PostgreSQL's encoding conversion function)
   - strdup (standard C library function for string duplication)
   - free (standard C library function for memory deallocation)
-  - pfree (PostgreSQL's palloc memory deallocator)
+  - [pfree](../p/pfree.md) (PostgreSQL's palloc memory deallocator)
   - ereport/errcode/errmsg (PostgreSQL's error reporting system)
 - Called from (representative examples):
-  - PGLC_localeconv (multiple calls at lines 709, 710, 717, 718, 719, 720, 722, 723)
+  - [PGLC_localeconv](../P/PGLC_localeconv.md) (multiple calls at lines 709, 710, 717, 718, 719, 720, 722, 723)
 
 ## Notes and Other Information
 - The function is declared as , making it internal to pg_locale.c

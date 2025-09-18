@@ -25,8 +25,8 @@ This function is typically called after tree modifications (insertions, rotation
 - Functions called/Symbols referenced:
   - avl_node (structure type for tree nodes)
 - Called from (representative examples):
-  - avlRotate (src/bin/psql/crosstabview.c:488)
-  - avlAdjustBalance (src/bin/psql/crosstabview.c:520)
+  - [avlRotate](avlRotate.md) (src/bin/psql/crosstabview.c:488)
+  - [avlAdjustBalance](avlAdjustBalance.md) (src/bin/psql/crosstabview.c:520)
 
 ## Notes and Other Information
 - Implements the standard AVL tree height calculation: max(left_height, right_height) + 1

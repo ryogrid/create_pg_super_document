@@ -22,7 +22,7 @@ The function is essential for proper cleanup when dynamically loaded modules are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - ResourceReleaseCallbackItem (struct type)
   - ResourceRelease_callbacks (global linked list head)
 

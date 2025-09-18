@@ -30,7 +30,7 @@ The function always returns true, indicating successful processing of the tuple.
   - ExecFilterJunk (filters out junk attributes from the tuple)
   - tuplestore_puttupleslot (stores the filtered tuple)
 - Called from (representative examples):
-  - CreateSQLFunctionDestReceiver (sets this as receive callback)
+  - [CreateSQLFunctionDestReceiver](../C/CreateSQLFunctionDestReceiver.md) (sets this as receive callback)
   - Used within SQLFunctionCachePtr context
 
 ## Notes and Other Information

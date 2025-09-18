@@ -18,7 +18,7 @@ This function checks whether a given transaction has been marked as containing c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - rbtxn_has_catalog_changes
 - Called from (representative examples):
   - SnapBuildXidHasCatalogChanges

@@ -31,16 +31,16 @@ The function handles RelabelType nodes by unwrapping them to access the underlyi
 - Functions called/Symbols referenced:
   - ForeignKeyOptInfo (struct type)
   - EquivalenceClass (struct type)  
-  - EquivalenceMember (struct type)
-  - bms_intersect
-  - bms_next_member
-  - list_nth
-  - get_mergejoin_opfamilies
-  - equal
+  - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)
+  - [bms_intersect](../b/bms_intersect.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth](../l/list_nth.md)
+  - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md)
+  - [equal](../e/equal.md)
   - IS_SIMPLE_REL (macro)
   - RelabelType (node type)
 - Called from (representative examples):
-  - match_foreign_keys_to_quals
+  - [match_foreign_keys_to_quals](match_foreign_keys_to_quals.md)
   - Referenced in paths.h header
 
 ## Notes and Other Information

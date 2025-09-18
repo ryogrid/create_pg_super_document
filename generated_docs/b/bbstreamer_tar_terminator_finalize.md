@@ -22,8 +22,8 @@ This ensures that the resulting TAR archive is properly formatted and can be pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset
-  - bbstreamer_content
-  - bbstreamer_finalize
+  - [bbstreamer_content](bbstreamer_content.md)
+  - [bbstreamer_finalize](bbstreamer_finalize.md)
   - TAR_BLOCK_SIZE
   - BBSTREAMER_UNKNOWN
 - Called from (representative examples):

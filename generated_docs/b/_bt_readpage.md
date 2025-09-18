@@ -24,30 +24,30 @@ The function implements several optimizations including precheck logic to avoid 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetOpaque
-  - _bt_parallel_release
+  - [_bt_parallel_release](_bt_parallel_release.md)
   - IndexRelationGetNumberOfAttributes
   - P_FIRSTDATAKEY
-  - PageGetMaxOffsetNumber
-  - BufferGetBlockNumber
-  - BufferGetLSNAtomic
-  - PageGetItemId
-  - PageGetItem
-  - _bt_checkkeys
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [_bt_checkkeys](_bt_checkkeys.md)
   - ItemIdIsDead
-  - BTreeTupleIsPivot
-  - BTreeTupleIsPosting
-  - _bt_saveitem
-  - _bt_setuppostingitems
-  - _bt_savepostingitem
-  - BTreeTupleGetPostingN
-  - BTreeTupleGetNPosting
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [_bt_saveitem](_bt_saveitem.md)
+  - [_bt_setuppostingitems](_bt_setuppostingitems.md)
+  - [_bt_savepostingitem](_bt_savepostingitem.md)
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
   - BTreeTupleGetNAtts
 - Called from:
-  - _bt_first
-  - _bt_readnextpage
-  - _bt_endpoint
+  - [_bt_first](_bt_first.md)
+  - [_bt_readnextpage](_bt_readnextpage.md)
+  - [_bt_endpoint](_bt_endpoint.md)
 
 ## Notes and Other Information
 - Returns true if any matching items were found on the page, false if none

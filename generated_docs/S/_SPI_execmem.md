@@ -19,7 +19,7 @@ This is part of PostgreSQL's memory management system where different operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo: Core PostgreSQL function that switches active memory context
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Core PostgreSQL function that switches active memory context
   - _SPI_current->execCxt: Execution memory context from current SPI connection
 - Called from (representative examples):
   - _SPI_begin_call: When initializing SPI call context

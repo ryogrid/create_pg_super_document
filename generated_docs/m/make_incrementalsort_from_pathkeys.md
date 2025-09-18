@@ -26,10 +26,10 @@ This function is used when the planner determines that the input data is already
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prepare_sort_from_pathkeys (to convert pathkeys into sort specification arrays)
-  - make_incrementalsort (to create the IncrementalSort plan node)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md) (to convert pathkeys into sort specification arrays)
+  - [make_incrementalsort](make_incrementalsort.md) (to create the IncrementalSort plan node)
 - Called from (representative examples):
-  - create_incrementalsort_plan (src/backend/optimizer/plan/createplan.c:2224)
+  - [create_incrementalsort_plan](../c/create_incrementalsort_plan.md) (src/backend/optimizer/plan/createplan.c:2224)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the planner

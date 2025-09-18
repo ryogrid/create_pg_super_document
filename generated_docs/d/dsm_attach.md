@@ -25,15 +25,15 @@ The function handles both main region segments (allocated from PostgreSQL's main
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_backend_startup (initialization if needed)
-  - dsm_create_descriptor (creates local segment descriptor)
+  - [dsm_create_descriptor](dsm_create_descriptor.md) (creates local segment descriptor)
   - dlist_foreach/dlist_container (iterates through attached segments)
-  - is_main_region_dsm_handle (checks if handle is for main region)
+  - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md) (checks if handle is for main region)
   - dsm_impl_op (platform-specific attachment operations)
-  - dsm_detach (cleanup on failure)
+  - [dsm_detach](dsm_detach.md) (cleanup on failure)
 - Called from (representative examples):
-  - AttachSession (session management)
-  - ParallelWorkerMain (parallel query workers)
-  - dsa_attach (dynamic shared arrays)
+  - [AttachSession](../A/AttachSession.md) (session management)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel query workers)
+  - [dsa_attach](dsa_attach.md) (dynamic shared arrays)
   - GetNamedDSMSegment (named segment registry)
 
 ## Notes and Other Information

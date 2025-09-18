@@ -24,13 +24,13 @@ signal_child is a robust utility function for sending signals to PostgreSQL chil
   - HAVE_SETSID (preprocessor condition)
   - SIGINT, SIGTERM, SIGQUIT, SIGKILL, SIGABRT (signal constants)
 - Called from (representative examples):
-  - PostmasterStateMachine
-  - process_pm_reload_request
-  - processCancelRequest
-  - sigquit_child
-  - SignalSomeChildren
-  - TerminateChildren
-  - process_pm_pmsignal
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md)
+  - [processCancelRequest](../p/processCancelRequest.md)
+  - [sigquit_child](sigquit_child.md)
+  - [SignalSomeChildren](../S/SignalSomeChildren.md)
+  - [TerminateChildren](../T/TerminateChildren.md)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md)
 
 ## Notes and Other Information
 - Implements process group signaling to handle subprocesses spawned by PostgreSQL children

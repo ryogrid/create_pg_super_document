@@ -17,9 +17,9 @@ The  function initializes a NumericSumAccum structure to a zero state by setting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericSumAccum (accumulator structure type)
+  - [NumericSumAccum](../N/NumericSumAccum.md) (accumulator structure type)
 - Called from (representative examples):
-  - do_numeric_discard (discarding accumulated numeric values in window functions)
+  - [do_numeric_discard](../d/do_numeric_discard.md) (discarding accumulated numeric values in window functions)
 
 ## Notes and Other Information
 - Part of the fast sum accumulator system for efficient aggregation operations

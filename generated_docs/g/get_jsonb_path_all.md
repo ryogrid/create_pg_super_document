@@ -24,13 +24,13 @@ The  function is the core implementation for JSONB path extraction in PostgreSQL
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P (extract JSONB argument)
   - PG_GETARG_ARRAYTYPE_P (extract array argument)
-  - array_contains_nulls (null validation)
-  - deconstruct_array_builtin (array processing)
-  - jsonb_get_element (core extraction logic)
+  - [array_contains_nulls](../a/array_contains_nulls.md) (null validation)
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) (array processing)
+  - [jsonb_get_element](../j/jsonb_get_element.md) (core extraction logic)
   - PG_RETURN_DATUM (return result)
 - Called from (representative examples):
-  - jsonb_extract_path
-  - jsonb_extract_path_text
+  - [jsonb_extract_path](../j/jsonb_extract_path.md)
+  - [jsonb_extract_path_text](../j/jsonb_extract_path_text.md)
   - JsObjectFree
 
 ## Notes and Other Information

@@ -34,15 +34,15 @@ This binary format is platform-independent and suitable for network transmission
   - PG_GETARG_MULTIRANGE_P
   - MultirangeTypeGetOid
   - makeStringInfo
-  - get_multirange_io_data
+  - [get_multirange_io_data](../g/get_multirange_io_data.md)
   - IOFunc_send
-  - pq_begintypsend
-  - pq_sendint32
-  - multirange_deserialize
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [multirange_deserialize](multirange_deserialize.md)
   - RangeTypePGetDatum
-  - SendFunctionCall
+  - [SendFunctionCall](../S/SendFunctionCall.md)
   - pq_sendbytes
-  - pq_endtypsend
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from:
   - PostgreSQL type system (send function registration)

@@ -42,21 +42,21 @@ The function uses a goto-based state machine (label l5) to restart computation w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_mxact_status_for_lock
-  - MultiXactIdExpand
-  - MultiXactIdCreate
-  - GetMultiXactIdHintBits
-  - MultiXactIdIsRunning
-  - MultiXactIdGetUpdateXid
-  - TransactionIdIsCurrentTransactionId
+  - [get_mxact_status_for_lock](../g/get_mxact_status_for_lock.md)
+  - [MultiXactIdExpand](../M/MultiXactIdExpand.md)
+  - [MultiXactIdCreate](../M/MultiXactIdCreate.md)
+  - [GetMultiXactIdHintBits](../G/GetMultiXactIdHintBits.md)
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
+  - [MultiXactIdGetUpdateXid](../M/MultiXactIdGetUpdateXid.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - TUPLOCK_from_mxstatus
 - Called from (representative examples):
-  - heap_delete
-  - heap_update
-  - heap_lock_tuple
-  - heap_lock_updated_tuple_rec
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam.c handling core tuple locking logic

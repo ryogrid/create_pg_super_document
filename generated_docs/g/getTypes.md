@@ -29,17 +29,17 @@ The function must run after getFuncs() because it relies on function lookup capa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - atooid
-  - AssignDumpId
-  - findNamespace
-  - getRoleName
-  - selectDumpableType
-  - getDomainConstraints
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
+  - [selectDumpableType](../s/selectDumpableType.md)
+  - [getDomainConstraints](getDomainConstraints.md)
   - pg_malloc
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Must run after getFuncs() due to function dependency requirements

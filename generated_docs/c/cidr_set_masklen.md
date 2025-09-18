@@ -26,7 +26,7 @@ The function accepts a CIDR address and an integer specifying the desired netmas
   - PG_GETARG_INET_PP: Macro to extract INET argument from function args
   - PG_GETARG_INT32: Macro to extract int32 argument from function args
   - ip_maxbits: Function to get the maximum valid netmask length for the address family
-  - cidr_set_masklen_internal: Internal function that creates a properly masked CIDR with specified mask length
+  - [cidr_set_masklen_internal](cidr_set_masklen_internal.md): Internal function that creates a properly masked CIDR with specified mask length
   - ereport: PostgreSQL error reporting function
   - PG_RETURN_INET_P: Macro to return inet result
 - Called from (representative examples):

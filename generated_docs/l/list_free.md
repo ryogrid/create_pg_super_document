@@ -19,12 +19,12 @@ The function is implemented as a simple wrapper around `list_free_private(list, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_free_private
+  - [list_free_private](list_free_private.md)
 - Called from (representative examples):
-  - toast_open_indexes
-  - heap_truncate_find_FKs  
-  - ExecOpenIndices
-  - RelationGetIndexList
+  - [toast_open_indexes](../t/toast_open_indexes.md)
+  - [heap_truncate_find_FKs](../h/heap_truncate_find_FKs.md)  
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - ProcessGUCArray
 
 ## Notes and Other Information

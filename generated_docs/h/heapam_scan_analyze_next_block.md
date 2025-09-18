@@ -19,14 +19,14 @@ heapam_scan_analyze_next_block is a specialized function used during ANALYZE ope
 ## Dependencies
 - Functions called/Symbols referenced:
   - read_stream_next_buffer
-  - BufferIsValid
-  - LockBuffer
-  - BufferGetBlockNumber
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
 - Constants referenced:
   - BUFFER_LOCK_SHARE
   - FirstOffsetNumber
 - Called from (representative examples):
-  - SampleHeapTupleVisible (referenced in heapam_handler.c:2633)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (referenced in heapam_handler.c:2633)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heapam_handler.c

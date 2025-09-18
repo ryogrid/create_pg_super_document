@@ -39,7 +39,7 @@ Array handling is sophisticated - it detects "true" array types while avoiding p
 
 - Called from (representative examples):
   -  - Primary SQL function interface
-  -  - Backend-only variant
+  -  - [Backend](../B/Backend.md)-only variant
   -  - Always-qualified variant
   -  - Typemod-included variant
   -  - Object description generation

@@ -20,12 +20,12 @@ SH_INITIAL_BUCKET is a macro that generates a function name for computing the in
 - Functions called/Symbols referenced:
   - tb->sizemask (bitmask for efficient modulo operations)
 - Called from (representative examples):
-  - SH_GROW (when redistributing elements during table growth)
-  - SH_INSERT_HASH_INTERNAL (when inserting new elements)
-  - SH_LOOKUP_HASH_INTERNAL (when searching for elements)
-  - SH_DELETE (when removing elements)
-  - SH_DELETE_ITEM (when removing specific items)
-  - SH_STAT (when computing statistics)
+  - [SH_GROW](SH_GROW.md) (when redistributing elements during table growth)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (when inserting new elements)
+  - [SH_LOOKUP_HASH_INTERNAL](SH_LOOKUP_HASH_INTERNAL.md) (when searching for elements)
+  - [SH_DELETE](SH_DELETE.md) (when removing elements)
+  - [SH_DELETE_ITEM](SH_DELETE_ITEM.md) (when removing specific items)
+  - [SH_STAT](SH_STAT.md) (when computing statistics)
 
 ## Notes and Other Information
 - Returns hash & tb->sizemask, which is equivalent to hash % tb->size but much faster

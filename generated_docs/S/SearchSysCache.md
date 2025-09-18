@@ -26,11 +26,11 @@ This is the primary interface used throughout PostgreSQL for accessing cached sy
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - SearchCatCache
+  - [SearchCatCache](SearchCatCache.md)
 - Called from (representative examples):
-  - SearchSysCacheCopy
-  - SearchSysCacheExists
-  - GetSysCacheOid
+  - [SearchSysCacheCopy](SearchSysCacheCopy.md)
+  - [SearchSysCacheExists](SearchSysCacheExists.md)
+  - [GetSysCacheOid](../G/GetSysCacheOid.md)
 
 ## Notes and Other Information
 - The returned tuple is a cache copy and must NEVER be freed by the caller

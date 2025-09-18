@@ -20,9 +20,9 @@ While  checks for equality,  checks for inequality, which is useful in state mac
 ## Dependencies
 - Functions called/Symbols referenced:
   - p_iseq (performs the actual character comparison, result is negated)
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
 - Called from (representative examples):
-  - _make_compiler_happy (test/debug function)
+  - [_make_compiler_happy](../m/_make_compiler_happy.md) (test/debug function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

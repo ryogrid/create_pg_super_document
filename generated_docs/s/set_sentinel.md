@@ -24,12 +24,12 @@ The sentinel is typically placed just after allocated memory blocks, creating a 
   - VALGRIND_MAKE_MEM_NOACCESS
 
 - Called from (representative examples):
-  - AllocSetAllocLarge (src/backend/utils/mmgr/aset.c:733)
-  - AllocSetAlloc (src/backend/utils/mmgr/aset.c:1020)
-  - AllocSetRealloc (src/backend/utils/mmgr/aset.c:1280)
-  - BumpAllocLarge (src/backend/utils/mmgr/bump.c:338)
-  - GenerationAllocLarge (src/backend/utils/mmgr/generation.c:388)
-  - SlabAllocSetupNewChunk (src/backend/utils/mmgr/slab.c:519)
+  - [AllocSetAllocLarge](../A/AllocSetAllocLarge.md) (src/backend/utils/mmgr/aset.c:733)
+  - [AllocSetAlloc](../A/AllocSetAlloc.md) (src/backend/utils/mmgr/aset.c:1020)
+  - [AllocSetRealloc](../A/AllocSetRealloc.md) (src/backend/utils/mmgr/aset.c:1280)
+  - [BumpAllocLarge](../B/BumpAllocLarge.md) (src/backend/utils/mmgr/bump.c:338)
+  - [GenerationAllocLarge](../G/GenerationAllocLarge.md) (src/backend/utils/mmgr/generation.c:388)
+  - [SlabAllocSetupNewChunk](../S/SlabAllocSetupNewChunk.md) (src/backend/utils/mmgr/slab.c:519)
 
 ## Notes and Other Information
 - Uses the byte value 0x7E as the sentinel value, which is easily distinguishable from common patterns

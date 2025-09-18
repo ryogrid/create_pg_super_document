@@ -22,15 +22,15 @@ If the right sibling is found to be half-dead, the deletion operation is deferre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf (acquires buffer for the right sibling page)
-  - BufferGetPage (gets page from buffer)
+  - [_bt_getbuf](_bt_getbuf.md) (acquires buffer for the right sibling page)
+  - [BufferGetPage](../B/BufferGetPage.md) (gets page from buffer)
   - BTPageGetOpaque (gets B-tree opaque data from page)
   - P_ISLEAF (verifies page is a leaf page)
   - P_ISDELETED (verifies page is not already deleted)
   - P_ISHALFDEAD (checks if page is marked half-dead)
-  - _bt_relbuf (releases buffer)
+  - [_bt_relbuf](_bt_relbuf.md) (releases buffer)
 - Called from:
-  - _bt_mark_page_halfdead (uses this check before marking a page as half-dead)
+  - [_bt_mark_page_halfdead](_bt_mark_page_halfdead.md) (uses this check before marking a page as half-dead)
 
 ## Notes and Other Information
 - Returns true if the right sibling page is half-dead (indicating deletion should be deferred)

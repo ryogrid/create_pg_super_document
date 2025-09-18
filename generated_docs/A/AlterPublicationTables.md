@@ -23,17 +23,17 @@ The function handles complex scenarios involving partition hierarchies, schema p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpenTableList/CloseTableList: Opens and closes table relations with appropriate locks
-  - TransformPubWhereClauses: Transforms and validates WHERE clauses for publication relations
-  - CheckPubRelationColumnList: Validates column list specifications
-  - PublicationAddTables/PublicationDropTables: Core functions for adding/removing tables from publications
-  - GetPublicationRelations: Retrieves existing publication relations
-  - is_schema_publication: Checks if publication includes schema-based relations
-  - SearchSysCache2/SysCacheGetAttr: System cache operations for existing relation metadata
-  - pub_collist_to_bitmapset: Converts column lists to bitmap representations
-  - equal/bms_equal: Comparison functions for WHERE clauses and column bitmaps
+  - [OpenTableList](../O/OpenTableList.md)/CloseTableList: Opens and closes table relations with appropriate locks
+  - [TransformPubWhereClauses](../T/TransformPubWhereClauses.md): Transforms and validates WHERE clauses for publication relations
+  - [CheckPubRelationColumnList](../C/CheckPubRelationColumnList.md): Validates column list specifications
+  - [PublicationAddTables](../P/PublicationAddTables.md)/PublicationDropTables: Core functions for adding/removing tables from publications
+  - [GetPublicationRelations](../G/GetPublicationRelations.md): Retrieves existing publication relations
+  - [is_schema_publication](../i/is_schema_publication.md): Checks if publication includes schema-based relations
+  - [SearchSysCache2](../S/SearchSysCache2.md)/SysCacheGetAttr: System cache operations for existing relation metadata
+  - [pub_collist_to_bitmapset](../p/pub_collist_to_bitmapset.md): Converts column lists to bitmap representations
+  - [equal](../e/equal.md)/bms_equal: Comparison functions for WHERE clauses and column bitmaps
 - Called from (representative examples):
-  - AlterPublication: Main function handling publication alterations
+  - [AlterPublication](AlterPublication.md): Main function handling publication alterations
 
 ## Notes and Other Information
 - Supports three operation types: AP_AddObjects, AP_DropObjects, and AP_SetObjects

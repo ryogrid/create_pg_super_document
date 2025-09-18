@@ -25,8 +25,8 @@ The function uses a simple switch statement on the first character of the argume
 - Functions called/Symbols referenced:
   - No external function calls
 - Called from (representative examples):
-  - PostmasterMain (in src/backend/postmaster/postmaster.c:726)
-  - process_postgres_switches (in src/backend/tcop/postgres.c:4048)
+  - [PostmasterMain](../P/PostmasterMain.md) (in src/backend/postmaster/postmaster.c:726)
+  - [process_postgres_switches](../p/process_postgres_switches.md) (in src/backend/tcop/postgres.c:4048)
 
 ## Notes and Other Information
 - Returns NULL if the argument doesn't match any recognized statistics option

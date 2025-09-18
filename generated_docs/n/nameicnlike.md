@@ -27,8 +27,8 @@ This function is the backend implementation for the NOT ILIKE operator when appl
   - `DatumGetTextPP` - Convert Datum to text pointer
   - `DirectFunctionCall1` - Direct function call interface
   - `name_text` - Convert Name to text format
-  - `NameGetDatum` - Convert Name to Datum
-  - `Generic_Text_IC_like` - Perform case-insensitive pattern matching
+  - `[NameGetDatum](../N/NameGetDatum.md)` - Convert Name to Datum
+  - `[Generic_Text_IC_like](../G/Generic_Text_IC_like.md)` - Perform case-insensitive pattern matching
   - `PG_GET_COLLATION` - Get collation information for the operation
   - `LIKE_TRUE` - Constant representing successful match
   - `PG_RETURN_BOOL` - Return boolean result

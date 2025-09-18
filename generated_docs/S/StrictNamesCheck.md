@@ -22,12 +22,12 @@ This strict checking is particularly useful in automated environments where it's
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - simple_string_list_not_touched (utility function to find unprocessed list items)
-  - pg_fatal (PostgreSQL error handling function)
-  - RestoreOptions (struct type)
+  - [simple_string_list_not_touched](../s/simple_string_list_not_touched.md) (utility function to find unprocessed list items)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling function)
+  - [RestoreOptions](../R/RestoreOptions.md) (struct type)
 - Called from (representative examples):
-  - ProcessArchiveRestoreOptions (during restore option processing)
-  - PrintTOCSummary (when printing table of contents summary)
+  - [ProcessArchiveRestoreOptions](../P/ProcessArchiveRestoreOptions.md) (during restore option processing)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md) (when printing table of contents summary)
 
 ## Notes and Other Information
 - Only executes when  is true

@@ -20,15 +20,15 @@ The function represents the core of bitmap heap scan execution, coordinating bet
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (macro for type casting)
-  - ExecScan
-  - BitmapHeapNext (passed as ExecScanAccessMtd callback)
-  - BitmapHeapRecheck (passed as ExecScanRecheckMtd callback)
+  - [ExecScan](ExecScan.md)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (passed as ExecScanAccessMtd callback)
+  - [BitmapHeapRecheck](../B/BitmapHeapRecheck.md) (passed as ExecScanRecheckMtd callback)
 - Data types referenced:
-  - BitmapHeapScanState
-  - PlanState
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md)
+  - [PlanState](../P/PlanState.md)
   - TupleTableSlot
 - Called from:
-  - ExecInitBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:705)
+  - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:705)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the nodeBitmapHeapscan.c file

@@ -29,17 +29,17 @@ The function handles complex grouping scenarios including grouping sets, functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_grouping_sets
-  - list_intersection_int  
-  - get_sortgroupclause_tle
-  - flatten_join_alias_vars
-  - finalize_grouping_exprs
-  - check_ungrouped_columns
-  - locate_agg_of_level
+  - [expand_grouping_sets](../e/expand_grouping_sets.md)
+  - [list_intersection_int](../l/list_intersection_int.md)  
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
+  - [flatten_join_alias_vars](../f/flatten_join_alias_vars.md)
+  - [finalize_grouping_exprs](../f/finalize_grouping_exprs.md)
+  - [check_ungrouped_columns](../c/check_ungrouped_columns.md)
+  - [locate_agg_of_level](../l/locate_agg_of_level.md)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformDeleteStmt
-  - transformSetOperationStmt
+  - [transformSelectStmt](../t/transformSelectStmt.md)
+  - [transformDeleteStmt](../t/transformDeleteStmt.md)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md)
 
 ## Notes and Other Information
 - Should only be called when aggregates, GROUP BY, HAVING, or grouping sets are present

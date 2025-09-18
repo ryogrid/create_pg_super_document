@@ -20,13 +20,13 @@ The function follows PostgreSQL's standard function calling convention, acceptin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts the NUMERIC argument from function arguments
-  - duplicate_numeric: Creates a copy of the input numeric value
+  - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of the input numeric value
   - PG_RETURN_NUMERIC: Returns the result as a NUMERIC Datum
   - Numeric: PostgreSQL's internal numeric data type
 
 - Called from (representative examples):
-  - jsonb_agg_transfn_worker: Used in JSON aggregation operations
-  - jsonb_object_agg_transfn_worker: Used in JSON object aggregation operations
+  - [jsonb_agg_transfn_worker](../j/jsonb_agg_transfn_worker.md): Used in JSON aggregation operations
+  - [jsonb_object_agg_transfn_worker](../j/jsonb_object_agg_transfn_worker.md): Used in JSON object aggregation operations
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/numeric.c at lines 1460-1475

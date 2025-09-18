@@ -22,20 +22,20 @@ The function uses PostgreSQL's system cache (SearchSysCache1) for efficient look
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_index
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - InvalidOid
 - Called from (representative examples):
-  - index_drop
-  - reindex_index
-  - CheckIndexCompatible
-  - bringetbitmap
-  - get_tables_to_cluster_partitioned
-  - RangeVarCallbackForReindexIndex
+  - [index_drop](../i/index_drop.md)
+  - [reindex_index](../r/reindex_index.md)
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
+  - [bringetbitmap](../b/bringetbitmap.md)
+  - [get_tables_to_cluster_partitioned](../g/get_tables_to_cluster_partitioned.md)
+  - [RangeVarCallbackForReindexIndex](../R/RangeVarCallbackForReindexIndex.md)
 
 ## Notes and Other Information
 - Widely used utility function throughout PostgreSQL's index and table management code

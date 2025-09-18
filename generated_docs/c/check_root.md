@@ -30,11 +30,11 @@ If any of these security conditions are violated, the function immediately termi
 - Functions called/Symbols referenced:
   - geteuid (get effective user ID, Unix/Linux)
   - getuid (get real user ID, Unix/Linux) 
-  - pgwin32_is_admin (check for administrator privileges, Windows)
-  - write_stderr (output error messages)
+  - [pgwin32_is_admin](../p/pgwin32_is_admin.md) (check for administrator privileges, Windows)
+  - [write_stderr](../w/write_stderr.md) (output error messages)
   - exit (terminate process with error status)
 - Called from:
-  - main (during startup security validation, unless bypassed for read-only operations)
+  - [main](../m/main.md) (during startup security validation, unless bypassed for read-only operations)
 
 ## Notes and Other Information
 - This function is static and only accessible within the main.c source file

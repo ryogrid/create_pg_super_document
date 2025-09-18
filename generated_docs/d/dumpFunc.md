@@ -29,25 +29,25 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - format_function_arguments
-  - format_function_signature
-  - ExecuteSqlStatement
-  - ExecuteSqlQueryForSingleRow
+  - [format_function_arguments](../f/format_function_arguments.md)
+  - [format_function_signature](../f/format_function_signature.md)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - appendStringLiteralAH
-  - appendStringLiteralDQ
-  - parsePGArray
-  - parseOidArray
-  - getFormattedTypeName
-  - variable_is_guc_list_quote
-  - SplitGUCList
-  - append_depends_on_extension
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
+  - [appendStringLiteralDQ](../a/appendStringLiteralDQ.md)
+  - [parsePGArray](../p/parsePGArray.md)
+  - [parseOidArray](../p/parseOidArray.md)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md)
+  - [variable_is_guc_list_quote](../v/variable_is_guc_list_quote.md)
+  - [SplitGUCList](../S/SplitGUCList.md)
+  - [append_depends_on_extension](../a/append_depends_on_extension.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

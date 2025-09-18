@@ -27,10 +27,10 @@ This function performs a depth-first traversal of the Free Page Manager's B-tree
   - relptr_access
   - appendStringInfo
   - appendStringInfoChar
-  - FreePageManagerDumpBtree (recursive call)
+  - [FreePageManagerDumpBtree](FreePageManagerDumpBtree.md) (recursive call)
 - Called from (representative examples):
-  - FreePageManagerDump
-  - FreePageManagerDumpBtree (recursive)
+  - [FreePageManagerDump](FreePageManagerDump.md)
+  - [FreePageManagerDumpBtree](FreePageManagerDumpBtree.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function used only for debugging purposes

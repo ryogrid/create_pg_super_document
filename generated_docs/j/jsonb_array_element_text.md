@@ -26,8 +26,8 @@ The function first validates that the input is indeed a JSONB array, then handle
   - `PG_GETARG_INT32` - PostgreSQL macro to get integer argument
   - `JB_ROOT_IS_ARRAY` - Macro to check if JSONB root is an array
   - `JB_ROOT_COUNT` - Macro to get count of elements in JSONB root container
-  - `getIthJsonbValueFromContainer` - Function to retrieve the i-th value from a JSONB container
-  - `JsonbValueAsText` - Function to convert JSONB value to text representation
+  - `[getIthJsonbValueFromContainer](../g/getIthJsonbValueFromContainer.md)` - Function to retrieve the i-th value from a JSONB container
+  - `[JsonbValueAsText](../J/JsonbValueAsText.md)` - Function to convert JSONB value to text representation
   - `PG_RETURN_TEXT_P` - PostgreSQL macro to return text result
   - `PG_RETURN_NULL` - PostgreSQL macro to return NULL
 - Called from (representative examples):

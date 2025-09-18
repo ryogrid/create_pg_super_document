@@ -21,13 +21,13 @@ This function is responsible for launching an isolation test by executing the  b
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_other_exec
-  - file_exists
-  - add_stringlist_item
-  - spawn_process
+  - [file_exists](../f/file_exists.md)
+  - [add_stringlist_item](../a/add_stringlist_item.md)
+  - [spawn_process](../s/spawn_process.md)
   - setenv/unsetenv
   - snprintf
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Performs lazy lookup of the isolationtester binary using 

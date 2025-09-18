@@ -22,10 +22,10 @@ When active_branch is false (inside a false \if block), the function calls ignor
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
   - do_pset
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - OT_NORMAL (option type constant)
 - Called from (representative examples):
-  - exec_command (src/bin/psql/command.c:333)
+  - [exec_command](exec_command.md) (src/bin/psql/command.c:333)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure

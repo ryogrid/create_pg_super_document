@@ -36,16 +36,16 @@ None - this function takes no parameters and operates on the global configuratio
 - Functions called/Symbols referenced:
   - AllocateFile
   - FreeFile
-  - read_string_with_null
+  - [read_string_with_null](read_string_with_null.md)
   - find_option
   - set_config_option_ext
-  - set_config_sourcefile
-  - guc_free
+  - [set_config_sourcefile](../s/set_config_sourcefile.md)
+  - [guc_free](../g/guc_free.md)
   - fread
   - ereport
   - elog
 - Called from (representative examples):
-  - SubPostmasterMain
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
 
 ## Notes and Other Information
 - Only available when EXEC_BACKEND is defined (Windows and some Unix configurations)
@@ -56,5 +56,5 @@ None - this function takes no parameters and operates on the global configuratio
 - Memory management uses PostgreSQL's GUC allocation functions (guc_free)
 - Part of the EXEC_BACKEND mechanism that enables PostgreSQL on platforms without fork()
 - The binary format read must exactly match what write_one_nondefault_variable produces
-- Variables are applied in the order they appear in the file
+- [Variables](../V/Variables.md) are applied in the order they appear in the file
 - Each variable is validated to exist before attempting to set its value

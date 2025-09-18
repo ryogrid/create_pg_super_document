@@ -23,11 +23,11 @@ The text_to_table function is a PostgreSQL set-returning function (SRF) that spl
 - Functions called/Symbols referenced:
   - ReturnSetInfo (structure for SRF result information)
   - SplitTextOutputData (structure for output state)
-  - InitMaterializedSRF (initializes materialized set-returning function)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes materialized set-returning function)
   - MAT_SRF_USE_EXPECTED_DESC (flag for using expected descriptor)
-  - split_text (core text splitting logic)
+  - [split_text](../s/split_text.md) (core text splitting logic)
 - Called from (representative examples):
-  - text_to_table_null
+  - [text_to_table_null](text_to_table_null.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/varlena.c:4551-4574

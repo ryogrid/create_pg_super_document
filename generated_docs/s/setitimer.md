@@ -24,14 +24,14 @@ The `setitimer` function provides POSIX setitimer() compatibility on Windows by 
   - InitializeCriticalSection/EnterCriticalSection/LeaveCriticalSection (Windows API)
   - MemSet
   - ereport/errmsg_internal
-  - pg_timer_thread
+  - [pg_timer_thread](../p/pg_timer_thread.md)
   - ITIMER_REAL
-  - itimerval
+  - [itimerval](../i/itimerval.md)
   - timerCommArea (global communication structure)
 - Called from (representative examples):
   - schedule_alarm (timeout.c:339)
-  - fork_process (fork_process.c:72)
-  - do_watch (psql command.c:5384, 5560)
+  - [fork_process](../f/fork_process.md) (fork_process.c:72)
+  - [do_watch](../d/do_watch.md) (psql command.c:5384, 5560)
 
 ## Notes and Other Information
 - Windows-specific implementation for systems lacking native setitimer()

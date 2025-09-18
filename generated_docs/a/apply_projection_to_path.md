@@ -26,13 +26,13 @@ This function applies a projection target to a path, with the key difference fro
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_projection_capable_path
-  - create_projection_path
-  - is_parallel_safe
+  - [create_projection_path](../c/create_projection_path.md)
+  - [is_parallel_safe](../i/is_parallel_safe.md)
   - IsA
 - Called from (representative examples):
-  - build_minmax_path
-  - create_ordered_paths
-  - adjust_paths_for_srfs
+  - [build_minmax_path](../b/build_minmax_path.md)
+  - [create_ordered_paths](../c/create_ordered_paths.md)
+  - [adjust_paths_for_srfs](adjust_paths_for_srfs.md)
 
 ## Notes and Other Information
 This function is more invasive than create_projection_path as it modifies the input path in-place, so it should only be used when the caller knows the path isn't referenced elsewhere. For parallel paths, it creates separate projection paths for subpaths to enable worker participation in projection. The function carefully manages parallel safety flags when non-parallel-safe expressions are introduced.

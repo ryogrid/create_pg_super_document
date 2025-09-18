@@ -22,8 +22,8 @@ The structure is designed for scenarios where the parameter list is immutable du
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - setup_parse_fixed_parameters
-  - fixed_paramref_hook
+  - [setup_parse_fixed_parameters](../s/setup_parse_fixed_parameters.md)
+  - [fixed_paramref_hook](../f/fixed_paramref_hook.md)
 
 ## Notes and Other Information
 - This structure is allocated using palloc() and attached to the ParseState's p_ref_hook_state field

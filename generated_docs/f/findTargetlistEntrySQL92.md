@@ -28,21 +28,21 @@ If neither special case applies, it falls through to SQL99 rules by calling find
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkTargetlistEntrySQL92
-  - findTargetlistEntrySQL99
-  - colNameToVar
-  - equal
-  - ParseExprKindName
+  - [checkTargetlistEntrySQL92](../c/checkTargetlistEntrySQL92.md)
+  - [findTargetlistEntrySQL99](findTargetlistEntrySQL99.md)
+  - [colNameToVar](../c/colNameToVar.md)
+  - [equal](../e/equal.md)
+  - [ParseExprKindName](../P/ParseExprKindName.md)
   - intVal
-  - ColumnRef
-  - A_Const
+  - [ColumnRef](../C/ColumnRef.md)
+  - [A_Const](../A/A_Const.md)
   - String
   - Integer
   - EXPR_KIND_GROUP_BY
 - Called from (representative examples):
-  - transformGroupClauseExpr
-  - transformSortClause
-  - transformDistinctOnClause
+  - [transformGroupClauseExpr](../t/transformGroupClauseExpr.md)
+  - [transformSortClause](../t/transformSortClause.md)
+  - [transformDistinctOnClause](../t/transformDistinctOnClause.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c for internal parser use

@@ -24,9 +24,9 @@ The structure contains the essential metadata needed to reconstruct a tuple duri
 - Functions called/Symbols referenced:
   - (This is a data structure with no direct function calls)
 - Called from (representative examples):
-  - heap_multi_insert (src/backend/access/heap/heapam.c:2530, 2536)
-  - heap_xlog_multi_insert (src/backend/access/heap/heapam.c:9782, 9796)
-  - DecodeMultiInsert (src/backend/replication/logical/decode.c:1163, 1174)
+  - [heap_multi_insert](../h/heap_multi_insert.md) (src/backend/access/heap/heapam.c:2530, 2536)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md) (src/backend/access/heap/heapam.c:9782, 9796)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md) (src/backend/replication/logical/decode.c:1163, 1174)
   - SizeOfMultiInsertTuple (src/include/access/heapam_xlog.h:198)
 
 ## Notes and Other Information

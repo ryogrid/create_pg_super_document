@@ -27,15 +27,15 @@ The key innovation is that WAL senders prepare to sleep on condition variables b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ModifyWaitEvent (modifies wait event set configuration)
-  - ConditionVariablePrepareToSleep (prepares to sleep on condition variable)
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md) (modifies wait event set configuration)
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md) (prepares to sleep on condition variable)
   - WaitEventSetWait (waits for events with timeout)
-  - ConditionVariableCancelSleep (cancels condition variable sleep preparation)
-  - proc_exit (exits process on postmaster death)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md) (cancels condition variable sleep preparation)
+  - [proc_exit](../p/proc_exit.md) (exits process on postmaster death)
 - Called from (representative examples):
-  - ProcessPendingWrites (waiting for socket write readiness)
-  - WalSndWaitForWal (waiting for new WAL data)
-  - WalSndLoop (main replication loop waiting)
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md) (waiting for socket write readiness)
+  - [WalSndWaitForWal](WalSndWaitForWal.md) (waiting for new WAL data)
+  - [WalSndLoop](WalSndLoop.md) (main replication loop waiting)
 
 ## Notes and Other Information
 - This is a static function internal to the walsender module

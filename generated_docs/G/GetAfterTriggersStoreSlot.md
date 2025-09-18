@@ -25,12 +25,12 @@ The function uses TTSOpsVirtual for the slot operations, which is appropriate fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDescCopy
-  - MakeSingleTupleTableSlot
-  - MemoryContextSwitchTo
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - TransitionTableAddTuple
-  - AfterTriggersTableData (within trigger.c)
+  - [TransitionTableAddTuple](../T/TransitionTableAddTuple.md)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (within trigger.c)
 
 ## Notes and Other Information
 - Returns the existing storeslot if already created, or creates and returns a new one

@@ -23,12 +23,12 @@ The function uses debug tracing through NL1_printf macros to log the beginning a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode: Recursively terminates outer and inner child plan nodes
+  - [ExecEndNode](ExecEndNode.md): Recursively terminates outer and inner child plan nodes
   - outerPlanState: Accesses the outer child plan state for cleanup
   - innerPlanState: Accesses the inner child plan state for cleanup
   - NL1_printf: Debug tracing macro for logging cleanup progress
 - Called from (representative examples):
-  - ExecEndNode: As part of plan tree cleanup process
+  - [ExecEndNode](ExecEndNode.md): As part of plan tree cleanup process
 
 ## Notes and Other Information
 - Uses NL1_printf debug macros for tracing cleanup operations

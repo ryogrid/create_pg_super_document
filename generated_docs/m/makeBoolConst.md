@@ -18,16 +18,16 @@ The  function is a utility function that creates a Const node specifically for b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeConst
-  - BoolGetDatum
+  - [makeConst](makeConst.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
   - BOOLOID (constant)
   - InvalidOid (constant)
 - Called from (representative examples):
-  - make_ands_explicit
-  - reconsider_outer_join_clauses
-  - match_boolean_index_clause
-  - eval_const_expressions_mutator
-  - negate_clause
+  - [make_ands_explicit](make_ands_explicit.md)
+  - [reconsider_outer_join_clauses](../r/reconsider_outer_join_clauses.md)
+  - [match_boolean_index_clause](match_boolean_index_clause.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [negate_clause](../n/negate_clause.md)
 
 ## Notes and Other Information
 - The function hardwires the boolean size as 1 byte, duplicating the definition from pg_type.h

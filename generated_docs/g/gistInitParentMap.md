@@ -17,14 +17,14 @@ This function creates and configures a hash table within the GiST build state th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
+  - [hash_create](../h/hash_create.md)
   - HASHCTL
   - ParentMapEntry
   - HASH_ELEM
   - HASH_BLOBS
   - HASH_CONTEXT
 - Called from (representative examples):
-  - gistInitBuffering
+  - [gistInitBuffering](gistInitBuffering.md)
 
 ## Notes and Other Information
 - The hash table is created with an initial size of 1024 entries

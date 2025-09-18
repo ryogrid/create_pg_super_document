@@ -25,13 +25,13 @@ This detection is crucial for optimization decisions, particularly in parallel r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtQualifiedId (formats schema-qualified table names for comparison)
+  - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats schema-qualified table names for comparison)
   - createPQExpBuffer (creates buffer for string building)
-  - appendPQExpBuffer (appends formatted text to buffer)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends formatted text to buffer)
   - destroyPQExpBuffer (cleans up buffer memory)
   - strncmp (string comparison function)
 - Called from (representative examples):
-  - restore_toc_entry (to determine if TRUNCATE optimization is safe)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (to determine if TRUNCATE optimization is safe)
 
 ## Notes and Other Information
 - Returns true if load-via-partition-root is detected, false otherwise

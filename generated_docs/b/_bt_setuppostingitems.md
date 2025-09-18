@@ -23,11 +23,11 @@ This function initializes the processing of a posting list tuple during B-tree s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPosting (assertion check)
-  - BTreeTupleGetPostingOffset (to determine base tuple size)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md) (assertion check)
+  - [BTreeTupleGetPostingOffset](../B/BTreeTupleGetPostingOffset.md) (to determine base tuple size)
   - INDEX_SIZE_MASK (for tuple header size manipulation)
 - Called from (representative examples):
-  - _bt_readpage (during posting list tuple processing)
+  - [_bt_readpage](_bt_readpage.md) (during posting list tuple processing)
 
 ## Notes and Other Information
 - Returns the offset into tuple storage where the base tuple is stored, or 0 if tuple caching is disabled

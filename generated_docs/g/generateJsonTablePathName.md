@@ -27,11 +27,11 @@ This ensures that all path specifications have valid, unique names for internal 
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (standard C formatted string function)
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - lappend (PostgreSQL list append function)
 - Called from (representative examples):
-  - transformJsonTable (for root path specifications)
-  - transformJsonTableNestedColumns (for nested path specifications)
+  - [transformJsonTable](../t/transformJsonTable.md) (for root path specifications)
+  - [transformJsonTableNestedColumns](../t/transformJsonTableNestedColumns.md) (for nested path specifications)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parse_jsontable.c module

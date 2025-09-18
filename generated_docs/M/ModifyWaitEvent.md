@@ -29,19 +29,19 @@ The function is designed for high-performance scenarios where socket events freq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventAdjustEpoll (Linux)
-  - WaitEventAdjustKqueue (BSD)
-  - WaitEventAdjustPoll (poll-based systems)
-  - WaitEventAdjustWin32 (Windows)
+  - [WaitEventAdjustEpoll](../W/WaitEventAdjustEpoll.md) (Linux)
+  - [WaitEventAdjustKqueue](../W/WaitEventAdjustKqueue.md) (BSD)
+  - [WaitEventAdjustPoll](../W/WaitEventAdjustPoll.md) (poll-based systems)
+  - [WaitEventAdjustWin32](../W/WaitEventAdjustWin32.md) (Windows)
   - elog (error reporting)
 - Called from (representative examples):
-  - secure_read
-  - secure_write
-  - pq_check_connection
-  - WalSndWait
-  - WaitLatch
-  - SwitchToSharedLatch
-  - SwitchBackToLocalLatch
+  - [secure_read](../s/secure_read.md)
+  - [secure_write](../s/secure_write.md)
+  - [pq_check_connection](../p/pq_check_connection.md)
+  - [WalSndWait](../W/WalSndWait.md)
+  - [WaitLatch](../W/WaitLatch.md)
+  - [SwitchToSharedLatch](../S/SwitchToSharedLatch.md)
+  - [SwitchBackToLocalLatch](../S/SwitchBackToLocalLatch.md)
 
 ## Notes and Other Information
 - Cannot modify latch events to non-latch events or postmaster death events

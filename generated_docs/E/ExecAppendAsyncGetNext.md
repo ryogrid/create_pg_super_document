@@ -26,12 +26,12 @@ The function returns true when a tuple is available (including end-of-scan indic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecAppendAsyncRequest (async tuple request processing)
-  - ExecAppendAsyncEventWait (async event waiting and processing)
+  - [ExecAppendAsyncRequest](ExecAppendAsyncRequest.md) (async tuple request processing)
+  - [ExecAppendAsyncEventWait](ExecAppendAsyncEventWait.md) (async event waiting and processing)
   - CHECK_FOR_INTERRUPTS (query interruption handling)
   - ExecClearTuple (tuple slot clearing for end-of-scan)
 - Called from (representative examples):
-  - ExecAppend (main append execution function)
+  - [ExecAppend](ExecAppend.md) (main append execution function)
 
 ## Notes and Other Information
 - Only called when async subplans are available and active (as_nasyncremain > 0)

@@ -23,10 +23,10 @@ This function performs the inverse operation of PGTYPESdate_julmdy by converting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j: Converts year/month/day to Julian day number (called twice)
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number (called twice)
 - Called from (representative examples):
-  - rmdyjul: Informix compatibility wrapper function
-  - main: Used in test programs (dt_test.c)
+  - [rmdyjul](../r/rmdyjul.md): Informix compatibility wrapper function
+  - [main](../m/main.md): Used in test programs (dt_test.c)
 
 ## Notes and Other Information
 - This function is the complement to PGTYPESdate_julmdy, performing the reverse conversion

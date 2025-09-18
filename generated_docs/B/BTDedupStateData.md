@@ -33,16 +33,16 @@ The deduplication process involves examining tuples on a page, identifying range
 ## Dependencies
 - Functions called/Symbols referenced:
   - MaxIndexTuplesPerPage (constant)
-  - BTDedupInterval (type)
-  - IndexTuple (type)
+  - [BTDedupInterval](BTDedupInterval.md) (type)
+  - [IndexTuple](../I/IndexTuple.md) (type)
   - OffsetNumber (type)
   - Size (type)
   - ItemPointer (type)
 - Called from (representative examples):
-  - _bt_dedup_pass
-  - _bt_bottomupdel_pass
+  - [_bt_dedup_pass](../b/_bt_dedup_pass.md)
+  - [_bt_bottomupdel_pass](../b/_bt_bottomupdel_pass.md)
   - _bt_load
-  - btree_xlog_dedup
+  - [btree_xlog_dedup](../b/btree_xlog_dedup.md)
   - BTDedupState (typedef alias)
 
 ## Notes and Other Information

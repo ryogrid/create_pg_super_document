@@ -23,11 +23,11 @@ This function reads a quoted string from filter input that can span across multi
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar
   - pg_get_line_buf
-  - pg_log_filter_error
-  - exit_nicely (via fstate function pointer)
+  - [pg_log_filter_error](../p/pg_log_filter_error.md)
+  - [exit_nicely](../e/exit_nicely.md) (via fstate function pointer)
   - FilterStateData (struct type)
 - Called from (representative examples):
-  - read_pattern (at src/bin/pg_dump/filter.c:342)
+  - [read_pattern](read_pattern.md) (at src/bin/pg_dump/filter.c:342)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the filter.c file

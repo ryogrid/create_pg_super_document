@@ -21,7 +21,7 @@ The process_alarm function serves as a signal handler specifically for SIGALRM s
   - SIGNAL_ARGS (macro providing signal handler parameters)
 - Called from (representative examples):
   - STOP_TIMER macro (alarm signal handler registration)
-  - main function (signal handler setup)
+  - [main](../m/main.md) function (signal handler setup)
 
 ## Notes and Other Information
 - Extremely simple handler that only sets a global flag

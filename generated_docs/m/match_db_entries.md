@@ -22,10 +22,10 @@ The match_data parameter is not used in the current implementation, as the funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetObjectId (for data type conversion)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md) (for data type conversion)
   - MyDatabaseId (global variable representing current database OID)
 - Called from (representative examples):
-  - pgstat_reset_counters (uses this as a filter function)
+  - [pgstat_reset_counters](../p/pgstat_reset_counters.md) (uses this as a filter function)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pgstat.c file

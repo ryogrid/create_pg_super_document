@@ -27,14 +27,14 @@ This function takes no parameters.
   - TBLOCK_ABORT (transaction block state constant)
   - TBLOCK_SUBABORT (transaction block state constant)
 - Called from (representative examples):
-  - BuildParamLogString
-  - exec_replication_command
-  - HandleFunctionRequest
-  - exec_simple_query
-  - exec_parse_message
-  - exec_bind_message
-  - exec_execute_message
-  - ProcessRecoveryConflictInterrupt
+  - [BuildParamLogString](../B/BuildParamLogString.md)
+  - [exec_replication_command](../e/exec_replication_command.md)
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
 
 ## Notes and Other Information
 - This function is essential for PostgreSQL's error handling mechanism and transaction recovery

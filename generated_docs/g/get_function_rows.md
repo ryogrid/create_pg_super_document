@@ -29,15 +29,15 @@ The function includes an assertion to verify that the target function is indeed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - OidFunctionCall1
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_proc
   - SupportRequestRows
 - Called from (representative examples):
-  - expression_returns_set_rows
+  - [expression_returns_set_rows](../e/expression_returns_set_rows.md)
 
 ## Notes and Other Information
 The function returns an unfiltered estimate and does not apply any clamping to ensure reasonable bounds. Callers are typically expected to apply clamp_row_est() to the result to prevent extremely large or small estimates from causing poor planning decisions. The function properly manages system catalog cache resources by releasing cached tuples after use. The row count estimation is essential for determining the cost and selectivity of operations involving set-returning functions in complex queries.

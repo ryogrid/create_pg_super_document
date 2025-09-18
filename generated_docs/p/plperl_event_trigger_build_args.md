@@ -19,12 +19,12 @@ This function prepares the argument structure passed to Perl event trigger funct
 - Functions called/Symbols referenced:
   - newHV (Perl API function to create new hash)
   - EventTriggerData (PostgreSQL event trigger data structure)
-  - hv_store_string (utility function to store string values in Perl hash)
-  - cstr2sv (conversion function from C string to Perl scalar)
-  - GetCommandTagName (PostgreSQL function to get command tag name)
+  - [hv_store_string](../h/hv_store_string.md) (utility function to store string values in Perl hash)
+  - [cstr2sv](../c/cstr2sv.md) (conversion function from C string to Perl scalar)
+  - [GetCommandTagName](../G/GetCommandTagName.md) (PostgreSQL function to get command tag name)
   - newRV_noinc (Perl API function to create reference without incrementing reference count)
 - Called from (representative examples):
-  - plperl_event_trigger_handler
+  - [plperl_event_trigger_handler](plperl_event_trigger_handler.md)
 
 ## Notes and Other Information
 - Returns a Perl hash reference with 'event' and 'tag' keys

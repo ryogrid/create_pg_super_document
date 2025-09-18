@@ -20,16 +20,16 @@ The  function creates a copy of a tuple descriptor in shared memory managed by a
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_allocate (allocates memory in the dynamic shared area)
-  - dsa_get_address (converts dsa_pointer to local address)
+  - [dsa_get_address](../d/dsa_get_address.md) (converts dsa_pointer to local address)
   - TupleDescSize (calculates the size needed for the tuple descriptor)
-  - TupleDescCopy (copies tuple descriptor data)
+  - [TupleDescCopy](../T/TupleDescCopy.md) (copies tuple descriptor data)
 - Data structures used:
   - dsa_area
   - dsa_pointer
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
 - Called from (representative examples):
-  - SharedRecordTypmodRegistryInit (during registry initialization)
-  - find_or_make_matching_shared_tupledesc (when creating new shared descriptors)
+  - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md) (during registry initialization)
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md) (when creating new shared descriptors)
 
 ## Notes and Other Information
 - The function is static and only used within the typcache.c module

@@ -31,12 +31,12 @@ For infinite intervals, no adjustments are applied. The function returns true on
   - INTERVAL_PRECISION (macro to extract precision from typmod)
   - INTERVAL_MASK (macro for field masking)
   - INTERVAL_FULL_RANGE, INTERVAL_FULL_PRECISION (constants)
-  - pg_add_s64_overflow, pg_sub_s64_overflow (overflow-safe arithmetic)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md), pg_sub_s64_overflow (overflow-safe arithmetic)
   - ereturn (error context return macro)
 - Called from:
-  - interval_in (interval input parsing)
-  - interval_recv (binary interval reception)
-  - interval_scale (interval scaling function)
+  - [interval_in](../i/interval_in.md) (interval input parsing)
+  - [interval_recv](../i/interval_recv.md) (binary interval reception)
+  - [interval_scale](../i/interval_scale.md) (interval scaling function)
 
 ## Notes and Other Information
 - Implements PostgreSQL's post-8.4 behavior where only truncation/rounding of low-order fields occurs

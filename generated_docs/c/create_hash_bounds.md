@@ -30,17 +30,17 @@ The resulting structure enables efficient hash value to partition mapping during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - palloc
-  - pfree
+  - [palloc0](../p/palloc0.md)
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - qsort
-  - qsort_partition_hbound_cmp
-  - Int32GetDatum
+  - [qsort_partition_hbound_cmp](../q/qsort_partition_hbound_cmp.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
   - PARTITION_STRATEGY_HASH
-  - PartitionHashBound
+  - [PartitionHashBound](../P/PartitionHashBound.md)
   - PartitionBoundInfoData
 - Called from (representative examples):
-  - partition_bounds_create (src/backend/partitioning/partbounds.c:329)
+  - [partition_bounds_create](../p/partition_bounds_create.md) (src/backend/partitioning/partbounds.c:329)
 
 ## Notes and Other Information
 - Static function, only accessible within partbounds.c

@@ -17,8 +17,8 @@ This function validates a specific morphological pattern in Indonesian words whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping (Snowball framework function for testing characters outside a group)
-  - eq_s (Snowball framework function for string equality testing)
+  - [out_grouping](../o/out_grouping.md) (Snowball framework function for testing characters outside a group)
+  - [eq_s](../e/eq_s.md) (Snowball framework function for string equality testing)
   - g_vowel (character grouping array defining Indonesian vowels)
   - s_0 (string constant containing 'er')
 - Called from (representative examples):

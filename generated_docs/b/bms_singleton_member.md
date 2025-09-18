@@ -19,15 +19,15 @@ This function extracts the single member from a bitmapset that is expected to co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
+  - [bms_is_valid_set](bms_is_valid_set.md)
   - bitmapword
   - HAS_MULTIPLE_ONES
   - BITS_PER_BITMAPWORD
   - bmw_rightmost_one_pos
 - Called from (representative examples):
-  - get_matching_part_pairs (src/backend/optimizer/path/joinrels.c:1934, 1955)
-  - remove_useless_joins (src/backend/optimizer/plan/analyzejoins.c:88)
-  - fix_append_rel_relids (src/backend/optimizer/prep/prepjointree.c:4058)
+  - [get_matching_part_pairs](../g/get_matching_part_pairs.md) (src/backend/optimizer/path/joinrels.c:1934, 1955)
+  - [remove_useless_joins](../r/remove_useless_joins.md) (src/backend/optimizer/plan/analyzejoins.c:88)
+  - [fix_append_rel_relids](../f/fix_append_rel_relids.md) (src/backend/optimizer/prep/prepjointree.c:4058)
 
 ## Notes and Other Information
 - Throws ERROR if the bitmapset is NULL (empty)

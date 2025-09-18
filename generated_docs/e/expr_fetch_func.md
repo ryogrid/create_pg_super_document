@@ -20,9 +20,9 @@ This function serves as a callback for the statistics computation infrastructure
 ## Dependencies
 - Functions called/Symbols referenced:
   - VacAttrStatsP
-  - AnlExprData (indirectly through the data structure)
+  - [AnlExprData](../A/AnlExprData.md) (indirectly through the data structure)
 - Called from (representative examples):
-  - compute_expr_stats
+  - [compute_expr_stats](../c/compute_expr_stats.md)
 
 ## Notes and Other Information
 This function is specifically designed for expression statistics computation where data has been pre-evaluated and stored in arrays rather than constructed as tuples. The rowstride mechanism allows for flexible data organization, typically set to 1 for single-column expression statistics. The function provides an efficient interface between the pre-computed expression evaluation results and PostgreSQL's standard statistics computation routines that expect a fetch function callback interface.

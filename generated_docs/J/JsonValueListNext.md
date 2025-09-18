@@ -18,16 +18,16 @@ This function implements iterator functionality for JsonValueList sequences in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (type/structure)
-  - JsonValueListIterator (type/structure)
+  - [JsonValueList](JsonValueList.md) (type/structure)
+  - [JsonValueListIterator](JsonValueListIterator.md) (type/structure)
   - lfirst (PostgreSQL list macro for getting current list element)
-  - lnext (PostgreSQL list macro for advancing to next list element)
+  - [lnext](../l/lnext.md) (PostgreSQL list macro for advancing to next list element)
 - Called from (representative examples):
-  - executeItemOptUnwrapResult
-  - executePredicate
-  - executeUnaryArithmExpr
-  - wrapItemsInArray
-  - JsonTablePlanScanNextRow
+  - [executeItemOptUnwrapResult](../e/executeItemOptUnwrapResult.md)
+  - [executePredicate](../e/executePredicate.md)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
+  - [wrapItemsInArray](../w/wrapItemsInArray.md)
+  - [JsonTablePlanScanNextRow](JsonTablePlanScanNextRow.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c, not exposed in the public API

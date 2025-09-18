@@ -39,17 +39,17 @@ The function includes a comment noting that GIN indexes don't require conflict p
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
-  - MemoryContextSwitchTo
-  - ginRedoCreatePTree
-  - ginRedoInsert
-  - ginRedoSplit
-  - ginRedoVacuumPage
-  - ginRedoVacuumDataLeafPage
-  - ginRedoDeletePage
-  - ginRedoUpdateMetapage
-  - ginRedoInsertListPage
-  - ginRedoDeleteListPages
-  - MemoryContextReset
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [ginRedoCreatePTree](ginRedoCreatePTree.md)
+  - [ginRedoInsert](ginRedoInsert.md)
+  - [ginRedoSplit](ginRedoSplit.md)
+  - [ginRedoVacuumPage](ginRedoVacuumPage.md)
+  - [ginRedoVacuumDataLeafPage](ginRedoVacuumDataLeafPage.md)
+  - [ginRedoDeletePage](ginRedoDeletePage.md)
+  - [ginRedoUpdateMetapage](ginRedoUpdateMetapage.md)
+  - [ginRedoInsertListPage](ginRedoInsertListPage.md)
+  - [ginRedoDeleteListPages](ginRedoDeleteListPages.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - elog (for unknown operation codes)
 
 - Called from:

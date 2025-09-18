@@ -22,10 +22,10 @@ The function acts as a wrapper around the platform-specific implementation pg_at
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for pointer alignment verification when not using simulation)
-  - pg_atomic_add_fetch_u64_impl (platform-specific implementation which calls pg_atomic_fetch_add_u64_impl)
+  - [pg_atomic_add_fetch_u64_impl](pg_atomic_add_fetch_u64_impl.md) (platform-specific implementation which calls pg_atomic_fetch_add_u64_impl)
 - Called from (representative examples):
-  - EmitProcSignalBarrier (for incrementing process signal barrier generation counter)
-  - test_atomic_uint64 (regression testing)
+  - [EmitProcSignalBarrier](../E/EmitProcSignalBarrier.md) (for incrementing process signal barrier generation counter)
+  - [test_atomic_uint64](../t/test_atomic_uint64.md) (regression testing)
 
 ## Notes and Other Information
 - Returns the new value after the addition, not the original value before addition

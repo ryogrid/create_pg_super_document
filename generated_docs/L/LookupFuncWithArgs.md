@@ -21,17 +21,17 @@ This function implements the most sophisticated function lookup mechanism in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncNameInternal  
-  - LookupTypeNameOid
-  - get_func_prokind
+  - [LookupFuncNameInternal](LookupFuncNameInternal.md)  
+  - [LookupTypeNameOid](LookupTypeNameOid.md)
+  - [get_func_prokind](../g/get_func_prokind.md)
   - list_length
   - lfirst_node
-  - func_signature_string
-  - NameListToString
+  - [func_signature_string](../f/func_signature_string.md)
+  - [NameListToString](../N/NameListToString.md)
   - ereport
-  - errcode
-  - errmsg
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
   - FUNC_MAX_ARGS
   - PROKIND_PROCEDURE
   - PROKIND_AGGREGATE

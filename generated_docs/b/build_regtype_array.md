@@ -23,17 +23,17 @@ The function handles empty arrays gracefully by returning a zero-element array r
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_array
-  - ObjectIdGetDatum
-  - construct_array_builtin
-  - PointerGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Constants used:
   - REGTYPEOID
 - Data structures used:
   - Datum
-  - ArrayType
+  - [ArrayType](../A/ArrayType.md)
   - Oid
 - Called from (representative examples):
-  - pg_prepared_statement
+  - [pg_prepared_statement](../p/pg_prepared_statement.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the prepare.c compilation unit

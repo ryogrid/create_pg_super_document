@@ -22,14 +22,14 @@ The function determines scan direction based on the forward parameter and curren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RunFromStore
+  - [RunFromStore](../R/RunFromStore.md)
   - PushActiveSnapshot
-  - ExecutorRun
+  - [ExecutorRun](../E/ExecutorRun.md)
   - PopActiveSnapshot
   - ScanDirectionIsNoMovement
 - Called from (representative examples):
-  - PortalRun
-  - DoPortalRunFetch (multiple locations)
+  - [PortalRun](PortalRun.md)
+  - [DoPortalRunFetch](../D/DoPortalRunFetch.md) (multiple locations)
 
 ## Notes and Other Information
 - Returns the number of rows processed, suitable for use in result tags

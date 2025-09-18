@@ -35,21 +35,21 @@ The function handles edge cases like reading beyond the object end, zero-length 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inv_open
-  - inv_seek
-  - inv_read
-  - inv_close
-  - palloc
+  - [inv_open](../i/inv_open.md)
+  - [inv_seek](../i/inv_seek.md)
+  - [inv_read](../i/inv_read.md)
+  - [inv_close](../i/inv_close.md)
+  - [palloc](../p/palloc.md)
   - ereport
-  - LargeObjectDesc (struct type)
+  - [LargeObjectDesc](../L/LargeObjectDesc.md) (struct type)
   - INV_READ (constant)
   - MaxAllocSize (constant)
   - VARDATA (macro)
   - SET_VARSIZE (macro)
   - PG_USED_FOR_ASSERTS_ONLY (attribute)
 - Called from (representative examples):
-  - be_lo_get (src/backend/libpq/be-fsstubs.c:797)
-  - be_lo_get_fragment (src/backend/libpq/be-fsstubs.c:818)
+  - [be_lo_get](../b/be_lo_get.md) (src/backend/libpq/be-fsstubs.c:797)
+  - [be_lo_get_fragment](../b/be_lo_get_fragment.md) (src/backend/libpq/be-fsstubs.c:818)
 
 ## Notes and Other Information
 - Static function with file-local scope, used as a building block for public large object read operations

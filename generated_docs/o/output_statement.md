@@ -19,10 +19,10 @@ This function is part of the ECPG (Embedded SQL in C) preprocessor and is respon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - output_escaped_str (for escaping SQL statement strings)
-  - dump_variables (for outputting input and result variable information)
-  - reset_variables (for cleaning up variable state)
-  - whenever_action (for generating error handling code)
+  - [output_escaped_str](output_escaped_str.md) (for escaping SQL statement strings)
+  - [dump_variables](../d/dump_variables.md) (for outputting input and result variable information)
+  - [reset_variables](../r/reset_variables.md) (for cleaning up variable state)
+  - [whenever_action](../w/whenever_action.md) (for generating error handling code)
   - ECPGst_prepnormal, ECPGst_execute, ECPGst_exec_immediate (statement type constants)
 - Called from (representative examples):
   - No direct callers found in the indexed symbols

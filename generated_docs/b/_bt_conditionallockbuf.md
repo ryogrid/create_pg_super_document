@@ -25,11 +25,11 @@ The function includes a note that callers may need to call _bt_checkpage() to va
   - ConditionalLockBuffer
   - RelationUsesLocalBuffers
   - VALGRIND_MAKE_MEM_DEFINED
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
 
 - Called from (representative examples):
-  - _bt_search_insert
-  - _bt_allocbuf
+  - [_bt_search_insert](_bt_search_insert.md)
+  - [_bt_allocbuf](_bt_allocbuf.md)
 
 ## Notes and Other Information
 - Returns true if lock was successfully acquired, false if lock was already held by another backend

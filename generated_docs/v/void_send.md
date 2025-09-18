@@ -18,8 +18,8 @@ The void_send function is responsible for serializing void values to binary form
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_begintypsend (initializes binary output buffer)
-  - pq_endtypsend (finalizes binary output buffer and returns bytea)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initializes binary output buffer)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary output buffer and returns bytea)
   - PG_RETURN_BYTEA_P (macro for returning bytea datum)
 - Called from (representative examples):
   - (No direct references found in codebase)

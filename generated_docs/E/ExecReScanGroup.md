@@ -24,13 +24,13 @@ The function includes an optimization where it only rescans the child node if no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GroupState (node parameter type)
-  - PlanState (child plan reference)
+  - [GroupState](../G/GroupState.md) (node parameter type)
+  - [PlanState](../P/PlanState.md) (child plan reference)
   - outerPlanState (child plan access macro)
   - ExecClearTuple (tuple slot cleanup)
-  - ExecReScan (recursive child rescan)
+  - [ExecReScan](ExecReScan.md) (recursive child rescan)
 - Called from (representative examples):
-  - ExecReScan (during plan node rescan operations)
+  - [ExecReScan](ExecReScan.md) (during plan node rescan operations)
 
 ## Notes and Other Information
 - Essential for nested loop joins and other scenarios requiring plan re-execution

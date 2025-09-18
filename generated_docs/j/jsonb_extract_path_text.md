@@ -19,7 +19,7 @@ The  function serves as a wrapper that extracts values from JSONB data structure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_jsonb_path_all (with )
+  - [get_jsonb_path_all](../g/get_jsonb_path_all.md) (with )
 - Called from (representative examples):
   - SQL function calls via PostgreSQL's function call interface
 

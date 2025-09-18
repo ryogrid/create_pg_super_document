@@ -21,18 +21,18 @@ Unlike `defGetString` which handles multiple node types, `defGetNumeric` is more
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (for type checking)
   - intVal (to extract integer values and cast to double)
   - floatVal (to extract float values)
   - ereport (for error reporting)
-  - errcode/errmsg (for error handling)
+  - [errcode](../e/errcode.md)/errmsg (for error handling)
   
 - Called from (representative examples):
-  - compute_function_attributes (src/backend/commands/functioncmds.c:820)
-  - compute_function_attributes (src/backend/commands/functioncmds.c:828)
-  - AlterFunction (src/backend/commands/functioncmds.c:1423)
-  - AlterFunction (src/backend/commands/functioncmds.c:1431)
+  - [compute_function_attributes](../c/compute_function_attributes.md) (src/backend/commands/functioncmds.c:820)
+  - [compute_function_attributes](../c/compute_function_attributes.md) (src/backend/commands/functioncmds.c:828)
+  - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1423)
+  - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1431)
 
 ## Notes and Other Information
 - Only accepts T_Integer and T_Float node types, unlike the more flexible `defGetString`

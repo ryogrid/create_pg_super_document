@@ -21,17 +21,17 @@ For each dependent entry, if all conditions are met - no remaining dependencies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
-  - binaryheap (type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
+  - [binaryheap](../b/binaryheap.md) (type)
   - pg_log_debug (logging function)
-  - _tocEntryRestorePass (function to determine restore pass)
-  - pending_list_remove (function to remove from pending list)
-  - binaryheap_add (function to add to binary heap)
+  - [_tocEntryRestorePass](../t/_tocEntryRestorePass.md) (function to determine restore pass)
+  - [pending_list_remove](../p/pending_list_remove.md) (function to remove from pending list)
+  - [binaryheap_add](../b/binaryheap_add.md) (function to add to binary heap)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - restore_toc_entries_prefork
-  - restore_toc_entries_parallel
-  - mark_restore_job_done
+  - [restore_toc_entries_prefork](restore_toc_entries_prefork.md)
+  - [restore_toc_entries_parallel](restore_toc_entries_parallel.md)
+  - [mark_restore_job_done](../m/mark_restore_job_done.md)
 
 ## Notes and Other Information
 - Essential for coordinating parallel restore operations by managing dependency resolution

@@ -22,20 +22,20 @@ The function handles missing procedures gracefully when the missing_ok parameter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
   - Form_pg_proc
-  - get_namespace_name_or_temp
+  - [get_namespace_name_or_temp](../g/get_namespace_name_or_temp.md)
   - list_make2
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NameStr
   - lappend
-  - format_type_be_qualified
-  - ReleaseSysCache
+  - [format_type_be_qualified](format_type_be_qualified.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - getObjectIdentityParts (src/backend/catalog/objectaddress.c:4822)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md) (src/backend/catalog/objectaddress.c:4822)
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's regproc type handling system

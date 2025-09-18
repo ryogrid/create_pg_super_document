@@ -22,8 +22,8 @@ The function performs a direct lookup into the tag_behavior array to retrieve th
   - CommandTag (enum type)
   - tag_behavior (static array of CommandTagBehavior structs)
 - Called from (representative examples):
-  - validate_ddl_tags (src/backend/commands/event_trigger.c:226)
-  - EventTriggerCommonSetup (src/backend/commands/event_trigger.c:668)
+  - [validate_ddl_tags](../v/validate_ddl_tags.md) (src/backend/commands/event_trigger.c:226)
+  - [EventTriggerCommonSetup](../E/EventTriggerCommonSetup.md) (src/backend/commands/event_trigger.c:668)
   - CopyQueryCompletion (src/include/tcop/cmdtag.h:56)
 
 ## Notes and Other Information

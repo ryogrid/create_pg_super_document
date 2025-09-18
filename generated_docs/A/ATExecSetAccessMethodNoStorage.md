@@ -25,17 +25,17 @@ The function updates the pg_class.relam field for the relation and manages the d
   - table_open
   - table_close
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - deleteDependencyRecordsForClass
-  - changeDependencyFor
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [changeDependencyFor](../c/changeDependencyFor.md)
   - CommandCounterIncrement
   - InvokeObjectPostAlterHook
   - RelationGetRelid
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within tablecmds.c as part of the ALTER TABLE infrastructure

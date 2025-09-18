@@ -25,11 +25,11 @@ When a subtransaction commits, its invalidation messages are appended to the par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransInvalidationInfo (self-reference for parent pointer)
-  - InvalidationMsgsGroup (used for CurrentCmdInvalidMsgs and PriorCmdInvalidMsgs)
+  - [TransInvalidationInfo](TransInvalidationInfo.md) (self-reference for parent pointer)
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md) (used for CurrentCmdInvalidMsgs and PriorCmdInvalidMsgs)
 - Called from (representative examples):
-  - PrepareInvalidationState
-  - AtEOSubXact_Inval
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
+  - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md)
 
 ## Notes and Other Information
 - Maintained as a global static variable transInvalInfo pointing to the current transaction level

@@ -30,14 +30,14 @@ The function also preserves a copy of the parsed query for materialized views, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformStmt, makeNode, copyObject
-  - isQueryUsingTempRelation, query_contains_extern_params
+  - [transformStmt](transformStmt.md), makeNode, copyObject
+  - [isQueryUsingTempRelation](../i/isQueryUsingTempRelation.md), query_contains_extern_params
   - ereport, errcode, errmsg
 - Constants referenced:
   - OBJECT_MATVIEW, RELPERSISTENCE_UNLOGGED, CMD_UTILITY
   - Error codes: ERRCODE_FEATURE_NOT_SUPPORTED
 - Called from (representative examples):
-  - transformStmt
+  - [transformStmt](transformStmt.md)
 
 ## Notes and Other Information
 - Unlike SELECT statements, this transformation prohibits nested SELECT INTO

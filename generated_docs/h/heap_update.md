@@ -44,21 +44,21 @@ The function operates through several phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleSatisfiesUpdate
-  - HeapDetermineColumnsInfo
-  - compute_new_xmax_infomask
-  - RelationGetIndexAttrBitmap
-  - ExtractReplicaIdentity
-  - heap_toast_insert_or_update
-  - RelationGetBufferForTuple
-  - CheckForSerializableConflictIn
-  - log_heap_update
-  - check_lock_if_inplace_updateable_rel
-  - PageGetHeapFreeSpace
-  - heap_freetuple
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)
+  - [HeapDetermineColumnsInfo](../H/HeapDetermineColumnsInfo.md)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
+  - [ExtractReplicaIdentity](../E/ExtractReplicaIdentity.md)
+  - [heap_toast_insert_or_update](heap_toast_insert_or_update.md)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
+  - [log_heap_update](../l/log_heap_update.md)
+  - [check_lock_if_inplace_updateable_rel](../c/check_lock_if_inplace_updateable_rel.md)
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
+  - [heap_freetuple](heap_freetuple.md)
 - Called from (representative examples):
-  - simple_heap_update
-  - heapam_tuple_update
+  - [simple_heap_update](../s/simple_heap_update.md)
+  - [heapam_tuple_update](heapam_tuple_update.md)
 
 ## Notes and Other Information
 - The function prohibits execution during parallel operations to prevent combo CID allocation issues

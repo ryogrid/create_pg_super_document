@@ -24,11 +24,11 @@ The function uses the ADD_STARTUP_OPTION macro to efficiently handle parameter s
   - pg_hton32 (network byte order conversion)
   - memcpy, strcpy, strlen (string/memory operations)
   - getenv (environment variable access)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - ProtocolVersion (type for protocol version)
-  - PQEnvironmentOption (structure type)
+  - [PQEnvironmentOption](../P/PQEnvironmentOption.md) (structure type)
 - Called from (representative examples):
-  - pqBuildStartupPacket3 (wrapper function in src/interfaces/libpq/fe-protocol3.c)
+  - [pqBuildStartupPacket3](../p/pqBuildStartupPacket3.md) (wrapper function in src/interfaces/libpq/fe-protocol3.c)
 
 ## Notes and Other Information
 - Returns the total length of the constructed packet in bytes

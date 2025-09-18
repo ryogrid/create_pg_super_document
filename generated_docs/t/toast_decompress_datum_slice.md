@@ -25,9 +25,9 @@ Like its full decompression counterpart, this function supports multiple compres
   - VARATT_IS_COMPRESSED
   - TOAST_COMPRESS_EXTSIZE
   - TOAST_COMPRESS_METHOD
-  - toast_decompress_datum
-  - pglz_decompress_datum_slice
-  - lz4_decompress_datum_slice
+  - [toast_decompress_datum](toast_decompress_datum.md)
+  - [pglz_decompress_datum_slice](../p/pglz_decompress_datum_slice.md)
+  - [lz4_decompress_datum_slice](../l/lz4_decompress_datum_slice.md)
   - elog
   - Assert
 - Types used:
@@ -35,7 +35,7 @@ Like its full decompression counterpart, this function supports multiple compres
   - TOAST_PGLZ_COMPRESSION_ID
   - TOAST_LZ4_COMPRESSION_ID
 - Called from:
-  - detoast_attr_slice
+  - [detoast_attr_slice](../d/detoast_attr_slice.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within the detoast.c compilation unit

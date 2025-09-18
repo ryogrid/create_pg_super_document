@@ -24,7 +24,7 @@ The function processes the value in 7-bit chunks, encoding them from least signi
 - Functions called/Symbols referenced:
   - (No function calls - uses only basic operations)
 - Called from (representative examples):
-  - ginCompressPostingList
+  - [ginCompressPostingList](../g/ginCompressPostingList.md)
 
 ## Notes and Other Information
 - This is a static function used internally for GIN index posting list compression

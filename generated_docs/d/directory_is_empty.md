@@ -21,13 +21,13 @@ This utility function verifies whether a specified directory contains any files 
   - ReadDir: Reads the next directory entry
   - FreeDir: Closes and frees directory resources
   - DIR: Directory handle structure
-  - dirent: Directory entry structure
+  - [dirent](dirent.md): Directory entry structure
 
 - Called from (representative examples):
-  - CreateDatabaseUsingFileCopy: Used during database creation operations
-  - createdb: Database creation command implementation
-  - destroy_tablespace_directories: Tablespace cleanup operations
-  - pg_tablespace_databases: System function for tablespace database listing
+  - [CreateDatabaseUsingFileCopy](../C/CreateDatabaseUsingFileCopy.md): Used during database creation operations
+  - [createdb](../c/createdb.md): Database creation command implementation
+  - [destroy_tablespace_directories](destroy_tablespace_directories.md): Tablespace cleanup operations
+  - [pg_tablespace_databases](../p/pg_tablespace_databases.md): System function for tablespace database listing
 
 ## Notes and Other Information
 - The function comment indicates uncertainty about the most appropriate location for this utility function within the codebase

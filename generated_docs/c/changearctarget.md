@@ -25,7 +25,7 @@ The function assumes the caller has verified that no duplicate arc will be creat
   - struct arc (data structure)
   - struct state (data structure)
 - Called from (representative examples):
-  - moveins (in regc_nfa.c:842, 865)
+  - [moveins](../m/moveins.md) (in regc_nfa.c:842, 865)
 
 ## Notes and Other Information
 - This is a static function internal to the regex NFA construction module

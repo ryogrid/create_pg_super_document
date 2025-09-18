@@ -29,9 +29,9 @@ This creates a hierarchical data model where branches are at the top level, tell
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro to get array length)
-  - executeStatement (execute SQL statement)
+  - [executeStatement](../e/executeStatement.md) (execute SQL statement)
 - Called from (representative examples):
-  - runInitSteps
+  - [runInitSteps](../r/runInitSteps.md)
 
 ## Notes and Other Information
 - This function is called after primary keys have been created (via initCreatePKeys) since foreign keys require the referenced primary keys to exist first

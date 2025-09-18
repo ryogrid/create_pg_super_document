@@ -30,9 +30,9 @@ This function takes no parameters.
   - max_worker_processes
   - max_wal_senders
 - Called from (representative examples):
-  - BootstrapModeMain
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
 
 ## Notes and Other Information
 - The function includes an assertion that MaxBackends starts at 0, ensuring it's only called once

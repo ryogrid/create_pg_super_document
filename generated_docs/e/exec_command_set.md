@@ -22,29 +22,29 @@ When setting a variable, the function parses the variable name as the first argu
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
   - PrintVariables
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - pg_realloc
   - SetVariable
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - strcat
   - strlen
   - free
-  - PsqlScanState (type)
-  - backslashResult (return type)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
+  - [backslashResult](../b/backslashResult.md) (return type)
   - OT_NORMAL (option type)
   - PSQL_CMD_SKIP_LINE (success return value)
   - PSQL_CMD_ERROR (error return value)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information
 - This function is part of psql's variable system, enabling user-defined variables for scripts and interactive use
 - When no arguments are provided, all variables in  are displayed using 
-- Variable values are created by concatenating all arguments after the variable name, allowing for natural multi-word values
+- [Variable](../V/Variable.md) values are created by concatenating all arguments after the variable name, allowing for natural multi-word values
 - Memory management includes proper cleanup of all allocated strings and dynamic reallocation for concatenation
 - The function uses  which handles variable storage in the global  hash table
 - Empty string values are supported when a variable name is provided without subsequent value arguments
 - The function properly handles conditional execution by ignoring options when not in an active branch
 - Returns  if variable setting fails (typically due to memory issues), otherwise returns 
-- Variables set with this command can be referenced later in psql using  syntax
+- [Variables](../V/Variables.md) set with this command can be referenced later in psql using  syntax

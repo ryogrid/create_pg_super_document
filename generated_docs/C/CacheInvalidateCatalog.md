@@ -19,11 +19,11 @@ The function determines whether the catalog is shared across databases or specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareInvalidationState
-  - IsSharedRelation
-  - RegisterCatalogInvalidation
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [RegisterCatalogInvalidation](../R/RegisterCatalogInvalidation.md)
 - Called from (representative examples):
-  - finish_heap_swap
+  - [finish_heap_swap](../f/finish_heap_swap.md)
 
 ## Notes and Other Information
 - The caller is expected to verify that the relation is actually a system catalog, though no harm occurs if it isn't (just a wasted invalidation message)

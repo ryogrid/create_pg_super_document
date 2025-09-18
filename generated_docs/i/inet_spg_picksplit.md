@@ -36,16 +36,16 @@ The function performs a two-pass algorithm: first examining all values to find t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP (datum to inet conversion)
+  - [DatumGetInetPP](../D/DatumGetInetPP.md) (datum to inet conversion)
   - ip_family (extract address family)
   - ip_bits (extract prefix length)
   - ip_addr (extract address bits)
-  - bitncommon (find common prefix bits)
-  - cidr_set_masklen_internal (set network mask length)
-  - inet_spg_node_number (calculate node number)
-  - InetPGetDatum (inet to datum conversion)
-  - palloc (memory allocation)
-  - spgPickSplitIn/spgPickSplitOut (SP-GiST structures)
+  - [bitncommon](../b/bitncommon.md) (find common prefix bits)
+  - [cidr_set_masklen_internal](../c/cidr_set_masklen_internal.md) (set network mask length)
+  - [inet_spg_node_number](inet_spg_node_number.md) (calculate node number)
+  - [InetPGetDatum](../I/InetPGetDatum.md) (inet to datum conversion)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [spgPickSplitIn](../s/spgPickSplitIn.md)/spgPickSplitOut (SP-GiST structures)
 - Called from (representative examples):
   - SP-GiST leaf node splitting process
   - Index maintenance during bulk insertions
@@ -56,5 +56,5 @@ The function performs a two-pass algorithm: first examining all values to find t
 - Handles mixed IPv4/IPv6 scenarios by separating them at the address family level
 - The 4-node split follows a quadtree-like pattern based on the next bit pair after the common prefix
 - Memory allocation is handled through PostgreSQL's palloc mechanism
-- Node labels are not used (set to NULL) since network address comparison is done directly on the data
+- [Node](../N/Node.md) labels are not used (set to NULL) since network address comparison is done directly on the data
 - The function ensures balanced partitioning by using the longest possible common prefix

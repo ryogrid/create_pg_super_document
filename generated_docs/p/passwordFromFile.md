@@ -32,18 +32,18 @@ When a matching entry is found, the password field is extracted, de-escaped (rem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData
+  - [PQExpBufferData](../P/PQExpBufferData.md)
   - DefaultHost
-  - is_unixsock_path
+  - [is_unixsock_path](../i/is_unixsock_path.md)
   - DEFAULT_PGSOCKET_DIR
   - S_ISREG
-  - libpq_gettext
+  - [libpq_gettext](../l/libpq_gettext.md)
   - S_IRWXG, S_IRWXO
   - fopen
   - initPQExpBuffer
-  - enlargePQExpBuffer
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md)
   - pg_strip_crlf
-  - pwdfMatchesString
+  - [pwdfMatchesString](pwdfMatchesString.md)
   - explicit_bzero
   - termPQExpBuffer
 - Called from (representative examples):

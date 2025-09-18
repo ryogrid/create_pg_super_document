@@ -23,10 +23,10 @@ The function ensures proper null-termination of the resulting string and returns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Zstd_read_internal
-  - CompressFileHandle
+  - [Zstd_read_internal](Zstd_read_internal.md)
+  - [CompressFileHandle](../C/CompressFileHandle.md)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (as part of function pointer assignment)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (as part of function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function within the Zstd compression module

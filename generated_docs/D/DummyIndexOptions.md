@@ -25,7 +25,7 @@ DummyIndexOptions is a structure used in PostgreSQL's dummy index access method 
 - Functions called/Symbols referenced:
   - DummyAmEnum
 - Called from (representative examples):
-  - create_reloptions_table (multiple references for offsetof calculations)
+  - [create_reloptions_table](../c/create_reloptions_table.md) (multiple references for offsetof calculations)
   - diocptions function
 
 ## Notes and Other Information

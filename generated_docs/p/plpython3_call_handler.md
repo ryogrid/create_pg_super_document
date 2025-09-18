@@ -21,20 +21,20 @@ This function serves as the primary execution handler for PL/Python procedures a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_initialize (initialize PL/Python environment)
+  - [PLy_initialize](../P/PLy_initialize.md) (initialize PL/Python environment)
   - IsA (PostgreSQL type checking macro)
   - castNode (PostgreSQL type casting)
   - SPI_connect_ext (establish SPI connection with options)
   - elog (error logging)
-  - PLy_push_execution_context (create execution context)
+  - [PLy_push_execution_context](../P/PLy_push_execution_context.md) (create execution context)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling)
-  - plpython_error_callback (error callback function)
+  - [plpython_error_callback](plpython_error_callback.md) (error callback function)
   - CALLED_AS_TRIGGER (trigger detection macro)
-  - PLy_procedure_get (retrieve/compile procedure)
-  - PLy_exec_trigger (execute trigger function)
-  - PLy_exec_function (execute regular function)
-  - PointerGetDatum (convert pointer to Datum)
-  - PLy_pop_execution_context (cleanup execution context)
+  - [PLy_procedure_get](../P/PLy_procedure_get.md) (retrieve/compile procedure)
+  - [PLy_exec_trigger](../P/PLy_exec_trigger.md) (execute trigger function)
+  - [PLy_exec_function](../P/PLy_exec_function.md) (execute regular function)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (convert pointer to Datum)
+  - [PLy_pop_execution_context](../P/PLy_pop_execution_context.md) (cleanup execution context)
   - PyErr_Clear (clear Python errors)
   - PG_RE_THROW (re-throw PostgreSQL exceptions)
 - Called from (representative examples):

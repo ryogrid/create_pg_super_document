@@ -27,11 +27,11 @@ The created Sort node inherits the target list from its child plan and has no ad
   - makeNode (to create the Sort node)
   - Sort (plan node type)
 - Called from (representative examples):
-  - create_append_plan (src/backend/optimizer/plan/createplan.c:1360)
-  - create_merge_append_plan (src/backend/optimizer/plan/createplan.c:1532)
-  - make_sort_from_pathkeys (src/backend/optimizer/plan/createplan.c:6367)
-  - make_sort_from_sortclauses (src/backend/optimizer/plan/createplan.c:6446)
-  - make_sort_from_groupcols (src/backend/optimizer/plan/createplan.c:6500)
+  - [create_append_plan](../c/create_append_plan.md) (src/backend/optimizer/plan/createplan.c:1360)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md) (src/backend/optimizer/plan/createplan.c:1532)
+  - [make_sort_from_pathkeys](make_sort_from_pathkeys.md) (src/backend/optimizer/plan/createplan.c:6367)
+  - [make_sort_from_sortclauses](make_sort_from_sortclauses.md) (src/backend/optimizer/plan/createplan.c:6446)
+  - [make_sort_from_groupcols](make_sort_from_groupcols.md) (src/backend/optimizer/plan/createplan.c:6500)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the planner

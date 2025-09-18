@@ -29,7 +29,7 @@ The function returns true only if the read was consistent (no concurrent writes)
 - Functions called/Symbols referenced:
   - pg_read_barrier (memory barrier function)
 - Called from (representative examples):
-  - pgstat_copy_changecounted_stats
+  - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
 
 ## Notes and Other Information
 - This function must always be paired with a preceding pgstat_begin_changecount_read call

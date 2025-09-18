@@ -19,11 +19,11 @@ This function initializes the parameter reference handling mechanism for queries
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FixedParamState (structure type)
-  - fixed_paramref_hook (callback function)
-  - palloc (memory allocation)
+  - [FixedParamState](../F/FixedParamState.md) (structure type)
+  - [fixed_paramref_hook](../f/fixed_paramref_hook.md) (callback function)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - parse_analyze_fixedparams
+  - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parameter handling infrastructure for prepared statements

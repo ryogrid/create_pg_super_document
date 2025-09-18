@@ -24,14 +24,14 @@ The function is designed to be lightweight and efficient, making it suitable for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typavgwidth
+  - [get_typavgwidth](get_typavgwidth.md)
   - exprType
   - exprTypmod
 - Macros used:
   - IS_SPECIAL_VARNO
 - Called from (representative examples):
-  - set_pathtarget_cost_width
-  - cost_memoize_rescan
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)
+  - [cost_memoize_rescan](../c/cost_memoize_rescan.md)
 
 ## Notes and Other Information
 - Optimizes for performance by checking cached width estimates in RelOptInfo before falling back to type-based estimates

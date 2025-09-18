@@ -31,10 +31,10 @@ The function uses PostgreSQL's standard function argument mechanism:
   - PG_GETARG_LSN (macro for extracting LSN arguments)
   - UINT64_FORMAT (format string for 64-bit unsigned integers)
   - DirectFunctionCall3 (PostgreSQL function call mechanism)
-  - numeric_in (converts string to numeric type)
-  - CStringGetDatum (converts C string to PostgreSQL Datum)
+  - [numeric_in](../n/numeric_in.md) (converts string to numeric type)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to PostgreSQL Datum)
 - Called from (representative examples):
-  - pg_wal_lsn_diff
+  - [pg_wal_lsn_diff](pg_wal_lsn_diff.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's arithmetic operators for LSN data type

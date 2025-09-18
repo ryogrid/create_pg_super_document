@@ -29,6 +29,6 @@ The  function is a wrapper function designed for PostgreSQL's regression test su
 ## Notes and Other Information
 - This is a test utility function located in the PostgreSQL regression test suite
 - The function modifies the path in-place via , which is why the same buffer is used for input and output
-- Path canonicalization typically involves resolving relative path components, removing redundant separators, and standardizing path format
+- [Path](../P/Path.md) canonicalization typically involves resolving relative path components, removing redundant separators, and standardizing path format
 - The function follows PostgreSQL's V1 calling convention for user-defined functions
 - Provides a SQL-accessible interface to test internal path manipulation functionality

@@ -35,15 +35,15 @@ The function handles the statistical reality that multirange columns often conta
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_statistic
-  - get_attstatsslot (for STATISTIC_KIND_RANGE_LENGTH_HISTOGRAM)
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md) (for STATISTIC_KIND_RANGE_LENGTH_HISTOGRAM)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - MultirangeIsEmpty
-  - calc_hist_selectivity
-  - default_multirange_selectivity
+  - [calc_hist_selectivity](calc_hist_selectivity.md)
+  - [default_multirange_selectivity](../d/default_multirange_selectivity.md)
   - CLAMP_PROBABILITY
 
 - Called from (representative examples):
-  - multirangesel (when valid constant multirange is available)
+  - [multirangesel](../m/multirangesel.md) (when valid constant multirange is available)
 
 ## Notes and Other Information
 This function represents the core statistical analysis engine for multirange selectivity. It carefully separates the treatment of empty and non-empty multiranges because they behave very differently under various operators. The function ensures proper handling of edge cases like infinite bounds and maintains statistical accuracy by properly weighting different population segments (NULL, empty, non-empty).

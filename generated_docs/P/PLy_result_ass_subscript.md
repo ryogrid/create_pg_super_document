@@ -24,7 +24,7 @@ This implementation allows PLyResultObject to behave like a mutable Python seque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (structure type cast)
+  - [PLyResultObject](PLyResultObject.md) (structure type cast)
   - PyObject_SetItem (Python C API function)
 - Called from (representative examples):
   - Used as mp_ass_subscript method in PLyResultAsMapping mapping protocol (indirectly through Python's assignment mechanism)

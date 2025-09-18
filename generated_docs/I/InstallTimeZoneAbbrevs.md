@@ -32,7 +32,7 @@ The caller bears responsibility for ensuring the table's memory remains valid fo
   - zoneabbrevtbl (global timezone abbreviation table pointer)
   - abbrevcache (global abbreviation lookup cache array)
 - Called from (representative examples):
-  - assign_timezone_abbreviations (src/backend/commands/variable.c:523)
+  - [assign_timezone_abbreviations](../a/assign_timezone_abbreviations.md) (src/backend/commands/variable.c:523)
 
 ## Notes and Other Information
 - This function is typically called from GUC assignment hooks when the timezone_abbreviations configuration parameter is changed

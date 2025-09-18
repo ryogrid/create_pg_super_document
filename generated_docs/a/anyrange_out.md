@@ -17,7 +17,7 @@ The anyrange_out function serves as a text output function for the anyrange pseu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_out: The actual implementation for text range output
+  - [range_out](../r/range_out.md): The actual implementation for text range output
   - PSEUDOTYPE_DUMMY_INPUT_FUNC: Referenced in the surrounding context
 - Called from (representative examples):
   - No direct references found in the codebase (typically called through PostgreSQL's type system)

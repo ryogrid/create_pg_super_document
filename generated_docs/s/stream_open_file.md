@@ -21,13 +21,13 @@ This function manages file operations for streaming changes in PostgreSQL logica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - changes_filename
+  - [changes_filename](../c/changes_filename.md)
   - DEBUG1 (logging level)
   - BufFileCreateFileSet
   - BufFileOpenFileSet  
   - BufFileSeek
 - Called from (representative examples):
-  - stream_start_internal
+  - [stream_start_internal](stream_start_internal.md)
 
 ## Notes and Other Information
 - This is a static function, visible only within the worker.c compilation unit

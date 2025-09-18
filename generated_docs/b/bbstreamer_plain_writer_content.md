@@ -24,10 +24,10 @@ The function is part of the bbstreamer_plain_writer_ops operations table and is 
 ## Dependencies
 - Functions called/Symbols referenced:
   - fwrite (standard C library file writing)
-  - pg_fatal (PostgreSQL error reporting)
-  - bbstreamer_plain_writer (struct type for casting)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting)
+  - [bbstreamer_plain_writer](bbstreamer_plain_writer.md) (struct type for casting)
   - bbstreamer_member (parameter type)
-  - bbstreamer_archive_context (parameter type)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (parameter type)
 
 - Called from (representative examples):
   - Referenced in bbstreamer_plain_writer_ops.content function pointer

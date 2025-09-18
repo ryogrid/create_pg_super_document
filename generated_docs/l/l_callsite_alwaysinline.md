@@ -27,7 +27,7 @@ This is particularly valuable in PostgreSQL's JIT compilation for critical perfo
   - `LLVMCreateEnumAttribute`: To create the alwaysinline enumerated attribute
   - `LLVMAddCallSiteAttribute`: To attach the attribute to the call site
 - Called from (representative examples):
-  - `slot_compile_deform`: Used when calling critical functions that must be inlined for optimal performance
+  - `[slot_compile_deform](../s/slot_compile_deform.md)`: Used when calling critical functions that must be inlined for optimal performance
 
 ## Notes and Other Information
 - Uses enumerated attributes rather than string attributes for better performance

@@ -24,7 +24,7 @@ The function is part of the BRIN minmax multi-column infrastructure and is used 
 - Functions called/Symbols referenced:
   - MinMaxMultiGetValuesPerRange: Macro/function that extracts values per range from options
 - Called from (representative examples):
-  - brin_minmax_multi_add_value: Used to determine range capacity limits during value insertion
+  - [brin_minmax_multi_add_value](brin_minmax_multi_add_value.md): Used to determine range capacity limits during value insertion
 
 ## Notes and Other Information
 - Function is declared as static, limiting its scope to the brin_minmax_multi.c file

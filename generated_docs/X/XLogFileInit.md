@@ -20,17 +20,17 @@ The function is designed to handle both critical and non-critical contexts - err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFileInitInternal
+  - [XLogFileInitInternal](XLogFileInitInternal.md)
   - BasicOpenFile
-  - get_sync_bit
+  - [get_sync_bit](../g/get_sync_bit.md)
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - XLogWrite (src/backend/access/transam/xlog.c:2368)
-  - BootStrapXLOG (src/backend/access/transam/xlog.c:5094)
-  - XLogInitNewTimeline (src/backend/access/transam/xlog.c:5218)
-  - XLogWalRcvWrite (src/backend/replication/walreceiver.c:929)
+  - [XLogWrite](XLogWrite.md) (src/backend/access/transam/xlog.c:2368)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md) (src/backend/access/transam/xlog.c:5094)
+  - [XLogInitNewTimeline](XLogInitNewTimeline.md) (src/backend/access/transam/xlog.c:5218)
+  - [XLogWalRcvWrite](XLogWalRcvWrite.md) (src/backend/replication/walreceiver.c:929)
 
 ## Notes and Other Information
 - The function asserts that logtli \!= 0 to ensure a valid timeline ID

@@ -35,12 +35,12 @@ The special handling for the root child node ensures that RT_SET can always assu
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
-  - RT_SHIFT_GET_MAX_VAL
-  - RT_FREE_NODE
-  - RT_SHIFT_ARRAYS_AND_DELETE
+  - [RT_SHIFT_GET_MAX_VAL](RT_SHIFT_GET_MAX_VAL.md)
+  - [RT_FREE_NODE](RT_FREE_NODE.md)
+  - [RT_SHIFT_ARRAYS_AND_DELETE](RT_SHIFT_ARRAYS_AND_DELETE.md)
   - RT_INVALID_PTR_ALLOC
 - Called from (representative examples):
-  - RT_NODE_DELETE
+  - [RT_NODE_DELETE](RT_NODE_DELETE.md)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization

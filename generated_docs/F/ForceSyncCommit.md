@@ -21,11 +21,11 @@ The function is designed for use with commands that require guaranteed durabilit
 - Functions called/Symbols referenced:
   - forceSyncCommit (global variable)
 - Called from (representative examples):
-  - createdb (src/backend/commands/dbcommands.c:1526)
-  - dropdb (src/backend/commands/dbcommands.c:1855)
-  - movedb (src/backend/commands/dbcommands.c:2224)
-  - CreateTableSpace (src/backend/commands/tablespace.c:379)
-  - DropTableSpace (src/backend/commands/tablespace.c:553)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1526)
+  - [dropdb](../d/dropdb.md) (src/backend/commands/dbcommands.c:1855)
+  - [movedb](../m/movedb.md) (src/backend/commands/dbcommands.c:2224)
+  - [CreateTableSpace](../C/CreateTableSpace.md) (src/backend/commands/tablespace.c:379)
+  - [DropTableSpace](../D/DropTableSpace.md) (src/backend/commands/tablespace.c:553)
 
 ## Notes and Other Information
 - This function is typically used in conjunction with  to ensure proper transaction handling

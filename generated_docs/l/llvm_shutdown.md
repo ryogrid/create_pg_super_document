@@ -31,7 +31,7 @@ The function ensures all LLVM resources are properly released to prevent memory 
   - PANIC (error level for assertion failures)
   - llvm_in_fatal_on_oom (safety check function - implicitly referenced)
 - Called from (representative examples):
-  - llvm_session_initialize (via on_proc_exit registration)
+  - [llvm_session_initialize](llvm_session_initialize.md) (via on_proc_exit registration)
 
 ## Notes and Other Information
 - Registered as a process exit callback during llvm_session_initialize

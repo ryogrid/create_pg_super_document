@@ -48,22 +48,22 @@ This function is the core mechanism for creating constraint entries in PostgreSQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - namestrcpy
-  - GetNewOidWithIndex
-  - construct_array_builtin
-  - heap_form_tuple
-  - CatalogTupleInsert
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
   - ObjectAddressSet
-  - new_object_addresses
-  - add_exact_object_address
-  - record_object_address_dependencies
-  - recordDependencyOnSingleRelExpr
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [recordDependencyOnSingleRelExpr](../r/recordDependencyOnSingleRelExpr.md)
   - InvokeObjectPostCreateHookArg
 - Called from (representative examples):
-  - StoreRelCheck
-  - index_constraint_create
-  - addFkConstraint
-  - domainAddCheckConstraint
-  - domainAddNotNullConstraint
+  - [StoreRelCheck](../S/StoreRelCheck.md)
+  - [index_constraint_create](../i/index_constraint_create.md)
+  - [addFkConstraint](../a/addFkConstraint.md)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md)
+  - [domainAddNotNullConstraint](../d/domainAddNotNullConstraint.md)
 
 ## Notes and Other Information
 - Returns the OID of the newly created constraint entry

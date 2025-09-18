@@ -19,10 +19,10 @@ The  function transforms a numeric string to conform to locale-specific formatti
 - Functions called/Symbols referenced:
   - strspn (standard C library function)
   - strlen (standard C library function)
-  - pg_strdup
-  - additional_numeric_locale_len
+  - [pg_strdup](../p/pg_strdup.md)
+  - [additional_numeric_locale_len](../a/additional_numeric_locale_len.md)
   - pg_malloc
-  - integer_digits
+  - [integer_digits](../i/integer_digits.md)
   - strcpy (standard C library function)
   - Assert (macro)
 - Global variables referenced:
@@ -30,7 +30,7 @@ The  function transforms a numeric string to conform to locale-specific formatti
   - thousands_sep
   - decimal_point
 - Called from (representative examples):
-  - printQuery
+  - [printQuery](../p/printQuery.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/fe_utils/print.c

@@ -31,16 +31,16 @@ The function is designed to work even when the planner info () is NULL, though t
   - ARR_NDIM
   - ARR_DIMS
   - examine_variable
-  - get_attstatsslot
-  - clamp_row_est
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - ReleaseVariableStats
 - Called from (representative examples):
-  - cost_tidscan
-  - cost_qual_eval_walker
-  - array_unnest_support
-  - genericcostestimate
-  - btcostestimate
+  - [cost_tidscan](../c/cost_tidscan.md)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md)
+  - [array_unnest_support](../a/array_unnest_support.md)
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [btcostestimate](../b/btcostestimate.md)
 
 ## Notes and Other Information
 - The function strips any binary-compatible relabeling of the array expression before analysis

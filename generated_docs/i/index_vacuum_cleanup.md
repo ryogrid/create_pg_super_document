@@ -33,8 +33,8 @@ Like other index access method functions, it delegates the actual work to the ac
   - CHECK_REL_PROCEDURE (macro to verify amvacuumcleanup procedure exists)
   - amvacuumcleanup (access method specific vacuum cleanup procedure)
 - Called from (representative examples):
-  - do_analyze_rel (table analysis operations)
-  - vac_cleanup_one_index (vacuum cleanup for single index)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (table analysis operations)
+  - [vac_cleanup_one_index](../v/vac_cleanup_one_index.md) (vacuum cleanup for single index)
   - IndexScanIsValid (index scan validation)
 
 ## Notes and Other Information

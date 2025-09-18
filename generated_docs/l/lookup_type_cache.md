@@ -22,15 +22,15 @@ The function implements sophisticated lazy loading - it only computes expensive 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create, hash_search (for hash table management)
-  - SearchSysCache1, ReleaseSysCache (for pg_type catalog access)
-  - GetDefaultOpClass, get_opfamily_member, get_opfamily_proc (for operator class lookups)
-  - load_typcache_tupdesc, load_rangetype_info, load_multirangetype_info (for specialized type loading)
+  - [hash_create](../h/hash_create.md), hash_search (for hash table management)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (for pg_type catalog access)
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md), get_opfamily_member, get_opfamily_proc (for operator class lookups)
+  - [load_typcache_tupdesc](load_typcache_tupdesc.md), load_rangetype_info, load_multirangetype_info (for specialized type loading)
   - Various cache callback registration functions
 - Called from (representative examples):
-  - array_eq, record_cmp, hash_range (type-specific functions needing cache info)
-  - ExecInitExprRec (expression initialization)
-  - get_sort_group_operators (query planning)
+  - [array_eq](../a/array_eq.md), record_cmp, hash_range (type-specific functions needing cache info)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [get_sort_group_operators](../g/get_sort_group_operators.md) (query planning)
 
 ## Notes and Other Information
 - Never returns NULL - will throw an error for invalid type OIDs

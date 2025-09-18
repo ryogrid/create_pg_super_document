@@ -20,7 +20,7 @@ The `circle_diameter` function computes the diameter of a circle using the stand
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P
-  - float8_mul
+  - [float8_mul](../f/float8_mul.md)
   - PG_RETURN_FLOAT8
 - Called from (representative examples):
   - No direct references found in the codebase

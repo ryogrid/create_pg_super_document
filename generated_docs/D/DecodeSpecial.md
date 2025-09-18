@@ -23,18 +23,18 @@ Like DecodeUnits, this function implements a cache mechanism (datecache) to impr
 - Functions called/Symbols referenced:
   - datetkn (structure type for date/time tokens)
   - TOKMAXLEN (maximum token length constant)
-  - datebsearch (binary search function for date tokens)
+  - [datebsearch](../d/datebsearch.md) (binary search function for date tokens)
   - UNKNOWN_FIELD (constant returned when token is not recognized)
   - datecache (cache array for storing recent lookups)
   - datetktbl (main lookup table for date/time tokens)
   - szdatetktbl (size of the datetktbl array)
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeDate
-  - DecodeTimeOnly
-  - extract_date
-  - timestamp_part_common
-  - DecodeInterval
+  - [DecodeDateTime](DecodeDateTime.md)
+  - [DecodeDate](DecodeDate.md)
+  - [DecodeTimeOnly](DecodeTimeOnly.md)
+  - [extract_date](../e/extract_date.md)
+  - [timestamp_part_common](../t/timestamp_part_common.md)
+  - [DecodeInterval](DecodeInterval.md)
 
 ## Notes and Other Information
 - Returns the type of the decoded token (from the datetkn structure) or UNKNOWN_FIELD if not found

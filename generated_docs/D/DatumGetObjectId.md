@@ -19,11 +19,11 @@ DatumGetObjectId performs a simple type cast from a Datum to an Oid (Object Iden
 - Functions called/Symbols referenced:
   - (None - performs direct cast)
 - Called from (representative examples):
-  - btoidfastcmp (B-tree comparison for OIDs)
-  - ExecGrant_common (privilege checking)
-  - object_aclmask_ext (access control)
-  - find_expr_references_walker (dependency analysis)
-  - defGetObjectId (definition parsing)
+  - [btoidfastcmp](../b/btoidfastcmp.md) (B-tree comparison for OIDs)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (privilege checking)
+  - [object_aclmask_ext](../o/object_aclmask_ext.md) (access control)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (dependency analysis)
+  - [defGetObjectId](../d/defGetObjectId.md) (definition parsing)
   - PG_GETARG_OID (function argument extraction)
 
 ## Notes and Other Information

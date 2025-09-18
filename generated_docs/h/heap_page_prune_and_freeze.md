@@ -41,18 +41,18 @@ The function supports both required freezing (to advance relation horizons) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage, BufferGetBlockNumber
-  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem
-  - heap_prune_satisfies_vacuum
-  - heap_prune_chain
-  - heap_page_prune_execute
-  - heap_freeze_prepared_tuples
-  - HeapTupleHeaderAdvanceConflictHorizon
-  - log_heap_prune_and_freeze
+  - [BufferGetPage](../B/BufferGetPage.md), BufferGetBlockNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem
+  - [heap_prune_satisfies_vacuum](heap_prune_satisfies_vacuum.md)
+  - [heap_prune_chain](heap_prune_chain.md)
+  - [heap_page_prune_execute](heap_page_prune_execute.md)
+  - [heap_freeze_prepared_tuples](heap_freeze_prepared_tuples.md)
+  - [HeapTupleHeaderAdvanceConflictHorizon](../H/HeapTupleHeaderAdvanceConflictHorizon.md)
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md)
   - Various ItemId and HeapTupleHeader manipulation functions
 - Called from (representative examples):
-  - heap_page_prune_opt
-  - lazy_scan_prune
+  - [heap_page_prune_opt](heap_page_prune_opt.md)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
 
 ## Notes and Other Information
 - Processes tuples in reverse offset order for better CPU cache performance

@@ -26,21 +26,21 @@ deleteOneObject orchestrates the complete removal of a database object by perfor
 - Functions called/Symbols referenced:
   - InvokeObjectDropHookArg: Invokes drop hooks for the object
   - table_close: Closes relation for concurrent operations
-  - doDeletion: Performs object-specific deletion logic
+  - [doDeletion](doDeletion.md): Performs object-specific deletion logic
   - table_open: Reopens relation after concurrent deletion
-  - ScanKeyInit: Initializes scan keys for dependency lookup
-  - systable_beginscan: Begins scan of pg_depend relation
-  - systable_getnext: Gets next dependency record
-  - CatalogTupleDelete: Deletes dependency records
-  - systable_endscan: Ends dependency scan
-  - deleteSharedDependencyRecordsFor: Removes shared dependency records
-  - DeleteComments: Removes associated comments
-  - DeleteSecurityLabel: Removes security labels
-  - DeleteInitPrivs: Removes initial privileges
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan keys for dependency lookup
+  - [systable_beginscan](../s/systable_beginscan.md): Begins scan of pg_depend relation
+  - [systable_getnext](../s/systable_getnext.md): Gets next dependency record
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Deletes dependency records
+  - [systable_endscan](../s/systable_endscan.md): Ends dependency scan
+  - [deleteSharedDependencyRecordsFor](deleteSharedDependencyRecordsFor.md): Removes shared dependency records
+  - [DeleteComments](../D/DeleteComments.md): Removes associated comments
+  - [DeleteSecurityLabel](../D/DeleteSecurityLabel.md): Removes security labels
+  - [DeleteInitPrivs](../D/DeleteInitPrivs.md): Removes initial privileges
   - CommandCounterIncrement: Ensures visibility of changes
 - Called from:
   - find_expr_references_context: Expression reference finding context
-  - deleteObjectsInList: Bulk object deletion function
+  - [deleteObjectsInList](deleteObjectsInList.md): Bulk object deletion function
 
 ## Notes and Other Information
 - This function is static and used internally within the dependency management system

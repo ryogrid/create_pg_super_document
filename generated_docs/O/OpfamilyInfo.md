@@ -23,10 +23,10 @@ OpfamilyInfo stores metadata about PostgreSQL operator families for the dump and
   - Oid (PostgreSQL object identifier type)
 
 - Called from (representative examples):
-  - getOpfamilies (src/bin/pg_dump/pg_dump.c:6395, 6420)
-  - dumpOpfamily (src/bin/pg_dump/pg_dump.c:13623)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10565)
-  - DOTypeNameCompare (src/bin/pg_dump/pg_dump_sort.c:313, 314)
+  - [getOpfamilies](../g/getOpfamilies.md) (src/bin/pg_dump/pg_dump.c:6395, 6420)
+  - [dumpOpfamily](../d/dumpOpfamily.md) (src/bin/pg_dump/pg_dump.c:13623)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10565)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (src/bin/pg_dump/pg_dump_sort.c:313, 314)
 
 ## Notes and Other Information
 - Operator families were introduced to provide a higher level of organization above operator classes

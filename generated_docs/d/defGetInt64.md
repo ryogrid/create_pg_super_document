@@ -23,26 +23,26 @@ The function is specifically designed for cases where 64-bit integer precision i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (for type checking)
   - intVal (to extract integer values and cast to int64)
-  - DatumGetInt64 (to convert Datum to int64)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (to convert Datum to int64)
   - DirectFunctionCall1 (to call PostgreSQL functions)
-  - int8in (PostgreSQL function to parse int8 from string)
-  - CStringGetDatum (to convert C string to Datum)
+  - [int8in](../i/int8in.md) (PostgreSQL function to parse int8 from string)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (to convert C string to Datum)
   - Float (cast node type)
   - castNode (for safe type casting)
   - ereport (for error reporting)
-  - errcode/errmsg (for error handling)
+  - [errcode](../e/errcode.md)/errmsg (for error handling)
   
 - Called from (representative examples):
-  - parse_basebackup_options (src/backend/backup/basebackup.c:805)
-  - init_params (src/backend/commands/sequence.c:1414)
-  - init_params (src/backend/commands/sequence.c:1441)
-  - init_params (src/backend/commands/sequence.c:1473)
-  - init_params (src/backend/commands/sequence.c:1513)
-  - init_params (src/backend/commands/sequence.c:1541)
-  - init_params (src/backend/commands/sequence.c:1570)
+  - [parse_basebackup_options](../p/parse_basebackup_options.md) (src/backend/backup/basebackup.c:805)
+  - [init_params](../i/init_params.md) (src/backend/commands/sequence.c:1414)
+  - [init_params](../i/init_params.md) (src/backend/commands/sequence.c:1441)
+  - [init_params](../i/init_params.md) (src/backend/commands/sequence.c:1473)
+  - [init_params](../i/init_params.md) (src/backend/commands/sequence.c:1513)
+  - [init_params](../i/init_params.md) (src/backend/commands/sequence.c:1541)
+  - [init_params](../i/init_params.md) (src/backend/commands/sequence.c:1570)
 
 ## Notes and Other Information
 - Handles both T_Integer and T_Float node types, unlike the more restrictive `defGetInt32`

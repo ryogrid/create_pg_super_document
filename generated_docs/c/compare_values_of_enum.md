@@ -25,15 +25,15 @@ The function handles cache management automatically, loading enum data on first 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_enum_cache_data
-  - enum_known_sorted
-  - find_enumitem
+  - [load_enum_cache_data](../l/load_enum_cache_data.md)
+  - [enum_known_sorted](../e/enum_known_sorted.md)
+  - [find_enumitem](../f/find_enumitem.md)
   - elog
-  - format_type_be
-  - TypeCacheEnumData
-  - EnumItem
+  - [format_type_be](../f/format_type_be.md)
+  - [TypeCacheEnumData](../T/TypeCacheEnumData.md)
+  - [EnumItem](../E/EnumItem.md)
 - Called from (representative examples):
-  - enum_cmp_internal
+  - [enum_cmp_internal](../e/enum_cmp_internal.md)
 
 ## Notes and Other Information
 - Automatically handles cache initialization and refresh when enum definitions change

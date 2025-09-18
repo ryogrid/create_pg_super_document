@@ -22,7 +22,7 @@ The function is part of the BOGUS_MCTX (bogus memory context) infrastructure, wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)
-  - GetMemoryChunkHeader (to extract header information for diagnostics)
+  - [GetMemoryChunkHeader](../G/GetMemoryChunkHeader.md) (to extract header information for diagnostics)
 - Called from (representative examples):
   - BOGUS_MCTX (used as the get_chunk_context method in the bogus memory context)
 

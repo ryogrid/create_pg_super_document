@@ -21,8 +21,8 @@ This function serves as a validation hook for the  PostgreSQL configuration para
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_lsn_in_internal (parses LSN string to XLogRecPtr)
-  - guc_malloc (allocates memory for storing parsed LSN)
+  - [pg_lsn_in_internal](../p/pg_lsn_in_internal.md) (parses LSN string to XLogRecPtr)
+  - [guc_malloc](../g/guc_malloc.md) (allocates memory for storing parsed LSN)
   - GucSource (enum type for configuration source)
 - Called from (representative examples):
   - PostgreSQL GUC system when recovery_target_lsn parameter is being set

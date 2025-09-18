@@ -17,17 +17,17 @@ The  function creates and writes the PG_VERSION file, which is essential for Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's printf-like memory allocating function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's printf-like memory allocating function)
   - fopen (standard C library function for file opening)
   - fprintf (standard C library function for formatted output)
   - fclose (standard C library function for file closing)
-  - pg_fatal (PostgreSQL fatal error logging function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error logging function)
   - free (standard C library function for memory deallocation)
   - PG_BINARY_W (PostgreSQL macro for binary write mode)
   - PG_MAJORVERSION (PostgreSQL macro containing the major version string)
   - pg_data (global variable containing the data directory path)
 - Called from (representative examples):
-  - initialize_data_directory (called twice - once for main directory, once for subdirectories)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (called twice - once for main directory, once for subdirectories)
 
 ## Notes and Other Information
 - This is a static function, only accessible within initdb.c

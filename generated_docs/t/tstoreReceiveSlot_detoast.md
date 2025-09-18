@@ -32,12 +32,12 @@ The detoasting process involves:
   - slot_getallattrs
   - TupleDescAttr
   - VARATT_IS_EXTERNAL
-  - DatumGetPointer
-  - detoast_external_attr
-  - PointerGetDatum
-  - MemoryContextSwitchTo
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - tuplestore_putvalues
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - Set as callback by tstoreStartupReceiver when detoasting is required
   - Referenced in TStoreState structure

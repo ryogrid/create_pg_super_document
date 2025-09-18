@@ -29,15 +29,15 @@ The function handles both read and write scenarios differently - for read operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadDataFromArchiveLZ4 (assigned as readData function)
-  - WriteDataToArchiveLZ4 (assigned as writeData function)
-  - EndCompressorLZ4 (assigned as end function)
+  - [ReadDataFromArchiveLZ4](../R/ReadDataFromArchiveLZ4.md) (assigned as readData function)
+  - [WriteDataToArchiveLZ4](../W/WriteDataToArchiveLZ4.md) (assigned as writeData function)
+  - [EndCompressorLZ4](../E/EndCompressorLZ4.md) (assigned as end function)
   - pg_malloc0 (for state allocation)
-  - LZ4State_compression_init (for initializing LZ4 compression state)
-  - pg_fatal (for error reporting)
+  - [LZ4State_compression_init](../L/LZ4State_compression_init.md) (for initializing LZ4 compression state)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
   - LZ4F_getErrorName (for error message formatting)
 - Called from (representative examples):
-  - AllocateCompressor (in compress_io.c)
+  - [AllocateCompressor](../A/AllocateCompressor.md) (in compress_io.c)
 
 ## Notes and Other Information
 - This function is part of the public interface for LZ4 compression in pg_dump

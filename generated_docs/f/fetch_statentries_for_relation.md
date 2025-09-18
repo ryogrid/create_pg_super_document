@@ -18,26 +18,26 @@ This function performs a catalog scan of pg_statistic_ext to find all extended s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - ScanKeyInit
-  - SysCacheGetAttr
-  - SysCacheGetAttrNotNull
-  - get_namespace_name
-  - bms_add_member
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - DatumGetInt16
   - DatumGetArrayTypeP
   - TextDatumGetCString
-  - stringToNode
-  - eval_const_expressions
-  - fix_opfuncids
+  - [stringToNode](../s/stringToNode.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [fix_opfuncids](fix_opfuncids.md)
   - lappend_int
-  - palloc0
-  - pstrdup
+  - [palloc0](../p/palloc0.md)
+  - [pstrdup](../p/pstrdup.md)
 - Called from:
-  - BuildRelationExtStatistics (in src/backend/statistics/extended_stats.c:129)
-  - ComputeExtStatisticsRows (in src/backend/statistics/extended_stats.c:285)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (in src/backend/statistics/extended_stats.c:129)
+  - [ComputeExtStatisticsRows](../C/ComputeExtStatisticsRows.md) (in src/backend/statistics/extended_stats.c:285)
 
 ## Notes and Other Information
 - Returns NIL if no statistics objects are defined for the relation

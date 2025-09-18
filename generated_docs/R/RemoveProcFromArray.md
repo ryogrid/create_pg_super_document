@@ -22,7 +22,7 @@ This function is part of PostgreSQL's process lifecycle management, ensuring tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayRemove
+  - [ProcArrayRemove](../P/ProcArrayRemove.md)
   - InvalidTransactionId (constant)
 - Called from (representative examples):
   - InitProcessPhase2 (registered as exit callback)

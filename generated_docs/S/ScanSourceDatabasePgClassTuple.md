@@ -37,11 +37,11 @@ For relations that pass these filters, the function:
   - GETSTRUCT: Macro to extract Form_pg_class from heap tuple
   - RELKIND_HAS_STORAGE: Macro to check if relation kind has storage
   - RelFileNumberIsValid: Validates relation file numbers
-  - RelationMapOidToFilenumberForDatabase: Maps relation OID to file number for mapped relations
+  - [RelationMapOidToFilenumberForDatabase](../R/RelationMapOidToFilenumberForDatabase.md): Maps relation OID to file number for mapped relations
   - OidIsValid: Validates OID values
-  - palloc: Allocates memory for CreateDBRelInfo structure
+  - [palloc](../p/palloc.md): Allocates memory for CreateDBRelInfo structure
 - Called from (representative examples):
-  - ScanSourceDatabasePgClassPage: Uses this to process individual pg_class tuples
+  - [ScanSourceDatabasePgClassPage](ScanSourceDatabasePgClassPage.md): Uses this to process individual pg_class tuples
 
 ## Notes and Other Information
 - Returns NULL for relations that don't need copying (shared, no storage, temporary)

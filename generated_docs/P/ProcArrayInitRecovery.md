@@ -23,7 +23,7 @@ The function retreats the provided XID by one using TransactionIdRetreat, which 
   - TransactionIdIsNormal
   - TransactionIdRetreat
 - Called from (representative examples):
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Only called during standby recovery initialization when standbyState is STANDBY_INITIALIZED

@@ -27,26 +27,26 @@ The implementation uses a snapshot-based approach to ensure consistent reads and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - pg_class_aclcheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - currtid_for_view
-  - get_namespace_name
-  - ItemPointerCopy
+  - [palloc](../p/palloc.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [currtid_for_view](currtid_for_view.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
   - GetLatestSnapshot
   - RegisterSnapshot
-  - table_beginscan_tid
-  - table_tuple_get_latest_tid
-  - table_endscan
+  - [table_beginscan_tid](../t/table_beginscan_tid.md)
+  - [table_tuple_get_latest_tid](../t/table_tuple_get_latest_tid.md)
+  - [table_endscan](../t/table_endscan.md)
   - UnregisterSnapshot
 - Called from (representative examples):
-  - currtid_for_view
-  - currtid_byrelname
+  - [currtid_for_view](currtid_for_view.md)
+  - [currtid_byrelname](currtid_byrelname.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same translation unit
 - The function allocates memory for the result ItemPointer using palloc, which is PostgreSQL's memory allocation function
 - Access control is enforced at the relation level using ACL_SELECT permission
 - The function properly handles different relation kinds and provides appropriate error messages for unsupported operations
-- Snapshot management ensures MVCC (Multi-Version Concurrency Control) compliance during the TID lookup operation
+- [Snapshot](../S/Snapshot.md) management ensures MVCC (Multi-Version Concurrency Control) compliance during the TID lookup operation

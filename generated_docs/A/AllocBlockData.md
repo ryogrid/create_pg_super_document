@@ -31,10 +31,10 @@ AllocBlockData serves as the header structure for memory blocks in the allocatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSet (typedef for allocation set context pointer)
-  - AllocBlock (typedef for pointer to this structure)
+  - [AllocBlock](AllocBlock.md) (typedef for pointer to this structure)
 - Called from (representative examples):
   - ALLOC_BLOCKHDRSZ (macro that calculates the size of this header structure)
-  - AllocBlock (typedef that creates pointer type to this structure)
+  - [AllocBlock](AllocBlock.md) (typedef that creates pointer type to this structure)
 
 ## Notes and Other Information
 - The header is excluded from the usable allocation space within the block

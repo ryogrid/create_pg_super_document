@@ -26,14 +26,14 @@ The function also handles parameterized nested loops where outer tuple values ar
   - ExecProcNode: Gets next tuple from outer/inner plan
   - ExecQual: Evaluates join and other qualification expressions  
   - ExecProject: Projects result tuple using projection info
-  - ExecReScan: Rescans inner plan when starting with new outer tuple
+  - [ExecReScan](ExecReScan.md): Rescans inner plan when starting with new outer tuple
   - ResetExprContext: Resets per-tuple expression evaluation memory
   - TupIsNull: Checks if tuple slot is null
   - slot_getattr: Extracts attribute value from tuple slot
-  - bms_add_member: Adds parameter to changed parameter bitmap
+  - [bms_add_member](../b/bms_add_member.md): Adds parameter to changed parameter bitmap
   - InstrCountFiltered1/InstrCountFiltered2: Updates instrumentation counters
 - Called from (representative examples):
-  - ExecInitNestLoop: During node initialization and execution
+  - [ExecInitNestLoop](ExecInitNestLoop.md): During node initialization and execution
 
 ## Notes and Other Information
 - Uses ENL1_printf debug macros for tracing execution flow

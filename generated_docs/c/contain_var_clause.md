@@ -25,15 +25,15 @@ This function is particularly useful for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_var_clause_walker (performs the actual tree walking)
+  - [contain_var_clause_walker](contain_var_clause_walker.md) (performs the actual tree walking)
 - Called from (representative examples):
-  - cookDefault (in src/backend/catalog/heap.c)
-  - interpret_function_parameter_list (in src/backend/commands/functioncmds.c)
-  - domainAddCheckConstraint (in src/backend/commands/typecmds.c)
-  - match_clause_to_ordering_op (in src/backend/optimizer/path/indxpath.c)
-  - is_pseudo_constant_clause (in src/backend/optimizer/util/clauses.c)
-  - transformPartitionBoundValue (in src/backend/parser/parse_utilcmd.c)
-  - match_clause_to_partition_key (in src/backend/partitioning/partprune.c)
+  - [cookDefault](cookDefault.md) (in src/backend/catalog/heap.c)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md) (in src/backend/commands/functioncmds.c)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md) (in src/backend/commands/typecmds.c)
+  - [match_clause_to_ordering_op](../m/match_clause_to_ordering_op.md) (in src/backend/optimizer/path/indxpath.c)
+  - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md) (in src/backend/optimizer/util/clauses.c)
+  - [transformPartitionBoundValue](../t/transformPartitionBoundValue.md) (in src/backend/parser/parse_utilcmd.c)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md) (in src/backend/partitioning/partprune.c)
 
 ## Notes and Other Information
 - Returns true if any Var node is found, false otherwise

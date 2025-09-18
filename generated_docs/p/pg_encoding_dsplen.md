@@ -27,7 +27,7 @@ The function uses the encoding-specific display length function from the `pg_wch
   - `pg_wchar_table[].dsplen`: Encoding-specific display length function pointer
 
 - Called from (representative examples):
-  - `PQdsplen`: Public libpq function that wraps this function for client applications
+  - `[PQdsplen](../P/PQdsplen.md)`: Public libpq function that wraps this function for client applications
   - `MIN_RIGHT_CUT`: Used in protocol handling for result formatting (fe-protocol3.c)
 
 ## Notes and Other Information

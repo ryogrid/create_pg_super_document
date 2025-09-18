@@ -21,7 +21,7 @@ None - this function takes no parameters.
 - Functions called/Symbols referenced:
   - PgStatShared_Archiver
   - PgStat_ArchiverStats
-  - pgstat_copy_changecounted_stats
+  - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
   - LW_SHARED
 - Called from (representative examples):
   - SH_DECLARE (via statistics framework callback mechanism)

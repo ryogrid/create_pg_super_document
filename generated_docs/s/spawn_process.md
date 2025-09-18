@@ -24,22 +24,22 @@ On Windows, it uses CreateRestrictedProcess() to spawn the command via CMD.EXE (
 ## Dependencies
 - Functions called/Symbols referenced:
   - fflush (Unix)
-  - pg_disable_aslr (Unix, if EXEC_BACKEND defined)
+  - [pg_disable_aslr](../p/pg_disable_aslr.md) (Unix, if EXEC_BACKEND defined)
   - fork (Unix)
   - bail (Unix)
-  - psprintf (Unix)
+  - [psprintf](../p/psprintf.md) (Unix)
   - execl (Unix) 
   - bail_noatexit (Unix)
   - getenv (Windows)
   - memset (Windows)
-  - CreateRestrictedProcess (Windows)
+  - [CreateRestrictedProcess](../C/CreateRestrictedProcess.md) (Windows)
   - CloseHandle (Windows)
   - shellprog (global variable, Unix)
 - Called from (representative examples):
-  - regression_main
-  - psql_start_test
-  - ecpg_start_test
-  - isolation_start_test
+  - [regression_main](../r/regression_main.md)
+  - [psql_start_test](../p/psql_start_test.md)
+  - [ecpg_start_test](../e/ecpg_start_test.md)
+  - [isolation_start_test](../i/isolation_start_test.md)
 
 ## Notes and Other Information
 - Returns PID_TYPE which is pid_t on Unix systems and HANDLE on Windows

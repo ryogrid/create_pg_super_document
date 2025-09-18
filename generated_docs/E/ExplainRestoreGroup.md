@@ -30,9 +30,9 @@ This enables the completion of the deferred output workflow: ExplainOpenSetAside
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lcons_int (to restore the saved state back onto the grouping stack)
+  - [lcons_int](../l/lcons_int.md) (to restore the saved state back onto the grouping stack)
 - Called from (representative examples):
-  - ExplainOpenWorker
+  - [ExplainOpenWorker](ExplainOpenWorker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

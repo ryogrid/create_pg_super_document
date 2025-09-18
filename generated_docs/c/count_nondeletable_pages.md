@@ -21,24 +21,24 @@ This function performs a critical validation step during heap truncation by scan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time
+  - [instr_time](../i/instr_time.md)
   - INSTR_TIME_SET_CURRENT
   - INSTR_TIME_SUBTRACT
   - INSTR_TIME_GET_MICROSEC
-  - LockHasWaitersRelation
-  - PrefetchBuffer
-  - ReadBufferExtended
-  - LockBuffer
-  - BufferGetPage
-  - PageIsNew
-  - PageIsEmpty
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [LockHasWaitersRelation](../L/LockHasWaitersRelation.md)
+  - [PrefetchBuffer](../P/PrefetchBuffer.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIsNew](../P/PageIsNew.md)
+  - [PageIsEmpty](../P/PageIsEmpty.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
   - VACUUM_TRUNCATE_LOCK_CHECK_INTERVAL
   - PREFETCH_SIZE
 - Called from (representative examples):
-  - lazy_truncate_heap
+  - [lazy_truncate_heap](../l/lazy_truncate_heap.md)
 
 ## Notes and Other Information
 The function uses sophisticated I/O optimization with block prefetching and avoids vacuum delay points since it holds an exclusive lock that should be released quickly. It implements a time-based lock conflict detection mechanism that checks for waiting processes every 32 blocks but only performs the expensive lock waiter check after a specified time interval has elapsed. The backward scanning approach with prefetching allows for efficient verification while minimizing the time spent holding the exclusive lock.

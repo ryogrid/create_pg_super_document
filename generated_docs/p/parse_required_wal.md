@@ -26,13 +26,13 @@ The pg_waldump command is constructed with specific parameters including the WAL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf
+  - [psprintf](psprintf.md)
   - fflush
   - system
-  - report_backup_error
+  - [report_backup_error](../r/report_backup_error.md)
   - LSN_FORMAT_ARGS (macro)
 - Called from (representative examples):
-  - main (in pg_verifybackup.c:374)
+  - [main](../m/main.md) (in pg_verifybackup.c:374)
 
 ## Notes and Other Information
 - This is a static function within pg_verifybackup.c used for WAL validation during backup verification

@@ -26,11 +26,11 @@ The check is described as "imperfect" because memory allocations can occur witho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState
+  - [AggState](../A/AggState.md)
   - MemoryContextMemAllocated
-  - hash_agg_enter_spill_mode
+  - [hash_agg_enter_spill_mode](hash_agg_enter_spill_mode.md)
 - Called from (representative examples):
-  - initialize_hash_entry
+  - [initialize_hash_entry](../i/initialize_hash_entry.md)
 
 ## Notes and Other Information
 - Called after adding new groups to the hash table to ensure immediate limit checking

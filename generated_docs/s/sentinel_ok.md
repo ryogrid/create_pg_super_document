@@ -22,16 +22,16 @@ If the sentinel byte has been corrupted, it indicates that code has written beyo
 - Functions called/Symbols referenced:
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
-  - randomize_mem
+  - [randomize_mem](../r/randomize_mem.md)
 
 - Called from (representative examples):
-  - AllocSetFree (src/backend/utils/mmgr/aset.c:1088)
-  - AllocSetRealloc (src/backend/utils/mmgr/aset.c:1210)
-  - AllocSetCheck (src/backend/utils/mmgr/aset.c:1698)
-  - GenerationFree (src/backend/utils/mmgr/generation.c:738)
-  - GenerationCheck (src/backend/utils/mmgr/generation.c:1172)
-  - SlabFree (src/backend/utils/mmgr/slab.c:725)
-  - AlignedAllocFree (src/backend/utils/mmgr/alignedalloc.c:43)
+  - [AllocSetFree](../A/AllocSetFree.md) (src/backend/utils/mmgr/aset.c:1088)
+  - [AllocSetRealloc](../A/AllocSetRealloc.md) (src/backend/utils/mmgr/aset.c:1210)
+  - [AllocSetCheck](../A/AllocSetCheck.md) (src/backend/utils/mmgr/aset.c:1698)
+  - [GenerationFree](../G/GenerationFree.md) (src/backend/utils/mmgr/generation.c:738)
+  - [GenerationCheck](../G/GenerationCheck.md) (src/backend/utils/mmgr/generation.c:1172)
+  - [SlabFree](../S/SlabFree.md) (src/backend/utils/mmgr/slab.c:725)
+  - [AlignedAllocFree](../A/AlignedAllocFree.md) (src/backend/utils/mmgr/alignedalloc.c:43)
 
 ## Notes and Other Information
 - Returns true if the sentinel byte is intact (contains 0x7E), false if corrupted

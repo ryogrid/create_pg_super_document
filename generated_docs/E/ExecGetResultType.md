@@ -21,10 +21,10 @@ The function is commonly used throughout the PostgreSQL executor to determine th
 - Functions called/Symbols referenced:
   - TupleTableSlotOps (indirectly through related operations)
 - Called from (representative examples):
-  - ExecComputeSlotInfo (execExpr.c:2930, 2935, 2950, 2955)
-  - InitPlan (execMain.c:964)
+  - [ExecComputeSlotInfo](ExecComputeSlotInfo.md) (execExpr.c:2930, 2935, 2950, 2955)
+  - [InitPlan](../I/InitPlan.md) (execMain.c:964)
   - ExecCreateScanSlotFromOuterPlan (execUtils.c:667)
-  - initialize_phase (nodeAgg.c:522)
+  - [initialize_phase](../i/initialize_phase.md) (nodeAgg.c:522)
   - Various node initialization functions across different executor nodes
 
 ## Notes and Other Information

@@ -29,18 +29,18 @@ The function is designed as a support routine for heap_getattr() and is only cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (convert pointer to Datum for ctid)
-  - TransactionIdGetDatum (convert transaction IDs to Datum)
-  - CommandIdGetDatum (convert command IDs to Datum)  
-  - ObjectIdGetDatum (convert OID to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (convert pointer to Datum for ctid)
+  - [TransactionIdGetDatum](../T/TransactionIdGetDatum.md) (convert transaction IDs to Datum)
+  - [CommandIdGetDatum](../C/CommandIdGetDatum.md) (convert command IDs to Datum)  
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (convert OID to Datum)
   - HeapTupleHeaderGetRawXmin, HeapTupleHeaderGetRawXmax, HeapTupleHeaderGetRawCommandId (extract raw values from tuple header)
   - System attribute number constants (SelfItemPointerAttributeNumber, etc.)
   - elog (error logging)
 - Called from (representative examples):
-  - heap_getattr
-  - tts_heap_getsysattr
-  - tts_buffer_heap_getsysattr
-  - expanded_record_fetch_field
+  - [heap_getattr](heap_getattr.md)
+  - [tts_heap_getsysattr](../t/tts_heap_getsysattr.md)
+  - [tts_buffer_heap_getsysattr](../t/tts_buffer_heap_getsysattr.md)
+  - [expanded_record_fetch_field](../e/expanded_record_fetch_field.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

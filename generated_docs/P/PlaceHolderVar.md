@@ -24,16 +24,16 @@ The structure is designed with specific comparison semantics - two PlaceHolderVa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (base expression type)
+  - [Expr](../E/Expr.md) (base expression type)
   - Relids (relation ID sets)
   - Index (identifier type)
 
 - Called from (representative examples):
-  - make_placeholder_expr
-  - find_placeholder_info
-  - replace_nestloop_params_mutator
-  - fix_scan_expr_mutator
-  - pullup_replace_vars_callback
+  - [make_placeholder_expr](../m/make_placeholder_expr.md)
+  - [find_placeholder_info](../f/find_placeholder_info.md)
+  - [replace_nestloop_params_mutator](../r/replace_nestloop_params_mutator.md)
+  - [fix_scan_expr_mutator](../f/fix_scan_expr_mutator.md)
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md)
 
 ## Notes and Other Information
 - Not recognized by parser or executor, only used during planning phase

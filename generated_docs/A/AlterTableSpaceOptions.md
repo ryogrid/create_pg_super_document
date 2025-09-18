@@ -18,23 +18,23 @@ This function implements the ALTER TABLESPACE ... SET/RESET option functionality
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens pg_tablespace relation with RowExclusiveLock
-  - ScanKeyInit: Initializes scan key for catalog lookup
-  - table_beginscan_catalog: Begins catalog table scan
-  - heap_getnext: Retrieves next heap tuple from scan
-  - object_ownercheck: Verifies ownership permissions
-  - aclcheck_error: Reports access control violations
-  - heap_getattr: Extracts attribute value from heap tuple
-  - transformRelOptions: Processes relation option changes
-  - tablespace_reloptions: Validates tablespace-specific options
-  - heap_modify_tuple: Creates modified version of heap tuple
-  - CatalogTupleUpdate: Updates tuple in system catalog
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for catalog lookup
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Begins catalog table scan
+  - [heap_getnext](../h/heap_getnext.md): Retrieves next heap tuple from scan
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies ownership permissions
+  - [aclcheck_error](../a/aclcheck_error.md): Reports access control violations
+  - [heap_getattr](../h/heap_getattr.md): Extracts attribute value from heap tuple
+  - [transformRelOptions](../t/transformRelOptions.md): Processes relation option changes
+  - [tablespace_reloptions](../t/tablespace_reloptions.md): Validates tablespace-specific options
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates modified version of heap tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates tuple in system catalog
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
-  - heap_freetuple: Frees allocated heap tuple memory
-  - table_endscan: Ends table scan
+  - [heap_freetuple](../h/heap_freetuple.md): Frees allocated heap tuple memory
+  - [table_endscan](../t/table_endscan.md): Ends table scan
   - table_close: Closes relation
 
 - Called from (representative examples):
-  - standard_ProcessUtility: Main utility command processing handler
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md): Main utility command processing handler
 
 ## Notes and Other Information
 - Requires ownership of the tablespace to perform option modifications

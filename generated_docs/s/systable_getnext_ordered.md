@@ -20,19 +20,19 @@ The function operates by calling index_getnext_slot() to retrieve the next tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getnext_slot
-  - ExecFetchSlotHeapTuple  
-  - HandleConcurrentAbort
-  - SysScanDesc (type)
+  - [index_getnext_slot](../i/index_getnext_slot.md)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)  
+  - [HandleConcurrentAbort](../H/HandleConcurrentAbort.md)
+  - [SysScanDesc](../S/SysScanDesc.md) (type)
   - ScanDirection (type)
 - Called from (representative examples):
-  - toast_delete_datum
-  - heap_fetch_toast_slice
-  - inv_getsize
-  - inv_read
-  - inv_write
-  - enum_endpoint
-  - BuildEventTriggerCache
+  - [toast_delete_datum](../t/toast_delete_datum.md)
+  - [heap_fetch_toast_slice](../h/heap_fetch_toast_slice.md)
+  - [inv_getsize](../i/inv_getsize.md)
+  - [inv_read](../i/inv_read.md)
+  - [inv_write](../i/inv_write.md)
+  - [enum_endpoint](../e/enum_endpoint.md)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md)
 
 ## Notes and Other Information
 - Requires an active index scan (sysscan->irel must be non-NULL)

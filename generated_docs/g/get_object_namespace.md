@@ -21,14 +21,14 @@ For objects that do have namespace ownership, the function uses the appropriate 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
-  - SearchSysCache1
-  - SysCacheGetAttrNotNull
-  - ReleaseSysCache
-  - DatumGetObjectId
-  - ObjectIdGetDatum
+  - [get_object_property_data](get_object_property_data.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - RemoveObjects (src/backend/commands/dropcmds.c:102)
+  - [RemoveObjects](../R/RemoveObjects.md) (src/backend/commands/dropcmds.c:102)
   - ObjectAddressSet (src/include/catalog/objectaddress.h:55)
 
 ## Notes and Other Information

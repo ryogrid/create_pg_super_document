@@ -24,7 +24,7 @@ The decision to never abort is based on the effectiveness of Z-order abbreviatio
 - Functions called/Symbols referenced:
   - SortSupport (parameter type reference)
 - Called from (representative examples):
-  - gist_point_sortsupport (configures this as abbreviation abort callback)
+  - [gist_point_sortsupport](gist_point_sortsupport.md) (configures this as abbreviation abort callback)
 
 ## Notes and Other Information
 - Always returns false to prevent aborting Z-order abbreviation

@@ -48,21 +48,21 @@ This function is essential for bridging the gap between the optimizer's abstract
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupref_tle (to find targetlist entries by sort reference)
-  - get_tle_by_resno (to find targetlist entries by result number)
-  - find_ec_member_matching_expr (to match equivalence class members to expressions)
-  - find_computable_ec_member (to find computable equivalence class members)
+  - [get_sortgroupref_tle](../g/get_sortgroupref_tle.md) (to find targetlist entries by sort reference)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md) (to find targetlist entries by result number)
+  - [find_ec_member_matching_expr](../f/find_ec_member_matching_expr.md) (to match equivalence class members to expressions)
+  - [find_computable_ec_member](../f/find_computable_ec_member.md) (to find computable equivalence class members)
   - is_projection_capable_plan (to check if plan can perform projections)
-  - inject_projection_plan (to add Result node for projection)
-  - get_opfamily_member (to resolve sort operators)
-  - makeTargetEntry (to create resjunk targetlist entries)
+  - [inject_projection_plan](../i/inject_projection_plan.md) (to add Result node for projection)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (to resolve sort operators)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (to create resjunk targetlist entries)
   - copyObject (to duplicate objects safely)
 - Called from (representative examples):
-  - create_append_plan (src/backend/optimizer/plan/createplan.c:1286, 1330)
-  - create_merge_append_plan (src/backend/optimizer/plan/createplan.c:1471, 1502)
-  - create_gather_merge_plan (src/backend/optimizer/plan/createplan.c:1981)
-  - make_sort_from_pathkeys (src/backend/optimizer/plan/createplan.c:6356)
-  - make_incrementalsort_from_pathkeys (src/backend/optimizer/plan/createplan.c:6392)
+  - [create_append_plan](../c/create_append_plan.md) (src/backend/optimizer/plan/createplan.c:1286, 1330)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md) (src/backend/optimizer/plan/createplan.c:1471, 1502)
+  - [create_gather_merge_plan](../c/create_gather_merge_plan.md) (src/backend/optimizer/plan/createplan.c:1981)
+  - [make_sort_from_pathkeys](../m/make_sort_from_pathkeys.md) (src/backend/optimizer/plan/createplan.c:6356)
+  - [make_incrementalsort_from_pathkeys](../m/make_incrementalsort_from_pathkeys.md) (src/backend/optimizer/plan/createplan.c:6392)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the planner

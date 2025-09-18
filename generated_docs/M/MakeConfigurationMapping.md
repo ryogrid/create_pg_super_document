@@ -21,18 +21,18 @@ This function handles the complex process of adding or modifying token-to-dictio
 - Functions called/Symbols referenced:
   - AlterTSConfigurationStmt
   - Form_pg_ts_config
-  - getTokenTypes
+  - [getTokenTypes](../g/getTokenTypes.md)
   - TSTokenTypeItem
-  - systable_beginscan, systable_getnext, systable_endscan
-  - CatalogTupleDelete, CatalogTupleUpdateWithInfo
-  - get_ts_dict_oid
-  - CatalogOpenIndexes, CatalogCloseIndexes
-  - MakeSingleTupleTableSlot, ExecDropSingleTupleTableSlot
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md), CatalogTupleUpdateWithInfo
+  - [get_ts_dict_oid](../g/get_ts_dict_oid.md)
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md), CatalogCloseIndexes
+  - [MakeSingleTupleTableSlot](MakeSingleTupleTableSlot.md), ExecDropSingleTupleTableSlot
   - ExecClearTuple, ExecStoreVirtualTuple
-  - CatalogTuplesMultiInsertWithInfo
-  - EventTriggerCollectAlterTSConfig
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
+  - [EventTriggerCollectAlterTSConfig](../E/EventTriggerCollectAlterTSConfig.md)
 - Called from (representative examples):
-  - AlterTSConfiguration
+  - [AlterTSConfiguration](../A/AlterTSConfiguration.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsearchcmds.c file

@@ -22,13 +22,13 @@ This bulk approach is more efficient because it can optimize I/O operations acro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FlushRelationsAllBuffers (flushes dirty buffers for all relations)
+  - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md) (flushes dirty buffers for all relations)
   - smgrsw (storage manager switch table for exists and immedsync operations)
   - MAX_FORKNUM (maximum fork number constant for iteration)
   - SMgrRelation (relation structure type)
-  - ForkNumber (fork identifier type)
+  - [ForkNumber](../F/ForkNumber.md) (fork identifier type)
 - Called from (representative examples):
-  - smgrDoPendingSyncs (performs pending sync operations)
+  - [smgrDoPendingSyncs](smgrDoPendingSyncs.md) (performs pending sync operations)
   - SmgrIsTemp (via header inclusion)
 
 ## Notes and Other Information

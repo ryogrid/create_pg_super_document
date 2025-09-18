@@ -26,16 +26,16 @@ The build process uses the table_index_build_scan function with hashbuildCallbac
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
-  - estimate_rel_size
-  - _hash_init
-  - _h_spoolinit
-  - table_index_build_scan
-  - hashbuildCallback
-  - pgstat_progress_update_param
-  - _h_indexbuild
-  - _h_spooldestroy
+  - [estimate_rel_size](../e/estimate_rel_size.md)
+  - [_hash_init](_hash_init.md)
+  - [_h_spoolinit](_h_spoolinit.md)
+  - [table_index_build_scan](../t/table_index_build_scan.md)
+  - [hashbuildCallback](hashbuildCallback.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [_h_indexbuild](_h_indexbuild.md)
+  - [_h_spooldestroy](_h_spooldestroy.md)
 - Called from:
-  - hashhandler (as amroutine->ambuild callback)
+  - [hashhandler](hashhandler.md) (as amroutine->ambuild callback)
   - Index creation system
 
 ## Notes and Other Information

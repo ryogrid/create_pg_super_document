@@ -25,7 +25,7 @@ The function includes validation to ensure the requested attribute number is val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slot_getmissingattrs (for filling missing attributes)
+  - [slot_getmissingattrs](slot_getmissingattrs.md) (for filling missing attributes)
   - slot->tts_ops->getsomeattrs (virtual function call to slot-specific implementation)
   - Assert, elog, unlikely (PostgreSQL utility macros/functions)
 - Called from (representative examples):

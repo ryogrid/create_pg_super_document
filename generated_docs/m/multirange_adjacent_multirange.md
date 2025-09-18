@@ -33,7 +33,7 @@ The algorithm optimizes for the most common cases by checking the most likely ad
   -  - get type cache for multirange operations
   -  - get OID of multirange type
   -  - extract bounds from specific ranges within multiranges
-  -  - test if two range bounds are adjacent
+  -  - [test](../t/test.md) if two range bounds are adjacent
 - Called from (representative examples):
   - SQL queries using the  operator between two multiranges
   - PostgreSQL operator system via function catalog entries

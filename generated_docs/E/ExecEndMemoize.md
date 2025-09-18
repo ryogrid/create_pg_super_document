@@ -22,11 +22,11 @@ ExecEndMemoize handles the proper shutdown of a Memoize execution node. In debug
   - EMPTY_ENTRY_MEMORY_BYTES
   - CACHE_TUPLE_BYTES
   - IsParallelWorker
-  - MemoryContextDelete
-  - ExecEndNode
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState
 - Called from (representative examples):
-  - ExecEndNode (main node cleanup dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (main node cleanup dispatcher)
 
 ## Notes and Other Information
 - Memory validation in assert builds helps catch memory accounting bugs during development by comparing tracked usage against actual consumption

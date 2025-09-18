@@ -27,19 +27,19 @@ The function ensures that the shared invalidation subsystem starts in a clean, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct
-  - SInvalShmemSize
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [SInvalShmemSize](../S/SInvalShmemSize.md)
   - SpinLockInit
 - Data types referenced:
-  - SISeg
+  - [SISeg](../S/SISeg.md)
 - Constants referenced:
   - CLEANUP_MIN
   - InvalidLocalTransactionId
-- Variables referenced:
+- [Variables](../V/Variables.md) referenced:
   - NumProcStateSlots
   - shmInvalBuffer (global variable set by this function)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This function should only be called once during postmaster startup as part of shared memory initialization

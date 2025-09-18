@@ -24,18 +24,18 @@ The function enforces execution flag restrictions, rejecting backward scan and m
 ## Dependencies
 - Functions called/Symbols referenced:
   - Hash (plan node parameter type)
-  - HashState (return type and state structure)
+  - [HashState](../H/HashState.md) (return type and state structure)
   - EXEC_FLAG_BACKWARD, EXEC_FLAG_MARK (unsupported execution flags)
-  - HashState (state allocation)
-  - ExecHash (execution function assignment)
+  - [HashState](../H/HashState.md) (state allocation)
+  - [ExecHash](ExecHash.md) (execution function assignment)
   - ExecProcNode (execution interface)
   - ExecAssignExprContext (expression context setup)
-  - ExecInitNode (child node initialization)
+  - [ExecInitNode](ExecInitNode.md) (child node initialization)
   - outerPlanState, outerPlan (child plan access)
-  - ExecInitResultTupleSlotTL (result slot initialization)
-  - ExecInitExprList (hash key expression initialization)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (result slot initialization)
+  - [ExecInitExprList](ExecInitExprList.md) (hash key expression initialization)
 - Called from (representative examples):
-  - ExecInitNode (executor node initialization dispatch)
+  - [ExecInitNode](ExecInitNode.md) (executor node initialization dispatch)
   - NODEHASH_H (header declaration)
 
 ## Notes and Other Information

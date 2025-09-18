@@ -20,14 +20,14 @@ This function serves as the high-level interface for loading PostgreSQL timezone
   - AllocSetContextCreate
   - CurrentMemoryContext
   - ALLOCSET_SMALL_SIZES
-  - MemoryContextSwitchTo
-  - palloc
-  - ParseTzFile
-  - ConvertTimeZoneAbbrevs
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [ParseTzFile](../P/ParseTzFile.md)
+  - [ConvertTimeZoneAbbrevs](../C/ConvertTimeZoneAbbrevs.md)
   - GUC_check_errmsg
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - check_timezone_abbreviations
+  - [check_timezone_abbreviations](../c/check_timezone_abbreviations.md)
 
 ## Notes and Other Information
 The function returns a complete TimeZoneAbbrevTable on success, or NULL on failure with appropriate error messages set via GUC_check_errmsg. The returned table must be allocated with guc_malloc (not palloc) for proper memory management in PostgreSQL's GUC system. The temporary memory context ensures clean cleanup of all intermediate allocations.

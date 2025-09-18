@@ -21,7 +21,7 @@ This approach ensures that signals are not dropped during the critical window be
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (signal handler argument macro)
 - Called from (representative examples):
-  - PostmasterMain (during signal handler setup)
+  - [PostmasterMain](../P/PostmasterMain.md) (during signal handler setup)
 
 ## Notes and Other Information
 - This is a defensive programming technique to prevent signal loss in child processes

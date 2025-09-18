@@ -38,14 +38,14 @@ The function ensures that all variable references use the correct varno values (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index
-  - fix_join_expr
-  - fix_upper_expr
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [fix_join_expr](../f/fix_join_expr.md)
+  - [fix_upper_expr](../f/fix_upper_expr.md)
   - NUM_EXEC_QUAL
   - NUM_EXEC_TLIST
 - Called from (representative examples):
   - fix_scan_list
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
 
 ## Notes and Other Information
 - The function handles the complexity of outer joins where variables may have nulling relations that are supersets of the original relations due to the NULL-producing nature of outer joins

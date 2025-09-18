@@ -29,17 +29,17 @@ The backup_label format follows PostgreSQL's standard structure but is specifica
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg (converts LSN to WAL segment number)
-  - XLogFileName (generates WAL filename from timeline and segment)
+  - [XLogFileName](../X/XLogFileName.md) (generates WAL filename from timeline and segment)
   - time (gets current time)
   - localtime (converts time to local time structure)
   - strftime (formats timestamp string)
   - snprintf (formats backup label content)
-  - open_target_file (opens target file for writing)
-  - write_target_range (writes data to target file)
-  - close_target_file (closes target file)
-  - pg_fatal (fatal error reporting)
+  - [open_target_file](../o/open_target_file.md) (opens target file for writing)
+  - [write_target_range](../w/write_target_range.md) (writes data to target file)
+  - [close_target_file](close_target_file.md) (closes target file)
+  - [pg_fatal](../p/pg_fatal.md) (fatal error reporting)
 - Called from (representative examples):
-  - perform_rewind (during the main rewind operation)
+  - [perform_rewind](../p/perform_rewind.md) (during the main rewind operation)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

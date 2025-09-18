@@ -20,29 +20,29 @@ This function is used as a fallback for object types that don't require special 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
   - DUMP_COMPONENT_ALL
   - DUMP_COMPONENT_NONE
   - DumpableObject (struct)
 - Called from (representative examples):
-  - getPublications
-  - getSubscriptions
-  - getSubscriptionTables
-  - getOperators
-  - getCollations
-  - getConversions
-  - getOpclasses
-  - getOpfamilies
-  - getAggregates
-  - getFuncs
-  - getEventTriggers
-  - getTransforms
-  - getTSParsers
-  - getTSDictionaries
-  - getTSTemplates
-  - getTSConfigurations
-  - getForeignDataWrappers
-  - getForeignServers
+  - [getPublications](../g/getPublications.md)
+  - [getSubscriptions](../g/getSubscriptions.md)
+  - [getSubscriptionTables](../g/getSubscriptionTables.md)
+  - [getOperators](../g/getOperators.md)
+  - [getCollations](../g/getCollations.md)
+  - [getConversions](../g/getConversions.md)
+  - [getOpclasses](../g/getOpclasses.md)
+  - [getOpfamilies](../g/getOpfamilies.md)
+  - [getAggregates](../g/getAggregates.md)
+  - [getFuncs](../g/getFuncs.md)
+  - [getEventTriggers](../g/getEventTriggers.md)
+  - [getTransforms](../g/getTransforms.md)
+  - [getTSParsers](../g/getTSParsers.md)
+  - [getTSDictionaries](../g/getTSDictionaries.md)
+  - [getTSTemplates](../g/getTSTemplates.md)
+  - [getTSConfigurations](../g/getTSConfigurations.md)
+  - [getForeignDataWrappers](../g/getForeignDataWrappers.md)
+  - [getForeignServers](../g/getForeignServers.md)
 
 ## Notes and Other Information
 - This is the default policy function for objects without specialized dumping requirements

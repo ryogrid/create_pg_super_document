@@ -27,12 +27,12 @@ For float8 ORDER BY types, the function directly stores the distance value. For 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Float8GetDatum
-  - Float4GetDatum
-  - DatumGetPointer (via pfree)
+  - [Float8GetDatum](../F/Float8GetDatum.md)
+  - [Float4GetDatum](../F/Float4GetDatum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (via pfree)
 - Called from (representative examples):
-  - getNextNearest (GiST nearest-neighbor search)
-  - spggettuple (SP-GiST tuple retrieval)
+  - [getNextNearest](../g/getNextNearest.md) (GiST nearest-neighbor search)
+  - [spggettuple](../s/spggettuple.md) (SP-GiST tuple retrieval)
 
 ## Notes and Other Information
 - Manages memory properly by freeing old float8 values when USE_FLOAT8_BYVAL is not defined

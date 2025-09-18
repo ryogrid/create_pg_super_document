@@ -27,12 +27,12 @@ If instrumentation is disabled or no workers are involved, the function returns 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safely multiplies sizes, checking for overflow)
-  - add_size (safely adds sizes, checking for overflow) 
+  - [mul_size](../m/mul_size.md) (safely multiplies sizes, checking for overflow)
+  - [add_size](../a/add_size.md) (safely adds sizes, checking for overflow) 
   - shm_toc_estimate_chunk (estimates shared memory chunk size)
   - shm_toc_estimate_keys (estimates shared memory key requirements)
   - TuplesortInstrumentation (instrumentation data structure)
-  - SharedSortInfo (shared sort information structure)
+  - [SharedSortInfo](../S/SharedSortInfo.md) (shared sort information structure)
 - Called from (representative examples):
   - ExecParallelEstimate (parallel execution estimator)
 

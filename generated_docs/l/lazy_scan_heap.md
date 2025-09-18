@@ -27,21 +27,21 @@ The function implements a sophisticated two-pass strategy for relations with ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_vac_scan_next_block (block iteration control)
-  - lazy_scan_new_or_empty (new/empty page processing)
-  - lazy_scan_prune (full page processing with cleanup lock)
-  - lazy_scan_noprune (limited page processing without cleanup lock)
-  - lazy_vacuum (index and heap vacuuming)
-  - lazy_cleanup_all_indexes (final index cleanup)
-  - TidStoreMemoryUsage (memory monitoring)
-  - lazy_check_wraparound_failsafe (safety checks)
+  - [heap_vac_scan_next_block](../h/heap_vac_scan_next_block.md) (block iteration control)
+  - [lazy_scan_new_or_empty](lazy_scan_new_or_empty.md) (new/empty page processing)
+  - [lazy_scan_prune](lazy_scan_prune.md) (full page processing with cleanup lock)
+  - [lazy_scan_noprune](lazy_scan_noprune.md) (limited page processing without cleanup lock)
+  - [lazy_vacuum](lazy_vacuum.md) (index and heap vacuuming)
+  - [lazy_cleanup_all_indexes](lazy_cleanup_all_indexes.md) (final index cleanup)
+  - [TidStoreMemoryUsage](../T/TidStoreMemoryUsage.md) (memory monitoring)
+  - [lazy_check_wraparound_failsafe](lazy_check_wraparound_failsafe.md) (safety checks)
   - FreeSpaceMapVacuumRange (FSM maintenance)
-  - visibilitymap_pin (visibility map management)
-  - PageGetHeapFreeSpace (free space calculation)
-  - vac_estimate_reltuples (tuple statistics)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md) (visibility map management)
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md) (free space calculation)
+  - [vac_estimate_reltuples](../v/vac_estimate_reltuples.md) (tuple statistics)
 
 - Called from (representative examples):
-  - heap_vacuum_rel (src/backend/access/heap/vacuumlazy.c:497)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md) (src/backend/access/heap/vacuumlazy.c:497)
 
 ## Notes and Other Information
 - Implements memory-conscious processing by monitoring dead_items storage and triggering vacuum cycles when memory limits are approached

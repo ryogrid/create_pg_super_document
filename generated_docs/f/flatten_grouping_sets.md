@@ -29,9 +29,9 @@ The function preserves CUBE and ROLLUP syntax within GROUPING SETS to maintain t
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - flatten_grouping_sets (recursive calls)
-  - makeGroupingSet
-  - list_concat
+  - [flatten_grouping_sets](flatten_grouping_sets.md) (recursive calls)
+  - [makeGroupingSet](../m/makeGroupingSet.md)
+  - [list_concat](../l/list_concat.md)
   - lappend
   - lfirst
   - RowExpr
@@ -40,8 +40,8 @@ The function preserves CUBE and ROLLUP syntax within GROUPING SETS to maintain t
   - GROUPING_SET_EMPTY
   - GROUPING_SET_SETS
 - Called from (representative examples):
-  - transformGroupClause
-  - flatten_grouping_sets (recursive calls)
+  - [transformGroupClause](../t/transformGroupClause.md)
+  - [flatten_grouping_sets](flatten_grouping_sets.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static recursive function within parse_clause.c for internal parser use

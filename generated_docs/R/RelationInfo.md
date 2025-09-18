@@ -36,14 +36,14 @@ The RelationInfo structure represents a complete context for checking a specific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatabaseInfo (referenced by datinfo member)
+  - [DatabaseInfo](../D/DatabaseInfo.md) (referenced by datinfo member)
 - Called from (representative examples):
-  - prepare_heap_command
-  - prepare_btree_command
-  - verify_heap_slot_handler
-  - verify_btree_slot_handler
-  - compile_relation_list_one_db
-  - main (in pg_amcheck)
+  - [prepare_heap_command](../p/prepare_heap_command.md)
+  - [prepare_btree_command](../p/prepare_btree_command.md)
+  - [verify_heap_slot_handler](../v/verify_heap_slot_handler.md)
+  - [verify_btree_slot_handler](../v/verify_btree_slot_handler.md)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md)
+  - [main](../m/main.md) (in pg_amcheck)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_amcheck/pg_amcheck.c:156-166

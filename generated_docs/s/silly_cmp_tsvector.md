@@ -31,7 +31,7 @@ The function name "silly" likely refers to its comprehensive nature - it compare
 - Functions called/Symbols referenced:
   - VARSIZE (macro for getting variable-length data size)
   - ARRPTR (macro for getting WordEntry array pointer)
-  - tsCompareString (string comparison function)
+  - [tsCompareString](../t/tsCompareString.md) (string comparison function)
   - STRPTR (macro for getting string data pointer)
   - POSDATAPTR (macro for getting position data pointer)
   - POSDATALEN (macro for getting position data length)

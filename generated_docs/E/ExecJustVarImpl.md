@@ -27,12 +27,12 @@ The implementation is marked as pg_attribute_always_inline to ensure it gets inl
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExprEvalStep (structure access)
-  - CheckOpSlotCompatibility
+  - [CheckOpSlotCompatibility](../C/CheckOpSlotCompatibility.md)
   - slot_getattr
 - Called from (representative examples):
-  - ExecJustInnerVar
-  - ExecJustOuterVar  
-  - ExecJustScanVar
+  - [ExecJustInnerVar](ExecJustInnerVar.md)
+  - [ExecJustOuterVar](ExecJustOuterVar.md)  
+  - [ExecJustScanVar](ExecJustScanVar.md)
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExprInterp.c:2150-2166

@@ -31,15 +31,15 @@ The function ensures that qualification clauses are distributed to the correct R
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - process_security_barrier_quals
-  - distribute_quals_to_rels
-  - list_concat
-  - make_outerjoininfo
-  - bms_union
-  - bms_add_members
+  - [process_security_barrier_quals](../p/process_security_barrier_quals.md)
+  - [distribute_quals_to_rels](distribute_quals_to_rels.md)
+  - [list_concat](../l/list_concat.md)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md)
+  - [bms_union](../b/bms_union.md)
+  - [bms_add_members](../b/bms_add_members.md)
   - nodeTag
 - Called from (representative examples):
-  - deconstruct_jointree
+  - [deconstruct_jointree](deconstruct_jointree.md)
 
 ## Notes and Other Information
 - Operates in the second phase after deconstruct_recurse has built the join tree structure

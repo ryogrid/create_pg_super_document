@@ -20,10 +20,10 @@ This function saves the current parenthesis nesting depth in the topmost entry o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_empty (assertion check)
-  - ConditionalStack (type definition)
+  - [conditional_stack_empty](conditional_stack_empty.md) (assertion check)
+  - [ConditionalStack](../C/ConditionalStack.md) (type definition)
 - Called from (representative examples):
-  - save_query_text_state (src/bin/psql/command.c:3276)
+  - [save_query_text_state](../s/save_query_text_state.md) (src/bin/psql/command.c:3276)
 
 ## Notes and Other Information
 - Essential for maintaining correct SQL syntax parsing within conditional blocks

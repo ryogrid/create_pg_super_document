@@ -22,13 +22,13 @@ This is a typedef, so it doesn't have direct members, but it points to a Paralle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelBlockTableScanDescData
+  - [ParallelBlockTableScanDescData](ParallelBlockTableScanDescData.md)
 - Called from (representative examples):
-  - heap_scan_stream_read_next_parallel
-  - initscan
-  - heapam_index_build_range_scan
-  - table_block_parallelscan_initialize
-  - table_block_parallelscan_nextpage
+  - [heap_scan_stream_read_next_parallel](../h/heap_scan_stream_read_next_parallel.md)
+  - [initscan](../i/initscan.md)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [table_block_parallelscan_initialize](../t/table_block_parallelscan_initialize.md)
+  - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md)
 
 ## Notes and Other Information
 - This typedef is part of PostgreSQL's parallel query execution framework

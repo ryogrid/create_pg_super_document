@@ -26,8 +26,8 @@ The function iterates through the provided names list in parallel with the tuple
   - namestrcpy
 
 - Called from (representative examples):
-  - ExecInitExprRec
-  - ExecEvalWholeRowVar
+  - [ExecInitExprRec](ExecInitExprRec.md)
+  - [ExecEvalWholeRowVar](ExecEvalWholeRowVar.md)
   - ExecQualAndReset
 
 ## Notes and Other Information

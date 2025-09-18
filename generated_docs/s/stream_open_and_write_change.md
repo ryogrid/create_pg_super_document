@@ -26,13 +26,13 @@ This encapsulation ensures proper file lifecycle management and is used primaril
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stream_start_internal (opens the stream file)
-  - stream_write_change (writes the actual message data)
-  - stream_stop_internal (closes the stream file)
+  - [stream_start_internal](stream_start_internal.md) (opens the stream file)
+  - [stream_write_change](stream_write_change.md) (writes the actual message data)
+  - [stream_stop_internal](stream_stop_internal.md) (closes the stream file)
 - Called from (representative examples):
-  - apply_handle_stream_prepare (at src/backend/replication/logical/worker.c:1344)
-  - apply_handle_stream_abort (at src/backend/replication/logical/worker.c:1924)
-  - apply_handle_stream_commit (at src/backend/replication/logical/worker.c:2192)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md) (at src/backend/replication/logical/worker.c:1344)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md) (at src/backend/replication/logical/worker.c:1924)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md) (at src/backend/replication/logical/worker.c:2192)
 
 ## Notes and Other Information
 - This function includes an assertion to ensure it's not called during an active streamed transaction

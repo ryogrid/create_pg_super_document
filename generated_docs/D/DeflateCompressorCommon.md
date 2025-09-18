@@ -24,19 +24,19 @@ The function includes paranoid checks to avoid zero-length chunks, which would b
 ## Dependencies
 - Functions called/Symbols referenced:
   - deflate (zlib compression function)
-  - pg_fatal (for fatal error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (for fatal error reporting)
   - cs->writeF (callback function for writing compressed data)
 - Types referenced:
-  - ArchiveHandle
-  - CompressorState
-  - GzipCompressorState
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [CompressorState](../C/CompressorState.md)
+  - [GzipCompressorState](../G/GzipCompressorState.md)
   - z_streamp
 - Zlib constants used:
   - Z_OK, Z_STREAM_ERROR, Z_STREAM_END
   - Z_FINISH, Z_NO_FLUSH
 - Called from (representative examples):
-  - DeflateCompressorEnd (at src/bin/pg_dump/compress_gzip.c:90)
-  - WriteDataToArchiveGzip (at src/bin/pg_dump/compress_gzip.c:159)
+  - [DeflateCompressorEnd](DeflateCompressorEnd.md) (at src/bin/pg_dump/compress_gzip.c:90)
+  - [WriteDataToArchiveGzip](../W/WriteDataToArchiveGzip.md) (at src/bin/pg_dump/compress_gzip.c:159)
 
 ## Notes and Other Information
 - Implements a loop that continues until all input is processed or stream ends

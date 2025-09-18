@@ -19,7 +19,7 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_bgwriter
+  - [pgstat_fetch_stat_bgwriter](pgstat_fetch_stat_bgwriter.md)
   - PG_RETURN_TIMESTAMPTZ
 - Called from (representative examples):
   - This function is typically called from SQL queries accessing pg_stat_bgwriter system view

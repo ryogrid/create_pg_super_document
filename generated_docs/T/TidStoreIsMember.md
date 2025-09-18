@@ -21,17 +21,17 @@ TidStoreIsMember checks if a specified TID (Tuple Identifier) exists in the TidS
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidStoreIsShared (macro)
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - shared_ts_find (radix tree generated function)
   - local_ts_find (radix tree generated function)
-  - BlocktableEntry
+  - [BlocktableEntry](../B/BlocktableEntry.md)
   - NUM_FULL_OFFSETS
   - WORDNUM, BITNUM (macros)
   - bitmapword
 - Called from (representative examples):
-  - vac_tid_reaped (in vacuum.c)
-  - check_set_block_offsets (in test_tidstore.c)
+  - [vac_tid_reaped](../v/vac_tid_reaped.md) (in vacuum.c)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md) (in test_tidstore.c)
 
 ## Notes and Other Information
 - Returns false if no entry exists for the TID's block number

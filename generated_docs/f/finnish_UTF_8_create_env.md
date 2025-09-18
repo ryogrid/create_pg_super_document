@@ -23,7 +23,7 @@ This environment structure will contain all necessary state information for Finn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env
+  - [SN_create_env](../S/SN_create_env.md)
 - Called from (representative examples):
   - (External callers - this is a public interface function for environment creation)
 

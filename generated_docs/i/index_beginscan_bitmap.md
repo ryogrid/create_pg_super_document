@@ -19,11 +19,11 @@ This function creates and initializes an index scan descriptor specifically for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_beginscan_internal (internal scan initialization with bitmap-specific parameters)
+  - [index_beginscan_internal](index_beginscan_internal.md) (internal scan initialization with bitmap-specific parameters)
   - InvalidSnapshot (constant for validation)
-  - IndexScanDesc (return type structure)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (return type structure)
 - Called from (representative examples):
-  - ExecInitBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:303)
+  - [ExecInitBitmapIndexScan](../E/ExecInitBitmapIndexScan.md) (src/backend/executor/nodeBitmapIndexscan.c:303)
 
 ## Notes and Other Information
 - Specifically designed for bitmap index scan operations in PostgreSQL's query execution

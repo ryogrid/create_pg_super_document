@@ -20,10 +20,10 @@ The function enforces PostgreSQL's inheritance rules by preventing inheritance m
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 - Called from (representative examples):
-  - ATPrepCmd (during ALTER TABLE command preparation)
+  - [ATPrepCmd](ATPrepCmd.md) (during ALTER TABLE command preparation)
 
 ## Notes and Other Information
 - Part of the ALTER TABLE command preparation infrastructure

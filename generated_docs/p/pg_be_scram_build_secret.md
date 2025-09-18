@@ -19,10 +19,10 @@ The resulting secret contains the salt, iteration count, and cryptographic keys 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_saslprep
-  - pg_strong_random
+  - [pg_saslprep](pg_saslprep.md)
+  - [pg_strong_random](pg_strong_random.md)
   - scram_build_secret
-  - pfree
+  - [pfree](pfree.md)
   - ereport/errcode/errmsg
   - PG_SHA256
   - SCRAM_SHA_256_KEY_LEN
@@ -30,7 +30,7 @@ The resulting secret contains the salt, iteration count, and cryptographic keys 
   - SASLPREP_SUCCESS
   - scram_sha_256_iterations (global variable)
 - Called from (representative examples):
-  - encrypt_password (src/backend/libpq/crypt.c:142)
+  - [encrypt_password](../e/encrypt_password.md) (src/backend/libpq/crypt.c:142)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

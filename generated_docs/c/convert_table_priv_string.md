@@ -23,15 +23,15 @@ The actual conversion work is delegated to convert_any_priv_string, which provid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string: Generic privilege string parser that handles the actual conversion
+  - [convert_any_priv_string](convert_any_priv_string.md): Generic privilege string parser that handles the actual conversion
   - priv_map: Structure type for privilege name-to-value mappings
   - ACL_SELECT, ACL_INSERT, ACL_UPDATE, ACL_DELETE: Basic table privilege constants
   - ACL_TRUNCATE, ACL_REFERENCES, ACL_TRIGGER, ACL_MAINTAIN: Additional table privilege constants
   - ACL_GRANT_OPTION_FOR: Macro to generate grant option variants of privileges
 - Called from (representative examples):
-  - has_table_privilege_name_name: Table privilege check with role name and table name
-  - has_table_privilege_name: Table privilege check with current user and table name
-  - has_table_privilege_id_id: Table privilege check with role ID and table ID
+  - [has_table_privilege_name_name](../h/has_table_privilege_name_name.md): Table privilege check with role name and table name
+  - [has_table_privilege_name](../h/has_table_privilege_name.md): Table privilege check with current user and table name
+  - [has_table_privilege_id_id](../h/has_table_privilege_id_id.md): Table privilege check with role ID and table ID
   - has_table_privilege functions: All table privilege checking functions
 
 ## Notes and Other Information

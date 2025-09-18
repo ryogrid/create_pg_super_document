@@ -20,8 +20,8 @@ The function is designed for cases where a function needs to be called only once
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info (initializes function manager information)
-  - FunctionCall0Coll (performs the actual function call with collation)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager information)
+  - [FunctionCall0Coll](../F/FunctionCall0Coll.md) (performs the actual function call with collation)
 - Called from (representative examples):
   - Various PostgreSQL internal functions that need to invoke other functions by OID with collation support
 

@@ -50,13 +50,13 @@ PgStat_StatDBEntry serves as the central repository for database-level statistic
   - PgStat_Counter (statistics counter type)
   - TimestampTz (timestamp data type)
 - Called from (representative examples):
-  - pgstat_report_recovery_conflict (conflict reporting)
-  - pgstat_report_deadlock (deadlock reporting)
-  - pgstat_report_tempfile (temporary file reporting)
-  - pgstat_report_connect (connection reporting)
-  - pgstat_report_disconnect (disconnection reporting)
-  - pgstat_fetch_stat_dbentry (statistics retrieval)
-  - pgstat_update_dbstats (statistics update)
+  - [pgstat_report_recovery_conflict](../p/pgstat_report_recovery_conflict.md) (conflict reporting)
+  - [pgstat_report_deadlock](../p/pgstat_report_deadlock.md) (deadlock reporting)
+  - [pgstat_report_tempfile](../p/pgstat_report_tempfile.md) (temporary file reporting)
+  - [pgstat_report_connect](../p/pgstat_report_connect.md) (connection reporting)
+  - [pgstat_report_disconnect](../p/pgstat_report_disconnect.md) (disconnection reporting)
+  - [pgstat_fetch_stat_dbentry](../p/pgstat_fetch_stat_dbentry.md) (statistics retrieval)
+  - [pgstat_update_dbstats](../p/pgstat_update_dbstats.md) (statistics update)
   - pg_stat_get_db_* functions (SQL interface functions)
   - autovacuum worker process (for database selection)
 
@@ -64,7 +64,7 @@ PgStat_StatDBEntry serves as the central repository for database-level statistic
 - This structure is fundamental to PostgreSQL's pg_stat_database system view
 - Statistics are maintained in shared memory and periodically written to disk
 - The conflict statistics are particularly important for standby servers where recovery conflicts can occur
-- Session timing statistics help track database usage patterns and connection behavior
+- [Session](../S/Session.md) timing statistics help track database usage patterns and connection behavior
 - Block timing statistics (blk_read_time, blk_write_time) require track_io_timing to be enabled
 - Used extensively by monitoring tools and database administrators for performance analysis
 - The autovacuum system uses these statistics to prioritize databases for maintenance operations

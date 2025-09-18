@@ -20,10 +20,10 @@ The function operates on the tuple store referenced by the NamedTuplestoreScanSt
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward: Verifies that scanning is in forward direction
-  - tuplestore_select_read_pointer: Selects the appropriate read pointer for the tuple store
-  - tuplestore_gettupleslot: Retrieves the next tuple from the tuple store into the provided slot
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Selects the appropriate read pointer for the tuple store
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md): Retrieves the next tuple from the tuple store into the provided slot
 - Called from (representative examples):
-  - ExecNamedTuplestoreScan: Main execution function that uses this helper to fetch tuples
+  - [ExecNamedTuplestoreScan](../E/ExecNamedTuplestoreScan.md): Main execution function that uses this helper to fetch tuples
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the nodeNamedtuplestorescan.c file

@@ -21,12 +21,12 @@ This flag is commonly used when tree traversal operations need to focus on the m
 
 ## Dependencies
 - Used by:
-  - setRuleCheckAsUser_Query (src/backend/rewrite/rewriteDefine.c:683)
-  - AcquireRewriteLocks (src/backend/rewrite/rewriteHandler.c:301)
-  - fireRIRrules (src/backend/rewrite/rewriteHandler.c:2171)
-  - rewriteTargetView (src/backend/rewrite/rewriteHandler.c:3442)
-  - checkExprHasSubLink (src/backend/rewrite/rewriteManip.c:305)
-  - ScanQueryForLocks (src/backend/utils/cache/plancache.c:1912)
+  - [setRuleCheckAsUser_Query](../s/setRuleCheckAsUser_Query.md) (src/backend/rewrite/rewriteDefine.c:683)
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (src/backend/rewrite/rewriteHandler.c:301)
+  - [fireRIRrules](../f/fireRIRrules.md) (src/backend/rewrite/rewriteHandler.c:2171)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (src/backend/rewrite/rewriteHandler.c:3442)
+  - [checkExprHasSubLink](../c/checkExprHasSubLink.md) (src/backend/rewrite/rewriteManip.c:305)
+  - [ScanQueryForLocks](../S/ScanQueryForLocks.md) (src/backend/utils/cache/plancache.c:1912)
 - Part of the QTW flag system defined in src/include/nodes/nodeFuncs.h
 
 ## Notes and Other Information

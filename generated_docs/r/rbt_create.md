@@ -22,13 +22,13 @@ This function creates a new Red-Black Tree instance by allocating memory for the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (structure type)
-  - RBTNode (structure type)  
+  - [RBTree](../R/RBTree.md) (structure type)
+  - [RBTNode](../R/RBTNode.md) (structure type)  
   - RBTNIL (constant for empty tree marker)
-  - palloc (memory allocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - ginInitBA (GIN index bulk allocation initialization)
+  - [ginInitBA](../g/ginInitBA.md) (GIN index bulk allocation initialization)
   - create_int_rbtree (test module function)
 
 ## Notes and Other Information

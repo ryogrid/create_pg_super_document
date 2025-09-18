@@ -28,10 +28,10 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
   - RT_PREFIX (defined by the including code)
 - Called from (representative examples):
   - Functions performing read operations on shared radix trees
-  - Query routines that need consistent read access
+  - [Query](../Q/Query.md) routines that need consistent read access
 - Related symbols:
-  - RT_LOCK_EXCLUSIVE (exclusive/write lock counterpart)
-  - RT_UNLOCK (releases the acquired lock)
+  - [RT_LOCK_EXCLUSIVE](RT_LOCK_EXCLUSIVE.md) (exclusive/write lock counterpart)
+  - [RT_UNLOCK](RT_UNLOCK.md) (releases the acquired lock)
 
 ## Notes and Other Information
 - Only available when RT_SHMEM preprocessing directive is defined

@@ -25,12 +25,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc
-  - PGPROC (struct type)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [PGPROC](../P/PGPROC.md) (struct type)
   - DEADLOCK_INFO (struct type)
   - WAIT_ORDER (struct type)
-  - EDGE (struct type)
+  - [EDGE](../E/EDGE.md) (struct type)
 - Called from (representative examples):
   - InitProcess
   - LockHashPartitionLockByProc

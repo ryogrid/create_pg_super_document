@@ -36,17 +36,17 @@ This approach is more efficient than complete teardown and recreation, especiall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecSetParamPlanMulti (re-evaluate initplan parameters)
+  - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (re-evaluate initplan parameters)
   - GetPerTupleExprContext (get expression evaluation context)
-  - ReinitializeParallelDSM (reset parallel DSM infrastructure)
-  - ExecParallelSetupTupleQueues (re-establish tuple communication, reinitialize=true)
-  - shm_toc_lookup (find fixed executor state in shared memory)
-  - dsa_free, SerializeParamExecParams (manage parameter serialization)
-  - ExecParallelReInitializeDSM (reset plan node DSM state)
+  - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md) (reset parallel DSM infrastructure)
+  - [ExecParallelSetupTupleQueues](ExecParallelSetupTupleQueues.md) (re-establish tuple communication, reinitialize=true)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (find fixed executor state in shared memory)
+  - [dsa_free](../d/dsa_free.md), SerializeParamExecParams (manage parameter serialization)
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md) (reset plan node DSM state)
   - bms_is_empty, DsaPointerIsValid (utility functions)
 - Called from:
-  - ExecGather (when restarting Gather node execution)
-  - ExecGatherMerge (when restarting GatherMerge node execution)
+  - [ExecGather](ExecGather.md) (when restarting Gather node execution)
+  - [ExecGatherMerge](ExecGatherMerge.md) (when restarting GatherMerge node execution)
 
 ## Notes and Other Information
 - Requires that previous workers be completely finished before reinitialization (checked via assertion)

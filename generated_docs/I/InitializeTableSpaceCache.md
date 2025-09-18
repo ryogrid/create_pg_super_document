@@ -19,10 +19,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create: Creates the main hash table for tablespace cache
-  - CreateCacheMemoryContext: Ensures cache memory context exists
-  - CacheRegisterSyscacheCallback: Registers invalidation callback for TABLESPACEOID
-  - InvalidateTableSpaceCacheCallback: The callback function for cache invalidation
+  - [hash_create](../h/hash_create.md): Creates the main hash table for tablespace cache
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md): Ensures cache memory context exists
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md): Registers invalidation callback for TABLESPACEOID
+  - [InvalidateTableSpaceCacheCallback](InvalidateTableSpaceCacheCallback.md): The callback function for cache invalidation
 - Data structures used:
   - HASHCTL: Hash table control structure for configuration
   - TableSpaceCacheEntry: Cache entry structure definition
@@ -33,7 +33,7 @@ This function takes no parameters.
   - HASH_BLOBS: Hash table creation flag for blob key handling
   - TABLESPACEOID: System cache ID for tablespace catalog
 - Called from:
-  - get_tablespace: Lazy initialization when cache is first accessed
+  - [get_tablespace](../g/get_tablespace.md): Lazy initialization when cache is first accessed
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spccache.c module

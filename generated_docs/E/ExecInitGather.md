@@ -23,13 +23,13 @@ The function determines whether the leader process should participate in scannin
 - Functions called/Symbols referenced:
   - makeNode (creates GatherState structure)
   - ExecAssignExprContext (sets up expression evaluation context)
-  - ExecInitNode (initializes the outer child plan node)
-  - ExecGetResultType (gets result tuple descriptor from child)
-  - ExecInitResultTypeTL (initializes result type from target list)
-  - ExecConditionalAssignProjectionInfo (sets up projection if needed)
-  - ExecInitExtraTupleSlot (creates funnel slot for worker tuples)
+  - [ExecInitNode](ExecInitNode.md) (initializes the outer child plan node)
+  - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor from child)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (initializes result type from target list)
+  - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (sets up projection if needed)
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md) (creates funnel slot for worker tuples)
 - Called from (representative examples):
-  - ExecInitNode (main node initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (main node initialization dispatcher)
 
 ## Notes and Other Information
 - Gather nodes do not have inner plan nodes and this is verified with an assertion

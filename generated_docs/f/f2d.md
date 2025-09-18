@@ -30,14 +30,14 @@ The function handles two main cases based on the binary exponent:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log10Pow2, log10Pow5 (logarithm calculations)
-  - pow5bits (bit count for powers of 5)
-  - mulPow5InvDivPow2, mulPow5divPow2 (multiplication/division operations)
-  - multipleOfPowerOf5, multipleOfPowerOf2 (divisibility checks)
+  - [log10Pow2](../l/log10Pow2.md), log10Pow5 (logarithm calculations)
+  - [pow5bits](../p/pow5bits.md) (bit count for powers of 5)
+  - [mulPow5InvDivPow2](../m/mulPow5InvDivPow2.md), mulPow5divPow2 (multiplication/division operations)
+  - [multipleOfPowerOf5](../m/multipleOfPowerOf5.md), multipleOfPowerOf2 (divisibility checks)
   - Constants: FLOAT_BIAS, FLOAT_MANTISSA_BITS, FLOAT_POW5_INV_BITCOUNT, FLOAT_POW5_BITCOUNT
   - STRICTLY_SHORTEST macro for precision control
 - Called from (representative examples):
-  - float_to_shortest_decimal_bufn (at src/common/f2s.c:766)
+  - [float_to_shortest_decimal_bufn](float_to_shortest_decimal_bufn.md) (at src/common/f2s.c:766)
 
 ## Notes and Other Information
 - This is an inline static function optimized for performance

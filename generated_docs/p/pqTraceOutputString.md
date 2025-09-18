@@ -26,18 +26,18 @@ The function calculates the string length and advances the cursor accordingly. I
 - Functions called/Symbols referenced:
   - (Uses standard C library functions: fprintf, strlen)
 - Called from (representative examples):
-  - pqTraceOutput_NotificationResponse
-  - pqTraceOutput_Bind
-  - pqTraceOutput_Close
-  - pqTraceOutput_CommandComplete
-  - pqTraceOutput_Describe
-  - pqTraceOutputNR
-  - pqTraceOutput_Execute
-  - pqTraceOutput_CopyFail
-  - pqTraceOutput_Parse
-  - pqTraceOutput_Query
-  - pqTraceOutput_ParameterStatus
-  - pqTraceOutput_RowDescription
+  - [pqTraceOutput_NotificationResponse](pqTraceOutput_NotificationResponse.md)
+  - [pqTraceOutput_Bind](pqTraceOutput_Bind.md)
+  - [pqTraceOutput_Close](pqTraceOutput_Close.md)
+  - [pqTraceOutput_CommandComplete](pqTraceOutput_CommandComplete.md)
+  - [pqTraceOutput_Describe](pqTraceOutput_Describe.md)
+  - [pqTraceOutputNR](pqTraceOutputNR.md)
+  - [pqTraceOutput_Execute](pqTraceOutput_Execute.md)
+  - [pqTraceOutput_CopyFail](pqTraceOutput_CopyFail.md)
+  - [pqTraceOutput_Parse](pqTraceOutput_Parse.md)
+  - [pqTraceOutput_Query](pqTraceOutput_Query.md)
+  - [pqTraceOutput_ParameterStatus](pqTraceOutput_ParameterStatus.md)
+  - [pqTraceOutput_RowDescription](pqTraceOutput_RowDescription.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

@@ -21,7 +21,7 @@ This function determines the optimal number of buckets for a hash table used in 
 - Functions called/Symbols referenced:
   - Max (macro for maximum value)
 - Called from (representative examples):
-  - build_hash_tables
+  - [build_hash_tables](../b/build_hash_tables.md)
 
 ## Notes and Other Information
 - The function implements a conservative strategy, preferring to underestimate bucket count rather than risk memory exhaustion

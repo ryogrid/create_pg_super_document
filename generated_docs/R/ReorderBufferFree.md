@@ -17,10 +17,10 @@ ReorderBufferFree performs complete cleanup of a ReorderBuffer instance. It deal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
-  - ReorderBufferCleanupSerializedTXNs
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ReorderBufferCleanupSerializedTXNs](ReorderBufferCleanupSerializedTXNs.md)
 - Called from (representative examples):
-  - FreeDecodingContext
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
 
 ## Notes and Other Information
 - Uses the memory context hierarchy for efficient cleanup - deleting the main context automatically frees all child contexts

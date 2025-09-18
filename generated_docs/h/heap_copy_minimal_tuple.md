@@ -26,14 +26,14 @@ The result is allocated in the current memory context and must be freed by the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
 - Called from (representative examples):
-  - tts_minimal_materialize
-  - tts_minimal_copy_minimal_tuple
-  - gm_readnext_tuple
-  - tuplesort_gettupleslot
-  - tuplestore_gettupleslot
+  - [tts_minimal_materialize](../t/tts_minimal_materialize.md)
+  - [tts_minimal_copy_minimal_tuple](../t/tts_minimal_copy_minimal_tuple.md)
+  - [gm_readnext_tuple](../g/gm_readnext_tuple.md)
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

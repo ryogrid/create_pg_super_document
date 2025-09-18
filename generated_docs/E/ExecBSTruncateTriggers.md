@@ -18,12 +18,12 @@ This function executes BEFORE STATEMENT TRUNCATE triggers, which fire once per T
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TriggerEnabled
-  - ExecCallTriggerFunc
+  - [TriggerEnabled](../T/TriggerEnabled.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
   - GetPerTupleMemoryContext
   - TRIGGER_TYPE_MATCHES
 - Called from (representative examples):
-  - ExecuteTruncateGuts
+  - [ExecuteTruncateGuts](ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 - Returns immediately if no truncate triggers are defined for the relation

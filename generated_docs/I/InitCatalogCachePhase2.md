@@ -21,9 +21,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitCatCachePhase2
+  - [InitCatCachePhase2](InitCatCachePhase2.md)
 - Called from (representative examples):
-  - RelationCacheInitFileRemove (in relcache.c)
+  - [RelationCacheInitFileRemove](../R/RelationCacheInitFileRemove.md) (in relcache.c)
 
 ## Notes and Other Information
 - This function is NOT essential for normal PostgreSQL operation - syscaches can initialize on first use

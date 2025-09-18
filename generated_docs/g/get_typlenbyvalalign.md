@@ -26,23 +26,23 @@ This function is extensively used throughout PostgreSQL's array handling, type c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from heap tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - elog (error logging and reporting)
   - Form_pg_type (type catalog structure)
 - Called from (representative examples):
-  - ginarrayextract (GIN array extraction)
-  - ginqueryarrayextract (GIN query array extraction)
-  - _bt_preprocess_array_keys (B-tree array key preprocessing)
-  - CreateCast (type cast creation)
-  - DefineRange (range type definition)
-  - ExecInitExprRec (expression initialization)
-  - ExecEvalScalarArrayOp (scalar array operation evaluation)
-  - array_position_common (array position functions)
-  - array_map (array mapping operations)
-  - array_create_iterator (array iterator creation)
+  - [ginarrayextract](ginarrayextract.md) (GIN array extraction)
+  - [ginqueryarrayextract](ginqueryarrayextract.md) (GIN query array extraction)
+  - [_bt_preprocess_array_keys](../b/_bt_preprocess_array_keys.md) (B-tree array key preprocessing)
+  - [CreateCast](../C/CreateCast.md) (type cast creation)
+  - [DefineRange](../D/DefineRange.md) (range type definition)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [ExecEvalScalarArrayOp](../E/ExecEvalScalarArrayOp.md) (scalar array operation evaluation)
+  - [array_position_common](../a/array_position_common.md) (array position functions)
+  - [array_map](../a/array_map.md) (array mapping operations)
+  - [array_create_iterator](../a/array_create_iterator.md) (array iterator creation)
   - scalararraysel (scalar array selectivity estimation)
 
 ## Notes and Other Information

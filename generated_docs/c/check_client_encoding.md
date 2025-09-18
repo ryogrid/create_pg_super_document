@@ -29,16 +29,16 @@ The function performs several critical operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_valid_client_encoding
+  - [pg_valid_client_encoding](../p/pg_valid_client_encoding.md)
   - pg_encoding_to_char
-  - PrepareClientEncoding
-  - IsTransactionState
+  - [PrepareClientEncoding](../P/PrepareClientEncoding.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
   - GUC_check_errcode
   - GUC_check_errdetail
-  - GetDatabaseEncodingName
-  - guc_free
-  - guc_strdup
-  - guc_malloc
+  - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md)
+  - [guc_free](../g/guc_free.md)
+  - [guc_strdup](../g/guc_strdup.md)
+  - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - GUC system when processing SET CLIENT_ENCODING commands
   - Configuration file processing during server startup or SIGHUP

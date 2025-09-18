@@ -22,10 +22,10 @@ The function demonstrates proper memory allocation patterns for ECPG application
 - Functions called/Symbols referenced:
   - malloc (for memory allocation)
   - ECPGset_var (ECPG runtime function for variable registration)
-  - MYTYPE (custom data type)
-  - MYNULLTYPE (custom null indicator type)
+  - [MYTYPE](../M/MYTYPE.md) (custom data type)
+  - [MYNULLTYPE](../M/MYNULLTYPE.md) (custom null indicator type)
 - Called from (representative examples):
-  - main (in the same test file)
+  - [main](../m/main.md) (in the same test file)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

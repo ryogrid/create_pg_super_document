@@ -21,17 +21,17 @@ The function is designed as a convenience routine specifically for error checkin
 - Functions called/Symbols referenced:
   - OidFunctionCall1
   - TsmRoutine (struct type)
-  - DatumGetPointer
-  - PointerGetDatum
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - IsA (macro)
   - elog
 
 - Called from (representative examples):
-  - ExecInitSampleScan (src/backend/executor/nodeSamplescan.c:159)
-  - set_tablesample_rel_size (src/backend/optimizer/path/allpaths.c:832)
-  - set_tablesample_rel_pathlist (src/backend/optimizer/path/allpaths.c:887)
-  - cost_samplescan (src/backend/optimizer/path/costsize.c:381)
-  - transformRangeTableSample (src/backend/parser/parse_clause.c:948)
+  - [ExecInitSampleScan](../E/ExecInitSampleScan.md) (src/backend/executor/nodeSamplescan.c:159)
+  - [set_tablesample_rel_size](../s/set_tablesample_rel_size.md) (src/backend/optimizer/path/allpaths.c:832)
+  - [set_tablesample_rel_pathlist](../s/set_tablesample_rel_pathlist.md) (src/backend/optimizer/path/allpaths.c:887)
+  - [cost_samplescan](../c/cost_samplescan.md) (src/backend/optimizer/path/costsize.c:381)
+  - [transformRangeTableSample](../t/transformRangeTableSample.md) (src/backend/parser/parse_clause.c:948)
 
 ## Notes and Other Information
 - The function performs runtime type checking using IsA() macro to ensure the returned value is actually a TsmRoutine struct

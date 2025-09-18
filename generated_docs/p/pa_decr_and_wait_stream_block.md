@@ -19,15 +19,15 @@ This function takes no parameters and operates on shared state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_parallel_apply_worker
-  - pg_atomic_read_u32
-  - pa_has_spooled_message_pending
-  - pg_atomic_sub_fetch_u32
-  - pa_lock_stream
-  - pa_unlock_stream
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md)
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [pa_has_spooled_message_pending](pa_has_spooled_message_pending.md)
+  - [pg_atomic_sub_fetch_u32](pg_atomic_sub_fetch_u32.md)
+  - [pa_lock_stream](pa_lock_stream.md)
+  - [pa_unlock_stream](pa_unlock_stream.md)
 - Called from (representative examples):
-  - apply_handle_stream_stop
-  - apply_handle_stream_abort
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 - Only valid to call from within a parallel apply worker context (enforced by Assert)

@@ -32,18 +32,18 @@ The operation phases include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_role_grantor
-  - LockSharedObject
+  - [check_role_grantor](../c/check_role_grantor.md)
+  - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheList1
-  - initialize_revoke_actions
+  - [initialize_revoke_actions](../i/initialize_revoke_actions.md)
   - plan_single_revoke
-  - deleteSharedDependencyRecordsFor
-  - CatalogTupleDelete
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
 - Called from (representative examples):
-  - AlterRole
-  - GrantRole
+  - [AlterRole](../A/AlterRole.md)
+  - [GrantRole](../G/GrantRole.md)
 
 ## Notes and Other Information
 - Uses ShareUpdateExclusiveLock to prevent concurrent modifications to the same role

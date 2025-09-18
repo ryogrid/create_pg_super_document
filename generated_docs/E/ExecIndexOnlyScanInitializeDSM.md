@@ -29,16 +29,16 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - shm_toc_allocate
-  - index_parallelscan_initialize  
+  - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md)  
   - shm_toc_insert
-  - index_beginscan_parallel
-  - index_rescan
+  - [index_beginscan_parallel](../i/index_beginscan_parallel.md)
+  - [index_rescan](../i/index_rescan.md)
 - Types used:
-  - IndexOnlyScanState
-  - ParallelContext
-  - ParallelIndexScanDesc
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [ParallelContext](../P/ParallelContext.md)
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework specifically for index-only scans

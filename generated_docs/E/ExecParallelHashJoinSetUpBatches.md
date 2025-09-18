@@ -30,15 +30,15 @@ The function ensures that all parallel workers can coordinate effectively during
 - Functions called/Symbols referenced:
   - dsa_allocate0 (zero-initialized shared memory allocation)
   - EstimateParallelHashJoinBatch (calculate space needed per batch)
-  - dsa_get_address (convert DSA pointer to local address)
+  - [dsa_get_address](../d/dsa_get_address.md) (convert DSA pointer to local address)
   - palloc0_array (allocate zero-initialized array)
   - BarrierInit, BarrierAttach, BarrierPhase, BarrierArriveAndWait, BarrierDetach (barrier coordination)
-  - sts_initialize (shared tuplestore initialization)
+  - [sts_initialize](../s/sts_initialize.md) (shared tuplestore initialization)
   - NthParallelHashJoinBatch (get Nth batch from array)
   - ParallelHashJoinBatchInner/Outer (get inner/outer tuplestore areas)
 - Called from:
   - ExecHashTableCreate (nodeHash.c:622)
-  - ExecParallelHashIncreaseNumBatches (nodeHash.c:1148)
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (nodeHash.c:1148)
 
 ## Notes and Other Information
 - This is a static function internal to nodeHash.c for parallel hash join batch management
@@ -48,5 +48,5 @@ The function ensures that all parallel workers can coordinate effectively during
 - Batch 0 receives special treatment as it doesn't need to load data from disk
 - Creates separate shared tuplestores for inner and outer relations with unique naming
 - The shared tuplestores use SHARED_TUPLESTORE_SINGLE_PASS mode for efficient processing
-- Barrier phases coordinate the parallel processing workflow across all participating backends
+- [Barrier](../B/Barrier.md) phases coordinate the parallel processing workflow across all participating backends
 - The function assumes hashtable->batches is NULL, indicating this is the first batch setup

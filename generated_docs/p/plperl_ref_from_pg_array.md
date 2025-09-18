@@ -22,17 +22,17 @@ This function transforms PostgreSQL array data into Perl data structures that ca
   - ARR_ELEMTYPE
   - ARR_NDIM
   - ARR_DIMS
-  - get_type_io_data
-  - get_transform_fromsql
-  - fmgr_info
-  - type_is_rowtype
-  - deconstruct_array
-  - split_array
+  - [get_type_io_data](../g/get_type_io_data.md)
+  - [get_transform_fromsql](../g/get_transform_fromsql.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [type_is_rowtype](../t/type_is_rowtype.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [split_array](../s/split_array.md)
   - newRV_noinc
   - newSVuv
 - Called from (representative examples):
-  - plperl_call_perl_func
-  - plperl_hash_from_tuple
+  - [plperl_call_perl_func](plperl_call_perl_func.md)
+  - [plperl_hash_from_tuple](plperl_hash_from_tuple.md)
 
 ## Notes and Other Information
 - Returns a blessed Perl object of class "PostgreSQL::InServer::ARRAY"

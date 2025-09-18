@@ -20,9 +20,9 @@ This function is part of the has_schema_privilege family of functions that check
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public: Converts username to role OID, handling "public" role specially
-  - convert_schema_name: Converts schema name to schema OID
-  - convert_schema_priv_string: Converts privilege string to AclMode bitmask
-  - object_aclcheck: Performs the actual ACL privilege check against the object
+  - [convert_schema_name](../c/convert_schema_name.md): Converts schema name to schema OID
+  - [convert_schema_priv_string](../c/convert_schema_priv_string.md): Converts privilege string to AclMode bitmask
+  - [object_aclcheck](../o/object_aclcheck.md): Performs the actual ACL privilege check against the object
   - Name: PostgreSQL's name type for identifiers
   - AclResult: Enum type for ACL check results
 - Called from (representative examples):

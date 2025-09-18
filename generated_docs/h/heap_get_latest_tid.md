@@ -20,17 +20,17 @@ The function performs integrity checks during traversal, including validation of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer: Read and pin pages containing tuple versions
-  - LockBuffer/UnlockReleaseBuffer: Manage buffer locks during access
-  - ItemPointerGetBlockNumber/ItemPointerGetOffsetNumber: Extract TID components
-  - PageGetItemId/PageGetItem: Access page-level tuple data
-  - HeapTupleSatisfiesVisibility: Test tuple visibility against snapshot
-  - HeapCheckForSerializableConflictOut: Check for serializable conflicts
+  - [ReadBuffer](../R/ReadBuffer.md): Read and pin pages containing tuple versions
+  - [LockBuffer](../L/LockBuffer.md)/UnlockReleaseBuffer: Manage buffer locks during access
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)/ItemPointerGetOffsetNumber: Extract TID components
+  - [PageGetItemId](../P/PageGetItemId.md)/PageGetItem: Access page-level tuple data
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md): Test tuple visibility against snapshot
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md): Check for serializable conflicts
   - HeapTupleHeaderGetXmin/HeapTupleHeaderGetUpdateXid: Extract transaction IDs
-  - HeapTupleHeaderIsOnlyLocked: Check if tuple is only locked
+  - [HeapTupleHeaderIsOnlyLocked](../H/HeapTupleHeaderIsOnlyLocked.md): Check if tuple is only locked
   - HeapTupleHeaderIndicatesMovedPartitions: Check for partition movement
 - Called from (representative examples):
-  - SampleHeapTupleVisible: Used in tuple sampling operations
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md): Used in tuple sampling operations
   - HeapScanIsValid: Part of heap scan validation
 
 ## Notes and Other Information

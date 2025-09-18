@@ -21,7 +21,7 @@ This function attempts to acquire an exclusive advisory lock that is automatical
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
-  - LockAcquire: Core lock acquisition function with ExclusiveLock mode, transaction scope (false), and no-wait (true)
+  - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function with ExclusiveLock mode, transaction scope (false), and no-wait (true)
   - LOCKTAG: Lock identifier structure
   - LockAcquireResult: Enumeration type for lock acquisition results
   - ExclusiveLock: Lock mode constant for exclusive access

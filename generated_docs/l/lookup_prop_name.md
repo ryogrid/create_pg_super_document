@@ -18,10 +18,10 @@ This function performs a case-insensitive lookup of property names in the predef
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro for array length)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - AMPROP_UNKNOWN (enum value for unknown properties)
 - Called from (representative examples):
-  - indexam_property
+  - [indexam_property](../i/indexam_property.md)
 
 ## Notes and Other Information
 - The function is static and only used within amutils.c

@@ -23,10 +23,10 @@ The  function implements decimal truncation for PostgreSQL's numeric type by sim
   - NumericDigit (type for individual digits)
   - round_powers (power-of-10 lookup table for DEC_DIGITS=4)
 - Called from (representative examples):
-  - numeric_recv (receiving numeric values from binary format)
-  - numeric_trunc (SQL TRUNC function)
-  - div_var, div_var_fast, div_var_int, div_var_int64 (division operations)
-  - ceil_var, floor_var (ceiling and floor functions)
+  - [numeric_recv](../n/numeric_recv.md) (receiving numeric values from binary format)
+  - [numeric_trunc](../n/numeric_trunc.md) (SQL TRUNC function)
+  - [div_var](../d/div_var.md), div_var_fast, div_var_int, div_var_int64 (division operations)
+  - [ceil_var](../c/ceil_var.md), floor_var (ceiling and floor functions)
 
 ## Notes and Other Information
 - Always truncates towards zero - no rounding occurs regardless of discarded digit values

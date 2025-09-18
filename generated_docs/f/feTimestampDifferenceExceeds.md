@@ -24,8 +24,8 @@ This function provides a frontend implementation for checking if a time interval
 - Functions called/Symbols referenced:
   - INT64CONST
 - Called from (representative examples):
-  - StreamLogicalLog (multiple calls in pg_recvlogical.c)
-  - HandleCopyStream
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (multiple calls in pg_recvlogical.c)
+  - [HandleCopyStream](../H/HandleCopyStream.md)
 
 ## Notes and Other Information
 - Frontend equivalent of backend's TimestampDifferenceExceeds() function

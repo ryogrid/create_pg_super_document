@@ -21,20 +21,20 @@ The transformation process maintains the original JSON structure while allowing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeJsonLexContext
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - makeStringInfo
-  - transform_string_values_object_start
-  - transform_string_values_object_end
-  - transform_string_values_array_start
-  - transform_string_values_array_end
-  - transform_string_values_scalar
-  - transform_string_values_array_element_start
-  - transform_string_values_object_field_start
+  - [transform_string_values_object_start](transform_string_values_object_start.md)
+  - [transform_string_values_object_end](transform_string_values_object_end.md)
+  - [transform_string_values_array_start](transform_string_values_array_start.md)
+  - [transform_string_values_array_end](transform_string_values_array_end.md)
+  - [transform_string_values_scalar](transform_string_values_scalar.md)
+  - [transform_string_values_array_element_start](transform_string_values_array_element_start.md)
+  - [transform_string_values_object_field_start](transform_string_values_object_field_start.md)
   - pg_parse_json_or_ereport
   - freeJsonLexContext
   - cstring_to_text_with_len
 - Called from (representative examples):
-  - ts_headline_json_byid_opt
+  - [ts_headline_json_byid_opt](ts_headline_json_byid_opt.md)
 
 ## Notes and Other Information
 - The function allocates memory for JsonSemAction and TransformJsonStringValuesState structures that need to be properly managed

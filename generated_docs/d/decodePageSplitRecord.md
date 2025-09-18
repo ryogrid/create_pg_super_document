@@ -35,11 +35,11 @@ The function includes assertions to ensure data integrity and proper parsing, ch
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize (calculates size of individual index tuples)
-  - palloc (allocates memory for tuple pointer array)
+  - [palloc](../p/palloc.md) (allocates memory for tuple pointer array)
   - memcpy (copies tuple count from serialized data)
   - Assert (validates data parsing integrity)
 - Called from (representative examples):
-  - gistRedoPageSplitRecord (processes page split WAL records)
+  - [gistRedoPageSplitRecord](../g/gistRedoPageSplitRecord.md) (processes page split WAL records)
 
 ## Notes and Other Information
 - This is a static function only used within gistxlog.c

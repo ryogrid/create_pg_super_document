@@ -60,9 +60,9 @@ The function searches through the provided list of candidate transition numbers 
 - Functions called/Symbols referenced:
   - lfirst_int (list access macro)
   - list_nth_node (list access function)
-  - datumIsEqual (datum comparison function)
+  - [datumIsEqual](../d/datumIsEqual.md) (datum comparison function)
 - Called from (representative examples):
-  - preprocess_aggref
+  - [preprocess_aggref](../p/preprocess_aggref.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the same source file

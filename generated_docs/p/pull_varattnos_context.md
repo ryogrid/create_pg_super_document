@@ -24,11 +24,11 @@ The pull_varattnos_context structure serves as a walker context for the pull_var
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Bitmapset (typedef)
+  - [Bitmapset](../B/Bitmapset.md) (typedef)
   - Index (typedef)
 - Called from (representative examples):
-  - pull_varattnos
-  - pull_varattnos_walker
+  - [pull_varattnos](pull_varattnos.md)
+  - [pull_varattnos_walker](pull_varattnos_walker.md)
   - flatten_join_alias_vars_context
 
 ## Notes and Other Information

@@ -24,20 +24,20 @@ The function includes special handling for Unix domain socket connections where 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_hton32 (host-to-network byte order conversion)
-  - pqTraceOutputMessage
-  - pqTraceOutputNoTypeByteMessage
-  - pqSendSome
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
+  - [pqTraceOutputNoTypeByteMessage](pqTraceOutputNoTypeByteMessage.md)
+  - [pqSendSome](pqSendSome.md)
   - memcpy (standard library)
 - Called from (representative examples):
-  - pg_SASL_init
-  - sendTerminateConn
-  - pqPacketSend
-  - PQsendQueryInternal
-  - PQsendPrepare
-  - PQsendQueryGuts
-  - PQsendTypedCommand
-  - PQputCopyData
-  - PQputCopyEnd
+  - [pg_SASL_init](pg_SASL_init.md)
+  - [sendTerminateConn](../s/sendTerminateConn.md)
+  - [pqPacketSend](pqPacketSend.md)
+  - [PQsendQueryInternal](../P/PQsendQueryInternal.md)
+  - [PQsendPrepare](../P/PQsendPrepare.md)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md)
+  - [PQsendTypedCommand](../P/PQsendTypedCommand.md)
+  - [PQputCopyData](../P/PQputCopyData.md)
+  - [PQputCopyEnd](../P/PQputCopyEnd.md)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on error

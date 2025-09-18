@@ -21,10 +21,10 @@ This function converts a Julian date to a formatted string representation by par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - j2date: Converts Julian day number to year/month/day components
-  - date2j: Converts year/month/day to Julian day number (for reference date)
-  - PGTYPESdate_dayofweek: Determines day of week for the date
-  - pgtypes_alloc: Allocates memory for temporary string formatting
+  - [j2date](../j/j2date.md): Converts Julian day number to year/month/day components
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number (for reference date)
+  - [PGTYPESdate_dayofweek](PGTYPESdate_dayofweek.md): Determines day of week for the date
+  - [pgtypes_alloc](../p/pgtypes_alloc.md): Allocates memory for temporary string formatting
   - strcpy, strstr, memcpy: String manipulation functions
 - Format constants used:
   - PGTYPES_FMTDATE_DOW_LITERAL_SHORT: Day of week abbreviation ("ddd")
@@ -34,8 +34,8 @@ This function converts a Julian date to a formatted string representation by par
   - PGTYPES_FMTDATE_YEAR_DIGITS_LONG: Four-digit year ("yyyy")
   - PGTYPES_FMTDATE_YEAR_DIGITS_SHORT: Two-digit year ("yy")
 - Called from (representative examples):
-  - rfmtdate: Informix compatibility wrapper function
-  - main: Used in test programs (dt_test.c)
+  - [rfmtdate](../r/rfmtdate.md): Informix compatibility wrapper function
+  - [main](../m/main.md): Used in test programs (dt_test.c)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on memory allocation failure

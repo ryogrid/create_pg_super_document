@@ -23,18 +23,18 @@ This function verifies that an operator has the correct signature for use in an 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_operator (operator catalog tuple form)
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - GETSTRUCT (macro to extract tuple structure)
-  - ReleaseSysCache (cache entry release)
-  - ObjectIdGetDatum (OID to datum conversion)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache entry release)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to datum conversion)
   - HeapTupleIsValid (tuple validity check)
 - Called from (representative examples):
-  - brinvalidate
-  - ginvalidate
-  - gistvalidate
-  - hashvalidate
-  - btvalidate
-  - spgvalidate
+  - [brinvalidate](../b/brinvalidate.md)
+  - [ginvalidate](../g/ginvalidate.md)
+  - [gistvalidate](../g/gistvalidate.md)
+  - [hashvalidate](../h/hashvalidate.md)
+  - [btvalidate](../b/btvalidate.md)
+  - [spgvalidate](../s/spgvalidate.md)
 
 ## Notes and Other Information
 - Returns true if signature is valid, false otherwise

@@ -18,11 +18,11 @@ SimpleActionList is a simple linked list implementation that stores a sequence o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleActionListCell (node type for the linked list)
+  - [SimpleActionListCell](SimpleActionListCell.md) (node type for the linked list)
 - Called from (representative examples):
-  - simple_action_list_append (adds new actions to the list)
-  - adhoc_opts (contains an instance for storing parsed command-line actions)
-  - main function (iterates through actions.head to process each queued action)
+  - [simple_action_list_append](../s/simple_action_list_append.md) (adds new actions to the list)
+  - [adhoc_opts](../a/adhoc_opts.md) (contains an instance for storing parsed command-line actions)
+  - [main](../m/main.md) function (iterates through actions.head to process each queued action)
 
 ## Notes and Other Information
 - The list is processed in main() by iterating from head to tail, executing each action in sequence

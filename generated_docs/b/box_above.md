@@ -20,14 +20,14 @@ This function is a fundamental spatial relationship operator used in PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type structure)
+  - [BOX](../B/BOX.md) (data type structure)
   - PG_GETARG_BOX_P (macro for extracting box arguments)
-  - FPgt (floating-point greater-than comparison)
+  - [FPgt](../F/FPgt.md) (floating-point greater-than comparison)
   - PG_RETURN_BOOL (macro for returning boolean results)
 - Called from (representative examples):
-  - gist_box_leaf_consistent (GiST index consistency checking)
-  - rtree_internal_consistent (R-tree index consistency checking)
-  - spg_box_quad_leaf_consistent (SP-GiST index consistency checking)
+  - [gist_box_leaf_consistent](../g/gist_box_leaf_consistent.md) (GiST index consistency checking)
+  - [rtree_internal_consistent](../r/rtree_internal_consistent.md) (R-tree index consistency checking)
+  - [spg_box_quad_leaf_consistent](../s/spg_box_quad_leaf_consistent.md) (SP-GiST index consistency checking)
 
 ## Notes and Other Information
 - This function performs a strict comparison: box1->low.y > box2->high.y

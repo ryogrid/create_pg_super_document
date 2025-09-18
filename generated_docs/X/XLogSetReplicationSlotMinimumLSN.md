@@ -24,7 +24,7 @@ XLogSetReplicationSlotMinimumLSN is a critical component of PostgreSQL's replica
   - XLogCtl->replicationSlotMinLSN (shared replication slot minimum LSN)
   - XLogCtl->info_lck (spinlock for protecting shared control data)
 - Called from (representative examples):
-  - ReplicationSlotsComputeRequiredLSN (in slot.c:1138)
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md) (in slot.c:1138)
 
 ## Notes and Other Information
 - Essential for WAL retention policy enforcement in replication scenarios

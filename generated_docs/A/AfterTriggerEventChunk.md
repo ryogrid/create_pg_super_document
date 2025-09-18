@@ -29,14 +29,14 @@ The AfterTriggerEventChunk structure implements a sophisticated memory managemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEventChunk (self-reference for linked list)
+  - [AfterTriggerEventChunk](AfterTriggerEventChunk.md) (self-reference for linked list)
 - Called from (representative examples):
-  - afterTriggerAddEvent
-  - afterTriggerFreeEventList
-  - afterTriggerRestoreEventList
-  - afterTriggerDeleteHeadEventChunk
-  - afterTriggerMarkEvents
-  - afterTriggerInvokeEvents
+  - [afterTriggerAddEvent](../a/afterTriggerAddEvent.md)
+  - [afterTriggerFreeEventList](../a/afterTriggerFreeEventList.md)
+  - [afterTriggerRestoreEventList](../a/afterTriggerRestoreEventList.md)
+  - [afterTriggerDeleteHeadEventChunk](../a/afterTriggerDeleteHeadEventChunk.md)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
 
 ## Notes and Other Information
 The chunk design uses a bidirectional allocation strategy where event data grows from the beginning (freeptr) and shared data grows from the end (endfree), meeting in the middle. The CHUNK_DATA_START macro calculates the actual start of usable data space accounting for proper memory alignment. This structure is fundamental to PostgreSQL's deferred trigger execution system, providing efficient storage for potentially large numbers of trigger events that must be held until transaction commit time.

@@ -21,10 +21,10 @@ This function is particularly useful in scenarios where memory constraints or ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fasthash64 (core 64-bit hash computation)
-  - fasthash_reduce32 (reduction function to convert 64-bit to 32-bit hash)
+  - [fasthash64](fasthash64.md) (core 64-bit hash computation)
+  - [fasthash_reduce32](fasthash_reduce32.md) (reduction function to convert 64-bit to 32-bit hash)
 - Called from (representative examples):
-  - pgstat_hash_hash_key (PostgreSQL statistics hash key function)
+  - [pgstat_hash_hash_key](../p/pgstat_hash_hash_key.md) (PostgreSQL statistics hash key function)
 
 ## Notes and Other Information
 - Declared as static inline for optimal performance in header file src/include/common/hashfn_unstable.h

@@ -28,10 +28,10 @@ The function performs a simple conversion by checking the special timestamp type
   - LATE (string constant for positive infinity representation)
 - Called from (representative examples):
   - JsonEncodeDateTime (JSON encoding functions)
-  - timestamp_out (timestamp output function)
-  - timestamptz_out (timestamptz output function)
-  - timestamptz_to_str (timestamptz string conversion)
-  - PGTYPEStimestamp_to_asc (ECPG timestamp conversion)
+  - [timestamp_out](../t/timestamp_out.md) (timestamp output function)
+  - [timestamptz_out](../t/timestamptz_out.md) (timestamptz output function)
+  - [timestamptz_to_str](../t/timestamptz_to_str.md) (timestamptz string conversion)
+  - [PGTYPEStimestamp_to_asc](../P/PGTYPEStimestamp_to_asc.md) (ECPG timestamp conversion)
 
 ## Notes and Other Information
 - This function assumes the input timestamp is indeed a special value and will generate an error for regular timestamp values

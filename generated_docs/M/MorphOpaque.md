@@ -22,11 +22,11 @@ When a single tsquery morph is parsed into multiple words that reside in adjacen
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - pushval_morph
-  - to_tsquery_byid
-  - plainto_tsquery_byid
-  - phraseto_tsquery_byid  
-  - websearch_to_tsquery_byid
+  - [pushval_morph](../p/pushval_morph.md)
+  - [to_tsquery_byid](../t/to_tsquery_byid.md)
+  - [plainto_tsquery_byid](../p/plainto_tsquery_byid.md)
+  - [phraseto_tsquery_byid](../p/phraseto_tsquery_byid.md)  
+  - [websearch_to_tsquery_byid](../w/websearch_to_tsquery_byid.md)
 
 ## Notes and Other Information
 - The structure is specifically designed for internal use within the tsquery morphological parsing system

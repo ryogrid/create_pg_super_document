@@ -26,18 +26,18 @@ The implementation avoids redundant cache lookups by combining the checks for bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - op_hashjoinable
+  - [op_hashjoinable](../o/op_hashjoinable.md)
   - exprType
-  - SearchSysCache1
-  - func_strict
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [func_strict](../f/func_strict.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - linitial
   - list_length
 - Called from (representative examples):
-  - test_opexpr_is_hashable
-  - convert_EXISTS_to_ANY
+  - [test_opexpr_is_hashable](../t/test_opexpr_is_hashable.md)
+  - [convert_EXISTS_to_ANY](../c/convert_EXISTS_to_ANY.md)
 
 ## Notes and Other Information
 - Only binary operators (exactly 2 arguments) are considered valid for hashing

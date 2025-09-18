@@ -25,13 +25,13 @@ The `compute_trivial_stats` function performs minimal statistical analysis when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_delay_point
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - VARSIZE_ANY
-  - DatumGetPointer
-  - DatumGetCString
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
   - strlen
 - Called from (representative examples):
-  - std_typanalyze
+  - [std_typanalyze](../s/std_typanalyze.md)
 
 ## Notes and Other Information
 - This is a static function used as a fallback when equality operators are not available

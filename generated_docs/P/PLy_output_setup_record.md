@@ -26,14 +26,14 @@ The function assumes that the tuple descriptor may not be long-lived and takes a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlessTupleDesc: Finalizes tuple descriptor for SRF use
-  - PLy_output_setup_tuple: Handles the actual tuple conversion setup
+  - [BlessTupleDesc](../B/BlessTupleDesc.md): Finalizes tuple descriptor for SRF use
+  - [PLy_output_setup_tuple](PLy_output_setup_tuple.md): Handles the actual tuple conversion setup
 - Referenced types:
-  - PLyObToDatum: Output conversion structure
-  - PLyProcedure: Procedure metadata structure
+  - [PLyObToDatum](PLyObToDatum.md): Output conversion structure
+  - [PLyProcedure](PLyProcedure.md): Procedure metadata structure
 - Called from:
-  - PLy_exec_function: Main function execution path
-  - PLyObToDatum: Output conversion initialization
+  - [PLy_exec_function](PLy_exec_function.md): Main function execution path
+  - [PLyObToDatum](PLyObToDatum.md): Output conversion initialization
 
 ## Notes and Other Information
 - This function is specific to RECORD types and will assert if called with other types

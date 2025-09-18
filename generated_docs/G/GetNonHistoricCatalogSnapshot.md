@@ -21,14 +21,14 @@ The function's logic ensures that catalog scans always see sufficiently recent d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationInvalidatesSnapshotsOnly
-  - RelationHasSysCache
-  - InvalidateCatalogSnapshot
-  - GetSnapshotData
+  - [RelationInvalidatesSnapshotsOnly](../R/RelationInvalidatesSnapshotsOnly.md)
+  - [RelationHasSysCache](../R/RelationHasSysCache.md)
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
+  - [GetSnapshotData](GetSnapshotData.md)
   - pairingheap_add
 - Called from (representative examples):
-  - ScanPgRelation
-  - GetCatalogSnapshot
+  - [ScanPgRelation](../S/ScanPgRelation.md)
+  - [GetCatalogSnapshot](GetCatalogSnapshot.md)
 
 ## Notes and Other Information
 - Uses CatalogSnapshot global variable for caching

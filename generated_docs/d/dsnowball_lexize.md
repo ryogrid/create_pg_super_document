@@ -22,16 +22,16 @@ The function is the core lexical analysis routine for Snowball dictionaries in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lowerstr_with_len
-  - searchstoplist
-  - pg_server_to_any
-  - pg_any_to_server
-  - SN_set_current
-  - palloc0
-  - pfree
-  - repalloc
+  - [lowerstr_with_len](../l/lowerstr_with_len.md)
+  - [searchstoplist](../s/searchstoplist.md)
+  - [pg_server_to_any](../p/pg_server_to_any.md)
+  - [pg_any_to_server](../p/pg_any_to_server.md)
+  - [SN_set_current](../S/SN_set_current.md)
+  - [palloc0](../p/palloc0.md)
+  - [pfree](../p/pfree.md)
+  - [repalloc](../r/repalloc.md)
   - memcpy
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - PG_UTF8 (encoding constant)
 - Called from (representative examples):
   - PostgreSQL text search framework (referenced by MININT)

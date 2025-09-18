@@ -21,20 +21,20 @@ This function creates a properly serialized RangeType object from bound specific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_cmp_bound_values
+  - [range_cmp_bound_values](range_cmp_bound_values.md)
   - PG_DETOAST_DATUM_PACKED
-  - datum_compute_size
-  - datum_write
+  - [datum_compute_size](../d/datum_compute_size.md)
+  - [datum_write](../d/datum_write.md)
   - SET_VARSIZE
   - RANGE_EMPTY, RANGE_LB_INF, RANGE_LB_INC, RANGE_UB_INF, RANGE_UB_INC
   - RANGE_HAS_LBOUND, RANGE_HAS_UBOUND
 - Called from (representative examples):
-  - int4range_canonical
-  - int8range_canonical
-  - daterange_canonical
-  - make_range
-  - rangesel
-  - compute_range_stats
+  - [int4range_canonical](../i/int4range_canonical.md)
+  - [int8range_canonical](../i/int8range_canonical.md)
+  - [daterange_canonical](../d/daterange_canonical.md)
+  - [make_range](../m/make_range.md)
+  - [rangesel](rangesel.md)
+  - [compute_range_stats](../c/compute_range_stats.md)
 
 ## Notes and Other Information
 - Does not force canonicalization of the range value - that's left to caller functions

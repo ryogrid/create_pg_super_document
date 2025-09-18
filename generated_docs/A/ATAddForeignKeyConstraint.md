@@ -30,19 +30,19 @@ The implementation follows a three-phase approach: first creating the catalog en
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_openrv
-  - transformColumnNameList
-  - transformFkeyGetPrimaryKey
-  - transformFkeyCheckAttrs
-  - checkFkeyPermissions
-  - validateFkOnDeleteSetColumns
-  - get_opfamily_member
-  - can_coerce_type
-  - findFkeyCast
-  - addFkConstraint
-  - addFkRecurseReferenced
-  - addFkRecurseReferencing
+  - [transformColumnNameList](../t/transformColumnNameList.md)
+  - [transformFkeyGetPrimaryKey](../t/transformFkeyGetPrimaryKey.md)
+  - [transformFkeyCheckAttrs](../t/transformFkeyCheckAttrs.md)
+  - [checkFkeyPermissions](../c/checkFkeyPermissions.md)
+  - [validateFkOnDeleteSetColumns](../v/validateFkOnDeleteSetColumns.md)
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [can_coerce_type](../c/can_coerce_type.md)
+  - [findFkeyCast](../f/findFkeyCast.md)
+  - [addFkConstraint](../a/addFkConstraint.md)
+  - [addFkRecurseReferenced](../a/addFkRecurseReferenced.md)
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
 - Called from (representative examples):
-  - ATExecAddConstraint
+  - [ATExecAddConstraint](ATExecAddConstraint.md)
 
 ## Notes and Other Information
 - Handles complex operator resolution for type compatibility between foreign and primary key columns

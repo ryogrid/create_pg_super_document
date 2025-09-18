@@ -23,14 +23,14 @@ The function supports three specific B-tree options:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions
+  - [build_reloptions](build_reloptions.md)
   - relopt_parse_elt (structure)
   - BTOptions (structure)
   - RELOPT_TYPE_INT, RELOPT_TYPE_REAL, RELOPT_TYPE_BOOL (constants)
   - RELOPT_KIND_BTREE (constant)
   - lengthof (macro)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's B-tree access method implementation and is called during index creation/alteration to process storage parameters. The returned bytea structure contains the parsed options that will be stored with the index metadata and used during index operations.

@@ -23,11 +23,11 @@ This function is a specialized convenience function that appends a single charac
   - appendStringInfoCharMacro (optimized macro for appending a single character to the message buffer)
 - Called from (representative examples):
   - DR_copy (in copyto.c:122)
-  - CopySendEndOfRow (in copyto.c:198, 240)
-  - DoCopyTo (in copyto.c:835)
-  - CopyOneRowTo (in copyto.c:936)
-  - CopyAttributeOutText (in copyto.c:1057, 1058, 1064, 1117, 1118, 1124)
-  - CopyAttributeOutCSV (in copyto.c:1192, 1203, 1213)
+  - [CopySendEndOfRow](CopySendEndOfRow.md) (in copyto.c:198, 240)
+  - [DoCopyTo](../D/DoCopyTo.md) (in copyto.c:835)
+  - [CopyOneRowTo](CopyOneRowTo.md) (in copyto.c:936)
+  - [CopyAttributeOutText](CopyAttributeOutText.md) (in copyto.c:1057, 1058, 1064, 1117, 1118, 1124)
+  - [CopyAttributeOutCSV](CopyAttributeOutCSV.md) (in copyto.c:1192, 1203, 1213)
 
 ## Notes and Other Information
 - Uses appendStringInfoCharMacro for optimized single-character appending performance

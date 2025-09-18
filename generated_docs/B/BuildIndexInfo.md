@@ -27,23 +27,23 @@ The resulting IndexInfo structure is designed to be long-lived and reused across
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeIndexInfo
+  - [makeIndexInfo](../m/makeIndexInfo.md)
   - RelationGetRelid
-  - RelationGetIndexExpressions
-  - RelationGetIndexPredicate
-  - RelationGetExclusionInfo
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md)
+  - [RelationGetIndexPredicate](../R/RelationGetIndexPredicate.md)
+  - [RelationGetExclusionInfo](../R/RelationGetExclusionInfo.md)
   - INDEX_MAX_KEYS
   - Form_pg_index
 - Called from (representative examples):
-  - brinsummarize
-  - _brin_parallel_scan_and_build
-  - _bt_parallel_scan_and_sort
+  - [brinsummarize](../b/brinsummarize.md)
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
   - index_concurrently_create_copy
   - index_concurrently_build
-  - validate_index
-  - reindex_index
-  - DefineIndex
-  - ExecOpenIndices
+  - [validate_index](../v/validate_index.md)
+  - [reindex_index](../r/reindex_index.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
 
 ## Notes and Other Information
 - Validates that the number of index attributes is within valid bounds (1 to INDEX_MAX_KEYS)

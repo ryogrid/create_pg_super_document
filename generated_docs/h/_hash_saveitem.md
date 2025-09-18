@@ -24,9 +24,9 @@ The function provides a simple but crucial abstraction for storing scan results,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashScanPosItem (struct type)
+  - [HashScanPosItem](../H/HashScanPosItem.md) (struct type)
 - Called from (representative examples):
-  - _hash_load_qualified_items
+  - [_hash_load_qualified_items](_hash_load_qualified_items.md)
 
 ## Notes and Other Information
 - Declared as static inline for performance optimization due to its frequent usage

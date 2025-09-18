@@ -23,10 +23,10 @@ The function is critical for preventing memory leaks during hash table destructi
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
-  - pfree (PostgreSQL's standard memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL's standard memory deallocation function)
 - Called from (representative examples):
-  - SH_DESTROY (during hash table destruction to free the data array)
-  - SH_GROW (during resizing to free the old data array after copying to new array)
+  - [SH_DESTROY](SH_DESTROY.md) (during hash table destruction to free the data array)
+  - [SH_GROW](SH_GROW.md) (during resizing to free the old data array after copying to new array)
 
 ## Notes and Other Information
 - This is part of the simplehash template system and expands to a function with user-defined prefix

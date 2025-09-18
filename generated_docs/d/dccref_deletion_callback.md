@@ -27,12 +27,12 @@ The "paranoia" check ensures that the function is safe to call multiple times or
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintRef (struct type)
-  - DomainConstraintCache (struct type)
-  - decr_dcc_refcount
+  - [DomainConstraintRef](../D/DomainConstraintRef.md) (struct type)
+  - [DomainConstraintCache](../D/DomainConstraintCache.md) (struct type)
+  - [decr_dcc_refcount](decr_dcc_refcount.md)
   - NIL (PostgreSQL list constant)
 - Called from (representative examples):
-  - InitDomainConstraintRef (via memory context callback registration)
+  - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md) (via memory context callback registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

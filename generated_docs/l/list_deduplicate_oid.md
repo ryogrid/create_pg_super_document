@@ -21,10 +21,10 @@ The algorithm runs in O(n) time complexity, making it efficient for large lists.
 - Functions called/Symbols referenced:
   - IsOidList
   - list_length
-  - check_list_invariants
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - heap_truncate_find_FKs
-  - GetPublicationRelations
+  - [heap_truncate_find_FKs](../h/heap_truncate_find_FKs.md)
+  - [GetPublicationRelations](../G/GetPublicationRelations.md)
 
 ## Notes and Other Information
 - The caller must sort the list before calling this function - duplicates must be adjacent for removal

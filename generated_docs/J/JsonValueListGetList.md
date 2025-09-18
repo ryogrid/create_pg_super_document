@@ -19,10 +19,10 @@ This function is essential for operations that need to iterate over all values i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure type)
+  - [JsonValueList](JsonValueList.md) (structure type)
   - list_make1 (PostgreSQL list utility function)
 - Called from (representative examples):
-  - jsonb_path_query_internal
+  - [jsonb_path_query_internal](../j/jsonb_path_query_internal.md)
   - RETURN_ERROR macro
 
 ## Notes and Other Information

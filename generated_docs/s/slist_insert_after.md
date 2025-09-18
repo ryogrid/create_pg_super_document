@@ -20,7 +20,7 @@ The function operates in O(1) constant time and is implemented as an inline func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_node (data type used for both parameters)
+  - [slist_node](slist_node.md) (data type used for both parameters)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

@@ -32,8 +32,8 @@ Return value:
   - XLogRecoveryCtl->replayEndRecPtr (shared memory variable)
   - XLogRecoveryCtl->replayEndTLI (shared memory variable)
 - Called from (representative examples):
-  - UpdateMinRecoveryPoint
-  - xlog_redo (multiple locations)
+  - [UpdateMinRecoveryPoint](../U/UpdateMinRecoveryPoint.md)
+  - [xlog_redo](../x/xlog_redo.md) (multiple locations)
   - Referenced in EndOfWalRecoveryInfo
 
 ## Notes and Other Information

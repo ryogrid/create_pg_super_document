@@ -31,7 +31,7 @@ The function uses the same platform-specific implementations as  (macOS copyfile
   - open
   - ioctl (Linux implementation)
   - close
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - old_cluster.pgdata
   - new_cluster.pgdata
   - MAXPGPATH
@@ -40,7 +40,7 @@ The function uses the same platform-specific implementations as  (macOS copyfile
   - COPYFILE_CLONE_FORCE
   - FICLONE
 - Called from (representative examples):
-  - check_new_cluster
+  - [check_new_cluster](check_new_cluster.md)
 
 ## Notes and Other Information
 - Called during pg_upgrade's pre-flight checks to validate cloning capability

@@ -39,14 +39,14 @@ The function is designed to be safe for use during checkpoints and avoids raisin
   - XLogSegNoOffsetToRecPtr
   - LWLockAcquire/LWLockRelease
   - SlotIsLogical
-  - InvalidatePossiblyObsoleteSlot
-  - ReplicationSlotsComputeRequiredXmin
-  - ReplicationSlotsComputeRequiredLSN
+  - [InvalidatePossiblyObsoleteSlot](InvalidatePossiblyObsoleteSlot.md)
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)
 - Called from (representative examples):
-  - CreateCheckPoint
-  - CreateRestartPoint
-  - xlog_redo
-  - ResolveRecoveryConflictWithSnapshot
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
+  - [xlog_redo](../x/xlog_redo.md)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
 
 ## Notes and Other Information
 This function is called during critical PostgreSQL operations like checkpoints and standby conflict resolution. It ensures that replication slots don't indefinitely prevent WAL cleanup or block database maintenance operations. The restart mechanism handles the inherent race conditions in slot invalidation, while the final resource limit recalculation ensures the system maintains accurate tracking of retention requirements. Returns true if any slots were invalidated, allowing callers to take appropriate follow-up actions.

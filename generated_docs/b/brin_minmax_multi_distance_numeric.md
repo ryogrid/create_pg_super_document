@@ -25,9 +25,9 @@ The function includes an assertion to verify that the first argument is less tha
 - Functions called/Symbols referenced:
   - `DirectFunctionCall2`: PostgreSQL direct function call mechanism
   - `DirectFunctionCall1`: PostgreSQL direct function call mechanism  
-  - `numeric_le`: Numeric less-than-or-equal comparison function
-  - `numeric_sub`: Numeric subtraction function
-  - `numeric_float8`: Numeric to float8 conversion function
+  - `[numeric_le](../n/numeric_le.md)`: Numeric less-than-or-equal comparison function
+  - `[numeric_sub](../n/numeric_sub.md)`: Numeric subtraction function
+  - `[numeric_float8](../n/numeric_float8.md)`: Numeric to float8 conversion function
   - `PG_RETURN_DATUM`: PostgreSQL return value macro
 - Called from (representative examples):
   - No direct references found (likely referenced through function pointers in BRIN operator classes)

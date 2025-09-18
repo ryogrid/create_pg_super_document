@@ -18,11 +18,11 @@ This function is a low-level utility used internally by the singly-linked list i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_is_empty (for assertion check)
-  - slist_head (structure type)
-  - slist_node (structure type)
+  - [slist_is_empty](slist_is_empty.md) (for assertion check)
+  - [slist_head](slist_head.md) (structure type)
+  - [slist_node](slist_node.md) (structure type)
 - Called from (representative examples):
-  - slist_head_node
+  - [slist_head_node](slist_head_node.md)
   - slist_head_element
 
 ## Notes and Other Information

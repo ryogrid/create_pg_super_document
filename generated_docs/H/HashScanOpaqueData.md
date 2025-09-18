@@ -26,10 +26,10 @@ The structure maintains buffers for both normal bucket access and split bucket s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashScanPosData
+  - [HashScanPosData](HashScanPosData.md)
   - Buffer
 - Called from (representative examples):
-  - hashbeginscan
+  - [hashbeginscan](../h/hashbeginscan.md)
   - HashScanOpaque
 
 ## Notes and Other Information

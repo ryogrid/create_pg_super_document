@@ -19,10 +19,10 @@ This function implements parameter name resolution for SQL functions by searchin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sql_fn_make_param
+  - [sql_fn_make_param](sql_fn_make_param.md)
   - SQLFunctionParseInfoPtr (type)
 - Called from (representative examples):
-  - sql_fn_post_column_ref
+  - [sql_fn_post_column_ref](sql_fn_post_column_ref.md)
 
 ## Notes and Other Information
 - Returns NULL if no parameter with the given name is found or if argnames is NULL

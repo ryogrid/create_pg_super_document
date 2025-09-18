@@ -29,7 +29,7 @@ This function takes no parameters and returns void.
 - Functions called/Symbols referenced:
   - PG_LOG_NOTSET (enum constant used as boundary check)
 - Called from (representative examples):
-  - main functions in various PostgreSQL utilities (pg_dump, pg_restore, pgbench, pg_amcheck, etc.)
+  - [main](../m/main.md) functions in various PostgreSQL utilities (pg_dump, pg_restore, pgbench, pg_amcheck, etc.)
 
 ## Notes and Other Information
 - Designed to be called multiple times for incremental verbosity increases

@@ -21,16 +21,16 @@ This function is a simple wrapper around the standard PageInit function that ini
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageInit
-  - HashPageOpaqueData
+  - [HashPageOpaqueData](../H/HashPageOpaqueData.md)
 - Called from (representative examples):
-  - _hash_getinitbuf
-  - _hash_initbuf
-  - _hash_getnewbuf
-  - _hash_init_metabuffer
-  - _hash_alloc_buckets
-  - _hash_initbitmapbuffer
-  - _hash_freeovflpage
-  - hash_xlog_squeeze_page
+  - [_hash_getinitbuf](_hash_getinitbuf.md)
+  - [_hash_initbuf](_hash_initbuf.md)
+  - [_hash_getnewbuf](_hash_getnewbuf.md)
+  - [_hash_init_metabuffer](_hash_init_metabuffer.md)
+  - [_hash_alloc_buckets](_hash_alloc_buckets.md)
+  - [_hash_initbitmapbuffer](_hash_initbitmapbuffer.md)
+  - [_hash_freeovflpage](_hash_freeovflpage.md)
+  - [hash_xlog_squeeze_page](hash_xlog_squeeze_page.md)
 
 ## Notes and Other Information
 - Essential initialization step for all hash index pages

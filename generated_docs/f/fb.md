@@ -19,8 +19,8 @@ The `fb` function is a test function that takes an integer parameter and returns
 - Functions called/Symbols referenced:
   - printf (standard C library function)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/test/expected/preproc-init.c:165)
-  - main (in src/interfaces/ecpg/test/expected/preproc-init.c:221)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-init.c:165)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-init.c:221)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within its compilation unit

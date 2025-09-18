@@ -27,18 +27,18 @@ This initialization is essential for coordinating multiple worker processes that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - SharedFileSetAttach
   - innerPlanState
-  - ExecSetExecProcNode
+  - [ExecSetExecProcNode](ExecSetExecProcNode.md)
   - ExecParallelHashJoin
 - Types referenced:
-  - HashJoinState
-  - ParallelWorkerContext
-  - HashState
+  - [HashJoinState](../H/HashJoinState.md)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
+  - [HashState](../H/HashState.md)
   - ParallelHashJoinState
 - Called from (representative examples):
-  - ExecParallelInitializeWorker (in src/backend/executor/execParallel.c:1351)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (in src/backend/executor/execParallel.c:1351)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution infrastructure, specifically for hash joins

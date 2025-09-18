@@ -23,17 +23,17 @@ This function performs the complete finalization of all aggregates for a single 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - process_ordered_aggregate_single
-  - process_ordered_aggregate_multi
+  - [process_ordered_aggregate_single](../p/process_ordered_aggregate_single.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
   - ExecClearTuple
-  - finalize_partialaggregate
-  - finalize_aggregate
+  - [finalize_partialaggregate](finalize_partialaggregate.md)
+  - [finalize_aggregate](finalize_aggregate.md)
   - DO_AGGSPLIT_SKIPFINAL
-  - DatumGetPointer
-  - pfree
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - agg_retrieve_direct
-  - agg_retrieve_hash_table_in_memory
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
 
 ## Notes and Other Information
 - Handles only one grouping set at a time; caller must select the appropriate grouping set

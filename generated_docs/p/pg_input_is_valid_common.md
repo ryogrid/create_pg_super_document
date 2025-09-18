@@ -26,15 +26,15 @@ The function uses a ValidIOData structure stored in fcinfo->flinfo->fn_extra to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - MemoryContextAlloc
-  - get_fn_expr_arg_stable
-  - parseTypeString
-  - getTypeInputInfo
-  - fmgr_info_cxt
-  - InputFunctionCallSafe
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [get_fn_expr_arg_stable](../g/get_fn_expr_arg_stable.md)
+  - [parseTypeString](parseTypeString.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
 - Called from (representative examples):
-  - pg_input_is_valid
-  - pg_input_error_info
+  - [pg_input_is_valid](pg_input_is_valid.md)
+  - [pg_input_error_info](pg_input_error_info.md)
 
 ## Notes and Other Information
 - This is a static function used internally within misc.c

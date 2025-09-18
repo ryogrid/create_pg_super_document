@@ -25,11 +25,11 @@ The function validates incoming security labels against a set of allowed values:
   - superuser
   - strcmp
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 
 - Called from (representative examples):
-  - _PG_init (registered as callback)
+  - [_PG_init](../P/_PG_init.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function used exclusively within the dummy_seclabel test module

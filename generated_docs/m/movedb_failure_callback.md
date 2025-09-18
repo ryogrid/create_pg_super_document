@@ -21,10 +21,10 @@ movedb_failure_callback serves as an error recovery mechanism for the movedb ope
 ## Dependencies
 - Functions called/Symbols referenced:
   - movedb_failure_params: Structure containing destination database and tablespace OIDs
-  - GetDatabasePath: Constructs the destination directory path
+  - [GetDatabasePath](../G/GetDatabasePath.md): Constructs the destination directory path
   - rmtree: Recursively removes the destination directory and all its contents
 - Called from (representative examples):
-  - movedb: Registered as error cleanup callback during database move operations
+  - [movedb](movedb.md): Registered as error cleanup callback during database move operations
 
 ## Notes and Other Information
 - Used exclusively with PostgreSQL's PG_ENSURE_ERROR_CLEANUP mechanism

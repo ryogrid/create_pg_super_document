@@ -32,14 +32,14 @@ Key operations performed:
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogReadBufferForRedoExtended
-  - XLogRecGetBlockData
-  - btree_xlog_updates
-  - PageIndexMultiDelete
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [btree_xlog_updates](btree_xlog_updates.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - BTPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally for B-tree WAL recovery

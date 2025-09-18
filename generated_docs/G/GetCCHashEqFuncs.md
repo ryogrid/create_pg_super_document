@@ -30,10 +30,10 @@ The `GetCCHashEqFuncs` function serves as a central dispatcher that maps Postgre
   - `int4eqfast`: Fast equality function for int4/OID types
   - `texthashfast`: Fast hash function for text type
   - `texteqfast`: Fast equality function for text type
-  - `oidvectorhashfast`: Fast hash function for oidvector type
+  - `[oidvectorhashfast](../o/oidvectorhashfast.md)`: Fast hash function for oidvector type
   - `oidvectoreqfast`: Fast equality function for oidvector type
 - Called from (representative examples):
-  - `CatalogCacheInitializeCache`: Used during catalog cache initialization to set up type-specific functions
+  - `[CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md)`: Used during catalog cache initialization to set up type-specific functions
 
 ## Notes and Other Information
 - This function supports a comprehensive set of PostgreSQL built-in types commonly used as catalog keys

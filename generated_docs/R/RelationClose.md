@@ -25,13 +25,13 @@ The two-step process ensures proper cleanup:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationDecrementReferenceCount
-  - RelationCloseCleanup
+  - [RelationDecrementReferenceCount](RelationDecrementReferenceCount.md)
+  - [RelationCloseCleanup](RelationCloseCleanup.md)
 - Called from (representative examples):
-  - relation_close
-  - index_close
-  - ReorderBufferProcessTXN
-  - pgoutput_change
+  - [relation_close](../r/relation_close.md)
+  - [index_close](../i/index_close.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
 
 ## Notes and Other Information
 - No locking operations are required as the function operates on reference counting mechanisms

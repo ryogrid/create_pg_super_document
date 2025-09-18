@@ -20,9 +20,9 @@ The descriptor is added to the beginning of the list, implementing a stack-like 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (memory allocation function)
+  - [mm_alloc](../m/mm_alloc.md) (memory allocation function)
   - strcpy (string copy function)
-  - descriptor (struct type)
+  - [descriptor](../d/descriptor.md) (struct type)
 - Called from (representative examples):
   - Grammar rules in ecpg.trailer for descriptor declarations
 

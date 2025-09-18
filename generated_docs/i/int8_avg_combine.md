@@ -24,11 +24,11 @@ The function handles various edge cases including NULL states and ensures proper
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (structure type)
-  - `AggCheckCallContext` (validates aggregate context)
+  - `[AggCheckCallContext](../A/AggCheckCallContext.md)` (validates aggregate context)
   - `makePolyNumAggState` (creates new state)
-  - `accum_sum_copy` (copies sum for numeric version)
-  - `accum_sum_combine` (combines sums for numeric version)
-  - `MemoryContext` operations for proper memory management
+  - `[accum_sum_copy](../a/accum_sum_copy.md)` (copies sum for numeric version)
+  - `[accum_sum_combine](../a/accum_sum_combine.md)` (combines sums for numeric version)
+  - `[MemoryContext](../M/MemoryContext.md)` operations for proper memory management
 - Called from (representative examples):
   - No direct references found (likely referenced through PostgreSQL's parallel aggregate system)
 

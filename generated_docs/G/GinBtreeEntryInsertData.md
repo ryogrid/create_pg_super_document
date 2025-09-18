@@ -24,15 +24,15 @@ GinBtreeEntryInsertData encapsulates the information needed to perform an insert
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexTuple (PostgreSQL index tuple type)
+  - [IndexTuple](../I/IndexTuple.md) (PostgreSQL index tuple type)
 - Called from (representative examples):
-  - entryIsEnoughSpace
-  - entryPreparePage
-  - entryBeginPlaceToPage
-  - entryExecPlaceToPage
-  - entrySplitPage
-  - entryPrepareDownlink
-  - ginEntryInsert
+  - [entryIsEnoughSpace](../e/entryIsEnoughSpace.md)
+  - [entryPreparePage](../e/entryPreparePage.md)
+  - [entryBeginPlaceToPage](../e/entryBeginPlaceToPage.md)
+  - [entryExecPlaceToPage](../e/entryExecPlaceToPage.md)
+  - [entrySplitPage](../e/entrySplitPage.md)
+  - [entryPrepareDownlink](../e/entryPrepareDownlink.md)
+  - [ginEntryInsert](../g/ginEntryInsert.md)
 
 ## Notes and Other Information
 This structure is specifically designed for GIN entry tree operations and is part of the GIN access method's internal API. The isDelete flag enables atomic replace operations where old data is removed and new data is inserted in a single logical operation. The structure is used throughout the GIN entry page management functions to coordinate insertion and deletion operations efficiently.

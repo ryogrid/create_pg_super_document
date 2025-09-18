@@ -21,10 +21,10 @@ The function takes two void pointers (as required by qsort), casts them to SPLIT
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPLITCOST (structure type containing split cost information)
-  - pg_cmp_s32 (PostgreSQL utility function for comparing 32-bit signed integers)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL utility function for comparing 32-bit signed integers)
 - Called from:
-  - gtsvector_picksplit (in tsgistidx.c)
-  - gtsquery_picksplit (in tsquery_gist.c)
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md) (in tsgistidx.c)
+  - [gtsquery_picksplit](../g/gtsquery_picksplit.md) (in tsquery_gist.c)
 
 ## Notes and Other Information
 - This function follows the standard qsort comparison function interface

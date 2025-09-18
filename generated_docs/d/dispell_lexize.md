@@ -30,10 +30,10 @@ The function returns an array of `TSLexeme` structures containing the normalized
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `lowerstr_with_len`: Converts input text to lowercase with specified length
+  - `[lowerstr_with_len](../l/lowerstr_with_len.md)`: Converts input text to lowercase with specified length
   - `NINormalizeWord`: Performs morphological normalization using Ispell rules
-  - `searchstoplist`: Checks if a word exists in the stopword list
-  - `pfree`: Frees allocated memory for filtered lexemes
+  - `[searchstoplist](../s/searchstoplist.md)`: Checks if a word exists in the stopword list
+  - `[pfree](../p/pfree.md)`: Frees allocated memory for filtered lexemes
   - `memcpy`: Copies lexeme structures during array compaction
   - `DictISpell`: Dictionary structure type
   - `TSLexeme`: Text search lexeme structure type
@@ -44,7 +44,7 @@ The function returns an array of `TSLexeme` structures containing the normalized
 - This function is designed to be called through PostgreSQL's function call interface as part of text search operations
 - Returns NULL immediately if input length is zero or negative
 - The function handles memory management by freeing lexemes that are filtered as stopwords
-- Result array compaction ensures no gaps remain after stopword filtering
+- [Result](../R/Result.md) array compaction ensures no gaps remain after stopword filtering
 - The returned `TSLexeme` array is null-terminated (final entry has `lexeme = NULL`)
 - Input text is processed in a case-insensitive manner through lowercase conversion
 - The function integrates with PostgreSQL's text search framework for full-text indexing and querying

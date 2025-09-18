@@ -21,19 +21,19 @@ The process involves multiple steps: hash table initialization (if needed), cach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - record_type_typmod_hash
-  - record_type_typmod_compare  
-  - hash_create
-  - hash_search
-  - CreateCacheMemoryContext
-  - find_or_make_matching_shared_tupledesc
-  - ensure_record_cache_typmod_slot_exists
-  - CreateTupleDescCopy
+  - [record_type_typmod_hash](../r/record_type_typmod_hash.md)
+  - [record_type_typmod_compare](../r/record_type_typmod_compare.md)  
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md)
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md)
+  - [ensure_record_cache_typmod_slot_exists](../e/ensure_record_cache_typmod_slot_exists.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
 - Called from (representative examples):
-  - BlessTupleDesc (src/backend/executor/execTuples.c:2162)
-  - SPI_returntuple (src/backend/executor/spi.c:1094)
-  - ER_get_flat_size (src/backend/utils/adt/expandedrecord.c:672)
-  - internal_get_result_type (src/backend/utils/fmgr/funcapi.c:469)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md) (src/backend/executor/execTuples.c:2162)
+  - [SPI_returntuple](../S/SPI_returntuple.md) (src/backend/executor/spi.c:1094)
+  - [ER_get_flat_size](../E/ER_get_flat_size.md) (src/backend/utils/adt/expandedrecord.c:672)
+  - [internal_get_result_type](../i/internal_get_result_type.md) (src/backend/utils/fmgr/funcapi.c:469)
 
 ## Notes and Other Information
 - Initializes RecordCacheHash hash table on first invocation with custom hash and comparison functions

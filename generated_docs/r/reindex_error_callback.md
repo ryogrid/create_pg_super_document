@@ -29,7 +29,7 @@ This function serves as an error callback specifically designed for ReindexParti
   - errcontext
   - RELKIND_PARTITIONED_INDEX
 - Called from:
-  - ReindexPartitions
+  - [ReindexPartitions](../R/ReindexPartitions.md)
 
 ## Notes and Other Information
 - This callback is registered with the PostgreSQL error handling system to provide enhanced error messages during partition reindexing operations

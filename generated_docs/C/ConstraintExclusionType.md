@@ -22,11 +22,11 @@ The enumeration defines three distinct modes of operation, ranging from complete
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost
-  - index_pages_fetched
+  - [index_pages_fetched](../i/index_pages_fetched.md)
   - Various cost calculation functions in costsize.c
 - Called from (representative examples):
   - constraint_exclusion (GUC variable in plancat.c:18)
-  - relation_excluded_by_constraints() in plancat.c (switch statement evaluation)
+  - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md)() in plancat.c (switch statement evaluation)
   - Configuration system in guc_tables.c
 
 ## Notes and Other Information

@@ -19,10 +19,10 @@ This function handles the \crosstabview command in psql, which allows users to p
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - lengthof (macro)
 - Called from (representative examples):
-  - exec_command (main command dispatcher)
+  - [exec_command](exec_command.md) (main command dispatcher)
 
 ## Notes and Other Information
 - The function supports up to 4 arguments stored in pset.ctv_args array

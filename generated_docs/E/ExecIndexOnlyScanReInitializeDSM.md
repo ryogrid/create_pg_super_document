@@ -22,12 +22,12 @@ The function serves as the executor-level interface for reinitializing parallel 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_parallelrescan
+  - [index_parallelrescan](../i/index_parallelrescan.md)
 - Types used:
-  - IndexOnlyScanState
-  - ParallelContext
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [ParallelContext](../P/ParallelContext.md)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md)
 
 ## Notes and Other Information
 - This is a very simple function that primarily serves as an interface wrapper around index_parallelrescan

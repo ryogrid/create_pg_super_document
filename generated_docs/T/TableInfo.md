@@ -104,22 +104,22 @@ TableInfo is the most comprehensive structure in pg_dump, representing all types
 - Functions called/Symbols referenced:
   - DumpableObject
   - DumpableAcl
-  - AttrDefInfo
-  - ConstraintInfo
-  - IndxInfo
-  - TableDataInfo
-  - TriggerInfo
-  - getTables
-  - getTableAttrs
-  - selectDumpableTable
+  - [AttrDefInfo](../A/AttrDefInfo.md)
+  - [ConstraintInfo](../C/ConstraintInfo.md)
+  - [IndxInfo](../I/IndxInfo.md)
+  - [TableDataInfo](TableDataInfo.md)
+  - [TriggerInfo](TriggerInfo.md)
+  - [getTables](../g/getTables.md)
+  - [getTableAttrs](../g/getTableAttrs.md)
+  - [selectDumpableTable](../s/selectDumpableTable.md)
 - Called from (representative examples):
-  - getTables (src/bin/pg_dump/pg_dump.c:6813)
-  - findTableByOid (src/bin/pg_dump/common.c:861)
-  - dumpTable (src/bin/pg_dump/pg_dump.c:15717)
-  - dumpTableSchema (src/bin/pg_dump/pg_dump.c:15946)
+  - [getTables](../g/getTables.md) (src/bin/pg_dump/pg_dump.c:6813)
+  - [findTableByOid](../f/findTableByOid.md) (src/bin/pg_dump/common.c:861)
+  - [dumpTable](../d/dumpTable.md) (src/bin/pg_dump/pg_dump.c:15717)
+  - [dumpTableSchema](../d/dumpTableSchema.md) (src/bin/pg_dump/pg_dump.c:15946)
 
 ## Notes and Other Information
-- TableInfo is the central data structure in pg_dump for representing database relations
+- [TableInfo](TableInfo.md) is the central data structure in pg_dump for representing database relations
 - Memory allocation follows a two-phase approach: basic info for all tables, detailed info only for interesting ones
 - The structure handles all PostgreSQL relation types (tables, views, sequences, foreign tables, etc.)
 - Inheritance relationships are tracked through the parents array and numParents field

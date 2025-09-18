@@ -24,12 +24,12 @@ The structure works in conjunction with backup blocks: backup block 0 contains t
   - BlockNumber (type)
   - OffsetNumber (type)
 - Called from (representative examples):
-  - brin_doinsert (in src/backend/access/brin/brin_pageops.c:428)
-  - brin_xlog_insert_update (in src/backend/access/brin/brin_xlog.c:47)
-  - brin_xlog_insert (in src/backend/access/brin/brin_xlog.c:126)
-  - brin_desc (in src/backend/access/rmgrdesc/brindesc.c:35)
+  - [brin_doinsert](../b/brin_doinsert.md) (in src/backend/access/brin/brin_pageops.c:428)
+  - [brin_xlog_insert_update](../b/brin_xlog_insert_update.md) (in src/backend/access/brin/brin_xlog.c:47)
+  - [brin_xlog_insert](../b/brin_xlog_insert.md) (in src/backend/access/brin/brin_xlog.c:126)
+  - [brin_desc](../b/brin_desc.md) (in src/backend/access/rmgrdesc/brindesc.c:35)
   - SizeOfBrinInsert (macro in src/include/access/brin_xlog.h:74)
-  - xl_brin_update (used as base for xl_brin_update structure)
+  - [xl_brin_update](xl_brin_update.md) (used as base for xl_brin_update structure)
 
 ## Notes and Other Information
 - This structure is used with two backup blocks: the main page (block 0) and the revmap page (block 1)

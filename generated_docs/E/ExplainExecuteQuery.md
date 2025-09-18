@@ -33,26 +33,26 @@ The function supports both regular EXPLAIN EXECUTE and EXPLAIN CREATE TABLE AS E
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FetchPreparedStatement
-  - make_parsestate
-  - CreateExecutorState
-  - EvaluateParams
-  - GetCachedPlan
-  - ExplainOnePlan
-  - ExplainOneUtility
-  - ExplainSeparatePlans
-  - FreeExecutorState
-  - ReleaseCachedPlan
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md)
+  - [make_parsestate](../m/make_parsestate.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [EvaluateParams](EvaluateParams.md)
+  - [GetCachedPlan](../G/GetCachedPlan.md)
+  - [ExplainOnePlan](ExplainOnePlan.md)
+  - [ExplainOneUtility](ExplainOneUtility.md)
+  - [ExplainSeparatePlans](ExplainSeparatePlans.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
+  - [ReleaseCachedPlan](../R/ReleaseCachedPlan.md)
 - Data structures used:
   - PreparedStatement
   - CachedPlan
   - ExecuteStmt
   - ExplainState
-  - IntoClause
-  - ParamListInfo
+  - [IntoClause](../I/IntoClause.md)
+  - [ParamListInfo](../P/ParamListInfo.md)
   - QueryEnvironment
 - Called from (representative examples):
-  - ExplainOneUtility
+  - [ExplainOneUtility](ExplainOneUtility.md)
 
 ## Notes and Other Information
 - Only supports fixed-result cached plans; variable-result plans are explicitly rejected

@@ -23,29 +23,29 @@ The `hlparsetext` function serves as the main entry point for parsing text durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_ts_config_cache (retrieve cached configuration)
-  - lookup_ts_parser_cache (retrieve cached parser)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md) (retrieve cached configuration)
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md) (retrieve cached parser)
   - FunctionCall2/FunctionCall3/FunctionCall1 (PostgreSQL function calling interface)
-  - DatumGetInt32/DatumGetPointer/PointerGetDatum/Int32GetDatum (datum conversion)
+  - [DatumGetInt32](../D/DatumGetInt32.md)/DatumGetPointer/PointerGetDatum/Int32GetDatum (datum conversion)
   - LexizeInit (initialize lexicalization)
   - LexizeAddLemm (add lemma to lexicalization data)
-  - LexizeExec (execute lexicalization)
-  - addHLParsedLex (add processed lexemes to headline structure)
+  - [LexizeExec](../L/LexizeExec.md) (execute lexicalization)
+  - [addHLParsedLex](../a/addHLParsedLex.md) (add processed lexemes to headline structure)
   - ereport (error reporting)
 - Data structures used:
-  - HeadlineParsedText
+  - [HeadlineParsedText](../H/HeadlineParsedText.md)
   - TSQuery
   - LexizeData
   - TSLexeme
-  - ParsedLex
+  - [ParsedLex](../P/ParsedLex.md)
   - TSConfigCacheEntry
   - TSParserCacheEntry
 - Constants used:
   - MAXSTRLEN (maximum lexeme length)
   - IGNORE_LONGLEXEME (compilation flag for handling long lexemes)
 - Called from (representative examples):
-  - ts_headline_byid_opt
-  - headline_json_value
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md)
+  - [headline_json_value](headline_json_value.md)
 
 ## Notes and Other Information
 - This is a public function (not static), accessible from other translation units

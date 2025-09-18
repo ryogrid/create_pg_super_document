@@ -19,17 +19,17 @@ The function performs comprehensive error checking, including validation that th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context
-  - PLy_exception_set
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
+  - [PLy_exception_set](PLy_exception_set.md)
   - GetPortalByName
   - PortalIsValid
-  - PLy_spi_subtransaction_begin
-  - SPI_cursor_fetch
-  - PLy_input_setup_tuple
-  - PLy_input_from_tuple
-  - SPI_freetuptable
-  - PLy_spi_subtransaction_commit
-  - PLy_spi_subtransaction_abort
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)
+  - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)
+  - [PLy_input_setup_tuple](PLy_input_setup_tuple.md)
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md)
+  - [SPI_freetuptable](../S/SPI_freetuptable.md)
+  - [PLy_spi_subtransaction_commit](PLy_spi_subtransaction_commit.md)
+  - [PLy_spi_subtransaction_abort](PLy_spi_subtransaction_abort.md)
 - Called from (representative examples):
   - Registered as tp_iternext in PLy_CursorType Python type definition
 

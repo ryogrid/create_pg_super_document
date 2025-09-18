@@ -30,14 +30,14 @@ For unsupported operations like NOT EXISTS or inequality comparisons with negati
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - jspGetLeftArg, jspGetRightArg, jspGetArg (jsonpath item accessors)
-  - make_jsp_expr_node_binary (creates binary expression nodes)
-  - extract_jsp_path_expr (processes path expressions)
+  - [jspGetLeftArg](../j/jspGetLeftArg.md), jspGetRightArg, jspGetArg (jsonpath item accessors)
+  - [make_jsp_expr_node_binary](../m/make_jsp_expr_node_binary.md) (creates binary expression nodes)
+  - [extract_jsp_path_expr](extract_jsp_path_expr.md) (processes path expressions)
   - jspIsScalar (checks if item is a scalar value)
 - Called from (representative examples):
-  - extract_jsp_path_expr_nodes (main extraction entry point)
-  - extract_jsp_bool_expr (recursive self-calls for nested expressions)
-  - extract_jsp_query (top-level query extraction)
+  - [extract_jsp_path_expr_nodes](extract_jsp_path_expr_nodes.md) (main extraction entry point)
+  - [extract_jsp_bool_expr](extract_jsp_bool_expr.md) (recursive self-calls for nested expressions)
+  - [extract_jsp_query](extract_jsp_query.md) (top-level query extraction)
 
 ## Notes and Other Information
 - The function implements proper boolean algebra with De Morgan's law support for negations

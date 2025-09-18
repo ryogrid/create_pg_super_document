@@ -21,9 +21,9 @@ This function serves as the interface between OpenSSL's password callback mechan
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQsslKeyPassHook (static variable check)
-  - PQdefaultSSLKeyPassHook_OpenSSL
+  - [PQdefaultSSLKeyPassHook_OpenSSL](PQdefaultSSLKeyPassHook_OpenSSL.md)
 - Called from (representative examples):
-  - initialize_SSL (during SSL context setup)
+  - [initialize_SSL](../i/initialize_SSL.md) (during SSL context setup)
   - OpenSSL internal key loading functions
 
 ## Notes and Other Information

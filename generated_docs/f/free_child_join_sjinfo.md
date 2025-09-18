@@ -30,12 +30,12 @@ This selective approach prevents double-free errors and memory corruption while 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_free
-  - pfree
+  - [bms_free](../b/bms_free.md)
+  - [pfree](../p/pfree.md)
   - JOIN_INNER
   - Assert
 - Called from (representative examples):
-  - try_partitionwise_join
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
 
 ## Notes and Other Information
 - Only frees translated copies of fields, not shared references to parent data

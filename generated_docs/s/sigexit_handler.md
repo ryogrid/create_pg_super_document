@@ -20,8 +20,8 @@ The  function is a simple signal handler designed to provide graceful terminatio
   - SIGNAL_ARGS (macro)
   - time_to_stop (global variable)
 - Called from (representative examples):
-  - main (in pg_receivewal.c)
-  - main (in pg_recvlogical.c)
+  - [main](../m/main.md) (in pg_receivewal.c)
+  - [main](../m/main.md) (in pg_recvlogical.c)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within its compilation unit

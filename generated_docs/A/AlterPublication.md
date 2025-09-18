@@ -20,16 +20,16 @@ This function serves as the central coordinator for all publication modification
 - Functions called/Symbols referenced:
   - table_open (relation access)
   - SearchSysCacheCopy1 (catalog lookup)
-  - object_ownercheck (permission verification)
-  - AlterPublicationOptions (option modifications)
-  - ObjectsInPublicationToOids (object resolution)
-  - CheckAlterPublication (validation)
-  - AlterPublicationTables (table management)
-  - AlterPublicationSchemas (schema management)
-  - LockDatabaseObject (concurrency control)
-  - heap_freetuple (memory management)
+  - [object_ownercheck](../o/object_ownercheck.md) (permission verification)
+  - [AlterPublicationOptions](AlterPublicationOptions.md) (option modifications)
+  - [ObjectsInPublicationToOids](../O/ObjectsInPublicationToOids.md) (object resolution)
+  - [CheckAlterPublication](../C/CheckAlterPublication.md) (validation)
+  - [AlterPublicationTables](AlterPublicationTables.md) (table management)
+  - [AlterPublicationSchemas](AlterPublicationSchemas.md) (schema management)
+  - [LockDatabaseObject](../L/LockDatabaseObject.md) (concurrency control)
+  - [heap_freetuple](../h/heap_freetuple.md) (memory management)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Requires ownership of the publication to perform modifications

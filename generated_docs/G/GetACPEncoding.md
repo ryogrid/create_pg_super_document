@@ -25,7 +25,7 @@ The function uses lazy initialization with caching - it only queries the system 
   - GetACP (Windows API function to get current ANSI code page)
   - pg_codepage_to_encoding (PostgreSQL function to convert Windows code page to PostgreSQL encoding)
 - Called from (representative examples):
-  - write_eventlog
+  - [write_eventlog](../w/write_eventlog.md)
 
 ## Notes and Other Information
 - Windows-specific function, only compiled and used on Windows platforms

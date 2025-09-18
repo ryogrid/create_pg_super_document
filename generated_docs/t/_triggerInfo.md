@@ -24,17 +24,17 @@ The structure handles both regular table triggers and partition-related triggers
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - TableInfo (for table association)
+  - [TableInfo](../T/TableInfo.md) (for table association)
   
 - Called from (representative examples):
-  - getTriggers() (creates TriggerInfo objects by querying pg_trigger system catalog)
-  - dumpTrigger() (generates CREATE TRIGGER SQL statements during dump)
+  - [getTriggers](../g/getTriggers.md)() (creates TriggerInfo objects by querying pg_trigger system catalog)
+  - [dumpTrigger](../d/dumpTrigger.md)() (generates CREATE TRIGGER SQL statements during dump)
   - Sorting functions in pg_dump_sort.c (for proper trigger ordering)
 
 ## Notes and Other Information
 - The structure is allocated as an array using pg_malloc() in getTriggers()
 - Objects of this type have objType set to DO_TRIGGER
-- TriggerInfo objects are stored in arrays within TableInfo.triggers, with TableInfo.numTriggers indicating the count
+- [TriggerInfo](../T/TriggerInfo.md) objects are stored in arrays within TableInfo.triggers, with TableInfo.numTriggers indicating the count
 - The tgdef field contains the complete trigger definition retrieved from the database
 - Enabled status affects when triggers fire: 'O'=origin only, 'D'=disabled, 'R'=replica only, 'A'=always
 - Partition-related triggers (tgispartition=true) may have special inheritance behavior

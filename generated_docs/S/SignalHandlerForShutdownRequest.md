@@ -22,16 +22,16 @@ Unlike SignalHandlerForCrashExit, this handler is designed for clean, graceful s
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (signal handler parameter macro)
-  - SetLatch (to wake up the process)
+  - [SetLatch](SetLatch.md) (to wake up the process)
 - Called from (representative examples):
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:104)
-  - CheckpointerMain (src/backend/postmaster/checkpointer.c:203)
-  - PgArchiverMain (src/backend/postmaster/pgarch.c:230)
-  - WalSummarizerMain (src/backend/postmaster/walsummarizer.c:248-249)
-  - WalWriterMain (src/backend/postmaster/walwriter.c:108-109)
-  - ParallelApplyWorkerMain (src/backend/replication/logical/applyparallelworker.c:874)
-  - ReplSlotSyncWorkerMain (src/backend/replication/logical/slotsync.c:1393)
-  - WalReceiverMain (src/backend/replication/walreceiver.c:282)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:104)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (src/backend/postmaster/checkpointer.c:203)
+  - [PgArchiverMain](../P/PgArchiverMain.md) (src/backend/postmaster/pgarch.c:230)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md) (src/backend/postmaster/walsummarizer.c:248-249)
+  - [WalWriterMain](../W/WalWriterMain.md) (src/backend/postmaster/walwriter.c:108-109)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (src/backend/replication/logical/applyparallelworker.c:874)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (src/backend/replication/logical/slotsync.c:1393)
+  - [WalReceiverMain](../W/WalReceiverMain.md) (src/backend/replication/walreceiver.c:282)
 
 ## Notes and Other Information
 - This signal handler is declared in src/include/postmaster/interrupt.h

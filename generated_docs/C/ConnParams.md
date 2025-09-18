@@ -35,11 +35,11 @@ The `ConnParams` structure is a standardized container for database connection p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `trivalue` enum for the promptPassword field
+  - `[trivalue](../t/trivalue.md)` enum for the promptPassword field
 - Called from (representative examples):
-  - `ConnectDatabase` function in pg_backup_db.c
+  - `[ConnectDatabase](ConnectDatabase.md)` function in pg_backup_db.c
   - Various `main` functions in client utilities (pg_amcheck, clusterdb, createdb, etc.)
-  - `connectDatabase` and `connectMaintenanceDatabase` in fe_utils/connect_utils.c
+  - `[connectDatabase](../c/connectDatabase.md)` and `connectMaintenanceDatabase` in fe_utils/connect_utils.c
   - Multiple restoration and dump option structures as embedded members
   - Parallel processing utilities for connection management
 

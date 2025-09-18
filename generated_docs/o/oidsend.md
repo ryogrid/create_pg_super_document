@@ -18,22 +18,22 @@ The oidsend function is responsible for converting PostgreSQL's internal OID rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_begintypsend: Initializes a StringInfo buffer for binary output
-  - pq_sendint32: Writes a 32-bit integer to the buffer in network byte order
-  - pq_endtypsend: Finalizes the buffer and returns it as a bytea
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes a StringInfo buffer for binary output
+  - [pq_sendint32](../p/pq_sendint32.md): Writes a 32-bit integer to the buffer in network byte order
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes the buffer and returns it as a bytea
   - PG_RETURN_BYTEA_P: Macro to return the binary data result
 - Called from (representative examples):
-  - regprocsend: Used in regproc type binary output processing
-  - regproceduresend: Used in regprocedure type binary output processing
-  - regopersend: Used in regoper type binary output processing
-  - regoperatorsend: Used in regoperator type binary output processing
-  - regclasssend: Used in regclass type binary output processing
-  - regcollationsend: Used in regcollation type binary output processing
-  - regtypesend: Used in regtype type binary output processing
-  - regconfigsend: Used in regconfig type binary output processing
-  - regdictionarysend: Used in regdictionary type binary output processing
-  - regrolesend: Used in regrole type binary output processing
-  - regnamespacesend: Used in regnamespace type binary output processing
+  - [regprocsend](../r/regprocsend.md): Used in regproc type binary output processing
+  - [regproceduresend](../r/regproceduresend.md): Used in regprocedure type binary output processing
+  - [regopersend](../r/regopersend.md): Used in regoper type binary output processing
+  - [regoperatorsend](../r/regoperatorsend.md): Used in regoperator type binary output processing
+  - [regclasssend](../r/regclasssend.md): Used in regclass type binary output processing
+  - [regcollationsend](../r/regcollationsend.md): Used in regcollation type binary output processing
+  - [regtypesend](../r/regtypesend.md): Used in regtype type binary output processing
+  - [regconfigsend](../r/regconfigsend.md): Used in regconfig type binary output processing
+  - [regdictionarysend](../r/regdictionarysend.md): Used in regdictionary type binary output processing
+  - [regrolesend](../r/regrolesend.md): Used in regrole type binary output processing
+  - [regnamespacesend](../r/regnamespacesend.md): Used in regnamespace type binary output processing
 
 ## Notes and Other Information
 - This function is registered as the binary send function for the OID data type in PostgreSQL's type system

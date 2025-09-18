@@ -26,14 +26,14 @@ The function clears any existing connection error state before processing if the
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState
-  - PQescapeStringInternal
+  - [PQescapeStringInternal](PQescapeStringInternal.md)
 - Called from (representative examples):
-  - AppendStringCommandOption
-  - check_loadable_libraries
-  - do_lo_import
-  - escape_string
-  - appendStringLiteralConn
-  - escape_string_conn
+  - [AppendStringCommandOption](../A/AppendStringCommandOption.md)
+  - [check_loadable_libraries](../c/check_loadable_libraries.md)
+  - [do_lo_import](../d/do_lo_import.md)
+  - [escape_string](../e/escape_string.md)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md)
+  - [escape_string_conn](../e/escape_string_conn.md)
 
 ## Notes and Other Information
 - This is the recommended function for string escaping when a database connection is available

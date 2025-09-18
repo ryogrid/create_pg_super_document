@@ -31,11 +31,11 @@ The function implements intelligent filtering logic - it only shows prefix sort 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - show_incremental_sort_group_info: Displays statistics for individual sort groups
+  - [show_incremental_sort_group_info](show_incremental_sort_group_info.md): Displays statistics for individual sort groups
   - appendStringInfoChar: Adds newline characters for text formatting
-  - ExplainOpenWorker/ExplainCloseWorker: Manages worker-specific output sections
+  - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker: Manages worker-specific output sections
 - Called from (representative examples):
-  - ExplainNode: Main EXPLAIN node processing function
+  - [ExplainNode](../E/ExplainNode.md): Main EXPLAIN node processing function
 
 ## Notes and Other Information
 - This is a static function used internally within explain.c for incremental sort reporting

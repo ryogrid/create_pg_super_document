@@ -21,16 +21,16 @@ ATTypedTableRecursion handles the complex propagation of ALTER TYPE operations o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_typed_table_dependencies
-  - relation_open
-  - CheckAlterTableIsSafe
-  - ATPrepCmd
-  - relation_close
+  - [find_typed_table_dependencies](../f/find_typed_table_dependencies.md)
+  - [relation_open](../r/relation_open.md)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
+  - [ATPrepCmd](ATPrepCmd.md)
+  - [relation_close](../r/relation_close.md)
   - RelationGetRelationName
 - Called from (representative examples):
-  - ATPrepAddColumn
-  - ATPrepDropColumn
-  - ATPrepAlterColumnType
+  - [ATPrepAddColumn](ATPrepAddColumn.md)
+  - [ATPrepDropColumn](ATPrepDropColumn.md)
+  - [ATPrepAlterColumnType](ATPrepAlterColumnType.md)
 
 ## Notes and Other Information
 - Only operates on composite types (RELKIND_COMPOSITE_TYPE), enforced by an assertion

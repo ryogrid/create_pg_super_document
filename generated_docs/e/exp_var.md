@@ -35,19 +35,19 @@ The algorithm works by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `init_var`: Initialize `NumericVar` structures
-  - `set_var_from_var`: Copy one `NumericVar` to another
-  - `numericvar_to_double_no_overflow`: Convert `NumericVar` to double for estimation
-  - `zero_var`: Set a `NumericVar` to zero
-  - `div_var_int`: Divide `NumericVar` by integer
-  - `add_var`: Add two `NumericVar` values
-  - `mul_var`: Multiply two `NumericVar` values
-  - `round_var`: Round to specified decimal places
-  - `free_var`: Free memory associated with `NumericVar`
+  - `[set_var_from_var](../s/set_var_from_var.md)`: Copy one `NumericVar` to another
+  - `[numericvar_to_double_no_overflow](../n/numericvar_to_double_no_overflow.md)`: Convert `NumericVar` to double for estimation
+  - `[zero_var](../z/zero_var.md)`: Set a `NumericVar` to zero
+  - `[div_var_int](../d/div_var_int.md)`: Divide `NumericVar` by integer
+  - `[add_var](../a/add_var.md)`: Add two `NumericVar` values
+  - `[mul_var](../m/mul_var.md)`: Multiply two `NumericVar` values
+  - `[round_var](../r/round_var.md)`: Round to specified decimal places
+  - `[free_var](../f/free_var.md)`: Free memory associated with `NumericVar`
   - Constants: `const_one`, `NUMERIC_MAX_RESULT_SCALE`, `NUMERIC_MIN_DISPLAY_SCALE`, `DEC_DIGITS`
 
 - Called from (representative examples):
-  - `numeric_exp`: SQL-callable exponential function
-  - `power_var`: Used in power function computations (for non-integer exponents)
+  - `[numeric_exp](../n/numeric_exp.md)`: SQL-callable exponential function
+  - `[power_var](../p/power_var.md)`: Used in power function computations (for non-integer exponents)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric data type implementation

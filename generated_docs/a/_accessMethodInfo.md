@@ -21,10 +21,10 @@ The  structure is part of PostgreSQL's pg_dump utility framework, designed to st
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
 - Called from (representative examples):
-  - getAccessMethods (allocation and initialization)
-  - dumpAccessMethod (for dumping access method definitions)
-  - selectDumpableAccessMethod (for determining what to dump)
-  - findAccessMethodByOid (for lookup operations)
+  - [getAccessMethods](../g/getAccessMethods.md) (allocation and initialization)
+  - [dumpAccessMethod](../d/dumpAccessMethod.md) (for dumping access method definitions)
+  - [selectDumpableAccessMethod](../s/selectDumpableAccessMethod.md) (for determining what to dump)
+  - [findAccessMethodByOid](../f/findAccessMethodByOid.md) (for lookup operations)
 
 ## Notes and Other Information
 - This structure is specifically used within the pg_dump utility context

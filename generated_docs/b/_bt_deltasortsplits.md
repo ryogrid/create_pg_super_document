@@ -29,9 +29,9 @@ This sorting enables subsequent functions to efficiently examine the best split 
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort: Standard C library sort function
-  - _bt_splitcmp: Comparison function for sorting SplitPoint structures
+  - [_bt_splitcmp](_bt_splitcmp.md): Comparison function for sorting SplitPoint structures
 - Called from:
-  - _bt_findsplitloc: Called twice - once for initial sorting and potentially again for single value strategy
+  - [_bt_findsplitloc](_bt_findsplitloc.md): Called twice - once for initial sorting and potentially again for single value strategy
 
 ## Notes and Other Information
 - The delta calculation favors splits that leave the left page at the desired fill factor when `usemult` is true

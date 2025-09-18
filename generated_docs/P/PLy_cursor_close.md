@@ -24,9 +24,9 @@ When closing an active cursor, the function validates that the associated portal
 - Functions called/Symbols referenced:
   - GetPortalByName
   - PortalIsValid
-  - PLy_exception_set
-  - UnpinPortal
-  - SPI_cursor_close
+  - [PLy_exception_set](PLy_exception_set.md)
+  - [UnpinPortal](../U/UnpinPortal.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
 - Called from (representative examples):
   - Registered as "close" method in PLy_cursor_methods array
 

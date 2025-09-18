@@ -17,13 +17,13 @@ This function measures the replication lag by calculating the time difference be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData (shared memory structure)
-  - GetXLogReplayRecPtr (current replay position)
-  - GetCurrentChunkReplayStartTime (when current chunk started replaying)
-  - TimestampDifferenceMilliseconds (time difference calculation)
-  - GetCurrentTimestamp (current system time)
+  - [WalRcvData](../W/WalRcvData.md) (shared memory structure)
+  - [GetXLogReplayRecPtr](GetXLogReplayRecPtr.md) (current replay position)
+  - [GetCurrentChunkReplayStartTime](GetCurrentChunkReplayStartTime.md) (when current chunk started replaying)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md) (time difference calculation)
+  - [GetCurrentTimestamp](GetCurrentTimestamp.md) (current system time)
 - Called from (representative examples):
-  - ProcessWalSndrMessage (in walreceiver process)
+  - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md) (in walreceiver process)
 
 ## Notes and Other Information
 - Returns delay in milliseconds, 0 if no delay, or -1 if information unavailable

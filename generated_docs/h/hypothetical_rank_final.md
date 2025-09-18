@@ -21,7 +21,7 @@ The `rank()` function follows SQL standard semantics where tied values receive t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `hypothetical_rank_common`: Core implementation for hypothetical ranking calculations
+  - `[hypothetical_rank_common](hypothetical_rank_common.md)`: Core implementation for hypothetical ranking calculations
   - `PG_RETURN_INT64`: PostgreSQL macro to return int64 result
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework (no direct callers found in indexed code)

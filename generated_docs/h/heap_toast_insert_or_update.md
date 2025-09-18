@@ -29,19 +29,19 @@ The function preserves the original input tuples and returns either the original
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_deform_tuple
-  - toast_tuple_init
-  - toast_tuple_find_biggest_attribute  
-  - toast_tuple_try_compression
-  - toast_tuple_externalize
-  - toast_tuple_cleanup
-  - heap_compute_data_size
-  - heap_fill_tuple
+  - [heap_deform_tuple](heap_deform_tuple.md)
+  - [toast_tuple_init](../t/toast_tuple_init.md)
+  - [toast_tuple_find_biggest_attribute](../t/toast_tuple_find_biggest_attribute.md)  
+  - [toast_tuple_try_compression](../t/toast_tuple_try_compression.md)
+  - [toast_tuple_externalize](../t/toast_tuple_externalize.md)
+  - [toast_tuple_cleanup](../t/toast_tuple_cleanup.md)
+  - [heap_compute_data_size](heap_compute_data_size.md)
+  - [heap_fill_tuple](heap_fill_tuple.md)
   - RelationGetToastTupleTarget
 - Called from (representative examples):
-  - heap_prepare_insert
-  - heap_update
-  - raw_heap_insert
+  - [heap_prepare_insert](heap_prepare_insert.md)
+  - [heap_update](heap_update.md)
+  - [raw_heap_insert](../r/raw_heap_insert.md)
 
 ## Notes and Other Information
 - Only operates on plain relations (RELKIND_RELATION) and materialized views (RELKIND_MATVIEW)

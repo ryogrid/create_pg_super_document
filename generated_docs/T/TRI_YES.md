@@ -25,12 +25,12 @@ This enumeration pattern appears in multiple PostgreSQL client utilities includi
 - Functions called/Symbols referenced:
   - None (enumeration constant)
 - Called from (representative examples):
-  - main (in pg_amcheck, pg_dump, pg_dumpall, pg_restore, psql, clusterdb, createdb, createuser, dropdb, dropuser, reindexdb, vacuumdb)
-  - ConnectDatabase (in pg_backup_db.c)
-  - exec_command_connect (in psql/command.c)
-  - do_connect (in psql/command.c)
-  - parse_psql_options (in psql/startup.c)
-  - connectDatabase (in fe_utils/connect_utils.c)
+  - [main](../m/main.md) (in pg_amcheck, pg_dump, pg_dumpall, pg_restore, psql, clusterdb, createdb, createuser, dropdb, dropuser, reindexdb, vacuumdb)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (in pg_backup_db.c)
+  - [exec_command_connect](../e/exec_command_connect.md) (in psql/command.c)
+  - [do_connect](../d/do_connect.md) (in psql/command.c)
+  - [parse_psql_options](../p/parse_psql_options.md) (in psql/startup.c)
+  - [connectDatabase](../c/connectDatabase.md) (in fe_utils/connect_utils.c)
 
 ## Notes and Other Information
 The TRI_YES constant is widely used across PostgreSQL's client utilities for handling command-line options and configuration parameters that need three-state logic. Common use cases include connection parameters (force password prompts), output formatting options, and behavioral flags where "use default behavior" is a meaningful third state alongside explicit enable/disable.

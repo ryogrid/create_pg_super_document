@@ -27,19 +27,19 @@ The function generates FieldSelect expressions for each non-dropped attribute, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandSingleTable
-  - GetNSItemByRangeTablePosn
-  - expandRecordVariable
-  - get_expr_result_tupdesc
+  - [ExpandSingleTable](ExpandSingleTable.md)
+  - [GetNSItemByRangeTablePosn](../G/GetNSItemByRangeTablePosn.md)
+  - [expandRecordVariable](../e/expandRecordVariable.md)
+  - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md)
   - makeNode
   - copyObject
-  - makeTargetEntry
+  - [makeTargetEntry](../m/makeTargetEntry.md)
   - TupleDescAttr
   - InvalidAttrNumber
-  - ParseNamespaceItem
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
   - FieldSelect
 - Called from (representative examples):
-  - ExpandIndirectionStar
+  - [ExpandIndirectionStar](ExpandIndirectionStar.md)
 
 ## Notes and Other Information
 - This is a static function within parse_target.c for internal target list processing

@@ -23,9 +23,9 @@ The function uses a simple but effective strategy: rather than trying to determi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search  
-  - hash_search (with HASH_REMOVE flag)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)  
+  - [hash_search](../h/hash_search.md) (with HASH_REMOVE flag)
   - elog (for error reporting)
 - Called from (representative examples):
   - System cache invalidation mechanism (registered in find_oper_cache_entry)

@@ -24,13 +24,13 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - list_free
+  - [RelationGetIndexList](RelationGetIndexList.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - CheckCmdReplicaIdentity
-  - GetRelationIdentityOrPK
-  - pg_get_replica_identity_index
-  - RelationGetIdentityKeyBitmap
+  - [CheckCmdReplicaIdentity](../C/CheckCmdReplicaIdentity.md)
+  - [GetRelationIdentityOrPK](../G/GetRelationIdentityOrPK.md)
+  - [pg_get_replica_identity_index](../p/pg_get_replica_identity_index.md)
+  - [RelationGetIdentityKeyBitmap](RelationGetIdentityKeyBitmap.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if there is no replica identity index

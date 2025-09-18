@@ -27,7 +27,7 @@ The function directly accesses the pre-compiled constant value and null status f
   - pg_attribute_always_inline (compiler hint for inlining)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation dispatch mechanism)
-  - ExecReadyInterpretedExpr (expression preparation function)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation function)
 
 ## Notes and Other Information
 - This is a static function within execExprInterp.c, part of the internal expression evaluation machinery

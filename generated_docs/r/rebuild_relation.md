@@ -26,15 +26,15 @@ This function is essential for the CLUSTER command and other table reorganizatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mark_index_clustered: Marks the specified index as clustered
-  - IsSystemRelation: Checks if the relation is a system catalog
-  - make_new_heap: Creates the new temporary heap table
-  - copy_table_data: Copies data from old to new heap in desired order
-  - finish_heap_swap: Swaps files and completes the rebuilding process
+  - [mark_index_clustered](../m/mark_index_clustered.md): Marks the specified index as clustered
+  - [IsSystemRelation](../I/IsSystemRelation.md): Checks if the relation is a system catalog
+  - [make_new_heap](../m/make_new_heap.md): Creates the new temporary heap table
+  - [copy_table_data](../c/copy_table_data.md): Copies data from old to new heap in desired order
+  - [finish_heap_swap](../f/finish_heap_swap.md): Swaps files and completes the rebuilding process
   - table_close: Closes the relation handle
   - RelationGetRelid: Gets the OID of the relation
 - Called from (representative examples):
-  - cluster_rel: Main clustering function
+  - [cluster_rel](../c/cluster_rel.md): Main clustering function
   - RelToCluster: Part of cluster processing workflow
 
 ## Notes and Other Information

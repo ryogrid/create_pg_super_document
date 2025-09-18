@@ -22,10 +22,10 @@ Like its parent function, SearchCatCache1 searches a system catalog cache for a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchCatCacheInternal
+  - [SearchCatCacheInternal](SearchCatCacheInternal.md)
   - CatCache (structure type)
 - Called from (representative examples):
-  - SearchSysCache1
+  - [SearchSysCache1](SearchSysCache1.md)
   - CatCacheHeader
 
 ## Notes and Other Information

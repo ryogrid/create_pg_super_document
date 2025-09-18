@@ -23,8 +23,8 @@ This function implements a three-tier hierarchy for determining the statistics t
   - MAX_STATISTICS_TARGET (constant)
   - Assert (macro)
 - Called from:
-  - BuildRelationExtStatistics (in src/backend/statistics/extended_stats.c:185)
-  - ComputeExtStatisticsRows (in src/backend/statistics/extended_stats.c:309)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (in src/backend/statistics/extended_stats.c:185)
+  - [ComputeExtStatisticsRows](../C/ComputeExtStatisticsRows.md) (in src/backend/statistics/extended_stats.c:309)
 
 ## Notes and Other Information
 - Returns the object's own target if stattarget >= 0, including 0 which disables statistics

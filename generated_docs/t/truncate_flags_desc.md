@@ -27,7 +27,7 @@ This function is specifically used when describing heap truncate WAL records, he
   - XLH_TRUNCATE_CASCADE (flag constant)
   - XLH_TRUNCATE_RESTART_SEQS (flag constant)
 - Called from:
-  - heap_desc
+  - [heap_desc](../h/heap_desc.md)
 
 ## Notes and Other Information
 - Implements the same comma and space management pattern as other description functions in the file

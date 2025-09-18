@@ -27,7 +27,7 @@ This function takes no parameters and operates on global state variables:
 - Functions called/Symbols referenced:
   - None (only modifies global variables)
 - Called from (representative examples):
-  - AbortTransaction
+  - [AbortTransaction](../A/AbortTransaction.md)
 
 ## Notes and Other Information
 - Called automatically during transaction abort processing

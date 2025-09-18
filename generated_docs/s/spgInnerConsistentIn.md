@@ -53,16 +53,16 @@ The spgInnerConsistentIn structure is used as an input parameter for SP-GiST inn
 - Functions called/Symbols referenced:
   - ScanKey (PostgreSQL scan key structure)
   - Datum (PostgreSQL data type)
-  - MemoryContext (PostgreSQL memory management)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
 - Called from (representative examples):
-  - spg_kd_inner_consistent (src/backend/access/spgist/spgkdtreeproc.c:162)
-  - spg_quad_inner_consistent (src/backend/access/spgist/spgquadtreeproc.c:229)
-  - spgInitInnerConsistentIn (src/backend/access/spgist/spgscan.c:606)
-  - spgInnerTest (src/backend/access/spgist/spgscan.c:679)
-  - spg_text_inner_consistent (src/backend/access/spgist/spgtextproc.c:428)
-  - spg_box_quad_inner_consistent (src/backend/utils/adt/geo_spgist.c:555)
-  - inet_spg_inner_consistent (src/backend/utils/adt/network_spgist.c:241)
-  - spg_range_quad_inner_consistent (src/backend/utils/adt/rangetypes_spgist.c:302)
+  - [spg_kd_inner_consistent](spg_kd_inner_consistent.md) (src/backend/access/spgist/spgkdtreeproc.c:162)
+  - [spg_quad_inner_consistent](spg_quad_inner_consistent.md) (src/backend/access/spgist/spgquadtreeproc.c:229)
+  - [spgInitInnerConsistentIn](spgInitInnerConsistentIn.md) (src/backend/access/spgist/spgscan.c:606)
+  - [spgInnerTest](spgInnerTest.md) (src/backend/access/spgist/spgscan.c:679)
+  - [spg_text_inner_consistent](spg_text_inner_consistent.md) (src/backend/access/spgist/spgtextproc.c:428)
+  - [spg_box_quad_inner_consistent](spg_box_quad_inner_consistent.md) (src/backend/utils/adt/geo_spgist.c:555)
+  - [inet_spg_inner_consistent](../i/inet_spg_inner_consistent.md) (src/backend/utils/adt/network_spgist.c:241)
+  - [spg_range_quad_inner_consistent](spg_range_quad_inner_consistent.md) (src/backend/utils/adt/rangetypes_spgist.c:302)
 
 ## Notes and Other Information
 - This structure is read-only from the perspective of the inner_consistent method - it should not modify the provided data

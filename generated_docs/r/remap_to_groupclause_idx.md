@@ -34,8 +34,8 @@ This transformation is essential for the executor to correctly identify which co
   - lfirst_node (SortGroupClause, GroupingSetData)
   - lappend_int, lfirst_int
 - Called from (representative examples):
-  - preprocess_grouping_sets
-  - consider_groupingsets_paths
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/plan/planner.c:2258-2294

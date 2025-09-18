@@ -21,14 +21,14 @@ This function handles the evaluation of strict function call expressions where P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_init_function_usage (initialize function usage tracking)
-  - pgstat_end_function_usage (finalize function usage tracking)
-  - FunctionCallInfo (structure type for function call parameters)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md) (initialize function usage tracking)
+  - [pgstat_end_function_usage](../p/pgstat_end_function_usage.md) (finalize function usage tracking)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure type for function call parameters)
   - PgStat_FunctionCallUsage (structure type for usage statistics)
-  - NullableDatum (structure type for nullable arguments)
+  - [NullableDatum](../N/NullableDatum.md) (structure type for nullable arguments)
 - Called from (representative examples):
-  - ExecInterpExpr (main expression interpreter at line 783)
-  - FunctionReturningBool (in LLVM JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter at line 783)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in LLVM JIT compilation)
 
 ## Notes and Other Information
 - Used specifically for EEOP_FUNCEXPR_STRICT_FUSAGE opcode execution

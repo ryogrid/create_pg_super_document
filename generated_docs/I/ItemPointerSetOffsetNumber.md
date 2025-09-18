@@ -23,10 +23,10 @@ The function provides direct access to the ip_posid field of the ItemPointerData
   - PointerIsValid (assertion validation)
 - Called from (representative examples):
   - gistFormTuple
-  - heap_hot_search_buffer
-  - heap_xlog_insert
+  - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
   - GinItemPointerSetOffsetNumber
-  - BTreeTupleSetPosting
+  - [BTreeTupleSetPosting](../B/BTreeTupleSetPosting.md)
 
 ## Notes and Other Information
 - This is an inline function defined in itemptr.h for optimal performance

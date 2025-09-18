@@ -17,7 +17,7 @@ This function serves as a show hook for the PostgreSQL GUC (Grand Unified Config
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
 - Called from (representative examples):
   - GUC system (referenced in guc_hooks.h)
 

@@ -21,7 +21,7 @@ This function enforces stricter validation requirements than content validation,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - wellformed_xml
+  - [wellformed_xml](../w/wellformed_xml.md)
   - PG_GETARG_TEXT_PP  
   - PG_RETURN_BOOL
   - NO_XML_SUPPORT

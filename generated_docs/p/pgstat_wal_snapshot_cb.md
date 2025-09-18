@@ -19,7 +19,7 @@ The function is part of PostgreSQL's statistics collection framework and provide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStatShared_Wal (structure type)
+  - [PgStatShared_Wal](../P/PgStatShared_Wal.md) (structure type)
   - LWLockAcquire (for shared lock acquisition)
   - LW_SHARED (lock mode constant)
   - memcpy (for copying statistics data)

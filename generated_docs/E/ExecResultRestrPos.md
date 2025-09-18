@@ -24,10 +24,10 @@ The asymmetry between ExecResultMarkPos (which issues a debug message) and ExecR
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (to get the outer plan state)
-  - ExecRestrPos (to restore position in the outer plan)
+  - [ExecRestrPos](ExecRestrPos.md) (to restore position in the outer plan)
   - elog (to throw error when restore is not supported)
 - Called from:
-  - ExecRestrPos (general position restoration dispatcher in execAmi.c)
+  - [ExecRestrPos](ExecRestrPos.md) (general position restoration dispatcher in execAmi.c)
   - Declared in nodeResult.h
 
 ## Notes and Other Information

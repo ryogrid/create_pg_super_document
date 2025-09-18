@@ -19,23 +19,23 @@ This function initializes a new hash index by creating and setting up the metada
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetNumberOfBlocksInFork (safety check for empty index)
+  - [RelationGetNumberOfBlocksInFork](../R/RelationGetNumberOfBlocksInFork.md) (safety check for empty index)
   - RelationNeedsWAL (WAL logging determination)
   - HashGetTargetPageUsage (fill factor calculation)
-  - index_getprocid (hash function procedure lookup)
-  - _hash_getnewbuf (buffer allocation)
-  - _hash_init_metabuffer (metadata page initialization)
-  - _hash_initbuf (bucket page initialization)
-  - _hash_initbitmapbuffer (bitmap page initialization)
-  - _hash_relbuf (buffer release)
-  - XLogInsert/XLogBeginInsert (WAL logging)
+  - [index_getprocid](../i/index_getprocid.md) (hash function procedure lookup)
+  - [_hash_getnewbuf](_hash_getnewbuf.md) (buffer allocation)
+  - [_hash_init_metabuffer](_hash_init_metabuffer.md) (metadata page initialization)
+  - [_hash_initbuf](_hash_initbuf.md) (bucket page initialization)
+  - [_hash_initbitmapbuffer](_hash_initbitmapbuffer.md) (bitmap page initialization)
+  - [_hash_relbuf](_hash_relbuf.md) (buffer release)
+  - [XLogInsert](../X/XLogInsert.md)/XLogBeginInsert (WAL logging)
   - HashPageGetMeta (metadata page access)
   - BUCKET_TO_BLKNO (block number calculation)
-  - LockBuffer/MarkBufferDirty (buffer management)
+  - [LockBuffer](../L/LockBuffer.md)/MarkBufferDirty (buffer management)
 
 - Called from (representative examples):
-  - hashbuild (index creation during BUILD)
-  - hashbuildempty (empty index creation)
+  - [hashbuild](hashbuild.md) (index creation during BUILD)
+  - [hashbuildempty](hashbuildempty.md) (empty index creation)
 
 ## Notes and Other Information
 - The function performs a safety check to ensure the index is completely empty before initialization

@@ -22,10 +22,10 @@ The usecounts array is updated during the substitution process to track how many
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - substitute_actual_parameters_context (context structure for parameter substitution)
-  - substitute_actual_parameters_mutator (performs the actual tree traversal and substitution)
+  - [substitute_actual_parameters_context](substitute_actual_parameters_context.md) (context structure for parameter substitution)
+  - [substitute_actual_parameters_mutator](substitute_actual_parameters_mutator.md) (performs the actual tree traversal and substitution)
 - Called from:
-  - inline_function (during SQL function inlining process)
+  - [inline_function](../i/inline_function.md) (during SQL function inlining process)
 
 ## Notes and Other Information
 - This is a static function used internally within clauses.c

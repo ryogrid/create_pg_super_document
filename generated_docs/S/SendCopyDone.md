@@ -19,10 +19,10 @@ This function sends a CopyDone message as part of the PostgreSQL frontend/backen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_putemptymessage
+  - [pq_putemptymessage](../p/pq_putemptymessage.md)
   - PqMsg_CopyDone
 - Called from (representative examples):
-  - bbsink_copystream_end_backup
+  - [bbsink_copystream_end_backup](../b/bbsink_copystream_end_backup.md)
 
 ## Notes and Other Information
 - This is a static function limited to the basebackup_copy.c file

@@ -25,13 +25,13 @@ When a valid secret cannot be obtained, the function creates a mock secret to pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - strcmp
-  - get_password_type
-  - parse_scram_secret
-  - mock_scram_secret
+  - [get_password_type](../g/get_password_type.md)
+  - [parse_scram_secret](../p/parse_scram_secret.md)
+  - [mock_scram_secret](../m/mock_scram_secret.md)
   - ereport/errmsg
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - SCRAM_SHA_256_PLUS_NAME
   - SCRAM_SHA_256_NAME
   - PASSWORD_TYPE_SCRAM_SHA_256

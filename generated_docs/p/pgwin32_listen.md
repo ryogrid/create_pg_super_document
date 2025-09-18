@@ -21,7 +21,7 @@ pgwin32_listen is a thin wrapper around the standard Windows socket listen() fun
 ## Dependencies
 - Functions called/Symbols referenced:
   - listen (Windows socket API)
-  - TranslateSocketError
+  - [TranslateSocketError](../T/TranslateSocketError.md)
 - Called from (representative examples):
   - No direct references found in the indexed codebase
 

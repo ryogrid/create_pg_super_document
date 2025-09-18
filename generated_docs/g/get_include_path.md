@@ -20,10 +20,10 @@ The `get_include_path` function calculates the absolute path to PostgreSQL's inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
 - Called from (representative examples):
-  - get_configdata (src/common/config_info.c:66)
-  - main (src/interfaces/ecpg/preproc/ecpg.c:267)
+  - [get_configdata](get_configdata.md) (src/common/config_info.c:66)
+  - [main](../m/main.md) (src/interfaces/ecpg/preproc/ecpg.c:267)
 
 ## Notes and Other Information
 - This function assumes that the caller has provided a sufficiently large buffer in ret_path to hold the resulting path

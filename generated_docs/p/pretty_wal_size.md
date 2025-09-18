@@ -18,7 +18,7 @@ The function allocates memory for the result string and uses snprintf to format 
 - Functions called/Symbols referenced:
   - pg_malloc
 - Called from (representative examples):
-  - setup_config (used twice around lines 1338 and 1341)
+  - [setup_config](../s/setup_config.md) (used twice around lines 1338 and 1341)
 
 ## Notes and Other Information
 - This is a static function within initdb.c, used specifically during database cluster initialization

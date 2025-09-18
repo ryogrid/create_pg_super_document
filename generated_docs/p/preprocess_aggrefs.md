@@ -32,9 +32,9 @@ For optimizations to be valid, all aggregate properties used in the transition p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - preprocess_aggrefs_walker
+  - [preprocess_aggrefs_walker](preprocess_aggrefs_walker.md)
 - Called from (representative examples):
-  - grouping_planner (in src/backend/optimizer/plan/planner.c)
+  - [grouping_planner](../g/grouping_planner.md) (in src/backend/optimizer/plan/planner.c)
 
 ## Notes and Other Information
 - This function modifies the input expression tree in-place

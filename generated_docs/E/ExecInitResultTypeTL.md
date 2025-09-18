@@ -21,13 +21,13 @@ The function uses ExecTypeFromTL to convert the plan's target list into a TupleD
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecTypeFromTL
+  - [ExecTypeFromTL](ExecTypeFromTL.md)
 - Called from (representative examples):
-  - ExecInitResultTupleSlotTL
-  - ExecInitBitmapHeapScan
-  - ExecInitSeqScan
-  - ExecInitIndexScan
-  - ExecInitModifyTable
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
+  - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md)
+  - [ExecInitSeqScan](ExecInitSeqScan.md)
+  - [ExecInitIndexScan](ExecInitIndexScan.md)
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
 
 ## Notes and Other Information
 - This is part of the executor initialization phase that occurs before query execution begins

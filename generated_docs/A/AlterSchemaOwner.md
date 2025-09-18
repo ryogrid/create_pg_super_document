@@ -27,11 +27,11 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close (catalog access with RowExclusiveLock)
-  - SearchSysCache1/ReleaseSysCache (schema lookup by name)
-  - AlterSchemaOwner_internal (performs the actual ownership change)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache (schema lookup by name)
+  - [AlterSchemaOwner_internal](AlterSchemaOwner_internal.md) (performs the actual ownership change)
   - ObjectAddressSet (constructs return value)
 - Called from (representative examples):
-  - ExecAlterOwnerStmt (general ALTER OWNER statement execution)
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md) (general ALTER OWNER statement execution)
 
 ## Notes and Other Information
 - Returns ObjectAddress identifying the schema that was modified

@@ -26,7 +26,7 @@ The function was authored by Paul Vixie (ISC) in October 1998 and serves as the 
   - EMSGSIZE (error constant for insufficient buffer size)
   - EINVAL (error constant for invalid input)
 - Called from (representative examples):
-  - pg_inet_net_ntop
+  - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md)
 
 ## Notes and Other Information
 - Returns pointer to dst on success, NULL on error (check errno)

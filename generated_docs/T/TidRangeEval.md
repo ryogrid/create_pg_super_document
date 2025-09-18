@@ -17,24 +17,24 @@ This function evaluates all TID comparison expressions stored in the TidRangeSca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSet
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - lfirst
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - ExecEvalExprSwitchContext
-  - ItemPointerCopy
-  - ItemPointerInc
-  - ItemPointerDec
-  - ItemPointerCompare
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [ItemPointerInc](../I/ItemPointerInc.md)
+  - [ItemPointerDec](../I/ItemPointerDec.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
 - Constants used:
   - InvalidBlockNumber
   - PG_UINT16_MAX
   - TIDEXPR_LOWER_BOUND
   - TIDEXPR_UPPER_BOUND
 - Data structures used:
-  - ItemPointerData
-  - TidOpExpr
+  - [ItemPointerData](../I/ItemPointerData.md)
+  - [TidOpExpr](TidOpExpr.md)
 - Called from:
-  - TidRangeNext
+  - [TidRangeNext](TidRangeNext.md)
 
 ## Notes and Other Information
 - Returns false if any TID expression evaluates to NULL, indicating no tuples can match

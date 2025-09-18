@@ -26,12 +26,12 @@ The GinFormInteriorTuple function creates interior (non-leaf) tuples for GIN ind
   - GinGetPostingOffset: Gets offset to posting list data in tuple
   - IndexTupleSize: Gets size of index tuple
   - GinSetDownlink: Sets downlink pointer to child block
-  - palloc: Allocates memory for new tuple
+  - [palloc](../p/palloc.md): Allocates memory for new tuple
   - memcpy: Copies tuple data
 
 - Called from (representative examples):
-  - entryPrepareDownlink: Preparing downlink during page operations
-  - ginEntryFillRoot: Filling root page entries
+  - [entryPrepareDownlink](../e/entryPrepareDownlink.md): Preparing downlink during page operations
+  - [ginEntryFillRoot](../g/ginEntryFillRoot.md): Filling root page entries
 
 ## Notes and Other Information
 - Function is static (internal to ginentrypage.c)

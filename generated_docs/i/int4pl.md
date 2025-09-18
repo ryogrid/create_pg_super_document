@@ -22,11 +22,11 @@ The function follows PostgreSQL's standard approach of prioritizing data integri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_add_s32_overflow (safe addition with overflow detection)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (safe addition with overflow detection)
   - ereport (error reporting)
   - ERROR (error level)
-  - errcode (error code specification)
-  - errmsg (error message)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message)
   - ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE
 - Called from (representative examples):
   - No direct callers found in the codebase

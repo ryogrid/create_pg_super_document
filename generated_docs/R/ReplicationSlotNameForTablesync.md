@@ -26,13 +26,13 @@ The system identifier is appended to prevent slot name collisions between subscr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSystemIdentifier
+  - [GetSystemIdentifier](../G/GetSystemIdentifier.md)
   - UINT64_FORMAT (macro for formatting 64-bit integers)
 - Called from (representative examples):
-  - DropSubscription
-  - ReportSlotConnectionError
-  - process_syncing_tables_for_sync
-  - LogicalRepSyncTableStart
+  - [DropSubscription](../D/DropSubscription.md)
+  - [ReportSlotConnectionError](ReportSlotConnectionError.md)
+  - [process_syncing_tables_for_sync](../p/process_syncing_tables_for_sync.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
 
 ## Notes and Other Information
 - The function deliberately avoids using the subscription slot name as part of the tablesync slot name to ensure cleanup operations remain possible even if the subscription slot name changes

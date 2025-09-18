@@ -26,8 +26,8 @@ This function is typically called by PostgreSQL's aggregate execution framework 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - percentile_cont_final_common (core percentile calculation logic)
-  - interval_lerp (interval-specific linear interpolation function)
+  - [percentile_cont_final_common](percentile_cont_final_common.md) (core percentile calculation logic)
+  - [interval_lerp](../i/interval_lerp.md) (interval-specific linear interpolation function)
   - INTERVALOID (type validation constant)
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework (no direct C references shown)

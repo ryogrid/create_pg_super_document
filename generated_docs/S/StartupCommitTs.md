@@ -21,9 +21,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActivateCommitTs
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
 - Called from (representative examples):
-  - StartupXLOG
+  - [StartupXLOG](StartupXLOG.md)
 
 ## Notes and Other Information
 - Must be called exactly ONCE during startup - calling it multiple times may cause undefined behavior

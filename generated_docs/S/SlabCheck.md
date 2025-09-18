@@ -22,19 +22,19 @@ The validation process includes checking empty blocks for correct free chunk cou
   - SlabIsValid
   - dclist_foreach
   - dlist_container
-  - SlabBlocklistIndex
+  - [SlabBlocklistIndex](SlabBlocklistIndex.md)
   - SlabChunkIndex
   - SlabBlockGetChunk
   - SlabChunkMod
   - MemoryChunkGetPointer
   - SlabChunkGetPointer
-  - MemoryChunkGetBlock
-  - sentinel_ok
-  - dclist_count
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
+  - [sentinel_ok](../s/sentinel_ok.md)
+  - [dclist_count](../d/dclist_count.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from (representative examples):
-  - SlabReset
+  - [SlabReset](SlabReset.md)
   - Memory context debugging routines
 
 ## Notes and Other Information

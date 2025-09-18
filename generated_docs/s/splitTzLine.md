@@ -23,13 +23,13 @@ This function attempts to parse a line from a timezone abbreviation file accordi
   - strtok
   - WHITESPACE
   - GUC_check_errmsg
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - isdigit
   - strtol
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - SECS_PER_HOUR
 - Called from (representative examples):
-  - ParseTzFile
+  - [ParseTzFile](../P/ParseTzFile.md)
 
 ## Notes and Other Information
 The function distinguishes between zone names and numeric offsets by checking if the second token begins with a digit or sign. Zone names are assumed to be valid without validation to avoid loading unnecessary timezone data. Comments beginning with '#' are allowed and ignored after the main timezone specification.

@@ -36,27 +36,27 @@ The function implements PostgreSQL's Multi-Version Concurrency Control (MVCC) se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecUpdatePrologue
-  - ExecIRUpdateTriggers  
-  - ExecUpdatePrepareSlot
-  - ExecUpdateAct
-  - ExecUpdateEpilogue
-  - EvalPlanQualSlot
-  - EvalPlanQual
-  - ExecInitUpdateProjection
-  - ExecGetUpdateNewTuple
-  - ExecProcessReturning
+  - [ExecUpdatePrologue](ExecUpdatePrologue.md)
+  - [ExecIRUpdateTriggers](ExecIRUpdateTriggers.md)  
+  - [ExecUpdatePrepareSlot](ExecUpdatePrepareSlot.md)
+  - [ExecUpdateAct](ExecUpdateAct.md)
+  - [ExecUpdateEpilogue](ExecUpdateEpilogue.md)
+  - [EvalPlanQualSlot](EvalPlanQualSlot.md)
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [ExecInitUpdateProjection](ExecInitUpdateProjection.md)
+  - [ExecGetUpdateNewTuple](ExecGetUpdateNewTuple.md)
+  - [ExecProcessReturning](ExecProcessReturning.md)
   - table_tuple_lock
   - table_tuple_fetch_row_version
   - IsolationUsesXactSnapshot
 - Called from (representative examples):
-  - ExecOnConflictUpdate (src/backend/executor/nodeModifyTable.c:2746)
-  - ExecModifyTable (src/backend/executor/nodeModifyTable.c:4316)
+  - [ExecOnConflictUpdate](ExecOnConflictUpdate.md) (src/backend/executor/nodeModifyTable.c:2746)
+  - [ExecModifyTable](ExecModifyTable.md) (src/backend/executor/nodeModifyTable.c:4316)
 
 ## Notes and Other Information
 - The function is static and only used within nodeModifyTable.c
 - Cross-partition updates are transparently handled and may return early with special RETURNING slot processing
-- EvalPlanQual processing ensures snapshot isolation by re-evaluating plan conditions for concurrently modified tuples
+- [EvalPlanQual](EvalPlanQual.md) processing ensures snapshot isolation by re-evaluating plan conditions for concurrently modified tuples
 - The function includes comprehensive error handling for concurrent modifications and serialization failures
 - For foreign tables, the FDW is responsible for determining which row to update using plan slot data
 - INSTEAD OF triggers are used for view updates where the view itself is not directly updatable

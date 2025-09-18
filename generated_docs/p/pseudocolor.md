@@ -23,14 +23,14 @@ The function allocates a new color using newcolor() and then configures it with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newcolor (allocates a new color)
+  - [newcolor](../n/newcolor.md) (allocates a new color)
   - CISERR (macro to check for compilation errors)
   - COLORLESS (constant representing no color/error state)
   - NOSUB (constant indicating no subcolor)
   - CHR_MIN (minimum character value)
   - PSEUDO (flag indicating a pseudo color)
 - Called from (representative examples):
-  - specialcolors (at src/backend/regex/regc_nfa.c:1560-1563)
+  - [specialcolors](../s/specialcolors.md) (at src/backend/regex/regc_nfa.c:1560-1563)
 
 ## Notes and Other Information
 - Returns COLORLESS if an error occurs during color allocation

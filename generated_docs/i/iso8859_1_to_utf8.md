@@ -29,7 +29,7 @@ The conversion follows the PostgreSQL function calling conventions, taking param
   - PG_GETARG_CSTRING  
   - PG_GETARG_INT32
   - CHECK_ENCODING_CONVERSION_ARGS
-  - report_invalid_encoding
+  - [report_invalid_encoding](../r/report_invalid_encoding.md)
   - IS_HIGHBIT_SET
   - PG_RETURN_INT32
 - Constants used:

@@ -22,13 +22,13 @@ This function adds a new OID value to the end of a SimpleOidList. It allocates m
 - Functions called/Symbols referenced:
   - pg_malloc (for memory allocation)
 - Data structures used:
-  - SimpleOidList (the list container structure)
-  - SimpleOidListCell (individual list node structure)
+  - [SimpleOidList](../S/SimpleOidList.md) (the list container structure)
+  - [SimpleOidListCell](../S/SimpleOidListCell.md) (individual list node structure)
 - Called from (representative examples):
-  - expand_schema_name_patterns (src/bin/pg_dump/pg_dump.c:1493)
-  - expand_extension_name_patterns (src/bin/pg_dump/pg_dump.c:1546)
-  - expand_foreign_server_name_patterns (src/bin/pg_dump/pg_dump.c:1598)
-  - expand_table_name_patterns (src/bin/pg_dump/pg_dump.c:1692)
+  - [expand_schema_name_patterns](../e/expand_schema_name_patterns.md) (src/bin/pg_dump/pg_dump.c:1493)
+  - [expand_extension_name_patterns](../e/expand_extension_name_patterns.md) (src/bin/pg_dump/pg_dump.c:1546)
+  - [expand_foreign_server_name_patterns](../e/expand_foreign_server_name_patterns.md) (src/bin/pg_dump/pg_dump.c:1598)
+  - [expand_table_name_patterns](../e/expand_table_name_patterns.md) (src/bin/pg_dump/pg_dump.c:1692)
 
 ## Notes and Other Information
 - Memory is allocated using pg_malloc, which will exit on allocation failure

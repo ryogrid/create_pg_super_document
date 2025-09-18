@@ -21,13 +21,13 @@ The timestamp is recorded with each reset operation, allowing the statistics sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp (to record the reset time)
-  - match_db_entries (filter function to identify current database entries)
-  - pgstat_reset_matching_entries (performs the actual reset operation)
-  - ObjectIdGetDatum (converts database OID to Datum)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (to record the reset time)
+  - [match_db_entries](../m/match_db_entries.md) (filter function to identify current database entries)
+  - [pgstat_reset_matching_entries](pgstat_reset_matching_entries.md) (performs the actual reset operation)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts database OID to Datum)
   - MyDatabaseId (global variable for current database OID)
 - Called from (representative examples):
-  - pg_stat_reset (SQL-callable function that provides user access to this functionality)
+  - [pg_stat_reset](pg_stat_reset.md) (SQL-callable function that provides user access to this functionality)
 
 ## Notes and Other Information
 - Permission checking is handled through the normal PostgreSQL GRANT system rather than within this function

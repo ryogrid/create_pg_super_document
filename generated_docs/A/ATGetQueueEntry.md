@@ -24,21 +24,21 @@ The function initializes several important fields in the AlteredTableInfo struct
 - Functions called/Symbols referenced:
   - RelationGetRelid
   - lfirst
-  - palloc0
-  - CreateTupleDescCopyConstr
+  - [palloc0](../p/palloc0.md)
+  - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
   - RelationGetDescr
   - lappend
   - InvalidOid (constant)
   - RELPERSISTENCE_PERMANENT (constant)
 - Called from:
-  - ATPrepCmd
-  - ATExecAddColumn
-  - ATAddCheckConstraint
-  - addFkRecurseReferencing
-  - ATExecValidateConstraint
-  - ATPostAlterTypeParse
-  - QueuePartitionConstraintValidation
-  - DetachAddConstraintIfNeeded
+  - [ATPrepCmd](ATPrepCmd.md)
+  - [ATExecAddColumn](ATExecAddColumn.md)
+  - [ATAddCheckConstraint](ATAddCheckConstraint.md)
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
+  - [ATExecValidateConstraint](ATExecValidateConstraint.md)
+  - [ATPostAlterTypeParse](ATPostAlterTypeParse.md)
+  - [QueuePartitionConstraintValidation](../Q/QueuePartitionConstraintValidation.md)
+  - [DetachAddConstraintIfNeeded](../D/DetachAddConstraintIfNeeded.md)
 
 ## Notes and Other Information
 - This function is static and only used within the tablecmds.c module

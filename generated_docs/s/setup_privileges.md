@@ -25,13 +25,13 @@ The function handles privileges for various object types including relations (ta
 - Functions called/Symbols referenced:
   - PG_CMD_PRINTF (macro for formatted SQL output)
   - PG_CMD_PUTS (macro for SQL string output)
-  - escape_quotes (function to escape quotes in strings)
+  - [escape_quotes](../e/escape_quotes.md) (function to escape quotes in strings)
   - CppAsString2 (macro for stringifying constants)
   - RELKIND_* constants (relation kind identifiers)
   - BOOTSTRAP_SUPERUSERID constant
 
 - Called from:
-  - initialize_data_directory (main initialization function)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (main initialization function)
 
 ## Notes and Other Information
 - This function is critical for PostgreSQL security model initialization

@@ -20,7 +20,7 @@ This function provides a mapping from FilterObjectType enumeration values to des
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_unreachable
-  - FilterObjectType enum constants:
+  - [FilterObjectType](../F/FilterObjectType.md) enum constants:
     - FILTER_OBJECT_TYPE_NONE
     - FILTER_OBJECT_TYPE_TABLE_DATA
     - FILTER_OBJECT_TYPE_TABLE_DATA_AND_CHILDREN
@@ -34,9 +34,9 @@ This function provides a mapping from FilterObjectType enumeration values to des
     - FILTER_OBJECT_TYPE_TABLE_AND_CHILDREN
     - FILTER_OBJECT_TYPE_TRIGGER
 - Called from (representative examples):
-  - read_dump_filters (in pg_dump.c)
-  - read_dumpall_filters (in pg_dumpall.c)
-  - read_restore_filters (in pg_restore.c)
+  - [read_dump_filters](../r/read_dump_filters.md) (in pg_dump.c)
+  - [read_dumpall_filters](../r/read_dumpall_filters.md) (in pg_dumpall.c)
+  - [read_restore_filters](../r/read_restore_filters.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - Returns constant string literals that do not need to be freed

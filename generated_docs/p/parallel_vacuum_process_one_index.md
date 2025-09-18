@@ -29,17 +29,17 @@ Key design aspects include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vac_bulkdel_one_index
-  - vac_cleanup_one_index
-  - pgstat_progress_parallel_incr_param
+  - [vac_bulkdel_one_index](../v/vac_bulkdel_one_index.md)
+  - [vac_cleanup_one_index](../v/vac_cleanup_one_index.md)
+  - [pgstat_progress_parallel_incr_param](pgstat_progress_parallel_incr_param.md)
   - RelationGetRelationName
-  - pstrdup
-  - pfree
+  - [pstrdup](pstrdup.md)
+  - [pfree](pfree.md)
   - memcpy
   - elog
 - Called from (representative examples):
-  - parallel_vacuum_process_safe_indexes
-  - parallel_vacuum_process_unsafe_indexes
+  - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md)
+  - [parallel_vacuum_process_unsafe_indexes](parallel_vacuum_process_unsafe_indexes.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the parallel vacuum implementation

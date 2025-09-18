@@ -25,9 +25,9 @@ WAL file recycling and preallocation help improve performance by reusing existin
   - ControlFileLock
   - LW_EXCLUSIVE (lock mode constant)
 - Called from (representative examples):
-  - BootStrapXLOG (in xlog.c)
-  - StartupXLOG (in xlog.c)
-  - WaitForWALToBecomeAvailable (in xlogrecovery.c)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md) (in xlog.c)
+  - [StartupXLOG](StartupXLOG.md) (in xlog.c)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (in xlogrecovery.c)
 
 ## Notes and Other Information
 - This function is the counterpart to the flag reset performed in XLogShutdownWalRcv()

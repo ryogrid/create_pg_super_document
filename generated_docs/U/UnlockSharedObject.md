@@ -23,18 +23,18 @@ This function releases a lock that was previously acquired on a shared database 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_OBJECT
-  - LockRelease
+  - [LockRelease](../L/LockRelease.md)
 - Types used:
   - LOCKTAG
 - Called from (representative examples):
-  - get_object_address
-  - AddSubscriptionRelState
-  - createdb_failure_callback
-  - AlterDatabaseSet
-  - get_db_info
-  - replorigin_drop_by_name
-  - drop_local_obsolete_slots
-  - XLTW_Oper
+  - [get_object_address](../g/get_object_address.md)
+  - [AddSubscriptionRelState](../A/AddSubscriptionRelState.md)
+  - [createdb_failure_callback](../c/createdb_failure_callback.md)
+  - [AlterDatabaseSet](../A/AlterDatabaseSet.md)
+  - [get_db_info](../g/get_db_info.md)
+  - [replorigin_drop_by_name](../r/replorigin_drop_by_name.md)
+  - [drop_local_obsolete_slots](../d/drop_local_obsolete_slots.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - Must be called with the same lockmode that was used to acquire the lock

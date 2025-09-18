@@ -23,11 +23,11 @@ This function handles the compression of data using zlib deflate algorithm and w
   - deflate (zlib compression function)
   - deflateReset (zlib stream reset function)
   - write (system call for writing to file descriptor)
-  - TarMethodData (data structure type)
+  - [TarMethodData](../T/TarMethodData.md) (data structure type)
   - ZLIB_OUT_SIZE (constant defining output buffer size)
 - Called from:
-  - tar_write
-  - tar_open_for_write
+  - [tar_write](tar_write.md)
+  - [tar_open_for_write](tar_open_for_write.md)
   - tar_close
   - tar_finish
 

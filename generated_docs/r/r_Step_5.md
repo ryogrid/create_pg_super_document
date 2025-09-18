@@ -25,15 +25,15 @@ This step is crucial for proper stemming as it prevents over-aggressive removal 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Searches backwards through the word for "e" or "l" suffixes
-  - r_R2: Tests if the current position is within the R2 morphological region  
-  - r_R1: Tests if the current position is within the R1 morphological region
-  - r_shortv: Tests if the word ends with a short syllable pattern
-  - slice_del: Deletes the identified character from the word
+  - [find_among_b](../f/find_among_b.md): Searches backwards through the word for "e" or "l" suffixes
+  - [r_R2](r_R2.md): Tests if the current position is within the R2 morphological region  
+  - [r_R1](r_R1.md): Tests if the current position is within the R1 morphological region
+  - [r_shortv](r_shortv.md): Tests if the word ends with a short syllable pattern
+  - [slice_del](../s/slice_del.md): Deletes the identified character from the word
   - a_8: Array containing patterns for "e" and "l" characters
 - Called from (representative examples):
-  - english_ISO_8859_1_stem: Main English stemming function
-  - english_UTF_8_stem: UTF-8 version of English stemming
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md): Main English stemming function
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md): UTF-8 version of English stemming
 
 ## Notes and Other Information
 - This is the final step (Step 5) in the Porter stemming algorithm

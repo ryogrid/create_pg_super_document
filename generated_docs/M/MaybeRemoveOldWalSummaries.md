@@ -28,17 +28,17 @@ This function takes no parameters but operates on several configuration and stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRedoRecPtr
-  - GetWalSummaries
-  - HandleWalSummarizerInterrupts
-  - XLogGetOldestSegno
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
+  - [GetWalSummaries](../G/GetWalSummaries.md)
+  - [HandleWalSummarizerInterrupts](../H/HandleWalSummarizerInterrupts.md)
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md)
   - XLogSegNoOffsetToRecPtr
   - XLogRecPtrIsInvalid
-  - RemoveWalSummaryIfOlderThan
+  - [RemoveWalSummaryIfOlderThan](../R/RemoveWalSummaryIfOlderThan.md)
   - foreach_delete_current
   - SECS_PER_MINUTE (constant)
 - Called from (representative examples):
-  - WalSummarizerMain
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
 
 ## Notes and Other Information
 - Cleanup is disabled when `wal_summary_keep_time` is set to 0, allowing administrators to disable automatic cleanup

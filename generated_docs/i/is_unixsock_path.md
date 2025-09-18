@@ -23,11 +23,11 @@ The function is implemented as a static inline for performance efficiency since 
 - Functions called/Symbols referenced:
   - is_absolute_path
 - Called from (representative examples):
-  - check_pghost_envvar (in pg_upgrade)
-  - exec_command_conninfo (in psql)
-  - do_connect (in psql)
+  - [check_pghost_envvar](../c/check_pghost_envvar.md) (in pg_upgrade)
+  - [exec_command_conninfo](../e/exec_command_conninfo.md) (in psql)
+  - [do_connect](../d/do_connect.md) (in psql)
   - pqConnectOptions2 (in libpq)
-  - passwordFromFile (in libpq)
+  - [passwordFromFile](../p/passwordFromFile.md) (in libpq)
 
 ## Notes and Other Information
 - The '@' prefix for abstract sockets is a Linux-specific feature that allows socket names to exist in an abstract namespace rather than the filesystem

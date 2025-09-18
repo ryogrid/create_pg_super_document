@@ -19,11 +19,11 @@ This function converts a Bitmapset containing attribute references into a dynami
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_num_members
-  - bms_next_member
+  - [bms_num_members](bms_num_members.md)
+  - [bms_next_member](bms_next_member.md)
   - AttributeNumberIsValid
   - MaxAttrNumber
-  - SortItem (type reference)
+  - [SortItem](../S/SortItem.md) (type reference)
 - Called from (representative examples):
   - No direct references found in current analysis
 

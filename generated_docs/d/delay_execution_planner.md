@@ -29,14 +29,14 @@ This mechanism allows tests to control the timing of query planning operations, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - prev_planner_hook (function pointer to previous hook)
-  - standard_planner (PostgreSQL's standard query planner)
+  - [standard_planner](../s/standard_planner.md) (PostgreSQL's standard query planner)
   - DirectFunctionCall1 (PostgreSQL's direct function call interface)
-  - pg_advisory_lock_int8 (advisory lock acquisition function)
-  - pg_advisory_unlock_int8 (advisory lock release function)
-  - Int64GetDatum (converts int64 to PostgreSQL Datum type)
-  - AcceptInvalidationMessages (processes pending cache invalidations)
+  - [pg_advisory_lock_int8](../p/pg_advisory_lock_int8.md) (advisory lock acquisition function)
+  - [pg_advisory_unlock_int8](../p/pg_advisory_unlock_int8.md) (advisory lock release function)
+  - [Int64GetDatum](../I/Int64GetDatum.md) (converts int64 to PostgreSQL Datum type)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (processes pending cache invalidations)
 - Called from:
-  - _PG_init (registered as planner hook during module initialization)
+  - [_PG_init](../P/_PG_init.md) (registered as planner hook during module initialization)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the delay_execution.c file

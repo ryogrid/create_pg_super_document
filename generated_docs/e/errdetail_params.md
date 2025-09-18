@@ -21,13 +21,13 @@ The function only adds parameter information if parameters exist, contain data, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (parameter list structure)
-  - BuildParamLogString (formats parameters for logging)
-  - errdetail (adds detail to error messages)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure)
+  - [BuildParamLogString](../B/BuildParamLogString.md) (formats parameters for logging)
+  - [errdetail](errdetail.md) (adds detail to error messages)
   - log_parameter_max_length (configuration variable)
 - Called from (representative examples):
-  - exec_bind_message (during bind message processing)
-  - exec_execute_message (during execute message processing)
+  - [exec_bind_message](exec_bind_message.md) (during bind message processing)
+  - [exec_execute_message](exec_execute_message.md) (during execute message processing)
 
 ## Notes and Other Information
 - Returns 0 in all cases (return value appears to be unused)

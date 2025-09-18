@@ -22,18 +22,18 @@ The computed distances are sorted in descending order so that the largest gaps a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll
-  - DatumGetFloat8
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - qsort
-  - compare_distances
-  - palloc0
+  - [compare_distances](../c/compare_distances.md)
+  - [palloc0](../p/palloc0.md)
 - Types referenced:
-  - ExpandedRange
-  - DistanceValue
+  - [ExpandedRange](../E/ExpandedRange.md)
+  - [DistanceValue](../D/DistanceValue.md)
 - Called from:
-  - ensure_free_space_in_buffer
-  - compactify_ranges
-  - brin_minmax_multi_union
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
+  - [brin_minmax_multi_union](brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - Returns NULL if only a single range is provided (no gaps to calculate)

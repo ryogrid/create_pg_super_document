@@ -30,17 +30,17 @@ The function handles both RANGE partitioned tables (where partition order matter
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SIMPLE_REL (macro to check if relation is a simple base relation)
-  - partitions_are_ordered (checks if partitions provide natural ordering)
-  - build_partition_pathkeys (builds pathkeys for partition column ordering)
-  - pathkeys_contained_in (checks if one pathkey list is contained in another)
-  - get_cheapest_path_for_pathkeys (finds cheapest path with specific ordering)
-  - get_cheapest_fractional_path_for_pathkeys (finds cheapest fractional path with ordering)
-  - get_singleton_append_subpath (extracts subpath from single-child Append/MergeAppend)
-  - accumulate_append_subpath (collects subpaths for MergeAppend construction)
-  - create_append_path (creates simple Append path when partition order matches)
-  - create_merge_append_path (creates MergeAppend path when sorting is required)
+  - [partitions_are_ordered](../p/partitions_are_ordered.md) (checks if partitions provide natural ordering)
+  - [build_partition_pathkeys](../b/build_partition_pathkeys.md) (builds pathkeys for partition column ordering)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md) (checks if one pathkey list is contained in another)
+  - [get_cheapest_path_for_pathkeys](get_cheapest_path_for_pathkeys.md) (finds cheapest path with specific ordering)
+  - [get_cheapest_fractional_path_for_pathkeys](get_cheapest_fractional_path_for_pathkeys.md) (finds cheapest fractional path with ordering)
+  - [get_singleton_append_subpath](get_singleton_append_subpath.md) (extracts subpath from single-child Append/MergeAppend)
+  - [accumulate_append_subpath](../a/accumulate_append_subpath.md) (collects subpaths for MergeAppend construction)
+  - [create_append_path](../c/create_append_path.md) (creates simple Append path when partition order matches)
+  - [create_merge_append_path](../c/create_merge_append_path.md) (creates MergeAppend path when sorting is required)
 - Called from (representative examples):
-  - add_paths_to_append_rel (main path generation for append relations)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md) (main path generation for append relations)
 
 ## Notes and Other Information
 - The function implements a sophisticated optimization for RANGE partitioned tables by detecting when partition order matches required sort order

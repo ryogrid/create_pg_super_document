@@ -20,7 +20,7 @@ This function provides the basic XML-to-text conversion functionality without an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xmltype (data type)
+  - [xmltype](xmltype.md) (data type)
   - PG_GETARG_XML_P (macro for retrieving XML argument)
   - PG_RETURN_TEXT_P (macro for returning text result)
 - Called from (representative examples):

@@ -29,18 +29,18 @@ The function uses a system catalog scan to locate existing settings and performs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtractSetVariableArgs
+  - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md)
   - table_open/table_close
-  - ScanKeyInit
-  - systable_beginscan/systable_endscan/systable_getnext
-  - heap_getattr
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
+  - [heap_getattr](../h/heap_getattr.md)
   - GUCArrayReset/GUCArrayAdd/GUCArrayDelete
-  - heap_modify_tuple/heap_form_tuple
-  - CatalogTupleUpdate/CatalogTupleInsert/CatalogTupleDelete
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)/heap_form_tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)/CatalogTupleInsert/CatalogTupleDelete
   - InvokeObjectPostAlterHookArg
 - Called from (representative examples):
-  - AlterDatabaseSet (src/backend/commands/dbcommands.c:2612)
-  - AlterRoleSet (src/backend/commands/user.c:1080)
+  - [AlterDatabaseSet](AlterDatabaseSet.md) (src/backend/commands/dbcommands.c:2612)
+  - [AlterRoleSet](AlterRoleSet.md) (src/backend/commands/user.c:1080)
 
 ## Notes and Other Information
 - Acquires RowExclusiveLock on the pg_db_role_setting relation to ensure consistency during modifications

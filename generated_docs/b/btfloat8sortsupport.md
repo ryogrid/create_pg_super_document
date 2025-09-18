@@ -20,7 +20,7 @@ This function initializes a SortSupport structure for double-precision floating-
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (macro for extracting pointer arguments)
   - SortSupport (type definition for sort support structure)
-  - btfloat8fastcmp (assigned as the comparator function)
+  - [btfloat8fastcmp](btfloat8fastcmp.md) (assigned as the comparator function)
   - PG_RETURN_VOID (macro for returning void)
 
 - Called from (representative examples):

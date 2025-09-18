@@ -29,17 +29,17 @@ The function ensures that all parallel workers can consistently access the same 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
-  - my_log2
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [my_log2](../m/my_log2.md)
   - InvalidDsaPointer (constant)
   - dsa_pointer_atomic (type)
-  - HashJoinTable (type)
+  - [HashJoinTable](../H/HashJoinTable.md) (type)
   - HashMemoryChunk (type)
 - Called from:
-  - MultiExecParallelHash
-  - ExecParallelHashIncreaseNumBatches
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md)
   - ExecParallelHashIncreaseNumBuckets
-  - ExecParallelHashJoinNewBatch
+  - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify the target batch has a valid bucket array

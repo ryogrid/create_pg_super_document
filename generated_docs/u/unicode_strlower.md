@@ -28,13 +28,13 @@ The function handles UTF-8 encoding properly, converting multi-byte Unicode char
   - CaseLower (enum value for lowercase conversion)
   - ssize_t (signed size type)
 - Called from (representative examples):
-  - str_tolower (formatting functions)
-  - test_strlower (unit tests)
+  - [str_tolower](../s/str_tolower.md) (formatting functions)
+  - [test_strlower](../t/test_strlower.md) (unit tests)
 
 ## Notes and Other Information
 - Returns the total length of the result string (not including NUL terminator)
 - If dstsize is 0, dst may be NULL - useful for calculating required buffer size
-- Result is NUL-terminated only if dstsize is greater than result length
+- [Result](../R/Result.md) is NUL-terminated only if dstsize is greater than result length
 - Properly handles UTF-8 multi-byte character sequences
 - Uses PostgreSQL's internal Unicode case mapping table
 - Located in src/common/unicode_case.c:69-99

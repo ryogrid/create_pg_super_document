@@ -20,10 +20,10 @@ The function is typically called during PostgreSQL startup to ensure crash dump 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetUnhandledExceptionFilter (Windows API)
-  - crashDumpHandler
+  - [crashDumpHandler](../c/crashDumpHandler.md)
 
 - Called from (representative examples):
-  - main (from src/backend/main/main.c)
+  - [main](../m/main.md) (from src/backend/main/main.c)
 
 ## Notes and Other Information
 - Windows-specific functionality, only available on Windows builds of PostgreSQL

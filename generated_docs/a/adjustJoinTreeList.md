@@ -32,7 +32,7 @@ The function only examines top-level join items in the FROM list, not nested joi
   - IsA (macro for type checking)
   - RangeTblRef (node type)
 - Called from (representative examples):
-  - rewriteRuleAction
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within rewriteHandler.c

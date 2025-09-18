@@ -18,11 +18,11 @@ The oidin function is responsible for parsing string input and converting it to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - uint32in_subr: Performs the actual string-to-uint32 conversion with error handling
+  - [uint32in_subr](../u/uint32in_subr.md): Performs the actual string-to-uint32 conversion with error handling
   - PG_RETURN_OID: Macro to return the converted OID value
 - Called from (representative examples):
-  - defGetObjectId: Used in DDL command processing
-  - parseNumericOid: Used in regproc type operations
+  - [defGetObjectId](../d/defGetObjectId.md): Used in DDL command processing
+  - [parseNumericOid](../p/parseNumericOid.md): Used in regproc type operations
 
 ## Notes and Other Information
 - This function is registered as the input function for the OID data type in PostgreSQL's type system

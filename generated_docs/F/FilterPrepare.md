@@ -26,9 +26,9 @@ The filtering process follows a hierarchical approach:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filter_prepare_cb_wrapper
+  - [filter_prepare_cb_wrapper](../f/filter_prepare_cb_wrapper.md)
 - Called from (representative examples):
-  - xact_decode (multiple calls at lines 239, 267, 325)
+  - [xact_decode](../x/xact_decode.md) (multiple calls at lines 239, 267, 325)
 
 ## Notes and Other Information
 - Returns `true` if the PREPARE should be skipped (filtered out)

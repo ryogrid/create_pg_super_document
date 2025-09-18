@@ -20,14 +20,14 @@ This is the core function that determines whether a specific restriction clause 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restriction_is_securely_promotable
-  - match_clause_to_indexcol
+  - [restriction_is_securely_promotable](../r/restriction_is_securely_promotable.md)
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md)
   - IndexClause
-  - IndexOptInfo
+  - [IndexOptInfo](../I/IndexOptInfo.md)
   - IndexClauseSet
 - Called from (representative examples):
-  - match_join_clauses_to_index
-  - match_clauses_to_index
+  - [match_join_clauses_to_index](match_join_clauses_to_index.md)
+  - [match_clauses_to_index](match_clauses_to_index.md)
   - ec_member_matches_arg
 
 ## Notes and Other Information

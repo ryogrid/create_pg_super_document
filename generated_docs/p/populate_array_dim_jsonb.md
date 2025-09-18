@@ -19,27 +19,27 @@ This function performs recursive traversal of JSONB array structures to populate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateArrayContext (context structure)
-  - JsonbContainer (JSONB container structure) 
+  - [PopulateArrayContext](../P/PopulateArrayContext.md) (context structure)
+  - [JsonbContainer](../J/JsonbContainer.md) (JSONB container structure) 
   - JsonbIterator (JSONB iterator structure)
   - JsonbIteratorToken (iterator token type)
-  - JsValue (value representation structure)
+  - [JsValue](../J/JsValue.md) (value representation structure)
   - check_stack_depth (stack overflow protection)
   - JsonContainerIsArray (array type check)
   - jbvBinary (JSONB binary type constant)
   - JsonContainerIsScalar (scalar type check)
-  - populate_array_report_expected_array (error reporting)
+  - [populate_array_report_expected_array](populate_array_report_expected_array.md) (error reporting)
   - SOFT_ERROR_OCCURRED (error checking macro)
-  - JsonbIteratorInit (iterator initialization)
-  - JsonbIteratorNext (iterator advancement)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md) (iterator initialization)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md) (iterator advancement)
   - WJB_BEGIN_ARRAY, WJB_END_ARRAY, WJB_ELEM, WJB_DONE (iterator token constants)
-  - populate_array_assign_ndims (dimension assignment)
-  - populate_array_element (element processing)
-  - populate_array_check_dimension (dimension validation)
+  - [populate_array_assign_ndims](populate_array_assign_ndims.md) (dimension assignment)
+  - [populate_array_element](populate_array_element.md) (element processing)
+  - [populate_array_check_dimension](populate_array_check_dimension.md) (dimension validation)
 - Called from (representative examples):
   - JsObjectFree
-  - populate_array_dim_jsonb (recursive self-call)
-  - populate_array
+  - [populate_array_dim_jsonb](populate_array_dim_jsonb.md) (recursive self-call)
+  - [populate_array](populate_array.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c serving as an internal implementation detail

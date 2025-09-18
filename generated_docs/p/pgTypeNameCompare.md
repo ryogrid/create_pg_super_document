@@ -27,11 +27,11 @@ The function includes special handling for unary operators where one operand OID
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTypeByOid (looks up TypeInfo by OID)
+  - [findTypeByOid](../f/findTypeByOid.md) (looks up TypeInfo by OID)
   - strcmp (standard string comparison)
 - Called from (representative examples):
-  - DOTypeNameCompare (for function argument type comparisons)
-  - DOTypeNameCompare (for operator operand type comparisons)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (for function argument type comparisons)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (for operator operand type comparisons)
 
 ## Notes and Other Information
 - Returns 0 if types are identical or if catalog corruption is detected

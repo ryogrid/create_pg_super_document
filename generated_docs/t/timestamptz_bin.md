@@ -34,9 +34,9 @@ The binning uses floor division (rounding towards negative infinity) for consist
   - PG_GETARG_TIMESTAMPTZ  
   - TIMESTAMP_NOT_FINITE
   - INTERVAL_NOT_FINITE
-  - pg_mul_s64_overflow
-  - pg_add_s64_overflow
-  - pg_sub_s64_overflow
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md)
   - IS_VALID_TIMESTAMP
   - PG_RETURN_TIMESTAMPTZ
   - USECS_PER_DAY

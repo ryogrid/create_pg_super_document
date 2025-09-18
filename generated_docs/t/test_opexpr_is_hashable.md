@@ -25,14 +25,14 @@ The function is designed to handle cases where function inlining might have alte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_ok_operator
-  - contain_exec_param
-  - contain_var_clause
+  - [hash_ok_operator](../h/hash_ok_operator.md)
+  - [contain_exec_param](../c/contain_exec_param.md)
+  - [contain_var_clause](../c/contain_var_clause.md)
   - linitial
   - lsecond
   - list_length
 - Called from (representative examples):
-  - testexpr_is_hashable
+  - [testexpr_is_hashable](testexpr_is_hashable.md)
 
 ## Notes and Other Information
 - The function assumes stricter conditions than plain operator strictness - the operator cannot yield NULL for non-null inputs

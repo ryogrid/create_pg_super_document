@@ -38,7 +38,7 @@ The enum is used throughout the logical replication subsystem to determine worke
   - None (enum definition)
 - Called from (representative examples):
   - `logicalrep_worker_launch` (src/backend/replication/logical/launcher.c:313)
-  - `LogicalRepWorker` struct member (src/include/replication/worker_internal.h:40)
+  - `[LogicalRepWorker](LogicalRepWorker.md)` struct member (src/include/replication/worker_internal.h:40)
 
 ## Notes and Other Information
 - The enum is defined in `src/include/replication/worker_internal.h:29-35`

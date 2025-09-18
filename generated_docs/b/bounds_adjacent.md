@@ -24,15 +24,15 @@ The adjacency check works differently based on the range subtype:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_cmp_bound_values
-  - make_range
+  - [range_cmp_bound_values](../r/range_cmp_bound_values.md)
+  - [make_range](../m/make_range.md)
   - RangeIsEmpty
   - OidIsValid (macro)
 - Called from (representative examples):
-  - range_adjacent_internal
-  - range_adjacent_multirange_internal
-  - multirange_adjacent_multirange
-  - adjacent_cmp_bounds
+  - [range_adjacent_internal](../r/range_adjacent_internal.md)
+  - [range_adjacent_multirange_internal](../r/range_adjacent_multirange_internal.md)
+  - [multirange_adjacent_multirange](../m/multirange_adjacent_multirange.md)
+  - [adjacent_cmp_bounds](../a/adjacent_cmp_bounds.md)
 
 ## Notes and Other Information
 - Asserts that boundA is not a lower bound and boundB is a lower bound

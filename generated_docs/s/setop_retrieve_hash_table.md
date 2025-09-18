@@ -27,10 +27,10 @@ The function returns one tuple per call, maintaining state between calls to cont
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
   - ScanTupleHashTable (iterates through hash table entries)
   - set_output_count (determines output count for a group)
-  - ExecStoreMinimalTuple (stores minimal tuple in result slot)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md) (stores minimal tuple in result slot)
   - ExecClearTuple (clears tuple slot when done)
 - Called from (representative examples):
-  - ExecSetOp (when using hashed strategy after table is filled)
+  - [ExecSetOp](../E/ExecSetOp.md) (when using hashed strategy after table is filled)
 
 ## Notes and Other Information
 - This is phase 2 of the two-phase hashed strategy (phase 1 is setop_fill_hash_table)

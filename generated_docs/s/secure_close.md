@@ -19,11 +19,11 @@ The function checks the `ssl_in_use` flag in the Port structure to determine if 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - be_tls_close (performs actual SSL session termination)
-  - Port (connection structure type)
+  - [be_tls_close](../b/be_tls_close.md) (performs actual SSL session termination)
+  - [Port](../P/Port.md) (connection structure type)
   - USE_SSL (compile-time macro check)
 - Called from (representative examples):
-  - socket_close (as part of general connection cleanup)
+  - [socket_close](socket_close.md) (as part of general connection cleanup)
   - FeBeWaitSetNEvents (referenced in libpq.h)
 
 ## Notes and Other Information

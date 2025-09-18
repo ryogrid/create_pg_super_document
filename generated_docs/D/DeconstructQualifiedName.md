@@ -26,15 +26,15 @@ DeconstructQualifiedName takes a list of String nodes representing a qualified n
   - linitial
   - lsecond
   - lthird
-  - get_database_name
-  - NameListToString
+  - [get_database_name](../g/get_database_name.md)
+  - [NameListToString](../N/NameListToString.md)
   - ereport
 - Called from (representative examples):
-  - FuncnameGetCandidates
-  - OpernameGetOprid
-  - OpernameGetCandidates
-  - get_statistics_object_oid
-  - LookupTypeNameExtended
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md)
+  - [OpernameGetOprid](../O/OpernameGetOprid.md)
+  - [OpernameGetCandidates](../O/OpernameGetCandidates.md)
+  - [get_statistics_object_oid](../g/get_statistics_object_oid.md)
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
 
 ## Notes and Other Information
 - Supports 1-part (object), 2-part (schema.object), and 3-part (database.schema.object) qualified names

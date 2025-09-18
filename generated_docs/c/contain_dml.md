@@ -26,9 +26,9 @@ The actual traversal logic is delegated to the `contain_dml_walker` function, fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_dml_walker
+  - [contain_dml_walker](contain_dml_walker.md)
 - Called from (representative examples):
-  - SS_process_ctes
+  - [SS_process_ctes](../S/SS_process_ctes.md)
 
 ## Notes and Other Information
 - Used specifically in CTE inlining decisions to prevent inlining of CTEs with side-effects

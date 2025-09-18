@@ -25,7 +25,7 @@ The function provides a clean interface for external code to obtain a Romanian s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - External stemming libraries
   - Text processing systems requiring Romanian stemming capability

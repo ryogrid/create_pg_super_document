@@ -23,17 +23,17 @@ ExecPartitionCheckEmitError is responsible for constructing informative error me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_attrmap_by_name_if_req
-  - execute_attr_map_slot
-  - MakeTupleTableSlot
-  - ExecGetInsertedCols
-  - ExecGetUpdatedCols
-  - bms_union
-  - ExecBuildSlotValueDescription
-  - errtable
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)
+  - [ExecGetInsertedCols](ExecGetInsertedCols.md)
+  - [ExecGetUpdatedCols](ExecGetUpdatedCols.md)
+  - [bms_union](../b/bms_union.md)
+  - [ExecBuildSlotValueDescription](ExecBuildSlotValueDescription.md)
+  - [errtable](../e/errtable.md)
 - Called from (representative examples):
-  - ExecPartitionCheck
-  - ExecCrossPartitionUpdate
+  - [ExecPartitionCheck](ExecPartitionCheck.md)
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md)
 
 ## Notes and Other Information
 - Handles tuple format conversion when dealing with routed tuples that have been converted to partition-specific rowtypes

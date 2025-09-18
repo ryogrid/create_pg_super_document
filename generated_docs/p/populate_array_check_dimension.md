@@ -18,11 +18,11 @@ This function is responsible for checking and maintaining dimensional consistenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateArrayContext (struct type)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md) (struct type)
   - ereturn (error return macro)
 - Called from (representative examples):
-  - populate_array_array_end
-  - populate_array_dim_jsonb
+  - [populate_array_array_end](populate_array_array_end.md)
+  - [populate_array_dim_jsonb](populate_array_dim_jsonb.md)
   - JsObjectFree
 
 ## Notes and Other Information

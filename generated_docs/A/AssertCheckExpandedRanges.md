@@ -27,16 +27,16 @@ The function dynamically retrieves the appropriate comparison functions (equalit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - minmax_multi_get_strategy_procinfo
-  - FunctionCall2Coll
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Data structures referenced:
-  - BrinDesc
-  - ExpandedRange
+  - [BrinDesc](../B/BrinDesc.md)
+  - [ExpandedRange](../E/ExpandedRange.md)
   - BTEqualStrategyNumber
   - BTLessStrategyNumber
 - Called from (representative examples):
-  - ensure_free_space_in_buffer
-  - brin_minmax_multi_union
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - This function only executes when USE_ASSERT_CHECKING is defined (debug builds)

@@ -26,11 +26,11 @@ The function is designed to be safe even when called multiple times or when work
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecParallelFinish
-  - pfree
+  - [ExecParallelFinish](ExecParallelFinish.md)
+  - [pfree](../p/pfree.md)
 - Called from:
-  - ExecShutdownGatherMerge (during normal shutdown)
-  - ExecReScanGatherMerge (during query rescanning operations)
+  - [ExecShutdownGatherMerge](ExecShutdownGatherMerge.md) (during normal shutdown)
+  - [ExecReScanGatherMerge](ExecReScanGatherMerge.md) (during query rescanning operations)
 
 ## Notes and Other Information
 - The function is declared static as it is only used internally within the nodeGatherMerge.c file

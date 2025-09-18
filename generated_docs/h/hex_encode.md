@@ -23,11 +23,11 @@ This is a core utility function that provides efficient hex encoding without mem
 - Functions called/Symbols referenced:
   - `hextbl` - Static lookup table containing "0123456789abcdef"
 - Called from (representative examples):
-  - `AddFileToBackupManifest` - Backup manifest file handling
-  - `SendBackupManifest` - Backup manifest transmission
-  - `byteaout` - Binary data output formatting
+  - `[AddFileToBackupManifest](../A/AddFileToBackupManifest.md)` - Backup manifest file handling
+  - `[SendBackupManifest](../S/SendBackupManifest.md)` - Backup manifest transmission
+  - `[byteaout](../b/byteaout.md)` - Binary data output formatting
   - `esc_dec_len` - Escape encoding/decoding operations
-  - `manifest_writer` - Backup manifest writing utilities
+  - `[manifest_writer](../m/manifest_writer.md)` - Backup manifest writing utilities
   - `add_file_to_manifest` - Adding files to backup manifests
   - `finalize_manifest` - Finalizing backup manifests
 

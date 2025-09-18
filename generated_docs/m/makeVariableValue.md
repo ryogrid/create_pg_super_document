@@ -18,22 +18,22 @@ The  function performs type inference and conversion on a variable that currentl
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen
-  - pg_strcasecmp
-  - pg_strncasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md)
   - setNullValue
   - setBoolValue
-  - is_an_int
-  - strtoint64
+  - [is_an_int](../i/is_an_int.md)
+  - [strtoint64](../s/strtoint64.md)
   - setIntValue
-  - strtodouble
+  - [strtodouble](../s/strtodouble.md)
   - setDoubleValue
   - pg_log_error
 - Types referenced:
-  - Variable
+  - [Variable](../V/Variable.md)
   - PGBT_NO_VALUE
   - int64
 - Called from (representative examples):
-  - evaluateExpr
+  - [evaluateExpr](../e/evaluateExpr.md)
 
 ## Notes and Other Information
 - Returns true on successful conversion, false on failure

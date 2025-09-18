@@ -27,20 +27,20 @@ The algorithm works by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - FPzero (floating-point zero comparison)
-  - FPeq (floating-point equality comparison)
-  - float8_mul, float8_div, float8_mi, float8_pl (floating-point arithmetic)
-  - point_construct (constructs Point from coordinates)
+  - [FPeq](../F/FPeq.md) (floating-point equality comparison)
+  - [float8_mul](../f/float8_mul.md), float8_div, float8_mi, float8_pl (floating-point arithmetic)
+  - [point_construct](../p/point_construct.md) (constructs Point from coordinates)
 - Types used:
-  - Point (geometric point type)
+  - [Point](../P/Point.md) (geometric point type)
   - LINE (geometric line type)
   - float8 (double precision floating-point)
 - Called from:
-  - line_interpt (main SQL function wrapper)
-  - line_intersect (line intersection test)
-  - line_parallel (parallel line test)
-  - line_distance (distance between lines)
-  - lseg_interpt_line (line segment to line intersection)
-  - line_closept_point (closest point on line to point)
+  - [line_interpt](line_interpt.md) (main SQL function wrapper)
+  - [line_intersect](line_intersect.md) (line intersection test)
+  - [line_parallel](line_parallel.md) (parallel line test)
+  - [line_distance](line_distance.md) (distance between lines)
+  - [lseg_interpt_line](lseg_interpt_line.md) (line segment to line intersection)
+  - [line_closept_point](line_closept_point.md) (closest point on line to point)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:1314-1379

@@ -25,8 +25,8 @@ The function is specifically designed for use by the replication subsystem and b
   - PqMsg_CommandComplete (protocol message type constant)
   - strlen (standard C library function for string length)
 - Called from (representative examples):
-  - StartReplication (in walsender.c)
-  - exec_replication_command (multiple calls in walsender.c)
+  - [StartReplication](../S/StartReplication.md) (in walsender.c)
+  - [exec_replication_command](../e/exec_replication_command.md) (multiple calls in walsender.c)
 
 ## Notes and Other Information
 - Located in src/backend/tcop/dest.c:205-217

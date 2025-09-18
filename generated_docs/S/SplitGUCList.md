@@ -26,19 +26,19 @@ The function modifies the input string in-place to contain the separated identif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scanner_isspace: Used to skip whitespace characters
+  - [scanner_isspace](../s/scanner_isspace.md): Used to skip whitespace characters
   - strchr: Used to find closing quotes in quoted strings
   - memmove: Used to collapse adjacent quotes
   - strlen: Used for string length calculation
   - lappend: Used to add elements to the output list
 
 - Called from (representative examples):
-  - parse_hba_auth_opt: Used in HBA (Host-Based Authentication) configuration parsing
-  - PostmasterMain: Used in postmaster initialization
+  - [parse_hba_auth_opt](../p/parse_hba_auth_opt.md): Used in HBA (Host-Based Authentication) configuration parsing
+  - [PostmasterMain](../P/PostmasterMain.md): Used in postmaster initialization
   - check_debug_io_direct: Used in file descriptor management
-  - pg_get_functiondef: Used in rule utilities for function definitions
-  - makeAlterConfigCommand: Used in pg_dump utilities
-  - dumpFunc: Used in pg_dump for function dumping
+  - [pg_get_functiondef](../p/pg_get_functiondef.md): Used in rule utilities for function definitions
+  - [makeAlterConfigCommand](../m/makeAlterConfigCommand.md): Used in pg_dump utilities
+  - [dumpFunc](../d/dumpFunc.md): Used in pg_dump for function dumping
 
 ## Notes and Other Information
 - The function returns true if parsing is successful, false if there is a syntax error

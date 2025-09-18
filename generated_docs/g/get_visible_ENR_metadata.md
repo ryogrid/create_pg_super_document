@@ -20,11 +20,11 @@ This function searches for an ephemeral named relation with the specified name i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ENR (to locate the ENR by name)
+  - [get_ENR](get_ENR.md) (to locate the ENR by name)
   - Assert (for parameter validation)
 - Called from (representative examples):
-  - name_matches_visible_ENR
-  - get_visible_ENR
+  - [name_matches_visible_ENR](../n/name_matches_visible_ENR.md)
+  - [get_visible_ENR](get_visible_ENR.md)
 
 ## Notes and Other Information
 - Returns NULL if queryEnv is NULL or if the named ENR is not found

@@ -30,21 +30,21 @@ This function follows PostgreSQL's SRF (Set-Returning Function) convention:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - hash_seq_init
-  - hash_seq_search
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - CStringGetTextDatum
   - TimestampTzGetDatum
-  - build_regtype_array
+  - [build_regtype_array](../b/build_regtype_array.md)
   - palloc_array
-  - BoolGetDatum
+  - [BoolGetDatum](../B/BoolGetDatum.md)
   - Int64GetDatumFast
   - tuplestore_putvalues
 - Data structures used:
   - ReturnSetInfo
   - HASH_SEQ_STATUS
   - PreparedStatement
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
   - prepared_queries (global hash table)
 - Called from (representative examples):
   - System view queries (via SQL interface)
@@ -55,6 +55,6 @@ This function follows PostgreSQL's SRF (Set-Returning Function) convention:
 - Uses materialized SRF approach to avoid hash table changes during iteration
 - Parameter and result types are returned as regtype arrays using build_regtype_array
 - The result_types column is NULL for statements without result descriptors (e.g., INSERT, UPDATE, DELETE)
-- Plan statistics (generic_plans, custom_plans) provide insight into PostgreSQL's adaptive planning behavior
+- [Plan](../P/Plan.md) statistics (generic_plans, custom_plans) provide insight into PostgreSQL's adaptive planning behavior
 - The from_sql flag distinguishes between statements prepared via SQL PREPARE vs. protocol-level preparation
 - This function is typically exposed through the pg_prepared_statements system view

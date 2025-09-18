@@ -23,19 +23,19 @@ The GinVacuumState structure serves as a central state container for GIN index v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexBulkDeleteResult
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
   - IndexBulkDeleteCallback
-  - GinState
-  - BufferAccessStrategy
+  - [GinState](GinState.md)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
 - Called from (representative examples):
-  - ginVacuumPostingTreeLeaf
-  - ginVacuumItemPointers
-  - ginDeletePage
-  - ginScanToDelete
-  - ginVacuumPostingTreeLeaves
-  - ginVacuumPostingTree
-  - ginVacuumEntryPage
-  - ginbulkdelete
+  - [ginVacuumPostingTreeLeaf](../g/ginVacuumPostingTreeLeaf.md)
+  - [ginVacuumItemPointers](../g/ginVacuumItemPointers.md)
+  - [ginDeletePage](../g/ginDeletePage.md)
+  - [ginScanToDelete](../g/ginScanToDelete.md)
+  - [ginVacuumPostingTreeLeaves](../g/ginVacuumPostingTreeLeaves.md)
+  - [ginVacuumPostingTree](../g/ginVacuumPostingTree.md)
+  - [ginVacuumEntryPage](../g/ginVacuumEntryPage.md)
+  - [ginbulkdelete](../g/ginbulkdelete.md)
 
 ## Notes and Other Information
 This structure is fundamental to the GIN vacuum implementation, providing a clean interface for passing vacuum state between different levels of the GIN index hierarchy. The structure supports memory management through the tmpCxt field and allows for strategic buffer access control, which is crucial for vacuum performance on large indexes. The callback mechanism enables flexible tuple deletion policies during vacuum operations.

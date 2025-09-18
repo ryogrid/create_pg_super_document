@@ -21,17 +21,17 @@ The function allocates an array to hold the found AppendRelInfo pointers and ite
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_num_members: Gets the number of members in the relids bitmapset
-  - bms_next_member: Iterates through bitmapset members
-  - find_base_rel_ignore_join: Checks if a relation ID corresponds to a base relation
-  - palloc: Allocates memory for the result array
+  - [bms_num_members](../b/bms_num_members.md): Gets the number of members in the relids bitmapset
+  - [bms_next_member](../b/bms_next_member.md): Iterates through bitmapset members
+  - [find_base_rel_ignore_join](find_base_rel_ignore_join.md): Checks if a relation ID corresponds to a base relation
+  - [palloc](../p/palloc.md): Allocates memory for the result array
   - elog: Reports errors for missing append_rel_array entries
 
 - Called from (representative examples):
-  - try_partitionwise_join: For partitionwise join planning
-  - build_child_join_sjinfo: When building child join information
-  - adjust_appendrel_attrs_multilevel: For multi-level attribute adjustment
-  - create_partitionwise_grouping_paths: In grouping path creation
+  - [try_partitionwise_join](../t/try_partitionwise_join.md): For partitionwise join planning
+  - [build_child_join_sjinfo](../b/build_child_join_sjinfo.md): When building child join information
+  - [adjust_appendrel_attrs_multilevel](../a/adjust_appendrel_attrs_multilevel.md): For multi-level attribute adjustment
+  - [create_partitionwise_grouping_paths](../c/create_partitionwise_grouping_paths.md): In grouping path creation
 
 ## Notes and Other Information
 - The function allocates memory for an array sized to accommodate all members of the relids bitmapset, but the actual number of AppendRelInfo structures returned may be smaller due to ignored outer-join indexes

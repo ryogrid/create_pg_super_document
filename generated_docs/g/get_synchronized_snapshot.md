@@ -19,12 +19,12 @@ This mechanism is essential for maintaining data consistency when multiple worke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQueryForSingleRow (execute SQL query expecting single result row)
-  - pg_strdup (duplicate string with PostgreSQL memory management)
-  - PQgetvalue (extract value from query result)
-  - PQclear (free query result memory)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (execute SQL query expecting single result row)
+  - [pg_strdup](../p/pg_strdup.md) (duplicate string with PostgreSQL memory management)
+  - [PQgetvalue](../P/PQgetvalue.md) (extract value from query result)
+  - [PQclear](../P/PQclear.md) (free query result memory)
 - Called from (representative examples):
-  - setup_connection (when setting up parallel dump coordination)
+  - [setup_connection](../s/setup_connection.md) (when setting up parallel dump coordination)
 
 ## Notes and Other Information
 - Function is marked static, limiting scope to pg_dump.c file

@@ -23,7 +23,7 @@ RoleSpecType provides a classification system for different ways roles can be sp
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - RoleSpec (in roletype field)
+  - [RoleSpec](RoleSpec.md) (in roletype field)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:392-399

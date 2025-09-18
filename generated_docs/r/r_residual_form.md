@@ -23,13 +23,13 @@ The r_residual_form function is a Portuguese-specific stemming function that pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Pattern matching function for residual form identification
-  - r_RV: RV region boundary checker (Portuguese uses RV instead of R1/R2 for some operations)
-  - slice_del: Suffix deletion function
-  - slice_from_s: Suffix replacement function
+  - [find_among_b](../f/find_among_b.md): Pattern matching function for residual form identification
+  - [r_RV](r_RV.md): RV region boundary checker (Portuguese uses RV instead of R1/R2 for some operations)
+  - [slice_del](../s/slice_del.md): Suffix deletion function
+  - [slice_from_s](../s/slice_from_s.md): Suffix replacement function
 - Called from (representative examples):
-  - portuguese_ISO_8859_1_stem
-  - portuguese_UTF_8_stem
+  - [portuguese_ISO_8859_1_stem](../p/portuguese_ISO_8859_1_stem.md)
+  - [portuguese_UTF_8_stem](../p/portuguese_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function is specific to Portuguese stemming and demonstrates language-specific morphological complexity

@@ -21,14 +21,14 @@ BufTableInsert attempts to create a new mapping between a BufferTag and a buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search_with_hash_value
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - BufferLookupEnt
   - BufferTag
   - HASH_ENTER
   - P_NEW
 - Called from (representative examples):
-  - BufferAlloc
-  - ExtendBufferedRelShared
+  - [BufferAlloc](BufferAlloc.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
 
 ## Notes and Other Information
 The caller must hold an exclusive lock on the BufMappingLock for the tags partition to ensure thread-safe modification of the hashtable. The function includes assertions to validate that the buffer ID is non-negative (since -1 is reserved for "not-in-table") and that the block number is not P_NEW (which represents an invalid tag for extending relations). The return value semantics are important: -1 indicates successful insertion, while any non-negative value indicates the buffer ID of a pre-existing conflicting entry.

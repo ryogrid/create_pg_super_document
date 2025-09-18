@@ -21,7 +21,7 @@ This function takes no parameters and operates on the global MyProcPort variable
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pq_getkeepalivescount`: Retrieves the actual keepalive count value for the given port
+  - `[pq_getkeepalivescount](../p/pq_getkeepalivescount.md)`: Retrieves the actual keepalive count value for the given port
   - `snprintf`: Formats the integer value into a string
   - `MyProcPort`: Global variable representing the current client connection port
 - Called from (representative examples):

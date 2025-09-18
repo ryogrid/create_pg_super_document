@@ -37,15 +37,15 @@ The operation works by:
   - ARR_NULLBITMAP (macro for accessing null bitmap)
   - ArrayGetNItems (calculates total number of items)
   - ArrayGetOffset (calculates linear offset from indices)
-  - array_copy (copies array elements)
-  - array_bitmap_copy (copies null bitmap portions)
+  - [array_copy](array_copy.md) (copies array elements)
+  - [array_bitmap_copy](array_bitmap_copy.md) (copies null bitmap portions)
   - array_seek (advances pointer through array)
-  - mda_get_prod (calculates dimension products)
-  - mda_get_range (calculates slice ranges)
-  - mda_get_offset_values (calculates offset values)
-  - mda_next_tuple (iterates through multi-dimensional coordinates)
+  - [mda_get_prod](../m/mda_get_prod.md) (calculates dimension products)
+  - [mda_get_range](../m/mda_get_range.md) (calculates slice ranges)
+  - [mda_get_offset_values](../m/mda_get_offset_values.md) (calculates offset values)
+  - [mda_next_tuple](../m/mda_next_tuple.md) (iterates through multi-dimensional coordinates)
 - Called from (representative examples):
-  - array_set_slice (performs array slice assignment operations)
+  - [array_set_slice](array_set_slice.md) (performs array slice assignment operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within arrayfuncs.c

@@ -62,15 +62,15 @@ The additional fields focus on transaction state, including the current transact
 
 ## Dependencies
 - Types referenced:
-  - PgBackendStatus (base backend status structure)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (base backend status structure)
   - ProcNumber (process identification type)
   - TransactionId (transaction identifier type)
 - Used by:
   - NumBackendStatSlots (for memory calculations)
   - pgstat_read_current_status (for building status arrays)
-  - cmp_lbestatus (for sorting backend entries)
-  - pgstat_get_beentry_by_proc_number (for proc-specific lookups)
-  - pgstat_get_local_beentry_by_proc_number (for local entry access)
+  - [cmp_lbestatus](../c/cmp_lbestatus.md) (for sorting backend entries)
+  - [pgstat_get_beentry_by_proc_number](../p/pgstat_get_beentry_by_proc_number.md) (for proc-specific lookups)
+  - [pgstat_get_local_beentry_by_proc_number](../p/pgstat_get_local_beentry_by_proc_number.md) (for local entry access)
   - Various pg_stat system functions for transaction and subtransaction monitoring
 
 ## Notes and Other Information

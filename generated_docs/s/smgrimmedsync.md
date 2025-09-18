@@ -25,11 +25,11 @@ The function delegates to the appropriate storage manager's immediate sync imple
   - smgrsw (storage manager switch table)
   - SMgrRelation (storage manager relation structure)
 - Called from (representative examples):
-  - smgr_bulk_finish (in bulk_write.c at line 214)
+  - [smgr_bulk_finish](smgr_bulk_finish.md) (in bulk_write.c at line 214)
 
 ## Notes and Other Information
 - Preceding writes should specify skipFsync = true to avoid duplicative fsyncs
-- FlushRelationBuffers() must be called first if there's any possibility of dirty buffers for the relation
+- [FlushRelationBuffers](../F/FlushRelationBuffers.md)() must be called first if there's any possibility of dirty buffers for the relation
 - Most callers should use the bulk loading facility in bulk_write.c instead of calling this directly
 - Sufficient for crash recovery but not for PITR or replication (requires WAL entries)
 - Used primarily for index builds and other bulk relation creation operations

@@ -45,12 +45,12 @@ This strict matching ensures that optimization is only applied when it's complet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_volatile_functions
-  - equal (for comparing node trees)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [equal](../e/equal.md) (for comparing node trees)
   - lfirst_node, linitial_node (list access macros)
-  - list_free, lappend_int (list manipulation)
+  - [list_free](../l/list_free.md), lappend_int (list manipulation)
 - Called from (representative examples):
-  - preprocess_aggref
+  - [preprocess_aggref](../p/preprocess_aggref.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the same source file

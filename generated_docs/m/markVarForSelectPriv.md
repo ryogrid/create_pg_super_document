@@ -20,13 +20,13 @@ This function is a key component in PostgreSQL's access control system, ensuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - markRTEForSelectPriv
+  - [markRTEForSelectPriv](markRTEForSelectPriv.md)
 - Called from (representative examples):
-  - transformJoinUsingClause
+  - [transformJoinUsingClause](../t/transformJoinUsingClause.md)
   - transformWholeRowRef
-  - scanNSItemForColumn
-  - expandNSItemAttrs
-  - ExpandSingleTable
+  - [scanNSItemForColumn](../s/scanNSItemForColumn.md)
+  - [expandNSItemAttrs](../e/expandNSItemAttrs.md)
+  - [ExpandSingleTable](../E/ExpandSingleTable.md)
 
 ## Notes and Other Information
 - The function includes an Assert to ensure the input is actually a Var node

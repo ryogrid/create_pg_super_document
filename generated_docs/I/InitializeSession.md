@@ -19,10 +19,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - Session (struct type)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [Session](../S/Session.md) (struct type)
 - Called from (representative examples):
-  - InitPostgres (in src/backend/utils/init/postinit.c:1236)
+  - [InitPostgres](InitPostgres.md) (in src/backend/utils/init/postinit.c:1236)
 
 ## Notes and Other Information
 - The Session object is allocated in TopMemoryContext to ensure it persists for the lifetime of the backend process

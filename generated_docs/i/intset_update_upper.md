@@ -28,17 +28,17 @@ The function uses a recursive approach to handle cascading splits that may occur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_new_internal_node
-  - intset_update_upper (recursive call)
-  - intset_internal_node
-  - intset_leaf_node
-  - intset_node
+  - [intset_new_internal_node](intset_new_internal_node.md)
+  - [intset_update_upper](intset_update_upper.md) (recursive call)
+  - [intset_internal_node](intset_internal_node.md)
+  - [intset_leaf_node](intset_leaf_node.md)
+  - [intset_node](intset_node.md)
   - MAX_TREE_LEVELS
   - MAX_INTERNAL_ITEMS
 - Called from (representative examples):
-  - intset_flush_buffered_values
-  - intset_update_upper (recursive)
-  - IntegerSet (during finalization)
+  - [intset_flush_buffered_values](intset_flush_buffered_values.md)
+  - [intset_update_upper](intset_update_upper.md) (recursive)
+  - [IntegerSet](../I/IntegerSet.md) (during finalization)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the integerset.c file

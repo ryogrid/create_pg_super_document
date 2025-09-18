@@ -22,7 +22,7 @@ This function implements the PostgreSQL SQL operator for multiplying a float8 va
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8
   - PG_GETARG_CASH
-  - cash_mul_float8
+  - [cash_mul_float8](../c/cash_mul_float8.md)
   - PG_RETURN_CASH
 - Called from (representative examples):
   - No direct callers found in codebase

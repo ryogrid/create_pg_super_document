@@ -21,27 +21,27 @@ The function creates AggInfo structures for each aggregate, populating them with
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - ExecuteSqlQuery
-  - PQntuples
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
   - pg_malloc
-  - PQfnumber
-  - PQgetvalue
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - AssignDumpId
-  - pg_strdup
-  - findNamespace
-  - getRoleName
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
   - atoi
-  - parseOidArray
-  - selectDumpableObject
-  - PQgetisnull
-  - PQclear
+  - [parseOidArray](../p/parseOidArray.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - The function uses version-specific SQL queries to handle changes in PostgreSQL's aggregate identification (proisagg vs prokind)

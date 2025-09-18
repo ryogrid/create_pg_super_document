@@ -24,8 +24,8 @@ WalSummarizerData serves as the central coordination structure for WAL summariza
 ## Dependencies
 - Functions called/Symbols referenced: None directly (this is a data structure)
 - Referenced by:
-  - WalSummarizerShmemSize (for calculating shared memory requirements)
-  - WalSummarizerShmemInit (for initializing the shared memory structure)
+  - [WalSummarizerShmemSize](WalSummarizerShmemSize.md) (for calculating shared memory requirements)
+  - [WalSummarizerShmemInit](WalSummarizerShmemInit.md) (for initializing the shared memory structure)
   - Various functions throughout walsummarizer.c for state management
 
 ## Notes and Other Information

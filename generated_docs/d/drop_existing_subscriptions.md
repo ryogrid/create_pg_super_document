@@ -26,16 +26,16 @@ The function is designed to handle the scenario where a standby server being con
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - pg_log_info
-  - PQexec
+  - [PQexec](../P/PQexec.md)
   - PGRES_COMMAND_OK
-  - PQresultErrorMessage
-  - disconnect_database
-  - PQclear
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [disconnect_database](disconnect_database.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - check_and_drop_existing_subscriptions
+  - [check_and_drop_existing_subscriptions](../c/check_and_drop_existing_subscriptions.md)
 
 ## Notes and Other Information
 - Commands are executed within a single transaction for atomicity

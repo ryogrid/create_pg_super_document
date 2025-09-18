@@ -39,17 +39,17 @@ This function is essential for both WAL replay during recovery (via heap_xlog_pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (C standard macro)
-  - xlhp_freeze_plans (struct type)
-  - xlhp_freeze_plan (struct type)
-  - xlhp_prune_items (struct type)
+  - [xlhp_freeze_plans](../x/xlhp_freeze_plans.md) (struct type)
+  - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md) (struct type)
+  - [xlhp_prune_items](../x/xlhp_prune_items.md) (struct type)
   - OffsetNumber (type)
   - XLHP_HAS_FREEZE_PLANS (flag constant)
   - XLHP_HAS_REDIRECTIONS (flag constant)
   - XLHP_HAS_DEAD_ITEMS (flag constant)
   - XLHP_HAS_NOW_UNUSED_ITEMS (flag constant)
 - Called from:
-  - heap_xlog_prune_freeze (WAL replay)
-  - heap2_desc (WAL description)
+  - [heap_xlog_prune_freeze](heap_xlog_prune_freeze.md) (WAL replay)
+  - [heap2_desc](heap2_desc.md) (WAL description)
 
 ## Notes and Other Information
 - Located in heapdesc.c to enable sharing between backend recovery code and frontend pg_waldump utility

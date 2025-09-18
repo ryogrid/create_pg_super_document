@@ -24,10 +24,10 @@ The function uses PostgreSQL's standard tree-walking infrastructure, recursively
 - Functions called/Symbols referenced:
   - expression_tree_walker
   - query_tree_walker
-  - exprLocation
+  - [exprLocation](../e/exprLocation.md)
   - ereport (for error handling)
 - Called from (representative examples):
-  - check_agg_arguments
+  - [check_agg_arguments](check_agg_arguments.md)
   - check_ungrouped_columns_context
   - (recursively calls itself)
 

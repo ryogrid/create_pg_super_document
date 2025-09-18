@@ -21,11 +21,11 @@ RelationPreserveStorage marks a relation as not to be deleted after all, removin
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelFileLocatorEquals
-  - pfree
-  - PendingRelDelete
+  - [pfree](../p/pfree.md)
+  - [PendingRelDelete](../P/PendingRelDelete.md)
 - Called from (representative examples):
-  - write_relmap_file
-  - ATExecAddIndex
+  - [write_relmap_file](../w/write_relmap_file.md)
+  - [ATExecAddIndex](../A/ATExecAddIndex.md)
 
 ## Notes and Other Information
 - Function is a no-op if the relation is not found in the pending deletion list

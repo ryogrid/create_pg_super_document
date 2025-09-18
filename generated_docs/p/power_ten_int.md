@@ -23,12 +23,12 @@ The implementation efficiently handles both positive and negative exponents by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_var_from_var (copies const_one to initialize result)
+  - [set_var_from_var](../s/set_var_from_var.md) (copies const_one to initialize result)
   - const_one (constant representing the value 1)
   - DEC_DIGITS (constant defining digits per NBASE unit)
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT (numeric optimization function)
-  - get_str_from_var_sci (scientific notation formatting)
+  - [get_str_from_var_sci](../g/get_str_from_var_sci.md) (scientific notation formatting)
 
 ## Notes and Other Information
 - This is a static function internal to numeric.c, not exposed in the public API

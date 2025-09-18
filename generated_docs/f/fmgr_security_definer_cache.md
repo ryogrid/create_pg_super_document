@@ -24,12 +24,12 @@ The cache is populated once per query when a security-definer or proconfig funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (structure type)
+  - [FmgrInfo](../F/FmgrInfo.md) (structure type)
   - Oid (type)
-  - List (structure type) 
+  - [List](../L/List.md) (structure type) 
   - Datum (type)
 - Called from (representative examples):
-  - fmgr_security_definer
+  - [fmgr_security_definer](fmgr_security_definer.md)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's function manager (fmgr) subsystem and is specifically designed to optimize the execution of functions that require special security or configuration contexts. The caching mechanism is essential for performance, as switching user contexts and modifying GUC parameters can be expensive operations. The structure is allocated in the function's memory context to ensure proper lifetime management and is typically stored in the fn_extra field of the FmgrInfo structure.

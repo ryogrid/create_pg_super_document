@@ -22,12 +22,12 @@ This function is part of PostgreSQL's frontend memory utilities located in src/c
   - free (standard C library function)
 
 - Called from (representative examples):
-  - icu_language_tag (src/bin/initdb/initdb.c:2336)
-  - setlocales (src/bin/initdb/initdb.c:2478)
-  - main (src/bin/pg_basebackup/pg_basebackup.c:2597)
-  - get_standby_sysid (src/bin/pg_basebackup/pg_createsubscriber.c:618)
-  - parseAclItem (src/bin/pg_dump/dumputils.c:439)
-  - pfree (src/common/fe_memutils.c:135)
+  - [icu_language_tag](../i/icu_language_tag.md) (src/bin/initdb/initdb.c:2336)
+  - [setlocales](../s/setlocales.md) (src/bin/initdb/initdb.c:2478)
+  - [main](../m/main.md) (src/bin/pg_basebackup/pg_basebackup.c:2597)
+  - [get_standby_sysid](../g/get_standby_sysid.md) (src/bin/pg_basebackup/pg_createsubscriber.c:618)
+  - [parseAclItem](parseAclItem.md) (src/bin/pg_dump/dumputils.c:439)
+  - [pfree](pfree.md) (src/common/fe_memutils.c:135)
   - And many other frontend utilities across the PostgreSQL codebase
 
 ## Notes and Other Information

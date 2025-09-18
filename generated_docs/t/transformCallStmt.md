@@ -31,9 +31,9 @@ The function ensures that CALL statements can handle complex parameter scenarios
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr, ParseFuncOrColumn, assign_expr_collations
-  - expand_function_arguments, SearchSysCache1, ReleaseSysCache
-  - SysCacheGetAttr, DatumGetArrayTypeP, copyObject
+  - [transformExpr](transformExpr.md), ParseFuncOrColumn, assign_expr_collations
+  - [expand_function_arguments](../e/expand_function_arguments.md), SearchSysCache1, ReleaseSysCache
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md), DatumGetArrayTypeP, copyObject
   - lappend, lfirst, list_length, castNode, makeNode
   - HeapTupleIsValid, ObjectIdGetDatum
 - Constants referenced:
@@ -43,7 +43,7 @@ The function ensures that CALL statements can handle complex parameter scenarios
 - Array manipulation macros:
   - ARR_NDIM, ARR_DIMS, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
 - Called from (representative examples):
-  - transformStmt
+  - [transformStmt](transformStmt.md)
 
 ## Notes and Other Information
 - Argument expansion occurs during parsing rather than planning, unlike regular function calls

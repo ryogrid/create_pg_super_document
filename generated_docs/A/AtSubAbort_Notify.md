@@ -23,11 +23,11 @@ This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - ActionList (structure type)
-  - NotificationList (structure type)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [ActionList](ActionList.md) (structure type)
+  - [NotificationList](../N/NotificationList.md) (structure type)
 - Called from (representative examples):
-  - AbortSubTransaction
+  - [AbortSubTransaction](AbortSubTransaction.md)
 
 ## Notes and Other Information
 - Uses while loops to handle multiple levels that may need cleanup during nested subtransaction aborts

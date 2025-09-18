@@ -32,19 +32,19 @@ The direction (forward for LEAD, backward for LAG) is controlled by the `forward
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_WINDOW_OBJECT
-  - DatumGetInt32
-  - WinGetFuncArgCurrent
-  - get_fn_expr_arg_stable
-  - WinGetFuncArgInPartition
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [WinGetFuncArgCurrent](../W/WinGetFuncArgCurrent.md)
+  - [get_fn_expr_arg_stable](../g/get_fn_expr_arg_stable.md)
+  - [WinGetFuncArgInPartition](../W/WinGetFuncArgInPartition.md)
   - WINDOW_SEEK_CURRENT
   - PG_RETURN_DATUM
 - Called from (representative examples):
-  - window_lag
-  - window_lag_with_offset
-  - window_lag_with_offset_and_default
-  - window_lead
-  - window_lead_with_offset
-  - window_lead_with_offset_and_default
+  - [window_lag](../w/window_lag.md)
+  - [window_lag_with_offset](../w/window_lag_with_offset.md)
+  - [window_lag_with_offset_and_default](../w/window_lag_with_offset_and_default.md)
+  - [window_lead](../w/window_lead.md)
+  - [window_lead_with_offset](../w/window_lead_with_offset.md)
+  - [window_lead_with_offset_and_default](../w/window_lead_with_offset_and_default.md)
 
 ## Notes and Other Information
 - This is a static helper function that consolidates the common logic between LAG and LEAD functions

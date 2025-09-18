@@ -30,15 +30,15 @@ The function differs from previous steps by incorporating vowel group validation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Searches backwards for patterns in the given array
-  - `slice_del`: Deletes the substring between bra and ket
-  - `slice_from_s`: Replaces the substring with specified string
-  - `in_grouping_b_U`: Checks if character belongs to specified Unicode group backwards
+  - `[find_among_b](../f/find_among_b.md)`: Searches backwards for patterns in the given array
+  - `[slice_del](../s/slice_del.md)`: Deletes the substring between bra and ket
+  - `[slice_from_s](../s/slice_from_s.md)`: Replaces the substring with specified string
+  - `[in_grouping_b_U](../i/in_grouping_b_U.md)`: Checks if character belongs to specified Unicode group backwards
   - `a_32`: Array of 3 suffix patterns for matching
   - `g_v`: Greek vowel grouping definition
   - `s_69`: Greek character "ι" (iota) used as replacement
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function at line 3565
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function at line 3565
 
 ## Notes and Other Information
 - This is step 3 in the Greek stemming algorithm, executed after steps 2c and 2d

@@ -29,10 +29,10 @@ This function implements the core recursive directory traversal logic for Postgr
   - S_ISREG, S_ISDIR, S_ISLNK (file type macros)
   - FILE_TYPE_REGULAR, FILE_TYPE_DIRECTORY, FILE_TYPE_SYMLINK (constants)
   - snprintf (path construction)
-  - pg_fatal (error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
 - Called from (representative examples):
-  - traverse_datadir (file_ops.c:364)
-  - recurse_dir (self-recursion at lines 432, 457)
+  - [traverse_datadir](../t/traverse_datadir.md) (file_ops.c:364)
+  - [recurse_dir](recurse_dir.md) (self-recursion at lines 432, 457)
 
 ## Notes and Other Information
 - This is a static function, only accessible within file_ops.c

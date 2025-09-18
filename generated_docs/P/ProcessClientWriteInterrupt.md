@@ -22,11 +22,11 @@ When the process is dying and the write operation is blocked, the function caref
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (macro)
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - DestRemote (constant)
   - DestNone (constant)
 - Called from (representative examples):
-  - secure_write (in be-secure.c)
+  - [secure_write](../s/secure_write.md) (in be-secure.c)
 
 ## Notes and Other Information
 - Must preserve errno value across the function call

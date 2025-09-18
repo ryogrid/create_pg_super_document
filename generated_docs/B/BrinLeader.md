@@ -25,16 +25,16 @@ The structure includes pointers to shared memory segments for coordination, perf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelContext
-  - BrinShared
+  - [ParallelContext](../P/ParallelContext.md)
+  - [BrinShared](BrinShared.md)
   - Sharedsort
   - WalUsage
   - BufferUsage
 - Called from (representative examples):
-  - BrinBuildState
-  - _brin_begin_parallel
-  - _brin_end_parallel
-  - _brin_leader_participate_as_worker
+  - [BrinBuildState](BrinBuildState.md)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_brin_end_parallel](../b/_brin_end_parallel.md)
+  - [_brin_leader_participate_as_worker](../b/_brin_leader_participate_as_worker.md)
 
 ## Notes and Other Information
 The leader avoids TOC lookups by maintaining direct pointers to shared state. The nparticipanttuplesorts count excludes builds with DISABLE_LEADER_PARTICIPATION where the leader does not participate as a worker. The structure is essential for coordinating the parallel build process and collecting performance statistics.

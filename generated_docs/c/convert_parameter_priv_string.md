@@ -23,11 +23,11 @@ The function supports both basic privileges (SET, ALTER SYSTEM) and their grant 
   - ACL_SET (privilege constant for SET privilege)
   - ACL_ALTER_SYSTEM (privilege constant for ALTER SYSTEM privilege)
   - ACL_GRANT_OPTION_FOR (macro to create grant option variants)
-  - convert_any_priv_string (generic privilege string converter)
+  - [convert_any_priv_string](convert_any_priv_string.md) (generic privilege string converter)
 - Called from (representative examples):
-  - has_parameter_privilege_name_name
-  - has_parameter_privilege_name
-  - has_parameter_privilege_id_name
+  - [has_parameter_privilege_name_name](../h/has_parameter_privilege_name_name.md)
+  - [has_parameter_privilege_name](../h/has_parameter_privilege_name.md)
+  - [has_parameter_privilege_id_name](../h/has_parameter_privilege_id_name.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same source file (src/backend/utils/adt/acl.c)

@@ -22,10 +22,10 @@ The function allocates workspace in the global waitOrderProcs array and builds t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_count
-  - TopoSort
+  - [dclist_count](../d/dclist_count.md)
+  - [TopoSort](../T/TopoSort.md)
 - Called from (representative examples):
-  - TestConfiguration
+  - [TestConfiguration](../T/TestConfiguration.md)
 
 ## Notes and Other Information
 - Uses global arrays waitOrders and waitOrderProcs for workspace allocation

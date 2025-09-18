@@ -29,14 +29,14 @@ The structure captures a snapshot of a particular process's involvement with a s
   - LOCKTAG
   - LOCKMASK
   - LOCKMODE
-  - VirtualTransactionId
+  - [VirtualTransactionId](../V/VirtualTransactionId.md)
   - TimestampTz
 - Called from (representative examples):
-  - GetLockStatusData
-  - GetBlockerStatusData
-  - GetSingleProcBlockerStatusData
-  - pg_lock_status
-  - pg_blocking_pids
+  - [GetLockStatusData](../G/GetLockStatusData.md)
+  - [GetBlockerStatusData](../G/GetBlockerStatusData.md)
+  - [GetSingleProcBlockerStatusData](../G/GetSingleProcBlockerStatusData.md)
+  - [pg_lock_status](../p/pg_lock_status.md)
+  - [pg_blocking_pids](../p/pg_blocking_pids.md)
 
 ## Notes and Other Information
 LockInstanceData is specifically designed for external consumption rather than internal lock management. It provides a stable interface for lock introspection functions that expose lock information to database administrators and monitoring tools. The structure includes timing information that helps diagnose lock contention issues and the fastpath flag that indicates whether the lock bypassed the normal shared memory lock table for performance optimization.

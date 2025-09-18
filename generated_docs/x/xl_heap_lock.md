@@ -32,10 +32,10 @@ This record is written to the WAL whenever a tuple lock needs to be logged, ensu
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - heap_update
-  - heap_lock_tuple  
-  - heap_xlog_lock
-  - heap_desc
+  - [heap_update](../h/heap_update.md)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)  
+  - [heap_xlog_lock](../h/heap_xlog_lock.md)
+  - [heap_desc](../h/heap_desc.md)
   - SizeOfHeapLock
 
 ## Notes and Other Information

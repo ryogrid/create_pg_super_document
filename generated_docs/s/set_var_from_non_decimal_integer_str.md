@@ -28,18 +28,18 @@ The `set_var_from_non_decimal_integer_str` function handles parsing of non-decim
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var
-  - zero_var
+  - [zero_var](../z/zero_var.md)
   - PG_INT64_MAX
-  - int64_to_numericvar
-  - mul_var
-  - add_var
+  - [int64_to_numericvar](../i/int64_to_numericvar.md)
+  - [mul_var](../m/mul_var.md)
+  - [add_var](../a/add_var.md)
   - NUMERIC_WEIGHT_MAX
-  - xdigit_value
-  - free_var
+  - [xdigit_value](../x/xdigit_value.md)
+  - [free_var](../f/free_var.md)
   - ereturn
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT
-  - numeric_in
+  - [numeric_in](../n/numeric_in.md)
 
 ## Notes and Other Information
 This function implements a chunked parsing algorithm to handle very large integers without losing precision. The algorithm processes digits in groups that fit within int64 range, converting each group and then using numeric arithmetic to combine them. This approach allows PostgreSQL to handle arbitrarily large non-decimal integers while maintaining exact precision. The function includes overflow protection by checking the numeric weight against NUMERIC_WEIGHT_MAX. The support for underscores as digit separators aligns with modern programming language standards for numeric literal readability.

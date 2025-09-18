@@ -30,25 +30,25 @@ The function includes transaction safety checks to prevent DISCARD ALL from bein
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventInTransactionBlock
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
   - PortalHashTableDeleteAll
-  - SetPGVariable
-  - ResetAllOptions
-  - DropAllPreparedStatements
-  - Async_UnlistenAll
-  - LockReleaseAll
-  - ResetPlanCache
-  - ResetTempTableNamespace
-  - ResetSequenceCaches
+  - [SetPGVariable](../S/SetPGVariable.md)
+  - [ResetAllOptions](../R/ResetAllOptions.md)
+  - [DropAllPreparedStatements](DropAllPreparedStatements.md)
+  - [Async_UnlistenAll](../A/Async_UnlistenAll.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [ResetPlanCache](../R/ResetPlanCache.md)
+  - [ResetTempTableNamespace](../R/ResetTempTableNamespace.md)
+  - [ResetSequenceCaches](../R/ResetSequenceCaches.md)
   - USER_LOCKMETHOD (constant)
 - Called from (representative examples):
-  - DiscardCommand
+  - [DiscardCommand](DiscardCommand.md)
 
 ## Notes and Other Information
 - The function is declared static, meaning it's only accessible within the discard.c compilation unit
-- Portal cleanup is performed first because closing portals might run user-defined code
+- [Portal](../P/Portal.md) cleanup is performed first because closing portals might run user-defined code
 - The transaction block prevention is a safety measure to catch potential user mistakes
-- Session authorization is reset using SetPGVariable with NIL value and false for local-only
+- [Session](../S/Session.md) authorization is reset using SetPGVariable with NIL value and false for local-only
 - Advisory locks are released using USER_LOCKMETHOD with the allxids parameter set to true
 - This function represents one of the most comprehensive session cleanup operations in PostgreSQL
 - The order of operations is carefully chosen to handle dependencies between different types of session state

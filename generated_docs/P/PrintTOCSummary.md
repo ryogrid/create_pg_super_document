@@ -23,16 +23,16 @@ The function handles output redirection, allowing the summary to be written to a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SaveOutput/RestoreOutput (output redirection management)
-  - SetOutput (file output configuration)
+  - [SaveOutput](../S/SaveOutput.md)/RestoreOutput (output redirection management)
+  - [SetOutput](../S/SetOutput.md) (file output configuration)
   - strftime (timestamp formatting)
-  - ahprintf (archive-specific formatted output)
-  - sanitize_line (name sanitization for output)
+  - [ahprintf](../a/ahprintf.md) (archive-specific formatted output)
+  - [sanitize_line](../s/sanitize_line.md) (name sanitization for output)
   - get_compress_algorithm_name (compression algorithm display)
-  - _tocEntryRequired (object selection logic)
-  - StrictNamesCheck (name validation)
+  - [_tocEntryRequired](../t/_tocEntryRequired.md) (object selection logic)
+  - [StrictNamesCheck](../S/StrictNamesCheck.md) (name validation)
 - Called from (representative examples):
-  - main (in pg_restore)
+  - [main](../m/main.md) (in pg_restore)
 
 ## Notes and Other Information
 - The summary output includes both archive metadata and object listings in a comment-style format
@@ -42,4 +42,4 @@ The function handles output redirection, allowing the summary to be written to a
 - The function supports both console and file output through the archive's output system
 - Timestamp formatting follows the PGDUMP_STRFTIME_FMT standard for consistency
 - The TOC summary is always generated uncompressed regardless of archive compression settings
-- Archive format detection covers all supported formats: CUSTOM, DIRECTORY, TAR, and UNKNOWN fallback
+- [Archive](../A/Archive.md) format detection covers all supported formats: CUSTOM, DIRECTORY, TAR, and UNKNOWN fallback

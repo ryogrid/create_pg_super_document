@@ -18,10 +18,10 @@ PgArchData is a shared memory structure located in src/backend/postmaster/pgarch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
 - Called from (representative examples):
-  - PgArchShmemSize
-  - PgArchShmemInit
+  - [PgArchShmemSize](PgArchShmemSize.md)
+  - [PgArchShmemInit](PgArchShmemInit.md)
 
 ## Notes and Other Information
 - This structure resides in shared memory to enable communication between the postmaster and archiver processes

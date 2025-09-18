@@ -19,13 +19,13 @@ Additionally, the function updates the dataLength property of dependent items to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
   - DumpId (type)
   - SECTION_POST_DATA (constant)
   - Max (macro)
   - pg_log_debug (logging function)
 - Called from (representative examples):
-  - fix_dependencies
+  - [fix_dependencies](../f/fix_dependencies.md)
 
 ## Notes and Other Information
 - This function only processes entries in the SECTION_POST_DATA section, leaving PRE_DATA and DATA sections unmodified

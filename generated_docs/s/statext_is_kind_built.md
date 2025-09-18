@@ -18,7 +18,7 @@ This function determines if a particular kind of extended statistics exists in a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_attisnull
+  - [heap_attisnull](../h/heap_attisnull.md)
   - STATS_EXT_NDISTINCT (constant)
   - STATS_EXT_DEPENDENCIES (constant) 
   - STATS_EXT_MCV (constant)
@@ -28,7 +28,7 @@ This function determines if a particular kind of extended statistics exists in a
   - Anum_pg_statistic_ext_data_stxdmcv (catalog column number)
   - Anum_pg_statistic_ext_data_stxdexpr (catalog column number)
 - Called from:
-  - get_relation_statistics_worker (in src/backend/optimizer/util/plancat.c at lines 1402, 1416, 1430, 1444)
+  - [get_relation_statistics_worker](../g/get_relation_statistics_worker.md) (in src/backend/optimizer/util/plancat.c at lines 1402, 1416, 1430, 1444)
 
 ## Notes and Other Information
 - Returns true if the requested statistics type has been computed and stored

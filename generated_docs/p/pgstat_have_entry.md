@@ -23,11 +23,11 @@ This function serves as an efficient precondition check that can be used before 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - pgstat_get_entry_ref
-  - PgStat_Kind (enum type)
+  - [PgStat_Kind](../P/PgStat_Kind.md) (enum type)
 - Called from (representative examples):
-  - pg_stat_have_stats
+  - [pg_stat_have_stats](pg_stat_have_stats.md)
 
 ## Notes and Other Information
 - Fixed-amount statistics kinds always return true, as these statistics are always present once initialized

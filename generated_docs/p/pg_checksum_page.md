@@ -24,16 +24,16 @@ The algorithm includes several important safety measures:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGChecksummablePage (data structure for page representation)
-  - PageIsNew (function to check if page is initialized)
-  - pg_checksum_block (core checksum computation function)
+  - [PGChecksummablePage](../P/PGChecksummablePage.md) (data structure for page representation)
+  - [PageIsNew](../P/PageIsNew.md) (function to check if page is initialized)
+  - [pg_checksum_block](pg_checksum_block.md) (core checksum computation function)
 - Called from (representative examples):
-  - verify_page_checksum (in basebackup.c)
+  - [verify_page_checksum](../v/verify_page_checksum.md) (in basebackup.c)
   - PageIsVerifiedExtended (in bufpage.c)
-  - PageSetChecksumCopy (in bufpage.c)
-  - PageSetChecksumInplace (in bufpage.c)
-  - scan_file (in pg_checksums.c)
-  - rewriteVisibilityMap (in pg_upgrade)
+  - [PageSetChecksumCopy](../P/PageSetChecksumCopy.md) (in bufpage.c)
+  - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md) (in bufpage.c)
+  - [scan_file](../s/scan_file.md) (in pg_checksums.c)
+  - [rewriteVisibilityMap](../r/rewriteVisibilityMap.md) (in pg_upgrade)
 
 ## Notes and Other Information
 - The function requires pages to be adequately aligned (at least 4-byte boundary)

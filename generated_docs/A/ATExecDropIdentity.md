@@ -32,22 +32,22 @@ The cleanup process includes removing the identity flag from pg_attribute and de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheCopyAttName
-  - CatalogTupleUpdate
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSubSet
-  - heap_freetuple
-  - find_inheritance_children
-  - getIdentitySequence
-  - deleteDependencyRecordsForClass
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [getIdentitySequence](../g/getIdentitySequence.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - CommandCounterIncrement
-  - performDeletion
-  - ATExecDropIdentity (recursive call)
+  - [performDeletion](../p/performDeletion.md)
+  - [ATExecDropIdentity](ATExecDropIdentity.md) (recursive call)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
-  - DetachPartitionFinalize
-  - ATExecDropIdentity (self-recursion)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [ATExecDropIdentity](ATExecDropIdentity.md) (self-recursion)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, part of the ALTER TABLE infrastructure

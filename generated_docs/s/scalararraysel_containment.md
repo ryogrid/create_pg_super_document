@@ -31,12 +31,12 @@ For inequality operators (<>), the function swaps ANY/ALL semantics and inverts 
 - Functions called/Symbols referenced:
   - examine_variable
   - ReleaseVariableStats
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - statistic_proc_security_check
-  - get_attstatsslot
-  - mcelem_array_contain_overlap_selec
-  - mcelem_array_contained_selec
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [mcelem_array_contain_overlap_selec](../m/mcelem_array_contain_overlap_selec.md)
+  - [mcelem_array_contained_selec](../m/mcelem_array_contained_selec.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - CLAMP_PROBABILITY
 - Called from:
   - scalararraysel (src/backend/utils/adt/selfuncs.c:1878)

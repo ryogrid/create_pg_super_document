@@ -27,9 +27,9 @@ This function is particularly useful for detecting orphaned temporary tables or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTempNamespaceProcNumber
+  - [GetTempNamespaceProcNumber](../G/GetTempNamespaceProcNumber.md)
   - ProcNumberGetProc
-  - PGPROC (structure type)
+  - [PGPROC](../P/PGPROC.md) (structure type)
   - ProcNumber (type)
   - INVALID_PROC_NUMBER (constant)
   - TEMP_NAMESPACE_NOT_TEMP (enum value)
@@ -37,7 +37,7 @@ This function is particularly useful for detecting orphaned temporary tables or 
   - TEMP_NAMESPACE_IN_USE (enum value)
 
 - Called from (representative examples):
-  - do_autovacuum (used for detecting orphaned temp objects)
+  - [do_autovacuum](../d/do_autovacuum.md) (used for detecting orphaned temp objects)
   - RangeVarGetRelid
 
 ## Notes and Other Information

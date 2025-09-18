@@ -32,17 +32,17 @@ This mapping list is essential for the get_flush_position() function to determin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_parallel_apply_worker
-  - MemoryContextSwitchTo
-  - palloc
-  - dlist_push_tail
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
 - Called from (representative examples):
-  - pa_xact_finish
-  - apply_handle_prepare
-  - apply_handle_commit_prepared
-  - apply_handle_rollback_prepared
-  - apply_handle_stream_prepare
-  - apply_handle_commit_internal
+  - [pa_xact_finish](../p/pa_xact_finish.md)
+  - [apply_handle_prepare](../a/apply_handle_prepare.md)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_commit_internal](../a/apply_handle_commit_internal.md)
 
 ## Notes and Other Information
 - Only operates on leader apply workers; parallel workers are excluded to maintain single-threaded control over the LSN mapping

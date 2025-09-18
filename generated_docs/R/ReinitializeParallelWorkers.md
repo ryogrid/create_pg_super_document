@@ -20,11 +20,11 @@ The function ensures that the requested number of workers does not exceed the ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelContext (structure being modified)
+  - [ParallelContext](../P/ParallelContext.md) (structure being modified)
   - Min (macro to find minimum of two values)
 
 - Called from (representative examples):
-  - parallel_vacuum_process_all_indexes (adjusts worker count for different vacuum phases)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md) (adjusts worker count for different vacuum phases)
 
 ## Notes and Other Information
 - Does not create or destroy workers, only adjusts the launch count for subsequent LaunchParallelWorkers calls

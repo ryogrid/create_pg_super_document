@@ -22,15 +22,15 @@ This function is commonly used during bootstrap operations and WAL replay when s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruInternalWritePage
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
   - SLRU_PAGE_EMPTY (status constant)
 - Called from (representative examples):
-  - BootStrapCLOG
-  - clog_redo
-  - ActivateCommitTs
-  - commit_ts_redo
-  - BootStrapMultiXact
-  - multixact_redo
+  - [BootStrapCLOG](../B/BootStrapCLOG.md)
+  - [clog_redo](../c/clog_redo.md)
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
+  - [commit_ts_redo](../c/commit_ts_redo.md)
+  - [BootStrapMultiXact](../B/BootStrapMultiXact.md)
+  - [multixact_redo](../m/multixact_redo.md)
   - BootStrapSUBTRANS
 
 ## Notes and Other Information

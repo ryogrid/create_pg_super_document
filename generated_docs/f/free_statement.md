@@ -20,7 +20,7 @@ The `free_statement` function performs comprehensive cleanup of an ECPG statemen
 ## Dependencies
 - Functions called/Symbols referenced:
   - statement (struct type)
-  - free_variable
+  - [free_variable](free_variable.md)
   - ecpg_free
 - Called from (representative examples):
   - ecpg_do_epilogue

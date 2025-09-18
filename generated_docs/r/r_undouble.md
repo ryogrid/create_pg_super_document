@@ -35,19 +35,19 @@ The function uses temporary boundary management to constrain the search within a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b (backward consonant group checking for g_c, characters 98-122)
-  - slice_to (pattern capture into string buffer S[0])
-  - eq_v_b (backward pattern equivalence comparison with S[0])
-  - slice_del (pattern deletion operation)
+  - [in_grouping_b](../i/in_grouping_b.md) (backward consonant group checking for g_c, characters 98-122)
+  - [slice_to](../s/slice_to.md) (pattern capture into string buffer S[0])
+  - [eq_v_b](../e/eq_v_b.md) (backward pattern equivalence comparison with S[0])
+  - [slice_del](../s/slice_del.md) (pattern deletion operation)
   - g_c (consonant grouping definition covering 'b'-'z')
 - Called from (representative examples):
-  - danish_ISO_8859_1_stem (Danish stemming main function)
-  - danish_UTF_8_stem (UTF-8 Danish variant)
-  - r_e_ending (Dutch stemming - e-ending processing)
-  - r_en_ending (Dutch stemming - en-ending processing)  
-  - r_standard_suffix (Dutch stemming - standard suffix processing)
-  - r_instrum (Hungarian stemming - instrumental case processing)
-  - r_factive (Hungarian stemming - factive case processing)
+  - [danish_ISO_8859_1_stem](../d/danish_ISO_8859_1_stem.md) (Danish stemming main function)
+  - [danish_UTF_8_stem](../d/danish_UTF_8_stem.md) (UTF-8 Danish variant)
+  - [r_e_ending](r_e_ending.md) (Dutch stemming - e-ending processing)
+  - [r_en_ending](r_en_ending.md) (Dutch stemming - en-ending processing)  
+  - [r_standard_suffix](r_standard_suffix.md) (Dutch stemming - standard suffix processing)
+  - [r_instrum](r_instrum.md) (Hungarian stemming - instrumental case processing)
+  - [r_factive](r_factive.md) (Hungarian stemming - factive case processing)
 
 ## Notes and Other Information
 - This is a widely reused function across multiple language stemmers, indicating its general applicability

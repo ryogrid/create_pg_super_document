@@ -24,17 +24,17 @@ RangeFunction nodes handle function calls that serve as table sources in FROM cl
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)
-  - List (for functions and column definitions)
-  - Alias (for table and column aliasing)
-  - ColumnDef (implicitly referenced for column definitions)
+  - [List](../L/List.md) (for functions and column definitions)
+  - [Alias](../A/Alias.md) (for table and column aliasing)
+  - [ColumnDef](../C/ColumnDef.md) (implicitly referenced for column definitions)
 - Called from (representative examples):
-  - transformRangeFunction (src/backend/parser/parse_clause.c:465)
-  - transformFromClauseItem (src/backend/parser/parse_clause.c:1096, 1102)
-  - addRangeTableEntryForFunction (src/backend/parser/parse_relation.c:1738)
-  - raw_expression_tree_walker_impl (src/backend/nodes/nodeFuncs.c:4454)
+  - [transformRangeFunction](../t/transformRangeFunction.md) (src/backend/parser/parse_clause.c:465)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (src/backend/parser/parse_clause.c:1096, 1102)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md) (src/backend/parser/parse_relation.c:1738)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:4454)
 
 ## Notes and Other Information
-- RangeFunction supports both simple function-in-FROM and complex ROWS FROM() multi-function constructs
+- [RangeFunction](RangeFunction.md) supports both simple function-in-FROM and complex ROWS FROM() multi-function constructs
 - The functions list structure allows multiple functions to be combined in a single ROWS FROM() call
 - WITH ORDINALITY adds an implicit row number column to the function results
 - LATERAL functions can reference columns from preceding tables in the FROM clause

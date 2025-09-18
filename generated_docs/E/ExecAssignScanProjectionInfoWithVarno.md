@@ -20,14 +20,14 @@ Like its counterpart ExecAssignScanProjectionInfo, this function delegates the a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecConditionalAssignProjectionInfo (performs projection analysis with the specified varno)
+  - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (performs projection analysis with the specified varno)
 - Data structures used:
-  - ScanState
-  - TupleDesc (from scan tuple slot)
+  - [ScanState](../S/ScanState.md)
+  - [TupleDesc](../T/TupleDesc.md) (from scan tuple slot)
 - Called from (representative examples):
-  - ExecInitForeignScan (foreign scan initialization)
-  - ExecInitCustomScan (custom scan initialization)
-  - ExecInitIndexOnlyScan (index-only scan initialization)
+  - [ExecInitForeignScan](ExecInitForeignScan.md) (foreign scan initialization)
+  - [ExecInitCustomScan](ExecInitCustomScan.md) (custom scan initialization)
+  - [ExecInitIndexOnlyScan](ExecInitIndexOnlyScan.md) (index-only scan initialization)
 
 ## Notes and Other Information
 - This function provides the same projection optimization as ExecAssignScanProjectionInfo but with explicit varno control

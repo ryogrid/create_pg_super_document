@@ -29,17 +29,17 @@ When inadequate locking is detected, the function logs WARNING messages with det
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockHeldByMe
-  - IsInplaceUpdateRelation
-  - IsSharedRelation
-  - index_open
-  - index_close
+  - [LockHeldByMe](../L/LockHeldByMe.md)
+  - [IsInplaceUpdateRelation](../I/IsInplaceUpdateRelation.md)
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
   - SET_LOCKTAG_TUPLE
   - SET_LOCKTAG_RELATION
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - heap_update
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - Only compiled in assertion-enabled builds (USE_ASSERT_CHECKING), not in production

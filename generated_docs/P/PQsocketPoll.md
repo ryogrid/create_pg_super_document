@@ -20,13 +20,13 @@ This function provides a unified interface for socket polling across different p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetCurrentTimeUSec
+  - [PQgetCurrentTimeUSec](PQgetCurrentTimeUSec.md)
   - poll (when HAVE_POLL is defined)
   - select (when HAVE_POLL is not defined)
   - pg_usec_time_t (time type)
 - Called from (representative examples):
-  - wait_until_connected (src/bin/psql/command.c:3890)
-  - pqSocketCheck (src/interfaces/libpq/fe-misc.c:1090)
+  - [wait_until_connected](../w/wait_until_connected.md) (src/bin/psql/command.c:3890)
+  - [pqSocketCheck](../p/pqSocketCheck.md) (src/interfaces/libpq/fe-misc.c:1090)
 
 ## Notes and Other Information
 - Returns >0 if the specified condition is met, 0 on timeout, -1 on error/interrupt

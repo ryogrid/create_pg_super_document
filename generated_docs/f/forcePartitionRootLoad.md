@@ -21,12 +21,12 @@ This is a safety mechanism in pg_dump to handle partitioned tables that may have
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableInfo (structure type)
+  - [TableInfo](../T/TableInfo.md) (structure type)
   - Assert (macro for debugging assertions)
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:343)
-  - dumpTableData_insert (src/bin/pg_dump/pg_dump.c:2418)
-  - dumpTableData (src/bin/pg_dump/pg_dump.c:2678)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md) (src/bin/pg_dump/pg_dump.c:2418)
+  - [dumpTableData](../d/dumpTableData.md) (src/bin/pg_dump/pg_dump.c:2678)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_dump.c

@@ -17,14 +17,14 @@ The system_user function implements the SQL SYSTEM_USER function in PostgreSQL. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSystemUser
+  - [GetSystemUser](../G/GetSystemUser.md)
   - PG_RETURN_DATUM
   - CStringGetTextDatum
   - PG_RETURN_NULL
 - Called from (representative examples):
-  - parse_ident_line (in HBA authentication)
-  - check_ident_usermap (in identity mapping)
-  - InitializeSystemUser (during system user initialization)
+  - [parse_ident_line](../p/parse_ident_line.md) (in HBA authentication)
+  - [check_ident_usermap](../c/check_ident_usermap.md) (in identity mapping)
+  - [InitializeSystemUser](../I/InitializeSystemUser.md) (during system user initialization)
 
 ## Notes and Other Information
 - This function is primarily used in PostgreSQL's authentication and authorization system

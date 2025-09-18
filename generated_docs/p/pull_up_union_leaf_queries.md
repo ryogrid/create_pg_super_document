@@ -32,16 +32,16 @@ This is part of PostgreSQL's query optimization strategy for UNION ALL operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating AppendRelInfo and RangeTblRef)
-  - make_setop_translation_list
+  - [make_setop_translation_list](../m/make_setop_translation_list.md)
   - lappend 
-  - pull_up_subqueries_recurse
+  - [pull_up_subqueries_recurse](pull_up_subqueries_recurse.md)
   - IsA (macro for type checking)
   - nodeTag
   - elog (for error reporting)
 - Called from (representative examples):
-  - pull_up_simple_union_all
-  - flatten_simple_union_all
-  - pull_up_union_leaf_queries (recursive calls)
+  - [pull_up_simple_union_all](pull_up_simple_union_all.md)
+  - [flatten_simple_union_all](../f/flatten_simple_union_all.md)
+  - [pull_up_union_leaf_queries](pull_up_union_leaf_queries.md) (recursive calls)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within the prepjointree.c compilation unit

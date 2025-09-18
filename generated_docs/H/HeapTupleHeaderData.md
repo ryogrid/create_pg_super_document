@@ -29,15 +29,15 @@ Key design considerations include support for speculative insertion tokens, tupl
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleFields
-  - DatumTupleFields
-  - ItemPointerData
+  - [DatumTupleFields](../D/DatumTupleFields.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
 - Called from (representative examples):
-  - expand_tuple
-  - heap_form_tuple
-  - heap_tuple_from_minimal_tuple
-  - heap_xlog_insert
-  - heap_xlog_multi_insert
-  - heap_xlog_update
+  - [expand_tuple](../e/expand_tuple.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [heap_tuple_from_minimal_tuple](../h/heap_tuple_from_minimal_tuple.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md)
+  - [heap_xlog_update](../h/heap_xlog_update.md)
 
 ## Notes and Other Information
 - The structure supports PostgreSQL's MVCC system by storing virtual fields Xmin, Cmin, Xmax, Cmax, and Xvac in optimized physical storage

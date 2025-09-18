@@ -27,8 +27,8 @@ FmgrInfo is a critical structure in PostgreSQL's function manager system that ca
 - Functions called/Symbols referenced:
   - PGFunction (function pointer type)
   - Oid (object identifier type)
-  - MemoryContext (memory management type)
-  - fmNodePtr (parse tree node pointer)
+  - [MemoryContext](../M/MemoryContext.md) (memory management type)
+  - [fmNodePtr](../f/fmNodePtr.md) (parse tree node pointer)
 - Called from (representative examples):
   - Used throughout the executor for function calls
   - Expression evaluation subsystem

@@ -18,15 +18,15 @@ This function implements a typical stack pop operation by removing the head elem
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard library function to deallocate memory)
-  - IfStackElem (structure type for stack elements)
+  - [IfStackElem](../I/IfStackElem.md) (structure type for stack elements)
 - Called from (representative examples):
-  - advanceConnectionState (in pgbench)
-  - executeMetaCommand (in pgbench)
-  - CheckConditional (in pgbench)
-  - HandleSlashCmds (in psql)
-  - exec_command_endif (in psql)
-  - MainLoop (in psql)
-  - conditional_stack_reset (for clearing entire stack)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (in pgbench)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (in pgbench)
+  - [CheckConditional](../C/CheckConditional.md) (in pgbench)
+  - [HandleSlashCmds](../H/HandleSlashCmds.md) (in psql)
+  - [exec_command_endif](../e/exec_command_endif.md) (in psql)
+  - [MainLoop](../M/MainLoop.md) (in psql)
+  - [conditional_stack_reset](conditional_stack_reset.md) (for clearing entire stack)
 
 ## Notes and Other Information
 - Returns false if the stack is empty (no element to pop), true if an element was successfully removed

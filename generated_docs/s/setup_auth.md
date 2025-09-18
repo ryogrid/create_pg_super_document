@@ -22,9 +22,9 @@ The function uses the PG_CMD_PUTS and PG_CMD_PRINTF macros to send SQL commands 
 - Functions called/Symbols referenced:
   - PG_CMD_PUTS
   - PG_CMD_PRINTF  
-  - escape_quotes
+  - [escape_quotes](../e/escape_quotes.md)
 - Called from (representative examples):
-  - initialize_data_directory (around line 3102)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (around line 3102)
 
 ## Notes and Other Information
 - This is a static function within initdb.c, used specifically during database cluster initialization

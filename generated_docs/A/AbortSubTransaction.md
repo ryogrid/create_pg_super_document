@@ -37,36 +37,36 @@ This function takes no parameters and operates on the global CurrentTransactionS
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_INTERRUPTS, RESUME_INTERRUPTS
-  - AtSubAbort_Memory, AtSubAbort_ResourceOwner
+  - [AtSubAbort_Memory](AtSubAbort_Memory.md), AtSubAbort_ResourceOwner
   - LWLockReleaseAll, UnlockBuffers
-  - XLogResetInsertion
-  - ConditionVariableCancelSleep
-  - LockErrorCleanup, reschedule_timeouts
+  - [XLogResetInsertion](../X/XLogResetInsertion.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [LockErrorCleanup](../L/LockErrorCleanup.md), reschedule_timeouts
   - sigprocmask
-  - ShowTransactionState, TransStateAsString
-  - SetUserIdAndSecContext
-  - ResetReindexState, ResetLogicalStreamingState
-  - AtEOSubXact_Parallel
-  - AfterTriggerEndSubXact
-  - AtSubAbort_Portals
-  - AtEOSubXact_LargeObject
-  - AtSubAbort_Notify
-  - RecordTransactionAbort
-  - AtSubAbort_childXids
-  - CallSubXactCallbacks
+  - [ShowTransactionState](../S/ShowTransactionState.md), TransStateAsString
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
+  - [ResetReindexState](../R/ResetReindexState.md), ResetLogicalStreamingState
+  - [AtEOSubXact_Parallel](AtEOSubXact_Parallel.md)
+  - [AfterTriggerEndSubXact](AfterTriggerEndSubXact.md)
+  - [AtSubAbort_Portals](AtSubAbort_Portals.md)
+  - [AtEOSubXact_LargeObject](AtEOSubXact_LargeObject.md)
+  - [AtSubAbort_Notify](AtSubAbort_Notify.md)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
+  - [AtSubAbort_childXids](AtSubAbort_childXids.md)
+  - [CallSubXactCallbacks](../C/CallSubXactCallbacks.md)
   - ResourceOwnerRelease
-  - AtEOSubXact_RelationCache, AtEOSubXact_Inval
-  - AtSubAbort_smgr
-  - AtEOXact_GUC, AtEOSubXact_SPI
-  - AtEOSubXact_on_commit_actions, AtEOSubXact_Namespace
-  - AtEOSubXact_Files, AtEOSubXact_HashTables
+  - [AtEOSubXact_RelationCache](AtEOSubXact_RelationCache.md), AtEOSubXact_Inval
+  - [AtSubAbort_smgr](AtSubAbort_smgr.md)
+  - [AtEOXact_GUC](AtEOXact_GUC.md), AtEOSubXact_SPI
+  - [AtEOSubXact_on_commit_actions](AtEOSubXact_on_commit_actions.md), AtEOSubXact_Namespace
+  - [AtEOSubXact_Files](AtEOSubXact_Files.md), AtEOSubXact_HashTables
   - AtEOSubXact_PgStat
-  - AtSubAbort_Snapshot
+  - [AtSubAbort_Snapshot](AtSubAbort_Snapshot.md)
 - Called from (representative examples):
-  - CommitTransactionCommandInternal
-  - AbortCurrentTransactionInternal
-  - RollbackAndReleaseCurrentSubTransaction
-  - AbortOutOfAnyTransaction
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md)
+  - [AbortCurrentTransactionInternal](AbortCurrentTransactionInternal.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [AbortOutOfAnyTransaction](AbortOutOfAnyTransaction.md)
 
 ## Notes and Other Information
 - The function includes a FIXME comment questioning whether some locks (like buffer locks) should be kept during abort

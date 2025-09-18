@@ -18,15 +18,15 @@ The function is designed to catch schema definition errors early and provide cle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SystemAttributeByName (checks for system attribute name conflicts)
-  - CheckAttributeType (validates individual attribute types and properties)
+  - [SystemAttributeByName](../S/SystemAttributeByName.md) (checks for system attribute name conflicts)
+  - [CheckAttributeType](CheckAttributeType.md) (validates individual attribute types and properties)
   - TupleDescAttr (macro to access tuple descriptor attributes)
   - NameStr (macro to extract string from Name type)
   - ereport (error reporting)
   - MaxHeapAttributeNumber (constant for maximum allowed attributes)
 - Called from (representative examples):
-  - heap_create_with_catalog (in src/backend/catalog/heap.c:1151)
-  - addRangeTableEntryForFunction (in src/backend/parser/parse_relation.c:1948)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (in src/backend/catalog/heap.c:1151)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md) (in src/backend/parser/parse_relation.c:1948)
 
 ## Notes and Other Information
 - Enforces PostgreSQL limit of MaxHeapAttributeNumber columns per table

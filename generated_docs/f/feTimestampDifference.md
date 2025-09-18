@@ -24,8 +24,8 @@ This function provides a frontend implementation of timestamp difference calcula
 - Functions called/Symbols referenced:
   - USECS_PER_SEC
 - Called from (representative examples):
-  - StreamLogicalLog
-  - CalculateCopyStreamSleeptime
+  - [StreamLogicalLog](../S/StreamLogicalLog.md)
+  - [CalculateCopyStreamSleeptime](../C/CalculateCopyStreamSleeptime.md)
 
 ## Notes and Other Information
 - Frontend equivalent of backend's TimestampDifference() function

@@ -20,21 +20,21 @@ This function performs a conversion from a plain time data type to a time with t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMEADT: Macro to extract TimeADT argument from function call
-  - GetCurrentDateTime: Function to get current date/time information
-  - time2tm: Function to convert TimeADT to broken-down time structure
+  - [GetCurrentDateTime](../G/GetCurrentDateTime.md): Function to get current date/time information
+  - [time2tm](time2tm.md): Function to convert TimeADT to broken-down time structure
   - DetermineTimeZoneOffset: Function to calculate timezone offset for given time and timezone
-  - palloc: Memory allocation function
+  - [palloc](../p/palloc.md): Memory allocation function
   - PG_RETURN_TIMETZADT_P: Macro to return TimeTzADT result
 - Types used:
   - TimeADT: Plain time data type
   - TimeTzADT: Time with timezone data type
-  - pg_tm: Broken-down time structure
+  - [pg_tm](../p/pg_tm.md): Broken-down time structure
   - fsec_t: Fractional seconds type
 - Global variables accessed:
   - session_timezone: Current session's timezone setting
 - Called from (representative examples):
-  - executeDateTimeMethod: Used in JSON path execution for datetime method processing
-  - castTimeToTimeTz: Used for casting time to time with timezone in JSON path operations
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md): Used in JSON path execution for datetime method processing
+  - [castTimeToTimeTz](../c/castTimeToTimeTz.md): Used for casting time to time with timezone in JSON path operations
 
 ## Notes and Other Information
 - The function allocates memory for the result TimeTzADT structure using palloc

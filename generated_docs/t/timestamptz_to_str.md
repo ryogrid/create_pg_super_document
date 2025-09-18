@@ -20,22 +20,22 @@ This function produces a C-string representation of a TimestampTz value with the
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXDATELEN (maximum date length constant)
-  - pg_tm (PostgreSQL time structure)
+  - [pg_tm](../p/pg_tm.md) (PostgreSQL time structure)
   - fsec_t (fractional seconds type)
   - TIMESTAMP_NOT_FINITE (macro to check for infinite timestamps)
-  - EncodeSpecialTimestamp (function to encode special timestamp values)
-  - timestamp2tm (function to convert timestamp to broken-down time)
-  - EncodeDateTime (function to encode datetime to string)
+  - [EncodeSpecialTimestamp](../E/EncodeSpecialTimestamp.md) (function to encode special timestamp values)
+  - [timestamp2tm](timestamp2tm.md) (function to convert timestamp to broken-down time)
+  - [EncodeDateTime](../E/EncodeDateTime.md) (function to encode datetime to string)
   - USE_ISO_DATES (constant for ISO date format)
   - strlcpy (safe string copy function)
 - Called from (representative examples):
-  - xact_desc_commit (transaction commit descriptions)
-  - xact_desc_abort (transaction abort descriptions)
-  - xact_desc_prepare (transaction prepare descriptions)
-  - xlog_desc (WAL log descriptions)
-  - CreateRestartPoint (restart point creation)
-  - InitWalRecovery (WAL recovery initialization)
-  - ProcessWalSndrMessage (WAL sender message processing)
+  - [xact_desc_commit](../x/xact_desc_commit.md) (transaction commit descriptions)
+  - [xact_desc_abort](../x/xact_desc_abort.md) (transaction abort descriptions)
+  - [xact_desc_prepare](../x/xact_desc_prepare.md) (transaction prepare descriptions)
+  - [xlog_desc](../x/xlog_desc.md) (WAL log descriptions)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (restart point creation)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (WAL recovery initialization)
+  - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md) (WAL sender message processing)
 
 ## Notes and Other Information
 - Returns a pointer to a static buffer, so the result is overwritten on subsequent calls

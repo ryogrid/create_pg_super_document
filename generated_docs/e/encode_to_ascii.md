@@ -22,13 +22,13 @@ The function extracts the variable-length data from the PostgreSQL text type usi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_to_ascii (performs the actual ASCII conversion)
+  - [pg_to_ascii](../p/pg_to_ascii.md) (performs the actual ASCII conversion)
   - VARDATA (macro to access variable-length data)
   - VARSIZE (macro to get size of variable-length data)
 - Called from:
-  - to_ascii_encname
-  - to_ascii_enc  
-  - to_ascii_default
+  - [to_ascii_encname](../t/to_ascii_encname.md)
+  - [to_ascii_enc](../t/to_ascii_enc.md)  
+  - [to_ascii_default](../t/to_ascii_default.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ascii.c file

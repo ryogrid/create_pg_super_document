@@ -31,18 +31,18 @@ The function maintains a registered_buffers array where each entry contains comp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetTag: Extracts buffer's file locator, fork, and block information
-  - BufferGetPage: Gets pointer to the buffer's page data
-  - BufferIsExclusiveLocked: Validates buffer is properly locked (debug builds)
+  - [BufferGetTag](../B/BufferGetTag.md): Extracts buffer's file locator, fork, and block information
+  - [BufferGetPage](../B/BufferGetPage.md): Gets pointer to the buffer's page data
+  - [BufferIsExclusiveLocked](../B/BufferIsExclusiveLocked.md): Validates buffer is properly locked (debug builds)
   - BufferIsDirty: Validates buffer is marked dirty (debug builds)
   - RelFileLocatorEquals: Checks for duplicate buffer registration (debug builds)
-  - registered_buffer: Buffer registration structure type
+  - [registered_buffer](../r/registered_buffer.md): Buffer registration structure type
   - XLogRecData: Data chain structure for buffer-associated data
 - Called from (representative examples):
-  - heap_insert: Registers heap pages for tuple insertion
-  - _bt_insertonpg: Registers B-tree pages for index operations
+  - [heap_insert](../h/heap_insert.md): Registers heap pages for tuple insertion
+  - [_bt_insertonpg](../b/_bt_insertonpg.md): Registers B-tree pages for index operations
   - gin/gist operations: Registers pages for various index operations
-  - GenericXLogFinish: Generic WAL logging framework
+  - [GenericXLogFinish](../G/GenericXLogFinish.md): Generic WAL logging framework
 
 ## Notes and Other Information
 - Block IDs are limited to max_registered_buffers (expanded via XLogEnsureRecordSpace if needed)

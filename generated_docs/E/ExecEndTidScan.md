@@ -20,9 +20,9 @@ ExecEndTidScan is responsible for cleaning up resources associated with a TID sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_endscan (to close and clean up the table scan descriptor)
+  - [table_endscan](../t/table_endscan.md) (to close and clean up the table scan descriptor)
 - Called from (representative examples):
-  - ExecEndNode (generic executor node cleanup dispatch function)
+  - [ExecEndNode](ExecEndNode.md) (generic executor node cleanup dispatch function)
   - NODETIDSCAN_H (header file declaration)
 
 ## Notes and Other Information

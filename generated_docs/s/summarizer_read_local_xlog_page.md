@@ -27,15 +27,15 @@ The function maintains state through private data that tracks the timeline ID, r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HandleWalSummarizerInterrupts
-  - summarizer_wait_for_wal
-  - GetLatestLSN
-  - readTimeLineHistory
-  - tliSwitchPoint
-  - WALRead
-  - WALReadRaiseError
+  - [HandleWalSummarizerInterrupts](../H/HandleWalSummarizerInterrupts.md)
+  - [summarizer_wait_for_wal](summarizer_wait_for_wal.md)
+  - [GetLatestLSN](../G/GetLatestLSN.md)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [tliSwitchPoint](../t/tliSwitchPoint.md)
+  - [WALRead](../W/WALRead.md)
+  - [WALReadRaiseError](../W/WALReadRaiseError.md)
 - Called from (representative examples):
-  - SummarizeWAL
+  - [SummarizeWAL](../S/SummarizeWAL.md)
 
 ## Notes and Other Information
 - The function expects the caller to properly initialize private_data with timeline ID (tli), read limit (read_upto), and historic status

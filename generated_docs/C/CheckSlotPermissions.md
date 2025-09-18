@@ -17,20 +17,20 @@ This function performs a security check to ensure that only users with the REPLI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_rolreplication
-  - GetUserId
+  - [has_rolreplication](../h/has_rolreplication.md)
+  - [GetUserId](../G/GetUserId.md)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
 - Called from (representative examples):
-  - pg_logical_slot_get_changes_guts
-  - pg_create_physical_replication_slot
-  - pg_create_logical_replication_slot
-  - pg_drop_replication_slot
-  - pg_replication_slot_advance
-  - copy_replication_slot
-  - pg_sync_replication_slots
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [pg_create_physical_replication_slot](../p/pg_create_physical_replication_slot.md)
+  - [pg_create_logical_replication_slot](../p/pg_create_logical_replication_slot.md)
+  - [pg_drop_replication_slot](../p/pg_drop_replication_slot.md)
+  - [pg_replication_slot_advance](../p/pg_replication_slot_advance.md)
+  - [copy_replication_slot](../c/copy_replication_slot.md)
+  - [pg_sync_replication_slots](../p/pg_sync_replication_slots.md)
 
 ## Notes and Other Information
 This function serves as a security gate for all replication slot operations, ensuring that only privileged users can create, modify, or access replication slots. The REPLICATION attribute is a database role attribute that must be explicitly granted to users who need to perform replication-related operations.

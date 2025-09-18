@@ -24,8 +24,8 @@ This function performs duplicate detection on a list of publication names using 
   - ereport
   - CStringGetTextDatum
 - Called from (representative examples):
-  - publicationListToArray
-  - merge_publications
+  - [publicationListToArray](../p/publicationListToArray.md)
+  - [merge_publications](../m/merge_publications.md)
 
 ## Notes and Other Information
 - Uses a simple O(n²) nested loop algorithm for duplicate detection, which is acceptable for typical small publication lists

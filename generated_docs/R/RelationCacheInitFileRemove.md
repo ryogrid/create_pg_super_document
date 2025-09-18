@@ -27,15 +27,15 @@ This approach ensures that the first backend to connect to each database will re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unlink_initfile
-  - RelationCacheInitFileRemoveInDir
+  - [unlink_initfile](../u/unlink_initfile.md)
+  - [RelationCacheInitFileRemoveInDir](RelationCacheInitFileRemoveInDir.md)
   - AllocateDir
   - ReadDirExtended
   - FreeDir
   - RELCACHE_INIT_FILENAME
   - TABLESPACE_VERSION_DIRECTORY
 - Called from (representative examples):
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Previously, PostgreSQL kept init files across restarts, but this was deemed unsafe

@@ -35,15 +35,15 @@ The function is designed to be called during the early phases of statement trans
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameType
-  - LookupCollation
+  - [typenameType](typenameType.md)
+  - [LookupCollation](../L/LookupCollation.md)
   - OidIsValid
-  - format_type_be
-  - parser_errposition
-  - ReleaseSysCache
+  - [format_type_be](../f/format_type_be.md)
+  - [parser_errposition](../p/parser_errposition.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - CreateSchemaStmtContext
-  - transformColumnDefinition
+  - [transformColumnDefinition](transformColumnDefinition.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the parse_utilcmd.c module

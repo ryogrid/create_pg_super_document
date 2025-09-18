@@ -26,17 +26,17 @@ The sub-transaction mechanism ensures that errors don't corrupt the main transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - BeginInternalSubTransaction
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling macros)
-  - pg_verifymbstr
-  - SPI_execute
-  - plperl_spi_execute_fetch_result
-  - ReleaseCurrentSubTransaction
-  - CopyErrorData
-  - FlushErrorState
-  - RollbackAndReleaseCurrentSubTransaction
-  - croak_cstr
+  - [pg_verifymbstr](pg_verifymbstr.md)
+  - [SPI_execute](../S/SPI_execute.md)
+  - [plperl_spi_execute_fetch_result](plperl_spi_execute_fetch_result.md)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [croak_cstr](../c/croak_cstr.md)
 - Global variables referenced:
   - CurrentMemoryContext
   - CurrentResourceOwner

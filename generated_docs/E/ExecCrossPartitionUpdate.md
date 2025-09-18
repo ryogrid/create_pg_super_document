@@ -38,15 +38,15 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecDelete (removes tuple from current partition)
-  - ExecInsert (inserts tuple into root table for re-routing)
-  - ExecSetupPartitionTupleRouting (initializes partition routing infrastructure)
-  - ExecGetChildToRootMap (obtains tuple conversion map)
-  - execute_attr_map_slot (converts tuple between schemas)
-  - ExecPartitionCheckEmitError (validates partition constraints)
-  - ExecGetUpdateNewTuple (generates new tuple for retry scenarios)
+  - [ExecDelete](ExecDelete.md) (removes tuple from current partition)
+  - [ExecInsert](ExecInsert.md) (inserts tuple into root table for re-routing)
+  - [ExecSetupPartitionTupleRouting](ExecSetupPartitionTupleRouting.md) (initializes partition routing infrastructure)
+  - [ExecGetChildToRootMap](ExecGetChildToRootMap.md) (obtains tuple conversion map)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md) (converts tuple between schemas)
+  - [ExecPartitionCheckEmitError](ExecPartitionCheckEmitError.md) (validates partition constraints)
+  - [ExecGetUpdateNewTuple](ExecGetUpdateNewTuple.md) (generates new tuple for retry scenarios)
 - Called from:
-  - ExecUpdateAct (when update requires cross-partition movement)
+  - [ExecUpdateAct](ExecUpdateAct.md) (when update requires cross-partition movement)
 
 ## Notes and Other Information
 - Returns true if the move was successful or if the tuple was concurrently deleted

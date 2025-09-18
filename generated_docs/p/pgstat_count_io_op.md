@@ -21,13 +21,13 @@ This is the most commonly used interface for tracking individual IO operations i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_count_io_op_n
-  - IOObject
-  - IOContext
-  - IOOp
+  - [pgstat_count_io_op_n](pgstat_count_io_op_n.md)
+  - [IOObject](../I/IOObject.md)
+  - [IOContext](../I/IOContext.md)
+  - [IOOp](../I/IOOp.md)
 - Called from (representative examples):
-  - PinBufferForBlock
-  - GetVictimBuffer
+  - [PinBufferForBlock](../P/PinBufferForBlock.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - GetLocalVictimBuffer
 
 ## Notes and Other Information

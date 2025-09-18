@@ -31,16 +31,16 @@ This function takes no parameters and operates on several global variables:
   - opendir (open directory stream)
   - readdir (read directory entries)
   - strlcpy (safe string copy)
-  - TrimExtension (custom function to remove file extensions)
-  - IsXLogFileName (PostgreSQL function to validate WAL filenames)
-  - IsPartialXLogFileName (PostgreSQL function to validate partial WAL filenames)
+  - [TrimExtension](../T/TrimExtension.md) (custom function to remove file extensions)
+  - [IsXLogFileName](../I/IsXLogFileName.md) (PostgreSQL function to validate WAL filenames)
+  - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (PostgreSQL function to validate partial WAL filenames)
   - IsBackupHistoryFileName (PostgreSQL function to validate backup history filenames)
   - pg_log_debug (PostgreSQL logging function)
   - unlink (remove file)
   - closedir (close directory stream)
-  - pg_fatal (PostgreSQL fatal error logging)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error logging)
 - Called from (representative examples):
-  - main (in src/bin/pg_archivecleanup/pg_archivecleanup.c:393)
+  - [main](../m/main.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c:393)
 
 ## Notes and Other Information
 - The function is marked as `static`, making it internal to the pg_archivecleanup.c file

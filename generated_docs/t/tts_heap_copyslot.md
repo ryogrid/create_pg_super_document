@@ -23,9 +23,9 @@ The function leverages the existing ExecCopySlotHeapTuple and ExecStoreHeapTuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecCopySlotHeapTuple (extracts/creates heap tuple from source slot)
-  - ExecStoreHeapTuple (stores heap tuple into destination slot)
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md) (stores heap tuple into destination slot)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to the execTuples.c compilation unit

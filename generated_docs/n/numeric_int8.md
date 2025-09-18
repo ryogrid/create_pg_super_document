@@ -21,12 +21,12 @@ This function is a PostgreSQL SQL-callable function that converts a numeric data
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC (macro to extract Numeric from function arguments)
-  - numeric_int8_opt_error (internal conversion function with error handling)
+  - [numeric_int8_opt_error](numeric_int8_opt_error.md) (internal conversion function with error handling)
   - PG_RETURN_INT64 (macro to return int64 as Datum)
 - Called from (representative examples):
-  - numeric_cash (currency conversion)
-  - pg_size_bytes (database size utilities)
-  - jsonb_int8 (JSON conversion functions)
+  - [numeric_cash](numeric_cash.md) (currency conversion)
+  - [pg_size_bytes](../p/pg_size_bytes.md) (database size utilities)
+  - [jsonb_int8](../j/jsonb_int8.md) (JSON conversion functions)
 
 ## Notes and Other Information
 - This is a SQL-callable function that can be invoked from PostgreSQL SQL statements for type casting

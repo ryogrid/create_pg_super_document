@@ -30,16 +30,16 @@ The function supports a comprehensive set of subscription options including conn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetBoolean: Extracts boolean values from DefElem structures
-  - defGetString: Extracts string values from DefElem structures  
-  - defGetStreamingMode: Parses streaming mode values
-  - errorConflictingDefElem: Reports conflicts when same option specified multiple times
-  - ReplicationSlotValidateName: Validates replication slot names
+  - [defGetBoolean](../d/defGetBoolean.md): Extracts boolean values from DefElem structures
+  - [defGetString](../d/defGetString.md): Extracts string values from DefElem structures  
+  - [defGetStreamingMode](../d/defGetStreamingMode.md): Parses streaming mode values
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports conflicts when same option specified multiple times
+  - [ReplicationSlotValidateName](../R/ReplicationSlotValidateName.md): Validates replication slot names
   - set_config_option: Tests validity of synchronous_commit values
   - IsSet: Macro to test if option bit is set in bitmask
 - Called from (representative examples):
-  - CreateSubscription: During subscription creation
-  - AlterSubscription: During subscription modification operations
+  - [CreateSubscription](../C/CreateSubscription.md): During subscription creation
+  - [AlterSubscription](../A/AlterSubscription.md): During subscription modification operations
 
 ## Notes and Other Information
 - The function enforces that "connect = false" is incompatible with "enabled = true", "create_slot = true", and "copy_data = true"

@@ -21,16 +21,16 @@ This function is the core scalar value handler in the JSON null-stripping functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `escape_json` - Function to properly escape string values for JSON output
+  - `[escape_json](../e/escape_json.md)` - Function to properly escape string values for JSON output
   - `appendStringInfoString` - Function to append string content to the string buffer
-  - `StripnullState` - State structure for null-stripping operations
+  - `[StripnullState](../S/StripnullState.md)` - State structure for null-stripping operations
   - `JSON_SUCCESS` - Success return code constant
-  - `JsonTokenType` - Enum type for JSON token classification
+  - `[JsonTokenType](../J/JsonTokenType.md)` - Enum type for JSON token classification
   - `JSON_TOKEN_NULL` - Token type constant for null values
   - `JSON_TOKEN_STRING` - Token type constant for string values
 
 - Called from (representative examples):
-  - `json_strip_nulls` - Main function that orchestrates JSON null stripping
+  - `[json_strip_nulls](../j/json_strip_nulls.md)` - Main function that orchestrates JSON null stripping
   - `JsObjectFree` - Object cleanup function
 
 ## Notes and Other Information

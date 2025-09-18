@@ -22,18 +22,18 @@ This function takes no parameters but relies on global variables:
 - Functions called/Symbols referenced:
   - elog
   - MemSet
-  - pg_atomic_write_u32
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
   - pg_memory_barrier
-  - on_shmem_exit
-  - CleanupProcSignalState
-  - ProcSignalSlot (type)
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [CleanupProcSignalState](../C/CleanupProcSignalState.md)
+  - [ProcSignalSlot](ProcSignalSlot.md) (type)
   - NUM_PROCSIGNALS (constant)
   - NumProcSignalSlots (variable)
 - Called from (representative examples):
-  - InitPostgres
-  - AuxiliaryProcessMainCommon
+  - [InitPostgres](../I/InitPostgres.md)
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
 
 ## Notes and Other Information
 - Must be called early in process initialization before caching any state that might need invalidation

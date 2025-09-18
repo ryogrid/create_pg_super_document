@@ -23,7 +23,7 @@ The iteration stops when it encounters a snapshot with a level lower than the cu
 - Functions called/Symbols referenced:
   - ActiveSnapshotElt
 - Called from (representative examples):
-  - CommitSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
   - IsMVCCSnapshot (via header inclusion)
 
 ## Notes and Other Information

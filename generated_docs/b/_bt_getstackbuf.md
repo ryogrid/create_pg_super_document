@@ -34,15 +34,15 @@ The function ensures that callers can reliably find parent-child relationships e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf (to acquire write locks on parent pages)
-  - _bt_finish_split (to complete incomplete splits when encountered)
-  - BTreeTupleGetDownLink (to extract downlink block numbers from pivot tuples)
-  - PageGetItemId, PageGetItem (for accessing page items)
+  - [_bt_getbuf](_bt_getbuf.md) (to acquire write locks on parent pages)
+  - [_bt_finish_split](_bt_finish_split.md) (to complete incomplete splits when encountered)
+  - [BTreeTupleGetDownLink](../B/BTreeTupleGetDownLink.md) (to extract downlink block numbers from pivot tuples)
+  - [PageGetItemId](../P/PageGetItemId.md), PageGetItem (for accessing page items)
   - P_INCOMPLETE_SPLIT, P_IGNORE, P_RIGHTMOST (page status flags)
   - Various offset number manipulation functions
 - Called from (representative examples):
-  - _bt_insert_parent (to re-find parent page during split completion)
-  - _bt_lock_subtree_parent (for page deletion operations)
+  - [_bt_insert_parent](_bt_insert_parent.md) (to re-find parent page during split completion)
+  - [_bt_lock_subtree_parent](_bt_lock_subtree_parent.md) (for page deletion operations)
 
 ## Notes and Other Information
 - Returns a write-locked buffer containing the parent page, or InvalidBuffer if not found

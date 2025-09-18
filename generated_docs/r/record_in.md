@@ -23,11 +23,11 @@ The function performs comprehensive validation of the input string format, ensur
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Stack overflow protection for recursive calls
-  - lookup_rowtype_tupdesc: Retrieves tuple descriptor for the record type
-  - MemoryContextAlloc: Memory allocation in function context
-  - getTypeInputInfo: Gets input function info for column types
-  - InputFunctionCallSafe: Safely calls type-specific input functions
-  - heap_form_tuple: Creates heap tuple from values array
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the record type
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in function context
+  - [getTypeInputInfo](../g/getTypeInputInfo.md): Gets input function info for column types
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md): Safely calls type-specific input functions
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates heap tuple from values array
   - ReleaseTupleDesc: Releases tuple descriptor reference
 
 - Called from (representative examples):

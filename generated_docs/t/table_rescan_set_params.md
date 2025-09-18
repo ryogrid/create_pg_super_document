@@ -23,11 +23,11 @@ This function is particularly useful for operations that need to adjust scan beh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (scan descriptor type)
-  - ScanKeyData (scan key structure type)
+  - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)
+  - [ScanKeyData](../S/ScanKeyData.md) (scan key structure type)
   - scan->rs_rd->rd_tableam->scan_rescan (table access method rescan function with parameters)
 - Called from (representative examples):
-  - tablesample_init (src/backend/executor/nodeSamplescan.c:304)
+  - [tablesample_init](tablesample_init.md) (src/backend/executor/nodeSamplescan.c:304)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header file

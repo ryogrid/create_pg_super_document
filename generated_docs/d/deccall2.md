@@ -19,12 +19,12 @@ The  function is an internal helper function in the ECPG Informix compatibility 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_new
-  - PGTYPESnumeric_free
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - PGTYPESnumeric_from_decimal
   - ECPG_INFORMIX_OUT_OF_MEMORY
 - Called from (representative examples):
-  - deccmp
+  - [deccmp](deccmp.md)
 
 ## Notes and Other Information
 - This is a static function internal to the Informix compatibility library

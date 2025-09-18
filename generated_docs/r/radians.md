@@ -19,7 +19,7 @@ The  function performs a mathematical conversion from degrees to radians using t
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call
   - RADIANS_PER_DEGREE: Constant representing π/180 for degree-to-radian conversion
-  - float8_mul: PostgreSQL's float8 multiplication function with error handling
+  - [float8_mul](../f/float8_mul.md): PostgreSQL's float8 multiplication function with error handling
 - Called from: No direct references found in the codebase
 
 ## Notes and Other Information

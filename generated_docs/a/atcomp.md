@@ -23,7 +23,7 @@ The `atcomp` function is a comparison function designed to be used with the stan
   - zic_t (type definition)
   - attype (structure type for timezone transition data)
 - Called from (representative examples):
-  - writezone (likely used with qsort for sorting timezone transitions)
+  - [writezone](../w/writezone.md) (likely used with qsort for sorting timezone transitions)
 
 ## Notes and Other Information
 - This function is designed to be used as a callback with qsort() for sorting arrays of attype structures

@@ -20,12 +20,12 @@ The conversion is straightforward as both POLYGON and PATH structures store poin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (retrieves the input polygon argument)
-  - palloc (allocates memory for the new path)
+  - [palloc](palloc.md) (allocates memory for the new path)
   - SET_VARSIZE (sets the variable size header for the path)
   - PG_RETURN_PATH_P (returns the path result)
 - Types referenced:
-  - POLYGON (input geometric type)
-  - PATH (output geometric type)
+  - [POLYGON](../P/POLYGON.md) (input geometric type)
+  - [PATH](../P/PATH.md) (output geometric type)
 - Called from (representative examples):
   - No direct references found in the codebase
 

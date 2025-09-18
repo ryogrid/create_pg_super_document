@@ -22,7 +22,7 @@ This function serves as a comparison callback for qsort operations on arrays of 
 - Functions called/Symbols referenced:
   - strcmp (standard C string comparison function)
 - Called from (representative examples):
-  - tsq_mcontains (at src/backend/utils/adt/tsquery_op.c:322-326, used multiple times for sorting string arrays)
+  - [tsq_mcontains](../t/tsq_mcontains.md) (at src/backend/utils/adt/tsquery_op.c:322-326, used multiple times for sorting string arrays)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsquery_op.c module

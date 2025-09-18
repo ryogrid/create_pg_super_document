@@ -25,12 +25,12 @@ The function returns NULL in two scenarios: when the block ID is invalid (exceed
 - Functions called/Symbols referenced:
   - DecodedBkpBlock (struct type used for accessing block information)
 - Called from (representative examples):
-  - brin_xlog_insert_update
-  - ginRedoInsert
-  - heap_xlog_insert
-  - btree_xlog_insert
-  - generic_redo
-  - DecodeInsert
+  - [brin_xlog_insert_update](../b/brin_xlog_insert_update.md)
+  - [ginRedoInsert](../g/ginRedoInsert.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
+  - [btree_xlog_insert](../b/btree_xlog_insert.md)
+  - [generic_redo](../g/generic_redo.md)
+  - [DecodeInsert](../D/DecodeInsert.md)
   - XLogRecHasBlockData
 
 ## Notes and Other Information

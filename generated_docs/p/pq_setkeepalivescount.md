@@ -22,14 +22,14 @@ The function performs several validation checks: it verifies the port is valid a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getkeepalivescount (to retrieve current/default values)
+  - [pq_getkeepalivescount](pq_getkeepalivescount.md) (to retrieve current/default values)
   - setsockopt (system call to set socket options)
   - ereport (PostgreSQL error reporting function)
-  - errmsg (PostgreSQL error message formatting)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message formatting)
   - STATUS_OK, STATUS_ERROR (return value constants)
 - Called from (representative examples):
-  - pq_init (during connection initialization)
-  - assign_tcp_keepalives_count (GUC assignment hook)
+  - [pq_init](pq_init.md) (during connection initialization)
+  - [assign_tcp_keepalives_count](../a/assign_tcp_keepalives_count.md) (GUC assignment hook)
 
 ## Notes and Other Information
 - Returns STATUS_OK on success, STATUS_ERROR on failure

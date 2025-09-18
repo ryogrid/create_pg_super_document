@@ -17,13 +17,13 @@ This function performs comprehensive validation of LSN ordering and transaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildXactNeedsSkip (checks if transaction decoding should be skipped)
+  - [SnapBuildXactNeedsSkip](../S/SnapBuildXactNeedsSkip.md) (checks if transaction decoding should be skipped)
   - dlist_foreach (iterates through transaction lists)
   - dlist_container (extracts transaction from list node)
   - rbtxn_is_known_subxact (checks if transaction is a known subtransaction)
-  - LogicalDecodingContext (accessed through rb->private_data)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (accessed through rb->private_data)
 - Called from (representative examples):
-  - ReorderBufferTXNByXid (after adding new top-level transactions)
+  - [ReorderBufferTXNByXid](../R/ReorderBufferTXNByXid.md) (after adding new top-level transactions)
   - ReorderBufferAssignChild (after modifying transaction relationships)
   - ReorderBufferSetBaseSnapshot (after setting base snapshots)
   - ReorderBufferGetOldestTXN (during transaction processing)

@@ -29,7 +29,7 @@ The function enforces naming conventions to prevent conflicts with system-reserv
 - Functions called/Symbols referenced:
   - replorigin_check_prerequisites
   - text_to_cstring
-  - IsReservedName
+  - [IsReservedName](../I/IsReservedName.md)
   - IsReservedOriginName
   - replorigin_create
   - PG_RETURN_OID

@@ -22,14 +22,14 @@ The function is typically used in scenarios where you have a specific relation c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalVisTestFor
-  - GlobalVisTestIsRemovableFullXid
-  - GlobalVisState (type)
+  - [GlobalVisTestFor](GlobalVisTestFor.md)
+  - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
+  - [GlobalVisState](GlobalVisState.md) (type)
   - FullTransactionId (type)
 - Called from (representative examples):
-  - gistPageRecyclable
-  - _bt_pendingfsm_finalize
-  - BTPageIsRecyclable
+  - [gistPageRecyclable](../g/gistPageRecyclable.md)
+  - [_bt_pendingfsm_finalize](../b/_bt_pendingfsm_finalize.md)
+  - [BTPageIsRecyclable](../B/BTPageIsRecyclable.md)
 
 ## Notes and Other Information
 - This is a convenience function that simplifies the two-step process of getting visibility state and testing removability

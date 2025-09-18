@@ -23,16 +23,16 @@ The function uses the SUBSCRIPTIONNAME system cache along with the current datab
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid2
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - MyDatabaseId
   - OidIsValid
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - get_object_address_unqualified
-  - binary_upgrade_add_sub_rel_state
-  - binary_upgrade_replorigin_advance
+  - [get_object_address_unqualified](get_object_address_unqualified.md)
+  - [binary_upgrade_add_sub_rel_state](../b/binary_upgrade_add_sub_rel_state.md)
+  - [binary_upgrade_replorigin_advance](../b/binary_upgrade_replorigin_advance.md)
 
 ## Notes and Other Information
 - This function is part of the logical replication infrastructure in PostgreSQL

@@ -30,12 +30,12 @@ The structure contains all the essential information about the multi-transaction
 - Functions called/Symbols referenced:
   - MultiXactId: Type for multi-transaction identifiers
   - MultiXactOffset: Type for offsets into the members file
-  - MultiXactMember: Structure representing individual transaction members
+  - [MultiXactMember](../M/MultiXactMember.md): Structure representing individual transaction members
   - FLEXIBLE_ARRAY_MEMBER: Macro for variable-length array members
 - Called from (representative examples):
-  - MultiXactIdCreateFromMembers: Creates WAL records using this structure when new multi-transactions are formed
-  - multixact_redo: Processes xl_multixact_create records during recovery to recreate multi-transactions
-  - multixact_desc: Uses this structure for debugging and logging purposes in WAL record descriptions
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md): Creates WAL records using this structure when new multi-transactions are formed
+  - [multixact_redo](../m/multixact_redo.md): Processes xl_multixact_create records during recovery to recreate multi-transactions
+  - [multixact_desc](../m/multixact_desc.md): Uses this structure for debugging and logging purposes in WAL record descriptions
 
 ## Notes and Other Information
 - This is specifically a WAL record structure, designed for durability and recovery rather than runtime operations

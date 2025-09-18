@@ -20,13 +20,13 @@ This function serves as the internal implementation for both  and  functions. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleHashTable
-  - TupleHashEntryData
+  - [TupleHashTable](../T/TupleHashTable.md)
+  - [TupleHashEntryData](../T/TupleHashEntryData.md)
   - MinimalTuple
   - ExecCopySlotMinimalTuple
   - tuplehash_insert_hash (via macro)
   - tuplehash_lookup_hash (via macro)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - LookupTupleHashEntry
   - LookupTupleHashEntryHash

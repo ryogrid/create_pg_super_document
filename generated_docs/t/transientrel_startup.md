@@ -20,13 +20,13 @@ This function serves as the startup callback for a DestReceiver that handles wri
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - GetCurrentCommandId
-  - GetBulkInsertState
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [GetBulkInsertState](../G/GetBulkInsertState.md)
   - RelationGetTargetBlock
   - TABLE_INSERT_SKIP_FSM (constant)
   - TABLE_INSERT_FROZEN (constant)
 - Called from (representative examples):
-  - CreateTransientRelDestReceiver (callback assignment)
+  - [CreateTransientRelDestReceiver](../C/CreateTransientRelDestReceiver.md) (callback assignment)
 
 ## Notes and Other Information
 - Uses NoLock when opening the transient relation since it's a temporary relation with controlled access

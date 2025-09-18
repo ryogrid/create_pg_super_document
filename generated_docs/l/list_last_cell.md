@@ -20,7 +20,7 @@ The function includes an assertion to ensure the list is not NIL (empty), making
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for runtime validation)
-  - List structure (accesses length and elements fields)
+  - [List](../L/List.md) structure (accesses length and elements fields)
 - Called from (representative examples):
   - llast (wrapper function for getting last element value)
   - llast_int (wrapper for integer values)

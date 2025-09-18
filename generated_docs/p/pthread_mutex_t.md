@@ -23,10 +23,10 @@ The implementation is only active on WIN32 platforms - on other platforms, the s
   - LONG (Windows type)
   - CRITICAL_SECTION (Windows synchronization primitive)
 - Called from (representative examples):
-  - pthread_mutex_init (src/interfaces/ecpg/ecpglib/misc.c:428)
-  - pthread_mutex_lock (src/interfaces/ecpg/ecpglib/misc.c:435)
-  - pthread_mutex_unlock (src/interfaces/ecpg/ecpglib/misc.c:453)
-  - default_threadlock (src/interfaces/libpq/fe-connect.c:7747)
+  - [pthread_mutex_init](pthread_mutex_init.md) (src/interfaces/ecpg/ecpglib/misc.c:428)
+  - [pthread_mutex_lock](pthread_mutex_lock.md) (src/interfaces/ecpg/ecpglib/misc.c:435)
+  - [pthread_mutex_unlock](pthread_mutex_unlock.md) (src/interfaces/ecpg/ecpglib/misc.c:453)
+  - [default_threadlock](../d/default_threadlock.md) (src/interfaces/libpq/fe-connect.c:7747)
   - pq_threadidcallback (src/interfaces/libpq/fe-secure-openssl.c:735)
   - pgtls_init (src/interfaces/libpq/fe-secure-openssl.c:785)
 

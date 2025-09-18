@@ -20,12 +20,12 @@ This structure is primarily used in the context of shared TID bitmap operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (atomic operations support)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic operations support)
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro for flexible arrays)
 - Called from (representative examples):
-  - TBMSharedIterator (as a member variable)
-  - tbm_free_shared_area
-  - tbm_prepare_shared_iterate
+  - [TBMSharedIterator](../T/TBMSharedIterator.md) (as a member variable)
+  - [tbm_free_shared_area](../t/tbm_free_shared_area.md)
+  - [tbm_prepare_shared_iterate](../t/tbm_prepare_shared_iterate.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's TID bitmap implementation located in src/backend/nodes/tidbitmap.c

@@ -21,9 +21,9 @@ The function ensures that no error message queue connections remain active when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_detach (detach from shared message queue)
+  - [shm_mq_detach](../s/shm_mq_detach.md) (detach from shared message queue)
   - ParallelApplyWorkerPool (global worker pool list)
-  - ParallelApplyWorkerInfo (worker information structure)
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md) (worker information structure)
 - Called from (representative examples):
   - logicalrep_worker_detach
 

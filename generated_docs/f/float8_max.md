@@ -20,13 +20,13 @@ The function performs a simple conditional selection: if val1 is greater than va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float8_gt (for greater-than comparison with NaN handling)
+  - [float8_gt](float8_gt.md) (for greater-than comparison with NaN handling)
 - Called from (representative examples):
-  - rt_box_union (GiST R-tree operations)
-  - box_intersect (geometric box intersection)
-  - path_inter (path intersection calculations)
-  - box_interpt_lseg (box-line segment intersection)
-  - boxes_bound_box (bounding box calculations)
+  - [rt_box_union](../r/rt_box_union.md) (GiST R-tree operations)
+  - [box_intersect](../b/box_intersect.md) (geometric box intersection)
+  - [path_inter](../p/path_inter.md) (path intersection calculations)
+  - [box_interpt_lseg](../b/box_interpt_lseg.md) (box-line segment intersection)
+  - [boxes_bound_box](../b/boxes_bound_box.md) (bounding box calculations)
 
 ## Notes and Other Information
 - This is an inline function defined in the header for performance optimization

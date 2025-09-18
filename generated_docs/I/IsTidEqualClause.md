@@ -18,12 +18,12 @@ This function determines if a RestrictInfo represents an equality clause of the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsBinaryTidClause (validates binary TID clause structure)
+  - [IsBinaryTidClause](IsBinaryTidClause.md) (validates binary TID clause structure)
   - OpExpr (cast to access operator information)
   - TIDEqualOperator (constant for TID equality operator)
 - Called from (representative examples):
-  - RestrictInfoIsTidQual
-  - BuildParameterizedTidPaths
+  - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md)
+  - [BuildParameterizedTidPaths](../B/BuildParameterizedTidPaths.md)
 
 ## Notes and Other Information
 The function uses a layered approach: first calling IsBinaryTidClause to ensure the basic structure is correct (CTID variable with pseudoconstant), then verifying that the specific operator is equality. This design promotes code reuse and maintains clear separation of concerns between general binary TID clause validation and specific operator checking.

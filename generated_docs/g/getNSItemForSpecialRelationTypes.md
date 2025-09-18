@@ -18,16 +18,16 @@ This function serves as a specialized resolver for non-ordinary relation types d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scanNameSpaceForCTE
-  - addRangeTableEntryForCTE  
-  - scanNameSpaceForENR
-  - addRangeTableEntryForENR
+  - [scanNameSpaceForCTE](../s/scanNameSpaceForCTE.md)
+  - [addRangeTableEntryForCTE](../a/addRangeTableEntryForCTE.md)  
+  - [scanNameSpaceForENR](../s/scanNameSpaceForENR.md)
+  - [addRangeTableEntryForENR](../a/addRangeTableEntryForENR.md)
 - Types referenced:
-  - RangeVar
-  - ParseNamespaceItem
+  - [RangeVar](../R/RangeVar.md)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
   - CommonTableExpr
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](../t/transformFromClauseItem.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c, indicating it's used internally for FROM clause parsing

@@ -32,18 +32,18 @@ The function handles both regular and temporary tables appropriately, placing te
 - Functions called/Symbols referenced:
   - table_open: Opens the original relation
   - RelationGetDescr: Gets the table's tuple descriptor
-  - SearchSysCache1: Looks up relation information in system cache
-  - SysCacheGetAttr: Retrieves relation options from cache
-  - LookupCreationNamespace: Finds appropriate namespace for temporary tables
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up relation information in system cache
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md): Retrieves relation options from cache
+  - [LookupCreationNamespace](../L/LookupCreationNamespace.md): Finds appropriate namespace for temporary tables
   - RelationGetNamespace: Gets the namespace of the original relation
-  - heap_create_with_catalog: Creates the new table with catalog entries
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md): Creates the new table with catalog entries
   - CommandCounterIncrement: Makes new catalog entries visible
-  - NewHeapCreateToastTable: Creates TOAST table if needed
+  - [NewHeapCreateToastTable](../N/NewHeapCreateToastTable.md): Creates TOAST table if needed
   - table_close: Closes the original relation
 - Called from (representative examples):
-  - rebuild_relation: Part of clustering operation
-  - RefreshMatViewByOid: Materialized view refresh
-  - ATRewriteTables: Table rewriting during ALTER TABLE
+  - [rebuild_relation](../r/rebuild_relation.md): Part of clustering operation
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md): Materialized view refresh
+  - [ATRewriteTables](../A/ATRewriteTables.md): Table rewriting during ALTER TABLE
 
 ## Notes and Other Information
 - The new table does not inherit constraints, defaults, or indexes from the original

@@ -31,19 +31,19 @@ The function uses a static array to store processed weights, making it efficient
   - ARR_NDIM
   - ARR_DIMS
   - ArrayGetNItems
-  - array_contains_nulls
+  - [array_contains_nulls](../a/array_contains_nulls.md)
   - ARR_DATA_PTR
   - lengthof
   - ereport/errcode/errmsg (error reporting functions)
 - Called from (representative examples):
-  - ts_rank_wttf
-  - ts_rank_wtt
-  - ts_rank_ttf
-  - ts_rank_tt
-  - ts_rankcd_wttf
-  - ts_rankcd_wtt
-  - ts_rankcd_ttf
-  - ts_rankcd_tt
+  - [ts_rank_wttf](../t/ts_rank_wttf.md)
+  - [ts_rank_wtt](../t/ts_rank_wtt.md)
+  - [ts_rank_ttf](../t/ts_rank_ttf.md)
+  - [ts_rank_tt](../t/ts_rank_tt.md)
+  - [ts_rankcd_wttf](../t/ts_rankcd_wttf.md)
+  - [ts_rankcd_wtt](../t/ts_rankcd_wtt.md)
+  - [ts_rankcd_ttf](../t/ts_rankcd_ttf.md)
+  - [ts_rankcd_tt](../t/ts_rankcd_tt.md)
 
 ## Notes and Other Information
 - Uses static storage for processed weights to maintain pointer validity

@@ -26,13 +26,13 @@ The structure is used by expression mutator functions that traverse expressions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (planner's main state structure)
-  - indexed_tlist (indexed target list structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (planner's main state structure)
+  - [indexed_tlist](../i/indexed_tlist.md) (indexed target list structure)
   - NullingRelsMatch (enumeration for nulling relation matching)
 - Called from (representative examples):
   - fix_scan_list
-  - fix_upper_expr
-  - fix_upper_expr_mutator
+  - [fix_upper_expr](fix_upper_expr.md)
+  - [fix_upper_expr_mutator](fix_upper_expr_mutator.md)
 
 ## Notes and Other Information
 - Used for upper-level plan nodes like Agg, Sort, Group, WindowAgg, Limit, etc.

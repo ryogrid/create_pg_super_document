@@ -21,14 +21,14 @@ LookupTypeNameOid serves as a convenience wrapper around LookupTypeName when onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeName
-  - TypeNameToString
-  - ReleaseSysCache
+  - [LookupTypeName](LookupTypeName.md)
+  - [TypeNameToString](../T/TypeNameToString.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - get_object_address
-  - type_in_list_does_not_exist_skipping
-  - LookupFuncWithArgs
-  - LookupOperWithArgs
+  - [get_object_address](../g/get_object_address.md)
+  - [type_in_list_does_not_exist_skipping](../t/type_in_list_does_not_exist_skipping.md)
+  - [LookupFuncWithArgs](LookupFuncWithArgs.md)
+  - [LookupOperWithArgs](LookupOperWithArgs.md)
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:232-263. Important: the returned OID may correspond to a shell type, so callers need to be aware of this limitation. Most code should use typenameTypeId instead, which provides additional validation. The function properly manages system cache resources by releasing the Type tuple after extracting the OID.

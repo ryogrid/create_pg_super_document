@@ -28,12 +28,12 @@ This function is essential for setting up the context needed to process INSERT c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_typ_list
-  - closerel 
+  - [populate_typ_list](../p/populate_typ_list.md)
+  - [closerel](../c/closerel.md) 
   - table_openrv
-  - makeRangeVar
+  - [makeRangeVar](../m/makeRangeVar.md)
   - RelationGetNumberOfAttributes
-  - AllocateAttribute
+  - [AllocateAttribute](../A/AllocateAttribute.md)
   - TupleDescAttr
   - elog (for debug output)
 - Called from (representative examples):

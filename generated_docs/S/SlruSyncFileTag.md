@@ -21,7 +21,7 @@ The function opens the file in read-write mode with binary flags, performs the f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruFileName (constructs the SLRU file name)
+  - [SlruFileName](SlruFileName.md) (constructs the SLRU file name)
   - OpenTransientFile (opens the file for syncing)
   - pgstat_report_wait_start (reports wait event start)
   - pg_fsync (performs the actual file sync)
@@ -29,11 +29,11 @@ The function opens the file in read-write mode with binary flags, performs the f
   - CloseTransientFile (closes the opened file)
   - PG_BINARY (file open mode flag)
 - Called from (representative examples):
-  - clogsyncfiletag (CLOG sync handler)
-  - committssyncfiletag (commit timestamp sync handler)
-  - multixactoffsetssyncfiletag (multixact offset sync handler)
-  - multixactmemberssyncfiletag (multixact member sync handler)
-  - test_slru_page_sync (test module function)
+  - [clogsyncfiletag](../c/clogsyncfiletag.md) (CLOG sync handler)
+  - [committssyncfiletag](../c/committssyncfiletag.md) (commit timestamp sync handler)
+  - [multixactoffsetssyncfiletag](../m/multixactoffsetssyncfiletag.md) (multixact offset sync handler)
+  - [multixactmemberssyncfiletag](../m/multixactmemberssyncfiletag.md) (multixact member sync handler)
+  - [test_slru_page_sync](../t/test_slru_page_sync.md) (test module function)
 
 ## Notes and Other Information
 - This function serves as a common sync implementation that individual SLRU subsystems can use by providing their specific SlruCtl structure

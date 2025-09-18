@@ -23,10 +23,10 @@ The function includes compile-time assertions to ensure proper size alignment be
   - StaticAssertDecl (compile-time assertion)
   - s_init_lock_sema (semaphore initialization when spinlocks unavailable)
   - SpinLockInit (spinlock initialization when spinlocks available)
-  - pg_atomic_uint64 (atomic structure type)
-  - slock_t (spinlock type)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (atomic structure type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
 - Called from (representative examples):
-  - pg_atomic_init_u64 (public API wrapper)
+  - [pg_atomic_init_u64](pg_atomic_init_u64.md) (public API wrapper)
   - PG_HAVE_ATOMIC_INIT_U64 (feature availability macro)
 
 ## Notes and Other Information

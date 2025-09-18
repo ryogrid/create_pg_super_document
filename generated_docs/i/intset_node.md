@@ -21,11 +21,11 @@ The structure uses a compact 4-byte header design to minimize memory overhead wh
 ## Dependencies
 - Functions called/Symbols referenced: None (base structure)
 - Referenced by:
-  - intset_internal_node (extends this structure)
-  - IntegerSet (contains pointers to nodes of this type)
-  - intset_flush_buffered_values
-  - intset_update_upper  
-  - intset_is_member
+  - [intset_internal_node](intset_internal_node.md) (extends this structure)
+  - [IntegerSet](../I/IntegerSet.md) (contains pointers to nodes of this type)
+  - [intset_flush_buffered_values](intset_flush_buffered_values.md)
+  - [intset_update_upper](intset_update_upper.md)  
+  - [intset_is_member](intset_is_member.md)
 
 ## Notes and Other Information
 This structure employs inheritance-like composition in C, where both intset_internal_node and intset_leaf_node structures begin with these same fields, allowing for polymorphic access to common node properties. The 16-bit integer types are chosen to balance memory efficiency with practical limits on tree depth and node capacity in typical PostgreSQL workloads.

@@ -22,14 +22,14 @@ IndexFetchTableData serves as a foundational structure for implementing index-ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Relation (from src/include/utils/relcache.h)
+  - [Relation](../R/Relation.md) (from src/include/utils/relcache.h)
 - Called from (representative examples):
-  - heapam_index_fetch_reset
-  - heapam_index_fetch_end  
-  - heapam_index_fetch_tuple
-  - table_index_fetch_tuple_check
-  - IndexFetchHeapData (as embedded member)
-  - IndexScanDescData (as embedded member)
+  - [heapam_index_fetch_reset](../h/heapam_index_fetch_reset.md)
+  - [heapam_index_fetch_end](../h/heapam_index_fetch_end.md)  
+  - [heapam_index_fetch_tuple](../h/heapam_index_fetch_tuple.md)
+  - [table_index_fetch_tuple_check](../t/table_index_fetch_tuple_check.md)
+  - [IndexFetchHeapData](IndexFetchHeapData.md) (as embedded member)
+  - [IndexScanDescData](IndexScanDescData.md) (as embedded member)
 
 ## Notes and Other Information
 - This is a base class intended for inheritance-style usage in C through structure embedding

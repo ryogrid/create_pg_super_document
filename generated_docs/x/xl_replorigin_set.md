@@ -25,9 +25,9 @@ The structure represents a WAL record of type  and contains the essential inform
   - XLogRecPtr (type for LSN values)
 
 - Called from (representative examples):
-  - replorigin_desc (WAL record description function)
-  - replorigin_redo (WAL record replay function) 
-  - replorigin_advance (when WAL logging is enabled)
+  - [replorigin_desc](../r/replorigin_desc.md) (WAL record description function)
+  - [replorigin_redo](../r/replorigin_redo.md) (WAL record replay function) 
+  - [replorigin_advance](../r/replorigin_advance.md) (when WAL logging is enabled)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's logical replication infrastructure

@@ -36,12 +36,12 @@ On success, the function returns true and optionally stores the parsed value. On
   - errno (global variable)
   - ERANGE (macro)
 - Called from (representative examples):
-  - main (in initdb)
-  - main (in pg_amcheck)
-  - main (in pg_basebackup)
-  - main (in pg_dump)
-  - main (in pgbench)
-  - main (in various other client utilities)
+  - [main](../m/main.md) (in initdb)
+  - [main](../m/main.md) (in pg_amcheck)
+  - [main](../m/main.md) (in pg_basebackup)
+  - [main](../m/main.md) (in pg_dump)
+  - [main](../m/main.md) (in pgbench)
+  - [main](../m/main.md) (in various other client utilities)
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on error

@@ -19,7 +19,7 @@ The `timerCA` structure serves as the communication interface between PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - itimerval (POSIX timer value structure)
+  - [itimerval](../i/itimerval.md) (POSIX timer value structure)
   - HANDLE (Windows handle type)
   - CRITICAL_SECTION (Windows synchronization primitive)
 - Called from (representative examples):

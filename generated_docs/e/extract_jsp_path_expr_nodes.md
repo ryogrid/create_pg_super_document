@@ -24,9 +24,9 @@ This function traverses a JSON path expression and extracts indexable nodes for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetArg
-  - extract_jsp_bool_expr
-  - jspGetNext
+  - [jspGetArg](../j/jspGetArg.md)
+  - [extract_jsp_bool_expr](extract_jsp_bool_expr.md)
+  - [jspGetNext](../j/jspGetNext.md)
   - lappend
   - JsonPathItem
   - JsonPathGinNode
@@ -34,7 +34,7 @@ This function traverses a JSON path expression and extracts indexable nodes for 
   - JsonPathGinPath
   - Various enum values (jpiCurrent, jpiFilter)
 - Called from (representative examples):
-  - extract_jsp_path_expr
+  - [extract_jsp_path_expr](extract_jsp_path_expr.md)
 
 ## Notes and Other Information
 - This is a static function within the JSONB GIN indexing module

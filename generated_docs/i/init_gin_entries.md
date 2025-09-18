@@ -21,10 +21,10 @@ The function is part of PostgreSQL's JSONB GIN indexing infrastructure, which al
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinEntries (struct type)
-  - palloc (memory allocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):
-  - gin_extract_jsonb (at src/backend/utils/adt/jsonb_gin.c:247)
-  - gin_extract_jsonb_path (at src/backend/utils/adt/jsonb_gin.c:1110)
+  - [gin_extract_jsonb](../g/gin_extract_jsonb.md) (at src/backend/utils/adt/jsonb_gin.c:247)
+  - [gin_extract_jsonb_path](../g/gin_extract_jsonb_path.md) (at src/backend/utils/adt/jsonb_gin.c:1110)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the jsonb_gin.c file

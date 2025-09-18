@@ -20,11 +20,11 @@ The function serves as the initialization entry point for Snowball text search d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - locate_stem_module
-  - readstoplist
-  - defGetString
-  - lowerstr
+  - [palloc0](../p/palloc0.md)
+  - [locate_stem_module](../l/locate_stem_module.md)
+  - [readstoplist](../r/readstoplist.md)
+  - [defGetString](defGetString.md)
+  - [lowerstr](../l/lowerstr.md)
   - ereport
   - CurrentMemoryContext
   - PG_GETARG_POINTER

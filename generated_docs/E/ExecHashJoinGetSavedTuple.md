@@ -25,12 +25,12 @@ This function reads tuples that were previously spilled to disk during hash join
   - CHECK_FOR_INTERRUPTS
   - BufFileReadMaybeEOF
   - ExecClearTuple
-  - palloc
+  - [palloc](../p/palloc.md)
   - BufFileReadExact
-  - ExecForceStoreMinimalTuple
+  - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md)
 - Called from (representative examples):
-  - ExecHashJoinOuterGetTuple
-  - ExecHashJoinNewBatch
+  - [ExecHashJoinOuterGetTuple](ExecHashJoinOuterGetTuple.md)
+  - [ExecHashJoinNewBatch](ExecHashJoinNewBatch.md)
 
 ## Notes and Other Information
 - Returns the provided tupleSlot on success, NULL on end-of-file

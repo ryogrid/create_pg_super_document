@@ -27,12 +27,12 @@ The function charges a bookkeeping overhead of 2x cpu_operator_cost per tuple, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_byte_size (calculates total bytes for given tuples and width)
+  - [relation_byte_size](../r/relation_byte_size.md) (calculates total bytes for given tuples and width)
   - Cost (cost data type)
   - BLCKSZ (block size constant)
 - Called from (representative examples):
-  - create_material_path (in pathnode.c:1584)
-  - materialize_finished_plan (in createplan.c:6553)
+  - [create_material_path](create_material_path.md) (in pathnode.c:1584)
+  - [materialize_finished_plan](../m/materialize_finished_plan.md) (in createplan.c:6553)
 
 ## Notes and Other Information
 - Estimates costs for the first scan only; rescan savings are calculated separately in cost_rescan

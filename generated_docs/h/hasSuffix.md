@@ -23,9 +23,9 @@ The function first calculates the lengths of both the filename and suffix string
   - strlen (standard C library function)
   - memcmp (standard C library function)
 - Called from (representative examples):
-  - InitDiscoverCompressFileHandle (src/bin/pg_dump/compress_io.c:254)
-  - InitDiscoverCompressFileHandle (src/bin/pg_dump/compress_io.c:256)
-  - InitDiscoverCompressFileHandle (src/bin/pg_dump/compress_io.c:258)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:254)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:256)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:258)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the compress_io.c file

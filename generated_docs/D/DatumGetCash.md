@@ -17,7 +17,7 @@ DatumGetCash is a simple conversion function that extracts a Cash value from a D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64
+  - [DatumGetInt64](DatumGetInt64.md)
 - Called from (representative examples):
   - PG_GETARG_CASH
 

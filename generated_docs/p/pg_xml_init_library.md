@@ -20,12 +20,12 @@ This function initializes the libxml2 library for use within PostgreSQL and perf
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)
-  - errmsg (error message formatting)  
-  - errdetail (error detail formatting)
+  - [errmsg](../e/errmsg.md) (error message formatting)  
+  - [errdetail](../e/errdetail.md) (error detail formatting)
   - xml_memory_init (custom memory allocation setup, conditional)
   - LIBXML_TEST_VERSION (libxml2 compatibility check macro)
 - Called from (representative examples):
-  - pg_xml_init (higher-level XML initialization with error handling)
+  - [pg_xml_init](pg_xml_init.md) (higher-level XML initialization with error handling)
   - parse_xml_decl (XML declaration parsing)
 
 ## Notes and Other Information

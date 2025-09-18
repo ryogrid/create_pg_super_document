@@ -21,10 +21,10 @@ ResourceOwnerForgetHMAC is a static inline wrapper function that removes an HMAC
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForget
-  - pg_hmac_ctx (type)
+  - [pg_hmac_ctx](../p/pg_hmac_ctx.md) (type)
   - ResourceOwner (type)
 - Called from (representative examples):
-  - pg_hmac_free
+  - [pg_hmac_free](../p/pg_hmac_free.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/common/hmac_openssl.c

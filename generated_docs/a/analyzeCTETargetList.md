@@ -29,15 +29,15 @@ The function is called at different stages depending on CTE type:
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject - creates copy of alias column names
-  - makeString - creates string nodes for column names
+  - [makeString](../m/makeString.md) - creates string nodes for column names
   - exprType - extracts data type from expressions
   - exprTypmod - extracts type modifier from expressions
-  - exprCollation - extracts collation from expressions
+  - [exprCollation](../e/exprCollation.md) - extracts collation from expressions
   - lappend_oid - appends OID values to lists
   - lappend_int - appends integer values to lists
 - Called from (representative examples):
-  - analyzeCTE - for non-recursive CTEs after query transformation
-  - determineRecursiveColTypes - for recursive CTEs after analyzing non-recursive term
+  - [analyzeCTE](analyzeCTE.md) - for non-recursive CTEs after query transformation
+  - [determineRecursiveColTypes](../d/determineRecursiveColTypes.md) - for recursive CTEs after analyzing non-recursive term
 
 ## Notes and Other Information
 - Fills in cte->ctecolnames, cte->ctecoltypes, cte->ctecoltypmods, and cte->ctecolcollations

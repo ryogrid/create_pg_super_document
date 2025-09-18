@@ -32,15 +32,15 @@ The function assumes the input data is already sorted appropriately for the grou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval
-  - clamp_row_est
-  - clauselist_selectivity
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [clamp_row_est](clamp_row_est.md)
+  - [clauselist_selectivity](clauselist_selectivity.md)
   - QualCost
   - Cost
   - JOIN_INNER
 - Called from (representative examples):
-  - create_group_path
-  - choose_hashed_setop
+  - [create_group_path](create_group_path.md)
+  - [choose_hashed_setop](choose_hashed_setop.md)
 
 ## Notes and Other Information
 - Caller must ensure input costs are for appropriately-sorted input data

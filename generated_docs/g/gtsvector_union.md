@@ -24,11 +24,11 @@ This function is a PostgreSQL GiST index support function that creates a union o
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_SIGLEN (macro to get signature length)
-  - gtsvector_alloc (allocates new TSVector signature)
+  - [gtsvector_alloc](gtsvector_alloc.md) (allocates new TSVector signature)
   - GETSIGN (macro to get signature bit vector)
   - memset (standard C function to initialize memory)
   - GETENTRY (macro to get entry from vector)
-  - unionkey (performs actual union operation)
+  - [unionkey](../u/unionkey.md) (performs actual union operation)
   - SET_VARSIZE (macro to set variable size)
   - CALCGTSIZE (macro to calculate signature size)
   - VARSIZE (macro to get variable size)

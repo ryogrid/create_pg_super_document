@@ -21,7 +21,7 @@ FATAL errors are reserved for serious conditions that require terminating the da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_output (with FATAL level parameter)
+  - [PLy_output](PLy_output.md) (with FATAL level parameter)
 - Called from (representative examples):
   - Exposed to Python as `plpy.fatal` method in the plpy module
 

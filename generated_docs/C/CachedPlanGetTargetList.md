@@ -27,12 +27,12 @@ The returned target list is local storage within the cached plan and may disappe
   - CachedPlanSource (structure type)
   - QueryEnvironment (structure type)
   - CACHEDPLANSOURCE_MAGIC (magic number validation)
-  - RevalidateCachedQuery (ensures plan is current)
-  - QueryListGetPrimaryStmt (extracts primary statement)
-  - FetchStatementTargetList (gets target list from statement)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (ensures plan is current)
+  - [QueryListGetPrimaryStmt](../Q/QueryListGetPrimaryStmt.md) (extracts primary statement)
+  - [FetchStatementTargetList](../F/FetchStatementTargetList.md) (gets target list from statement)
 - Called from (representative examples):
-  - FetchPreparedStatementTargetList
-  - exec_describe_statement_message
+  - [FetchPreparedStatementTargetList](../F/FetchPreparedStatementTargetList.md)
+  - [exec_describe_statement_message](../e/exec_describe_statement_message.md)
 
 ## Notes and Other Information
 - The function assumes that whether a statement returns tuples cannot be changed by invalidation

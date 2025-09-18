@@ -29,19 +29,19 @@ This function takes no parameters as it operates on global recovery state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckRecoveryConsistency
-  - ApplyWalRecord
-  - ReadRecord
-  - XLogPrefetcherBeginRead
-  - HandleStartupProcInterrupts
-  - recoveryStopsBefore/recoveryStopsAfter
-  - recoveryApplyDelay
-  - recoveryPausesHere
-  - RmgrStartup/RmgrCleanup
+  - [CheckRecoveryConsistency](../C/CheckRecoveryConsistency.md)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md)
+  - [ReadRecord](../R/ReadRecord.md)
+  - [XLogPrefetcherBeginRead](../X/XLogPrefetcherBeginRead.md)
+  - [HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md)
+  - [recoveryStopsBefore](../r/recoveryStopsBefore.md)/recoveryStopsAfter
+  - [recoveryApplyDelay](../r/recoveryApplyDelay.md)
+  - [recoveryPausesHere](../r/recoveryPausesHere.md)
+  - [RmgrStartup](../R/RmgrStartup.md)/RmgrCleanup
   - SendPostmasterSignal
-  - SetRecoveryPause
+  - [SetRecoveryPause](../S/SetRecoveryPause.md)
 - Called from:
-  - StartupXLOG (src/backend/access/transam/xlog.c:5803)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5803)
 
 ## Notes and Other Information
 - This function is only called when the system was not shut down cleanly

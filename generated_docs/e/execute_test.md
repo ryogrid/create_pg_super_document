@@ -19,20 +19,20 @@ Each test case follows a similar pattern: reset the environment, prepare SQL sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reset (resets test environment and variables)
-  - printResult (displays test case results)
+  - [reset](../r/reset.md) (resets test environment and variables)
+  - [printResult](../p/printResult.md) (displays test case results)
   - ECPGprepare (prepares SQL statements)
-  - ECPGdo (executes SQL commands)
-  - ECPGdeallocate (deallocates prepared statements)
+  - [ECPGdo](../E/ECPGdo.md) (executes SQL commands)
+  - [ECPGdeallocate](../E/ECPGdeallocate.md) (deallocates prepared statements)
   - ECPGprepared_statement (references prepared statements)
-  - ECPGallocate_desc (allocates SQL descriptors)
-  - ECPGdeallocate_desc (deallocates SQL descriptors)
-  - ECPGdescribe (describes prepared statements)
-  - ECPGget_desc_header (gets descriptor header information)
-  - ECPGget_desc (gets descriptor field information)
+  - [ECPGallocate_desc](../E/ECPGallocate_desc.md) (allocates SQL descriptors)
+  - [ECPGdeallocate_desc](../E/ECPGdeallocate_desc.md) (deallocates SQL descriptors)
+  - [ECPGdescribe](../E/ECPGdescribe.md) (describes prepared statements)
+  - [ECPGget_desc_header](../E/ECPGget_desc_header.md) (gets descriptor header information)
+  - [ECPGget_desc](../E/ECPGget_desc.md) (gets descriptor field information)
   - Various ECPG type and constant definitions (ECPGt_char, ECPG_NOT_FOUND, etc.)
 - Called from:
-  - main (in src/interfaces/ecpg/test/expected/sql-declare.c:184)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/sql-declare.c:184)
 
 ## Notes and Other Information
 - This function is part of the ECPG test suite, specifically testing SQL DECLARE functionality

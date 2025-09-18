@@ -24,12 +24,12 @@ Asynchronous commits provide better performance by not waiting for the commit re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdSetTreeStatus
+  - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)
   - TRANSACTION_STATUS_COMMITTED
   - XLogRecPtr (parameter type)
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - xact_redo_commit
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [xact_redo_commit](../x/xact_redo_commit.md)
 
 ## Notes and Other Information
 - Used specifically for asynchronous commit operations where WAL flushing is deferred

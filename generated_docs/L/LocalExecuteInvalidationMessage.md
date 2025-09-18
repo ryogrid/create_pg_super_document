@@ -26,20 +26,20 @@ Each invalidation type checks database IDs to ensure only relevant cache entries
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InvalidateCatalogSnapshot
-  - SysCacheInvalidate
-  - CallSyscacheCallbacks
-  - CatalogCacheFlushCatalog
-  - RelationCacheInvalidate
-  - RelationCacheInvalidateEntry
-  - smgrreleaserellocator
-  - RelationMapInvalidate
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
+  - [SysCacheInvalidate](../S/SysCacheInvalidate.md)
+  - [CallSyscacheCallbacks](../C/CallSyscacheCallbacks.md)
+  - [CatalogCacheFlushCatalog](../C/CatalogCacheFlushCatalog.md)
+  - [RelationCacheInvalidate](../R/RelationCacheInvalidate.md)
+  - [RelationCacheInvalidateEntry](../R/RelationCacheInvalidateEntry.md)
+  - [smgrreleaserellocator](../s/smgrreleaserellocator.md)
+  - [RelationMapInvalidate](../R/RelationMapInvalidate.md)
 - Called from (representative examples):
-  - AcceptInvalidationMessages
-  - AtEOXact_Inval
-  - AtEOSubXact_Inval
-  - CommandEndInvalidationMessages
-  - ReorderBufferExecuteInvalidations
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md)
+  - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md)
+  - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md)
+  - [ReorderBufferExecuteInvalidations](../R/ReorderBufferExecuteInvalidations.md)
 
 ## Notes and Other Information
 - The function only affects local caches and does not transmit messages to other backends

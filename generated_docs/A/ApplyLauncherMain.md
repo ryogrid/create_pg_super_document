@@ -18,15 +18,15 @@ This function implements the main event loop for the logical replication launche
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport, before_shmem_exit, logicalrep_launcher_onexit
-  - pqsignal, SignalHandlerForConfigReload, die, BackgroundWorkerUnblockSignals
-  - BackgroundWorkerInitializeConnection
+  - [pqsignal](../p/pqsignal.md), SignalHandlerForConfigReload, die, BackgroundWorkerUnblockSignals
+  - [BackgroundWorkerInitializeConnection](../B/BackgroundWorkerInitializeConnection.md)
   - AllocSetContextCreate, MemoryContextSwitchTo, MemoryContextDelete
   - get_subscription_list, logicalrep_worker_find, logicalrep_worker_launch
   - ApplyLauncherGetWorkerStartTime, ApplyLauncherSetWorkerStartTime
-  - GetCurrentTimestamp, TimestampDifferenceMilliseconds
-  - WaitLatch, ResetLatch, ProcessConfigFile
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md), TimestampDifferenceMilliseconds
+  - [WaitLatch](../W/WaitLatch.md), ResetLatch, ProcessConfigFile
 - Called from (representative examples):
-  - BackgroundWorkerHandle (background worker infrastructure)
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md) (background worker infrastructure)
 
 ## Notes and Other Information
 - This function never returns under normal operation - it runs until the process is terminated

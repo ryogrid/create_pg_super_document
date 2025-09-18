@@ -28,12 +28,12 @@ The function performs the following operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_FE_ENCODING (macro to validate frontend encoding)
-  - GetDatabaseEncoding (gets current server encoding)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current server encoding)
   - foreach_delete_current (removes duplicate cache entries)
 - Called from:
-  - ParallelWorkerMain (in parallel.c:1437)
-  - assign_client_encoding (in variable.c:785)
-  - InitializeClientEncoding (in mbutils.c:289)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (in parallel.c:1437)
+  - [assign_client_encoding](../a/assign_client_encoding.md) (in variable.c:785)
+  - [InitializeClientEncoding](../I/InitializeClientEncoding.md) (in mbutils.c:289)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (bad encoding or conversion not cached)

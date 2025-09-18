@@ -21,21 +21,21 @@ The function manages update chains by checking if a tuple is part of an update c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_freeze_tuple
-  - ItemPointerSetInvalid
-  - HeapTupleHeaderIsOnlyLocked
+  - [heap_freeze_tuple](../h/heap_freeze_tuple.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [HeapTupleHeaderIsOnlyLocked](../H/HeapTupleHeaderIsOnlyLocked.md)
   - HeapTupleHeaderIndicatesMovedPartitions
-  - ItemPointerEquals
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - HeapTupleHeaderGetUpdateXid
-  - hash_search
-  - heap_copytuple
-  - raw_heap_insert
-  - logical_rewrite_heap_tuple
-  - TransactionIdPrecedes
+  - [hash_search](../h/hash_search.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [raw_heap_insert](raw_heap_insert.md)
+  - [logical_rewrite_heap_tuple](../l/logical_rewrite_heap_tuple.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - HeapTupleHeaderGetXmin
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - reform_and_rewrite_tuple
+  - [reform_and_rewrite_tuple](reform_and_rewrite_tuple.md)
 
 ## Notes and Other Information
 - Copies transaction visibility information from old to new tuple while clearing HOT status bits

@@ -34,18 +34,18 @@ The function uses  to perform the complex logic of comparing ACL states and gene
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - buildACLCommands
-  - createDumpId
-  - ArchiveEntry
-  - pg_fatal
+  - [buildACLCommands](../b/buildACLCommands.md)
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - destroyPQExpBuffer
   - InvalidDumpId constant
 - Called from (representative examples):
-  - dumpTable
-  - dumpFunc
-  - dumpNamespace
-  - dumpForeignServer
-  - dumpDatabase
+  - [dumpTable](dumpTable.md)
+  - [dumpFunc](dumpFunc.md)
+  - [dumpNamespace](dumpNamespace.md)
+  - [dumpForeignServer](dumpForeignServer.md)
+  - [dumpDatabase](dumpDatabase.md)
 
 ## Notes and Other Information
 - Returns the dump ID of the created ACL entry, or InvalidDumpId if no ACL entry was needed

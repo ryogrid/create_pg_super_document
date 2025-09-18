@@ -20,7 +20,7 @@ This function serves as a timezone-aware wrapper for JSONPath query execution. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_query_internal (with timezone=true)
+  - [jsonb_path_query_internal](jsonb_path_query_internal.md) (with timezone=true)
 - Called from (representative examples):
   - SQL function calls via PostgreSQL's function manager
 

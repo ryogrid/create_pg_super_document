@@ -33,21 +33,21 @@ The function constructs ColumnDef nodes from the target list entries, handling t
 - Functions called/Symbols referenced:
   - makeColumnDef
   - exprType, exprTypmod, exprCollation
-  - type_is_collatable
-  - RangeVarGetAndCheckCreationNamespace
-  - relation_open, relation_close
-  - CheckTableNotInUse
-  - BuildDescForRelation
-  - checkViewColumns
-  - AlterTableInternal
-  - StoreViewQuery
-  - DefineRelation
+  - [type_is_collatable](../t/type_is_collatable.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [relation_open](../r/relation_open.md), relation_close
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [checkViewColumns](../c/checkViewColumns.md)
+  - [AlterTableInternal](../A/AlterTableInternal.md)
+  - [StoreViewQuery](../S/StoreViewQuery.md)
+  - [DefineRelation](DefineRelation.md)
   - ObjectAddressSet
-  - recordDependencyOnCurrentExtension
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - CommandCounterIncrement
 
 - Called from:
-  - DefineView
+  - [DefineView](DefineView.md)
 
 ## Notes and Other Information
 - This function must be called after EventTriggerAlterTableStart has been invoked

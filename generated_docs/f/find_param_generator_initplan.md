@@ -25,7 +25,7 @@ This function serves as a subroutine for find_param_generator, focusing on searc
   - SubPlan
   - Param
 - Called from (representative examples):
-  - find_param_generator
+  - [find_param_generator](find_param_generator.md)
 
 ## Notes and Other Information
 - This is a focused search function that only examines initplans within a single Plan node

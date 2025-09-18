@@ -29,8 +29,8 @@ This is typically used before service registration or unregistration operations 
   - CloseServiceHandle (Windows API)
   - register_servicename (global variable)
 - Called from (representative examples):
-  - pgwin32_doRegister (src/bin/pg_ctl/pg_ctl.c:1511)
-  - pgwin32_doUnregister (src/bin/pg_ctl/pg_ctl.c:1545)
+  - [pgwin32_doRegister](pgwin32_doRegister.md) (src/bin/pg_ctl/pg_ctl.c:1511)
+  - [pgwin32_doUnregister](pgwin32_doUnregister.md) (src/bin/pg_ctl/pg_ctl.c:1545)
 
 ## Notes and Other Information
 - The function is static and Windows-specific, only used within pg_ctl.c

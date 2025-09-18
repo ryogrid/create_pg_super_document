@@ -29,7 +29,7 @@ The function implements the following logic:
 ## Dependencies
 - Functions called/Symbols referenced:
   - struct descriptor (descriptor structure type)
-  - mm_strdup (memory management string duplication)
+  - [mm_strdup](../m/mm_strdup.md) (memory management string duplication)
   - mmerror (error reporting with PARSE_ERROR and ET_WARNING)
 - Called from (representative examples):
   - No direct callers found in current analysis

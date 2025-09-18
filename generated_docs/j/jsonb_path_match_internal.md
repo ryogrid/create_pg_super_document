@@ -31,7 +31,7 @@ Function arguments accessed through :
   -  - Extract boolean argument from function call info
   -  - Get number of arguments passed to function
   -  - Core JSONPath execution engine
-  -  - Variable resolver for JSONPath execution
+  -  - [Variable](../V/Variable.md) resolver for JSONPath execution
   -  - Count variables in JSONB context
   -  - Get the count of results in the value list
   -  - Get the first result from the value list

@@ -21,11 +21,11 @@ The function serves as part of the compression abstraction layer, providing a un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ZstdCompressorState
-  - CompressFileHandle
+  - [ZstdCompressorState](ZstdCompressorState.md)
+  - [CompressFileHandle](../C/CompressFileHandle.md)
   - feof (standard library function)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (as part of function pointer assignment)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (as part of function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function within the Zstd compression module

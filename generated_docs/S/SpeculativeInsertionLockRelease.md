@@ -22,10 +22,10 @@ The function uses the current value of the global speculativeInsertionToken to c
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_SPECULATIVE_INSERTION
-  - LockRelease
+  - [LockRelease](../L/LockRelease.md)
   - ExclusiveLock
 - Called from (representative examples):
-  - ExecInsert (in nodeModifyTable.c:1142)
+  - [ExecInsert](../E/ExecInsert.md) (in nodeModifyTable.c:1142)
 
 ## Notes and Other Information
 - Must be called after a corresponding SpeculativeInsertionLockAcquire call

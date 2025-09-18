@@ -20,9 +20,9 @@ The `lseg_length` function is a PostgreSQL built-in function that calculates the
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSEG_P: PostgreSQL macro to extract line segment argument
-  - point_dt: Calculates Euclidean distance between two points using HYPOT
+  - [point_dt](../p/point_dt.md): Calculates Euclidean distance between two points using HYPOT
   - PG_RETURN_FLOAT8: PostgreSQL macro to return float8 result
-  - LSEG: Line segment data structure type
+  - [LSEG](../L/LSEG.md): Line segment data structure type
 
 - Called from (representative examples):
   - This function is typically called from SQL queries rather than C code

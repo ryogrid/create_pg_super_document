@@ -25,11 +25,11 @@ Both target lists must have the same length and corresponding entries must have 
   - list_length (implicit via Assert)
   - forboth (macro for iterating over two lists simultaneously)
   - Assert (debugging assertion macro)
-  - TargetEntry (struct type)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
 - Called from (representative examples):
-  - create_plan
-  - create_modifytable_plan
-  - clean_up_removed_plan_level
+  - [create_plan](../c/create_plan.md)
+  - [create_modifytable_plan](../c/create_modifytable_plan.md)
+  - [clean_up_removed_plan_level](../c/clean_up_removed_plan_level.md)
 
 ## Notes and Other Information
 - Both target lists must have identical length (enforced by Assert)

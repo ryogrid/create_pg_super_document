@@ -28,15 +28,15 @@ The function ensures consistency by validating that the number of expression col
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head (gets first element of index expressions list)
-  - lnext (advances to next list element)
-  - SystemAttributeDefinition (gets system attribute information for negative indexkeys)
+  - [lnext](../l/lnext.md) (advances to next list element)
+  - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md) (gets system attribute information for negative indexkeys)
   - TupleDescAttr (accesses heap relation attribute information)
   - makeVar (creates Var nodes for simple columns)
-  - makeTargetEntry (creates target list entries)
-  - IndexOptInfo (index optimization information structure)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (creates target list entries)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (index optimization information structure)
 
 - Called from (representative examples):
-  - get_relation_info (src/backend/optimizer/util/plancat.c:455)
+  - [get_relation_info](../g/get_relation_info.md) (src/backend/optimizer/util/plancat.c:455)
 
 ## Notes and Other Information
 - Static function (internal to plancat.c module)

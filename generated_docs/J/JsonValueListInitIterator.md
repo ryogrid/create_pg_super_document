@@ -26,17 +26,17 @@ The function provides the foundation for sequential access to all values in a Js
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure type)
-  - JsonValueListIterator (structure type)
+  - [JsonValueList](JsonValueList.md) (structure type)
+  - [JsonValueListIterator](JsonValueListIterator.md) (structure type)
   - linitial (PostgreSQL list utility function)
   - list_second_cell (PostgreSQL list utility function)
   - NIL (PostgreSQL constant for empty list)
 - Called from (representative examples):
-  - executeItemOptUnwrapResult
-  - executePredicate
-  - executeUnaryArithmExpr
-  - wrapItemsInArray
-  - JsonTableResetRowPattern
+  - [executeItemOptUnwrapResult](../e/executeItemOptUnwrapResult.md)
+  - [executePredicate](../e/executePredicate.md)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
+  - [wrapItemsInArray](../w/wrapItemsInArray.md)
+  - [JsonTableResetRowPattern](JsonTableResetRowPattern.md)
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module

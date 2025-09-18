@@ -28,14 +28,14 @@ This function updates the union keys for both sides of a GiST index page split a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (structure type)
-  - GistSplitVector (structure type)
+  - [GISTSTATE](../G/GISTSTATE.md) (structure type)
+  - [GistSplitVector](../G/GistSplitVector.md) (structure type)
   - GistSplitUnion (structure type)
-  - gistunionsubkeyvec (helper function called twice)
+  - [gistunionsubkeyvec](gistunionsubkeyvec.md) (helper function called twice)
 - Called from:
-  - gistUserPicksplit (at src/backend/access/gist/gistsplit.c:543)
-  - gistSplitByKey (at src/backend/access/gist/gistsplit.c:689)
-  - gistSplitByKey (at src/backend/access/gist/gistsplit.c:777)
+  - [gistUserPicksplit](gistUserPicksplit.md) (at src/backend/access/gist/gistsplit.c:543)
+  - [gistSplitByKey](gistSplitByKey.md) (at src/backend/access/gist/gistsplit.c:689)
+  - [gistSplitByKey](gistSplitByKey.md) (at src/backend/access/gist/gistsplit.c:777)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistsplit.c file

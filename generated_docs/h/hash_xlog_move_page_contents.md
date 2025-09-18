@@ -20,23 +20,23 @@ This function handles the replay of page content movement during hash index sque
   - XLogRecGetData
   - XLogReadBufferForRedoExtended
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
-  - BufferGetPage
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - IndexTupleSize
   - PageAddItem
-  - PageIndexMultiDelete
-  - PageSetLSN
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
-  - xl_hash_move_page_contents
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [xl_hash_move_page_contents](../x/xl_hash_move_page_contents.md)
   - XLogRedoAction
   - RBM_NORMAL
   - BLK_NEEDS_REDO
   - InvalidOffsetNumber
   - Item
 - Called from (representative examples):
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery module

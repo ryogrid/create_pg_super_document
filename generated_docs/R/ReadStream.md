@@ -85,14 +85,14 @@ The structure supports both maintenance operations (governed by maintenance_io_c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InProgressIO
+  - [InProgressIO](../I/InProgressIO.md)
   - ReadStreamBlockNumberCB (callback function type)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - heap_scan_stream_read_next_parallel
-  - heap_scan_stream_read_next_serial
-  - heapam_scan_analyze_next_block
-  - block_sampling_read_stream_next
+  - [heap_scan_stream_read_next_parallel](../h/heap_scan_stream_read_next_parallel.md)
+  - [heap_scan_stream_read_next_serial](../h/heap_scan_stream_read_next_serial.md)
+  - [heapam_scan_analyze_next_block](../h/heapam_scan_analyze_next_block.md)
+  - [block_sampling_read_stream_next](../b/block_sampling_read_stream_next.md)
   - read_stream_begin_relation
   - read_stream_next_buffer
   - read_stream_next_block

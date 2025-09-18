@@ -23,13 +23,13 @@ The function is commonly used when constructing PostgreSQL wire protocol message
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPutMsgBytes (for the actual byte writing)
+  - [pqPutMsgBytes](pqPutMsgBytes.md) (for the actual byte writing)
 - Called from (representative examples):
-  - pg_SASL_init (fe-auth.c:597)
-  - pqPacketSend (fe-connect.c:4994)
-  - PQsendQueryGuts (fe-exec.c:1856)
-  - PQputCopyData (fe-exec.c:2734)
-  - pqFunctionCall3 (fe-protocol3.c:2050)
+  - [pg_SASL_init](pg_SASL_init.md) (fe-auth.c:597)
+  - [pqPacketSend](pqPacketSend.md) (fe-connect.c:4994)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md) (fe-exec.c:1856)
+  - [PQputCopyData](../P/PQputCopyData.md) (fe-exec.c:2734)
+  - [pqFunctionCall3](pqFunctionCall3.md) (fe-protocol3.c:2050)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure

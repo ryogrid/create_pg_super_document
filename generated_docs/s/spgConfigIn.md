@@ -19,8 +19,8 @@ spgConfigIn is a simple input structure used in the SP-GiST (Space-Partitioned G
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - spgGetCache (src/backend/access/spgist/spgutils.c:189)
-  - spgvalidate (src/backend/access/spgist/spgvalidate.c:57)
+  - [spgGetCache](spgGetCache.md) (src/backend/access/spgist/spgutils.c:189)
+  - [spgvalidate](spgvalidate.md) (src/backend/access/spgist/spgvalidate.c:57)
 
 ## Notes and Other Information
 - This struct is part of the SP-GiST index access method interface

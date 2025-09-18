@@ -23,16 +23,16 @@ The function uses PostgreSQL's system cache (NAMESPACENAME) for efficient lookup
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid1 (to query the system cache)
-  - CStringGetDatum (to convert string to Datum for cache lookup)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (to convert string to Datum for cache lookup)
   - OidIsValid (to check if returned OID is valid)
   - ereport/ERROR (for error reporting when missing_ok is false)
 - Called from (representative examples):
-  - LookupCreationNamespace
-  - LookupExplicitNamespace
-  - QualifiedNameGetCreationNamespace
-  - RangeVarGetCreationNamespace
-  - CreateSchemaCommand
-  - RenameSchema
+  - [LookupCreationNamespace](../L/LookupCreationNamespace.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [RangeVarGetCreationNamespace](../R/RangeVarGetCreationNamespace.md)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md)
+  - [RenameSchema](../R/RenameSchema.md)
   - Many other catalog and command functions
 
 ## Notes and Other Information

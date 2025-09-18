@@ -32,15 +32,15 @@ The function is designed with careful consideration of interrupt handling and st
   - LOCALLOCK_LOCKMETHOD (macro)
   - LockMethods (global array)
   - LOCK_PRINT (debug macro)
-  - set_ps_display_suffix
+  - [set_ps_display_suffix](../s/set_ps_display_suffix.md)
   - ProcSleep
   - LockHashPartitionLock
-  - DeadLockReport
-  - set_ps_display_remove_suffix
+  - [DeadLockReport](../D/DeadLockReport.md)
+  - [set_ps_display_remove_suffix](../s/set_ps_display_remove_suffix.md)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling)
   - PROC_WAIT_STATUS_OK (constant)
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
   - PROCLOCK_PRINT (debug context)
 
 ## Notes and Other Information

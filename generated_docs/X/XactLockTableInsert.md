@@ -24,10 +24,10 @@ The lock is held until the transaction commits or aborts, at which point it is a
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TRANSACTION (macro to construct transaction-specific lock tag)
-  - LockAcquire (acquires the exclusive lock on the transaction)
+  - [LockAcquire](../L/LockAcquire.md) (acquires the exclusive lock on the transaction)
   - ExclusiveLock (lock mode constant for exclusive access)
 - Called from (representative examples):
-  - AssignTransactionId (when a transaction first gets its XID)
+  - [AssignTransactionId](../A/AssignTransactionId.md) (when a transaction first gets its XID)
   - Various transaction management functions
 
 ## Notes and Other Information

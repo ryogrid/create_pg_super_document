@@ -23,8 +23,8 @@ This function performs a linear search through the  array to find a matching for
   - ereport/ERROR (PostgreSQL error reporting, backend only)
   - InvalidForkNumber (constant for invalid fork identifier)
 - Called from (representative examples):
-  - pg_relation_size (in src/backend/utils/adt/dbsize.c:366)
-  - main (in src/bin/pg_waldump/pg_waldump.c:919)
+  - [pg_relation_size](../p/pg_relation_size.md) (in src/backend/utils/adt/dbsize.c:366)
+  - [main](../m/main.md) (in src/bin/pg_waldump/pg_waldump.c:919)
   - FORKNAMECHARS (referenced in src/include/common/relpath.h:68)
 
 ## Notes and Other Information

@@ -81,7 +81,7 @@ The Query structure is extensively used throughout query processing but is not d
   - FromExpr
   - OverridingKind
   - OnConflictExpr
-  - LimitOption
+  - [LimitOption](../L/LimitOption.md)
   - ParseLoc
 - Called from (representative examples):
   - No direct references found (base structure used throughout system)
@@ -89,7 +89,7 @@ The Query structure is extensively used throughout query processing but is not d
 ## Notes and Other Information
 - The Query structure is the cornerstone of PostgreSQL's query processing pipeline
 - Many fields are marked with pg_node_attr annotations for query jumbling, equality comparison, and serialization control
-- Query jumbling is used to generate query fingerprints for statistics and plan caching
+- [Query](Query.md) jumbling is used to generate query fingerprints for statistics and plan caching
 - The structure supports all major SQL operations and advanced features like CTEs, window functions, and MERGE statements
 - Fields marked with query_jumble_ignore do not contribute to the query identifier calculation
 - The Query tree is transformed through multiple processing phases but maintains its central role until plan generation

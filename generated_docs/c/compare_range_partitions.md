@@ -26,9 +26,9 @@ This function performs overlap detection between two range partitions by compari
 ## Dependencies
 - Functions called/Symbols referenced:
   - compare_range_bounds
-  - PartitionRangeBound
+  - [PartitionRangeBound](../P/PartitionRangeBound.md)
 - Called from (representative examples):
-  - merge_range_bounds
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - This is a static function within partbounds.c, used internally for partition bound operations

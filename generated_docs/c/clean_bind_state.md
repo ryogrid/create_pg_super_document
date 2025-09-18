@@ -24,8 +24,8 @@ This function takes no parameters.
   - pset.bind_params (global variable)
   - pset.bind_nparams (global variable)
 - Called from (representative examples):
-  - exec_command_bind (src/bin/psql/command.c:495)
-  - SendQuery (src/bin/psql/common.c:1278)
+  - [exec_command_bind](../e/exec_command_bind.md) (src/bin/psql/command.c:495)
+  - [SendQuery](../S/SendQuery.md) (src/bin/psql/common.c:1278)
 
 ## Notes and Other Information
 - This function is part of the psql client's parameter binding mechanism

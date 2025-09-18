@@ -17,10 +17,10 @@ This function efficiently computes the ceiling of the base-2 logarithm for 32-bi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos32 (to find the position of the leftmost set bit)
+  - [pg_leftmost_one_pos32](pg_leftmost_one_pos32.md) (to find the position of the leftmost set bit)
 - Called from (representative examples):
-  - _hash_spareindex (hash table index calculations)
-  - my_log2 (dynamic hash table implementation)
+  - [_hash_spareindex](../h/_hash_spareindex.md) (hash table index calculations)
+  - [my_log2](../m/my_log2.md) (dynamic hash table implementation)
 
 ## Notes and Other Information
 - Returns 0 for inputs less than 2 (including 0 and 1)

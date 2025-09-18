@@ -25,7 +25,7 @@ The function clears the XID, virtual XID, xmin, and subtransaction information f
   - InvalidLocalTransactionId
   - PROC_VACUUM_STATE_MASK
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](PrepareTransaction.md)
 
 ## Notes and Other Information
 - Exclusively used in 2-phase commit scenarios after successful transaction preparation

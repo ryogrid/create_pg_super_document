@@ -18,14 +18,14 @@ CheckPasswordAuth is a core authentication function that implements the plaintex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sendAuthRequest (sends AUTH_REQ_PASSWORD request to client)
-  - recv_password_packet (receives password from client)
-  - get_role_password (retrieves stored password hash for user)
-  - plain_crypt_verify (verifies plaintext password against stored hash)
-  - set_authn_id (sets authenticated identity on successful auth)
-  - pfree (memory cleanup)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (sends AUTH_REQ_PASSWORD request to client)
+  - [recv_password_packet](../r/recv_password_packet.md) (receives password from client)
+  - [get_role_password](../g/get_role_password.md) (retrieves stored password hash for user)
+  - [plain_crypt_verify](../p/plain_crypt_verify.md) (verifies plaintext password against stored hash)
+  - [set_authn_id](../s/set_authn_id.md) (sets authenticated identity on successful auth)
+  - [pfree](../p/pfree.md) (memory cleanup)
 - Called from (representative examples):
-  - ClientAuthentication function in auth.c:604
+  - [ClientAuthentication](ClientAuthentication.md) function in auth.c:604
 
 ## Notes and Other Information
 - Returns STATUS_OK on successful authentication, STATUS_EOF if client doesn't send password, or STATUS_ERROR on authentication failure

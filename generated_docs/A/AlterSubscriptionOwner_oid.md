@@ -22,11 +22,11 @@ This function serves as a public interface for changing subscription ownership w
   - SearchSysCacheCopy1
   - HeapTupleIsValid
   - ereport
-  - AlterSubscriptionOwner_internal
-  - heap_freetuple
+  - [AlterSubscriptionOwner_internal](AlterSubscriptionOwner_internal.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Called from (representative examples):
-  - shdepReassignOwned_Owner
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md)
 
 ## Notes and Other Information
 - This function is typically used during ownership reassignment operations, particularly when reassigning objects during role/user management

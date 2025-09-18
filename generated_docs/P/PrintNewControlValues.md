@@ -19,13 +19,13 @@ This function takes no parameters and operates on global variables and the globa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFileName (to generate WAL segment filename)
+  - [XLogFileName](../X/XLogFileName.md) (to generate WAL segment filename)
   - XidFromFullTransactionId (to extract XID from full transaction ID)
   - EpochFromFullTransactionId (to extract epoch from full transaction ID)
   - MAXFNAMELEN (constant for maximum filename length)
 
 - Called from:
-  - main (in pg_resetwal.c at lines 464 and 474)
+  - [main](../m/main.md) (in pg_resetwal.c at lines 464 and 474)
 
 ## Notes and Other Information
 - This is a static function local to pg_resetwal.c

@@ -18,14 +18,14 @@ The getInherits function queries the pg_inherits system catalog to retrieve all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InhInfo (structure type)
-  - ExecuteSqlQuery
+  - [InhInfo](../I/InhInfo.md) (structure type)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
   - pg_malloc
   - atooid
 - Called from (representative examples):
-  - getSchemaData
-  - SubRelInfo (referenced in header)
+  - [getSchemaData](getSchemaData.md)
+  - [SubRelInfo](../S/SubRelInfo.md) (referenced in header)
 
 ## Notes and Other Information
 - The function queries the pg_inherits catalog table directly using a simple SELECT statement

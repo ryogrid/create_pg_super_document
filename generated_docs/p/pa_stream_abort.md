@@ -27,21 +27,21 @@ The function also updates replication origin state to ensure proper crash recove
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pa_set_xact_state
-  - pa_unlock_transaction  
-  - AbortCurrentTransaction
-  - IsTransactionBlock
-  - EndTransactionBlock
-  - CommitTransactionCommand
-  - pa_reset_subtrans
-  - pgstat_report_activity
-  - pa_savepoint_name
-  - RollbackToSavepoint
-  - list_truncate
+  - [pa_set_xact_state](pa_set_xact_state.md)
+  - [pa_unlock_transaction](pa_unlock_transaction.md)  
+  - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md)
+  - [IsTransactionBlock](../I/IsTransactionBlock.md)
+  - [EndTransactionBlock](../E/EndTransactionBlock.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [pa_reset_subtrans](pa_reset_subtrans.md)
+  - [pgstat_report_activity](pgstat_report_activity.md)
+  - [pa_savepoint_name](pa_savepoint_name.md)
+  - [RollbackToSavepoint](../R/RollbackToSavepoint.md)
+  - [list_truncate](../l/list_truncate.md)
   - lfirst_xid
   - list_nth_cell
 - Called from (representative examples):
-  - apply_handle_stream_abort
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 - Handles both complete transaction aborts and partial subtransaction rollbacks

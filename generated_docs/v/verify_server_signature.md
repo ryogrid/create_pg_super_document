@@ -21,16 +21,16 @@ The function computes the ServerSignature by first deriving the ServerKey from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_hmac_create
-  - pg_hmac_error
+  - [pg_hmac_create](../p/pg_hmac_create.md)
+  - [pg_hmac_error](../p/pg_hmac_error.md)
   - scram_ServerKey
-  - pg_hmac_free
-  - pg_hmac_init
-  - pg_hmac_update
-  - pg_hmac_final
+  - [pg_hmac_free](../p/pg_hmac_free.md)
+  - [pg_hmac_init](../p/pg_hmac_init.md)
+  - [pg_hmac_update](../p/pg_hmac_update.md)
+  - [pg_hmac_final](../p/pg_hmac_final.md)
   - memcmp
 - Called from (representative examples):
-  - scram_exchange
+  - [scram_exchange](../s/scram_exchange.md)
 
 ## Notes and Other Information
 - This is a static function internal to fe-auth-scram.c

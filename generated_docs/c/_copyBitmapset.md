@@ -19,7 +19,7 @@ This design maintains consistency with the node copying framework while leveragi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy (dedicated function for copying Bitmapset structures)
+  - [bms_copy](../b/bms_copy.md) (dedicated function for copying Bitmapset structures)
 - Called from (representative examples):
   - Part of the node copying system (called indirectly through copyObject)
 

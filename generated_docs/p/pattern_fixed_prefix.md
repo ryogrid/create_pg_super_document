@@ -33,13 +33,13 @@ For prefix patterns, the function handles the trivial case directly by copying t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - like_fixed_prefix (for LIKE and ILIKE patterns)
-  - regex_fixed_prefix (for regex patterns)
-  - makeConst (to create the prefix constant for Pattern_Type_Prefix)
-  - datumCopy (to copy pattern data for prefix patterns)
+  - [like_fixed_prefix](../l/like_fixed_prefix.md) (for LIKE and ILIKE patterns)
+  - [regex_fixed_prefix](../r/regex_fixed_prefix.md) (for regex patterns)
+  - [makeConst](../m/makeConst.md) (to create the prefix constant for Pattern_Type_Prefix)
+  - [datumCopy](../d/datumCopy.md) (to copy pattern data for prefix patterns)
 - Called from:
-  - match_pattern_prefix
-  - patternsel_common
+  - [match_pattern_prefix](../m/match_pattern_prefix.md)
+  - [patternsel_common](patternsel_common.md)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, not exposed in the public API

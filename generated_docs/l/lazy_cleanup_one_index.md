@@ -26,14 +26,14 @@ This function handles the cleanup phase of vacuum operations for individual inde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexVacuumInfo
-  - LVSavedErrInfo
-  - update_vacuum_error_info
-  - vac_cleanup_one_index
-  - restore_vacuum_error_info
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
+  - [LVSavedErrInfo](../L/LVSavedErrInfo.md)
+  - [update_vacuum_error_info](../u/update_vacuum_error_info.md)
+  - [vac_cleanup_one_index](../v/vac_cleanup_one_index.md)
+  - [restore_vacuum_error_info](../r/restore_vacuum_error_info.md)
   - VACUUM_ERRCB_PHASE_INDEX_CLEANUP
 - Called from (representative examples):
-  - lazy_cleanup_all_indexes
+  - [lazy_cleanup_all_indexes](lazy_cleanup_all_indexes.md)
 
 ## Notes and Other Information
 The function is part of the lazy vacuum implementation and specifically handles the cleanup phase after bulk deletion operations. It ensures proper error reporting by temporarily updating the vacuum error context with the current index name. The estimated_count parameter is passed through to the index access method to inform it whether tuple count statistics are precise or estimated, which may affect optimization decisions during cleanup.

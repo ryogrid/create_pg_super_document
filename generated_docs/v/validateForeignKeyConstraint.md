@@ -23,19 +23,19 @@ The function uses proper memory management with a per-tuple memory context to pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RI_Initial_Check
-  - RI_FKey_check_ins
-  - table_beginscan
-  - table_scan_getnextslot
-  - table_endscan
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_FKey_check_ins](../R/RI_FKey_check_ins.md)
+  - [table_beginscan](../t/table_beginscan.md)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
+  - [table_endscan](../t/table_endscan.md)
   - RegisterSnapshot
   - GetLatestSnapshot
   - UnregisterSnapshot
   - AllocSetContextCreate
-  - MemoryContextDelete
-  - ExecFetchSlotHeapTuple
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
 - Called from (representative examples):
-  - ATRewriteTables
+  - [ATRewriteTables](../A/ATRewriteTables.md)
 
 ## Notes and Other Information
 - Uses optimized LEFT JOIN validation when possible, falls back to trigger-based validation

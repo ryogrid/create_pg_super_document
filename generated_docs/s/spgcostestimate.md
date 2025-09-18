@@ -24,12 +24,12 @@ The spgcostestimate function provides cost estimates for SP-GiST index scans to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - genericcostestimate
-  - IndexOptInfo
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md)
   - GenericCosts
   - DEFAULT_PAGE_CPU_MULTIPLIER
 - Called from (representative examples):
-  - spghandler
+  - [spghandler](spghandler.md)
 
 ## Notes and Other Information
 - Uses an arbitrary fanout assumption of 100 for tree height calculations

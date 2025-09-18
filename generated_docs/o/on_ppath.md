@@ -30,7 +30,7 @@ The function handles edge cases where endpoints or edges may touch but not cross
   -  - Calculates distance between two points
   -  - Floating-point addition
   -  - Floating-point equality comparison with tolerance
-  -  - Point-in-polygon test for closed paths
+  -  - [Point](../P/Point.md)-in-polygon test for closed paths
   -  - Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -21,7 +21,7 @@ The function ensures that all memory allocated for the Danish stemming environme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (called with parameters z, 1)
+  - [SN_close_env](../S/SN_close_env.md) (called with parameters z, 1)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

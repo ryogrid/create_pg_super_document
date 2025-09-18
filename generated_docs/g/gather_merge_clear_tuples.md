@@ -25,11 +25,11 @@ The function is critical for memory management during rescans and cleanup operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
   - ExecClearTuple
 - Called from (representative examples):
-  - ExecReScanGatherMerge
-  - gather_merge_getnext
+  - [ExecReScanGatherMerge](../E/ExecReScanGatherMerge.md)
+  - [gather_merge_getnext](gather_merge_getnext.md)
 
 ## Notes and Other Information
 - Only processes worker tuple buffers (indexed 0 to nreaders-1), not the leader slot

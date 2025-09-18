@@ -31,20 +31,20 @@ GatherMergeState extends the concept of parallel execution beyond simple gatheri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited structure)
-  - TupleDesc (for tuple structure description)
+  - [PlanState](../P/PlanState.md) (inherited structure)
+  - [TupleDesc](../T/TupleDesc.md) (for tuple structure description)
   - SortSupport (for sort key management)
   - ParallelExecutorInfo (for parallel execution context)
   - TupleTableSlot (for tuple storage during merge)
-  - TupleQueueReader (for reading from parallel workers)
-  - GMReaderTupleBuffer (for tuple buffering)
-  - binaryheap (for efficient merge ordering)
+  - [TupleQueueReader](../T/TupleQueueReader.md) (for reading from parallel workers)
+  - [GMReaderTupleBuffer](GMReaderTupleBuffer.md) (for tuple buffering)
+  - [binaryheap](../b/binaryheap.md) (for efficient merge ordering)
 - Called from (representative examples):
-  - ExecInitGatherMerge (initialization function)
-  - ExecGatherMerge (main execution function)
-  - ExecEndGatherMerge (cleanup function)
-  - gather_merge_getnext (tuple retrieval function)
-  - gather_merge_setup (setup function)
+  - [ExecInitGatherMerge](../E/ExecInitGatherMerge.md) (initialization function)
+  - [ExecGatherMerge](../E/ExecGatherMerge.md) (main execution function)
+  - [ExecEndGatherMerge](../E/ExecEndGatherMerge.md) (cleanup function)
+  - [gather_merge_getnext](../g/gather_merge_getnext.md) (tuple retrieval function)
+  - [gather_merge_setup](../g/gather_merge_setup.md) (setup function)
 
 ## Notes and Other Information
 - Implements sophisticated merge-sort algorithm for parallel query results
@@ -53,5 +53,5 @@ GatherMergeState extends the concept of parallel execution beyond simple gatheri
 - More complex than GatherState due to the need to maintain sort order across parallel streams
 - Arrays are not reallocated during rescans for efficiency, only cleared and reused
 - The +1 in gm_slots accounts for the local process in addition to parallel workers
-- GMReaderTupleBuffer is defined privately in nodeGatherMerge.c for encapsulation
+- [GMReaderTupleBuffer](GMReaderTupleBuffer.md) is defined privately in nodeGatherMerge.c for encapsulation
 - Located in src/include/nodes/execnodes.h:2695-2715

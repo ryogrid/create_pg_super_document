@@ -24,13 +24,13 @@ SSLerrmessage is a utility function that converts OpenSSL error codes into human
   - ERR_SYSTEM_ERROR (macro, OpenSSL 3.0+)
   - ERR_GET_REASON (macro, OpenSSL 3.0+)
 - Called from (representative examples):
-  - be_tls_init
-  - be_tls_open_server
-  - be_tls_read
-  - be_tls_write
-  - pg_hmac_init
-  - initialize_SSL
-  - pgtls_read
+  - [be_tls_init](../b/be_tls_init.md)
+  - [be_tls_open_server](../b/be_tls_open_server.md)
+  - [be_tls_read](../b/be_tls_read.md)
+  - [be_tls_write](../b/be_tls_write.md)
+  - [pg_hmac_init](../p/pg_hmac_init.md)
+  - [initialize_SSL](../i/initialize_SSL.md)
+  - [pgtls_read](../p/pgtls_read.md)
 
 ## Notes and Other Information
 - Static function defined in src/backend/libpq/be-secure-openssl.c

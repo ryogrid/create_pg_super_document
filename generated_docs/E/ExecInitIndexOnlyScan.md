@@ -39,24 +39,24 @@ The function includes sophisticated handling of the "name" data type optimizatio
   - makeNode
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - ExecTypeFromTL
-  - ExecInitScanTupleSlot
-  - ExecAllocTableSlot
-  - table_slot_callbacks
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfoWithVarno
-  - ExecInitQual
+  - [ExecTypeFromTL](ExecTypeFromTL.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [ExecAllocTableSlot](ExecAllocTableSlot.md)
+  - [table_slot_callbacks](../t/table_slot_callbacks.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfoWithVarno](ExecAssignScanProjectionInfoWithVarno.md)
+  - [ExecInitQual](ExecInitQual.md)
   - exec_rt_fetch
-  - index_open
-  - ExecIndexBuildScanKeys
+  - [index_open](../i/index_open.md)
+  - [ExecIndexBuildScanKeys](ExecIndexBuildScanKeys.md)
 - Types used:
   - IndexOnlyScan
-  - IndexOnlyScanState
-  - EState
-  - TupleDesc
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [EState](EState.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - AttrNumber
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - The function distinguishes between regular scans and EXPLAIN-only operations, stopping early for the latter

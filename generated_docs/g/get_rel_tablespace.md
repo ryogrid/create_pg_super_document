@@ -19,17 +19,17 @@ It's important to note that InvalidOid can have two meanings: either the relatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (pg_class catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
-  - DefineRelation
-  - pg_get_indexdef_worker
-  - pg_get_constraintdef_worker
+  - [DefineRelation](../D/DefineRelation.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [pg_get_constraintdef_worker](../p/pg_get_constraintdef_worker.md)
 
 ## Notes and Other Information
 - InvalidOid result can mean either nonexistent relation or default tablespace usage

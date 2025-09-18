@@ -20,14 +20,14 @@ The function is a critical part of the executor lifecycle and must be called for
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecutorEnd_hook (function pointer, may be NULL)
-  - standard_ExecutorEnd
+  - [standard_ExecutorEnd](../s/standard_ExecutorEnd.md)
 - Called from (representative examples):
-  - EndCopyTo
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - ProcessQuery
-  - _SPI_pquery
-  - PortalCleanup
+  - [EndCopyTo](EndCopyTo.md)
+  - [ExecCreateTableAs](ExecCreateTableAs.md)
+  - [ExplainOnePlan](ExplainOnePlan.md)
+  - [ProcessQuery](../P/ProcessQuery.md)
+  - [_SPI_pquery](../S/_SPI_pquery.md)
+  - [PortalCleanup](../P/PortalCleanup.md)
 
 ## Notes and Other Information
 - Provides a hook mechanism (ExecutorEnd_hook) for plugin extensibility

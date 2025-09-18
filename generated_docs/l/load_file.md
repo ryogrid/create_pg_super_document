@@ -22,15 +22,15 @@ This function is commonly used in PostgreSQL's subscription and replication syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_restricted_library_name
-  - expand_dynamic_library_name
-  - internal_load_library
+  - [check_restricted_library_name](../c/check_restricted_library_name.md)
+  - [expand_dynamic_library_name](../e/expand_dynamic_library_name.md)
+  - [internal_load_library](../i/internal_load_library.md)
 - Called from (representative examples):
-  - CreateSubscription
-  - AlterSubscription
-  - WalReceiverMain
-  - load_libraries
-  - standard_ProcessUtility
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [AlterSubscription](../A/AlterSubscription.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [load_libraries](load_libraries.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's dynamic function management system located in src/backend/utils/fmgr/dfmgr.c

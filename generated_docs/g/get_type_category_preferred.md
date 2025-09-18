@@ -21,20 +21,20 @@ This function performs a system catalog lookup to fetch two important type attri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_type
 - Called from (representative examples):
-  - select_common_type
-  - select_common_type_from_oids
-  - TypeCategory
-  - IsPreferredType
-  - transformJsonValueExpr
-  - func_select_candidate
+  - [select_common_type](../s/select_common_type.md)
+  - [select_common_type_from_oids](../s/select_common_type_from_oids.md)
+  - [TypeCategory](../T/TypeCategory.md)
+  - [IsPreferredType](../I/IsPreferredType.md)
+  - [transformJsonValueExpr](../t/transformJsonValueExpr.md)
+  - [func_select_candidate](../f/func_select_candidate.md)
 
 ## Notes and Other Information
 This function is a core component of PostgreSQL's type system infrastructure. It's heavily used in type resolution algorithms, particularly in contexts where the parser needs to determine which type to use when multiple options are available (such as in function overload resolution or UNION operations). The function accesses the system cache for efficiency, as type information is frequently queried during query planning and execution.

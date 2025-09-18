@@ -22,16 +22,16 @@ The query joins multiple system catalogs (, , , , ) to gather comprehensive info
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
-  - PSQLexec
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
+  - [PSQLexec](../P/PSQLexec.md)
   - termPQExpBuffer
   - lengthof
-  - printQuery
-  - PQExpBufferData
-  - printQueryOpt
+  - [printQuery](../p/printQuery.md)
+  - [PQExpBufferData](../P/PQExpBufferData.md)
+  - [printQueryOpt](../p/printQueryOpt.md)
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher)
 
 ## Notes and Other Information
 - This function is part of psql's describe command family, specifically handling the  command

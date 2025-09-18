@@ -18,12 +18,12 @@ This function takes no parameters and operates on global cluster structures (old
 ## Dependencies
 - Functions called/Symbols referenced:
   - access (Unix/Linux)
-  - win32_check_directory_write_permissions (Windows)
-  - check_bin_dir (called twice, for old and new clusters)
-  - check_data_dir (called twice, for old and new clusters)
-  - pg_fatal (for fatal error reporting)
+  - [win32_check_directory_write_permissions](../w/win32_check_directory_write_permissions.md) (Windows)
+  - [check_bin_dir](../c/check_bin_dir.md) (called twice, for old and new clusters)
+  - [check_data_dir](../c/check_data_dir.md) (called twice, for old and new clusters)
+  - [pg_fatal](../p/pg_fatal.md) (for fatal error reporting)
 - Called from (representative examples):
-  - setup (in pg_upgrade.c)
+  - [setup](../s/setup.md) (in pg_upgrade.c)
 
 ## Notes and Other Information
 - This function has platform-specific behavior: uses access() on Unix/Linux and win32_check_directory_write_permissions() on Windows

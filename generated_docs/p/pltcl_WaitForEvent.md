@@ -23,7 +23,7 @@ By always returning 0, PostgreSQL's implementation ensures that the Tcl event lo
 - Functions called/Symbols referenced:
   - CONST86 (Tcl compatibility macro for const qualifier)
 - Called from (representative examples):
-  - _PG_init (assigned to notifier.waitForEventProc)
+  - [_PG_init](../P/_PG_init.md) (assigned to notifier.waitForEventProc)
 
 ## Notes and Other Information
 - This function is part of a complete set of Tcl notifier overrides that includes pltcl_InitNotifier, pltcl_FinalizeNotifier, pltcl_SetTimer, pltcl_AlertNotifier, pltcl_CreateFileHandler, pltcl_DeleteFileHandler, and pltcl_ServiceModeHook

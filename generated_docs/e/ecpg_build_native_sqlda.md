@@ -24,15 +24,15 @@ The function allocates memory for the complete SQLDA structure including the hea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlda_native_total_size
+  - [sqlda_native_total_size](../s/sqlda_native_total_size.md)
   - ecpg_alloc
-  - PQnfields
-  - ecpg_log
-  - sqlda_dynamic_type
+  - [PQnfields](../P/PQnfields.md)
+  - [ecpg_log](ecpg_log.md)
+  - [sqlda_dynamic_type](../s/sqlda_dynamic_type.md)
   - PQftype
-  - PQfname
+  - [PQfname](../P/PQfname.md)
 - Called from (representative examples):
-  - ECPGdescribe
+  - [ECPGdescribe](../E/ECPGdescribe.md)
   - ecpg_process_output
 
 ## Notes and Other Information

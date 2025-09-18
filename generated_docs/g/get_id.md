@@ -22,11 +22,11 @@ This function takes no parameters but returns:
   - pg_log_error: For logging error messages
   - pg_log_error_hint: For providing helpful error hints
   - exit: For terminating the program on security violation
-  - get_user_name_or_exit: For retrieving the username
-  - pg_strdup: For creating a copy of the username string
+  - [get_user_name_or_exit](get_user_name_or_exit.md): For retrieving the username
+  - [pg_strdup](../p/pg_strdup.md): For creating a copy of the username string
 - Called from (representative examples):
   - AUTHTRUST_WARNING: Used in warning message generation
-  - main: Called during initdb initialization
+  - [main](../m/main.md): Called during initdb initialization
 
 ## Notes and Other Information
 - Critical security function that prevents running initdb as root on Unix systems

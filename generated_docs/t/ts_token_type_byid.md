@@ -26,9 +26,9 @@ This function is typically called from SQL queries to inspect the token types su
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL
   - SRF_FIRSTCALL_INIT
-  - tt_setup_firstcall
+  - [tt_setup_firstcall](tt_setup_firstcall.md)
   - SRF_PERCALL_SETUP
-  - tt_process_call
+  - [tt_process_call](tt_process_call.md)
   - SRF_RETURN_NEXT
   - SRF_RETURN_DONE
 - Called from (representative examples):

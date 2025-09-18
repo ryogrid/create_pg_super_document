@@ -26,11 +26,11 @@ This step ensures that words ending in double 'l' are properly stemmed according
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R2 (tests if cursor position is within R2 region)
-  - slice_del (deletes characters between bra and ket markers)
+  - [r_R2](r_R2.md) (tests if cursor position is within R2 region)
+  - [slice_del](../s/slice_del.md) (deletes characters between bra and ket markers)
 - Called from (representative examples):
-  - porter_ISO_8859_1_stem
-  - porter_UTF_8_stem
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md)
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful application of the rule, 0 if the rule doesn't apply

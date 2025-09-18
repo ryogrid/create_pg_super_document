@@ -19,15 +19,15 @@ The function follows PostgreSQL's function calling convention using the PG_FUNCT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId: Retrieves the current user's OID
-  - GetUserNameFromId: Converts user OID to username string
-  - CStringGetDatum: Converts C string to PostgreSQL Datum
+  - [GetUserId](../G/GetUserId.md): Retrieves the current user's OID
+  - [GetUserNameFromId](../G/GetUserNameFromId.md): Converts user OID to username string
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum
   - DirectFunctionCall1: Directly calls a PostgreSQL function with one argument
   - namein: Input function for the name data type
   - PG_RETURN_DATUM: Macro to return a Datum from a PostgreSQL function
 
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction: Used in expression evaluation
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md): Used in expression evaluation
 
 ## Notes and Other Information
 - This function is part of the SQL standard and provides session information

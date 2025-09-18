@@ -35,17 +35,17 @@ Key behavior:
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)
   - copyObject (for alias copying)
-  - makeAlias (for auto-generated aliases)
-  - makeString (for column name creation)
+  - [makeAlias](../m/makeAlias.md) (for auto-generated aliases)
+  - [makeString](../m/makeString.md) (for column name creation)
   - exprType, exprTypmod, exprCollation (type information extraction)
   - lappend, lappend_oid, lappend_int (list manipulation)
-  - buildNSItemFromLists (namespace item creation)
+  - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (namespace item creation)
   - ereport (error reporting)
 - Called from (representative examples):
-  - transformRangeSubselect (in parse_clause.c)
-  - transformInsertStmt (in analyze.c)
-  - transformSetOperationTree (in analyze.c)
-  - convert_ANY_sublink_to_join (in subselect.c)
+  - [transformRangeSubselect](../t/transformRangeSubselect.md) (in parse_clause.c)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (in analyze.c)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (in analyze.c)
+  - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md) (in subselect.c)
 
 ## Notes and Other Information
 - Subqueries are never checked for access rights since they represent derived data, not base relations

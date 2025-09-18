@@ -17,9 +17,9 @@ This function serves as the cleanup and termination callback for index fetch ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heapam_index_fetch_reset (releases any held buffers)
-  - pfree (PostgreSQL memory deallocation function)
-  - IndexFetchHeapData (heap-specific index fetch data structure)
+  - [heapam_index_fetch_reset](heapam_index_fetch_reset.md) (releases any held buffers)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [IndexFetchHeapData](../I/IndexFetchHeapData.md) (heap-specific index fetch data structure)
 - Called from (representative examples):
   - Part of TableAmRoutine structure as a callback function
   - Referenced by SampleHeapTupleVisible

@@ -26,7 +26,7 @@ Each enum value corresponds to a specific structural operation on the SP-GiST tr
 - Functions called/Symbols referenced:
   - (This is an enum type with no direct function calls)
 - Used by:
-  - spgChooseOut structure (as resultType field)
+  - [spgChooseOut](spgChooseOut.md) structure (as resultType field)
   - SP-GiST choose support functions (SPGIST_CHOOSE_PROC)
 
 ## Notes and Other Information

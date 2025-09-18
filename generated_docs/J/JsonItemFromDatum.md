@@ -20,26 +20,26 @@ This function serves as a comprehensive type converter that transforms PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBool (extracts boolean from Datum)
-  - JsonbValueInitNumericDatum (initializes numeric JsonbValue)
+  - [DatumGetBool](../D/DatumGetBool.md) (extracts boolean from Datum)
+  - [JsonbValueInitNumericDatum](JsonbValueInitNumericDatum.md) (initializes numeric JsonbValue)
   - DirectFunctionCall1 (calls PostgreSQL functions)
-  - int2_numeric, int4_numeric, int8_numeric, float4_numeric, float8_numeric (numeric conversion functions)
+  - [int2_numeric](../i/int2_numeric.md), int4_numeric, int8_numeric, float4_numeric, float8_numeric (numeric conversion functions)
   - VARDATA_ANY, VARSIZE_ANY_EXHDR (variable-length data macros)
-  - DatumGetJsonbP (extracts JSONB from Datum)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md) (extracts JSONB from Datum)
   - JsonContainerIsScalar (checks if JSONB container is scalar)
-  - JsonbExtractScalar (extracts scalar value from JSONB)
-  - JsonbInitBinary (initializes binary JSONB value)
+  - [JsonbExtractScalar](JsonbExtractScalar.md) (extracts scalar value from JSONB)
+  - [JsonbInitBinary](JsonbInitBinary.md) (initializes binary JSONB value)
   - DatumGetTextP, text_to_cstring (text conversion functions)
-  - jsonb_in (JSON text to JSONB conversion)
-  - JsonbPGetDatum (converts JSONB to Datum)
-  - format_type_be (formats type name for error messages)
+  - [jsonb_in](../j/jsonb_in.md) (JSON text to JSONB conversion)
+  - [JsonbPGetDatum](JsonbPGetDatum.md) (converts JSONB to Datum)
+  - [format_type_be](../f/format_type_be.md) (formats type name for error messages)
 - Data types used:
   - Various PostgreSQL type OIDs: BOOLOID, NUMERICOID, INT2OID, INT4OID, INT8OID, FLOAT4OID, FLOAT8OID, TEXTOID, VARCHAROID, DATEOID, TIMEOID, TIMETZOID, TIMESTAMPOID, TIMESTAMPTZOID, JSONBOID, JSONOID
   - JSON value types: jbvBool, jbvString, jbvDatetime
 - Called from (representative examples):
   - RETURN_ERROR macro in jsonpath_exec.c:315
-  - GetJsonPathVar in jsonpath_exec.c:3027
-  - JsonItemFromDatum (recursive call) in jsonpath_exec.c:3118
+  - [GetJsonPathVar](../G/GetJsonPathVar.md) in jsonpath_exec.c:3027
+  - [JsonItemFromDatum](JsonItemFromDatum.md) (recursive call) in jsonpath_exec.c:3118
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module

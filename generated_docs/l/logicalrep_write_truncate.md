@@ -22,14 +22,14 @@ This function encodes a TRUNCATE operation into the logical replication protocol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint32
-  - pq_sendint8
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendint8](../p/pq_sendint8.md)
   - LOGICAL_REP_MSG_TRUNCATE
   - TRUNCATE_CASCADE
   - TRUNCATE_RESTART_SEQS
 - Called from (representative examples):
-  - pgoutput_truncate
+  - [pgoutput_truncate](../p/pgoutput_truncate.md)
 
 ## Notes and Other Information
 - Part of the logical replication protocol infrastructure

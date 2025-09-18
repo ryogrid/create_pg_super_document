@@ -30,17 +30,17 @@ The function uses PostgreSQL's extended malloc with specific flags to avoid thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ZstdCompressorState
-  - CompressFileHandle
+  - [ZstdCompressorState](ZstdCompressorState.md)
+  - [CompressFileHandle](../C/CompressFileHandle.md)
   - pg_malloc_extended
   - MCXT_ALLOC_NO_OOM
   - MCXT_ALLOC_ZERO
   - fdopen
   - dup
   - fopen
-  - pg_free
+  - [pg_free](../p/pg_free.md)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (as part of function pointer assignment)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (as part of function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function within the Zstd compression module

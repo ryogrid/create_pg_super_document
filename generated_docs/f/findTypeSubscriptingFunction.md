@@ -27,13 +27,13 @@ This validation ensures that only properly formed, user-appropriate subscripting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName: Locates the function by name and signature
-  - func_signature_string: Formats function signature for error messages
-  - get_func_rettype: Retrieves the return type of a function
-  - NameListToString: Converts qualified name list to string representation
+  - [LookupFuncName](../L/LookupFuncName.md): Locates the function by name and signature
+  - [func_signature_string](func_signature_string.md): Formats function signature for error messages
+  - [get_func_rettype](../g/get_func_rettype.md): Retrieves the return type of a function
+  - [NameListToString](../N/NameListToString.md): Converts qualified name list to string representation
 - Called from:
-  - DefineType: During creation of new user-defined types with subscripting support
-  - AlterType: When modifying existing type properties to add/change subscripting
+  - [DefineType](../D/DefineType.md): During creation of new user-defined types with subscripting support
+  - [AlterType](../A/AlterType.md): When modifying existing type properties to add/change subscripting
   - AlterTypeRecurseParams: As part of recursive type alteration operations
 
 ## Notes and Other Information

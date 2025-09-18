@@ -20,7 +20,7 @@ This function serves as a PostgreSQL SQL function wrapper for resetting replicat
 ## Dependencies
 - Functions called/Symbols referenced:
   - `replorigin_check_prerequisites` - Validates prerequisites with `check_slots=true` and `recoveryOK=false`
-  - `replorigin_session_reset` - Performs the actual session cleanup and resource release
+  - `[replorigin_session_reset](../r/replorigin_session_reset.md)` - Performs the actual session cleanup and resource release
   - `InvalidRepOriginId` - Constant used to clear the session origin ID
   - `InvalidXLogRecPtr` - Constant used to clear the session LSN tracking
   - `replorigin_session_origin` - Global variable cleared to invalid state

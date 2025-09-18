@@ -24,7 +24,7 @@ This function serves as a PostgreSQL SQL function wrapper for retrieving replica
   - `replorigin_check_prerequisites` - Validates that replication origins can be accessed (not in recovery, proper configuration)
   - `text_to_cstring` - Converts PostgreSQL text datum to null-terminated C string
   - `replorigin_by_name` - Performs the actual origin lookup in system catalog with `missing_ok=true`
-  - `pfree` - Frees allocated memory for the converted string
+  - `[pfree](pfree.md)` - Frees allocated memory for the converted string
   - `OidIsValid` - Checks if the returned OID is valid
   - `PG_RETURN_OID` - Returns OID result to PostgreSQL function call framework
   - `PG_RETURN_NULL` - Returns NULL result when origin not found

@@ -22,12 +22,12 @@ The function assumes the attribute map has already been validated and is non-NUL
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleConversionMap (struct)
-  - AttrMap (struct)
-  - palloc
+  - [AttrMap](../A/AttrMap.md) (struct)
+  - [palloc](../p/palloc.md)
   - Assert
 - Called from (representative examples):
-  - convert_tuples_by_name
-  - ExecGetRootToChildMap
+  - [convert_tuples_by_name](convert_tuples_by_name.md)
+  - [ExecGetRootToChildMap](../E/ExecGetRootToChildMap.md)
 
 ## Notes and Other Information
 - The function asserts that attrMap is non-NULL, expecting validation to have occurred upstream

@@ -27,7 +27,7 @@ If an invalid or unknown access method type is provided, the function generates 
   - ERROR
 
 - Called from (representative examples):
-  - get_am_type_oid (src/backend/commands/amcmds.c:145)
+  - [get_am_type_oid](get_am_type_oid.md) (src/backend/commands/amcmds.c:145)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (amcmds.c)

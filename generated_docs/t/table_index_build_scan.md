@@ -40,19 +40,19 @@ Progress reporting is optionally supported, updating PROGRESS_SCAN_BLOCKS_TOTAL 
 - Functions called/Symbols referenced:
   - table_rel->rd_tableam->index_build_range_scan (delegates to table AM implementation)
 - Types referenced:
-  - Relation
+  - [Relation](../R/Relation.md)
   - IndexInfo
   - IndexBuildCallback
-  - TableScanDesc
+  - [TableScanDesc](../T/TableScanDesc.md)
 - Called from (representative examples):
-  - brinbuild (src/backend/access/brin/brin.c:1223)
-  - _brin_parallel_scan_and_build (src/backend/access/brin/brin.c:2823)
-  - ginbuild (src/backend/access/gin/gininsert.c:382)
-  - gistbuild (src/backend/access/gist/gistbuild.c:274, 313)
-  - hashbuild (src/backend/access/hash/hash.c:173)
-  - _bt_spools_heapscan (src/backend/access/nbtree/nbtsort.c:475)
-  - _bt_parallel_scan_and_sort (src/backend/access/nbtree/nbtsort.c:1925)
-  - spgbuild (src/backend/access/spgist/spginsert.c:124)
+  - [brinbuild](../b/brinbuild.md) (src/backend/access/brin/brin.c:1223)
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md) (src/backend/access/brin/brin.c:2823)
+  - [ginbuild](../g/ginbuild.md) (src/backend/access/gin/gininsert.c:382)
+  - [gistbuild](../g/gistbuild.md) (src/backend/access/gist/gistbuild.c:274, 313)
+  - [hashbuild](../h/hashbuild.md) (src/backend/access/hash/hash.c:173)
+  - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md) (src/backend/access/nbtree/nbtsort.c:475)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md) (src/backend/access/nbtree/nbtsort.c:1925)
+  - [spgbuild](../s/spgbuild.md) (src/backend/access/spgist/spginsert.c:124)
 
 ## Notes and Other Information
 - Returns the total count of live tuples for updating pg_class statistics

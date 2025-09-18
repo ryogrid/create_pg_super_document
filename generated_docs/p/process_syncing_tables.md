@@ -25,20 +25,20 @@ This design allows different worker types to have specialized synchronization lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - process_syncing_tables_for_sync
+  - [process_syncing_tables_for_sync](process_syncing_tables_for_sync.md)
   - process_syncing_tables_for_apply
   - MyLogicalRepWorker (global variable)
   - WORKERTYPE_PARALLEL_APPLY, WORKERTYPE_TABLESYNC, WORKERTYPE_APPLY, WORKERTYPE_UNKNOWN (enum values)
   - elog (for error reporting)
 
 - Called from (representative examples):
-  - apply_handle_commit
-  - apply_handle_prepare
-  - apply_handle_commit_prepared
-  - apply_handle_rollback_prepared
-  - apply_handle_stream_prepare
-  - apply_handle_stream_commit
-  - LogicalRepApplyLoop
+  - [apply_handle_commit](../a/apply_handle_commit.md)
+  - [apply_handle_prepare](../a/apply_handle_prepare.md)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:693-723

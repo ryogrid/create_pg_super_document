@@ -30,7 +30,7 @@ This conversion is useful for treating time values as durations in interval arit
   - TimeADT: Time abstract data type for input time values
   - PG_GETARG_TIMEADT: Macro to extract TimeADT argument
   - Interval: Interval data structure for storing time periods
-  - palloc: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - PG_RETURN_INTERVAL_P: Macro to return Interval pointer result
 
 - Called from (representative examples):

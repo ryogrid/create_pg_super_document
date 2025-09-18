@@ -25,18 +25,18 @@ The implementation includes sophisticated concurrency handling through an "in-pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogCacheInitializeCache
-  - CatalogCacheComputeHashValue
-  - CatalogCacheCompareTuple
-  - CatalogCacheCreateEntry
-  - CatCacheCopyKeys
-  - RehashCatCacheLists
+  - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md)
+  - [CatalogCacheComputeHashValue](../C/CatalogCacheComputeHashValue.md)
+  - [CatalogCacheCompareTuple](../C/CatalogCacheCompareTuple.md)
+  - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md)
+  - [CatCacheCopyKeys](../C/CatCacheCopyKeys.md)
+  - [RehashCatCacheLists](../R/RehashCatCacheLists.md)
   - ResourceOwnerEnlarge
   - ResourceOwnerRememberCatCacheListRef
-  - systable_beginscan/systable_getnext
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
   - table_open/table_close
 - Called from (representative examples):
-  - SearchSysCacheList
+  - [SearchSysCacheList](SearchSysCacheList.md)
   - Various high-level catalog access functions
 
 ## Notes and Other Information

@@ -30,19 +30,19 @@ The returned tuple contains seven fields representing all sequence parameters:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
-  - pg_class_aclcheck
-  - GetUserId
-  - get_rel_name
-  - get_call_result_type
-  - SearchSysCache1
+  - [pg_class_aclcheck](pg_class_aclcheck.md)
+  - [GetUserId](../G/GetUserId.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - Int64GetDatum
-  - BoolGetDatum
-  - ObjectIdGetDatum
-  - ReleaseSysCache
-  - heap_form_tuple
-  - HeapTupleGetDatum
+  - [Int64GetDatum](../I/Int64GetDatum.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
 - Called from:
   - No direct references found (likely called via SQL function interface)
 

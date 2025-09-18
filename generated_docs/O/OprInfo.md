@@ -26,11 +26,11 @@ OprInfo stores comprehensive metadata about PostgreSQL operators for the dump an
   - Oid (PostgreSQL object identifier type)
 
 - Called from (representative examples):
-  - getOperators (src/bin/pg_dump/pg_dump.c:6024, 6054)
-  - dumpOpr (src/bin/pg_dump/pg_dump.c:12962)
-  - findOprByOid (src/bin/pg_dump/common.c:934)
-  - getFormattedOperatorName (src/bin/pg_dump/pg_dump.c:13224)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10556)
+  - [getOperators](../g/getOperators.md) (src/bin/pg_dump/pg_dump.c:6024, 6054)
+  - [dumpOpr](../d/dumpOpr.md) (src/bin/pg_dump/pg_dump.c:12962)
+  - [findOprByOid](../f/findOprByOid.md) (src/bin/pg_dump/common.c:934)
+  - [getFormattedOperatorName](../g/getFormattedOperatorName.md) (src/bin/pg_dump/pg_dump.c:13224)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10556)
 
 ## Notes and Other Information
 - Part of pg_dump's comprehensive type system for handling all PostgreSQL object types

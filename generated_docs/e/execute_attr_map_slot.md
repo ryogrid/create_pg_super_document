@@ -23,16 +23,16 @@ The conversion process involves extracting all attributes from the input slot, c
 - Functions called/Symbols referenced:
   - slot_getallattrs
   - ExecClearTuple
-  - ExecStoreVirtualTuple
-  - AttrMap (struct)
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
+  - [AttrMap](../A/AttrMap.md) (struct)
   - Assert
 - Called from (representative examples):
-  - CopyFrom
-  - AfterTriggerExecute
-  - TransitionTableAddTuple
-  - ExecFindPartition
-  - apply_handle_tuple_routing
-  - pgoutput_change
+  - [CopyFrom](../C/CopyFrom.md)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
+  - [TransitionTableAddTuple](../T/TransitionTableAddTuple.md)
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
 
 ## Notes and Other Information
 - More efficient than tuple-based conversion as it avoids tuple materialization overhead

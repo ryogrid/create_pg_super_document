@@ -22,9 +22,9 @@ The  function is a low-level memory copy utility specifically designed for JSONB
 - Functions called/Symbols referenced:
   - memcpy (standard C library function)
 - Called from (representative examples):
-  - appendToBuffer
-  - convertJsonbArray  
-  - convertJsonbObject
+  - [appendToBuffer](../a/appendToBuffer.md)
+  - [convertJsonbArray](convertJsonbArray.md)  
+  - [convertJsonbObject](convertJsonbObject.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the jsonb_util.c compilation unit

@@ -20,16 +20,16 @@ The function uses a backwards scan of the pg_largeobject index to efficiently lo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for assertion checking)
-  - open_lo_relation (opens the large object catalog relation)
-  - ScanKeyInit (initializes scan key for index search)
-  - systable_beginscan_ordered (begins ordered system table scan)
-  - systable_getnext_ordered (gets next tuple in ordered scan)
-  - systable_endscan_ordered (ends the system table scan)
-  - getdatafield (extracts data field from large object tuple)
+  - [open_lo_relation](../o/open_lo_relation.md) (opens the large object catalog relation)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key for index search)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md) (begins ordered system table scan)
+  - [systable_getnext_ordered](../s/systable_getnext_ordered.md) (gets next tuple in ordered scan)
+  - [systable_endscan_ordered](../s/systable_endscan_ordered.md) (ends the system table scan)
+  - [getdatafield](../g/getdatafield.md) (extracts data field from large object tuple)
   - HeapTupleHasNulls (checks for null fields)
   - HeapTupleIsValid (validates heap tuple)
 - Called from (representative examples):
-  - inv_seek
+  - [inv_seek](inv_seek.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inv_api.c file

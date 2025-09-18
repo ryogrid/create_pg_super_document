@@ -26,23 +26,23 @@ The function constructs scan keys to efficiently locate dependency records for t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - classIdGetDbId
-  - ScanKeyInit
-  - ObjectIdGetDatum
-  - Int32GetDatum
-  - systable_beginscan
-  - systable_getnext
+  - [classIdGetDbId](../c/classIdGetDbId.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
+  - [systable_beginscan](systable_beginscan.md)
+  - [systable_getnext](systable_getnext.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - OidIsValid
-  - CatalogTupleDelete
-  - systable_endscan
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](systable_endscan.md)
 - Called from (representative examples):
-  - changeDependencyOnOwner
-  - changeDependencyOnTablespace
-  - updateAclDependenciesWorker
-  - dropDatabaseDependencies
-  - deleteSharedDependencyRecordsFor
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)
+  - [changeDependencyOnTablespace](../c/changeDependencyOnTablespace.md)
+  - [updateAclDependenciesWorker](../u/updateAclDependenciesWorker.md)
+  - [dropDatabaseDependencies](../d/dropDatabaseDependencies.md)
+  - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md)
 
 ## Notes and Other Information
 - This is a static internal function, not directly accessible outside pg_shdepend.c

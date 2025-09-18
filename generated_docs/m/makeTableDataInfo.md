@@ -18,14 +18,14 @@ This function creates a TableDataInfo object that represents the data content of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_oid_list_member
+  - [simple_oid_list_member](../s/simple_oid_list_member.md)
   - pg_malloc
-  - AssignDumpId
-  - addObjectDependency
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
 - Types referenced:
   - DumpOptions
-  - TableInfo
-  - TableDataInfo
+  - [TableInfo](../T/TableInfo.md)
+  - [TableDataInfo](../T/TableDataInfo.md)
   - RELKIND_VIEW
   - RELKIND_FOREIGN_TABLE
   - RELKIND_PARTITIONED_TABLE
@@ -36,8 +36,8 @@ This function creates a TableDataInfo object that represents the data content of
   - DO_TABLE_DATA
   - DUMP_COMPONENT_DATA
 - Called from:
-  - getTableData
-  - processExtensionTables
+  - [getTableData](../g/getTableData.md)
+  - [processExtensionTables](../p/processExtensionTables.md)
 
 ## Notes and Other Information
 - Only creates TableDataInfo objects when table data will actually be dumped

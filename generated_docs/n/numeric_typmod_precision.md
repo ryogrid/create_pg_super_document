@@ -21,12 +21,12 @@ This function decodes the precision component from a typmod value by reversing t
 - Functions called/Symbols referenced:
   - VARHDRSZ (constant)
 - Called from (representative examples):
-  - numeric_maximum_size (at src/backend/utils/adt/numeric.c:960)
-  - numeric_support (at src/backend/utils/adt/numeric.c:1216, 1217)
-  - numeric (at src/backend/utils/adt/numeric.c:1276)
-  - numerictypmodout (at src/backend/utils/adt/numeric.c:1374)
-  - apply_typmod (at src/backend/utils/adt/numeric.c:7935)
-  - apply_typmod_special (at src/backend/utils/adt/numeric.c:8028)
+  - [numeric_maximum_size](numeric_maximum_size.md) (at src/backend/utils/adt/numeric.c:960)
+  - [numeric_support](numeric_support.md) (at src/backend/utils/adt/numeric.c:1216, 1217)
+  - [numeric](numeric.md) (at src/backend/utils/adt/numeric.c:1276)
+  - [numerictypmodout](numerictypmodout.md) (at src/backend/utils/adt/numeric.c:1374)
+  - [apply_typmod](../a/apply_typmod.md) (at src/backend/utils/adt/numeric.c:7935)
+  - [apply_typmod_special](../a/apply_typmod_special.md) (at src/backend/utils/adt/numeric.c:8028)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the numeric.c compilation unit

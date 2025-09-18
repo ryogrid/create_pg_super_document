@@ -21,11 +21,11 @@ This function performs comprehensive range validation for both row and column in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqInternalNotice (for error reporting, called twice)
+  - [pqInternalNotice](../p/pqInternalNotice.md) (for error reporting, called twice)
 - Called from (representative examples):
-  - PQgetvalue
-  - PQgetlength
-  - PQgetisnull
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQgetlength](../P/PQgetlength.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
 
 ## Notes and Other Information
 - Returns true if both tuple and field numbers are valid, false otherwise

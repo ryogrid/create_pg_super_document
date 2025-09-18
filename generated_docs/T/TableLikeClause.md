@@ -28,13 +28,13 @@ TableLikeClause implements the SQL standard's LIKE clause functionality in CREAT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - bits32
 - Called from (representative examples):
-  - transformCreateStmt
-  - transformTableLikeClause
-  - expandTableLikeClause
-  - ProcessUtilitySlow
+  - [transformCreateStmt](../t/transformCreateStmt.md)
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:751-757

@@ -35,7 +35,7 @@ The function also maintains cardinality statistics for the abbreviation abort me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetInetPP`: Extracts inet pointer from datum
+  - `[DatumGetInetPP](../D/DatumGetInetPP.md)`: Extracts inet pointer from datum
   - `ip_family`: Gets IP protocol family (IPv4/IPv6)
   - `ip_addr`: Gets address bytes from inet structure
   - `ip_bits`: Gets netmask size from inet structure
@@ -43,10 +43,10 @@ The function also maintains cardinality statistics for the abbreviation abort me
   - `pg_bswap32`: Byte-swaps 32-bit values on little-endian systems
   - `DatumBigEndianToNative`: Converts big-endian datum to native byte order
   - `addHyperLogLog`: Adds hash to cardinality estimator
-  - `hash_uint32`: Hashes 32-bit values for cardinality estimation
+  - `[hash_uint32](../h/hash_uint32.md)`: Hashes 32-bit values for cardinality estimation
 
 - Called from (representative examples):
-  - `network_sortsupport`: Sets this function as the conversion routine in sort support initialization
+  - `[network_sortsupport](network_sortsupport.md)`: Sets this function as the conversion routine in sort support initialization
 
 ## Notes and Other Information
 - This is a static function internal to the network.c module

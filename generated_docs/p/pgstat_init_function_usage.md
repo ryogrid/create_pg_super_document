@@ -20,16 +20,16 @@ This function initializes the statistics tracking infrastructure before executin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_pending_entry
-  - AcceptInvalidationMessages
+  - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
   - SearchSysCacheExists1
   - pgstat_drop_entry
   - INSTR_TIME_SET_CURRENT
   - PGSTAT_KIND_FUNCTION
 - Called from (representative examples):
-  - ExecEvalFuncExprFusage (in src/backend/executor/execExprInterp.c:2459)
-  - fmgr_security_definer (in src/backend/utils/fmgr/fmgr.c:745)
-  - ExecMakeTableFunctionResult (in src/backend/executor/execSRF.c:230)
+  - [ExecEvalFuncExprFusage](../E/ExecEvalFuncExprFusage.md) (in src/backend/executor/execExprInterp.c:2459)
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (in src/backend/utils/fmgr/fmgr.c:745)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (in src/backend/executor/execSRF.c:230)
 
 ## Notes and Other Information
 - Performs concurrent deletion detection by accepting invalidation messages when creating new statistics entries

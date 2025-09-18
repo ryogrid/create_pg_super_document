@@ -22,13 +22,13 @@ The returned array is palloc'd and becomes the caller's responsibility to manage
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - palloc, memcpy
+  - [palloc](../p/palloc.md), memcpy
   - Anum_pg_proc_protrftypes
 - Called from (representative examples):
-  - print_function_trftypes
+  - [print_function_trftypes](../p/print_function_trftypes.md)
   - TypeFuncClass (referenced in funcapi.h)
 
 ## Notes and Other Information

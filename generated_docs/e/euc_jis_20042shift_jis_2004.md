@@ -23,11 +23,11 @@ This is the core implementation function that handles the complex logic of conve
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
-  - report_invalid_encoding
-  - pg_encoding_verifymbchar
+  - [report_invalid_encoding](../r/report_invalid_encoding.md)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)
   - Constants: PG_EUC_JIS_2004, SS2, SS3
 - Called from:
-  - euc_jis_2004_to_shift_jis_2004 (wrapper function)
+  - [euc_jis_2004_to_shift_jis_2004](euc_jis_2004_to_shift_jis_2004.md) (wrapper function)
 
 ## Notes and Other Information
 - Located in src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c:75-221

@@ -28,13 +28,13 @@ The function passes the 'wait' parameter as true to read_local_xlog_page_guts, m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_local_xlog_page_guts (with wait=true parameter)
+  - [read_local_xlog_page_guts](read_local_xlog_page_guts.md) (with wait=true parameter)
 - Called from (representative examples):
-  - XlogReadTwoPhaseData
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - LogicalReplicationSlotHasPendingWal
-  - LogicalSlotAdvanceAndCheckSnapState
-  - pg_logical_slot_get_changes_guts
-  - create_logical_replication_slot
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
 
 ## Notes and Other Information
 - Explicitly designed as a public API for use outside walsender contexts

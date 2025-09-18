@@ -26,7 +26,7 @@ This restriction ensures that replication connections maintain their intended pu
   - PqMsg_FunctionCall (message type constant for function call detection)
   - ereport (error reporting mechanism)
 - Called from (representative examples):
-  - PostgresMain (multiple locations in src/backend/tcop/postgres.c: 4782, 4806, 4825, 4841, 4880, 4926)
+  - [PostgresMain](../P/PostgresMain.md) (multiple locations in src/backend/tcop/postgres.c: 4782, 4806, 4825, 4841, 4880, 4926)
 
 ## Notes and Other Information
 - Static function scope - only used within postgres.c

@@ -18,14 +18,14 @@ SimpleLruTruncate is a maintenance function that performs safe truncation of SLR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_count_slru_truncate
-  - pg_atomic_read_u64
+  - [pgstat_count_slru_truncate](../p/pgstat_count_slru_truncate.md)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - SlotGetBankNumber
   - LWLockAcquire/LWLockRelease
-  - SlruInternalWritePage
-  - SimpleLruWaitIO
-  - SlruScanDirectory
-  - SlruScanDirCbDeleteCutoff
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
+  - [SimpleLruWaitIO](SimpleLruWaitIO.md)
+  - [SlruScanDirectory](SlruScanDirectory.md)
+  - [SlruScanDirCbDeleteCutoff](SlruScanDirCbDeleteCutoff.md)
   - ereport
 - Constants used:
   - SLRU_PAGE_EMPTY
@@ -33,14 +33,14 @@ SimpleLruTruncate is a maintenance function that performs safe truncation of SLR
 - Types used:
   - SlruCtl, SlruShared
 - Called from:
-  - TruncateCLOG
-  - clog_redo
-  - TruncateCommitTs
-  - commit_ts_redo
-  - PerformOffsetsTruncation
-  - TruncateSUBTRANS
-  - asyncQueueAdvanceTail
-  - CheckPointPredicate
+  - [TruncateCLOG](../T/TruncateCLOG.md)
+  - [clog_redo](../c/clog_redo.md)
+  - [TruncateCommitTs](../T/TruncateCommitTs.md)
+  - [commit_ts_redo](../c/commit_ts_redo.md)
+  - [PerformOffsetsTruncation](../P/PerformOffsetsTruncation.md)
+  - [TruncateSUBTRANS](../T/TruncateSUBTRANS.md)
+  - [asyncQueueAdvanceTail](../a/asyncQueueAdvanceTail.md)
+  - [CheckPointPredicate](../C/CheckPointPredicate.md)
 
 ## Notes and Other Information
 - Requires mutual exclusion to be established by the caller before computing cutoffPage and maintained until completion

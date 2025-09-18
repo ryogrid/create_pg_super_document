@@ -22,12 +22,12 @@ This diagnostic information is valuable for debugging archive issues, understand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ahprintf (archiver utility function for formatted output)
+  - [ahprintf](../a/ahprintf.md) (archiver utility function for formatted output)
   - lclTocEntry (local TOC entry structure type)
   - INT64_FORMAT (format specifier for 64-bit integers)
 
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (assigned as PrintExtraTocPtr function pointer)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (assigned as PrintExtraTocPtr function pointer)
   - Referenced by InitArchiveFmt_Directory (directory format also uses this pattern)
 
 ## Notes and Other Information

@@ -31,18 +31,18 @@ The function performs comprehensive validation of the queue size parameter, esti
   - shm_toc_initialize_estimator
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
-  - shm_toc_estimate
-  - dsm_create
+  - [shm_toc_estimate](shm_toc_estimate.md)
+  - [dsm_create](../d/dsm_create.md)
   - dsm_segment_address
   - shm_toc_create
   - shm_toc_allocate
   - shm_toc_insert
-  - shm_mq_create
-  - shm_mq_set_sender
-  - shm_mq_set_receiver
+  - [shm_mq_create](shm_mq_create.md)
+  - [shm_mq_set_sender](shm_mq_set_sender.md)
+  - [shm_mq_set_receiver](shm_mq_set_receiver.md)
   - SpinLockInit
 - Called from (representative examples):
-  - test_shm_mq_setup
+  - [test_shm_mq_setup](../t/test_shm_mq_setup.md)
 
 ## Notes and Other Information
 - This is a static function internal to the test_shm_mq module, located in `src/test/modules/test_shm_mq/setup.c:92-174`

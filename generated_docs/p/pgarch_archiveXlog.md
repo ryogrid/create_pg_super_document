@@ -28,20 +28,20 @@ The function's sophisticated error handling prevents the archiver process from r
 - Functions called/Symbols referenced:
   - set_ps_display (update process title display)
   - sigsetjmp (set up exception handling)
-  - EmitErrorReport (log errors)
+  - [EmitErrorReport](../E/EmitErrorReport.md) (log errors)
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS (interrupt control)
   - disable_all_timeouts (cleanup timeouts)
   - LWLockReleaseAll (release lightweight locks)
-  - ConditionVariableCancelSleep (cancel condition variable waits)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md) (cancel condition variable waits)
   - pgstat_report_wait_end (end statistics wait reporting)
-  - ReleaseAuxProcessResources (release auxiliary process resources)
-  - AtEOXact_Files/AtEOXact_HashTables (end-of-transaction cleanup)
-  - MemoryContextReset (reset memory context)
-  - FlushErrorState (clear error state)
+  - [ReleaseAuxProcessResources](../R/ReleaseAuxProcessResources.md) (release auxiliary process resources)
+  - [AtEOXact_Files](../A/AtEOXact_Files.md)/AtEOXact_HashTables (end-of-transaction cleanup)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (reset memory context)
+  - [FlushErrorState](../F/FlushErrorState.md) (clear error state)
 - Constants used:
   - MAXFNAMELEN, XLOGDIR
 - Called from (representative examples):
-  - pgarch_ArchiverCopyLoop (main archival loop)
+  - [pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md) (main archival loop)
 
 ## Notes and Other Information
 - Returns true on successful archival, false on failure

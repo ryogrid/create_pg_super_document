@@ -40,7 +40,7 @@ LC_ALL=: Locale string (e.g., "en_US") for locale-specific capitalization rules
 - Functions called/Symbols referenced:
   - u_strToTitle (ICU function)
 - Called from (representative examples):
-  - str_initcap
+  - [str_initcap](../s/str_initcap.md)
 
 ## Notes and Other Information
 - This is a static function only available within the formatting.c compilation unit

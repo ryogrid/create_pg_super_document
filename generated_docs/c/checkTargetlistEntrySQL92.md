@@ -25,16 +25,16 @@ The validation is necessary because when a targetlist entry is referenced by pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_aggs_of_level
-  - contain_windowfuncs
-  - ParseExprKindName
-  - locate_agg_of_level
-  - locate_windowfunc
+  - [contain_aggs_of_level](contain_aggs_of_level.md)
+  - [contain_windowfuncs](contain_windowfuncs.md)
+  - [ParseExprKindName](../P/ParseExprKindName.md)
+  - [locate_agg_of_level](../l/locate_agg_of_level.md)
+  - [locate_windowfunc](../l/locate_windowfunc.md)
   - EXPR_KIND_GROUP_BY
   - EXPR_KIND_ORDER_BY
   - EXPR_KIND_DISTINCT_ON
 - Called from (representative examples):
-  - findTargetlistEntrySQL92
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c, indicating it's an internal helper function

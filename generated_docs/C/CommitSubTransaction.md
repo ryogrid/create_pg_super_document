@@ -32,36 +32,36 @@ This function takes no parameters and operates on the global CurrentTransactionS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShowTransactionState
-  - TransStateAsString  
-  - CallSubXactCallbacks
-  - AtEOSubXact_Parallel
+  - [ShowTransactionState](../S/ShowTransactionState.md)
+  - [TransStateAsString](../T/TransStateAsString.md)  
+  - [CallSubXactCallbacks](CallSubXactCallbacks.md)
+  - [AtEOSubXact_Parallel](../A/AtEOSubXact_Parallel.md)
   - CommandCounterIncrement
-  - AtSubCommit_childXids
-  - AfterTriggerEndSubXact
-  - AtSubCommit_Portals
-  - AtEOSubXact_LargeObject
-  - AtSubCommit_Notify
+  - [AtSubCommit_childXids](../A/AtSubCommit_childXids.md)
+  - [AfterTriggerEndSubXact](../A/AfterTriggerEndSubXact.md)
+  - [AtSubCommit_Portals](../A/AtSubCommit_Portals.md)
+  - [AtEOSubXact_LargeObject](../A/AtEOSubXact_LargeObject.md)
+  - [AtSubCommit_Notify](../A/AtSubCommit_Notify.md)
   - ResourceOwnerRelease
-  - AtEOSubXact_RelationCache
-  - AtEOSubXact_Inval
-  - AtSubCommit_smgr
-  - XactLockTableDelete
+  - [AtEOSubXact_RelationCache](../A/AtEOSubXact_RelationCache.md)
+  - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md)
+  - [AtSubCommit_smgr](../A/AtSubCommit_smgr.md)
+  - [XactLockTableDelete](../X/XactLockTableDelete.md)
   - XidFromFullTransactionId
-  - AtEOXact_GUC
-  - AtEOSubXact_SPI
-  - AtEOSubXact_on_commit_actions
-  - AtEOSubXact_Namespace
-  - AtEOSubXact_Files
-  - AtEOSubXact_HashTables
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
+  - [AtEOSubXact_SPI](../A/AtEOSubXact_SPI.md)
+  - [AtEOSubXact_on_commit_actions](../A/AtEOSubXact_on_commit_actions.md)
+  - [AtEOSubXact_Namespace](../A/AtEOSubXact_Namespace.md)
+  - [AtEOSubXact_Files](../A/AtEOSubXact_Files.md)
+  - [AtEOSubXact_HashTables](../A/AtEOSubXact_HashTables.md)
   - AtEOSubXact_PgStat
-  - AtSubCommit_Snapshot
-  - ResourceOwnerDelete
-  - AtSubCommit_Memory
-  - PopTransaction
+  - [AtSubCommit_Snapshot](../A/AtSubCommit_Snapshot.md)
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md)
+  - [AtSubCommit_Memory](../A/AtSubCommit_Memory.md)
+  - [PopTransaction](../P/PopTransaction.md)
 - Called from (representative examples):
-  - CommitTransactionCommandInternal
-  - ReleaseCurrentSubTransaction
+  - [CommitTransactionCommandInternal](CommitTransactionCommandInternal.md)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
 
 ## Notes and Other Information
 - The function includes a warning that callers must reassign CurrentTransactionState local pointers after calling this function

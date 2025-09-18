@@ -19,9 +19,9 @@ This function performs essential initialization for the isolation testing framew
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - add_stringlist_item
+  - [add_stringlist_item](../a/add_stringlist_item.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Cannot perform find_other_exec() lookup during initialization due to timing constraints with library search path setup

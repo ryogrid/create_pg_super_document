@@ -27,15 +27,15 @@ This function is essential for properly formatting extension dependency informat
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (macro/function to get list length)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - lfirst (macro to get list cell content)
   - DirectFunctionCall1
   - namein
-  - CStringGetDatum
-  - construct_array_builtin
-  - PointerGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [construct_array_builtin](construct_array_builtin.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - get_available_versions_for_extension
+  - [get_available_versions_for_extension](../g/get_available_versions_for_extension.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used only within extension.c

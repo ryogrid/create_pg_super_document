@@ -33,8 +33,8 @@ The function uses global flags like criticalRelcachesBuilt and criticalSharedRel
   - Uses global variables criticalRelcachesBuilt and criticalSharedRelcachesBuilt
   - References various cache ID constants (INDEXRELID, AMOID, AMNAME, etc.)
 - Called from:
-  - SearchCatCacheMiss (to determine scan strategy during cache miss)
-  - SearchCatCacheList (to determine scan strategy for list searches)
+  - [SearchCatCacheMiss](../S/SearchCatCacheMiss.md) (to determine scan strategy during cache miss)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (to determine scan strategy for list searches)
 
 ## Notes and Other Information
 - This is a static function, only accessible within catcache.c

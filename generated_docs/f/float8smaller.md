@@ -23,7 +23,7 @@ This function implements a comparison operation that returns the smaller of two 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_FLOAT8` (macro for extracting float8 arguments)
-  - `float8_lt` (function for comparing two float8 values)
+  - `[float8_lt](float8_lt.md)` (function for comparing two float8 values)
   - `PG_RETURN_FLOAT8` (macro for returning float8 result)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL function dispatch)

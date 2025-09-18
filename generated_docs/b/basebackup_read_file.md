@@ -27,11 +27,11 @@ This function provides a robust file reading interface specifically designed for
   - pgstat_report_wait_start (with WAIT_EVENT_BASEBACKUP_READ)
   - pg_pread
   - pgstat_report_wait_end
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - ereport
 - Called from (representative examples):
-  - read_file_data_into_buffer
-  - perform_base_backup
+  - [read_file_data_into_buffer](../r/read_file_data_into_buffer.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
 
 ## Notes and Other Information
 - Returns the number of bytes actually read from the file

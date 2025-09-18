@@ -31,18 +31,18 @@ The function continues traversing until either a mutable operation is detected (
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPathItem (structure type)
-  - JsonPathMutableContext (structure type) 
+  - [JsonPathMutableContext](../J/JsonPathMutableContext.md) (structure type) 
   - JsonPathDatatypeStatus (enum type)
-  - jspGetArg, jspGetLeftArg, jspGetRightArg (argument accessors)
-  - jspGetString (string extraction)
-  - jspGetArraySubscript (array subscript extraction)
-  - jspGetNext (next item traversal)
-  - jspInitByBuffer (buffer initialization)
-  - datetime_format_has_tz (timezone detection utility)
+  - [jspGetArg](jspGetArg.md), jspGetLeftArg, jspGetRightArg (argument accessors)
+  - [jspGetString](jspGetString.md) (string extraction)
+  - [jspGetArraySubscript](jspGetArraySubscript.md) (array subscript extraction)
+  - [jspGetNext](jspGetNext.md) (next item traversal)
+  - [jspInitByBuffer](jspInitByBuffer.md) (buffer initialization)
+  - [datetime_format_has_tz](../d/datetime_format_has_tz.md) (timezone detection utility)
   - Various jpi* enum constants for different JSON path item types
 - Called from (representative examples):
-  - jspIsMutable (main entry point)
-  - jspIsMutableWalker (recursive self-calls for tree traversal)
+  - [jspIsMutable](jspIsMutable.md) (main entry point)
+  - [jspIsMutableWalker](jspIsMutableWalker.md) (recursive self-calls for tree traversal)
 
 ## Notes and Other Information
 - This is a static function used internally by the JSON path mutability detection system

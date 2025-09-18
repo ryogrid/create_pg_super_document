@@ -19,10 +19,10 @@ The function includes error handling through sqlca.sqlcode checks, calling sqlpr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGtrans (executes transaction commands on specified connections)
-  - sqlprint (prints SQL error information, called conditionally on errors)
+  - [ECPGtrans](../E/ECPGtrans.md) (executes transaction commands on specified connections)
+  - [sqlprint](../s/sqlprint.md) (prints SQL error information, called conditionally on errors)
 - Called from:
-  - main (in src/interfaces/ecpg/test/expected/sql-declare.c:182 and 199)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/sql-declare.c:182 and 199)
 
 ## Notes and Other Information
 - This function is part of the ECPG test suite infrastructure, specifically for the SQL DECLARE statement tests

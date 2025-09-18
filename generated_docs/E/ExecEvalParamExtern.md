@@ -23,14 +23,14 @@ If a paramFetch hook is provided, it's called to allow dynamic parameter resolut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo
+  - [ParamListInfo](../P/ParamListInfo.md)
   - ParamExternData
   - likely (performance hint macro)
   - ereport (error reporting)
-  - format_type_be (type formatting)
+  - [format_type_be](../f/format_type_be.md) (type formatting)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Part of PostgreSQL's expression evaluation interpreter framework

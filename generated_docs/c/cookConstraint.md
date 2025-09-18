@@ -27,14 +27,14 @@ The function is part of PostgreSQL's constraint validation system and ensures th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr: Converts raw parse tree to executable expression with CHECK_CONSTRAINT context
-  - coerce_to_boolean: Ensures the expression returns a boolean value
-  - assign_expr_collations: Resolves collation assignments in the expression
+  - [transformExpr](../t/transformExpr.md): Converts raw parse tree to executable expression with CHECK_CONSTRAINT context
+  - [coerce_to_boolean](coerce_to_boolean.md): Ensures the expression returns a boolean value
+  - [assign_expr_collations](../a/assign_expr_collations.md): Resolves collation assignments in the expression
   - list_length: Checks the number of relations in the range table
   - ereport: Reports errors for invalid column references
 
 - Called from (representative examples):
-  - AddRelationNewConstraints: During table creation or constraint addition operations
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md): During table creation or constraint addition operations
 
 ## Notes and Other Information
 - This is a static function used internally within heap.c for constraint processing

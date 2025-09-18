@@ -18,8 +18,8 @@ ExecGetAncestorResultRels builds and caches a list of ResultRelInfo structures r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_partition_ancestors
-  - InitResultRelInfo
+  - [get_partition_ancestors](../g/get_partition_ancestors.md)
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
   - RelationGetRelid
   - table_open
   - makeNode
@@ -27,7 +27,7 @@ ExecGetAncestorResultRels builds and caches a list of ResultRelInfo structures r
   - elog/elog
   - Assert
 - Called from (representative examples):
-  - ExecCrossPartitionUpdateForeignKey (nodeModifyTable.c:2212)
+  - [ExecCrossPartitionUpdateForeignKey](ExecCrossPartitionUpdateForeignKey.md) (nodeModifyTable.c:2212)
 
 ## Notes and Other Information
 - Only works with partition relations; errors out if called on non-partitioned relations

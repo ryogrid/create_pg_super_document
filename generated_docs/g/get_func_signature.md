@@ -19,19 +19,19 @@ This function retrieves the complete signature information for a specified funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches the system cache for the function entry
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the function entry
   - HeapTupleIsValid: Validates the returned heap tuple
   - elog: Logs error if function not found
   - GETSTRUCT: Extracts the struct from the heap tuple
   - Assert: Validates consistency between pronargs and proargtypes.dim1
-  - palloc: Allocates memory for the argument types array
+  - [palloc](../p/palloc.md): Allocates memory for the argument types array
   - memcpy: Copies argument types from catalog to allocated array
-  - ReleaseSysCache: Releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache entry
   - Form_pg_proc: PostgreSQL system catalog structure for procedures/functions
 - Called from (representative examples):
-  - typeDepNeeded: Used in operator class dependency checking
-  - resolve_aggregate_transtype: Used in aggregate function type resolution
-  - plperl_call_perl_func: Used in PL/Perl function calling
+  - [typeDepNeeded](../t/typeDepNeeded.md): Used in operator class dependency checking
+  - [resolve_aggregate_transtype](../r/resolve_aggregate_transtype.md): Used in aggregate function type resolution
+  - [plperl_call_perl_func](../p/plperl_call_perl_func.md): Used in PL/Perl function calling
 
 ## Notes and Other Information
 - Part of PostgreSQL's system catalog lookup utilities in lsyscache.c

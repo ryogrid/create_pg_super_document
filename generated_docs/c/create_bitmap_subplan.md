@@ -38,23 +38,23 @@ This function is essential for bitmap scan optimization, enabling PostgreSQL to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_concat_unique
-  - list_concat
-  - make_bitmap_and
-  - make_bitmap_or
-  - make_bitmap_indexscan
-  - make_ands_explicit
-  - make_orclause
-  - create_indexscan_plan
-  - clamp_row_est
-  - get_actual_clauses
-  - predicate_implied_by
+  - [list_concat_unique](../l/list_concat_unique.md)
+  - [list_concat](../l/list_concat.md)
+  - [make_bitmap_and](../m/make_bitmap_and.md)
+  - [make_bitmap_or](../m/make_bitmap_or.md)
+  - [make_bitmap_indexscan](../m/make_bitmap_indexscan.md)
+  - [make_ands_explicit](../m/make_ands_explicit.md)
+  - [make_orclause](../m/make_orclause.md)
+  - [create_indexscan_plan](create_indexscan_plan.md)
+  - [clamp_row_est](clamp_row_est.md)
+  - [get_actual_clauses](../g/get_actual_clauses.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
   - nodeTag
   - BitmapAndPath, BitmapOrPath, IndexPath, IndexScan (struct types)
   - IndexClause (struct type)
 - Called from (representative examples):
-  - create_bitmap_scan_plan
-  - create_bitmap_subplan (recursive calls)
+  - [create_bitmap_scan_plan](create_bitmap_scan_plan.md)
+  - [create_bitmap_subplan](create_bitmap_subplan.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is recursive and can handle arbitrarily complex bitmap qualification trees

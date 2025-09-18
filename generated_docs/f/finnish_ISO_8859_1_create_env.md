@@ -25,7 +25,7 @@ The function delegates to the generic SN_create_env function with the appropriat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - External applications requiring Finnish stemming functionality
   - Snowball stemming library interfaces

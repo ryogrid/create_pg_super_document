@@ -21,11 +21,11 @@ This function serves as an abstraction layer, allowing callers to work with oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opclass_method (to determine the access method from the operator class)
-  - get_equal_strategy_number_for_am (to get the strategy number for the access method)
+  - [get_opclass_method](get_opclass_method.md) (to determine the access method from the operator class)
+  - [get_equal_strategy_number_for_am](get_equal_strategy_number_for_am.md) (to get the strategy number for the access method)
 
 - Called from (representative examples):
-  - build_replindex_scan_key
+  - [build_replindex_scan_key](../b/build_replindex_scan_key.md)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the execReplication.c file

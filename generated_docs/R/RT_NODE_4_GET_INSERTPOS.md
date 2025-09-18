@@ -28,8 +28,8 @@ The function performs a simple linear scan comparing the new chunk value against
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion)
 - Called from (representative examples):
-  - RT_GROW_NODE_4
-  - RT_ADD_CHILD_4
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md)
+  - [RT_ADD_CHILD_4](RT_ADD_CHILD_4.md)
 
 ## Notes and Other Information
 - Returns an integer index (0 to count) where the new chunk should be inserted

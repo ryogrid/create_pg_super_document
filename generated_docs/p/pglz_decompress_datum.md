@@ -21,19 +21,19 @@ The function handles error conditions by checking the decompression result and r
 - Functions called/Symbols referenced:
   - VARDATA_COMPRESSED_GET_EXTSIZE (macro to get original uncompressed size)
   - VARHDRSZ (standard varlena header size)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
   - pglz_decompress (core PGLZ decompression function)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)
   - VARSIZE (macro to get varlena total size)
   - VARDATA (macro to get data portion of varlena)
   - ereport (PostgreSQL error reporting)
   - ERROR (error level constant)
-  - errcode (error code function)
+  - [errcode](../e/errcode.md) (error code function)
   - ERRCODE_DATA_CORRUPTED (specific error code for data corruption)
-  - errmsg_internal (internal error message function)
+  - [errmsg_internal](../e/errmsg_internal.md) (internal error message function)
   - SET_VARSIZE (macro to set varlena size header)
 - Called from (representative examples):
-  - toast_decompress_datum (in src/backend/access/common/detoast.c:485)
+  - [toast_decompress_datum](../t/toast_decompress_datum.md) (in src/backend/access/common/detoast.c:485)
   - Referenced in CompressionMethodIsValid (in src/include/access/toast_compression.h:58)
 
 ## Notes and Other Information

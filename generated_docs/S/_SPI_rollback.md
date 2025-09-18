@@ -28,17 +28,17 @@ The entire operation is wrapped in a PG_TRY/PG_CATCH block to handle errors duri
 ## Dependencies
 - Functions called/Symbols referenced:
   - SavedTransactionCharacteristics (transaction state structure)
-  - IsSubTransaction (check for active subtransaction)
-  - SaveTransactionCharacteristics (save current transaction properties)
+  - [IsSubTransaction](../I/IsSubTransaction.md) (check for active subtransaction)
+  - [SaveTransactionCharacteristics](SaveTransactionCharacteristics.md) (save current transaction properties)
   - HoldPinnedPortals (protect portals during transaction boundary)
   - ForgetPortalSnapshots (release portal snapshots)
-  - AbortCurrentTransaction (abort the current transaction)
-  - StartTransactionCommand (start new transaction)
-  - RestoreTransactionCharacteristics (restore transaction properties when chaining)
-  - CopyErrorData/FlushErrorState/ReThrowError (error handling)
+  - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md) (abort the current transaction)
+  - [StartTransactionCommand](StartTransactionCommand.md) (start new transaction)
+  - [RestoreTransactionCharacteristics](../R/RestoreTransactionCharacteristics.md) (restore transaction properties when chaining)
+  - [CopyErrorData](../C/CopyErrorData.md)/FlushErrorState/ReThrowError (error handling)
 - Called from:
-  - SPI_rollback (with chain=false)
-  - SPI_rollback_and_chain (with chain=true)
+  - [SPI_rollback](SPI_rollback.md) (with chain=false)
+  - [SPI_rollback_and_chain](SPI_rollback_and_chain.md) (with chain=true)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public SPI API

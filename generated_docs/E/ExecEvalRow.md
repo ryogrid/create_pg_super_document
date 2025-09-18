@@ -27,11 +27,11 @@ The function uses heap_form_tuple to construct a proper HeapTuple from the pre-e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_form_tuple: Creates a HeapTuple from column values and null flags
-  - HeapTupleGetDatum: Converts HeapTuple to Datum representation
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates a HeapTuple from column values and null flags
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md): Converts HeapTuple to Datum representation
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation context
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation context
 
 ## Notes and Other Information
 - This function assumes that individual column evaluations have been completed in prior evaluation steps

@@ -21,20 +21,20 @@ This function implements the ALTER USER MAPPING SQL command by updating an exist
 - Functions called/Symbols referenced:
   - table_open
   - get_rolespec_oid
-  - GetForeignServerByName
+  - [GetForeignServerByName](../G/GetForeignServerByName.md)
   - GetSysCacheOid2
-  - user_mapping_ddl_aclcheck
+  - [user_mapping_ddl_aclcheck](../u/user_mapping_ddl_aclcheck.md)
   - SearchSysCacheCopy1
-  - GetForeignDataWrapper
-  - SysCacheGetAttr
-  - transformGenericOptions
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSet
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 The function performs in-place modification of the user mapping's options by retrieving the existing tuple, modifying only the options column, and updating the catalog. It properly handles NULL options by using replacement arrays to control which columns are updated. The function maintains all existing dependencies and relationships while allowing option changes, making it safe for ongoing foreign data wrapper operations.

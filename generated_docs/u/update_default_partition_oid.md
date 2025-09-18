@@ -31,14 +31,14 @@ The function operates by:
   - SearchSysCacheCopy1 
   - HeapTupleIsValid
   - GETSTRUCT (macro)
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
   - Form_pg_partitioned_table (struct type)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - StorePartitionBound
-  - DetachPartitionFinalize
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [StorePartitionBound](../S/StorePartitionBound.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock to ensure exclusive access during the catalog update

@@ -22,15 +22,15 @@ spgConfigOut is an output structure used in the SP-GiST (Space-Partitioned Gener
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
-  - bool (PostgreSQL boolean type)
+  - [bool](../b/bool.md) (PostgreSQL boolean type)
 - Called from (representative examples):
-  - spg_kd_config (src/backend/access/spgist/spgkdtreeproc.c:31)
-  - spg_quad_config (src/backend/access/spgist/spgquadtreeproc.c:30)
-  - spg_text_config (src/backend/access/spgist/spgtextproc.c:99)
-  - spgvalidate (src/backend/access/spgist/spgvalidate.c:58)
-  - spg_box_quad_config (src/backend/utils/adt/geo_spgist.c:403)
-  - inet_spg_config (src/backend/utils/adt/network_spgist.c:54)
-  - spg_range_quad_config (src/backend/utils/adt/rangetypes_spgist.c:63)
+  - [spg_kd_config](spg_kd_config.md) (src/backend/access/spgist/spgkdtreeproc.c:31)
+  - [spg_quad_config](spg_quad_config.md) (src/backend/access/spgist/spgquadtreeproc.c:30)
+  - [spg_text_config](spg_text_config.md) (src/backend/access/spgist/spgtextproc.c:99)
+  - [spgvalidate](spgvalidate.md) (src/backend/access/spgist/spgvalidate.c:58)
+  - [spg_box_quad_config](spg_box_quad_config.md) (src/backend/utils/adt/geo_spgist.c:403)
+  - [inet_spg_config](../i/inet_spg_config.md) (src/backend/utils/adt/network_spgist.c:54)
+  - [spg_range_quad_config](spg_range_quad_config.md) (src/backend/utils/adt/rangetypes_spgist.c:63)
 
 ## Notes and Other Information
 - This struct is part of the SP-GiST index access method interface

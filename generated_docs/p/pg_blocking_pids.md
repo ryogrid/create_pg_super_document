@@ -19,15 +19,15 @@ The function returns an array of INT32 values representing the PIDs of processes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBlockerStatusData (retrieves lock blocking information)
+  - [GetBlockerStatusData](../G/GetBlockerStatusData.md) (retrieves lock blocking information)
   - GetLockTagsMethodTable (gets lock method table for lock type)
-  - construct_array_builtin (constructs PostgreSQL array result)
-  - palloc (PostgreSQL memory allocation)
+  - [construct_array_builtin](../c/construct_array_builtin.md) (constructs PostgreSQL array result)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
 - Referenced types:
-  - BlockedProcsData, BlockedProcData, LockInstanceData
+  - [BlockedProcsData](../B/BlockedProcsData.md), BlockedProcData, LockInstanceData
   - LockMethod (lock method table structure)
 - Called from:
-  - pg_isolation_test_session_is_blocked (isolation testing framework)
+  - [pg_isolation_test_session_is_blocked](pg_isolation_test_session_is_blocked.md) (isolation testing framework)
   - SQL queries and monitoring applications
   - Lock analysis and debugging tools
 

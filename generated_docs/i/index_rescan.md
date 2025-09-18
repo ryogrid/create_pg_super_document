@@ -25,12 +25,12 @@ This function allows restarting an active index scan with new search parameters 
   - CHECK_SCAN_PROCEDURE (macro to verify amrescan procedure exists)  
   - table_index_fetch_reset (reset heap tuple fetching resources)
   - ScanKey (scan key structure type)
-  - IndexScanDesc (scan descriptor structure type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor structure type)
 - Called from (representative examples):
-  - systable_beginscan (src/backend/access/index/genam.c:444)
-  - systable_beginscan_ordered (src/backend/access/index/genam.c:702)
-  - ExecReScanIndexScan (src/backend/executor/nodeIndexscan.c:585)
-  - ExecReScanBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:165)
+  - [systable_beginscan](../s/systable_beginscan.md) (src/backend/access/index/genam.c:444)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md) (src/backend/access/index/genam.c:702)
+  - [ExecReScanIndexScan](../E/ExecReScanIndexScan.md) (src/backend/executor/nodeIndexscan.c:585)
+  - [ExecReScanBitmapIndexScan](../E/ExecReScanBitmapIndexScan.md) (src/backend/executor/nodeBitmapIndexscan.c:165)
 
 ## Notes and Other Information
 - Key count constraints: nkeys and norderbys must exactly match the original beginscan parameters

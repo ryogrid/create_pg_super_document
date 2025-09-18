@@ -25,10 +25,10 @@ This function is a utility for managing dynamic arrays of variable names in Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_realloc (for resizing the variable names array)
-  - psprintf (for formatting the complete variable name string)
+  - [psprintf](../p/psprintf.md) (for formatting the complete variable name string)
 - Called from (representative examples):
   - THING_NO_SHOW macro usage
-  - complete_from_variables function
+  - [complete_from_variables](../c/complete_from_variables.md) function
 
 ## Notes and Other Information
 - Implements a dynamic array growth strategy, doubling capacity when needed

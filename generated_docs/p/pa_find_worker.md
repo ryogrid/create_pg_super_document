@@ -18,10 +18,10 @@ This function provides a lookup mechanism to find the parallel apply worker assi
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - Assert
 - Called from:
-  - get_transaction_apply_action
+  - [get_transaction_apply_action](../g/get_transaction_apply_action.md)
 
 ## Notes and Other Information
 - Returns NULL for invalid transaction IDs or if no hash table exists

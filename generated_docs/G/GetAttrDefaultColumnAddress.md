@@ -20,17 +20,17 @@ This function performs a reverse lookup in the pg_attrdef system catalog, taking
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close: Opens and closes pg_attrdef catalog with shared lock
-  - ScanKeyInit: Initializes scan key for OID-based lookup
-  - systable_beginscan: Begins scan using AttrDefaultOidIndexId for efficient OID lookup
-  - systable_getnext: Retrieves matching tuple from scan
-  - systable_endscan: Ends system table scan
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for OID-based lookup
+  - [systable_beginscan](../s/systable_beginscan.md): Begins scan using AttrDefaultOidIndexId for efficient OID lookup
+  - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuple from scan
+  - [systable_endscan](../s/systable_endscan.md): Ends system table scan
   - GETSTRUCT: Extracts pg_attrdef structure from heap tuple
-  - ObjectIdGetDatum: Converts OID to datum format for scanning
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md): Converts OID to datum format for scanning
 
 - Called from (representative examples):
-  - getObjectDescription: During generation of human-readable object descriptions
-  - getObjectIdentityParts: When constructing object identity information for DDL
-  - RememberAllDependentForRebuilding: During table rebuild operations to track dependencies
+  - [getObjectDescription](../g/getObjectDescription.md): During generation of human-readable object descriptions
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md): When constructing object identity information for DDL
+  - [RememberAllDependentForRebuilding](../R/RememberAllDependentForRebuilding.md): During table rebuild operations to track dependencies
 
 ## Notes and Other Information
 The function uses shared locking throughout its operation, making it safe for concurrent access with other readers. It utilizes the AttrDefaultOidIndexId index for efficient OID-based lookups rather than scanning the entire table. The returned ObjectAddress follows PostgreSQL's standard addressing convention for table columns, where the class ID identifies the object type (RelationRelationId for relations), the object ID identifies the specific relation, and the object sub ID identifies the specific column within that relation. This function is commonly used in dependency tracking, object description generation, and various DDL operations where the system needs to identify which column a default expression belongs to. The InvalidObjectAddress return value provides a clear indication when the specified pg_attrdef OID does not exist in the catalog.

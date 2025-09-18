@@ -25,7 +25,7 @@ The function handles void affixes (empty affixes) as a special case and continue
 - Functions called/Symbols referenced:
   - GETWCHAR (macro for character extraction)
 - Called from (representative examples):
-  - NormalizeSubWord (3 times at lines 2212, 2236, 2254)
+  - [NormalizeSubWord](../N/NormalizeSubWord.md) (3 times at lines 2212, 2236, 2254)
 
 ## Notes and Other Information
 - Returns NULL if no matching affix is found

@@ -21,10 +21,10 @@ The order of operations is critical - partial index predicates must be evaluated
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_index_predicates (evaluates partial index applicability)
-  - set_baserel_size_estimates (computes actual size statistics)
+  - [check_index_predicates](../c/check_index_predicates.md) (evaluates partial index applicability)
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md) (computes actual size statistics)
 - Called from:
-  - set_rel_size (main size estimation dispatcher)
+  - [set_rel_size](set_rel_size.md) (main size estimation dispatcher)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c serving as a specialized handler for plain relations

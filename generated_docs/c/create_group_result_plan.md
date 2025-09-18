@@ -28,12 +28,12 @@ The function creates a minimal plan structure that simply applies any remaining 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist (builds the target list for the path)
-  - order_qual_clauses (orders qualification clauses for optimal execution)
-  - make_result (creates the Result plan node)
-  - copy_generic_path_info (copies common path information to the plan)
+  - [build_path_tlist](../b/build_path_tlist.md) (builds the target list for the path)
+  - [order_qual_clauses](../o/order_qual_clauses.md) (orders qualification clauses for optimal execution)
+  - [make_result](../m/make_result.md) (creates the Result plan node)
+  - [copy_generic_path_info](copy_generic_path_info.md) (copies common path information to the plan)
 - Called from (representative examples):
-  - create_plan_recurse (main recursive plan creation function)
+  - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)
 
 ## Notes and Other Information
 - This function is only used for very specific degenerate grouping cases

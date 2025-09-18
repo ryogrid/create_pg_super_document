@@ -35,21 +35,21 @@ The function includes special handling for pg_class itself, updating freeze info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_param: Updates progress reporting for clustering operations
-  - swap_relation_files: Performs the atomic file swap between relations
-  - CacheInvalidateCatalog: Invalidates system catalog caches
-  - reindex_relation: Rebuilds all indexes on the reorganized table
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md): Updates progress reporting for clustering operations
+  - [swap_relation_files](../s/swap_relation_files.md): Performs the atomic file swap between relations
+  - [CacheInvalidateCatalog](../C/CacheInvalidateCatalog.md): Invalidates system catalog caches
+  - [reindex_relation](../r/reindex_relation.md): Rebuilds all indexes on the reorganized table
   - SearchSysCacheCopy1/CatalogTupleUpdate: Updates pg_class for special cases
-  - performDeletion: Drops the temporary table
-  - RelationMapRemoveMapping: Cleans up temporary relation mappings
-  - toast_get_valid_index: Gets TOAST table indexes for renaming
-  - RenameRelationInternal: Renames TOAST tables and indexes
-  - ResetRelRewrite: Resets rewrite information for TOAST tables
-  - RelationClearMissing: Clears missing attribute information
+  - [performDeletion](../p/performDeletion.md): Drops the temporary table
+  - [RelationMapRemoveMapping](../R/RelationMapRemoveMapping.md): Cleans up temporary relation mappings
+  - [toast_get_valid_index](../t/toast_get_valid_index.md): Gets TOAST table indexes for renaming
+  - [RenameRelationInternal](../R/RenameRelationInternal.md): Renames TOAST tables and indexes
+  - [ResetRelRewrite](../R/ResetRelRewrite.md): Resets rewrite information for TOAST tables
+  - [RelationClearMissing](../R/RelationClearMissing.md): Clears missing attribute information
 - Called from (representative examples):
-  - rebuild_relation: Table clustering operation
-  - refresh_by_heap_swap: Materialized view refresh
-  - ATRewriteTables: ALTER TABLE rewrite operations
+  - [rebuild_relation](../r/rebuild_relation.md): Table clustering operation
+  - [refresh_by_heap_swap](../r/refresh_by_heap_swap.md): Materialized view refresh
+  - [ATRewriteTables](../A/ATRewriteTables.md): ALTER TABLE rewrite operations
 
 ## Notes and Other Information
 - Updates progress reporting throughout the operation for monitoring purposes

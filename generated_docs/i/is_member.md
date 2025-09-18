@@ -32,7 +32,7 @@ Importantly, this function explicitly excludes superuser privileges from automat
   - is_member_of_role_nosuper
   - OidIsValid (macro)
 - Called from (representative examples):
-  - check_role
+  - [check_role](../c/check_role.md)
   - check_db
 
 ## Notes and Other Information

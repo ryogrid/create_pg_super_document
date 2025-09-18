@@ -25,14 +25,14 @@ FPle implements a fuzzy less-than-or-equal comparison for double-precision float
 - Functions called/Symbols referenced:
   - EPSILON (constant defining the tolerance threshold)
 - Called from (representative examples):
-  - gist_point_consistent_internal
-  - box_ov
-  - box_overleft
-  - box_contain_box
-  - circle_overlap
-  - circle_contained
-  - overlap2D
-  - contain2D
+  - [gist_point_consistent_internal](../g/gist_point_consistent_internal.md)
+  - [box_ov](../b/box_ov.md)
+  - [box_overleft](../b/box_overleft.md)
+  - [box_contain_box](../b/box_contain_box.md)
+  - [circle_overlap](../c/circle_overlap.md)
+  - [circle_contained](../c/circle_contained.md)
+  - [overlap2D](../o/overlap2D.md)
+  - [contain2D](../c/contain2D.md)
 
 ## Notes and Other Information
 This function is extensively used in PostgreSQL's geometric operations, particularly for containment and overlap checks. The epsilon-adjusted comparison (A <= B + EPSILON) allows for inclusive relationships that account for floating-point precision errors. This is especially important in spatial indexing and geometric containment operations where boundary conditions must be handled reliably. The function ensures that values that are effectively equal (within EPSILON tolerance) are treated as satisfying the less-than-or-equal condition.

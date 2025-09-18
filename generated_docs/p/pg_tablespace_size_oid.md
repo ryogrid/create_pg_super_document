@@ -21,7 +21,7 @@ When the tablespace size calculation fails or encounters an error, the function 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calculate_tablespace_size
+  - [calculate_tablespace_size](../c/calculate_tablespace_size.md)
   - PG_RETURN_INT64
   - PG_RETURN_NULL
   - PG_GETARG_OID

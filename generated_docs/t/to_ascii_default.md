@@ -22,8 +22,8 @@ The function follows PostgreSQL convention for SQL-callable functions by using P
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_P_COPY (macro to get text argument with copy)
-  - GetDatabaseEncoding (function to get current database encoding)
-  - encode_to_ascii (performs the actual ASCII conversion)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (function to get current database encoding)
+  - [encode_to_ascii](../e/encode_to_ascii.md) (performs the actual ASCII conversion)
   - PG_RETURN_TEXT_P (macro to return text result)
 - Called from:
   - SQL functions/queries (externally callable)

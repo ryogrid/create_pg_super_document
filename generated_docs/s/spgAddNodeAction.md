@@ -23,16 +23,16 @@ The  function handles the "addNode" operation requested by the opclass choose fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - addNode
-  - PageGetExactFreeSpace
-  - PageIndexTupleDelete
+  - [addNode](../a/addNode.md)
+  - [PageGetExactFreeSpace](../P/PageGetExactFreeSpace.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - PageAddItem
-  - SpGistGetBuffer
-  - SpGistPageAddNewItem
-  - saveNodeLink
-  - spgFormDeadTuple
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md)
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md)
+  - [saveNodeLink](saveNodeLink.md)
+  - [spgFormDeadTuple](spgFormDeadTuple.md)
 - Called from (representative examples):
-  - spgdoinsert
+  - [spgdoinsert](spgdoinsert.md)
 
 ## Notes and Other Information
 The function includes comprehensive WAL logging for crash recovery when not in build mode. It cannot be applied to nulls pages and will error if attempted on the root page when enlargement would exceed page capacity. The function carefully manages buffer relationships, ensuring that parent buffer updates are properly coordinated when the tuple is moved to a different page. During index build, placeholder tuples are used instead of redirection tuples for better performance since concurrent scans are not a concern.

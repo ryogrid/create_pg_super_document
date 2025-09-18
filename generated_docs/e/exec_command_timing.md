@@ -24,10 +24,10 @@ The function provides user feedback by displaying the current timing state unles
 ## Dependencies
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option` - Parse optional boolean parameter from command line
-  - `ParseVariableBool` - Parse and validate boolean value ("on"/"off", "true"/"false", etc.)
-  - `ignore_slash_options` - Skip option parsing when not in active branch
+  - `[ParseVariableBool](../P/ParseVariableBool.md)` - Parse and validate boolean value ("on"/"off", "true"/"false", etc.)
+  - `[ignore_slash_options](../i/ignore_slash_options.md)` - Skip option parsing when not in active branch
 - Called from:
-  - `exec_command` - Main command dispatcher for `\timing` command
+  - `[exec_command](exec_command.md)` - Main command dispatcher for `\timing` command
 
 ## Notes and Other Information
 - When enabled, timing information appears after each SQL command completion

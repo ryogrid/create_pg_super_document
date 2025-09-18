@@ -22,19 +22,19 @@ When the current page is exhausted, it automatically advances to the next page i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageGetMaxOffsetNumber
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - GinPageGetOpaque
-  - ReadBuffer
-  - LockBuffer
-  - UnlockReleaseBuffer
-  - PageGetItem
-  - PageGetItemId
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - GinPageHasFullRow
-  - ItemPointerEquals
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
 - Called from (representative examples):
-  - collectMatchesForHeapRow
-  - scanPendingInsert
+  - [collectMatchesForHeapRow](../c/collectMatchesForHeapRow.md)
+  - [scanPendingInsert](scanPendingInsert.md)
 
 ## Notes and Other Information
 Essential for pending list processing during GIN index scans. The function implements proper buffer management to prevent race conditions with vacuum/cleanup processes. It handles both scenarios where heap rows are contained within single pages and where they span multiple pages, which can occur due to the way pending entries are inserted and organized.

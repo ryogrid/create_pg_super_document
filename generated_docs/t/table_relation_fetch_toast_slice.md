@@ -25,10 +25,10 @@ The function delegates to the underlying table access method's relation_fetch_to
 ## Dependencies
 - Functions called/Symbols referenced:
   - toastrel->rd_tableam->relation_fetch_toast_slice (table access method function pointer)
-  - varlena (struct for variable-length data)
+  - [varlena](../v/varlena.md) (struct for variable-length data)
 - Called from (representative examples):
-  - toast_fetch_datum (in src/backend/access/common/detoast.c:375)
-  - toast_fetch_datum_slice (in src/backend/access/common/detoast.c:455)
+  - [toast_fetch_datum](toast_fetch_datum.md) (in src/backend/access/common/detoast.c:375)
+  - [toast_fetch_datum_slice](toast_fetch_datum_slice.md) (in src/backend/access/common/detoast.c:455)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam header file for efficient access

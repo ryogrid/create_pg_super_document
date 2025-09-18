@@ -25,10 +25,10 @@ This is a critical validation step used by the query planner to determine when f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (bitmap set membership test function)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test function)
 - Called from:
   - DependencyGenerator (during dependency enumeration)
-  - find_strongest_dependency (during query optimization)
+  - [find_strongest_dependency](../f/find_strongest_dependency.md) (during query optimization)
 
 ## Notes and Other Information
 - The function assumes that clauses on the attributes are suitable equality clauses

@@ -21,13 +21,13 @@ The function supports conditional reading of abort LSN and timestamp information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
-  - pq_getmsgint64
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
   - Assert (for validation)
-  - LogicalRepStreamAbortData (data structure)
+  - [LogicalRepStreamAbortData](../L/LogicalRepStreamAbortData.md) (data structure)
   - InvalidXLogRecPtr (constant for invalid LSN)
 - Called from (representative examples):
-  - apply_handle_stream_abort
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 - Includes assertion to ensure abort_data parameter is not NULL

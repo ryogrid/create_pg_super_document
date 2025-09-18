@@ -27,12 +27,12 @@ The function also performs error cleanup by ensuring any pending lock waits are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockErrorCleanup
-  - LockReleaseAll
+  - [LockErrorCleanup](../L/LockErrorCleanup.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
   - DEFAULT_LOCKMETHOD
   - USER_LOCKMETHOD
 - Called from (representative examples):
-  - ResourceOwnerReleaseInternal
+  - [ResourceOwnerReleaseInternal](../R/ResourceOwnerReleaseInternal.md)
 
 ## Notes and Other Information
 - The function is only relevant for main transactions; subtransaction commits defer lock releasing to the parent transaction

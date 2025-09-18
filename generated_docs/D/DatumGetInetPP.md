@@ -22,16 +22,16 @@ The "PP" suffix indicates this function returns a pointer that may point to pack
   - PG_DETOAST_DATUM_PACKED
   - inet
 - Called from (representative examples):
-  - network_fast_cmp
-  - network_abbrev_convert
-  - convert_network_to_scalar
-  - inet_gist_compress
-  - inet_hist_value_sel
-  - inet_spg_choose
-  - inet_spg_picksplit
-  - inet_spg_inner_consistent
-  - inet_spg_leaf_consistent
-  - inet_spg_consistent_bitmap
+  - [network_fast_cmp](../n/network_fast_cmp.md)
+  - [network_abbrev_convert](../n/network_abbrev_convert.md)
+  - [convert_network_to_scalar](../c/convert_network_to_scalar.md)
+  - [inet_gist_compress](../i/inet_gist_compress.md)
+  - [inet_hist_value_sel](../i/inet_hist_value_sel.md)
+  - [inet_spg_choose](../i/inet_spg_choose.md)
+  - [inet_spg_picksplit](../i/inet_spg_picksplit.md)
+  - [inet_spg_inner_consistent](../i/inet_spg_inner_consistent.md)
+  - [inet_spg_leaf_consistent](../i/inet_spg_leaf_consistent.md)
+  - [inet_spg_consistent_bitmap](../i/inet_spg_consistent_bitmap.md)
   - PG_GETARG_INET_PP (macro)
 
 ## Notes and Other Information

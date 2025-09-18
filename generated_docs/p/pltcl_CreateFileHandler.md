@@ -26,7 +26,7 @@ The empty implementation ensures that while the Tcl notifier interface is satisf
 - Functions called/Symbols referenced:
   - (None - this is an empty stub function)
 - Called from (representative examples):
-  - _PG_init (assigned to notifier.createFileHandlerProc)
+  - [_PG_init](../P/_PG_init.md) (assigned to notifier.createFileHandlerProc)
 
 ## Notes and Other Information
 - This function is part of a complete set of Tcl notifier overrides that includes pltcl_InitNotifier, pltcl_FinalizeNotifier, pltcl_SetTimer, pltcl_AlertNotifier, pltcl_DeleteFileHandler, pltcl_ServiceModeHook, and pltcl_WaitForEvent

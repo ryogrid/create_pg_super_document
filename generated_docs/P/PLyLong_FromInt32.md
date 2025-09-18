@@ -23,10 +23,10 @@ The conversion process is straightforward, promoting the 32-bit integer to Pytho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32: Extracts the 32-bit integer value from the PostgreSQL Datum
+  - [DatumGetInt32](../D/DatumGetInt32.md): Extracts the 32-bit integer value from the PostgreSQL Datum
   - PyLong_FromLong: Python C API function to create a Python long object from a C long integer
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for various PostgreSQL data types
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for various PostgreSQL data types
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the plpy_typeio.c file

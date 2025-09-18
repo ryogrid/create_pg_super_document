@@ -19,11 +19,11 @@ This function checks if the array element type associated with a given type cach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_array_element_properties
+  - [cache_array_element_properties](../c/cache_array_element_properties.md)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
   - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
 - Called from (representative examples):
-  - lookup_type_cache (at line 750)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (at line 750)
 
 ## Notes and Other Information
 This is a static function in typcache.c that serves as part of the type caching system for extended hash functionality. Extended hashing is particularly important for improved hash distribution and performance in large-scale operations. This functionality represents an enhancement over traditional 32-bit hashing and provides better hash collision resistance. The function implements the same lazy evaluation pattern as its companion array element property checking functions.

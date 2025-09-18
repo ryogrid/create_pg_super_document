@@ -20,13 +20,13 @@ When active_branch is false (inside a false \if block), the function calls ignor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clean_bind_state
+  - [clean_bind_state](../c/clean_bind_state.md)
   - psql_scan_slash_option
   - pg_realloc_array
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - OT_NORMAL (option type constant)
 - Called from (representative examples):
-  - exec_command (src/bin/psql/command.c:331)
+  - [exec_command](exec_command.md) (src/bin/psql/command.c:331)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on successful completion

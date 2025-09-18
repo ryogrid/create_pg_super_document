@@ -24,7 +24,7 @@ The handler uses _exit(2) instead of the standard exit(0) to signal to the postm
   - SIGNAL_ARGS (signal handler parameter macro)
   - _exit() system call (with exit code 2)
 - Called from (representative examples):
-  - InitPostmasterChild (src/backend/utils/init/miscinit.c:159)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md) (src/backend/utils/init/miscinit.c:159)
 
 ## Notes and Other Information
 - This signal handler is declared in src/include/postmaster/interrupt.h

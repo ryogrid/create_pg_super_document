@@ -29,26 +29,26 @@ The algorithm accumulates partial products in an integer array, periodically nor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - zero_var (for zero result cases)
-  - alloc_var (for result allocation)
-  - round_var (for final rounding)
-  - strip_var (for removing leading/trailing zeros)
-  - palloc0 (for temporary array allocation)
-  - pfree (for memory cleanup)
+  - [zero_var](../z/zero_var.md) (for zero result cases)
+  - [alloc_var](../a/alloc_var.md) (for result allocation)
+  - [round_var](../r/round_var.md) (for final rounding)
+  - [strip_var](../s/strip_var.md) (for removing leading/trailing zeros)
+  - [palloc0](../p/palloc0.md) (for temporary array allocation)
+  - [pfree](../p/pfree.md) (for memory cleanup)
   - NUMERIC_POS/NUMERIC_NEG (sign constants)
   - NBASE (numeric base constant)
   - DEC_DIGITS (digits per NumericDigit)
   - MUL_GUARD_DIGITS (guard digits for precision)
 - Called from (representative examples):
-  - numeric_mul_opt_error
-  - numeric_lcm
-  - numeric_fac
-  - numeric_stddev_internal
-  - div_mod_var
-  - sqrt_var
-  - exp_var
-  - ln_var
-  - power_var
+  - [numeric_mul_opt_error](../n/numeric_mul_opt_error.md)
+  - [numeric_lcm](../n/numeric_lcm.md)
+  - [numeric_fac](../n/numeric_fac.md)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md)
+  - [div_mod_var](../d/div_mod_var.md)
+  - [sqrt_var](../s/sqrt_var.md)
+  - [exp_var](../e/exp_var.md)
+  - [ln_var](../l/ln_var.md)
+  - [power_var](../p/power_var.md)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

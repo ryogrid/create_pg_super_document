@@ -20,7 +20,7 @@ This function performs a lookup in the parent map hash table to find the parent 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - ParentMapEntry
   - HASH_FIND
   - elog (for error reporting)

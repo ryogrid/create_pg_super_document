@@ -23,14 +23,14 @@ This strict validation makes the function suitable for DDL parameters that speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - ListCell (structure type for list iteration)
   - nodeTag (macro to get node type)
   - T_List (node type constant)
   - lfirst (macro to get current list element)
   - IsA (macro to check node type)
   - String (node type for string literals)
-  - Node (base node type)
+  - [Node](../N/Node.md) (base node type)
 - Called from (representative examples):
   - Functions declared in defrem.h
 

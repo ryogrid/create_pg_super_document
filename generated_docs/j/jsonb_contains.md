@@ -25,8 +25,8 @@ For containment to be true:
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
   - JB_ROOT_IS_OBJECT
-  - JsonbIteratorInit
-  - JsonbDeepContains
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbDeepContains](../J/JsonbDeepContains.md)
   - PG_RETURN_BOOL
 - Types used:
   - Jsonb

@@ -21,12 +21,12 @@ This function checks if a typmod value is valid by ensuring it meets the minimum
 - Functions called/Symbols referenced:
   - VARHDRSZ (constant)
 - Called from (representative examples):
-  - numeric_maximum_size (at src/backend/utils/adt/numeric.c:956)
-  - numeric_support (at src/backend/utils/adt/numeric.c:1226, 1227)
-  - numeric (at src/backend/utils/adt/numeric.c:1270)
-  - numerictypmodout (at src/backend/utils/adt/numeric.c:1372)
-  - apply_typmod (at src/backend/utils/adt/numeric.c:7932)
-  - apply_typmod_special (at src/backend/utils/adt/numeric.c:8025)
+  - [numeric_maximum_size](../n/numeric_maximum_size.md) (at src/backend/utils/adt/numeric.c:956)
+  - [numeric_support](../n/numeric_support.md) (at src/backend/utils/adt/numeric.c:1226, 1227)
+  - [numeric](../n/numeric.md) (at src/backend/utils/adt/numeric.c:1270)
+  - [numerictypmodout](../n/numerictypmodout.md) (at src/backend/utils/adt/numeric.c:1372)
+  - [apply_typmod](../a/apply_typmod.md) (at src/backend/utils/adt/numeric.c:7932)
+  - [apply_typmod_special](../a/apply_typmod_special.md) (at src/backend/utils/adt/numeric.c:8025)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the numeric.c compilation unit

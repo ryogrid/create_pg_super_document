@@ -25,13 +25,13 @@ The function performs an assertion check to ensure the JsonPathItem type is one 
   - jpiString (enum constant) 
   - jpiVariable (enum constant)
 - Called from (representative examples):
-  - printJsonPathItem
-  - jspIsMutableWalker
-  - executeItemOptUnwrapTarget
-  - getJsonPathItem
-  - getJsonPathVariable
-  - jsonb_ops__add_path_item
-  - jsonb_path_ops__add_path_item
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [jspIsMutableWalker](jspIsMutableWalker.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [getJsonPathItem](../g/getJsonPathItem.md)
+  - [getJsonPathVariable](../g/getJsonPathVariable.md)
+  - [jsonb_ops__add_path_item](jsonb_ops__add_path_item.md)
+  - [jsonb_path_ops__add_path_item](jsonb_path_ops__add_path_item.md)
 
 ## Notes and Other Information
 - The function uses Assert() to validate the JsonPathItem type, which means type validation only occurs in debug builds

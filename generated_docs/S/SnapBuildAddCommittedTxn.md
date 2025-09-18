@@ -24,8 +24,8 @@ Each transaction ID added to this list represents a transaction that has made ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild (structure type)
-  - repalloc (memory reallocation function)
+  - [SnapBuild](SnapBuild.md) (structure type)
+  - [repalloc](../r/repalloc.md) (memory reallocation function)
   - DEBUG1 (logging level constant)
   - TransactionIdIsValid (validation macro)
 - Called from (representative examples):

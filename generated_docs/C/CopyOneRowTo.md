@@ -20,21 +20,21 @@ CopyOneRowTo processes individual tuples during COPY TO operations by extracting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset
-  - CopySendInt16
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [CopySendInt16](CopySendInt16.md)
   - slot_getallattrs
-  - CopySendChar
-  - CopySendString
-  - CopySendInt32
-  - OutputFunctionCall
-  - CopyAttributeOutCSV
-  - CopyAttributeOutText
-  - SendFunctionCall
-  - CopySendData
-  - CopySendEndOfRow
+  - [CopySendChar](CopySendChar.md)
+  - [CopySendString](CopySendString.md)
+  - [CopySendInt32](CopySendInt32.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
+  - [CopyAttributeOutCSV](CopyAttributeOutCSV.md)
+  - [CopyAttributeOutText](CopyAttributeOutText.md)
+  - [SendFunctionCall](../S/SendFunctionCall.md)
+  - [CopySendData](CopySendData.md)
+  - [CopySendEndOfRow](CopySendEndOfRow.md)
 - Called from (representative examples):
-  - DoCopyTo
-  - copy_dest_receive
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [copy_dest_receive](../c/copy_dest_receive.md)
   - DR_copy
 
 ## Notes and Other Information

@@ -21,10 +21,10 @@ The function explicitly checks for six specific whitespace characters: space (' 
 - Functions called/Symbols referenced:
   - None (uses only character literal comparisons)
 - Called from (representative examples):
-  - CreateSchemaCommand (schema creation parsing)
-  - CleanQuerytext (query text normalization)
-  - array_in/array_out (array parsing and formatting)
-  - parse_ident (identifier parsing utilities)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md) (schema creation parsing)
+  - [CleanQuerytext](../C/CleanQuerytext.md) (query text normalization)
+  - [array_in](../a/array_in.md)/array_out (array parsing and formatting)
+  - [parse_ident](../p/parse_ident.md) (identifier parsing utilities)
   - SplitIdentifierString (identifier splitting functions)
   - SplitDirectoriesString/SplitGUCList (configuration parsing)
 

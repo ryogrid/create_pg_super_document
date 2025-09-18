@@ -26,17 +26,17 @@ The `set_var_from_str` function is a sophisticated parser that handles the conve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - alloc_var (allocates digit buffer for the result)
-  - strip_var (normalizes the result by removing leading/trailing zeros)
-  - palloc (allocates temporary buffer for decimal digits)
-  - pfree (frees temporary buffer)
+  - [alloc_var](../a/alloc_var.md) (allocates digit buffer for the result)
+  - [strip_var](strip_var.md) (normalizes the result by removing leading/trailing zeros)
+  - [palloc](../p/palloc.md) (allocates temporary buffer for decimal digits)
+  - [pfree](../p/pfree.md) (frees temporary buffer)
   - ereturn (soft error reporting)
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT
-  - numeric_in (main numeric input function)
-  - float8_numeric (float to numeric conversion)
-  - float4_numeric (float to numeric conversion)
-  - PGTYPESnumeric_from_asc (ECPG library)
+  - [numeric_in](../n/numeric_in.md) (main numeric input function)
+  - [float8_numeric](../f/float8_numeric.md) (float to numeric conversion)
+  - [float4_numeric](../f/float4_numeric.md) (float to numeric conversion)
+  - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md) (ECPG library)
 
 ## Notes and Other Information
 - Supports scientific notation with both positive and negative exponents

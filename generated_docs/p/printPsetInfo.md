@@ -20,9 +20,9 @@ The `printPsetInfo` function serves as the primary interface for displaying psql
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _align2string (converts format enum to string representation)
-  - _unicode_linestyle2string (converts Unicode line style enum to string)
-  - get_line_style (retrieves line style information)
+  - [_align2string](../a/_align2string.md) (converts format enum to string representation)
+  - [_unicode_linestyle2string](../u/_unicode_linestyle2string.md) (converts Unicode line style enum to string)
+  - [get_line_style](../g/get_line_style.md) (retrieves line style information)
   - ngettext (internationalization function for plural forms)
   - Various enum constants (PRINT_XHEADER_*, etc.)
 - Called from (representative examples):

@@ -29,13 +29,13 @@ The created ForeignKeyOptInfo structures are added to the root->fkey_list for la
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetFKeyList
+  - [RelationGetFKeyList](../R/RelationGetFKeyList.md)
   - RelationGetRelid
   - makeNode
   - lappend
   - memcpy, memset
 - Called from (representative examples):
-  - get_relation_info
+  - [get_relation_info](get_relation_info.md)
 
 ## Notes and Other Information
 - Only processes base relations in multi-relation queries

@@ -19,22 +19,22 @@ The getConstraints function focuses specifically on foreign key constraints, as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableInfo (structure type)
-  - ConstraintInfo (structure type)
+  - [TableInfo](../T/TableInfo.md) (structure type)
+  - [ConstraintInfo](../C/ConstraintInfo.md) (structure type)
   - appendPQExpBufferChar
   - DUMP_COMPONENT_DEFINITION (flag constant)
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
   - pg_malloc
   - atooid
   - DO_FK_CONSTRAINT (enum value)
-  - AssignDumpId
-  - findTableByOid
-  - IndxInfo (structure type)
-  - addConstrChildIdxDeps
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [findTableByOid](../f/findTableByOid.md)
+  - [IndxInfo](../I/IndxInfo.md) (structure type)
+  - [addConstrChildIdxDeps](../a/addConstrChildIdxDeps.md)
 - Called from (representative examples):
-  - getSchemaData
-  - SubRelInfo (referenced in header)
+  - [getSchemaData](getSchemaData.md)
+  - [SubRelInfo](../S/SubRelInfo.md) (referenced in header)
 
 ## Notes and Other Information
 - Only processes foreign key constraints (contype = 'f'); other constraint types are handled by different functions

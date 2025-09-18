@@ -26,7 +26,7 @@ None - this is a parameter-less function that returns a List pointer.
   - SlotIsLogical
   - lappend
 - Called from:
-  - drop_local_obsolete_slots
+  - [drop_local_obsolete_slots](../d/drop_local_obsolete_slots.md)
 
 ## Notes and Other Information
 - Returns a List pointer containing ReplicationSlot pointers for all synchronized slots

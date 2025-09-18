@@ -29,13 +29,13 @@ The function modifies the entryRes array during processing but restores original
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - directBoolConsistentFn
+  - [directBoolConsistentFn](../d/directBoolConsistentFn.md)
   - GinTernaryValue (enum type)
-  - GinScanKey (struct type)
+  - [GinScanKey](../G/GinScanKey.md) (struct type)
   - MAX_MAYBE_ENTRIES (constant)
   - GIN_MAYBE, GIN_TRUE, GIN_FALSE (enum values)
 - Called from (representative examples):
-  - ginInitConsistentFunction
+  - [ginInitConsistentFunction](../g/ginInitConsistentFunction.md)
 
 ## Notes and Other Information
 - This is a static function internal to ginlogic.c and not exposed outside the module

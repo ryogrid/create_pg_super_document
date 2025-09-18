@@ -21,13 +21,13 @@ This function iterates through all block references in a WAL record to determine
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecMaxBlockId
-  - XLogRecGetBlockTagExtended
+  - [XLogRecGetBlockTagExtended](XLogRecGetBlockTagExtended.md)
   - RelFileLocatorEquals
   - InvalidForkNumber (constant)
   - emptyRelFileLocator (constant)
   - InvalidBlockNumber (constant)
 - Called from (representative examples):
-  - main (used for filtering WAL records in pg_waldump)
+  - [main](../m/main.md) (used for filtering WAL records in pg_waldump)
 
 ## Notes and Other Information
 - Returns true if any block reference in the record matches the filtering criteria

@@ -19,9 +19,9 @@ This function represents a testing/validation mode rather than a full operationa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proc_exit
+  - [proc_exit](../p/proc_exit.md)
 - Called from (representative examples):
-  - BootstrapModeMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the bootstrap.c file

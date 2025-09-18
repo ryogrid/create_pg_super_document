@@ -21,14 +21,14 @@ The function searches using a three-part key consisting of the role ID, namespac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache3 (system cache lookup with 3 keys)
-  - CharGetDatum (converts char to Datum)
-  - SysCacheGetAttr (extracts attribute from cached tuple)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup with 3 keys)
+  - [CharGetDatum](../C/CharGetDatum.md) (converts char to Datum)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (extracts attribute from cached tuple)
   - DatumGetAclPCopy (creates a copy of ACL from Datum)
   - HeapTupleIsValid (validates tuple existence)
-  - ReleaseSysCache (releases system cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases system cache reference)
 - Called from:
-  - get_user_default_acl (twice - for role-specific and public default ACLs)
+  - [get_user_default_acl](get_user_default_acl.md) (twice - for role-specific and public default ACLs)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the aclchk.c file

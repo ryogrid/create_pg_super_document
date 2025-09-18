@@ -22,7 +22,7 @@ The function includes safety assertions to ensure the input parameter e is withi
   - Assert (for input validation)
 - Called from (representative examples):
   - d2d (in src/common/d2s.c at lines 397, 443)
-  - f2d (in src/common/f2s.c at lines 269, 284, 317, 326)
+  - [f2d](../f/f2d.md) (in src/common/f2s.c at lines 269, 284, 317, 326)
 
 ## Notes and Other Information
 - The approximation formula works up to e = 3528, after which multiplication overflows

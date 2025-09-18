@@ -27,22 +27,22 @@ This function is particularly useful in index construction, page allocation for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRelBy
-  - BufferManagerRelation
-  - BufferAccessStrategy
+  - [ExtendBufferedRelBy](ExtendBufferedRelBy.md)
+  - [BufferManagerRelation](../B/BufferManagerRelation.md)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
 - Called from (representative examples):
-  - brinbuild
-  - brinbuildempty
-  - revmap_physical_extend
-  - ginbuildempty
-  - GinNewBuffer
-  - gistbuildempty
-  - gistNewBuffer
-  - _hash_getnewbuf
-  - _bt_allocbuf
-  - SpGistNewBuffer
-  - fill_seq_fork_with_data
-  - ReadBuffer_common
+  - [brinbuild](../b/brinbuild.md)
+  - [brinbuildempty](../b/brinbuildempty.md)
+  - [revmap_physical_extend](../r/revmap_physical_extend.md)
+  - [ginbuildempty](../g/ginbuildempty.md)
+  - [GinNewBuffer](../G/GinNewBuffer.md)
+  - [gistbuildempty](../g/gistbuildempty.md)
+  - [gistNewBuffer](../g/gistNewBuffer.md)
+  - [_hash_getnewbuf](../h/_hash_getnewbuf.md)
+  - [_bt_allocbuf](../b/_bt_allocbuf.md)
+  - [SpGistNewBuffer](../S/SpGistNewBuffer.md)
+  - [fill_seq_fork_with_data](../f/fill_seq_fork_with_data.md)
+  - [ReadBuffer_common](../R/ReadBuffer_common.md)
 
 ## Notes and Other Information
 - This is a convenience wrapper that always extends by exactly one block

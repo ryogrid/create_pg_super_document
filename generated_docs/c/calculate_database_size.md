@@ -41,4 +41,4 @@ The  function computes the total size of a database by scanning all tablespaces 
 - Uses the database's OID to construct paths in both default and custom tablespaces
 - The function handles interruption checking during tablespace scanning for long operations
 - Total size includes all database files across all tablespaces where the database has objects
-- Path construction follows PostgreSQL's internal directory structure: base/dbOid for default, pg_tblspc/tblspc_oid/version_dir/dbOid for custom tablespaces
+- [Path](../P/Path.md) construction follows PostgreSQL's internal directory structure: base/dbOid for default, pg_tblspc/tblspc_oid/version_dir/dbOid for custom tablespaces

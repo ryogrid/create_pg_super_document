@@ -23,10 +23,10 @@ This function takes no parameters and operates on global memory context variable
 - Functions called/Symbols referenced:
   - TransactionAbortContext (specialized abort context)
   - TopMemoryContext (fallback memory context)
-  - MemoryContextSwitchTo (context switching function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (context switching function)
 - Called from:
-  - AbortTransaction (main transaction abort at src/backend/access/transam/xact.c:2763)
-  - AbortOutOfAnyTransaction (emergency abort at src/backend/access/transam/xact.c:4816)
+  - [AbortTransaction](AbortTransaction.md) (main transaction abort at src/backend/access/transam/xact.c:2763)
+  - [AbortOutOfAnyTransaction](AbortOutOfAnyTransaction.md) (emergency abort at src/backend/access/transam/xact.c:4816)
 
 ## Notes and Other Information
 - Essential for ensuring memory availability during abort processing when system resources may be constrained

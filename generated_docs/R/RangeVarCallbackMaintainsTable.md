@@ -22,18 +22,18 @@ The function is designed to handle race conditions where a relation might be dro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (struct representing relation name with optional schema)
+  - [RangeVar](RangeVar.md) (struct representing relation name with optional schema)
   - AclResult (enum for access control check results)
-  - get_rel_relkind (function to get relation kind)
+  - [get_rel_relkind](../g/get_rel_relkind.md) (function to get relation kind)
   - RELKIND_RELATION, RELKIND_TOASTVALUE, RELKIND_MATVIEW, RELKIND_PARTITIONED_TABLE (relation type constants)
-  - pg_class_aclcheck (function to check access permissions)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md) (function to check access permissions)
   - ACL_MAINTAIN (permission constant for maintenance operations)
-  - aclcheck_error (function to generate permission error messages)
-  - get_relkind_objtype (function to get object type string from relation kind)
+  - [aclcheck_error](../a/aclcheck_error.md) (function to generate permission error messages)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md) (function to get object type string from relation kind)
 - Called from:
-  - cluster (CLUSTER command implementation)
-  - ReindexTable (REINDEX TABLE command implementation)
-  - ExecRefreshMatView (REFRESH MATERIALIZED VIEW command implementation)
+  - [cluster](../c/cluster.md) (CLUSTER command implementation)
+  - [ReindexTable](ReindexTable.md) (REINDEX TABLE command implementation)
+  - [ExecRefreshMatView](../E/ExecRefreshMatView.md) (REFRESH MATERIALIZED VIEW command implementation)
 
 ## Notes and Other Information
 - Designed specifically for maintenance operations requiring MAINTAIN privilege

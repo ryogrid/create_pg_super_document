@@ -25,9 +25,9 @@ When a client is sending data via COPY FROM STDIN and encounters an error or nee
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputString
+  - [pqTraceOutputString](pqTraceOutputString.md)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within fe-trace.c

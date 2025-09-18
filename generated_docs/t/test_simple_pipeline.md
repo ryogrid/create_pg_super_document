@@ -32,22 +32,22 @@ The test includes several validation checks to ensure pipeline mode behaves corr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQisnonblocking - Check if connection is in non-blocking mode
+  - [PQisnonblocking](../P/PQisnonblocking.md) - Check if connection is in non-blocking mode
   - PQenterPipelineMode - Enter pipeline mode
-  - PQsendQueryParams - Send parameterized query
+  - [PQsendQueryParams](../P/PQsendQueryParams.md) - Send parameterized query
   - PQexitPipelineMode - Exit pipeline mode
   - PQpipelineSync - Send pipeline synchronization
-  - PQgetResult - Retrieve query results
-  - PQresultStatus - Get result status
-  - PQresStatus - Get status string
-  - PQpipelineStatus - Get current pipeline status
-  - PQerrorMessage - Get error message
-  - PQclear - Free result memory
+  - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status
+  - [PQresStatus](../P/PQresStatus.md) - Get status string
+  - [PQpipelineStatus](../P/PQpipelineStatus.md) - Get current pipeline status
+  - [PQerrorMessage](../P/PQerrorMessage.md) - Get error message
+  - [PQclear](../P/PQclear.md) - Free result memory
   - PGRES_TUPLES_OK - Expected result status constant
   - PGRES_PIPELINE_SYNC - Expected sync result status constant
   - PQ_PIPELINE_OFF - Pipeline mode off status constant
 - Called from (representative examples):
-  - main - Main test driver function
+  - [main](../m/main.md) - Main test driver function
 
 ## Notes and Other Information
 - This is a test function specifically designed to validate basic pipeline mode functionality

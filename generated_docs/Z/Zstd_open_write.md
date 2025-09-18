@@ -19,11 +19,11 @@ This function is a wrapper for opening zstd-compressed files in write mode withi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (structure)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure)
   - sprintf (standard library function)
   - CFH->open_func (function pointer)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (assigned as open_write_func)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (assigned as open_write_func)
 
 ## Notes and Other Information
 - This is a static function local to compress_zstd.c

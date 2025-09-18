@@ -41,26 +41,26 @@ The function includes an optimization to avoid full table rewrites when possible
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - ATSimplePermissions
-  - SearchSysCacheCopyAttName
-  - typenameTypeIdAndMod
-  - GetColumnDefCollation
-  - CatalogTupleUpdate
+  - [ATSimplePermissions](ATSimplePermissions.md)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - CommandCounterIncrement
-  - check_for_column_name_collision
-  - ATParseTransformCmd
-  - BuildDescForRelation
-  - CheckAttributeType
-  - InsertPgAttributeTuples
-  - build_column_default
-  - DomainHasConstraints
-  - add_column_datatype_dependency
-  - find_inheritance_children
-  - ATGetQueueEntry
-  - CheckAlterTableIsSafe
+  - [check_for_column_name_collision](../c/check_for_column_name_collision.md)
+  - [ATParseTransformCmd](ATParseTransformCmd.md)
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [CheckAttributeType](../C/CheckAttributeType.md)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
+  - [build_column_default](../b/build_column_default.md)
+  - [DomainHasConstraints](../D/DomainHasConstraints.md)
+  - [add_column_datatype_dependency](../a/add_column_datatype_dependency.md)
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [ATGetQueueEntry](ATGetQueueEntry.md)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
 - Called from (representative examples):
-  - ATExecCmd
-  - ATExecAddColumn (recursive calls)
+  - [ATExecCmd](ATExecCmd.md)
+  - [ATExecAddColumn](ATExecAddColumn.md) (recursive calls)
 
 ## Notes and Other Information
 - The function includes stack depth checking to prevent stack overflow during deep recursion

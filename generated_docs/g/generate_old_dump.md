@@ -26,11 +26,11 @@ This function takes no parameters as it operates on global cluster state variabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  - Initialize status reporting for global objects dump
+  -  - [Initialize](../I/Initialize.md) status reporting for global objects dump
   -  - Execute pg_dumpall for global objects
   -  - Generate connection options for old cluster
   -  - Verify successful completion of operations
-  -  - Initialize progress reporting for database schemas
+  -  - [Initialize](../I/Initialize.md) progress reporting for database schemas
   -  - Execute pg_dump commands in parallel for each database
   - , , , ,  - String buffer operations for connection strings
   -  - Log database processing status

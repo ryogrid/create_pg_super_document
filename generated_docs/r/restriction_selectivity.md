@@ -25,16 +25,16 @@ The selectivity function receives context information including the planner stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_oprrest (retrieves operator's restriction selectivity function)
-  - OidFunctionCall4Coll (invokes the selectivity function with collation support)
-  - DatumGetFloat8 (converts function result to float8)
+  - [get_oprrest](../g/get_oprrest.md) (retrieves operator's restriction selectivity function)
+  - [OidFunctionCall4Coll](../O/OidFunctionCall4Coll.md) (invokes the selectivity function with collation support)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md) (converts function result to float8)
   - RegProcedure (procedure identifier type)
-  - PointerGetDatum, ObjectIdGetDatum, Int32GetDatum (datum conversion functions)
+  - [PointerGetDatum](../P/PointerGetDatum.md), ObjectIdGetDatum, Int32GetDatum (datum conversion functions)
 
 - Called from (representative examples):
-  - clause_selectivity_ext (src/backend/optimizer/path/clausesel.c:848)
-  - rowcomparesel (src/backend/utils/adt/selfuncs.c:2260)
-  - test_support_func (src/test/regress/regress.c:1051)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (src/backend/optimizer/path/clausesel.c:848)
+  - [rowcomparesel](rowcomparesel.md) (src/backend/utils/adt/selfuncs.c:2260)
+  - [test_support_func](../t/test_support_func.md) (src/test/regress/regress.c:1051)
 
 ## Notes and Other Information
 - Returns default selectivity of 0.5 when no  procedure is registered

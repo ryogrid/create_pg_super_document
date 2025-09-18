@@ -21,14 +21,14 @@ The setBaseObject function manages the base object context during JSONPath execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPathExecContext (execution context structure)
-  - JsonBaseObjectInfo (base object information structure)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (execution context structure)
+  - [JsonBaseObjectInfo](../J/JsonBaseObjectInfo.md) (base object information structure)
   - jbvBinary (JSON binary value type constant)
-  - JsonbContainer (container structure for binary JSON data)
+  - [JsonbContainer](../J/JsonbContainer.md) (container structure for binary JSON data)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (during item unwrapping)
-  - executeKeyValueMethod (for .keyvalue() operations)
-  - getJsonPathVariable (variable resolution)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (during item unwrapping)
+  - [executeKeyValueMethod](../e/executeKeyValueMethod.md) (for .keyvalue() operations)
+  - [getJsonPathVariable](../g/getJsonPathVariable.md) (variable resolution)
 
 ## Notes and Other Information
 - Returns the previous JsonBaseObjectInfo to enable restoration of the prior context

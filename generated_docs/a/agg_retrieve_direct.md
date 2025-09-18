@@ -36,26 +36,26 @@ The function implements a complex state machine that:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReScanExprContext
-  - initialize_phase
+  - [initialize_phase](../i/initialize_phase.md)
   - ResetTupleHashIterator
-  - select_current_set
-  - agg_retrieve_hash_table
+  - [select_current_set](../s/select_current_set.md)
+  - [agg_retrieve_hash_table](agg_retrieve_hash_table.md)
   - ExecQualAndReset
-  - fetch_input_tuple
+  - [fetch_input_tuple](../f/fetch_input_tuple.md)
   - TupIsNull
   - ExecCopySlotHeapTuple
-  - initialize_aggregates
-  - ExecForceStoreHeapTuple
-  - lookup_hash_entries
-  - advance_aggregates
+  - [initialize_aggregates](../i/initialize_aggregates.md)
+  - [ExecForceStoreHeapTuple](../E/ExecForceStoreHeapTuple.md)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [advance_aggregates](advance_aggregates.md)
   - ResetExprContext
-  - hashagg_finish_initial_spills
+  - [hashagg_finish_initial_spills](../h/hashagg_finish_initial_spills.md)
   - ExecQual
-  - prepare_projection_slot
-  - finalize_aggregates
-  - project_aggregates
+  - [prepare_projection_slot](../p/prepare_projection_slot.md)
+  - [finalize_aggregates](../f/finalize_aggregates.md)
+  - [project_aggregates](../p/project_aggregates.md)
 - Called from (representative examples):
-  - ExecAgg (for AGG_PLAIN and AGG_SORTED strategies)
+  - [ExecAgg](../E/ExecAgg.md) (for AGG_PLAIN and AGG_SORTED strategies)
 
 ## Notes and Other Information
 - This function handles the most complex aggregation scenarios including grouping sets and multi-phase processing

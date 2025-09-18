@@ -24,13 +24,13 @@ The  structure serves as an extended version of the flex scanner's YY_EXTRA data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - core_yy_extra_type
+  - [core_yy_extra_type](../c/core_yy_extra_type.md)
   - core_YYSTYPE
   - YYLTYPE
 - Called from (representative examples):
   - pg_yyget_extra
-  - raw_parser
-  - base_yylex
+  - [raw_parser](../r/raw_parser.md)
+  - [base_yylex](base_yylex.md)
 
 ## Notes and Other Information
 This structure is specifically designed for the base parser layer and implements a sophisticated lookahead mechanism that allows the parser to peek at the next token without consuming it. This capability is crucial for handling SQL syntax ambiguities where the parser needs to make decisions based on upcoming tokens. The structure follows PostgreSQL's layered parser architecture, where the base parser builds upon the core scanner functionality while adding its own specialized features. The parsetree member serves as the final output container for the completed parse operation, making this structure a central component in PostgreSQL's SQL parsing pipeline.

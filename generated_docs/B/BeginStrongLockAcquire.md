@@ -28,9 +28,9 @@ The function increments a count in the FastPathStrongRelationLocks structure for
   - StrongLockInProgress
   - FastPathStrongRelationLocks
 - Data structures used:
-  - LOCALLOCK
+  - [LOCALLOCK](../L/LOCALLOCK.md)
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within lock.c

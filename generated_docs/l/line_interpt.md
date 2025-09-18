@@ -20,13 +20,13 @@ This function calculates the intersection point of two LINE objects. It serves a
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LINE_P (retrieves LINE arguments)
-  - palloc (memory allocation)
-  - line_interpt_line (performs intersection calculation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [line_interpt_line](line_interpt_line.md) (performs intersection calculation)
   - PG_RETURN_NULL (returns NULL result)
   - PG_RETURN_POINT_P (returns Point result)
 - Types used:
   - LINE (geometric line type)
-  - Point (geometric point type)
+  - [Point](../P/Point.md) (geometric point type)
   - Datum (PostgreSQL data type)
 - Called from:
   - No direct references found (likely called via SQL function interface)

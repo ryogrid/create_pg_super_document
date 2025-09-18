@@ -30,18 +30,18 @@ The function ensures all items are in sorted order with no duplicates before pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinInitPage
+  - [GinInitPage](../G/GinInitPage.md)
   - GinDataLeafPageGetPostingList
-  - ginCompressPostingList
-  - GinNewBuffer
-  - BufferGetBlockNumber
-  - PredicateLockPageSplit
-  - PageRestoreTempPage
-  - XLogInsert (for WAL logging)
-  - ginInsertItemPointers (for overflow items)
+  - [ginCompressPostingList](../g/ginCompressPostingList.md)
+  - [GinNewBuffer](../G/GinNewBuffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PredicateLockPageSplit](../P/PredicateLockPageSplit.md)
+  - [PageRestoreTempPage](../P/PageRestoreTempPage.md)
+  - [XLogInsert](../X/XLogInsert.md) (for WAL logging)
+  - [ginInsertItemPointers](../g/ginInsertItemPointers.md) (for overflow items)
 - Called from (representative examples):
-  - addItemPointersToLeafTuple
-  - buildFreshLeafTuple
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md)
+  - [buildFreshLeafTuple](../b/buildFreshLeafTuple.md)
 
 ## Notes and Other Information
 - The function is critical for GIN index scalability, allowing posting lists to grow beyond single page limits

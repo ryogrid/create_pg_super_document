@@ -20,10 +20,10 @@ The  function performs controlled deallocation of an NFA state that must have no
 - Functions called/Symbols referenced:
   - FREESTATE
 - Called from (representative examples):
-  - dropstate (in regc_nfa.c)
-  - deltraverse (in regc_nfa.c)
+  - [dropstate](../d/dropstate.md) (in regc_nfa.c)
+  - [deltraverse](../d/deltraverse.md) (in regc_nfa.c)
   - breakconstraintloop (in regc_nfa.c)
-  - cbracket (in regcomp.c)
+  - [cbracket](../c/cbracket.md) (in regcomp.c)
 
 ## Notes and Other Information
 - Requires that the state has no incoming or outgoing arcs (enforced by assertions)

@@ -22,9 +22,9 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
 - Called from (representative examples):
-  - heap_prepare_freeze_tuple
-  - heap_tuple_should_freeze
-  - vacuum_get_cutoffs
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
+  - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
   - SnapBuildFindSnapshot
   - TransactionIdIsInProgress
   - ComputeXidHorizons

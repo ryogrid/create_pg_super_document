@@ -18,10 +18,10 @@ This is a generic implementation of atomic add-and-fetch operation that combines
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_add_u32_impl
-  - pg_atomic_uint32 (type)
+  - [pg_atomic_fetch_add_u32_impl](pg_atomic_fetch_add_u32_impl.md)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type)
 - Called from (representative examples):
-  - pg_atomic_add_fetch_u32
+  - [pg_atomic_add_fetch_u32](pg_atomic_add_fetch_u32.md)
 
 ## Notes and Other Information
 - This is a generic fallback implementation used when native atomic operations are not available

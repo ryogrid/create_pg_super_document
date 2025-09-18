@@ -18,12 +18,12 @@ This static function performs a linear search through a statistics object's expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal (PostgreSQL node comparison function)
+  - [equal](../e/equal.md) (PostgreSQL node comparison function)
   - StatisticExtInfo (type)
-  - Node (PostgreSQL expression tree node type)
-  - List operations (foreach, lfirst)
+  - [Node](../N/Node.md) (PostgreSQL expression tree node type)
+  - [List](../L/List.md) operations (foreach, lfirst)
 - Called from (representative examples):
-  - stat_covers_expressions
+  - [stat_covers_expressions](stat_covers_expressions.md)
 
 ## Notes and Other Information
 - Returns the zero-based index of the expression if found, or -1 if not found

@@ -45,20 +45,20 @@ The walker integrates with the generic raw_expression_tree_walker for comprehens
 ## Dependencies
 - Functions called/Symbols referenced:
   - raw_expression_tree_walker (generic tree traversal)
-  - checkWellFormedSelectStmt (SELECT statement validation)
+  - [checkWellFormedSelectStmt](checkWellFormedSelectStmt.md) (SELECT statement validation)
   - ereport (error reporting)
-  - errcode (error code specification) 
-  - errmsg (error message formatting)
-  - parser_errposition (parse location for errors)
+  - [errcode](../e/errcode.md) (error code specification) 
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [parser_errposition](../p/parser_errposition.md) (parse location for errors)
   - strcmp (string comparison)
-  - lcons (list construction)
+  - [lcons](../l/lcons.md) (list construction)
   - lappend (list append)
   - list_delete_first (list manipulation)
   - list_head (list access)
   - IsA (type checking macro)
   - elog (internal error logging)
-  - RecursionContext (recursion context enum)
-  - RangeVar (table reference structure)
+  - [RecursionContext](../R/RecursionContext.md) (recursion context enum)
+  - [RangeVar](../R/RangeVar.md) (table reference structure)
   - SelectStmt (SELECT statement structure)
   - JoinExpr (join expression structure)
   - SubLink (sublink structure)
@@ -68,8 +68,8 @@ The walker integrates with the generic raw_expression_tree_walker for comprehens
   - JOIN_* constants (join type enumeration values)
 
 - Called from:
-  - checkWellFormedRecursion (main validation controller)
-  - checkWellFormedSelectStmt (SELECT statement processing)
+  - [checkWellFormedRecursion](checkWellFormedRecursion.md) (main validation controller)
+  - [checkWellFormedSelectStmt](checkWellFormedSelectStmt.md) (SELECT statement processing)
   - Self-recursively for tree traversal
 
 ## Notes and Other Information

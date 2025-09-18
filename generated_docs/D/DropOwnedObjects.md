@@ -19,12 +19,12 @@ The function serves as a security wrapper around the shared dependency system's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - roleSpecsToIds: Convert role specifications to OID list
+  - [roleSpecsToIds](../r/roleSpecsToIds.md): Convert role specifications to OID list
   - has_privs_of_role: Check if current user has privileges of target role
-  - GetUserNameFromId: Get role name for error messages
-  - shdepDropOwned: Perform the actual object dropping operation
+  - [GetUserNameFromId](../G/GetUserNameFromId.md): Get role name for error messages
+  - [shdepDropOwned](../s/shdepDropOwned.md): Perform the actual object dropping operation
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command processing
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command processing
 
 ## Notes and Other Information
 - Requires the current user to have privileges of each target role (typically through role membership or superuser status)

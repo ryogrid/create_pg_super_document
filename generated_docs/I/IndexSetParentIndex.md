@@ -29,25 +29,25 @@ The function ensures catalog consistency by properly handling all the metadata a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - relation_close
-  - StoreSingleInheritance
-  - CatalogTupleDelete
-  - SetRelationHasSubclass
-  - update_relispartition
-  - LockRelationOid
+  - [relation_open](../r/relation_open.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [relation_close](../r/relation_close.md)
+  - [StoreSingleInheritance](../S/StoreSingleInheritance.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [SetRelationHasSubclass](../S/SetRelationHasSubclass.md)
+  - [update_relispartition](../u/update_relispartition.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - deleteDependencyRecordsForClass
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - CommandCounterIncrement
 - Called from (representative examples):
-  - DefineIndex
-  - AttachPartitionEnsureIndexes
-  - DetachPartitionFinalize
-  - ATExecAttachPartitionIdx
+  - [DefineIndex](../D/DefineIndex.md)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
 
 ## Notes and Other Information
 - The function is designed to work with both regular indexes (RELKIND_INDEX) and partitioned indexes (RELKIND_PARTITIONED_INDEX)

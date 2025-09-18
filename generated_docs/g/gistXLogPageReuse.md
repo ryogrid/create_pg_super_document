@@ -25,14 +25,14 @@ The function records metadata about the relation, the specific block being reuse
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsAccessibleInLogicalDecoding
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - SizeOfGistxlogPageReuse
   - XLOG_GIST_PAGE_REUSE
   - RM_GIST_ID
 - Called from (representative examples):
-  - gistNewBuffer (when obtaining a buffer for new page allocation)
+  - [gistNewBuffer](gistNewBuffer.md) (when obtaining a buffer for new page allocation)
   - Referenced in GISTPageSplitInfo structure
 
 ## Notes and Other Information

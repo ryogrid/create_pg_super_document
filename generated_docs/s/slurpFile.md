@@ -27,11 +27,11 @@ This utility function reads a complete file from the filesystem into memory in a
   - close (system call)
   - pg_malloc (PostgreSQL memory allocation)
   - snprintf (standard library)
-  - pg_fatal (PostgreSQL error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting)
 - Called from (representative examples):
-  - local_fetch_file (local_source.c:68)
-  - main (pg_rewind.c:331, 341)
-  - getTimelineHistory (pg_rewind.c:882)
+  - [local_fetch_file](../l/local_fetch_file.md) (local_source.c:68)
+  - [main](../m/main.md) (pg_rewind.c:331, 341)
+  - [getTimelineHistory](../g/getTimelineHistory.md) (pg_rewind.c:882)
 - Declared in:
   - file_ops.h:24
 

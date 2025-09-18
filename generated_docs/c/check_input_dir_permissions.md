@@ -28,7 +28,7 @@ This function is typically called with the final (most recent) input directory t
 - Functions called/Symbols referenced:
   - SetDataDirectoryCreatePerm (configure global file creation permissions)
 - Called from (representative examples):
-  - main (backup processing initialization)
+  - [main](../m/main.md) (backup processing initialization)
 
 ## Notes and Other Information
 - Located in src/bin/pg_combinebackup/pg_combinebackup.c:671-684

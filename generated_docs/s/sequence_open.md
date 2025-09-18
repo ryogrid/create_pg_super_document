@@ -20,11 +20,11 @@ The function follows PostgreSQL's standard pattern of opening relations with app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - validate_relation_kind
+  - [relation_open](../r/relation_open.md)
+  - [validate_relation_kind](../v/validate_relation_kind.md)
 - Called from (representative examples):
-  - DefineSequence
-  - lock_and_open_sequence
+  - [DefineSequence](../D/DefineSequence.md)
+  - [lock_and_open_sequence](../l/lock_and_open_sequence.md)
 
 ## Notes and Other Information
 - This function is part of the sequence access API and should be used instead of direct  calls when working with sequences

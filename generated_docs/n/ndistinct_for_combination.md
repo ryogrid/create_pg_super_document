@@ -28,19 +28,19 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multi_sort_init (initializes multi-dimensional sorting)
-  - palloc, palloc0 (PostgreSQL memory allocation functions)
-  - lookup_type_cache (retrieves type cache information)
-  - multi_sort_add_dimension (adds dimension to multi-sort support)
+  - [multi_sort_init](../m/multi_sort_init.md) (initializes multi-dimensional sorting)
+  - [palloc](../p/palloc.md), palloc0 (PostgreSQL memory allocation functions)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (retrieves type cache information)
+  - [multi_sort_add_dimension](../m/multi_sort_add_dimension.md) (adds dimension to multi-sort support)
   - qsort_interruptible (interruptible quicksort implementation)
-  - multi_sort_compare (comparison function for multi-dimensional data)
-  - estimate_ndistinct (applies n-distinct estimation formula)
+  - [multi_sort_compare](../m/multi_sort_compare.md) (comparison function for multi-dimensional data)
+  - [estimate_ndistinct](../e/estimate_ndistinct.md) (applies n-distinct estimation formula)
 - Data types used:
-  - StatsBuildData (statistics building data structure)
-  - SortItem (structure for sortable items with multiple dimensions)
+  - [StatsBuildData](../S/StatsBuildData.md) (statistics building data structure)
+  - [SortItem](../S/SortItem.md) (structure for sortable items with multiple dimensions)
   - MultiSortSupport (multi-dimensional sort support)
   - VacAttrStats (column statistics structure)
-  - TypeCacheEntry (type cache information)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (type cache information)
 - Called from:
   - statext_ndistinct_build (builds n-distinct statistics for column combinations)
 

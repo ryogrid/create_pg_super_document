@@ -32,12 +32,12 @@ The function also updates checkpoint statistics and triggers WAL archive cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf
-  - get_dirent_type
-  - InstallXLogFileSegment
+  - [get_dirent_type](../g/get_dirent_type.md)
+  - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
   - ereport
   - rename (Windows only)
   - durable_unlink
-  - XLogArchiveCleanup
+  - [XLogArchiveCleanup](../X/XLogArchiveCleanup.md)
 - Constants used:
   - XLOGDIR
   - MAXPGPATH
@@ -49,8 +49,8 @@ The function also updates checkpoint statistics and triggers WAL archive cleanup
   - XLogCtl->InstallXLogFileSegmentActive
   - CheckpointStats
 - Called from:
-  - RemoveOldXlogFiles
-  - RemoveNonParentXlogFiles
+  - [RemoveOldXlogFiles](RemoveOldXlogFiles.md)
+  - [RemoveNonParentXlogFiles](RemoveNonParentXlogFiles.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

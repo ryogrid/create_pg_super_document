@@ -23,24 +23,24 @@ For parameterized paths, the function uses a sophisticated comparison that consi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_subset_compare
+  - [bms_subset_compare](../b/bms_subset_compare.md)
   - PATH_REQ_OUTER
-  - compare_path_costs
-  - compare_pathkeys
-  - lcons
+  - [compare_path_costs](../c/compare_path_costs.md)
+  - [compare_pathkeys](../c/compare_pathkeys.md)
+  - [lcons](../l/lcons.md)
   - BMS_EQUAL, BMS_SUBSET1, BMS_SUBSET2, BMS_DIFFERENT (enum values)
   - STARTUP_COST, TOTAL_COST (enum values)
   - PATHKEYS_BETTER2 (enum value)
 - Called from (representative examples):
-  - set_rel_pathlist
-  - set_dummy_rel_pathlist
-  - standard_join_search
-  - generate_partitionwise_join_paths
-  - query_planner
-  - subquery_planner
-  - create_grouping_paths
-  - create_window_paths
-  - create_distinct_paths
+  - [set_rel_pathlist](set_rel_pathlist.md)
+  - [set_dummy_rel_pathlist](set_dummy_rel_pathlist.md)
+  - [standard_join_search](standard_join_search.md)
+  - [generate_partitionwise_join_paths](../g/generate_partitionwise_join_paths.md)
+  - [query_planner](../q/query_planner.md)
+  - [subquery_planner](subquery_planner.md)
+  - [create_grouping_paths](../c/create_grouping_paths.md)
+  - [create_window_paths](../c/create_window_paths.md)
+  - [create_distinct_paths](../c/create_distinct_paths.md)
 
 ## Notes and Other Information
 This function is typically called after all paths for a relation have been constructed and added via add_path(). It ensures that the optimizer has easy access to the most cost-effective execution options without having to search through the entire pathlist repeatedly. The function handles both unparameterized and parameterized paths, with parameterized paths requiring outer relation values to execute.

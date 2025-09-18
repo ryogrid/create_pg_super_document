@@ -28,8 +28,8 @@ On Unix-like systems, socket inheritance works through standard file descriptor 
   - WSAPROTOCOL_INFO (Windows structure)
   - PGINVALID_SOCKET (PostgreSQL constant)
 - Called from (representative examples):
-  - write_inheritable_socket
-  - read_inheritable_socket
+  - [write_inheritable_socket](../w/write_inheritable_socket.md)
+  - [read_inheritable_socket](../r/read_inheritable_socket.md)
 
 ## Notes and Other Information
 - Critical for PostgreSQL's process forking mechanism on Windows where socket inheritance is problematic

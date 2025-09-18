@@ -278,19 +278,19 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
+  - [ScanState](ScanState.md)
 - Called from (representative examples):
-  - ExecSeqScan
-  - ExecInitSeqScan
-  - ExecEndSeqScan
-  - ExecReScanSeqScan
-  - ExecSeqScanEstimate
-  - ExecSeqScanInitializeDSM
-  - ExecSeqScanReInitializeDSM
-  - ExecSeqScanInitializeWorker
+  - [ExecSeqScan](../E/ExecSeqScan.md)
+  - [ExecInitSeqScan](../E/ExecInitSeqScan.md)
+  - [ExecEndSeqScan](../E/ExecEndSeqScan.md)
+  - [ExecReScanSeqScan](../E/ExecReScanSeqScan.md)
+  - [ExecSeqScanEstimate](../E/ExecSeqScanEstimate.md)
+  - [ExecSeqScanInitializeDSM](../E/ExecSeqScanInitializeDSM.md)
+  - [ExecSeqScanReInitializeDSM](../E/ExecSeqScanReInitializeDSM.md)
+  - [ExecSeqScanInitializeWorker](../E/ExecSeqScanInitializeWorker.md)
 
 ## Notes and Other Information
-- SeqScanState is primarily used in src/backend/executor/nodeSeqscan.c for sequential scan operations
+- [SeqScanState](SeqScanState.md) is primarily used in src/backend/executor/nodeSeqscan.c for sequential scan operations
 - The pscan_len field is specifically for parallel execution support, enabling coordination between multiple worker processes
 - Inherits all functionality from ScanState including relation management and tuple handling
 - Part of PostgreSQL's node execution framework where each plan node type has a corresponding state structure

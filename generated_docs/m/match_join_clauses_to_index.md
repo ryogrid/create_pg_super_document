@@ -21,14 +21,14 @@ This function processes join clauses associated with a relation to determine whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - join_clause_is_movable_to
-  - restriction_is_or_clause
-  - match_clause_to_index
-  - IndexOptInfo
+  - [join_clause_is_movable_to](../j/join_clause_is_movable_to.md)
+  - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
+  - [match_clause_to_index](match_clause_to_index.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md)
   - IndexClauseSet
 - Called from (representative examples):
   - ec_member_matches_arg
-  - create_index_paths
+  - [create_index_paths](../c/create_index_paths.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the indxpath.c file

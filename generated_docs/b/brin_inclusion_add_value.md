@@ -23,15 +23,15 @@ This function is the core add_value handler for BRIN inclusion operator classes.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inclusion_get_procinfo
-  - datumCopy
-  - FunctionCall1Coll
-  - FunctionCall2Coll
-  - DatumGetBool
-  - BoolGetDatum
-  - DatumGetPointer
+  - [inclusion_get_procinfo](../i/inclusion_get_procinfo.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - TupleDescAttr
-  - pfree
+  - [pfree](../p/pfree.md)
 - Constants:
   - INCLUSION_UNION
   - INCLUSION_UNMERGEABLE  
@@ -41,10 +41,10 @@ This function is the core add_value handler for BRIN inclusion operator classes.
   - PROCNUM_MERGEABLE
   - PROCNUM_MERGE
 - Data structures:
-  - BrinDesc
-  - BrinValues
+  - [BrinDesc](../B/BrinDesc.md)
+  - [BrinValues](../B/BrinValues.md)
   - Form_pg_attribute
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
 - Called from (representative examples):
   - No direct references found (typically called via BRIN framework)
 

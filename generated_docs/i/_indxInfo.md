@@ -33,11 +33,11 @@ The  structure is a comprehensive container for index metadata used by pg_dump t
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
-  - SimplePtrList
+  - [TableInfo](../T/TableInfo.md)
+  - [SimplePtrList](../S/SimplePtrList.md)
   - DumpId
 - Called from (representative examples):
-  - _tableInfo (referenced in the indexes field)
+  - [_tableInfo](../t/_tableInfo.md) (referenced in the indexes field)
 
 ## Notes and Other Information
 This structure is central to pg_dump's index management system and handles complex scenarios including partitioned indexes, index-backed constraints, and various storage options. The  field, despite its name, contains both key and non-key attributes to support PostgreSQL's INCLUDE functionality. The structure also supports replica identity indexes and clustering information, ensuring that all index characteristics are preserved during dump and restore operations. The partitioning support through  and  enables proper reconstruction of partitioned index hierarchies.

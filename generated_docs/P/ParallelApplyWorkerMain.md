@@ -25,33 +25,33 @@ The function includes an assertion at the end that should never be reached, as p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
-  - pqsignal (for SIGHUP, SIGINT, SIGTERM)
-  - SignalHandlerForConfigReload
-  - SignalHandlerForShutdownRequest
-  - die
-  - BackgroundWorkerUnblockSignals
-  - dsm_attach
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [pqsignal](../p/pqsignal.md) (for SIGHUP, SIGINT, SIGTERM)
+  - [SignalHandlerForConfigReload](../S/SignalHandlerForConfigReload.md)
+  - [SignalHandlerForShutdownRequest](../S/SignalHandlerForShutdownRequest.md)
+  - [die](../d/die.md)
+  - [BackgroundWorkerUnblockSignals](../B/BackgroundWorkerUnblockSignals.md)
+  - [dsm_attach](../d/dsm_attach.md)
   - shm_toc_attach
-  - shm_toc_lookup
-  - shm_mq_set_receiver
-  - shm_mq_set_sender
-  - shm_mq_attach
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md)
+  - [shm_mq_set_sender](../s/shm_mq_set_sender.md)
+  - [shm_mq_attach](../s/shm_mq_attach.md)
   - logicalrep_worker_attach
-  - before_shmem_exit
-  - pa_shutdown
-  - pq_redirect_to_shm_mq
-  - pq_set_parallel_leader
-  - InitializeLogRepWorker
-  - StartTransactionCommand
-  - CommitTransactionCommand
-  - ReplicationOriginNameForLogicalRep
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [pa_shutdown](../p/pa_shutdown.md)
+  - [pq_redirect_to_shm_mq](../p/pq_redirect_to_shm_mq.md)
+  - [pq_set_parallel_leader](../p/pq_set_parallel_leader.md)
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
   - replorigin_by_name
-  - replorigin_session_setup
-  - CacheRegisterSyscacheCallback
-  - invalidate_syncing_table_states
-  - set_apply_error_context_origin
-  - LogicalParallelApplyLoop
+  - [replorigin_session_setup](../r/replorigin_session_setup.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
+  - [invalidate_syncing_table_states](../i/invalidate_syncing_table_states.md)
+  - [set_apply_error_context_origin](../s/set_apply_error_context_origin.md)
+  - [LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md)
 - Called from (representative examples):
   - PostgreSQL background worker framework (via BackgroundWorkerHandle)
 

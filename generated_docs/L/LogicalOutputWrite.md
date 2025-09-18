@@ -23,17 +23,17 @@ This static function performs the actual writing of logical decoding output into
 ## Dependencies
 - Functions called/Symbols referenced:
   - LSNGetDatum (converts LSN to PostgreSQL Datum)
-  - TransactionIdGetDatum (converts transaction ID to PostgreSQL Datum)  
-  - GetDatabaseEncoding (retrieves current database encoding)
-  - pg_verify_mbstr (verifies multibyte string encoding)
+  - [TransactionIdGetDatum](../T/TransactionIdGetDatum.md) (converts transaction ID to PostgreSQL Datum)  
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (retrieves current database encoding)
+  - [pg_verify_mbstr](../p/pg_verify_mbstr.md) (verifies multibyte string encoding)
   - cstring_to_text_with_len (converts C string to PostgreSQL text type)
   - tuplestore_putvalues (stores the tuple in the tuplestore)
 - Data types used:
-  - LogicalDecodingContext (logical decoding context)
-  - DecodingOutputState (output state tracking structure)
+  - [LogicalDecodingContext](LogicalDecodingContext.md) (logical decoding context)
+  - [DecodingOutputState](../D/DecodingOutputState.md) (output state tracking structure)
   - MaxAllocSize (maximum allocation size constant)
 - Called from:
-  - pg_logical_slot_get_changes_guts (main function for retrieving logical changes)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md) (main function for retrieving logical changes)
 
 ## Notes and Other Information
 - This is a static function, only accessible within logicalfuncs.c

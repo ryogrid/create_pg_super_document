@@ -30,16 +30,16 @@ The function follows a structured approach: first generating any possible partia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - group_by_has_partkey
-  - create_partial_grouping_paths
-  - create_partitionwise_grouping_paths
-  - gather_grouping_paths
-  - get_number_of_groups
-  - add_paths_to_grouping_rel
-  - set_cheapest
+  - [group_by_has_partkey](../g/group_by_has_partkey.md)
+  - [create_partial_grouping_paths](create_partial_grouping_paths.md)
+  - [create_partitionwise_grouping_paths](create_partitionwise_grouping_paths.md)
+  - [gather_grouping_paths](../g/gather_grouping_paths.md)
+  - [get_number_of_groups](../g/get_number_of_groups.md)
+  - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md)
+  - [set_cheapest](../s/set_cheapest.md)
 - Called from (representative examples):
-  - create_grouping_paths
-  - create_partitionwise_grouping_paths
+  - [create_grouping_paths](create_grouping_paths.md)
+  - [create_partitionwise_grouping_paths](create_partitionwise_grouping_paths.md)
 
 ## Notes and Other Information
 - The function must consider both sorted and hashed aggregation to provide comprehensive error reporting when aggregation fails

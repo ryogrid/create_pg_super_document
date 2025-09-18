@@ -19,27 +19,27 @@ This is a comprehensive function that manages the entire lifecycle of PL/Perl fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Retrieves pg_proc and related tuples
-  - hash_search: Searches and manages procedure hash table
-  - validate_plperl_function: Validates cached function descriptors
+  - [SearchSysCache1](../S/SearchSysCache1.md): Retrieves pg_proc and related tuples
+  - [hash_search](../h/hash_search.md): Searches and manages procedure hash table
+  - [validate_plperl_function](../v/validate_plperl_function.md): Validates cached function descriptors
   - AllocSetContextCreate: Creates memory context for function data
-  - plperl_compile_callback: Error callback for compilation errors
-  - SysCacheGetAttr/SysCacheGetAttrNotNull: Extracts procedure attributes
-  - oid_array_to_list: Converts transform types array
-  - type_is_rowtype/IsTrueArrayType: Type analysis functions
-  - fmgr_info_cxt: Sets up function manager info
-  - getTypeIOParam: Gets type I/O parameters
+  - [plperl_compile_callback](../p/plperl_compile_callback.md): Error callback for compilation errors
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)/SysCacheGetAttrNotNull: Extracts procedure attributes
+  - [oid_array_to_list](../o/oid_array_to_list.md): Converts transform types array
+  - [type_is_rowtype](../t/type_is_rowtype.md)/IsTrueArrayType: Type analysis functions
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md): Sets up function manager info
+  - [getTypeIOParam](../g/getTypeIOParam.md): Gets type I/O parameters
   - TextDatumGetCString: Extracts function source code
-  - select_perl_context: Selects trusted/untrusted Perl context
-  - plperl_create_sub: Compiles Perl subroutine
-  - activate_interpreter: Manages Perl interpreter state
+  - [select_perl_context](../s/select_perl_context.md): Selects trusted/untrusted Perl context
+  - [plperl_create_sub](../p/plperl_create_sub.md): Compiles Perl subroutine
+  - [activate_interpreter](../a/activate_interpreter.md): Manages Perl interpreter state
   - increment_prodesc_refcount: Manages reference counting
-  - free_plperl_function: Cleanup function for error cases
+  - [free_plperl_function](../f/free_plperl_function.md): Cleanup function for error cases
 - Called from:
-  - plperl_validator: During function validation
-  - plperl_func_handler: For regular function execution
-  - plperl_trigger_handler: For trigger function execution
-  - plperl_event_trigger_handler: For event trigger execution
+  - [plperl_validator](../p/plperl_validator.md): During function validation
+  - [plperl_func_handler](../p/plperl_func_handler.md): For regular function execution
+  - [plperl_trigger_handler](../p/plperl_trigger_handler.md): For trigger function execution
+  - [plperl_event_trigger_handler](../p/plperl_event_trigger_handler.md): For event trigger execution
 
 ## Notes and Other Information
 - Implements a two-tier caching strategy for plperl and plperlu functions

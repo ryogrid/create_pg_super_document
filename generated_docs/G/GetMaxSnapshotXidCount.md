@@ -32,8 +32,8 @@ The function is specifically exported for use by snapmgr.c, demonstrating the mo
 - Functions called/Symbols referenced:
   - procArray->maxProcs (global variable access)
 - Called from:
-  - SnapBuildInitialSnapshot (logical replication snapshots)
-  - GetSnapshotData
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (logical replication snapshots)
+  - [GetSnapshotData](GetSnapshotData.md)
   - SetTransactionSnapshot
   - ImportSnapshot
 

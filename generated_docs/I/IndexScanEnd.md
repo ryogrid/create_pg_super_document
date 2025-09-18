@@ -19,10 +19,10 @@ This function is deliberately simple and focused solely on memory management, as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation)
-  - IndexScanDesc (scan descriptor type)
+  - [pfree](../p/pfree.md) (memory deallocation)
+  - [IndexScanDesc](IndexScanDesc.md) (scan descriptor type)
 - Called from (representative examples):
-  - index_endscan (high-level index scan termination)
+  - [index_endscan](../i/index_endscan.md) (high-level index scan termination)
   - IndexScanIsValid (validation macro)
 
 ## Notes and Other Information

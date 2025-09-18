@@ -25,12 +25,12 @@ This function determines if a RestrictInfo represents a clause of the form "CTID
   - list_length (gets list length)
   - linitial (gets first list element)
   - lsecond (gets second list element)
-  - IsCTIDVar (checks if variable is CTID)
-  - bms_is_member (checks bitmap membership)
-  - pull_varnos (extracts variable numbers from expression)
-  - contain_volatile_functions (checks for volatile functions)
+  - [IsCTIDVar](IsCTIDVar.md) (checks if variable is CTID)
+  - [bms_is_member](../b/bms_is_member.md) (checks bitmap membership)
+  - [pull_varnos](../p/pull_varnos.md) (extracts variable numbers from expression)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for volatile functions)
 - Called from (representative examples):
-  - RestrictInfoIsTidQual
+  - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md)
 
 ## Notes and Other Information
 Unlike the other TID clause functions, this one handles the ANY operator which allows matching against multiple TID values in a single clause. It requires the useOr flag to be true (indicating OR semantics for the array elements) and specifically checks that the CTID variable is the first argument. The function uses pull_varnos to ensure the array expression doesn't reference the target relation, maintaining the pseudoconstant requirement essential for TID-based optimization.

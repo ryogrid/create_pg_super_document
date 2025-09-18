@@ -24,17 +24,17 @@ The comment notes that this algorithm behaves well even with least significant b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_dt (computes distance between two points)
-  - FPeq (checks floating-point equality with appropriate tolerance)
+  - [point_dt](../p/point_dt.md) (computes distance between two points)
+  - [FPeq](../F/FPeq.md) (checks floating-point equality with appropriate tolerance)
 - Data types used:
-  - LSEG (line segment representation with two endpoint points)
-  - Point (point representation with x, y coordinates)
+  - [LSEG](../L/LSEG.md) (line segment representation with two endpoint points)
+  - [Point](../P/Point.md) (point representation with x, y coordinates)
 - Called from (representative examples):
-  - on_ps (point on line segment test)
-  - lseg_interpt_lseg (line segment intersection calculations)
-  - lseg_interpt_line (line segment-line intersection)
-  - touched_lseg_inside_poly (polygon containment testing)
-  - lseg_inside_poly (segment-polygon relationships)
+  - [on_ps](../o/on_ps.md) (point on line segment test)
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md) (line segment intersection calculations)
+  - [lseg_interpt_line](lseg_interpt_line.md) (line segment-line intersection)
+  - [touched_lseg_inside_poly](../t/touched_lseg_inside_poly.md) (polygon containment testing)
+  - [lseg_inside_poly](lseg_inside_poly.md) (segment-polygon relationships)
 
 ## Notes and Other Information
 - This is a static function, accessible only within geo_ops.c

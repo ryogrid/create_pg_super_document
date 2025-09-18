@@ -21,7 +21,7 @@ However, since the dummy index AM is designed for testing and doesn't perform ac
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - dihandler (dummy index AM handler registration)
+  - [dihandler](dihandler.md) (dummy index AM handler registration)
 
 ## Notes and Other Information
 - This is a test module function that accepts all operator classes as valid

@@ -34,11 +34,11 @@ The LRU (Least Recently Used) replacement policy is implemented using bank-speci
   - SlruPageStatus (enumeration for page states)
   - LWLockPadded (padded lightweight locks)
   - XLogRecPtr (WAL log sequence number type)
-  - pg_atomic_uint64 (atomic 64-bit integer)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (atomic 64-bit integer)
 
 - Called from (representative examples):
-  - SimpleLruShmemSize (slru.c:208)
-  - SimpleLruInit (slru.c:274, 284)
+  - [SimpleLruShmemSize](SimpleLruShmemSize.md) (slru.c:208)
+  - [SimpleLruInit](SimpleLruInit.md) (slru.c:274, 284)
   - SlruShared (slru.h:121)
 
 ## Notes and Other Information

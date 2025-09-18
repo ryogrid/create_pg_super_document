@@ -26,7 +26,7 @@ This function is essential for UTF-8 string processing operations where advance 
 - Functions called/Symbols referenced:
   - FRONTEND (conditional compilation symbol)
 - Called from (representative examples):
-  - initcap_wbnext (in src/backend/utils/adt/formatting.c)
+  - [initcap_wbnext](../i/initcap_wbnext.md) (in src/backend/utils/adt/formatting.c)
   - convert_case (in src/common/unicode_case.c)
 
 ## Notes and Other Information

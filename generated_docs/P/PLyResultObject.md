@@ -22,16 +22,16 @@ PLyResultObject is a Python C extension object that encapsulates the results of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_HEAD (Python C API)
-  - TupleDesc (PostgreSQL tuple descriptor)
+  - [TupleDesc](../T/TupleDesc.md) (PostgreSQL tuple descriptor)
   - PyObject (Python C API base object type)
   
 - Called from (representative examples):
-  - PLy_result_new: Creates new PLyResultObject instances
-  - PLy_spi_execute_fetch_result: Populates result objects with query data
-  - PLy_cursor_fetch: Retrieves cursor results into PLyResultObject
-  - PLy_result_colnames: Accesses column name information
-  - PLy_result_nrows: Returns number of rows
-  - PLy_result_status: Returns execution status
+  - [PLy_result_new](PLy_result_new.md): Creates new PLyResultObject instances
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md): Populates result objects with query data
+  - [PLy_cursor_fetch](PLy_cursor_fetch.md): Retrieves cursor results into PLyResultObject
+  - [PLy_result_colnames](PLy_result_colnames.md): Accesses column name information
+  - [PLy_result_nrows](PLy_result_nrows.md): Returns number of rows
+  - [PLy_result_status](PLy_result_status.md): Returns execution status
 
 ## Notes and Other Information
 - The structure includes a commented-out HeapTuple *tuples member, suggesting an earlier design that stored tuples directly

@@ -23,14 +23,14 @@ For RECORD types, it delegates to lookup_rowtype_tupdesc_internal(), while for o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
-  - lookup_rowtype_tupdesc_noerror  
-  - lookup_rowtype_tupdesc_internal
+  - [lookup_type_cache](lookup_type_cache.md)
+  - [lookup_rowtype_tupdesc_noerror](lookup_rowtype_tupdesc_noerror.md)  
+  - [lookup_rowtype_tupdesc_internal](lookup_rowtype_tupdesc_internal.md)
   - PinTupleDesc
 - Called from (representative examples):
-  - ExecEvalWholeRowVar (src/backend/executor/execExprInterp.c:4843)
-  - rowtype_field_matches (src/backend/optimizer/util/clauses.c:2196)
-  - plperl_sv_to_datum (src/pl/plperl/plperl.c:1378)
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md) (src/backend/executor/execExprInterp.c:4843)
+  - [rowtype_field_matches](../r/rowtype_field_matches.md) (src/backend/optimizer/util/clauses.c:2196)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (src/pl/plperl/plperl.c:1378)
 
 ## Notes and Other Information
 - The function automatically pins the returned TupleDesc using PinTupleDesc() to prevent premature deallocation

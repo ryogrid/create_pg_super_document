@@ -25,13 +25,13 @@ The function validates both input arrays for proper structure and dimensions, en
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
   - ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DIMS, ARR_DATA_PTR
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
   - PROARGMODE_IN, PROARGMODE_INOUT, PROARGMODE_VARIADIC
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - ProcedureCreate (twice)
-  - prepare_sql_fn_parse_info
+  - [ProcedureCreate](../P/ProcedureCreate.md) (twice)
+  - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md)
   - TypeFuncClass (referenced in funcapi.h)
 
 ## Notes and Other Information

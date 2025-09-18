@@ -21,14 +21,14 @@ The function handles different SQL operations by mapping them to specific SPI re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecutorStart: Initializes query execution
-  - ExecutorRun: Executes the query with specified direction and tuple count
-  - ExecutorFinish: Completes query execution
-  - ExecutorEnd: Cleans up executor resources
+  - [ExecutorStart](../E/ExecutorStart.md): Initializes query execution
+  - [ExecutorRun](../E/ExecutorRun.md): Executes the query with specified direction and tuple count
+  - [ExecutorFinish](../E/ExecutorFinish.md): Completes query execution
+  - [ExecutorEnd](../E/ExecutorEnd.md): Cleans up executor resources
   - _SPI_checktuples: Validates SPI tuple count consistency
   - ResetUsage/ShowUsage: Optional statistics collection functions
 - Called from (representative examples):
-  - _SPI_execute_plan: Main SPI execution function
+  - [_SPI_execute_plan](_SPI_execute_plan.md): Main SPI execution function
 
 ## Notes and Other Information
 - Returns different SPI_OK_* codes based on command type and RETURNING clause presence

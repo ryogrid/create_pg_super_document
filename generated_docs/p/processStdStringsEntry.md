@@ -22,10 +22,10 @@ The function performs string parsing to locate the value portion of the SET comm
 - Functions called/Symbols referenced:
   - strchr (C standard library)
   - strncmp (C standard library) 
-  - pg_fatal (PostgreSQL error handling)
-  - TocEntry (struct type)
+  - [pg_fatal](pg_fatal.md) (PostgreSQL error handling)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - ReadToc (during archive reading process)
+  - [ReadToc](../R/ReadToc.md) (during archive reading process)
 
 ## Notes and Other Information
 - The function expects the definition string to be in a specific format: "SET standard_conforming_strings = 'value';"

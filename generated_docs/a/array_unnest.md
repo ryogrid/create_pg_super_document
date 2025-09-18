@@ -40,7 +40,7 @@ The function handles both regular and expanded array representations efficiently
   - AARR_NDIM
   - AARR_DIMS
   - AARR_ELEMTYPE
-  - get_typlenbyvalalign
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - SRF_IS_FIRSTCALL
   - SRF_FIRSTCALL_INIT
   - SRF_PERCALL_SETUP

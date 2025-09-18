@@ -22,13 +22,13 @@ The function uses PANIC-level error reporting, indicating that failure to open a
 - Functions called/Symbols referenced:
   - XLogFilePath
   - BasicOpenFile
-  - get_sync_bit
+  - [get_sync_bit](../g/get_sync_bit.md)
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - XLogWrite (src/backend/access/transam/xlog.c:2378, 2551)
-  - WALAvailability (src/include/access/xlog.h:208)
+  - [XLogWrite](XLogWrite.md) (src/backend/access/transam/xlog.c:2378, 2551)
+  - [WALAvailability](../W/WALAvailability.md) (src/include/access/xlog.h:208)
 
 ## Notes and Other Information
 - Assumes the target segment file already exists (does not create new files)

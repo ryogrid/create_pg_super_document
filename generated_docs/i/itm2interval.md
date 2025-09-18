@@ -26,14 +26,14 @@ The function prioritizes safety and finite results, rejecting any computation th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mul_s64_overflow (safe 64-bit multiplication with overflow detection)
-  - pg_add_s64_overflow (safe 64-bit addition with overflow detection)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (safe 64-bit multiplication with overflow detection)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (safe 64-bit addition with overflow detection)
   - INTERVAL_NOT_FINITE (macro to check for infinite interval values)
   - MONTHS_PER_YEAR, USECS_PER_HOUR, USECS_PER_MINUTE, USECS_PER_SEC (time constants)
 - Called from (representative examples):
-  - timestamp_age (age calculation between timestamps)
-  - timestamptz_age (age calculation between timestamptz values)
-  - interval_trunc (interval truncation operations)
+  - [timestamp_age](../t/timestamp_age.md) (age calculation between timestamps)
+  - [timestamptz_age](../t/timestamptz_age.md) (age calculation between timestamptz values)
+  - [interval_trunc](interval_trunc.md) (interval truncation operations)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on overflow or infinite result

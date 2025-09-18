@@ -31,14 +31,14 @@ The function calls search_directory() for each potential location and returns a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - search_directory
-  - pg_strdup
+  - [search_directory](../s/search_directory.md)
+  - [pg_strdup](../p/pg_strdup.md)
   - snprintf
   - getenv
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - XLOGDIR (constant)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string containing the valid target directory path (caller must free)

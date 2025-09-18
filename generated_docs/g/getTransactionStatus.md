@@ -35,7 +35,7 @@ The function handles various PostgreSQL transaction states:
   - PQTRANS_ACTIVE
   - CONNECTION_BAD
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - Returns TStatus enumeration values: TSTATUS_IDLE, TSTATUS_IN_BLOCK, TSTATUS_CONN_ERROR, or TSTATUS_OTHER_ERROR

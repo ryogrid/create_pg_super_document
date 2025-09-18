@@ -29,20 +29,20 @@ Key features include:
   - PG_GETARG_NUMERIC: Extracts the NUMERIC argument from function arguments
   - PG_GETARG_INT32: Extracts the scale parameter
   - NUMERIC_IS_SPECIAL: Checks if the numeric value is special (NaN/infinity)
-  - duplicate_numeric: Creates a copy of special values
+  - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of special values
   - init_var: Initializes a NumericVar structure
-  - set_var_from_num: Converts Numeric to NumericVar
-  - round_var: Performs the actual rounding operation
-  - make_result: Converts NumericVar back to Numeric
-  - free_var: Frees NumericVar memory
+  - [set_var_from_num](../s/set_var_from_num.md): Converts Numeric to NumericVar
+  - [round_var](../r/round_var.md): Performs the actual rounding operation
+  - [make_result](../m/make_result.md): Converts NumericVar back to Numeric
+  - [free_var](../f/free_var.md): Frees NumericVar memory
   - PG_RETURN_NUMERIC: Returns the result as a NUMERIC Datum
   - NUMERIC_WEIGHT_MAX, NUMERIC_DSCALE_MAX, DEC_DIGITS: Constants for bounds checking
 
 - Called from (representative examples):
-  - cash_numeric: Used in money type conversions with rounding
-  - numeric_to_char: Used in numeric formatting operations
-  - timestamp_part_common: Used in timestamp/timestamptz part extraction
-  - timestamptz_part_common: Used in timestamptz part extraction
+  - [cash_numeric](../c/cash_numeric.md): Used in money type conversions with rounding
+  - [numeric_to_char](numeric_to_char.md): Used in numeric formatting operations
+  - [timestamp_part_common](../t/timestamp_part_common.md): Used in timestamp/timestamptz part extraction
+  - [timestamptz_part_common](../t/timestamptz_part_common.md): Used in timestamptz part extraction
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/numeric.c at lines 1541-1594

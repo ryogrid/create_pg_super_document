@@ -26,21 +26,21 @@ The function includes special handling for concurrent insertions, waiting for th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogInsertAllowed
-  - UpdateMinRecoveryPoint
+  - [XLogInsertAllowed](XLogInsertAllowed.md)
+  - [UpdateMinRecoveryPoint](../U/UpdateMinRecoveryPoint.md)
   - RefreshXLogWriteResult
-  - WaitXLogInsertionsToFinish
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
   - LWLockAcquireOrWait
   - MinimumActiveBackends
-  - pg_usleep
-  - XLogWrite
-  - WalSndWakeupProcessRequests
+  - [pg_usleep](../p/pg_usleep.md)
+  - [XLogWrite](XLogWrite.md)
+  - [WalSndWakeupProcessRequests](../W/WalSndWakeupProcessRequests.md)
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - CreateCheckPoint
-  - FlushBuffer
-  - ReplicationSlotReserveWal
-  - SlruPhysicalWritePage
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md)
+  - [SlruPhysicalWritePage](../S/SlruPhysicalWritePage.md)
 
 ## Notes and Other Information
 - Critical for ACID compliance - ensures committed transactions are durable

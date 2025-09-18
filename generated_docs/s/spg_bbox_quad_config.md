@@ -23,7 +23,7 @@ This function configures SP-GiST index parameters for 2D geometric types that us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (structure type)
+  - [spgConfigOut](spgConfigOut.md) (structure type)
   - PG_RETURN_VOID (macro)
 - Called from (representative examples):
   - Used as SP-GiST config function in operator class definitions

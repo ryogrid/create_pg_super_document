@@ -22,7 +22,7 @@ This function is responsible for cleaning up resources associated with a Zstanda
 ## Dependencies
 - Functions called/Symbols referenced:
   - ZSTD_freeCCtx (from libzstd)
-  - bbsink_forward_end_backup
+  - [bbsink_forward_end_backup](bbsink_forward_end_backup.md)
 - Called from (representative examples):
   - (No direct callers found - likely called through function pointer in bbsink vtable)
 

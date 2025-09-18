@@ -30,7 +30,7 @@ The function implements an important optimization assumption: LP_DEAD items enco
   - PruneState (structure for tracking pruning state)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pruneheap.c

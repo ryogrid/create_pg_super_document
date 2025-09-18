@@ -25,18 +25,18 @@ The function allocates memory efficiently by calculating the total space needed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - minmax_multi_init
-  - get_typbyval
-  - get_typlen
+  - [minmax_multi_init](../m/minmax_multi_init.md)
+  - [get_typbyval](../g/get_typbyval.md)
+  - [get_typlen](../g/get_typlen.md)
   - VARSIZE_ANY
   - fetch_att
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - MAXALIGN
 - Called from (representative examples):
-  - brin_minmax_multi_add_value
-  - brin_minmax_multi_consistent
-  - brin_minmax_multi_union
-  - brin_minmax_multi_summary_out
+  - [brin_minmax_multi_add_value](brin_minmax_multi_add_value.md)
+  - [brin_minmax_multi_consistent](brin_minmax_multi_consistent.md)
+  - [brin_minmax_multi_union](brin_minmax_multi_union.md)
+  - [brin_minmax_multi_summary_out](brin_minmax_multi_summary_out.md)
 
 ## Notes and Other Information
 - The function performs sanity checks using Assert() to validate the serialized data structure

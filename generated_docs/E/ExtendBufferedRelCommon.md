@@ -30,10 +30,10 @@ The function provides consistent tracing infrastructure using TRACE_POSTGRESQL_B
   - TRACE_POSTGRESQL_BUFFER_EXTEND_DONE
   - RELPERSISTENCE_TEMP
   - ExtendBufferedRelLocal
-  - ExtendBufferedRelShared
+  - [ExtendBufferedRelShared](ExtendBufferedRelShared.md)
 - Called from (representative examples):
-  - ExtendBufferedRelBy
-  - ExtendBufferedRelTo
+  - [ExtendBufferedRelBy](ExtendBufferedRelBy.md)
+  - [ExtendBufferedRelTo](ExtendBufferedRelTo.md)
 
 ## Notes and Other Information
 - Routes extension operations based on relation persistence (temporary vs persistent)

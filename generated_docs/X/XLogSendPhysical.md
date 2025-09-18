@@ -32,21 +32,21 @@ This function takes no parameters but operates on several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSndSetState
-  - GetStandbyFlushRecPtr
-  - RecoveryInProgress
-  - GetWALInsertionTimeLine
-  - readTimeLineHistory
-  - tliSwitchPoint
-  - GetFlushRecPtr
-  - LagTrackerWrite
-  - WALReadFromBuffers
-  - WALRead
-  - CheckXLogRemoved
-  - wal_segment_close
+  - [WalSndSetState](../W/WalSndSetState.md)
+  - [GetStandbyFlushRecPtr](../G/GetStandbyFlushRecPtr.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetWALInsertionTimeLine](../G/GetWALInsertionTimeLine.md)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [tliSwitchPoint](../t/tliSwitchPoint.md)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
+  - [LagTrackerWrite](../L/LagTrackerWrite.md)
+  - [WALReadFromBuffers](../W/WALReadFromBuffers.md)
+  - [WALRead](../W/WALRead.md)
+  - [CheckXLogRemoved](../C/CheckXLogRemoved.md)
+  - [wal_segment_close](../w/wal_segment_close.md)
   - pq_putmessage_noblock
 - Called from (representative examples):
-  - StartReplication
+  - [StartReplication](../S/StartReplication.md)
 
 ## Notes and Other Information
 - Implements lag tracking by recording timestamps for WAL positions to measure replication lag

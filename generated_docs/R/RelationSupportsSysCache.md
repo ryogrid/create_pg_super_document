@@ -19,8 +19,8 @@ RelationSupportsSysCache determines if a relation participates in the system cat
 - Functions called/Symbols referenced:
   - Uses SysCacheSupportingRelOid array and SysCacheSupportingRelOidSize for binary search
 - Called from (representative examples):
-  - heap_update
-  - RelationIdIsInInitFile
+  - [heap_update](../h/heap_update.md)
+  - [RelationIdIsInInitFile](RelationIdIsInInitFile.md)
   - Referenced in syscache.h header
 
 ## Notes and Other Information

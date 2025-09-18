@@ -22,9 +22,9 @@ The function manages the iterative nature of SASL authentication, where multiple
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - pqGetnchar
-  - libpq_append_conn_error
-  - pqPacketSend
+  - [pqGetnchar](pqGetnchar.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqPacketSend](pqPacketSend.md)
   - free
 - Constants used:
   - STATUS_ERROR

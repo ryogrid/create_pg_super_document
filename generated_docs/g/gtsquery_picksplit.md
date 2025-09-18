@@ -28,18 +28,18 @@ This sophisticated approach ensures that similar TSQuery signatures are grouped 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GistEntryVector (vector of GiST entries)
-  - GIST_SPLITVEC (structure to hold split results)  
+  - [GistEntryVector](../G/GistEntryVector.md) (vector of GiST entries)
+  - [GIST_SPLITVEC](../G/GIST_SPLITVEC.md) (structure to hold split results)  
   - TSQuerySign (TSQuery signature type)
   - SPLITCOST (structure for split cost calculation)
-  - hemdist (Hamming distance calculation between signatures)
+  - [hemdist](../h/hemdist.md) (Hamming distance calculation between signatures)
   - GETENTRY (macro to extract entry from vector)
-  - comparecost (comparison function for sorting)
+  - [comparecost](../c/comparecost.md) (comparison function for sorting)
   - qsort (standard library sort function)
   - WISH_F (macro for balancing bias factor)
-  - TSQuerySignGetDatum (converts TSQuery signature to Datum)
+  - [TSQuerySignGetDatum](../T/TSQuerySignGetDatum.md) (converts TSQuery signature to Datum)
   - FirstOffsetNumber, OffsetNumberNext (offset number utilities)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
 - Called from:
   - No direct references found (likely called through GiST function table)
 

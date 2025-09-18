@@ -21,17 +21,17 @@ The  function serves as a safe wrapper around the standard  function specificall
   - mmfatal (ECPG error handling function)
   - OUT_OF_MEMORY (error code constant)
 - Called from (representative examples):
-  - lookup_descriptor
-  - output_get_descr
-  - output_set_descr
-  - sqlda_variable
-  - add_preprocessor_define
-  - ECPGmake_struct_member
-  - ECPGmake_struct_type
-  - ECPGdump_a_type
-  - new_variable
-  - dump_variables
-  - adjust_array
+  - [lookup_descriptor](../l/lookup_descriptor.md)
+  - [output_get_descr](../o/output_get_descr.md)
+  - [output_set_descr](../o/output_set_descr.md)
+  - [sqlda_variable](../s/sqlda_variable.md)
+  - [add_preprocessor_define](../a/add_preprocessor_define.md)
+  - [ECPGmake_struct_member](../E/ECPGmake_struct_member.md)
+  - [ECPGmake_struct_type](../E/ECPGmake_struct_type.md)
+  - [ECPGdump_a_type](../E/ECPGdump_a_type.md)
+  - [new_variable](../n/new_variable.md)
+  - [dump_variables](../d/dump_variables.md)
+  - [adjust_array](../a/adjust_array.md)
 
 ## Notes and Other Information
 - This function never returns NULL; it either returns a valid string pointer or terminates the program

@@ -27,13 +27,13 @@ The return value follows standard comparison conventions: 0 indicates the compar
 ## Dependencies
 - Functions called/Symbols referenced:
   - ip_family (extracts IP family from inet value)
-  - bitncmp (bit-wise comparison of network addresses)
+  - [bitncmp](../b/bitncmp.md) (bit-wise comparison of network addresses)
   - ip_addr (extracts IP address portion from inet value)
   - ip_bits (extracts mask length from inet value)  
   - Min (minimum macro)
-  - inet_masklen_inclusion_cmp (mask length comparison with operator awareness)
+  - [inet_masklen_inclusion_cmp](inet_masklen_inclusion_cmp.md) (mask length comparison with operator awareness)
 - Called from (representative examples):
-  - inet_hist_value_sel (histogram-based selectivity estimation)
+  - [inet_hist_value_sel](inet_hist_value_sel.md) (histogram-based selectivity estimation)
 
 ## Notes and Other Information
 The function separates network address comparison from mask length comparison for modularity and reusability. The first stage uses bitncmp() to compare only the common network bits (up to the shorter mask length), ensuring that different mask lengths don't affect the network portion comparison. Only when network portions are identical does it proceed to the operator-specific mask length comparison via inet_masklen_inclusion_cmp().

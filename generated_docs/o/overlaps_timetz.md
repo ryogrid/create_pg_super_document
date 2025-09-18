@@ -25,9 +25,9 @@ The function normalizes each interval by ensuring the start time is less than or
   - PG_GETARG_DATUM
   - PG_ARGISNULL
   - DirectFunctionCall2
-  - timetz_gt
-  - timetz_lt
-  - DatumGetBool
+  - [timetz_gt](../t/timetz_gt.md)
+  - [timetz_lt](../t/timetz_lt.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
 - Called from (representative examples):

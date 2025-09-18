@@ -22,10 +22,10 @@ The  function is the core lexical analysis routine for PostgreSQL's simple dicti
 - Functions called/Symbols referenced:
   - DictSimple (structure type for dictionary state)
   - TSLexeme (structure type for lexical output)
-  - lowerstr_with_len (converts text to lowercase with specified length)
-  - searchstoplist (checks if word exists in stopword list)
-  - palloc0 (PostgreSQL memory allocation with zero initialization)
-  - pfree (PostgreSQL memory deallocation)
+  - [lowerstr_with_len](../l/lowerstr_with_len.md) (converts text to lowercase with specified length)
+  - [searchstoplist](../s/searchstoplist.md) (checks if word exists in stopword list)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation with zero initialization)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager)
 

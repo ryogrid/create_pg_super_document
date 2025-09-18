@@ -24,15 +24,15 @@ This function creates a specialized tuplesort state for hash index creation oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
-  - removeabbrev_index
-  - comparetup_index_hash
-  - comparetup_index_hash_tiebreak
-  - writetup_index
-  - readtup_index
+  - [removeabbrev_index](../r/removeabbrev_index.md)
+  - [comparetup_index_hash](../c/comparetup_index_hash.md)
+  - [comparetup_index_hash_tiebreak](../c/comparetup_index_hash_tiebreak.md)
+  - [writetup_index](../w/writetup_index.md)
+  - [readtup_index](../r/readtup_index.md)
 - Called from (representative examples):
-  - _h_spoolinit (hashsort.c:83)
+  - [_h_spoolinit](../h/_h_spoolinit.md) (hashsort.c:83)
 
 ## Notes and Other Information
 - Uses only one sort key (nKeys = 1) since sorting is based on hash codes rather than multiple data attributes

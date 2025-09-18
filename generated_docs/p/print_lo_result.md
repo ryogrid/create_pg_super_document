@@ -22,9 +22,9 @@ This static function provides a centralized mechanism for outputting formatted m
   - vfprintf (standard C library function for formatted output)
   - PRINT_HTML (enum value for HTML output format)
 - Called from (representative examples):
-  - do_lo_export
-  - do_lo_import  
-  - do_lo_unlink
+  - [do_lo_export](../d/do_lo_export.md)
+  - [do_lo_import](../d/do_lo_import.md)  
+  - [do_lo_unlink](../d/do_lo_unlink.md)
 
 ## Notes and Other Information
 - Function is marked static, limiting scope to the large_obj.c file

@@ -39,15 +39,15 @@ The function includes comprehensive error handling, wait event reporting for mon
 - Functions called/Symbols referenced:
   - XLogFilePath
   - BasicOpenFile
-  - get_sync_bit
+  - [get_sync_bit](../g/get_sync_bit.md)
   - pg_pwrite_zeros
   - pg_pwrite
   - pg_fsync
   - pgstat_report_wait_start/end
-  - InstallXLogFileSegment
+  - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
 - Called from (representative examples):
-  - XLogFileInit
-  - PreallocXlogFiles
+  - [XLogFileInit](XLogFileInit.md)
+  - [PreallocXlogFiles](../P/PreallocXlogFiles.md)
 
 ## Notes and Other Information
 - Uses CheckPointSegments to determine maximum pre-created segments

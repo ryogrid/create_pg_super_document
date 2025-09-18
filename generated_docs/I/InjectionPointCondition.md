@@ -22,13 +22,13 @@ The structure supports different types of conditions through the  field, and cur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InjectionPointConditionType
+  - [InjectionPointConditionType](InjectionPointConditionType.md)
 - Called from (representative examples):
-  - injection_point_allowed
-  - injection_error
-  - injection_notice
-  - injection_wait
-  - injection_points_attach
+  - [injection_point_allowed](../i/injection_point_allowed.md)
+  - [injection_error](../i/injection_error.md)
+  - [injection_notice](../i/injection_notice.md)
+  - [injection_wait](../i/injection_wait.md)
+  - [injection_points_attach](../i/injection_points_attach.md)
 
 ## Notes and Other Information
 - This structure is part of the testing infrastructure located in 

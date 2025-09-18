@@ -33,11 +33,11 @@ The factor of 2 in the formula ensures that when approximately half the buffer i
   - rint (math function for rounding to nearest integer)
   - BLCKSZ (PostgreSQL block size constant)
   - SizeOfPageHeaderData
-  - GISTPageOpaqueData
-  - ItemIdData
+  - [GISTPageOpaqueData](../G/GISTPageOpaqueData.md)
+  - [ItemIdData](../I/ItemIdData.md)
 - Called from (representative examples):
-  - gistInitBuffering
-  - gistBuildCallback
+  - [gistInitBuffering](../g/gistInitBuffering.md)
+  - [gistBuildCallback](../g/gistBuildCallback.md)
 
 ## Notes and Other Information
 - The buffer size calculation is dynamic and can be recalculated during the build process as tuple size statistics are refined

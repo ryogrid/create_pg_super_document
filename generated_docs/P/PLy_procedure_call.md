@@ -21,13 +21,13 @@ This function is the core execution engine for PL/Python procedures. It sets up 
 - Functions called/Symbols referenced:
   - PyDict_SetItemString
   - PyEval_EvalCode
-  - PLy_abort_open_subtransactions
+  - [PLy_abort_open_subtransactions](PLy_abort_open_subtransactions.md)
   - PLy_elog
   - PG_TRY/PG_FINALLY/PG_END_TRY
   - list_length
 - Called from (representative examples):
-  - PLy_exec_function
-  - PLy_exec_trigger
+  - [PLy_exec_function](PLy_exec_function.md)
+  - [PLy_exec_trigger](PLy_exec_trigger.md)
 
 ## Notes and Other Information
 The function includes version-specific handling for different Python versions, using PyCodeObject casting for Python versions prior to 3.2.0. The subtransaction management ensures that any subtransactions opened during procedure execution (via plpy.subtransaction()) are properly handled - if the procedure completes normally, subtransactions can remain open for the calling code to manage, but if an error occurs, all subtransactions opened during this procedure call are aborted. The function follows PostgreSQL's exception handling patterns, making it safe to use within PostgreSQL's memory context and error handling system.

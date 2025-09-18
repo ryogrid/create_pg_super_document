@@ -20,14 +20,14 @@ The function works by first calling TwoPhaseGetGXact to locate the global transa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetGXact
+  - [TwoPhaseGetGXact](TwoPhaseGetGXact.md)
   - GlobalTransaction
   - GetPGProcByNumber
   - FullTransactionId
 - Called from (representative examples):
-  - PostPrepare_Locks
-  - lock_twophase_recover  
-  - lock_twophase_postcommit
+  - [PostPrepare_Locks](../P/PostPrepare_Locks.md)
+  - [lock_twophase_recover](../l/lock_twophase_recover.md)  
+  - [lock_twophase_postcommit](../l/lock_twophase_postcommit.md)
 
 ## Notes and Other Information
 - The returned PGPROC represents a "dummy" process that maintains state for the prepared transaction after the original backend disconnects

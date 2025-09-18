@@ -22,20 +22,20 @@ The function deliberately does not add successfully allocated pages to the lastU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgGetCache
-  - SpGistNewBuffer
-  - SpGistInitBuffer
-  - BufferGetBlockNumber
-  - BufferGetPage
-  - PageGetExactFreeSpace
-  - UnlockReleaseBuffer
+  - [spgGetCache](../s/spgGetCache.md)
+  - [SpGistNewBuffer](../S/SpGistNewBuffer.md)
+  - [SpGistInitBuffer](../S/SpGistInitBuffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetExactFreeSpace](../P/PageGetExactFreeSpace.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - GBUF_REQ_LEAF
   - GBUF_REQ_NULLS
   - GBUF_INNER_PARITY
   - GBUF_PARITY_MASK
   - GBUF_NULLS
 - Called from (representative examples):
-  - SpGistGetBuffer
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md)
 
 ## Notes and Other Information
 The parity mechanism is crucial for SP-GiST index structure integrity, ensuring inner pages are allocated with appropriate characteristics. Pages with wrong parity are not immediately discarded but cached for potential future use, reducing waste. The function operates in a loop until a suitable page is found, which is always guaranteed since SpGistNewBuffer can extend the index file if necessary.

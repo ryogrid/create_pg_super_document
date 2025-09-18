@@ -24,7 +24,7 @@ The function serves as a protective barrier against data corruption that could o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (main process array structure)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (main process array structure)
   - procArray (global process array instance)
   - allProcs (global process table)
   - ProcGlobal (global process state)
@@ -32,12 +32,12 @@ The function serves as a protective barrier against data corruption that could o
   - LWLockAcquire/LWLockRelease (locking primitives)
   - CHECK_FOR_INTERRUPTS (interrupt handling)
   - kill (system call for sending signals)
-  - pg_usleep (PostgreSQL sleep function)
+  - [pg_usleep](../p/pg_usleep.md) (PostgreSQL sleep function)
 - Called from:
-  - createdb (database creation command)
-  - dropdb (database drop command)
-  - RenameDatabase (database rename operation)
-  - movedb (database move operation)
+  - [createdb](../c/createdb.md) (database creation command)
+  - [dropdb](../d/dropdb.md) (database drop command)
+  - [RenameDatabase](../R/RenameDatabase.md) (database rename operation)
+  - [movedb](../m/movedb.md) (database move operation)
 
 ## Notes and Other Information
 - MAXAUTOVACPIDS constant limits how many autovacuum processes can be signaled per iteration (10)

@@ -26,23 +26,23 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeInfo (struct type)
-  - ConstraintInfo (struct type)
+  - [TypeInfo](../T/TypeInfo.md) (struct type)
+  - [ConstraintInfo](../C/ConstraintInfo.md) (struct type)
   - createPQExpBuffer (function)
-  - appendPQExpBuffer (function)
-  - ExecuteSqlStatement (function)
-  - printfPQExpBuffer (function)
-  - ExecuteSqlQuery (function)
-  - PQntuples, PQfnumber, PQgetvalue (libpq functions)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (function)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md) (function)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (function)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (function)
+  - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq functions)
   - pg_malloc (memory allocation)
-  - AssignDumpId (function)
-  - addObjectDependency (function)
+  - [AssignDumpId](../A/AssignDumpId.md) (function)
+  - [addObjectDependency](../a/addObjectDependency.md) (function)
   - destroyPQExpBuffer (function)
   - CONSTRAINT_CHECK, CONSTRAINT_NOTNULL (enum values)
   - DO_CONSTRAINT (enum value)
 
 - Called from (representative examples):
-  - getTypes (primary caller during domain type processing)
+  - [getTypes](getTypes.md) (primary caller during domain type processing)
 
 ## Notes and Other Information
 - This is a static function accessible only within pg_dump.c

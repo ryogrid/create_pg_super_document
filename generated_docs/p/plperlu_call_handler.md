@@ -19,10 +19,10 @@ This function serves as the specific entry point for the PL/PerlU (untrusted Per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_call_handler
+  - [plperl_call_handler](plperl_call_handler.md)
   - PG_FUNCTION_INFO_V1
 - Called from (representative examples):
-  - plperl_validator
+  - [plperl_validator](plperl_validator.md)
 
 ## Notes and Other Information
 - This is the handler function specifically registered for PL/PerlU (untrusted Perl) language

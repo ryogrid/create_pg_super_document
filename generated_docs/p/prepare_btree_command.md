@@ -31,11 +31,11 @@ The prepare_btree_command function creates a SQL query that invokes btree checki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer (clears the SQL buffer)
-  - appendPQExpBuffer (appends formatted text to buffer)
-  - RelationInfo (structure type for relation metadata)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (clears the SQL buffer)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends formatted text to buffer)
+  - [RelationInfo](../R/RelationInfo.md) (structure type for relation metadata)
 - Called from (representative examples):
-  - main (in pg_amcheck.c:790)
+  - [main](../m/main.md) (in pg_amcheck.c:790)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the pg_amcheck.c compilation unit

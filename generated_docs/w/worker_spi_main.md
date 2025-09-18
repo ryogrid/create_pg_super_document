@@ -39,14 +39,14 @@ The function implements a worker that consolidates incremental values ('delta' t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32, BackgroundWorkerUnblockSignals
-  - BackgroundWorkerInitializeConnectionByOid, BackgroundWorkerInitializeConnection  
-  - initialize_worker_spi, quote_identifier
-  - WaitEventExtensionNew, WaitLatch, ResetLatch
-  - SetCurrentStatementStartTimestamp, StartTransactionCommand
+  - [DatumGetInt32](../D/DatumGetInt32.md), BackgroundWorkerUnblockSignals
+  - [BackgroundWorkerInitializeConnectionByOid](../B/BackgroundWorkerInitializeConnectionByOid.md), BackgroundWorkerInitializeConnection  
+  - [initialize_worker_spi](../i/initialize_worker_spi.md), quote_identifier
+  - [WaitEventExtensionNew](../W/WaitEventExtensionNew.md), WaitLatch, ResetLatch
+  - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md), StartTransactionCommand
   - SPI_connect, SPI_execute, SPI_finish
   - GetTransactionSnapshot, PushActiveSnapshot, PopActiveSnapshot
-  - CommitTransactionCommand, pgstat_report_activity, pgstat_report_stat
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md), pgstat_report_activity, pgstat_report_stat
 - Called from (representative examples):
   - Referenced by PostgreSQL background worker framework (no direct callers in codebase)
 

@@ -30,19 +30,19 @@ The function prioritizes sort-based approaches when paths are already sorted, bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgrouplist_exprs
-  - estimate_num_groups
-  - grouping_is_sortable
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - create_limit_path
-  - create_upper_unique_path
-  - grouping_is_hashable
-  - create_agg_path
+  - [get_sortgrouplist_exprs](../g/get_sortgrouplist_exprs.md)
+  - [estimate_num_groups](../e/estimate_num_groups.md)
+  - [grouping_is_sortable](../g/grouping_is_sortable.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](create_sort_path.md)
+  - [create_incremental_sort_path](create_incremental_sort_path.md)
+  - [create_limit_path](create_limit_path.md)
+  - [create_upper_unique_path](create_upper_unique_path.md)
+  - [grouping_is_hashable](../g/grouping_is_hashable.md)
+  - [create_agg_path](create_agg_path.md)
 - Called from:
-  - create_distinct_paths
-  - create_partial_distinct_paths
+  - [create_distinct_paths](create_distinct_paths.md)
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md)
 
 ## Notes and Other Information
 - For DISTINCT ON queries, uses the more rigorous ordering between DISTINCT and ORDER BY pathkeys

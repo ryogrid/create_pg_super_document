@@ -40,15 +40,15 @@ The rewriting process involves:
   - castNode (for type-safe casting)
   - rt_fetch (to access range table entries)
   - makeNode (to create new AST nodes)
-  - makeAlias (to create table aliases)
-  - IncrementVarSublevelsUp (to adjust variable references for sublevel changes)
-  - make_path_rowexpr (to create row expressions for path tracking)
-  - make_path_initial_array (to create initial path arrays)
-  - make_path_cat_expr (to create path concatenation expressions)
+  - [makeAlias](../m/makeAlias.md) (to create table aliases)
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (to adjust variable references for sublevel changes)
+  - [make_path_rowexpr](../m/make_path_rowexpr.md) (to create row expressions for path tracking)
+  - [make_path_initial_array](../m/make_path_initial_array.md) (to create initial path arrays)
+  - [make_path_cat_expr](../m/make_path_cat_expr.md) (to create path concatenation expressions)
   - makeVar, makeTargetEntry, makeFuncExpr (AST construction functions)
   - Various list manipulation functions (lappend, list_make1, etc.)
 - Called from:
-  - fireRIRrules (in rewriteHandler.c at line 2000)
+  - [fireRIRrules](../f/fireRIRrules.md) (in rewriteHandler.c at line 2000)
 
 ## Notes and Other Information
 - This function is the core implementation of the PostgreSQL SEARCH and CYCLE clause feature for recursive CTEs
@@ -56,5 +56,5 @@ The rewriting process involves:
 - Supports both individual SEARCH or CYCLE clauses and combinations of both
 - Includes comprehensive error checking for unsupported recursive CTE structures
 - The function modifies multiple levels of the query structure including the CTE definition, subqueries, target lists, and column metadata
-- Path tracking uses PostgreSQL's record and record array types for efficient storage and comparison
+- [Path](../P/Path.md) tracking uses PostgreSQL's record and record array types for efficient storage and comparison
 - For cycle detection, uses scalar array operations (= ANY) for efficient path membership testing

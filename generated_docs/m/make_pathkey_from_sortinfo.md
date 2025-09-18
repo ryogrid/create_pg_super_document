@@ -37,17 +37,17 @@ The function handles optional EquivalenceClass creation based on the create_it p
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTLessStrategyNumber, BTGreaterStrategyNumber (strategy constants)
-  - get_opfamily_member (operator family lookup)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (operator family lookup)
   - OidIsValid (OID validation)
   - elog (error logging)
-  - get_mergejoin_opfamilies (operator family discovery)
-  - get_eclass_for_sort_expr (EquivalenceClass management)
-  - make_canonical_pathkey (canonical PathKey creation)
+  - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md) (operator family discovery)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md) (EquivalenceClass management)
+  - [make_canonical_pathkey](make_canonical_pathkey.md) (canonical PathKey creation)
 - Called from (representative examples):
-  - make_pathkey_from_sortop
-  - build_index_pathkeys
-  - build_partition_pathkeys
-  - build_expression_pathkey
+  - [make_pathkey_from_sortop](make_pathkey_from_sortop.md)
+  - [build_index_pathkeys](../b/build_index_pathkeys.md)
+  - [build_partition_pathkeys](../b/build_partition_pathkeys.md)
+  - [build_expression_pathkey](../b/build_expression_pathkey.md)
 
 ## Notes and Other Information
 - Returns a canonical PathKey that might still be redundant with existing PathKeys

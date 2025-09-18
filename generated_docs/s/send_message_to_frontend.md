@@ -22,15 +22,15 @@ This function serves as the central dispatcher for sending error and notice mess
   - PG_PROTOCOL_MAJOR
   - pq_beginmessage
   - PqMsg_NoticeResponse, PqMsg_ErrorResponse
-  - error_severity
-  - pq_sendbyte
-  - err_sendstring (extensively used for all string fields)
-  - unpack_sql_state
-  - pq_endmessage
-  - pq_putmessage_v2
+  - [error_severity](../e/error_severity.md)
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [err_sendstring](../e/err_sendstring.md) (extensively used for all string fields)
+  - [unpack_sql_state](../u/unpack_sql_state.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
+  - [pq_putmessage_v2](../p/pq_putmessage_v2.md)
   - pq_flush
 - Called from (representative examples):
-  - EmitErrorReport
+  - [EmitErrorReport](../E/EmitErrorReport.md)
 
 ## Notes and Other Information
 This function is critical to PostgreSQL's error handling architecture and maintains compatibility across different protocol versions. It extensively uses err_sendstring to ensure reliable string transmission even during error recursion scenarios. The function always flushes output to ensure clients receive error messages promptly, even if the backend encounters fatal errors. The structured message format in protocol 3.0+ allows clients to extract and display specific diagnostic information appropriately.

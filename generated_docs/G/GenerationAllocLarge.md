@@ -23,15 +23,15 @@ The function creates a block sized exactly for the requested chunk plus necessar
 - Functions called/Symbols referenced:
   - MemoryContextCheckSize
   - malloc
-  - MemoryContextAllocationFailure
-  - MemoryChunkSetHdrMaskExternal
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING)
-  - randomize_mem (when RANDOMIZE_ALLOCATED_MEMORY)
-  - dlist_push_head
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
+  - [MemoryChunkSetHdrMaskExternal](../M/MemoryChunkSetHdrMaskExternal.md)
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING)
+  - [randomize_mem](../r/randomize_mem.md) (when RANDOMIZE_ALLOCATED_MEMORY)
+  - [dlist_push_head](../d/dlist_push_head.md)
   - MemoryChunkGetPointer
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from (representative examples):
-  - GenerationAlloc
+  - [GenerationAlloc](GenerationAlloc.md)
 
 ## Notes and Other Information
 - This function is marked pg_noinline to keep GenerationAlloc() small and fast for common cases

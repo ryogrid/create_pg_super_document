@@ -32,7 +32,7 @@ The function uses PostgreSQL's StringInfo mechanism to efficiently build the out
   - DELIM (separator delimiter character)
 - Types referenced:
   - CIRCLE (input geometric type)
-  - StringInfoData (string building structure)
+  - [StringInfoData](../S/StringInfoData.md) (string building structure)
 - Called from (representative examples):
   - No direct references found in the codebase
 

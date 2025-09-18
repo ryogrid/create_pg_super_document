@@ -20,14 +20,14 @@ This function removes the current element from a singly-linked list during itera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_mutable_iter (structure type)
+  - [slist_mutable_iter](slist_mutable_iter.md) (structure type)
 - Called from (representative examples):
-  - AtEOSubXact_SPI (in src/backend/executor/spi.c:566)
-  - SPI_freetuptable (in src/backend/executor/spi.c:1409)
-  - ForgetBackgroundWorker (in src/backend/postmaster/bgworker.c:457)
+  - [AtEOSubXact_SPI](../A/AtEOSubXact_SPI.md) (in src/backend/executor/spi.c:566)
+  - [SPI_freetuptable](../S/SPI_freetuptable.md) (in src/backend/executor/spi.c:1409)
+  - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md) (in src/backend/postmaster/bgworker.c:457)
   - cancel_on_dsm_detach (in src/backend/storage/ipc/dsm.c:1159)
-  - AtEOXact_GUC (in src/backend/utils/misc/guc.c:2525)
-  - ReportChangedGUCOptions (in src/backend/utils/misc/guc.c:2625)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (in src/backend/utils/misc/guc.c:2525)
+  - [ReportChangedGUCOptions](../R/ReportChangedGUCOptions.md) (in src/backend/utils/misc/guc.c:2625)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

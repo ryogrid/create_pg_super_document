@@ -22,10 +22,10 @@ The struct follows PostgreSQL's standard approach of storing names with explicit
 - Functions called/Symbols referenced:
   - NAMEDATALEN
 - Called from (representative examples):
-  - ecpg_build_compat_sqlda
-  - ecpg_build_native_sqlda
-  - sqlvar_compat
-  - sqlvar_struct
+  - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md)
+  - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md)
+  - [sqlvar_compat](sqlvar_compat.md)
+  - [sqlvar_struct](sqlvar_struct.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's ECPG native interface and is located in 

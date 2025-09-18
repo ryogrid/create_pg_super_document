@@ -22,15 +22,15 @@ Like jsonb_exists, this function only performs top-level matching without recurs
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
   - PG_GETARG_ARRAYTYPE_P
-  - deconstruct_array_builtin
-  - findJsonbValueFromContainer
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md)
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR
   - PG_RETURN_BOOL
 - Types used:
   - Jsonb
-  - ArrayType
-  - JsonbValue
+  - [ArrayType](../A/ArrayType.md)
+  - [JsonbValue](../J/JsonbValue.md)
   - jbvString
 - Constants used:
   - TEXTOID

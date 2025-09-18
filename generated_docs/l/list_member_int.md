@@ -23,18 +23,18 @@ This function is optimized for integer comparison and should only be used with l
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList - Validates that the list contains integer values
-  - check_list_invariants - Performs debugging validation of list structure
+  - [check_list_invariants](../c/check_list_invariants.md) - Performs debugging validation of list structure
   - foreach - Macro for iterating through list cells
   - lfirst_int - Macro for accessing the integer value of a list cell
 
 - Called from (representative examples):
-  - CopyGetAttnums - Used in COPY command processing
-  - BeginCopyFrom/BeginCopyTo - Used in COPY operations
+  - [CopyGetAttnums](../C/CopyGetAttnums.md) - Used in COPY command processing
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)/BeginCopyTo - Used in COPY operations
   - ExecRelationIsTargetRelation - Used in executor utilities
-  - list_union_int - Used when creating union of integer lists
-  - list_intersection_int - Used when computing intersection of integer lists
-  - reorder_grouping_sets - Used in query planning for grouping sets
-  - parseCheckAggregates - Used in aggregate function parsing
+  - [list_union_int](list_union_int.md) - Used when creating union of integer lists
+  - [list_intersection_int](list_intersection_int.md) - Used when computing intersection of integer lists
+  - [reorder_grouping_sets](../r/reorder_grouping_sets.md) - Used in query planning for grouping sets
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) - Used in aggregate function parsing
 
 ## Notes and Other Information
 - The function uses direct integer value comparison

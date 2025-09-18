@@ -24,12 +24,12 @@ This function is responsible for generating the appropriate C code representatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (memory allocation)
-  - ecpg_type_name (type name conversion)
-  - get_type (type formatting)
+  - [mm_alloc](../m/mm_alloc.md) (memory allocation)
+  - [ecpg_type_name](../e/ecpg_type_name.md) (type name conversion)
+  - [get_type](../g/get_type.md) (type formatting)
   - ECPGttype enum values (ECPGt_varchar, ECPGt_bytea, etc.)
 - Called from (representative examples):
-  - ECPGdump_a_type (primary caller, handles different type categories)
+  - [ECPGdump_a_type](ECPGdump_a_type.md) (primary caller, handles different type categories)
 
 ## Notes and Other Information
 - The function uses different addressing strategies: arrays and pointers use direct addressing , while scalars use reference addressing 

@@ -18,14 +18,14 @@ ParallelBackupEnd handles the orderly shutdown of parallel processing infrastruc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsEveryWorkerIdle (verification that all workers are finished)
+  - [IsEveryWorkerIdle](../I/IsEveryWorkerIdle.md) (verification that all workers are finished)
   - closesocket (close communication pipes)
-  - WaitForTerminatingWorkers (wait for worker process/thread termination)
-  - set_cancel_pstate (unlink from signal handling)
+  - [WaitForTerminatingWorkers](../W/WaitForTerminatingWorkers.md) (wait for worker process/thread termination)
+  - [set_cancel_pstate](../s/set_cancel_pstate.md) (unlink from signal handling)
   - free (memory deallocation)
 - Called from (representative examples):
-  - RestoreArchive (src/bin/pg_dump/pg_backup_archiver.c:733)
-  - _CloseArchive (src/bin/pg_dump/pg_backup_directory.c:598)
+  - [RestoreArchive](../R/RestoreArchive.md) (src/bin/pg_dump/pg_backup_archiver.c:733)
+  - [_CloseArchive](../C/_CloseArchive.md) (src/bin/pg_dump/pg_backup_directory.c:598)
 
 ## Notes and Other Information
 - Must be called after all parallel work is complete (asserts that IsEveryWorkerIdle is true)

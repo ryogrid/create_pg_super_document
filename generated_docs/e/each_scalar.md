@@ -21,15 +21,15 @@ The function checks if a scalar appears at the top level (lex_level == 0) and ra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EachState (state structure)
-  - JsonTokenType (token type enumeration)
+  - [EachState](../E/EachState.md) (state structure)
+  - [JsonTokenType](../J/JsonTokenType.md) (token type enumeration)
   - ereport (PostgreSQL error reporting function)
-  - errcode (error code specification)
-  - errmsg (error message specification)
+  - [errcode](errcode.md) (error code specification)
+  - [errmsg](errmsg.md) (error message specification)
   - JSON_SUCCESS (return value constant)
   - ERRCODE_INVALID_PARAMETER_VALUE (PostgreSQL error code)
 - Called from:
-  - each_worker (main JSON expansion worker function)
+  - [each_worker](each_worker.md) (main JSON expansion worker function)
   - JsObjectFree (JSON object callback structure)
 
 ## Notes and Other Information

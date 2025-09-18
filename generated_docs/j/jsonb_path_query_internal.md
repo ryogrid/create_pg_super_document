@@ -28,18 +28,18 @@ The function supports timezone-aware datetime operations when the `tz` parameter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeJsonPath
-  - getJsonPathVariableFromJsonb
-  - countVariablesFromJsonb
-  - JsonValueListGetList
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [getJsonPathVariableFromJsonb](../g/getJsonPathVariableFromJsonb.md)
+  - [countVariablesFromJsonb](../c/countVariablesFromJsonb.md)
+  - [JsonValueListGetList](../J/JsonValueListGetList.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
   - SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP, SRF_RETURN_NEXT, SRF_RETURN_DONE
   - list_head, list_delete_first
   - PG_GETARG_JSONB_P_COPY, PG_GETARG_JSONPATH_P_COPY, PG_GETARG_BOOL
 - Called from (representative examples):
-  - jsonb_path_query
-  - jsonb_path_query_tz
+  - [jsonb_path_query](jsonb_path_query.md)
+  - [jsonb_path_query_tz](jsonb_path_query_tz.md)
 
 ## Notes and Other Information
 - Implements PostgreSQL's set-returning function protocol for returning multiple results

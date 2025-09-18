@@ -23,9 +23,9 @@ The function retrieves the comparison function information from the hash table's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScalarArrayOpExprHashTable: Structure containing operation context and function information
-  - FunctionCallInfo: Function call protocol structure for invoking comparison functions
-  - DatumGetBool: Converts the comparison function result Datum to a boolean value
+  - [ScalarArrayOpExprHashTable](../S/ScalarArrayOpExprHashTable.md): Structure containing operation context and function information
+  - [FunctionCallInfo](../F/FunctionCallInfo.md): Function call protocol structure for invoking comparison functions
+  - [DatumGetBool](../D/DatumGetBool.md): Converts the comparison function result Datum to a boolean value
 - Called from (representative examples):
   - SH_DECLARE: Hash table declaration macros that register this as an equality function
   - SH_EQUAL: Hash table equality check macros that invoke this function during lookups

@@ -30,13 +30,13 @@ The function is designed to be called during expression compilation and prepares
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclcheck (permission validation)
-  - fmgr_info (function manager setup)
+  - [object_aclcheck](../o/object_aclcheck.md) (permission validation)
+  - [fmgr_info](../f/fmgr_info.md) (function manager setup)
   - InitFunctionCallInfoData (function call structure initialization)
-  - ExecInitExprRec (recursive argument expression setup)
-  - executor_errposition (error position reporting)
+  - [ExecInitExprRec](ExecInitExprRec.md) (recursive argument expression setup)
+  - [executor_errposition](../e/executor_errposition.md) (error position reporting)
 - Called from (representative examples):
-  - ExecInitExprRec (multiple call sites for different function expression types)
+  - [ExecInitExprRec](ExecInitExprRec.md) (multiple call sites for different function expression types)
 
 ## Notes and Other Information
 - This function does not push the prepared step to the execution list, allowing callers to modify the opcode for special cases like DISTINCT operations

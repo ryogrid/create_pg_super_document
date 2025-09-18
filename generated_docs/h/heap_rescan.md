@@ -27,17 +27,17 @@ The function first updates scan flags based on the provided parameters if  is tr
   - ReleaseBuffer
   - IsMVCCSnapshot
   - read_stream_reset
-  - initscan
+  - [initscan](../i/initscan.md)
 - Data structures used:
-  - HeapScanDesc
-  - TableScanDesc
+  - [HeapScanDesc](../H/HeapScanDesc.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
   - ScanKey
 - Scan flags:
   - SO_ALLOW_STRAT
   - SO_ALLOW_SYNC
   - SO_ALLOW_PAGEMODE
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

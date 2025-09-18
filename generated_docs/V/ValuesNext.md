@@ -26,12 +26,12 @@ The function also handles expanded datums by forcing them to read-only state to 
   - ScanDirectionIsForward
   - ExecClearTuple
   - ReScanExprContext
-  - ExecInitExprList
+  - [ExecInitExprList](../E/ExecInitExprList.md)
   - ExecEvalExpr
   - MakeExpandedObjectReadOnly
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
 - Called from:
-  - ExecValuesScan
+  - [ExecValuesScan](../E/ExecValuesScan.md)
 
 ## Notes and Other Information
 - The function maintains a curr_idx to track the current position in the VALUES array

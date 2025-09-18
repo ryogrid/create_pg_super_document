@@ -38,21 +38,21 @@ This function serves as the central dispatcher for converting JSON/JSONB values 
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - prepare_column_cache
+  - [prepare_column_cache](prepare_column_cache.md)
   - JsValueIsNull
   - JsValueIsString
-  - populate_scalar
-  - populate_array
-  - populate_composite
-  - populate_domain
-  - DatumGetPointer
+  - [populate_scalar](populate_scalar.md)
+  - [populate_array](populate_array.md)
+  - [populate_composite](populate_composite.md)
+  - [populate_domain](populate_domain.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - DatumGetHeapTupleHeader
 - Called from (representative examples):
   - JsObjectFree
-  - populate_array_element
-  - populate_domain
-  - json_populate_type
-  - populate_record
+  - [populate_array_element](populate_array_element.md)
+  - [populate_domain](populate_domain.md)
+  - [json_populate_type](../j/json_populate_type.md)
+  - [populate_record](populate_record.md)
 
 ## Notes and Other Information
 This function is the core of PostgreSQL's JSON-to-PostgreSQL type conversion system. It implements a recursive approach that can handle arbitrarily nested structures. The function includes an important optimization where JSON strings can be converted to complex types (arrays, composites) through their text input functions, providing flexibility in JSON structure handling. Stack depth checking prevents infinite recursion in pathological cases. The function properly handles PostgreSQL's domain types, which require constraint checking even for null values. Error context support allows for graceful error handling in contexts where exceptions are not appropriate.

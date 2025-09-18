@@ -31,11 +31,11 @@ This works together with the keepalive idle timer to provide comprehensive dead 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqParseIntParam (for parsing integer connection parameters)
+  - [pqParseIntParam](../p/pqParseIntParam.md) (for parsing integer connection parameters)
   - TCP_KEEPINTVL (standard TCP socket option constant)
   - SOCK_ERRNO, SOCK_STRERROR (error handling macros)
   - PG_STRERROR_R_BUFLEN (buffer size for error messages)
-  - libpq_append_conn_error (for error message reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error message reporting)
 - Called from (representative examples):
   - CONNECTION_FAILED (during connection setup and socket configuration)
 

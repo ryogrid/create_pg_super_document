@@ -28,7 +28,7 @@ The function detects and reports clock irregularities, specifically when time ap
   - printf (standard output)
   - exit (program termination)
 - Called from:
-  - main (pg_test_timing.c:35)
+  - [main](../m/main.md) (pg_test_timing.c:35)
 
 ## Dependencies on Global Variables
 - : Global array for collecting timing difference statistics

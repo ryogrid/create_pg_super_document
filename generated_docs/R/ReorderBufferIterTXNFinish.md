@@ -26,12 +26,12 @@ The function ensures proper resource management by preventing file descriptor le
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileClose
-  - dlist_is_empty
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_container
-  - dlist_pop_head_node
-  - ReorderBufferReturnChange
-  - binaryheap_free
-  - pfree
+  - [dlist_pop_head_node](../d/dlist_pop_head_node.md)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
+  - [binaryheap_free](../b/binaryheap_free.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - CHANGES_THRESHOLD (multiple locations in reorderbuffer.c)
 

@@ -33,13 +33,13 @@ The function ensures proper linking between trigger events and their shared meta
 - Functions called/Symbols referenced:
   - SizeofTriggerEvent (macro for calculating event size)
   - AllocSetContextCreate (memory context creation)
-  - MemoryContextAlloc (memory allocation)
-  - afterTriggerCopyBitmap (bitmap copying for modified columns)
-  - bms_equal (bitmap comparison)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation)
+  - [afterTriggerCopyBitmap](afterTriggerCopyBitmap.md) (bitmap copying for modified columns)
+  - [bms_equal](../b/bms_equal.md) (bitmap comparison)
   - memcpy (memory copying)
 
 - Called from (representative examples):
-  - afterTriggerMarkEvents (marks events for execution)
+  - [afterTriggerMarkEvents](afterTriggerMarkEvents.md) (marks events for execution)
   - AfterTriggerSaveEvent (saves events during trigger processing)
 
 ## Notes and Other Information

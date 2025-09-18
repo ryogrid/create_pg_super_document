@@ -26,7 +26,7 @@ This static function constructs a FuncExpr that represents an array concatenatio
   - makeVar (to create variable reference for existing path)
   - list_make2 (to create two-element argument list)
 - Called from:
-  - rewriteSearchAndCycle (at lines 535 and 581)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (at lines 535 and 581)
 
 ## Notes and Other Information
 - This is a static helper function only used within rewriteSearchCycle.c

@@ -22,13 +22,13 @@ The function is responsible for propagating transaction events to all registered
 ## Dependencies
 - Functions called/Symbols referenced:
   - XactEvent (enum type for event classification)
-  - XactCallbackItem (structure type for callback list items)
+  - [XactCallbackItem](../X/XactCallbackItem.md) (structure type for callback list items)
   - Xact_callbacks (global linked list head)
-  - callback function (invoked on each registered callback)
+  - [callback](../c/callback.md) function (invoked on each registered callback)
 - Called from (representative examples):
-  - CommitTransaction (src/backend/access/transam/xact.c:2230, 2357)
-  - PrepareTransaction (src/backend/access/transam/xact.c:2501, 2661)
-  - AbortTransaction (src/backend/access/transam/xact.c:2901, 2903)
+  - [CommitTransaction](CommitTransaction.md) (src/backend/access/transam/xact.c:2230, 2357)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2501, 2661)
+  - [AbortTransaction](../A/AbortTransaction.md) (src/backend/access/transam/xact.c:2901, 2903)
 
 ## Notes and Other Information
 - Function is static (internal to xact.c) and not directly accessible to external code

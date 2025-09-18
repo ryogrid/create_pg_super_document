@@ -25,22 +25,22 @@ The algorithm starts at the root partitioned table and iteratively evaluates par
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
   - GetPerTupleMemoryContext
-  - ExecPartitionCheck
-  - FormPartitionKeyDatum
-  - get_partition_for_tuple
-  - ExecBuildSlotPartitionKeyDescription
-  - ExecLookupResultRelByOid
-  - CheckValidResultRel
-  - ExecInitRoutingInfo
-  - ExecInitPartitionInfo
-  - ExecInitPartitionDispatchInfo
-  - ExecGetRootToChildMap
-  - execute_attr_map_slot
+  - [ExecPartitionCheck](ExecPartitionCheck.md)
+  - [FormPartitionKeyDatum](../F/FormPartitionKeyDatum.md)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md)
+  - [ExecBuildSlotPartitionKeyDescription](ExecBuildSlotPartitionKeyDescription.md)
+  - [ExecLookupResultRelByOid](ExecLookupResultRelByOid.md)
+  - [CheckValidResultRel](../C/CheckValidResultRel.md)
+  - [ExecInitRoutingInfo](ExecInitRoutingInfo.md)
+  - [ExecInitPartitionInfo](ExecInitPartitionInfo.md)
+  - [ExecInitPartitionDispatchInfo](ExecInitPartitionDispatchInfo.md)
+  - [ExecGetRootToChildMap](ExecGetRootToChildMap.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - ExecClearTuple
 - Called from (representative examples):
-  - CopyFrom (in copyfrom.c:1055)
-  - ExecPrepareTupleRouting (in nodeModifyTable.c:3910)
-  - apply_handle_tuple_routing (in worker.c:2942, 3097)
+  - [CopyFrom](../C/CopyFrom.md) (in copyfrom.c:1055)
+  - [ExecPrepareTupleRouting](ExecPrepareTupleRouting.md) (in nodeModifyTable.c:3910)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md) (in worker.c:2942, 3097)
 
 ## Notes and Other Information
 The function uses per-tuple memory context to avoid memory leaks during partition key evaluation. It handles tuple format conversion when traversing between partitioning levels with different tuple descriptors. Special attention is paid to default partitions, which require constraint validation to ensure the tuple actually belongs there. The function raises appropriate errors if no suitable partition is found or if the target partition is not valid for INSERT operations.

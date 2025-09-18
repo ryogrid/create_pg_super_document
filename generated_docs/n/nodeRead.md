@@ -22,21 +22,21 @@ The function is designed to work within PostgreSQL's  operation framework, assum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strtok
-  - nodeTokenType
-  - parseNodeString
+  - [pg_strtok](../p/pg_strtok.md)
+  - [nodeTokenType](nodeTokenType.md)
+  - [parseNodeString](../p/parseNodeString.md)
   - lappend_int, lappend_oid, lappend_xid
-  - bms_add_member
-  - makeInteger, makeFloat, makeBoolean, makeString, makeBitString
-  - debackslash
+  - [bms_add_member](../b/bms_add_member.md)
+  - [makeInteger](../m/makeInteger.md), makeFloat, makeBoolean, makeString, makeBitString
+  - [debackslash](../d/debackslash.md)
   - LEFT_BRACE, LEFT_PAREN, RIGHT_PAREN, OTHER_TOKEN
 - Called from (representative examples):
-  - stringToNodeInternal
-  - nodeRead (recursive calls)
+  - [stringToNodeInternal](../s/stringToNodeInternal.md)
+  - [nodeRead](nodeRead.md) (recursive calls)
   - READ_NODE_FIELD
-  - _readA_Const
-  - _readA_Expr
-  - _readExtensibleNode
+  - [_readA_Const](../r/_readA_Const.md)
+  - [_readA_Expr](../r/_readA_Expr.md)
+  - [_readExtensibleNode](../r/_readExtensibleNode.md)
 
 ## Notes and Other Information
 - Returns  instead of  to avoid casting in callers that assign to different field types

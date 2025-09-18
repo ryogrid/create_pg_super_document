@@ -20,10 +20,10 @@ The function is part of PostgreSQL's modular backup architecture where different
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_server_new
+  - [bbsink_server_new](../b/bbsink_server_new.md)
   - bbsink (type)
 - Called from (representative examples):
-  - BaseBackupTargetHandle (via function pointer in target type structure)
+  - [BaseBackupTargetHandle](../B/BaseBackupTargetHandle.md) (via function pointer in target type structure)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the basebackup_target.c file

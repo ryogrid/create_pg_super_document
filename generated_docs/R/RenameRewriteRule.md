@@ -19,24 +19,24 @@ This function implements PostgreSQL's ALTER RULE RENAME functionality by updatin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForRenameRule
-  - relation_open/relation_close
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForRenameRule](RangeVarCallbackForRenameRule.md)
+  - [relation_open](../r/relation_open.md)/relation_close
   - table_open/table_close
   - SearchSysCacheCopy2
   - HeapTupleIsValid
   - ereport/errcode/errmsg
   - RelationGetRelationName
   - GETSTRUCT
-  - IsDefinedRewriteRule
+  - [IsDefinedRewriteRule](../I/IsDefinedRewriteRule.md)
   - namestrcpy
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
-  - CacheInvalidateRelcache
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ExecRenameStmt
+  - [ExecRenameStmt](../E/ExecRenameStmt.md)
 
 ## Notes and Other Information
 - Maintains AccessExclusiveLock on the relation throughout the transaction

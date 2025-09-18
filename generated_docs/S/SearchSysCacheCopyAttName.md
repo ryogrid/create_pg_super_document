@@ -22,25 +22,25 @@ The function provides callers with a modifiable copy of the attribute tuple that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName
+  - [SearchSysCacheAttName](SearchSysCacheAttName.md)
   - HeapTupleIsValid
-  - heap_copytuple
-  - ReleaseSysCache
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - renameatt_internal
-  - ATExecAddColumn
-  - ATExecDropNotNull
-  - ATExecSetNotNull
-  - ATExecAddIdentity
-  - ATExecSetIdentity
-  - ATExecDropIdentity
-  - ATPrepDropExpression
-  - ATExecDropExpression
-  - ATExecSetStorage
-  - ATExecDropColumn
-  - ATExecAlterColumnType
-  - MergeAttributesIntoExisting
-  - ATExecSetCompression
+  - [renameatt_internal](../r/renameatt_internal.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
+  - [ATExecDropNotNull](../A/ATExecDropNotNull.md)
+  - [ATExecSetNotNull](../A/ATExecSetNotNull.md)
+  - [ATExecAddIdentity](../A/ATExecAddIdentity.md)
+  - [ATExecSetIdentity](../A/ATExecSetIdentity.md)
+  - [ATExecDropIdentity](../A/ATExecDropIdentity.md)
+  - [ATPrepDropExpression](../A/ATPrepDropExpression.md)
+  - [ATExecDropExpression](../A/ATExecDropExpression.md)
+  - [ATExecSetStorage](../A/ATExecSetStorage.md)
+  - [ATExecDropColumn](../A/ATExecDropColumn.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [MergeAttributesIntoExisting](../M/MergeAttributesIntoExisting.md)
+  - [ATExecSetCompression](../A/ATExecSetCompression.md)
 
 ## Notes and Other Information
 - Returns a copy of the attribute tuple that the caller owns and must eventually free with heap_freetuple()

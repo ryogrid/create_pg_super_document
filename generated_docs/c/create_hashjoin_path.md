@@ -41,10 +41,10 @@ This function constructs a HashPath node representing a hash join execution plan
 - Functions called/Symbols referenced:
   - makeNode
   - get_joinrel_parampathinfo
-  - final_cost_hashjoin
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
 - Called from (representative examples):
-  - try_hashjoin_path
-  - try_partial_hashjoin_path
+  - [try_hashjoin_path](../t/try_hashjoin_path.md)
+  - [try_partial_hashjoin_path](../t/try_partial_hashjoin_path.md)
 
 ## Notes and Other Information
 Hash joins never have pathkeys since output ordering is unpredictable due to possible batching. The code includes extensive comments about potential optimizations for small inner relations that could preserve outer relation ordering, but these are not currently implemented due to risks of bad size estimates. The num_batches field is filled in later by final_cost_hashjoin.

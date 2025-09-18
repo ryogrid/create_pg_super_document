@@ -28,14 +28,14 @@ The distinction between expressions that get converted to INDEX_VAR (targetlist,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index: Creates indexed lookup structure from targetlist
-  - fix_upper_expr: Transforms expressions to use different variable sources (INDEX_VAR)
+  - [build_tlist_index](../b/build_tlist_index.md): Creates indexed lookup structure from targetlist
+  - [fix_upper_expr](../f/fix_upper_expr.md): Transforms expressions to use different variable sources (INDEX_VAR)
   - fix_scan_list: Standard variable reference adjustment for scan expressions
   - INDEX_VAR: Special variable type for referencing index columns
   - NRM_EQUAL: Name resolution mode for expression fixing
   - NUM_EXEC_TLIST/NUM_EXEC_QUAL: Macros for determining execution context
 - Called from (representative examples):
-  - set_plan_refs: When processing IndexOnlyScan nodes in the main plan tree traversal
+  - [set_plan_refs](set_plan_refs.md): When processing IndexOnlyScan nodes in the main plan tree traversal
   - fix_scan_list: During recursive plan reference adjustment
 
 ## Notes and Other Information

@@ -23,9 +23,9 @@ The implementation prioritizes efficiency by checking the static table first (fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupWSErrorMessage (internal lookup function)
+  - [LookupWSErrorMessage](../L/LookupWSErrorMessage.md) (internal lookup function)
   - DLLS_SIZE (macro defining size of dlls array)
-  - libpq_gettext (localization function)
+  - [libpq_gettext](../l/libpq_gettext.md) (localization function)
   - LoadLibraryEx (Windows API)
   - FormatMessage (Windows API)
   - sprintf (standard C library)

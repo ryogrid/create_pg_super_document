@@ -19,12 +19,12 @@ This function implements the DISTINCT filtering logic for multi-argument aggrega
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - ExecStoreVirtualTuple  
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)  
   - ExecQual
   - ExecCopySlot
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (in JIT compilation context)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in JIT compilation context)
 
 ## Notes and Other Information
 - Part of the DISTINCT aggregate optimization system for pre-sorted input data with multiple arguments

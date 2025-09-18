@@ -28,7 +28,7 @@ Key behaviors:
   - PG_GETARG_VARBIT_P (extract bit string argument)
   - PG_GETARG_INT32 (extract integer argument)
   - DirectFunctionCall2 (call bitshiftright for negative shifts)
-  - palloc (allocate memory for result)
+  - [palloc](../p/palloc.md) (allocate memory for result)
   - SET_VARSIZE/VARSIZE (manage variable-length object size)
   - VARBITLEN (get/set bit string length)
   - VARBITS (access bit data)
@@ -38,7 +38,7 @@ Key behaviors:
   - memcpy (copy memory)
   - PG_RETURN_VARBIT_P (return result)
 - Called from (representative examples):
-  - bitshiftright (for handling negative left shifts)
+  - [bitshiftright](bitshiftright.md) (for handling negative left shifts)
 
 ## Notes and Other Information
 - Implements the PostgreSQL SQL operator  for bit strings

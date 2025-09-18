@@ -21,16 +21,16 @@ This function implements a sophisticated caching mechanism for PL/Python procedu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup)
-  - hash_search (hash table operations with HASH_ENTER and HASH_REMOVE)
-  - PLy_procedure_create (creates new procedure instances)
-  - PLy_procedure_valid (validates cached procedures)
-  - PLy_procedure_delete (cleans up invalid procedures)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
+  - [hash_search](../h/hash_search.md) (hash table operations with HASH_ENTER and HASH_REMOVE)
+  - [PLy_procedure_create](PLy_procedure_create.md) (creates new procedure instances)
+  - [PLy_procedure_valid](PLy_procedure_valid.md) (validates cached procedures)
+  - [PLy_procedure_delete](PLy_procedure_delete.md) (cleans up invalid procedures)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling)
-  - ReleaseSysCache (cleanup system cache)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cleanup system cache)
 - Called from (representative examples):
-  - plpython3_validator (function validation)
-  - plpython3_call_handler (function execution)
+  - [plpython3_validator](../p/plpython3_validator.md) (function validation)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md) (function execution)
 
 ## Notes and Other Information
 - Uses composite caching strategy based on both function OID and relation OID

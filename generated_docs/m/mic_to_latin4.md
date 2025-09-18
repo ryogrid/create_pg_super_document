@@ -28,7 +28,7 @@ The function serves as a wrapper around the lower-level `mic2latin` conversion r
   - `PG_GETARG_INT32` (PostgreSQL argument extraction macro)
   - `PG_GETARG_BOOL` (PostgreSQL argument extraction macro)
   - `CHECK_ENCODING_CONVERSION_ARGS` (encoding validation macro)
-  - `mic2latin` (core conversion function)
+  - `[mic2latin](mic2latin.md)` (core conversion function)
   - `PG_RETURN_INT32` (PostgreSQL return value macro)
   - `PG_MULE_INTERNAL` (encoding constant)
   - `PG_LATIN4` (encoding constant)

@@ -43,15 +43,15 @@ The function ensures atomicity through critical sections and handles complex sce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_findsplitloc (to determine split point)
-  - _bt_allocbuf (to allocate new right page)
-  - _bt_truncate (for suffix truncation on leaf pages)
-  - _bt_pgaddtup (to add tuples to pages)
+  - [_bt_findsplitloc](_bt_findsplitloc.md) (to determine split point)
+  - [_bt_allocbuf](_bt_allocbuf.md) (to allocate new right page)
+  - [_bt_truncate](_bt_truncate.md) (for suffix truncation on leaf pages)
+  - [_bt_pgaddtup](_bt_pgaddtup.md) (to add tuples to pages)
   - PageGetTempPage, PageRestoreTempPage (for temporary page management)
-  - XLogBeginInsert, XLogRegisterBuffer, XLogInsert (for WAL logging)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogInsert (for WAL logging)
   - Various page and buffer management functions
 - Called from (representative examples):
-  - _bt_insertonpg (when page split is needed during insertion)
+  - [_bt_insertonpg](_bt_insertonpg.md) (when page split is needed during insertion)
 
 ## Notes and Other Information
 - Returns the new right sibling buffer, pinned and write-locked

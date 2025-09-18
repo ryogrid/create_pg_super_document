@@ -22,15 +22,15 @@ For the new target cluster, additional utilities like initdb, pg_dump, pg_dumpal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat
+  - [stat](../s/stat.md)
   - report_status
   - S_ISDIR
-  - check_exec
-  - get_bin_version
+  - [check_exec](check_exec.md)
+  - [get_bin_version](../g/get_bin_version.md)
   - GET_MAJOR_VERSION
   - PG_FATAL
 - Called from (representative examples):
-  - verify_directories
+  - [verify_directories](../v/verify_directories.md)
 
 ## Notes and Other Information
 - Exits the program with a fatal error if the binary directory is missing or not accessible

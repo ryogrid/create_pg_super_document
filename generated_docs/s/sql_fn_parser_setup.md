@@ -19,15 +19,15 @@ This function configures a ParseState structure with the necessary hooks for par
 ## Dependencies
 - Functions called/Symbols referenced:
   - SQLFunctionParseInfoPtr
-  - sql_fn_post_column_ref
-  - sql_fn_param_ref
+  - [sql_fn_post_column_ref](sql_fn_post_column_ref.md)
+  - [sql_fn_param_ref](sql_fn_param_ref.md)
 - Called from (representative examples):
-  - fmgr_sql_validator (src/backend/catalog/pg_proc.c:942)
-  - interpret_AS_clause (src/backend/commands/functioncmds.c:934)
-  - interpret_AS_clause (src/backend/commands/functioncmds.c:953)
-  - init_sql_fcache (src/backend/executor/functions.c:717)
-  - inline_function (src/backend/optimizer/util/clauses.c:4687)
-  - inline_set_returning_function (src/backend/optimizer/util/clauses.c:5244)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md) (src/backend/catalog/pg_proc.c:942)
+  - [interpret_AS_clause](../i/interpret_AS_clause.md) (src/backend/commands/functioncmds.c:934)
+  - [interpret_AS_clause](../i/interpret_AS_clause.md) (src/backend/commands/functioncmds.c:953)
+  - [init_sql_fcache](../i/init_sql_fcache.md) (src/backend/executor/functions.c:717)
+  - [inline_function](../i/inline_function.md) (src/backend/optimizer/util/clauses.c:4687)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md) (src/backend/optimizer/util/clauses.c:5244)
 
 ## Notes and Other Information
 - The function sets p_pre_columnref_hook to NULL, indicating no preprocessing is needed for column references

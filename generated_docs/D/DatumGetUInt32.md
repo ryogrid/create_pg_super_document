@@ -19,11 +19,11 @@ DatumGetUInt32 is a static inline function that converts a PostgreSQL Datum valu
 - Functions called/Symbols referenced:
   - (None - simple cast operation)
 - Called from (representative examples):
-  - _hash_datum2hashkey (src/backend/access/hash/hashutil.c:91)
-  - notification_hash (src/backend/commands/async.c:2363)
+  - [_hash_datum2hashkey](../h/_hash_datum2hashkey.md) (src/backend/access/hash/hashutil.c:91)
+  - [notification_hash](../n/notification_hash.md) (src/backend/commands/async.c:2363)
   - ExecHashGetHashValue (src/backend/executor/nodeHash.c:1898)
-  - hash_array (src/backend/utils/adt/arrayfuncs.c:4249)
-  - JsonbHashScalarValue (src/backend/utils/adt/jsonb_util.c:1333, 1338)
+  - [hash_array](../h/hash_array.md) (src/backend/utils/adt/arrayfuncs.c:4249)
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md) (src/backend/utils/adt/jsonb_util.c:1333, 1338)
   - PG_GETARG_UINT32 macro (src/include/fmgr.h:270)
 
 ## Notes and Other Information

@@ -26,11 +26,11 @@ The function leverages the sorted nature of ranges within a multirange to perfor
 - Functions called/Symbols referenced:
   - MultirangeType (struct type)
   - MultirangeIsEmpty (utility function)
-  - multirange_bsearch_match (binary search function)
-  - multirange_elem_bsearch_comparison (comparison callback)
+  - [multirange_bsearch_match](multirange_bsearch_match.md) (binary search function)
+  - [multirange_elem_bsearch_comparison](multirange_elem_bsearch_comparison.md) (comparison callback)
 - Called from (representative examples):
-  - multirange_contains_elem
-  - elem_contained_by_multirange
+  - [multirange_contains_elem](multirange_contains_elem.md)
+  - [elem_contained_by_multirange](../e/elem_contained_by_multirange.md)
   - PG_RETURN_MULTIRANGE_P (via macro expansion)
 
 ## Notes and Other Information

@@ -37,17 +37,17 @@ The function essentially prepares a fresh execution state for iterating through 
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for JsonTablePathScan type casting)
-  - DatumGetJsonbP (JSON extraction from Datum)
-  - JsonValueListClear (value list cleanup)
-  - MemoryContextResetOnly/MemoryContextSwitchTo (memory management)
-  - executeJsonPath (core jsonpath execution)
-  - GetJsonPathVar/CountJsonPathVars (variable resolution)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md) (JSON extraction from Datum)
+  - [JsonValueListClear](JsonValueListClear.md) (value list cleanup)
+  - [MemoryContextResetOnly](../M/MemoryContextResetOnly.md)/MemoryContextSwitchTo (memory management)
+  - [executeJsonPath](../e/executeJsonPath.md) (core jsonpath execution)
+  - [GetJsonPathVar](../G/GetJsonPathVar.md)/CountJsonPathVars (variable resolution)
   - jperIsError (error checking)
-  - JsonValueListInitIterator (iterator initialization)
-  - PointerGetDatum (NULL pointer conversion)
+  - [JsonValueListInitIterator](JsonValueListInitIterator.md) (iterator initialization)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (NULL pointer conversion)
 - Called from (representative examples):
-  - JsonTableSetDocument (document-level reset)
-  - JsonTableResetNestedPlan (nested plan reset)
+  - [JsonTableSetDocument](JsonTableSetDocument.md) (document-level reset)
+  - [JsonTableResetNestedPlan](JsonTableResetNestedPlan.md) (nested plan reset)
 
 ## Notes and Other Information
 - This is a static function within jsonpath_exec.c, part of the JSON_TABLE execution infrastructure

@@ -25,16 +25,16 @@ The function ensures version consistency between PostgreSQL's catalog and the un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_collation_oid
-  - object_ownercheck
-  - aclcheck_error
-  - NameListToString
-  - get_collation_actual_version
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [get_collation_oid](../g/get_collation_oid.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [NameListToString](../N/NameListToString.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Only supports REFRESH VERSION operation (other ALTER COLLATION operations are handled by generic alter functions)

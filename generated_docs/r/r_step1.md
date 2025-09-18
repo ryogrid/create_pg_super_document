@@ -23,11 +23,11 @@ After successful suffix processing, the function sets `z->I[0] = 0`, which appea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Backward pattern matching function for suffix identification
-  - `slice_from_s`: String replacement function using predefined constants
+  - `[find_among_b](../f/find_among_b.md)`: Backward pattern matching function for suffix identification
+  - `[slice_from_s](../s/slice_from_s.md)`: String replacement function using predefined constants
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function as part of the multi-step stemming process
-  - `lithuanian_UTF_8_stem`: Main Lithuanian stemming function (indicating shared stemming patterns)
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function as part of the multi-step stemming process
+  - `[lithuanian_UTF_8_stem](../l/lithuanian_UTF_8_stem.md)`: Main Lithuanian stemming function (indicating shared stemming patterns)
 
 ## Notes and Other Information
 - This represents the first and most comprehensive phase of Greek stemming, handling the majority of common suffixes

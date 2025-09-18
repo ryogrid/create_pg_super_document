@@ -42,18 +42,18 @@ ExecQueryAndProcessResults serves as the core query execution engine for both Se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQuery, PQsendQueryParams
-  - PQgetResult, PQresultStatus
-  - PQsetChunkedRowsMode
-  - AcceptResult, HandleCopyResult
-  - PrintQueryResult, printQuery
-  - SetupGOutput, CloseGOutput
-  - PageOutput, ClosePager
-  - SetResultVariables, ClearOrSaveResult
-  - CheckConnection, ClearOrSaveAllResults
+  - [PQsendQuery](../P/PQsendQuery.md), PQsendQueryParams
+  - [PQgetResult](../P/PQgetResult.md), PQresultStatus
+  - [PQsetChunkedRowsMode](../P/PQsetChunkedRowsMode.md)
+  - [AcceptResult](../A/AcceptResult.md), HandleCopyResult
+  - [PrintQueryResult](../P/PrintQueryResult.md), printQuery
+  - [SetupGOutput](../S/SetupGOutput.md), CloseGOutput
+  - [PageOutput](../P/PageOutput.md), ClosePager
+  - [SetResultVariables](../S/SetResultVariables.md), ClearOrSaveResult
+  - [CheckConnection](../C/CheckConnection.md), ClearOrSaveAllResults
 - Called from (representative examples):
-  - SendQuery (for regular query execution)
-  - PSQLexecWatch (for \watch command)
+  - [SendQuery](../S/SendQuery.md) (for regular query execution)
+  - [PSQLexecWatch](../P/PSQLexecWatch.md) (for \watch command)
 
 ## Notes and Other Information
 - Returns 1 for complete success, 0 for interrupt, -1 for errors

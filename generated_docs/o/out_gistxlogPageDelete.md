@@ -24,12 +24,12 @@ The function outputs critical information including the transaction ID of the la
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistxlogPageDelete (struct type)
+  - [gistxlogPageDelete](../g/gistxlogPageDelete.md) (struct type)
   - EpochFromFullTransactionId (extracts epoch from FullTransactionId)
   - XidFromFullTransactionId (extracts transaction ID from FullTransactionId)
   - appendStringInfo (StringInfo formatting function)
 - Called from (representative examples):
-  - gist_desc (when processing XLOG_GIST_PAGE_DELETE records)
+  - [gist_desc](../g/gist_desc.md) (when processing XLOG_GIST_PAGE_DELETE records)
 
 ## Notes and Other Information
 - Output format: "deleteXid epoch:xid; downlink offset"

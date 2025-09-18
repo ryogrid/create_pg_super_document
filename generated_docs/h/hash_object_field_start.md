@@ -26,13 +26,13 @@ The function is part of the JSON-to-hash conversion mechanism used in PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JHashState (struct type for state management)
+  - [JHashState](../J/JHashState.md) (struct type for state management)
   - JSON_SUCCESS (return value constant)
   - JSON_TOKEN_ARRAY_START (token type constant)
   - JSON_TOKEN_OBJECT_START (token type constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - get_json_object_as_hash
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
   - JsObjectFree
 
 ## Notes and Other Information

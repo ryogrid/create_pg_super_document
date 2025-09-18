@@ -17,9 +17,9 @@ This function efficiently computes the previous (lower) power of 2 for 32-bit un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos32 (to find the position of the leftmost set bit)
+  - [pg_leftmost_one_pos32](pg_leftmost_one_pos32.md) (to find the position of the leftmost set bit)
 - Called from (representative examples):
-  - ExecParallelHashIncreaseNumBatches (hash table batch management)
+  - [ExecParallelHashIncreaseNumBatches](../E/ExecParallelHashIncreaseNumBatches.md) (hash table batch management)
   - pg_prevpower2_size_t (size_t variant wrapper)
 
 ## Notes and Other Information

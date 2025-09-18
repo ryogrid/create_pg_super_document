@@ -26,15 +26,15 @@ The function creates the necessary sort infrastructure by populating sortColIdx,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist
-  - create_plan_recurse (with CP_EXACT_TLIST flag)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [create_plan_recurse](create_plan_recurse.md) (with CP_EXACT_TLIST flag)
   - makeNode
-  - copy_generic_path_info
-  - assign_special_exec_param
-  - prepare_sort_from_pathkeys
-  - pathkeys_contained_in
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [assign_special_exec_param](../a/assign_special_exec_param.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - Requires non-empty pathkeys (sort order) - if no ordering is needed, a regular Gather should be used instead

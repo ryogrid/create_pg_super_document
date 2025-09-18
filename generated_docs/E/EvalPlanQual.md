@@ -30,19 +30,19 @@ This mechanism ensures that under READ COMMITTED isolation, transactions see a c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EPQState (structure type)
-  - EvalPlanQualBegin
-  - EvalPlanQualSlot
+  - [EPQState](EPQState.md) (structure type)
+  - [EvalPlanQualBegin](EvalPlanQualBegin.md)
+  - [EvalPlanQualSlot](EvalPlanQualSlot.md)
   - ExecCopySlot
-  - EvalPlanQualNext
+  - [EvalPlanQualNext](EvalPlanQualNext.md)
   - TupIsNull
   - ExecMaterializeSlot
   - ExecClearTuple
 - Called from (representative examples):
-  - GetTupleForTrigger
-  - ExecDelete
-  - ExecUpdate
-  - ExecMergeMatched
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
+  - [ExecDelete](ExecDelete.md)
+  - [ExecUpdate](ExecUpdate.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's implementation of the READ COMMITTED isolation level and snapshot-based concurrency control. The EPQ mechanism allows transactions to handle concurrent modifications gracefully by re-evaluating qualification conditions on updated tuple versions. The function typically processes tuples that have been locked with table_tuple_lock() using TUPLE_LOCK_FLAG_FIND_LAST_VERSION to ensure the input represents the latest committed version. The materialization step is crucial to prevent the returned tuple from depending on EPQ query state that might be reused or destroyed.

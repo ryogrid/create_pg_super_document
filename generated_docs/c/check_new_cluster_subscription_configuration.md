@@ -27,14 +27,14 @@ None - this function takes no parameters and operates on global cluster informat
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_MAJOR_VERSION
-  - prep_status
-  - connectToServer
-  - executeQueryOrDie
-  - PQclear
-  - PQfinish
-  - check_ok
+  - [prep_status](../p/prep_status.md)
+  - [connectToServer](connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [check_ok](check_ok.md)
 - Called from:
-  - check_new_cluster
+  - [check_new_cluster](check_new_cluster.md)
 
 ## Notes and Other Information
 - This is a static function specific to pg_upgrade functionality

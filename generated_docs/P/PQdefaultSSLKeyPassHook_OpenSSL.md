@@ -25,10 +25,10 @@ When the stored password is longer than the available buffer, the function trunc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_gettext (for localized warning messages)
+  - [libpq_gettext](../l/libpq_gettext.md) (for localized warning messages)
   - strlen, strncpy, fprintf (standard C library functions)
 - Called from (representative examples):
-  - PQssl_passwd_cb (internal OpenSSL password callback at fe-secure-openssl.c:2113)
+  - [PQssl_passwd_cb](PQssl_passwd_cb.md) (internal OpenSSL password callback at fe-secure-openssl.c:2113)
 - Connection fields accessed:
   - conn->sslpassword
 

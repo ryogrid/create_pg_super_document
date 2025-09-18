@@ -25,18 +25,18 @@ The function first checks if the result is already cached in . If not cached, it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy
+  - [bms_copy](../b/bms_copy.md)
   - RelationGetForm
   - HistoricSnapshotActive
-  - RelationGetReplicaIndex
-  - RelationIdGetRelation
+  - [RelationGetReplicaIndex](RelationGetReplicaIndex.md)
+  - [RelationIdGetRelation](RelationIdGetRelation.md)
   - RelationIsValid
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - FirstLowInvalidHeapAttributeNumber
-  - RelationClose
-  - bms_free
+  - [RelationClose](RelationClose.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - logicalrep_write_attrs
+  - [logicalrep_write_attrs](../l/logicalrep_write_attrs.md)
 
 ## Notes and Other Information
 - Designed specifically for logical replication scenarios using historic snapshots

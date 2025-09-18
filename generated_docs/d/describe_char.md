@@ -23,7 +23,7 @@ The output is formatted as a single table row with fixed-width columns, making i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flag (utility function to format boolean results)
+  - [flag](../f/flag.md) (utility function to format boolean results)
   - toupper (C library function)
   - tolower (C library function)
   - isprint (C library function)
@@ -39,7 +39,7 @@ The output is formatted as a single table row with fixed-width columns, making i
   - isxdigit (C library function)
   - printf (C library function)
 - Called from (representative examples):
-  - main (in src/test/locale/test-ctype.c)
+  - [main](../m/main.md) (in src/test/locale/test-ctype.c)
 
 ## Notes and Other Information
 - This is a test utility function located in src/test/locale/test-ctype.c

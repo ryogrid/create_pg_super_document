@@ -23,10 +23,10 @@ SubRelInfo represents individual subscription-table relationships in PostgreSQL'
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
   - SubscriptionInfo (parent subscription)
-  - TableInfo (subscribed table)
+  - [TableInfo](../T/TableInfo.md) (subscribed table)
 - Called from (representative examples):
-  - getSubscriptionTables
-  - dumpSubscriptionTable
+  - [getSubscriptionTables](../g/getSubscriptionTables.md)
+  - [dumpSubscriptionTable](../d/dumpSubscriptionTable.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

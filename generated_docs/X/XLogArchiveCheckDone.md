@@ -28,17 +28,17 @@ This function ensures WAL files are not prematurely deleted before successful ar
 - Functions called/Symbols referenced:
   - XLogArchivingActive
   - XLogArchivingAlways
-  - GetRecoveryState
+  - [GetRecoveryState](../G/GetRecoveryState.md)
   - StatusFilePath
-  - XLogArchiveNotify
+  - [XLogArchiveNotify](XLogArchiveNotify.md)
   - RECOVERY_STATE_ARCHIVE
 - Called from (representative examples):
-  - RemoveOldXlogFiles
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
   - CleanupBackupHistory
 
 ## Notes and Other Information
 - Implements retry logic for .ready file creation to handle transient failures
 - Handles race conditions by double-checking .done status before creating .ready files
-- Archive mode settings (off/on/always) directly influence deletion eligibility
+- [Archive](../A/Archive.md) mode settings (off/on/always) directly influence deletion eligibility
 - Critical for preventing data loss by ensuring WAL files are archived before deletion
 - The function's logic adapts behavior based on whether the server is a primary or standby

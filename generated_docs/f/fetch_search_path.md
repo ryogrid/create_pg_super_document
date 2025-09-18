@@ -19,17 +19,17 @@ A notable side effect is that this function may trigger a CommandCounterIncremen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
-  - AccessTempTableNamespace
-  - list_copy
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md)
+  - [list_copy](../l/list_copy.md)
   - linitial_oid
   - list_delete_first
 - Called from (representative examples):
-  - CreateExtensionInternal
-  - ObjectsInPublicationToOids
-  - AfterTriggerSetState
-  - current_schema
-  - current_schemas
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [ObjectsInPublicationToOids](../O/ObjectsInPublicationToOids.md)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md)
+  - [current_schema](../c/current_schema.md)
+  - [current_schemas](../c/current_schemas.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

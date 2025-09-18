@@ -29,8 +29,8 @@ This variant uses the extended ACL check (`object_aclcheck_ext`) which provides 
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public (converts username to role OID, handles 'public' role)
-  - convert_tablespace_priv_string (converts privilege string to AclMode)
-  - object_aclcheck_ext (performs extended privilege check with missing object detection)
+  - [convert_tablespace_priv_string](../c/convert_tablespace_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md) (performs extended privilege check with missing object detection)
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)
 

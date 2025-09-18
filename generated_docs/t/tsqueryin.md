@@ -23,10 +23,10 @@ The function follows PostgreSQL's standard I/O function conventions, taking argu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_tsquery
-  - pushval_asis
+  - [parse_tsquery](../p/parse_tsquery.md)
+  - [pushval_asis](../p/pushval_asis.md)
   - PG_RETURN_TSQUERY
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
   - PostgreSQL type system (no direct code references found, called via function manager)
 

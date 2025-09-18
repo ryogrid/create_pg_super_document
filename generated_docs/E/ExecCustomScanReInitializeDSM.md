@@ -20,12 +20,12 @@ ExecCustomScanReInitializeDSM is responsible for re-initializing the shared memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (structure type)
-  - ParallelContext (structure type)
-  - CustomExecMethods (structure type)
-  - shm_toc_lookup (shared memory TOC lookup function)
+  - [CustomScanState](../C/CustomScanState.md) (structure type)
+  - [ParallelContext](../P/ParallelContext.md) (structure type)
+  - [CustomExecMethods](../C/CustomExecMethods.md) (structure type)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (shared memory TOC lookup function)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM (general parallel execution DSM re-initializer)
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md) (general parallel execution DSM re-initializer)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework

@@ -18,10 +18,10 @@ This function serves as a comparison function for the standard C library qsort f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u16 (PostgreSQL utility function for comparing 16-bit unsigned integers)
+  - [pg_cmp_u16](../p/pg_cmp_u16.md) (PostgreSQL utility function for comparing 16-bit unsigned integers)
 - Called from (representative examples):
-  - lazy_scan_prune (heap vacuum operations)
-  - spgPageIndexMultiDelete (SP-GiST index operations)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md) (heap vacuum operations)
+  - [spgPageIndexMultiDelete](../s/spgPageIndexMultiDelete.md) (SP-GiST index operations)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the vacuumlazy.c module

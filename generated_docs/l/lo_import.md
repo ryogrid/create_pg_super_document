@@ -20,16 +20,16 @@ The internal implementation opens the specified file in binary read mode, create
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_import_internal
+  - [lo_import_internal](lo_import_internal.md)
   - InvalidOid (constant)
 - Internal implementation uses:
-  - lo_creat
-  - lo_open
-  - lo_write
-  - lo_close
+  - [lo_creat](lo_creat.md)
+  - [lo_open](lo_open.md)
+  - [lo_write](lo_write.md)
+  - [lo_close](lo_close.md)
 - Called from (representative examples):
-  - do_lo_import (in psql's large_obj.c)
-  - main (in testlo.c and testlo64.c test programs)
+  - [do_lo_import](../d/do_lo_import.md) (in psql's large_obj.c)
+  - [main](../m/main.md) (in testlo.c and testlo64.c test programs)
 
 ## Notes and Other Information
 - Returns the OID of the newly created large object on success,  on failure

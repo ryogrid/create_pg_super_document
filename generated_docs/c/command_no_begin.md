@@ -45,12 +45,12 @@ The function ensures that commands calling PreventInTransactionBlock() in the Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip_white_space (for parsing whitespace and comments)
-  - pg_strncasecmp (for case-insensitive string comparison)
-  - PQmblenBounded (for multibyte character handling)
+  - [skip_white_space](../s/skip_white_space.md) (for parsing whitespace and comments)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (for case-insensitive string comparison)
+  - [PQmblenBounded](../P/PQmblenBounded.md) (for multibyte character handling)
   - isalpha (for character classification)
 - Called from (representative examples):
-  - SendQuery (to determine autocommit behavior)
+  - [SendQuery](../S/SendQuery.md) (to determine autocommit behavior)
 
 ## Notes and Other Information
 - Returns true if the command should NOT be wrapped in BEGIN/COMMIT, false otherwise

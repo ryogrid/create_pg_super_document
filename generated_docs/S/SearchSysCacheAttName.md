@@ -22,32 +22,32 @@ The function first searches the ATTNAME cache using SearchSysCache2 with the pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - ObjectIdGetDatum
-  - CStringGetDatum
+  - [SearchSysCache2](SearchSysCache2.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_attribute (type cast)
 - Called from (representative examples):
-  - pg_nextoid
-  - SetAttrMissing
-  - ComputeIndexAttrs
-  - CreateStatistics
-  - ATPrepSetNotNull
-  - ATExecCheckNotNull
-  - ATExecSetExpression
-  - ATExecSetStatistics
-  - ATExecSetOptions
-  - ATExecDropColumn
-  - transformColumnNameList
-  - ATPrepAlterColumnType
-  - ATExecAlterColumnGenericOptions
-  - ComputePartitionAttrs
-  - make_inh_translation_list
-  - get_attnum
-  - SearchSysCacheCopyAttName
-  - SearchSysCacheExistsAttName
+  - [pg_nextoid](../p/pg_nextoid.md)
+  - [SetAttrMissing](SetAttrMissing.md)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md)
+  - [CreateStatistics](../C/CreateStatistics.md)
+  - [ATPrepSetNotNull](../A/ATPrepSetNotNull.md)
+  - [ATExecCheckNotNull](../A/ATExecCheckNotNull.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
+  - [ATExecSetStatistics](../A/ATExecSetStatistics.md)
+  - [ATExecSetOptions](../A/ATExecSetOptions.md)
+  - [ATExecDropColumn](../A/ATExecDropColumn.md)
+  - [transformColumnNameList](../t/transformColumnNameList.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
+  - [ATExecAlterColumnGenericOptions](../A/ATExecAlterColumnGenericOptions.md)
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md)
+  - [make_inh_translation_list](../m/make_inh_translation_list.md)
+  - [get_attnum](../g/get_attnum.md)
+  - [SearchSysCacheCopyAttName](SearchSysCacheCopyAttName.md)
+  - [SearchSysCacheExistsAttName](SearchSysCacheExistsAttName.md)
 
 ## Notes and Other Information
 - Specifically designed for the ATTNAME cache, which indexes pg_attribute tuples by (relation OID, attribute name)

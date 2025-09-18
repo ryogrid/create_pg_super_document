@@ -26,14 +26,14 @@ Usually, this function is only used for attributes that could be NULL or variabl
 - Functions called/Symbols referenced:
   - PointerIsValid
   - elog
-  - InitCatCachePhase2
-  - heap_getattr
+  - [InitCatCachePhase2](../I/InitCatCachePhase2.md)
+  - [heap_getattr](../h/heap_getattr.md)
 - Called from (representative examples):
-  - SetDefaultACL (src/backend/catalog/aclchk.c:1290)
-  - ExecGrant_Attribute (src/backend/catalog/aclchk.c:1715)
-  - StorePartitionBound (src/backend/catalog/heap.c:3557)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:456)
-  - ATExecSetOptions (src/backend/commands/tablecmds.c:8780)
+  - [SetDefaultACL](SetDefaultACL.md) (src/backend/catalog/aclchk.c:1290)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md) (src/backend/catalog/aclchk.c:1715)
+  - [StorePartitionBound](StorePartitionBound.md) (src/backend/catalog/heap.c:3557)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:456)
+  - [ATExecSetOptions](../A/ATExecSetOptions.md) (src/backend/commands/tablecmds.c:8780)
 
 ## Notes and Other Information
 - It is legal to use SysCacheGetAttr() with a cacheId referencing a different cache for the same catalog the tuple was fetched from

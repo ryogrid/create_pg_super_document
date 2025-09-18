@@ -27,18 +27,18 @@ The function validates that both operands have the same number of columns and es
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - parse_sub_analyze (subquery transformation)
-  - contain_vars_of_level/locate_var_of_level (variable reference validation)
-  - addRangeTableEntryForSubquery (subquery RTE creation)
-  - makeAlias (alias creation for subqueries)
-  - determineRecursiveColTypes (recursive CTE type determination)
-  - select_common_type/select_common_typmod/select_common_collation (type reconciliation)
-  - coerce_to_common_type (type coercion validation and UNKNOWN handling)
-  - makeSortGroupClauseForSetOp (grouping clause creation)
-  - makeTargetEntry (dummy target entry creation)
+  - [parse_sub_analyze](../p/parse_sub_analyze.md) (subquery transformation)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)/locate_var_of_level (variable reference validation)
+  - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md) (subquery RTE creation)
+  - [makeAlias](../m/makeAlias.md) (alias creation for subqueries)
+  - [determineRecursiveColTypes](../d/determineRecursiveColTypes.md) (recursive CTE type determination)
+  - [select_common_type](../s/select_common_type.md)/select_common_typmod/select_common_collation (type reconciliation)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md) (type coercion validation and UNKNOWN handling)
+  - [makeSortGroupClauseForSetOp](../m/makeSortGroupClauseForSetOp.md) (grouping clause creation)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (dummy target entry creation)
 - Called from (representative examples):
-  - transformSetOperationStmt (top-level set operation processing)
-  - transformSetOperationTree (recursive self-calls for left and right operands)
+  - [transformSetOperationStmt](transformSetOperationStmt.md) (top-level set operation processing)
+  - [transformSetOperationTree](transformSetOperationTree.md) (recursive self-calls for left and right operands)
 
 ## Notes and Other Information
 - The function includes stack depth checking to prevent overflow from deeply nested set operations

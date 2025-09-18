@@ -22,16 +22,16 @@ This function enforces PostgreSQL's restrictions on where set-returning function
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - errcode
-  - errmsg
-  - errmsg_internal
-  - parser_errposition
-  - exprLocation
-  - ParseExprKindName
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [parser_errposition](../p/parser_errposition.md)
+  - [exprLocation](../e/exprLocation.md)
+  - [ParseExprKindName](../P/ParseExprKindName.md)
   - ERRCODE_FEATURE_NOT_SUPPORTED
   - Various EXPR_KIND_* constants
 - Called from (representative examples):
-  - ParseFuncOrColumn
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
   - Function call transformation code
   - Expression parsing functions
 

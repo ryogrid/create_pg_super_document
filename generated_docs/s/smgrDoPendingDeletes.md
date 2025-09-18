@@ -21,17 +21,17 @@ For each applicable deletion, it opens the relation using the storage manager, c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - smgropen
-  - smgrdounlinkall
-  - smgrclose
-  - palloc
-  - repalloc
-  - pfree
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [smgropen](smgropen.md)
+  - [smgrdounlinkall](smgrdounlinkall.md)
+  - [smgrclose](smgrclose.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - AbortTransaction
-  - AtSubAbort_smgr
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [AtSubAbort_smgr](../A/AtSubAbort_smgr.md)
 
 ## Notes and Other Information
 - The function handles transaction nesting by only processing entries at the current or deeper nesting levels

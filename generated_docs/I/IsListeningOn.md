@@ -23,8 +23,8 @@ The function includes a performance note indicating that the linear search might
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  - List iteration macro
-  -  - List access macro to get the current element
+  -  - [List](../L/List.md) iteration macro
+  -  - [List](../L/List.md) access macro to get the current element
   -  - String comparison function
 
 - Called from:

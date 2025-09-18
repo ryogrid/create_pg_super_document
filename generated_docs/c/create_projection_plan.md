@@ -29,17 +29,17 @@ The function includes cost estimation logic and handles the case where the actua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - use_physical_tlist
-  - create_plan_recurse (with various flags)
-  - apply_pathtarget_labeling_to_tlist
+  - [use_physical_tlist](../u/use_physical_tlist.md)
+  - [create_plan_recurse](create_plan_recurse.md) (with various flags)
+  - [apply_pathtarget_labeling_to_tlist](../a/apply_pathtarget_labeling_to_tlist.md)
   - is_projection_capable_path
   - is_projection_capable_plan
-  - build_path_tlist
-  - tlist_same_exprs
-  - make_result
-  - copy_generic_path_info
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [tlist_same_exprs](../t/tlist_same_exprs.md)
+  - [make_result](../m/make_result.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function rechecks projection requirements even if the path creation phase set dummypp, because some createplan.c routines modify target lists after plan creation

@@ -20,15 +20,15 @@ This function takes no parameters and returns a Size value representing the requ
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (C standard macro for structure member offset)
-  - add_size (PostgreSQL safe addition function)
-  - mul_size (PostgreSQL safe multiplication function)
+  - [add_size](../a/add_size.md) (PostgreSQL safe addition function)
+  - [mul_size](../m/mul_size.md) (PostgreSQL safe multiplication function)
   - WalSndCtlData (control structure type)
-  - WalSnd (individual sender structure type)
+  - [WalSnd](WalSnd.md) (individual sender structure type)
   - max_wal_senders (global configuration variable)
 - Called from (representative examples):
-  - WalSndShmemInit
-  - CalculateShmemSize
-  - CRSSnapshotAction
+  - [WalSndShmemInit](WalSndShmemInit.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
+  - [CRSSnapshotAction](../C/CRSSnapshotAction.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's shared memory allocation system

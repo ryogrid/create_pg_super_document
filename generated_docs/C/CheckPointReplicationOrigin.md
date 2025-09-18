@@ -36,13 +36,13 @@ This function creates a persistent checkpoint of all active replication origin s
   - `unlink`: Removes any existing temporary checkpoint file
   - `OpenTransientFile`: Opens the temporary checkpoint file for writing
   - `write`: Writes data to the checkpoint file
-  - `XLogFlush`: Ensures WAL data persistence before checkpointing local_lsn
+  - `[XLogFlush](../X/XLogFlush.md)`: Ensures WAL data persistence before checkpointing local_lsn
   - `LWLockAcquire/LWLockRelease`: Provides concurrency control
   - `CloseTransientFile`: Closes the temporary file
-  - `durable_rename`: Atomically renames temporary file to permanent location
+  - `[durable_rename](../d/durable_rename.md)`: Atomically renames temporary file to permanent location
   - `INIT_CRC32C/COMP_CRC32C/FIN_CRC32C`: CRC calculation for integrity checking
 - Called from (representative examples):
-  - `CheckPointGuts`: As part of the main PostgreSQL checkpoint process
+  - `[CheckPointGuts](CheckPointGuts.md)`: As part of the main PostgreSQL checkpoint process
 
 ## Notes and Other Information
 - Only performs checkpointing if max_replication_slots > 0

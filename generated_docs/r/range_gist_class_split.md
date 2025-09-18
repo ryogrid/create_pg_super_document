@@ -24,7 +24,7 @@ Each entry is processed by determining its class, looking up the destination (le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_gist_range_class
+  - [get_gist_range_class](../g/get_gist_range_class.md)
   - DatumGetRangeTypeP
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro)
@@ -34,7 +34,7 @@ Each entry is processed by determining its class, looking up the destination (le
   - SPLIT_LEFT (constant)
   - SPLIT_RIGHT (constant)
 - Called from (representative examples):
-  - range_gist_picksplit
+  - [range_gist_picksplit](range_gist_picksplit.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rangetypes_gist.c file

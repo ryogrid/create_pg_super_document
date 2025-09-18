@@ -19,20 +19,20 @@ HandleChildCrash is a critical emergency response function in PostgreSQL's postm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogChildExit
-  - SetQuitSignalReason
-  - ReleasePostmasterChildSlot
-  - ShmemBackendArrayRemove
-  - sigquit_child
+  - [LogChildExit](../L/LogChildExit.md)
+  - [SetQuitSignalReason](../S/SetQuitSignalReason.md)
+  - [ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md)
+  - [ShmemBackendArrayRemove](../S/ShmemBackendArrayRemove.md)
+  - [sigquit_child](../s/sigquit_child.md)
   - slist_foreach
   - dlist_foreach_modify
   - dlist_container
   - slist_container
-  - dlist_delete
+  - [dlist_delete](../d/dlist_delete.md)
 - Called from (representative examples):
-  - process_pm_child_exit
-  - CleanupBackend
-  - CleanupBackgroundWorker
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
+  - [CleanupBackend](../C/CleanupBackend.md)
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md)
 
 ## Notes and Other Information
 - This function implements PostgreSQL's "fail-fast" philosophy where any critical process failure triggers complete system shutdown

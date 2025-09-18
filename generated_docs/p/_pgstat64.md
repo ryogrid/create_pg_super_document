@@ -33,14 +33,14 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _pglstat64 (lstat implementation for initial and recursive calls)
+  - [_pglstat64](_pglstat64.md) (lstat implementation for initial and recursive calls)
   - readlink (read symbolic link target paths)
   - strlcpy (safe string copying)
   - strcpy (string copying for current path tracking)
   - S_ISLNK (macro to test for symbolic links)
   - pg_RtlGetLastNtStatus (Windows NT status checking)
 - Called from:
-  - stat (macro in src/include/port/win32_port.h:278, 282)
+  - [stat](../s/stat.md) (macro in src/include/port/win32_port.h:278, 282)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on error (following Unix conventions)

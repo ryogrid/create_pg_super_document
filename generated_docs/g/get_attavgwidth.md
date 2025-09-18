@@ -21,16 +21,16 @@ This function looks up the average width of values stored in a specific column b
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_attavgwidth_hook (function pointer)
-  - SearchSysCache3
-  - ObjectIdGetDatum
+  - [SearchSysCache3](../S/SearchSysCache3.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Int16GetDatum
-  - BoolGetDatum
+  - [BoolGetDatum](../B/BoolGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - set_rel_width
-  - get_rel_data_width
+  - [set_rel_width](../s/set_rel_width.md)
+  - [get_rel_data_width](get_rel_data_width.md)
 
 ## Notes and Other Information
 - Returns 0 when no statistical data is available for the column

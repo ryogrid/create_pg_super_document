@@ -20,13 +20,13 @@ The function first navigates to the appropriate parse state level based on the V
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth
-  - bms_union
+  - [list_nth](../l/list_nth.md)
+  - [bms_union](../b/bms_union.md)
 - Called from (representative examples):
-  - buildVarFromNSColumn
+  - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md)
   - transformWholeRowRef
-  - scanNSItemForColumn
-  - expandNSItemVars
+  - [scanNSItemForColumn](../s/scanNSItemForColumn.md)
+  - [expandNSItemVars](../e/expandNSItemVars.md)
 
 ## Notes and Other Information
 - The function modifies the Var's `varnullingrels` field in place

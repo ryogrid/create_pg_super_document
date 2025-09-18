@@ -24,13 +24,13 @@ The algorithm handles lock groups (introduced for parallel queries) by treating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_count
+  - [dclist_count](../d/dclist_count.md)
   - dclist_foreach
   - dlist_container
   - MemSet
 - Called from (representative examples):
-  - ExpandConstraints
-  - sortDumpableObjects
+  - [ExpandConstraints](../E/ExpandConstraints.md)
+  - [sortDumpableObjects](../s/sortDumpableObjects.md)
 
 ## Notes and Other Information
 - Returns true if a valid ordering satisfying all constraints can be found, false if contradictory constraints exist

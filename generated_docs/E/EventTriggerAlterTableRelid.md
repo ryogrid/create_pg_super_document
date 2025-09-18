@@ -24,9 +24,9 @@ The function directly modifies the currentCommand's objectId field, which was in
   - currentEventTriggerState (global state variable)
   - currentCommand (nested field access)
 - Called from (representative examples):
-  - AlterTableInternal (src/backend/commands/tablecmds.c:4435)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1315)
-  - ProcessUtilityForAlterTable (src/backend/tcop/utility.c:1986)
+  - [AlterTableInternal](../A/AlterTableInternal.md) (src/backend/commands/tablecmds.c:4435)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1315)
+  - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md) (src/backend/tcop/utility.c:1986)
 
 ## Notes and Other Information
 - Works as a companion function to EventTriggerAlterTableStart to complete ALTER TABLE command collection

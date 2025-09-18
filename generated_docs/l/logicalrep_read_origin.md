@@ -23,9 +23,9 @@ This function is crucial for maintaining replication origin information in logic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64
-  - pq_getmsgstring
-  - pstrdup (implicit through return)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md)
+  - [pstrdup](../p/pstrdup.md) (implicit through return)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase
 

@@ -19,14 +19,14 @@ This function determines if the provided XML value is a complete, well-formed XM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorSaveContext (error handling context structure)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md) (error handling context structure)
   - xml_parse (core XML parsing function)
   - XMLOPTION_DOCUMENT (parsing option for document mode)
-  - GetDatabaseEncoding (database encoding retrieval)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding retrieval)
   - xmlFreeDoc (libxml2 document cleanup function)
   - NO_XML_SUPPORT (fallback when libxml2 not available)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (in XML expression evaluation)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (in XML expression evaluation)
 
 ## Notes and Other Information
 - This function is only available when PostgreSQL is compiled with libxml2 support (USE_LIBXML)

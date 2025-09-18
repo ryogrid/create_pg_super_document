@@ -23,7 +23,7 @@ This represents the "strict" variant of the SQL json_object_agg function that fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_object_agg_transfn_worker
+  - [json_object_agg_transfn_worker](json_object_agg_transfn_worker.md)
 - Called from (representative examples):
   - This function is typically registered in PostgreSQL's system catalogs and called by the SQL executor during aggregate processing
 

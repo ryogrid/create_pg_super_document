@@ -24,17 +24,17 @@ The function intelligently handles different relation types, skipping system att
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - CatalogOpenIndexes
-  - InsertPgAttributeTuples
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
   - ObjectAddressSubSet
   - ObjectAddressSet
-  - recordDependencyOn
-  - CreateTupleDesc
-  - FreeTupleDesc
-  - CatalogCloseIndexes
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [CreateTupleDesc](../C/CreateTupleDesc.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md)
   - table_close
 - Called from (representative examples):
-  - heap_create_with_catalog
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
 
 ## Notes and Other Information
 - This function is static and primarily used during relation creation as part of the heap_create_with_catalog process

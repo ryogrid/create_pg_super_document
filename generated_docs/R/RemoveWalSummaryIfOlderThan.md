@@ -26,12 +26,12 @@ This function is typically used as part of WAL summary maintenance operations to
   - lstat
   - unlink
   - ereport
-  - errcode_for_file_access
-  - errmsg
-  - errmsg_internal
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
+  - [errmsg_internal](../e/errmsg_internal.md)
   - LSN_FORMAT_ARGS
 - Called from (representative examples):
-  - MaybeRemoveOldWalSummaries
+  - [MaybeRemoveOldWalSummaries](../M/MaybeRemoveOldWalSummaries.md)
 
 ## Notes and Other Information
 - Returns void - no return value

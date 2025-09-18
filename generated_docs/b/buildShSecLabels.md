@@ -24,12 +24,12 @@ The function operates by first building a query to retrieve security label infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildShSecLabelQuery (constructs the query to retrieve security labels)
-  - executeQuery (executes the constructed query)
-  - emitShSecLabels (formats query results into SECURITY LABEL commands)
+  - [buildShSecLabelQuery](buildShSecLabelQuery.md) (constructs the query to retrieve security labels)
+  - [executeQuery](../e/executeQuery.md) (executes the constructed query)
+  - [emitShSecLabels](../e/emitShSecLabels.md) (formats query results into SECURITY LABEL commands)
 - Called from (representative examples):
-  - dumpRoles (in pg_dumpall.c at line 962)
-  - dumpTablespaces (in pg_dumpall.c at line 1420)
+  - [dumpRoles](../d/dumpRoles.md) (in pg_dumpall.c at line 962)
+  - [dumpTablespaces](../d/dumpTablespaces.md) (in pg_dumpall.c at line 1420)
 
 ## Notes and Other Information
 - Handles shared objects that exist cluster-wide, not database-specific objects

@@ -26,17 +26,17 @@ WindowDef nodes capture the complete specification of window definitions used in
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)
-  - List (for partition and order clauses)
-  - Node (for offset expressions)
+  - [List](../L/List.md) (for partition and order clauses)
+  - [Node](../N/Node.md) (for offset expressions)
   - ParseLoc (for source location tracking)
-  - SortBy (implicitly referenced in orderClause)
+  - [SortBy](../S/SortBy.md) (implicitly referenced in orderClause)
 - Called from (representative examples):
-  - transformWindowDefinitions (src/backend/parser/parse_clause.c:2775)
-  - transformWindowFuncCall (src/backend/parser/parse_agg.c:821, 1008, 1030)
-  - ParseFuncOrColumn (src/backend/parser/parse_func.c:96)
+  - [transformWindowDefinitions](../t/transformWindowDefinitions.md) (src/backend/parser/parse_clause.c:2775)
+  - [transformWindowFuncCall](../t/transformWindowFuncCall.md) (src/backend/parser/parse_agg.c:821, 1008, 1030)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (src/backend/parser/parse_func.c:96)
 
 ## Notes and Other Information
-- WindowDef supports both named window definitions (WINDOW clause) and inline window specifications (OVER clause)
+- [WindowDef](WindowDef.md) supports both named window definitions (WINDOW clause) and inline window specifications (OVER clause)
 - The distinction between "name" and "refname" is crucial for proper window inheritance and frame clause overriding
 - Frame options are encoded as bitfields to efficiently represent combinations of frame specifications
 - Window definitions are later transformed into WindowClause nodes during query analysis

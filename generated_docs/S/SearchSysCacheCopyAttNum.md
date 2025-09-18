@@ -22,12 +22,12 @@ The returned copy is independent of the system cache and can be modified or reta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttNum
+  - [SearchSysCacheAttNum](SearchSysCacheAttNum.md)
   - HeapTupleIsValid
-  - heap_copytuple
-  - ReleaseSysCache
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - SetIndexStorageProperties (src/backend/commands/tablecmds.c:8856)
+  - [SetIndexStorageProperties](SetIndexStorageProperties.md) (src/backend/commands/tablecmds.c:8856)
 
 ## Notes and Other Information
 - Returns a newly allocated tuple that the caller is responsible for freeing

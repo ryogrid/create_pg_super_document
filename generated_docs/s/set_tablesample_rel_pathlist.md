@@ -23,15 +23,15 @@ The function doesn't support pushing join clauses into the sampling scan's quals
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_samplescan_path (creates the basic sample scan path)
-  - bms_membership (checks bitmap set membership characteristics)
+  - [create_samplescan_path](../c/create_samplescan_path.md) (creates the basic sample scan path)
+  - [bms_membership](../b/bms_membership.md) (checks bitmap set membership characteristics)
   - BMS_SINGLETON (constant for singleton bitmap set)
-  - GetTsmRoutine (retrieves table sampling method routines)
-  - create_material_path (wraps path in materialization)
-  - add_path (adds path to relation's path list)
+  - [GetTsmRoutine](../G/GetTsmRoutine.md) (retrieves table sampling method routines)
+  - [create_material_path](../c/create_material_path.md) (wraps path in materialization)
+  - [add_path](../a/add_path.md) (adds path to relation's path list)
 
 - Called from (representative examples):
-  - set_rel_pathlist (main relation path list builder)
+  - [set_rel_pathlist](set_rel_pathlist.md) (main relation path list builder)
 
 ## Notes and Other Information
 - This function is static and only used within allpaths.c

@@ -23,16 +23,16 @@ The `parse_sane_timezone` function attempts to parse and validate a timezone spe
   - text_to_cstring_buffer
   - isdigit
   - ereport
-  - errcode
-  - errmsg
-  - errhint
-  - DecodeTimezone
-  - DecodeTimezoneName
-  - DetermineTimeZoneAbbrevOffset
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
+  - [DecodeTimezone](../D/DecodeTimezone.md)
+  - [DecodeTimezoneName](../D/DecodeTimezoneName.md)
+  - [DetermineTimeZoneAbbrevOffset](../D/DetermineTimeZoneAbbrevOffset.md)
   - DetermineTimeZoneOffset
 - Types referenced:
-  - pg_tm
-  - pg_tz
+  - [pg_tm](pg_tm.md)
+  - [pg_tz](pg_tz.md)
 - Constants referenced:
   - TZ_STRLEN_MAX
   - ERRCODE_INVALID_PARAMETER_VALUE
@@ -41,7 +41,7 @@ The `parse_sane_timezone` function attempts to parse and validate a timezone spe
   - TZNAME_FIXED_OFFSET
   - TZNAME_DYNTZ
 - Called from (representative examples):
-  - make_timestamptz_at_timezone
+  - [make_timestamptz_at_timezone](../m/make_timestamptz_at_timezone.md)
 
 ## Notes and Other Information
 - Static function, only accessible within timestamp.c

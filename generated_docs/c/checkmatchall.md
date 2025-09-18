@@ -28,10 +28,10 @@ If all conditions are met, the function sets nfa->minmatchall, nfa->maxmatchall,
 - Functions called/Symbols referenced:
   - DUPINF (maximum duplication count constant)
   - PLAIN, RAINBOW, PSEUDO (arc type/color constants)
-  - check_out_colors_match (validates outgoing arc color consistency)
-  - check_in_colors_match (validates incoming arc color consistency)
+  - [check_out_colors_match](check_out_colors_match.md) (validates outgoing arc color consistency)
+  - [check_in_colors_match](check_in_colors_match.md) (validates incoming arc color consistency)
   - MALLOC (memory allocation)
-  - checkmatchall_recurse (recursive path analysis)
+  - [checkmatchall_recurse](checkmatchall_recurse.md) (recursive path analysis)
   - MATCHALL (optimization flag constant)
   - FREE (memory deallocation)
 - Called from (representative examples):

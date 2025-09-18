@@ -25,7 +25,7 @@ The octal escape format for high-bit characters matches the traditional "escape"
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR (to extract input character)
-  - palloc (to allocate memory for result string)
+  - [palloc](../p/palloc.md) (to allocate memory for result string)
   - IS_HIGHBIT_SET (macro to check if character has high bit set)
   - TOOCTAL (macro to convert numeric value to octal character)
   - PG_RETURN_CSTRING (to return the string result)

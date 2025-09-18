@@ -18,12 +18,12 @@ This function handles string escaping for YAML format in PostgreSQL's EXPLAIN co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - escape_json (JSON string escaping function)
+  - [escape_json](escape_json.md) (JSON string escaping function)
 - Called from (representative examples):
-  - ExplainPropertyList
-  - ExplainPropertyListNested
-  - ExplainProperty
-  - ExplainDummyGroup
+  - [ExplainPropertyList](../E/ExplainPropertyList.md)
+  - [ExplainPropertyListNested](../E/ExplainPropertyListNested.md)
+  - [ExplainProperty](../E/ExplainProperty.md)
+  - [ExplainDummyGroup](../E/ExplainDummyGroup.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the explain.c file

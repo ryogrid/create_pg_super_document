@@ -28,15 +28,15 @@ NamedTuplestoreScanState provides the execution state for scanning tuplestores t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - TupleDesc
+  - [ScanState](../S/ScanState.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - Tuplestorestate
 - Called from (representative examples):
-  - ExecNamedTuplestoreScan
-  - ExecInitNamedTuplestoreScan
-  - ExecReScanNamedTuplestoreScan
-  - NamedTuplestoreScanNext
-  - NamedTuplestoreScanRecheck
+  - [ExecNamedTuplestoreScan](../E/ExecNamedTuplestoreScan.md)
+  - [ExecInitNamedTuplestoreScan](../E/ExecInitNamedTuplestoreScan.md)
+  - [ExecReScanNamedTuplestoreScan](../E/ExecReScanNamedTuplestoreScan.md)
+  - [NamedTuplestoreScanNext](NamedTuplestoreScanNext.md)
+  - [NamedTuplestoreScanRecheck](NamedTuplestoreScanRecheck.md)
 
 ## Notes and Other Information
 - Primarily used for AFTER trigger transition tables where OLD and NEW row sets are pre-stored

@@ -26,15 +26,15 @@ The `compute_scalar_stats` function performs the most sophisticated statistical 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrepareSortSupportFromOrderingOp
-  - vacuum_delay_point
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - VARSIZE_ANY, DatumGetPointer, DatumGetCString
-  - toast_raw_datum_size, PG_DETOAST_DATUM
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md), PG_DETOAST_DATUM
   - qsort_interruptible, compare_scalars
-  - analyze_mcv_list
-  - datumCopy, MemoryContextSwitchTo
+  - [analyze_mcv_list](../a/analyze_mcv_list.md)
+  - [datumCopy](../d/datumCopy.md), MemoryContextSwitchTo
   - ScalarItem, ScalarMCVItem structures
 - Called from (representative examples):
-  - std_typanalyze
+  - [std_typanalyze](../s/std_typanalyze.md)
 
 ## Notes and Other Information
 - This is the most comprehensive analysis function, used only when both equality and less-than operators are available

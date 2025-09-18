@@ -22,10 +22,10 @@ The comparison is binary - it returns 0 for equal keys and 1 for unequal keys, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address (for resolving shared TupleDesc pointers)
-  - equalRowTypes (for comparing TupleDesc structures)
+  - [dsa_get_address](../d/dsa_get_address.md) (for resolving shared TupleDesc pointers)
+  - [equalRowTypes](../e/equalRowTypes.md) (for comparing TupleDesc structures)
 - Called from (representative examples):
-  - shared_record_table_hash (indirectly as part of hash table operations)
+  - [shared_record_table_hash](shared_record_table_hash.md) (indirectly as part of hash table operations)
 
 ## Notes and Other Information
 - This function is designed to work with PostgreSQL's dynamic shared memory architecture

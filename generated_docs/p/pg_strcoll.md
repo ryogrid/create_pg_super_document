@@ -21,11 +21,11 @@ The `pg_strcoll` function serves as PostgreSQL's primary interface for locale-aw
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcoll_libc
-  - pg_strncoll_icu
+  - [pg_strcoll_libc](pg_strcoll_libc.md)
+  - [pg_strncoll_icu](pg_strncoll_icu.md)
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - varstrfastcmp_locale
+  - [varstrfastcmp_locale](../v/varstrfastcmp_locale.md)
 
 ## Notes and Other Information
 - This is a public function (non-static) serving as the main collation API

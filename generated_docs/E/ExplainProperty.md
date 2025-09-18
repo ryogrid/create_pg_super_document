@@ -32,24 +32,24 @@ This function is typically not called directly but serves as the implementation 
 - Functions called/Symbols referenced:
   - ExplainState (struct type)
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (enum values)
-  - ExplainIndentText
-  - ExplainXMLTag
-  - ExplainJSONLineEnding  
-  - ExplainYAMLLineStarting
+  - [ExplainIndentText](ExplainIndentText.md)
+  - [ExplainXMLTag](ExplainXMLTag.md)
+  - [ExplainJSONLineEnding](ExplainJSONLineEnding.md)  
+  - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md)
   - appendStringInfo, appendStringInfoString, appendStringInfoChar, appendStringInfoSpaces
-  - escape_xml, escape_json, escape_yaml
-  - pfree
+  - [escape_xml](../e/escape_xml.md), escape_json, escape_yaml
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ExplainPropertyText (at src/backend/commands/explain.c:4804)
-  - ExplainPropertyInteger (at src/backend/commands/explain.c:4817)
-  - ExplainPropertyUInteger (at src/backend/commands/explain.c:4830)
-  - ExplainPropertyFloat (at src/backend/commands/explain.c:4844)
-  - ExplainPropertyBool (at src/backend/commands/explain.c:4854)
+  - [ExplainPropertyText](ExplainPropertyText.md) (at src/backend/commands/explain.c:4804)
+  - [ExplainPropertyInteger](ExplainPropertyInteger.md) (at src/backend/commands/explain.c:4817)
+  - [ExplainPropertyUInteger](ExplainPropertyUInteger.md) (at src/backend/commands/explain.c:4830)
+  - [ExplainPropertyFloat](ExplainPropertyFloat.md) (at src/backend/commands/explain.c:4844)
+  - [ExplainPropertyBool](ExplainPropertyBool.md) (at src/backend/commands/explain.c:4854)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file
 - Serves as the core implementation for all type-specific ExplainProperty* wrapper functions
-- The numeric parameter is crucial for proper JSON/YAML formatting - numeric values appear unquoted while text values are properly escaped and quoted
+- The numeric parameter is crucial for proper JSON/YAML formatting - [numeric](../n/numeric.md) values appear unquoted while text values are properly escaped and quoted
 - Unit specification only affects TEXT format output; other formats ignore the unit parameter
 - Memory management includes freeing escaped XML strings
 - Proper indentation and line ending handling is maintained across all formats

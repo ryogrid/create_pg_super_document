@@ -21,12 +21,12 @@ This function handles the parsing and application of pset (print settings) optio
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - savePsetInfo
+  - [savePsetInfo](../s/savePsetInfo.md)
   - do_pset
-  - restorePsetInfo
+  - [restorePsetInfo](../r/restorePsetInfo.md)
   - pg_log_error
 - Called from (representative examples):
-  - exec_command_g
+  - [exec_command_g](../e/exec_command_g.md)
 
 ## Notes and Other Information
 - Saves current pset state before applying options to enable rollback on failure

@@ -41,10 +41,10 @@ This is specifically designed for binary upgrade scenarios where subscription re
   - PG_GETARG_CHAR
   - PG_GETARG_LSN
   - table_open
-  - get_subscription_oid
-  - relation_open
-  - AddSubscriptionRelState
-  - relation_close
+  - [get_subscription_oid](../g/get_subscription_oid.md)
+  - [relation_open](../r/relation_open.md)
+  - [AddSubscriptionRelState](../A/AddSubscriptionRelState.md)
+  - [relation_close](../r/relation_close.md)
   - table_close
   - PG_RETURN_VOID
 - Called from (representative examples):

@@ -29,13 +29,13 @@ The function includes stack overflow protection and uses careful memory manageme
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - freetree (memory deallocation for removed subtrees)
-  - clean_NOT_intree (recursive self-call)
-  - pfree (individual node deallocation)
+  - [freetree](../f/freetree.md) (memory deallocation for removed subtrees)
+  - [clean_NOT_intree](clean_NOT_intree.md) (recursive self-call)
+  - [pfree](../p/pfree.md) (individual node deallocation)
   - Assert (debugging assertion)
 - Called from (representative examples):
-  - clean_NOT_intree (recursive calls)
-  - clean_NOT
+  - [clean_NOT_intree](clean_NOT_intree.md) (recursive calls)
+  - [clean_NOT](clean_NOT.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search query cleanup and optimization system

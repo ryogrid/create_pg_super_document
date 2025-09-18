@@ -20,16 +20,16 @@ The `varstrfastcmp_c` function provides an optimized comparison implementation f
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetVarStringPP
-  - VarString
+  - [VarString](../V/VarString.md)
   - SortSupport
   - VARDATA_ANY (macro)
   - VARSIZE_ANY_EXHDR (macro)
   - memcmp
   - Min (macro)
-  - PointerGetDatum
-  - pfree
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - varstr_sortsupport (when C locale is detected)
+  - [varstr_sortsupport](varstr_sortsupport.md) (when C locale is detected)
 
 ## Notes and Other Information
 - Only used when LC_COLLATE = C, providing byte-wise comparison semantics

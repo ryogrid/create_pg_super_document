@@ -22,9 +22,9 @@ The function retrieves the hash function information from the hash table's priva
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScalarArrayOpExprHashTable: Structure containing hash function information and context
-  - FunctionCallInfo: Function call protocol structure for invoking hash functions
-  - DatumGetUInt32: Converts the hash function result Datum to a 32-bit unsigned integer
+  - [ScalarArrayOpExprHashTable](../S/ScalarArrayOpExprHashTable.md): Structure containing hash function information and context
+  - [FunctionCallInfo](../F/FunctionCallInfo.md): Function call protocol structure for invoking hash functions
+  - [DatumGetUInt32](../D/DatumGetUInt32.md): Converts the hash function result Datum to a 32-bit unsigned integer
 - Called from (representative examples):
   - SH_DECLARE: Hash table declaration macros that register this as a hash function
   - SH_HASH_KEY: Hash table key hashing macros that invoke this function

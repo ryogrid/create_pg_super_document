@@ -25,7 +25,7 @@ The function returns true when a new row is available for processing, and false 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - xmlSetStructuredErrorFunc (libxml2)
   - xml_errorHandler
   - xmlXPathCompiledEval (libxml2)

@@ -17,10 +17,10 @@ pqReadReady provides a non-blocking check to determine if data is available for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqSocketCheck
+  - [pqSocketCheck](pqSocketCheck.md)
 - Called from (representative examples):
-  - pqReadData
-  - gss_read
+  - [pqReadData](pqReadData.md)
+  - [gss_read](../g/gss_read.md)
 
 ## Notes and Other Information
 - Returns -1 on failure, 0 if not ready for reading, 1 if ready for reading

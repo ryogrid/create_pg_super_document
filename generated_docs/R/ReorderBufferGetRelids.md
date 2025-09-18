@@ -20,10 +20,10 @@ ReorderBufferGetRelids allocates memory for an array of Oid values that will hol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from (representative examples):
-  - DecodeTruncate
-  - ReorderBufferRestoreChange
+  - [DecodeTruncate](../D/DecodeTruncate.md)
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
 
 ## Notes and Other Information
 The function specifically uses the ReorderBuffer's global context (rb->context) rather than more specialized contexts. As noted in the comments, this choice is made because TRUNCATE is not a particularly common operation, making a dedicated context overkill. The SLAB contexts cannot be used for this purpose, and the tuple context is reserved for tuple data rather than relation ID arrays.

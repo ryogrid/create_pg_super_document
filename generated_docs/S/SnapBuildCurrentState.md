@@ -19,15 +19,15 @@ This function serves as a simple getter method that returns the current state of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild (structure access)
+  - [SnapBuild](SnapBuild.md) (structure access)
 - Called from (representative examples):
-  - xact_decode
-  - heap2_decode
-  - heap_decode
-  - logicalmsg_decode
-  - DecodePrepare
+  - [xact_decode](../x/xact_decode.md)
+  - [heap2_decode](../h/heap2_decode.md)
+  - [heap_decode](../h/heap_decode.md)
+  - [logicalmsg_decode](../l/logicalmsg_decode.md)
+  - [DecodePrepare](../D/DecodePrepare.md)
   - DecodingContextReady
-  - ReorderBufferCanStartStreaming
+  - [ReorderBufferCanStartStreaming](../R/ReorderBufferCanStartStreaming.md)
 
 ## Notes and Other Information
 This is a simple accessor function that directly returns the state field from the SnapBuild structure. The state follows the SnapBuildState enumeration which typically includes states like SNAPBUILD_START, SNAPBUILD_FULL_SNAPSHOT, SNAPBUILD_CONSISTENT, etc. The function is widely used throughout the logical decoding system to determine whether the snapshot builder is ready to process different types of WAL records and whether consistent snapshots are available for transaction decoding.

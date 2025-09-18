@@ -29,18 +29,18 @@ When an element matches the extraction path, the function prepares for value cap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetState (struct type for casting state parameter)
+  - [GetState](../G/GetState.md) (struct type for casting state parameter)
   - JsonParseErrorType (return type)
   - JSON_TOKEN_STRING (token type constant for string detection)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
-  - get_worker (JSON extraction worker function)
+  - [get_worker](get_worker.md) (JSON extraction worker function)
   - JsObjectFree (JSON object processing)
 
 ## Notes and Other Information
 - This function works in conjunction with array start/end callbacks to manage complete array processing
 - Array indexing is zero-based and maintained at each lexical level for nested arrays
-- Path matching logic supports both intermediate navigation and final element capture
+- [Path](../P/Path.md) matching logic supports both intermediate navigation and final element capture
 - String normalization is conditionally enabled based on parsing configuration
 - The function follows the same logical pattern as object field processing ("`same logic as for objects`" comment)
 - Null array elements are supported through the isnull parameter but current implementation focuses on index tracking regardless of null status

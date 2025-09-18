@@ -23,10 +23,10 @@ The function delegates the actual work to ExecJustVarVirtImpl, passing the inner
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustVarVirtImpl (core implementation for virtual slot variable access)
+  - [ExecJustVarVirtImpl](ExecJustVarVirtImpl.md) (core implementation for virtual slot variable access)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation dispatch mechanism)
-  - ExecReadyInterpretedExpr (expression preparation function)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation function)
 
 ## Notes and Other Information
 - This is a static function within execExprInterp.c, part of the internal expression evaluation machinery

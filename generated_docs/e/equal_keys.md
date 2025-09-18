@@ -21,14 +21,14 @@ The function delegates the actual comparison to the  stored in the hash table's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_table (structure accessed)
+  - [dshash_table](../d/dshash_table.md) (structure accessed)
   - hash_table->params.compare_function (function pointer called)
   - hash_table->params.key_size (field accessed)
   - hash_table->arg (field accessed)
 - Called from (representative examples):
   - BUCKET_FOR_HASH (at src/backend/lib/dshash.c:187)
   - find_in_bucket (at src/backend/lib/dshash.c:959)
-  - delete_key_from_bucket (at src/backend/lib/dshash.c:1016)
+  - [delete_key_from_bucket](../d/delete_key_from_bucket.md) (at src/backend/lib/dshash.c:1016)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the dshash.c file and is likely to be inlined by the compiler for performance

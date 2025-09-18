@@ -22,19 +22,19 @@ For partitioned tables, it intelligently decides whether to force loading throug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - forcePartitionRootLoad
-  - getRootTableInfo  
+  - [forcePartitionRootLoad](../f/forcePartitionRootLoad.md)
+  - [getRootTableInfo](../g/getRootTableInfo.md)  
   - fmtQualifiedDumpable
-  - sanitize_line
-  - printfPQExpBuffer
-  - fmtCopyColumnList
-  - dumpTableData_copy
-  - dumpTableData_insert
-  - ArchiveEntry
+  - [sanitize_line](../s/sanitize_line.md)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [fmtCopyColumnList](../f/fmtCopyColumnList.md)
+  - [dumpTableData_copy](dumpTableData_copy.md)
+  - [dumpTableData_insert](dumpTableData_insert.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - createPQExpBuffer/destroyPQExpBuffer
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:206)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10622)
+  - [dumpDumpableObject](dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10622)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c

@@ -17,12 +17,12 @@ extractModify parses the string value from a DefElem parameter node representing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString
+  - [defGetString](../d/defGetString.md)
   - AGGMODIFY_READ_ONLY
   - AGGMODIFY_SHAREABLE  
   - AGGMODIFY_READ_WRITE
 - Called from (representative examples):
-  - DefineAggregate
+  - [DefineAggregate](../D/DefineAggregate.md)
 
 ## Notes and Other Information
 The modify flags control how PostgreSQL optimizes aggregate execution and whether the aggregate can be parallelized. READ_ONLY indicates the final function only reads the transition state, SHAREABLE allows sharing of transition state between parallel workers, and READ_WRITE indicates the final function may modify the transition state. This function is specifically used during aggregate definition parsing to validate and convert user-specified modify behavior into internal representation.

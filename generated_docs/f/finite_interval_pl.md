@@ -29,13 +29,13 @@ Each addition operation uses overflow-safe functions (`pg_add_s32_overflow` for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `INTERVAL_NOT_FINITE` - Macro to check if an interval is infinite
-  - `pg_add_s32_overflow` - Safe 32-bit integer addition with overflow detection
-  - `pg_add_s64_overflow` - Safe 64-bit integer addition with overflow detection
+  - `[pg_add_s32_overflow](../p/pg_add_s32_overflow.md)` - Safe 32-bit integer addition with overflow detection
+  - `[pg_add_s64_overflow](../p/pg_add_s64_overflow.md)` - Safe 64-bit integer addition with overflow detection
   - `ereport` - PostgreSQL error reporting function
 - Called from (representative examples):
-  - `interval_pl` - Public interval addition function (src/backend/utils/adt/timestamp.c:3497)
-  - `do_interval_accum` - Interval accumulation for aggregates (src/backend/utils/adt/timestamp.c:3963)
-  - `interval_avg_combine` - Interval average combination (src/backend/utils/adt/timestamp.c:4058)
+  - `[interval_pl](../i/interval_pl.md)` - Public interval addition function (src/backend/utils/adt/timestamp.c:3497)
+  - `[do_interval_accum](../d/do_interval_accum.md)` - Interval accumulation for aggregates (src/backend/utils/adt/timestamp.c:3963)
+  - `[interval_avg_combine](../i/interval_avg_combine.md)` - Interval average combination (src/backend/utils/adt/timestamp.c:4058)
 
 ## Notes and Other Information
 - Static function, only used internally within timestamp.c

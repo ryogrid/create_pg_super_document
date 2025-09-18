@@ -22,10 +22,10 @@ The function uses PostgreSQL's function call interface (PG_FUNCTION_ARGS) to acc
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall3
-  - tsquery_phrase_distance
+  - [tsquery_phrase_distance](tsquery_phrase_distance.md)
   - PG_RETURN_DATUM
   - PG_GETARG_DATUM
-  - Int32GetDatum
+  - [Int32GetDatum](../I/Int32GetDatum.md)
 
 ## Notes and Other Information
 - This function is a convenience wrapper that provides the most common use case of phrase queries (consecutive terms)

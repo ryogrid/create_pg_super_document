@@ -30,16 +30,16 @@ The function is similar to heapam_tuple_insert but adds speculative insertion su
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandId (parameter type)
-  - BulkInsertState (parameter type)
-  - ExecFetchSlotHeapTuple (slot-to-tuple conversion)
+  - [BulkInsertState](../B/BulkInsertState.md) (parameter type)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md) (slot-to-tuple conversion)
   - RelationGetRelid (relation OID retrieval)
   - HeapTupleHeaderSetSpeculativeToken (speculation token setting)
   - HEAP_INSERT_SPECULATIVE (flag constant)
-  - heap_insert (core insertion logic)
-  - ItemPointerCopy (TID copying)
-  - pfree (memory deallocation)
+  - [heap_insert](heap_insert.md) (core insertion logic)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md) (TID copying)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - SampleHeapTupleVisible (indirectly through table AM interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (indirectly through table AM interface)
 
 ## Notes and Other Information
 - This is a static function serving as a callback in the table access method interface

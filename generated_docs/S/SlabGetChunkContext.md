@@ -28,7 +28,7 @@ This function is essential for memory management operations that need to identif
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkGetBlock
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - SlabBlockIsValid
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS

@@ -19,11 +19,11 @@ This static function scans through the p_namespace list in the current parsing s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_lateral_ref_ok
+  - [check_lateral_ref_ok](../c/check_lateral_ref_ok.md)
   - ereport (for error reporting)
   - strcmp (for name comparison)
 - Called from (representative examples):
-  - refnameNamespaceItem
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
 
 ## Notes and Other Information
 - Only considers items with p_rel_visible set to true (ignores columns-only items)

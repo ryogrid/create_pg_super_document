@@ -21,17 +21,17 @@ EvaluateParams processes parameter expressions provided to an EXECUTE statement 
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject (creates copy of parameter expressions)
-  - transformExpr (performs parse analysis on expressions)
+  - [transformExpr](../t/transformExpr.md) (performs parse analysis on expressions)
   - exprType (determines expression result type)
-  - coerce_to_target_type (performs type coercion)
-  - assign_expr_collations (handles collation assignment)
-  - ExecPrepareExprList (prepares expressions for execution)
-  - makeParamList (creates ParamListInfo structure)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (performs type coercion)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (handles collation assignment)
+  - [ExecPrepareExprList](ExecPrepareExprList.md) (prepares expressions for execution)
+  - [makeParamList](../m/makeParamList.md) (creates ParamListInfo structure)
   - ExecEvalExprSwitchContext (evaluates expressions)
   - GetPerTupleExprContext (gets evaluation context)
 - Called from (representative examples):
-  - ExecuteQuery (parameter evaluation for EXECUTE statements)
-  - ExplainExecuteQuery (parameter evaluation for EXPLAIN EXECUTE)
+  - [ExecuteQuery](ExecuteQuery.md) (parameter evaluation for EXECUTE statements)
+  - [ExplainExecuteQuery](ExplainExecuteQuery.md) (parameter evaluation for EXPLAIN EXECUTE)
 
 ## Notes and Other Information
 - Validates that the number of provided parameters matches the expected count from the prepared statement

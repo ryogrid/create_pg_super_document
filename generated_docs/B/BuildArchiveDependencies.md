@@ -17,16 +17,16 @@ This function processes TOC entries in an archive dump to build correct dependen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByDumpId
-  - findDumpableDependencies
+  - [findObjectByDumpId](../f/findObjectByDumpId.md)
+  - [findDumpableDependencies](../f/findDumpableDependencies.md)
   - pg_malloc
   - pg_realloc
 - Types used:
-  - TocEntry
+  - [TocEntry](../T/TocEntry.md)
   - DumpableObject
   - DumpId
 - Called from (representative examples):
-  - main (in pg_dump.c:1092)
+  - [main](../m/main.md) (in pg_dump.c:1092)
 
 ## Notes and Other Information
 - Only processes TOC entries that will be dumped (te->reqs > 0)

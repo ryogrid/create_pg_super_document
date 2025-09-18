@@ -34,14 +34,14 @@ The function uses sophisticated character classification and pattern matching to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backwards pattern matching for suffix identification
-  - out_grouping_b: Backwards character grouping test for vowel detection
-  - slice_del: Deletes the marked substring
+  - [find_among_b](../f/find_among_b.md): Backwards pattern matching for suffix identification
+  - [out_grouping_b](../o/out_grouping_b.md): Backwards character grouping test for vowel detection
+  - [slice_del](../s/slice_del.md): Deletes the marked substring
   - g_v: Vowel character grouping definition (97-251 range)
   - a_5: Array of 35 French infinitive verb suffix patterns
 - Called from (representative examples):
-  - french_ISO_8859_1_stem: Main French stemming function (ISO-8859-1 encoding)
-  - french_UTF_8_stem: Main French stemming function (UTF-8 encoding)
+  - [french_ISO_8859_1_stem](../f/french_ISO_8859_1_stem.md): Main French stemming function (ISO-8859-1 encoding)
+  - [french_UTF_8_stem](../f/french_UTF_8_stem.md): Main French stemming function (UTF-8 encoding)
 
 ## Notes and Other Information
 - Specifically designed for French morphological analysis and is part of the French-specific stemming rules

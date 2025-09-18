@@ -26,24 +26,24 @@ This function is particularly useful in scenarios where relation existence is un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelationOid - Acquires lock on the relation
+  - [LockRelationOid](../L/LockRelationOid.md) - Acquires lock on the relation
   - SearchSysCacheExists1 - Checks if relation exists in system catalog
-  - UnlockRelationOid - Releases lock if relation doesn't exist
-  - RelationIdGetRelation - Retrieves relation from relcache
+  - [UnlockRelationOid](../U/UnlockRelationOid.md) - Releases lock if relation doesn't exist
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md) - Retrieves relation from relcache
   - RelationIsValid - Validates the relation descriptor
-  - CheckRelationLockedByMe - Verifies lock ownership
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md) - Verifies lock ownership
   - RelationUsesLocalBuffers - Checks if relation uses local buffers
   - pgstat_init_relation - Initializes relation statistics
   - MAX_LOCKMODES - Maximum lock mode constant
   - XACT_FLAGS_ACCESSEDTEMPNAMESPACE - Transaction flag for temp namespace access
 
 - Called from (representative examples):
-  - try_index_open - Non-failing index opening
+  - [try_index_open](try_index_open.md) - Non-failing index opening
   - try_table_open - Non-failing table opening
-  - cluster_rel - Cluster operation
-  - ATExecDetachPartition - Partition detachment
+  - [cluster_rel](../c/cluster_rel.md) - Cluster operation
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md) - Partition detachment
   - vacuum_open_relation - Vacuum operations
-  - pg_relation_size - Size calculation functions
+  - [pg_relation_size](../p/pg_relation_size.md) - Size calculation functions
 
 ## Notes and Other Information
 - Returns NULL if the relation does not exist, unlike relation_open which raises an ERROR

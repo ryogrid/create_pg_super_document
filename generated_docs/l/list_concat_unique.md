@@ -25,11 +25,11 @@ This function is commonly used in PostgreSQL's query optimizer and planner compo
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList
-  - list_member
-  - check_list_invariants
+  - [list_member](list_member.md)
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - create_bitmap_subplan
-  - select_active_windows
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md)
+  - [select_active_windows](../s/select_active_windows.md)
   - forfive
 
 ## Notes and Other Information

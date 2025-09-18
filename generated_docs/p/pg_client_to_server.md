@@ -22,13 +22,13 @@ The function is part of PostgreSQL's character encoding conversion system that e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_any_to_server (performs the actual encoding conversion)
+  - [pg_any_to_server](pg_any_to_server.md) (performs the actual encoding conversion)
   - ClientEncoding (global variable containing current client encoding info)
 - Called from (representative examples):
-  - pq_getmsgtext (message parsing in protocol communication)
-  - pq_getmsgstring (string extraction from protocol messages)
-  - parse_fcall_arguments (function call argument processing)
-  - exec_bind_message (prepared statement parameter binding)
+  - [pq_getmsgtext](pq_getmsgtext.md) (message parsing in protocol communication)
+  - [pq_getmsgstring](pq_getmsgstring.md) (string extraction from protocol messages)
+  - [parse_fcall_arguments](parse_fcall_arguments.md) (function call argument processing)
+  - [exec_bind_message](../e/exec_bind_message.md) (prepared statement parameter binding)
 
 ## Notes and Other Information
 - Returns a newly allocated string in server encoding that must be freed by caller

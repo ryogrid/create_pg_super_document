@@ -25,13 +25,13 @@ This function implements an efficient binary search algorithm to check whether a
   - pg_unicode_range (structure type for range table entries)
 - Called from (representative examples):
   - PG_U_CHARACTER_TAB (character categorization macro)
-  - pg_u_prop_alphabetic (alphabetic property checking)
-  - pg_u_prop_lowercase (lowercase property checking)
-  - pg_u_prop_uppercase (uppercase property checking)
-  - pg_u_prop_case_ignorable (case ignorable property checking)
-  - pg_u_prop_white_space (whitespace property checking)
-  - pg_u_prop_hex_digit (hex digit property checking)
-  - pg_u_prop_join_control (join control property checking)
+  - [pg_u_prop_alphabetic](../p/pg_u_prop_alphabetic.md) (alphabetic property checking)
+  - [pg_u_prop_lowercase](../p/pg_u_prop_lowercase.md) (lowercase property checking)
+  - [pg_u_prop_uppercase](../p/pg_u_prop_uppercase.md) (uppercase property checking)
+  - [pg_u_prop_case_ignorable](../p/pg_u_prop_case_ignorable.md) (case ignorable property checking)
+  - [pg_u_prop_white_space](../p/pg_u_prop_white_space.md) (whitespace property checking)
+  - [pg_u_prop_hex_digit](../p/pg_u_prop_hex_digit.md) (hex digit property checking)
+  - [pg_u_prop_join_control](../p/pg_u_prop_join_control.md) (join control property checking)
 
 ## Notes and Other Information
 - Uses a static function scope, indicating it's an internal utility for the Unicode category module

@@ -24,14 +24,14 @@ The function includes special logic to prevent specifying the database's default
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareTempTablespaces
+  - [PrepareTempTablespaces](../P/PrepareTempTablespaces.md)
   - GetNextTempTableSpace
-  - get_tablespace_oid
+  - [get_tablespace_oid](../g/get_tablespace_oid.md)
   - RELPERSISTENCE_TEMP (constant)
 - Called from (representative examples):
-  - DefineIndex (src/backend/commands/indexcmds.c:781)
-  - RefreshMatViewByOid (src/backend/commands/matview.c:299)
-  - DefineRelation (src/backend/commands/tablecmds.c:830)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:781)
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md) (src/backend/commands/matview.c:299)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:830)
 
 ## Notes and Other Information
 - Returns InvalidOid to indicate "use the database's default tablespace"

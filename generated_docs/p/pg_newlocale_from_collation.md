@@ -17,22 +17,22 @@ This function creates a pg_locale_t object from a collation OID, implementing a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_collation_cache
-  - SearchSysCache1, SysCacheGetAttrNotNull, SysCacheGetAttr, ReleaseSysCache
-  - builtin_validate_locale, GetDatabaseEncoding
+  - [lookup_collation_cache](../l/lookup_collation_cache.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md), SysCacheGetAttrNotNull, SysCacheGetAttr, ReleaseSysCache
+  - [builtin_validate_locale](../b/builtin_validate_locale.md), GetDatabaseEncoding
   - newlocale, _create_locale (platform-specific)
-  - make_icu_collator
-  - get_collation_actual_version
-  - report_newlocale_failure
-  - MemoryContextStrdup, MemoryContextAlloc
+  - [make_icu_collator](../m/make_icu_collator.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
+  - [report_newlocale_failure](../r/report_newlocale_failure.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md), MemoryContextAlloc
   - TextDatumGetCString
   - quote_qualified_identifier, get_namespace_name
 - Called from (representative examples):
-  - hashtext (at line 281)
-  - DefineCollation (at line 386)
-  - str_tolower, str_toupper, str_initcap (in formatting functions)
-  - varstr_cmp (at line 1561)
-  - text comparison functions (texteq, textne, etc.)
+  - [hashtext](../h/hashtext.md) (at line 281)
+  - [DefineCollation](../D/DefineCollation.md) (at line 386)
+  - [str_tolower](../s/str_tolower.md), str_toupper, str_initcap (in formatting functions)
+  - [varstr_cmp](../v/varstr_cmp.md) (at line 1561)
+  - [text](../t/text.md) comparison functions (texteq, textne, etc.)
 
 ## Notes and Other Information
 - Results are cached for the lifetime of the backend session to avoid repeated expensive locale creation

@@ -26,16 +26,16 @@ This function takes no parameters and operates on global recovery state variable
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReachedEndOfBackup
+  - [ReachedEndOfBackup](../R/ReachedEndOfBackup.md)
   - XLogCheckInvalidPages
-  - CheckTablespaceDirectory
+  - [CheckTablespaceDirectory](CheckTablespaceDirectory.md)
   - SendPostmasterSignal
   - XLogRecPtrIsInvalid
   - ereport/elog
 - Called from:
-  - PerformWalRecovery (src/backend/access/transam/xlogrecovery.c:1696)
-  - ApplyWalRecord (src/backend/access/transam/xlogrecovery.c:2051)
-  - ReadRecord (src/backend/access/transam/xlogrecovery.c:3248)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1696)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md) (src/backend/access/transam/xlogrecovery.c:2051)
+  - [ReadRecord](../R/ReadRecord.md) (src/backend/access/transam/xlogrecovery.c:3248)
 
 ## Notes and Other Information
 - This is a static function only called from within the xlogrecovery.c module

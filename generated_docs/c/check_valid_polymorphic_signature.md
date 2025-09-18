@@ -31,11 +31,11 @@ The function applies different validation rules based on the polymorphic return 
 - Functions called/Symbols referenced:
   - IsPolymorphicTypeFamily1
   - IsPolymorphicTypeFamily2
-  - psprintf
-  - format_type_be
+  - [psprintf](../p/psprintf.md)
+  - [format_type_be](../f/format_type_be.md)
 - Called from (representative examples):
-  - ProcedureCreate
-  - AggregateCreate
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [AggregateCreate](../A/AggregateCreate.md)
 
 ## Notes and Other Information
 - Located in src/backend/parser/parse_coerce.c:2877-2953

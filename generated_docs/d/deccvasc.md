@@ -21,15 +21,15 @@ The function follows Informix semantics for decimal conversion, making it easier
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_strndup
-  - rsetnull
-  - risnull
-  - PGTYPESnumeric_from_asc
+  - [ecpg_strndup](../e/ecpg_strndup.md)
+  - [rsetnull](../r/rsetnull.md)
+  - [risnull](../r/risnull.md)
+  - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md)
   - PGTYPESnumeric_to_decimal
-  - PGTYPESnumeric_free
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - free
 - Called from (representative examples):
-  - main (in test cases)
+  - [main](../m/main.md) (in test cases)
   - ECPG_INFORMIX_EXTRA_CHARS
 
 ## Notes and Other Information

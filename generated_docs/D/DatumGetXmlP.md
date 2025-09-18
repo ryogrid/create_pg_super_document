@@ -18,11 +18,11 @@ This function provides a convenient way to extract an xmltype pointer from a Dat
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM
-  - xmltype
+  - [xmltype](../x/xmltype.md)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (src/backend/executor/execExprInterp.c:4036, 4066, 4086)
-  - xmlconcat (src/backend/utils/adt/xml.c:565)
-  - XmlTableSetDocument (src/backend/utils/adt/xml.c:4736)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (src/backend/executor/execExprInterp.c:4036, 4066, 4086)
+  - [xmlconcat](../x/xmlconcat.md) (src/backend/utils/adt/xml.c:565)
+  - [XmlTableSetDocument](../X/XmlTableSetDocument.md) (src/backend/utils/adt/xml.c:4736)
   - PG_GETARG_XML_P (src/include/utils/xml.h:62)
 
 ## Notes and Other Information

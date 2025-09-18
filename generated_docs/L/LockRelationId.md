@@ -28,16 +28,16 @@ This function is particularly useful when the caller already has both the databa
 - Functions called/Symbols referenced:
   - LockRelId
   - LOCKTAG
-  - LOCALLOCK
+  - [LOCALLOCK](LOCALLOCK.md)
   - LockAcquireResult
   - SET_LOCKTAG_RELATION
-  - LockAcquireExtended
+  - [LockAcquireExtended](LockAcquireExtended.md)
   - LOCKACQUIRE_ALREADY_CLEAR
-  - AcceptInvalidationMessages
-  - MarkLockClear
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [MarkLockClear](../M/MarkLockClear.md)
 - Called from (representative examples):
-  - CreateDatabaseUsingWalLog (src/backend/commands/dbcommands.c:212-213)
-  - ScanSourceDatabasePgClass (src/backend/commands/dbcommands.c:271)
+  - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md) (src/backend/commands/dbcommands.c:212-213)
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md) (src/backend/commands/dbcommands.c:271)
 
 ## Notes and Other Information
 - Same functionality as LockRelationOid but accepts LockRelId structure instead of just OID

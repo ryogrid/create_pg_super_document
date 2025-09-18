@@ -20,13 +20,13 @@ This function looks up a type's subscripting handler in the system catalog (pg_t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - getSubscriptingRoutines
+  - [getSubscriptingRoutines](getSubscriptingRoutines.md)
 
 ## Notes and Other Information
 - Returns `InvalidOid` if the type doesn't exist or has no subscripting handler

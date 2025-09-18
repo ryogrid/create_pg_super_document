@@ -29,16 +29,16 @@ The function follows the POSIX TAR format specification, parsing standard TAR he
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tarReadRaw
-  - tarChecksum
-  - read_tar_number
+  - [_tarReadRaw](_tarReadRaw.md)
+  - [tarChecksum](tarChecksum.md)
+  - [read_tar_number](../r/read_tar_number.md)
   - strlcpy
   - pg_log_debug
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - ngettext
   - ftello
 - Called from (representative examples):
-  - _tarPositionTo
+  - [_tarPositionTo](_tarPositionTo.md)
 
 ## Notes and Other Information
 - Returns 1 on successful header read, 0 on EOF

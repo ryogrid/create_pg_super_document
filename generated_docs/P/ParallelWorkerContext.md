@@ -19,13 +19,13 @@ ParallelWorkerContext is a simple but essential structure used within parallel w
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_segment
-  - shm_toc
+  - [shm_toc](../s/shm_toc.md)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
-  - ParallelQueryMain
-  - ExecAggInitializeWorker
+  - [ExecParallelInitializeWorker](../E/ExecParallelInitializeWorker.md)
+  - [ParallelQueryMain](ParallelQueryMain.md)
+  - [ExecAggInitializeWorker](../E/ExecAggInitializeWorker.md)
   - ExecHashInitializeWorker
-  - ExecSeqScanInitializeWorker
+  - [ExecSeqScanInitializeWorker](../E/ExecSeqScanInitializeWorker.md)
 
 ## Notes and Other Information
 - This structure is passed to worker initialization functions for various executor nodes

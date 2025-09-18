@@ -19,17 +19,17 @@ The  function performs cleanup operations to terminate a heap table scan and fre
 - Functions called/Symbols referenced:
   - ReleaseBuffer
   - read_stream_end
-  - RelationDecrementReferenceCount
-  - pfree
+  - [RelationDecrementReferenceCount](../R/RelationDecrementReferenceCount.md)
+  - [pfree](../p/pfree.md)
   - FreeAccessStrategy
   - UnregisterSnapshot
 - Data structures used:
-  - HeapScanDesc
-  - TableScanDesc
+  - [HeapScanDesc](../H/HeapScanDesc.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
 - Scan flags:
   - SO_TEMP_SNAPSHOT
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

@@ -28,11 +28,11 @@ This function serves as a building block for more comprehensive query traversals
 ## Dependencies
 - Functions called/Symbols referenced:
   - range_table_entry_walker
-  - RangeTblEntry (node type)
-  - List (PostgreSQL list structure)
+  - [RangeTblEntry](../R/RangeTblEntry.md) (node type)
+  - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
   - range_table_walker (inline wrapper)
-  - query_tree_walker_impl
+  - [query_tree_walker_impl](../q/query_tree_walker_impl.md)
   - planstate_tree_walker
 
 ## Notes and Other Information

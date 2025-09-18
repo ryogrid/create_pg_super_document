@@ -21,16 +21,16 @@ This function is typically used during the early stages of query planning, befor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_subplans_walker
+  - [contain_subplans_walker](contain_subplans_walker.md)
 - Called from (representative examples):
-  - ExecInitValuesScan
+  - [ExecInitValuesScan](../E/ExecInitValuesScan.md)
   - initialize_peragg
-  - find_window_run_conditions
-  - qual_is_pushdown_safe
-  - subquery_planner
-  - convert_EXISTS_to_ANY
-  - inline_function
-  - inline_set_returning_function
+  - [find_window_run_conditions](../f/find_window_run_conditions.md)
+  - [qual_is_pushdown_safe](../q/qual_is_pushdown_safe.md)
+  - [subquery_planner](../s/subquery_planner.md)
+  - [convert_EXISTS_to_ANY](convert_EXISTS_to_ANY.md)
+  - [inline_function](../i/inline_function.md)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md)
 
 ## Notes and Other Information
 - This is a simple wrapper function that delegates the actual work to 

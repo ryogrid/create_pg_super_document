@@ -25,25 +25,25 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_INTERRUPTS (interrupt handling)
-  - EmitErrorReport (error reporting)
-  - AbortOutOfAnyTransaction (transaction cleanup)
-  - FlushErrorState (error state cleanup)
+  - [EmitErrorReport](../E/EmitErrorReport.md) (error reporting)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md) (transaction cleanup)
+  - [FlushErrorState](../F/FlushErrorState.md) (error state cleanup)
   - RESUME_INTERRUPTS (interrupt handling)
-  - pgstat_report_subscription_error (statistics reporting)
-  - am_tablesync_worker (worker type checking)
-  - StartTransactionCommand (transaction management)
+  - [pgstat_report_subscription_error](../p/pgstat_report_subscription_error.md) (statistics reporting)
+  - [am_tablesync_worker](../a/am_tablesync_worker.md) (worker type checking)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (transaction management)
   - GetTransactionSnapshot (snapshot management)
   - PushActiveSnapshot (snapshot management)
-  - DisableSubscription (subscription management)
+  - [DisableSubscription](DisableSubscription.md) (subscription management)
   - PopActiveSnapshot (snapshot management)
-  - CommitTransactionCommand (transaction management)
-  - am_leader_apply_worker (worker type checking)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (transaction management)
+  - [am_leader_apply_worker](../a/am_leader_apply_worker.md) (worker type checking)
   - ApplyLauncherForgetWorkerStartTime (worker tracking cleanup)
-  - proc_exit (process termination)
+  - [proc_exit](../p/proc_exit.md) (process termination)
 
 - Called from:
-  - start_table_sync (in tablesync.c:1683)
-  - start_apply (in worker.c:4455)
+  - [start_table_sync](../s/start_table_sync.md) (in tablesync.c:1683)
+  - [start_apply](../s/start_apply.md) (in worker.c:4455)
 
 ## Notes and Other Information
 - This function never returns as it calls proc_exit(0)

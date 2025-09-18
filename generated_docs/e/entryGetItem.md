@@ -25,26 +25,26 @@ The function also implements result reduction logic when GinFuzzySearchLimit is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareItemPointers
-  - entryLoadMoreItems
-  - tbm_iterate
-  - tbm_end_iterate
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
+  - [entryLoadMoreItems](entryLoadMoreItems.md)
+  - [tbm_iterate](../t/tbm_iterate.md)
+  - [tbm_end_iterate](../t/tbm_end_iterate.md)
   - dropItem
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - ItemPointerSetLossyPage
-  - ItemPointerSet
-  - ItemPointerIsValid
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - ItemPointerIsLossyPage
   - GinItemPointerGetBlockNumber
   - GinItemPointerGetOffsetNumber
 - Data types used:
-  - GinState
-  - GinScanEntry
-  - ItemPointerData
+  - [GinState](../G/GinState.md)
+  - [GinScanEntry](../G/GinScanEntry.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
   - BlockNumber
   - OffsetNumber
 - Called from:
-  - keyGetItem (multiple times)
+  - [keyGetItem](../k/keyGetItem.md) (multiple times)
 
 ## Notes and Other Information
 - Critical constraint: cannot return both lossy page pointers and exact item pointers for the same heap page

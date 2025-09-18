@@ -34,16 +34,16 @@ This function is called only once per aggregation operation when using AGG_HASHE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_input_tuple
+  - [fetch_input_tuple](../f/fetch_input_tuple.md)
   - TupIsNull
-  - lookup_hash_entries
-  - advance_aggregates
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [advance_aggregates](advance_aggregates.md)
   - ResetExprContext
-  - hashagg_finish_initial_spills
-  - select_current_set
+  - [hashagg_finish_initial_spills](../h/hashagg_finish_initial_spills.md)
+  - [select_current_set](../s/select_current_set.md)
   - ResetTupleHashIterator
 - Called from (representative examples):
-  - ExecAgg (when using AGG_HASHED strategy and table not yet filled)
+  - [ExecAgg](../E/ExecAgg.md) (when using AGG_HASHED strategy and table not yet filled)
 
 ## Notes and Other Information
 - This function only builds the hash table; retrieval is handled by agg_retrieve_hash_table

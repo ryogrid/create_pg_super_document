@@ -20,17 +20,17 @@ Each shared structure maintains a reference count that is atomically decremented
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
   - DsaPointerIsValid
-  - pg_atomic_sub_fetch_u32
-  - dsa_free
-  - TBMSharedIteratorState (struct type)
-  - PTEntryArray (struct type)
-  - PTIterationArray (struct type)
+  - [pg_atomic_sub_fetch_u32](../p/pg_atomic_sub_fetch_u32.md)
+  - [dsa_free](../d/dsa_free.md)
+  - [TBMSharedIteratorState](../T/TBMSharedIteratorState.md) (struct type)
+  - [PTEntryArray](../P/PTEntryArray.md) (struct type)
+  - [PTIterationArray](../P/PTIterationArray.md) (struct type)
   - dsa_area (struct type)
   - dsa_pointer (type)
 - Called from (representative examples):
-  - ExecBitmapHeapReInitializeDSM
+  - [ExecBitmapHeapReInitializeDSM](../E/ExecBitmapHeapReInitializeDSM.md)
 
 ## Notes and Other Information
 - Uses atomic operations for thread-safe reference count management in parallel contexts

@@ -26,18 +26,18 @@ The function handles malformed entries gracefully by truncating invalid flag seq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tsearch_readline_begin
-  - tsearch_readline
-  - tsearch_readline_end
-  - findchar
-  - pg_mblen
-  - t_isprint
-  - t_isspace
-  - lowerstr_ctx
-  - NIAddSpell
-  - pfree
+  - [tsearch_readline_begin](../t/tsearch_readline_begin.md)
+  - [tsearch_readline](../t/tsearch_readline.md)
+  - [tsearch_readline_end](../t/tsearch_readline_end.md)
+  - [findchar](../f/findchar.md)
+  - [pg_mblen](../p/pg_mblen.md)
+  - [t_isprint](../t/t_isprint.md)
+  - [t_isspace](../t/t_isspace.md)
+  - [lowerstr_ctx](../l/lowerstr_ctx.md)
+  - [NIAddSpell](NIAddSpell.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - dispell_init
+  - [dispell_init](../d/dispell_init.md)
 
 ## Notes and Other Information
 - The function expects the caller to have already applied get_tsearch_config_filename to the filename parameter

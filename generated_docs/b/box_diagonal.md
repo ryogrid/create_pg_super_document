@@ -19,10 +19,10 @@ The  function is a PostgreSQL geometric operation that constructs a line segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract BOX argument)
-  - BOX (geometric box data type)
-  - LSEG (line segment data type)
-  - palloc (PostgreSQL memory allocation function)
-  - statlseg_construct (function to construct line segment from two points)
+  - [BOX](../B/BOX.md) (geometric box data type)
+  - [LSEG](../L/LSEG.md) (line segment data type)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [statlseg_construct](../s/statlseg_construct.md) (function to construct line segment from two points)
   - PG_RETURN_LSEG_P (macro to return LSEG result)
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

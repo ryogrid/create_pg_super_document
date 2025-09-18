@@ -30,24 +30,24 @@ This function implements the core tuple redistribution algorithm for hash bucket
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredicateLockPageSplit
-  - PageGetMaxOffsetNumber
+  - [PredicateLockPageSplit](../P/PredicateLockPageSplit.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - ItemIdIsDead
-  - PageGetItem
-  - hash_search
-  - _hash_hashkey2bucket
+  - [PageGetItem](../P/PageGetItem.md)
+  - [hash_search](hash_search.md)
+  - [_hash_hashkey2bucket](_hash_hashkey2bucket.md)
   - _hash_get_indextuple_hashkey
-  - CopyIndexTuple
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
   - IndexTupleSize
-  - PageGetFreeSpaceForMultipleTuples
-  - _hash_pgaddmultitup
-  - _hash_addovflpage
-  - _hash_getbuf
-  - hashbucketcleanup
+  - [PageGetFreeSpaceForMultipleTuples](../P/PageGetFreeSpaceForMultipleTuples.md)
+  - [_hash_pgaddmultitup](_hash_pgaddmultitup.md)
+  - [_hash_addovflpage](_hash_addovflpage.md)
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [hashbucketcleanup](hashbucketcleanup.md)
   - Various WAL logging functions
 - Called from (representative examples):
-  - _hash_expandtable
-  - _hash_finish_split
+  - [_hash_expandtable](_hash_expandtable.md)
+  - [_hash_finish_split](_hash_finish_split.md)
 
 ## Notes and Other Information
 - Requires cleanup locks on both old and new buckets to prevent concurrent access

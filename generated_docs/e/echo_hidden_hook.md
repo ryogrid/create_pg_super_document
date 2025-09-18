@@ -24,14 +24,14 @@ The "noexec" option is particularly useful for developers and advanced users who
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
-  - ParseVariableBool
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
+  - [ParseVariableBool](../P/ParseVariableBool.md)
   - PsqlVarEnumError
   - PSQL_ECHO_HIDDEN_NOEXEC
   - PSQL_ECHO_HIDDEN_ON
   - PSQL_ECHO_HIDDEN_OFF
 - Called from (representative examples):
-  - EstablishVariableSpace (registers the hook)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (registers the hook)
 
 ## Notes and Other Information
 - This is a static function within src/bin/psql/startup.c, used internally by psql's variable system

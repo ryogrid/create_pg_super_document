@@ -30,18 +30,18 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel (transaction nesting level)
-  - SetConstraintStateCreate (create constraint state)
-  - SetConstraintStateCopy (copy constraint state for subtransactions)
-  - SetConstraintStateAddItem (add trigger to constraint state)
-  - get_database_name, LookupExplicitNamespace (name resolution)
-  - fetch_search_path, list_make1_oid (search path handling)
-  - systable_beginscan, systable_getnext (catalog scanning)
-  - afterTriggerMarkEvents, afterTriggerInvokeEvents (trigger firing)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md) (transaction nesting level)
+  - [SetConstraintStateCreate](../S/SetConstraintStateCreate.md) (create constraint state)
+  - [SetConstraintStateCopy](../S/SetConstraintStateCopy.md) (copy constraint state for subtransactions)
+  - [SetConstraintStateAddItem](../S/SetConstraintStateAddItem.md) (add trigger to constraint state)
+  - [get_database_name](../g/get_database_name.md), LookupExplicitNamespace (name resolution)
+  - [fetch_search_path](../f/fetch_search_path.md), list_make1_oid (search path handling)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (catalog scanning)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md), afterTriggerInvokeEvents (trigger firing)
   - PushActiveSnapshot, PopActiveSnapshot (snapshot management)
-  - IsSubTransaction (transaction state checking)
+  - [IsSubTransaction](../I/IsSubTransaction.md) (transaction state checking)
 - Called from:
-  - standard_ProcessUtility (src/backend/tcop/utility.c:939)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:939)
   - TRIGGER_DISABLED (src/include/commands/trigger.h:283)
 
 ## Notes and Other Information

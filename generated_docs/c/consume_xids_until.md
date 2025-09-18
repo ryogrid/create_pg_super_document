@@ -22,10 +22,10 @@ This function is part of the xid_wraparound test module and serves as a SQL-call
   - PG_GETARG_FULLTRANSACTIONID (macro for extracting FullTransactionId argument)
   - FullTransactionIdIsNormal (validates if transaction ID is normal/valid)
   - U64FromFullTransactionId (converts FullTransactionId to uint64 for logging)
-  - consume_xids_common (internal function that performs actual XID consumption)
+  - [consume_xids_common](consume_xids_common.md) (internal function that performs actual XID consumption)
   - PG_RETURN_FULLTRANSACTIONID (macro for returning FullTransactionId result)
 - Called from:
-  - consume_xids (references this function in PG_FUNCTION_INFO_V1 declaration)
+  - [consume_xids](consume_xids.md) (references this function in PG_FUNCTION_INFO_V1 declaration)
 
 ## Notes and Other Information
 - This is a test-only function located in src/test/modules/xid_wraparound/

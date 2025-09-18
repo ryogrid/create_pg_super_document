@@ -22,18 +22,18 @@ For each file or directory found, the function determines its type (regular file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec (executes the recursive directory listing SQL query)
-  - PQresultStatus (checks query execution status)
-  - PQresultErrorMessage (retrieves error messages on query failure)
-  - PQnfields (validates result set structure)
-  - PQntuples (gets number of result rows)
-  - PQgetisnull (checks for NULL values in result set)
-  - PQgetvalue (retrieves column values from result set)
-  - PQclear (frees result set memory)
+  - [PQexec](../P/PQexec.md) (executes the recursive directory listing SQL query)
+  - [PQresultStatus](../P/PQresultStatus.md) (checks query execution status)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (retrieves error messages on query failure)
+  - [PQnfields](../P/PQnfields.md) (validates result set structure)
+  - [PQntuples](../P/PQntuples.md) (gets number of result rows)
+  - [PQgetisnull](../P/PQgetisnull.md) (checks for NULL values in result set)
+  - [PQgetvalue](../P/PQgetvalue.md) (retrieves column values from result set)
+  - [PQclear](../P/PQclear.md) (frees result set memory)
   - is_absolute_path (determines if tablespace path is absolute)
-  - pg_fatal (reports fatal errors)
+  - [pg_fatal](../p/pg_fatal.md) (reports fatal errors)
 - Called from:
-  - init_libpq_source (as part of libpq_source function table initialization)
+  - [init_libpq_source](../i/init_libpq_source.md) (as part of libpq_source function table initialization)
 
 ## Notes and Other Information
 - The function uses a sophisticated WITH RECURSIVE SQL query that first lists the root directory contents, then recursively expands subdirectories

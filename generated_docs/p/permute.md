@@ -29,7 +29,7 @@ This approach separates adjacent inputs and distributes values uniformly across 
 - Functions called/Symbols referenced:
   - pg_prng_state (PRNG state structure)
   - pg_prng_seed (initialize PRNG with seed)
-  - pg_leftmost_one_pos64 (find leftmost bit position)
+  - [pg_leftmost_one_pos64](pg_leftmost_one_pos64.md) (find leftmost bit position)
   - pg_prng_uint64 (generate random 64-bit values)
   - pg_prng_uint64_range (generate random value in range)
 - Called from (representative examples):

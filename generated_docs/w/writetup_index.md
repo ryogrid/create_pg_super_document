@@ -30,9 +30,9 @@ The function is essential for external sorting when memory is insufficient to ho
   - LogicalTapeWrite
   - TUPLESORT_RANDOMACCESS (flag constant)
 - Called from (representative examples):
-  - tuplesort_begin_index_btree
-  - tuplesort_begin_index_hash
-  - tuplesort_begin_index_gist
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md)
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information
@@ -40,5 +40,5 @@ The function is essential for external sorting when memory is insufficient to ho
 - Random access support adds a trailing length word to enable backward scanning through the tape
 - This function is part of the external sorting infrastructure and is only called when memory is insufficient for in-memory sorting
 - The serialization format must be compatible with the corresponding readtup_index function
-- LogicalTape provides an abstraction over temporary file I/O with buffering and compression support
-- IndexTuple is a specialized tuple format used for index entries, distinct from heap tuples
+- [LogicalTape](../L/LogicalTape.md) provides an abstraction over temporary file I/O with buffering and compression support
+- [IndexTuple](../I/IndexTuple.md) is a specialized tuple format used for index entries, distinct from heap tuples

@@ -23,7 +23,7 @@ The `dist_sl` function is a PostgreSQL built-in function that computes the minim
 - Functions called/Symbols referenced:
   - `PG_GETARG_LSEG_P` - Extracts LSEG argument from function call
   - `PG_GETARG_LINE_P` - Extracts LINE argument from function call
-  - `lseg_closept_line` - Computes closest point between line segment and line
+  - `[lseg_closept_line](../l/lseg_closept_line.md)` - Computes closest point between line segment and line
   - `PG_RETURN_FLOAT8` - Returns float8 result
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

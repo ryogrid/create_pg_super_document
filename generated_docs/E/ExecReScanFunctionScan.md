@@ -28,12 +28,12 @@ This approach optimizes rescans by avoiding unnecessary recomputation when funct
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - ExecScanReScan
-  - bms_overlap
-  - tuplestore_end
-  - tuplestore_rescan
+  - [ExecScanReScan](ExecScanReScan.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [tuplestore_end](../t/tuplestore_end.md)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md)
 - Called from (representative examples):
-  - ExecReScan (src/backend/executor/execAmi.c:209)
+  - [ExecReScan](ExecReScan.md) (src/backend/executor/execAmi.c:209)
 
 ## Notes and Other Information
 - The function includes a design comment noting that it could potentially recompute volatile functions on every rescan, but follows the general executor pattern of not conditionalizing actions based on function volatility

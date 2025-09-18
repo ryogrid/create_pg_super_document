@@ -18,15 +18,15 @@ pg_GSS_recvauth is the core function for server-side GSSAPI authentication in Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - setenv (configures KRB5_KTNAME environment variable for keytab)
-  - pq_startmsgread, pq_getbyte, pq_getmessage (protocol message handling)
+  - [pq_startmsgread](pq_startmsgread.md), pq_getbyte, pq_getmessage (protocol message handling)
   - gss_accept_sec_context (core GSSAPI context establishment)
   - gss_release_buffer, gss_release_cred, gss_delete_sec_context (GSSAPI cleanup)
-  - pg_store_delegated_credential (stores delegated credentials if enabled)
-  - sendAuthRequest (sends AUTH_REQ_GSS_CONT continuation requests)
-  - pg_GSS_error (error reporting)
-  - pg_GSS_checkauth (final authentication validation)
+  - [pg_store_delegated_credential](pg_store_delegated_credential.md) (stores delegated credentials if enabled)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (sends AUTH_REQ_GSS_CONT continuation requests)
+  - [pg_GSS_error](pg_GSS_error.md) (error reporting)
+  - [pg_GSS_checkauth](pg_GSS_checkauth.md) (final authentication validation)
 - Called from (representative examples):
-  - ClientAuthentication function in auth.c:570
+  - [ClientAuthentication](../C/ClientAuthentication.md) function in auth.c:570
 
 ## Notes and Other Information
 - Supports multi-round GSSAPI token exchange as required by the protocol

@@ -28,12 +28,12 @@ The function recursively processes nested grouping sets and formats column refer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rule_sortgroupclause (for resolving individual grouping columns)
+  - [get_rule_sortgroupclause](get_rule_sortgroupclause.md) (for resolving individual grouping columns)
   - lfirst_int (for extracting integer values from list cells)
   - appendStringInfoString/appendStringInfoChar (for string buffer operations)
 - Called from (representative examples):
-  - get_basic_select_query (for GROUP BY clause generation)
-  - get_rule_groupingset (recursive calls for nested grouping sets)
+  - [get_basic_select_query](get_basic_select_query.md) (for GROUP BY clause generation)
+  - [get_rule_groupingset](get_rule_groupingset.md) (recursive calls for nested grouping sets)
 
 ## Notes and Other Information
 - The function is static and only accessible within ruleutils.c

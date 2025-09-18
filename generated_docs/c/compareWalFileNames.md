@@ -28,7 +28,7 @@ By comparing from character 8 onwards, this function ensures proper ordering by 
   - lfirst (PostgreSQL list macro)
   - strcmp (standard C library)
 - Called from (representative examples):
-  - perform_base_backup (via list_sort)
+  - [perform_base_backup](../p/perform_base_backup.md) (via list_sort)
 
 ## Notes and Other Information
 - Used specifically by  in  to sort WAL files before transmission

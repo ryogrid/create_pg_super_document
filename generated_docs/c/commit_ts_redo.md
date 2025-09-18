@@ -22,12 +22,12 @@ This function serves as the main WAL replay handler for the commit timestamp res
   - XLogRecGetInfo
   - XLogRecHasAnyBlockRefs
   - XLogRecGetData
-  - SimpleLruGetBankLock
-  - ZeroCommitTsPage
-  - SimpleLruWritePage
-  - AdvanceOldestCommitTsXid
-  - pg_atomic_write_u64
-  - SimpleLruTruncate
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
+  - [AdvanceOldestCommitTsXid](../A/AdvanceOldestCommitTsXid.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
   - COMMIT_TS_ZEROPAGE
   - COMMIT_TS_TRUNCATE
   - CommitTsCtl

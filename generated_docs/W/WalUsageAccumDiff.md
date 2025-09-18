@@ -25,9 +25,9 @@ The function handles all three WAL metrics: the number of WAL records produced, 
 - Functions called/Symbols referenced:
   - WalUsage (struct type definition)
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
   - InstrStopNode
-  - InstrEndParallelQuery
+  - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
   - pgstat_flush_wal
 
 ## Notes and Other Information

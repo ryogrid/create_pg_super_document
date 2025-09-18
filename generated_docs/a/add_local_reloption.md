@@ -19,15 +19,15 @@ This is a static helper function that manages the addition of custom reloptions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - Assert (assertion macro)
   - lappend (list append function)
 - Called from (representative examples):
-  - add_local_bool_reloption
-  - add_local_int_reloption
-  - add_local_real_reloption
-  - add_local_enum_reloption
-  - add_local_string_reloption
+  - [add_local_bool_reloption](add_local_bool_reloption.md)
+  - [add_local_int_reloption](add_local_int_reloption.md)
+  - [add_local_real_reloption](add_local_real_reloption.md)
+  - [add_local_enum_reloption](add_local_enum_reloption.md)
+  - [add_local_string_reloption](add_local_string_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reloptions.c file

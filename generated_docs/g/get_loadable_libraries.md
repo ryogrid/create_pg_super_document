@@ -20,16 +20,16 @@ This function systematically collects library names from all databases in the ol
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (memory allocation)
-  - connectToServer (database connection)
-  - executeQueryOrDie (SQL query execution)
-  - count_old_cluster_logical_slots (logical slot counting)
-  - PQntuples, PQgetvalue, PQclear, PQfinish (PostgreSQL result handling)
-  - pg_strdup (string duplication)
-  - pg_free (memory deallocation)
-  - DbInfo, LibraryInfo, LogicalSlotInfoArr (structure types)
+  - [connectToServer](../c/connectToServer.md) (database connection)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL query execution)
+  - [count_old_cluster_logical_slots](../c/count_old_cluster_logical_slots.md) (logical slot counting)
+  - [PQntuples](../P/PQntuples.md), PQgetvalue, PQclear, PQfinish (PostgreSQL result handling)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
+  - [pg_free](../p/pg_free.md) (memory deallocation)
+  - [DbInfo](../D/DbInfo.md), LibraryInfo, LogicalSlotInfoArr (structure types)
   - FirstNormalObjectId, ClanguageId (constants)
 - Called from (representative examples):
-  - check_and_dump_old_cluster
+  - [check_and_dump_old_cluster](../c/check_and_dump_old_cluster.md)
 
 ## Notes and Other Information
 - Modifies global os_info.libraries and os_info.num_libraries

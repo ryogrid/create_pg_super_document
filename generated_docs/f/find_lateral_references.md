@@ -27,13 +27,13 @@ The design choice to process only parent baserels (not their appendrel children)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extract_lateral_references
+  - [extract_lateral_references](../e/extract_lateral_references.md)
   - RELOPT_BASEREL (constant)
 - Data structures used:
   - RelOptInfo
   - Index (for RTI iteration)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - Must run before deconstruct_jointree since it might create PlaceHolderInfos

@@ -29,25 +29,25 @@ The function handles both regular transaction locks (tied to CurrentResourceOwne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search/hash_search_with_hash_value (hash table operations)
+  - [hash_search](../h/hash_search.md)/hash_search_with_hash_value (hash table operations)
   - EligibleForRelationFastPath
-  - FastPathUnGrantRelationLock
+  - [FastPathUnGrantRelationLock](../F/FastPathUnGrantRelationLock.md)
   - LockHashPartitionLock
   - ResourceOwnerForgetLock
-  - UnGrantLock
-  - CleanUpLock
-  - RemoveLocalLock
+  - [UnGrantLock](../U/UnGrantLock.md)
+  - [CleanUpLock](../C/CleanUpLock.md)
+  - [RemoveLocalLock](../R/RemoveLocalLock.md)
   - LOCK_PRINT/PROCLOCK_PRINT (debug macros)
   - LOCKBIT_ON (macro)
   - LWLockAcquire/LWLockRelease
 - Called from (representative examples):
-  - UnlockRelationId
-  - UnlockRelationOid
-  - UnlockRelation
-  - XactLockTableDelete
-  - SpeculativeInsertionLockRelease
-  - UnlockDatabaseObject
-  - UnlockSharedObject
+  - [UnlockRelationId](../U/UnlockRelationId.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [UnlockRelation](../U/UnlockRelation.md)
+  - [XactLockTableDelete](../X/XactLockTableDelete.md)
+  - [SpeculativeInsertionLockRelease](../S/SpeculativeInsertionLockRelease.md)
+  - [UnlockDatabaseObject](../U/UnlockDatabaseObject.md)
+  - [UnlockSharedObject](../U/UnlockSharedObject.md)
   - pg_advisory_unlock functions
 
 ## Notes and Other Information

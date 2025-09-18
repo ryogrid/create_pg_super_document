@@ -19,7 +19,7 @@ The function uses internationalization support through  to provide localized err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_gettext (for internationalization support)
+  - [libpq_gettext](../l/libpq_gettext.md) (for internationalization support)
 - Constants used:
   - AUTH_REQ_PASSWORD
   - AUTH_REQ_MD5
@@ -30,7 +30,7 @@ The function uses internationalization support through  to provide localized err
   - AUTH_REQ_SASL_CONT
   - AUTH_REQ_SASL_FIN
 - Called from:
-  - check_expected_areq
+  - [check_expected_areq](../c/check_expected_areq.md)
 
 ## Notes and Other Information
 - Returns localized strings through libpq_gettext for internationalization support

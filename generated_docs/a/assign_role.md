@@ -22,7 +22,7 @@ The function works in conjunction with `check_role` which performs all the heavy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetCurrentRoleId
+  - [SetCurrentRoleId](../S/SetCurrentRoleId.md)
   - role_auth_extra (data structure)
 - Called from (representative examples):
   - GUC system framework (as assign hook)

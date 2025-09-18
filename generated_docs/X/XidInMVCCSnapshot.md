@@ -20,15 +20,15 @@ The function uses range checks for optimization, followed by searches through th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (for XID ordering comparison)
-  - TransactionIdFollowsOrEquals (for XID ordering comparison)
-  - pg_lfind32 (for searching XID arrays)
-  - SubTransGetTopmostTransaction (for converting subXIDs to top-level XIDs)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (for XID ordering comparison)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md) (for XID ordering comparison)
+  - [pg_lfind32](../p/pg_lfind32.md) (for searching XID arrays)
+  - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (for converting subXIDs to top-level XIDs)
 - Called from (representative examples):
-  - HeapTupleSatisfiesMVCC (tuple visibility checking)
-  - find_inheritance_children_extended (inheritance tree traversal)
-  - asyncQueueProcessPageEntries (async notification processing)
-  - RelationGetPartitionDesc (partition descriptor access)
+  - [HeapTupleSatisfiesMVCC](../H/HeapTupleSatisfiesMVCC.md) (tuple visibility checking)
+  - [find_inheritance_children_extended](../f/find_inheritance_children_extended.md) (inheritance tree traversal)
+  - [asyncQueueProcessPageEntries](../a/asyncQueueProcessPageEntries.md) (async notification processing)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md) (partition descriptor access)
 
 ## Notes and Other Information
 - The function never reports the current backend's own transactions as 'running' since they are not stored in snapshots

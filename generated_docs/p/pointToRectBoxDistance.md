@@ -28,10 +28,10 @@ If the point is inside the rectangle, both dx and dy will be 0, resulting in a d
 ## Dependencies
 - Functions called/Symbols referenced:
   - HYPOT (macro for computing hypotenuse)
-  - Point (type)
+  - [Point](../P/Point.md) (type)
   - RectBox (type)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent (multiple locations)
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the geo_spgist.c file

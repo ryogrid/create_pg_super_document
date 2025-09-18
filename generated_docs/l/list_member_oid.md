@@ -23,19 +23,19 @@ This function is optimized for OID comparison and should only be used with lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsOidList - Validates that the list contains OID values
-  - check_list_invariants - Performs debugging validation of list structure
+  - [check_list_invariants](../c/check_list_invariants.md) - Performs debugging validation of list structure
   - foreach - Macro for iterating through list cells
   - lfirst_oid - Macro for accessing the OID value of a list cell
 
 - Called from (representative examples):
-  - hashvalidate - Used in hash index validation
-  - CheckAttributeType - Used in catalog operations
-  - heap_truncate_check_FKs - Used in foreign key constraint checking
-  - ReindexIsProcessingIndex - Used in index reindexing operations
-  - RelationIsVisibleExt/TypeIsVisibleExt - Used in namespace visibility checks
-  - list_union_oid - Used when creating union of OID lists
-  - ExecInsertIndexTuples - Used in executor for index operations
-  - fireRIRrules - Used in rewrite rule processing
+  - [hashvalidate](../h/hashvalidate.md) - Used in hash index validation
+  - [CheckAttributeType](../C/CheckAttributeType.md) - Used in catalog operations
+  - [heap_truncate_check_FKs](../h/heap_truncate_check_FKs.md) - Used in foreign key constraint checking
+  - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md) - Used in index reindexing operations
+  - [RelationIsVisibleExt](../R/RelationIsVisibleExt.md)/TypeIsVisibleExt - Used in namespace visibility checks
+  - [list_union_oid](list_union_oid.md) - Used when creating union of OID lists
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md) - Used in executor for index operations
+  - [fireRIRrules](../f/fireRIRrules.md) - Used in rewrite rule processing
   - has_privs_of_role - Used in access control checking
 
 ## Notes and Other Information

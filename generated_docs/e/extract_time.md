@@ -21,7 +21,7 @@ The function follows PostgreSQL's version-1 calling convention, accepting argume
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - time_part_common
+  - [time_part_common](../t/time_part_common.md)
 - Called from (representative examples):
   - No direct callers found (typically invoked through PostgreSQL's SQL EXTRACT operator)
 

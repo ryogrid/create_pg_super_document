@@ -24,13 +24,13 @@ The function preserves important tuple identification information (t_ctid, t_sel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc
-  - heap_deform_tuple
-  - heap_form_tuple
-  - pfree
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ttdummy (trigger function in regression tests)
+  - [ttdummy](../t/ttdummy.md) (trigger function in regression tests)
   - Various custom trigger functions
   - Stored procedures that need to modify tuple data
 

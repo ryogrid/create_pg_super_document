@@ -23,14 +23,14 @@ The function handles memory management automatically, expanding the buffer if ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_s (performs the actual string replacement operation)
+  - [replace_s](../r/replace_s.md) (performs the actual string replacement operation)
   - symbol (type used for string characters)
 - Called from (representative examples):
-  - insert_v (wrapper function for cursor-based insertion)
-  - r_Step_1b (in various stemmer implementations)
-  - r_step2a (in Greek stemmer)
-  - r_append_U_to_stems_ending_with_d_or_g (in Turkish stemmer)
-  - among (utility function for pattern matching)
+  - [insert_v](insert_v.md) (wrapper function for cursor-based insertion)
+  - [r_Step_1b](../r/r_Step_1b.md) (in various stemmer implementations)
+  - [r_step2a](../r/r_step2a.md) (in Greek stemmer)
+  - [r_append_U_to_stems_ending_with_d_or_g](../r/r_append_U_to_stems_ending_with_d_or_g.md) (in Turkish stemmer)
+  - [among](../a/among.md) (utility function for pattern matching)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on error (typically memory allocation failure)

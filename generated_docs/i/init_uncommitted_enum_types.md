@@ -21,13 +21,13 @@ This tracking mechanism is crucial for operations like ALTER TYPE ADD VALUE, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
+  - [hash_create](../h/hash_create.md)
   - HASH_ELEM (flag)
   - HASH_BLOBS (flag)
   - HASH_CONTEXT (flag)
 - Called from:
-  - EnumValuesCreate (src/backend/catalog/pg_enum.c:106)
-  - RestoreUncommittedEnums (src/backend/catalog/pg_enum.c:888)
+  - [EnumValuesCreate](../E/EnumValuesCreate.md) (src/backend/catalog/pg_enum.c:106)
+  - [RestoreUncommittedEnums](../R/RestoreUncommittedEnums.md) (src/backend/catalog/pg_enum.c:888)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to pg_enum.c

@@ -33,7 +33,7 @@ For example, with memory units: 1024 KB converts to 1 MB, but 1025 KB remains as
   - time_unit_conversion_table: Global table for time unit conversions
   - Assert: Debug assertion macro
 - Called from (representative examples):
-  - ShowGUCOption: Display GUC option values in src/backend/utils/misc/guc.c:5507
+  - [ShowGUCOption](../S/ShowGUCOption.md): Display GUC option values in src/backend/utils/misc/guc.c:5507
 
 ## Notes and Other Information
 - Static function, only accessible within guc.c

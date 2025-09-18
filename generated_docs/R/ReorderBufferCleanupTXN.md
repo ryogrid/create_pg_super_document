@@ -39,27 +39,27 @@ This function systematically cleans up all resources associated with a transacti
   - dlist_foreach_modify
   - dlist_container
   - rbtxn_is_known_subxact
-  - ReorderBufferCleanupTXN (recursive call)
-  - ReorderBufferChangeSize
-  - ReorderBufferReturnChange
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md) (recursive call)
+  - [ReorderBufferChangeSize](ReorderBufferChangeSize.md)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
   - ReorderBufferChangeMemoryUpdate
-  - SnapBuildSnapDecRefcount
-  - dlist_delete
+  - [SnapBuildSnapDecRefcount](../S/SnapBuildSnapDecRefcount.md)
+  - [dlist_delete](../d/dlist_delete.md)
   - rbtxn_is_streamed
-  - ReorderBufferFreeSnap
+  - [ReorderBufferFreeSnap](ReorderBufferFreeSnap.md)
   - rbtxn_has_catalog_changes
-  - dclist_delete_from
-  - hash_search
+  - [dclist_delete_from](../d/dclist_delete_from.md)
+  - [hash_search](../h/hash_search.md)
   - rbtxn_is_serialized
-  - ReorderBufferRestoreCleanup
-  - ReorderBufferReturnTXN
+  - [ReorderBufferRestoreCleanup](ReorderBufferRestoreCleanup.md)
+  - [ReorderBufferReturnTXN](ReorderBufferReturnTXN.md)
 - Called from (representative examples):
-  - ReorderBufferStreamCommit
-  - ReorderBufferReplay
-  - ReorderBufferFinishPrepared
-  - ReorderBufferAbort
-  - ReorderBufferAbortOld
-  - ReorderBufferForget
+  - [ReorderBufferStreamCommit](ReorderBufferStreamCommit.md)
+  - [ReorderBufferReplay](ReorderBufferReplay.md)
+  - [ReorderBufferFinishPrepared](ReorderBufferFinishPrepared.md)
+  - [ReorderBufferAbort](ReorderBufferAbort.md)
+  - [ReorderBufferAbortOld](ReorderBufferAbortOld.md)
+  - [ReorderBufferForget](ReorderBufferForget.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within reorderbuffer.c

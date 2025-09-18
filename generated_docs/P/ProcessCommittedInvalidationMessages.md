@@ -25,12 +25,12 @@ When processing relcache init file invalidation for a specific database, the fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabasePath
-  - RelationCacheInitFilePreInvalidate
-  - SendSharedInvalidMessages
-  - RelationCacheInitFilePostInvalidate
+  - [GetDatabasePath](../G/GetDatabasePath.md)
+  - [RelationCacheInitFilePreInvalidate](../R/RelationCacheInitFilePreInvalidate.md)
+  - [SendSharedInvalidMessages](../S/SendSharedInvalidMessages.md)
+  - [RelationCacheInitFilePostInvalidate](../R/RelationCacheInitFilePostInvalidate.md)
 - Called from (representative examples):
-  - xact_redo_commit
+  - [xact_redo_commit](../x/xact_redo_commit.md)
   - standby_redo
 
 ## Notes and Other Information

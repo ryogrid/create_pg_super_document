@@ -22,20 +22,20 @@ The vector is primarily used in two key GiST operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTENTRY (struct type for individual entries)
+  - [GISTENTRY](GISTENTRY.md) (struct type for individual entries)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)
   - GEVHDRSZ (macro for calculating header size)
 
 - Called from (representative examples):
-  - gist_box_union (geometric box union operations)
-  - gist_box_picksplit (geometric box splitting)
-  - range_gist_union (range type union operations)
-  - range_gist_picksplit (range type splitting)
-  - gtsvector_union (text search vector union)
-  - inet_gist_union (network address union)
-  - genericPickSplit (generic splitting algorithm)
-  - gistUserPicksplit (user-defined splitting)
-  - gistMakeUnionItVec (utility for creating unions)
+  - [gist_box_union](../g/gist_box_union.md) (geometric box union operations)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md) (geometric box splitting)
+  - [range_gist_union](../r/range_gist_union.md) (range type union operations)
+  - [range_gist_picksplit](../r/range_gist_picksplit.md) (range type splitting)
+  - [gtsvector_union](../g/gtsvector_union.md) (text search vector union)
+  - [inet_gist_union](../i/inet_gist_union.md) (network address union)
+  - [genericPickSplit](../g/genericPickSplit.md) (generic splitting algorithm)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md) (user-defined splitting)
+  - [gistMakeUnionItVec](../g/gistMakeUnionItVec.md) (utility for creating unions)
 
 ## Notes and Other Information
 - The GEVHDRSZ macro (defined as ) is used to calculate the size of the structure header, excluding the variable-length array portion

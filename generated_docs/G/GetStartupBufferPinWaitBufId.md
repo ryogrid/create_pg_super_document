@@ -21,11 +21,11 @@ This function takes no parameters and returns an integer representing the buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PROC_HDR (structure type)
+  - [PROC_HDR](../P/PROC_HDR.md) (structure type)
 
 - Called from (representative examples):
   - HoldingBufferPinThatDelaysRecovery
-  - ProcessRecoveryConflictInterrupt
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
 
 ## Notes and Other Information
 - Returns -1 when the Startup process is not waiting on any buffer

@@ -29,21 +29,21 @@ This comprehensive function processes the parameter list for database objects (f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeName: Resolves type names to type information
-  - TypeNameToString: Converts TypeName to string representation
-  - typeTypeId: Extracts OID from type tuple
-  - object_aclcheck: Verifies type usage permissions
-  - aclcheck_error_type: Reports type access permission errors
-  - get_element_type: Validates variadic array types
-  - transformExpr: Processes default value expressions
-  - coerce_to_specific_type: Type coercion for default values
-  - assign_expr_collations: Assigns collations to expressions
-  - contain_var_clause: Checks for table references in defaults
-  - buildoidvector: Creates oidvector for input types
-  - construct_array_builtin: Creates system arrays for metadata
+  - [LookupTypeName](../L/LookupTypeName.md): Resolves type names to type information
+  - [TypeNameToString](../T/TypeNameToString.md): Converts TypeName to string representation
+  - [typeTypeId](../t/typeTypeId.md): Extracts OID from type tuple
+  - [object_aclcheck](../o/object_aclcheck.md): Verifies type usage permissions
+  - [aclcheck_error_type](../a/aclcheck_error_type.md): Reports type access permission errors
+  - [get_element_type](../g/get_element_type.md): Validates variadic array types
+  - [transformExpr](../t/transformExpr.md): Processes default value expressions
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md): Type coercion for default values
+  - [assign_expr_collations](../a/assign_expr_collations.md): Assigns collations to expressions
+  - [contain_var_clause](../c/contain_var_clause.md): Checks for table references in defaults
+  - [buildoidvector](../b/buildoidvector.md): Creates oidvector for input types
+  - [construct_array_builtin](../c/construct_array_builtin.md): Creates system arrays for metadata
 - Called from (representative examples):
-  - CreateFunction: Function creation process
-  - DefineAggregate: Aggregate creation process
+  - [CreateFunction](../C/CreateFunction.md): Function creation process
+  - [DefineAggregate](../D/DefineAggregate.md): Aggregate creation process
 
 ## Notes and Other Information
 - SQL functions and aggregates cannot accept shell types, but C functions can with warnings

@@ -20,16 +20,16 @@ This is the standard function used throughout PostgreSQL for inheritance hierarc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_inheritance_children_extended
+  - [find_inheritance_children_extended](find_inheritance_children_extended.md)
 - Called from (representative examples):
-  - find_all_inheritors (src/backend/catalog/pg_inherits.c:292)
-  - renameatt_internal (src/backend/commands/tablecmds.c:3781)
-  - rename_constraint_internal (src/backend/commands/tablecmds.c:3980)
-  - ATExecAddColumn (src/backend/commands/tablecmds.c:7146, 7386)
-  - ATExecDropColumn (src/backend/commands/tablecmds.c:9067)
-  - ATAddCheckConstraint (src/backend/commands/tablecmds.c:9556)
-  - ATExecDropConstraint (src/backend/commands/tablecmds.c:12680)
-  - ATPrepAlterColumnType (src/backend/commands/tablecmds.c:13074)
+  - [find_all_inheritors](find_all_inheritors.md) (src/backend/catalog/pg_inherits.c:292)
+  - [renameatt_internal](../r/renameatt_internal.md) (src/backend/commands/tablecmds.c:3781)
+  - [rename_constraint_internal](../r/rename_constraint_internal.md) (src/backend/commands/tablecmds.c:3980)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (src/backend/commands/tablecmds.c:7146, 7386)
+  - [ATExecDropColumn](../A/ATExecDropColumn.md) (src/backend/commands/tablecmds.c:9067)
+  - [ATAddCheckConstraint](../A/ATAddCheckConstraint.md) (src/backend/commands/tablecmds.c:9556)
+  - [ATExecDropConstraint](../A/ATExecDropConstraint.md) (src/backend/commands/tablecmds.c:12680)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md) (src/backend/commands/tablecmds.c:13074)
 
 ## Notes and Other Information
 - This function excludes partitions marked as being detached, making it suitable for most inheritance operations

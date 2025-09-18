@@ -23,17 +23,17 @@ Join selectivity is used for conditions like "table1.column op table2.column" wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (operator catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (invalid OID constant)
   - RegProcedure (procedure identifier type)
 
 - Called from (representative examples):
-  - join_selectivity (core join selectivity estimation)
+  - [join_selectivity](../j/join_selectivity.md) (core join selectivity estimation)
   - scalararraysel (scalar array selectivity estimation)
 
 ## Notes and Other Information

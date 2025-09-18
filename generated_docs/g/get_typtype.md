@@ -29,21 +29,21 @@ This is a fundamental utility function used throughout PostgreSQL to make type-b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for pg_type)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for pg_type)
   - HeapTupleIsValid (validate tuple existence)
   - GETSTRUCT (extract tuple structure)
-  - ReleaseSysCache (release cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache reference)
   - Form_pg_type (pg_type tuple structure)
-  - ObjectIdGetDatum (convert OID to Datum)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (convert OID to Datum)
 
 - Called from (representative examples):
-  - CheckAttributeType (src/backend/catalog/heap.c:554)
-  - DefineAggregate (src/backend/commands/aggregatecmds.c:338, 379)
-  - CreateCast (src/backend/commands/functioncmds.c:1539, 1540)
-  - DefineType (src/backend/commands/typecmds.c:402)
-  - type_is_rowtype (src/backend/utils/cache/lsyscache.c:2659, 2664)
-  - type_is_enum (src/backend/utils/cache/lsyscache.c:2680)
-  - get_type_func_class (src/backend/utils/fmgr/funcapi.c:1332, 1343)
+  - [CheckAttributeType](../C/CheckAttributeType.md) (src/backend/catalog/heap.c:554)
+  - [DefineAggregate](../D/DefineAggregate.md) (src/backend/commands/aggregatecmds.c:338, 379)
+  - [CreateCast](../C/CreateCast.md) (src/backend/commands/functioncmds.c:1539, 1540)
+  - [DefineType](../D/DefineType.md) (src/backend/commands/typecmds.c:402)
+  - [type_is_rowtype](../t/type_is_rowtype.md) (src/backend/utils/cache/lsyscache.c:2659, 2664)
+  - [type_is_enum](../t/type_is_enum.md) (src/backend/utils/cache/lsyscache.c:2680)
+  - [get_type_func_class](get_type_func_class.md) (src/backend/utils/fmgr/funcapi.c:1332, 1343)
 
 ## Notes and Other Information
 - Returns '\0' (null character) if the cache lookup fails, which callers should check for

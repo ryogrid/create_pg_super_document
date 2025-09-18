@@ -26,14 +26,14 @@ The function explicitly asserts that it should not encounter unplanned Query nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varattnos_context (walker context structure)
-  - bms_add_member (bitmapset operation)
+  - [pull_varattnos_context](pull_varattnos_context.md) (walker context structure)
+  - [bms_add_member](../b/bms_add_member.md) (bitmapset operation)
   - FirstLowInvalidHeapAttributeNumber (attribute offset constant)
   - expression_tree_walker (tree traversal)
-  - pull_varattnos_walker (recursive calls)
+  - [pull_varattnos_walker](pull_varattnos_walker.md) (recursive calls)
 - Called from (representative examples):
-  - pull_varattnos
-  - pull_varattnos_walker (recursive calls)
+  - [pull_varattnos](pull_varattnos.md)
+  - [pull_varattnos_walker](pull_varattnos_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Much simpler than pull_varnos_walker due to its focused scope on attribute collection

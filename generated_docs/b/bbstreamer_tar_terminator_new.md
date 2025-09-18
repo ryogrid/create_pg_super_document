@@ -23,12 +23,12 @@ Unlike the tar archiver, the terminator uses the basic bbstreamer structure rath
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (PostgreSQL memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
   - bbstreamer_tar_terminator_ops (operations structure)
-  - bbstreamer (base streamer structure)
+  - [bbstreamer](bbstreamer.md) (base streamer structure)
 - Called from (representative examples):
-  - CreateBackupStreamer (src/bin/pg_basebackup/pg_basebackup.c:1258)
-  - bbstreamer_buffer_until (src/bin/pg_basebackup/bbstreamer.h:217)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (src/bin/pg_basebackup/pg_basebackup.c:1258)
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md) (src/bin/pg_basebackup/bbstreamer.h:217)
 
 ## Notes and Other Information
 - The terminator blindly adds termination regardless of whether the archive already has proper termination - this ensures reliability but may result in extra zero blocks

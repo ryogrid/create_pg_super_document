@@ -22,7 +22,7 @@ The function implements an optimization where it can return early if it finds a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_split_penalty
+  - [_bt_split_penalty](_bt_split_penalty.md)
   - Min (macro)
   - INT_MAX
 - Structures/Types referenced:
@@ -31,7 +31,7 @@ The function implements an optimization where it can return early if it finds a 
   - SplitPoint
   - SPLIT_MANY_DUPLICATES
 - Called from (representative examples):
-  - _bt_findsplitloc
+  - [_bt_findsplitloc](_bt_findsplitloc.md)
 
 ## Notes and Other Information
 - This is a static function used only within nbtsplitloc.c for B-tree split optimization

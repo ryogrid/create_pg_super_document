@@ -19,21 +19,21 @@ The function uses PostgreSQL's system cache mechanism for efficient catalog look
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (pg_class catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
-  - reindex_relation
-  - GetTopMostAncestorInPublication
-  - swap_relation_files
-  - ExplainTargetRel
-  - ExecCheckXactReadOnly
-  - do_autovacuum
-  - RelationBuildPublicationDesc
+  - [reindex_relation](../r/reindex_relation.md)
+  - [GetTopMostAncestorInPublication](../G/GetTopMostAncestorInPublication.md)
+  - [swap_relation_files](../s/swap_relation_files.md)
+  - [ExplainTargetRel](../E/ExplainTargetRel.md)
+  - [ExecCheckXactReadOnly](../E/ExecCheckXactReadOnly.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's low-level system cache utility functions

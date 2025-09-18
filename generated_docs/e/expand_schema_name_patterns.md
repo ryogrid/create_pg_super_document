@@ -31,14 +31,14 @@ The function accumulates all matching OIDs in the provided oids list, allowing d
 - Functions called/Symbols referenced:
   - createPQExpBuffer, resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
   - processSQL    ePattern (pattern matching and SQL generation)
-  - GetConnection (database connection retrieval)
-  - ExecuteSqlQuery (query execution)
-  - prohibit_crossdb_refs (cross-database reference validation)
-  - simple_oid_list_append (OID list management)
+  - [GetConnection](../G/GetConnection.md) (database connection retrieval)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
+  - [prohibit_crossdb_refs](../p/prohibit_crossdb_refs.md) (cross-database reference validation)
+  - [simple_oid_list_append](../s/simple_oid_list_append.md) (OID list management)
   - atooid (string to OID conversion)
-  - pg_fatal (error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
 - Called from (representative examples):
-  - main (in pg_dump.c at lines 879, 885)
+  - [main](../m/main.md) (in pg_dump.c at lines 879, 885)
   - fmtQualifiedDumpable (in pg_dump.c at line 186)
 
 ## Notes and Other Information

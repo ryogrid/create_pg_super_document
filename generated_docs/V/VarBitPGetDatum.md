@@ -21,11 +21,11 @@ The function simply wraps the pointer in a Datum type, allowing bit string resul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - VarBit (type)
 - Called from (representative examples):
-  - bitshiftleft
-  - bitshiftright
+  - [bitshiftleft](../b/bitshiftleft.md)
+  - [bitshiftright](../b/bitshiftright.md)
   - PG_RETURN_VARBIT_P
 
 ## Notes and Other Information

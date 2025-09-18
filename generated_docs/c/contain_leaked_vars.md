@@ -21,10 +21,10 @@ The function is crucial for determining the order of predicate evaluation in que
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_leaked_vars_walker
+  - [contain_leaked_vars_walker](contain_leaked_vars_walker.md)
 - Called from (representative examples):
-  - qual_is_pushdown_safe
-  - make_restrictinfo_internal
+  - [qual_is_pushdown_safe](../q/qual_is_pushdown_safe.md)
+  - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md)
   - WindowFuncLists
 
 ## Notes and Other Information

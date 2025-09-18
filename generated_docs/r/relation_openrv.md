@@ -25,18 +25,18 @@ This function is the standard interface when relation names are available rather
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AcceptInvalidationMessages - Processes cache invalidation messages
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) - Processes cache invalidation messages
   - RangeVarGetRelid - Resolves RangeVar to relation OID with locking
-  - relation_open - Opens the relation by OID
-  - RangeVar - Structure type for relation name specification
+  - [relation_open](relation_open.md) - Opens the relation by OID
+  - [RangeVar](../R/RangeVar.md) - Structure type for relation name specification
 
 - Called from (representative examples):
   - table_openrv - Table-specific name-based opening
-  - get_object_address_attribute - Object address resolution
-  - get_object_address_attrdef - Attribute default address resolution
-  - CreateStatistics - Statistics creation
-  - transformTableLikeClause - Table inheritance processing
-  - RelationNameGetTupleDesc - Tuple descriptor retrieval by name
+  - [get_object_address_attribute](../g/get_object_address_attribute.md) - Object address resolution
+  - [get_object_address_attrdef](../g/get_object_address_attrdef.md) - Attribute default address resolution
+  - [CreateStatistics](../C/CreateStatistics.md) - Statistics creation
+  - [transformTableLikeClause](../t/transformTableLikeClause.md) - Table inheritance processing
+  - [RelationNameGetTupleDesc](../R/RelationNameGetTupleDesc.md) - Tuple descriptor retrieval by name
 
 ## Notes and Other Information
 - The function handles cache invalidation to ensure ACL changes are visible, which is crucial since GRANT/REVOKE don't take relation locks

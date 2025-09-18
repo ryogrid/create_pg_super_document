@@ -29,7 +29,7 @@ The structure is designed to work with PostgreSQL's generic hash table implement
   - None (this is a data structure definition)
 - Called from (representative examples):
   - `SH_ELEMENT_TYPE` (used in simplehash.h template instantiation)
-  - `keepwal_add_entry` (creates and manages entries of this type)
+  - `[keepwal_add_entry](keepwal_add_entry.md)` (creates and manages entries of this type)
 
 ## Notes and Other Information
 - This structure is specifically used within the pg_rewind utility's filemap.c module

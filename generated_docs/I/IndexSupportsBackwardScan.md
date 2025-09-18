@@ -24,15 +24,15 @@ The function performs the following steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - GetIndexAmRoutineByAmId
-  - pfree
-  - ReleaseSysCache
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
+  - [pfree](../p/pfree.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - ExecSupportsBackwardScan (twice in the same file)
+  - [ExecSupportsBackwardScan](../E/ExecSupportsBackwardScan.md) (twice in the same file)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the execAmi.c file

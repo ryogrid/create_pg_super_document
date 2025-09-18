@@ -31,7 +31,7 @@ For numeric flags (FM_NUM), it performs integer comparison, while for character-
   - FlagMode (enum type)
   - FM_NUM (flag mode constant for numeric flags)
 - Called from:
-  - getCompoundAffixFlagValue (src/backend/tsearch/spell.c:1145) - for binary search
+  - [getCompoundAffixFlagValue](../g/getCompoundAffixFlagValue.md) (src/backend/tsearch/spell.c:1145) - for binary search
   - NIImportOOAffixes (src/backend/tsearch/spell.c:1292) - for sorting during dictionary import
 
 ## Notes and Other Information

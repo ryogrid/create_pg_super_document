@@ -21,17 +21,17 @@ The function iterates through all entries in the TableSpaceCacheHash hash table,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init: Initialize hash table sequential scan
-  - hash_seq_search: Get next entry in sequential scan
-  - hash_search: Remove entries from hash table with HASH_REMOVE
-  - pfree: Free allocated memory for options
+  - [hash_seq_init](../h/hash_seq_init.md): Initialize hash table sequential scan
+  - [hash_seq_search](../h/hash_seq_search.md): Get next entry in sequential scan
+  - [hash_search](../h/hash_search.md): Remove entries from hash table with HASH_REMOVE
+  - [pfree](../p/pfree.md): Free allocated memory for options
   - elog: Log error if hash table corruption is detected
 - Data structures used:
   - HASH_SEQ_STATUS: Hash table sequential scan status
   - TableSpaceCacheEntry: Cache entry structure
   - TableSpaceCacheHash: Global hash table for tablespace cache
 - Called from:
-  - InitializeTableSpaceCache: Registered as invalidation callback
+  - [InitializeTableSpaceCache](InitializeTableSpaceCache.md): Registered as invalidation callback
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spccache.c module

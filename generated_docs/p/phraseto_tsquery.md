@@ -21,11 +21,11 @@ This function is the primary entry point for users who want to convert plain tex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTSCurrentConfig (retrieves current text search configuration)
-  - phraseto_tsquery_byid (actual implementation function)
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md) (retrieves current text search configuration)
+  - [phraseto_tsquery_byid](phraseto_tsquery_byid.md) (actual implementation function)
   - DirectFunctionCall2 (PostgreSQL function call mechanism)
-  - ObjectIdGetDatum (OID to Datum conversion)
-  - PointerGetDatum (pointer to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (pointer to Datum conversion)
 - Called from (representative examples):
   - No direct references found in the codebase
 

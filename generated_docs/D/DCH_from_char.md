@@ -34,17 +34,17 @@ The function workflow:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_locale_time (for caching localized day/month names)
-  - from_char_seq_search (for parsing textual date/time elements)
+  - [cache_locale_time](../c/cache_locale_time.md) (for caching localized day/month names)
+  - [from_char_seq_search](../f/from_char_seq_search.md) (for parsing textual date/time elements)
   - from_char_parse_int, from_char_parse_int_len (for parsing numeric fields)
   - from_char_set_int, from_char_set_mode (for storing parsed values)
-  - adjust_partial_year_to_2020 (for handling 2-digit years)
-  - DecodeTimezoneAbbrevPrefix (for timezone abbreviation parsing)
+  - [adjust_partial_year_to_2020](../a/adjust_partial_year_to_2020.md) (for handling 2-digit years)
+  - [DecodeTimezoneAbbrevPrefix](DecodeTimezoneAbbrevPrefix.md) (for timezone abbreviation parsing)
   - Various format validation and utility functions
   - Numerous DCH format constants and parsing macros
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1044)
-  - do_to_timestamp (formatting.c:4742)
+  - [do_to_timestamp](../d/do_to_timestamp.md) (formatting.c:4742)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

@@ -21,8 +21,8 @@ The BgWorkerStartTime enumeration provides precise control over when background 
 - Functions called/Symbols referenced:
   - (No direct references - this is an enum definition)
 - Called from (representative examples):
-  - BackgroundWorker (as bgw_start_time field)
-  - bgworker_should_start_now
+  - [BackgroundWorker](BackgroundWorker.md) (as bgw_start_time field)
+  - [bgworker_should_start_now](../b/bgworker_should_start_now.md)
 
 ## Notes and Other Information
 The choice of start time significantly impacts worker behavior and capabilities. Workers starting at PostmasterStart have the most limited environment - they cannot access the database catalog or perform SQL operations. Workers starting at ConsistentState can read from the database but may still be in recovery mode. Workers starting at RecoveryFinished have full database functionality available. This enumeration is essential for coordinating background worker initialization with PostgreSQL's complex startup sequence, ensuring workers don't attempt operations before the necessary infrastructure is ready.

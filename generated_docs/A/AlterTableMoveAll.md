@@ -21,24 +21,24 @@ The function operates in phases: first validating tablespace permissions and res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - roleSpecsToIds: Converts role specifications to OID list
-  - get_tablespace_oid: Resolves tablespace names to OIDs
-  - object_aclcheck: Checks user permissions on tablespaces
-  - aclcheck_error: Reports permission-related errors
+  - [roleSpecsToIds](../r/roleSpecsToIds.md): Converts role specifications to OID list
+  - [get_tablespace_oid](../g/get_tablespace_oid.md): Resolves tablespace names to OIDs
+  - [object_aclcheck](../o/object_aclcheck.md): Checks user permissions on tablespaces
+  - [aclcheck_error](../a/aclcheck_error.md): Reports permission-related errors
   - table_open/table_close: Opens and closes system catalogs
-  - table_beginscan_catalog: Starts catalog scan
-  - heap_getnext: Retrieves next tuple from scan
-  - IsCatalogNamespace: Checks if namespace is system catalog
-  - isAnyTempNamespace: Checks if namespace is temporary
-  - IsToastNamespace: Checks if namespace is for TOAST tables
-  - object_ownercheck: Verifies object ownership
-  - ConditionalLockRelationOid: Attempts non-blocking lock acquisition
-  - LockRelationOid: Acquires exclusive lock on relation
-  - AlterTableInternal: Executes individual ALTER TABLE operations
-  - EventTriggerAlterTableStart/End: Manages event trigger execution
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Starts catalog scan
+  - [heap_getnext](../h/heap_getnext.md): Retrieves next tuple from scan
+  - [IsCatalogNamespace](../I/IsCatalogNamespace.md): Checks if namespace is system catalog
+  - [isAnyTempNamespace](../i/isAnyTempNamespace.md): Checks if namespace is temporary
+  - [IsToastNamespace](../I/IsToastNamespace.md): Checks if namespace is for TOAST tables
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies object ownership
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md): Attempts non-blocking lock acquisition
+  - [LockRelationOid](../L/LockRelationOid.md): Acquires exclusive lock on relation
+  - [AlterTableInternal](AlterTableInternal.md): Executes individual ALTER TABLE operations
+  - [EventTriggerAlterTableStart](../E/EventTriggerAlterTableStart.md)/End: Manages event trigger execution
 
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command processing function
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command processing function
 
 ## Notes and Other Information
 - Supports three object types: tables (including partitioned tables), indexes (including partitioned indexes), and materialized views

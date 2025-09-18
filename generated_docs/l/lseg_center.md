@@ -19,9 +19,9 @@ This function computes the geometric center point of a line segment by calculati
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSEG_P (retrieve line segment argument)
-  - palloc (memory allocation)
-  - float8_pl (floating-point addition)
-  - float8_div (floating-point division)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [float8_pl](../f/float8_pl.md) (floating-point addition)
+  - [float8_div](../f/float8_div.md) (floating-point division)
   - PG_RETURN_POINT_P (return point result)
 - Called from:
   - No direct references found in the analyzed codebase

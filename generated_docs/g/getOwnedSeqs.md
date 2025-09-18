@@ -24,10 +24,10 @@ This approach handles complex scenarios where a table might be part of an extens
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid
-  - findTableByOid
-  - pg_fatal
+  - [findTableByOid](../f/findTableByOid.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Executed after getTables() to ensure table lookup index is available for findTableByOid() calls

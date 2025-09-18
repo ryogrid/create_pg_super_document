@@ -32,7 +32,7 @@ The structure is designed to be serializable and includes magic number validatio
   - statext_ndistinct_serialize (serializes structure for storage)
   - statext_ndistinct_deserialize (deserializes from storage)
   - estimate_multivariate_ndistinct (uses for query optimization)
-  - BuildRelationExtStatistics (part of statistics collection)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (part of statistics collection)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extended statistics system introduced to handle correlated columns

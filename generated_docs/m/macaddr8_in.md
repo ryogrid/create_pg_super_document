@@ -26,11 +26,11 @@ The function performs strict validation ensuring all separators are consistent t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `hex2_to_uchar`: Converts pairs of hex digits to bytes (called 8 times for each byte)
+  - `[hex2_to_uchar](../h/hex2_to_uchar.md)`: Converts pairs of hex digits to bytes (called 8 times for each byte)
   - `macaddr8`: The target data structure for storing the parsed address
   - `PG_RETURN_MACADDR8_P`: PostgreSQL macro for returning macaddr8 values
   - `ereturn`: PostgreSQL error reporting function for invalid input
-  - `palloc0`: PostgreSQL memory allocation function
+  - `[palloc0](../p/palloc0.md)`: PostgreSQL memory allocation function
 - Called from:
   - PostgreSQL type system (automatically called for string-to-macaddr8 conversions)
 

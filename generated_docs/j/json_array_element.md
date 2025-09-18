@@ -24,7 +24,7 @@ The function handles negative indices and out-of-bounds access by returning NULL
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Retrieves text argument from function call
   - PG_GETARG_INT32: Retrieves 32-bit integer argument from function call
-  - get_worker: Generic JSON processing function that handles array element extraction
+  - [get_worker](../g/get_worker.md): Generic JSON processing function that handles array element extraction
   - PG_RETURN_TEXT_P: Returns text result from function
   - PG_RETURN_NULL: Returns NULL result from function
 - Called from (representative examples):

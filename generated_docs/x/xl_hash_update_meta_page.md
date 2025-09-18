@@ -22,9 +22,9 @@ The operation involves 1 backup block:
 - Functions called/Symbols referenced:
   - double (type)
 - Called from (representative examples):
-  - hashbulkdelete (hash bulk deletion function)
-  - hash_xlog_update_meta_page (WAL replay function for metapage updates)
-  - hash_desc (hash WAL record description function)
+  - [hashbulkdelete](../h/hashbulkdelete.md) (hash bulk deletion function)
+  - [hash_xlog_update_meta_page](../h/hash_xlog_update_meta_page.md) (WAL replay function for metapage updates)
+  - [hash_desc](../h/hash_desc.md) (hash WAL record description function)
   - SizeOfHashUpdateMetaPage (macro for calculating structure size)
 
 ## Notes and Other Information

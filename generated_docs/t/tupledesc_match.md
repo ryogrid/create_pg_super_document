@@ -25,13 +25,13 @@ When mismatches are detected, the function generates detailed error messages tha
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro to access tuple descriptor attributes)
-  - IsBinaryCoercible (to check type compatibility through binary coercion)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (to check type compatibility through binary coercion)
   - ereport (for error reporting)
-  - errdetail_plural (for pluralized error details)
-  - format_type_be (to format type names in error messages)
+  - [errdetail_plural](../e/errdetail_plural.md) (for pluralized error details)
+  - [format_type_be](../f/format_type_be.md) (to format type names in error messages)
 - Called from (representative examples):
-  - ExecMakeTableFunctionResult (for table function result validation)
-  - ExecPrepareTuplestoreResult (for tuplestore-based result validation)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md) (for table function result validation)
+  - [ExecPrepareTuplestoreResult](../E/ExecPrepareTuplestoreResult.md) (for tuplestore-based result validation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the execSRF.c compilation unit

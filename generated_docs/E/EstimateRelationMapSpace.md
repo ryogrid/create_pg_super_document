@@ -19,10 +19,10 @@ This function takes no parameters and returns a Size value representing the requ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializedActiveRelMaps (type reference)
+  - [SerializedActiveRelMaps](../S/SerializedActiveRelMaps.md) (type reference)
 - Called from (representative examples):
-  - InitializeParallelDSM (at src/backend/access/transam/parallel.c:286)
-  - SerializeRelationMap (at src/backend/utils/cache/relmapper.c:728)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (at src/backend/access/transam/parallel.c:286)
+  - [SerializeRelationMap](../S/SerializeRelationMap.md) (at src/backend/utils/cache/relmapper.c:728)
 
 ## Notes and Other Information
 - Returns a fixed size based on the SerializedActiveRelMaps structure

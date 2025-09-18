@@ -28,14 +28,14 @@ The function performs input validation by checking for null context and then use
   - pg_sha384_update
   - pg_sha512_update
   - PG_MD5, PG_SHA1, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512 (enum constants)
-  - pg_cryptohash_ctx (context structure)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (context structure)
 - Called from (representative examples):
-  - AppendStringToManifest
-  - scram_mock_salt
-  - cryptohash_internal
+  - [AppendStringToManifest](../A/AppendStringToManifest.md)
+  - [scram_mock_salt](../s/scram_mock_salt.md)
+  - [cryptohash_internal](../c/cryptohash_internal.md)
   - pg_checksum_update
-  - pg_hmac_update
-  - pg_md5_hash
+  - [pg_hmac_update](pg_hmac_update.md)
+  - [pg_md5_hash](pg_md5_hash.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (currently only fails if ctx is NULL)

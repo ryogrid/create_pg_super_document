@@ -33,19 +33,19 @@ The function handles special join types including semi-joins, anti-joins, and un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - innerrel_is_unique
-  - select_mergejoin_clauses
-  - compute_semi_anti_join_factors
-  - sort_inner_and_outer
-  - match_unsorted_outer
-  - hash_inner_and_outer
-  - bms_is_subset
-  - bms_overlap
-  - bms_join
-  - bms_difference
-  - bms_add_members
+  - [innerrel_is_unique](../i/innerrel_is_unique.md)
+  - [select_mergejoin_clauses](../s/select_mergejoin_clauses.md)
+  - [compute_semi_anti_join_factors](../c/compute_semi_anti_join_factors.md)
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md)
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
+  - [hash_inner_and_outer](../h/hash_inner_and_outer.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_join](../b/bms_join.md)
+  - [bms_difference](../b/bms_difference.md)
+  - [bms_add_members](../b/bms_add_members.md)
 - Called from (representative examples):
-  - populate_joinrel_with_paths
+  - [populate_joinrel_with_paths](../p/populate_joinrel_with_paths.md)
 
 ## Notes and Other Information
 The function supports special JoinTypes JOIN_UNIQUE_OUTER and JOIN_UNIQUE_INNER which indicate that a relation should be unique-ified before applying a regular inner join. These values are internal to this module and don't propagate outside.

@@ -27,23 +27,23 @@ The function determines whether to query the primary key or foreign key table ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_ExtractValues
-  - ri_ReportViolation
+  - [ri_ExtractValues](ri_ExtractValues.md)
+  - [ri_ReportViolation](ri_ReportViolation.md)
   - IsolationUsesXactSnapshot
   - CommandCounterIncrement
   - GetLatestSnapshot
   - GetTransactionSnapshot
-  - GetUserIdAndSecContext
-  - SetUserIdAndSecContext
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
   - RelationGetForm
-  - SPI_execute_snapshot
-  - SPI_result_code_string
+  - [SPI_execute_snapshot](../S/SPI_execute_snapshot.md)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
 - Called from (representative examples):
-  - ri_Check_Pk_Match
-  - ri_restrict
-  - RI_FKey_cascade_del
-  - RI_FKey_cascade_upd
-  - ri_set
+  - [ri_Check_Pk_Match](ri_Check_Pk_Match.md)
+  - [ri_restrict](ri_restrict.md)
+  - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md)
+  - [RI_FKey_cascade_upd](../R/RI_FKey_cascade_upd.md)
+  - [ri_set](ri_set.md)
 
 ## Notes and Other Information
 - Handles snapshot management differently based on isolation level to ensure consistency

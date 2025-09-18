@@ -19,12 +19,12 @@ ExecSeqScan serves as the primary execution interface for sequential scan operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecScan
-  - SeqNext
-  - SeqRecheck
-  - SeqScanState (via castNode)
+  - [ExecScan](ExecScan.md)
+  - [SeqNext](../S/SeqNext.md)
+  - [SeqRecheck](../S/SeqRecheck.md)
+  - [SeqScanState](../S/SeqScanState.md) (via castNode)
 - Called from (representative examples):
-  - ExecInitSeqScan
+  - [ExecInitSeqScan](ExecInitSeqScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeSeqscan.c

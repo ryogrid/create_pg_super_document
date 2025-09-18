@@ -33,16 +33,16 @@ Note that this function only examines the low character map, as there should not
 ## Dependencies
 - Functions called/Symbols referenced:
   - regex_t (regular expression structure type)
-  - colormap (color mapping structure)
-  - chr (character type)
+  - [colormap](../c/colormap.md) (color mapping structure)
+  - [chr](../c/chr.md) (character type)
   - REMAGIC (magic number constant for regex validation)
-  - guts (internal regex data structure)
+  - [guts](../g/guts.md) (internal regex data structure)
   - PSEUDO (flag indicating pseudocolors)
   - MAX_SIMPLE_CHR (maximum simple character code)
   - CHR_MIN (minimum character code)
 
 - Called from (representative examples):
-  - regex_arc_t (referenced in regexport.h)
+  - [regex_arc_t](../r/regex_arc_t.md) (referenced in regexport.h)
 
 ## Notes and Other Information
 - This function is part of PostgreSQLs regex export API, designed to provide introspection into compiled regular expressions

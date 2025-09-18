@@ -23,13 +23,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ModifyWaitEvent (updates wait event set with new latch)
-  - SetLatch (sets the shared latch state)
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md) (updates wait event set with new latch)
+  - [SetLatch](SetLatch.md) (sets the shared latch state)
   - WL_LATCH_SET (wait event type constant)
 
 - Called from (representative examples):
   - InitProcess
-  - InitAuxiliaryProcess
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md)
 
 ## Notes and Other Information
 - Asserts that the current latch is the local latch (LocalLatchData) before switching

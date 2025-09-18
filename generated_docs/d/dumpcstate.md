@@ -32,7 +32,7 @@ The output format includes:
   - RAINBOW
   - struct carc
 - Called from (representative examples):
-  - dumpcnfa (in regc_nfa.c:3849)
+  - [dumpcnfa](dumpcnfa.md) (in regc_nfa.c:3849)
   - REPLACEARC (in regcomp.c:241)
 
 ## Notes and Other Information

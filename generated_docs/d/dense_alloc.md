@@ -25,7 +25,7 @@ The allocation strategy maintains a linked list of memory chunks, with the most 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (for memory alignment)
-  - MemoryContextAlloc (for chunk allocation from batchCxt)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for chunk allocation from batchCxt)
   - HASH_CHUNK_DATA (macro to access chunk data area)
   - HASH_CHUNK_THRESHOLD (size threshold for large allocations)
   - HASH_CHUNK_HEADER_SIZE (header size for chunks)

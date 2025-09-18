@@ -33,12 +33,12 @@ Unlike the  function,  treats the type modifier () as the maximum allowed length
   - VARBITMAXLEN (maximum allowed bit string length constant)
   - ereturn (soft error return with context)
   - VARBITTOTALLEN (calculate total allocation size for bit string)
-  - palloc0 (allocate zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocate zero-initialized memory)
   - SET_VARSIZE (set PostgreSQL variable-size header)
   - VARBITLEN (set bit string length)
   - VARBITS (get pointer to bit data)
   - HIGHBIT (high-order bit constant for parsing)
-  - pg_mblen (multibyte character length for error reporting)
+  - [pg_mblen](../p/pg_mblen.md) (multibyte character length for error reporting)
   - PG_RETURN_VARBIT_P (return VarBit result)
 - Called from (representative examples):
   - PostgreSQL's type system during input conversion

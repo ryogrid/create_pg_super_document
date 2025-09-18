@@ -21,9 +21,9 @@ The  function is a PostgreSQL built-in function that checks if a given element v
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
-  - range_contains_elem_internal
+  - [range_contains_elem_internal](../r/range_contains_elem_internal.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL's function dispatch system)

@@ -30,9 +30,9 @@ The validation rules enforced are:
   - OBJFILTER_TABLE (filter flag for specific tables)
   - OBJFILTER_SCHEMA (filter flag for schema-based filtering)
   - OBJFILTER_SCHEMA_EXCLUDE (filter flag for schema exclusion)
-  - pg_fatal (error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting function)
 - Called from (representative examples):
-  - main (vacuumdb main function)
+  - [main](../m/main.md) (vacuumdb main function)
   - VacObjFilter (object filter processing)
 
 ## Notes and Other Information

@@ -21,11 +21,11 @@ This function is responsible for executing array slice assignment operations wit
 - Functions called/Symbols referenced:
   - ExprEvalStep (struct)
   - SubscriptingRefState (struct)
-  - ArraySubWorkspace (struct)  
-  - construct_empty_array
-  - array_set_slice
+  - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)  
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [array_set_slice](array_set_slice.md)
 - Called from (representative examples):
-  - array_exec_setup
+  - [array_exec_setup](array_exec_setup.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the array subscripting implementation

@@ -27,12 +27,12 @@ The function optimizes for the common case where no projection is needed (when t
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlan
-  - ExecCheckPlanOutput
-  - table_slot_create
+  - [ExecCheckPlanOutput](ExecCheckPlanOutput.md)
+  - [table_slot_create](../t/table_slot_create.md)
   - ExecAssignExprContext
-  - ExecBuildProjectionInfo
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
 - Called from (representative examples):
-  - ExecModifyTable
+  - [ExecModifyTable](ExecModifyTable.md)
 
 ## Notes and Other Information
 - This is a static function only used within nodeModifyTable.c during ModifyTable node initialization

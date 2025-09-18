@@ -22,17 +22,17 @@ This function serves as the entry point for heap table scanning operations. It a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationIncrementReferenceCount
-  - palloc
+  - [RelationIncrementReferenceCount](../R/RelationIncrementReferenceCount.md)
+  - [palloc](../p/palloc.md)
   - IsMVCCSnapshot
-  - PredicateLockRelation
+  - [PredicateLockRelation](../P/PredicateLockRelation.md)
   - RelationGetRelid
-  - initscan
+  - [initscan](../i/initscan.md)
   - read_stream_begin_relation
-  - heap_scan_stream_read_next_parallel
-  - heap_scan_stream_read_next_serial
+  - [heap_scan_stream_read_next_parallel](heap_scan_stream_read_next_parallel.md)
+  - [heap_scan_stream_read_next_serial](heap_scan_stream_read_next_serial.md)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

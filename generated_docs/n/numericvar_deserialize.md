@@ -22,13 +22,13 @@ The function uses alloc_var to properly allocate memory for the digit array base
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint (for reading ndigits, weight, sign, dscale fields and digit values)
-  - alloc_var (for allocating memory for the NumericVar structure)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (for reading ndigits, weight, sign, dscale fields and digit values)
+  - [alloc_var](../a/alloc_var.md) (for allocating memory for the NumericVar structure)
 - Called from (representative examples):
-  - numeric_avg_deserialize
-  - numeric_deserialize
-  - numeric_poly_deserialize
-  - int8_avg_deserialize
+  - [numeric_avg_deserialize](numeric_avg_deserialize.md)
+  - [numeric_deserialize](numeric_deserialize.md)
+  - [numeric_poly_deserialize](numeric_poly_deserialize.md)
+  - [int8_avg_deserialize](../i/int8_avg_deserialize.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c file

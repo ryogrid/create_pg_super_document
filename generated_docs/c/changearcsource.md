@@ -22,7 +22,7 @@ The changearcsource function modifies an existing arc to have a different source
 - Functions called/Symbols referenced:
   - (No external function calls - only direct structure manipulation)
 - Called from (representative examples):
-  - moveouts (when moving outgoing arcs between states)
+  - [moveouts](../m/moveouts.md) (when moving outgoing arcs between states)
 
 ## Notes and Other Information
 - Caller must verify that no duplicate arc will be created by this operation

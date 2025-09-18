@@ -29,11 +29,11 @@ The UserMapping structure represents the association between a PostgreSQL user a
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)
-  - List (PostgreSQL list structure)
-  - DefElem (option definition element)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [DefElem](../D/DefElem.md) (option definition element)
 - Called from (representative examples):
-  - GetUserMapping
-  - GetForeignServerByName
+  - [GetUserMapping](../G/GetUserMapping.md)
+  - [GetForeignServerByName](../G/GetForeignServerByName.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/foreign/foreign.h and is essential for FDW authentication

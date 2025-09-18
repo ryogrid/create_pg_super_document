@@ -23,13 +23,13 @@ The function creates a new TargetEntry node using PostgreSQL's node allocation s
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)
-  - TargetEntry (node type being created)
+  - [TargetEntry](../T/TargetEntry.md) (node type being created)
   - InvalidOid (constant for invalid object identifier)
 - Called from (representative examples):
-  - transformTargetEntry (parser)
-  - build_physical_tlist (optimizer)
-  - add_to_flat_tlist (optimizer utilities)
-  - rewriteTargetListIU (rewriter)
+  - [transformTargetEntry](../t/transformTargetEntry.md) (parser)
+  - [build_physical_tlist](../b/build_physical_tlist.md) (optimizer)
+  - [add_to_flat_tlist](../a/add_to_flat_tlist.md) (optimizer utilities)
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md) (rewriter)
 
 ## Notes and Other Information
 - The function automatically initializes , , and  to 0/InvalidOid, requiring explicit modification by callers when these values are needed

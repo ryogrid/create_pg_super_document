@@ -22,10 +22,10 @@ This function is used in various PostgreSQL subsystems for determining age relat
 - Functions called/Symbols referenced:
   - MultiXactId (type)
 - Called from (representative examples):
-  - heap_tuple_should_freeze
-  - heap_vacuum_rel
-  - TruncateMultiXact
-  - vacuum_get_cutoffs
+  - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
 
 ## Notes and Other Information
 - The function uses signed 32-bit arithmetic to handle wrap-around in the MultiXact ID space

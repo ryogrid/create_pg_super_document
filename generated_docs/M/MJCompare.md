@@ -26,8 +26,8 @@ The function assumes that MJEvalOuterValues and MJEvalInnerValues have already b
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext
-  - MemoryContextSwitchTo
-  - ApplySortComparator
+  - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
 - Called from:
   - ExecMergeJoin (multiple call sites)
 

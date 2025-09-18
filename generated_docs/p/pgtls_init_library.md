@@ -24,8 +24,8 @@ The function is designed to be called early in application startup, typically th
   - pq_init_ssl_lib (global variable)
   - pq_init_crypto_lib (global variable)
 - Called from (representative examples):
-  - PQinitSSL (in fe-secure.c:118)
-  - PQinitOpenSSL (in fe-secure.c:130)
+  - [PQinitSSL](../P/PQinitSSL.md) (in fe-secure.c:118)
+  - [PQinitOpenSSL](../P/PQinitOpenSSL.md) (in fe-secure.c:130)
   - pgunlock_thread (referenced in libpq-int.h:788)
 
 ## Notes and Other Information

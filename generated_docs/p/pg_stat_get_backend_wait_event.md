@@ -19,15 +19,15 @@ This function retrieves the specific wait event name for a backend process ident
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_beentry_by_proc_number
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md)
   - HAS_PGSTAT_PERMISSIONS
   - BackendPidGetProc
-  - pgstat_get_wait_event
+  - [pgstat_get_wait_event](pgstat_get_wait_event.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
 - Data types used:
-  - PgBackendStatus
-  - PGPROC
+  - [PgBackendStatus](../P/PgBackendStatus.md)
+  - [PGPROC](../P/PGPROC.md)
 
 ## Notes and Other Information
 - Returns NULL if no specific wait event is available

@@ -22,12 +22,12 @@ tfuncFetchRows is responsible for fetching all rows from a table function (such 
 - Functions called/Symbols referenced:
   - tuplestore_begin_heap
   - ExecEvalExpr
-  - tfuncInitialize
-  - tfuncLoadRows
+  - [tfuncInitialize](tfuncInitialize.md)
+  - [tfuncLoadRows](tfuncLoadRows.md)
   - PG_TRY/PG_CATCH/PG_RE_THROW/PG_END_TRY
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - TableFuncNext
+  - [TableFuncNext](../T/TableFuncNext.md)
 
 ## Notes and Other Information
 - Uses per-table memory context to manage potentially large memory allocations

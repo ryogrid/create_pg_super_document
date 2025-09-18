@@ -19,13 +19,13 @@ This accent removal is crucial for proper French stemming because many French wo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping_b: Moves cursor backward while characters are outside the vowel group g_v
-  - slice_from_s: Replaces the selected text slice with the string s_32 (containing 'e')
+  - [out_grouping_b](../o/out_grouping_b.md): Moves cursor backward while characters are outside the vowel group g_v
+  - [slice_from_s](../s/slice_from_s.md): Replaces the selected text slice with the string s_32 (containing 'e')
   - g_v: Vowel grouping definition for French characters (range 97-251)
   - s_32: String constant containing the replacement character 'e'
 - Called from (representative examples):
-  - french_ISO_8859_1_stem: Main French stemming function for ISO-8859-1 encoding
-  - french_UTF_8_stem: Main French stemming function for UTF-8 encoding
+  - [french_ISO_8859_1_stem](../f/french_ISO_8859_1_stem.md): Main French stemming function for ISO-8859-1 encoding
+  - [french_UTF_8_stem](../f/french_UTF_8_stem.md): Main French stemming function for UTF-8 encoding
 
 ## Notes and Other Information
 This function operates specifically on ISO-8859-1 encoded text where é is represented as 0xE9 and è as 0xE8. The function is part of the postlude phase of French stemming and works alongside other normalization functions like r_un_double. The accent removal only occurs when the accented character follows a consonant, preserving accent patterns that are linguistically significant in other contexts.

@@ -21,14 +21,14 @@ This function provides a mechanism for registering cleanup callbacks that will b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - ExprContext_CB (structure type)
 - Called from (representative examples):
-  - ExecMakeFunctionResultSet
-  - ExecPrepareTuplestoreResult
-  - fmgr_sql
-  - AggRegisterCallback
-  - init_MultiFuncCall
+  - [ExecMakeFunctionResultSet](../E/ExecMakeFunctionResultSet.md)
+  - [ExecPrepareTuplestoreResult](../E/ExecPrepareTuplestoreResult.md)
+  - [fmgr_sql](../f/fmgr_sql.md)
+  - [AggRegisterCallback](../A/AggRegisterCallback.md)
+  - [init_MultiFuncCall](../i/init_MultiFuncCall.md)
 
 ## Notes and Other Information
 - Callbacks are executed in LIFO (last-in, first-out) order during cleanup

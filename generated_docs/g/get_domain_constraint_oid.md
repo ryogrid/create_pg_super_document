@@ -23,16 +23,16 @@ Domain constraints are check constraints that are applied to domain types, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - CStringGetDatum
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_constraint
-  - format_type_be (for error reporting)
+  - [format_type_be](../f/format_type_be.md) (for error reporting)
 - Called from (representative examples):
-  - get_object_address
-  - rename_constraint_internal
-  - ConstraintCategory
+  - [get_object_address](get_object_address.md)
+  - [rename_constraint_internal](../r/rename_constraint_internal.md)
+  - [ConstraintCategory](../C/ConstraintCategory.md)
 
 ## Notes and Other Information
 - The function uses three scan keys: conrelid (set to InvalidOid for domain constraints), contypid (the domain's OID), and conname

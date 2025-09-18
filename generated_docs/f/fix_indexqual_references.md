@@ -28,12 +28,12 @@ The function processes each IndexClause in the index path, iterating through the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_indexqual_clause
-  - IndexPath (struct type)
-  - IndexOptInfo (struct type)  
+  - [fix_indexqual_clause](fix_indexqual_clause.md)
+  - [IndexPath](../I/IndexPath.md) (struct type)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (struct type)  
   - IndexClause (struct type)
 - Called from (representative examples):
-  - create_indexscan_plan
+  - [create_indexscan_plan](../c/create_indexscan_plan.md)
 
 ## Notes and Other Information
 This function is a key component in the index scan plan creation process, bridging the gap between the optimizer's representation of index qualifications and the executor's requirements. The comment indicates that parameter replacement responsibility may be moved elsewhere in future versions. The function ensures that both the original and transformed versions of qualifications are available, which is important for various execution scenarios. The complete copying of substructure prevents issues with shared subplan trees during execution. Located in src/backend/optimizer/plan/createplan.c at lines 5023-5063.

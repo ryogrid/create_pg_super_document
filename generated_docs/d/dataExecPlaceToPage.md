@@ -29,12 +29,12 @@ The function is designed to be called with XLOG record creation already initiali
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinPageIsLeaf
-  - dataExecPlaceToPageLeaf
-  - dataExecPlaceToPageInternal
-  - GinBtree (struct)
-  - GinBtreeStack (struct)
+  - [dataExecPlaceToPageLeaf](dataExecPlaceToPageLeaf.md)
+  - [dataExecPlaceToPageInternal](dataExecPlaceToPageInternal.md)
+  - [GinBtree](../G/GinBtree.md) (struct)
+  - [GinBtreeStack](../G/GinBtreeStack.md) (struct)
 - Called from:
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - This function serves as a type dispatcher for the execution phase of insertion operations

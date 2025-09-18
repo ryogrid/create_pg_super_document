@@ -34,17 +34,17 @@ Lock acquisition occurs before processing the FROM list to ensure write locks ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
-  - ParseNamespaceItem
-  - scanNameSpaceForENR
-  - parserOpenTable
-  - addRangeTableEntryForRelation
-  - addNSItemToQuery
+  - [RangeVar](../R/RangeVar.md)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [scanNameSpaceForENR](scanNameSpaceForENR.md)
+  - [parserOpenTable](../p/parserOpenTable.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
 - Called from (representative examples):
-  - transformDeleteStmt
-  - transformInsertStmt
-  - transformUpdateStmt
-  - transformMergeStmt
+  - [transformDeleteStmt](../t/transformDeleteStmt.md)
+  - [transformInsertStmt](../t/transformInsertStmt.md)
+  - [transformUpdateStmt](../t/transformUpdateStmt.md)
+  - [transformMergeStmt](../t/transformMergeStmt.md)
 
 ## Notes and Other Information
 - Must be called before processing the FROM list to ensure proper lock ordering

@@ -26,12 +26,12 @@ The validation process includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - heap_attisnull
-  - SysCacheGetAttrNotNull
-  - list_free
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
 
 ## Notes and Other Information
 - Returns InvalidOid and raises ERROR if no suitable unique index is found

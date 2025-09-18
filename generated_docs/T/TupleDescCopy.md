@@ -20,8 +20,8 @@ This function performs a flat copy of a tuple descriptor into pre-allocated memo
 - Functions called/Symbols referenced:
   - TupleDescSize
 - Called from (representative examples):
-  - index_truncate_tuple
-  - share_tupledesc
+  - [index_truncate_tuple](../i/index_truncate_tuple.md)
+  - [share_tupledesc](../s/share_tupledesc.md)
 
 ## Notes and Other Information
 - Does NOT copy constraints, defaults, or missing values (explicitly cleared)

@@ -21,10 +21,10 @@ Extensions typically call this function after defining all their custom GUC vari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - hash_search
-  - RemoveGUCFromLists
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_search](../h/hash_search.md)
+  - [RemoveGUCFromLists](../R/RemoveGUCFromLists.md)
   - GUCHashEntry
   - config_generic
   - HASH_SEQ_STATUS
@@ -32,12 +32,12 @@ Extensions typically call this function after defining all their custom GUC vari
   - GUC_QUALIFIER_SEPARATOR
   - HASH_REMOVE
 - Called from (representative examples):
-  - _PG_init (plperl.c:456)
-  - _PG_init (pltcl.c:480, pltcl.c:481)
-  - _PG_init (delay_execution.c:90)
-  - _PG_init (ssl_passphrase_func.c:49)
-  - _PG_init (test_oat_hooks.c:211)
-  - _PG_init (worker_spi.c:363)
+  - [_PG_init](../P/_PG_init.md) (plperl.c:456)
+  - [_PG_init](../P/_PG_init.md) (pltcl.c:480, pltcl.c:481)
+  - [_PG_init](../P/_PG_init.md) (delay_execution.c:90)
+  - [_PG_init](../P/_PG_init.md) (ssl_passphrase_func.c:49)
+  - [_PG_init](../P/_PG_init.md) (test_oat_hooks.c:211)
+  - [_PG_init](../P/_PG_init.md) (worker_spi.c:363)
 
 ## Notes and Other Information
 This function should be called after an extension has finished defining all its custom GUC variables, typically at the end of the _PG_init function. The reserved prefix string is duplicated and stored in GUCMemoryContext, so it persists for the lifetime of the process. The function generates warnings when removing existing placeholders, alerting administrators to potential configuration errors. The prefix matching includes the GUC_QUALIFIER_SEPARATOR (typically '.'), so reserving "myext" prevents placeholders like "myext.anything" but not "myextother.setting".

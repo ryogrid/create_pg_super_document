@@ -18,13 +18,13 @@ report_json_context creates detailed context information for JSON error reportin
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
-  - pg_mblen
-  - palloc
+  - [pg_mblen](../p/pg_mblen.md)
+  - [palloc](../p/palloc.md)
   - memcpy
   - errcontext
   - JSON_TOKEN_END
 - Called from (representative examples):
-  - json_errsave_error (multiple call sites)
+  - [json_errsave_error](../j/json_errsave_error.md) (multiple call sites)
   - JsObjectFree
 
 ## Notes and Other Information

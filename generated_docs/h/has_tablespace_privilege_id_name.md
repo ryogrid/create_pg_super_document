@@ -28,9 +28,9 @@ This variant combines the efficiency of OID-based user identification with name-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_tablespace_name (converts tablespace name to OID)
-  - convert_tablespace_priv_string (converts privilege string to AclMode)
-  - object_aclcheck (performs the standard privilege check)
+  - [convert_tablespace_name](../c/convert_tablespace_name.md) (converts tablespace name to OID)
+  - [convert_tablespace_priv_string](../c/convert_tablespace_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck](../o/object_aclcheck.md) (performs the standard privilege check)
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)
 

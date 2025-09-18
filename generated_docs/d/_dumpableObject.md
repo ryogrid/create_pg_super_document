@@ -32,9 +32,9 @@ The structure manages three key aspects: object identification through catalog I
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObjectType
-  - CatalogId
+  - [CatalogId](../C/CatalogId.md)
   - DumpId
-  - _namespaceInfo
+  - [_namespaceInfo](../n/_namespaceInfo.md)
   - DumpComponents
 - Called from (representative examples):
   - Used as base structure for all specific dumpable object types

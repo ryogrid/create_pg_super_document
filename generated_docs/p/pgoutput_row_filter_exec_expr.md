@@ -19,7 +19,7 @@ This function evaluates row filter expressions in the context of logical replica
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalExprSwitchContext
-  - DatumGetBool (macro)
+  - [DatumGetBool](../D/DatumGetBool.md) (macro)
   - elog
   - Assert (macro)
   - DEBUG3 (log level constant)
@@ -27,7 +27,7 @@ This function evaluates row filter expressions in the context of logical replica
   - ExprContext (type)
   - Datum (type)
 - Called from (representative examples):
-  - pgoutput_row_filter (multiple times for different filtering scenarios)
+  - [pgoutput_row_filter](pgoutput_row_filter.md) (multiple times for different filtering scenarios)
 
 ## Notes and Other Information
 The function includes debug logging at level DEBUG3 to help troubleshoot row filtering behavior, showing both the evaluation result and whether it was NULL. The NULL-as-false semantics are important for replication consistency - when a filter expression cannot be evaluated (returns NULL), the safest approach is to exclude the change rather than risk replicating inappropriate data. The function uses ExecEvalExprSwitchContext which handles memory context switching for safe expression evaluation in the replication context.

@@ -19,20 +19,20 @@ This function deserializes a BrinTuple from its on-disk storage format into a Br
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_memtuple_initialize (initializes memory tuple structure)
-  - brin_new_memtuple (allocates new memory tuple if needed)
+  - [brin_memtuple_initialize](brin_memtuple_initialize.md) (initializes memory tuple structure)
+  - [brin_new_memtuple](brin_new_memtuple.md) (allocates new memory tuple if needed)
   - BrinTupleIsPlaceholder (checks if tuple is a placeholder)
   - BrinTupleIsEmptyRange (checks if tuple represents empty range)
   - BrinTupleHasNulls (checks for null values in tuple)
   - BrinTupleDataOffset (calculates data offset in tuple)
   - SizeOfBrinTuple (gets base tuple size)
-  - brin_deconstruct_tuple (extracts values from disk format)
-  - datumCopy (copies datum values)
-  - MemoryContextSwitchTo (manages memory contexts)
+  - [brin_deconstruct_tuple](brin_deconstruct_tuple.md) (extracts values from disk format)
+  - [datumCopy](../d/datumCopy.md) (copies datum values)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (manages memory contexts)
 - Called from (representative examples):
-  - brininsert
-  - bringetbitmap  
-  - union_tuples
+  - [brininsert](brininsert.md)
+  - [bringetbitmap](bringetbitmap.md)  
+  - [union_tuples](../u/union_tuples.md)
   - brin_parallel_merge
   - BrinTupleIsEmptyRange
 

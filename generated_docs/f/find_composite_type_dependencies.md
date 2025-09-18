@@ -25,19 +25,19 @@ The function includes stack depth checking to prevent infinite recursion and use
 - Functions called/Symbols referenced:
   - check_stack_depth
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - relation_open
-  - relation_close
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - RELKIND_HAS_STORAGE
   - RELKIND_HAS_PARTITIONS
   - Form_pg_depend
 - Called from (representative examples):
-  - ATRewriteTables
-  - ATPrepAlterColumnType
-  - get_rels_with_domain
+  - [ATRewriteTables](../A/ATRewriteTables.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
+  - [get_rels_with_domain](../g/get_rels_with_domain.md)
 
 ## Notes and Other Information
 - The function name is somewhat historical; it handles not just composite types but any container type including arrays, ranges, and domains

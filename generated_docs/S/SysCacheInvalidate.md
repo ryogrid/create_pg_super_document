@@ -19,9 +19,9 @@ SysCacheInvalidate removes cached entries from a system catalog cache that match
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - CatCacheInvalidate
+  - [CatCacheInvalidate](../C/CatCacheInvalidate.md)
 - Called from (representative examples):
-  - LocalExecuteInvalidationMessage
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
   - Referenced in syscache.h header
 
 ## Notes and Other Information

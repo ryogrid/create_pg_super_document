@@ -23,17 +23,17 @@ This flexible approach allows extensions to store their script files in custom l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtensionControlFile (structure type)
-  - get_extension_control_directory (returns default extension directory)
+  - [ExtensionControlFile](../E/ExtensionControlFile.md) (structure type)
+  - [get_extension_control_directory](get_extension_control_directory.md) (returns default extension directory)
   - is_absolute_path (checks if path is absolute)
-  - get_share_path (PostgreSQL path utility function)
-  - pstrdup (PostgreSQL string duplication function)
-  - palloc (PostgreSQL memory allocation function)
+  - [get_share_path](get_share_path.md) (PostgreSQL path utility function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - snprintf (standard C library function)
 - Called from (representative examples):
-  - get_extension_aux_control_filename
-  - get_extension_script_filename
-  - get_ext_ver_list
+  - [get_extension_aux_control_filename](get_extension_aux_control_filename.md)
+  - [get_extension_script_filename](get_extension_script_filename.md)
+  - [get_ext_ver_list](get_ext_ver_list.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the src/backend/commands/extension.c file

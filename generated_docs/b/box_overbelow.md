@@ -20,14 +20,14 @@ The function uses PostgreSQL's function call interface (PG_FUNCTION_ARGS) and re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type structure)
+  - [BOX](../B/BOX.md) (data type structure)
   - PG_GETARG_BOX_P (macro for extracting box arguments)
-  - FPle (floating-point less-than-or-equal comparison)
+  - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison)
   - PG_RETURN_BOOL (macro for returning boolean results)
 - Called from (representative examples):
-  - gist_box_leaf_consistent (GiST index consistency checking)
-  - rtree_internal_consistent (R-tree index consistency checking)
-  - spg_box_quad_leaf_consistent (SP-GiST index consistency checking)
+  - [gist_box_leaf_consistent](../g/gist_box_leaf_consistent.md) (GiST index consistency checking)
+  - [rtree_internal_consistent](../r/rtree_internal_consistent.md) (R-tree index consistency checking)
+  - [spg_box_quad_leaf_consistent](../s/spg_box_quad_leaf_consistent.md) (SP-GiST index consistency checking)
 
 ## Notes and Other Information
 - This function is primarily used in spatial indexing operations, particularly in GiST and SP-GiST index implementations

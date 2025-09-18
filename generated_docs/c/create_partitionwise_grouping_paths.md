@@ -30,17 +30,17 @@ The function iterates through each live partition of the input relation, creates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
+  - [bms_next_member](../b/bms_next_member.md)
   - IS_DUMMY_REL
-  - copy_pathtarget
-  - find_appinfos_by_relids
-  - adjust_appendrel_attrs
-  - make_grouping_rel
-  - create_ordinary_grouping_paths
-  - set_cheapest
-  - add_paths_to_append_rel
+  - [copy_pathtarget](copy_pathtarget.md)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md)
+  - [adjust_appendrel_attrs](../a/adjust_appendrel_attrs.md)
+  - [make_grouping_rel](../m/make_grouping_rel.md)
+  - [create_ordinary_grouping_paths](create_ordinary_grouping_paths.md)
+  - [set_cheapest](../s/set_cheapest.md)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md)
 - Called from (representative examples):
-  - create_ordinary_grouping_paths
+  - [create_ordinary_grouping_paths](create_ordinary_grouping_paths.md)
 
 ## Notes and Other Information
 - The function only processes live (non-dummy) partitions to avoid unnecessary work

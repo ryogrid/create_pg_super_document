@@ -22,8 +22,8 @@ This function performs a widening conversion from a signed 64-bit integer to a 1
 - Functions called/Symbols referenced:
   - INT128 (type definition)
 - Called from (representative examples):
-  - interval_cmp_value (in src/backend/utils/adt/timestamp.c:2496)
-  - interval_sign (in src/backend/utils/adt/timestamp.c:2517)
+  - [interval_cmp_value](interval_cmp_value.md) (in src/backend/utils/adt/timestamp.c:2496)
+  - [interval_sign](interval_sign.md) (in src/backend/utils/adt/timestamp.c:2517)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for optimal performance

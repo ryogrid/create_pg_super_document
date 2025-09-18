@@ -19,11 +19,11 @@ The cleanup follows a specific order: downstream streamers are freed first, then
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_free
+  - [bbstreamer_free](bbstreamer_free.md)
   - LZ4F_freeCompressionContext
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - bbstreamer operation table (via function pointer)
+  - [bbstreamer](bbstreamer.md) operation table (via function pointer)
 
 ## Notes and Other Information
 - Must be called to prevent memory leaks

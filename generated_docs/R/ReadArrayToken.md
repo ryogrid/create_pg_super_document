@@ -43,13 +43,13 @@ Key features:
 - Functions called/Symbols referenced:
   - resetStringInfo
   - appendStringInfoChar
-  - scanner_isspace
-  - pg_strcasecmp
+  - [scanner_isspace](../s/scanner_isspace.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - ereturn
   - Array_nulls (global variable)
   - ArrayToken enum values (ATOK_*)
 - Called from (representative examples):
-  - ReadArrayStr
+  - [ReadArrayStr](ReadArrayStr.md)
 
 ## Notes and Other Information
 - Static function internal to arrayfuncs.c

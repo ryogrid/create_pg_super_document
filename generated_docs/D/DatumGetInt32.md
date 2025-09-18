@@ -19,12 +19,12 @@ DatumGetInt32 is a static inline function that converts a PostgreSQL Datum value
 - Functions called/Symbols referenced:
   - (None - simple cast operation)
 - Called from (representative examples):
-  - printsimple (src/backend/access/common/printsimple.c:104)
-  - collectMatchBitmap (src/backend/access/gin/ginget.c:193)
-  - ExecInterpExpr (src/backend/executor/execExprInterp.c:1417, 1427)
-  - array_cmp (src/backend/utils/adt/arrayfuncs.c:4070)
+  - [printsimple](../p/printsimple.md) (src/backend/access/common/printsimple.c:104)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md) (src/backend/access/gin/ginget.c:193)
+  - [ExecInterpExpr](../E/ExecInterpExpr.md) (src/backend/executor/execExprInterp.c:1417, 1427)
+  - [array_cmp](../a/array_cmp.md) (src/backend/utils/adt/arrayfuncs.c:4070)
   - PG_GETARG_INT32 macro (src/include/fmgr.h:269)
-  - ApplyInt32SortComparator (src/include/utils/sortsupport.h:326-327)
+  - [ApplyInt32SortComparator](../A/ApplyInt32SortComparator.md) (src/include/utils/sortsupport.h:326-327)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/postgres.h, making it widely available throughout PostgreSQL

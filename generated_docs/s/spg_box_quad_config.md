@@ -28,7 +28,7 @@ This configuration enables efficient spatial queries on box data types using qua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (type)
+  - [spgConfigOut](spgConfigOut.md) (type)
   - PG_RETURN_VOID (macro)
   - PG_GETARG_POINTER (implied macro usage)
   - BOXOID (constant)

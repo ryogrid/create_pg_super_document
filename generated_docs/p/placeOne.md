@@ -30,15 +30,15 @@ This function determines the optimal placement for a single don't-care tuple by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (structure type)
-  - GistSplitVector (structure type)
-  - GISTENTRY (structure type)
+  - [GISTSTATE](../G/GISTSTATE.md) (structure type)
+  - [GistSplitVector](../G/GistSplitVector.md) (structure type)
+  - [GISTENTRY](../G/GISTENTRY.md) (structure type)
   - INDEX_MAX_KEYS (constant for maximum index keys)
   - gistDeCompressAtt (decompresses tuple attributes)
   - gistentryinit (initializes GISTENTRY structures)
-  - gistpenalty (computes penalty for adding tuple to union)
+  - [gistpenalty](../g/gistpenalty.md) (computes penalty for adding tuple to union)
 - Called from:
-  - gistUserPicksplit (at src/backend/access/gist/gistsplit.c:565)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md) (at src/backend/access/gist/gistsplit.c:565)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistsplit.c file

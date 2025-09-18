@@ -25,10 +25,10 @@ The function processes objects in the order they appear in the targetObjects lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - trackDroppedObjectsNeeded
-  - EventTriggerSupportsObject
-  - EventTriggerSQLDropAddObject
-  - deleteOneObject
+  - [trackDroppedObjectsNeeded](../t/trackDroppedObjectsNeeded.md)
+  - [EventTriggerSupportsObject](../E/EventTriggerSupportsObject.md)
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
+  - [deleteOneObject](deleteOneObject.md)
 - Data structures used:
   - ObjectAddresses
   - ObjectAddressExtra
@@ -36,8 +36,8 @@ The function processes objects in the order they appear in the targetObjects lis
   - DEPFLAG_NORMAL
   - DEPFLAG_REVERSE
 - Called from (representative examples):
-  - performDeletion
-  - performMultipleDeletions
+  - [performDeletion](../p/performDeletion.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dependency.c module

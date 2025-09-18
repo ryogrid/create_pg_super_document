@@ -33,17 +33,17 @@ The function implements adaptive behavior, starting with direct insertion and po
 ## Dependencies
 - Functions called/Symbols referenced:
   - gistFormTuple
-  - gistBufferingBuildInsert
-  - gistdoinsert
-  - calculatePagesPerBuffer
-  - gistInitBuffering
-  - MemoryContextSwitchTo
-  - MemoryContextReset
+  - [gistBufferingBuildInsert](gistBufferingBuildInsert.md)
+  - [gistdoinsert](gistdoinsert.md)
+  - [calculatePagesPerBuffer](../c/calculatePagesPerBuffer.md)
+  - [gistInitBuffering](gistInitBuffering.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - IndexTupleSize
   - smgrnblocks
   - RelationGetSmgr
 - Called from (representative examples):
-  - gistbuild (via table_index_build_scan)
+  - [gistbuild](gistbuild.md) (via table_index_build_scan)
 
 ## Notes and Other Information
 - Contains a known memory management issue (XXX comment) where tempCxt is reset in multiple locations, which could potentially lead to dangling pointers

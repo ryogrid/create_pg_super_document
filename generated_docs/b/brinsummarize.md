@@ -24,15 +24,15 @@ This static function performs bulk summarization of BRIN index ranges by scannin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brinRevmapInitialize
+  - [brinRevmapInitialize](brinRevmapInitialize.md)
   - RelationGetNumberOfBlocks
-  - brinRevmapTerminate
-  - brinGetTupleForHeapBlock
-  - initialize_brin_buildstate
-  - BuildIndexInfo
-  - summarize_range
-  - brin_memtuple_initialize
-  - terminate_brin_buildstate
+  - [brinRevmapTerminate](brinRevmapTerminate.md)
+  - [brinGetTupleForHeapBlock](brinGetTupleForHeapBlock.md)
+  - [initialize_brin_buildstate](../i/initialize_brin_buildstate.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [summarize_range](../s/summarize_range.md)
+  - [brin_memtuple_initialize](brin_memtuple_initialize.md)
+  - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md)
   - ReleaseBuffer
 - Constants referenced:
   - BRIN_ALL_BLOCKRANGES
@@ -41,16 +41,16 @@ This static function performs bulk summarization of BRIN index ranges by scannin
   - InvalidBuffer
   - InvalidBlockNumber
 - Types referenced:
-  - BrinRevmap
-  - BrinBuildState
+  - [BrinRevmap](../B/BrinRevmap.md)
+  - [BrinBuildState](../B/BrinBuildState.md)
   - IndexInfo
-  - BrinTuple
+  - [BrinTuple](../B/BrinTuple.md)
   - BlockNumber
   - OffsetNumber
   - Buffer
 - Called from (representative examples):
-  - brinvacuumcleanup
-  - brin_summarize_range
+  - [brinvacuumcleanup](brinvacuumcleanup.md)
+  - [brin_summarize_range](brin_summarize_range.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin.c module

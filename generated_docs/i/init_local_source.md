@@ -20,14 +20,14 @@ The local source provides an abstraction layer that allows pg_rewind to treat lo
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0
-  - local_traverse_files
-  - local_fetch_file
-  - local_queue_fetch_file
-  - local_queue_fetch_range
-  - local_finish_fetch
-  - local_destroy
+  - [local_traverse_files](../l/local_traverse_files.md)
+  - [local_fetch_file](../l/local_fetch_file.md)
+  - [local_queue_fetch_file](../l/local_queue_fetch_file.md)
+  - [local_queue_fetch_range](../l/local_queue_fetch_range.md)
+  - [local_finish_fetch](../l/local_finish_fetch.md)
+  - [local_destroy](../l/local_destroy.md)
 - Called from (representative examples):
-  - main (in src/bin/pg_rewind/pg_rewind.c:319)
+  - [main](../m/main.md) (in src/bin/pg_rewind/pg_rewind.c:319)
 
 ## Notes and Other Information
 - This function is part of the pg_rewind utility's source abstraction layer

@@ -33,11 +33,11 @@ This function is part of PostgreSQL's range type serialization system and handle
   - SET_VARSIZE_SHORT
   - VARDATA
   - VARSIZE
-  - DatumGetCString
-  - DatumGetPointer
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - TYPALIGN_CHAR
 - Called from (representative examples):
-  - range_serialize
+  - [range_serialize](../r/range_serialize.md)
 
 ## Notes and Other Information
 This function implements comprehensive datum serialization logic with several optimization strategies. It converts eligible varlena types to short format to save space, handles alignment requirements correctly for different data types, and includes error checking to prevent toast pointer storage. The function is critical for range type persistence and is called for both lower and upper bound values during range serialization. It advances the pointer by the actual data length written, making it suitable for sequential writing operations.

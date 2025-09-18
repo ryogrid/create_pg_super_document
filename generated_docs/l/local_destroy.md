@@ -21,10 +21,10 @@ The function is part of the resource management lifecycle for local source objec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
-  - rewind_source (structure type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [rewind_source](../r/rewind_source.md) (structure type)
 - Called from (representative examples):
-  - init_local_source (assigned as function pointer at src/bin/pg_rewind/local_source.c:52)
+  - [init_local_source](../i/init_local_source.md) (assigned as function pointer at src/bin/pg_rewind/local_source.c:52)
 
 ## Notes and Other Information
 - This is a static function, only accessible within local_source.c

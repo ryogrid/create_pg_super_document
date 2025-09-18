@@ -41,23 +41,23 @@ The function supports both forward and backward index scans and handles complex 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_indexqual_references
-  - fix_indexorderby_references
-  - is_redundant_with_indexclauses
-  - contain_mutable_functions
-  - predicate_implied_by
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - get_opfamily_member
-  - make_indexonlyscan
-  - make_indexscan
-  - copy_generic_path_info
-  - IndexPath, IndexOptInfo, PathKey (struct types)
+  - [fix_indexqual_references](../f/fix_indexqual_references.md)
+  - [fix_indexorderby_references](../f/fix_indexorderby_references.md)
+  - [is_redundant_with_indexclauses](../i/is_redundant_with_indexclauses.md)
+  - [contain_mutable_functions](contain_mutable_functions.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [make_indexonlyscan](../m/make_indexonlyscan.md)
+  - [make_indexscan](../m/make_indexscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [IndexPath](../I/IndexPath.md), IndexOptInfo, PathKey (struct types)
   - ForwardScanDirection, BackwardScanDirection (enum values)
 - Called from (representative examples):
-  - create_scan_plan
-  - create_bitmap_subplan
+  - [create_scan_plan](create_scan_plan.md)
+  - [create_bitmap_subplan](create_bitmap_subplan.md)
 
 ## Notes and Other Information
 - This function serves a dual purpose, creating both IndexScan and IndexOnlyScan nodes based on the `indexonly` parameter

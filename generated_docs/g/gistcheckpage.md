@@ -20,19 +20,19 @@ This function performs sanity checks on GiST index pages after they are read fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to extract the page from the buffer)
-  - PageIsNew (to check if page is all-zero/uninitialized)
+  - [BufferGetPage](../B/BufferGetPage.md) (to extract the page from the buffer)
+  - [PageIsNew](../P/PageIsNew.md) (to check if page is all-zero/uninitialized)
   - RelationGetRelationName (to get relation name for error messages)
-  - BufferGetBlockNumber (to get block number for error messages)
-  - PageGetSpecialSize (to verify special area size)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (to get block number for error messages)
+  - [PageGetSpecialSize](../P/PageGetSpecialSize.md) (to verify special area size)
   - MAXALIGN (macro for size alignment)
-  - GISTPageOpaqueData (struct type for size comparison)
+  - [GISTPageOpaqueData](../G/GISTPageOpaqueData.md) (struct type for size comparison)
 - Called from (representative examples):
-  - gistdoinsert (during tuple insertion)
-  - gistFindPath (during tree traversal)
-  - gistNewBuffer (after reading a buffer)
-  - gistkillitems (during tuple deletion)
-  - gistvacuum_delete_empty_pages (during vacuum operations)
+  - [gistdoinsert](gistdoinsert.md) (during tuple insertion)
+  - [gistFindPath](gistFindPath.md) (during tree traversal)
+  - [gistNewBuffer](gistNewBuffer.md) (after reading a buffer)
+  - [gistkillitems](gistkillitems.md) (during tuple deletion)
+  - [gistvacuum_delete_empty_pages](gistvacuum_delete_empty_pages.md) (during vacuum operations)
 
 ## Notes and Other Information
 - Essential for detecting index corruption early in operations

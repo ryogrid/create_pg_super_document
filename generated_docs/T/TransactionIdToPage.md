@@ -21,20 +21,20 @@ The function returns an int64 value, though the actual maximum value is currentl
 - Functions called/Symbols referenced:
   - CLOG_XACTS_PER_PAGE (constant defining how many transaction statuses fit per page)
 - Called from (representative examples):
-  - TransactionIdSetTreeStatus
-  - set_status_by_pages
-  - TransactionIdSetPageStatusInternal
+  - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)
+  - [set_status_by_pages](../s/set_status_by_pages.md)
+  - [TransactionIdSetPageStatusInternal](TransactionIdSetPageStatusInternal.md)
   - TransactionIdSetStatusBit
   - TransactionIdGetStatus
-  - StartupCLOG
-  - TrimCLOG
-  - ExtendCLOG
-  - TruncateCLOG
-  - SubTransSetParent
-  - SubTransGetParent
-  - StartupSUBTRANS
-  - ExtendSUBTRANS
-  - TruncateSUBTRANS
+  - [StartupCLOG](../S/StartupCLOG.md)
+  - [TrimCLOG](TrimCLOG.md)
+  - [ExtendCLOG](../E/ExtendCLOG.md)
+  - [TruncateCLOG](TruncateCLOG.md)
+  - [SubTransSetParent](../S/SubTransSetParent.md)
+  - [SubTransGetParent](../S/SubTransGetParent.md)
+  - [StartupSUBTRANS](../S/StartupSUBTRANS.md)
+  - [ExtendSUBTRANS](../E/ExtendSUBTRANS.md)
+  - [TruncateSUBTRANS](TruncateSUBTRANS.md)
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance due to its frequent usage

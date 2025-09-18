@@ -29,12 +29,12 @@ The function uses the same boundary calculation approach as other JSON capture f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetState (struct type for casting state parameter)
+  - [GetState](../G/GetState.md) (struct type for casting state parameter)
   - JsonParseErrorType (return type)
   - cstring_to_text_with_len (converts C string to PostgreSQL text type)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
-  - get_worker (JSON extraction worker function)
+  - [get_worker](get_worker.md) (JSON extraction worker function)
   - JsObjectFree (JSON object processing)
 
 ## Notes and Other Information
@@ -42,5 +42,5 @@ The function uses the same boundary calculation approach as other JSON capture f
 - Follows the same processing pattern as object field handling ("`same logic as for objects`" comment)
 - Properly handles null array elements by setting tresult to NULL when normalization is enabled
 - Text capture only occurs when result_start is non-NULL, indicating that capture was initiated
-- Path state management includes resetting pathok flags for intermediate levels to prepare for subsequent parsing
+- [Path](../P/Path.md) state management includes resetting pathok flags for intermediate levels to prepare for subsequent parsing
 - The function ensures proper cleanup by setting result_start to NULL after successful capture

@@ -27,12 +27,12 @@ The function carefully manages memory contexts, using temporary context for the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGLTDATUM - Extracts datum from leaf tuple
-  - FunctionCall2Coll - Calls the leaf_consistent function
-  - spgNewHeapItem - Creates heap items for ordered scan results
-  - spgAddSearchItemToQueue - Adds items to the priority queue
-  - MemoryContextSwitchTo - Manages memory contexts
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) - Calls the leaf_consistent function
+  - [spgNewHeapItem](spgNewHeapItem.md) - Creates heap items for ordered scan results
+  - [spgAddSearchItemToQueue](spgAddSearchItemToQueue.md) - Adds items to the priority queue
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) - Manages memory contexts
 - Called from:
-  - spgTestLeafTuple - Tests individual leaf tuples during page scanning
+  - [spgTestLeafTuple](spgTestLeafTuple.md) - Tests individual leaf tuples during page scanning
 
 ## Notes and Other Information
 - The function includes an assertion that the input item should not be a leaf item itself

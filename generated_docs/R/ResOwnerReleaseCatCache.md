@@ -21,8 +21,8 @@ The function takes a Datum representing a catalog cache tuple reference and call
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCatCacheWithOwner (performs the actual catalog cache release)
-  - DatumGetPointer (extracts pointer from Datum)
+  - [ReleaseCatCacheWithOwner](ReleaseCatCacheWithOwner.md) (performs the actual catalog cache release)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (extracts pointer from Datum)
 - Called from (representative examples):
   - Used as a callback by the ResourceOwner system (registration not shown in direct references)
 

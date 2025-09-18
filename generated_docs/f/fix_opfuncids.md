@@ -30,10 +30,10 @@ The modification is performed in-place, which is acceptable because the same cha
   - fix_opfuncids_walker (internal walker function)
 
 - Called from:
-  - expression_planner (src/backend/optimizer/plan/planner.c:6669, 6711)
-  - evaluate_expr (src/backend/optimizer/util/clauses.c:4993)
-  - get_relation_statistics (src/backend/optimizer/util/plancat.c:1537)
-  - operator_predicate_proof (src/backend/optimizer/util/predtest.c:1998)
+  - [expression_planner](../e/expression_planner.md) (src/backend/optimizer/plan/planner.c:6669, 6711)
+  - [evaluate_expr](../e/evaluate_expr.md) (src/backend/optimizer/util/clauses.c:4993)
+  - [get_relation_statistics](../g/get_relation_statistics.md) (src/backend/optimizer/util/plancat.c:1537)
+  - [operator_predicate_proof](../o/operator_predicate_proof.md) (src/backend/optimizer/util/predtest.c:1998)
   - Various partitioning and statistics functions
   - Cache management functions (relcache.c, partcache.c)
 

@@ -22,16 +22,16 @@ The function follows PostgreSQL's multi-phase ALTER TABLE design where preparati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tablespace_oid: Resolves tablespace name to OID
-  - object_aclcheck: Checks user permissions on the tablespace
-  - aclcheck_error: Reports permission-related errors
-  - AlteredTableInfo: Structure for storing table alteration information
+  - [get_tablespace_oid](../g/get_tablespace_oid.md): Resolves tablespace name to OID
+  - [object_aclcheck](../o/object_aclcheck.md): Checks user permissions on the tablespace
+  - [aclcheck_error](../a/aclcheck_error.md): Reports permission-related errors
+  - [AlteredTableInfo](AlteredTableInfo.md): Structure for storing table alteration information
   - AclResult: Enumeration for access control results
   - ACL_CREATE: Permission constant for CREATE privilege
   - OBJECT_TABLESPACE: Object type constant for tablespaces
 
 - Called from (representative examples):
-  - ATPrepCmd: Main ALTER TABLE command preparation dispatcher
+  - [ATPrepCmd](ATPrepCmd.md): Main ALTER TABLE command preparation dispatcher
 
 ## Notes and Other Information
 - This function only performs validation and preparation; the actual tablespace move is handled by ATExecSetTableSpace in Phase 3

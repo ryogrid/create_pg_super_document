@@ -34,26 +34,26 @@ Key operations include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract xl_heap_multi_insert structure from WAL record
-  - XLogRecGetBlockTag: Get target relation and block information
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md): Get target relation and block information
   - XLogRecGetInfo: Check for page initialization flag
-  - CreateFakeRelcacheEntry/FreeFakeRelcacheEntry: Temporary relation cache management
-  - visibilitymap_pin/visibilitymap_clear: Update visibility map when needed
+  - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry: Temporary relation cache management
+  - [visibilitymap_pin](../v/visibilitymap_pin.md)/visibilitymap_clear: Update visibility map when needed
   - XLogInitBufferForRedo: Initialize buffer for page creation
   - XLogReadBufferForRedo: Read target page for redo operation
   - PageInit: Initialize new page structure
-  - XLogRecGetBlockData: Extract tuple data block from WAL record
-  - PageGetMaxOffsetNumber: Validate insertion offsets
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md): Extract tuple data block from WAL record
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md): Validate insertion offsets
   - SHORTALIGN: Align tuple data pointers properly
   - HeapTupleHeaderSetXmin/HeapTupleHeaderSetCmin: Set transaction and command IDs
-  - ItemPointerSetBlockNumber/ItemPointerSetOffsetNumber: Set tuple location
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)/ItemPointerSetOffsetNumber: Set tuple location
   - PageAddItem: Insert each tuple into page at specified offset
-  - PageGetHeapFreeSpace: Calculate remaining free space
-  - PageClearAllVisible: Clear page visibility flag when needed
-  - PageSetAllVisible: Set page as all-visible for frozen insertions
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md): Calculate remaining free space
+  - [PageClearAllVisible](../P/PageClearAllVisible.md): Clear page visibility flag when needed
+  - [PageSetAllVisible](../P/PageSetAllVisible.md): Set page as all-visible for frozen insertions
   - XLogRecordPageWithFreeSpace: Update FSM for low free space pages
 
 - Called from:
-  - heap2_redo: Heap2 WAL record replay dispatcher
+  - [heap2_redo](heap2_redo.md): Heap2 WAL record replay dispatcher
 
 ## Notes and Other Information
 - This is a static function exclusively used during WAL recovery operations

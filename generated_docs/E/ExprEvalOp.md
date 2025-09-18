@@ -47,12 +47,12 @@ The enumeration values represent different operation types:
   - dispatch_table (jump table in execExprInterp.c)
 
 - Called from (representative examples):
-  - ExecComputeSlotInfo (src/backend/executor/execExpr.c:2902)
-  - ExprEvalOpLookup (src/backend/executor/execExprInterp.c:108)
+  - [ExecComputeSlotInfo](ExecComputeSlotInfo.md) (src/backend/executor/execExpr.c:2902)
+  - [ExprEvalOpLookup](ExprEvalOpLookup.md) (src/backend/executor/execExprInterp.c:108)
   - EEO_SWITCH (src/backend/executor/execExprInterp.c:124)
-  - ExecReadyInterpretedExpr (src/backend/executor/execExprInterp.c:278, 279, 327)
-  - ExecInitInterpreter (src/backend/executor/execExprInterp.c:2403, 2421)
-  - ExecEvalStepOp (src/backend/executor/execExprInterp.c:2440)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (src/backend/executor/execExprInterp.c:278, 279, 327)
+  - [ExecInitInterpreter](ExecInitInterpreter.md) (src/backend/executor/execExprInterp.c:2403, 2421)
+  - [ExecEvalStepOp](ExecEvalStepOp.md) (src/backend/executor/execExprInterp.c:2440)
   - llvm_compile_expr (src/backend/jit/llvm/llvmjit_expr.c:274)
 
 ## Notes and Other Information

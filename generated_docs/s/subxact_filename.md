@@ -24,9 +24,9 @@ This inline function creates a standardized filename format for subtransaction i
   - snprintf (standard C library function)
   - MAXPGPATH (PostgreSQL constant)
 - Called from (representative examples):
-  - subxact_info_write
-  - subxact_info_read
-  - stream_cleanup_files
+  - [subxact_info_write](subxact_info_write.md)
+  - [subxact_info_read](subxact_info_read.md)
+  - [stream_cleanup_files](stream_cleanup_files.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance given its frequent usage

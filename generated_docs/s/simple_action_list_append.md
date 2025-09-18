@@ -20,11 +20,11 @@ This function implements a linked list append operation for psql's action queue 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc_object (memory allocation)
-  - pg_strdup (string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
 - Called from (representative examples):
-  - adhoc_opts
-  - main
-  - parse_psql_options
+  - [adhoc_opts](../a/adhoc_opts.md)
+  - [main](../m/main.md)
+  - [parse_psql_options](../p/parse_psql_options.md)
 
 ## Notes and Other Information
 - This is a static function used internally within startup.c for psql command processing

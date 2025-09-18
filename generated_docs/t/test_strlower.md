@@ -25,7 +25,7 @@ For each test scenario, the function verifies both the returned length value and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_strlower
+  - [unicode_strlower](../u/unicode_strlower.md)
   - strlen
   - malloc
   - strdup
@@ -37,7 +37,7 @@ For each test scenario, the function verifies both the returned length value and
   - exit
   - free
 - Called from (representative examples):
-  - test_convert_case
+  - [test_convert_case](test_convert_case.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the case_test.c compilation unit

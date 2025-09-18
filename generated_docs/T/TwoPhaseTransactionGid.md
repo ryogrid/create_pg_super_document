@@ -31,9 +31,9 @@ This GID is essential for the two-phase commit protocol, allowing the system to 
   - ereport (error reporting function)
   - snprintf (formatted string printing function)
 - Called from (representative examples):
-  - apply_handle_prepare_internal (at src/backend/replication/logical/worker.c:1083)
-  - apply_handle_commit_prepared (at src/backend/replication/logical/worker.c:1180)
-  - apply_handle_rollback_prepared (at src/backend/replication/logical/worker.c:1229)
+  - [apply_handle_prepare_internal](../a/apply_handle_prepare_internal.md) (at src/backend/replication/logical/worker.c:1083)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md) (at src/backend/replication/logical/worker.c:1180)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md) (at src/backend/replication/logical/worker.c:1229)
 
 ## Notes and Other Information
 - Uses the format "pg_gid_{subid}_{xid}" for generated GIDs

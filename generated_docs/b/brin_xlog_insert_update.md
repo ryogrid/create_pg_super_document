@@ -23,15 +23,15 @@ This function performs the common operations needed for both BRIN tuple insertio
   - XLogRecGetInfo: Gets record information flags
   - XLogInitBufferForRedo: Initializes buffer for redo when creating new page
   - XLogReadBufferForRedo: Reads existing buffer for redo operations
-  - brin_page_init: Initializes a new BRIN page
-  - XLogRecGetBlockData: Extracts block data from WAL record
+  - [brin_page_init](brin_page_init.md): Initializes a new BRIN page
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md): Extracts block data from WAL record
   - PageAddItem: Adds tuple to page
-  - brinSetHeapBlockItemptr: Updates revmap with new tuple location
+  - [brinSetHeapBlockItemptr](brinSetHeapBlockItemptr.md): Updates revmap with new tuple location
   - XLOG_BRIN_INIT_PAGE: Flag indicating page initialization
-  - BrinTuple: BRIN tuple structure
+  - [BrinTuple](../B/BrinTuple.md): BRIN tuple structure
 - Called from (representative examples):
-  - brin_xlog_insert: BRIN insert replay function
-  - brin_xlog_update: BRIN update replay function
+  - [brin_xlog_insert](brin_xlog_insert.md): BRIN insert replay function
+  - [brin_xlog_update](brin_xlog_update.md): BRIN update replay function
 
 ## Notes and Other Information
 - This is a static function shared between insert and update replay operations

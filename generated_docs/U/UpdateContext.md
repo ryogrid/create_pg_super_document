@@ -22,13 +22,13 @@ The structure is typically initialized by the calling function (like ExecUpdate(
 ## Dependencies
 - Functions called/Symbols referenced:
   - TU_UpdateIndexes (enum for index update requirements)
-  - LockTupleMode (enum for tuple locking modes)
+  - [LockTupleMode](../L/LockTupleMode.md) (enum for tuple locking modes)
 - Called from (representative examples):
-  - ExecUpdate
-  - ExecUpdateAct
-  - ExecUpdateEpilogue
-  - ExecCrossPartitionUpdate
-  - ExecMergeMatched
+  - [ExecUpdate](../E/ExecUpdate.md)
+  - [ExecUpdateAct](../E/ExecUpdateAct.md)
+  - [ExecUpdateEpilogue](../E/ExecUpdateEpilogue.md)
+  - [ExecCrossPartitionUpdate](../E/ExecCrossPartitionUpdate.md)
+  - [ExecMergeMatched](../E/ExecMergeMatched.md)
 
 ## Notes and Other Information
 - This context structure is specifically designed for UPDATE operations and complements the more general ModifyTableContext

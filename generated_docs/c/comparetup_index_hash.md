@@ -28,12 +28,12 @@ The function assumes the first column of the index tuple contains the hash key a
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - _hash_hashkey2bucket
-  - DatumGetUInt32
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [_hash_hashkey2bucket](../h/_hash_hashkey2bucket.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - tuplesort_begin_index_hash
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

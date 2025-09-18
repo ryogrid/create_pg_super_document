@@ -20,19 +20,19 @@ The function reads the number of parameters from the message, allocates space fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmakeEmptyPGresult (creates empty result structure with COMMAND_OK status)
-  - pqGetInt (reads integer values from input buffer)
-  - pqResultAlloc (allocates memory within result structure)
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md) (creates empty result structure with COMMAND_OK status)
+  - [pqGetInt](../p/pqGetInt.md) (reads integer values from input buffer)
+  - [pqResultAlloc](../p/pqResultAlloc.md) (allocates memory within result structure)
   - MemSet (zeroes allocated memory)
-  - PQclear (cleans up result structures on error)
-  - pqClearAsyncResult (clears connection's async result)
-  - libpq_gettext (translates error messages)
-  - appendPQExpBuffer (appends to error message buffer)
-  - pqSaveErrorResult (saves error result)
+  - [PQclear](../P/PQclear.md) (cleans up result structures on error)
+  - [pqClearAsyncResult](../p/pqClearAsyncResult.md) (clears connection's async result)
+  - [libpq_gettext](../l/libpq_gettext.md) (translates error messages)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends to error message buffer)
+  - [pqSaveErrorResult](../p/pqSaveErrorResult.md) (saves error result)
   - PGRES_COMMAND_OK (result status constant)
   - PGresParamDesc (parameter descriptor structure)
 - Called from (representative examples):
-  - pqParseInput3 (from src/interfaces/libpq/fe-protocol3.c:377)
+  - [pqParseInput3](../p/pqParseInput3.md) (from src/interfaces/libpq/fe-protocol3.c:377)
   - VALID_LONG_MESSAGE_TYPE (from src/interfaces/libpq/fe-protocol3.c:48)
 
 ## Notes and Other Information

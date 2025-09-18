@@ -34,15 +34,15 @@ TestSpec is the top-level data structure in PostgreSQL's isolation testing frame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Session
-  - Permutation
+  - [Session](../S/Session.md)
+  - [Permutation](../P/Permutation.md)
 - Called from (representative examples):
-  - main
-  - check_testspec
-  - run_testspec
-  - run_all_permutations
-  - run_named_permutations
-  - run_permutation
+  - [main](../m/main.md)
+  - [check_testspec](../c/check_testspec.md)
+  - [run_testspec](../r/run_testspec.md)
+  - [run_all_permutations](../r/run_all_permutations.md)
+  - [run_named_permutations](../r/run_named_permutations.md)
+  - [run_permutation](../r/run_permutation.md)
 
 ## Notes and Other Information
 - Central data structure for the isolation testing framework in src/test/isolation/

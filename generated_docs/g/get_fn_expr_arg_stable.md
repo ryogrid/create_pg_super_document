@@ -20,12 +20,12 @@ The function checks for the availability of both FmgrInfo and its associated fn_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_expr_arg_stable
+  - [get_call_expr_arg_stable](get_call_expr_arg_stable.md)
 - Called from (representative examples):
-  - pg_input_is_valid_common
-  - leadlag_common
-  - window_nth_value
-  - extract_variadic_args
+  - [pg_input_is_valid_common](../p/pg_input_is_valid_common.md)
+  - [leadlag_common](../l/leadlag_common.md)
+  - [window_nth_value](../w/window_nth_value.md)
+  - [extract_variadic_args](../e/extract_variadic_args.md)
 
 ## Notes and Other Information
 - Returns false if FmgrInfo is NULL or if fn_expr has not been initialized

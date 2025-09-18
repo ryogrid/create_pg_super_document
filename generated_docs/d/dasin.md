@@ -28,11 +28,11 @@ The function explicitly handles:
   - isnan (to check for NaN values)
   - get_float8_nan (to return NaN value)
   - ereport (PostgreSQL error reporting system)
-  - errcode (error code specification)
-  - errmsg (error message specification)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message specification)
   - asin (standard C library arcsine function)
   - isinf (to check for infinity values)
-  - float_overflow_error (PostgreSQL error handling)
+  - [float_overflow_error](../f/float_overflow_error.md) (PostgreSQL error handling)
 - Called from: 
   - No direct references found in the codebase (likely called through SQL function dispatch)
 
@@ -41,6 +41,6 @@ The function explicitly handles:
 - This function is part of PostgreSQL's floating-point trigonometric operations
 - Follows POSIX specification for NaN handling
 - Domain restrictions: arg1 must be in range [-1, 1]
-- Result range: [-π/2, π/2] radians
+- [Result](../R/Result.md) range: [-π/2, π/2] radians
 - Uses ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE for domain violations
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_FLOAT8

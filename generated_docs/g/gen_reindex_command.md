@@ -44,15 +44,15 @@ The function builds commands in the format:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - appendPQExpBufferChar
-  - fmtIdEnc
-  - PQclientEncoding
-  - appendQualifiedRelation
+  - [fmtIdEnc](../f/fmtIdEnc.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
+  - [appendQualifiedRelation](../a/appendQualifiedRelation.md)
   - ReindexType enums (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
 - Called from (representative examples):
-  - reindex_one_database (reindexdb.c:452, 461, 468)
+  - [reindex_one_database](../r/reindex_one_database.md) (reindexdb.c:452, 461, 468)
 
 ## Notes and Other Information
 - The function uses version-aware syntax construction, handling differences between PostgreSQL versions

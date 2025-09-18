@@ -20,14 +20,14 @@ The RecursiveUnion node is essential for implementing SQL's WITH RECURSIVE funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - build_path_tlist
-  - clamp_cardinality_to_long
-  - make_recursive_union
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [clamp_cardinality_to_long](clamp_cardinality_to_long.md)
+  - [make_recursive_union](../m/make_recursive_union.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - CP_EXACT_TLIST (flag constant)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module

@@ -28,14 +28,14 @@ The key difference from contain_aggs_of_level_walker is the additional location 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - locate_agg_of_level_context (context structure)
+  - [locate_agg_of_level_context](locate_agg_of_level_context.md) (context structure)
   - Aggref (aggregate function reference node)
   - GroupingFunc (GROUPING function node) 
   - query_tree_walker (subquery traversal)
   - expression_tree_walker (general expression traversal)
 - Called from (representative examples):
-  - locate_agg_of_level (main entry point)
-  - locate_agg_of_level_walker (recursive self-calls)
+  - [locate_agg_of_level](locate_agg_of_level.md) (main entry point)
+  - [locate_agg_of_level_walker](locate_agg_of_level_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:170-215

@@ -21,11 +21,11 @@ This function is typically used in scenarios where the system needs to decide wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pa_get_fileset_state (get current fileset state)
+  - [pa_get_fileset_state](pa_get_fileset_state.md) (get current fileset state)
   - PartialFileSetState (enum type for fileset states)
   - FS_EMPTY (constant indicating empty fileset)
 - Called from (representative examples):
-  - pa_decr_and_wait_stream_block
+  - [pa_decr_and_wait_stream_block](pa_decr_and_wait_stream_block.md)
 
 ## Notes and Other Information
 - Static function indicating internal use within the applyparallelworker module

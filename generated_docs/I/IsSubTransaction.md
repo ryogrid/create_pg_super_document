@@ -25,13 +25,13 @@ This function takes no parameters and returns a boolean value indicating whether
   - TransactionState (type)
   - nestingLevel (field of TransactionState)
 - Called from (representative examples):
-  - PreventInTransactionBlock
-  - CheckTransactionBlock
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
+  - [CheckTransactionBlock](../C/CheckTransactionBlock.md)
   - _SPI_commit
-  - _SPI_rollback
-  - SPI_inside_nonatomic_context
-  - AfterTriggerSetState
-  - ExportSnapshot
+  - [_SPI_rollback](../S/_SPI_rollback.md)
+  - [SPI_inside_nonatomic_context](../S/SPI_inside_nonatomic_context.md)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md)
+  - [ExportSnapshot](../E/ExportSnapshot.md)
   - ImportSnapshot
 
 ## Notes and Other Information

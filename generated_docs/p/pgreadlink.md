@@ -47,7 +47,7 @@ The implementation includes comprehensive error handling with detailed error rep
 - Sets errno to EINVAL for various error conditions including non-reparse points and invalid reparse data
 - Implements both frontend and backend error reporting mechanisms
 - The output buffer must be large enough to hold the converted target path
-- Path normalization only handles drive-absolute paths; other exotic Windows path formats are returned as-is
+- [Path](../P/Path.md) normalization only handles drive-absolute paths; other exotic Windows path formats are returned as-is
 - Requires the target file/directory to have  set
 - Uses  to open the reparse point itself rather than following it
 - The function performs Unicode conversion to ensure proper handling of international characters in paths

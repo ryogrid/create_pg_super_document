@@ -24,12 +24,12 @@ When a function is called with polymorphic arguments, the system must determine 
 - Functions called/Symbols referenced:
   - (This is a data structure with no direct function calls)
 - Called from (representative examples):
-  - resolve_anyelement_from_others
-  - resolve_anyarray_from_others  
-  - resolve_anyrange_from_others
-  - resolve_anymultirange_from_others
-  - resolve_polymorphic_tupdesc
-  - resolve_polymorphic_argtypes
+  - [resolve_anyelement_from_others](../r/resolve_anyelement_from_others.md)
+  - [resolve_anyarray_from_others](../r/resolve_anyarray_from_others.md)  
+  - [resolve_anyrange_from_others](../r/resolve_anyrange_from_others.md)
+  - [resolve_anymultirange_from_others](../r/resolve_anymultirange_from_others.md)
+  - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md)
+  - [resolve_polymorphic_argtypes](../r/resolve_polymorphic_argtypes.md)
 
 ## Notes and Other Information
 - Located in 

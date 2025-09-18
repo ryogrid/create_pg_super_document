@@ -33,23 +33,23 @@ The function updates both the equivalence class membership and the child relatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (struct type)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (struct type)
   - EquivalenceClass (struct type)
-  - EquivalenceMember (struct type)
-  - bms_next_member
-  - bms_is_subset
+  - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
   - bms_is_empty
-  - bms_difference
-  - bms_add_members
-  - bms_add_member
-  - list_nth
-  - adjust_appendrel_attrs
-  - adjust_appendrel_attrs_multilevel
-  - add_eq_member
+  - [bms_difference](../b/bms_difference.md)
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [list_nth](../l/list_nth.md)
+  - [adjust_appendrel_attrs](adjust_appendrel_attrs.md)
+  - [adjust_appendrel_attrs_multilevel](adjust_appendrel_attrs_multilevel.md)
+  - [add_eq_member](add_eq_member.md)
   - IS_SIMPLE_REL (macro)
   - RELOPT_BASEREL (constant)
 - Called from (representative examples):
-  - set_append_rel_size
+  - [set_append_rel_size](../s/set_append_rel_size.md)
   - Referenced in paths.h header
 
 ## Notes and Other Information

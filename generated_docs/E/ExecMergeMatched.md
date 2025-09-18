@@ -31,20 +31,20 @@ The function can restart processing from the beginning when concurrent updates a
 - Functions called/Symbols referenced:
   - ExecQual
   - ExecProject
-  - ExecUpdatePrologue
-  - ExecUpdateAct
-  - ExecUpdateEpilogue
-  - ExecDeletePrologue
-  - ExecDeleteAct
-  - ExecDeleteEpilogue
-  - ExecProcessReturning
-  - EvalPlanQual
-  - EvalPlanQualSlot
+  - [ExecUpdatePrologue](ExecUpdatePrologue.md)
+  - [ExecUpdateAct](ExecUpdateAct.md)
+  - [ExecUpdateEpilogue](ExecUpdateEpilogue.md)
+  - [ExecDeletePrologue](ExecDeletePrologue.md)
+  - [ExecDeleteAct](ExecDeleteAct.md)
+  - [ExecDeleteEpilogue](ExecDeleteEpilogue.md)
+  - [ExecProcessReturning](ExecProcessReturning.md)
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [EvalPlanQualSlot](EvalPlanQualSlot.md)
   - table_tuple_lock
   - table_tuple_fetch_row_version
-  - TransactionIdIsCurrentTransactionId
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
 - Called from (representative examples):
-  - ExecMerge
+  - [ExecMerge](ExecMerge.md)
 
 ## Notes and Other Information
 - Implements sophisticated concurrent update handling using EvalPlanQual mechanism

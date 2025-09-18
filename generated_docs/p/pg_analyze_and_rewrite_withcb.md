@@ -27,19 +27,19 @@ The function supports performance tracking through  and includes DTrace/SystemTa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_analyze_withcb
-  - pg_rewrite_query
+  - [parse_analyze_withcb](parse_analyze_withcb.md)
+  - [pg_rewrite_query](pg_rewrite_query.md)
   - ResetUsage
   - ShowUsage
   - TRACE_POSTGRESQL_QUERY_REWRITE_START
   - TRACE_POSTGRESQL_QUERY_REWRITE_DONE
 - Called from (representative examples):
-  - fmgr_sql_validator
-  - init_sql_fcache
-  - _SPI_prepare_plan
-  - _SPI_execute_plan
-  - inline_set_returning_function
-  - RevalidateCachedQuery
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md)
 
 ## Notes and Other Information
 - This function is critical in the PostgreSQL query processing pipeline, serving as a bridge between raw parsing and query planning

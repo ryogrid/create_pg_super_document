@@ -24,12 +24,12 @@ The function includes an early exit optimization: if instrumentation is not enab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safe multiplication for size calculations)
-  - add_size (safe addition for size calculations)
+  - [mul_size](../m/mul_size.md) (safe multiplication for size calculations)
+  - [add_size](../a/add_size.md) (safe addition for size calculations)
   - shm_toc_estimate_chunk (estimates shared memory chunk size)
   - shm_toc_estimate_keys (estimates shared memory key count)
-  - AggregateInstrumentation (structure for aggregate execution statistics)
-  - SharedAggInfo (shared aggregate information structure)
+  - [AggregateInstrumentation](../A/AggregateInstrumentation.md) (structure for aggregate execution statistics)
+  - [SharedAggInfo](../S/SharedAggInfo.md) (shared aggregate information structure)
 - Called from (representative examples):
   - ExecParallelEstimate (in execParallel.c)
 

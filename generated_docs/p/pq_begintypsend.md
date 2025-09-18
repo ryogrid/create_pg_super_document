@@ -22,10 +22,10 @@ This function is typically used at the beginning of output functions for custom 
   - initStringInfo (implicit through StringInfo initialization)
   - appendStringInfoCharMacro (called 4 times to reserve length bytes)
 - Called from (representative examples):
-  - array_send (src/backend/utils/adt/arrayfuncs.c:1603)
-  - boolsend (src/backend/utils/adt/bool.c:192)
-  - numeric_send (src/backend/utils/adt/numeric.c:1170)
-  - textsend (src/backend/utils/adt/varlena.c:624)
+  - [array_send](../a/array_send.md) (src/backend/utils/adt/arrayfuncs.c:1603)
+  - [boolsend](../b/boolsend.md) (src/backend/utils/adt/bool.c:192)
+  - [numeric_send](../n/numeric_send.md) (src/backend/utils/adt/numeric.c:1170)
+  - [textsend](../t/textsend.md) (src/backend/utils/adt/varlena.c:624)
   - Many other type output functions across the codebase
 
 ## Notes and Other Information

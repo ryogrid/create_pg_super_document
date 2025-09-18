@@ -30,21 +30,21 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth
+  - [list_nth](../l/list_nth.md)
   - rt_fetch
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - deparse_columns_fetch
-  - resolve_special_varno
-  - get_special_variable
-  - get_tle_by_resno
-  - push_child_plan/pop_child_plan
+  - [resolve_special_varno](../r/resolve_special_varno.md)
+  - [get_special_variable](get_special_variable.md)
+  - [get_tle_by_resno](get_tle_by_resno.md)
+  - [push_child_plan](../p/push_child_plan.md)/pop_child_plan
   - get_rule_expr
-  - get_rte_attribute_name
-  - quote_identifier
-  - format_type_with_typemod
+  - [get_rte_attribute_name](get_rte_attribute_name.md)
+  - [quote_identifier](../q/quote_identifier.md)
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
 - Called from (representative examples):
-  - get_target_list
-  - get_rule_sortgroupclause
+  - [get_target_list](get_target_list.md)
+  - [get_rule_sortgroupclause](get_rule_sortgroupclause.md)
   - get_rule_expr
   - get_rule_expr_toplevel
 

@@ -20,14 +20,14 @@ The function iterates through each constraint in the input list, creating new Do
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintState (struct for constraint state representation)
-  - ExecInitExpr (initializes expression state trees for execution)
+  - [DomainConstraintState](../D/DomainConstraintState.md) (struct for constraint state representation)
+  - [ExecInitExpr](../E/ExecInitExpr.md) (initializes expression state trees for execution)
   - makeNode (creates new node instances)
   - lappend (appends items to lists)
-  - MemoryContextSwitchTo (switches memory contexts)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
 - Called from (representative examples):
-  - InitDomainConstraintRef
-  - UpdateDomainConstraintRef
+  - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md)
+  - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md)
 
 ## Notes and Other Information
 - This is a static function internal to the typcache.c module

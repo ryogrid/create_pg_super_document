@@ -29,13 +29,13 @@ The function is specifically tailored for foreign key processing, as evidenced b
 - Functions called/Symbols referenced:
   - strVal
   - lfirst
-  - SearchSysCacheAttName
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - INDEX_MAX_KEYS (constant)
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint (for both referencing and referenced column lists)
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md) (for both referencing and referenced column lists)
 
 ## Notes and Other Information
 - Despite its general-purpose name, this function is specifically designed for foreign key processing

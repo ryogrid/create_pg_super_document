@@ -29,11 +29,11 @@ A key design consideration is the delayed cleanup of SSL system resources. The f
   - SSL_free (OpenSSL SSL object cleanup)
   - X509_free (OpenSSL certificate cleanup)
   - ENGINE_finish / ENGINE_free (SSL engine cleanup, if USE_SSL_ENGINE defined)
-  - destroy_ssl_system (libpq crypto callback cleanup)
+  - [destroy_ssl_system](../d/destroy_ssl_system.md) (libpq crypto callback cleanup)
 - Called from:
-  - pgtls_open_client (on connection failures)
-  - open_client_SSL (on handshake failures)
-  - pqsecure_close (general connection cleanup)
+  - [pgtls_open_client](pgtls_open_client.md) (on connection failures)
+  - [open_client_SSL](../o/open_client_SSL.md) (on handshake failures)
+  - [pqsecure_close](pqsecure_close.md) (general connection cleanup)
   - pgunlock_thread (thread cleanup)
 
 ## Notes and Other Information

@@ -23,11 +23,11 @@ The function bypasses normal validation checks and is specifically intended for 
   - CurrentUserId (global variable)
   - SecurityRestrictionContext (global variable)
 - Called from (representative examples):
-  - AbortTransaction
-  - AbortSubTransaction  
-  - fmgr_security_definer
-  - RestoreUserContext
-  - SwitchToUntrustedUser
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)  
+  - [fmgr_security_definer](../f/fmgr_security_definer.md)
+  - [RestoreUserContext](../R/RestoreUserContext.md)
+  - [SwitchToUntrustedUser](SwitchToUntrustedUser.md)
 
 ## Notes and Other Information
 - This function performs no validation on the input parameters - it's designed to work even with invalid values during error recovery scenarios

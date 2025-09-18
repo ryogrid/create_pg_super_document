@@ -24,16 +24,16 @@ This function initializes a printTableContent structure that will be used to sto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableOpt (options structure type)
-  - printTableContent (content structure type)
+  - [printTableOpt](printTableOpt.md) (options structure type)
+  - [printTableContent](printTableContent.md) (content structure type)
   - pg_malloc0 (PostgreSQL's zero-initialized malloc)
   - EXIT_FAILURE (standard exit code for failure)
 - Called from (representative examples):
-  - printCrosstab (src/bin/psql/crosstabview.c:299)
-  - describeOneTableDetails (src/bin/psql/describe.c:2050)
-  - describeRoles (src/bin/psql/describe.c:3670)
-  - describePublications (src/bin/psql/describe.c:6429)
-  - printQuery (src/fe_utils/print.c:3560)
+  - [printCrosstab](printCrosstab.md) (src/bin/psql/crosstabview.c:299)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (src/bin/psql/describe.c:2050)
+  - [describeRoles](../d/describeRoles.md) (src/bin/psql/describe.c:3670)
+  - [describePublications](../d/describePublications.md) (src/bin/psql/describe.c:6429)
+  - [printQuery](printQuery.md) (src/fe_utils/print.c:3560)
 
 ## Notes and Other Information
 - Must be called before any other printTable methods are used on the content structure

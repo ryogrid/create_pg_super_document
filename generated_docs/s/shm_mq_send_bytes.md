@@ -27,20 +27,20 @@ Key optimizations include batching of pending send operations to reduce shared m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u64
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - pg_compiler_barrier
   - pg_memory_barrier
-  - shm_mq_counterparty_gone
-  - shm_mq_get_receiver
-  - shm_mq_wait_internal
-  - shm_mq_inc_bytes_written
-  - SetLatch
-  - WaitLatch
-  - ResetLatch
+  - [shm_mq_counterparty_gone](shm_mq_counterparty_gone.md)
+  - [shm_mq_get_receiver](shm_mq_get_receiver.md)
+  - [shm_mq_wait_internal](shm_mq_wait_internal.md)
+  - [shm_mq_inc_bytes_written](shm_mq_inc_bytes_written.md)
+  - [SetLatch](../S/SetLatch.md)
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
   - memcpy
 - Called from (representative examples):
-  - shm_mq_sendv
+  - [shm_mq_sendv](shm_mq_sendv.md)
 
 ## Notes and Other Information
 - Uses atomic operations and memory barriers to ensure proper synchronization between processes

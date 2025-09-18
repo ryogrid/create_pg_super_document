@@ -18,20 +18,20 @@ The oidrecv function is responsible for reading OID values from PostgreSQL's bin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint: Extracts a binary integer from the message buffer with specified byte size
+  - [pq_getmsgint](../p/pq_getmsgint.md): Extracts a binary integer from the message buffer with specified byte size
   - PG_RETURN_OID: Macro to return the converted OID value
 - Called from (representative examples):
-  - regprocrecv: Used in regproc type binary input processing
-  - regprocedurerecv: Used in regprocedure type binary input processing
-  - regoperrecv: Used in regoper type binary input processing
-  - regoperatorrecv: Used in regoperator type binary input processing
-  - regclassrecv: Used in regclass type binary input processing
-  - regcollationrecv: Used in regcollation type binary input processing
-  - regtyperecv: Used in regtype type binary input processing
-  - regconfigrecv: Used in regconfig type binary input processing
-  - regdictionaryrecv: Used in regdictionary type binary input processing
-  - regrolerecv: Used in regrole type binary input processing
-  - regnamespacerecv: Used in regnamespace type binary input processing
+  - [regprocrecv](../r/regprocrecv.md): Used in regproc type binary input processing
+  - [regprocedurerecv](../r/regprocedurerecv.md): Used in regprocedure type binary input processing
+  - [regoperrecv](../r/regoperrecv.md): Used in regoper type binary input processing
+  - [regoperatorrecv](../r/regoperatorrecv.md): Used in regoperator type binary input processing
+  - [regclassrecv](../r/regclassrecv.md): Used in regclass type binary input processing
+  - [regcollationrecv](../r/regcollationrecv.md): Used in regcollation type binary input processing
+  - [regtyperecv](../r/regtyperecv.md): Used in regtype type binary input processing
+  - [regconfigrecv](../r/regconfigrecv.md): Used in regconfig type binary input processing
+  - [regdictionaryrecv](../r/regdictionaryrecv.md): Used in regdictionary type binary input processing
+  - [regrolerecv](../r/regrolerecv.md): Used in regrole type binary input processing
+  - [regnamespacerecv](../r/regnamespacerecv.md): Used in regnamespace type binary input processing
 
 ## Notes and Other Information
 - This function is registered as the binary receive function for the OID data type in PostgreSQL's type system

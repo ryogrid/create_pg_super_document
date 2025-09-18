@@ -29,7 +29,7 @@ The function requires explicit cleanup by all backends that create or attach to 
   - create_internal
   - DSM_HANDLE_INVALID
   - on_dsm_detach
-  - dsa_on_dsm_detach_release_in_place
+  - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md)
 - Called from (representative examples):
   - dsa_create_in_place (wrapper function)
 

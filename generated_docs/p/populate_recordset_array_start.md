@@ -26,7 +26,7 @@ This design allows the JSON parser to maintain a consistent callback interface w
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

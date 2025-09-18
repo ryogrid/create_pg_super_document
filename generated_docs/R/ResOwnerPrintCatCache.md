@@ -21,12 +21,12 @@ The function takes a Datum representing a catalog cache tuple reference, recover
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (extracts pointer from Datum)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (extracts pointer from Datum)
   - CatCTup (catalog cache tuple structure)
   - offsetof (calculates structure member offset)
-  - psprintf (PostgreSQL's sprintf variant)
-  - ItemPointerGetBlockNumber (gets block number from tuple identifier)
-  - ItemPointerGetOffsetNumber (gets offset number from tuple identifier)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf variant)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (gets block number from tuple identifier)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md) (gets offset number from tuple identifier)
 - Called from (representative examples):
   - Used as a callback by the ResourceOwner system for diagnostic output (registration not shown in direct references)
 

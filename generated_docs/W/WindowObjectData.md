@@ -26,9 +26,9 @@ The structure maintains pointers into the tuplestore that holds the partition's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowAggState
+  - [WindowAggState](WindowAggState.md)
 - Called from (representative examples):
-  - ExecInitWindowAgg
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
   - WindowObject (typedef)
   - WindowObjectIsValid
 

@@ -22,11 +22,11 @@ The function implements careful length management to respect PostgreSQL's NAMEDA
   - strlcpy (safe string copying)
   - strVal (extract string value from Value node)
   - lfirst (list iteration macro)
-  - pstrdup (PostgreSQL string duplication)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
   - NAMEDATALEN (maximum identifier length constant)
 - Called from (representative examples):
-  - ATExecAddConstraint
-  - addFkConstraint
+  - [ATExecAddConstraint](../A/ATExecAddConstraint.md)
+  - [addFkConstraint](../a/addFkConstraint.md)
 
 ## Notes and Other Information
 - Part of a family of similar functions including ChooseExtendedStatisticNameAddition and ChooseIndexNameAddition

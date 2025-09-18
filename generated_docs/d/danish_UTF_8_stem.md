@@ -25,11 +25,11 @@ The function operates on the word from right to left (end to beginning) and uses
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions: Identifies vowel/consonant regions for suffix boundary detection
-  - r_main_suffix: Removes primary Danish suffixes 
-  - r_consonant_pair: Handles doubled consonant removal after suffixes
-  - r_other_suffix: Processes secondary suffixes and morphological transformations
-  - r_undouble: Final removal of doubled consonants at word end
+  - [r_mark_regions](../r/r_mark_regions.md): Identifies vowel/consonant regions for suffix boundary detection
+  - [r_main_suffix](../r/r_main_suffix.md): Removes primary Danish suffixes 
+  - [r_consonant_pair](../r/r_consonant_pair.md): Handles doubled consonant removal after suffixes
+  - [r_other_suffix](../r/r_other_suffix.md): Processes secondary suffixes and morphological transformations
+  - [r_undouble](../r/r_undouble.md): Final removal of doubled consonants at word end
 
 - Called from (representative examples):
   - No direct references found (likely called via function pointer or external interface)

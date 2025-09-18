@@ -18,11 +18,11 @@ This function provides a simplified interface to retrieve partition constraint d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_partition_qual_relid (retrieves the partition constraint expression from system catalogs)
-  - deparse_context_for (creates deparsing context with the specified alias name)
-  - deparse_expression (converts expression tree to SQL string without pretty-printing)
+  - [get_partition_qual_relid](../g/get_partition_qual_relid.md) (retrieves the partition constraint expression from system catalogs)
+  - [deparse_context_for](../d/deparse_context_for.md) (creates deparsing context with the specified alias name)
+  - [deparse_expression](../d/deparse_expression.md) (converts expression tree to SQL string without pretty-printing)
 - Called from (representative examples):
-  - RI_PartitionRemove_Check (in referential integrity triggers for partition constraint validation)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md) (in referential integrity triggers for partition constraint validation)
   - RULE_INDEXDEF_KEYS_ONLY (referenced in ruleutils.h header file)
 
 ## Notes and Other Information

@@ -19,10 +19,10 @@ This function implements a comparator for sorting TrackItem structures based on 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TrackItem (struct type)
+  - [TrackItem](../T/TrackItem.md) (struct type)
 - Called from (representative examples):
-  - compute_tsvector_stats
-  - compute_array_stats (in array_typanalyze.c)
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
+  - [compute_array_stats](../c/compute_array_stats.md) (in array_typanalyze.c)
 
 ## Notes and Other Information
 - Returns positive value if e2 frequency > e1 frequency (descending order)

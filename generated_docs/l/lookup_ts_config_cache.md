@@ -21,22 +21,22 @@ For each token type, the function maintains an array of dictionary OIDs that wil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_ts_config_cache (initializes cache infrastructure if needed)
-  - hash_search (searches and inserts entries in the hash table)
-  - SearchSysCache1 (system catalog lookup for configuration)
+  - [init_ts_config_cache](../i/init_ts_config_cache.md) (initializes cache infrastructure if needed)
+  - [hash_search](../h/hash_search.md) (searches and inserts entries in the hash table)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup for configuration)
   - table_open, index_open (opens system catalog relations)
-  - systable_beginscan_ordered, systable_getnext_ordered, systable_endscan_ordered (ordered system catalog scanning)
-  - index_close, table_close (closes relations)
-  - ScanKeyInit (initializes scan key)
-  - MemoryContextAlloc (allocates memory for mapping structures)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md), systable_getnext_ordered, systable_endscan_ordered (ordered system catalog scanning)
+  - [index_close](../i/index_close.md), table_close (closes relations)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan key)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for mapping structures)
   - MemSet, memcpy (memory operations)
-  - ObjectIdGetDatum (datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (datum conversion)
   - MAXTOKENTYPE, MAXDICTSPERTT (token type and dictionary limits)
   - ListDictionary (mapping structure)
   - TSConfigMapRelationId, TSConfigMapIndexId (system catalog identifiers)
 - Called from (representative examples):
-  - parsetext, hlparsetext (in ts_parse.c)
-  - ts_headline_byid_opt, ts_headline_jsonb_byid_opt, ts_headline_json_byid_opt (in wparser.c)
+  - [parsetext](../p/parsetext.md), hlparsetext (in ts_parse.c)
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md), ts_headline_jsonb_byid_opt, ts_headline_json_byid_opt (in wparser.c)
 
 ## Notes and Other Information
 - The function builds complex mapping structures that associate token types with ordered lists of dictionaries

@@ -31,21 +31,21 @@ The function performs early exit optimizations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializationNeededForWrite
+  - [SerializationNeededForWrite](../S/SerializationNeededForWrite.md)
   - SxactIsDoomed
-  - CheckTargetForConflictsIn
+  - [CheckTargetForConflictsIn](CheckTargetForConflictsIn.md)
   - SET_PREDICATELOCKTARGETTAG_TUPLE
   - SET_PREDICATELOCKTARGETTAG_PAGE
   - SET_PREDICATELOCKTARGETTAG_RELATION
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - heap_insert
-  - heap_delete
-  - heap_update
-  - index_insert
-  - _bt_doinsert
-  - _bt_check_unique
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [index_insert](../i/index_insert.md)
+  - [_bt_doinsert](../b/_bt_doinsert.md)
+  - [_bt_check_unique](../b/_bt_check_unique.md)
 
 ## Notes and Other Information
 - This is a public function exported via predicate.h and called throughout the storage layer

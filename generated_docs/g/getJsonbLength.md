@@ -26,12 +26,12 @@ The function automatically detects which encoding is used by checking the JBE_HA
 ## Dependencies
 - Functions called/Symbols referenced:
   - JBE_HAS_OFF (macro to check if JEntry contains an offset)
-  - getJsonbOffset (gets the starting offset of variable-length data)
+  - [getJsonbOffset](getJsonbOffset.md) (gets the starting offset of variable-length data)
   - JBE_OFFLENFLD (macro to extract offset/length field from JEntry)
-  - JsonbContainer (structure type)
+  - [JsonbContainer](../J/JsonbContainer.md) (structure type)
 - Called from (representative examples):
-  - getKeyJsonValueFromContainer
-  - fillJsonbValue
+  - [getKeyJsonValueFromContainer](getKeyJsonValueFromContainer.md)
+  - [fillJsonbValue](../f/fillJsonbValue.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

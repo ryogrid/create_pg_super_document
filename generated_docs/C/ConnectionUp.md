@@ -21,8 +21,8 @@ ConnectionUp provides a simple way to verify the status of the current PostgreSQ
   - CONNECTION_BAD (libpq constant representing a bad connection state)
   - pset.db (global variable containing the database connection)
 - Called from (representative examples):
-  - CheckConnection (uses this to verify connection status)
-  - SendQuery (checks connection before sending queries)
+  - [CheckConnection](CheckConnection.md) (uses this to verify connection status)
+  - [SendQuery](../S/SendQuery.md) (checks connection before sending queries)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the common.c compilation unit

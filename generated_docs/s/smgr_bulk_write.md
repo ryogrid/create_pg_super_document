@@ -22,14 +22,14 @@ The bulk write mechanism is designed to optimize storage performance by batching
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_flush
+  - [smgr_bulk_flush](smgr_bulk_flush.md)
   - MAX_PENDING_WRITES
 - Called from (representative examples):
-  - gist_indexsortbuild
-  - end_heap_rewrite
-  - raw_heap_insert
-  - _bt_blwritepage
-  - RelationCopyStorage
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
+  - [end_heap_rewrite](../e/end_heap_rewrite.md)
+  - [raw_heap_insert](../r/raw_heap_insert.md)
+  - [_bt_blwritepage](../b/_bt_blwritepage.md)
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
 
 ## Notes and Other Information
 - **Ownership Transfer**: The function takes ownership of the provided buffer, meaning the caller should not use or free the buffer after this call

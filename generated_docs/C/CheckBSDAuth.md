@@ -22,11 +22,11 @@ The function is significantly simpler than PAM authentication because the BSD au
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sendAuthRequest (sends password request to client)
-  - recv_password_packet (receives password from client)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (sends password request to client)
+  - [recv_password_packet](../r/recv_password_packet.md) (receives password from client)
   - auth_userokay (BSD auth system call to verify user credentials)
-  - pfree (PostgreSQL memory management function to free password string)
-  - set_authn_id (sets authenticated identity for the connection)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management function to free password string)
+  - [set_authn_id](../s/set_authn_id.md) (sets authenticated identity for the connection)
 - Called from (representative examples):
   - HOSTNAME_LOOKUP_DETAIL (referenced in auth.c:617)
 

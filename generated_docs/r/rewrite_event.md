@@ -20,7 +20,7 @@ The  structure is a simple data structure designed to prevent infinite recursion
 - Functions called/Symbols referenced:
   - CmdType (enumeration for command types)
 - Called from (representative examples):
-  - RewriteQuery (used in recursion detection logic)
+  - [RewriteQuery](../R/RewriteQuery.md) (used in recursion detection logic)
 
 ## Notes and Other Information
 - This structure is used as part of a list to maintain the call stack during rule rewriting

@@ -27,15 +27,15 @@ The function performs atomic operations on the pg_policy system catalog and main
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan, systable_getnext (catalog scanning)
-  - heap_getattr, heap_modify_tuple, heap_freetuple (tuple manipulation)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (catalog scanning)
+  - [heap_getattr](../h/heap_getattr.md), heap_modify_tuple, heap_freetuple (tuple manipulation)
   - DatumGetArrayTypePCopy, construct_array_builtin (array operations)
-  - CatalogTupleUpdate (catalog updates)
-  - deleteSharedDependencyRecordsFor, recordSharedDependencyOn (dependency management)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
+  - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md), recordSharedDependencyOn (dependency management)
   - InvokeObjectPostAlterHook (event hooks)
   - CommandCounterIncrement, CacheInvalidateRelcacheByTuple (cache management)
 - Called from:
-  - shdepDropOwned (when dropping owned objects during role cleanup)
+  - [shdepDropOwned](../s/shdepDropOwned.md) (when dropping owned objects during role cleanup)
 
 ## Notes and Other Information
 - Returns true if the policy should be kept (roles remain), false if it should be dropped (no roles left)

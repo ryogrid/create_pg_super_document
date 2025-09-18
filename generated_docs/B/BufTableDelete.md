@@ -22,14 +22,14 @@ The caller must hold an exclusive lock on BufMappingLock for the tag's partition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search_with_hash_value
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - HASH_REMOVE
   - BufferLookupEnt
   - BufferTag
 - Called from (representative examples):
-  - InvalidateBuffer (src/backend/storage/buffer/bufmgr.c:1847)
-  - InvalidateVictimBuffer (src/backend/storage/buffer/bufmgr.c:1926)
-  - ResourceOwnerForgetBufferIO (src/include/storage/buf_internals.h:443)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md) (src/backend/storage/buffer/bufmgr.c:1847)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md) (src/backend/storage/buffer/bufmgr.c:1926)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md) (src/include/storage/buf_internals.h:443)
 
 ## Notes and Other Information
 - The caller must hold exclusive lock on BufMappingLock for the tag's partition before calling this function

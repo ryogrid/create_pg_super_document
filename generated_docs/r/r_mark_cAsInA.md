@@ -23,9 +23,9 @@ The function performs a two-step validation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Performs backward pattern matching from array a_19 (2 patterns)
+  - [find_among_b](../f/find_among_b.md): Performs backward pattern matching from array a_19 (2 patterns)
 - Called from:
-  - r_stem_nominal_verb_suffixes: Used in the Turkish nominal and verb suffix stemming process (line 936)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md): Used in the Turkish nominal and verb suffix stemming process (line 936)
 
 ## Notes and Other Information
 - This function is part of the Turkish language-specific stemming rules

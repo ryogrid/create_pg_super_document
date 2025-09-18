@@ -27,12 +27,12 @@ The `reqs` field typically contains flags indicating various requirements such a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTocEntryByDumpId (TOC entry lookup)
+  - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md) (TOC entry lookup)
   - DumpId (type)
-  - TocEntry (struct type)
+  - [TocEntry](TocEntry.md) (struct type)
 - Called from (representative examples):
-  - findDumpableDependencies (dependency analysis during dump creation)
-  - _tarPositionTo (tar format archive positioning)
+  - [findDumpableDependencies](../f/findDumpableDependencies.md) (dependency analysis during dump creation)
+  - [_tarPositionTo](../t/_tarPositionTo.md) (tar format archive positioning)
 
 ## Notes and Other Information
 - Returns 0 for non-existent TOC entries, which is interpreted as "not required"

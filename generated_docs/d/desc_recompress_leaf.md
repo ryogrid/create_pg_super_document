@@ -25,15 +25,15 @@ The function iterates through all actions stored in the WAL record, extracting s
   - SHORTALIGN
 - Types referenced:
   - ginxlogRecompressDataLeaf
-  - GinPostingList
-  - ItemPointerData
+  - [GinPostingList](../G/GinPostingList.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
 - Constants used:
   - GIN_SEGMENT_ADDITEMS
   - GIN_SEGMENT_DELETE
   - GIN_SEGMENT_INSERT
   - GIN_SEGMENT_REPLACE
 - Called from (representative examples):
-  - gin_desc
+  - [gin_desc](../g/gin_desc.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN resource manager description module

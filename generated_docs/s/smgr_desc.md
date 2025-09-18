@@ -27,7 +27,7 @@ The function handles two main types of SMGR operations:
   - relpathperm - Constructs permanent relation file path
   - appendStringInfoString - Appends string to StringInfo buffer
   - appendStringInfo - Appends formatted string to StringInfo buffer
-  - pfree - Frees allocated memory
+  - [pfree](../p/pfree.md) - Frees allocated memory
 - Data structures referenced:
   - xl_smgr_create - WAL record structure for file creation
   - xl_smgr_truncate - WAL record structure for file truncation

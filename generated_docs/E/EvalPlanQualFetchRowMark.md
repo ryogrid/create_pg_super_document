@@ -21,13 +21,13 @@ This function is a core component of PostgreSQL's EPQ (Eval Plan Qual) mechanism
 - Functions called/Symbols referenced:
   - RowMarkRequiresRowShareLock
   - ExecGetJunkAttribute
-  - DatumGetObjectId
-  - GetFdwRoutineForRelation
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - table_tuple_fetch_row_version
-  - ExecStoreHeapTupleDatum
+  - [ExecStoreHeapTupleDatum](ExecStoreHeapTupleDatum.md)
   - TupIsNull
 - Called from (representative examples):
-  - ExecScanFetch
+  - [ExecScanFetch](ExecScanFetch.md)
   - EvalPlanQualSetSlot
 
 ## Notes and Other Information

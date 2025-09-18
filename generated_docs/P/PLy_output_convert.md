@@ -25,13 +25,13 @@ Unlike PLy_input_convert, this function does not manage memory contexts explicit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (via arg->func)
+  - [PLyObToDatum](PLyObToDatum.md) (via arg->func)
 - Called from (representative examples):
-  - PLy_cursor_plan
-  - PLy_exec_function
-  - PLy_modify_tuple
-  - PLy_spi_execute_plan
-  - PLyObToDatum
+  - [PLy_cursor_plan](PLy_cursor_plan.md)
+  - [PLy_exec_function](PLy_exec_function.md)
+  - [PLy_modify_tuple](PLy_modify_tuple.md)
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md)
+  - [PLyObToDatum](PLyObToDatum.md)
 
 ## Notes and Other Information
 - This function handles "output" conversion, meaning data flowing from Python back to PostgreSQL

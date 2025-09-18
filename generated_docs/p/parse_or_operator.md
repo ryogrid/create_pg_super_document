@@ -20,14 +20,14 @@ The function implements a lookahead mechanism to verify that there is indeed an 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TSQueryParserState
-  - pg_strncasecmp
+  - [pg_strncasecmp](pg_strncasecmp.md)
   - t_iseq
-  - t_isalnum
-  - pg_mblen
-  - t_isspace
+  - [t_isalnum](../t/t_isalnum.md)
+  - [pg_mblen](pg_mblen.md)
+  - [t_isspace](../t/t_isspace.md)
   - ts_tokentype
 - Called from (representative examples):
-  - gettoken_query_websearch
+  - [gettoken_query_websearch](../g/gettoken_query_websearch.md)
 
 ## Notes and Other Information
 - Case-insensitive comparison for "OR" literal using pg_strncasecmp

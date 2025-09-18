@@ -27,11 +27,11 @@ The function maintains sync with relation_has_unique_index_for() regarding what 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - query_supports_distinctness (analyzes subquery distinctness potential)
+  - [query_supports_distinctness](../q/query_supports_distinctness.md) (analyzes subquery distinctness potential)
 - Called from (representative examples):
-  - join_is_removable (when checking if joins can be eliminated)
-  - reduce_unique_semijoins (when optimizing semijoin operations)
-  - innerrel_is_unique (before performing expensive uniqueness analysis)
+  - [join_is_removable](../j/join_is_removable.md) (when checking if joins can be eliminated)
+  - [reduce_unique_semijoins](reduce_unique_semijoins.md) (when optimizing semijoin operations)
+  - [innerrel_is_unique](../i/innerrel_is_unique.md) (before performing expensive uniqueness analysis)
 
 ## Notes and Other Information
 - This is a static function within analyzejoins.c, serving as an internal utility

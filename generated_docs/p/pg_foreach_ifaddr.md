@@ -26,11 +26,11 @@ The implementation handles various Unix variants that may return different amoun
   - PGINVALID_SOCKET (PostgreSQL socket validity check)
   - realloc (dynamic memory allocation)
   - close (system call to close socket)
-  - run_ifaddr_callback (internal helper function)
+  - [run_ifaddr_callback](../r/run_ifaddr_callback.md) (internal helper function)
   - _SIZEOF_ADDR_IFREQ (macro for interface request size calculation)
 - Called from (representative examples):
-  - check_same_host_or_net (in src/backend/libpq/hba.c:1213)
-  - main (in src/tools/ifaddrs/test_ifaddrs.c:68)
+  - [check_same_host_or_net](../c/check_same_host_or_net.md) (in src/backend/libpq/hba.c:1213)
+  - [main](../m/main.md) (in src/tools/ifaddrs/test_ifaddrs.c:68)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

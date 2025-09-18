@@ -20,7 +20,7 @@ The function requires that XmlTableSetDocument has been called previously to est
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - pg_xmlCharStrndup
   - xmlXPathCtxtCompile (libxml2)
   - xml_ereport

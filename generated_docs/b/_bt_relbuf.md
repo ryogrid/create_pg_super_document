@@ -22,16 +22,16 @@ The function serves as the counterpart to _bt_getbuf and is used throughout the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_unlockbuf (releases the buffer lock)
+  - [_bt_unlockbuf](_bt_unlockbuf.md) (releases the buffer lock)
   - ReleaseBuffer (drops the buffer pin)
 - Called from (representative examples):
-  - _bt_doinsert (after insertion operations)
-  - _bt_check_unique (after uniqueness checks)
-  - _bt_insertonpg (during page insertions)
-  - _bt_split (after page splitting)
-  - _bt_pagedel (during page deletion)
-  - _bt_allocbuf (when rejecting unsuitable FSM pages)
-  - _bt_moveright (during rightward navigation)
+  - [_bt_doinsert](_bt_doinsert.md) (after insertion operations)
+  - [_bt_check_unique](_bt_check_unique.md) (after uniqueness checks)
+  - [_bt_insertonpg](_bt_insertonpg.md) (during page insertions)
+  - [_bt_split](_bt_split.md) (after page splitting)
+  - [_bt_pagedel](_bt_pagedel.md) (during page deletion)
+  - [_bt_allocbuf](_bt_allocbuf.md) (when rejecting unsuitable FSM pages)
+  - [_bt_moveright](_bt_moveright.md) (during rightward navigation)
 
 ## Notes and Other Information
 - Essential counterpart to _bt_getbuf for proper buffer lifecycle management

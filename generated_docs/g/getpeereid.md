@@ -37,7 +37,7 @@ This function is essential for peer authentication in PostgreSQL, allowing the s
   - uid_t, gid_t, socklen_t (type dependencies)
 
 - Called from (representative examples):
-  - auth_peer (in src/backend/libpq/auth.c:1872)
+  - [auth_peer](../a/auth_peer.md) (in src/backend/libpq/auth.c:1872)
 
 ## Notes and Other Information
 - This function is only compiled when `HAVE_GETPEEREID` is not defined, providing a fallback implementation for platforms lacking native support

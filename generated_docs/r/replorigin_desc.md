@@ -34,8 +34,8 @@ The output is appended to the provided StringInfo buffer, allowing for efficient
   - XLOG_REPLORIGIN_SET
   - XLOG_REPLORIGIN_DROP
 - Structures referenced:
-  - xl_replorigin_set
-  - xl_replorigin_drop
+  - [xl_replorigin_set](../x/xl_replorigin_set.md)
+  - [xl_replorigin_drop](../x/xl_replorigin_drop.md)
 - Called from (representative examples):
   - WAL description infrastructure
   - pg_waldump utility

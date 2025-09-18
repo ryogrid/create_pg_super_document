@@ -37,11 +37,11 @@ The implementation uses two helper macros:
   - RT_BM_BIT (bitmap bit position calculation)
   - RT_MAKE_NAME (macro name generation)
 - Called from (representative examples):
-  - RT_NODE_256_GET_CHILD (for assertion checking)
-  - RT_NODE_SEARCH (during tree traversal)
-  - RT_FREE_RECURSE (during tree cleanup)
-  - RT_NODE_ITERATE_NEXT (during iteration)
-  - RT_SHRINK_NODE_256 (during node optimization)
+  - [RT_NODE_256_GET_CHILD](RT_NODE_256_GET_CHILD.md) (for assertion checking)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md) (during tree traversal)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (during tree cleanup)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md) (during iteration)
+  - [RT_SHRINK_NODE_256](RT_SHRINK_NODE_256.md) (during node optimization)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's generic radix tree implementation for efficient key-value storage

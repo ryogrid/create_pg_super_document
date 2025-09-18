@@ -21,7 +21,7 @@ This static function implements IPv6 subnet matching by iterating through all 16
 - Functions called/Symbols referenced:
   - (No external function calls - uses only standard bitwise operations and loop control)
 - Called from (representative examples):
-  - pg_range_sockaddr
+  - [pg_range_sockaddr](../p/pg_range_sockaddr.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

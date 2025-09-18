@@ -24,16 +24,16 @@ The function operates by calling the encoding-specific mbverifystr function poin
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING (macro for encoding validation)
   - pg_wchar_table[encoding].mbverifystr (encoding-specific verification function)
-  - report_invalid_encoding (error reporting function)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting function)
 - Called from (representative examples):
-  - AddFileToBackupManifest
-  - read_extension_script_file
-  - LogicalOutputWrite
-  - pg_do_encoding_conversion
-  - pg_convert
-  - pg_any_to_server
-  - pg_server_to_any
-  - pg_verifymbstr
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
+  - [read_extension_script_file](../r/read_extension_script_file.md)
+  - [LogicalOutputWrite](../L/LogicalOutputWrite.md)
+  - [pg_do_encoding_conversion](pg_do_encoding_conversion.md)
+  - [pg_convert](pg_convert.md)
+  - [pg_any_to_server](pg_any_to_server.md)
+  - [pg_server_to_any](pg_server_to_any.md)
+  - [pg_verifymbstr](pg_verifymbstr.md)
 
 ## Notes and Other Information
 - The function assumes the encoding parameter is valid and uses an assertion to check this

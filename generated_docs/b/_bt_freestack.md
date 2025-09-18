@@ -20,11 +20,11 @@ The implementation uses a simple iterative approach, maintaining a reference to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTStack (structure type)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 
 - Called from (representative examples):
-  - _bt_doinsert (after completing insertion operations)
-  - _bt_first (when cleaning up after search operations)
+  - [_bt_doinsert](_bt_doinsert.md) (after completing insertion operations)
+  - [_bt_first](_bt_first.md) (when cleaning up after search operations)
 
 ## Notes and Other Information
 - This function handles NULL stack pointers gracefully - if the input stack is NULL, the function simply returns without performing any operations

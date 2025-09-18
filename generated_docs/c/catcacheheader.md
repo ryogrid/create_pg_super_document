@@ -18,10 +18,10 @@ The catcacheheader struct acts as the central management structure for PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_head (singly-linked list head structure)
+  - [slist_head](../s/slist_head.md) (singly-linked list head structure)
 - Called from (representative examples):
-  - CreateCacheMemoryContext (cache system initialization)
-  - ResetCatalogCaches (system-wide cache reset operations)
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md) (cache system initialization)
+  - [ResetCatalogCaches](../R/ResetCatalogCaches.md) (system-wide cache reset operations)
 
 ## Notes and Other Information
 - This is a singleton structure - there is typically only one CatCacheHeader instance per PostgreSQL backend

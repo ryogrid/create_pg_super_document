@@ -21,13 +21,13 @@ When a transaction needs to wait for another transaction (for example, when tryi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLTW_Oper (enum type for operation specification)
-  - Relation (relation/table reference type)
+  - [XLTW_Oper](XLTW_Oper.md) (enum type for operation specification)
+  - [Relation](../R/Relation.md) (relation/table reference type)
   - ItemPointer (tuple identifier type)
 
 - Called from (representative examples):
-  - XactLockTableWait (uses this struct to set up error context callbacks)
-  - XactLockTableWaitErrorCb (accesses this struct for error reporting)
+  - [XactLockTableWait](XactLockTableWait.md) (uses this struct to set up error context callbacks)
+  - [XactLockTableWaitErrorCb](XactLockTableWaitErrorCb.md) (accesses this struct for error reporting)
 
 ## Notes and Other Information
 - This struct is specifically designed for error context handling during transaction lock waits

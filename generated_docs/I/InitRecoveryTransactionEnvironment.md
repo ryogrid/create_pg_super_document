@@ -19,12 +19,12 @@ This function sets up the infrastructure needed for the Startup process to track
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the recovery lock hash tables)
-  - SharedInvalBackendInit (initializes shared invalidation management)
+  - [hash_create](../h/hash_create.md) (creates the recovery lock hash tables)
+  - [SharedInvalBackendInit](../S/SharedInvalBackendInit.md) (initializes shared invalidation management)
   - GetNextLocalTransactionId (gets next local transaction ID)
   - VirtualXactLockTableInsert (inserts virtual transaction into lock table)
 - Called from (representative examples):
-  - StartupXLOG (main recovery process function)
+  - [StartupXLOG](../S/StartupXLOG.md) (main recovery process function)
 
 ## Notes and Other Information
 - Must only be called once during startup (protected by Assert on RecoveryLockHash == NULL)

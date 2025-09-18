@@ -19,17 +19,17 @@ The function allocates memory for the Publication structure and its string compo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches the system cache for publication by OID
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for publication by OID
   - HeapTupleIsValid: Validates the retrieved heap tuple
   - GETSTRUCT: Macro to extract structure from heap tuple
-  - palloc: Allocates memory for the Publication structure
-  - pstrdup: Duplicates the publication name string
+  - [palloc](../p/palloc.md): Allocates memory for the Publication structure
+  - [pstrdup](../p/pstrdup.md): Duplicates the publication name string
   - NameStr: Extracts string from Name type
-  - ReleaseSysCache: Releases the system cache tuple
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache tuple
 - Called from (representative examples):
-  - publication_add_relation: Adds relations to existing publications
-  - publication_add_schema: Adds schemas to existing publications
-  - GetPublicationByName: Used as helper for name-based lookup
+  - [publication_add_relation](../p/publication_add_relation.md): Adds relations to existing publications
+  - [publication_add_schema](../p/publication_add_schema.md): Adds schemas to existing publications
+  - [GetPublicationByName](GetPublicationByName.md): Used as helper for name-based lookup
   - NUM_PUBLICATION_TABLES_ELEM: Counts tables in publication
 
 ## Notes and Other Information

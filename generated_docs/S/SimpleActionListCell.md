@@ -21,8 +21,8 @@ SimpleActionListCell is a node structure used to build a linked list of actions 
 - Functions called/Symbols referenced:
   - _actions (enum type for action field)
 - Called from (representative examples):
-  - simple_action_list_append (allocates and initializes cells)
-  - SimpleActionList (used as linked list nodes)
+  - [simple_action_list_append](../s/simple_action_list_append.md) (allocates and initializes cells)
+  - [SimpleActionList](SimpleActionList.md) (used as linked list nodes)
 
 ## Notes and Other Information
 - Memory for SimpleActionListCell instances is allocated using pg_malloc_object()

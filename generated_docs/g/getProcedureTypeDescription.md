@@ -21,13 +21,13 @@ The function handles missing procedures gracefully when missing_ok is true, fall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - elog (error logging)
   - appendStringInfoString (string buffer operations)
   - GETSTRUCT (tuple data extraction)
-  - ObjectIdGetDatum (OID conversion)
-  - ReleaseSysCache (cache cleanup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID conversion)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_proc (pg_proc catalog structure)
   - PROKIND_AGGREGATE (procedure kind constant)
   - PROKIND_PROCEDURE (procedure kind constant)

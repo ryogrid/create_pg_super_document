@@ -21,10 +21,10 @@ The calculation considers the current block position (rs_cblock) relative to the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelBlockTableScanDesc (struct access)
-  - HeapScanDesc (struct access)
+  - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (struct access)
+  - [HeapScanDesc](../H/HeapScanDesc.md) (struct access)
 - Called from (representative examples):
-  - heapam_index_build_range_scan
+  - [heapam_index_build_range_scan](heapam_index_build_range_scan.md)
 
 ## Notes and Other Information
 This function is primarily intended for progress reporting during index builds and other long-running scan operations. The accuracy note indicates that in parallel scenarios, workers may be reading blocks concurrently, so the returned value represents an approximation rather than an exact count. The wraparound handling is crucial for scans that use synchronized scanning or start from arbitrary positions within the relation.

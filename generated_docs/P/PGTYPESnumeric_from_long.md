@@ -27,14 +27,14 @@ The conversion process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - alloc_var (allocates memory for numeric variable)
+  - [alloc_var](../a/alloc_var.md) (allocates memory for numeric variable)
   - NUMERIC_NEG (constant for negative sign)
   - NUMERIC_POS (constant for positive sign)
-  - numeric (type definition)
+  - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
-  - deccvlong (in informix compatibility library)
-  - PGTYPESnumeric_from_int (wrapper function)
-  - main (in test programs)
+  - [deccvlong](../d/deccvlong.md) (in informix compatibility library)
+  - [PGTYPESnumeric_from_int](PGTYPESnumeric_from_int.md) (wrapper function)
+  - [main](../m/main.md) (in test programs)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (typically memory allocation failure)

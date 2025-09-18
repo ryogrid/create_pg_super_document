@@ -23,25 +23,25 @@ XLogWrite is the central mechanism for persisting WAL data from shared memory bu
 - Functions called/Symbols referenced:
   - RefreshXLogWriteResult (updates local LogwrtResult)
   - XLogRecPtrToBufIdx (converts LSN to buffer index)
-  - XLogFileClose/XLogFileOpen/XLogFileInit (file operations)
+  - [XLogFileClose](XLogFileClose.md)/XLogFileOpen/XLogFileInit (file operations)
   - pg_pwrite (physical write operation)
-  - issue_xlog_fsync (fsync operations)
-  - XLogCheckpointNeeded (checkpoint threshold checking)
+  - [issue_xlog_fsync](../i/issue_xlog_fsync.md) (fsync operations)
+  - [XLogCheckpointNeeded](XLogCheckpointNeeded.md) (checkpoint threshold checking)
   - WalSndWakeupRequest (walsender notification)
-  - XLogArchiveNotifySeg (archival notification)
-  - RequestCheckpoint (checkpoint initiation)
+  - [XLogArchiveNotifySeg](XLogArchiveNotifySeg.md) (archival notification)
+  - [RequestCheckpoint](../R/RequestCheckpoint.md) (checkpoint initiation)
 - Global variables used:
   - XLogCtl (shared WAL control structure)
   - LogwrtResult (local write result tracking)
   - openLogFile/openLogSegNo/openLogTLI (current open file state)
 - Called from (representative examples):
-  - XLogFlush (in xlog.c:2902)
-  - XLogBackgroundFlush (in xlog.c:3080)
-  - AdvanceXLInsertBuffer (in xlog.c:2060)
+  - [XLogFlush](XLogFlush.md) (in xlog.c:2902)
+  - [XLogBackgroundFlush](XLogBackgroundFlush.md) (in xlog.c:3080)
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md) (in xlog.c:2060)
 
 ## Notes and Other Information
 - Must be called with WALWriteLock held and within a critical section
-- WaitXLogInsertionsToFinish(WriteRqst) must be called before acquiring the lock
+- [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)(WriteRqst) must be called before acquiring the lock
 - Implements sophisticated page batching to minimize system calls by gathering consecutive pages
 - Handles WAL segment file transitions automatically, including creation of new segment files
 - Performs immediate fsync when completing a WAL segment to optimize performance

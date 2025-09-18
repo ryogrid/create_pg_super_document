@@ -19,7 +19,7 @@ This function serves as a timeout handler specifically for standby operations in
 - Functions called/Symbols referenced:
   - got_standby_delay_timeout (global variable)
 - Called from (representative examples):
-  - StartupProcessMain (src/backend/postmaster/startup.c:247)
+  - [StartupProcessMain](StartupProcessMain.md) (src/backend/postmaster/startup.c:247)
   - Referenced in STANDBY_H header (src/include/storage/standby.h:44)
 
 ## Notes and Other Information

@@ -21,20 +21,20 @@ The function performs a system catalog lookup in pg_operator using the provided 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (operator catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (invalid OID constant)
 
 - Called from (representative examples):
-  - negate_clause (logical negation of clauses)
-  - operator_same_subexprs_proof (predicate testing)
-  - convert_saop_to_hashed_saop_walker (expression transformation)
-  - match_clause_to_partition_key (partition pruning)
-  - neqjoinsel (selectivity estimation for inequality joins)
+  - [negate_clause](../n/negate_clause.md) (logical negation of clauses)
+  - [operator_same_subexprs_proof](../o/operator_same_subexprs_proof.md) (predicate testing)
+  - [convert_saop_to_hashed_saop_walker](../c/convert_saop_to_hashed_saop_walker.md) (expression transformation)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md) (partition pruning)
+  - [neqjoinsel](../n/neqjoinsel.md) (selectivity estimation for inequality joins)
 
 ## Notes and Other Information
 - This function is part of the lsyscache.c module which provides cached access to system catalog information

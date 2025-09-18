@@ -32,11 +32,11 @@ This function takes no parameters (void).
 - Functions called/Symbols referenced:
   - TlsGetValue (Windows API - for retrieving thread-local values)
   - TlsSetValue (Windows API - for setting thread-local values)
-  - resetPQExpBuffer (PostgreSQL libpq function)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (PostgreSQL libpq function)
   - createPQExpBuffer (PostgreSQL libpq function)
 
 - Called from (representative examples):
-  - ParallelBackupStart (in src/bin/pg_dump/parallel.c:921)
+  - [ParallelBackupStart](../P/ParallelBackupStart.md) (in src/bin/pg_dump/parallel.c:921)
 
 ## Notes and Other Information
 - This is a static function, accessible only within parallel.c

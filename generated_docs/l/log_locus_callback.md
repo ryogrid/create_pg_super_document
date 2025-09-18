@@ -25,7 +25,7 @@ The function checks if psql is currently processing an input file (pset.inputfil
   - pset.inputfile (global psql settings structure member)
   - pset.lineno (global psql settings structure member)
 - Called from (representative examples):
-  - main (registered as callback)
+  - [main](../m/main.md) (registered as callback)
   - pg_logging_set_locus_callback
   - pg_log_generic_v
 

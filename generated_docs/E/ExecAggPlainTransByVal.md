@@ -24,14 +24,14 @@ ExecAggPlainTransByVal is a critical function in PostgreSQL's aggregate executio
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCallInvoke
-  - MemoryContextSwitchTo  
-  - AggState (struct)
-  - AggStatePerTrans (struct)
-  - AggStatePerGroup (struct)
-  - FunctionCallInfo (struct)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)  
+  - [AggState](../A/AggState.md) (struct)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md) (struct)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (struct)
   - pg_attribute_always_inline
 - Called from (representative examples):
-  - ExecInterpExpr (multiple call sites)
+  - [ExecInterpExpr](ExecInterpExpr.md) (multiple call sites)
   - EEO_JUMP (via jump table mechanism)
 
 ## Notes and Other Information  

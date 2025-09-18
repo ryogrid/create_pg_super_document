@@ -17,11 +17,11 @@ This function performs a deep copy of a SearchPathMatcher structure, creating a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathMatcher (type)
-  - list_copy
-  - palloc
+  - [SearchPathMatcher](../S/SearchPathMatcher.md) (type)
+  - [list_copy](../l/list_copy.md)
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - CopyCachedPlan (src/backend/utils/cache/plancache.c:1593)
+  - [CopyCachedPlan](CopyCachedPlan.md) (src/backend/utils/cache/plancache.c:1593)
   - RangeVarGetRelid (src/include/catalog/namespace.h:169)
 
 ## Notes and Other Information

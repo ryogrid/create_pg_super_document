@@ -30,10 +30,10 @@ The function is responsible for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgAllocSearchItem - Allocates a new search item in queue context
-  - datumCopy - Creates a proper copy of the reconstructed datum value
+  - [spgAllocSearchItem](spgAllocSearchItem.md) - Allocates a new search item in queue context
+  - [datumCopy](../d/datumCopy.md) - Creates a proper copy of the reconstructed datum value
 - Called from:
-  - spgInnerTest - Creates inner items for child nodes selected by inner_consistent
+  - [spgInnerTest](spgInnerTest.md) - Creates inner items for child nodes selected by inner_consistent
 
 ## Notes and Other Information
 - The level calculation supports opclass-defined level adjustments via levelAdds array

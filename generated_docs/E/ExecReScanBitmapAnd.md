@@ -21,10 +21,10 @@ The parameter change handling follows PostgreSQL's lazy rescanning optimization 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UpdateChangedParamSet (to propagate parameter changes to subplans)
-  - ExecReScan (to rescan subplans without pending parameter changes)
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (to propagate parameter changes to subplans)
+  - [ExecReScan](ExecReScan.md) (to rescan subplans without pending parameter changes)
 - Called from (representative examples):
-  - ExecReScan (general rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (general rescan dispatcher)
 
 ## Notes and Other Information
 - Part of PostgreSQL's parameter change propagation and rescan infrastructure

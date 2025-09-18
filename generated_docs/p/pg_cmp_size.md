@@ -25,7 +25,7 @@ This function is designed for comparing size_t values, which are typically used 
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)
 - Called from (representative examples):
-  - library_name_compare (src/bin/pg_upgrade/function.c:38)
+  - [library_name_compare](../l/library_name_compare.md) (src/bin/pg_upgrade/function.c:38)
 
 ## Notes and Other Information
 - The branchless implementation `(a > b) - (a < b)` is more efficient than traditional if-else comparison logic

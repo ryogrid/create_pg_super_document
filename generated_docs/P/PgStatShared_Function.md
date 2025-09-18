@@ -23,9 +23,9 @@ Function statistics are particularly important in applications that rely heavily
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common
-  - PgStat_StatFuncEntry
+  - [PgStat_StatFuncEntry](PgStat_StatFuncEntry.md)
 - Called from (representative examples):
-  - pgstat_function_flush_cb
+  - [pgstat_function_flush_cb](../p/pgstat_function_flush_cb.md)
   - SH_DECLARE (hash table declarations)
 
 ## Notes and Other Information

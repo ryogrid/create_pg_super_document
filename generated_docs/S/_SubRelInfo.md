@@ -32,7 +32,7 @@ This structure is part of PostgreSQL's pg_dump utility and represents the relati
 - Functions called/Symbols referenced:
   - DumpableObject
   - SubscriptionInfo  
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

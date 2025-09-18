@@ -27,9 +27,9 @@ The function works by examining the internal structure of the Numeric value, spe
 - Functions called/Symbols referenced:
   - `NUMERIC_IS_SPECIAL`: Checks if the value is NaN or infinity
   - `NUMERIC_IS_NAN`: Specifically tests for NaN values
-  - `init_var_from_num`: Converts Numeric to NumericVar for analysis
+  - `[init_var_from_num](../i/init_var_from_num.md)`: Converts Numeric to NumericVar for analysis
 - Called from (representative examples):
-  - `numeric_power`: Power function uses this to optimize integer exponent calculations
+  - `[numeric_power](numeric_power.md)`: Power function uses this to optimize integer exponent calculations
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the numeric.c source file

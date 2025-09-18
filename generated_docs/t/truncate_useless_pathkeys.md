@@ -26,14 +26,14 @@ The function takes the maximum count from all four evaluations, ensuring that pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pathkeys_useful_for_merging (evaluates merge join utility)
-  - pathkeys_useful_for_ordering (evaluates ORDER BY utility)
-  - pathkeys_useful_for_grouping (evaluates GROUP BY utility)  
-  - pathkeys_useful_for_setop (evaluates set operation utility)
-  - list_copy_head (creates truncated copy of list)
+  - [pathkeys_useful_for_merging](../p/pathkeys_useful_for_merging.md) (evaluates merge join utility)
+  - [pathkeys_useful_for_ordering](../p/pathkeys_useful_for_ordering.md) (evaluates ORDER BY utility)
+  - [pathkeys_useful_for_grouping](../p/pathkeys_useful_for_grouping.md) (evaluates GROUP BY utility)  
+  - [pathkeys_useful_for_setop](../p/pathkeys_useful_for_setop.md) (evaluates set operation utility)
+  - [list_copy_head](../l/list_copy_head.md) (creates truncated copy of list)
 - Called from (representative examples):
-  - build_index_paths
-  - build_join_pathkeys
+  - [build_index_paths](../b/build_index_paths.md)
+  - [build_join_pathkeys](../b/build_join_pathkeys.md)
 
 ## Notes and Other Information
 - Returns NIL if no pathkeys are useful (nuseful == 0)

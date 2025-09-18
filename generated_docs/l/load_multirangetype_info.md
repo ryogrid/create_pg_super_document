@@ -22,12 +22,12 @@ When called, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_multirange_range
-  - lookup_type_cache
+  - [get_multirange_range](../g/get_multirange_range.md)
+  - [lookup_type_cache](lookup_type_cache.md)
   - TYPECACHE_RANGE_INFO
 - Called from (representative examples):
-  - lookup_type_cache
-  - cache_multirange_element_properties
+  - [lookup_type_cache](lookup_type_cache.md)
+  - [cache_multirange_element_properties](../c/cache_multirange_element_properties.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit (typcache.c)

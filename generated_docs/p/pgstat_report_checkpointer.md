@@ -27,9 +27,9 @@ After transferring statistics, it clears the local buffer and reports IO statist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_assert_is_up
-  - pgstat_begin_changecount_write
-  - pgstat_end_changecount_write
+  - [pgstat_assert_is_up](pgstat_assert_is_up.md)
+  - [pgstat_begin_changecount_write](pgstat_begin_changecount_write.md)
+  - [pgstat_end_changecount_write](pgstat_end_changecount_write.md)
   - memcmp
   - MemSet
   - pgstat_report_io
@@ -37,9 +37,9 @@ After transferring statistics, it clears the local buffer and reports IO statist
   - PgStat_CheckpointerStats
   - PgStatShared_Checkpointer
 - Called from (representative examples):
-  - CheckpointerMain
-  - HandleCheckpointerInterrupts
-  - CheckpointWriteDelay
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)
+  - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md)
 
 ## Notes and Other Information
 - Uses a static zero-initialized structure for efficient comparison to detect if any statistics have been accumulated

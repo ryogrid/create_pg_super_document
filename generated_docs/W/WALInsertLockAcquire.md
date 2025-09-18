@@ -25,8 +25,8 @@ WALInsertLockAcquire implements a smart lock acquisition strategy for WAL insert
   - MyLockNo (global variable)
   - WALInsertLocks (global array)
 - Called from (representative examples):
-  - XLogInsertRecord
-  - CreateOverwriteContrecordRecord
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
+  - [CreateOverwriteContrecordRecord](../C/CreateOverwriteContrecordRecord.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

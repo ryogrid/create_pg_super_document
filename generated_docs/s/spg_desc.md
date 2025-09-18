@@ -37,8 +37,8 @@ The function uses a switch statement to handle various SP-GiST operation types:
   - XLOG_SPGIST_ADD_LEAF, XLOG_SPGIST_MOVE_LEAFS, XLOG_SPGIST_ADD_NODE
   - XLOG_SPGIST_SPLIT_TUPLE, XLOG_SPGIST_PICKSPLIT
   - XLOG_SPGIST_VACUUM_LEAF, XLOG_SPGIST_VACUUM_ROOT, XLOG_SPGIST_VACUUM_REDIRECT
-  - spgxlogAddLeaf, spgxlogMoveLeafs, spgxlogAddNode, spgxlogSplitTuple
-  - spgxlogPickSplit, spgxlogVacuumLeaf, spgxlogVacuumRoot, spgxlogVacuumRedirect
+  - [spgxlogAddLeaf](spgxlogAddLeaf.md), spgxlogMoveLeafs, spgxlogAddNode, spgxlogSplitTuple
+  - [spgxlogPickSplit](spgxlogPickSplit.md), spgxlogVacuumLeaf, spgxlogVacuumRoot, spgxlogVacuumRedirect
 - Called from:
   - SizeOfSpgxlogVacuumRedirect (referenced in spgxlog.h)
 

@@ -22,7 +22,7 @@ The function is typically called when an insertion operation determines that a p
   - PageHeader (cast to access page header structure)
   - PD_PAGE_FULL (flag constant)
 - Called from (representative examples):
-  - heap_update (src/backend/access/heap/heapam.c:3992)
+  - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3992)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

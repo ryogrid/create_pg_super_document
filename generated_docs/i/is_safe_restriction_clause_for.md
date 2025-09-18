@@ -27,10 +27,10 @@ These checks ensure that extracting and duplicating the clause for early evaluat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_equal
-  - contain_volatile_functions  
+  - [bms_equal](../b/bms_equal.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)  
 - Called from (representative examples):
-  - extract_or_clause (multiple times)
+  - [extract_or_clause](../e/extract_or_clause.md) (multiple times)
 
 ## Notes and Other Information
 - This is a static function only used within the orclauses.c module

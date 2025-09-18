@@ -19,9 +19,9 @@ This static function initializes the TableAmRoutine structure for a table relati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTableAmRoutine
+  - [GetTableAmRoutine](../G/GetTableAmRoutine.md)
 - Called from:
-  - RelationInitTableAccessMethod
+  - [RelationInitTableAccessMethod](../R/RelationInitTableAccessMethod.md)
 
 ## Notes and Other Information
 - This is a static function within relcache.c used for table relation cache initialization

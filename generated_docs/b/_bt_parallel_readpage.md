@@ -188,14 +188,14 @@ write_data_to_archive_lz4_doc.md: ScanDirection - The direction of the scan (for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_initialize_more_data
-  - _bt_readnextpage
-  - _bt_drop_lock_and_maybe_pin
+  - [_bt_initialize_more_data](_bt_initialize_more_data.md)
+  - [_bt_readnextpage](_bt_readnextpage.md)
+  - [_bt_drop_lock_and_maybe_pin](_bt_drop_lock_and_maybe_pin.md)
   - BTScanOpaque (type)
-  - IndexScanDesc (type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (type)
   - ScanDirection (type)
 - Called from (representative examples):
-  - _bt_first
+  - [_bt_first](_bt_first.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the nbtsearch.c file

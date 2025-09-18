@@ -33,27 +33,27 @@ This comprehensive approach ensures that index pages remain compact and efficien
   - ItemId
   - SizeOfPageHeaderData
   - ERRCODE_DATA_CORRUPTED
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](PageGetItemId.md)
   - ItemIdHasStorage
   - ItemIdGetLength
   - ItemIdGetOffset
-  - ItemIdData
-  - PageIsEmpty
+  - [ItemIdData](../I/ItemIdData.md)
+  - [PageIsEmpty](PageIsEmpty.md)
 - Called from (representative examples):
-  - entryPreparePage
-  - ginVacuumEntryPage
-  - ginRedoInsertEntry
-  - gistplacetopage
-  - gistdeletepage
-  - gistRedoPageDelete
-  - _bt_mark_page_halfdead
-  - btree_xlog_mark_page_halfdead
-  - addLeafTuple
-  - spgAddNodeAction
-  - spgSplitNodeAction
-  - SpGistPageAddNewItem
-  - PageIndexMultiDelete
+  - [entryPreparePage](../e/entryPreparePage.md)
+  - [ginVacuumEntryPage](../g/ginVacuumEntryPage.md)
+  - [ginRedoInsertEntry](../g/ginRedoInsertEntry.md)
+  - [gistplacetopage](../g/gistplacetopage.md)
+  - [gistdeletepage](../g/gistdeletepage.md)
+  - [gistRedoPageDelete](../g/gistRedoPageDelete.md)
+  - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md)
+  - [btree_xlog_mark_page_halfdead](../b/btree_xlog_mark_page_halfdead.md)
+  - [addLeafTuple](../a/addLeafTuple.md)
+  - [spgAddNodeAction](../s/spgAddNodeAction.md)
+  - [spgSplitNodeAction](../s/spgSplitNodeAction.md)
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md)
+  - [PageIndexMultiDelete](PageIndexMultiDelete.md)
 
 ## Notes and Other Information
 - Designed specifically for index pages, not heap pages

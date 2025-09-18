@@ -22,19 +22,19 @@ The function assumes that each relation in the hierarchy has precisely one paren
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (to access InheritsRelationId catalog)
-  - get_partition_ancestors_worker (performs the recursive ancestor lookup)
+  - [get_partition_ancestors_worker](get_partition_ancestors_worker.md) (performs the recursive ancestor lookup)
   - table_close (to release catalog lock)
 
 - Called from (representative examples):
   - index_concurrently_swap
-  - getIdentitySequence
-  - filter_partitions
-  - ExecGetAncestorResultRels
-  - ExecInitPartitionInfo
-  - get_rel_sync_entry
-  - pg_partition_root
-  - pg_partition_ancestors
-  - RelationBuildPublicationDesc
+  - [getIdentitySequence](getIdentitySequence.md)
+  - [filter_partitions](../f/filter_partitions.md)
+  - [ExecGetAncestorResultRels](../E/ExecGetAncestorResultRels.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [get_rel_sync_entry](get_rel_sync_entry.md)
+  - [pg_partition_root](../p/pg_partition_root.md)
+  - [pg_partition_ancestors](../p/pg_partition_ancestors.md)
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
 
 ## Notes and Other Information
 - Returns NIL (empty list) if the relation has no ancestors

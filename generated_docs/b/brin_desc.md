@@ -33,12 +33,12 @@ The function uses a switch statement to handle different BRIN operation types, e
   - XLOG_BRIN_REVMAP_EXTEND
   - XLOG_BRIN_DESUMMARIZE
 - Data structures:
-  - xl_brin_createidx
-  - xl_brin_insert
-  - xl_brin_update
-  - xl_brin_samepage_update
-  - xl_brin_revmap_extend
-  - xl_brin_desummarize
+  - [xl_brin_createidx](../x/xl_brin_createidx.md)
+  - [xl_brin_insert](../x/xl_brin_insert.md)
+  - [xl_brin_update](../x/xl_brin_update.md)
+  - [xl_brin_samepage_update](../x/xl_brin_samepage_update.md)
+  - [xl_brin_revmap_extend](../x/xl_brin_revmap_extend.md)
+  - [xl_brin_desummarize](../x/xl_brin_desummarize.md)
 - Called from (representative examples):
   - SizeOfBrinDesummarize (indirectly referenced)
 

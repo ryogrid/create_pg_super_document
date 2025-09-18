@@ -25,24 +25,24 @@ The function carefully manages memory contexts to avoid leaks: it builds the res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
   - makeNode
-  - DeconstructFkConstraintRow
+  - [DeconstructFkConstraintRow](../D/DeconstructFkConstraintRow.md)
   - lappend
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - copyObject
-  - list_free_deep
+  - [list_free_deep](../l/list_free_deep.md)
   - ForeignKeyCacheInfo (struct type)
 - Called from (representative examples):
-  - addFkRecurseReferencing
-  - CloneFkReferencing
-  - DetachPartitionFinalize
-  - get_relation_foreign_keys
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
+  - [CloneFkReferencing](../C/CloneFkReferencing.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [get_relation_foreign_keys](../g/get_relation_foreign_keys.md)
 
 ## Notes and Other Information
 - Implements caching via rd_fkeylist and rd_fkeyvalid fields in the relation structure
@@ -50,5 +50,5 @@ The function carefully manages memory contexts to avoid leaks: it builds the res
 - Fast path optimization for tables that cannot have foreign keys
 - Uses DeconstructFkConstraintRow to extract detailed constraint information from pg_constraint tuples
 - Memory management prevents leaks by building lists in appropriate contexts
-- List items are returned in no particular order
+- [List](../L/List.md) items are returned in no particular order
 - Callers should use copyObject() if they need to retain the list across potential cache flushes

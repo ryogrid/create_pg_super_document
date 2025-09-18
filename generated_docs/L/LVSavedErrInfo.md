@@ -26,15 +26,15 @@ LVSavedErrInfo provides a mechanism for temporarily saving vacuum error reportin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VacErrPhase
+  - [VacErrPhase](../V/VacErrPhase.md)
 
 - Called from (representative examples):
-  - lazy_vacuum_heap_rel
-  - lazy_vacuum_heap_page
-  - lazy_vacuum_one_index
-  - lazy_cleanup_one_index
-  - update_vacuum_error_info
-  - restore_vacuum_error_info
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
+  - [lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md)
+  - [lazy_vacuum_one_index](../l/lazy_vacuum_one_index.md)
+  - [lazy_cleanup_one_index](../l/lazy_cleanup_one_index.md)
+  - [update_vacuum_error_info](../u/update_vacuum_error_info.md)
+  - [restore_vacuum_error_info](../r/restore_vacuum_error_info.md)
 
 ## Notes and Other Information
 This structure is typically used in pairs with update_vacuum_error_info() and restore_vacuum_error_info() functions to temporarily change and then restore vacuum error reporting context. It ensures that if an error occurs during nested vacuum operations, the error message will contain accurate information about where the error occurred rather than potentially stale context from a previous operation.

@@ -22,20 +22,20 @@ The function is designed to work with any catalog table that stores ACLs by acce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_catcache_oid
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
   - table_open, table_close
-  - SearchSysCacheLocked1, ReleaseSysCache
-  - SysCacheGetAttr, SysCacheGetAttrNotNull
-  - acldefault, aclmembers
+  - [SearchSysCacheLocked1](../S/SearchSysCacheLocked1.md), ReleaseSysCache
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md), SysCacheGetAttrNotNull
+  - [acldefault](../a/acldefault.md), aclmembers
   - select_best_grantor
-  - restrict_and_check_grant
-  - merge_acl_with_grant
-  - heap_modify_tuple, CatalogTupleUpdate
-  - updateAclDependencies
-  - recordExtensionInitPriv
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md), CatalogTupleUpdate
+  - [updateAclDependencies](../u/updateAclDependencies.md)
+  - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
   - CommandCounterIncrement
 - Called from:
-  - ExecGrantStmt_oids (for various object types like tables, functions, databases, etc.)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (for various object types like tables, functions, databases, etc.)
 
 ## Notes and Other Information
 - Uses row-exclusive locking on the target catalog to prevent concurrent modifications

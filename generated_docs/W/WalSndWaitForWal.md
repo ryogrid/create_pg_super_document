@@ -32,22 +32,22 @@ The function returns the end LSN of flushed WAL, which is normally >= the reques
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
-  - NeedToWaitForWal
-  - ResetLatch, SetLatch
-  - ProcessRepliesIfAny
-  - XLogBackgroundFlush
-  - RecoveryInProgress
-  - GetFlushRecPtr, GetXLogReplayRecPtr
-  - NeedToWaitForStandbys
-  - WalSndKeepalive, WalSndKeepaliveIfNecessary
-  - WalSndShutdown, WalSndCheckTimeOut
-  - WalSndComputeSleeptime, WalSndWait
+  - [NeedToWaitForWal](../N/NeedToWaitForWal.md)
+  - [ResetLatch](../R/ResetLatch.md), SetLatch
+  - [ProcessRepliesIfAny](../P/ProcessRepliesIfAny.md)
+  - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md), GetXLogReplayRecPtr
+  - [NeedToWaitForStandbys](../N/NeedToWaitForStandbys.md)
+  - [WalSndKeepalive](WalSndKeepalive.md), WalSndKeepaliveIfNecessary
+  - [WalSndShutdown](WalSndShutdown.md), WalSndCheckTimeOut
+  - [WalSndComputeSleeptime](WalSndComputeSleeptime.md), WalSndWait
   - pq_flush_if_writable, pq_is_send_pending
-  - SyncRepInitConfig
-  - GetCurrentTimestamp, TimestampDifferenceExceeds
-  - pgstat_flush_io
+  - [SyncRepInitConfig](../S/SyncRepInitConfig.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md), TimestampDifferenceExceeds
+  - [pgstat_flush_io](../p/pgstat_flush_io.md)
 - Called from (representative examples):
-  - logical_read_xlog_page (at src/backend/replication/walsender.c:1069)
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md) (at src/backend/replication/walsender.c:1069)
 
 ## Notes and Other Information
 - This is a static function within walsender.c, serving as a critical internal component of the WAL sender infrastructure

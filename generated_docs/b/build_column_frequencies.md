@@ -22,13 +22,13 @@ This function analyzes distinct value groups and computes frequency counts for i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sort_item_compare
+  - [sort_item_compare](../s/sort_item_compare.md)
   - qsort_interruptible
-  - palloc
+  - [palloc](../p/palloc.md)
   - MAXALIGN (macro)
 - Called from (representative examples):
   - SizeOfMCVList
-  - statext_mcv_build
+  - [statext_mcv_build](../s/statext_mcv_build.md)
 
 ## Notes and Other Information
 - Allocates all memory in a single chunk for efficient memory management

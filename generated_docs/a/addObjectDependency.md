@@ -25,11 +25,11 @@ The dependency tracking is crucial for pg_dump's operation as it ensures objects
   - DumpableObject (structure type for dumpable objects)
   - DumpId (type for dump object identifiers)
 - Called from (representative examples):
-  - flagInhTables (in src/bin/pg_dump/common.c:399-400)
-  - flagInhIndexes (in src/bin/pg_dump/common.c:462-466)
-  - checkExtensionMembership (in src/bin/pg_dump/pg_dump.c:1744)
-  - getTableDataFKConstraints (in src/bin/pg_dump/pg_dump.c:3042)
-  - getDependencies (in src/bin/pg_dump/pg_dump.c:18681,18684)
+  - [flagInhTables](../f/flagInhTables.md) (in src/bin/pg_dump/common.c:399-400)
+  - [flagInhIndexes](../f/flagInhIndexes.md) (in src/bin/pg_dump/common.c:462-466)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md) (in src/bin/pg_dump/pg_dump.c:1744)
+  - [getTableDataFKConstraints](../g/getTableDataFKConstraints.md) (in src/bin/pg_dump/pg_dump.c:3042)
+  - [getDependencies](../g/getDependencies.md) (in src/bin/pg_dump/pg_dump.c:18681,18684)
 
 ## Notes and Other Information
 - The function does not eliminate duplicate dependencies, which means the same dependency can be added multiple times

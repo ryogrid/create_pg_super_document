@@ -25,7 +25,7 @@ This is used in ISO 8601 parsing contexts where the number of digits in the inte
 - Functions called/Symbols referenced:
   - strspn (standard C library function to count characters from a set)
 - Called from (representative examples):
-  - DecodeISO8601Interval (multiple locations in backend and ECPG)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (multiple locations in backend and ECPG)
 
 ## Notes and Other Information
 - This is a static helper function within src/backend/utils/adt/datetime.c

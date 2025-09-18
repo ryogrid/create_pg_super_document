@@ -21,11 +21,11 @@ The function operates by first obtaining the current timestamp and then calling 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - pgstat_get_slru_index  
-  - pgstat_reset_slru_counter_internal
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pgstat_get_slru_index](pgstat_get_slru_index.md)  
+  - [pgstat_reset_slru_counter_internal](pgstat_reset_slru_counter_internal.md)
 - Called from (representative examples):
-  - pg_stat_reset_slru
+  - [pg_stat_reset_slru](pg_stat_reset_slru.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

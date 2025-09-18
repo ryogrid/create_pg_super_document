@@ -24,18 +24,18 @@ This function serves as a wrapper around extract_jsp_path_expr_nodes to create a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extract_jsp_path_expr_nodes
+  - [extract_jsp_path_expr_nodes](extract_jsp_path_expr_nodes.md)
   - list_length
   - linitial
-  - make_jsp_expr_node_args
+  - [make_jsp_expr_node_args](../m/make_jsp_expr_node_args.md)
   - JsonPathGinContext
   - JsonPathGinPath
   - JsonPathItem
   - JsonPathGinNode
   - JSP_GIN_AND
 - Called from (representative examples):
-  - extract_jsp_bool_expr
-  - extract_jsp_query
+  - [extract_jsp_bool_expr](extract_jsp_bool_expr.md)
+  - [extract_jsp_query](extract_jsp_query.md)
 
 ## Notes and Other Information
 - This is a static function within the JSONB GIN indexing module

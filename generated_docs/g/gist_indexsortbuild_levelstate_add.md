@@ -30,14 +30,14 @@ After determining the appropriate target page, the function uses gistfillbuffer 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize: Calculate storage size required for the index tuple
-  - PageGetFreeSpace: Determine available space on the current page
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md): Determine available space on the current page
   - GistPageGetOpaque: Access GiST-specific page metadata and flags
-  - gist_indexsortbuild_levelstate_flush: Write full pages and propagate entries to parent level
-  - gistinitpage: Initialize a new GiST page with appropriate type flags
-  - gistfillbuffer: Insert tuple into page using GiST page layout rules
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md): Write full pages and propagate entries to parent level
+  - [gistinitpage](gistinitpage.md): Initialize a new GiST page with appropriate type flags
+  - [gistfillbuffer](gistfillbuffer.md): Insert tuple into page using GiST page layout rules
 - Called from (representative examples):
-  - gist_indexsortbuild: Main sorted build loop processing sorted tuples
-  - gist_indexsortbuild_levelstate_flush: Recursive calls when adding union tuples to parent levels
+  - [gist_indexsortbuild](gist_indexsortbuild.md): Main sorted build loop processing sorted tuples
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md): Recursive calls when adding union tuples to parent levels
 
 ## Notes and Other Information
 - The function ignores fill factor considerations, packing pages as tightly as possible for optimal space utilization

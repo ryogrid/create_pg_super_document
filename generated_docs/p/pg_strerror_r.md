@@ -21,11 +21,11 @@ This function serves as PostgreSQL's robust, thread-safe interface for convertin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - win32_socket_strerror (Windows socket error handling)
-  - gnuish_strerror_r (platform-specific strerror_r wrapper)
-  - get_errno_symbol (symbolic errno name lookup)
+  - [win32_socket_strerror](../w/win32_socket_strerror.md) (Windows socket error handling)
+  - [gnuish_strerror_r](../g/gnuish_strerror_r.md) (platform-specific strerror_r wrapper)
+  - [get_errno_symbol](../g/get_errno_symbol.md) (symbolic errno name lookup)
 - Called from (representative examples):
-  - pg_strerror
+  - [pg_strerror](pg_strerror.md)
 
 ## Notes and Other Information
 - Thread-safe due to user-provided buffer management

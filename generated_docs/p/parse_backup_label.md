@@ -27,13 +27,13 @@ The function uses a bitmask approach to track which required components have bee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_eol_offset
-  - line_starts_with
-  - parse_lsn
-  - parse_tli
-  - pg_fatal
+  - [get_eol_offset](../g/get_eol_offset.md)
+  - [line_starts_with](../l/line_starts_with.md)
+  - [parse_lsn](parse_lsn.md)
+  - [parse_tli](parse_tli.md)
+  - [pg_fatal](pg_fatal.md)
 - Called from (representative examples):
-  - check_backup_label_files
+  - [check_backup_label_files](../c/check_backup_label_files.md)
 
 ## Notes and Other Information
 - The function initializes output parameters to safe default values (0 for timeline IDs, InvalidXLogRecPtr for LSNs)

@@ -22,15 +22,15 @@ index_update_stats is a critical internal function that updates statistical info
   - Form_pg_class (structure type)
   - RelationGetNumberOfBlocks (function)
   - RELKIND_INDEX (constant)
-  - visibilitymap_count (function)
-  - systable_inplace_update_begin (function)
-  - systable_inplace_update_finish (function)
-  - systable_inplace_update_cancel (function)
-  - CacheInvalidateRelcacheByTuple (function)
-  - heap_freetuple (function)
+  - [visibilitymap_count](../v/visibilitymap_count.md) (function)
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md) (function)
+  - [systable_inplace_update_finish](../s/systable_inplace_update_finish.md) (function)
+  - [systable_inplace_update_cancel](../s/systable_inplace_update_cancel.md) (function)
+  - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md) (function)
+  - [heap_freetuple](../h/heap_freetuple.md) (function)
 - Called from (representative examples):
   - index_create
-  - index_build
+  - [index_build](index_build.md)
 
 ## Notes and Other Information
 - Uses non-transactional updates to handle concurrent CREATE INDEX operations safely

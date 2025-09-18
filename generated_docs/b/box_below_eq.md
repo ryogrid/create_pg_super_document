@@ -22,9 +22,9 @@ According to the source comments, this function probably erroneously accepts the
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract BOX argument from function args)
-  - FPle (floating-point less than or equal comparison)
+  - [FPle](../F/FPle.md) (floating-point less than or equal comparison)
   - PG_RETURN_BOOL (macro to return boolean result)
-  - BOX (box data structure)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
   - No current references found (function is deprecated)
 

@@ -29,16 +29,16 @@ Special handling exists for BPCHAR (blank-padded character) types, which always 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typlen (retrieve fixed type length)
-  - type_maximum_size (calculate maximum possible size given typmod)
+  - [get_typlen](get_typlen.md) (retrieve fixed type length)
+  - [type_maximum_size](../t/type_maximum_size.md) (calculate maximum possible size given typmod)
   - BPCHAROID (constant for blank-padded character type)
 
 - Called from (representative examples):
-  - set_rel_width (src/backend/optimizer/path/costsize.c:6171, 6201)
-  - get_expr_width (src/backend/optimizer/path/costsize.c:6328, 6334)
-  - set_append_rel_size (src/backend/optimizer/path/allpaths.c:1182)
-  - create_one_window_path (src/backend/optimizer/plan/planner.c:4752)
-  - get_rel_data_width (src/backend/optimizer/util/plancat.c:1209)
+  - [set_rel_width](../s/set_rel_width.md) (src/backend/optimizer/path/costsize.c:6171, 6201)
+  - [get_expr_width](get_expr_width.md) (src/backend/optimizer/path/costsize.c:6328, 6334)
+  - [set_append_rel_size](../s/set_append_rel_size.md) (src/backend/optimizer/path/allpaths.c:1182)
+  - [create_one_window_path](../c/create_one_window_path.md) (src/backend/optimizer/plan/planner.c:4752)
+  - [get_rel_data_width](get_rel_data_width.md) (src/backend/optimizer/util/plancat.c:1209)
 
 ## Notes and Other Information
 - The function is designed for planner use and doesn't require absolute accuracy; reasonable approximations are acceptable

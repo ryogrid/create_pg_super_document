@@ -20,18 +20,18 @@ The function skips operation in data-only dumps since schema membership is a str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf - formats strings safely
-  - fmtId - formats identifiers safely for SQL output
-  - ArchiveEntry - creates an archive entry for the dump
+  - [psprintf](../p/psprintf.md) - formats strings safely
+  - [fmtId](../f/fmtId.md) - formats identifiers safely for SQL output
+  - [ArchiveEntry](../A/ArchiveEntry.md) - creates an archive entry for the dump
   - createPQExpBuffer/destroyPQExpBuffer - manages query buffers
-  - appendPQExpBuffer - builds SQL statements
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) - builds SQL statements
 - Called from (representative examples):
-  - dumpDumpableObject - main dispatcher for dumping various object types
+  - [dumpDumpableObject](dumpDumpableObject.md) - [main](../m/main.md) dispatcher for dumping various object types
 
 ## Notes and Other Information
 - Only operates when DUMP_COMPONENT_DEFINITION flag is set
 - Skipped entirely in data-only dumps (--data-only option)
 - No drop statement is generated since schema drops handle this automatically
 - Creates archive entries in SECTION_POST_DATA for proper restore ordering
-- Publication schema objects cannot currently have comments or security labels
+- [Publication](../P/Publication.md) schema objects cannot currently have comments or security labels
 - Uses the publication owner's role name for the archive entry

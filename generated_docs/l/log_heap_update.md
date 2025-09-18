@@ -30,26 +30,26 @@ Key optimizations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_heap_update (WAL record structure)
-  - xl_heap_header (tuple header structure)
+  - [xl_heap_update](../x/xl_heap_update.md) (WAL record structure)
+  - [xl_heap_header](../x/xl_heap_header.md) (tuple header structure)
   - RelationIsLogicallyLogged
   - RelationNeedsWAL
   - HeapTupleIsHeapOnly
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterData
-  - XLogRegisterBufData
-  - XLogInsert
-  - XLogCheckBufferNeedsBackup
-  - XLogSetRecordFlags
-  - ItemPointerGetOffsetNumber
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [XLogCheckBufferNeedsBackup](../X/XLogCheckBufferNeedsBackup.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - HeapTupleHeaderGetRawXmax
-  - compute_infobits
-  - PageGetMaxOffsetNumber
+  - [compute_infobits](../c/compute_infobits.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - XLOG_HEAP_UPDATE/XLOG_HEAP_HOT_UPDATE
   - Various XLH_UPDATE_* flags
 - Called from:
-  - heap_update
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within heapam.c

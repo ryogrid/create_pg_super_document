@@ -28,11 +28,11 @@ This function serves as an internal constructor for real (floating-point) type r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocate_reloption
+  - [allocate_reloption](../a/allocate_reloption.md)
   - RELOPT_TYPE_REAL
 - Called from (representative examples):
-  - add_real_reloption
-  - add_local_real_reloption
+  - [add_real_reloption](../a/add_real_reloption.md)
+  - [add_local_real_reloption](../a/add_local_real_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the reloptions.c file

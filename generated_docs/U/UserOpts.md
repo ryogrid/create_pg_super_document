@@ -35,7 +35,7 @@ The UserOpts structure encapsulates all user-configurable options that control t
   - transferMode (enum type)
 - Called from (representative examples):
   - FIX_DEFAULT_READ_ONLY (in option.c)
-  - OSInfo structure (as part of global context)
+  - [OSInfo](../O/OSInfo.md) structure (as part of global context)
 
 ## Notes and Other Information
 - This structure is typically populated from command-line arguments parsed by the pg_upgrade utility

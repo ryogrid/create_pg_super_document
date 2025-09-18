@@ -19,13 +19,13 @@ This function is primarily used in performance-critical code paths where the val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockIdGetBlockNumber
+  - [BlockIdGetBlockNumber](../B/BlockIdGetBlockNumber.md)
 - Called from (representative examples):
-  - heap_set_tidrange
-  - ItemPointerCompare
-  - ItemPointerInc
-  - ItemPointerDec
-  - ItemPointerGetBlockNumber
+  - [heap_set_tidrange](../h/heap_set_tidrange.md)
+  - [ItemPointerCompare](ItemPointerCompare.md)
+  - [ItemPointerInc](ItemPointerInc.md)
+  - [ItemPointerDec](ItemPointerDec.md)
+  - [ItemPointerGetBlockNumber](ItemPointerGetBlockNumber.md)
   - GinItemPointerGetBlockNumber
 
 ## Notes and Other Information

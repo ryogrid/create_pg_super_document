@@ -21,10 +21,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbsorbSyncRequests (absorbs pending sync requests from other processes)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md) (absorbs pending sync requests from other processes)
   - checkpoint_cycle_ctr (global cycle counter variable)
 - Called from (representative examples):
-  - CreateCheckPoint (main checkpoint creation function in xlog.c:6907)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (main checkpoint creation function in xlog.c:6907)
 
 ## Notes and Other Information
 - Must be called before the checkpoint REDO point is determined to prevent premature file deletion

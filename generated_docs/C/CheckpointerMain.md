@@ -27,17 +27,17 @@ The process sets up signal handlers for configuration reloads, checkpoint reques
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon
-  - HandleCheckpointerInterrupts  
-  - CheckArchiveTimeout
-  - CreateCheckPoint
-  - CreateRestartPoint
-  - AbsorbSyncRequests
-  - UpdateSharedMemoryConfig
-  - ResetLatch/WaitLatch
-  - pgstat_report_checkpointer
-  - RecoveryInProgress
-  - GetInsertRecPtr/GetXLogReplayRecPtr
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)  
+  - [CheckArchiveTimeout](CheckArchiveTimeout.md)
+  - [CreateCheckPoint](CreateCheckPoint.md)
+  - [CreateRestartPoint](CreateRestartPoint.md)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md)
+  - [UpdateSharedMemoryConfig](../U/UpdateSharedMemoryConfig.md)
+  - [ResetLatch](../R/ResetLatch.md)/WaitLatch
+  - [pgstat_report_checkpointer](../p/pgstat_report_checkpointer.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetInsertRecPtr](../G/GetInsertRecPtr.md)/GetXLogReplayRecPtr
 - Called from (representative examples):
   - child_process_kind (launch_backend.c:204)
 

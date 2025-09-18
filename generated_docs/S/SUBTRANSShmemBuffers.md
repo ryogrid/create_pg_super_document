@@ -22,7 +22,7 @@ This function takes no parameters and returns an integer representing the number
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruAutotuneBuffers (performs auto-tuning calculation with 512KB/1024KB parameters)
+  - [SimpleLruAutotuneBuffers](SimpleLruAutotuneBuffers.md) (performs auto-tuning calculation with 512KB/1024KB parameters)
   - SLRU_MAX_ALLOWED_BUFFERS (maximum buffer limit for SLRU systems)
   - subtransaction_buffers (global configuration variable)
 - Called from (representative examples):

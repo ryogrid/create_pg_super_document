@@ -21,7 +21,7 @@ This function handles the \gdesc backslash command in psql. When executed, it se
   - PSQL_CMD_SKIP_LINE
   - PSQL_CMD_SEND
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Sets pset.gdesc_flag to true when active_branch is true

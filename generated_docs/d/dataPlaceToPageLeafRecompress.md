@@ -24,7 +24,7 @@ An important constraint is that segment pointers must not point directly to the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsCompressed
   - GinPageSetCompressed
   - GinPageGetOpaque
@@ -36,14 +36,14 @@ An important constraint is that segment pointers must not point directly to the 
   - memcpy
   - Assert
   - leafSegmentInfo (structure type)
-  - dlist_iter (structure type)
+  - [dlist_iter](dlist_iter.md) (structure type)
   - InvalidOffsetNumber (constant)
   - GIN_SEGMENT_UNMODIFIED (constant)
   - GIN_SEGMENT_DELETE (constant)
   - GinDataPageMaxDataSize (constant)
 - Called from (representative examples):
-  - dataExecPlaceToPageLeaf
-  - ginVacuumPostingTreeLeaf
+  - [dataExecPlaceToPageLeaf](dataExecPlaceToPageLeaf.md)
+  - [ginVacuumPostingTreeLeaf](../g/ginVacuumPostingTreeLeaf.md)
 
 ## Notes and Other Information
 - Function only updates the target buffer; WAL logging is the caller's responsibility

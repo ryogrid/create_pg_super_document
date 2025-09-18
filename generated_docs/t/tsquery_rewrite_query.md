@@ -35,10 +35,10 @@ The function handles edge cases such as empty queries, invalid SQL queries, and 
   - QT2QTN (convert TSQuery to tree representation)
   - QTNTernary, QTNSort (tree preprocessing)
   - SPI_connect, SPI_prepare, SPI_cursor_open (SQL execution)
-  - SPI_cursor_fetch, SPI_getbinval (result processing)
-  - findsubquery (pattern replacement)
-  - QTNClearFlags, QTNBinary (tree postprocessing)
-  - QTN2QT (convert tree back to TSQuery)
+  - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md), SPI_getbinval (result processing)
+  - [findsubquery](../f/findsubquery.md) (pattern replacement)
+  - [QTNClearFlags](../Q/QTNClearFlags.md), QTNBinary (tree postprocessing)
+  - [QTN2QT](../Q/QTN2QT.md) (convert tree back to TSQuery)
 - Called from (representative examples):
   - SQL queries using ts_rewrite(tsquery, text) function
 

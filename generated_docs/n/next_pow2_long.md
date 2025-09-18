@@ -19,11 +19,11 @@ The function uses the mathematical relationship that the smallest power of 2 gre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - my_log2 (calculates ceiling of base-2 logarithm)
+  - [my_log2](../m/my_log2.md) (calculates ceiling of base-2 logarithm)
   - Bit shift operator (<<) for power-of-2 calculation
 - Called from (representative examples):
-  - hash_estimate_size
-  - hash_select_dirsize
+  - [hash_estimate_size](../h/hash_estimate_size.md)
+  - [hash_select_dirsize](../h/hash_select_dirsize.md)
 
 ## Notes and Other Information
 - Returns a long integer representing the next power of 2

@@ -27,8 +27,8 @@ The function first checks if the lengths match, and if they do, performs the app
   - Name (data type)
   - PG_GETARG_NAME
   - PG_GET_COLLATION
-  - check_collation_set
-  - varstr_cmp
+  - [check_collation_set](../c/check_collation_set.md)
+  - [varstr_cmp](../v/varstr_cmp.md)
 - Called from (representative examples):
   - No direct references found in the codebase (likely used through SQL equality operators)
 

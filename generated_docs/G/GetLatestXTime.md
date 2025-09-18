@@ -23,10 +23,10 @@ This function fetches the timestamp of the most recently processed commit or abo
   - SpinLockRelease (for thread-safe access)  
   - XLogRecoveryCtl (global recovery control structure)
 - Called from (representative examples):
-  - CreateRestartPoint
-  - pg_last_xact_replay_timestamp
-  - PerformWalRecovery
-  - EndOfWalRecoveryInfo
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
+  - [pg_last_xact_replay_timestamp](../p/pg_last_xact_replay_timestamp.md)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md)
 
 ## Notes and Other Information
 - Returns a TimestampTz value representing the timestamp of the latest processed transaction

@@ -26,11 +26,11 @@ When not in an active transaction, all changes are permitted since  will be rese
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - IsSubTransaction
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [IsSubTransaction](../I/IsSubTransaction.md)
   - GUC_check_errcode
   - GUC_check_errmsg
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - GucSource (enum type)
 - Called from (representative examples):
   - GUC system via function pointer in guc_hooks.h

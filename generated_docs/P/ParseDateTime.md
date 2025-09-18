@@ -28,14 +28,14 @@ ParseDateTime is a fundamental tokenization function that breaks down date/time 
 - Functions called/Symbols referenced:
   - DTERR_BAD_FORMAT
   - DTK_TIME, DTK_DATE, DTK_NUMBER, DTK_STRING, DTK_SPECIAL, DTK_TZ (field type constants)
-  - pg_tolower
-  - datebsearch
+  - [pg_tolower](../p/pg_tolower.md)
+  - [datebsearch](../d/datebsearch.md)
   - datetktbl, szdatetktbl (date token table)
 - Called from (representative examples):
-  - date_in, time_in, timetz_in
-  - timestamp_in, timestamptz_in
-  - interval_in
-  - check_recovery_target_time
+  - [date_in](../d/date_in.md), time_in, timetz_in
+  - [timestamp_in](../t/timestamp_in.md), timestamptz_in
+  - [interval_in](../i/interval_in.md)
+  - [check_recovery_target_time](../c/check_recovery_target_time.md)
   - ECPG datetime parsing functions
 
 ## Notes and Other Information

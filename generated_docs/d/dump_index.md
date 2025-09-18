@@ -26,7 +26,7 @@ This function is a debugging tool used to visualize how the KeyWord index mappin
   - KeyWord_INDEX_SIZE (size constant for the index array)
 - Called from (representative examples):
   - DCH_ZONED
-  - NUM_cache
+  - [NUM_cache](../N/NUM_cache.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/formatting.c

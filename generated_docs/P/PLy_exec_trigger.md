@@ -29,16 +29,16 @@ The function expects the Python trigger function to return either None (indicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_global_args_push/PLy_global_args_pop
-  - PLy_output_setup_func/PLy_input_setup_func
-  - PLy_output_setup_tuple/PLy_input_setup_tuple
-  - PLy_trigger_build_args
-  - PLy_procedure_call
-  - PLy_modify_tuple
-  - SPI_register_trigger_data/SPI_finish
+  - [PLy_global_args_push](PLy_global_args_push.md)/PLy_global_args_pop
+  - [PLy_output_setup_func](PLy_output_setup_func.md)/PLy_input_setup_func
+  - [PLy_output_setup_tuple](PLy_output_setup_tuple.md)/PLy_input_setup_tuple
+  - [PLy_trigger_build_args](PLy_trigger_build_args.md)
+  - [PLy_procedure_call](PLy_procedure_call.md)
+  - [PLy_modify_tuple](PLy_modify_tuple.md)
+  - [SPI_register_trigger_data](../S/SPI_register_trigger_data.md)/SPI_finish
   - CALLED_AS_TRIGGER, TRIGGER_FIRED_BY_* macros
 - Called from (representative examples):
-  - plpython3_call_handler (main trigger handler)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md) (main trigger handler)
 
 ## Notes and Other Information
 - Supports all trigger timing (BEFORE/AFTER) and events (INSERT/UPDATE/DELETE)

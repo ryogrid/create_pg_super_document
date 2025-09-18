@@ -27,7 +27,7 @@ The function reads text files and returns the content as a PostgreSQL text datum
   - PG_GETARG_TEXT_PP (macro for extracting text argument)
   - PG_GETARG_INT64 (macro for extracting 64-bit integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean argument)
-  - pg_read_file_common (core file reading implementation)
+  - [pg_read_file_common](pg_read_file_common.md) (core file reading implementation)
   - PG_RETURN_NULL (macro for returning NULL)
   - PG_RETURN_TEXT_P (macro for returning text datum)
 - Called from (representative examples):

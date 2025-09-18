@@ -20,17 +20,17 @@ The `lo_close` function closes a previously opened large object file descriptor,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
+  - [lo_initialize](lo_initialize.md)
   - PQfn
-  - PQresultStatus
-  - PQclear
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - EndRestoreLO
-  - dumpLOs
-  - lo_import_internal
-  - lo_export
-  - importFile
-  - exportFile
+  - [EndRestoreLO](../E/EndRestoreLO.md)
+  - [dumpLOs](../d/dumpLOs.md)
+  - [lo_import_internal](lo_import_internal.md)
+  - [lo_export](lo_export.md)
+  - [importFile](../i/importFile.md)
+  - [exportFile](../e/exportFile.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

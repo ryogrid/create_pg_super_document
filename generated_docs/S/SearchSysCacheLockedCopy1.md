@@ -22,19 +22,19 @@ The function first searches for the tuple using SearchSysCacheLocked1, which ret
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheLocked1
-  - heap_copytuple
-  - ReleaseSysCache
+  - [SearchSysCacheLocked1](SearchSysCacheLocked1.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - HeapTupleIsValid
 - Called from (representative examples):
-  - get_catalog_object_by_oid_extended
-  - RenameDatabase
-  - SetDatabaseHasLoginEventTriggers
-  - update_relispartition
-  - SetRelationTableSpace
-  - RenameRelationInternal
-  - AlterRelationNamespaceInternal
-  - RelationSetNewRelfilenumber
+  - [get_catalog_object_by_oid_extended](../g/get_catalog_object_by_oid_extended.md)
+  - [RenameDatabase](../R/RenameDatabase.md)
+  - [SetDatabaseHasLoginEventTriggers](SetDatabaseHasLoginEventTriggers.md)
+  - [update_relispartition](../u/update_relispartition.md)
+  - [SetRelationTableSpace](SetRelationTableSpace.md)
+  - [RenameRelationInternal](../R/RenameRelationInternal.md)
+  - [AlterRelationNamespaceInternal](../A/AlterRelationNamespaceInternal.md)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's system cache infrastructure, which provides fast access to frequently used catalog information

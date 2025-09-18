@@ -38,12 +38,12 @@ The function also ensures that each mergejoin clause can be associated with non-
   - JoinType (enum type)
   - IS_OUTER_JOIN
   - RINFO_IS_PUSHED_DOWN
-  - clause_sides_match_join
-  - update_mergeclause_eclasses
+  - [clause_sides_match_join](../c/clause_sides_match_join.md)
+  - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
   - EC_MUST_BE_REDUNDANT
   - JOIN_RIGHT, JOIN_RIGHT_ANTI, JOIN_FULL (enum values)
 - Called from (representative examples):
-  - add_paths_to_joinrel
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the joinpath.c compilation unit

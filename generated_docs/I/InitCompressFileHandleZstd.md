@@ -18,19 +18,19 @@ This function serves as the initialization routine for the zstd compression back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (structure)
-  - pg_compress_specification (structure)  
-  - Zstd_open (function pointer assignment)
-  - Zstd_open_write (function pointer assignment)
-  - Zstd_read (function pointer assignment)
-  - Zstd_write (function pointer assignment)
-  - Zstd_gets (function pointer assignment)
-  - Zstd_getc (function pointer assignment)
-  - Zstd_close (function pointer assignment)
-  - Zstd_eof (function pointer assignment)
-  - Zstd_get_error (function pointer assignment)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (structure)  
+  - [Zstd_open](../Z/Zstd_open.md) (function pointer assignment)
+  - [Zstd_open_write](../Z/Zstd_open_write.md) (function pointer assignment)
+  - [Zstd_read](../Z/Zstd_read.md) (function pointer assignment)
+  - [Zstd_write](../Z/Zstd_write.md) (function pointer assignment)
+  - [Zstd_gets](../Z/Zstd_gets.md) (function pointer assignment)
+  - [Zstd_getc](../Z/Zstd_getc.md) (function pointer assignment)
+  - [Zstd_close](../Z/Zstd_close.md) (function pointer assignment)
+  - [Zstd_eof](../Z/Zstd_eof.md) (function pointer assignment)
+  - [Zstd_get_error](../Z/Zstd_get_error.md) (function pointer assignment)
 - Called from (representative examples):
-  - InitCompressFileHandle (main compression backend dispatcher)
+  - [InitCompressFileHandle](InitCompressFileHandle.md) (main compression backend dispatcher)
 
 ## Notes and Other Information
 - This is a public function (not static) that serves as the entry point for zstd compression

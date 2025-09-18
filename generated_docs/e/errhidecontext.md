@@ -22,11 +22,11 @@ This function optionally suppresses the CONTEXT: field from appearing in log ent
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
-  - llvm_compile_module (src/backend/jit/llvm/llvmjit.c)
-  - MemoryContextStatsDetail (src/backend/utils/mmgr/mcxt.c)
-  - MemoryContextStatsInternal (src/backend/utils/mmgr/mcxt.c)
-  - MemoryContextStatsPrint (src/backend/utils/mmgr/mcxt.c)
-  - ProcessLogMemoryContextInterrupt (src/backend/utils/mmgr/mcxt.c)
+  - [llvm_compile_module](../l/llvm_compile_module.md) (src/backend/jit/llvm/llvmjit.c)
+  - [MemoryContextStatsDetail](../M/MemoryContextStatsDetail.md) (src/backend/utils/mmgr/mcxt.c)
+  - [MemoryContextStatsInternal](../M/MemoryContextStatsInternal.md) (src/backend/utils/mmgr/mcxt.c)
+  - [MemoryContextStatsPrint](../M/MemoryContextStatsPrint.md) (src/backend/utils/mmgr/mcxt.c)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md) (src/backend/utils/mmgr/mcxt.c)
   - errcontext (macro in src/include/utils/elog.h)
 
 ## Notes and Other Information

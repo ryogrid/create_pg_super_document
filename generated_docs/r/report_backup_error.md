@@ -33,11 +33,11 @@ This centralized error reporting approach ensures consistent error message forma
   - PG_LOG_ERROR (constant)
   - PG_LOG_PRIMARY (constant)
 - Called from (representative examples):
-  - verify_backup_directory (multiple locations)
-  - verify_backup_file (multiple locations)
-  - report_extra_backup_files
-  - verify_file_checksum (multiple locations)
-  - parse_required_wal
+  - [verify_backup_directory](../v/verify_backup_directory.md) (multiple locations)
+  - [verify_backup_file](../v/verify_backup_file.md) (multiple locations)
+  - [report_extra_backup_files](report_extra_backup_files.md)
+  - [verify_file_checksum](../v/verify_file_checksum.md) (multiple locations)
+  - [parse_required_wal](../p/parse_required_wal.md)
 
 ## Notes and Other Information
 - This is a static function within pg_verifybackup.c used throughout the verification process for error reporting

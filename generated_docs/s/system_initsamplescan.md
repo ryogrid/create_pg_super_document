@@ -20,10 +20,10 @@ This function is called during the initialization phase of query execution to se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (allocates zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - SystemSamplerData (structure type for sampling state)
 - Called from (representative examples):
-  - tsm_system_handler (as function pointer in TsmRoutine)
+  - [tsm_system_handler](../t/tsm_system_handler.md) (as function pointer in TsmRoutine)
   - PostgreSQL executor during sample scan initialization
 
 ## Notes and Other Information

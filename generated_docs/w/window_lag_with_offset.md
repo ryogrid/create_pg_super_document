@@ -17,7 +17,7 @@ This function provides the SQL LAG window function functionality with offset cap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - leadlag_common (with parameters false, true, false indicating lag operation, with offset, no default)
+  - [leadlag_common](../l/leadlag_common.md) (with parameters false, true, false indicating lag operation, with offset, no default)
 - Called from:
   - No direct references found (likely called through PostgreSQL's function call mechanism)
 

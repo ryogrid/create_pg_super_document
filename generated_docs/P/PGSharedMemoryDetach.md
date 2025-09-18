@@ -33,10 +33,10 @@ This function takes no parameters but operates on global variables:
   - munmap() (system call for anonymous memory unmapping)
   - elog() (error logging)
 - Called from:
-  - PGSharedMemoryReAttach (for Cygwin cleanup)
-  - PGSharedMemoryNoReAttach (for Cygwin cleanup)
-  - pgwin32_SharedMemoryDelete (Windows version)
-  - postmaster_child_launch (process cleanup)
+  - [PGSharedMemoryReAttach](PGSharedMemoryReAttach.md) (for Cygwin cleanup)
+  - [PGSharedMemoryNoReAttach](PGSharedMemoryNoReAttach.md) (for Cygwin cleanup)
+  - [pgwin32_SharedMemoryDelete](../p/pgwin32_SharedMemoryDelete.md) (Windows version)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (process cleanup)
 
 ## Notes and Other Information
 - Not intended for use by the process that created the shared memory segment originally

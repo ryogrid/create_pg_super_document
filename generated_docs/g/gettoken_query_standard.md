@@ -26,16 +26,16 @@ The parser leverages the tsvector parser for operand processing and supports wei
 - Functions called/Symbols referenced:
   - TSQueryParserState
   - t_iseq
-  - t_isspace
-  - reset_tsvector_parser
-  - gettoken_tsvector
-  - get_modifiers
+  - [t_isspace](../t/t_isspace.md)
+  - [reset_tsvector_parser](../r/reset_tsvector_parser.md)
+  - [gettoken_tsvector](gettoken_tsvector.md)
+  - [get_modifiers](get_modifiers.md)
   - parse_phrase_operator
   - SOFT_ERROR_OCCURRED
   - ereturn
-  - pg_mblen
+  - [pg_mblen](../p/pg_mblen.md)
 - Called from (representative examples):
-  - parse_tsquery
+  - [parse_tsquery](../p/parse_tsquery.md)
 
 ## Notes and Other Information
 - Implements standard PostgreSQL tsquery syntax parsing (not websearch style)

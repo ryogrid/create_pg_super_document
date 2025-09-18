@@ -25,8 +25,8 @@ This function takes no parameters and returns:
   - SessionUserId (static variable for session validation)
   - SessionUserIsSuperuser (static variable holding superuser status)
 - Called from (representative examples):
-  - InitializeParallelDSM (for parallel worker session setup)
-  - check_session_authorization (for GUC variable validation)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (for parallel worker session setup)
+  - [check_session_authorization](../c/check_session_authorization.md) (for GUC variable validation)
   - AmSpecialWorkerProcess (for worker process role checking)
 
 ## Notes and Other Information
@@ -35,5 +35,5 @@ This function takes no parameters and returns:
 - Used for determining whether SET SESSION AUTHORIZATION commands are permitted
 - Essential for parallel query execution where worker processes need to inherit session context
 - The assertion ensures the function is only called after proper session initialization
-- Session superuser status persists across SET ROLE operations, unlike current effective privileges
+- [Session](../S/Session.md) superuser status persists across SET ROLE operations, unlike current effective privileges
 - Critical for session-level authorization decisions and security policy enforcement

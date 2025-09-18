@@ -17,10 +17,10 @@ This function performs cleanup of a TupleQueueReader by freeing the memory alloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation)
-  - TupleQueueReader (struct type)
+  - [pfree](../p/pfree.md) (memory deallocation)
+  - [TupleQueueReader](../T/TupleQueueReader.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelFinish
+  - [ExecParallelFinish](../E/ExecParallelFinish.md)
 
 ## Notes and Other Information
 - The caller is responsible for managing the lifecycle of the underlying shm_mq_handle

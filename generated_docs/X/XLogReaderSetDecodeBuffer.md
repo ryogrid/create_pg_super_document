@@ -23,7 +23,7 @@ void XLogReaderSetDecodeBuffer(XLogReaderState *state, void *buffer, size_t size
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
 - Called from (representative examples):
-  - InitWalRecovery
+  - [InitWalRecovery](../I/InitWalRecovery.md)
   - XLogReaderHasQueuedRecordOrError
 
 ## Notes and Other Information

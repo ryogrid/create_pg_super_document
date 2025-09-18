@@ -24,13 +24,13 @@ When content is provided, the function strips leading whitespace and formats the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - text_to_cstring (text to C string conversion)
-  - stringinfo_to_xmltype (StringInfo to XML type conversion)
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md) (StringInfo to XML type conversion)
   - appendStringInfo/appendStringInfoChar/appendStringInfoString (string building)
   - initStringInfo (StringInfo initialization)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (expression evaluation in executor)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (expression evaluation in executor)
   - PG_RETURN_XML_P (via macro usage)
 
 ## Notes and Other Information

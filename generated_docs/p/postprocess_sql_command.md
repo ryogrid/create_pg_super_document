@@ -18,14 +18,14 @@ This function performs final setup operations on a Command structure after the S
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - pg_strdup  
-  - psprintf
-  - parseQuery
-  - Command (struct)
+  - [pg_strdup](pg_strdup.md)  
+  - [psprintf](psprintf.md)
+  - [parseQuery](parseQuery.md)
+  - [Command](../C/Command.md) (struct)
   - SQL_COMMAND (enum value)
   - QUERY_SIMPLE, QUERY_PREPARED, QUERY_EXTENDED (enum values)
 - Called from:
-  - main (src/bin/pgbench/pgbench.c:7064)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:7064)
 
 ## Notes and Other Information
 - The function asserts that the command type is SQL_COMMAND

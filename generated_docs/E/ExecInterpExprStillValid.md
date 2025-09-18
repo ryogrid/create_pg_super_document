@@ -32,11 +32,11 @@ After the first execution, the function pointer is updated to eliminate the vali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckExprStillValid (validation function)
-  - state->evalfunc (actual evaluation function after validation)
+  - [CheckExprStillValid](../C/CheckExprStillValid.md) (validation function)
+  - [state](../s/state.md)->evalfunc (actual evaluation function after validation)
 - Called from:
-  - ExecReadyInterpretedExpr (set as initial evalfunc)
-  - FunctionReturningBool (LLVM JIT compilation context)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (set as initial evalfunc)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (LLVM JIT compilation context)
 
 ## Notes and Other Information
 - Declared with extern linkage so it can be used by other expression execution methods (including JIT)

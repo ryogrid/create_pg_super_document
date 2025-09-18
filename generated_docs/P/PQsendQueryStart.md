@@ -21,16 +21,16 @@ The function handles different operational modes including normal query executio
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState: Clears the connection's error state buffer
-  - pqClearAsyncResult: Initializes asynchronous result accumulation state
+  - [pqClearAsyncResult](../p/pqClearAsyncResult.md): Initializes asynchronous result accumulation state
   - CONNECTION_OK: Connection status constant indicating a healthy connection
   - Various PGASYNC_* constants: Asynchronous status values for connection state validation
   - PQ_PIPELINE_OFF: Pipeline status constant indicating normal (non-pipeline) mode
 - Called from (representative examples):
-  - PQsendQueryInternal: Simple query protocol implementation
-  - PQsendQueryParams: Parameterized query sending function
-  - PQsendPrepare: Statement preparation function
-  - PQsendQueryPrepared: Prepared statement execution function
-  - PQsendTypedCommand: Typed command sending function
+  - [PQsendQueryInternal](PQsendQueryInternal.md): Simple query protocol implementation
+  - [PQsendQueryParams](PQsendQueryParams.md): Parameterized query sending function
+  - [PQsendPrepare](PQsendPrepare.md): Statement preparation function
+  - [PQsendQueryPrepared](PQsendQueryPrepared.md): Prepared statement execution function
+  - [PQsendTypedCommand](PQsendTypedCommand.md): Typed command sending function
 
 ## Notes and Other Information
 - Serves as the central validation point for all query sending operations in libpq

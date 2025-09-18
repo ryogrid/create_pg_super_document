@@ -21,8 +21,8 @@ The  function implements geometric subtraction between a box and a point. It cre
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract box argument)
   - PG_GETARG_POINT_P (macro to extract point argument)
-  - palloc (memory allocation)
-  - point_sub_point (point subtraction helper)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [point_sub_point](../p/point_sub_point.md) (point subtraction helper)
   - PG_RETURN_BOX_P (macro to return box result)
 - Called from (representative examples):
   - No direct callers found in the codebase

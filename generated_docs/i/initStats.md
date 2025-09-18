@@ -28,14 +28,14 @@ This initialization ensures all counters start from zero and timing measurements
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatsData (structure type)
+  - [StatsData](../S/StatsData.md) (structure type)
   - pg_time_usec_t (time type)
-  - initSimpleStats (called twice for latency and lag fields)
+  - [initSimpleStats](initSimpleStats.md) (called twice for latency and lag fields)
 - Called from (representative examples):
-  - doLog
-  - printProgressReport
-  - main
-  - threadRun
+  - [doLog](../d/doLog.md)
+  - [printProgressReport](../p/printProgressReport.md)
+  - [main](../m/main.md)
+  - [threadRun](../t/threadRun.md)
 
 ## Notes and Other Information
 - Part of pgbench's comprehensive statistics tracking system

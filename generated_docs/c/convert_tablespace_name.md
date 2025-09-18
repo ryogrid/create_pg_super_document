@@ -18,11 +18,11 @@ This is a utility function within the tablespace privilege checking system that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - get_tablespace_oid
+  - [get_tablespace_oid](../g/get_tablespace_oid.md)
 - Called from (representative examples):
-  - has_tablespace_privilege_name_name
-  - has_tablespace_privilege_name
-  - has_tablespace_privilege_id_name
+  - [has_tablespace_privilege_name_name](../h/has_tablespace_privilege_name_name.md)
+  - [has_tablespace_privilege_name](../h/has_tablespace_privilege_name.md)
+  - [has_tablespace_privilege_id_name](../h/has_tablespace_privilege_id_name.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the acl.c compilation unit

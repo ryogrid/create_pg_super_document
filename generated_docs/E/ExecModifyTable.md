@@ -19,20 +19,20 @@ ExecModifyTable is the core execution engine for data modification operations in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fireBSTriggers, fireASTriggers
+  - [fireBSTriggers](../f/fireBSTriggers.md), fireASTriggers
   - ExecProcNode, TupIsNull
-  - ExecMergeNotMatched, ExecMerge
-  - ExecInsert, ExecUpdate, ExecDelete
-  - ExecGetInsertNewTuple, ExecGetUpdateNewTuple
-  - ExecInitInsertProjection, ExecInitUpdateProjection
-  - ExecProcessReturning, ExecPendingInserts
-  - ExecLookupResultRelByOid, ExecGetJunkAttribute
+  - [ExecMergeNotMatched](ExecMergeNotMatched.md), ExecMerge
+  - [ExecInsert](ExecInsert.md), ExecUpdate, ExecDelete
+  - [ExecGetInsertNewTuple](ExecGetInsertNewTuple.md), ExecGetUpdateNewTuple
+  - [ExecInitInsertProjection](ExecInitInsertProjection.md), ExecInitUpdateProjection
+  - [ExecProcessReturning](ExecProcessReturning.md), ExecPendingInserts
+  - [ExecLookupResultRelByOid](ExecLookupResultRelByOid.md), ExecGetJunkAttribute
   - EvalPlanQualSetSlot, ResetPerTupleExprContext
   - table_tuple_fetch_row_version, LockTuple, UnlockTuple
   - Various relation kind constants (RELKIND_RELATION, RELKIND_VIEW, etc.)
-  - Command type constants (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE)
+  - [Command](../C/Command.md) type constants (CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE)
 - Called from (representative examples):
-  - ExecInitModifyTable (at src/backend/executor/nodeModifyTable.c:4443)
+  - [ExecInitModifyTable](ExecInitModifyTable.md) (at src/backend/executor/nodeModifyTable.c:4443)
 
 ## Notes and Other Information
 - Returns TupleTableSlot containing RETURNING results, or NULL when processing is complete

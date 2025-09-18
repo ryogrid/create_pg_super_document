@@ -37,6 +37,6 @@ This walker is particularly important during CTE analysis and other early-stage 
 - Unlike , this function has no special query boundary rules and descends into all potentially interesting nodes
 - Covers extensive JSON functionality including JSON path expressions, JSON table functions, and JSON constructors
 - Includes stack depth checking to prevent overflow on deeply nested expressions
-- Node type coverage is specifically focused on DML statements as these are the primary use case for CTE analysis
+- [Node](../N/Node.md) type coverage is specifically focused on DML statements as these are the primary use case for CTE analysis
 - Primitive node types (literals, constants, parameters) are handled as leaf nodes with no further traversal
 - Located in src/backend/nodes/nodeFuncs.c:3964-4675

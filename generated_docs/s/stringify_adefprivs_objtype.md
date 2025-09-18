@@ -24,7 +24,7 @@ The function handles the same subset of object types that support privilege oper
   - elog (for error reporting)
   - ObjectType enumeration constants (OBJECT_TABLE, OBJECT_FUNCTION, etc.)
 - Called from (representative examples):
-  - pg_event_trigger_ddl_commands (src/backend/commands/event_trigger.c:2075)
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md) (src/backend/commands/event_trigger.c:2075)
 
 ## Notes and Other Information
 - Returns plural string constants that match the exact syntax used in SQL ALTER DEFAULT PRIVILEGES statements

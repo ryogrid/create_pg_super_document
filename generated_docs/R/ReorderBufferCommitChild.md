@@ -27,13 +27,13 @@ After setting the LSN metadata, the function calls ReorderBufferAssignChild to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid (retrieves transaction by XID)
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md) (retrieves transaction by XID)
   - ReorderBufferAssignChild (assigns subtransaction to parent)
-  - ReorderBuffer (reorder buffer structure type)
-  - ReorderBufferTXN (transaction structure type)
+  - [ReorderBuffer](ReorderBuffer.md) (reorder buffer structure type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
 - Called from (representative examples):
-  - DecodeCommit (during commit record processing)
-  - DecodePrepare (during prepare record processing)
+  - [DecodeCommit](../D/DecodeCommit.md) (during commit record processing)
+  - [DecodePrepare](../D/DecodePrepare.md) (during prepare record processing)
 
 ## Notes and Other Information
 - This is a public function in the reorder buffer API, callable from decode.c

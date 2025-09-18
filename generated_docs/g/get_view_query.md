@@ -25,13 +25,13 @@ The returned pointer is directly from the relation cache (relcache), meaning it 
   - list_length
   - linitial
   - elog
-  - RewriteRule (struct)
+  - [RewriteRule](../R/RewriteRule.md) (struct)
   - RELKIND_VIEW (constant)
   - CMD_SELECT (constant)
 - Called from (representative examples):
-  - LockViewRecurse (lockcmds.c)
-  - ATExecSetRelOptions (tablecmds.c)
-  - rewriteTargetView (rewriteHandler.c)
+  - [LockViewRecurse](../L/LockViewRecurse.md) (lockcmds.c)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md) (tablecmds.c)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (rewriteHandler.c)
 
 ## Notes and Other Information
 - Caller must verify the relation is a view before calling this function

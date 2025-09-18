@@ -26,17 +26,17 @@ After populating the values and null flags, the function calls ExecStoreVirtualT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeKey
-  - MemoizeState
+  - [MemoizeKey](../M/MemoizeKey.md)
+  - [MemoizeState](../M/MemoizeState.md)
   - ExecClearTuple
   - ExecEvalExpr
-  - ExecStoreMinimalTuple
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
   - slot_getallattrs
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
 - Called from (representative examples):
-  - cache_reduce_memory
-  - cache_lookup
-  - cache_store_tuple
+  - [cache_reduce_memory](../c/cache_reduce_memory.md)
+  - [cache_lookup](../c/cache_lookup.md)
+  - [cache_store_tuple](../c/cache_store_tuple.md)
 
 ## Notes and Other Information
 - Always starts by clearing the probeslot with ExecClearTuple()

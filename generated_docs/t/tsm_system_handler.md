@@ -19,11 +19,11 @@ The tsm_system_handler function is the entry point handler for PostgreSQL's SYST
 - Functions called/Symbols referenced:
   - makeNode (creates TsmRoutine node)
   - list_make1_oid (creates parameter type list)
-  - system_samplescangetsamplesize (sample size calculation function)
-  - system_initsamplescan (scan initialization function)
-  - system_beginsamplescan (scan begin function)
-  - system_nextsampleblock (block selection function)
-  - system_nextsampletuple (tuple selection function)
+  - [system_samplescangetsamplesize](../s/system_samplescangetsamplesize.md) (sample size calculation function)
+  - [system_initsamplescan](../s/system_initsamplescan.md) (scan initialization function)
+  - [system_beginsamplescan](../s/system_beginsamplescan.md) (scan begin function)
+  - [system_nextsampleblock](../s/system_nextsampleblock.md) (block selection function)
+  - [system_nextsampletuple](../s/system_nextsampletuple.md) (tuple selection function)
 - Called from (representative examples):
   - PostgreSQL function manager (via SQL function calls)
 

@@ -27,7 +27,7 @@ The function is designed for use in range operations where exhaustive enumeratio
 ## Dependencies
 - Functions called/Symbols referenced: None (uses only basic operations)
 - Called from (representative examples):
-  - pg_database_encoding_character_incrementer
+  - [pg_database_encoding_character_incrementer](pg_database_encoding_character_incrementer.md)
 
 ## Notes and Other Information
 - Rejects lengths 5 and 6 as they're not supported in standard UTF-8

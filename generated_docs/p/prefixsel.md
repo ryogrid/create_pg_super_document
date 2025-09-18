@@ -23,12 +23,12 @@ The `prefixsel` function is a SQL-callable selectivity estimation function that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `patternsel`: Core pattern selectivity estimation function
+  - `[patternsel](patternsel.md)`: Core pattern selectivity estimation function
   - `Pattern_Type_Prefix`: Enum constant for prefix pattern type
 - Called from (representative examples):
-  - `patternsel_common`: Core pattern selectivity computation function
-  - `prefix_selectivity`: Specialized prefix selectivity estimation
-  - `regex_selectivity`: Regular expression selectivity estimation
+  - `[patternsel_common](patternsel_common.md)`: Core pattern selectivity computation function
+  - `[prefix_selectivity](prefix_selectivity.md)`: Specialized prefix selectivity estimation
+  - `[regex_selectivity](../r/regex_selectivity.md)`: Regular expression selectivity estimation
 
 ## Notes and Other Information
 - This function is an essential component of PostgreSQL's cost-based query optimizer

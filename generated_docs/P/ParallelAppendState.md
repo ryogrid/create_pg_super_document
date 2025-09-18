@@ -23,16 +23,16 @@ The design distinguishes between partial and non-partial plans: non-partial plan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
+  - [LWLock](../L/LWLock.md)
   - FLEXIBLE_ARRAY_MEMBER
 
 - Called from (representative examples):
-  - ExecAppendEstimate
-  - ExecAppendInitializeDSM
-  - ExecAppendReInitializeDSM  
-  - choose_next_subplan_for_leader
-  - choose_next_subplan_for_worker
-  - AppendState (referenced in execnodes.h)
+  - [ExecAppendEstimate](../E/ExecAppendEstimate.md)
+  - [ExecAppendInitializeDSM](../E/ExecAppendInitializeDSM.md)
+  - [ExecAppendReInitializeDSM](../E/ExecAppendReInitializeDSM.md)  
+  - [choose_next_subplan_for_leader](../c/choose_next_subplan_for_leader.md)
+  - [choose_next_subplan_for_worker](../c/choose_next_subplan_for_worker.md)
+  - [AppendState](../A/AppendState.md) (referenced in execnodes.h)
 
 ## Notes and Other Information
 - Located in src/backend/executor/nodeAppend.c:69-82

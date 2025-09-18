@@ -27,7 +27,7 @@ This is part of PostgreSQL's JIT compilation infrastructure and is specifically 
   - LLVMInt8TypeInContext (LLVM C API function)
   - int8 (PostgreSQL type alias for signed 8-bit integer)
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c, used multiple times for tuple slot deformation operations)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c, used multiple times for tuple slot deformation operations)
 
 ## Notes and Other Information
 - This is a header-only inline function defined in src/include/jit/llvmjit_emit.h

@@ -34,12 +34,12 @@ The cost model includes both comparison costs during tree traversal and fixed pe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - genericcostestimate
+  - [genericcostestimate](genericcostestimate.md)
   - log (math function)
   - ceil (math function)
   - DEFAULT_PAGE_CPU_MULTIPLIER
 - Called from (representative examples):
-  - gisthandler (GiST access method handler)
+  - [gisthandler](gisthandler.md) (GiST access method handler)
 
 ## Notes and Other Information
 - Assumes a fanout of 100 for tree height calculations, which is cached in index->tree_height

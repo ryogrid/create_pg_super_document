@@ -19,8 +19,8 @@ This design allows extensible nodes to define their own copying semantics while 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetExtensibleNodeMethods (retrieves method structure for the extensible node type)
-  - newNode (allocates a new node with specified size and type)
+  - [GetExtensibleNodeMethods](../G/GetExtensibleNodeMethods.md) (retrieves method structure for the extensible node type)
+  - [newNode](../n/newNode.md) (allocates a new node with specified size and type)
   - COPY_STRING_FIELD (macro for copying the extension node name)
   - methods->nodeCopy (custom copy function provided by the extensible node implementation)
 - Called from (representative examples):
@@ -28,7 +28,7 @@ This design allows extensible nodes to define their own copying semantics while 
 
 ## Notes and Other Information
 - This is a static function, only accessible within copyfuncs.c
-- ExtensibleNode provides a plugin mechanism for custom node types in PostgreSQL
+- [ExtensibleNode](../E/ExtensibleNode.md) provides a plugin mechanism for custom node types in PostgreSQL
 - The function demonstrates the delegation pattern - generic framework code delegates to type-specific implementations
 - The  field is used as a key to look up the appropriate methods for the specific extensible node type
 - This approach allows third-party extensions to define custom node types that integrate seamlessly with PostgreSQL's node infrastructure

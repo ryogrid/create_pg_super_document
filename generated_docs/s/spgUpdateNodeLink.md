@@ -21,15 +21,15 @@ This function modifies the item pointer (t_tid) of the nodeN'th entry in an SP-G
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGITITERATE (macro for iterating through nodes in inner tuple)
-  - ItemPointerSet (sets the item pointer with block and offset)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (sets the item pointer with block and offset)
   - elog (for error reporting)
 - Called from (representative examples):
-  - saveNodeLink
-  - spgSplitNodeAction
-  - spgRedoAddLeaf
-  - spgRedoMoveLeafs
-  - spgRedoAddNode
-  - spgRedoPickSplit
+  - [saveNodeLink](saveNodeLink.md)
+  - [spgSplitNodeAction](spgSplitNodeAction.md)
+  - [spgRedoAddLeaf](spgRedoAddLeaf.md)
+  - [spgRedoMoveLeafs](spgRedoMoveLeafs.md)
+  - [spgRedoAddNode](spgRedoAddNode.md)
+  - [spgRedoPickSplit](spgRedoPickSplit.md)
 
 ## Notes and Other Information
 - The function will throw an ERROR if the requested node index (nodeN) is not found in the inner tuple

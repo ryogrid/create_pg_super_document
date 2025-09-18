@@ -25,19 +25,19 @@ The structure supports both legacy (pre-9.4) and current page formats, and inclu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node
-  - GinPostingList
+  - [dlist_node](dlist_node.md)
+  - [GinPostingList](../G/GinPostingList.md)
 
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
-  - dataExecPlaceToPageLeaf
-  - ginVacuumPostingTreeLeaf
-  - computeLeafRecompressWALData
-  - dataPlaceToPageLeafRecompress
-  - dataPlaceToPageLeafSplit
-  - disassembleLeaf
-  - addItemsToLeaf
-  - leafRepackItems
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md)
+  - [dataExecPlaceToPageLeaf](dataExecPlaceToPageLeaf.md)
+  - [ginVacuumPostingTreeLeaf](../g/ginVacuumPostingTreeLeaf.md)
+  - [computeLeafRecompressWALData](../c/computeLeafRecompressWALData.md)
+  - [dataPlaceToPageLeafRecompress](dataPlaceToPageLeafRecompress.md)
+  - [dataPlaceToPageLeafSplit](dataPlaceToPageLeafSplit.md)
+  - [disassembleLeaf](disassembleLeaf.md)
+  - [addItemsToLeaf](../a/addItemsToLeaf.md)
+  - [leafRepackItems](../l/leafRepackItems.md)
 
 ## Notes and Other Information
 - This structure is primarily used during GIN index maintenance operations where leaf pages need to be modified or split

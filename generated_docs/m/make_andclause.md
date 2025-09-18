@@ -23,14 +23,14 @@ The function allocates a new BoolExpr node, sets its operation type to AND_EXPR,
   - BoolExpr (expression node type)
   - AND_EXPR (boolean operation constant)
 - Called from (representative examples):
-  - make_and_qual
-  - make_ands_explicit
-  - process_sublinks_mutator
-  - pull_up_sublinks_qual_recurse
-  - negate_clause
-  - find_duplicate_ors
-  - eval_const_expressions_mutator
-  - make_sub_restrictinfos
+  - [make_and_qual](make_and_qual.md)
+  - [make_ands_explicit](make_ands_explicit.md)
+  - [process_sublinks_mutator](../p/process_sublinks_mutator.md)
+  - [pull_up_sublinks_qual_recurse](../p/pull_up_sublinks_qual_recurse.md)
+  - [negate_clause](../n/negate_clause.md)
+  - [find_duplicate_ors](../f/find_duplicate_ors.md)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
+  - [make_sub_restrictinfos](make_sub_restrictinfos.md)
 
 ## Notes and Other Information
 - The location field is set to -1, indicating that the clause doesn't correspond to a specific location in the original SQL text

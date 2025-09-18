@@ -28,13 +28,13 @@ This specialized connection string is designed for the specific use case of pg_c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateSubscriberOptions (structure type for subscriber configuration)
-  - appendConnStrItem (helper function to build connection string items)
+  - [CreateSubscriberOptions](../C/CreateSubscriberOptions.md) (structure type for subscriber configuration)
+  - [appendConnStrItem](../a/appendConnStrItem.md) (helper function to build connection string items)
   - createPQExpBuffer, destroyPQExpBuffer (buffer management)
-  - pg_strdup (string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - progname (global variable with program name)
 - Called from (representative examples):
-  - main (in pg_createsubscriber main function)
+  - [main](../m/main.md) (in pg_createsubscriber main function)
 
 ## Notes and Other Information
 - This is a static function specific to pg_createsubscriber utility

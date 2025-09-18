@@ -34,27 +34,27 @@ The function operates recursively when processing include directives, maintainin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tokenize_error_callback
+  - [tokenize_error_callback](tokenize_error_callback.md)
   - AllocSetContextCreate
   - pg_get_line_append
   - pg_strip_crlf
-  - next_field_expand
-  - tokenize_include_file
-  - GetConfFilesInDir
-  - MemoryContextDelete
+  - [next_field_expand](../n/next_field_expand.md)
+  - [tokenize_include_file](tokenize_include_file.md)
+  - [GetConfFilesInDir](../G/GetConfFilesInDir.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - ALLOCSET_SMALL_SIZES
   - CONF_FILE_START_DEPTH
 - Data structures used:
-  - TokenizedAuthLine
-  - AuthToken
-  - tokenize_error_callback_arg
+  - [TokenizedAuthLine](../T/TokenizedAuthLine.md)
+  - [AuthToken](../A/AuthToken.md)
+  - [tokenize_error_callback_arg](tokenize_error_callback_arg.md)
 - Called from (representative examples):
-  - tokenize_include_file
-  - tokenize_expand_file
-  - load_hba
-  - load_ident
-  - fill_hba_view
-  - fill_ident_view
+  - [tokenize_include_file](tokenize_include_file.md)
+  - [tokenize_expand_file](tokenize_expand_file.md)
+  - [load_hba](../l/load_hba.md)
+  - [load_ident](../l/load_ident.md)
+  - [fill_hba_view](../f/fill_hba_view.md)
+  - [fill_ident_view](../f/fill_ident_view.md)
 
 ## Notes and Other Information
 - All tokenization work is performed in dedicated memory contexts for efficient cleanup, critical for postmaster reloads

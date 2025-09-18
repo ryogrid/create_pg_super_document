@@ -19,13 +19,13 @@ The function performs a hash table lookup using HASH_FIND to locate the SMgrRela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (for hash table lookup)
-  - smgrrelease (for actual resource release)
-  - RelFileLocatorBackend (parameter type)
+  - [hash_search](../h/hash_search.md) (for hash table lookup)
+  - [smgrrelease](smgrrelease.md) (for actual resource release)
+  - [RelFileLocatorBackend](../R/RelFileLocatorBackend.md) (parameter type)
   - SMgrRelation (hash table entry type)
   - HASH_FIND (hash operation constant)
 - Called from (representative examples):
-  - LocalExecuteInvalidationMessage (in cache invalidation)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md) (in cache invalidation)
   - SmgrIsTemp (via header inclusion)
 
 ## Notes and Other Information

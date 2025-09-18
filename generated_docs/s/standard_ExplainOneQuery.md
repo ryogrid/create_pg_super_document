@@ -27,15 +27,15 @@ The function carefully manages memory contexts when measuring memory usage, crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_plan_query
-  - ExplainOnePlan
-  - BufferUsageAccumDiff
+  - [pg_plan_query](../p/pg_plan_query.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [BufferUsageAccumDiff](../B/BufferUsageAccumDiff.md)
   - AllocSetContextCreate
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - MemoryContextMemConsumed
   - INSTR_TIME_SET_CURRENT/INSTR_TIME_SUBTRACT
 - Called from (representative examples):
-  - ExplainOneQuery
+  - [ExplainOneQuery](../E/ExplainOneQuery.md)
 
 ## Notes and Other Information
 - Non-static function, can be called directly (bypassing hook mechanism)

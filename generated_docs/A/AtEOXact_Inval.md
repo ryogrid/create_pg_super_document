@@ -23,17 +23,17 @@ After processing, the function resets the invalidation state to empty, preparing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationCacheInitFilePreInvalidate
-  - AppendInvalidationMessages
-  - ProcessInvalidationMessagesMulti
-  - SendSharedInvalidMessages
-  - RelationCacheInitFilePostInvalidate
-  - ProcessInvalidationMessages
-  - LocalExecuteInvalidationMessage
+  - [RelationCacheInitFilePreInvalidate](../R/RelationCacheInitFilePreInvalidate.md)
+  - [AppendInvalidationMessages](AppendInvalidationMessages.md)
+  - [ProcessInvalidationMessagesMulti](../P/ProcessInvalidationMessagesMulti.md)
+  - [SendSharedInvalidMessages](../S/SendSharedInvalidMessages.md)
+  - [RelationCacheInitFilePostInvalidate](../R/RelationCacheInitFilePostInvalidate.md)
+  - [ProcessInvalidationMessages](../P/ProcessInvalidationMessages.md)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - AbortTransaction
-  - PostPrepare_Inval
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [AbortTransaction](AbortTransaction.md)
+  - [PostPrepare_Inval](../P/PostPrepare_Inval.md)
 
 ## Notes and Other Information
 - Must be called at the top level of the transaction stack (level 1 with no parent)

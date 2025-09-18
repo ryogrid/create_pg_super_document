@@ -30,7 +30,7 @@ When double quotes are present in the role name itself, they are escaped by doub
   - appendPQExpBufferChar (for adding characters to the output buffer)
 
 - Called from (representative examples):
-  - getNamespaces (in pg_dump.c, multiple times for building namespace ACL queries)
+  - [getNamespaces](../g/getNamespaces.md) (in pg_dump.c, multiple times for building namespace ACL queries)
 
 ## Notes and Other Information
 - The function always modifies the output buffer, either with the original string or the quoted version

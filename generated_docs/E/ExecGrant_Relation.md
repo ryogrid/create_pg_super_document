@@ -30,26 +30,26 @@ The function processes each relation in the istmt->objects list, handling relati
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCacheLocked1
-  - SysCacheGetAttr
-  - acldefault
+  - [SearchSysCacheLocked1](../S/SearchSysCacheLocked1.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclPCopy
-  - aclmembers
+  - [aclmembers](../a/aclmembers.md)
   - aclcopy
   - select_best_grantor
-  - restrict_and_check_grant
-  - merge_acl_with_grant
-  - expand_all_col_privileges
-  - expand_col_privileges
-  - ExecGrant_Attribute
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - UnlockTuple
-  - recordExtensionInitPriv
-  - updateAclDependencies
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
+  - [expand_all_col_privileges](../e/expand_all_col_privileges.md)
+  - [expand_col_privileges](../e/expand_col_privileges.md)
+  - [ExecGrant_Attribute](ExecGrant_Attribute.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [UnlockTuple](../U/UnlockTuple.md)
+  - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
+  - [updateAclDependencies](../u/updateAclDependencies.md)
   - CommandCounterIncrement
 - Called from (representative examples):
-  - ExecGrantStmt_oids
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md)
 
 ## Notes and Other Information
 - This is a static function only used within aclchk.c as part of the grant/revoke processing pipeline

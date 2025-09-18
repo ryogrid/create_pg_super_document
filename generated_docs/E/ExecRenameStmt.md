@@ -20,27 +20,27 @@ This function serves as the main entry point for processing ALTER ... RENAME TO 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Object-specific rename functions:
-    - RenameConstraint (for table and domain constraints)
-    - RenameDatabase (for databases)
-    - RenameRole (for roles)
-    - RenameSchema (for schemas)
-    - RenameTableSpace (for tablespaces)
-    - RenameRelation (for tables, sequences, views, materialized views, indexes, foreign tables)
-    - renameatt (for columns/attributes)
-    - RenameRewriteRule (for rules)
-    - renametrig (for triggers)
-    - rename_policy (for policies)
-    - RenameType (for domains and types)
+    - [RenameConstraint](../R/RenameConstraint.md) (for table and domain constraints)
+    - [RenameDatabase](../R/RenameDatabase.md) (for databases)
+    - [RenameRole](../R/RenameRole.md) (for roles)
+    - [RenameSchema](../R/RenameSchema.md) (for schemas)
+    - [RenameTableSpace](../R/RenameTableSpace.md) (for tablespaces)
+    - [RenameRelation](../R/RenameRelation.md) (for tables, sequences, views, materialized views, indexes, foreign tables)
+    - [renameatt](../r/renameatt.md) (for columns/attributes)
+    - [RenameRewriteRule](../R/RenameRewriteRule.md) (for rules)
+    - [renametrig](../r/renametrig.md) (for triggers)
+    - [rename_policy](../r/rename_policy.md) (for policies)
+    - [RenameType](../R/RenameType.md) (for domains and types)
   - Generic rename infrastructure:
-    - get_object_address (to resolve object identity)
+    - [get_object_address](../g/get_object_address.md) (to resolve object identity)
     - table_open/table_close (for catalog access)
-    - AlterObjectRename_internal (for simple objects)
+    - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (for simple objects)
   - Object type constants (OBJECT_*)
   - AccessExclusiveLock, RowExclusiveLock (locking modes)
 
 - Called from (representative examples):
-  - standard_ProcessUtility (src/backend/tcop/utility.c:996)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1777)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:996)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1777)
 
 ## Notes and Other Information
 - Public function (not static), part of the command execution interface

@@ -21,17 +21,17 @@ RemoveObjects processes DROP statements by looking up all specified objects firs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_object_addresses: Creates new ObjectAddresses structure
-  - get_object_address: Resolves object names to ObjectAddress
-  - does_not_exist_skipping: Issues NOTICE for missing objects when missing_ok is true
-  - get_func_prokind: Checks if function is an aggregate
-  - get_object_namespace: Gets namespace ID for permission checks
-  - object_ownercheck: Checks namespace ownership
-  - check_object_ownership: Verifies user has drop permissions
-  - isTempNamespace: Checks if namespace is temporary
-  - add_exact_object_address: Adds object to deletion list
-  - performMultipleDeletions: Performs the actual deletions
-  - free_object_addresses: Cleans up ObjectAddresses structure
+  - [new_object_addresses](../n/new_object_addresses.md): Creates new ObjectAddresses structure
+  - [get_object_address](../g/get_object_address.md): Resolves object names to ObjectAddress
+  - [does_not_exist_skipping](../d/does_not_exist_skipping.md): Issues NOTICE for missing objects when missing_ok is true
+  - [get_func_prokind](../g/get_func_prokind.md): Checks if function is an aggregate
+  - [get_object_namespace](../g/get_object_namespace.md): Gets namespace ID for permission checks
+  - [object_ownercheck](../o/object_ownercheck.md): Checks namespace ownership
+  - [check_object_ownership](../c/check_object_ownership.md): Verifies user has drop permissions
+  - [isTempNamespace](../i/isTempNamespace.md): Checks if namespace is temporary
+  - [add_exact_object_address](../a/add_exact_object_address.md): Adds object to deletion list
+  - [performMultipleDeletions](../p/performMultipleDeletions.md): Performs the actual deletions
+  - [free_object_addresses](../f/free_object_addresses.md): Cleans up ObjectAddresses structure
 
 - Called from (representative examples):
   - ExecDropStmt: Main utility command execution

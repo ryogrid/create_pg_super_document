@@ -17,8 +17,8 @@ This function serves as the initialization callback for index fetch operations o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation function)
-  - IndexFetchHeapData (heap-specific index fetch data structure)
+  - [palloc0](../p/palloc0.md) (memory allocation function)
+  - [IndexFetchHeapData](../I/IndexFetchHeapData.md) (heap-specific index fetch data structure)
   - InvalidBuffer (constant for invalid buffer state)
 - Called from (representative examples):
   - Part of TableAmRoutine structure as a callback function

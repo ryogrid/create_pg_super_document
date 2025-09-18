@@ -27,17 +27,17 @@ The structure encapsulates various aspects of the combination process including 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - debug (boolean type)
-  - cb_tablespace_mapping (structure type)
+  - [debug](../d/debug.md) (boolean type)
+  - [cb_tablespace_mapping](cb_tablespace_mapping.md) (structure type)
   - pg_checksum_type (enumeration)
-  - DataDirSyncMethod (enumeration)
-  - CopyMethod (enumeration)
+  - [DataDirSyncMethod](../D/DataDirSyncMethod.md) (enumeration)
+  - [CopyMethod](../C/CopyMethod.md) (enumeration)
 - Called from (representative examples):
-  - main
-  - add_tablespace_mapping
+  - [main](../m/main.md)
+  - [add_tablespace_mapping](../a/add_tablespace_mapping.md)
   - create_output_directory
   - process_directory_recursively
-  - scan_for_existing_tablespaces
+  - [scan_for_existing_tablespaces](../s/scan_for_existing_tablespaces.md)
 
 ## Notes and Other Information
 - Central configuration structure for pg_combinebackup utility

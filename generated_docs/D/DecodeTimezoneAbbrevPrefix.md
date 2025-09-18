@@ -21,16 +21,16 @@ This function provides timezone abbreviation parsing functionality specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datebsearch
-  - pg_tolower
-  - FetchDynamicTimeZone
+  - [datebsearch](../d/datebsearch.md)
+  - [pg_tolower](../p/pg_tolower.md)
+  - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md)
   - datetkn
   - TOKMAXLEN
   - DYNTZ
   - DateTimeErrorExtra
-  - pg_tz
+  - [pg_tz](../p/pg_tz.md)
 - Called from (representative examples):
-  - DCH_from_char
+  - [DCH_from_char](DCH_from_char.md)
 
 ## Notes and Other Information
 - Returns the length of the matched timezone abbreviation, or -1 if no match found

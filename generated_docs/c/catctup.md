@@ -27,13 +27,13 @@ The catctup struct represents a single cached catalog tuple within PostgreSQL's 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CATCACHE_MAXKEYS (maximum number of cache keys)
-  - dlist_node (doubly-linked list node structure)
-  - HeapTupleData (heap tuple data structure)
-  - catclist (catalog cache list structure)
+  - [dlist_node](../d/dlist_node.md) (doubly-linked list node structure)
+  - [HeapTupleData](../H/HeapTupleData.md) (heap tuple data structure)
+  - [catclist](catclist.md) (catalog cache list structure)
   - CatCache (catalog cache structure)
 - Called from (representative examples):
-  - CatCacheRemoveCTup (cache tuple removal)
-  - SearchCatCache functions (cache lookup operations)
+  - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md) (cache tuple removal)
+  - [SearchCatCache](../S/SearchCatCache.md) functions (cache lookup operations)
 
 ## Notes and Other Information
 - The actual tuple data follows the struct in memory for positive entries

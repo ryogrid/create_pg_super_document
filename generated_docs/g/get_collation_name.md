@@ -21,22 +21,22 @@ The function performs a system cache lookup to efficiently retrieve the collatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (performs system cache lookup by collation OID)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (performs system cache lookup by collation OID)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - HeapTupleIsValid (checks if cache lookup succeeded)
   - Form_pg_collation (type cast to collation catalog structure)
   - GETSTRUCT (extracts structure from heap tuple)
-  - pstrdup (creates palloc'd copy of string)
+  - [pstrdup](../p/pstrdup.md) (creates palloc'd copy of string)
   - NameStr (extracts string from Name type)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
 - Called from (representative examples):
-  - show_sortorder_options (for EXPLAIN output)
-  - MergeChildAttribute (during table inheritance)
-  - MergeInheritedAttribute (during table inheritance)
-  - ATExecAddColumn (during ALTER TABLE ADD COLUMN)
-  - checkViewColumns (during view validation)
-  - select_common_collation (during collation resolution)
-  - assign_collations_walker (during query planning)
+  - [show_sortorder_options](../s/show_sortorder_options.md) (for EXPLAIN output)
+  - [MergeChildAttribute](../M/MergeChildAttribute.md) (during table inheritance)
+  - [MergeInheritedAttribute](../M/MergeInheritedAttribute.md) (during table inheritance)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (during ALTER TABLE ADD COLUMN)
+  - [checkViewColumns](../c/checkViewColumns.md) (during view validation)
+  - [select_common_collation](../s/select_common_collation.md) (during collation resolution)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (during query planning)
 
 ## Notes and Other Information
 - Returns NULL if the collation OID is not found, rather than throwing an error

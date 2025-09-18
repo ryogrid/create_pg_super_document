@@ -19,7 +19,7 @@ This function serves as a simple wrapper around libpq's PQbackendPID function to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQbackendPID: libpq function that returns the process ID of the backend serving the connection
+  - [PQbackendPID](../P/PQbackendPID.md): libpq function that returns the process ID of the backend serving the connection
 - Called from (representative examples):
   - Referenced by WalReceiverConn structure function pointers
   - Used by monitoring and administrative functions that need to identify the remote backend process

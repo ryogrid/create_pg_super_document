@@ -42,10 +42,10 @@ Each phase uses test-and-restore mechanisms to ensure proper cursor positioning,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions: Identifies morphological regions in the word
-  - r_main_suffix: Removes primary Swedish suffixes
-  - r_consonant_pair: Handles doubled consonant reduction  
-  - r_other_suffix: Processes secondary suffixes and transformations
+  - [r_mark_regions](../r/r_mark_regions.md): Identifies morphological regions in the word
+  - [r_main_suffix](../r/r_main_suffix.md): Removes primary Swedish suffixes
+  - [r_consonant_pair](../r/r_consonant_pair.md): Handles doubled consonant reduction  
+  - [r_other_suffix](../r/r_other_suffix.md): Processes secondary suffixes and transformations
 - Called from (representative examples):
   - This is likely a public API function called by PostgreSQL's text search system
   - May be called from full-text search indexing operations

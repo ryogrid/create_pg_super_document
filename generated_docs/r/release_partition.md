@@ -23,10 +23,10 @@ After cleanup, the function resets the buffer pointer to NULL and marks the part
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset
-  - tuplestore_end
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [tuplestore_end](../t/tuplestore_end.md)
 - Called from (representative examples):
-  - ExecWindowAgg
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
   - ExecEndWindowAgg
   - ExecReScanWindowAgg
 

@@ -31,8 +31,8 @@ This aggressive masking ensures that pages undergoing deletion or recycling proc
   - PageHeader (type cast for page header access)
   - memset (memory filling function)
 - Called from (representative examples):
-  - gin_mask (GIN index masking for deleted pages)
-  - hash_mask (hash index masking for deleted pages)
+  - [gin_mask](../g/gin_mask.md) (GIN index masking for deleted pages)
+  - [hash_mask](../h/hash_mask.md) (hash index masking for deleted pages)
 
 ## Notes and Other Information
 - This is the most aggressive masking function in the bufmask suite

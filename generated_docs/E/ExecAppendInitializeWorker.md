@@ -22,10 +22,10 @@ The function is called during the initialization phase of each worker process in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - choose_next_subplan_for_worker
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [choose_next_subplan_for_worker](../c/choose_next_subplan_for_worker.md)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md)
 
 ## Notes and Other Information
 - Uses the plan node ID as the key to look up the shared state in the TOC

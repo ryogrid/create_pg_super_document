@@ -19,12 +19,12 @@ This function is part of pg_dump's extension tracking system. It searches the ca
 - Functions called/Symbols referenced:
   - catalogid_lookup
 - Data types used:
-  - CatalogId
-  - CatalogIdMapEntry
-  - ExtensionInfo
+  - [CatalogId](../C/CatalogId.md)
+  - [CatalogIdMapEntry](../C/CatalogIdMapEntry.md)
+  - [ExtensionInfo](../E/ExtensionInfo.md)
 - Called from (representative examples):
-  - checkExtensionMembership
-  - SubRelInfo
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
+  - [SubRelInfo](../S/SubRelInfo.md)
 
 ## Notes and Other Information
 - Returns NULL if catalogIdHash is NULL, indicating no objects have been processed yet

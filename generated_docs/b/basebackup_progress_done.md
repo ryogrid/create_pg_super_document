@@ -19,9 +19,9 @@ This function marks the completion of a PostgreSQL base backup operation by call
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_end_command
+  - [pgstat_progress_end_command](../p/pgstat_progress_end_command.md)
 - Called from (representative examples):
-  - perform_base_backup
+  - [perform_base_backup](../p/perform_base_backup.md)
   - bbsink_cleanup
 
 ## Notes and Other Information

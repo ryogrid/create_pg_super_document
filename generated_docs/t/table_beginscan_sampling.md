@@ -37,7 +37,7 @@ The function sets the SO_TYPE_SAMPLESCAN flag to indicate the specialized scan t
   - SO_ALLOW_PAGEMODE (conditionally set based on allow_pagemode parameter)
   - rd_tableam->scan_begin (table access method function)
 - Called from (representative examples):
-  - tablesample_init
+  - [tablesample_init](tablesample_init.md)
 
 ## Notes and Other Information
 - Designed specifically for TABLESAMPLE operations which implement various statistical sampling algorithms

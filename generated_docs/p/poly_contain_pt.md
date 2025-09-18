@@ -21,10 +21,10 @@ This function tests whether a given point lies inside a polygon. It extracts a p
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (extract polygon argument)
   - PG_GETARG_POINT_P (extract point argument)
-  - point_inside (perform point-in-polygon test)
+  - [point_inside](point_inside.md) (perform point-in-polygon test)
   - PG_RETURN_BOOL (return boolean result)
 - Called from (representative examples):
-  - gist_point_consistent (at src/backend/access/gist/gistproc.c:1411)
+  - [gist_point_consistent](../g/gist_point_consistent.md) (at src/backend/access/gist/gistproc.c:1411)
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's geometric data type operations in src/backend/utils/adt/geo_ops.c

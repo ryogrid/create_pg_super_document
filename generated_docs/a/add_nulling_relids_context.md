@@ -29,8 +29,8 @@ The context is used in conjunction with `add_nulling_relids()` function to trave
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)
 - Called from (representative examples):
-  - add_nulling_relids (src/backend/rewrite/rewriteManip.c:1153)
-  - add_nulling_relids_mutator (src/backend/rewrite/rewriteManip.c:1166)
+  - [add_nulling_relids](add_nulling_relids.md) (src/backend/rewrite/rewriteManip.c:1153)
+  - [add_nulling_relids_mutator](add_nulling_relids_mutator.md) (src/backend/rewrite/rewriteManip.c:1166)
 
 ## Notes and Other Information
 - Part of PostgreSQL's query rewriting infrastructure for handling outer join semantics

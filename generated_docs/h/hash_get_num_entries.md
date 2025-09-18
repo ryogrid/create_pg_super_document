@@ -22,12 +22,12 @@ The function is designed to be called when the caller has appropriate locks on t
   - IS_PARTITIONED (macro to determine if the hash table is partitioned)
   - NUM_FREELISTS (constant defining the number of freelists in partitioned tables)
 - Called from (representative examples):
-  - XLogHaveInvalidPages (in transaction log utilities)
-  - GetLockStatusData (in lock manager for status reporting)
+  - [XLogHaveInvalidPages](../X/XLogHaveInvalidPages.md) (in transaction log utilities)
+  - [GetLockStatusData](../G/GetLockStatusData.md) (in lock manager for status reporting)
   - GetPredicateLockStatusData (in predicate locking system)
-  - hash_stats (for hash table statistics reporting)
-  - compute_array_stats (in array type analysis)
-  - compute_tsvector_stats (in text search statistics)
+  - [hash_stats](hash_stats.md) (for hash table statistics reporting)
+  - [compute_array_stats](../c/compute_array_stats.md) (in array type analysis)
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md) (in text search statistics)
   - Various estimation functions for space planning
 
 ## Notes and Other Information

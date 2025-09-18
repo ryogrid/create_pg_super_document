@@ -18,17 +18,17 @@ The `pq_getmsgint` function reads a binary integer from a message buffer with au
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_copymsgbytes (copies bytes from message buffer)
+  - [pq_copymsgbytes](pq_copymsgbytes.md) (copies bytes from message buffer)
   - pg_ntoh16 (network-to-host 16-bit conversion)
   - pg_ntoh32 (network-to-host 32-bit conversion)
   - elog (error logging for unsupported sizes)
 - Called from (representative examples):
-  - HandleParallelMessage
-  - logicalrep_read_begin
-  - exec_bind_message
-  - array_recv
-  - numeric_recv
-  - pq_getmsgfloat4
+  - [HandleParallelMessage](../H/HandleParallelMessage.md)
+  - [logicalrep_read_begin](../l/logicalrep_read_begin.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [array_recv](../a/array_recv.md)
+  - [numeric_recv](../n/numeric_recv.md)
+  - [pq_getmsgfloat4](pq_getmsgfloat4.md)
 
 ## Notes and Other Information
 - Supports only 1, 2, and 4-byte integers; other sizes trigger an error

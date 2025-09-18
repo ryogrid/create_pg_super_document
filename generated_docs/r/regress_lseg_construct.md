@@ -21,10 +21,10 @@ This is a utility function used in PostgreSQL's regression testing framework tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (geometric point data type)
-  - LSEG (line segment data type)
+  - [Point](../P/Point.md) (geometric point data type)
+  - [LSEG](../L/LSEG.md) (line segment data type)
 - Called from (representative examples):
-  - interpt_pp (used twice to construct line segments from path points)
+  - [interpt_pp](../i/interpt_pp.md) (used twice to construct line segments from path points)
   - DELIM (referenced in the same file)
 
 ## Notes and Other Information

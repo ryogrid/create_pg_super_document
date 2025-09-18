@@ -23,16 +23,16 @@ The function iterates through each freeze plan, retrieves the corresponding tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageGetItemId
-  - PageGetItem
-  - heap_execute_freeze_tuple
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [heap_execute_freeze_tuple](heap_execute_freeze_tuple.md)
 - Types used:
-  - HeapTupleFreeze
+  - [HeapTupleFreeze](../H/HeapTupleFreeze.md)
   - ItemId
   - HeapTupleHeader
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information
 - Must be called within a critical section

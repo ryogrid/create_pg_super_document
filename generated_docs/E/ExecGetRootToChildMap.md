@@ -24,14 +24,14 @@ The conversion map accounts for differences in column order, data types, and pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_attrmap_by_name_if_req: Creates attribute mapping between input and output tuple descriptors
-  - convert_tuples_by_name_attrmap: Converts the attribute map into a tuple conversion map
-  - AttrMap: Attribute mapping structure for column correspondence
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md): Creates attribute mapping between input and output tuple descriptors
+  - [convert_tuples_by_name_attrmap](../c/convert_tuples_by_name_attrmap.md): Converts the attribute map into a tuple conversion map
+  - [AttrMap](../A/AttrMap.md): Attribute mapping structure for column correspondence
 - Called from (representative examples):
-  - ExecGetInsertedCols: For converting inserted column bitmaps during partition operations
-  - ExecGetUpdatedCols: For converting updated column bitmaps during partition operations
-  - ExecFindPartition: During tuple routing to determine target partition
-  - CopyFrom: When copying data into partitioned tables
+  - [ExecGetInsertedCols](ExecGetInsertedCols.md): For converting inserted column bitmaps during partition operations
+  - [ExecGetUpdatedCols](ExecGetUpdatedCols.md): For converting updated column bitmaps during partition operations
+  - [ExecFindPartition](ExecFindPartition.md): During tuple routing to determine target partition
+  - [CopyFrom](../C/CopyFrom.md): When copying data into partitioned tables
 
 ## Notes and Other Information
 - The function uses lazy initialization with the  flag to avoid recomputing the map

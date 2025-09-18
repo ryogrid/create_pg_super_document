@@ -26,21 +26,21 @@ When position data is requested (for phrase queries), the function aggregates po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tsCompareString: Core string comparison function supporting prefix matching
-  - checkclass_str: Weight checking and position filtering function
-  - palloc: Allocate memory in PostgreSQL memory context
-  - pfree: Free allocated memory
-  - repalloc: Reallocate memory with new size
+  - [tsCompareString](../t/tsCompareString.md): Core string comparison function supporting prefix matching
+  - [checkclass_str](checkclass_str.md): Weight checking and position filtering function
+  - [palloc](../p/palloc.md): Allocate memory in PostgreSQL memory context
+  - [pfree](../p/pfree.md): Free allocated memory
+  - [repalloc](../r/repalloc.md): Reallocate memory with new size
   - qsort: Standard C library sorting function
-  - qunique: PostgreSQL utility to remove duplicates from sorted array
-  - compareWordEntryPos: Comparison function for WordEntryPos sorting
+  - [qunique](../q/qunique.md): PostgreSQL utility to remove duplicates from sorted array
+  - [compareWordEntryPos](compareWordEntryPos.md): Comparison function for WordEntryPos sorting
   - TSTernaryValue constants (TS_YES, TS_NO, TS_MAYBE)
   - WordEntry: Lexeme entry structure in tsvector
   - WordEntryPos: Position and weight information structure
   - ExecPhraseData: Structure for collecting phrase matching positions
 
 - Called from (representative examples):
-  - ts_match_vq: Main tsvector-tsquery matching function
+  - [ts_match_vq](../t/ts_match_vq.md): Main tsvector-tsquery matching function
 
 ## Notes and Other Information
 - Implements the TSExecuteCallback interface for the TS_execute framework

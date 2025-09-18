@@ -23,14 +23,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogInsertAllowed: Checks if WAL insertion is permitted
+  - [XLogInsertAllowed](XLogInsertAllowed.md): Checks if WAL insertion is permitted
   - XLogRecData: Referenced in assertions for state validation
 - Called from (representative examples):
-  - heap_insert: For heap tuple insertion WAL records
-  - heap_update: For heap tuple update WAL records
-  - _bt_insertonpg: For B-tree page insertion WAL records
-  - CreateCheckPoint: For checkpoint WAL records
-  - AssignTransactionId: For transaction ID assignment WAL records
+  - [heap_insert](../h/heap_insert.md): For heap tuple insertion WAL records
+  - [heap_update](../h/heap_update.md): For heap tuple update WAL records
+  - [_bt_insertonpg](../b/_bt_insertonpg.md): For B-tree page insertion WAL records
+  - [CreateCheckPoint](../C/CreateCheckPoint.md): For checkpoint WAL records
+  - [AssignTransactionId](../A/AssignTransactionId.md): For transaction ID assignment WAL records
 
 ## Notes and Other Information
 - Must be paired with XLogInsert() to complete the WAL record construction

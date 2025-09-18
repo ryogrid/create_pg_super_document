@@ -22,20 +22,20 @@ The function handles both column-based and expression-based extended statistics,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetStatExtList
+  - [RelationGetStatExtList](../R/RelationGetStatExtList.md)
   - Form_pg_statistic_ext
-  - bms_add_member
-  - SysCacheGetAttr
+  - [bms_add_member](../b/bms_add_member.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - TextDatumGetCString
-  - stringToNode
-  - eval_const_expressions
-  - fix_opfuncids
-  - ChangeVarNodes
-  - get_relation_statistics_worker
-  - bms_free
-  - list_free
+  - [stringToNode](../s/stringToNode.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [fix_opfuncids](../f/fix_opfuncids.md)
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [get_relation_statistics_worker](get_relation_statistics_worker.md)
+  - [bms_free](../b/bms_free.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - get_relation_info
+  - [get_relation_info](get_relation_info.md)
 
 ## Notes and Other Information
 - This is a static function, not part of the external API

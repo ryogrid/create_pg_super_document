@@ -24,11 +24,11 @@ The caching system uses a linear array of TupleDescs that can be quickly indexed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDesc (PostgreSQL tuple descriptor structure)
+  - [TupleDesc](../T/TupleDesc.md) (PostgreSQL tuple descriptor structure)
 - Called from (representative examples):
-  - record_type_typmod_hash
-  - record_type_typmod_compare  
-  - assign_record_type_typmod
+  - [record_type_typmod_hash](../r/record_type_typmod_hash.md)
+  - [record_type_typmod_compare](../r/record_type_typmod_compare.md)  
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's type cache system located in src/backend/utils/cache/typcache.c

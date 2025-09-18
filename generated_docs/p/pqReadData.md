@@ -23,24 +23,24 @@ The function carefully distinguishes between temporary unavailability of data (r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - memmove (standard library)
-  - pqCheckInBufferSpace
-  - pqsecure_read
-  - pqReadReady
-  - pqDropConnection
+  - [pqCheckInBufferSpace](pqCheckInBufferSpace.md)
+  - [pqsecure_read](pqsecure_read.md)
+  - [pqReadReady](pqReadReady.md)
+  - [pqDropConnection](pqDropConnection.md)
   - PGINVALID_SOCKET, SOCK_ERRNO, EINTR, EAGAIN, EWOULDBLOCK
   - ALL_CONNECTION_FAILURE_ERRNOS, USE_SSL, CONNECTION_BAD
 - Called from (representative examples):
-  - PQcancelPoll
-  - PQconnectPoll
+  - [PQcancelPoll](../P/PQcancelPoll.md)
+  - [PQconnectPoll](../P/PQconnectPoll.md)
   - CONNECTION_FAILED
-  - PQconsumeInput
-  - PQgetResult
-  - pqSendSome
-  - pqGetCopyData3
-  - pqGetline3
-  - pqFunctionCall3
+  - [PQconsumeInput](../P/PQconsumeInput.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [pqSendSome](pqSendSome.md)
+  - [pqGetCopyData3](pqGetCopyData3.md)
+  - [pqGetline3](pqGetline3.md)
+  - [pqFunctionCall3](pqFunctionCall3.md)
 
 ## Notes and Other Information
 - Returns 1 if at least one byte was successfully read, 0 if no data is available but no error occurred, -1 on error or EOF

@@ -27,15 +27,15 @@ The function requires that input queries come directly from the parser or have b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RewriteQuery
-  - fireRIRrules
+  - [RewriteQuery](../R/RewriteQuery.md)
+  - [fireRIRrules](../f/fireRIRrules.md)
   - lappend
 - Called from (representative examples):
-  - ExecCreateTableAs (src/backend/commands/createas.c:291)
-  - ExplainQuery (src/backend/commands/explain.c:321)
-  - PerformCursorOpen (src/backend/commands/portalcmds.c:80)
-  - pg_rewrite_query (src/backend/tcop/postgres.c:827)
-  - refresh_matview_datafill (src/backend/commands/matview.c:401)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md) (src/backend/commands/createas.c:291)
+  - [ExplainQuery](../E/ExplainQuery.md) (src/backend/commands/explain.c:321)
+  - [PerformCursorOpen](../P/PerformCursorOpen.md) (src/backend/commands/portalcmds.c:80)
+  - [pg_rewrite_query](../p/pg_rewrite_query.md) (src/backend/tcop/postgres.c:827)
+  - [refresh_matview_datafill](../r/refresh_matview_datafill.md) (src/backend/commands/matview.c:401)
 
 ## Notes and Other Information
 - Only accepts top-level original queries (must have querySource == QSRC_ORIGINAL and canSetTag == true)
@@ -43,6 +43,6 @@ The function requires that input queries come directly from the parser or have b
 - Implements the canSetTag protocol to ensure exactly one query (or none) can set the command result tag
 - The three-phase approach ensures rules are applied in the correct order: DML rules first, then RIR rules for view expansion
 - May return an empty list if DO INSTEAD NOTHING rules eliminate all queries
-- Command tag determination follows specific precedence: original query first, then last qualifying INSTEAD rule query
+- [Command](../C/Command.md) tag determination follows specific precedence: original query first, then last qualifying INSTEAD rule query
 - Input queries must have appropriate locks acquired via AcquireRewriteLocks before calling this function
 - The function is assertion-protected to ensure only one query can set the command tag in the result list

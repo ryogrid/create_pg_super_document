@@ -27,11 +27,11 @@ The function uses condition variable broadcasting to wake up waiting processes e
 - Functions called/Symbols referenced:
   - ConditionVariableBroadcast (broadcasts signal to all waiters on condition variables)
 - Called from (representative examples):
-  - StartupXLOG (during WAL replay in recovery)
-  - KeepFileRestoredFromArchive (after restoring archived WAL)
-  - ApplyWalRecord (during WAL record application)
-  - XLogWalRcvFlush (after flushing received WAL data)
-  - WalSndWakeupProcessRequests (general wakeup processing)
+  - [StartupXLOG](../S/StartupXLOG.md) (during WAL replay in recovery)
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md) (after restoring archived WAL)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md) (during WAL record application)
+  - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md) (after flushing received WAL data)
+  - [WalSndWakeupProcessRequests](WalSndWakeupProcessRequests.md) (general wakeup processing)
 
 ## Notes and Other Information
 - This function is critical for the performance of streaming replication

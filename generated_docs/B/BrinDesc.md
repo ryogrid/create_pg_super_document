@@ -47,27 +47,27 @@ The flexible array of BrinOpcInfo pointers (bd_info) provides per-column operato
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinOpcInfo
+  - [BrinOpcInfo](BrinOpcInfo.md)
   - FLEXIBLE_ARRAY_MEMBER
-  - MemoryContext
-  - Relation
-  - TupleDesc
+  - [MemoryContext](../M/MemoryContext.md)
+  - [Relation](../R/Relation.md)
+  - [TupleDesc](../T/TupleDesc.md)
 
 - Called from (representative examples):
-  - brininsert (src/backend/access/brin/brin.c:346)
-  - bringetbitmap (src/backend/access/brin/brin.c:562)
-  - brin_build_desc (src/backend/access/brin/brin.c:1575, 1607)
-  - brin_free_desc (src/backend/access/brin/brin.c:1627)
-  - union_tuples (src/backend/access/brin/brin.c:2022)
-  - add_values_to_range (src/backend/access/brin/brin.c:2196)
-  - brin_form_tuple (src/backend/access/brin/brin_tuple.c:99)
-  - brin_deform_tuple (src/backend/access/brin/brin_tuple.c:553)
+  - [brininsert](../b/brininsert.md) (src/backend/access/brin/brin.c:346)
+  - [bringetbitmap](../b/bringetbitmap.md) (src/backend/access/brin/brin.c:562)
+  - [brin_build_desc](../b/brin_build_desc.md) (src/backend/access/brin/brin.c:1575, 1607)
+  - [brin_free_desc](../b/brin_free_desc.md) (src/backend/access/brin/brin.c:1627)
+  - [union_tuples](../u/union_tuples.md) (src/backend/access/brin/brin.c:2022)
+  - [add_values_to_range](../a/add_values_to_range.md) (src/backend/access/brin/brin.c:2196)
+  - [brin_form_tuple](../b/brin_form_tuple.md) (src/backend/access/brin/brin_tuple.c:99)
+  - [brin_deform_tuple](../b/brin_deform_tuple.md) (src/backend/access/brin/brin_tuple.c:553)
 
 ## Notes and Other Information
-- BrinDesc is typically allocated in a long-lived memory context to persist across multiple index operations
+- [BrinDesc](BrinDesc.md) is typically allocated in a long-lived memory context to persist across multiple index operations
 - The bd_disktdesc is lazily initialized on first use to optimize memory usage
 - This structure is essential for all BRIN tuple manipulation functions, providing the context needed for proper serialization/deserialization
 - The bd_totalstored field helps optimize memory allocation and validation during tuple processing
-- BrinDesc instances are usually created by brin_build_desc() and should be freed using brin_free_desc()
+- [BrinDesc](BrinDesc.md) instances are usually created by brin_build_desc() and should be freed using brin_free_desc()
 - The structure supports heterogeneous column types within a single BRIN index through the per-column BrinOpcInfo array
 - Memory management is crucial as BrinDesc holds references to potentially large structures like Relations and TupleDescs

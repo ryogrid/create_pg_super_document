@@ -21,7 +21,7 @@ This function serves as a thin wrapper around PLy_spi_execute_plan, providing th
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyArg_ParseTuple (Python C API)
-  - PLy_spi_execute_plan
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md)
 - Called from (representative examples):
   - Python method dispatch mechanism (not directly referenced in C code)
 

@@ -34,8 +34,8 @@ This encoding ensures that when the serialized output is later parsed by Postgre
 
 - Called from (representative examples):
   - WRITE_STRING_FIELD (macro in outfuncs.c:90)
-  - outChar (function in outfuncs.c:204)
-  - _outBoolExpr (function in outfuncs.c:422)
+  - [outChar](outChar.md) (function in outfuncs.c:204)
+  - [_outBoolExpr](_outBoolExpr.md) (function in outfuncs.c:422)
   - _outString (function in outfuncs.c:679)
   - _outBitString (function in outfuncs.c:692)
 

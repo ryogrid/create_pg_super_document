@@ -29,15 +29,15 @@ This is a debug-time validation mechanism that helps developers ensure proper lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSharedRelation
-  - index_open
-  - index_close
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
   - SET_LOCKTAG_RELATION
-  - LockHeldByMe
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [LockHeldByMe](../L/LockHeldByMe.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - heap_inplace_lock
+  - [heap_inplace_lock](../h/heap_inplace_lock.md)
 
 ## Notes and Other Information
 - Designed specifically for pg_class catalog entries, unlike the more general check_lock_if_inplace_updateable_rel

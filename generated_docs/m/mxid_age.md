@@ -21,7 +21,7 @@ This function calculates how many MultiXact operations have occurred since a giv
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TRANSACTIONID (macro for extracting TransactionId arguments)
-  - ReadNextMultiXactId (function to get the next MultiXact ID)
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md) (function to get the next MultiXact ID)
   - MultiXactId (type definition for MultiXact IDs)
   - MultiXactIdIsValid (macro to check if MXID is valid)
   - PG_RETURN_INT32 (macro for returning 32-bit integer values)

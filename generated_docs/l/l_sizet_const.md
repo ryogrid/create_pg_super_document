@@ -20,7 +20,7 @@ This utility function wraps LLVM's  function to create size_t constant values in
   - LLVMConstInt (LLVM C API function)
   - TypeSizeT (global LLVM type reference)
 - Called from (representative examples):
-  - slot_compile_deform (multiple locations in src/backend/jit/llvm/llvmjit_deform.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (multiple locations in src/backend/jit/llvm/llvmjit_deform.c)
   - llvm_compile_expr (extensively used in src/backend/jit/llvm/llvmjit_expr.c)
 
 ## Notes and Other Information

@@ -25,11 +25,11 @@ The function uses memcpy for efficient data transfer and advances the connection
 - Functions called/Symbols referenced:
   - memcpy (for byte copying)
 - Called from (representative examples):
-  - pg_GSS_continue (fe-auth.c:81)
-  - pg_SSPI_continue (fe-auth.c:242)
-  - pg_SASL_continue (fe-auth.c:645)
-  - pg_password_sendauth (fe-auth.c:710)
-  - pqFunctionCall3 (fe-protocol3.c:2144)
+  - [pg_GSS_continue](pg_GSS_continue.md) (fe-auth.c:81)
+  - [pg_SSPI_continue](pg_SSPI_continue.md) (fe-auth.c:242)
+  - [pg_SASL_continue](pg_SASL_continue.md) (fe-auth.c:645)
+  - [pg_password_sendauth](pg_password_sendauth.md) (fe-auth.c:710)
+  - [pqFunctionCall3](pqFunctionCall3.md) (fe-protocol3.c:2144)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF if insufficient data is available

@@ -23,9 +23,9 @@ RemoveGXact is a static function in the two-phase commit system that manages the
   - TwoPhaseState (global two-phase commit state)
   - GlobalTransaction (transaction structure type)
 - Called from:
-  - AtAbort_Twophase
-  - FinishPreparedTransaction
-  - PrepareRedoRemove
+  - [AtAbort_Twophase](../A/AtAbort_Twophase.md)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [PrepareRedoRemove](../P/PrepareRedoRemove.md)
 
 ## Notes and Other Information
 - The function requires TwoPhaseStateLock to be held in exclusive mode by the caller

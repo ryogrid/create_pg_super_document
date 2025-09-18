@@ -21,7 +21,7 @@ PQuntrace disables protocol-level tracing that was previously enabled by PQtrace
 - Functions called/Symbols referenced:
   - fflush (standard C library function)
 - Called from (representative examples):
-  - PQtrace (line 39 in fe-trace.c)
+  - [PQtrace](PQtrace.md) (line 39 in fe-trace.c)
   - Referenced in libpq-fe.h header (line 457)
 
 ## Notes and Other Information

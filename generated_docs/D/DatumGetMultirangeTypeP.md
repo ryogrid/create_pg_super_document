@@ -22,11 +22,11 @@ The function is implemented as a static inline function in the header file, maki
   - PG_DETOAST_DATUM (macro for TOAST decompression)
   - MultirangeType (return type)
 - Called from (representative examples):
-  - multirangesel (multirange selectivity estimation)
-  - range_gist_consistent (GiST index consistency checking)
-  - multirange_gist_compress (GiST index compression)
-  - multirange_gist_consistent (multirange GiST consistency)
-  - compute_range_stats (range statistics computation)
+  - [multirangesel](../m/multirangesel.md) (multirange selectivity estimation)
+  - [range_gist_consistent](../r/range_gist_consistent.md) (GiST index consistency checking)
+  - [multirange_gist_compress](../m/multirange_gist_compress.md) (GiST index compression)
+  - [multirange_gist_consistent](../m/multirange_gist_consistent.md) (multirange GiST consistency)
+  - [compute_range_stats](../c/compute_range_stats.md) (range statistics computation)
   - PG_GETARG_MULTIRANGE_P (macro for function argument retrieval)
 
 ## Notes and Other Information

@@ -28,9 +28,9 @@ This function is designed to be "char-centric" as noted in the comments, meaning
 - Functions called/Symbols referenced:
   - fprintf (for formatted output of escaped characters)
   - putc (for direct character output)
-  - chr (character type definition)
+  - [chr](../c/chr.md) (character type definition)
 - Called from (representative examples):
-  - dumpcolors (src/backend/regex/regc_color.c:1152, 1171, 1173)
+  - [dumpcolors](dumpcolors.md) (src/backend/regex/regc_color.c:1152, 1171, 1173)
 
 ## Notes and Other Information
 - This is a utility function primarily used by dumpcolors for debugging colormap contents

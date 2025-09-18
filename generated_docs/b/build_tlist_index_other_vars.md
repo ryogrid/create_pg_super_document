@@ -26,13 +26,13 @@ The primary use case is in contexts like RETURNING clauses where you need to ref
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (with offsetof calculation)
+  - [palloc](../p/palloc.md) (with offsetof calculation)
   - list_length  
   - lfirst (list iteration macro)
   - IsA (type checking macro)
   - offsetof (for structure size calculation)
 - Called from (representative examples):
-  - set_returning_clause_references (src/backend/optimizer/plan/setrefs.c:3339)
+  - [set_returning_clause_references](../s/set_returning_clause_references.md) (src/backend/optimizer/plan/setrefs.c:3339)
 
 ## Notes and Other Information
 - Similar to build_tlist_index but with relation-based filtering

@@ -24,13 +24,13 @@ Each group represents a range of messages in the corresponding InvalMessageArray
 - Functions called/Symbols referenced:
   - (No direct symbol references - used as a data container)
 - Called from (representative examples):
-  - TransInvalidationInfo (contains two instances: CurrentCmdInvalidMsgs and PriorCmdInvalidMsgs)
-  - AddInvalidationMessage
-  - AppendInvalidationMessageSubGroup
-  - AddCatcacheInvalidationMessage
-  - AddCatalogInvalidationMessage
-  - AddRelcacheInvalidationMessage
-  - ProcessInvalidationMessages
+  - [TransInvalidationInfo](../T/TransInvalidationInfo.md) (contains two instances: CurrentCmdInvalidMsgs and PriorCmdInvalidMsgs)
+  - [AddInvalidationMessage](../A/AddInvalidationMessage.md)
+  - [AppendInvalidationMessageSubGroup](../A/AppendInvalidationMessageSubGroup.md)
+  - [AddCatcacheInvalidationMessage](../A/AddCatcacheInvalidationMessage.md)
+  - [AddCatalogInvalidationMessage](../A/AddCatalogInvalidationMessage.md)
+  - [AddRelcacheInvalidationMessage](../A/AddRelcacheInvalidationMessage.md)
+  - [ProcessInvalidationMessages](../P/ProcessInvalidationMessages.md)
 
 ## Notes and Other Information
 - Used within TransInvalidationInfo to separate messages from current command vs. previous commands

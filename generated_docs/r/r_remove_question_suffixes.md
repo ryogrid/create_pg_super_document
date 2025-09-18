@@ -29,12 +29,12 @@ The function ensures that question words are properly normalized while maintaini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_has_min_length (validates minimum word length before processing)
-  - find_among_b (backward pattern matching using array a_14 with 3 question suffix patterns)
-  - slice_from_s (replaces matched suffix with standardized form s_53)
-  - r_fix_endings (performs post-processing morphological corrections)
+  - [r_has_min_length](r_has_min_length.md) (validates minimum word length before processing)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching using array a_14 with 3 question suffix patterns)
+  - [slice_from_s](../s/slice_from_s.md) (replaces matched suffix with standardized form s_53)
+  - [r_fix_endings](r_fix_endings.md) (performs post-processing morphological corrections)
 - Called from (representative examples):
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - Specifically handles Tamil interrogative morphology and question formation patterns

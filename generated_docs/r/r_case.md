@@ -27,13 +27,13 @@ The function operates by matching against these patterns using find_among_b, ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches for case suffixes from array a_4 containing 44 patterns)
-  - r_R1 (checks if position is in R1 region)
-  - slice_del (removes the matched case suffix)
-  - r_v_ending (handles vowel ending adjustments after suffix removal)
+  - [find_among_b](../f/find_among_b.md) (searches for case suffixes from array a_4 containing 44 patterns)
+  - [r_R1](r_R1.md) (checks if position is in R1 region)
+  - [slice_del](../s/slice_del.md) (removes the matched case suffix)
+  - [r_v_ending](r_v_ending.md) (handles vowel ending adjustments after suffix removal)
 - Called from (representative examples):
-  - hungarian_ISO_8859_2_stem
-  - hungarian_UTF_8_stem
+  - [hungarian_ISO_8859_2_stem](../h/hungarian_ISO_8859_2_stem.md)
+  - [hungarian_UTF_8_stem](../h/hungarian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Hungarian case morphology is highly complex with 18-35 cases depending on linguistic analysis

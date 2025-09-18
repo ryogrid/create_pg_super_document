@@ -25,7 +25,7 @@ ExecUnique implements duplicate elimination by processing tuples from its outer 
   - ExecQualAndReset: Execute equality comparison between tuples
   - ExecCopySlot: Copy tuple from source to result slot
 - Called from:
-  - ExecInitUnique: During node initialization to set up the execution function
+  - [ExecInitUnique](ExecInitUnique.md): During node initialization to set up the execution function
 
 ## Notes and Other Information
 - Requires input tuples to be sorted for correct duplicate elimination

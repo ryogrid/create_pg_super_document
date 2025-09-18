@@ -33,14 +33,14 @@ The function includes extensive validation through assertions to ensure data con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferCanStartStreaming (checks if streaming is enabled and available)
-  - ReorderBufferLargestStreamableTopTXN (finds largest streamable top-level transaction)
-  - ReorderBufferLargestTXN (finds largest transaction including subtransactions)
-  - ReorderBufferStreamTXN (streams a transaction to output plugin)
-  - ReorderBufferSerializeTXN (serializes a transaction to disk)
+  - [ReorderBufferCanStartStreaming](ReorderBufferCanStartStreaming.md) (checks if streaming is enabled and available)
+  - [ReorderBufferLargestStreamableTopTXN](ReorderBufferLargestStreamableTopTXN.md) (finds largest streamable top-level transaction)
+  - [ReorderBufferLargestTXN](ReorderBufferLargestTXN.md) (finds largest transaction including subtransactions)
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md) (streams a transaction to output plugin)
+  - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md) (serializes a transaction to disk)
   - rbtxn_is_toptxn (verifies transaction is a top-level transaction)
 - Called from (representative examples):
-  - ReorderBufferQueueChange (after adding changes to monitor memory usage)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md) (after adding changes to monitor memory usage)
   - Various transaction processing points to maintain memory limits
 
 ## Notes and Other Information

@@ -24,9 +24,9 @@ The `tidrecv` function is responsible for deserializing TID values from PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pq_getmsgint`: PostgreSQL function to read integer from binary message buffer
-  - `palloc`: PostgreSQL memory allocation function
-  - `ItemPointerSet`: Sets block and offset in ItemPointer structure
+  - `[pq_getmsgint](../p/pq_getmsgint.md)`: PostgreSQL function to read integer from binary message buffer
+  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - `[ItemPointerSet](../I/ItemPointerSet.md)`: Sets block and offset in ItemPointer structure
   - `PG_RETURN_ITEMPOINTER`: PostgreSQL macro to return ItemPointer datum
 - Called from (representative examples):
   - PostgreSQL binary protocol handling when receiving TID parameters

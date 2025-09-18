@@ -29,15 +29,15 @@ This optimization is crucial for performance, preventing the accumulation of red
   - TargetTagIsCoveredBy
   - PredicateLockTargetTagHashCode
   - PredicateLockHashPartitionLock
-  - dlist_delete
-  - hash_search_with_hash_value
+  - [dlist_delete](../d/dlist_delete.md)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - PredicateLockHashCodeFromTargetHashCode
-  - RemoveTargetIfNoLongerUsed
-  - DecrementParentLocks
-  - SERIALIZABLEXACT, PREDICATELOCK (data structures)
+  - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
+  - [DecrementParentLocks](DecrementParentLocks.md)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md), PREDICATELOCK (data structures)
 - Called from (representative examples):
-  - SerialControl
-  - PredicateLockAcquire
+  - [SerialControl](../S/SerialControl.md)
+  - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the predicate.c file

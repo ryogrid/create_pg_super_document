@@ -19,7 +19,7 @@ The function operates by calling the general statistics reset mechanism with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_reset (to perform the actual statistics reset)
+  - [pgstat_reset](pgstat_reset.md) (to perform the actual statistics reset)
   - PG_RETURN_VOID (to return from the function)
 - Constants used:
   - PGSTAT_KIND_FUNCTION (specifies that function statistics are being reset)

@@ -20,13 +20,13 @@ The structure implements a singly-linked list with head and tail pointers for ef
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimplePtrListCell
+  - [SimplePtrListCell](SimplePtrListCell.md)
 - Called from (representative examples):
-  - main (pg_amcheck.c:223, 224)
-  - compile_database_list (pg_amcheck.c:1583)
-  - compile_relation_list_one_db (pg_amcheck.c:1883)
-  - getIndexes (pg_dump.c:7683)
-  - simple_ptr_list_append (simple_list.c:162)
+  - [main](../m/main.md) (pg_amcheck.c:223, 224)
+  - [compile_database_list](../c/compile_database_list.md) (pg_amcheck.c:1583)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md) (pg_amcheck.c:1883)
+  - [getIndexes](../g/getIndexes.md) (pg_dump.c:7683)
+  - [simple_ptr_list_append](../s/simple_ptr_list_append.md) (simple_list.c:162)
 
 ## Notes and Other Information
 - Part of a family of simple list types including SimpleOidList and SimpleStringList

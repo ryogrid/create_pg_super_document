@@ -24,15 +24,15 @@ The function is a lightweight wrapper around the internal parse_connection_strin
 - Functions called/Symbols referenced:
   - initPQExpBuffer
   - PQExpBufferDataBroken
-  - parse_connection_string
+  - [parse_connection_string](../p/parse_connection_string.md)
   - termPQExpBuffer
-  - PQExpBufferData (data structure)
-  - PQconninfoOption (data structure)
+  - [PQExpBufferData](PQExpBufferData.md) (data structure)
+  - [PQconninfoOption](PQconninfoOption.md) (data structure)
 - Called from (representative examples):
-  - libpqrcv_check_conninfo
-  - GetConnection
-  - connectDatabase
-  - do_connect
+  - [libpqrcv_check_conninfo](../l/libpqrcv_check_conninfo.md)
+  - [GetConnection](../G/GetConnection.md)
+  - [connectDatabase](../c/connectDatabase.md)
+  - [do_connect](../d/do_connect.md)
   - Various PostgreSQL utility programs
 
 ## Notes and Other Information

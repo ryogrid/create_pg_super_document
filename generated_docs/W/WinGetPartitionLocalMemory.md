@@ -19,14 +19,14 @@ This function serves as a memory management utility for window functions that ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - MemoryContextAllocZero
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
 - Called from (representative examples):
-  - rank_up
-  - window_rank
-  - window_dense_rank
-  - window_percent_rank
-  - window_cume_dist
-  - window_ntile
+  - [rank_up](../r/rank_up.md)
+  - [window_rank](../w/window_rank.md)
+  - [window_dense_rank](../w/window_dense_rank.md)
+  - [window_percent_rank](../w/window_percent_rank.md)
+  - [window_cume_dist](../w/window_cume_dist.md)
+  - [window_ntile](../w/window_ntile.md)
 
 ## Notes and Other Information
 - Returns a pointer to the allocated memory block

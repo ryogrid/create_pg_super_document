@@ -22,10 +22,10 @@ This function is the required counterpart to TidStoreBeginIterate and must be ca
   - TidStoreIsShared
   - shared_ts_end_iterate
   - local_ts_end_iterate
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - lazy_vacuum_heap_rel
-  - check_set_block_offsets
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md)
 
 ## Notes and Other Information
 - Must be called for every TidStoreIter created by TidStoreBeginIterate to prevent memory leaks

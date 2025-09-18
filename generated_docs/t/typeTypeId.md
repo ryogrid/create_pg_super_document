@@ -26,12 +26,12 @@ The function includes a NULL check to prevent crashes, though as noted in the co
   - GETSTRUCT (macro to extract structure from tuple)
   - elog (for error reporting)
 - Called from (representative examples):
-  - get_object_address_type
-  - compute_return_type
-  - interpret_function_parameter_list
-  - AlterTypeOwner
-  - AlterType
-  - FuncNameAsType
+  - [get_object_address_type](../g/get_object_address_type.md)
+  - [compute_return_type](../c/compute_return_type.md)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md)
+  - [AlterTypeOwner](../A/AlterTypeOwner.md)
+  - [AlterType](../A/AlterType.md)
+  - [FuncNameAsType](../F/FuncNameAsType.md)
 
 ## Notes and Other Information
 - Performs the inverse operation of typeidType: converts Type structure back to OID

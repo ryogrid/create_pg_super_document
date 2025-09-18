@@ -24,11 +24,11 @@ The function provides robust error handling and memory management, ensuring that
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_locale_t (type)
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - ereport
   - ERROR
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - u_errorName
   - UErrorCode
   - UChar
@@ -37,9 +37,9 @@ The function provides robust error handling and memory management, ensuring that
   - U_BUFFER_OVERFLOW_ERROR
   - U_FAILURE
 - Called from (representative examples):
-  - str_tolower
-  - str_toupper  
-  - str_initcap
+  - [str_tolower](../s/str_tolower.md)
+  - [str_toupper](../s/str_toupper.md)  
+  - [str_initcap](../s/str_initcap.md)
 
 ## Notes and Other Information
 - This is a static function only available within the formatting.c compilation unit

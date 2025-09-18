@@ -25,8 +25,8 @@ System caches in PostgreSQL are hash-based lookup tables that cache tuples from 
 - Functions called/Symbols referenced:
   - Oid (from src/include/postgres_ext.h:31)
 - Called from (representative examples):
-  - InitCatalogCache() (uses cacheinfo array of cachedesc structs)
-  - InitCatCache() (receives parameters from cachedesc during cache creation)
+  - [InitCatalogCache](../I/InitCatalogCache.md)() (uses cacheinfo array of cachedesc structs)
+  - [InitCatCache](../I/InitCatCache.md)() (receives parameters from cachedesc during cache creation)
 
 ## Notes and Other Information
 - The struct is defined locally in syscache.c and is used to populate a static array that drives cache initialization

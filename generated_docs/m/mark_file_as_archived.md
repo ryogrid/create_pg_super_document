@@ -20,15 +20,15 @@ This function creates a `.done` file in the `archive_status` directory to indica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StreamCtl (structure)
+  - [StreamCtl](../S/StreamCtl.md) (structure)
   - Walfile (structure) 
-  - GetLastWalMethodError
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
   - CLOSE_NORMAL
   - walmethod->ops->open_for_write
   - walmethod->ops->close
 - Called from (representative examples):
-  - close_walfile
-  - writeTimeLineHistoryFile
+  - [close_walfile](../c/close_walfile.md)
+  - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md)
 
 ## Notes and Other Information
 - Creates archive status files with `.done` extension in the `archive_status/` subdirectory

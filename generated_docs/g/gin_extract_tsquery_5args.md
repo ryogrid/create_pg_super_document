@@ -21,7 +21,7 @@ Similar to gin_extract_tsvector_2args, this function performs argument count val
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_NARGS (macro to get the number of function arguments)
-  - gin_extract_tsquery (the actual implementation function)
+  - [gin_extract_tsquery](gin_extract_tsquery.md) (the actual implementation function)
   - elog (for error reporting)
 - Called from (representative examples):
   - No direct callers found (used by PostgreSQL function call infrastructure)

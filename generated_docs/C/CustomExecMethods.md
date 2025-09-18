@@ -67,19 +67,19 @@ The structure supports PostgreSQL's advanced execution features including parall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (execution state structure)
-  - EState (executor state)
+  - [CustomScanState](CustomScanState.md) (execution state structure)
+  - [EState](../E/EState.md) (executor state)
   - TupleTableSlot (tuple storage)
-  - ParallelContext (parallel execution context)
+  - [ParallelContext](../P/ParallelContext.md) (parallel execution context)
   - ExplainState (query explanation state)
-  - shm_toc (shared memory table of contents)
-  - List (PostgreSQL list structure)
+  - [shm_toc](../s/shm_toc.md) (shared memory table of contents)
+  - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
-  - ExecCustomScanEstimate (parallel execution estimation)
-  - ExecCustomScanInitializeDSM (parallel initialization)
-  - ExecCustomScanInitializeWorker (worker initialization)
-  - ExecShutdownCustomScan (parallel shutdown)
-  - CustomScanState (execution state references these methods)
+  - [ExecCustomScanEstimate](../E/ExecCustomScanEstimate.md) (parallel execution estimation)
+  - [ExecCustomScanInitializeDSM](../E/ExecCustomScanInitializeDSM.md) (parallel initialization)
+  - [ExecCustomScanInitializeWorker](../E/ExecCustomScanInitializeWorker.md) (worker initialization)
+  - [ExecShutdownCustomScan](../E/ExecShutdownCustomScan.md) (parallel shutdown)
+  - [CustomScanState](CustomScanState.md) (execution state references these methods)
 
 ## Notes and Other Information
 - This is the most complex of the custom method interfaces, supporting full executor integration

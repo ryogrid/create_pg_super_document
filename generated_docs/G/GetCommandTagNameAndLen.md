@@ -24,9 +24,9 @@ The function sets the output parameter *len to the namelen field from the Comman
   - Size (typedef for size_t)
   - tag_behavior (static array of CommandTagBehavior structs)
 - Called from (representative examples):
-  - BuildQueryCompletionString (src/backend/tcop/cmdtag.c:126)
-  - exec_simple_query (src/backend/tcop/postgres.c:1124)
-  - exec_execute_message (src/backend/tcop/postgres.c:2178)
+  - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (src/backend/tcop/cmdtag.c:126)
+  - [exec_simple_query](../e/exec_simple_query.md) (src/backend/tcop/postgres.c:1124)
+  - [exec_execute_message](../e/exec_execute_message.md) (src/backend/tcop/postgres.c:2178)
   - CopyQueryCompletion (src/include/tcop/cmdtag.h:54)
 
 ## Notes and Other Information

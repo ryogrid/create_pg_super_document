@@ -20,13 +20,13 @@ This is a low-level utility function in PostgreSQL's dynamic shared hash table i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
-  - dshash_table (type)
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [dshash_table](../d/dshash_table.md) (type)
   - dsa_pointer (type)
-  - dshash_table_item (type)
+  - [dshash_table_item](../d/dshash_table_item.md) (type)
 - Called from (representative examples):
   - resize
-  - insert_into_bucket
+  - [insert_into_bucket](insert_into_bucket.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within dshash.c

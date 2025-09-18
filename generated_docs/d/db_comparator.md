@@ -18,9 +18,9 @@ This function serves as a comparator for the qsort algorithm when sorting the ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_s32 (PostgreSQL 32-bit integer comparison utility)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL 32-bit integer comparison utility)
 - Data structures used:
-  - avl_dbase (casted from void pointers)
+  - [avl_dbase](../a/avl_dbase.md) (casted from void pointers)
 - Called from:
   - qsort function in rebuild_database_list (line 1013 in autovacuum.c)
 

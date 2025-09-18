@@ -20,16 +20,16 @@ The `create_join_plan` function serves as the main dispatcher for creating join 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_mergejoin_plan
-  - create_hashjoin_plan  
-  - create_nestloop_plan
-  - get_gating_quals
-  - create_gating_plan
+  - [create_mergejoin_plan](create_mergejoin_plan.md)
+  - [create_hashjoin_plan](create_hashjoin_plan.md)  
+  - [create_nestloop_plan](create_nestloop_plan.md)
+  - [get_gating_quals](../g/get_gating_quals.md)
+  - [create_gating_plan](create_gating_plan.md)
   - MergePath (type)
   - HashPath (type) 
   - NestPath (type)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - Uses a switch statement to dispatch based on path type (T_MergeJoin, T_HashJoin, T_NestLoop)

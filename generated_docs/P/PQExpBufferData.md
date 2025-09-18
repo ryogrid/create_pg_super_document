@@ -26,8 +26,8 @@ In error conditions (such as memory allocation failures), the buffer enters a "b
   - (None - this is a plain data structure)
 - Called from (representative examples):
   - createPQExpBuffer (buffer creation)
-  - appendPQExpBuffer (string appending operations)
-  - resetPQExpBuffer (buffer reset operations)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (string appending operations)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (buffer reset operations)
   - Various libpq functions throughout PostgreSQL client utilities
   - Used extensively in pg_dump, psql, pgbench, and other client tools
 

@@ -26,17 +26,17 @@ The join selectivity function receives comprehensive context information includi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_oprjoin (retrieves operator's join selectivity function)
-  - OidFunctionCall5Coll (invokes the selectivity function with 5 parameters and collation)
-  - DatumGetFloat8 (converts function result to float8)
+  - [get_oprjoin](../g/get_oprjoin.md) (retrieves operator's join selectivity function)
+  - [OidFunctionCall5Coll](../O/OidFunctionCall5Coll.md) (invokes the selectivity function with 5 parameters and collation)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md) (converts function result to float8)
   - RegProcedure (procedure identifier type)
   - JoinType, SpecialJoinInfo (join-related data structures)
-  - PointerGetDatum, ObjectIdGetDatum, Int16GetDatum (datum conversion functions)
+  - [PointerGetDatum](../P/PointerGetDatum.md), ObjectIdGetDatum, Int16GetDatum (datum conversion functions)
 
 - Called from (representative examples):
-  - clause_selectivity_ext (src/backend/optimizer/path/clausesel.c:839)
-  - rowcomparesel (src/backend/utils/adt/selfuncs.c:2251)
-  - test_support_func (src/test/regress/regress.c:1045)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (src/backend/optimizer/path/clausesel.c:839)
+  - [rowcomparesel](../r/rowcomparesel.md) (src/backend/utils/adt/selfuncs.c:2251)
+  - [test_support_func](../t/test_support_func.md) (src/test/regress/regress.c:1045)
 
 ## Notes and Other Information
 - Returns default selectivity of 0.5 when no  procedure is registered
@@ -44,6 +44,6 @@ The join selectivity function receives comprehensive context information includi
 - Critical for join order optimization and join cost estimation
 - Different operators have specialized join selectivity functions (e.g., eqjoinsel for equality joins)
 - Considers join type semantics (outer joins may have different selectivity characteristics)
-- SpecialJoinInfo parameter provides context for complex join scenarios
+- [SpecialJoinInfo](../S/SpecialJoinInfo.md) parameter provides context for complex join scenarios
 - Essential component of PostgreSQL's join planning and optimization system
 - Location: src/backend/optimizer/util/plancat.c:1986-2026

@@ -23,15 +23,15 @@ For JSON text representation, it stores the raw string data along with its lengt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTokenType (enum for JSON token types)
-  - JsonbValue (structure for JSONB binary data)
+  - [JsonTokenType](JsonTokenType.md) (enum for JSON token types)
+  - [JsonbValue](JsonbValue.md) (structure for JSONB binary data)
 - Called from (representative examples):
   - JsObjectFree (memory management)
-  - populate_array_element (array processing)
-  - populate_composite (composite type handling)
-  - JsValueToJsObject (conversion to JsObject)
-  - populate_scalar (scalar value processing)
-  - json_populate_type (type population functions)
+  - [populate_array_element](../p/populate_array_element.md) (array processing)
+  - [populate_composite](../p/populate_composite.md) (composite type handling)
+  - [JsValueToJsObject](JsValueToJsObject.md) (conversion to JsObject)
+  - [populate_scalar](../p/populate_scalar.md) (scalar value processing)
+  - [json_populate_type](../j/json_populate_type.md) (type population functions)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's JSON/JSONB interoperability

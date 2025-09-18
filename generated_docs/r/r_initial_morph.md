@@ -27,14 +27,14 @@ This preprocessing step is crucial for handling Irish initial mutations, lenitio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Searches for patterns from array a_0 (24 entries) at current position
-  - slice_del: Deletes the text between bra and ket markers
-  - slice_from_s: Replaces text between bra and ket with a specified string
+  - [find_among](../f/find_among.md): Searches for patterns from array a_0 (24 entries) at current position
+  - [slice_del](../s/slice_del.md): Deletes the text between bra and ket markers
+  - [slice_from_s](../s/slice_from_s.md): Replaces text between bra and ket with a specified string
   - a_0: Array of 24 morphological patterns to match
   - s_0 through s_8: Replacement strings for various transformation cases
 - Called from (representative examples):
-  - irish_ISO_8859_1_stem: Main Irish stemming function for ISO_8859_1 encoding
-  - irish_UTF_8_stem: Main Irish stemming function for UTF_8 encoding
+  - [irish_ISO_8859_1_stem](../i/irish_ISO_8859_1_stem.md): Main Irish stemming function for ISO_8859_1 encoding
+  - [irish_UTF_8_stem](../i/irish_UTF_8_stem.md): Main Irish stemming function for UTF_8 encoding
 
 ## Notes and Other Information
 - Specific to Irish language morphology and handles initial consonant mutations

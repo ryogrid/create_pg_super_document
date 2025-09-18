@@ -29,17 +29,17 @@ For joins with USING clauses, the function selects appropriate column names by p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - identify_join_columns
+  - [identify_join_columns](../i/identify_join_columns.md)
   - rt_fetch
   - deparse_columns_fetch
-  - expand_colnames_array_to
-  - make_colname_unique
-  - list_copy
-  - list_nth
+  - [expand_colnames_array_to](../e/expand_colnames_array_to.md)
+  - [make_colname_unique](../m/make_colname_unique.md)
+  - [list_copy](../l/list_copy.md)
+  - [list_nth](../l/list_nth.md)
   - nodeTag
 - Called from (representative examples):
-  - set_deparse_for_query
-  - set_using_names (recursive calls)
+  - [set_deparse_for_query](set_deparse_for_query.md)
+  - [set_using_names](set_using_names.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's rule decompilation system in ruleutils.c

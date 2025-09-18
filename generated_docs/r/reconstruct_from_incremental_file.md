@@ -32,12 +32,12 @@ The reconstruction process handles both incremental and full files in the backup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_incremental_rfile
-  - find_reconstructed_block_length
-  - make_rfile
-  - copy_file
-  - write_reconstructed_file
-  - debug_reconstruction
+  - [make_incremental_rfile](../m/make_incremental_rfile.md)
+  - [find_reconstructed_block_length](../f/find_reconstructed_block_length.md)
+  - [make_rfile](../m/make_rfile.md)
+  - [copy_file](../c/copy_file.md)
+  - [write_reconstructed_file](../w/write_reconstructed_file.md)
+  - [debug_reconstruction](../d/debug_reconstruction.md)
   - pg_checksum_init
   - pg_checksum_final
   - manifest_files_lookup

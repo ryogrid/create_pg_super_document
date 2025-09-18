@@ -25,11 +25,11 @@ This approach optimizes memory usage while ensuring serialization operations hav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc (for initial buffer allocation)
-  - repalloc (for buffer reallocation when resizing is needed)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for initial buffer allocation)
+  - [repalloc](../r/repalloc.md) (for buffer reallocation when resizing is needed)
 - Called from (representative examples):
-  - ReorderBufferSerializeChange (multiple call sites for different change types)
-  - ReorderBufferRestoreChanges (for buffer management during deserialization)
+  - [ReorderBufferSerializeChange](ReorderBufferSerializeChange.md) (multiple call sites for different change types)
+  - [ReorderBufferRestoreChanges](ReorderBufferRestoreChanges.md) (for buffer management during deserialization)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reorderbuffer.c file

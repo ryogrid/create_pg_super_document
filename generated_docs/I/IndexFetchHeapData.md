@@ -25,13 +25,13 @@ IndexFetchHeapData serves as the heap-specific implementation of index fetch ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexFetchTableData
+  - [IndexFetchTableData](IndexFetchTableData.md)
   - Buffer
 - Called from (representative examples):
-  - heapam_index_fetch_begin
-  - heapam_index_fetch_reset
-  - heapam_index_fetch_end
-  - heapam_index_fetch_tuple
+  - [heapam_index_fetch_begin](../h/heapam_index_fetch_begin.md)
+  - [heapam_index_fetch_reset](../h/heapam_index_fetch_reset.md)
+  - [heapam_index_fetch_end](../h/heapam_index_fetch_end.md)
+  - [heapam_index_fetch_tuple](../h/heapam_index_fetch_tuple.md)
 
 ## Notes and Other Information
 - When xs_cbuf is not InvalidBuffer, a pin is held on that buffer to prevent eviction

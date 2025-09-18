@@ -18,7 +18,7 @@ Macaddr8PGetDatum is a type conversion utility function that wraps a macaddr8 po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - macaddr8 (struct type)
 - Called from (representative examples):
   - PG_RETURN_MACADDR8_P

@@ -22,8 +22,8 @@ The function uses PostgreSQL's internal string manipulation functions to build t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringInfoText
-  - stringinfo_to_xmltype
+  - [appendStringInfoText](../a/appendStringInfoText.md)
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P
   - NO_XML_SUPPORT (fallback when libxml not available)
 - Called from (representative examples):

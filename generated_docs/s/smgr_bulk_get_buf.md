@@ -23,15 +23,15 @@ The current implementation uses a simple memory allocation approach, but the int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocAligned
+  - [MemoryContextAllocAligned](../M/MemoryContextAllocAligned.md)
   - BLCKSZ
   - PG_IO_ALIGN_SIZE
 - Called from (representative examples):
-  - gist_indexsortbuild
-  - raw_heap_insert
-  - _bt_blnewpage
-  - RelationCopyStorage
-  - spgbuildempty
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
+  - [raw_heap_insert](../r/raw_heap_insert.md)
+  - [_bt_blnewpage](../b/_bt_blnewpage.md)
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
+  - [spgbuildempty](spgbuildempty.md)
 
 ## Notes and Other Information
 - **No Explicit Deallocation**: There is no corresponding free function; smgr_bulk_write() takes ownership and handles deallocation

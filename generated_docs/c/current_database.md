@@ -22,14 +22,14 @@ The function always returns a valid database name since a PostgreSQL session mus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
-  - get_database_name
+  - [palloc](../p/palloc.md) (for memory allocation)
+  - [get_database_name](../g/get_database_name.md)
   - namestrcpy
   - PG_RETURN_NAME
   - MyDatabaseId (global variable)
   - NAMEDATALEN (constant for name length)
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
   - SQL queries and user-defined functions
 
 ## Notes and Other Information

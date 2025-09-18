@@ -28,14 +28,14 @@ The function includes extensive comments discussing alternative behaviors for mi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replorigin_by_oid (resolve origin ID to name)
-  - OutputPluginWrite (flush pending output)
-  - OutputPluginPrepareWrite (prepare for new output)
-  - logicalrep_write_origin (write origin message to output stream)
+  - [replorigin_by_oid](../r/replorigin_by_oid.md) (resolve origin ID to name)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md) (flush pending output)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md) (prepare for new output)
+  - [logicalrep_write_origin](../l/logicalrep_write_origin.md) (write origin message to output stream)
 - Called from (representative examples):
-  - pgoutput_send_begin (when beginning transaction with origin)
-  - pgoutput_begin_prepare_txn (when beginning prepared transaction with origin)
-  - pgoutput_stream_start (when starting streaming transaction with origin)
+  - [pgoutput_send_begin](../p/pgoutput_send_begin.md) (when beginning transaction with origin)
+  - [pgoutput_begin_prepare_txn](../p/pgoutput_begin_prepare_txn.md) (when beginning prepared transaction with origin)
+  - [pgoutput_stream_start](../p/pgoutput_stream_start.md) (when starting streaming transaction with origin)
 
 ## Notes and Other Information
 - Used in multi-master and cascading replication scenarios to track change provenance

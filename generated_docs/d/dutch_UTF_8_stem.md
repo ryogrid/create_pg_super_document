@@ -43,10 +43,10 @@ The function ensures proper cursor management throughout all phases and provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude: Initial preprocessing and character normalization
-  - r_mark_regions: R1/R2 region boundary identification
-  - r_standard_suffix: Core morphological suffix removal processing
-  - r_postlude: Final character transformations and cleanup
+  - [r_prelude](../r/r_prelude.md): Initial preprocessing and character normalization
+  - [r_mark_regions](../r/r_mark_regions.md): R1/R2 region boundary identification
+  - [r_standard_suffix](../r/r_standard_suffix.md): Core morphological suffix removal processing
+  - [r_postlude](../r/r_postlude.md): Final character transformations and cleanup
 - Called from (representative examples):
   - External callers: This is a public interface function (extern) for Dutch UTF-8 stemming
 

@@ -30,14 +30,14 @@ This step is crucial for Romanian stemming as it handles language-specific morph
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1: Validates that the operation is within the R1 region
-  - eq_s_b: Performs backward string equality check
-  - find_among_b: Searches for suffix patterns in the automaton
-  - slice_del: Deletes the identified suffix
-  - slice_from_s: Replaces suffix with specified string
+  - [r_R1](r_R1.md): Validates that the operation is within the R1 region
+  - [eq_s_b](../e/eq_s_b.md): Performs backward string equality check
+  - [find_among_b](../f/find_among_b.md): Searches for suffix patterns in the automaton
+  - [slice_del](../s/slice_del.md): Deletes the identified suffix
+  - [slice_from_s](../s/slice_from_s.md): Replaces suffix with specified string
 - Called from (representative examples):
-  - romanian_ISO_8859_2_stem: Main stemming function for ISO-8859-2 encoded Romanian text
-  - romanian_UTF_8_stem: Main stemming function for UTF-8 encoded Romanian text
+  - [romanian_ISO_8859_2_stem](romanian_ISO_8859_2_stem.md): Main stemming function for ISO-8859-2 encoded Romanian text
+  - [romanian_UTF_8_stem](romanian_UTF_8_stem.md): Main stemming function for UTF-8 encoded Romanian text
 
 ## Notes and Other Information
 - Specific to Romanian language stemming and implemented for both ISO-8859-2 and UTF-8 encodings

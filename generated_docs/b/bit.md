@@ -30,7 +30,7 @@ The function ensures proper zero-padding for shorter inputs and truncation for l
   - VARBITLEN (get bit string length)
   - VARBITMAXLEN (maximum allowed bit string length)
   - VARBITTOTALLEN (calculate total allocation size)
-  - palloc0 (allocate zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocate zero-initialized memory)
   - SET_VARSIZE (set variable-size header)
   - VARBITS (get pointer to bit data)
   - VARBITBYTES (get byte count for bit data)

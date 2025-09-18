@@ -27,13 +27,13 @@ This optimization is particularly important in scenarios involving table inherit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttrMap
+  - [AttrMap](../A/AttrMap.md)
   - TupleDescAttr
   - Form_pg_attribute
 
 - Called from (representative examples):
-  - build_attrmap_by_position
-  - build_attrmap_by_name_if_req
+  - [build_attrmap_by_position](../b/build_attrmap_by_position.md)
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
 
 ## Notes and Other Information
 - Returns false immediately if input and output descriptors have different numbers of attributes

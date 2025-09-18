@@ -18,20 +18,20 @@ This function searches for a collation by name, which can be either a simple nam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
-  - lookup_collation
-  - recomputeNamespacePath
-  - NameListToString
-  - GetDatabaseEncodingName
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [lookup_collation](../l/lookup_collation.md)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [NameListToString](../N/NameListToString.md)
+  - [GetDatabaseEncodingName](../G/GetDatabaseEncodingName.md)
 - Called from (representative examples):
-  - get_object_address
-  - DefineCollation
-  - AlterCollation
-  - ComputeIndexAttrs
-  - DefineDomain
-  - LookupCollation
+  - [get_object_address](get_object_address.md)
+  - [DefineCollation](../D/DefineCollation.md)
+  - [AlterCollation](../A/AlterCollation.md)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md)
+  - [DefineDomain](../D/DefineDomain.md)
+  - [LookupCollation](../L/LookupCollation.md)
 
 ## Notes and Other Information
 - Only finds collations that work with the current database's encoding

@@ -24,10 +24,10 @@ The generated string serves as the \"name2\" parameter for ChooseExtendedStatist
 - Functions called/Symbols referenced:
   - StatsElem (struct type)
   - strlcpy
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NAMEDATALEN (constant)
 - Called from (representative examples):
-  - CreateStatistics
+  - [CreateStatistics](CreateStatistics.md)
 
 ## Notes and Other Information
 - The function is similar to ChooseForeignKeyConstraintNameAddition and ChooseIndexNameAddition in design pattern

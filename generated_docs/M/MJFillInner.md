@@ -19,7 +19,7 @@ The function sets up the expression context with the null outer tuple slot and t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MergeJoinState (data structure)
+  - [MergeJoinState](MergeJoinState.md) (data structure)
   - ResetExprContext (resets expression evaluation context)
   - ExecQual (evaluates qualification expressions)
   - MJ_printf (debug logging macro)

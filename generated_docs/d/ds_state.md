@@ -24,9 +24,9 @@ The ds_state enum implements a finite state machine for parsing parameter lists 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildDefItem
+  - [buildDefItem](../b/buildDefItem.md)
   - text_to_cstring
-  - DefElem
+  - [DefElem](../D/DefElem.md)
 - Called from (representative examples):
   - deserialize_deflist (local variable usage)
 

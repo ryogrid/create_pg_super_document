@@ -17,16 +17,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - XLogRecoveryCtl (global variable access for recoveryWakeupLatch)
 - Called from (representative examples):
-  - pg_wal_replay_pause
-  - StartupProcTriggerHandler
-  - StartupProcSigHupHandler  
-  - StartupProcShutdownHandler
-  - WalRcvWaitForStartPosition
-  - WalRcvDie
-  - XLogWalRcvFlush
+  - [pg_wal_replay_pause](../p/pg_wal_replay_pause.md)
+  - [StartupProcTriggerHandler](../S/StartupProcTriggerHandler.md)
+  - [StartupProcSigHupHandler](../S/StartupProcSigHupHandler.md)  
+  - [StartupProcShutdownHandler](../S/StartupProcShutdownHandler.md)
+  - [WalRcvWaitForStartPosition](WalRcvWaitForStartPosition.md)
+  - [WalRcvDie](WalRcvDie.md)
+  - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md)
 
 ## Notes and Other Information
 - This function has public visibility and is declared in xlogrecovery.h

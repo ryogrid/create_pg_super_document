@@ -29,14 +29,14 @@ This function extracts the internal components of a serialized RangeType object,
   - att_align_pointer
   - RANGE_EMPTY, RANGE_LB_INF, RANGE_LB_INC, RANGE_UB_INF, RANGE_UB_INC
 - Called from (representative examples):
-  - range_out
-  - range_send
-  - range_lower
-  - range_upper
-  - range_eq_internal
-  - range_overlaps_internal
-  - range_cmp
-  - hash_range
+  - [range_out](range_out.md)
+  - [range_send](range_send.md)
+  - [range_lower](range_lower.md)
+  - [range_upper](range_upper.md)
+  - [range_eq_internal](range_eq_internal.md)
+  - [range_overlaps_internal](range_overlaps_internal.md)
+  - [range_cmp](range_cmp.md)
+  - [hash_range](../h/hash_range.md)
 
 ## Notes and Other Information
 - Requires the input range to be fully detoasted (no short varlena headers)

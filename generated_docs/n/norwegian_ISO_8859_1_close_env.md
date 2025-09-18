@@ -19,7 +19,7 @@ The function is an external interface that provides a standardized way to clean 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct callers found in the current codebase (likely used by external interfaces or dynamically loaded modules)
 

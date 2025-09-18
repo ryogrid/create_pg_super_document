@@ -26,7 +26,7 @@ The default collation can be overridden at the column level or in specific opera
   - GETSTRUCT (macro to extract structure from HeapTuple)
   - Oid (object identifier type)
 - Called from (representative examples):
-  - coerce_type (in parse_coerce.c:288)
+  - [coerce_type](../c/coerce_type.md) (in parse_coerce.c:288)
 
 ## Notes and Other Information
 - This function is crucial for PostgreSQL's internationalization and text handling capabilities

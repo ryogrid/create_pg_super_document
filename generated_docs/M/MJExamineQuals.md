@@ -30,9 +30,9 @@ The function ensures that abbreviation optimization is disabled for merge joins 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitExpr
-  - get_op_opfamily_properties
-  - get_opfamily_proc
+  - [ExecInitExpr](../E/ExecInitExpr.md)
+  - [get_op_opfamily_properties](../g/get_op_opfamily_properties.md)
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
   - OidFunctionCall1
   - PrepareSortSupportComparisonShim
   - lsecond

@@ -22,16 +22,16 @@ The getArrayIndex function is responsible for evaluating array subscript express
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeItem (executes JSONPath expressions)
+  - [executeItem](../e/executeItem.md) (executes JSONPath expressions)
   - jperIsError (checks for execution errors)
-  - JsonValueListLength (gets list length)
-  - JsonValueListHead (gets first list item)
-  - getScalar (extracts scalar values)
+  - [JsonValueListLength](../J/JsonValueListLength.md) (gets list length)
+  - [JsonValueListHead](../J/JsonValueListHead.md) (gets first list item)
+  - [getScalar](getScalar.md) (extracts scalar values)
   - DirectFunctionCall2 (PostgreSQL function call interface)
-  - numeric_trunc (truncates numeric values)
-  - numeric_int4_opt_error (converts numeric to int32 with error checking)
+  - [numeric_trunc](../n/numeric_trunc.md) (truncates numeric values)
+  - [numeric_int4_opt_error](../n/numeric_int4_opt_error.md) (converts numeric to int32 with error checking)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (array access operations)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (array access operations)
 
 ## Notes and Other Information
 - Validates that the subscript expression evaluates to exactly one numeric value

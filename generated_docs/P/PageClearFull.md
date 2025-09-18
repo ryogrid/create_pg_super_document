@@ -22,8 +22,8 @@ This function operates directly on the page header's flags field using a bitwise
   - PageHeader (type cast)
   - PD_PAGE_FULL (flag constant)
 - Called from (representative examples):
-  - mask_page_hint_bits
-  - heap_page_prune_and_freeze
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

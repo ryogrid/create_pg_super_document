@@ -28,15 +28,15 @@ The function only operates when executed by the checkpointer process itself, all
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmCheckpointerProcess
-  - ImmediateCheckpointRequested
-  - IsCheckpointOnSchedule
+  - [ImmediateCheckpointRequested](../I/ImmediateCheckpointRequested.md)
+  - [IsCheckpointOnSchedule](../I/IsCheckpointOnSchedule.md)
   - ProcessConfigFile
-  - UpdateSharedMemoryConfig
-  - AbsorbSyncRequests
-  - CheckArchiveTimeout
-  - pgstat_report_checkpointer
-  - WaitLatch/ResetLatch
-  - ProcessProcSignalBarrier
+  - [UpdateSharedMemoryConfig](../U/UpdateSharedMemoryConfig.md)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md)
+  - [CheckArchiveTimeout](CheckArchiveTimeout.md)
+  - [pgstat_report_checkpointer](../p/pgstat_report_checkpointer.md)
+  - [WaitLatch](../W/WaitLatch.md)/ResetLatch
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)
 - Called from (representative examples):
   - BufferSync (bufmgr.c:3143)
 

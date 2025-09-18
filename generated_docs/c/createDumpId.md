@@ -21,14 +21,14 @@ This function provides a simple mechanism to generate unique dump identifiers th
 - Data structures used:
   - DumpId (return type)
 - Called from (representative examples):
-  - dumpDatabase (src/bin/pg_dump/pg_dump.c: multiple lines)
-  - dumpEncoding (src/bin/pg_dump/pg_dump.c:3576)
-  - dumpStdStrings (src/bin/pg_dump/pg_dump.c:3601)
-  - dumpSearchPath (src/bin/pg_dump/pg_dump.c:3655)
-  - dumpCommentExtended (src/bin/pg_dump/pg_dump.c:10225)
-  - dumpACL (src/bin/pg_dump/pg_dump.c:15351)
-  - dumpSecLabel (src/bin/pg_dump/pg_dump.c:15448)
-  - dumpSequence (src/bin/pg_dump/pg_dump.c:17808)
+  - [dumpDatabase](../d/dumpDatabase.md) (src/bin/pg_dump/pg_dump.c: multiple lines)
+  - [dumpEncoding](../d/dumpEncoding.md) (src/bin/pg_dump/pg_dump.c:3576)
+  - [dumpStdStrings](../d/dumpStdStrings.md) (src/bin/pg_dump/pg_dump.c:3601)
+  - [dumpSearchPath](../d/dumpSearchPath.md) (src/bin/pg_dump/pg_dump.c:3655)
+  - [dumpCommentExtended](../d/dumpCommentExtended.md) (src/bin/pg_dump/pg_dump.c:10225)
+  - [dumpACL](../d/dumpACL.md) (src/bin/pg_dump/pg_dump.c:15351)
+  - [dumpSecLabel](../d/dumpSecLabel.md) (src/bin/pg_dump/pg_dump.c:15448)
+  - [dumpSequence](../d/dumpSequence.md) (src/bin/pg_dump/pg_dump.c:17808)
 
 ## Notes and Other Information
 - Returns a unique DumpId by incrementing the global lastDumpId counter
