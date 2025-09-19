@@ -20,28 +20,28 @@ In PostgreSQL's architecture, the following processes work together:
 
 ### 1. postmaster (Parent Process)
 
-- **Function Name**: `PostmasterMain`
+- **Function Name**: [PostmasterMain](./generated_docs/P/PostmasterMain.md)
 - **File Path**: `src/backend/postmaster/postmaster.c`
 - **Line Number**: 489
 - **Role**: Acts as the parent process of PostgreSQL, managing child processes and accepting client connections.
 
 ### 2. backend process
 
-- **Function Name**: `BackendMain`
+- **Function Name**: [BackendMain](./generated_docs/B/BackendMain.md)
 - **File Path**: `src/backend/tcop/backend_startup.c`
 - **Line Number**: 57
 - **Role**: Handles client connections and executes SQL queries.
 
 ### 3. walwriter
 
-- **Function Name**: `WalWriterMain`
+- **Function Name**: [WalWriterMain](./generated_docs/W/WalWriterMain.md)
 - **File Path**: `src/backend/postmaster/walwriter.c`
 - **Line Number**: 89
 - **Role**: Asynchronously writes from the WAL buffer to disk.
 
 ### 4. walsender
 
-- **Function Name**: `BackendMain` → `PostgresMain`
+- **Function Name**: [BackendMain](./generated_docs/B/BackendMain.md) → [PostgresMain](./generated_docs/P/PostgresMain.md)
 - **File Path**: 
   - `src/backend/tcop/backend_startup.c` (Line Number: 57)
   - `src/backend/tcop/postgres.c` (Line Number: 4239)
@@ -50,35 +50,35 @@ In PostgreSQL's architecture, the following processes work together:
 
 ### 5. walreceiver
 
-- **Function Name**: `WalReceiverMain`
+- **Function Name**: [WalReceiverMain](./generated_docs/W/WalReceiverMain.md)
 - **File Path**: `src/backend/replication/walreceiver.c`
 - **Line Number**: 183
 - **Role**: Receives WAL data from the primary server and applies it locally.
 
 ### 6. checkpointer
 
-- **Function Name**: `CheckpointerMain`
+- **Function Name**: [CheckpointerMain](./generated_docs/C/CheckpointerMain.md)
 - **File Path**: `src/backend/postmaster/checkpointer.c`
 - **Line Number**: 176
 - **Role**: Performs periodic checkpoint processing to ensure data durability.
 
 ### 7. background writer
 
-- **Function Name**: `BackgroundWriterMain`
+- **Function Name**: [BackgroundWriterMain](./generated_docs/B/BackgroundWriterMain.md)
 - **File Path**: `src/backend/postmaster/bgwriter.c`
 - **Line Number**: 87
 - **Role**: Efficiently writes pages from the buffer pool to disk.
 
 ### 8. startup process
 
-- **Function Name**: `StartupProcessMain`
+- **Function Name**: [StartupProcessMain](./generated_docs/S/StartupProcessMain.md)
 - **File Path**: `src/backend/postmaster/startup.c`
 - **Line Number**: 216
 - **Role**: Handles crash recovery and WAL replay during database startup.
 
 ### 9. logger
 
-- **Function Name**: `SysLoggerMain`
+- **Function Name**: [SysLoggerMain](./generated_docs/S/SysLoggerMain.md)
 - **File Path**: `src/backend/postmaster/syslogger.c`
 - **Line Number**: 167
 - **Role**: Collects and outputs system logs.
