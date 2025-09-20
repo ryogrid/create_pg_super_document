@@ -16,7 +16,7 @@ ResetBackgroundWorkerCrashTimes(void)
 This function handles the cleanup and reset of background worker states following a PostgreSQL crash and restart cycle. It iterates through all registered background workers and takes different actions based on their restart configuration: (1) Workers marked with BGW_NEVER_RESTART are completely removed from the system via ForgetBackgroundWorker, as they should not be relaunched after crashes; (2) Restartable workers have their crash timestamp reset to 0 (allowing immediate restart) and their notification PID cleared (since waiting processes are no longer valid after a crash). The function includes critical assertions to ensure parallel workers are never configured as restartable, as this would corrupt the parallel worker accounting system.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

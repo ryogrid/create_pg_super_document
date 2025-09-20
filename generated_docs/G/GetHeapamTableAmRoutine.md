@@ -25,7 +25,7 @@ The returned TableAmRoutine structure provides a comprehensive interface that im
 This function is used by PostgreSQL's table access method infrastructure to obtain the heap-specific implementations of all table operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

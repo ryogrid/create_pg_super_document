@@ -19,7 +19,6 @@ texteq(PG_FUNCTION_ARGS)
 - Function uses PG_FUNCTION_ARGS macro for argument access:
   - arg1: First text value (accessed via PG_GETARG_TEXT_PP(0))
   - arg2: Second text value (accessed via PG_GETARG_TEXT_PP(1))
-  - Collation obtained via PG_GET_COLLATION()
 
 ## Dependencies
 - Functions called/Symbols referenced:

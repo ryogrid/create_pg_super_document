@@ -20,7 +20,7 @@ This function performs comprehensive testing of IntegerSet operations on an empt
 The test creates an empty IntegerSet and verifies that membership queries return false and that iteration yields no results, ensuring the IntegerSet behaves correctly in its initial empty state.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

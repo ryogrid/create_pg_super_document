@@ -23,7 +23,7 @@ On first initialization (when the shared memory segment is newly created), the f
 The function uses PostgreSQL's shared memory infrastructure and handles both the case where shared memory is being created for the first time and when attaching to existing shared memory.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

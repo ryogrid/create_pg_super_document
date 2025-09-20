@@ -19,7 +19,6 @@ The function implements PostgreSQL's set-returning function (SRF) protocol and b
 The function enforces strict calling context validation - it will raise an error if called outside of a sql_drop event trigger function, ensuring it's used only in the appropriate event trigger context where dropped object information is meaningful and available.
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro)
 - Returns a set of tuples with the following columns:
   - : OID of the object's catalog table
   - : OID of the dropped object

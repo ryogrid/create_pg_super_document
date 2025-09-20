@@ -32,10 +32,6 @@ Each stage preserves the original cursor position using save/restore patterns, a
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure () containing:
-  - Input word buffer with UTF-8 encoded Tamil text
-  - Working variables and cursor positions
-  - Processing flags ( set to 0 at initialization)
-  - Internal state for pattern matching operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

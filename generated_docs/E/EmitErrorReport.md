@@ -19,7 +19,7 @@ The function operates in several key phases: First, it resets formatted timestam
 The function manages memory context switching and recursion depth tracking to ensure proper resource management during the emission process. It's typically called by errfinish() for most severity levels, or from PostgresMain for ERROR level messages.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

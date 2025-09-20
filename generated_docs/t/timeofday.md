@@ -15,7 +15,7 @@ This function implements PostgreSQL's timeofday() SQL function, which returns th
 The function uses gettimeofday() to obtain the current system time with microsecond precision, formats it using pg_strftime() with a specific format template, and returns the result as a PostgreSQL text datum. The format includes day of week, month, day, time with microseconds, year, and timezone abbreviation.
 
 ## Parameters / Member Variables
-- No parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

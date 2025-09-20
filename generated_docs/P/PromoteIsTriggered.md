@@ -19,7 +19,7 @@ The function implements an optimization strategy where it caches the result loca
 The function uses spinlock protection when accessing shared memory to ensure thread-safe reads of the `SharedPromoteIsTriggered` flag from `XLogRecoveryCtl`. The result is cached in the local variable `LocalPromoteIsTriggered` to avoid repeated spinlock acquisition.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

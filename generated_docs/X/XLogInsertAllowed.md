@@ -16,7 +16,7 @@ XLogInsertAllowed(void)
 XLogInsertAllowed is a critical function that controls access to WAL insertion operations. It provides a fast-path mechanism for determining write permissions during different database states. The function first checks a local cache variable (LocalXLogInsertAllowed) for unconditional true/false values to avoid repeated expensive checks. If the cached value is indeterminate, it queries the recovery state via RecoveryInProgress(). Once recovery completes, the function optimizes future calls by caching the result as "unconditionally true".
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

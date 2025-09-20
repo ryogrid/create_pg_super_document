@@ -24,10 +24,9 @@ The structure is specifically designed to be shared between the scanner (jsonpat
 The implementation uses a dynamic buffer approach where the allocated space (total) can grow beyond the current string length (len), reducing the need for frequent memory reallocations during string construction. When additional space is needed, the buffer size is doubled using PostgreSQL's repalloc() function.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamically allocated character buffer containing the string data
-- : Current length of the string stored in the buffer (excluding null terminator)
-- : Total allocated size of the buffer, which may be larger than len to accommodate future growth
-
+- `*val`: Pointer to the dynamically allocated character buffer containing the string data
+- `len`: Current length of the string stored in the buffer (excluding null terminator)
+- `total`: Total allocated size of the buffer, which may be larger than len to accommodate future growth
 ## Dependencies
 - Functions called/Symbols referenced:
   - [palloc](../p/palloc.md) (for initial memory allocation)

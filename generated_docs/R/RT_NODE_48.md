@@ -41,11 +41,10 @@ The actual structure definition for the 48-slot node contains:
 This node type is used when a node needs to store between 17-48 child pointers, representing an intermediate growth stage between the smaller 16-slot node and the larger 256-slot node. The 48-slot design uses indirection through the slot_idxs array to efficiently pack child pointers without wasting space on unused slots.
 
 ## Parameters / Member Variables
-- : RT_NODE structure containing common node metadata (kind, count, fanout)
-- : Bitmap array tracking which slots in the children array are occupied
-- : Lookup table mapping byte values (0-255) to indices in the children array
-- : Variable-length array of child pointers (allocated separately)
-
+- `base`: RT_NODE structure containing common node metadata (kind, count, fanout)
+- `isset[RT_BM_IDX(RT_FANOUT_48_MAX)]`: Bitmap array tracking which slots in the children array are occupied
+- `slot_idxs[RT_NODE_MAX_SLOTS]`: Lookup table mapping byte values (0-255) to indices in the children array
+- `children[FLEXIBLE_ARRAY_MEMBER]`: Variable-length array of child pointers (allocated separately)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME

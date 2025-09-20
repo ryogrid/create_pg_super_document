@@ -22,7 +22,7 @@ The PAUSE instruction serves two critical purposes:
 This implementation is conditionally compiled for GCC and Intel C compilers on x86 architectures, with alternative implementations available for Microsoft Visual C++ compiler.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

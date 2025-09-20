@@ -23,11 +23,10 @@ ParsedLex is a fundamental data structure in PostgreSQL's text search parsing sy
 This structure is used throughout the text search lexization process to store intermediate results as text is broken down into searchable tokens. Each ParsedLex node contains the lexeme's classification type, the actual text content, its length, and a pointer to the next lexeme in the sequence.
 
 ## Parameters / Member Variables
-- : Integer indicating the lexeme type or category as determined by the parser
-- : Pointer to the actual text content of the lexeme (lemma)
-- : Length of the lemma text in characters
-- : Pointer to the next ParsedLex structure in the linked list, or NULL if this is the last node
-
+- `type`: Integer indicating the lexeme type or category as determined by the parser
+- `*lemm`: Pointer to the actual text content of the lexeme (lemma)
+- `lenlemm`: Length of the lemma text in characters
+- `*next`: Pointer to the next ParsedLex structure in the linked list, or NULL if this is the last node
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This structure is primarily referenced by other symbols rather than calling functions)

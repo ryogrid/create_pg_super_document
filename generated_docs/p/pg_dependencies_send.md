@@ -20,9 +20,7 @@ This design leverages the fact that pg_dependencies data is already in binary fo
 The function is automatically invoked when pg_dependencies values need to be sent over the binary protocol, such as during query result transmission or prepared statement parameter binding.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro (standard PostgreSQL function calling convention)
-- Implicitly receives fcinfo (function call info) containing the pg_dependencies value
-- Returns binary representation as Datum
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,7 +21,6 @@ If all arrays have been exhausted (all have rolled over), the function restores 
 
 ## Parameters / Member Variables
 - : IndexScanDesc containing the index scan descriptor with array key information
-- 0
 5
 =
 ENTRY_POINTS.md

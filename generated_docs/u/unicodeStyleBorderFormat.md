@@ -23,13 +23,12 @@ typedef struct unicodeStyleBorderFormat
 This structure contains the Unicode characters used for formatting the outer borders of tables in PostgreSQL's frontend utilities. It provides all the necessary corner pieces and edge elements needed to draw complete table borders, including corner connections and straight border lines. The structure is specifically designed to support the rendering of table perimeters with proper Unicode/UTF-8 border characters.
 
 ## Parameters / Member Variables
-- : A pointer to the Unicode character string for bottom-left corner (connecting upward and rightward lines)
-- : A pointer to the Unicode character string used for drawing vertical border lines
-- : A pointer to the Unicode character string for top-left corner (connecting downward and rightward lines)
-- : A pointer to the Unicode character string used for drawing horizontal border lines
-- : A pointer to the Unicode character string for top-right corner (connecting downward and leftward lines)
-- : A pointer to the Unicode character string for horizontal connectors or bottom border elements
-
+- `*up_and_right`: A pointer to the Unicode character string for bottom-left corner (connecting upward and rightward lines)
+- `*vertical`: A pointer to the Unicode character string used for drawing vertical border lines
+- `*down_and_right`: A pointer to the Unicode character string for top-left corner (connecting downward and rightward lines)
+- `*horizontal`: A pointer to the Unicode character string used for drawing horizontal border lines
+- `*down_and_left`: A pointer to the Unicode character string for top-right corner (connecting downward and leftward lines)
+- `*left_and_right`: A pointer to the Unicode character string for horizontal connectors or bottom border elements
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure definition)

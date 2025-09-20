@@ -21,9 +21,8 @@ This function serves as a simple floating-point comparator for the qsort library
 The implementation deliberately avoids using PostgreSQL's floating-point macros that handle special cases like NaN or infinity, as noted in the comments. This design choice prioritizes performance over comprehensive floating-point handling since this comparator is only used to improve index performance, not to ensure correctness of floating-point operations.
 
 ## Parameters / Member Variables
-- : Pointer to the first float8 value to compare
-- : Pointer to the second float8 value to compare
-
+- `low`: Pointer to the first float8 value to compare
+- `high`: Pointer to the second float8 value to compare
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (uses only basic C operations)

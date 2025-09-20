@@ -28,7 +28,7 @@ This function initializes the LLVM JIT compilation infrastructure for the curren
 7. **Cleanup Registration**: Registers llvm_shutdown for process exit cleanup
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

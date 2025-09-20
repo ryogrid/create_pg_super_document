@@ -15,8 +15,7 @@ This function provides access to the current execution context for PL/Python fun
 The function performs validation to ensure that there is indeed an active Python execution context before returning it. If called when no Python function is executing, it raises an error to prevent undefined behavior.
 
 ## Parameters / Member Variables
-- Takes no parameters (void)
-- Returns a pointer to the current PLyExecutionContext structure
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

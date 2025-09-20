@@ -21,11 +21,10 @@ typedef struct MultiAssignRef
 MultiAssignRef nodes are generated during parsing of UPDATE statements that use multi-column assignment syntax. When PostgreSQL encounters an UPDATE with SET (a,b,c) = row-valued-expression, it creates separate ResTarget items for each target column (a, b, c). Each ResTarget's "val" tree contains a MultiAssignRef node numbered 1 through n, all linking to a common copy of the row-valued expression. This design ensures that the row-valued expression is processed only once during parse analysis (when handling the MultiAssignRef with colno=1), improving efficiency and maintaining consistency.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a MultiAssignRef node
-- : Pointer to the row-valued expression that provides the values for all columns in the assignment
-- : The column number for this specific target (1-based indexing, ranges from 1 to n)
-- : Total number of target columns in the multi-assignment construct
-
+- `type`: Standard NodeTag identifying this as a MultiAssignRef node
+- `*source`: Pointer to the row-valued expression that provides the values for all columns in the assignment
+- `colno`: The column number for this specific target (1-based indexing, ranges from 1 to n)
+- `ncolumns`: Total number of target columns in the multi-assignment construct
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)

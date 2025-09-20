@@ -22,10 +22,9 @@ PopulateRecordCache is a caching structure designed to improve performance when 
 The structure is stored in a specific memory context (fn_mcxt) to ensure proper memory management and cleanup. It works in conjunction with the populate_record_worker and populate_recordset_worker functions to efficiently convert JSON data into PostgreSQL composite types.
 
 ## Parameters / Member Variables
-- : Object identifier (Oid) representing the declared type of the record argument being populated
-- : ColumnIOData structure containing cached metadata for the populate_composite() function, including column type information and conversion details
-- : Memory context where this cache structure is allocated and stored, ensuring proper memory lifecycle management
-
+- `argtype`: Object identifier (Oid) representing the declared type of the record argument being populated
+- `c`: ColumnIOData structure containing cached metadata for the populate_composite() function, including column type information and conversion details
+- `fn_mcxt`: Memory context where this cache structure is allocated and stored, ensuring proper memory lifecycle management
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ColumnIOData](../C/ColumnIOData.md) (struct type for column metadata caching)

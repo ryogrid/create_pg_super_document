@@ -17,9 +17,6 @@ The  function provides a simple mapping from single-character collation provider
 
 ## Parameters / Member Variables
 - : A character code representing the collation provider type. Expected values are:
-  -  (COLLPROVIDER_BUILTIN) for builtin collations
-  -  (COLLPROVIDER_ICU) for ICU collations  
-  -  (COLLPROVIDER_LIBC) for libc collations
 
 ## Dependencies
 - Functions called/Symbols referenced:

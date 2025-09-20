@@ -26,13 +26,12 @@ typedef struct _connParams
 The  structure encapsulates all the essential database connection parameters that PostgreSQL client applications need to establish a connection to a PostgreSQL server. This structure is particularly important in pg_dump, pg_restore, and other PostgreSQL client utilities where connection parameters need to be passed around between functions. The structure supports both simple database names and full connection strings, providing flexibility in how connections are specified.
 
 ## Parameters / Member Variables
-- : Database name to connect to, which may also be a complete connection string containing multiple parameters
-- : PostgreSQL server port number as a string
-- : PostgreSQL server hostname or IP address
-- : Username for database authentication
-- : A trivalue enum (TRI_DEFAULT, TRI_NO, TRI_YES) indicating password prompting behavior
-- : Optional database name that overrides the database name from the command line or connection string, affecting only the database name component
-
+- `*dbname`: Database name to connect to, which may also be a complete connection string containing multiple parameters
+- `*pghost`: PostgreSQL server port number as a string
+- `*pgport`: PostgreSQL server hostname or IP address
+- `*pguser`: Username for database authentication
+- `prompt_password`: A trivalue enum (TRI_DEFAULT, TRI_NO, TRI_YES) indicating password prompting behavior
+- `*override_dbname`: Optional database name that overrides the database name from the command line or connection string, affecting only the database name component
 ## Dependencies
 - Functions called/Symbols referenced:
   - [trivalue](../t/trivalue.md) (enum type)

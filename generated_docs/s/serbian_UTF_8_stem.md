@@ -32,7 +32,6 @@ The function uses a sophisticated control flow with labels (lab0, lab1, lab2) an
   - `l`: Length/end position of the string
   - `lb`: Lower bound for cursor movement
   - `p`: Pointer to the string being processed
-  - Various other fields used by the stemming algorithms
 
 ## Dependencies
 - Functions called/Symbols referenced:

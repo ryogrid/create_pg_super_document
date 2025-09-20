@@ -21,9 +21,8 @@ This structure acts as a hash table entry in PostgreSQL's PL/Perl function cachi
 The separation between the key structure and the procedure descriptor serves an important purpose: it simplifies error recovery during function compilation. If compile_plperl_function fails, the system can easily clean up without corrupting the hash table structure. The proc_key field must be positioned first to serve as the hash key for PostgreSQL's hash table implementation.
 
 ## Parameters / Member Variables
-- : Composite hash key containing function OID, trigger flag, and user ID (must be first field for hash table compatibility)
-- : Pointer to the plperl_proc_desc structure containing the actual compiled procedure information and metadata
-
+- `proc_key`: Composite hash key containing function OID, trigger flag, and user ID (must be first field for hash table compatibility)
+- `*proc_ptr`: Pointer to the plperl_proc_desc structure containing the actual compiled procedure information and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [plperl_proc_key](plperl_proc_key.md) (embedded as hash key)

@@ -37,12 +37,11 @@ This structure is essential for ensuring data consistency and proper replication
 The structure is used primarily in the relation cache system to store precomputed validation results, avoiding repeated validation checks during replication operations.
 
 ## Parameters / Member Variables
-- : PublicationActions structure containing the basic operation flags (INSERT, UPDATE, DELETE, TRUNCATE)
-- : Boolean indicating whether row filters are valid for UPDATE operations (true if filter columns are part of replica identity or UPDATE is not published)
-- : Boolean indicating whether row filters are valid for DELETE operations (true if filter columns are part of replica identity or DELETE is not published)
-- : Boolean indicating whether column lists are valid for UPDATE operations (true if columns are part of replica identity or UPDATE is not published)
-- : Boolean indicating whether column lists are valid for DELETE operations (true if columns are part of replica identity or DELETE is not published)
-
+- `pubactions`: PublicationActions structure containing the basic operation flags (INSERT, UPDATE, DELETE, TRUNCATE)
+- `rf_valid_for_update`: Boolean indicating whether row filters are valid for UPDATE operations (true if filter columns are part of replica identity or UPDATE is not published)
+- `rf_valid_for_delete`: Boolean indicating whether row filters are valid for DELETE operations (true if filter columns are part of replica identity or DELETE is not published)
+- `cols_valid_for_update`: Boolean indicating whether column lists are valid for UPDATE operations (true if columns are part of replica identity or UPDATE is not published)
+- `cols_valid_for_delete`: Boolean indicating whether column lists are valid for DELETE operations (true if columns are part of replica identity or DELETE is not published)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PublicationActions](PublicationActions.md) (embedded structure at line 82)

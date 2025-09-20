@@ -18,7 +18,7 @@ This static function provides a thread-safe mechanism for parallel apply workers
 The function includes an assertion to verify it's being called from within a parallel apply worker context, ensuring proper usage within the logical replication architecture. It serves as the counterpart to pa_set_fileset_state, providing read access to the fileset state that was previously set by the leader worker.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

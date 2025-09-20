@@ -54,13 +54,12 @@ SlruCtlData serves as the primary control structure for individual SLRU instance
 The structure defines key operational parameters including the banking configuration, file naming conventions, synchronization handlers, and page ordering logic. It acts as the interface between the generic SLRU implementation and specific subsystem requirements, allowing different SLRU instances to customize behavior while sharing the common buffer management infrastructure.
 
 ## Parameters / Member Variables
-- : SlruShared - Pointer to the corresponding SlruSharedData structure in shared memory
-- : uint16 - Number of banks used for this SLRU instance, affecting lock granularity and concurrency
-- : bool - Controls file naming format; true for long segment names, false for short names (see SlruFileName)
-- : SyncRequestHandler - Specifies which sync handler to use for fsync requests to the checkpointer (SYNC_HANDLER_NONE to disable)
-- : Function pointer - Callback function determining page ordering for truncation and LRU eviction; must use modular arithmetic for SLRUs using SimpleLruTruncate
-- : char[64] - Directory path for SLRU files, set during initialization and never changed thereafter
-
+- `shared`: SlruShared - Pointer to the corresponding SlruSharedData structure in shared memory
+- `nbanks`: uint16 - Number of banks used for this SLRU instance, affecting lock granularity and concurrency
+- `long_segment_names`: bool - Controls file naming format; true for long segment names, false for short names (see SlruFileName)
+- `sync_handler`: SyncRequestHandler - Specifies which sync handler to use for fsync requests to the checkpointer (SYNC_HANDLER_NONE to disable)
+- `int64)`: Function pointer - Callback function determining page ordering for truncation and LRU eviction; must use modular arithmetic for SLRUs using SimpleLruTruncate
+- `Dir[64]`: char[64] - Directory path for SLRU files, set during initialization and never changed thereafter
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlruShared (pointer to shared data type)

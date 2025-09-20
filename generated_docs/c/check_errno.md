@@ -20,7 +20,7 @@ The function uses a switch statement to categorize and display different types o
 This function is primarily used in PostgreSQL's ECPG test suite to provide clear error reporting and validation of error handling mechanisms in numeric operations.
 
 ## Parameters / Member Variables
-- None (void function that operates on the global errno variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

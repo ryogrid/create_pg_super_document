@@ -25,9 +25,8 @@ The structure supports two different execution modes:
 This working state is essential for determining the final output behavior of set operations, as it tracks how many duplicates exist from each input side, which is necessary to implement the correct semantics for operations like UNION ALL, INTERSECT, and EXCEPT.
 
 ## Parameters / Member Variables
-- : Counter tracking the number of duplicate tuples from the left input that belong to the current group
-- : Counter tracking the number of duplicate tuples from the right input that belong to the current group
-
+- `numLeft`: Counter tracking the number of duplicate tuples from the left input that belong to the current group
+- `numRight`: Counter tracking the number of duplicate tuples from the right input that belong to the current group
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure definition)

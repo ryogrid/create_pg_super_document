@@ -19,7 +19,6 @@ The function operates on the current scan position (so->currPos) which tracks th
 
 ## Parameters / Member Variables
 - : IndexScanDesc containing the scan state and relation information
-- 0
 1
 5
 6

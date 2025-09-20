@@ -16,7 +16,7 @@ InitQueryHashTable(void)
 InitQueryHashTable creates and configures the global hash table that stores prepared statements indexed by their names. The function sets up a hash table with string keys (statement names) that can store PreparedStatement structures. It configures the hash table to use PostgreSQL's standard string hashing functions and sets appropriate size parameters for efficient prepared statement lookup and storage.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

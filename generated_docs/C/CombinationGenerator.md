@@ -26,12 +26,11 @@ The generator works by pre-computing all possible combinations during initializa
 The combinations are stored as consecutive sequences of k integers in the combinations array, where each sequence represents one k-combination of element indices from 0 to n-1.
 
 ## Parameters / Member Variables
-- : The size of each combination (number of elements to select)
-- : The total number of elements to choose from (0 to n-1)
-- : Index tracking the next combination to be returned by generator_next()
-- : Total number of k-combinations possible (calculated as n choose k)
-- : Flattened integer array storing all pre-computed combinations as consecutive k-element sequences
-
+- `k`: The size of each combination (number of elements to select)
+- `n`: The total number of elements to choose from (0 to n-1)
+- `current`: Index tracking the next combination to be returned by generator_next()
+- `ncombinations`: Total number of k-combinations possible (calculated as n choose k)
+- `*combinations`: Flattened integer array storing all pre-computed combinations as consecutive k-element sequences
 ## Dependencies
 - Functions called/Symbols referenced:
   - No direct references from the struct itself (it's a data structure)

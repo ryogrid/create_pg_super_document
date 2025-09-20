@@ -21,9 +21,8 @@ The  structure represents a complete hash table entry in PostgreSQL's invalid pa
 This structure is used to maintain a hash table of pages that have been referenced during WAL replay but may not exist due to subsequent relation drops or truncations. The tracking helps ensure WAL replay consistency by validating that appropriate cleanup operations are found later in the replay sequence.
 
 ## Parameters / Member Variables
-- : An  structure that serves as the hash key and must be the first member for proper hash table functionality. Contains the relation locator, fork number, and block number that uniquely identify the page
-- : A boolean flag indicating whether the referenced page existed but contained all zeros (true) or was completely absent (false)
-
+- `key`: An  structure that serves as the hash key and must be the first member for proper hash table functionality. Contains the relation locator, fork number, and block number that uniquely identify the page
+- `present`: A boolean flag indicating whether the referenced page existed but contained all zeros (true) or was completely absent (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (as the key member type)

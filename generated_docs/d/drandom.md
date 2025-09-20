@@ -17,7 +17,7 @@ This PostgreSQL function generates pseudo-random double-precision floating-point
 The function leverages PostgreSQL's internal `pg_prng_double()` function which produces values in the exact desired range. This makes it suitable for applications requiring uniform random distribution, such as statistical sampling, random selections, or Monte Carlo simulations.
 
 ## Parameters / Member Variables
-- None (takes no user parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

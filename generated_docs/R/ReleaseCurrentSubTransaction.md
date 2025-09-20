@@ -26,7 +26,7 @@ Unlike user-level RELEASE SAVEPOINT commands, this function:
 The function includes strict state validation, ensuring it's only called when the current transaction is in TBLOCK_SUBINPROGRESS state and TRANS_INPROGRESS transaction state. Like BeginInternalSubTransaction, it permits operation during parallel mode for internal subtransactions.
 
 ## Parameters / Member Variables
-- No parameters - always operates on the current innermost subtransaction
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

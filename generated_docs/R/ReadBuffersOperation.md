@@ -41,19 +41,16 @@ This design enables efficient batch reading of consecutive database blocks, redu
 
 ## Parameters / Member Variables
 
-**Public members (set by caller):**
-- : Relation pointer for normal operation, providing full relation metadata
-- : Storage manager data pointer, used when relation metadata is not available (e.g., during recovery)
-- : Persistence override when using smgr without rel (defaults to RELPERSISTENCE_PERMANENT)
-- : Fork number identifying which fork of the relation to read (main, visibility map, free space map, etc.)
-- : Buffer access strategy controlling replacement policy and ring buffer usage
-
-**Private members (internal state):**
-- : Array of Buffer handles for the blocks being read
-- : Starting block number for the read operation
-- : Control flags for the operation behavior
-- : Total number of blocks in the operation
-- : Number of buffers actually requiring I/O (may be less than nblocks if some are already cached)
+- `rel`: Relation pointer for normal operation, providing full relation metadata
+- `*smgr`: Storage manager data pointer, used when relation metadata is not available (e.g., during recovery)
+- `smgr_persistence`: Persistence override when using smgr without rel (defaults to RELPERSISTENCE_PERMANENT)
+- `forknum`: Fork number identifying which fork of the relation to read (main, visibility map, free space map, etc.)
+- `strategy`: Buffer access strategy controlling replacement policy and ring buffer usage
+- `*buffers`: Array of Buffer handles for the blocks being read
+- `blocknum`: Starting block number for the read operation
+- `flags`: Control flags for the operation behavior
+- `nblocks`: Total number of blocks in the operation
+- `io_buffers_len`: Number of buffers actually requiring I/O (may be less than nblocks if some are already cached)
 
 ## Dependencies
 - Functions called/Symbols referenced:

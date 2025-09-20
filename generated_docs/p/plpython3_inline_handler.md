@@ -15,7 +15,6 @@ This function serves as the entry point for executing inline Python code blocks 
 The function performs comprehensive setup including SPI connection establishment, memory context management, error handling setup, and proper cleanup of resources after execution. It uses PostgreSQL's exception handling mechanism (PG_TRY/PG_CATCH) to ensure proper cleanup even when errors occur during execution.
 
 ## Parameters / Member Variables
-- Takes a single parameter through PG_FUNCTION_ARGS macro, which contains an InlineCodeBlock pointer as the first argument
 - The InlineCodeBlock contains:
   - : The Python code to execute
   - : Language identifier for the Python language handler  

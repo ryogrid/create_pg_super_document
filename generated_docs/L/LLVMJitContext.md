@@ -45,15 +45,14 @@ LLVMJitContext is the main structure that manages LLVM-based just-in-time compil
 The context manages the lifecycle of LLVM modules and compilation units, ensuring proper resource cleanup and providing mechanisms for code generation, optimization, and execution. It serves as the central coordination point for all LLVM JIT operations within PostgreSQL's query execution pipeline.
 
 ## Parameters / Member Variables
-- : Base JitContext structure containing common JIT flags and instrumentation data
-- : ResourceOwner used to ensure proper cleanup of the JIT context and associated resources
-- : Counter tracking the number of modules created, used for versioning and management
-- : Reference to the LLVM context used for compilation; reused across compilations but occasionally reset to prevent excessive memory usage
-- : Reference to the current LLVM module that is "open for write" and accepting new code
-- : Boolean flag indicating whether there is pending code that needs to be emitted
-- : Counter for the number of objects emitted, used to generate non-conflicting symbol names
-- : List of handles for code emitted via LLVM's ORC (On Request Compilation) JIT infrastructure
-
+- `base`: Base JitContext structure containing common JIT flags and instrumentation data
+- `resowner`: ResourceOwner used to ensure proper cleanup of the JIT context and associated resources
+- `module_generation`: Counter tracking the number of modules created, used for versioning and management
+- `llvm_context`: Reference to the LLVM context used for compilation; reused across compilations but occasionally reset to prevent excessive memory usage
+- `module`: Reference to the current LLVM module that is "open for write" and accepting new code
+- `compiled`: Boolean flag indicating whether there is pending code that needs to be emitted
+- `counter`: Counter for the number of objects emitted, used to generate non-conflicting symbol names
+- `*handles`: List of handles for code emitted via LLVM's ORC (On Request Compilation) JIT infrastructure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JitContext](../J/JitContext.md)

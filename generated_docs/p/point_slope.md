@@ -18,9 +18,8 @@ The  function is a PostgreSQL SQL-callable function that computes the slope of a
 This function is part of PostgreSQL's geometric data type system and allows SQL queries to calculate line slopes directly using point coordinates.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's function argument system ()
   - Argument 0: First Point structure () obtained via 
-  - Argument 1: Second Point structure () obtained via 
+  - Argument 1: Second Point structure () obtained via
 
 ## Dependencies
 - Functions called/Symbols referenced:

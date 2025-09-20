@@ -16,7 +16,6 @@ int4out(PG_FUNCTION_ARGS)
 The int4out function is a PostgreSQL type output function that converts a 32-bit signed integer to its string representation. This function is part of the integer type system in PostgreSQL and is used internally when the database needs to output integer values as text, such as in query results or when casting integers to text format. The function allocates memory for the result string and uses the pg_ltoa utility function to perform the actual integer-to-string conversion.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
 - Input: 32-bit signed integer retrieved via PG_GETARG_INT32(0)
 - Output: Datum containing a C-string representation of the integer
 

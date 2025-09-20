@@ -30,11 +30,7 @@ The function uses PostgreSQL's SRF framework to maintain state between calls, al
 The function handles both regular and expanded array representations efficiently, extracting type information directly from expanded arrays when available to avoid additional catalog lookups.
 
 ## Parameters / Member Variables
-**Function Parameters:**
-- Standard PostgreSQL function call info structure (PG_FUNCTION_ARGS)
   - Argument 0: The input array of any type (AnyArrayType)
-
-**Internal Context Structure (array_unnest_fctx):**
 - `iter`: Array iterator for traversing array elements
 - `nextelem`: Index of the next element to return
 - `numelems`: Total number of elements in the array

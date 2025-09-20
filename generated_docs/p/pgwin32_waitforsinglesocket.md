@@ -22,8 +22,6 @@ The function ensures proper cleanup by detaching events from sockets before retu
 - `s`: The Windows socket to wait on
 - `what`: Bit mask specifying socket events to wait for (FD_READ, FD_WRITE, etc.)
 - `timeout`: Maximum wait time in milliseconds (-1 for infinite wait)
-
-**Return Value:**
 - `1`: Socket event occurred and is ready
 - `0`: Error, timeout, or signal interruption (check errno for details)
 

@@ -16,7 +16,6 @@ int8div(PG_FUNCTION_ARGS)
 The int8div function implements the division operation for PostgreSQL's bigint data type. It extracts two int64 arguments from the function arguments, performs division with comprehensive error checking, and returns the result. The function handles two critical edge cases: division by zero (which raises an error) and division by -1 when the dividend is INT64_MIN (which would cause overflow in two's complement arithmetic). The function uses PostgreSQL's standard function calling convention with PG_FUNCTION_ARGS and returns a Datum.
 
 ## Parameters / Member Variables
-- Uses  macro to access function arguments
 - : First operand (dividend) extracted as int64
 - : Second operand (divisor) extracted as int64
 - : Stores the division result as int64

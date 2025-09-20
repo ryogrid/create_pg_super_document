@@ -24,7 +24,7 @@ The function tests four specific scenarios:
 These test cases are designed to exercise different aspects of the GIN posting list encoding, including edge cases with maximum values and size overflow scenarios.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

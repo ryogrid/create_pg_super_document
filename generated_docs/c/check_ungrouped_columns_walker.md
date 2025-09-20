@@ -36,10 +36,6 @@ The function uses expression_tree_walker and query_tree_walker for efficient tre
 ## Parameters / Member Variables
 - : Current node being examined in the expression tree
 - : Rich context structure containing:
-  - Parser state and query information
-  - GROUP BY clauses and common variables
-  - Functional grouping state and sublevel tracking
-  - Special flags for aggregate direct arguments
 
 ## Dependencies
 - Functions called/Symbols referenced:

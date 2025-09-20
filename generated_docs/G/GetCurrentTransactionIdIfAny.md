@@ -20,7 +20,7 @@ This function provides a safe way to retrieve the current transaction ID without
 The function works by extracting the XID portion from the current transaction state's full transaction ID using XidFromFullTransactionId.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

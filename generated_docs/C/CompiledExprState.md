@@ -23,9 +23,8 @@ The structure maintains two critical pieces of information needed to execute a J
 This design allows PostgreSQL to efficiently manage JIT-compiled expressions by providing a lightweight state object that connects the expression evaluation framework with the underlying LLVM compilation infrastructure.
 
 ## Parameters / Member Variables
-- : Pointer to the  that contains the LLVM compilation environment, including the LLVM context, module, and execution handles. This context manages the lifetime and compilation of the JIT-generated code.
-- : String containing the name of the generated LLVM function that implements the compiled expression. This name is used to retrieve the function pointer from the LLVM execution engine when the expression needs to be executed.
-
+- `*context`: Pointer to the  that contains the LLVM compilation environment, including the LLVM context, module, and execution handles. This context manages the lifetime and compilation of the JIT-generated code.
+- `*funcname`: String containing the name of the generated LLVM function that implements the compiled expression. This name is used to retrieve the function pointer from the LLVM execution engine when the expression needs to be executed.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LLVMJitContext](../L/LLVMJitContext.md)

@@ -16,7 +16,6 @@ boolin(PG_FUNCTION_ARGS)
 The `boolin` function serves as the input conversion function for PostgreSQL's boolean data type. It is automatically called by the PostgreSQL type system when converting string inputs to boolean values during SQL operations. The function handles whitespace normalization by trimming leading and trailing spaces, then delegates the actual parsing to `parse_bool_with_len`. If parsing fails, it raises a properly formatted error using PostgreSQL's error reporting system with the ERRCODE_INVALID_TEXT_REPRESENTATION error code.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function call context
 - Input parameter accessed via `PG_GETARG_CSTRING(0)`: The string representation to convert to boolean
 
 ## Dependencies

@@ -13,7 +13,6 @@ Datum timestamp_le(PG_FUNCTION_ARGS)
 This function implements the less-than-or-equal-to comparison operator (<=) for PostgreSQL timestamp values. It extracts two timestamp arguments from the function call arguments using PostgreSQL function argument macros, then delegates the actual comparison logic to timestamp_cmp_internal and returns true if the comparison result is less than or equal to 0.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS
 - Argument 0: First timestamp value to compare
 - Argument 1: Second timestamp value to compare
 

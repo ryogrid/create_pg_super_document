@@ -18,7 +18,7 @@ The  function is part of the ECPG test infrastructure that demonstrates proper c
 The function demonstrates the ECPG translation of embedded SQL cursor close operations into the underlying PostgreSQL client library calls. It's specifically designed to test cursor resource management in scenarios where cursor operations span different function scopes.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

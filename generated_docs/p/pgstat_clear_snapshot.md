@@ -19,7 +19,7 @@ The function performs several cleanup operations: it resets the validity flags f
 This function is automatically invoked during transaction commit or abort to ensure that stale snapshot data doesn't persist across transaction boundaries. It can also be triggered by changes to the  configuration parameter.
 
 ## Parameters / Member Variables
-- This function takes no parameters
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

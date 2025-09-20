@@ -15,7 +15,7 @@ void ProcessLogMemoryContextInterrupt(void)
 This function is responsible for actually performing memory context logging after a signal has been received. It clears the LogMemoryContextPending flag, logs a message indicating the start of memory context logging for the current process, and then generates detailed memory context statistics. To prevent excessive disk usage when dealing with processes consuming large amounts of memory, it limits both the depth of the context hierarchy and the number of child contexts logged per parent to 100.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,7 +20,6 @@ This function computes the total shared memory requirements for the process arra
 The function performs size calculations in a safe manner using PostgreSQL's overflow-checking arithmetic functions (add_size, mul_size) to prevent integer overflow issues. The total size depends on configuration parameters like MaxBackends and max_prepared_xacts, as well as the EnableHotStandby setting.
 
 ## Parameters / Member Variables
-- No input parameters (void function)
 - Returns:  - Total shared memory bytes required
 
 ## Dependencies

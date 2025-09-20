@@ -20,10 +20,9 @@ typedef struct _tmplInfo
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search dictionary templates, which define the behavior and functionality that text search dictionaries inherit. Dictionary templates provide the foundation for creating dictionaries used in PostgreSQL's full-text search system.
 
 ## Parameters / Member Variables
-- : Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
-- : OID of the template's initialization function, which sets up the dictionary instance when created
-- : OID of the template's lexicalization function, which processes tokens during text search operations
-
+- `dobj`: Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
+- `tmplinit`: OID of the template's initialization function, which sets up the dictionary instance when created
+- `tmpllexize`: OID of the template's lexicalization function, which processes tokens during text search operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

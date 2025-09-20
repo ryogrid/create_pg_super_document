@@ -21,9 +21,8 @@ LOCALLOCKTAG is a key structure used in PostgreSQL's local lock management syste
 This local tracking mechanism enables multiple requests for the same lock to be handled without additional shared memory accesses, improving performance. The structure is essential for the fast-path locking mechanism and helps maintain accurate reference counts for lock acquisitions per ResourceOwner.
 
 ## Parameters / Member Variables
-- : A LOCKTAG structure that uniquely identifies the lockable object (relation, transaction, etc.)
-- : The specific lock mode (LOCKMODE) being requested or held on the identified object
-
+- `lock`: A LOCKTAG structure that uniquely identifies the lockable object (relation, transaction, etc.)
+- `mode`: The specific lock mode (LOCKMODE) being requested or held on the identified object
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG

@@ -16,7 +16,6 @@ pg_control_recovery(PG_FUNCTION_ARGS)
 The  function extracts and returns recovery-specific information stored in PostgreSQL's control file. This function is essential for monitoring backup and recovery operations, providing visibility into minimum recovery points, backup boundaries, and recovery requirements. It safely reads the control file under lock protection and returns recovery state information that is critical for understanding the database's backup status and recovery capabilities.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns a composite tuple containing 5 fields:
   - : LSN that must be reached during recovery
   - : Timeline ID for the minimum recovery point

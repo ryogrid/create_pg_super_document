@@ -18,10 +18,6 @@ This is the primary entry point for Hindi word stemming in PostgreSQL's text sea
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure containing:
-  - Text buffer with the word to be stemmed
-  - Current cursor position ()
-  - Limit positions (, ) for processing boundaries
-  - Start () and end () markers for matched regions
 
 ## Dependencies
 - Functions called/Symbols referenced:

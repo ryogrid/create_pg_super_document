@@ -21,7 +21,7 @@ The function calculates memory for:
 The design choice to use max_replication_slots is noted as arguably imperfect since this tracks remote transaction replay state rather than local replication slots, but it provides a reasonable upper bound without requiring an additional GUC parameter.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

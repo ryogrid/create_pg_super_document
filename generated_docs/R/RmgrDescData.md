@@ -22,10 +22,9 @@ RmgrDescData serves as a descriptor structure for PostgreSQL resource managers i
 The structure is primarily used in pg_waldump to provide human-readable descriptions of WAL records, making it an essential component for WAL analysis and debugging. It acts as a function table that allows pg_waldump to dynamically call the appropriate formatting and identification functions for different types of WAL records without needing to hardcode the logic for each resource manager.
 
 ## Parameters / Member Variables
-- : A constant string containing the human-readable name of the resource manager (e.g., "Heap", "Btree", "Hash")
-- : Function pointer that takes a StringInfo buffer and XLogReaderState record, responsible for formatting the record's details into a human-readable description
-- : Function pointer that takes an 8-bit info field and returns a string identifying the specific operation type within the resource manager
-
+- `*rm_name`: A constant string containing the human-readable name of the resource manager (e.g., "Heap", "Btree", "Hash")
+- `*record)`: Function pointer that takes a StringInfo buffer and XLogReaderState record, responsible for formatting the record's details into a human-readable description
+- `info)`: Function pointer that takes an 8-bit info field and returns a string identifying the specific operation type within the resource manager
 ## Dependencies
 - Functions called/Symbols referenced:
   - StringInfo (from lib/stringinfo.h)

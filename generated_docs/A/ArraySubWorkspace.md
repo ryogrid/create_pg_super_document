@@ -33,14 +33,13 @@ ArraySubWorkspace serves as a specialized workspace structure for PostgreSQL's a
 The workspace is part of the SubscriptingRefState.workspace mechanism, which allows different subscriptable types (arrays, jsonb, etc.) to maintain their own execution-specific data structures. This design provides type-specific optimization while maintaining a common subscripting interface.
 
 ## Parameters / Member Variables
-- : OID identifying the PostgreSQL type of individual array elements
-- : The storage length (typlen) of the array type itself
-- : The storage length (typlen) of the array element type
-- : Boolean indicating whether array elements are passed by value or by reference
-- : Character indicating the alignment requirements (typalign) of the element type
-- : Array of converted upper bound indices for subscript operations, sized to maximum dimensions (6)
-- : Array of converted lower bound indices for slice operations, sized to maximum dimensions (6)
-
+- `refelemtype`: OID identifying the PostgreSQL type of individual array elements
+- `refattrlength`: The storage length (typlen) of the array type itself
+- `refelemlength`: The storage length (typlen) of the array element type
+- `refelembyval`: Boolean indicating whether array elements are passed by value or by reference
+- `refelemalign`: Character indicating the alignment requirements (typalign) of the element type
+- `upperindex[MAXDIM]`: Array of converted upper bound indices for subscript operations, sized to maximum dimensions (6)
+- `lowerindex[MAXDIM]`: Array of converted lower bound indices for slice operations, sized to maximum dimensions (6)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXDIM (constant defining maximum array dimensions as 6)

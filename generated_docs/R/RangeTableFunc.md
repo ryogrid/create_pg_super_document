@@ -25,15 +25,14 @@ typedef struct RangeTableFunc
 RangeTableFunc is a parse node structure that represents table functions like XMLTABLE during the parsing phase. These functions take a document (typically XML) and extract tabular data from it based on specified expressions and column definitions. The structure captures all the syntactic elements needed to later transform this into an executable plan. Note that JSON_TABLE uses a separate JsonTable node rather than RangeTableFunc.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RangeTableFunc node
-- : Boolean flag indicating whether the LATERAL keyword was specified
-- : Pointer to the document expression that provides the source data
-- : Pointer to the row generator expression that defines how to extract rows
-- : List of namespace definitions as ResTarget nodes
-- : List of RangeTableFuncCol structures defining the output columns
-- : Table alias and optional column aliases for the result
-- : Parse location for error reporting, or -1 if unknown
-
+- `type`: NodeTag identifying this as a RangeTableFunc node
+- `lateral`: Boolean flag indicating whether the LATERAL keyword was specified
+- `*docexpr`: Pointer to the document expression that provides the source data
+- `*rowexpr`: Pointer to the row generator expression that defines how to extract rows
+- `*namespaces`: List of namespace definitions as ResTarget nodes
+- `*columns`: List of RangeTableFuncCol structures defining the output columns
+- `*alias`: Table alias and optional column aliases for the result
+- `location`: Parse location for error reporting, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Alias](../A/Alias.md)

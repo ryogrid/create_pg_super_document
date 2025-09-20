@@ -19,8 +19,7 @@ The function allocates memory for a Name structure (PostgreSQL's internal string
 The function always returns a valid database name since a PostgreSQL session must be connected to a specific database.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface 
-- Takes no actual parameters (parameterless function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -26,12 +26,11 @@ The xl_btree_mark_page_halfdead structure represents the first phase of B-tree p
 During this operation, the key space moves rightward as the parent page's downlink is updated to point to the right sibling, and the following pivot tuple is deleted. The leaf page is marked with the BTP_HALF_DEAD flag and contains a dummy high key pointing to the topmost parent page in the subtree being deleted. This approach differs from the Lanin and Shasha algorithm by moving key space right instead of left.
 
 ## Parameters / Member Variables
-- : Offset number of the tuple being removed from the parent page (the downlink to be deleted)
-- : Block number of the leaf page being marked as half-dead 
-- : Block number of the leaf page's left sibling (may be invalid if no left sibling)
-- : Block number of the leaf page's right sibling
-- : Block number of the topmost internal page in the subtree being deleted (InvalidBlockNumber if leaf is the top parent)
-
+- `poffset`: Offset number of the tuple being removed from the parent page (the downlink to be deleted)
+- `leafblk`: Block number of the leaf page being marked as half-dead
+- `leftblk`: Block number of the leaf page's left sibling (may be invalid if no left sibling)
+- `rightblk`: Block number of the leaf page's right sibling
+- `topparent`: Block number of the topmost internal page in the subtree being deleted (InvalidBlockNumber if leaf is the top parent)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeOfBtreeMarkPageHalfDead (size calculation macro)

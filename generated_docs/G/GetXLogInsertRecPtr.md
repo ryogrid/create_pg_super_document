@@ -18,7 +18,6 @@ This function returns the current WAL insert position by reading the CurrBytePos
 The returned value is converted from the internal byte position format to the standard XLogRecPtr format used throughout the system for WAL positioning.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: XLogRecPtr representing the current WAL insert position
 
 ## Dependencies

@@ -20,8 +20,7 @@ This function implements the pg_collation_actual_version() SQL function, which q
 The function determines the appropriate locale string based on the collation provider (libc uses collcollate/datcollate, others use colllocale/datlocale) and then calls get_collation_actual_version() to obtain the version from the provider library.
 
 ## Parameters / Member Variables
-- Function takes one OID argument (collation OID) via PG_GETARG_OID(0)
-- Returns version string as TEXT or NULL if no version is available
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

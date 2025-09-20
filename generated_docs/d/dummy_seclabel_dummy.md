@@ -17,8 +17,7 @@ This function serves as a minimal placeholder to meet PostgreSQLs requirements f
 The function is declared with PG_FUNCTION_INFO_V1 macro at the module level, making it available as a SQL-callable function. It immediately returns void without performing any operations, as its sole purpose is to satisfy the extension systems requirements for having exportable functionality.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention via PG_FUNCTION_ARGS macro
-- No actual parameters processed or used
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

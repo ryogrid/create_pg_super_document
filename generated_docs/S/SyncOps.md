@@ -23,10 +23,9 @@ SyncOps serves as a polymorphic interface for handling file synchronization oper
 The structure is used in conjunction with the syncsw array, which maps SyncRequestHandler enum values to their corresponding SyncOps implementations, providing a dispatch table for routing sync operations to the appropriate handler.
 
 ## Parameters / Member Variables
-- : Function pointer for synchronizing a file identified by a FileTag to persistent storage, returns int status
-- : Function pointer for unlinking/removing a file identified by a FileTag, returns int status  
-- : Function pointer for determining if two FileTag structures match/refer to the same logical file, returns boolean result
-
+- `*path)`: Function pointer for synchronizing a file identified by a FileTag to persistent storage, returns int status
+- `*path)`: Function pointer for unlinking/removing a file identified by a FileTag, returns int status
+- `*candidate)`: Function pointer for determining if two FileTag structures match/refer to the same logical file, returns boolean result
 ## Dependencies
 - Symbols referenced:
   - FileTag (used as parameter type in all function pointers)

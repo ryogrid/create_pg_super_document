@@ -34,10 +34,9 @@ The _avl_node structure is the fundamental building block of an AVL tree impleme
 Each node contains a pivot_field with the actual data, height information for balancing calculations, and pointers to left and right child nodes. The children array uses a convention where children[0] points to the left subtree and children[1] points to the right subtree. When a child doesn't exist, the pointer references a special empty node (avl_tree.end) rather than NULL, which simplifies tree traversal algorithms.
 
 ## Parameters / Member Variables
-- : The pivot_field data contained in this node, representing a distinct value from the crosstab headers
-- : The height of this node in the tree, calculated as the number of nodes on the longest path to a leaf; used for AVL balancing operations  
-- : Array of child node pointers where children[0] is the left subtree and children[1] is the right subtree; points to avl_tree.end when no child exists rather than NULL
-
+- `field`: The pivot_field data contained in this node, representing a distinct value from the crosstab headers
+- `height`: The height of this node in the tree, calculated as the number of nodes on the longest path to a leaf; used for AVL balancing operations
+- `*children[2]`: Array of child node pointers where children[0] is the left subtree and children[1] is the right subtree; points to avl_tree.end when no child exists rather than NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - pivot_field (as member data type)

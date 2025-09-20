@@ -19,7 +19,7 @@ The function allocates memory for a new SN_env structure and initializes it with
 These parameters are specifically tuned for the Italian stemming algorithm's requirements. The 3 integer variables are used to store region boundaries and other algorithmic state during stemming operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

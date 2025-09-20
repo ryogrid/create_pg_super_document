@@ -18,7 +18,7 @@ This function serves as the entry point for enabling PostgreSQL's crash dump fun
 The function is typically called during PostgreSQL startup to ensure crash dump generation is available throughout the server's lifetime. This provides valuable debugging information when PostgreSQL encounters fatal errors or crashes, helping developers and administrators diagnose issues in production environments.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,7 +20,7 @@ The function follows PostgreSQL's standard function calling convention (PG_FUNCT
 Unlike GetHeapamTableAmRoutine() which is an internal C function, heap_tableam_handler() is exposed as a SQL-callable function that can be invoked by PostgreSQL's catalog system to obtain the heap access method interface. It is specifically referenced in pg_am.dat as the amhandler for the 'heap' access method type.
 
 ## Parameters / Member Variables
-- Standard PostgreSQL function parameters (PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

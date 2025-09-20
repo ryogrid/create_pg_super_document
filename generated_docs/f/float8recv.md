@@ -18,8 +18,7 @@ This function serves as the PostgreSQL system interface for receiving float8 val
 The function extracts a StringInfo buffer containing the binary data and uses the protocol message parsing infrastructure to read an 8-byte IEEE 754 double-precision floating-point value.
 
 ## Parameters / Member Variables
-- Uses  macro which provides access to function arguments through the PostgreSQL function call interface
-- Extracts one StringInfo argument using  representing the binary input buffer
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

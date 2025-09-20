@@ -23,7 +23,6 @@ The function operates as a set-returning function (SRF) using PostgreSQL's SRF f
 The returned set includes the input relation itself as the first element, followed by its immediate parent, grandparent, and so on up to the root partitioned table.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function argument pattern using 
 - Input parameter (accessed via ):
   - : OID of the relation for which to retrieve all partition ancestors
 - Internal state variables:

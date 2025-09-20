@@ -26,7 +26,7 @@ The  function is part of the ECPG test infrastructure that demonstrates cursor r
 This function showcases the complex parameter passing required for ECPG cursor fetch operations, demonstrating how embedded SQL FETCH statements are translated into the underlying PostgreSQL client library calls. It's specifically designed to test scenarios where variables are accessed across different scopes in embedded SQL programs.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

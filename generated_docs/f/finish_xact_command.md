@@ -16,7 +16,7 @@ finish_xact_command(void)
 This function completes a transaction command by disabling the active statement timeout and committing the transaction if one was started. It serves as the counterpart to start_xact_command() in PostgreSQL's command processing lifecycle. After committing the transaction, the function optionally performs memory context checking and statistics reporting when compiled with appropriate debugging flags. The xact_started flag is reset to false to indicate that no transaction is currently active.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

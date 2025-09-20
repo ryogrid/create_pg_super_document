@@ -16,7 +16,7 @@ struct ExprEvalStep *op,
 AttributeTemplate serves as a template function in PostgreSQL's LLVM JIT compilation system. Its primary purpose is to provide a concrete example of a PostgreSQL function that can be used to determine which function attributes (such as compiler-specific attributes that depend on compiler version and settings) need to be present for functions to be compatible for inlining. The JIT compiler copies the attributes of this function to ensure compatibility when generating optimized code. The function itself simply returns NULL and serves purely as a template - it is not meant to perform any actual computation.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL  macro which provides access to function arguments and calling context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

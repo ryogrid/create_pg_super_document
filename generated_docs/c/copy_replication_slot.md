@@ -32,8 +32,6 @@ The function deliberately does not copy the failover option to prevent synchroni
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information containing:
-  - Source slot name (Name/text)
-  - Destination slot name (Name/text) 
   - Optional: temporary flag (bool) - overrides source temporariness
   - Optional: plugin name (Name/text) - for logical slots only
 - `logical_slot`: Boolean indicating whether to copy as a logical (true) or physical (false) slot

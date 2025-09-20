@@ -23,11 +23,10 @@ PartitionCmd is used during ALTER TABLE operations to specify partition attachme
 This command structure is processed by the ALTER TABLE infrastructure and translates into the appropriate catalog updates and constraint validations needed to maintain the partitioning system's integrity.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for the PostgreSQL node system
-- : RangeVar pointer specifying the name of the partition table to attach or detach, including schema qualification if needed
-- : PartitionBoundSpec pointer defining the partition bounds when attaching a partition (FOR VALUES clause), NULL when detaching
-- : Boolean flag indicating whether the operation should be performed concurrently, allowing other transactions to access the table during the operation
-
+- `type`: Standard NodeTag for the PostgreSQL node system
+- `*name`: RangeVar pointer specifying the name of the partition table to attach or detach, including schema qualification if needed
+- `*bound`: PartitionBoundSpec pointer defining the partition bounds when attaching a partition (FOR VALUES clause), NULL when detaching
+- `concurrent`: Boolean flag indicating whether the operation should be performed concurrently, allowing other transactions to access the table during the operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RangeVar](../R/RangeVar.md)

@@ -18,7 +18,6 @@ This function implements the PostgreSQL SQL function  that allows users to query
 The function uses the standard PostgreSQL SRF framework with  for initialization and  for each subsequent call. It relies on the fact that the listen channels list cannot change within a transaction, ensuring consistent results during the function execution.
 
 ## Parameters / Member Variables
-- No input parameters (uses  macro for PostgreSQL function interface)
 - Returns:  - PostgreSQL internal data type representing the result set
 
 ## Dependencies

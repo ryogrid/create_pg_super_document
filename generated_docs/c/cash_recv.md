@@ -15,7 +15,6 @@ Datum cash_recv(PG_FUNCTION_ARGS)
 This function is part of PostgreSQL's binary I/O system for the Cash data type. It reads a 64-bit integer from a binary input buffer and converts it directly to a Cash value. The function is used when PostgreSQL needs to deserialize Cash values from binary protocol messages, such as during network communication with clients using the binary protocol or when reading from binary-format files. The implementation is straightforward since Cash is internally represented as a 64-bit integer, so no complex conversion logic is needed.
 
 ## Parameters / Member Variables
-- Takes a StringInfo buffer through PostgreSQL's function argument system (PG_GETARG_POINTER)
 - Internal variables:
   - `buf`: StringInfo buffer containing the binary data to be read
 

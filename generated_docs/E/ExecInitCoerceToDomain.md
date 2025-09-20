@@ -20,7 +20,6 @@ The function handles two types of domain constraints: NOT NULL constraints (whic
 
 ## Parameters / Member Variables
 - : ExprEvalStep structure to be configured for domain checking operations
-- Usage
 
   ctest [options]: CoerceToDomain node containing the coercion expression details
 - : ExprState providing the expression evaluation context

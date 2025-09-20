@@ -20,7 +20,7 @@ The function works by obtaining the current timestamp and then delegating the ac
 The timestamp is recorded with each reset operation, allowing the statistics system to track when counters were last reset and to properly handle cumulative vs. incremental statistics calculations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ This function determines the oldest MultiXactId that might still be referenced b
 The function is critical for vacuum operations and SLRU management decisions. While it's not safe to truncate MultiXact SLRU segments based solely on this value, it can be used to set relminmxid for tables that VACUUM knows have no remaining MXIDs older than this value. The function handles wraparound conditions carefully by ensuring that nextMXact is normalized to a valid range.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,10 +16,6 @@ FunctionCallInfo is the fundamental type used throughout PostgreSQL's function m
 
 ## Parameters / Member Variables
 - This is a typedef pointing to FunctionCallInfoBaseData structure which contains:
-  - Function arguments and their null indicators
-  - Result value and null flag
-  - Function manager information
-  - Memory context and other execution state
 
 ## Dependencies
 - Functions called/Symbols referenced:

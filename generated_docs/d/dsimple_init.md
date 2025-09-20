@@ -17,7 +17,6 @@ The  function serves as the initialization routine for PostgreSQL's simple dicti
 
 ## Parameters / Member Variables
 - : A List pointer containing DefElem structures with configuration parameters for the dictionary
-- Returns a Datum containing a pointer to the initialized DictSimple structure
 
 ## Dependencies
 - Functions called/Symbols referenced:

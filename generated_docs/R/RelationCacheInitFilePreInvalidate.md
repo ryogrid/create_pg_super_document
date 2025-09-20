@@ -21,7 +21,7 @@ The function removes both local (database-specific) and shared (global) initiali
 The design handles the case where files might not exist (if no backend has started since the last removal) by using unlink_initfile() which only complains about errors other than ENOENT.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

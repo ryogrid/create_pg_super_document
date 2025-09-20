@@ -27,13 +27,12 @@ The design allows PostgreSQL to maintain system catalog access even when system 
 This dual-mode capability is crucial for system recovery scenarios and bootstrapping operations where the normal index infrastructure may not be available. The structure maintains separate scan descriptors for each mode (scan for heap, iscan for index) with only one being active at any given time.
 
 ## Parameters / Member Variables
-- : The system catalog relation being scanned (e.g., pg_class, pg_attribute)
-- : The index relation used for index scanning; set to NULL when performing heap scans
-- : Table scan descriptor used only when performing sequential heap scans; NULL during index scans
-- : Index scan descriptor used only when performing index scans; NULL during heap scans
-- : Transaction snapshot for determining tuple visibility; automatically registered/unregistered as needed
-- : Tuple table slot for holding retrieved tuples during the scan operation
-
+- `heap_rel`: The system catalog relation being scanned (e.g., pg_class, pg_attribute)
+- `irel`: The index relation used for index scanning; set to NULL when performing heap scans
+- `*scan`: Table scan descriptor used only when performing sequential heap scans; NULL during index scans
+- `*iscan`: Index scan descriptor used only when performing index scans; NULL during heap scans
+- `*snapshot`: Transaction snapshot for determining tuple visibility; automatically registered/unregistered as needed
+- `*slot`: Tuple table slot for holding retrieved tuples during the scan operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TableScanDescData](../T/TableScanDescData.md) (for heap scans)

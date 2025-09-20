@@ -21,9 +21,8 @@ SimplePtrList is part of PostgreSQL's frontend utility simple list facilities de
 The structure implements a singly-linked list with head and tail pointers for efficient append operations. Unlike the backend List facilities, this implementation is intentionally minimal and primitive, providing just the essential functionality needed by frontend utilities.
 
 ## Parameters / Member Variables
-- : Pointer to the first SimplePtrListCell in the list, or NULL if the list is empty
-- : Pointer to the last SimplePtrListCell in the list, or NULL if the list is empty; used for efficient O(1) append operations
-
+- `*head`: Pointer to the first SimplePtrListCell in the list, or NULL if the list is empty
+- `*tail`: Pointer to the last SimplePtrListCell in the list, or NULL if the list is empty; used for efficient O(1) append operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimplePtrListCell](SimplePtrListCell.md)

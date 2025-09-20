@@ -18,7 +18,7 @@ array_out is the primary output function for PostgreSQL arrays, responsible for 
 The function performs several key operations: determines if explicit dimension bounds are needed (when lower bounds aren't 1), converts each array element to string format using the element type's output function, applies proper quoting and escaping for special characters, and constructs the final string with appropriate braces and delimiters. The output format follows PostgreSQL's standard array syntax with curly braces and comma separation.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro - the array is retrieved via PG_GETARG_ANY_ARRAY_P(0)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,8 +22,7 @@ The structure contains only a transaction ID that represents the point in time w
 This mechanism is crucial for MVCC (Multi-Version Concurrency Control) compliance in B-tree operations, ensuring that concurrent transactions don't encounter inconsistent states when pages are deleted and recycled.
 
 ## Parameters / Member Variables
-- : A full transaction ID that indicates the deletion point of the page. This is used by BTPageIsRecyclable() to determine when the page can be safely recycled for reuse
-
+- `safexid`: A full transaction ID that indicates the deletion point of the page. This is used by BTPageIsRecyclable() to determine when the page can be safely recycled for reuse
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId (transaction identifier type)

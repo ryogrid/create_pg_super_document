@@ -26,7 +26,7 @@ The  function is part of the ECPG test infrastructure that demonstrates cursor d
 This function showcases the complex parameter passing required for ECPG cursor operations, including proper type mapping and null indicator handling. It demonstrates how ECPG translates embedded SQL cursor declarations into the underlying PostgreSQL client library calls.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

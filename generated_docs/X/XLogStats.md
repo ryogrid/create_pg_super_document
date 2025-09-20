@@ -28,12 +28,11 @@ The structure contains two main statistical arrays: rmgr_stats for per-resource-
 In frontend applications (like pg_waldump), additional fields track the WAL position range being analyzed, providing context for the statistical data collected.
 
 ## Parameters / Member Variables
-- : Total number of WAL records processed across all types
-- : (FRONTEND only) Starting WAL position for the analysis range  
-- : (FRONTEND only) Ending WAL position for the analysis range
-- : Array of XLogRecStats indexed by resource manager ID, containing per-resource-manager statistics
-- : Two-dimensional array of XLogRecStats indexed by [resource manager ID][record type], containing detailed per-record-type statistics
-
+- `count`: Total number of WAL records processed across all types
+- `startptr`: (FRONTEND only) Starting WAL position for the analysis range
+- `endptr`: (FRONTEND only) Ending WAL position for the analysis range
+- `rmgr_stats[RM_MAX_ID + 1]`: Array of XLogRecStats indexed by resource manager ID, containing per-resource-manager statistics
+- `record_stats[RM_MAX_ID + 1][MAX_XLINFO_TYPES]`: Two-dimensional array of XLogRecStats indexed by [resource manager ID][record type], containing detailed per-record-type statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - FRONTEND (preprocessor conditional compilation flag)

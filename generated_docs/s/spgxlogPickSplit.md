@@ -47,20 +47,19 @@ typedef struct spgxlogPickSplit
 This structure represents a WAL record for SP-GiST pick-split operations, one of the most complex operations in SP-GiST index maintenance. A pick-split occurs when a leaf page becomes full and needs to be reorganized by creating a new inner node and potentially redistributing tuples between the original page and a new destination page. The struct contains all the necessary information to redo this operation during WAL replay, including which tuples to delete and insert, page initialization flags, and the new inner tuple structure.
 
 ## Parameters / Member Variables
-- : Indicates whether this is a root page split operation
-- : Number of tuples to delete from the source page
-- : Number of tuples to insert on source and/or destination pages
-- : Flag indicating whether to re-initialize the source page
-- : Flag indicating whether to re-initialize the destination page
-- : Offset number where the new inner tuple should be placed
-- : Flag indicating whether to re-initialize the inner page
-- : Flag indicating whether the pages are in the nulls tree portion of the index
-- : Flag indicating whether the parent page is the same as the inner page
-- : Offset number for the parent downlink location
-- : Node index for the parent relationship
-- : SP-GiST state information containing transaction ID and build flag
-- : Flexible array member containing variable-length data including deleted/inserted tuple numbers, page selectors, new inner tuple, and leaf tuples
-
+- `isRootSplit`: Indicates whether this is a root page split operation
+- `nDelete`: Number of tuples to delete from the source page
+- `nInsert`: Number of tuples to insert on source and/or destination pages
+- `initSrc`: Flag indicating whether to re-initialize the source page
+- `initDest`: Flag indicating whether to re-initialize the destination page
+- `offnumInner`: Offset number where the new inner tuple should be placed
+- `initInner`: Flag indicating whether to re-initialize the inner page
+- `storesNulls`: Flag indicating whether the pages are in the nulls tree portion of the index
+- `innerIsParent`: Flag indicating whether the parent page is the same as the inner page
+- `offnumParent`: Offset number for the parent downlink location
+- `nodeI`: Node index for the parent relationship
+- `stateSrc`: SP-GiST state information containing transaction ID and build flag
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing variable-length data including deleted/inserted tuple numbers, page selectors, new inner tuple, and leaf tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgxlogState](spgxlogState.md)

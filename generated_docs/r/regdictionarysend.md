@@ -18,9 +18,6 @@ Similar to its receive counterpart, this function delegates all processing to th
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing:
-  - regdictionary value to be converted to binary format
-  - Function context and metadata
-  - Return value storage for binary data
 
 ## Dependencies
 - Functions called/Symbols referenced:

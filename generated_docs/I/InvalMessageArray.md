@@ -21,9 +21,8 @@ InvalMessageArray provides a container for storing SharedInvalidationMessage obj
 The array supports dynamic growth when additional capacity is needed. When the array reaches its maximum capacity, it is reallocated with double the current size to accommodate more messages. Initial allocation starts with 32 elements.
 
 ## Parameters / Member Variables
-- : Pointer to a palloc'd array of SharedInvalidationMessage structures that can be expanded when needed
-- : Integer indicating the current allocated size of the msgs array
-
+- `*msgs`: Pointer to a palloc'd array of SharedInvalidationMessage structures that can be expanded when needed
+- `maxmsgs`: Integer indicating the current allocated size of the msgs array
 ## Dependencies
 - Functions called/Symbols referenced:
   - SharedInvalidationMessage

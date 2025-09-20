@@ -30,15 +30,14 @@ The permission checking system requires users to have ALL permissions specified 
 For SELECT/INSERT/UPDATE operations, if table-wide permissions are insufficient, column-specific permissions in the respective bitmapsets are checked. The bitmapsets store column numbers adjusted by subtracting FirstLowInvalidHeapAttributeNumber, and whole-row references are represented by setting the InvalidAttrNumber bit.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an RTEPermissionInfo node
-- : OID of the relation requiring permission checks
-- : Whether inheritance children should be checked separately (for extensions)
-- : Bitmask of required access permissions (ACL_SELECT, ACL_INSERT, etc.)
-- : OID of user whose privileges to use for checking (0 for current user)
-- : Bitmapset of columns requiring SELECT permission
-- : Bitmapset of columns requiring INSERT permission
-- : Bitmapset of columns requiring UPDATE permission
-
+- `type`: NodeTag identifying this as an RTEPermissionInfo node
+- `relid`: OID of the relation requiring permission checks
+- `inh`: Whether inheritance children should be checked separately (for extensions)
+- `requiredPerms`: Bitmask of required access permissions (ACL_SELECT, ACL_INSERT, etc.)
+- `checkAsUser`: OID of user whose privileges to use for checking (0 for current user)
+- `*selectedCols`: Bitmapset of columns requiring SELECT permission
+- `*insertedCols`: Bitmapset of columns requiring INSERT permission
+- `*updatedCols`: Bitmapset of columns requiring UPDATE permission
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

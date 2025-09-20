@@ -16,7 +16,7 @@ PGTYPESnumeric_new(void)
 The `PGTYPESnumeric_new` function serves as the primary constructor for creating new numeric values in PostgreSQL's ECPG pgtypes library. This function handles the complete initialization process by allocating memory for both the numeric structure itself and its internal digit buffer. It provides a clean interface for client applications to create numeric values without needing to understand the underlying memory management complexities. The function ensures proper error handling by checking allocation failures and cleaning up partial allocations if necessary.
 
 ## Parameters / Member Variables
-- (no parameters - void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

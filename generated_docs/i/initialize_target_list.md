@@ -17,7 +17,7 @@ This static function populates the BaseBackupTargetTypeList with predefined back
 The function is called lazily by other functions (BaseBackupAddTarget and BaseBackupGetTargetHandle) when they need to ensure the target list is initialized. This approach allows the system to start with a minimal set of core backup targets while supporting dynamic extension through BaseBackupAddTarget.
 
 ## Parameters / Member Variables
-- No parameters (static function with void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

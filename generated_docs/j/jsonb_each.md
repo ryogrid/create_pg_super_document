@@ -20,8 +20,6 @@ This is a set-returning function (SRF) that can be used in SQL queries to extrac
 
 ## Parameters / Member Variables
 - Uses the standard PostgreSQL function argument structure `PG_FUNCTION_ARGS` which contains:
-  - The JSONB object to decompose
-  - Function call context information
 
 ## Dependencies
 - Functions called/Symbols referenced:

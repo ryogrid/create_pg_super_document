@@ -15,7 +15,7 @@ static void listAvailableScripts(void)
 The `listAvailableScripts` function provides a user-friendly way to display all available built-in benchmark scripts in pgbench. It iterates through the global `builtin_script` array and prints each script's name and description in a formatted manner. This function is typically called when users need to see what built-in scripts are available for benchmarking, such as when using the help or list functionality in pgbench.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,9 +25,8 @@ The structure contains two critical metrics:
 This data is used by the query planner to make informed decisions about whether to use a BRIN index for a given query, comparing its estimated cost against other available indexes or sequential scans.
 
 ## Parameters / Member Variables
-- : Number of heap table pages that each BRIN index tuple summarizes (affects index selectivity and granularity)
-- : Number of pages occupied by the BRIN reverse map structure (used for startup cost calculations)
-
+- `pagesPerRange`: Number of heap table pages that each BRIN index tuple summarizes (affects index selectivity and granularity)
+- `revmapNumPages`: Number of pages occupied by the BRIN reverse map structure (used for startup cost calculations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type dependency)

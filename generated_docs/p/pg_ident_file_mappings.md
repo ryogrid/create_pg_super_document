@@ -23,9 +23,7 @@ The function performs the following operations:
 The materialized approach ensures that the view remains consistent even if the pg_ident.conf file is modified while a query cursor is open, and provides better performance compared to streaming approaches that would need to maintain position state in the parsed file.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention (PG_FUNCTION_ARGS)
-- No explicit parameters - operates on the current pg_ident.conf file
-- Returns Datum (standard PostgreSQL function return type)
+
 
 ## Dependencies  
 - Functions called/Symbols referenced:

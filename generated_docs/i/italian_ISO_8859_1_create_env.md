@@ -17,7 +17,7 @@ This function serves as a factory function that creates a new Snowball stemming 
 The function allocates memory for the environment structure and initializes it with parameters appropriate for Italian morphological processing. The created environment can then be used with the italian_ISO_8859_1_stem function to perform actual stemming operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

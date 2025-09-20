@@ -21,8 +21,7 @@ This function serves as a prosupport (procedural support) function for the RANK(
 The optimization is particularly effective because RANK() internally calculates its value as if it were computing a row number for non-peer rows, making ROWS framing more efficient than RANGE framing.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro for PostgreSQL function parameter handling
-- Receives a `Node *` pointer representing the support request type
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

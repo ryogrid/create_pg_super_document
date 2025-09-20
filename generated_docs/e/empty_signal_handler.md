@@ -17,7 +17,7 @@ This function serves as a minimal signal handler that intentionally does nothing
 The function body is completely empty, meaning it simply returns immediately when called. This allows the signal to be caught and handled gracefully without performing any operations.
 
 ## Parameters / Member Variables
-- Uses `SIGNAL_ARGS` macro which typically expands to standard signal handler parameters (usually `int sig` for the signal number)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

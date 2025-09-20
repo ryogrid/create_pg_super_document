@@ -20,10 +20,9 @@ typedef struct _accessMethodInfo
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about access methods during database backup operations. This structure extends the base  to include access method-specific information, allowing pg_dump to properly serialize and restore access method definitions. Access methods in PostgreSQL define how data is stored and accessed in indexes and tables.
 
 ## Parameters / Member Variables
-- : Base  structure containing common metadata for dumpable database objects (object ID, name, namespace, etc.)
-- : Character representing the type of access method (e.g., 'i' for index, 't' for table access method)
-- : Pointer to string containing the name of the handler function for this access method
-
+- `dobj`: Base  structure containing common metadata for dumpable database objects (object ID, name, namespace, etc.)
+- `amtype`: Character representing the type of access method (e.g., 'i' for index, 't' for table access method)
+- `*amhandler`: Pointer to string containing the name of the handler function for this access method
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

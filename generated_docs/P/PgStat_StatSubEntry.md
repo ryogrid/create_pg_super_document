@@ -20,10 +20,9 @@ typedef struct PgStat_StatSubEntry
 This structure is part of PostgreSQL's statistics collection system, specifically designed for tracking error statistics related to logical replication subscriptions. It maintains counters for different types of errors that can occur during the replication process and provides a timestamp indicating when the statistics were last reset. This information is crucial for monitoring the health and performance of logical replication subscriptions.
 
 ## Parameters / Member Variables
-- : Counter tracking the number of errors that occurred during the apply phase of logical replication
-- : Counter tracking the number of errors that occurred during the sync phase of logical replication  
-- : Timestamp indicating when these statistics were last reset to zero
-
+- `apply_error_count`: Counter tracking the number of errors that occurred during the apply phase of logical replication
+- `sync_error_count`: Counter tracking the number of errors that occurred during the sync phase of logical replication
+- `stat_reset_timestamp`: Timestamp indicating when these statistics were last reset to zero
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (used for counter fields)

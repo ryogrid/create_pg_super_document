@@ -24,14 +24,13 @@ typedef struct _foreignServerInfo
 This structure is part of pg_dump's internal representation of database objects. It encapsulates all necessary information about a foreign server that needs to be preserved during dump operations. Foreign servers are PostgreSQL objects that define connections to external data sources through foreign data wrappers (FDW). The structure inherits dumpable object properties and includes access control information along with server-specific attributes.
 
 ## Parameters / Member Variables
-- : Base dumpable object information containing catalog ID, name, and dump ordering details
-- : Access control list information for the foreign server
-- : Name of the role/user that owns the foreign server
-- : Object ID of the foreign data wrapper associated with this server
-- : Optional server type specification as defined by the FDW
-- : Optional server version information
-- : Server-specific options stored as a formatted string
-
+- `dobj`: Base dumpable object information containing catalog ID, name, and dump ordering details
+- `dacl`: Access control list information for the foreign server
+- `*rolname`: Name of the role/user that owns the foreign server
+- `srvfdw`: Object ID of the foreign data wrapper associated with this server
+- `*srvtype`: Optional server type specification as defined by the FDW
+- `*srvversion`: Optional server version information
+- `*srvoptions`: Server-specific options stored as a formatted string
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

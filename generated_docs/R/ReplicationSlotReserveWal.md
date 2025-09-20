@@ -21,7 +21,7 @@ For logical slots:
 The function implements a retry mechanism to handle race conditions where WAL segments might be removed concurrently during checkpoint operations. It continues looping until the required WAL is guaranteed to be available.
 
 ## Parameters / Member Variables
-- None (operates on the global MyReplicationSlot)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

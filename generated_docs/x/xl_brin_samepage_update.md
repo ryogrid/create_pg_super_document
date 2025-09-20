@@ -20,8 +20,7 @@ The  structure is the simplest of the BRIN WAL record types, designed for update
 Unlike cross-page updates that require multiple backup blocks, samepage updates only need backup block 0, which contains the updated page with the new BrinTuple data. The revmap doesn't need to be updated because the tuple remains in the same location, and no old page backup is needed since the operation happens in-place.
 
 ## Parameters / Member Variables
-- : The offset number within the page where the tuple being updated is located
-
+- `offnum`: The offset number within the page where the tuple being updated is located
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type)

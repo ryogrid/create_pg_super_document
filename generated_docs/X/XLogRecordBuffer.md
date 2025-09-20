@@ -22,10 +22,9 @@ XLogRecordBuffer serves as a container structure that holds essential informatio
 The structure provides both positional information (where the record starts and ends in the WAL) and access to the actual record data through the XLogReaderState pointer. This design allows logical decoding functions to efficiently process WAL records while maintaining knowledge of their exact location in the transaction log.
 
 ## Parameters / Member Variables
-- : XLogRecPtr pointing to the original starting position of the WAL record in the transaction log
-- : XLogRecPtr pointing to the ending position of the WAL record in the transaction log  
-- : Pointer to XLogReaderState structure containing the actual WAL record data and reader state information
-
+- `origptr`: XLogRecPtr pointing to the original starting position of the WAL record in the transaction log
+- `endptr`: XLogRecPtr pointing to the ending position of the WAL record in the transaction log
+- `*record`: Pointer to XLogReaderState structure containing the actual WAL record data and reader state information
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (typedef for WAL record pointer)

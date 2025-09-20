@@ -28,7 +28,6 @@ PerformRecoveryXLogAction is called at the conclusion of WAL recovery to perform
 The function returns a boolean indicating whether promotion occurred, which affects subsequent recovery completion logic.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - true if promotion was triggered, false otherwise
 
 ## Dependencies

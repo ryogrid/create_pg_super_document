@@ -19,9 +19,8 @@ typedef struct xl_xact_origin
 The xl_xact_origin structure is used to store origin tracking information in WAL records for transaction commit and abort operations. This structure is part of PostgreSQL's logical replication infrastructure, allowing the system to track the original location and timing of replicated transactions. When a transaction is replicated from another PostgreSQL instance, this structure preserves information about where and when the transaction originally occurred.
 
 ## Parameters / Member Variables
-- : The LSN (Log Sequence Number) from the origin server where this transaction was first committed
-- : The timestamp when the transaction was originally committed on the origin server
-
+- `origin_lsn`: The LSN (Log Sequence Number) from the origin server where this transaction was first committed
+- `origin_timestamp`: The timestamp when the transaction was originally committed on the origin server
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (data type)

@@ -15,7 +15,7 @@ static void stop_postmaster_atexit(void)
 This function serves as an atexit handler that ensures proper cleanup of the postmaster process during pg_upgrade operations. It's a simple wrapper around the stop_postmaster function that guarantees the postmaster will be terminated even if pg_upgrade exits unexpectedly. The function is marked as static, indicating it's only used within the server.c module of pg_upgrade.
 
 ## Parameters / Member Variables
-- This function takes no parameters (void)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

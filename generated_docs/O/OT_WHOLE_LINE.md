@@ -19,8 +19,7 @@ OT_WHOLE_LINE is one of the values in the  enumeration used by psql's slash comm
 This parsing mode is particularly useful for slash commands that need to process arbitrary text content that may contain spaces and special characters, such as shell commands, SQL statements, or file paths with embedded spaces.
 
 ## Parameters / Member Variables
-- Part of  enumeration
-- Constant value indicating "consume entire line" parsing behavior
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

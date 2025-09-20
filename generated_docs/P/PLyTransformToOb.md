@@ -18,8 +18,7 @@ typedef struct PLyTransformToOb
 PLyTransformToOb handles conversion of PostgreSQL data types that have custom transform functions defined for the PL/Python language. Transform functions provide a way to customize how specific PostgreSQL types are converted to Python objects, bypassing the standard conversion mechanisms. This allows for more efficient or specialized representations of complex data types.
 
 ## Parameters / Member Variables
-- : FmgrInfo struct containing cached lookup information for the from-SQL transform function that converts PostgreSQL values to Python objects
-
+- `typtransform`: FmgrInfo struct containing cached lookup information for the from-SQL transform function that converts PostgreSQL values to Python objects
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)

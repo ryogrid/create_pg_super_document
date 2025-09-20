@@ -15,7 +15,7 @@ struct pg_tm *tm;
 The  function determines when the next automatic log rotation should occur based on the  configuration parameter. It calculates the next time that is aligned to the configured rotation interval, using the local timezone rather than GMT for alignment. The function performs timezone-aware calculations to ensure consistent rotation times regardless of timezone changes or daylight saving time transitions. If time-based rotation is disabled (), the function returns early without setting a rotation time.
 
 ## Parameters / Member Variables
-- This function takes no parameters and operates on global state
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

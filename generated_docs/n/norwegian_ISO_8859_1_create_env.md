@@ -15,7 +15,7 @@ extern struct SN_env * norwegian_ISO_8859_1_create_env(void)
 This function serves as a language-specific wrapper for creating a Snowball stemming environment tailored for Norwegian text processing with ISO 8859-1 encoding. It calls the generic `SN_create_env()` function with parameters specific to the Norwegian stemming algorithm requirements. The function allocates and initializes the necessary data structures for performing Norwegian word stemming operations, including string arrays and integer arrays sized according to the algorithms needs.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

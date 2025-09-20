@@ -70,19 +70,18 @@ When param_info is not NULL, it indicates that this path requires parameter valu
 The rows field typically matches parent->rows for simple paths but may be less for parameterized paths and UniquePaths due to filtering by extra join conditions or duplicate removal.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : NodeTag identifying the scan/join method and corresponding Plan node type
-- : Pointer to the RelOptInfo this path can build (relation information)
-- : PathTarget describing the output columns this path computes
-- : ParamPathInfo for parameterization details, or NULL if not parameterized
-- : Boolean indicating whether to engage parallel-aware logic
-- : Boolean indicating if this path is safe to use in parallel plans
-- : Desired number of workers for parallel execution (0 = not parallel)
-- : Cardinality estimate of result tuples
-- : Cost expended before fetching any tuples
-- : Total cost assuming all tuples are fetched
-- : List of PathKey nodes describing the sort ordering of output rows
-
+- `type`: NodeTag identifier for the structure type
+- `pathtype`: NodeTag identifying the scan/join method and corresponding Plan node type
+- `pg_node_attr(write_only_relids)`: Pointer to the RelOptInfo this path can build (relation information)
+- `pg_node_attr(write_only_nondefault_pathtarget)`: PathTarget describing the output columns this path computes
+- `pg_node_attr(write_only_req_outer)`: ParamPathInfo for parameterization details, or NULL if not parameterized
+- `parallel_aware`: Boolean indicating whether to engage parallel-aware logic
+- `parallel_safe`: Boolean indicating if this path is safe to use in parallel plans
+- `parallel_workers`: Desired number of workers for parallel execution (0 = not parallel)
+- `rows`: Cardinality estimate of result tuples
+- `startup_cost`: Cost expended before fetching any tuples
+- `total_cost`: Total cost assuming all tuples are fetched
+- `*pathkeys`: List of PathKey nodes describing the sort ordering of output rows
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type and pathtype identification)

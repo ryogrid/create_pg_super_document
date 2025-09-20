@@ -19,9 +19,8 @@ typedef struct BTOneVacInfo
 This structure represents a single entry in the shared memory area that tracks currently active B-tree vacuum operations. Each active vacuum operation gets assigned a unique cycle ID to coordinate with other database operations that might need to avoid interfering with ongoing vacuum processes. The structure stores both the global identifier of the index being vacuumed and its associated cycle ID. This information is used to prevent multiple concurrent vacuum operations on the same index and to provide coordination between vacuum and other B-tree operations.
 
 ## Parameters / Member Variables
-- : LockRelId structure containing the global identifier (database OID and relation OID) of the index currently being vacuumed
-- : BTCycleId value representing the unique cycle identifier assigned to this vacuum operation, used for coordination with other processes
-
+- `relid`: LockRelId structure containing the global identifier (database OID and relation OID) of the index currently being vacuumed
+- `cycleid`: BTCycleId value representing the unique cycle identifier assigned to this vacuum operation, used for coordination with other processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockRelId (struct type)

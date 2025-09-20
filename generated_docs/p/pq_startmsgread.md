@@ -22,7 +22,7 @@ The function performs two main operations:
 If a read operation is already active when this function is called, it indicates a serious protocol synchronization error, and the function will terminate the connection with a FATAL error.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,10 +22,9 @@ XLogRecStats serves as a statistical data container for WAL record analysis and 
 This structure is primarily used within the larger XLogStats framework to provide detailed breakdowns of WAL activity by resource manager type and record type. Each XLogRecStats instance represents accumulated statistics for a specific category of WAL records, enabling detailed performance analysis and monitoring of WAL activity patterns.
 
 ## Parameters / Member Variables
-- : Number of WAL records processed/encountered of this type
-- : Total length in bytes of the record data (excluding full page images)
-- : Total length in bytes of full page image (FPI) data associated with these records
-
+- `count`: Number of WAL records processed/encountered of this type
+- `rec_len`: Total length in bytes of the record data (excluding full page images)
+- `fpi_len`: Total length in bytes of full page image (FPI) data associated with these records
 ## Dependencies
 - Functions called/Symbols referenced: (This is a data structure with no direct function calls)
 - Called from (representative examples):

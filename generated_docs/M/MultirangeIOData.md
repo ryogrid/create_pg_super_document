@@ -22,10 +22,9 @@ MultirangeIOData is a caching structure used in PostgreSQL's multirange type sys
 The structure is typically populated once per function call context and reused across multiple invocations, providing a performance optimization for multirange I/O operations by avoiding expensive type system lookups.
 
 ## Parameters / Member Variables
-- : Pointer to the TypeCacheEntry for the multirange type, containing cached type metadata and operations
-- : FmgrInfo structure containing the cached function manager information for the underlying range type's I/O procedure
-- : OID parameter used by the range type's I/O procedure, typically specifying additional type-specific behavior
-
+- `*typcache`: Pointer to the TypeCacheEntry for the multirange type, containing cached type metadata and operations
+- `typioproc`: FmgrInfo structure containing the cached function manager information for the underlying range type's I/O procedure
+- `typioparam`: OID parameter used by the range type's I/O procedure, typically specifying additional type-specific behavior
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeCacheEntry](../T/TypeCacheEntry.md) (type cache system)

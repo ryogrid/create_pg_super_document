@@ -16,7 +16,7 @@ createDumpId(void)
 This function provides a simple mechanism to generate unique dump identifiers that are independent of any DumpableObject. It increments and returns the global lastDumpId counter. These standalone DumpIds are specifically designed for creating "fixed" ArchiveEntry objects that don't need to participate in pg_dump's dependency sorting logic, such as database-level settings, encoding information, and other metadata entries that have predetermined ordering requirements.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

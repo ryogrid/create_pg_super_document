@@ -22,10 +22,9 @@ BTStackData implements a linked-list stack structure that tracks the path taken 
 The structure is designed to be resilient to concurrent operations. While the stack can become stale due to concurrent page splits and deletions occurring during traversal, it is designed to never provide an irredeemably incorrect view of the tree structure.
 
 ## Parameters / Member Variables
-- : Block number of the page containing the pivot tuple
-- : Offset number within the page where the pivot tuple is located
-- : Pointer to the parent entry in the stack, forming a linked list structure
-
+- `bts_blkno`: Block number of the page containing the pivot tuple
+- `bts_offset`: Offset number within the page where the pivot tuple is located
+- `*bts_parent`: Pointer to the parent entry in the stack, forming a linked list structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)

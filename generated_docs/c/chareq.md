@@ -21,8 +21,6 @@ This function is part of PostgreSQL's operator infrastructure and is automatical
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - First character value for comparison
-  - Second character value for comparison
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,7 +20,7 @@ The function performs a minimal reset operation by clearing the  flag, which ind
 This function is typically called from the outer error recovery loop to ensure that communication can continue after handling an error condition.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

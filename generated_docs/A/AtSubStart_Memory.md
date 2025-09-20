@@ -21,7 +21,7 @@ The key characteristic of this memory context is its lifecycle behavior:
 The new context is created as a child of the parent's CurTransactionContext, establishing a hierarchical memory management structure that mirrors the transaction nesting. This enables proper memory cleanup when subtransactions abort while preserving memory that should survive commits.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

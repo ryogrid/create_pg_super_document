@@ -17,8 +17,6 @@ This function performs addition of two 64-bit signed integer arguments. It extra
 
 ## Parameters / Member Variables
 - The function uses PostgreSQL's standard function argument mechanism where:
-  - First argument accessed via PG_GETARG_INT64(0) 
-  - Second argument accessed via PG_GETARG_INT64(1)
 
 ## Dependencies
 - Functions called/Symbols referenced:

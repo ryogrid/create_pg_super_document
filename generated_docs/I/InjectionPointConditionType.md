@@ -22,9 +22,8 @@ typedef struct InjectionPointCondition
  is an enumeration that specifies the types of conditions under which injection points can be triggered. This enum is part of PostgreSQL's injection point testing infrastructure, which allows developers to inject user-defined callbacks at predetermined code paths for testing purposes. The enum currently supports two condition types: unconditional execution and PID-based restrictions.
 
 ## Parameters / Member Variables
-- : Value 0, indicates that the injection point should always run regardless of any conditions
-- : Indicates that the injection point should only run when specific process ID conditions are met
-
+- `type`: Value 0, indicates that the injection point should always run regardless of any conditions
+- `pid`: Indicates that the injection point should only run when specific process ID conditions are met
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is an enum definition)

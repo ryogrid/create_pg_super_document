@@ -15,9 +15,7 @@ Datum hashenumextended(PG_FUNCTION_ARGS)
 The `hashenumextended` function is the extended version of the `hashenum` hash function for PostgreSQL enumeration types. It takes two arguments: the enumeration value (as an OID) and a 64-bit seed value. The function extracts the enumeration value using `PG_GETARG_OID(0)`, casts it to a 32-bit unsigned integer, and passes it along with the seed value (obtained via `PG_GETARG_INT64(1)`) to the `hash_uint32_extended` function. This extended version allows for hash customization through the seed parameter, which is useful for hash partitioning and distributed hash operations.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's function argument macros (`PG_FUNCTION_ARGS`)
-- Accesses the first argument (enumeration value) as an OID via `PG_GETARG_OID(0)`
-- Accesses the second argument (seed value) as a 64-bit integer via `PG_GETARG_INT64(1)`
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

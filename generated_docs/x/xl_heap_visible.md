@@ -21,9 +21,8 @@ The xl_heap_visible structure is used in PostgreSQL's Write-Ahead Logging system
 The structure contains the minimum information necessary to replay visibility map updates during recovery. It works in conjunction with backup blocks for the visibility map buffer and heap buffer to ensure consistent recovery.
 
 ## Parameters / Member Variables
-- : TransactionId that represents the conflict horizon for snapshot isolation - transactions with snapshots older than this horizon may conflict with the visibility change
-- : Bit flags indicating the type of visibility operation being performed (e.g., setting all-visible, all-frozen bits)
-
+- `snapshotConflictHorizon`: TransactionId that represents the conflict horizon for snapshot isolation - transactions with snapshots older than this horizon may conflict with the visibility change
+- `flags`: Bit flags indicating the type of visibility operation being performed (e.g., setting all-visible, all-frozen bits)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (type)

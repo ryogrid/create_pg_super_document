@@ -19,7 +19,6 @@ The function uses PostgreSQL's StringInfo mechanism to efficiently build the out
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function arguments, containing:
-  - Input CIRCLE structure (accessed via PG_GETARG_CIRCLE_P(0))
 
 ## Dependencies
 - Functions called/Symbols referenced:

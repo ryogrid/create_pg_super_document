@@ -18,9 +18,6 @@ The implementation is straightforward - it delegates all processing to the oidre
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing:
-  - Input binary data to be converted
-  - Function context and metadata
-  - Return value storage
 
 ## Dependencies
 - Functions called/Symbols referenced:

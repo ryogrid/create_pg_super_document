@@ -25,11 +25,10 @@ This cache is implemented as a linked list where each entry corresponds to a spe
 The caching mechanism is particularly important for performance when processing regular expressions with character classes like , , etc., as these require checking potentially thousands of Unicode code points against locale-specific classification rules.
 
 ## Parameters / Member Variables
-- : Function pointer to a character classification function (e.g., , ) that determines which characters belong to a specific character class
-- : The OID of the collation for which this cache entry is valid, ensuring locale-specific character classification
-- : A  structure containing the cached results - arrays of individual characters and character ranges that satisfy the probe function
-- : Pointer to the next cache entry in the linked list, enabling chaining of multiple cache entries
-
+- `probefunc`: Function pointer to a character classification function (e.g., , ) that determines which characters belong to a specific character class
+- `collation`: The OID of the collation for which this cache entry is valid, ensuring locale-specific character classification
+- `cv`: A  structure containing the cached results - arrays of individual characters and character ranges that satisfy the probe function
+- `*next`: Pointer to the next cache entry in the linked list, enabling chaining of multiple cache entries
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (struct for storing character vectors)

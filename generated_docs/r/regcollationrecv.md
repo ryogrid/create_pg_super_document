@@ -22,7 +22,6 @@ This function is part of PostgreSQL's type system infrastructure and is automati
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Binary data to be converted to regcollation format (accessed through fcinfo)
 
 ## Dependencies
 - Functions called/Symbols referenced:

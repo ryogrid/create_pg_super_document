@@ -17,7 +17,7 @@ The function performs the final cleanup step in the preparation process by relea
 This is a critical synchronization point in the two-phase commit protocol, ensuring that the prepared transaction is properly released from the preparing backend while maintaining data consistency through proper locking mechanisms.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

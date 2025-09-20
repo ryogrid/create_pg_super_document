@@ -18,7 +18,7 @@ This function attempts to set the WAL summarizer's latch to wake up the summariz
 The function uses a shared lock on WALSummarizerLock to safely read the summarizer's process number from the control structure, then attempts to set the latch for that process.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

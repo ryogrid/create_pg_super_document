@@ -21,9 +21,8 @@ The InProgressIO structure serves as a lightweight tracking record for asynchron
 The structure is designed to be compact, using only 16-bit integers for buffer indexing to minimize memory overhead when managing large numbers of concurrent operations. Each instance represents one logical read operation that has been submitted to the storage layer but whose completion has not yet been processed.
 
 ## Parameters / Member Variables
-- : Index into the ReadStream's circular buffer array identifying which buffer this I/O operation will populate when complete
-- : The underlying ReadBuffersOperation structure that contains the actual I/O operation details and status
-
+- `buffer_index`: Index into the ReadStream's circular buffer array identifying which buffer this I/O operation will populate when complete
+- `op`: The underlying ReadBuffersOperation structure that contains the actual I/O operation details and status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReadBuffersOperation](../R/ReadBuffersOperation.md)

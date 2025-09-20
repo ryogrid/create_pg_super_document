@@ -16,7 +16,7 @@ EnableQueryId(void)
 EnableQueryId provides a programmatic interface for third-party plugins to signal that they require query identifier computation to be enabled. The function checks the current compute_query_id configuration setting and only enables query ID generation if it's not explicitly set to OFF. This design allows plugins to request query ID computation while still respecting administrator configuration preferences.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

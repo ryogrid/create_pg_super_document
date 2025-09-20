@@ -15,7 +15,6 @@ Datum int2not(PG_FUNCTION_ARGS)
 The `int2not` function implements the bitwise NOT operation for PostgreSQL's `smallint` data type (16-bit signed integers). It takes one `smallint` argument from the function call context, performs a bitwise complement operation using the C `~` operator (flipping all bits), and returns the result as a `smallint` value. This function is typically invoked through PostgreSQL's SQL operator `~` when used with `smallint` operands.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments from PostgreSQL's function call context
 - `arg1`: The 16-bit signed integer operand to be complemented, retrieved via `PG_GETARG_INT16(0)`
 
 ## Dependencies

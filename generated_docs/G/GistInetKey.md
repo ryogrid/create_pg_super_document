@@ -24,12 +24,11 @@ GistInetKey is a specialized representation used internally by PostgreSQL's GiST
 The structure follows PostgreSQL's varlena header rules to maintain compatibility with the core GiST infrastructure while providing the specialized functionality needed for network address indexing. It uses a 1-byte-header varlena format for simplicity and efficiency.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL varlena header for variable-length data types (should not be accessed directly)
-- : Address family identifier (PGSQL_AF_INET for IPv4, PGSQL_AF_INET6 for IPv6, or zero for unspecified)
-- : Minimum number of bits required in the netmask for addresses represented by this key
-- : Number of bits that are common across all addresses represented by this key (used for prefix compression)
-- : Binary representation of the common address prefix (up to 128 bits for IPv6, with IPv4 using only the first 4 bytes)
-
+- `va_header`: Standard PostgreSQL varlena header for variable-length data types (should not be accessed directly)
+- `family`: Address family identifier (PGSQL_AF_INET for IPv4, PGSQL_AF_INET6 for IPv6, or zero for unspecified)
+- `minbits`: Minimum number of bits required in the netmask for addresses represented by this key
+- `commonbits`: Number of bits that are common across all addresses represented by this key (used for prefix compression)
+- `ipaddr[16]`: Binary representation of the common address prefix (up to 128 bits for IPv6, with IPv4 using only the first 4 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Standard PostgreSQL varlena header operations

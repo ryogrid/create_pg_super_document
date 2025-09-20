@@ -15,7 +15,7 @@ void check_loadable_libraries(void)
 This function performs a critical compatibility check during pg_upgrade by testing each library collected by get_loadable_libraries() in the new PostgreSQL installation. It connects to the template1 database in the new cluster and systematically attempts to execute LOAD commands for each unique library. The libraries are first sorted using library_name_compare() to ensure consistent ordering and avoid redundant probes. If any library fails to load, the function records the failure details in a loadable_libraries.txt file and terminates the upgrade process with a fatal error, providing guidance to the user on how to resolve missing library issues.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

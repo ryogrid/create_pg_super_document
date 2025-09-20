@@ -19,9 +19,8 @@ typedef struct ReorderBufferTupleCidKey
 This structure serves as the key component for hash tables that maintain mappings between specific tuple locations and their associated command IDs (cmin, cmax). In PostgreSQL's logical replication system, it's essential to track when tuples were created and modified within transactions to properly decode WAL records and maintain consistency. The combination of relation file locator and tuple ID uniquely identifies a tuple's physical location, making it an ideal composite key for such mappings.
 
 ## Parameters / Member Variables
-- : RelFileLocator structure that identifies the specific relation file (tablespace, database, relation)
-- : ItemPointerData structure containing the block number and offset that pinpoint the exact tuple location within the relation
-
+- `rlocator`: RelFileLocator structure that identifies the specific relation file (tablespace, database, relation)
+- `tid`: ItemPointerData structure containing the block number and offset that pinpoint the exact tuple location within the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](RelFileLocator.md) (PostgreSQL relation file identification structure)

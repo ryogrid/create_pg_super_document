@@ -15,7 +15,6 @@ Datum text_char(PG_FUNCTION_ARGS)
 This function converts a PostgreSQL text value to a "char" data type following specific conversion rules. It handles three main cases: (1) If the text contains exactly 4 characters in the format of a backslash followed by three octal digits (\nnn), it converts the octal sequence to its corresponding character value. (2) If the text has at least one character, it takes the first character. (3) If the text is empty, it returns the null character ('\0'). The function uses the same conversion logic as the charin() function but explicitly handles the empty string case.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro to access function arguments
 - `arg1`: The input text value retrieved using PG_GETARG_TEXT_PP(0)
 - `ch`: Pointer to the character data within the text using VARDATA_ANY()
 - `result`: The resulting character value to be returned

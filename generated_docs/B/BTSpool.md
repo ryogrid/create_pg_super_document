@@ -22,12 +22,11 @@ typedef struct BTSpool
 BTSpool serves as a wrapper structure that encapsulates all the necessary information required for sorting tuples during B-tree index construction. The structure is designed to handle both regular and unique index builds, with special provisions for handling dead tuples in unique indexes. During parallel index builds, multiple BTSpool instances may be created to coordinate work across different processes. The structure integrates with PostgreSQL's tuplesort module to provide efficient external sorting capabilities when memory constraints require spilling to disk.
 
 ## Parameters / Member Variables
-- : Pointer to Tuplesortstate containing the actual sorting state and operations managed by tuplesort.c
-- : Relation pointer to the heap table being indexed
-- : Relation pointer to the B-tree index being constructed
-- : Boolean flag indicating whether the index enforces uniqueness constraints
-- : Boolean flag controlling whether NULL values are considered distinct for uniqueness checking
-
+- `*sortstate`: Pointer to Tuplesortstate containing the actual sorting state and operations managed by tuplesort.c
+- `heap`: Relation pointer to the heap table being indexed
+- `index`: Relation pointer to the B-tree index being constructed
+- `isunique`: Boolean flag indicating whether the index enforces uniqueness constraints
+- `nulls_not_distinct`: Boolean flag controlling whether NULL values are considered distinct for uniqueness checking
 ## Dependencies
 - Functions called/Symbols referenced:
   - Tuplesortstate

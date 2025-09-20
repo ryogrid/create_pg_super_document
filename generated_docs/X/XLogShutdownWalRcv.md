@@ -18,7 +18,7 @@ This function provides a coordinated shutdown of the WAL receiver subsystem. It 
 The function combines WAL receiver shutdown with the cleanup of associated state flags, providing a single point of control for proper WAL receiver termination.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,7 +21,6 @@ The function calls the generic SN_create_env with parameters tailored for Indone
 This environment must be created before any Indonesian stemming operations can be performed and should be paired with indonesian_ISO_8859_1_close_env for proper cleanup.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: Pointer to newly created SN_env structure or NULL on allocation failure
 
 ## Dependencies

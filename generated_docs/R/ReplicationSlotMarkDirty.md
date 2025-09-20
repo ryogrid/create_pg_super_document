@@ -18,7 +18,7 @@ This function provides a lightweight mechanism to indicate that a replication sl
 The 'dirty' flag indicates the slot has changes that need to be saved, while 'just_dirtied' is typically used to track recent modifications for optimization purposes. This lazy approach to disk persistence allows for better performance by batching disk writes and avoiding frequent I/O operations during normal replication activity.
 
 ## Parameters / Member Variables
-- No parameters (operates on the global MyReplicationSlot variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

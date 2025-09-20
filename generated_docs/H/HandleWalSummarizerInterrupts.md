@@ -18,7 +18,7 @@ This static function serves as the central interrupt handler for the WAL summari
 The function handles graceful shutdown when either an explicit shutdown is requested or when WAL summarization is disabled via configuration. It also processes configuration file changes without requiring a process restart, and handles PostgreSQL's process signal barrier mechanism for coordinated system-wide operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

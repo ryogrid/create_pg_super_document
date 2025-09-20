@@ -16,7 +16,7 @@ CheckSlotPermissions(void)
 This function performs a security check to ensure that only users with the REPLICATION attribute can access replication slot functionality. It calls  to check if the current user (obtained via ) has replication privileges. If the user lacks the REPLICATION attribute, the function raises an ERROR with appropriate error code and message, preventing unauthorized access to replication slots.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

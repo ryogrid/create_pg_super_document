@@ -35,16 +35,15 @@ The metadata page maintains both a "root" and "fast root" concept. The regular r
 The structure also includes versioning information to support backward compatibility and upgrade scenarios, as well as statistics from the last cleanup operation to help determine when future cleanup operations are needed.
 
 ## Parameters / Member Variables
-- : Magic number that should contain BTREE_MAGIC to verify the page is a valid B-tree metadata page
-- : Version number of the nbtree implementation (always <= BTREE_VERSION)
-- : Block number of the current root page of the B-tree
-- : Tree level of the root page (height of the tree)
-- : Block number of the current "fast" root location for optimization
-- : Tree level of the "fast" root page
-- : Number of deleted, non-recyclable pages found during the last cleanup operation
-- : Number of heap tuples during last cleanup (deprecated field)
-- : Boolean flag indicating whether all columns in the index are "equalimage" (support deduplication)
-
+- `btm_magic`: Magic number that should contain BTREE_MAGIC to verify the page is a valid B-tree metadata page
+- `btm_version`: Version number of the nbtree implementation (always <= BTREE_VERSION)
+- `btm_root`: Block number of the current root page of the B-tree
+- `btm_level`: Tree level of the root page (height of the tree)
+- `btm_fastroot`: Block number of the current "fast" root location for optimization
+- `btm_fastlevel`: Tree level of the "fast" root page
+- `btm_last_cleanup_num_delpages`: Number of deleted, non-recyclable pages found during the last cleanup operation
+- `btm_last_cleanup_num_heap_tuples`: Number of heap tuples during last cleanup (deprecated field)
+- `btm_allequalimage`: Boolean flag indicating whether all columns in the index are "equalimage" (support deduplication)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (for page references)

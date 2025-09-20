@@ -16,7 +16,7 @@ pg_spinlock_barrier(void)
 pg_spinlock_barrier is a fallback implementation of memory barrier functionality for PostgreSQL's atomic operations framework. It is compiled only when PG_HAVE_MEMORY_BARRIER_EMULATION is defined, indicating that the system lacks native memory barrier support. The function provides a memory fence by making a kill(0) system call, which forces a kernel transition that includes appropriate memory ordering guarantees on older systems. This implementation is designed to be reentrant since barriers may be invoked from signal handlers.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

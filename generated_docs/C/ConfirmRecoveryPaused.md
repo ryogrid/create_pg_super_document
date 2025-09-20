@@ -17,7 +17,7 @@ The function uses spinlock protection to ensure thread-safe access to the shared
 This design separates the pause request (handled by SetRecoveryPause) from the pause confirmation, allowing the recovery process to acknowledge the pause at appropriate safe points during WAL replay.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,6 @@ Datum int4send(PG_FUNCTION_ARGS)
 The int4send function is a PostgreSQL type send function that converts a 32-bit signed integer from its internal representation to external binary format. This function is part of PostgreSQL's binary I/O system and is used when sending integer data in binary format to clients or during binary data transfers. It creates a StringInfo buffer, writes the integer value in network byte order, and returns the resulting binary data as a bytea type.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
 - Input: 32-bit signed integer retrieved via PG_GETARG_INT32(0)
 - Output: Datum containing bytea with the binary representation of the integer
 

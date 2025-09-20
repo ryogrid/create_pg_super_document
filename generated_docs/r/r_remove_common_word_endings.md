@@ -27,9 +27,6 @@ The function uses a sophisticated pattern matching system that tries to match th
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure () containing:
-  - Word buffer and position cursors
-  - Working variables and flags
-  - Pattern matching state
 
 ## Dependencies
 - Functions called/Symbols referenced:

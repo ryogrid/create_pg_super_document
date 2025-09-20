@@ -16,7 +16,6 @@ numeric_min_scale(PG_FUNCTION_ARGS)
 The `numeric_min_scale` function is a PostgreSQL built-in function that calculates and returns the minimum number of decimal places required to accurately represent a numeric value. It serves as a public interface to the internal `get_min_scale` function, handling the conversion between PostgreSQL's external numeric representation and internal NumericVar format. The function handles special numeric values (NaN, infinity) by returning NULL.
 
 ## Parameters / Member Variables
-- The function uses the standard PostgreSQL function calling convention `PG_FUNCTION_ARGS`
 - Input: A single numeric value accessed via `PG_GETARG_NUMERIC(0)`
 
 ## Dependencies

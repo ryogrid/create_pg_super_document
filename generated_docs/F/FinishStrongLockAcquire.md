@@ -17,7 +17,7 @@ FinishStrongLockAcquire is a simple cleanup function that resets the global Stro
 The function serves as the successful completion counterpart to BeginStrongLockAcquire, ensuring that the global state tracking strong lock acquisitions is properly maintained. By clearing StrongLockInProgress, it allows future strong lock acquisitions to proceed and ensures that any error handling code knows there's no pending strong lock to clean up.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

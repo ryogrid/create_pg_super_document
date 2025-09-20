@@ -15,7 +15,7 @@ typedef struct StringInfoData *fmStringInfo;
 fmStringInfo is a forward declaration typedef defined in fmgr.h that creates a pointer type to the StringInfoData structure without requiring the full definition from stringinfo.h. The StringInfoData structure is PostgreSQL's primary string buffer implementation, providing dynamic string building capabilities with automatic memory management. By using this typedef, the function manager can reference string buffers in function signatures and contexts without exposing the complete StringInfoData implementation, maintaining header dependency separation and reducing compilation overhead.
 
 ## Parameters / Member Variables
-- This is a simple typedef with no parameters or member variables
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -33,21 +33,20 @@ typedef struct printTableContent
 The printTableContent structure is a central data structure in PostgreSQL's table printing system, designed to hold all necessary information for rendering tabular data in various output formats. This struct supports dynamic construction of tables by providing pointers to track the current position for adding headers, cells, footers, and alignment specifications. It manages memory allocation tracking through the cellmustfree array, allowing for efficient cleanup of dynamically allocated cell content. The structure supports both static and dynamic table construction, making it suitable for displaying query results, system information, and other tabular data in psql and other PostgreSQL frontend utilities.
 
 ## Parameters / Member Variables
-- : Pointer to printTableOpt structure containing formatting options and display preferences
-- : Optional title string for the table (may be NULL)
-- : Number of columns in the table, specified during initialization
-- : Number of rows in the table, specified during initialization
-- : NULL-terminated array of header strings for column titles
-- : Pointer to the last added header, used for incremental header construction
-- : NULL-terminated array containing all cell content strings in row-major order
-- : Pointer to the last added cell, facilitating sequential cell addition
-- : Counter tracking the total number of cells added to the table
-- : Boolean array indicating which cells require memory deallocation
-- : Pointer to the first footer in a linked list of table footers
-- : Pointer to the last added footer for efficient footer appending
-- : Array of alignment specifiers ('l' for left, 'r' for right) for each column
-- : Pointer to the last added alignment specifier
-
+- `*opt`: Pointer to printTableOpt structure containing formatting options and display preferences
+- `*title`: Optional title string for the table (may be NULL)
+- `ncolumns`: Number of columns in the table, specified during initialization
+- `nrows`: Number of rows in the table, specified during initialization
+- `**headers`: NULL-terminated array of header strings for column titles
+- `**header`: Pointer to the last added header, used for incremental header construction
+- `**cells`: NULL-terminated array containing all cell content strings in row-major order
+- `**cell`: Pointer to the last added cell, facilitating sequential cell addition
+- `cellsadded`: Counter tracking the total number of cells added to the table
+- `*cellmustfree`: Boolean array indicating which cells require memory deallocation
+- `*footers`: Pointer to the first footer in a linked list of table footers
+- `*footer`: Pointer to the last added footer for efficient footer appending
+- `*aligns`: Array of alignment specifiers ('l' for left, 'r' for right) for each column
+- `*align`: Pointer to the last added alignment specifier
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printTableOpt](printTableOpt.md)

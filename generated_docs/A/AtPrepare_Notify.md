@@ -17,7 +17,6 @@ This function is called during the prepare phase of two-phase commit transaction
 The function checks two global variables: `pendingActions` (which tracks pending LISTEN/UNLISTEN operations) and `pendingNotifies` (which tracks pending NOTIFY operations). If either contains pending operations, the function raises an ERROR, preventing the transaction from being prepared.
 
 ## Parameters / Member Variables
-- No input parameters
 - Returns: `void` (function may not return if error is raised)
 
 ## Dependencies

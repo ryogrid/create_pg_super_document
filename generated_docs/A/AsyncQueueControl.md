@@ -26,13 +26,12 @@ typedef struct AsyncQueueControl
 AsyncQueueControl serves as the central coordination structure for PostgreSQL's asynchronous notification system. It manages the notification queue's head and tail positions, tracks which pages can be recycled, and maintains information about all listening backends. The structure uses a sophisticated locking protocol with NotifyQueueLock and NotifyQueueTailLock to ensure safe concurrent access. The backend array contains status information for each potentially listening backend, indexed by ProcNumber, and active listeners are linked together for efficient scanning.
 
 ## Parameters / Member Variables
-- : QueuePosition pointing to the next free location where new notifications can be written
-- : QueuePosition that must be less than or equal to the queue position of every listening backend (ensures no notifications are lost)
-- : Page number of the oldest unrecycled page, must be less than or equal to tail.page for proper memory management
-- : ProcNumber of the first listener in the linked list, or INVALID_PROC_NUMBER if no listeners
-- : Timestamp of the last time a queue-full warning was issued to prevent spam
-- : Flexible array of QueueBackendStatus structures, one per possible backend process
-
+- `head`: QueuePosition pointing to the next free location where new notifications can be written
+- `tail`: QueuePosition that must be less than or equal to the queue position of every listening backend (ensures no notifications are lost)
+- `stopPage`: Page number of the oldest unrecycled page, must be less than or equal to tail.page for proper memory management
+- `firstListener`: ProcNumber of the first listener in the linked list, or INVALID_PROC_NUMBER if no listeners
+- `lastQueueFillWarn`: Timestamp of the last time a queue-full warning was issued to prevent spam
+- `backend[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of QueueBackendStatus structures, one per possible backend process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [QueuePosition](../Q/QueuePosition.md)

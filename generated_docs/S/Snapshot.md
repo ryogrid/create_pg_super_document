@@ -15,9 +15,7 @@ typedef struct SnapshotData *Snapshot;
 Snapshot serves as the standard handle for passing snapshot information throughout PostgreSQL's codebase. As a pointer type to SnapshotData, it provides an efficient way to reference snapshot structures without copying the entire structure. The typedef abstracts the implementation details and provides a clean interface for snapshot operations. PostgreSQL also defines InvalidSnapshot as ((Snapshot) NULL) for representing invalid or uninitialized snapshots.
 
 ## Parameters / Member Variables
-- This is a pointer type with no direct members
-- Points to a SnapshotData structure containing all snapshot information
-- Can be InvalidSnapshot (NULL) to represent an invalid snapshot
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

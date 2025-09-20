@@ -18,7 +18,7 @@ This function is designed as a centralized error reporting mechanism for floatin
 The design philosophy follows PostgreSQL's practice of centralizing common error reporting to maintain code size efficiency while providing consistent error messages across the codebase.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

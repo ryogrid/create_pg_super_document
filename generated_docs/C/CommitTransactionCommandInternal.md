@@ -28,7 +28,6 @@ The function saves transaction characteristics at the beginning and restores the
 
 ## Parameters / Member Variables
 - Returns: `bool` - true when no more iterations are required, false when additional processing is needed
-- No input parameters (accesses global transaction state)
 
 ## Dependencies
 - Functions called/Symbols referenced:

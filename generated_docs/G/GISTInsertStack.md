@@ -40,14 +40,13 @@ typedef struct GISTInsertStack
 GISTInsertStack represents a single level in the descent path during GiST index operations, forming a stack structure that tracks the path from root to target leaf page. This structure is essential for maintaining consistency during concurrent operations, as it stores LSN information to detect page modifications and splits that may have occurred during the descent. The stack enables proper retry logic when page splits invalidate the current descent path, ensuring that insertions find the correct target page even in high-concurrency scenarios.
 
 ## Parameters / Member Variables
-- : BlockNumber identifying the physical block number of this page
-- : Buffer handle for the locked page buffer
-- : Page pointer to the actual page content
-- : GistNSN (Log Sequence Number) used to detect page updates and splits by comparing with the page's NSN
-- : Boolean flag indicating that a page split occurred during descent, requiring retry from the parent level
-- : OffsetNumber specifying the offset of the downlink in the parent page that points to this page
-- : Pointer to the parent GISTInsertStack node, forming the stack structure
-
+- `blkno`: BlockNumber identifying the physical block number of this page
+- `buffer`: Buffer handle for the locked page buffer
+- `page`: Page pointer to the actual page content
+- `lsn`: GistNSN (Log Sequence Number) used to detect page updates and splits by comparing with the page's NSN
+- `retry_from_parent`: Boolean flag indicating that a page split occurred during descent, requiring retry from the parent level
+- `downlinkoffnum`: OffsetNumber specifying the offset of the downlink in the parent page that points to this page
+- `*parent`: Pointer to the parent GISTInsertStack node, forming the stack structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - GistNSN

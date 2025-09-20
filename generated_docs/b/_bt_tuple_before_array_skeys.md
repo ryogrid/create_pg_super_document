@@ -25,7 +25,6 @@ The function uses 3-way ORDER procedures for comparisons, which provides more pr
 
 ## Parameters / Member Variables
 - : Index scan descriptor containing the scan state and key information
-- 0
 1
 5
 6

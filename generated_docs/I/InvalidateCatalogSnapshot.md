@@ -17,7 +17,7 @@ InvalidateCatalogSnapshot provides a mechanism to force refresh of the cached ca
 The function uses a coarse-grained invalidation approach - any catalog change invalidates the entire snapshot rather than tracking fine-grained per-relation invalidations, as the performance benefit of such tracking has not been demonstrated.
 
 ## Parameters / Member Variables
-- None (operates on global CatalogSnapshot state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

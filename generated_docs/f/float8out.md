@@ -16,8 +16,7 @@ float8out(PG_FUNCTION_ARGS)
 This function serves as the PostgreSQL system interface for converting float8 values to string format. It acts as a thin wrapper around , handling the PostgreSQL function call protocol by extracting the float8 argument and returning the result as a C string Datum. This function is typically registered in the system catalogs as the output function for the float8 data type.
 
 ## Parameters / Member Variables
-- Uses  macro which provides access to function arguments through the PostgreSQL function call interface
-- Extracts one float8 argument using 
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

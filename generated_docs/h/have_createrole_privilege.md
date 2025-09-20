@@ -16,7 +16,7 @@ have_createrole_privilege(void)
 This is a simple wrapper function that determines if the currently connected user has the CREATEROLE privilege. It serves as a convenience function used throughout the role management subsystem to enforce access control. The function internally calls  with the current user's ID obtained via . This privilege check is essential for operations like creating, altering, or dropping database roles, ensuring that only authorized users can perform these administrative tasks.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

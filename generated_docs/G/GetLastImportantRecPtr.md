@@ -15,7 +15,7 @@ GetLastImportantRecPtr determines the log sequence number (LSN) of the last impo
 The function operates by iterating through all NUM_XLOGINSERT_LOCKS WAL insertion locks and finding the maximum value among their lastImportantAt fields. Each lock must be acquired exclusively to prevent torn reads of the LSN value, which could occur on some supported platforms due to the multi-byte nature of LSN values. The function returns the highest LSN found, representing the most recent important WAL activity across all concurrent insertion contexts.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

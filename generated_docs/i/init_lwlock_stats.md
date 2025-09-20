@@ -18,7 +18,7 @@ This function sets up the infrastructure for collecting lightweight lock statist
 The function creates a hash table using the  as the key and  as the entry structure. The hash table is configured to allow allocations within critical sections, which is normally prohibited but acceptable for debugging code.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

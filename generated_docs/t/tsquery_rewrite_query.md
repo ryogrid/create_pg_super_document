@@ -25,7 +25,6 @@ The function works by:
 The function handles edge cases such as empty queries, invalid SQL queries, and queries that return incorrect column types. It uses proper memory management and SPI resource cleanup to ensure robust operation.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL SQL function convention with `PG_FUNCTION_ARGS`
 - `query`: Input TSQuery to be rewritten (argument 0)
 - `in`: SQL query text that returns rewrite rules (argument 1)
 

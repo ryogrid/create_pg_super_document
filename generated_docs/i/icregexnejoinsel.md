@@ -19,8 +19,6 @@ The function is a thin wrapper around the generic  function, specifically config
 
 ## Parameters / Member Variables
 - Uses the standard PostgreSQL function calling convention  which includes:
-  - Function call information and arguments passed from the query planner
-  - Arguments typically include operator OID, column statistics, and join context
 
 ## Dependencies
 - Functions called/Symbols referenced:

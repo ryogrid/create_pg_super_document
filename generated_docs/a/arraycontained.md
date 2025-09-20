@@ -19,7 +19,6 @@ The  function implements the '<@' operator for arrays in PostgreSQL. It takes tw
 - : Standard PostgreSQL function argument structure containing:
   -  (argument 0): The array being checked for containment (left operand of '<@')
   -  (argument 1): The array that potentially contains the elements (right operand of '<@')
-  - Collation information for element comparison
 
 ## Dependencies
 - Functions called/Symbols referenced:

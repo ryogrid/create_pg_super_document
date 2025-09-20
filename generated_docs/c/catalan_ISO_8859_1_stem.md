@@ -26,9 +26,6 @@ The algorithm uses a sophisticated backtracking mechanism with saved cursor posi
 
 ## Parameters / Member Variables
 - `z`: Pointer to the SN_env structure containing:
-  - Word buffer and cursor positions (c, l, lb)
-  - Region boundaries for morphological analysis
-  - Processing state and temporary markers
 
 ## Dependencies
 - Functions called/Symbols referenced:

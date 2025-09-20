@@ -27,13 +27,12 @@ The primary use case is for operations that need specialized maintenance work to
 The structure includes state management fields to track whether the item is in use and currently being processed, along with identifying information about the specific database, relation, and block number that needs attention.
 
 ## Parameters / Member Variables
-- : AutoVacuumWorkItemType enum indicating the type of work requested (currently supports AVW_BRINSummarizeRange)
-- : Boolean flag indicating whether the work item data is valid and the slot is occupied
-- : Boolean flag indicating whether the work item is currently being processed by a worker
-- : OID of the database containing the object that needs work
-- : OID of the specific relation (table/index) that needs attention
-- : BlockNumber specifying the particular block range for the work operation
-
+- `avw_type`: AutoVacuumWorkItemType enum indicating the type of work requested (currently supports AVW_BRINSummarizeRange)
+- `avw_used`: Boolean flag indicating whether the work item data is valid and the slot is occupied
+- `avw_active`: Boolean flag indicating whether the work item is currently being processed by a worker
+- `avw_database`: OID of the database containing the object that needs work
+- `avw_relation`: OID of the specific relation (table/index) that needs attention
+- `avw_blockNumber`: BlockNumber specifying the particular block range for the work operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AutoVacuumWorkItemType](AutoVacuumWorkItemType.md) (enum for work item types)

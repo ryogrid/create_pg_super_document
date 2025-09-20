@@ -16,9 +16,6 @@ This function is a thin wrapper around the each_worker_jsonb function, specifica
 
 ## Parameters / Member Variables
 - This function uses the standard PostgreSQL function call interface (PG_FUNCTION_ARGS) which provides access to:
-  - Function arguments through the fcinfo structure
-  - Return value handling mechanisms
-  - Error reporting context
 
 ## Dependencies
 - Functions called/Symbols referenced:

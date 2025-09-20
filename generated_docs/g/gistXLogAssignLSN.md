@@ -20,7 +20,7 @@ The function creates a dummy WAL record containing only a single integer (0) to 
 This is commonly used in scenarios where GiST operations need to coordinate between multiple pages or operations using LSN values for ordering, but the specific operation doesn't require detailed logging for crash recovery purposes.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

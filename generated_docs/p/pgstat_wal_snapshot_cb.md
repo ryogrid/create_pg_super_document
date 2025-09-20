@@ -18,7 +18,7 @@ pgstat_wal_snapshot_cb(void)
 The function is part of PostgreSQL's statistics collection framework and provides a way to obtain a point-in-time view of WAL activity metrics. By copying the statistics to local memory, subsequent queries for WAL statistics can operate on this snapshot without needing to access shared memory repeatedly.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

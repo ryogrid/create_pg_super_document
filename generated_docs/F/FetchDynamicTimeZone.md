@@ -24,7 +24,7 @@ This design minimizes startup time by only loading timezone data when actually n
 The function includes safety assertions to prevent out-of-bounds memory access when following the offset pointer from the datetkn to the DynamicZoneAbbrev structure.
 
 ## Parameters / Member Variables
-- .if !\n(.g .ab GNU tbl requires GNU troff.
+
 .if !dTS .ds TS
 .if !dTE .ds TE
 .lf 1 -: The TimeZoneAbbrevTable containing the dynamic timezone abbreviation

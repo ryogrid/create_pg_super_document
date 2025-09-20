@@ -16,7 +16,7 @@ GetReplicationApplyDelay(void)
 This function measures the replication lag by calculating the time difference between when the current WAL chunk started replaying and the current time. It compares the flushed receive position with the current replay position to determine if there's any lag. If the positions are equal (no lag), it returns 0. If chunk replay timing information is unavailable, it returns -1. The function provides crucial metrics for monitoring replication performance and identifying bottlenecks in standby servers.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

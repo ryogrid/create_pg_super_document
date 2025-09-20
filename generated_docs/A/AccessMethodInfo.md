@@ -20,10 +20,9 @@ typedef struct _opclassInfo
 AccessMethodInfo stores metadata about PostgreSQL access methods for the dump and restore process. Access methods define how PostgreSQL stores and retrieves data (like B-tree, Hash, GiST, GIN, etc.). This structure captures the access method's type classification and the name of its handler function, enabling pg_dump to properly recreate custom access methods during database restoration with their original specifications and behavior.
 
 ## Parameters / Member Variables
-- : DumpableObject containing basic dump metadata (OID, name, namespace, dependencies, etc.)
-- : Character indicating the access method type - typically 'i' for index access methods, 't' for table access methods
-- : String containing the name of the handler function that implements the access method's interface
-
+- `dobj`: DumpableObject containing basic dump metadata (OID, name, namespace, dependencies, etc.)
+- `opcmethod`: Character indicating the access method type - typically 'i' for index access methods, 't' for table access methods
+- `*rolname`: String containing the name of the handler function that implements the access method's interface
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure for dump metadata)

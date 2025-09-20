@@ -22,10 +22,9 @@ The  enum is used within PostgreSQL's shared dependency system to categorize dat
 The enum is primarily used in conjunction with the shared dependency catalog () to track relationships between database objects that can span multiple databases within a PostgreSQL cluster.
 
 ## Parameters / Member Variables
-- : Represents objects that are local to a specific database and not shared across the cluster
-- : Represents objects that are shared across the entire PostgreSQL cluster (e.g., roles, tablespaces)
-- : Represents objects that exist in remote databases, used for cross-database dependency tracking
-
+- `object`: Represents objects that are local to a specific database and not shared across the cluster
+- `deptype`: Represents objects that are shared across the entire PostgreSQL cluster (e.g., roles, tablespaces)
+- `objtype`: Represents objects that exist in remote databases, used for cross-database dependency tracking
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used as a member type in  struct

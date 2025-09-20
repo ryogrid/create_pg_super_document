@@ -16,7 +16,7 @@ BumpBlockFree(BumpContext *set, BumpBlock *block)
 BumpBlockFree is a static inline function that safely removes and deallocates a memory block from a bump memory context. The function performs several critical operations: it validates that the block being freed is not a keeper block (which has special lifecycle management), removes the block from the doubly-linked list of blocks, updates the memory accounting statistics, optionally wipes the memory contents for debugging purposes, and finally releases the memory back to the system using free(). This function is essential for proper memory management within the bump allocator.
 
 ## Parameters / Member Variables
-- BASH=/bin/bash
+
 BASHOPTS=checkwinsize:cmdhist:complete_fullquote:expand_aliases:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:login_shell:progcomp:promptvars:sourcepath
 BASH_ALIASES=()
 BASH_ARGC=([0]="0")

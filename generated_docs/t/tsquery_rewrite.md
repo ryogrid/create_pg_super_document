@@ -24,7 +24,6 @@ The function operates by:
 This function provides a simpler interface compared to `tsquery_rewrite_query` for cases where only a single, well-defined rewrite rule needs to be applied. It's more efficient for simple transformations as it avoids the overhead of SQL query execution and result processing.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL SQL function convention with `PG_FUNCTION_ARGS`
 - `query`: Input TSQuery to be rewritten (argument 0)
 - `ex`: Pattern TSQuery to search for (argument 1)  
 - `subst`: Replacement TSQuery to substitute matches (argument 2)

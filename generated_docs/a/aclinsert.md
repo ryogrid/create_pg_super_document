@@ -18,7 +18,7 @@ The  function is a legacy PostgreSQL function that was once exported for manipul
 This function represents part of PostgreSQL's evolution away from direct ACL manipulation functions toward more structured privilege management through GRANT/REVOKE SQL commands and internal ACL processing functions.
 
 ## Parameters / Member Variables
-- Uses  macro - function arguments would have been passed through PostgreSQL's function call convention
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

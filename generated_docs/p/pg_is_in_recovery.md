@@ -22,7 +22,7 @@ The function returns true if the server is in any form of recovery mode, and fal
 The function directly wraps the internal RecoveryInProgress() function, making this recovery state information available through the SQL interface.
 
 ## Parameters / Member Variables
-- This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

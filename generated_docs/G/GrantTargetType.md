@@ -32,9 +32,7 @@ The three target types correspond to different SQL syntax patterns: granting pri
 
 ## Parameters / Member Variables
 - : Grants or revokes privileges on specifically named database objects. This is used when the GRANT/REVOKE statement explicitly lists the objects to be affected (tables, functions, sequences, etc.).
-
 - : Grants or revokes privileges on all objects of a specified type within one or more schemas. This corresponds to the "GRANT ... ON ALL ... IN SCHEMA" syntax.
-
 - : Used for ALTER DEFAULT PRIVILEGES statements, which set the privileges that will be automatically granted on objects created in the future by specified roles within specified schemas.
 
 ## Dependencies

@@ -17,7 +17,7 @@ This function retrieves the full transaction ID of the top-level transaction. If
 The function works by checking if XactTopFullTransactionId is valid, and if not, it assigns a new transaction ID to the top transaction state before returning it.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

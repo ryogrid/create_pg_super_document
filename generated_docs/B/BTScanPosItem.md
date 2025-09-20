@@ -20,10 +20,9 @@ typedef struct BTScanPosItem	/* what we remember about each match */
 This structure represents what the B-tree access method remembers about each matching item during an index scan. It is part of the page-at-a-time scanning approach where the system pins and read-locks a page, identifies all matching items, saves them in BTScanPosItem structures, then releases the read-lock while returning items to the caller. This minimizes lock/unlock traffic while maintaining necessary synchronization for VACUUM operations.
 
 ## Parameters / Member Variables
-- : ItemPointerData containing the TID (tuple identifier) of the referenced heap item
-- : OffsetNumber specifying the index item's location within the current page
-- : LocationIndex indicating the IndexTuple's offset in the workspace array (used for index-only scans)
-
+- `heapTid`: ItemPointerData containing the TID (tuple identifier) of the referenced heap item
+- `indexOffset`: OffsetNumber specifying the index item's location within the current page
+- `tupleOffset`: LocationIndex indicating the IndexTuple's offset in the workspace array (used for index-only scans)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerData](../I/ItemPointerData.md)

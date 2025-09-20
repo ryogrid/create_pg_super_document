@@ -16,7 +16,7 @@ process_alarm(SIGNAL_ARGS)
 The process_alarm function serves as a signal handler specifically for SIGALRM signals in the pg_test_fsync utility. When the alarm timer expires, this handler is invoked and sets the global alarm_triggered flag to true. This mechanism allows pg_test_fsync to implement time-bounded testing where operations continue until a specified duration elapses. The function provides a clean way to interrupt ongoing benchmark loops when the allocated testing time has expired, ensuring consistent test durations across different performance measurements.
 
 ## Parameters / Member Variables
-- Uses  macro which provides standard signal handler parameters (signal number, signal info, context)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

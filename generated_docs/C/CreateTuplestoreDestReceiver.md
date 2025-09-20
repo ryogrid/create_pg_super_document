@@ -13,7 +13,7 @@ DestReceiver *CreateTuplestoreDestReceiver(void)
 This function serves as a factory method for creating tuplestore destination receivers. It allocates memory for a new TStoreState structure and initializes all the callback functions that implement the DestReceiver interface. The receiver can be used by the executor to collect tuples from query execution and store them in a tuplestore data structure. The function sets up all the necessary callbacks but leaves the private fields (like the actual tuplestore reference) to be configured later via SetTuplestoreDestReceiverParams.
 
 ## Parameters / Member Variables
-- No parameters - this is a parameterless factory function
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ void AtPrepare_MultiXact(void)
 This function is called during the prepare phase of two-phase commit transactions to preserve MultiXact-related state that needs to survive across the prepare/commit phases. It specifically saves the current process's OldestMemberMXactId value to the two-phase state file, but only if it represents a valid MultiXact ID. This preserved state is essential for maintaining proper MultiXact visibility and cleanup semantics across transaction boundaries in distributed transactions.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

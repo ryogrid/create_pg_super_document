@@ -15,7 +15,7 @@ static List *database_get_xml_visible_schemas(void)
 This function returns all schemas (namespaces) in the current database that are accessible to the current user and suitable for inclusion in XML output. It excludes system schemas (those starting with 'pg_') and the information_schema. The function uses a predefined SQL query via the XML_VISIBLE_SCHEMAS macro that checks for USAGE privileges on each schema and filters out internal PostgreSQL schemas to provide only user-accessible schemas.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

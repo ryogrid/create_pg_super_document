@@ -15,9 +15,7 @@ Datum brin_bloom_summary_send(PG_FUNCTION_ARGS)
 This function serves as the binary output routine for the brin_bloom_summary data type. Unlike the input functions (brin_bloom_summary_in and brin_bloom_summary_recv) which reject external creation of bloom summary values, this function allows the binary serialization of existing bloom summaries. It leverages the fact that BRIN bloom summaries are internally stored in a binary format compatible with bytea, so it simply delegates the serialization work to PostgreSQL's standard byteasend function.
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Receives a brin_bloom_summary datum to serialize
-- Passes the function call info (fcinfo) directly to byteasend
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

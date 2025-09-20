@@ -21,12 +21,6 @@ This function reads the contents of a specified WAL summary file identified by t
   - Start LSN: Starting log sequence number of the summary file  
   - End LSN: Ending log sequence number of the summary file
 - Returns a set of tuples with 6 attributes (NUM_SUMMARY_ATTS = 6):
-  - Relation number (ObjectId)
-  - Tablespace OID (ObjectId)  
-  - Database OID (ObjectId)
-  - Fork number (int16)
-  - Block number (int64)
-  - Is limit block (boolean)
 
 ## Dependencies
 - Functions called/Symbols referenced:

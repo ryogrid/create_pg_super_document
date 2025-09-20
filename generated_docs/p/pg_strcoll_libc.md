@@ -18,7 +18,6 @@ The  function provides a unified interface for string collation using the operat
 ## Parameters / Member Variables
 - : First null-terminated string to compare, encoded in database encoding
 - : Second null-terminated string to compare, encoded in database encoding  
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

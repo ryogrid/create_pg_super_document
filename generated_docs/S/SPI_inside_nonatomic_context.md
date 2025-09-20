@@ -22,7 +22,7 @@ The function performs three checks:
 The logic matches the behavior of _SPI_commit regarding what constitutes an atomic vs nonatomic context.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

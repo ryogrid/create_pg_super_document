@@ -20,7 +20,7 @@ The function performs an atomic state change by acquiring the slot's spinlock, u
 This operation is particularly important during logical replication setup, where slots are often created as temporary during initial configuration and then converted to persistent once the replication relationship is established and confirmed to be working correctly.
 
 ## Parameters / Member Variables
-- No parameters (operates on the global MyReplicationSlot variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

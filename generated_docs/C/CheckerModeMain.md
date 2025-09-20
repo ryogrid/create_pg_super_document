@@ -18,7 +18,7 @@ CheckerModeMain serves as the main entry point for PostgreSQL's shared memory ch
 This function represents a testing/validation mode rather than a full operational mode, ensuring that PostgreSQL's shared memory subsystem is properly configured before proceeding with normal database operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,7 +16,7 @@ system_user(PG_FUNCTION_ARGS)
 The system_user function implements the SQL SYSTEM_USER function in PostgreSQL. It retrieves the system user name through the GetSystemUser() function and returns it as a PostgreSQL text datum. If no system user is available, the function returns NULL. This function is part of PostgreSQL's security and session management infrastructure, providing information about the authenticated system user for the current session.
 
 ## Parameters / Member Variables
-- This function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS, which contains the function arguments passed from the SQL layer.
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

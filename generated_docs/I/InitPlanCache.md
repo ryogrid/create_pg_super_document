@@ -17,7 +17,7 @@ InitPlanCache is responsible for setting up the plan cache invalidation system d
 The function registers callbacks for both relation cache invalidations (PlanCacheRelCallback) and system cache invalidations (PlanCacheObjectCallback and PlanCacheSysCallback) across multiple catalog types. This ensures that cached plans dependent on specific database objects (tables, procedures, types, namespaces, operators, etc.) are invalidated when those objects are modified, preventing the use of stale or incorrect cached plans.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

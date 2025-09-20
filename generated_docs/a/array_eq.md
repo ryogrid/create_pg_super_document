@@ -23,7 +23,6 @@ The function handles null elements specially: two null elements are considered e
 - Function receives two array arguments via  macro:
   - : First array to compare (argument 0)
   - : Second array to compare (argument 1)
-- Uses collation information from the function call context
 
 ## Dependencies
 - Functions called/Symbols referenced:

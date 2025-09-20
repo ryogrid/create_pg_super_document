@@ -25,10 +25,9 @@ The workspace is dynamically allocated with additional space for arrays of Datum
 The structure is particularly important for handling mixed subscript types (integers for array indices, text for object keys) and for maintaining type information needed during the coercion and conversion processes that occur during subscript evaluation.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the JSONB root value is expected to be an array (set to true when the first subscript is an integer)
-- : Pointer to an array of OIDs representing the data types of the subscript expressions (typically INT4OID for integers or TEXTOID for text)
-- : Pointer to an array of Datum values containing the actual subscript values converted to appropriate format for JSONB operations
-
+- `expectArray`: Boolean flag indicating whether the JSONB root value is expected to be an array (set to true when the first subscript is an integer)
+- `*indexOid`: Pointer to an array of OIDs representing the data types of the subscript expressions (typically INT4OID for integers or TEXTOID for text)
+- `*index`: Pointer to an array of Datum values containing the actual subscript values converted to appropriate format for JSONB operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls from the struct definition)

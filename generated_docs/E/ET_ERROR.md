@@ -18,7 +18,7 @@ enum errortype
 ET_ERROR is one of two enumeration values in the errortype enum used by the ECPG preprocessor to classify different severity levels of diagnostic messages. When ET_ERROR is passed to error reporting functions like mmerror(), it indicates that the condition represents a fatal error that should cause compilation to fail. This is used throughout the ECPG preprocessor to report various parsing errors, type mismatches, invalid syntax, and other conditions that prevent successful code generation.
 
 ## Parameters / Member Variables
-- N/A (This is an enumeration constant)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

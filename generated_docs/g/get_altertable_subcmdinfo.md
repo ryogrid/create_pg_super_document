@@ -20,8 +20,6 @@ The function handles over 40 different ALTER TABLE subcommand types, covering co
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
-  - A CollectedCommand pointer as the first argument (must be an ALTER TABLE command)
-  - ResultInfo context for set-returning function operation
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,9 +15,7 @@ Datum json_agg_strict_transfn(PG_FUNCTION_ARGS)
 This function acts as a wrapper around json_agg_transfn_worker, providing the strict behavior variant for JSON aggregation. It ensures that null input values are completely omitted from the resulting JSON array, creating a more compact result that contains only non-null values. This behavior is useful when null values are not meaningful in the aggregate context and should be filtered out rather than represented as JSON null values.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
-- Passes through all arguments to the worker function
-- Sets absent_on_null to true for strict null-filtering behavior
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

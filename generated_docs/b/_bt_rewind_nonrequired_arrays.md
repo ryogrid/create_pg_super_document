@@ -23,7 +23,6 @@ To maintain correctness, when starting a new primitive scan, all non-required ar
 
 ## Parameters / Member Variables
 - : IndexScanDesc containing the index scan descriptor with array key information
-- 0
 5
 =
 ENTRY_POINTS.md

@@ -17,7 +17,7 @@ This function iterates through the global assignments linked list and deallocate
 As a static function, it's only accessible within the descriptor.c file and serves as an internal cleanup mechanism for the ECPG preprocessor's assignment tracking system.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

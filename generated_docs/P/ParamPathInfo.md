@@ -29,12 +29,11 @@ The structure serves different roles depending on the context. For base relation
 The ppi_serials field contains rinfo_serial numbers for quals enforced by the path and is only maintained for base relations. While this information could be constructed on-the-fly from ppi_clauses, PostgreSQL materializes a copy for efficiency.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : Relids bitmap identifying the outer relations that supply parameters used by this path
-- : Cardinality estimate of the number of result tuples for this parameterization
-- : List of join clauses available from outer relations (only used for base relations)
-- : Bitmapset containing rinfo_serial numbers for quals enforced by this path (base relations only)
-
+- `type`: NodeTag identifier for the structure type
+- `ppi_req_outer`: Relids bitmap identifying the outer relations that supply parameters used by this path
+- `ppi_rows`: Cardinality estimate of the number of result tuples for this parameterization
+- `*ppi_clauses`: List of join clauses available from outer relations (only used for base relations)
+- `*ppi_serials`: Bitmapset containing rinfo_serial numbers for quals enforced by this path (base relations only)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

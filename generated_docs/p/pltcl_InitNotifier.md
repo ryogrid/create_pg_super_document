@@ -20,7 +20,7 @@ The function works by providing a minimal implementation that returns a fake thr
 This hack is particularly important when the Tcl library has been compiled with multithreading support (TCL_THREADS defined on Unix systems, or any Windows compilation), as the default `Tcl_InitNotifier` would attempt to enable multithreading features.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

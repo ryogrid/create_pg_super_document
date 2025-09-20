@@ -15,7 +15,7 @@ XLogFileClose is a static function responsible for properly closing the currentl
 The function includes comprehensive error handling with PANIC-level reporting for close failures, reflecting the critical nature of WAL file operations. Upon successful closure, it resets the global openLogFile variable and releases the external file descriptor to maintain proper resource accounting.
 
 ## Parameters / Member Variables
-- No parameters (operates on global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,11 +21,10 @@ typedef struct unicodeStyleColumnFormat
 This structure contains the Unicode characters used for formatting table columns in PostgreSQL's frontend utilities. It provides characters for vertical lines and various intersection points where vertical and horizontal lines meet. The structure supports different types of column separators and junction points needed for proper table rendering in terminal output with Unicode/UTF-8 characters.
 
 ## Parameters / Member Variables
-- : A pointer to the Unicode character string used for drawing vertical column separator lines
-- : An array of two character string pointers for cross-shaped intersections where vertical and horizontal lines meet, supporting different line styles
-- : An array of two character string pointers for T-shaped intersections where horizontal lines meet a vertical line from above
-- : An array of two character string pointers for inverted T-shaped intersections where horizontal lines meet a vertical line from below
-
+- `*vertical`: A pointer to the Unicode character string used for drawing vertical column separator lines
+- `*vertical_and_horizontal[2]`: An array of two character string pointers for cross-shaped intersections where vertical and horizontal lines meet, supporting different line styles
+- `*up_and_horizontal[2]`: An array of two character string pointers for T-shaped intersections where horizontal lines meet a vertical line from above
+- `*down_and_horizontal[2]`: An array of two character string pointers for inverted T-shaped intersections where horizontal lines meet a vertical line from below
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure definition)

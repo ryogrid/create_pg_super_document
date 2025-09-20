@@ -15,7 +15,7 @@ Datum pg_ls_logicalsnapdir(PG_FUNCTION_ARGS)
 This function provides access to the contents of PostgreSQL's logical replication snapshots directory (pg_logical/snapshots), which contains snapshot files used by logical replication. These snapshot files store the state of database transactions at specific points in time and are crucial for logical replication slots to maintain consistency when decoding WAL changes. Unlike other directory listing functions, this one sets the show_size parameter to false, indicating that file sizes are not included in the output. The snapshots directory contains files that represent consistent states of the database for logical replication purposes.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

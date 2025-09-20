@@ -17,10 +17,6 @@ This function is a dispatcher that creates different types of target file system
 
 ## Parameters / Member Variables
 - : Pointer to a file_entry_t structure containing file metadata and action information
-  - Must have action set to FILE_ACTION_CREATE
-  - Must have target_exists set to false
-  - source_type determines which creation function is called
-  - For symlinks, source_link_target provides the link target path
 
 ## Dependencies
 - Functions called/Symbols referenced:

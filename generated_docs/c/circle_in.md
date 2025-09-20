@@ -22,8 +22,6 @@ The parser handles various delimiter combinations, whitespace, and parenthesis n
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function arguments, containing:
-  - Input string (accessed via PG_GETARG_CSTRING(0))
-  - Error context information for proper error reporting
 
 ## Dependencies
 - Functions called/Symbols referenced:

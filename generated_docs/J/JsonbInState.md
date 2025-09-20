@@ -21,11 +21,10 @@ typedef struct JsonbInState
 JsonbInState serves as a context structure that maintains the state during JSONB input processing operations. It encapsulates the parsing state, result storage, configuration options, and error handling context needed for converting various input formats into JSONB representation. This structure is extensively used throughout the JSONB input/output functions and aggregate operations to track parsing progress and maintain consistency during complex JSONB construction operations.
 
 ## Parameters / Member Variables
-- : Pointer to JsonbParseState that tracks the current parsing state and manages the construction of JSONB containers
-- : Pointer to JsonbValue that holds the final result of the parsing/construction operation
-- : Boolean flag indicating whether duplicate keys should be eliminated during object construction
-- : Pointer to Node structure used for error context handling and reporting
-
+- `*parseState`: Pointer to JsonbParseState that tracks the current parsing state and manages the construction of JSONB containers
+- `*res`: Pointer to JsonbValue that holds the final result of the parsing/construction operation
+- `unique_keys`: Boolean flag indicating whether duplicate keys should be eliminated during object construction
+- `*escontext`: Pointer to Node structure used for error context handling and reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbParseState](JsonbParseState.md)

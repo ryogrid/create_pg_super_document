@@ -24,10 +24,9 @@ The structure also maintains the activation status of the commit timestamp featu
 Access to this structure is protected by CommitTsLock, though in some specific cases, the commitTsActive field may be read without acquiring the lock when performance considerations outweigh strict consistency requirements (such cases are documented with rationale comments in the code).
 
 ## Parameters / Member Variables
-- : A TransactionId representing the transaction ID of the most recently committed transaction
-- : A CommitTimestampEntry containing the complete timestamp and origin information for the most recently committed transaction
-- : A boolean flag indicating whether commit timestamp tracking is currently active in the system
-
+- `xidLastCommit`: A TransactionId representing the transaction ID of the most recently committed transaction
+- `dataLastCommit`: A CommitTimestampEntry containing the complete timestamp and origin information for the most recently committed transaction
+- `commitTsActive`: A boolean flag indicating whether commit timestamp tracking is currently active in the system
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (type)

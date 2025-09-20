@@ -16,7 +16,7 @@ ShutdownWalRcv(void)
 This function implements a coordinated shutdown of the WAL receiver process. It uses a state machine approach to handle different WAL receiver states appropriately - immediately stopping processes in STARTING state, requesting shutdown for active processes (STREAMING, WAITING, RESTARTING), and waiting for processes already in STOPPING state. For active processes, it sends a SIGTERM signal and then waits for acknowledgment via condition variables. The function ensures complete cleanup by waiting until WalRcvRunning() returns false.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

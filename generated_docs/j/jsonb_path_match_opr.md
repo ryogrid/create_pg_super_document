@@ -19,8 +19,6 @@ The function delegates to `jsonb_path_match_internal` with timezone handling dis
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
-  - JSONB value (left operand)
-  - JSONPath expression as text (right operand)
 
 ## Dependencies
 - Functions called/Symbols referenced:

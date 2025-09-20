@@ -15,7 +15,7 @@ void AsyncShmemInit(void)
 The `AsyncShmemInit` function performs the crucial initialization of shared memory components for the LISTEN/NOTIFY asynchronous messaging system. It creates or attaches to the AsyncQueueControl structure, which manages the notification queue and backend status information. When initializing for the first time (indicated by `!found`), it sets up initial queue positions, clears backend tracking arrays, and initializes the SLRU buffer management system. The function also configures the pg_notify SLRU system with appropriate page precedence logic and cleans up any existing notification files during startup.
 
 ## Parameters / Member Variables
-- No parameters - void function
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

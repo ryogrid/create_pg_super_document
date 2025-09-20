@@ -56,25 +56,24 @@ The structure supports namespace handling for XML documents, column type specifi
 Many fields are marked with pg_node_attr(query_jumble_ignore) to exclude them from query fingerprinting, as they represent metadata rather than core query logic.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL's node system type identification
-- : TableFuncType enum indicating XMLTABLE or JSON_TABLE
-- : List of namespace URI expressions for XML namespace handling
-- : List of namespace names (String nodes or NULL for DEFAULT)
-- : Expression providing the input document to process
-- : Expression for filtering/selecting rows from the document
-- : List of String nodes containing output column names
-- : List of OIDs representing the data types of output columns
-- : List of integers specifying type modifiers for columns
-- : List of OIDs specifying collation for each column
-- : List of expressions for extracting/computing column values
-- : List of default value expressions for columns
-- : JSON_TABLE specific: column value extraction expressions
-- : JSON_TABLE specific: PASSING clause argument expressions
-- : Bitmapset indicating which columns are NOT NULL
-- : JSON_TABLE specific: execution plan node
-- : Index of ordinality column (0-based, -1 if none)
-- : Parse location in original query for error reporting
-
+- `type`: Standard NodeTag for PostgreSQL's node system type identification
+- `functype`: TableFuncType enum indicating XMLTABLE or JSON_TABLE
+- `pg_node_attr(query_jumble_ignore)`: List of namespace URI expressions for XML namespace handling
+- `pg_node_attr(query_jumble_ignore)`: List of namespace names (String nodes or NULL for DEFAULT)
+- `*docexpr`: Expression providing the input document to process
+- `*rowexpr`: Expression for filtering/selecting rows from the document
+- `pg_node_attr(query_jumble_ignore)`: List of String nodes containing output column names
+- `pg_node_attr(query_jumble_ignore)`: List of OIDs representing the data types of output columns
+- `pg_node_attr(query_jumble_ignore)`: List of integers specifying type modifiers for columns
+- `pg_node_attr(query_jumble_ignore)`: List of OIDs specifying collation for each column
+- `*colexprs`: List of expressions for extracting/computing column values
+- `pg_node_attr(query_jumble_ignore)`: List of default value expressions for columns
+- `pg_node_attr(query_jumble_ignore)`: JSON_TABLE specific: column value extraction expressions
+- `pg_node_attr(query_jumble_ignore)`: JSON_TABLE specific: PASSING clause argument expressions
+- `pg_node_attr(query_jumble_ignore)`: Bitmapset indicating which columns are NOT NULL
+- `pg_node_attr(query_jumble_ignore)`: JSON_TABLE specific: execution plan node
+- `pg_node_attr(query_jumble_ignore)`: Index of ordinality column (0-based, -1 if none)
+- `location`: Parse location in original query for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)

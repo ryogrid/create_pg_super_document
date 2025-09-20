@@ -19,7 +19,6 @@ The simplehash system is designed to generate "templated" hash table implementat
 The generated hash table structure includes a 64-bit size field to handle very large tables, membership counters, size masks for efficient bucket calculations, growth thresholds for dynamic resizing, and the actual data array containing hash elements. This design supports Robin Hood hashing with linear probing for optimal performance characteristics.
 
 ## Parameters / Member Variables
-- No direct parameters (macro definition)
 - When instantiated, the resulting SH_TYPE structure contains:
   - `size`: 64-bit size of data/bucket array to handle UINT32_MAX sized hash tables
   - `members`: Number of elements with valid contents

@@ -20,7 +20,7 @@ The function is typically used in scenarios where multiple database sessions nee
 - Ensuring consistency across distributed operations
 
 ## Parameters / Member Variables
-- Takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

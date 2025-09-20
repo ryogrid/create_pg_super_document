@@ -21,9 +21,8 @@ The relopt_bool structure represents a boolean relation option definition in Pos
 This structure is used to define boolean options that can be set on database objects like tables, indexes, and other relations. Examples might include options like "autovacuum_enabled" or "toast.compression" that have true/false semantics.
 
 ## Parameters / Member Variables
-- : The base relopt_gen structure containing common option metadata (name, description, kinds, lockmode, namelen, type)
-- : The default boolean value to use when this option is not explicitly specified by the user
-
+- `gen`: The base relopt_gen structure containing common option metadata (name, description, kinds, lockmode, namelen, type)
+- `default_val`: The default boolean value to use when this option is not explicitly specified by the user
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relopt_gen](relopt_gen.md)

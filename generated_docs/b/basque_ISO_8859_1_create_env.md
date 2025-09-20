@@ -13,7 +13,6 @@ extern struct SN_env * basque_ISO_8859_1_create_env(void)
 This function serves as a constructor for the Basque stemming environment using ISO-8859-1 character encoding. It creates a new SN_env structure by calling the generic SN_create_env function with parameters specific to Basque language requirements. The function allocates memory and initializes the necessary data structures for performing Basque stemming operations, including buffer space and region markers.
 
 ## Parameters / Member Variables
-- None (void function)
 - Returns: Pointer to newly created SN_env structure configured for Basque stemming
 
 ## Dependencies

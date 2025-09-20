@@ -18,7 +18,6 @@ This function implements the output conversion for the TIMESTAMP data type (with
 The conversion process involves checking for special values first, then breaking down finite timestamps into their component parts (year, month, day, hour, minute, second, microseconds) and formatting them according to the current DateStyle setting. The output format respects PostgreSQL's configuration settings for date and time display.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's fmgr calling convention (PG_FUNCTION_ARGS)
 -  (arg 0): Internal timestamp value to be converted to string format
 
 ## Dependencies

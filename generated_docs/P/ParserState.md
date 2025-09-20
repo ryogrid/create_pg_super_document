@@ -22,10 +22,9 @@ ParserState is a simple state management structure used by PostgreSQL's test tex
 This structure is part of a test module that demonstrates how to implement a custom text search parser for PostgreSQL's full-text search functionality. The parser distinguishes between word tokens and blank space tokens, advancing through the text buffer character by character.
 
 ## Parameters / Member Variables
-- : Pointer to the text string that is being parsed. This is the input text that the parser will tokenize.
-- : The total length of the text stored in the buffer, used for bounds checking during parsing.
-- : The current parsing position within the buffer, indicating where the parser is currently positioned in the text.
-
+- `lexid`: Pointer to the text string that is being parsed. This is the input text that the parser will tokenize.
+- `*alias`: The total length of the text stored in the buffer, used for bounds checking during parsing.
+- `*descr`: The current parsing position within the buffer, indicating where the parser is currently positioned in the text.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This structure itself doesn't call functions, but serves as a data container)

@@ -63,22 +63,21 @@ This structure is stored in shared memory and protected by a spinlock mutex to e
 The struct is designed to support both physical and logical replication through the ReplicationKind field, and integrates with PostgreSQL's synchronous replication infrastructure through the sync_standby_priority field.
 
 ## Parameters / Member Variables
-- : Process ID of the walsender process; 0 indicates an inactive slot
-- : Current state of the walsender (WalSndState enum values like WALSNDSTATE_STARTUP, WALSNDSTATE_STREAMING, etc.)
-- : WAL location up to which data has been sent to the standby
-- : Flag indicating whether the currently open WAL file needs to be reloaded (used for WAL file rotation)
-- : WAL location confirmed as written by the standby server
-- : WAL location confirmed as flushed to disk by the standby server
-- : WAL location confirmed as applied/replayed by the standby server
-- : Measured time lag for write acknowledgments (-1 if unknown)
-- : Measured time lag for flush acknowledgments (-1 if unknown)
-- : Measured time lag for apply acknowledgments (-1 if unknown)
-- : Priority in synchronous_standby_names list (0 if not listed)
-- : Spinlock protecting shared variables in this structure
-- : Pointer to walsender's latch for inter-process communication (NULL if inactive)
-- : Timestamp of the last message received from the standby
-- : Type of replication (physical or logical)
-
+- `pid`: Process ID of the walsender process; 0 indicates an inactive slot
+- `state`: Current state of the walsender (WalSndState enum values like WALSNDSTATE_STARTUP, WALSNDSTATE_STREAMING, etc.)
+- `sentPtr`: WAL location up to which data has been sent to the standby
+- `needreload`: Flag indicating whether the currently open WAL file needs to be reloaded (used for WAL file rotation)
+- `write`: WAL location confirmed as written by the standby server
+- `flush`: WAL location confirmed as flushed to disk by the standby server
+- `apply`: WAL location confirmed as applied/replayed by the standby server
+- `writeLag`: Measured time lag for write acknowledgments (-1 if unknown)
+- `flushLag`: Measured time lag for flush acknowledgments (-1 if unknown)
+- `applyLag`: Measured time lag for apply acknowledgments (-1 if unknown)
+- `sync_standby_priority`: Priority in synchronous_standby_names list (0 if not listed)
+- `mutex`: Spinlock protecting shared variables in this structure
+- `*latch`: Pointer to walsender's latch for inter-process communication (NULL if inactive)
+- `replyTime`: Timestamp of the last message received from the standby
+- `kind`: Type of replication (physical or logical)
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t

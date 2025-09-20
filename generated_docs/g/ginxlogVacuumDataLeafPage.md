@@ -20,7 +20,6 @@ The ginxlogVacuumDataLeafPage structure is used as part of WAL logging when vacu
 ## Parameters / Member Variables
 - `data`: A ginxlogRecompressDataLeaf structure containing:
   - `nactions`: Number of recompression actions to perform
-  - Variable number of action records follow (containing segment numbers, action types, and action-specific data)
 
 ## Dependencies
 - Functions called/Symbols referenced:

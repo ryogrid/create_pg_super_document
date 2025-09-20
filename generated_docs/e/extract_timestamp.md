@@ -15,7 +15,6 @@ Datum extract_timestamp(PG_FUNCTION_ARGS)
 The `extract_timestamp` function is a PostgreSQL SQL-callable function that extracts specific date/time components from timestamp values. It serves as the backend implementation for the `EXTRACT()` SQL function when operating on timestamp (without time zone) values. The function acts as a wrapper that calls the shared implementation `timestamp_part_common` with the `retnumeric` parameter set to `true`, indicating that results should be returned as numeric types for higher precision rather than floating-point numbers.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention (`PG_FUNCTION_ARGS`)
 - Arguments are accessed through the `fcinfo` structure:
   - Argument 0: Text field name (e.g., 'year', 'month', 'day', 'hour', etc.)
   - Argument 1: Timestamp value to extract from

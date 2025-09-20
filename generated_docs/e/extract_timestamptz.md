@@ -17,7 +17,6 @@ The `extract_timestamptz` function is a PostgreSQL SQL-callable function that ex
 Like `timestamptz_part`, this function handles timezone-aware timestamps and can extract timezone-specific fields, but provides numeric precision for applications requiring exact decimal representations, particularly important for fractional seconds and epoch time calculations.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention (`PG_FUNCTION_ARGS`)
 - Arguments are accessed through the `fcinfo` structure:
   - Argument 0: Text field name (e.g., 'year', 'month', 'day', 'timezone', 'epoch', etc.)
   - Argument 1: TimestampTz value to extract from

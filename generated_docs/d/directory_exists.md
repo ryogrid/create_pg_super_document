@@ -17,7 +17,7 @@ The  function uses the POSIX  system call to retrieve file system information ab
 This function is part of the PostgreSQL regression testing infrastructure and provides a reliable way to verify directory existence before attempting directory operations.
 
 ## Parameters / Member Variables
-- 0
+
 1
 3.2
 5

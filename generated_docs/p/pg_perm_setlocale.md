@@ -19,7 +19,6 @@ The function handles platform-specific differences, particularly for Windows whe
 
 ## Parameters / Member Variables
 - : The locale category to change (LC_COLLATE, LC_CTYPE, LC_MESSAGES, LC_MONETARY, LC_NUMERIC, LC_TIME)
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

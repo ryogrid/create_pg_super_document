@@ -23,7 +23,7 @@ The function performs these key operations:
 This operation ensures that all current WAL data is flushed to the current file before starting a new one, making it particularly useful for backup operations that need clean WAL file boundaries.
 
 ## Parameters / Member Variables
-- No parameters (uses  macro for SQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

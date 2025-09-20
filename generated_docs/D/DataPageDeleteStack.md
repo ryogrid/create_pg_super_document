@@ -24,12 +24,11 @@ typedef struct DataPageDeleteStack
 The DataPageDeleteStack structure implements a stack-like data structure that maintains parent-child relationships during GIN posting tree traversal for page deletion. It serves as a navigation aid when scanning through posting tree levels to identify pages that can be safely deleted during vacuum operations. Each stack entry represents a level in the posting tree hierarchy, with the structure maintaining both upward (parent) and downward (child) links to facilitate tree traversal. The structure also tracks buffer management information to ensure proper locking and pinning of pages during the deletion process.
 
 ## Parameters / Member Variables
-- : Pointer to the child level DataPageDeleteStack entry (one level deeper in the tree)
-- : Pointer to the parent level DataPageDeleteStack entry (one level higher in the tree) 
-- : Block number of the current page being processed at this level
-- : Buffer containing the rightmost non-deleted page to the left of the current position, kept pinned and locked for reference
-- : Boolean flag indicating whether this stack entry represents the root level of the posting tree
-
+- `*child`: Pointer to the child level DataPageDeleteStack entry (one level deeper in the tree)
+- `*parent`: Pointer to the parent level DataPageDeleteStack entry (one level higher in the tree)
+- `blkno`: Block number of the current page being processed at this level
+- `leftBuffer`: Buffer containing the rightmost non-deleted page to the left of the current position, kept pinned and locked for reference
+- `isRoot`: Boolean flag indicating whether this stack entry represents the root level of the posting tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DataPageDeleteStack](DataPageDeleteStack.md) (self-references for linked list structure)

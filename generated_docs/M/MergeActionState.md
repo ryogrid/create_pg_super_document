@@ -25,11 +25,10 @@ MergeActionState represents the execution state for individual actions within a 
 The structure contains references to the associated parser node, projection information for computing target list values, and expression state for evaluating the WHEN clause conditions.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : Pointer to the associated MergeAction node from the parse tree
-- : ProjectionInfo for projecting the action's targetlist for this relation
-- : Expression state for evaluating WHEN [NOT] MATCHED AND conditions
-
+- `type`: NodeTag identifier for the structure type
+- `*mas_action`: Pointer to the associated MergeAction node from the parse tree
+- `*mas_proj`: ProjectionInfo for projecting the action's targetlist for this relation
+- `*mas_whenqual`: Expression state for evaluating WHEN [NOT] MATCHED AND conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

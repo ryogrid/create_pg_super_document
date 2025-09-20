@@ -24,7 +24,7 @@ The function implements a safety mechanism for SQL execution that ensures there'
 The function is critical for maintaining PostgreSQL's MVCC semantics in complex execution scenarios where transaction boundaries can occur within statement execution (like in procedures).
 
 ## Parameters / Member Variables
-- None (operates on global portal and snapshot state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

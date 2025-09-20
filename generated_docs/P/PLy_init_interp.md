@@ -16,7 +16,7 @@ PLy_init_interp(void)
 This function sets up the Python interpreter's global namespace for PL/Python operations. It imports the Python '__main__' module, establishes global dictionaries for PL/Python execution, and creates a safe globals dictionary accessible as 'GD' within PL/Python procedures. The function is designed to be called only once during the initialization process and handles the critical task of preparing the Python execution environment within PostgreSQL's context.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

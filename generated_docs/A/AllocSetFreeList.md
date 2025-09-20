@@ -23,9 +23,8 @@ The system maintains two static freelist arrays () - one for default parameters 
 When an AllocSetContext is deleted via , if it qualifies for freelisting, it gets added to the appropriate freelist instead of being immediately destroyed. Later, when  needs a new context, it first checks the freelist for a suitable recycled context before allocating a new one.
 
 ## Parameters / Member Variables
-- : An integer tracking the current number of free contexts in this particular freelist
-- : A pointer to the first AllocSetContext in the linked list of free contexts, serving as the list header
-
+- `num_free`: An integer tracking the current number of free contexts in this particular freelist
+- `*first_free`: A pointer to the first AllocSetContext in the linked list of free contexts, serving as the list header
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AllocSetContext](AllocSetContext.md) (referenced as pointer type for the linked list)

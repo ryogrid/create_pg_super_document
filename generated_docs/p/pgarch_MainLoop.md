@@ -21,7 +21,6 @@ pgarch_MainLoop implements the core control loop for the PostgreSQL archiver bac
 The loop continues until either the postmaster dies or a graceful shutdown is requested via SIGUSR2. The archiver is designed to be proactive, waking up periodically to check for new WAL files even when no explicit signals are received.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Local variables:
   - : Boolean flag indicating when to exit the main loop
 

@@ -22,10 +22,9 @@ ExceptionMap is a structure used by PostgreSQL's PL/Python extension to maintain
 The structure is used to populate an array of exception mappings that are automatically generated from PostgreSQL's backend/utils/errcodes.txt file. These mappings enable the PL/Python extension to convert PostgreSQL error conditions into appropriate Python exceptions that can be caught and handled by Python stored procedures and functions.
 
 ## Parameters / Member Variables
-- : A string containing the name of the PostgreSQL error condition
-- : A string containing the corresponding Python exception class name
-- : An integer representing the PostgreSQL SQL state error code
-
+- `*name`: A string containing the name of the PostgreSQL error condition
+- `*classname`: A string containing the corresponding Python exception class name
+- `sqlstate`: An integer representing the PostgreSQL SQL state error code
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used in static array  in plpy_plpymodule.c:53

@@ -33,10 +33,6 @@ The algorithm ensures proper morphological analysis by respecting region boundar
 
 ## Parameters / Member Variables
 - : Pointer to the SN_env stemming environment structure containing:
-  - The input word to be stemmed
-  - Cursor positions and boundaries
-  - Region markers (R1, R2)
-  - Integer variables for state tracking
 
 ## Dependencies
 - Functions called/Symbols referenced:

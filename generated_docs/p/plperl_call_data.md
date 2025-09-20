@@ -29,14 +29,13 @@ The structure serves dual purposes: basic function execution (using prodesc and 
 The tmp_cxt memory context provides a scratch space that can be reset between function calls or used for temporary allocations during execution, ensuring clean memory management without affecting the longer-lived procedure cache.
 
 ## Parameters / Member Variables
-- : Pointer to the cached plperl_proc_desc containing the compiled function information and metadata
-- : PostgreSQL's FunctionCallInfo structure containing call arguments, context, and result information
-- : Tuplestore for accumulating results from set-returning functions (NULL for regular functions)
-- : Tuple descriptor defining the structure of returned tuples for set-returning functions
-- : OID of domain type when returning domain-over-composite types (0 for regular composite returns)
-- : Cached domain constraint information for validation of domain-over-composite returns
-- : Temporary memory context for scratch allocations during function execution
-
+- `*prodesc`: Pointer to the cached plperl_proc_desc containing the compiled function information and metadata
+- `fcinfo`: PostgreSQL's FunctionCallInfo structure containing call arguments, context, and result information
+- `*tuple_store`: Tuplestore for accumulating results from set-returning functions (NULL for regular functions)
+- `ret_tdesc`: Tuple descriptor defining the structure of returned tuples for set-returning functions
+- `cdomain_oid`: OID of domain type when returning domain-over-composite types (0 for regular composite returns)
+- `*cdomain_info`: Cached domain constraint information for validation of domain-over-composite returns
+- `tmp_cxt`: Temporary memory context for scratch allocations during function execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [plperl_proc_desc](plperl_proc_desc.md) (procedure descriptor reference)

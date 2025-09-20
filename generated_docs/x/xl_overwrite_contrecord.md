@@ -21,9 +21,8 @@ xl_overwrite_contrecord is a WAL record structure used to log instances where a 
 Continuation records are used when a single logical WAL record spans multiple WAL pages. When recovery encounters an incomplete continuation record, it may need to overwrite it with new data, and this structure logs that event with the XLOG_OVERWRITE_CONTRECORD record type (0xD0). This logging helps maintain WAL integrity and provides audit information about when and where overwrites occurred.
 
 ## Parameters / Member Variables
-- : The LSN (Log Sequence Number) location where the continuation record was overwritten
-- : Timestamp (with timezone) indicating when the overwrite operation occurred
-
+- `overwritten_lsn`: The LSN (Log Sequence Number) location where the continuation record was overwritten
+- `overwrite_time`: Timestamp (with timezone) indicating when the overwrite operation occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (WAL record pointer type)

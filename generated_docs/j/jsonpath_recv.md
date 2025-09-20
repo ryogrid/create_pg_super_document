@@ -20,7 +20,6 @@ Currently, only version 1 of the binary format is supported, which transmits the
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
   - : StringInfo buffer containing the binary-encoded jsonpath data
-  - Version byte followed by the text representation of the JSON path expression
 
 ## Dependencies
 - Functions called/Symbols referenced:

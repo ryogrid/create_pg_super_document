@@ -22,12 +22,11 @@ typedef struct stemmer_module
 The  structure serves as a registry entry for Snowball stemmer algorithms in PostgreSQL's text search functionality. Each instance represents a specific stemmer for a particular language and encoding combination. The structure encapsulates all necessary information to instantiate, use, and clean up a stemmer environment. It's used in conjunction with the  macro to create static arrays of available stemmers that can be looked up by name and encoding at runtime.
 
 ## Parameters / Member Variables
-- : Constant string containing the name identifier of the stemmer (e.g., "english", "russian")
-- : PostgreSQL encoding type () that this stemmer supports
-- : Function pointer to create and initialize a new Snowball environment for this stemmer
-- : Function pointer to clean up and destroy a Snowball environment
-- : Function pointer to perform the actual stemming operation on words in the environment
-
+- `*name`: Constant string containing the name identifier of the stemmer (e.g., "english", "russian")
+- `enc`: PostgreSQL encoding type () that this stemmer supports
+- `(void)`: Function pointer to create and initialize a new Snowball environment for this stemmer
+- `*)`: Function pointer to clean up and destroy a Snowball environment
+- `*)`: Function pointer to perform the actual stemming operation on words in the environment
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_enc](../p/pg_enc.md) (PostgreSQL encoding enumeration)

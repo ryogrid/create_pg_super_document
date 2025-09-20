@@ -23,13 +23,12 @@ typedef struct SortBy
 SortBy nodes are fundamental components of PostgreSQL's ORDER BY clause processing. Each SortBy node represents one sorting key in an ORDER BY clause, containing the expression to sort on, the sorting direction (ASC/DESC), null value ordering preferences (NULLS FIRST/LAST), and optional custom operator specifications for advanced sorting. The structure supports both standard sorting (ASC/DESC) and custom operator-based sorting (USING clause). These nodes are created during parsing and later transformed into execution plan sorting specifications.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a SortBy node
-- : Pointer to the expression that should be evaluated for sorting (can be column references, function calls, etc.)
-- : Enumeration specifying sort direction - ASC (ascending), DESC (descending), USING (custom operator), or default
-- : Enumeration specifying how NULL values should be ordered - NULLS FIRST or NULLS LAST
-- : List containing the name of the operator to use when sortby_dir is SORTBY_USING, NULL otherwise
-- : Parse location of the sort operator in the original query text, or -1 if unknown
-
+- `type`: Standard NodeTag identifying this as a SortBy node
+- `*node`: Pointer to the expression that should be evaluated for sorting (can be column references, function calls, etc.)
+- `sortby_dir`: Enumeration specifying sort direction - ASC (ascending), DESC (descending), USING (custom operator), or default
+- `sortby_nulls`: Enumeration specifying how NULL values should be ordered - NULLS FIRST or NULLS LAST
+- `*useOp`: List containing the name of the operator to use when sortby_dir is SORTBY_USING, NULL otherwise
+- `location`: Parse location of the sort operator in the original query text, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)

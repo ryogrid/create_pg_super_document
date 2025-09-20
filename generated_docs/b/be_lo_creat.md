@@ -15,7 +15,6 @@ Datum be_lo_creat(PG_FUNCTION_ARGS)
 This function implements the backend support for PostgreSQL's lo_creat() large object function. It creates a new large object with an automatically assigned OID by calling inv_create with InvalidOid, which instructs the system to generate a unique identifier. The function includes read-only transaction protection and sets up cleanup tracking for proper resource management.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PostgreSQL's PG_FUNCTION_ARGS mechanism)
 - Returns: OID of the newly created large object
 
 ## Dependencies

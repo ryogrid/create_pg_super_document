@@ -17,7 +17,7 @@ This function is called during server startup after shared_preload_libraries hav
 The function uses the GUC system to re-set the wal_consistency_checking parameter, which triggers the full validation and assignment process again. This ensures that custom resource managers that are now loaded can be properly recognized and configured for consistency checking.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

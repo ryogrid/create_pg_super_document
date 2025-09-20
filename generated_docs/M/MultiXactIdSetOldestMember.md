@@ -23,7 +23,7 @@ Key implementation details:
 This mechanism is crucial for maintaining consistency in MultiXactId operations and preventing race conditions in concurrent transaction scenarios.
 
 ## Parameters / Member Variables
-- No parameters (operates on global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

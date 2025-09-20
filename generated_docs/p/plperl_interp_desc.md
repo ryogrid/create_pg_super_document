@@ -25,10 +25,9 @@ This structure encapsulates the state and resources associated with a Perl inter
 The interpreters are stored in a hash table indexed by userid OID and are kept for the entire process lifetime. The system employs a "held interpreter" strategy that allows preloading Perl code at postmaster startup via plperl.on_init, which can then be utilized by backends for improved performance.
 
 ## Parameters / Member Variables
-- : OID serving as the hash key for the interpreter lookup table (OID 0 for untrusted interpreter, actual user OID for trusted interpreters)
-- : Pointer to the actual PerlInterpreter instance that executes Perl code
-- : Hash table containing plperl_query_entry structures for managing prepared queries within this interpreter context
-
+- `user_id`: OID serving as the hash key for the interpreter lookup table (OID 0 for untrusted interpreter, actual user OID for trusted interpreters)
+- `*interp`: Pointer to the actual PerlInterpreter instance that executes Perl code
+- `*query_hash`: Hash table containing plperl_query_entry structures for managing prepared queries within this interpreter context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (PostgreSQL hash table type)

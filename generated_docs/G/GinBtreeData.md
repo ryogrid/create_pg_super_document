@@ -45,26 +45,25 @@ typedef struct GinBtreeData
 GinBtreeData implements a polymorphic interface for GIN B-tree operations through function pointers, allowing both entry trees and data trees to share common navigation and modification algorithms while providing type-specific implementations. The structure combines operational methods with context information, supporting both search operations and tree modifications. It distinguishes between entry trees (which store keys) and data trees (posting trees, which store item pointers) through the isData flag and provides appropriate search keys for each type.
 
 ## Parameters / Member Variables
-- : Function pointer to locate appropriate child page during tree descent
-- : Function pointer to find the leftmost child page at a given level
-- : Function pointer to determine if right-link following is needed
-- : Function pointer to locate specific items within a page
-- : Function pointer to find child page pointer within an internal page
-- : Function pointer to initiate page insertion/split operations
-- : Function pointer to execute page modification operations
-- : Function pointer to prepare downlink data for parent updates
-- : Function pointer to populate a new root page after splits
-- : Boolean flag indicating whether this is a data tree (true) or entry tree (false)
-- : Relation object representing the GIN index
-- : Block number of the tree's root page
-- : Pointer to GinState structure (not used during data scans)
-- : Boolean indicating whether a full scan is being performed
-- : Boolean indicating whether this is during index build
-- : Attribute number for entry tree searches
-- : Search key value for entry tree operations
-- : Null category for the entry key
-- : Item pointer data for data tree searches
-
+- `*)`: Function pointer to locate appropriate child page during tree descent
+- `Page)`: Function pointer to find the leftmost child page at a given level
+- `Page)`: Function pointer to determine if right-link following is needed
+- `*)`: Function pointer to locate specific items within a page
+- `OffsetNumber)`: Function pointer to find child page pointer within an internal page
+- `*)`: Function pointer to initiate page insertion/split operations
+- `*)`: Function pointer to execute page modification operations
+- `Buffer)`: Function pointer to prepare downlink data for parent updates
+- `Page)`: Function pointer to populate a new root page after splits
+- `isData`: Boolean flag indicating whether this is a data tree (true) or entry tree (false)
+- `index`: Relation object representing the GIN index
+- `rootBlkno`: Block number of the tree's root page
+- `*ginstate`: Pointer to GinState structure (not used during data scans)
+- `fullScan`: Boolean indicating whether a full scan is being performed
+- `isBuild`: Boolean indicating whether this is during index build
+- `entryAttnum`: Attribute number for entry tree searches
+- `entryKey`: Search key value for entry tree operations
+- `entryCategory`: Null category for the entry key
+- `itemptr`: Item pointer data for data tree searches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinBtree](GinBtree.md) (parameter type for function pointers)

@@ -74,13 +74,12 @@ FuncCallContext is the core structure for implementing Set Returning Functions (
 The structure provides both automatic state management (call counters, memory context) and optional fields for user-defined state, tuple construction metadata, and call limits. It enables efficient implementation of functions that process large datasets by avoiding the need to materialize all results in memory at once.
 
 ## Parameters / Member Variables
-- : Automatically incremented counter tracking how many times the function has been called (initialized to 0)
-- : Optional field to specify maximum number of expected calls; used for early termination checks
-- : Generic void pointer for storing user-defined context data that persists across function calls
-- : Pointer to AttInMetadata structure for efficient tuple construction from C strings using BuildTupleFromCStrings()
-- : Memory context for allocations that must persist across multiple function calls; automatically managed by SRF infrastructure
-- : TupleDesc for constructing tuples using heap_form_tuple(); should be blessed with BlessTupleDesc()
-
+- `call_cntr`: Automatically incremented counter tracking how many times the function has been called (initialized to 0)
+- `max_calls`: Optional field to specify maximum number of expected calls; used for early termination checks
+- `*user_fctx`: Generic void pointer for storing user-defined context data that persists across function calls
+- `*attinmeta`: Pointer to AttInMetadata structure for efficient tuple construction from C strings using BuildTupleFromCStrings()
+- `multi_call_memory_ctx`: Memory context for allocations that must persist across multiple function calls; automatically managed by SRF infrastructure
+- `tuple_desc`: TupleDesc for constructing tuples using heap_form_tuple(); should be blessed with BlessTupleDesc()
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AttInMetadata](../A/AttInMetadata.md) (struct type)

@@ -33,11 +33,8 @@ When position data is requested (for phrase queries), the function aggregates po
 
 ## Parameters / Member Variables
 - **checkval**: Void pointer to CHKVAL structure containing tsvector access data
-  - Cast internally to access WordEntry array bounds and string data
 - **val**: QueryOperand structure specifying the search criteria
-  - Contains the operand string, length, distance offset, prefix flag, and weight restrictions
 - **data**: Optional ExecPhraseData structure for position information collection
-  - NULL if positions are not needed, populated with matching positions if provided
 
 ## Dependencies
 - Functions called/Symbols referenced:

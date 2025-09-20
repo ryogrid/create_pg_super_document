@@ -16,7 +16,7 @@ initialize_acl(void)
 The `initialize_acl` function is called during PostgreSQL initialization (specifically by InitPostgres) to set up the ACL subsystem. It performs two main tasks: first, it caches the hash value of the current database OID for efficient access control checking, and second, it registers callback functions to handle cache invalidation when role membership or database information changes. The function only performs these operations when not in bootstrap processing mode, as the full catalog system is not available during bootstrap. The cache callbacks ensure that role membership information stays current when the underlying pg_auth_members, pg_authid, or pg_database system catalogs are modified.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

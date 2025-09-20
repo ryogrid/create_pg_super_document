@@ -25,7 +25,6 @@ The function enforces that it can only be called once per function invocation se
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to:
   - `fcinfo`: Function call information structure
-  - Function parameters and context
 
 ## Dependencies
 - Functions called/Symbols referenced:

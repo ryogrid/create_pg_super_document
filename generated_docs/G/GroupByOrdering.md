@@ -23,10 +23,9 @@ GroupByOrdering is a data structure that contains an ordered list of GROUP BY cl
 The structure enforces a specific relationship between its two main components: the elements in the 'clauses' list must maintain the same order as the head of the 'pathkeys' list. Additionally, the tleSortGroupRef of each clause should match the ec_sortref of the corresponding pathkey's equivalence class. When there are redundant clauses with identical tleSortGroupRef values, they must be grouped together to maintain consistency.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : List of pathkeys representing the sort order useful for grouping operations
-- : List of GROUP BY clauses ordered to correspond with the pathkeys
-
+- `type`: NodeTag identifier for the structure type
+- `*pathkeys`: List of pathkeys representing the sort order useful for grouping operations
+- `*clauses`: List of GROUP BY clauses ordered to correspond with the pathkeys
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

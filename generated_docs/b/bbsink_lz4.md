@@ -32,12 +32,11 @@ This sink compresses backup archives and manifest data using the LZ4 compression
 The implementation is conditionally compiled and only available when PostgreSQL is built with LZ4 support (USE_LZ4 preprocessor macro).
 
 ## Parameters / Member Variables
-- : Base  structure containing common sink functionality including operation callbacks, buffer management, and state tracking
-- : Integer specifying the LZ4 compression level to use for compressing the backup data
-- : LZ4 compression context handle used by the LZ4 frame API for maintaining compression state across multiple data chunks
-- : LZ4 compression preferences structure that configures compression parameters such as block size, checksum options, and compression level
-- : Size counter tracking the number of bytes that have been staged in the output buffer for the current operation
-
+- `base`: Base  structure containing common sink functionality including operation callbacks, buffer management, and state tracking
+- `compresslevel`: Integer specifying the LZ4 compression level to use for compressing the backup data
+- `ctx`: LZ4 compression context handle used by the LZ4 frame API for maintaining compression state across multiple data chunks
+- `prefs`: LZ4 compression preferences structure that configures compression parameters such as block size, checksum options, and compression level
+- `bytes_written`: Size counter tracking the number of bytes that have been staged in the output buffer for the current operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - bbsink (base structure)

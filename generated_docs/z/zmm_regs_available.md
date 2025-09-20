@@ -23,7 +23,7 @@ The bitmask 0xe6 represents these required bits. All these bits must be set (hen
 The function requires XSAVE intrinsics to be available and returns false if they are not supported at compile time.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

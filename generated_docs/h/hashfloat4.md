@@ -15,7 +15,6 @@ Datum hashfloat4(PG_FUNCTION_ARGS)
 The `hashfloat4` function computes hash values for single-precision floating-point numbers (float4) with careful handling of IEEE floating-point special cases. The function first checks for zero values (including negative zero) and returns a consistent hash value of 0. For non-zero values, it widens the float4 to float8 to ensure cross-type hashing compatibility - meaning that equivalent float4 and float8 values produce the same hash. It also normalizes NaN values to a standard float8 NaN representation before hashing. The final hash computation uses the generic `hash_any` function on the 8-byte representation.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's function argument macros (`PG_FUNCTION_ARGS`)
 - `key`: The input float4 value obtained via `PG_GETARG_FLOAT4(0)`
 - `key8`: The widened float8 representation used for consistent hashing
 

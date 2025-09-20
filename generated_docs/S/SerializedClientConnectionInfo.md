@@ -21,9 +21,8 @@ SerializedClientConnectionInfo provides a compact, serializable format for stori
 The design follows PostgreSQL's pattern for serializable structures: fixed-size fields are stored directly in the struct, while variable-length fields (like authentication identifiers) are stored as separate data following the struct, with their lengths encoded in the fixed portion.
 
 ## Parameters / Member Variables
-- : Length of the authentication identifier string, or -1 if the authn_id is NULL. This allows the deserializer to determine whether an authentication identifier is present and how much space to allocate for it.
-- : The authentication method used by the client, stored as a UserAuth enum value representing the specific authentication mechanism (e.g., trust, md5, scram-sha-256, etc.).
-
+- `authn_id_len`: Length of the authentication identifier string, or -1 if the authn_id is NULL. This allows the deserializer to determine whether an authentication identifier is present and how much space to allocate for it.
+- `auth_method`: The authentication method used by the client, stored as a UserAuth enum value representing the specific authentication mechanism (e.g., trust, md5, scram-sha-256, etc.).
 ## Dependencies
 - Functions called/Symbols referenced:
   - UserAuth (enum type from libpq/hba.h)

@@ -30,9 +30,6 @@ The parser supports:
 
 ## Parameters / Member Variables
 - : Pointer to TParser structure containing:
-  - Current parsing state and position information
-  - Input string data and character encoding details
-  - Token extraction state and stack management
 
 ## Dependencies
 - Functions called/Symbols referenced:

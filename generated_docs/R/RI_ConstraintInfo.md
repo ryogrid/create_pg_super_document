@@ -40,27 +40,26 @@ typedef struct RI_ConstraintInfo
 RI_ConstraintInfo serves as a cached representation of foreign key constraint metadata to optimize referential integrity checking operations. This structure contains all necessary information about a foreign key relationship, including the participating tables, column mappings, constraint actions, and operator information needed for equality comparisons. The structure supports constraint inheritance through the constraint_root_id field and maintains hash values for efficient cache lookups.
 
 ## Parameters / Member Variables
-- : OID of the pg_constraint entry, used as the hash key for cache lookup
-- : Boolean flag indicating whether the constraint info was successfully initialized
-- : OID of the topmost ancestor constraint in inheritance hierarchies
-- : Pre-computed hash value of constraint_id for cache efficiency
-- : Pre-computed hash value of constraint_root_id for cache efficiency
-- : Name of the foreign key constraint
-- : OID of the referenced (primary key) relation
-- : OID of the referencing (foreign key) relation
-- : Character code for the ON UPDATE action (e.g., 'a' for NO ACTION, 'c' for CASCADE)
-- : Character code for the ON DELETE action (e.g., 'a' for NO ACTION, 'c' for CASCADE)
-- : Number of columns referenced in ON DELETE SET clause
-- : Array of attribute numbers for columns to set on delete
-- : Foreign key match type (e.g., 'f' for FULL, 'p' for PARTIAL, 's' for SIMPLE)
-- : Number of key columns in the constraint
-- : Array of attribute numbers for referenced columns
-- : Array of attribute numbers for referencing columns
-- : Array of equality operators for primary key to foreign key comparisons
-- : Array of equality operators for primary key to primary key comparisons
-- : Array of equality operators for foreign key to foreign key comparisons
-- : Linked list node for maintaining list of valid cache entries
-
+- `constraint_id`: OID of the pg_constraint entry, used as the hash key for cache lookup
+- `valid`: Boolean flag indicating whether the constraint info was successfully initialized
+- `constraint_root_id`: OID of the topmost ancestor constraint in inheritance hierarchies
+- `oidHashValue`: Pre-computed hash value of constraint_id for cache efficiency
+- `rootHashValue`: Pre-computed hash value of constraint_root_id for cache efficiency
+- `conname`: Name of the foreign key constraint
+- `pk_relid`: OID of the referenced (primary key) relation
+- `fk_relid`: OID of the referencing (foreign key) relation
+- `confupdtype`: Character code for the ON UPDATE action (e.g., 'a' for NO ACTION, 'c' for CASCADE)
+- `confdeltype`: Character code for the ON DELETE action (e.g., 'a' for NO ACTION, 'c' for CASCADE)
+- `ndelsetcols`: Number of columns referenced in ON DELETE SET clause
+- `confdelsetcols[RI_MAX_NUMKEYS]`: Array of attribute numbers for columns to set on delete
+- `confmatchtype`: Foreign key match type (e.g., 'f' for FULL, 'p' for PARTIAL, 's' for SIMPLE)
+- `nkeys`: Number of key columns in the constraint
+- `pk_attnums[RI_MAX_NUMKEYS]`: Array of attribute numbers for referenced columns
+- `fk_attnums[RI_MAX_NUMKEYS]`: Array of attribute numbers for referencing columns
+- `pf_eq_oprs[RI_MAX_NUMKEYS]`: Array of equality operators for primary key to foreign key comparisons
+- `pp_eq_oprs[RI_MAX_NUMKEYS]`: Array of equality operators for primary key to primary key comparisons
+- `ff_eq_oprs[RI_MAX_NUMKEYS]`: Array of equality operators for foreign key to foreign key comparisons
+- `valid_link`: Linked list node for maintaining list of valid cache entries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NameData](../N/NameData.md)

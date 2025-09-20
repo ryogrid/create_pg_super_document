@@ -26,16 +26,15 @@ typedef struct IndexElem
 IndexElem is a fundamental structure in PostgreSQL's parser nodes that represents individual elements (columns or expressions) to be indexed. It can represent either a simple column index (where name is specified and expr is NULL) or an expression index (where expr is specified and name is NULL). The structure encapsulates all the necessary information for creating an index on a particular element, including collation rules, operator classes, sorting preferences, and null handling behavior.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this node type
-- : Name of the table column to index (NULL for expression indexes)
-- : Expression tree to index (NULL for simple column indexes)
-- : Custom name for the index column (NULL uses default naming)
-- : List specifying the collation to use (NIL for default)
-- : List specifying the desired operator class (NIL for default)
-- : Operator class-specific options (NIL if none)
-- : Sort direction specification (ASC/DESC/default)
-- : NULL value ordering specification (FIRST/LAST/default)
-
+- `type`: NodeTag identifier for this node type
+- `*name`: Name of the table column to index (NULL for expression indexes)
+- `*expr`: Expression tree to index (NULL for simple column indexes)
+- `*indexcolname`: Custom name for the index column (NULL uses default naming)
+- `*collation`: List specifying the collation to use (NIL for default)
+- `*opclass`: List specifying the desired operator class (NIL for default)
+- `*opclassopts`: Operator class-specific options (NIL if none)
+- `ordering`: Sort direction specification (ASC/DESC/default)
+- `nulls_ordering`: NULL value ordering specification (FIRST/LAST/default)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SortByDir](../S/SortByDir.md) (enum for ordering direction)

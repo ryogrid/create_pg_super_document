@@ -16,7 +16,7 @@ PGTYPESdecimal_new(void)
 The `PGTYPESdecimal_new` function serves as the primary constructor for creating new decimal values in PostgreSQL's ECPG pgtypes library. This function is specifically designed to provide Informix compatibility within the PostgreSQL ecosystem. Unlike the more complex numeric type, the decimal type uses a simpler fixed-size structure that can be completely initialized with a simple memory clear operation. The function allocates memory for the decimal structure and ensures it's properly zeroed out, providing a clean initial state ready for value assignment.
 
 ## Parameters / Member Variables
-- (no parameters - void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

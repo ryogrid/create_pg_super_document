@@ -23,9 +23,8 @@ This iterator is specifically designed for read-only traversal - modifications t
 The  field is included as an optimization to avoid multiple evaluations of arguments in the foreach macros, improving both performance and safety by ensuring the iteration boundaries are established once at the beginning of the traversal.
 
 ## Parameters / Member Variables
-- : Pointer to the current  being processed during iteration
-- : Pointer to the last  that will be processed in this iteration, used to determine when to stop
-
+- `*cur`: Pointer to the current  being processed during iteration
+- `*end`: Pointer to the last  that will be processed in this iteration, used to determine when to stop
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (used for both cur and end members)

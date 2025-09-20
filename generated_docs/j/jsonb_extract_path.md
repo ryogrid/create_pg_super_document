@@ -16,8 +16,6 @@ The  function serves as a wrapper that extracts values from JSONB data structure
 
 ## Parameters / Member Variables
 - Uses PostgreSQL's standard function call interface () which contains:
-  - The JSONB input data
-  - Variable number of path elements specifying the extraction path
 
 ## Dependencies
 - Functions called/Symbols referenced:

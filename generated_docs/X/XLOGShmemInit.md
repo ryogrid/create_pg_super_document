@@ -15,7 +15,7 @@ void XLOGShmemInit(void)
 This function performs comprehensive initialization of the XLOG shared memory structures. It creates or attaches to shared memory segments for the main XLOG control structure (XLogCtl) and control file data. The function handles both first-time initialization and reattachment scenarios. During initialization, it sets up WAL insertion locks, xlblocks array for tracking buffer states, page buffers with proper alignment, and various atomic variables and spin locks used for coordination between processes. The function also moves locally-read control file data into shared memory and initializes debugging contexts when WAL_DEBUG is enabled.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

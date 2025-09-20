@@ -25,15 +25,10 @@ The enum covers various ways of setting configuration variables: assigning speci
 
 ## Parameters / Member Variables
 - : Standard variable assignment using the "SET variable = value" syntax. This is the most common form of setting configuration parameters to specific values.
-
 - : Setting a variable to its default value using "SET variable TO DEFAULT" syntax. While semantically equivalent to RESET, it's distinguished for command tag purposes.
-
 - : Setting a variable using the current session's value with "SET variable FROM CURRENT" syntax. This allows copying the current session value to the local transaction scope.
-
 - : Special case for complex SET TRANSACTION statements that can set multiple transaction characteristics in a single command (e.g., isolation level, read-only mode, deferrable mode).
-
 - : Resetting a single variable to its default value using "RESET variable" syntax. Functionally equivalent to VAR_SET_DEFAULT but uses different SQL syntax.
-
 - : Resetting all configuration parameters to their default values using "RESET ALL" syntax. This is a bulk operation affecting all settable parameters.
 
 ## Dependencies

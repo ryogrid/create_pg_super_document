@@ -18,7 +18,7 @@ This function is part of PostgreSQL's event trigger DDL command collection syste
 The function performs a safety check by returning early if  is NULL, ensuring it only operates when event triggers are actually active.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

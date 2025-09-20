@@ -42,7 +42,6 @@ Each phase uses test-and-restore mechanisms to ensure proper cursor positioning,
   - : Length of the word being processed
   - : Lower bound marker for processing operations
   - , , : Region boundary markers
-  - Internal state for pattern matching and character classification
 
 ## Dependencies
 - Functions called/Symbols referenced:

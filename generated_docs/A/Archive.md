@@ -64,7 +64,6 @@ The Archive structure serves as the core abstraction for PostgreSQL dump and res
 - `exit_on_error`: Flag controlling whether to exit immediately on SQL errors
 - `n_errors`: Counter tracking the number of errors encountered
 - `is_prepared`: Array tracking prepared query status indexed by query type enum
-- Additional private members not exposed in the public interface
 
 ## Dependencies
 - Functions called/Symbols referenced:

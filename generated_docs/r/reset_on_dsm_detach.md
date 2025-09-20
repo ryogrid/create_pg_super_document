@@ -21,7 +21,7 @@ This function performs cleanup of on-detach callback registrations for all activ
 This function is typically called during process cleanup scenarios where callbacks should not be executed but their registrations need to be cleared to avoid memory leaks.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

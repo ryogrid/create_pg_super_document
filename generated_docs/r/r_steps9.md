@@ -25,9 +25,6 @@ The function includes sophisticated character validation using bitwise operation
 
 ## Parameters / Member Variables
 - `z`: Pointer to SN_env structure containing the stemming environment, including:
-  - String buffer and cursor positions (c, ket, bra, l, lb)
-  - Character array p for string content
-  - Integer array I[0] for state tracking
 
 ## Dependencies
 - Functions called/Symbols referenced:

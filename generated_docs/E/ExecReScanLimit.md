@@ -23,7 +23,6 @@ The function ensures proper ordering by recomputing limits before rescanning the
 
 ## Parameters / Member Variables
 - : Pointer to the LimitState structure representing the LIMIT node being rescanned
-  - Contains the plan state, limit/offset expressions, current values, and state machine information
 
 ## Dependencies
 - Functions called/Symbols referenced:

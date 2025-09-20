@@ -25,10 +25,9 @@ BrinOptions is a varlena structure that encapsulates configuration options for B
 The structure follows PostgreSQL's varlena convention, making it suitable for storage as relation options. It's processed by the brinoptions() function during index creation and option changes.
 
 ## Parameters / Member Variables
-- : Standard varlena header for variable-length data structures (managed by PostgreSQL's varlena infrastructure)
-- : Number of heap pages that each BRIN index tuple summarizes (BlockNumber type)
-- : Boolean flag indicating whether the index should automatically create summaries for new page ranges
-
+- `vl_len_`: Standard varlena header for variable-length data structures (managed by PostgreSQL's varlena infrastructure)
+- `pagesPerRange`: Number of heap pages that each BRIN index tuple summarizes (BlockNumber type)
+- `autosummarize`: Boolean flag indicating whether the index should automatically create summaries for new page ranges
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type dependency)

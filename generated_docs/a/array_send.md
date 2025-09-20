@@ -18,7 +18,7 @@ array_send is the binary send function for PostgreSQL arrays, responsible for se
 The serialization process involves writing array header information (dimensions, null flag, element type, dimension sizes and bounds), followed by individual elements using element-specific send procedures. NULL elements are represented with a special -1 length marker, while non-null elements include their data length followed by the actual binary data. The function ensures proper memory management by freeing temporary bytea objects created during element serialization.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro - the array is retrieved via PG_GETARG_ANY_ARRAY_P(0)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

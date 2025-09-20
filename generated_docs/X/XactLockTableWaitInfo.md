@@ -22,10 +22,9 @@ XactLockTableWaitInfo serves as a context structure for transaction lock waiting
 When a transaction needs to wait for another transaction (for example, when trying to update a tuple that's being modified by another transaction), this struct holds the contextual information that allows PostgreSQL to provide meaningful error messages to users about what operation is being blocked and which specific tuple is involved.
 
 ## Parameters / Member Variables
-- : The type of operation that needs to wait (XLTW_Oper enum value), indicating what kind of operation is being blocked
-- : The relation (table) containing the tuple being waited for
-- : ItemPointer to the specific tuple (identified by its TID - tuple identifier) that is being waited for
-
+- `oper`: The type of operation that needs to wait (XLTW_Oper enum value), indicating what kind of operation is being blocked
+- `rel`: The relation (table) containing the tuple being waited for
+- `ctid`: ItemPointer to the specific tuple (identified by its TID - tuple identifier) that is being waited for
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLTW_Oper](XLTW_Oper.md) (enum type for operation specification)

@@ -16,7 +16,7 @@ test_slru_shmem_request(void)
 This function serves as a shmem_request_hook callback in the test_slru module. It is responsible for requesting shared memory space needed for the test SLRU (Simple LRU) buffer management system during PostgreSQL's shared memory initialization phase. The function first calls any previously registered shared memory request hook to maintain the hook chain, then calculates and requests the appropriate amount of shared memory for the test SLRU buffers using the SimpleLruShmemSize function.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

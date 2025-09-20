@@ -18,7 +18,6 @@ The function specifically filters for regular files only (not directories or spe
 
 ## Parameters / Member Variables
 - : Function call information structure containing result set details
-- 0
 5
 =
 COPYRIGHT

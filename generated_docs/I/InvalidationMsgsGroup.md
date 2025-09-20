@@ -23,9 +23,8 @@ The structure defines logical boundaries within the InvalMessageArrays, allowing
 Each group represents a range of messages in the corresponding InvalMessageArray, where firstmsg[i] points to the first message in subgroup i, and nextmsg[i] points to one position past the last message (following the standard C convention for ranges).
 
 ## Parameters / Member Variables
-- : Array containing the first index in the relevant message array for each subgroup (0=CatCacheMsgs, 1=RelCacheMsgs)
-- : Array containing the last+1 index (exclusive end boundary) for each subgroup, following C convention where the range is [firstmsg, nextmsg)
-
+- `firstmsg[2]`: Array containing the first index in the relevant message array for each subgroup (0=CatCacheMsgs, 1=RelCacheMsgs)
+- `nextmsg[2]`: Array containing the last+1 index (exclusive end boundary) for each subgroup, following C convention where the range is [firstmsg, nextmsg)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references - used as a data container)

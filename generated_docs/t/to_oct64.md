@@ -17,9 +17,7 @@ The `to_oct64` function is a PostgreSQL SQL-callable function that takes a 64-bi
 Like its 32-bit counterpart `to_oct32`, this function serves as a wrapper around the internal `convert_to_base` utility function, specifically configured for base-8 conversion. It handles the full range of 64-bit integer values, making it suitable for converting large integers that exceed the 32-bit range while maintaining the compact octal representation.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using `PG_FUNCTION_ARGS`
 - Expects one argument: a 64-bit integer value accessed via `PG_GETARG_INT64(0)`
-- The input is explicitly cast to `uint64` to ensure unsigned interpretation during conversion
 
 ## Dependencies
 - Functions called/Symbols referenced:

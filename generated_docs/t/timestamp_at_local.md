@@ -21,7 +21,6 @@ The existence of this wrapper is necessitated by PostgreSQL's grammar requiremen
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Input timestamp without timezone (Timestamp)
 
 ## Dependencies
 - Functions called/Symbols referenced:

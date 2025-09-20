@@ -18,7 +18,7 @@ handle_sigint is a static signal handler function designed to handle SIGINT (int
 The function first sets the CancelRequested flag to true, then calls a user-defined callback function if one is registered. If a cancel connection is available (cancelConn is not NULL), it uses PQcancel to send a cancellation request to the PostgreSQL server. The function provides user feedback by writing appropriate messages to stderr, indicating whether the cancellation was sent successfully or failed.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro for signal handler parameters (typically int signum)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,8 +17,6 @@ The `tsquery_phrase_distance` function is a PostgreSQL built-in function that pe
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro containing:
-  - Two TSQuery inputs (the queries to combine with phrase search)
-  - One int32 distance parameter (maximum allowed distance between terms)
 
 ## Dependencies
 - Functions called/Symbols referenced:

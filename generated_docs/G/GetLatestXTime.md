@@ -15,7 +15,7 @@ TimestampTz GetLatestXTime(void)
 This function fetches the timestamp of the most recently processed commit or abort record from the shared XLogRecoveryCtl structure. It provides thread-safe access to the recoveryLastXTime field by using spinlock protection. The function is designed to be callable from various processes, including the checkpointer and other backend processes that need to know the timestamp of the latest transaction processed during recovery.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

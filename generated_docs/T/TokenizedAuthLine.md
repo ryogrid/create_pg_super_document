@@ -22,12 +22,11 @@ typedef struct TokenizedAuthLine
 TokenizedAuthLine is an intermediate representation created during the parsing of PostgreSQL authentication configuration files (pg_hba.conf and pg_ident.conf). It represents a single line that has been lexically analyzed and broken down into structured token fields. Each line is tokenized into a list of field groups, where each field group contains one or more AuthToken structures. This structure serves as the bridge between raw configuration text and the final parsed authentication rules (HbaLine or IdentLine structures). The structure includes comprehensive metadata for error reporting and debugging, including the source file name, line number, original text, and any error messages that occurred during tokenization.
 
 ## Parameters / Member Variables
-- : List of lists of AuthTokens representing the structured token groups for this line. Each sub-list contains tokens that belong to the same logical field
-- : Name of the configuration file where this line originated (pg_hba.conf or pg_ident.conf)
-- : Line number within the source file for error reporting and debugging purposes
-- : Original unparsed line text as it appeared in the configuration file
-- : Error message string if tokenization failed, NULL if parsing was successful
-
+- `*fields`: List of lists of AuthTokens representing the structured token groups for this line. Each sub-list contains tokens that belong to the same logical field
+- `*file_name`: Name of the configuration file where this line originated (pg_hba.conf or pg_ident.conf)
+- `line_num`: Line number within the source file for error reporting and debugging purposes
+- `*raw_line`: Original unparsed line text as it appeared in the configuration file
+- `*err_msg`: Error message string if tokenization failed, NULL if parsing was successful
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list data structure)

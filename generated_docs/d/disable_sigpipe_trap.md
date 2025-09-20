@@ -19,7 +19,7 @@ In PostgreSQL frontend utilities, this is critical when writing query output to 
 The function is conditionally compiled and only has effect on Unix-like systems. On Windows, it's a no-op since Windows doesn't have SIGPIPE signals.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

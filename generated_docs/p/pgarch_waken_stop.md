@@ -15,7 +15,7 @@ pgarch_waken_stop serves as the signal handler for SIGUSR2 in the PostgreSQL arc
 This function is part of PostgreSQL's graceful shutdown mechanism for the archiver background process, allowing the system to cleanly terminate archiving operations without losing data or leaving the archive in an inconsistent state.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which provides standard signal handler parameters (signal number, etc.)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

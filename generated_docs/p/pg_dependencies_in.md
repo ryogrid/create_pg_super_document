@@ -18,8 +18,7 @@ The function is part of PostgreSQL's type system infrastructure for the pg_depen
 When called, the function immediately raises an error with ERRCODE_FEATURE_NOT_SUPPORTED, preventing any attempt to convert textual input into a pg_dependencies value. This design pattern is common for PostgreSQL internal types that should not accept user input.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro (standard PostgreSQL function calling convention)
-- No specific parameters as input is not actually processed
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

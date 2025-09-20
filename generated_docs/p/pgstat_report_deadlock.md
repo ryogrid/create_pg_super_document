@@ -15,7 +15,7 @@ void pgstat_report_deadlock(void)
 This function is called whenever a deadlock is detected in the PostgreSQL system to increment the deadlock counter for the current database. It provides a simple mechanism for tracking deadlock occurrences as part of the database's statistical information. The function operates only when statistics tracking is enabled and updates the deadlock count in the pending database statistics entry. This information is valuable for database administrators to monitor deadlock frequency and identify potential concurrency issues.
 
 ## Parameters / Member Variables
-- This function takes no parameters
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

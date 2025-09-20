@@ -78,19 +78,18 @@ typedef struct JsonExprState
 JsonExprState contains the execution state for JSON path expressions, which are used to extract and manipulate data from JSON documents using JSONPath queries. This structure is too large to be inlined within other execution structures and manages complex evaluation scenarios including error handling (ON ERROR clauses), empty result handling (ON EMPTY clauses), type coercion to RETURNING types, and efficient step-based execution control. The structure supports PostgreSQL's SQL/JSON functionality, enabling advanced JSON querying capabilities within SQL statements.
 
 ## Parameters / Member Variables
-- : Pointer to the original JsonExpr node containing the JSON path expression definition
-- : NullableDatum holding the formatted JSON expression input and its null status
-- : NullableDatum containing the JSONPath specification string and its null status
-- : List of JsonPathVariable entries representing variables passed to the JSON path evaluation
-- : Output flag set to true if JSONPath evaluation encounters an error (reset per evaluation)
-- : Output flag set to true if JSONPath evaluation returns zero items (reset per evaluation)  
-- : Step address for implementing non-ERROR ON EMPTY behavior
-- : Step address for implementing non-ERROR ON ERROR behavior
-- : Step address for result value coercion to RETURNING type (-1 if no coercion needed)
-- : Step address to jump to when skipping post-evaluation steps for direct result return
-- : Function call info for RETURNING type input function when using I/O coercion
-- : Error context for safe evaluation of coercions when ON ERROR behavior is not ERROR
-
+- `*jsexpr`: Pointer to the original JsonExpr node containing the JSON path expression definition
+- `formatted_expr`: NullableDatum holding the formatted JSON expression input and its null status
+- `pathspec`: NullableDatum containing the JSONPath specification string and its null status
+- `*args`: List of JsonPathVariable entries representing variables passed to the JSON path evaluation
+- `error`: Output flag set to true if JSONPath evaluation encounters an error (reset per evaluation)
+- `empty`: Output flag set to true if JSONPath evaluation returns zero items (reset per evaluation)
+- `jump_empty`: Step address for implementing non-ERROR ON EMPTY behavior
+- `jump_error`: Step address for implementing non-ERROR ON ERROR behavior
+- `jump_eval_coercion`: Step address for result value coercion to RETURNING type (-1 if no coercion needed)
+- `jump_end`: Step address to jump to when skipping post-evaluation steps for direct result return
+- `input_fcinfo`: Function call info for RETURNING type input function when using I/O coercion
+- `escontext`: Error context for safe evaluation of coercions when ON ERROR behavior is not ERROR
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonExpr

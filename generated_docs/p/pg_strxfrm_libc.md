@@ -26,7 +26,6 @@ The transformation generates binary sort keys that can be compared using simple 
 - : Buffer to store the transformed string (sort key)
 - : Source string to transform (must be null-terminated)
 - : Size of the destination buffer
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

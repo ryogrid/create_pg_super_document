@@ -22,7 +22,7 @@ The handler sets a global flag (pending_pm_pmsignal) and wakes up the postmaster
 The function follows PostgreSQL's pattern of minimal signal handlers that defer actual work to the main event loop.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which expands to the standard signal handler parameters (typically int sig)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

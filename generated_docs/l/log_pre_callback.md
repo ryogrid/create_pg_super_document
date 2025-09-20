@@ -18,7 +18,7 @@ This function serves as a pre-logging callback that is called before any log mes
 The function checks if there is an active query output stream (pset.queryFout) and if it's different from stdout, it flushes the stream to ensure all buffered output is written before any log message appears.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

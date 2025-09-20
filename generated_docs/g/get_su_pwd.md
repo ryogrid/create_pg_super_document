@@ -22,7 +22,6 @@ This function is a critical component of the PostgreSQL initdb utility that hand
 The function performs comprehensive error handling including file access validation, empty file detection, and read error reporting. Upon successful password acquisition, it stores the result in the global  variable for later use during database initialization.
 
 ## Parameters / Member Variables
-- No parameters (static function operating on global variables)
 - Uses global variables:
   - : Boolean flag determining input method
   - : Path to password file when not prompting

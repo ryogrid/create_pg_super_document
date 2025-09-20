@@ -31,15 +31,14 @@ The indexorderbycols field provides a corresponding list of integer column numbe
 Cost information is preserved in indextotalcost and indexselectivity to avoid recomputation when considering the same index for bitmap index/heap scans, while the Path's own costs represent IndexScan or IndexOnlyScan plan costs.
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information
-- : Pointer to IndexOptInfo describing the index to be scanned
-- : List of IndexClause nodes representing index-checkable restrictions (empty for full scan)
-- : List of ORDER BY expressions usable as ordering operators (NIL if none)
-- : Integer list of index column numbers corresponding to indexorderbys
-- : ScanDirection enum (ForwardScanDirection or BackwardScanDirection)
-- : Cost of the index access operation
-- : Selectivity estimate for the index conditions
-
+- `path`: Base Path structure containing common path information
+- `*indexinfo`: Pointer to IndexOptInfo describing the index to be scanned
+- `*indexclauses`: List of IndexClause nodes representing index-checkable restrictions (empty for full scan)
+- `*indexorderbys`: List of ORDER BY expressions usable as ordering operators (NIL if none)
+- `*indexorderbycols`: Integer list of index column numbers corresponding to indexorderbys
+- `indexscandir`: ScanDirection enum (ForwardScanDirection or BackwardScanDirection)
+- `indextotalcost`: Cost of the index access operation
+- `indexselectivity`: Selectivity estimate for the index conditions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base path structure)

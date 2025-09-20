@@ -19,7 +19,6 @@ For 6-byte inputs, the function performs the standard EUI-48 to EUI-64 conversio
 The function expects the bytes in network byte order (big-endian) and reads them sequentially using the `pq_getmsgbyte` function, which is part of PostgreSQL's message processing infrastructure.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function calling convention via `PG_FUNCTION_ARGS`
 - `buf`: StringInfo buffer containing the binary MAC address data (accessed via `PG_GETARG_POINTER(0)`)
 
 ## Dependencies

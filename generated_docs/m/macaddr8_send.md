@@ -19,7 +19,6 @@ The function uses PostgreSQL's type send infrastructure (`pq_begintypsend`, `pq_
 Unlike the text output function which formats the address as a colon-separated string, this function produces a compact 8-byte binary representation suitable for network transmission when binary protocol mode is enabled.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function calling convention via `PG_FUNCTION_ARGS`
 - `addr`: Input macaddr8 structure containing the 8-byte MAC address (accessed via `PG_GETARG_MACADDR8_P(0)`)
 
 ## Dependencies

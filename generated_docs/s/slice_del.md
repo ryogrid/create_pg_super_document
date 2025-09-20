@@ -23,7 +23,6 @@ The function operates on the Snowball environment structure which maintains the 
   - : The working string buffer
   - : Start position of the current slice
   - : End position of the current slice
-  - Other state variables for string manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,7 +19,7 @@ This function returns a selectivity value of 0.001 (0.1%), which is the most con
 The very low selectivity value acknowledges that containment relationships are relatively rare in typical geometric datasets, especially when compared to other spatial relationships like positional comparisons or even overlaps.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function argument macro `PG_FUNCTION_ARGS` which provides access to function call context and arguments, though this specific function doesn't examine any arguments
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

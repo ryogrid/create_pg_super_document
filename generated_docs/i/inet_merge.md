@@ -15,7 +15,6 @@ Datum inet_merge(PG_FUNCTION_ARGS)
 This function takes two inet addresses and returns the smallest CIDR (Classless Inter-Domain Routing) network that encompasses both addresses. It first validates that both addresses belong to the same address family (IPv4 or IPv6), then calculates the number of common leading bits between the two addresses. The result is a new CIDR network with the mask length set to the number of common bits, effectively creating the minimal supernet that contains both input addresses.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function argument mechanism `PG_FUNCTION_ARGS`
 - First argument: inet address (accessed via `PG_GETARG_INET_PP(0)`)
 - Second argument: inet address (accessed via `PG_GETARG_INET_PP(1)`)
 

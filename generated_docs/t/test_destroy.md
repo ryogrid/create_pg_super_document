@@ -18,9 +18,7 @@ This function performs comprehensive cleanup of the TidStore testing environment
 The function follows PostgreSQL's memory management practices by using pfree() to release dynamically allocated memory and sets the tidstore pointer to NULL to prevent accidental reuse after destruction.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Operates on global  and  structures
-- Resets global state including tidstore pointer and item counts
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

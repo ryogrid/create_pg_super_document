@@ -23,11 +23,10 @@ PublicationActions is a simple structure that serves as a configuration containe
 This structure is fundamental to PostgreSQL's logical replication system, as it determines the scope of data changes that will be sent from publishers to subscribers. The structure is used throughout the publication management system to store, validate, and apply publication operation filters.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether INSERT operations should be published
-- : Boolean flag indicating whether UPDATE operations should be published  
-- : Boolean flag indicating whether DELETE operations should be published
-- : Boolean flag indicating whether TRUNCATE operations should be published
-
+- `pubinsert`: Boolean flag indicating whether INSERT operations should be published
+- `pubupdate`: Boolean flag indicating whether UPDATE operations should be published
+- `pubdelete`: Boolean flag indicating whether DELETE operations should be published
+- `pubtruncate`: Boolean flag indicating whether TRUNCATE operations should be published
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)

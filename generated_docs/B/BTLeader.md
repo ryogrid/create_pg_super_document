@@ -46,15 +46,14 @@ BTLeader serves as the coordinator structure for the leader process in parallel 
 The structure includes pointers to both primary and secondary shared tuplesort states, with the secondary state used specifically for unique index builds. It also maintains tracking information for WAL and buffer usage statistics across all participants.
 
 ## Parameters / Member Variables
-- : Pointer to the parallel context managing the parallel execution
-- : Exact number of worker processes successfully launched, plus one if the leader participates as a worker (excludes leader in DISABLE_LEADER_PARTICIPATION builds)
-- : Pointer to the BTShared structure containing shared state for the entire build
-- : Pointer to the shared tuplesort-managed state passed to each process tuplesort
-- : Pointer to the corresponding btspool2 shared state, used only when building unique indexes
-- : The snapshot used by the scan if an MVCC snapshot is required
-- : Pointer to WAL usage statistics tracking structure
-- : Pointer to buffer usage statistics tracking structure
-
+- `*pcxt`: Pointer to the parallel context managing the parallel execution
+- `nparticipanttuplesorts`: Exact number of worker processes successfully launched, plus one if the leader participates as a worker (excludes leader in DISABLE_LEADER_PARTICIPATION builds)
+- `*btshared`: Pointer to the BTShared structure containing shared state for the entire build
+- `*sharedsort`: Pointer to the shared tuplesort-managed state passed to each process tuplesort
+- `*sharedsort2`: Pointer to the corresponding btspool2 shared state, used only when building unique indexes
+- `snapshot`: The snapshot used by the scan if an MVCC snapshot is required
+- `*walusage`: Pointer to WAL usage statistics tracking structure
+- `*bufferusage`: Pointer to buffer usage statistics tracking structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelContext](../P/ParallelContext.md)

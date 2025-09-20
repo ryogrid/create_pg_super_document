@@ -25,13 +25,12 @@ RewriteRule represents a single rewrite rule within PostgreSQL's rule system. Th
 The rule system allows PostgreSQL to automatically rewrite queries based on predefined rules. This is the fundamental mechanism behind views, where SELECT queries on views are rewritten to query the underlying base tables.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) that uniquely identifies this rule in the system catalogs
-- : The type of command that triggers this rule (SELECT, INSERT, UPDATE, DELETE)
-- : A qualification (WHERE clause) that determines when the rule should be applied; NULL if always applicable
-- : A list of actions (queries) to be executed when the rule fires
-- : Character indicating whether the rule is enabled ('O' for origin, 'R' for replica, 'A' for always, 'D' for disabled)
-- : Boolean flag indicating whether this is an INSTEAD rule (replaces the original query) or an ALSO rule (executes in addition)
-
+- `ruleId`: The object identifier (OID) that uniquely identifies this rule in the system catalogs
+- `event`: The type of command that triggers this rule (SELECT, INSERT, UPDATE, DELETE)
+- `*qual`: A qualification (WHERE clause) that determines when the rule should be applied; NULL if always applicable
+- `*actions`: A list of actions (queries) to be executed when the rule fires
+- `enabled`: Character indicating whether the rule is enabled ('O' for origin, 'R' for replica, 'A' for always, 'D' for disabled)
+- `isInstead`: Boolean flag indicating whether this is an INSTEAD rule (replaces the original query) or an ALSO rule (executes in addition)
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType

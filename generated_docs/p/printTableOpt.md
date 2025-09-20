@@ -48,31 +48,30 @@ typedef struct printTableOpt
 The printTableOpt structure serves as the central configuration hub for all table output formatting in PostgreSQL frontend utilities. It encompasses every aspect of table presentation from basic layout options (borders, pagination) to advanced formatting features (Unicode styling, locale-aware numbering, CSV output). This structure allows fine-grained control over table appearance and behavior, supporting multiple output formats including text, HTML, CSV, and others.
 
 ## Parameters / Member Variables
-- : Output format type (text, HTML, CSV, etc.) as defined by printFormat enum
-- : Controls expanded/vertical output mode (0=no, 1=yes, 2=auto)
-- : Width calculation method for headers in expanded mode
-- : Explicit width setting for headers in expanded mode
-- : Border display level (0=none, 1=dividing lines, 2=full borders)
-- : Pager usage control (0=off, 1=on, 2=always)
-- : Minimum line count threshold for pager activation
-- : When true, suppresses headers, row counts, and other metadata
-- : Controls printing of table start decorations (e.g., HTML )
-- : Controls printing of table end decorations (e.g., HTML )
-- : Enables/disables default footer showing row count
-- : Starting offset for record counter display
-- : Pointer to printTextFormat structure defining line drawing style
-- : Field separator configuration for unaligned text mode
-- : Record separator configuration for unaligned text mode
-- : Field separator character array for CSV format output
-- : Enables locale-aware formatting for numeric values
-- : HTML table attributes string for HTML format output
-- : Character encoding specification
-- : Initial  environment variable value
-- : Target width for wrapped format output
-- : Unicode style for table borders
-- : Unicode style for column separators
-- : Unicode style for header separators
-
+- `format`: Output format type (text, HTML, CSV, etc.) as defined by printFormat enum
+- `expanded`: Controls expanded/vertical output mode (0=no, 1=yes, 2=auto)
+- `expanded_header_width_type`: Width calculation method for headers in expanded mode
+- `expanded_header_exact_width`: Explicit width setting for headers in expanded mode
+- `border`: Border display level (0=none, 1=dividing lines, 2=full borders)
+- `pager`: Pager usage control (0=off, 1=on, 2=always)
+- `pager_min_lines`: Minimum line count threshold for pager activation
+- `tuples_only`: When true, suppresses headers, row counts, and other metadata
+- `start_table`: Controls printing of table start decorations (e.g., HTML )
+- `stop_table`: Controls printing of table end decorations (e.g., HTML )
+- `default_footer`: Enables/disables default footer showing row count
+- `prior_records`: Starting offset for record counter display
+- `*line_style`: Pointer to printTextFormat structure defining line drawing style
+- `fieldSep`: Field separator configuration for unaligned text mode
+- `recordSep`: Record separator configuration for unaligned text mode
+- `csvFieldSep[2]`: Field separator character array for CSV format output
+- `numericLocale`: Enables locale-aware formatting for numeric values
+- `*tableAttr`: HTML table attributes string for HTML format output
+- `encoding`: Character encoding specification
+- `env_columns`: Initial  environment variable value
+- `columns`: Target width for wrapped format output
+- `unicode_border_linestyle`: Unicode style for table borders
+- `unicode_column_linestyle`: Unicode style for column separators
+- `unicode_header_linestyle`: Unicode style for header separators
 ## Dependencies
 - Functions called/Symbols referenced:
   - printFormat (enum)

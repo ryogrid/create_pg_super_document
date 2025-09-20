@@ -29,17 +29,16 @@ XmlTableBuilderData is the core data structure used by PostgreSQL's XMLTABLE fun
 This structure is central to the XMLTABLE implementation, which allows SQL queries to extract structured data from XML documents using XPath expressions to define both row selection criteria and column extraction rules.
 
 ## Parameters / Member Variables
-- : Magic number for structure validation and debugging purposes
-- : Number of attributes (columns) in the target table structure
-- : Running count of rows processed from the XML document
-- : Pointer to PgXmlErrorContext for XML error handling and reporting
-- : libxml parser context for XML document parsing operations
-- : Parsed XML document structure maintained throughout processing
-- : XPath evaluation context used for executing XPath expressions
-- : Compiled XPath expression for row filtering/selection
-- : Current XPath evaluation result object
-- : Array of compiled XPath expressions for column value extraction
-
+- `magic`: Magic number for structure validation and debugging purposes
+- `natts`: Number of attributes (columns) in the target table structure
+- `row_count`: Running count of rows processed from the XML document
+- `*xmlerrcxt`: Pointer to PgXmlErrorContext for XML error handling and reporting
+- `ctxt`: libxml parser context for XML document parsing operations
+- `doc`: Parsed XML document structure maintained throughout processing
+- `xpathcxt`: XPath evaluation context used for executing XPath expressions
+- `xpathcomp`: Compiled XPath expression for row filtering/selection
+- `xpathobj`: Current XPath evaluation result object
+- `*xpathscomp`: Array of compiled XPath expressions for column value extraction
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (for XML error handling)

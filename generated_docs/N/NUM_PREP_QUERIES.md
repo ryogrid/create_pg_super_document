@@ -29,7 +29,7 @@ enum _dumpPreparedQueries
 `NUM_PREP_QUERIES` is a special enumeration value that automatically represents the total number of prepared queries defined in the `_dumpPreparedQueries` enum. By being placed as the last item in the enum, it provides a compile-time constant equal to the count of all preceding enum values, which is essential for array sizing and loop bounds in pg_dump's prepared statement management.
 
 ## Parameters / Member Variables
-- This is not a function or struct, but an enum constant with automatic value assignment based on its position
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

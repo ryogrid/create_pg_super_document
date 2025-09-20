@@ -18,7 +18,7 @@ pq_buffer_remaining_data(void)
 The function performs a simple calculation: , which represents the difference between the total length of data in the buffer and the current read position. This gives the exact number of bytes that can be read without triggering additional network I/O operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

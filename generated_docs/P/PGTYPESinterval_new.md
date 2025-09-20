@@ -18,7 +18,7 @@ This function provides a standard way to allocate memory for a new interval stru
 The function performs a simple memory allocation for an interval structure and returns the pointer to the caller. The allocated memory is uninitialized, so callers are responsible for properly initializing the interval fields before use. The function may return NULL if memory allocation fails, which callers should check.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

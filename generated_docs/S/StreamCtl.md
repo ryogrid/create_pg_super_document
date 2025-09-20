@@ -37,19 +37,18 @@ StreamCtl serves as the central configuration structure for WAL streaming operat
 The structure is designed to be passed to the ReceiveXlogStream() function and other related WAL processing functions to maintain consistent streaming parameters across the entire operation.
 
 ## Parameters / Member Variables
-- : XLogRecPtr indicating the WAL position from which to start streaming
-- : TimeLineID specifying which timeline to stream data from
-- : System identifier string used to validate that the source server matches expectations
-- : Interval (in milliseconds) for sending status messages to the primary server
-- : Boolean flag controlling whether WAL data should be flushed immediately upon write
-- : Boolean flag indicating whether completed WAL segments should be marked as archived
-- : Boolean flag controlling whether data should be flushed to disk to ensure consistency
-- : Callback function pointer that returns true when streaming should be stopped
-- : Socket descriptor to monitor for input that might trigger a stream stop check
-- : Pointer to WalWriteMethod structure defining how WAL data should be written
-- : String suffix appended to partially received WAL files
-- : Name of the replication slot to use, or NULL if not using slots
-
+- `startpos`: XLogRecPtr indicating the WAL position from which to start streaming
+- `timeline`: TimeLineID specifying which timeline to stream data from
+- `*sysidentifier`: System identifier string used to validate that the source server matches expectations
+- `standby_message_timeout`: Interval (in milliseconds) for sending status messages to the primary server
+- `synchronous`: Boolean flag controlling whether WAL data should be flushed immediately upon write
+- `mark_done`: Boolean flag indicating whether completed WAL segments should be marked as archived
+- `do_sync`: Boolean flag controlling whether data should be flushed to disk to ensure consistency
+- `stream_stop`: Callback function pointer that returns true when streaming should be stopped
+- `stop_socket`: Socket descriptor to monitor for input that might trigger a stream stop check
+- `*walmethod`: Pointer to WalWriteMethod structure defining how WAL data should be written
+- `*partial_suffix`: String suffix appended to partially received WAL files
+- `*replication_slot`: Name of the replication slot to use, or NULL if not using slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgsocket

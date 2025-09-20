@@ -23,7 +23,7 @@ The function allocates a Snowball environment with:
 This is a language-specific wrapper around the generic Snowball environment creation function, ensuring that the allocated environment has the correct configuration for Armenian morphological analysis.
 
 ## Parameters / Member Variables
-- None - this function takes no parameters and creates a default Armenian environment
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

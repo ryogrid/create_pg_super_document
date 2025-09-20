@@ -23,11 +23,10 @@ SPIPrepareOptions serves as a configuration structure for advanced SPI statement
 The structure follows PostgreSQL's pattern of using optional parameter structures to extend function interfaces without breaking backward compatibility. When passed to SPI_prepare_extended, these options override default parsing and preparation behavior.
 
 ## Parameters / Member Variables
-- : Function pointer to a custom parser setup hook that will be called during SQL parsing to configure parser state
-- : Opaque pointer argument passed to the parserSetup hook function, allowing context-specific data to be provided
-- : Enumeration value specifying the raw parsing mode to use during statement preparation (e.g., normal, plpgsql, etc.)
-- : Integer bitmask of cursor-specific options that affect how prepared statements will behave when executed as cursors
-
+- `parserSetup`: Function pointer to a custom parser setup hook that will be called during SQL parsing to configure parser state
+- `*parserSetupArg`: Opaque pointer argument passed to the parserSetup hook function, allowing context-specific data to be provided
+- `parseMode`: Enumeration value specifying the raw parsing mode to use during statement preparation (e.g., normal, plpgsql, etc.)
+- `cursorOptions`: Integer bitmask of cursor-specific options that affect how prepared statements will behave when executed as cursors
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParserSetupHook

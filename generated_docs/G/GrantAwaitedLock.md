@@ -17,7 +17,7 @@ GrantAwaitedLock serves as a public interface to GrantLockLocal for a very speci
 The function simply calls GrantLockLocal with the global variables awaitedLock and awaitedOwner, which are set up when a process begins waiting for a lock. This design avoids the need to export GrantLockLocal directly, which would require including resowner.h in lock.h and create circular dependencies between header files.
 
 ## Parameters / Member Variables
-- None (void function, operates on global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

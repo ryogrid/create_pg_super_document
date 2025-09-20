@@ -15,7 +15,7 @@ pg_usec_time_t PQgetCurrentTimeUSec(void)
 This function wraps the system's gettimeofday() function to provide a consistent interface for obtaining high-precision timestamps across different platforms. It returns the current time as microseconds since the Unix epoch, which is the standard format used throughout libpq for timeout specifications. The function converts the timeval structure returned by gettimeofday() into a single 64-bit integer representing total microseconds.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

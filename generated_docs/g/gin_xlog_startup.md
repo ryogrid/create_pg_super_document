@@ -21,7 +21,7 @@ This memory context (`opCtx`) is used by the `gin_redo` function to manage tempo
 The function is typically called during PostgreSQL's WAL recovery startup process to ensure that the necessary memory management infrastructure is in place before any GIN WAL records need to be replayed.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

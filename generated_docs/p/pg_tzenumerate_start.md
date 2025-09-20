@@ -17,7 +17,7 @@ This function begins the process of enumerating all available timezone names in 
 The function allocates memory for the enumeration state structure, determines the starting directory using pg_TZDIR(), and opens the root timezone directory for reading. It sets up the initial traversal state with depth 0 and records the base directory path length for later path construction during enumeration.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

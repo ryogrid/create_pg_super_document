@@ -18,7 +18,6 @@ The function implements underflow detection using pg_sub_s64_overflow to ensure 
 
 ## Parameters / Member Variables
 - Function follows PostgreSQL's PG_FUNCTION_ARGS convention:
-  - Single int64 argument extracted via PG_GETARG_INT64(0) or PG_GETARG_POINTER(0) depending on context
 
 ## Dependencies
 - Functions called/Symbols referenced:

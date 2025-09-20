@@ -15,7 +15,6 @@ char *hashline_number(void)
 This function creates a properly formatted C preprocessor line directive (`#line`) that maintains the correspondence between generated C code and the original ECPG source file. It constructs a string containing the current line number and filename, with proper escaping of backslashes and quotes in the filename. The function includes debug mode handling and returns either a formatted line directive or an empty string based on the current state. The returned string must be freed by the caller.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Uses global variables:
   - `input_filename`: Current input filename
   - `base_yylineno`: Current line number in the input file

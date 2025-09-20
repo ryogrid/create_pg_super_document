@@ -20,9 +20,6 @@ This function is typically called by PostgreSQL's aggregate execution framework 
 
 ## Parameters / Member Variables
 - Uses the standard PG_FUNCTION_ARGS macro which provides access to:
-  - Aggregate state (OSAPerGroupState)
-  - Percentile value (float8)
-  - Function call context information
 
 ## Dependencies
 - Functions called/Symbols referenced:

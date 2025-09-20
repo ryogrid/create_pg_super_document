@@ -23,13 +23,12 @@ typedef struct StartReplicationCmd
 StartReplicationCmd represents the START_REPLICATION command used in PostgreSQL's streaming replication protocol. This structure encapsulates all the necessary information to begin streaming WAL (Write-Ahead Log) records from a primary server to a standby or logical replication subscriber. The command supports both physical replication (for standby servers) and logical replication (for selective data synchronization).
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this command structure
-- : ReplicationKind enum indicating whether this is physical or logical replication
-- : Name of the replication slot to use for streaming (can be NULL for physical replication)
-- : TimeLineID specifying which timeline to replicate from
-- : XLogRecPtr indicating the WAL position to start replication from
-- : List of additional options for the replication command
-
+- `type`: NodeTag identifier for this command structure
+- `kind`: ReplicationKind enum indicating whether this is physical or logical replication
+- `*slotname`: Name of the replication slot to use for streaming (can be NULL for physical replication)
+- `timeline`: TimeLineID specifying which timeline to replicate from
+- `startpoint`: XLogRecPtr indicating the WAL position to start replication from
+- `*options`: List of additional options for the replication command
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReplicationKind

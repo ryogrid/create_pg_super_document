@@ -27,11 +27,10 @@ The structure supports distributing files across multiple tablespaces as configu
 Each FileSet is uniquely identified by the combination of creator_pid and number, ensuring that different processes can create their own FileSets without conflicts. The files in a FileSet are organized in directories that correspond to the FileSet identifier.
 
 ## Parameters / Member Variables
-- : The process ID of the process that created this FileSet, used for unique identification across the system
-- : A per-process identifier that, combined with creator_pid, uniquely identifies this FileSet
-- : The number of tablespaces available for storing files in this FileSet (limited to 8)
-- : Array of tablespace OIDs where files can be created, with a maximum of 8 tablespaces supported
-
+- `creator_pid`: The process ID of the process that created this FileSet, used for unique identification across the system
+- `number`: A per-process identifier that, combined with creator_pid, uniquely identifies this FileSet
+- `ntablespaces`: The number of tablespaces available for storing files in this FileSet (limited to 8)
+- `tablespaces[8]`: Array of tablespace OIDs where files can be created, with a maximum of 8 tablespaces supported
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t

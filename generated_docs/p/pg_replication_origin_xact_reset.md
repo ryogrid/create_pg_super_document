@@ -19,7 +19,7 @@ The function sets replorigin_session_origin_lsn to InvalidXLogRecPtr and replori
 Unlike pg_replication_origin_xact_setup, this function does not require a replication origin session to be active, making it safe to call during cleanup operations.
 
 ## Parameters / Member Variables
-- No parameters (uses PG_FUNCTION_ARGS but takes no actual arguments)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

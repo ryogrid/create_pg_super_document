@@ -17,7 +17,6 @@ The hashint2extended function provides an extended version of the hashint2 funct
 The function extracts both a 16-bit integer argument and a 64-bit integer seed from the function call context, then delegates the actual hashing to hash_uint32_extended after casting the 16-bit value to a 32-bit integer.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments through PostgreSQL's function call interface
 - First argument: int2 (16-bit integer) value accessed via PG_GETARG_INT16(0)
 - Second argument: int64 seed value accessed via PG_GETARG_INT64(1)
 

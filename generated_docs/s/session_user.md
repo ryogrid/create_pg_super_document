@@ -18,7 +18,7 @@ This function implements the SQL standard SESSION_USER function. It retrieves th
 The function follows PostgreSQL's function calling convention using the PG_FUNCTION_ARGS macro and returns a Datum type that can be used within SQL queries.
 
 ## Parameters / Member Variables
-- This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL's standard function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

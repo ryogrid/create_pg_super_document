@@ -33,11 +33,10 @@ This sink operates by:
 The structure maintains its own compression context and output buffer to handle the streaming compression of backup data efficiently. It supports various zstd compression options including compression level, worker threads, and long-distance matching.
 
 ## Parameters / Member Variables
-- : The base bbsink structure containing common sink functionality including operation callbacks, buffer management, and chain linking
-- : Pointer to compression specification containing compression parameters like level, worker count, and compression options
-- : zstd compression context used to maintain compression state across multiple compression operations
-- : zstd output buffer structure that manages the compressed data output, containing destination buffer, size, and current position
-
+- `base`: The base bbsink structure containing common sink functionality including operation callbacks, buffer management, and chain linking
+- `*compress`: Pointer to compression specification containing compression parameters like level, worker count, and compression options
+- `*cctx`: zstd compression context used to maintain compression state across multiple compression operations
+- `zstd_outBuf`: zstd output buffer structure that manages the compressed data output, containing destination buffer, size, and current position
 ## Dependencies
 - Functions called/Symbols referenced:
   - bbsink (base structure)

@@ -16,7 +16,7 @@ basebackup_progress_estimate_backup_size(void)
 This function is a simple progress reporting utility used during PostgreSQL base backup operations. It updates the progress tracking system to indicate that the backup process is currently in the "estimate backup size" phase. The function calls the PostgreSQL statistics system to update the progress parameter, setting the phase to . This allows monitoring tools and users to track the current stage of the backup operation.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

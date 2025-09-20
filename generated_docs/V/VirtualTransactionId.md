@@ -27,9 +27,8 @@ Virtual transaction IDs are particularly important for:
 - Checkpoint coordination
 
 ## Parameters / Member Variables
-- : The process number of the PGPROC structure that owns this virtual transaction. This identifies which backend process is running the transaction.
-- : The local transaction ID assigned by the owning process. This is a process-local counter that makes each virtual transaction unique within that process.
-
+- `procNumber`: The process number of the PGPROC structure that owns this virtual transaction. This identifies which backend process is running the transaction.
+- `localTransactionId`: The local transaction ID assigned by the owning process. This is a process-local counter that makes each virtual transaction unique within that process.
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):

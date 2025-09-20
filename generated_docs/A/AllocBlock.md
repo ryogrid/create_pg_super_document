@@ -15,7 +15,6 @@ typedef struct AllocBlockData *AllocBlock;
 AllocBlock is a fundamental type in PostgreSQL's allocation set memory management system. It serves as a forward reference to the AllocBlockData structure, which represents individual memory blocks within an allocation set. This typedef provides a clean abstraction for handling pointers to memory blocks throughout the allocation set implementation. The forward reference pattern allows the type to be used before the full structure definition is provided, which is essential for self-referential data structures in the memory management system.
 
 ## Parameters / Member Variables
-- This is a typedef, not a structure, so it has no member variables
 - Points to:  structure (the actual memory block data)
 
 ## Dependencies

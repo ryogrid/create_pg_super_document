@@ -18,8 +18,7 @@ typedef struct sequence_magic
 The  struct is a minimal data structure containing a single 32-bit unsigned integer field used as a magic number for sequence validation. This struct is part of PostgreSQL's sequence management system and serves as a header validation mechanism to ensure the integrity and correct identification of sequence data pages. The magic number helps verify that a page contains valid sequence data and hasn't been corrupted.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer that stores the magic number used for sequence page validation
-
+- `magic`: A 32-bit unsigned integer that stores the magic number used for sequence page validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references from this struct)

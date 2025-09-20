@@ -34,10 +34,9 @@ DatumTupleFields serves as a header structure for tuple datums that need to carr
 The structure is designed with careful field ordering considerations, anticipating potential future expansion of the Oid type to 64 bits. It maintains compatibility with the varlena header system while providing specific composite type identification.
 
 ## Parameters / Member Variables
-- : varlena header field that should not be accessed directly, used for variable-length data management
-- : type modifier value, either -1 or an identifier for a specific record type variant  
-- : the Object Identifier (OID) of the composite type, or RECORDOID for anonymous record types
-
+- `datum_len_`: varlena header field that should not be accessed directly, used for variable-length data management
+- `datum_typmod`: type modifier value, either -1 or an identifier for a specific record type variant
+- `datum_typeid`: the Object Identifier (OID) of the composite type, or RECORDOID for anonymous record types
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):

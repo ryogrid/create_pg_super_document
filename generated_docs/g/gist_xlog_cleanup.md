@@ -19,7 +19,7 @@ The function ensures proper cleanup of memory resources when WAL recovery is com
 This cleanup function is part of the WAL resource manager interface and is called automatically by the WAL recovery system when GiST recovery operations are no longer needed.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

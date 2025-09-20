@@ -28,16 +28,15 @@ The  structure serves as the central configuration container for pg_combinebacku
 The structure encapsulates various aspects of the combination process including debugging settings, output configuration, synchronization behavior, tablespace mappings, checksum handling, and file copy methods. This centralized approach ensures consistent access to configuration parameters across all phases of the backup combination process.
 
 ## Parameters / Member Variables
-- : Enable debug output and verbose logging
-- : Path to the output directory where the combined backup will be created
-- : Perform a dry run without actually creating files (validation only)
-- : Skip filesystem synchronization operations for faster completion
-- : Linked list of tablespace directory mappings for relocation
-- : Type of checksums to use in backup manifests
-- : Skip manifest file generation during combination
-- : Method to use for data directory synchronization
-- : Method to use for file copying operations
-
+- `debug`: Enable debug output and verbose logging
+- `*output`: Path to the output directory where the combined backup will be created
+- `dry_run`: Perform a dry run without actually creating files (validation only)
+- `no_sync`: Skip filesystem synchronization operations for faster completion
+- `*tsmappings`: Linked list of tablespace directory mappings for relocation
+- `manifest_checksums`: Type of checksums to use in backup manifests
+- `no_manifest`: Skip manifest file generation during combination
+- `sync_method`: Method to use for data directory synchronization
+- `copy_method`: Method to use for file copying operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [debug](../d/debug.md) (boolean type)

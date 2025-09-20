@@ -19,7 +19,6 @@ structure pops this for us again at exit, so we needn't do that
 This function serves as the primary execution handler for PL/Python procedures and triggers within PostgreSQL. It manages the complete execution context, including SPI connections, execution context stack management, error handling, and proper cleanup. The function distinguishes between trigger and regular function calls, setting up appropriate execution environments for each type. It implements robust error handling using PostgreSQL's PG_TRY/PG_CATCH mechanism and ensures proper cleanup of Python execution contexts.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function call interface (PG_FUNCTION_ARGS)
 - : Boolean flag indicating whether the function runs in non-atomic context
 - : Return value of the executed function
 - : PL/Python execution context for the current call

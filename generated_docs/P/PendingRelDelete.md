@@ -26,12 +26,11 @@ When a relation is created, PostgreSQL immediately creates the physical file but
 The structure supports subtransaction handling through nesting levels, allowing proper cleanup and rollback behavior in complex transaction scenarios. All entries are maintained in TopMemoryContext to ensure they persist throughout the transaction lifecycle.
 
 ## Parameters / Member Variables
-- : RelFileLocator identifying the specific relation that may need deletion or preservation
-- : Process number for temporary relations, set to INVALID_PROC_NUMBER for non-temporary relations
-- : Boolean flag determining the action timing - true means delete at commit, false means delete at abort
-- : Transaction nesting level indicating the subtransaction depth where this request was made
-- : Pointer to the next PendingRelDelete structure in the linked list
-
+- `rlocator`: RelFileLocator identifying the specific relation that may need deletion or preservation
+- `procNumber`: Process number for temporary relations, set to INVALID_PROC_NUMBER for non-temporary relations
+- `atCommit`: Boolean flag determining the action timing - true means delete at commit, false means delete at abort
+- `nestLevel`: Transaction nesting level indicating the subtransaction depth where this request was made
+- `*next`: Pointer to the next PendingRelDelete structure in the linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcNumber

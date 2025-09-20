@@ -27,15 +27,14 @@ RegisteredBgWorker serves as the postmaster's internal representation of a backg
 The structure is designed to track both shared memory-connected workers and those that require database connections. Workers requesting database connections during registration will have their rw_backend field set and will be present in the BackendList, enabling proper resource management and cleanup.
 
 ## Parameters / Member Variables
-- : The original BackgroundWorker registry entry containing the worker's configuration and metadata
-- : Pointer to the worker's BackendList entry if it requires a database connection; NULL for shared memory-only workers
-- : Process ID of the running worker; 0 indicates the worker is not currently running
-- : Slot index used for tracking child processes in the postmaster's process management arrays
-- : Timestamp of the worker's last crash; 0 if the worker has never crashed, used for restart throttling
-- : Slot index in shared memory structures for inter-process communication and coordination
-- : Boolean flag indicating whether the worker should be terminated during shutdown or restart scenarios
-- : Linked list node for maintaining the postmaster's list of registered background workers
-
+- `rw_worker`: The original BackgroundWorker registry entry containing the worker's configuration and metadata
+- `*rw_backend`: Pointer to the worker's BackendList entry if it requires a database connection; NULL for shared memory-only workers
+- `rw_pid`: Process ID of the running worker; 0 indicates the worker is not currently running
+- `rw_child_slot`: Slot index used for tracking child processes in the postmaster's process management arrays
+- `rw_crashed_at`: Timestamp of the worker's last crash; 0 if the worker has never crashed, used for restart throttling
+- `rw_shmem_slot`: Slot index in shared memory structures for inter-process communication and coordination
+- `rw_terminate`: Boolean flag indicating whether the worker should be terminated during shutdown or restart scenarios
+- `rw_lnode`: Linked list node for maintaining the postmaster's list of registered background workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BackgroundWorker](../B/BackgroundWorker.md)

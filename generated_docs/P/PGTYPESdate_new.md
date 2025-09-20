@@ -15,7 +15,7 @@ date *PGTYPESdate_new(void)
 PGTYPESdate_new is a memory allocation function specifically designed for creating new date objects in the PostgreSQL ECPG (Embedded SQL in C) pgtypeslib. The function allocates memory for a single date structure using the pgtypes_alloc function, which is the standard memory allocator used throughout the pgtypes library. The function handles potential memory allocation failures gracefully by allowing a NULL return value when memory is unavailable.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ WalLevel GetActiveWalLevelOnStandby(void)
 This function returns the WAL level stored in the control file, which represents the currently active WAL level. This is particularly important for standby servers because the effective WAL level on a standby may be different from what was originally configured on that standby server. The standby inherits the WAL level from the primary server through the control file, and this function provides access to that inherited value rather than the standby's local configuration.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

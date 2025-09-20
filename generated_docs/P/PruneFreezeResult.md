@@ -57,18 +57,17 @@ A critical aspect of this structure is its role in visibility map management. Th
 The structure also tracks information relevant to relation truncation safety through the hastup flag, which indicates whether the page contains tuples that would make truncation unsafe. Even pages with LP_DEAD items set this flag to true, as VACUUM will remove these dead items before attempting truncation operations.
 
 ## Parameters / Member Variables
-- : Count of tuples that were deleted from the page during the operation
-- : Count of items that became LP_DEAD during this operation (newly dead)
-- : Count of tuples that were frozen during the operation
-- : Count of live tuples remaining on the page after pruning
-- : Count of recently dead tuples remaining on the page after pruning
-- : Boolean indicating if the all-visible bit can be set in the visibility map
-- : Boolean indicating if the all-frozen bit can be set in the visibility map
-- : Newest xmin of live tuples, used as conflict horizon for VM bits (valid only when nfrozen > 0 and all_frozen is true)
-- : Boolean indicating whether the page makes relation truncation unsafe
-- : Total count of LP_DEAD items on the page (including pre-existing ones)
-- : Array of offset numbers for all LP_DEAD items on the page
-
+- `ndeleted`: Count of tuples that were deleted from the page during the operation
+- `nnewlpdead`: Count of items that became LP_DEAD during this operation (newly dead)
+- `nfrozen`: Count of tuples that were frozen during the operation
+- `live_tuples`: Count of live tuples remaining on the page after pruning
+- `recently_dead_tuples`: Count of recently dead tuples remaining on the page after pruning
+- `all_visible`: Boolean indicating if the all-visible bit can be set in the visibility map
+- `all_frozen`: Boolean indicating if the all-frozen bit can be set in the visibility map
+- `vm_conflict_horizon`: Newest xmin of live tuples, used as conflict horizon for VM bits (valid only when nfrozen > 0 and all_frozen is true)
+- `hastup`: Boolean indicating whether the page makes relation truncation unsafe
+- `lpdead_items`: Total count of LP_DEAD items on the page (including pre-existing ones)
+- `deadoffsets[MaxHeapTuplesPerPage]`: Array of offset numbers for all LP_DEAD items on the page
 ## Dependencies
 - Functions called/Symbols referenced:
   - MaxHeapTuplesPerPage

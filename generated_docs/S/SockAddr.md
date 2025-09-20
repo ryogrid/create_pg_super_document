@@ -21,9 +21,8 @@ SockAddr is a wrapper structure that combines a BSD socket address with its asso
 This abstraction allows PostgreSQL to handle different types of network addresses uniformly throughout the codebase without needing to know the specific address family at compile time. The salen field stores the actual length of the address data stored in the addr field, which is essential for proper socket operations.
 
 ## Parameters / Member Variables
-- : A sockaddr_storage structure that can hold any type of socket address (IPv4, IPv6, Unix domain socket, etc.)
-- : The actual length in bytes of the address stored in the addr field
-
+- `family`: A sockaddr_storage structure that can hold any type of socket address (IPv4, IPv6, Unix domain socket, etc.)
+- `addr`: The actual length in bytes of the address stored in the addr field
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Uses standard POSIX socket structures)

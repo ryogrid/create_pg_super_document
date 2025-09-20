@@ -13,7 +13,6 @@ Datum spg_range_quad_choose(PG_FUNCTION_ARGS)
 This function implements the choose logic for SP-GiST quadtree indexing of range types. When inserting a new range, it determines which child node the range should be routed to based on the current node's structure. For nodes without a centroid, it separates ranges based on emptiness (empty ranges go to node 0, non-empty to node 1). For nodes with a centroid range, it uses the getQuadrant function to determine which quadrant the new range falls into relative to the centroid, then routes it to the corresponding child node.
 
 ## Parameters / Member Variables
-- Function uses PG_FUNCTION_ARGS macro for PostgreSQL function argument handling
 - in: spgChooseIn structure containing input data including the range to insert and node information
 - out: spgChooseOut structure that gets populated with routing decisions
 - inRange: The range type being inserted into the index

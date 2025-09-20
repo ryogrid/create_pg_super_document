@@ -21,9 +21,8 @@ The  structure serves as a generic container that allows pg_dump to uniformly ha
 This design enables generic ACL processing functions to work with any ACL-enabled object type without needing to know the specific object details, promoting code reuse and maintaining a consistent approach to permission handling across different database object types in pg_dump.
 
 ## Parameters / Member Variables
-- : The base  structure containing core object metadata, identification, and dependency information
-- : The  structure containing all ACL-related information including current permissions, defaults, and initial privileges
-
+- `dobj`: The base  structure containing core object metadata, identification, and dependency information
+- `dacl`: The  structure containing all ACL-related information including current permissions, defaults, and initial privileges
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

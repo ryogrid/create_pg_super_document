@@ -19,9 +19,8 @@ typedef struct relidcacheent
 The  structure serves as an entry in the relation cache hash table (). It implements a simple key-value mapping where the relation OID () acts as the key and the relation descriptor () serves as the cached value. This structure is part of PostgreSQL's relation cache system, which maintains frequently accessed relation metadata in memory to avoid repeated catalog lookups. Historically, PostgreSQL indexed the relation cache by both name and OID, but the current implementation only maintains an index by OID for performance reasons.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the relation, serving as the unique key for hash table lookups
-- : A pointer to the cached  structure containing the complete relation descriptor with metadata such as tuple descriptor, access methods, and other relation properties
-
+- `reloid`: The object identifier (OID) of the relation, serving as the unique key for hash table lookups
+- `reldesc`: A pointer to the cached  structure containing the complete relation descriptor with metadata such as tuple descriptor, access methods, and other relation properties
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)

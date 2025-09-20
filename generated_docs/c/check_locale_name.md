@@ -19,7 +19,6 @@ The function implements several safety measures including ASCII-only validation 
 
 ## Parameters / Member Variables
 - : The locale category to test (e.g., LC_CTYPE, LC_COLLATE, LC_TIME)
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

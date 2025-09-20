@@ -27,15 +27,14 @@ WindowObjectData is the central data structure used in PostgreSQL's window funct
 The structure maintains pointers into the tuplestore that holds the partition's rows, allowing window functions to efficiently navigate through their window frames. It also manages local memory allocation and maintains references to argument expression states.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL node tag for type identification
-- : Pointer to the parent WindowAggState executor node that manages overall window aggregation
-- : List of ExprState trees representing the evaluated arguments for the window function
-- : Memory chunk allocated via WinGetPartitionLocalMemory for function-local storage
-- : Tuplestore mark pointer specific to this window function, used for frame positioning
-- : Tuplestore read pointer specific to this window function for accessing rows
-- : The logical row number that the markptr is currently positioned on
-- : The logical row number that the readptr is currently positioned on
-
+- `type`: Standard PostgreSQL node tag for type identification
+- `*winstate`: Pointer to the parent WindowAggState executor node that manages overall window aggregation
+- `*argstates`: List of ExprState trees representing the evaluated arguments for the window function
+- `*localmem`: Memory chunk allocated via WinGetPartitionLocalMemory for function-local storage
+- `markptr`: Tuplestore mark pointer specific to this window function, used for frame positioning
+- `readptr`: Tuplestore read pointer specific to this window function for accessing rows
+- `markpos`: The logical row number that the markptr is currently positioned on
+- `seekpos`: The logical row number that the readptr is currently positioned on
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WindowAggState](WindowAggState.md)

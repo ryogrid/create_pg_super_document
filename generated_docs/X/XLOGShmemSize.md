@@ -15,7 +15,7 @@ Size XLOGShmemSize(void)
 This function computes the total shared memory size needed for PostgreSQL's Write-Ahead Logging system. It handles automatic tuning of wal_buffers when set to -1, then calculates memory requirements for various XLOG components including the control structure (XLogCtlData), WAL insertion locks, xlblocks array, alignment padding, and the actual WAL buffers. The function also manages the configuration of wal_buffers using either PGC_S_DYNAMIC_DEFAULT or PGC_S_OVERRIDE depending on whether the DBA explicitly set the value to -1.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

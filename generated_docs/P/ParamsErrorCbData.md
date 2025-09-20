@@ -21,9 +21,8 @@ ParamsErrorCbData is specifically designed as the argument type for ParamsErrorC
 The structure is primarily used in PostgreSQL's frontend/backend protocol handling, particularly during Bind and Execute message processing, where parameter binding errors need to be reported with sufficient context for debugging.
 
 ## Parameters / Member Variables
-- : Name of the portal (prepared statement cursor) where the parameter error occurred, used for error context identification
-- : Pointer to the ParamListInfo structure containing the parameter list that caused the error
-
+- `*portalName`: Name of the portal (prepared statement cursor) where the parameter error occurred, used for error context identification
+- `params`: Pointer to the ParamListInfo structure containing the parameter list that caused the error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamListInfo](ParamListInfo.md)

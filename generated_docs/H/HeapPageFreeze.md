@@ -62,12 +62,11 @@ The structure works in conjunction with heap_prepare_freeze_tuple calls, where e
 A key design principle is that unfrozen XIDs or MXIDs remaining after VACUUM must have values greater than or equal to the final relfrozenxid/relminmxid values. This includes transaction IDs that persist as MultiXact members in tuple xmax fields. The "freeze page" trackers provide flexibility in MultiXact handling, allowing heap_prepare_freeze_tuple to prefer eager MultiXact removal while supporting lazy processing when it avoids allocating new MultiXacts.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the heap_prepare_freeze_tuple caller must freeze the page
-- : Transaction ID tracker used when the page undergoes freezing operations
-- : Multi-transaction ID tracker used when the page undergoes freezing operations  
-- : Transaction ID tracker used when the page is not frozen (maintained like pages without cleanup locks)
-- : Multi-transaction ID tracker used when the page is not frozen
-
+- `freeze_required`: Boolean flag indicating whether the heap_prepare_freeze_tuple caller must freeze the page
+- `FreezePageRelfrozenXid`: Transaction ID tracker used when the page undergoes freezing operations
+- `FreezePageRelminMxid`: Multi-transaction ID tracker used when the page undergoes freezing operations
+- `NoFreezePageRelfrozenXid`: Transaction ID tracker used when the page is not frozen (maintained like pages without cleanup locks)
+- `NoFreezePageRelminMxid`: Multi-transaction ID tracker used when the page is not frozen
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactId

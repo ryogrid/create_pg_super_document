@@ -19,7 +19,7 @@ The double-check pattern (check without lock, acquire lock, check again) prevent
 If the process is found to be in a synchronous replication queue, the function performs a thorough deletion that both removes the process from the queue and reinitializes its list node links to prevent dangling pointers.
 
 ## Parameters / Member Variables
-- None (operates on the current process MyProc)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

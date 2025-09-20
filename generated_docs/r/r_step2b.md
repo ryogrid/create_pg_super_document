@@ -26,9 +26,6 @@ The function implements a mandatory two-stage process with different character v
 
 ## Parameters / Member Variables
 - `z`: Pointer to SN_env structure containing the stemming environment, including:
-  - String buffer and cursor positions (c, ket, bra, l, lb)
-  - Character array p for string content
-  - String processing context
 
 ## Dependencies
 - Functions called/Symbols referenced:

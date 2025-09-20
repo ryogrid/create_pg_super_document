@@ -27,8 +27,7 @@ The returned tuple contains seven fields representing all sequence parameters:
 7. **data_type** (oid): The data type OID of the sequence
 
 ## Parameters / Member Variables
-- Function takes a single OID argument representing the sequence relation ID (accessed via PG_GETARG_OID(0))
-- Returns a Datum representing a heap tuple with sequence parameters
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

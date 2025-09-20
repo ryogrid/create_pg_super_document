@@ -20,8 +20,7 @@ BrinSpecialSpace represents the special area found on BRIN pages. This structure
 The special area serves as metadata storage for BRIN pages and provides a standardized way to access page-specific information. By guaranteeing its position at the end of each page, PostgreSQL can reliably locate and access this metadata regardless of the page's other contents.
 
 ## Parameters / Member Variables
-- : An array of uint16 values that fills the MAXALIGN-sized space, providing storage for page metadata and flags
-
+- `vector[MAXALIGN(1)  sizeof(uint16)]`: An array of uint16 values that fills the MAXALIGN-sized space, providing storage for page metadata and flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (macro for memory alignment)

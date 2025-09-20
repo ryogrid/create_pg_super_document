@@ -15,7 +15,7 @@ void AtEOXact_MultiXact(void)
 This function is called at the end of every top-level transaction, regardless of whether it commits or aborts. It performs essential cleanup of MultiXact-related state to ensure proper isolation and resource management. The function resets the process-local oldest MultiXact ID tracking variables and discards the local MultiXact cache. The cache cleanup is automatic since MXactContext was created as a child of TopTransactionContext and will be destroyed when the transaction context is reset.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

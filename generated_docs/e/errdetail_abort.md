@@ -17,7 +17,7 @@ This function provides additional context when a transaction or operation is abo
 The function is part of PostgreSQL's error reporting system and helps users understand why their operations were terminated unexpectedly.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

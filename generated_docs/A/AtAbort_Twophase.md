@@ -20,7 +20,7 @@ The function implements sophisticated logic to handle different abort scenarios:
 The function uses exclusive locking on TwoPhaseStateLock to ensure atomic updates to the shared state and prevent race conditions during cleanup operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

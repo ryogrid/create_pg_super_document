@@ -18,8 +18,7 @@ typedef struct ConditionalStackData
 ConditionalStackData acts as the primary data structure for managing nested conditional blocks (\if...\endif) in PostgreSQL command-line tools like psql and pgbench. It maintains a simple linked list stack where each node represents a level of conditional nesting. The structure provides a clean interface for conditional stack operations while encapsulating the underlying IfStackElem linked list implementation.
 
 ## Parameters / Member Variables
-- : Pointer to the top IfStackElem in the conditional stack, representing the most recently entered (innermost) conditional block; NULL when no conditionals are active
-
+- `*head`: Pointer to the top IfStackElem in the conditional stack, representing the most recently entered (innermost) conditional block; NULL when no conditionals are active
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IfStackElem](../I/IfStackElem.md) (struct representing individual stack elements)

@@ -17,7 +17,7 @@ AbortStrongLockAcquire is the error cleanup counterpart to BeginStrongLockAcquir
 The function first checks if there's actually a strong lock acquisition in progress. If so, it computes the hash partition for the lock, decrements the corresponding count in FastPathStrongRelationLocks, resets the local lock's holdsStrongLockCount flag to false, and clears the global StrongLockInProgress pointer. All operations on shared state are protected by spinlocks to ensure atomicity.
 
 ## Parameters / Member Variables
-- None (void function, operates on global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

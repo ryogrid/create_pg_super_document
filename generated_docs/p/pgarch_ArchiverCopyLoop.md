@@ -23,7 +23,6 @@ pgarch_ArchiverCopyLoop implements the main archival processing logic for the Po
 The function includes robust error handling for various failure scenarios including missing WAL files, configuration errors, and repeated archive command failures. It uses a retry system with sleep intervals (1 second) and maximum retry limits (NUM_ARCHIVE_RETRIES and NUM_ORPHAN_CLEANUP_RETRIES).
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Local variables:
   - : Buffer for WAL filename
   - : Counter for archive operation failures

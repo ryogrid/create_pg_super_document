@@ -18,9 +18,8 @@ The  function is a PostgreSQL built-in function that implements the less-than-or
 The function handles IEEE 754 floating-point special cases, particularly NaN (Not-a-Number) values. PostgreSQL's implementation treats NaN as greater than any regular number for ordering purposes, meaning NaN <= regular_number returns false, but regular_number <= NaN returns true.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's  calling convention
 - : First float4 operand extracted via 
-- : Second float4 operand extracted via 
+- : Second float4 operand extracted via
 
 ## Dependencies
 - Functions called/Symbols referenced:

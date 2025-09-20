@@ -15,7 +15,7 @@ void XLogRecoveryShmemInit(void)
 XLogRecoveryShmemInit performs the initialization of shared memory structures used during WAL recovery. It allocates and initializes the XLogRecoveryCtl global control structure using PostgreSQL's shared memory management system. The function ensures that recovery-related synchronization primitives (spin locks, latches, and condition variables) are properly initialized for coordinating recovery operations between multiple backend processes. If the shared memory structure already exists (indicated by the 'found' flag), the function returns early to avoid re-initialization.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -27,11 +27,6 @@ The algorithm uses backtracking markers (m2-m6) to ensure each phase can be atte
 
 ## Parameters / Member Variables
 - `z`: Pointer to the Snowball environment structure containing:
-  - The word being stemmed
-  - Cursor positions and boundaries 
-  - Character group definitions
-  - Morphological region boundaries
-  - Processing flags and state
 
 ## Dependencies
 - Functions called/Symbols referenced:

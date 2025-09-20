@@ -21,7 +21,6 @@ This Windows-specific function implements a two-phase approach to identify the s
 The function handles both standard time and daylight saving time abbreviations, and includes comprehensive error handling for registry operations. Returns NULL if no match is found, indicating the system should fall back to GMT.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - PostgreSQL timezone name from win32_tzmap, or NULL if no match found
 
 ## Dependencies

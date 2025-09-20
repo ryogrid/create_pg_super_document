@@ -26,12 +26,11 @@ The "sense" field implements a phase-flip mechanism where the barrier alternates
 The barrier is designed to be a drop-in replacement for pthread_barrier_t on systems where it's not available natively, maintaining API compatibility with the POSIX standard.
 
 ## Parameters / Member Variables
-- : A boolean flag that alternates between true and false with each barrier cycle, implementing the sense-reversal algorithm to distinguish between barrier phases
-- : The total number of threads that must arrive at the barrier before any thread is allowed to proceed
-- : The current number of threads that have reached the barrier and are waiting
-- : POSIX mutex used to protect the barrier's internal state from race conditions during concurrent access
-- : POSIX condition variable used to block waiting threads and signal all threads when the barrier is released
-
+- `sense`: A boolean flag that alternates between true and false with each barrier cycle, implementing the sense-reversal algorithm to distinguish between barrier phases
+- `count`: The total number of threads that must arrive at the barrier before any thread is allowed to proceed
+- `arrived`: The current number of threads that have reached the barrier and are waiting
+- `mutex`: POSIX mutex used to protect the barrier's internal state from race conditions during concurrent access
+- `cond`: POSIX condition variable used to block waiting threads and signal all threads when the barrier is released
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pthread_mutex_t](pthread_mutex_t.md) (POSIX mutex type)

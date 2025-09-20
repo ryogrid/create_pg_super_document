@@ -16,7 +16,7 @@ get_float4_nan(void)
 This inline function provides a portable way to obtain a float4 (single-precision floating-point) NaN value. The function uses conditional compilation to choose the most appropriate method based on the platform's capabilities. When the C99 standard NAN macro is available, it uses that for guaranteed portability. Otherwise, it falls back to generating NaN through division by zero (0.0/0.0), which is a well-defined operation that produces NaN according to IEEE 754 floating-point standards.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,7 +17,7 @@ This function ensures the integrity of logical replication subscriptions before 
 The function queries the old cluster's catalogs to identify subscriptions missing replication origins and tables in unsafe synchronization states. Unsafe states include DATASYNC, SYNCDONE, FINISHEDCOPY, and others that could leave dangling slots or origins after upgrade. When problems are detected, detailed information is written to a file and the upgrade process is terminated with comprehensive error messages.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

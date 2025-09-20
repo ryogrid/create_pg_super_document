@@ -27,15 +27,14 @@ BTPageState manages the construction state of individual B-tree pages during ind
 The structure supports both leaf and internal pages at different tree levels, with level 0 representing leaf pages. It maintains space management information to determine when a page is considered "full" and ready to be written, along with tracking the last loaded item and any extra space requirements for posting lists.
 
 ## Parameters / Member Variables
-- : BulkWriteBuffer workspace used for constructing the page content before writing
-- : Block number where this page will be written in the relation
-- : Index tuple representing the page's strict lower bound pivot tuple for navigation
-- : Offset number of the last item that was loaded onto this page
-- : Size of extra space used by the last item's posting list (for compressed tuples)
-- : Tree level indicator where 0 represents leaf pages and higher numbers represent internal pages
-- : Size threshold - page is considered "full" when free space falls below this value
-- : Pointer to the BTPageState of the parent level, forming a linked list of page states up the tree
-
+- `btps_buf`: BulkWriteBuffer workspace used for constructing the page content before writing
+- `btps_blkno`: Block number where this page will be written in the relation
+- `btps_lowkey`: Index tuple representing the page's strict lower bound pivot tuple for navigation
+- `btps_lastoff`: Offset number of the last item that was loaded onto this page
+- `btps_lastextra`: Size of extra space used by the last item's posting list (for compressed tuples)
+- `btps_level`: Tree level indicator where 0 represents leaf pages and higher numbers represent internal pages
+- `btps_full`: Size threshold - page is considered "full" when free space falls below this value
+- `*btps_next`: Pointer to the BTPageState of the parent level, forming a linked list of page states up the tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - BulkWriteBuffer

@@ -24,10 +24,9 @@ GinPageOpaqueData serves as the opaque data structure for GIN index pages, provi
 The structure is designed to be compact at only 8 bytes total, which allows it to be reliably distinguished from other index types by size alone. This design choice was made when GIN was unique in using 8-byte special space, though SP-GiST (since 9.2) and BRIN (since 9.5) now also use 8-byte special space.
 
 ## Parameters / Member Variables
-- : BlockNumber pointing to the next page in a sequence, used for page chaining and navigation
-- : OffsetNumber indicating the count of items on the page - specifically PostingItems on GIN_DATA and non-GIN_LEAF pages, or heap tuples on GIN_LIST pages
-- : uint16 bit field storing various page state flags and properties (specific bit definitions are defined elsewhere)
-
+- `rightlink`: BlockNumber pointing to the next page in a sequence, used for page chaining and navigation
+- `maxoff`: OffsetNumber indicating the count of items on the page - specifically PostingItems on GIN_DATA and non-GIN_LEAF pages, or heap tuples on GIN_LIST pages
+- `flags`: uint16 bit field storing various page state flags and properties (specific bit definitions are defined elsewhere)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (PostgreSQL block numbering type)

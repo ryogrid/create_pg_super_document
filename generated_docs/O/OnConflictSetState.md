@@ -25,12 +25,11 @@ OnConflictSetState manages the execution state for PostgreSQL's ON CONFLICT DO U
 The structure maintains tuple slots for both the existing conflicting tuple and the projection target, along with the projection information needed to compute the updated values and any WHERE clause conditions that must be evaluated.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : Tuple slot to store the existing target tuple that conflicts with the insert
-- : Tuple slot for the CONFLICT ... SET ... projection target 
-- : ProjectionInfo structure containing projection instructions for ON CONFLICT DO UPDATE SET operations
-- : Expression state for evaluating the WHERE clause in ON CONFLICT DO UPDATE
-
+- `type`: NodeTag identifier for the structure type
+- `*oc_Existing`: Tuple slot to store the existing target tuple that conflicts with the insert
+- `*oc_ProjSlot`: Tuple slot for the CONFLICT ... SET ... projection target
+- `*oc_ProjInfo`: ProjectionInfo structure containing projection instructions for ON CONFLICT DO UPDATE SET operations
+- `*oc_WhereClause`: Expression state for evaluating the WHERE clause in ON CONFLICT DO UPDATE
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

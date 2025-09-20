@@ -20,7 +20,7 @@ The function implements a lazy initialization pattern where the buffer is create
 The function is explicitly marked as non-reentrant and non-thread-safe due to its use of static storage. For multi-threaded applications, PostgreSQL provides alternative implementations that can be assigned to the getLocalPQExpBuffer function pointer.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

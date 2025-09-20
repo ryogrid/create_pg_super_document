@@ -16,7 +16,7 @@ GetCurrentSubTransactionId(void)
 GetCurrentSubTransactionId is a simple accessor function that returns the subtransaction ID of the current transaction state. It retrieves the subTransactionId field from the CurrentTransactionState global variable, which tracks the current transaction's state information. This function provides a way for other parts of the PostgreSQL system to identify which subtransaction context they are operating within.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

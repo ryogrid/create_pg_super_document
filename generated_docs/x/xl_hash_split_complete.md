@@ -27,9 +27,8 @@ The record works with two backup blocks:
 Unlike the allocation phase, this completion phase focuses on finalizing the bucket page states rather than managing metadata or performing tuple redistribution.
 
 ## Parameters / Member Variables
-- : Flag indicating the final status/properties of the old bucket page after the split completion
-- : Flag indicating the final status/properties of the new bucket page after the split completion
-
+- `old_bucket_flag`: Flag indicating the final status/properties of the old bucket page after the split completion
+- `new_bucket_flag`: Flag indicating the final status/properties of the new bucket page after the split completion
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)

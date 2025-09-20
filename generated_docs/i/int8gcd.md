@@ -16,7 +16,6 @@ int8gcd(PG_FUNCTION_ARGS)
 The int8gcd function serves as the PostgreSQL-callable wrapper for the GCD operation on bigint values. It follows PostgreSQL's standard function calling convention by extracting two int64 arguments from the function arguments, delegating the actual computation to the internal int8gcd_internal function, and returning the result as a Datum. This design separates the PostgreSQL function interface from the core algorithm implementation, allowing the internal function to be reused by other operations like LCM.
 
 ## Parameters / Member Variables
-- Uses  macro to access function arguments
 - : First operand extracted as int64
 - : Second operand extracted as int64  
 - : Stores the GCD result from int8gcd_internal

@@ -16,7 +16,7 @@ InjectionPointShmemSize(void)
 This function calculates and returns the shared memory size required for the injection points subsystem. When compiled with USE_INJECTION_POINTS defined, it returns the size of the InjectionPointsCtl structure, which contains the control data and array of injection point entries. When injection points are not compiled in (USE_INJECTION_POINTS not defined), it returns 0 to indicate no shared memory is needed. The function uses add_size() for safe size arithmetic to avoid overflow.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

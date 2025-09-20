@@ -17,8 +17,6 @@ This function performs multiplication of two 64-bit signed integer arguments. It
 
 ## Parameters / Member Variables
 - The function uses PostgreSQL's standard function argument mechanism where:
-  - First argument (multiplicand) accessed via PG_GETARG_INT64(0) 
-  - Second argument (multiplier) accessed via PG_GETARG_INT64(1)
 
 ## Dependencies
 - Functions called/Symbols referenced:

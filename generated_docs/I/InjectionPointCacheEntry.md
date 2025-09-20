@@ -30,12 +30,11 @@ InjectionPointCacheEntry is a backend-local cache structure that stores loaded i
 The cache entry includes validation fields (slot_idx and generation) that allow the backend to verify whether the cached entry is still valid against the shared memory version. This design allows for efficient callback execution while maintaining consistency with the shared injection point state.
 
 ## Parameters / Member Variables
-- : Name of the cached injection point (maximum 64 characters including null terminator)
-- : Copy of the private data associated with this injection point (maximum 1024 bytes)
-- : Function pointer to the loaded callback function (type: void (*)(const char *name, const void *private_data))
-- : Index of the corresponding slot in the shared memory InjectionPointsCtl entries array
-- : Copy of the generation number from the shared memory entry when this cache entry was created, used for validation
-
+- `name[INJ_NAME_MAXLEN]`: Name of the cached injection point (maximum 64 characters including null terminator)
+- `private_data[INJ_PRIVATE_MAXLEN]`: Copy of the private data associated with this injection point (maximum 1024 bytes)
+- `callback`: Function pointer to the loaded callback function (type: void (*)(const char *name, const void *private_data))
+- `slot_idx`: Index of the corresponding slot in the shared memory InjectionPointsCtl entries array
+- `generation`: Copy of the generation number from the shared memory entry when this cache entry was created, used for validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - INJ_NAME_MAXLEN (64)

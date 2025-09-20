@@ -21,9 +21,8 @@ The  structure is a fundamental component of PostgreSQL's regex NFA export funct
 This structure is used to expose the internal NFA structure to external code that needs to analyze or traverse the compiled regular expression's state machine. The exported NFA provides a necessary but not sufficient condition for string matching - strings that match the NFA may not match the full regex due to additional constraints like lookaround assertions, but strings that don't match the NFA definitely won't match the regex.
 
 ## Parameters / Member Variables
-- : The color (character-set label) of the arc. Color 0 represents "white" (unused characters), while other colors represent specific character sets. Special pseudocolors represent start/end of line and start/end of string conditions.
-- : The destination state number that this arc leads to in the NFA. State numbers range from 0 to N-1 where N is the total number of states.
-
+- `co`: The color (character-set label) of the arc. Color 0 represents "white" (unused characters), while other colors represent specific character sets. Special pseudocolors represent start/end of line and start/end of string conditions.
+- `to`: The destination state number that this arc leads to in the NFA. State numbers range from 0 to N-1 where N is the total number of states.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used within  function calls

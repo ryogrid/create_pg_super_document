@@ -18,8 +18,7 @@ The neqsel function serves as the primary entry point for selectivity estimation
 Like eqsel, this function supports operators that are not strict inequality ("!=") but have comparable selectivity behavior. The function works with any data types and handles cases where the left and right operand data types may differ, making it a versatile component in PostgreSQL's cost-based query optimization framework.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention (PG_FUNCTION_ARGS)
-- Parameters are accessed through the fcinfo structure containing operator arguments and context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

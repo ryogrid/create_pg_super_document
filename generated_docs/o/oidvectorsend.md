@@ -19,7 +19,6 @@ The implementation is remarkably simple - it directly delegates all work to the 
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function calling convention macro that provides:
-  - The oidvector to be converted to binary format (accessed through fcinfo)
 
 ## Dependencies
 - Functions called/Symbols referenced:

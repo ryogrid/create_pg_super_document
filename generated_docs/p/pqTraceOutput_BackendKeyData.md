@@ -22,7 +22,6 @@ The message format includes:
 ## Parameters / Member Variables
 - : Output file stream where the formatted trace information will be written
 - : Pointer to the raw binary message data containing the BackendKeyData information
-- 
   ╭──────────────────────────────────────────────────────────────────────────╮
   │                                                                          │
   │  ℹ Choose the default behavior for 'cursor'                              │

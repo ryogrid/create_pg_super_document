@@ -24,7 +24,6 @@ The function operates in several phases:
 The function ensures that notification operations are atomic with the transaction and that all listening backends are properly notified of new messages.
 
 ## Parameters / Member Variables
-- No input parameters
 - Returns: `void`
 
 ## Dependencies

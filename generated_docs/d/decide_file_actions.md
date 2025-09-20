@@ -25,7 +25,7 @@ The resulting filemap contains entries sorted in the order that their actions sh
 - Operations follow a predictable, safe sequence
 
 ## Parameters / Member Variables
-- None (operates on global filehash)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -36,15 +36,14 @@ HashScanPosData is the core structure for managing hash index scan state. It tra
 The design efficiently handles bucket chain traversal by maintaining links to previous and next pages, while the items array provides a buffer for matched tuples on the current page. This approach minimizes page access overhead during scan operations by processing multiple items per page visit.
 
 ## Parameters / Member Variables
-- : Buffer reference for the currently pinned page (if valid)
-- : Block number of the current hash index page being scanned
-- : Block number of the next overflow page in the bucket chain
-- : Block number of the previous page (either overflow or bucket page)
-- : Index of the first valid entry in the items array
-- : Index of the last valid entry in the items array
-- : Cursor indicating which entry was last returned to the caller
-- : Array of HashScanPosItem structures containing matched items (must be the last field)
-
+- `buf`: Buffer reference for the currently pinned page (if valid)
+- `currPage`: Block number of the current hash index page being scanned
+- `nextPage`: Block number of the next overflow page in the bucket chain
+- `prevPage`: Block number of the previous page (either overflow or bucket page)
+- `firstItem`: Index of the first valid entry in the items array
+- `lastItem`: Index of the last valid entry in the items array
+- `itemIndex`: Cursor indicating which entry was last returned to the caller
+- `items[MaxIndexTuplesPerPage]`: Array of HashScanPosItem structures containing matched items (must be the last field)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HashScanPosItem](HashScanPosItem.md)

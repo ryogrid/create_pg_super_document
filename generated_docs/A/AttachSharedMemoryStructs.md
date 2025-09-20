@@ -20,7 +20,7 @@ The function performs critical validation checks to ensure the process is proper
 In non-EXEC_BACKEND builds, this functionality is not needed since shared memory access is inherited through fork().
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

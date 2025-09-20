@@ -23,7 +23,6 @@ The function works by:
 If the input relation is not part of a partition tree or cannot be processed as a partition, the function returns NULL.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function argument pattern using 
 - Input parameter (accessed via ):
   - : OID of the relation for which to find the partition root
 

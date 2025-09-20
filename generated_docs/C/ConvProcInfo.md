@@ -23,11 +23,10 @@ ConvProcInfo is a caching structure used in PostgreSQL's multi-byte character en
 The structure is designed to support transaction rollback scenarios where PostgreSQL must be able to restore a previous encoding setting without performing fresh catalog accesses. All ConvProcInfo data is kept in TopMemoryContext and is never released during the session lifetime.
 
 ## Parameters / Member Variables
-- : Integer identifier for the server's character encoding
-- : Integer identifier for the client's character encoding  
-- : FmgrInfo structure containing lookup information for the conversion function that converts from client encoding to server encoding
-- : FmgrInfo structure containing lookup information for the conversion function that converts from server encoding to client encoding
-
+- `s_encoding`: Integer identifier for the server's character encoding
+- `c_encoding`: Integer identifier for the client's character encoding
+- `to_server_info`: FmgrInfo structure containing lookup information for the conversion function that converts from client encoding to server encoding
+- `to_client_info`: FmgrInfo structure containing lookup information for the conversion function that converts from server encoding to client encoding
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)

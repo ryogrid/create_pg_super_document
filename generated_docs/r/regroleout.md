@@ -23,9 +23,6 @@ The function uses proper identifier quoting to ensure that role names containing
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing:
-  - Input role OID to be converted to string
-  - Function context and metadata  
-  - Return value storage for the resulting string
 
 ## Dependencies
 - Functions called/Symbols referenced:

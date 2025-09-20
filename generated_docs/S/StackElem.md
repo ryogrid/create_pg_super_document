@@ -26,12 +26,11 @@ The stack design allows psql to handle complex scenarios where variables contain
 This mechanism is essential for PostgreSQL's flexible variable system, allowing users to define and nest variables in psql scripts and interactive sessions.
 
 ## Parameters / Member Variables
-- : YY_BUFFER_STATE that holds the flex input control structure for this buffer, managing the actual scanning state
-- : Pointer to the string data that flex is currently scanning from this stack element
-- : Copy of the original data before any encoding transformations, used when dealing with non-ASCII-safe multibyte encodings
-- : Name of the psql variable that provided this data, or NULL if this buffer represents non-variable content
-- : Pointer to the next element in the stack, forming a linked list structure for the buffer stack
-
+- `buf`: YY_BUFFER_STATE that holds the flex input control structure for this buffer, managing the actual scanning state
+- `*bufstring`: Pointer to the string data that flex is currently scanning from this stack element
+- `*origstring`: Copy of the original data before any encoding transformations, used when dealing with non-ASCII-safe multibyte encodings
+- `*varname`: Name of the psql variable that provided this data, or NULL if this buffer represents non-variable content
+- `*next`: Pointer to the next element in the stack, forming a linked list structure for the buffer stack
 ## Dependencies
 - Functions called/Symbols referenced:
   - [YY_BUFFER_STATE](../Y/YY_BUFFER_STATE.md) (used for buf member)

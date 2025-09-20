@@ -24,12 +24,11 @@ The  structure is used by pg_dump to manage PostgreSQL triggers, which are funct
 The structure handles both regular table triggers and partition-related triggers, with special consideration for trigger inheritance in partitioned table hierarchies.
 
 ## Parameters / Member Variables
-- : Base DumpableObject structure containing common dump object metadata (object type DO_TRIGGER, catalog ID, dump ID, name, namespace)
-- : Pointer to the TableInfo structure representing the table or view that the trigger is defined on
-- : Trigger enabled status character ('O' for origin, 'D' for disabled, 'R' for replica, 'A' for always)
-- : Boolean indicating whether this trigger is associated with a partitioned table (affects inheritance behavior)  
-- : Complete trigger definition string as retrieved from the database (used to generate CREATE TRIGGER statements)
-
+- `dobj`: Base DumpableObject structure containing common dump object metadata (object type DO_TRIGGER, catalog ID, dump ID, name, namespace)
+- `*tgtable`: Pointer to the TableInfo structure representing the table or view that the trigger is defined on
+- `tgenabled`: Trigger enabled status character ('O' for origin, 'D' for disabled, 'R' for replica, 'A' for always)
+- `tgispartition`: Boolean indicating whether this trigger is associated with a partitioned table (affects inheritance behavior)
+- `*tgdef`: Complete trigger definition string as retrieved from the database (used to generate CREATE TRIGGER statements)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

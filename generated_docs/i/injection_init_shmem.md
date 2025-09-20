@@ -16,7 +16,7 @@ injection_init_shmem(void)
 This function sets up the shared memory segment for injection points functionality. It uses PostgreSQL's Dynamic Shared Memory (DSM) mechanism to create or attach to a named shared memory segment called "injection_points". The function ensures that the shared memory is only initialized once by checking if the global  pointer is already set. If the segment doesn't exist, it creates one with the specified size and initialization callback; if it already exists, it simply attaches to the existing segment.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

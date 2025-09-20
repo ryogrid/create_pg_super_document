@@ -18,7 +18,7 @@ This function iterates through all PostgreSQL socket files and updates their mod
 The function operates on a global list (sock_paths) that contains paths to all socket files created by the PostgreSQL server. It deliberately ignores any errors that occur during the utime() operations, as failure to update modification times is not critical to server operation.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

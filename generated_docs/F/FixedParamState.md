@@ -21,9 +21,8 @@ FixedParamState is used in PostgreSQL's parser to handle parameter references in
 The structure is designed for scenarios where the parameter list is immutable during parsing, as opposed to variable parameter scenarios where the parameter list can grow dynamically.
 
 ## Parameters / Member Variables
-- : A pointer to a constant array of Oid values representing the data types of the parameters. This array is read-only and contains the pre-determined parameter types.
-- : An integer specifying the total number of parameters in the paramTypes array.
-
+- `*paramTypes`: A pointer to a constant array of Oid values representing the data types of the parameters. This array is read-only and contains the pre-determined parameter types.
+- `numParams`: An integer specifying the total number of parameters in the paramTypes array.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

@@ -18,8 +18,7 @@ typedef struct XLogRecordBlockCompressHeader
 XLogRecordBlockCompressHeader is a specialized header structure used only when a page image undergoes both hole removal and compression optimizations. When a page image is compressed, the original hole length information cannot be derived by simple arithmetic (subtracting stored bytes from BLCKSZ), making it necessary to explicitly store the hole length. This structure provides that missing piece of information, enabling proper reconstruction of the original page during WAL replay. The header is only included when both BKPIMAGE_HAS_HOLE and BKPIMAGE_COMPRESSED flags are set.
 
 ## Parameters / Member Variables
-- : The exact number of bytes that were removed from the middle of the page as the "hole" during WAL storage optimization
-
+- `hole_length`: The exact number of bytes that were removed from the middle of the page as the "hole" during WAL storage optimization
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

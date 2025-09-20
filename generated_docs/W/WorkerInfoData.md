@@ -24,14 +24,13 @@ typedef struct WorkerInfoData
 The  structure serves as a shared memory descriptor for tracking individual autovacuum worker processes. It maintains essential information about each worker's current assignment, execution state, and coordination requirements. This structure is crucial for the autovacuum launcher's ability to monitor running workers, manage resource allocation, and coordinate vacuum cost balancing across multiple concurrent operations. The structure is designed with thread-safety considerations, using different locks to protect different field groups based on their access patterns.
 
 ## Parameters / Member Variables
-- : Doubly-linked list node for organizing workers into free or running lists
-- : OID of the database that this worker is assigned to process
-- : OID of the specific table currently being vacuumed (if any)
-- : Pointer to the PGPROC structure of the running worker process (NULL if not started)
-- : Timestamp indicating when this worker was launched
-- : Atomic flag indicating whether this worker should participate in vacuum cost balance calculations
-- : Boolean flag indicating whether the current table is a shared relation
-
+- `wi_links`: Doubly-linked list node for organizing workers into free or running lists
+- `wi_dboid`: OID of the database that this worker is assigned to process
+- `wi_tableoid`: OID of the specific table currently being vacuumed (if any)
+- `*wi_proc`: Pointer to the PGPROC structure of the running worker process (NULL if not started)
+- `wi_launchtime`: Timestamp indicating when this worker was launched
+- `wi_dobalance`: Atomic flag indicating whether this worker should participate in vacuum cost balance calculations
+- `wi_sharedrel`: Boolean flag indicating whether the current table is a shared relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md) (doubly-linked list operations)

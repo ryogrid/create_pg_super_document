@@ -22,10 +22,9 @@ BrinInsertState is a lightweight state structure designed to optimize multiple i
 The structure is particularly important for maintaining efficiency when inserting many tuples in a single transaction or statement, as it avoids the overhead of repeatedly setting up the same access structures.
 
 ## Parameters / Member Variables
-- : Pointer to the BRIN reverse map access structure for efficient range lookup and maintenance
-- : Pointer to the BRIN index descriptor containing operator class information and index metadata
-- : Number of heap pages covered by each BRIN range in this index
-
+- `*bis_rmAccess`: Pointer to the BRIN reverse map access structure for efficient range lookup and maintenance
+- `*bis_desc`: Pointer to the BRIN index descriptor containing operator class information and index metadata
+- `bis_pages_per_range`: Number of heap pages covered by each BRIN range in this index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinRevmap](BrinRevmap.md)

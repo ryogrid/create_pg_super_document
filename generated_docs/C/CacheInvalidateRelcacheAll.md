@@ -18,7 +18,7 @@ CacheInvalidateRelcacheAll invalidates the entire relation cache (relcache) for 
 The function works by registering a special invalidation message with InvalidOid for both database and relation, which signals the invalidation system to flush all relcache entries.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

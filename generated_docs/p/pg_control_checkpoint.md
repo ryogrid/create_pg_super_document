@@ -16,7 +16,6 @@ pg_control_checkpoint(PG_FUNCTION_ARGS)
 The  function provides access to the checkpoint information stored in PostgreSQL's control file. It reads the control file under lock protection, extracts detailed checkpoint metadata, and returns it as an 18-field composite tuple. The function includes transaction ID tracking, timeline management, WAL file identification, and various system state indicators that are critical for recovery and replication operations. It calculates the WAL filename containing the checkpoint's REDO start point and formats transaction IDs appropriately for display.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns a composite tuple containing 18 fields:
   - : LSN of the checkpoint record
   - : LSN where REDO should start from

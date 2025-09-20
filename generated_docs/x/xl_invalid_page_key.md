@@ -22,10 +22,9 @@ The  structure is used during XLOG replay to identify pages that may no longer e
 This structure serves as the hash table key for the invalid page tracking system, uniquely identifying a specific page within the database through the combination of relation file locator, fork number, and block number.
 
 ## Parameters / Member Variables
-- : A  that identifies the specific relation (table, index, etc.) containing the referenced page
-- : A  specifying which fork of the relation (main, FSM, VM, etc.) contains the page
-- : A  identifying the specific page block within the fork
-
+- `locator`: A  that identifies the specific relation (table, index, etc.) containing the referenced page
+- `forkno`: A  specifying which fork of the relation (main, FSM, VM, etc.) contains the page
+- `blkno`: A  identifying the specific page block within the fork
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a pure data structure)

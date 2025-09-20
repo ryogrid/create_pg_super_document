@@ -26,7 +26,6 @@ These intervals are used in binary search operations to efficiently determine wh
 
 ## Parameters / Member Variables
 - : The first Unicode code point in the interval (inclusive)
-- 
 wtmp begins Sun Aug 20 19:22:10 2023: The last Unicode code point in the interval (inclusive)
 
 ## Dependencies

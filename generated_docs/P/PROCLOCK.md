@@ -28,13 +28,12 @@ PROCLOCK is a crucial data structure in PostgreSQL's lock management system that
 The PROCLOCK structure is stored in a shared memory hash table and enables the lock manager to track which processes hold which types of locks on specific resources, manage lock conflicts, detect deadlocks, and handle lock release during transaction commit or process termination.
 
 ## Parameters / Member Variables
-- : A PROCLOCKTAG that uniquely identifies this proclock object, combining lock and process identifiers
-- : Pointer to the process that leads the lock group, or points to the process itself if not part of a group
-- : Bitmask indicating which lock types this process currently holds on the associated resource
-- : Bitmask indicating which lock types should be released (used during transaction commit/abort)
-- : Doubly-linked list node for chaining this proclock in the associated LOCK's list of proclocks
-- : Doubly-linked list node for chaining this proclock in the associated PGPROC's list of proclocks
-
+- `tag`: A PROCLOCKTAG that uniquely identifies this proclock object, combining lock and process identifiers
+- `*groupLeader`: Pointer to the process that leads the lock group, or points to the process itself if not part of a group
+- `holdMask`: Bitmask indicating which lock types this process currently holds on the associated resource
+- `releaseMask`: Bitmask indicating which lock types should be released (used during transaction commit/abort)
+- `lockLink`: Doubly-linked list node for chaining this proclock in the associated LOCK's list of proclocks
+- `procLink`: Doubly-linked list node for chaining this proclock in the associated PGPROC's list of proclocks
 ## Dependencies
 - Functions called/Symbols referenced:
   - PROCLOCKTAG

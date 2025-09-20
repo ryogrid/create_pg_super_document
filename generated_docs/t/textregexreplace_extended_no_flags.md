@@ -18,8 +18,7 @@ The  function is a simple wrapper that directly calls  with the same function ca
 The function provides the same functionality as  but represents a different function signature in PostgreSQL's catalog system - specifically for cases where the flags parameter is not provided. This allows PostgreSQL's function resolution system to distinguish between different overloads while maintaining a unified implementation.
 
 ## Parameters / Member Variables
-- All parameters are passed through to  via 
-- Supports the same parameter set as the extended version but typically handles cases without explicit flags parameter
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

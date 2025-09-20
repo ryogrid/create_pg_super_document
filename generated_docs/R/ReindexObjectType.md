@@ -23,12 +23,11 @@ typedef struct ReindexStmt
 This enumeration defines the different types of database objects that can be targeted by PostgreSQL's REINDEX command. The REINDEX operation rebuilds indexes to optimize performance, remove index bloat, or recover from index corruption. Each enum value corresponds to a different scope of reindexing operation, from individual indexes to entire databases.
 
 ## Parameters / Member Variables
-- : Reindex a specific index object
-- : Reindex all indexes of a table or materialized view
-- : Reindex all indexes within a schema
-- : Reindex system catalog indexes
-- : Reindex all indexes in the current database
-
+- `type`: Reindex a specific index object
+- `kind`: Reindex all indexes of a table or materialized view
+- `*relation`: Reindex all indexes within a schema
+- `*name`: Reindex system catalog indexes
+- `*params`: Reindex all indexes in the current database
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)

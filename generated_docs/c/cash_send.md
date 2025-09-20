@@ -18,8 +18,7 @@ The  function is part of PostgreSQL's binary I/O system for the money/cash data 
 The function uses PostgreSQL's standard binary output functions to create a properly formatted binary representation that can be safely transmitted over network connections and later reconstructed using the corresponding receive function.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
-- Input: A single cash value retrieved via 
+- Input: A single cash value retrieved via
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,11 +29,6 @@ The function maintains frame tail tracking through  and , ensures proper tuple s
 
 ## Parameters / Member Variables
 - : WindowAggState pointer containing all window function execution state including:
-  - Frame options and end boundary specifications
-  - Current row position and partition context
-  - Tuple store for partition buffering and navigation
-  - Frame tail position cache and validation flags
-  - Memory contexts and temporary tuple slots
 
 ## Dependencies
 - Functions called/Symbols referenced:

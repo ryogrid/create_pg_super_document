@@ -19,8 +19,6 @@ Unlike more complex morphological functions, r_LONG is a simple predicate that e
 ## Parameters / Member Variables
 - : Pointer to SN_env structure containing:
   - : Current cursor position in the string
-  - String data and boundaries for pattern matching
-- The function uses the a_5 array containing 7 predefined patterns
 
 ## Dependencies
 - Functions called/Symbols referenced:

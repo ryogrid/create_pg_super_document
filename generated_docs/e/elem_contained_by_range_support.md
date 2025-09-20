@@ -20,7 +20,6 @@ The function examines the function call expression and attempts to find a simpli
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
   - : A Node pointer representing the support request from the planner
-  - The function expects a SupportRequestSimplify request type
 
 ## Dependencies
 - Functions called/Symbols referenced:

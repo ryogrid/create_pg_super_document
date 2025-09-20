@@ -16,8 +16,7 @@ json_array_elements(PG_FUNCTION_ARGS)
 This function serves as the main entry point for the json_array_elements SQL function in PostgreSQL. It is a thin wrapper around the elements_worker function, specifically configured to handle JSON (not JSONB) input and return JSON values rather than text. The function processes JSON arrays by delegating the actual work to elements_worker with appropriate parameters to maintain JSON format in the output.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments through the fcinfo structure
-- No explicit parameters - arguments are accessed via PostgreSQL's function call interface
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

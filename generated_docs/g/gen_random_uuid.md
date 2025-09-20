@@ -23,9 +23,7 @@ The function performs the following operations:
 The resulting UUID has the format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx where x represents random hex digits and y represents random hex digits with the first bit set to 1.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
-- Takes no input parameters
-- Returns a newly generated random UUID
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,7 +18,7 @@ This function provides a diagnostic view of the entire shared buffer pool by ite
 The function outputs each buffer's information using elog(LOG, ...), making the details available in the PostgreSQL server log. Note that the function includes a comment indicating that theoretically the buffer header should be locked during inspection, but for diagnostic purposes, this locking is omitted to avoid potential deadlocks or performance issues during debugging scenarios.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

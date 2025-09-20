@@ -16,7 +16,6 @@ cidr_in(PG_FUNCTION_ARGS)
 This function serves as the standard input conversion function for PostgreSQL's CIDR data type. It acts as a thin wrapper around the network_in function, specifically configured for CIDR semantics which enforce strict network address validation. Unlike inet_in, this function passes true for the is_cidr parameter to network_in, ensuring that no host bits are set beyond the network mask, maintaining proper CIDR block representation.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function interface (PG_FUNCTION_ARGS)
   - Argument 0: C-string representation of the CIDR address
 
 ## Dependencies

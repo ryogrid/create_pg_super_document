@@ -15,7 +15,6 @@ Datum i8tooid(PG_FUNCTION_ARGS)
 This function performs a type conversion from PostgreSQL's 64-bit integer type (int8) to OID (Object Identifier). OIDs in PostgreSQL are unsigned 32-bit integers, so this function must validate that the input int64 value falls within the valid OID range (0 to PG_UINT32_MAX). The function performs explicit range checking and throws an error if the value is negative or exceeds the maximum OID value.
 
 ## Parameters / Member Variables
-- The function uses PostgreSQL's `PG_FUNCTION_ARGS` macro to access arguments
 - Argument 0: An int8 (64-bit integer) value to be converted to OID
 
 ## Dependencies

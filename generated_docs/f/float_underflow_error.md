@@ -18,7 +18,7 @@ This function serves as a centralized error reporting mechanism for floating-poi
 Underflow occurs when a floating-point operation results in a value that is too small to be represented in the available precision, typically approaching zero. This centralized approach ensures consistent error reporting across all PostgreSQL floating-point operations while maintaining code efficiency.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

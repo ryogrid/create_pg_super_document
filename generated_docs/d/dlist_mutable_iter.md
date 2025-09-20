@@ -24,10 +24,9 @@ The key safety feature is the inclusion of a  pointer that stores the next node 
 This iterator is used by  and  macros, providing a standardized way to perform list cleanup operations, selective deletions, and other modifications that require traversing and potentially altering the list structure.
 
 ## Parameters / Member Variables
-- : Pointer to the current  being processed during iteration
-- : Pointer to the next  that will be processed, stored separately to handle current node deletion safely
-- : Pointer to the last  that will be processed in this iteration, used to determine when to stop
-
+- `*cur`: Pointer to the current  being processed during iteration
+- `*next`: Pointer to the next  that will be processed, stored separately to handle current node deletion safely
+- `*end`: Pointer to the last  that will be processed in this iteration, used to determine when to stop
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (used for cur, next, and end members)

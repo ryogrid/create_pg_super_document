@@ -22,7 +22,7 @@ The function allocates and initializes:
 This environment must be created before calling english_UTF_8_stem() and should be properly disposed of using english_UTF_8_close_env() when no longer needed.
 
 ## Parameters / Member Variables
-- None (void function) - uses language-specific constants internally
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

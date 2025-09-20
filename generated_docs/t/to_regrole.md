@@ -20,9 +20,6 @@ The function accepts text input (which is converted to a C string) and uses Dire
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing:
-  - Input text value representing the role name
-  - Function context and metadata
-  - Return value storage
 
 ## Dependencies
 - Functions called/Symbols referenced:

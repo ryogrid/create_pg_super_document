@@ -65,51 +65,37 @@ The structure is organized into several logical groups:
 This design enables efficient dependency resolution, selective restoration, and parallel processing while maintaining referential integrity.
 
 ## Parameters / Member Variables
-### List Navigation
-- : Previous entry in circular linked list
-- : Next entry in circular linked list
-
-### Object Identification
-- : PostgreSQL catalog identifier for the object
-- : Unique identifier within the dump archive
-- : Section classification (pre-data, data, post-data)
-- : Flag indicating if a dumper routine was provided
-
-### Object Metadata
-- : Index tag for object identification
-- : Schema name (NULL or empty if not in schema)
-- : Tablespace name (NULL if default, empty for database default)
-- : Table access method (only for TABLE objects)
-- : Relation kind (only for TABLE objects)
-- : Object owner name
-- : Object description
-- : SQL definition statement
-- : SQL drop statement
-- : SQL copy statement for data
-
-### Dependencies
-- : Array of dump IDs this object depends on
-- : Number of dependencies
-
-### Dump/Restore Functions
-- : Function pointer for dumping object data
-- : Argument for the dumper function
-- : Format-specific data storage
-
-### Working State
-- : Size of object's data (0 if none/unknown)
-- : Requirements bit mask (schema/data needed)
-- : Flag indicating if object was created (for DATA entries)
-
-### Parallel Processing State
-- : Previous link in pending items list
-- : Next link in pending items list
-- : Number of unresolved dependencies
-- : Array of objects depending on this one
-- : Number of reverse dependencies
-- : Array of objects this one needs locks on
-- : Number of lock dependencies
-
+- `*prev`: Previous entry in circular linked list
+- `*next`: Next entry in circular linked list
+- `catalogId`: PostgreSQL catalog identifier for the object
+- `dumpId`: Unique identifier within the dump archive
+- `section`: Section classification (pre-data, data, post-data)
+- `hadDumper`: Flag indicating if a dumper routine was provided
+- `*tag`: Index tag for object identification
+- `*namespace`: Schema name (NULL or empty if not in schema)
+- `*tablespace`: Tablespace name (NULL if default, empty for database default)
+- `*tableam`: Table access method (only for TABLE objects)
+- `relkind`: Relation kind (only for TABLE objects)
+- `*owner`: Object owner name
+- `*desc`: Object description
+- `*defn`: SQL definition statement
+- `*dropStmt`: SQL drop statement
+- `*copyStmt`: SQL copy statement for data
+- `*dependencies`: Array of dump IDs this object depends on
+- `nDeps`: Number of dependencies
+- `dataDumper`: Function pointer for dumping object data
+- `*dataDumperArg`: Argument for the dumper function
+- `*formatData`: Format-specific data storage
+- `dataLength`: Size of object's data (0 if none/unknown)
+- `reqs`: Requirements bit mask (schema/data needed)
+- `created`: Flag indicating if object was created (for DATA entries)
+- `*pending_prev`: Previous link in pending items list
+- `*pending_next`: Next link in pending items list
+- `depCount`: Number of unresolved dependencies
+- `*revDeps`: Array of objects depending on this one
+- `nRevDeps`: Number of reverse dependencies
+- `*lockDeps`: Array of objects this one needs locks on
+- `nLockDeps`: Number of lock dependencies
 ## Dependencies
 - Functions called/Symbols referenced:
   - [CatalogId](../C/CatalogId.md) (PostgreSQL catalog identifier type)

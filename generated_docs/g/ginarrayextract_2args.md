@@ -17,9 +17,7 @@ The `ginarrayextract_2args` function serves as a backward compatibility layer fo
 The function performs a simple argument count check and then delegates all processing to the main ginarrayextract function. This design maintains API compatibility while allowing the underlying implementation to evolve.
 
 ## Parameters / Member Variables
-- Function uses the standard PG_FUNCTION_ARGS interface
-- No specific parameters documented as this is a compatibility wrapper
-- Internally validates argument count before delegation
+
 
 ## Dependencies  
 - Functions called/Symbols referenced:

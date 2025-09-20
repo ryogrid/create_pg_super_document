@@ -23,9 +23,8 @@ This structure is used in conjunction with the  function to create a table-drive
 The design allows PostgreSQL to maintain a list of required NT functions in a declarative manner, making it easy to add new functions or modify the loading process without changing the core loading logic.
 
 ## Parameters / Member Variables
-- : A constant string containing the exact name of the NT function as it appears in ntdll.dll (e.g., "RtlGetLastNtStatus")
-- : A pointer to a function pointer where the resolved address of the NT function will be stored after successful loading
-
+- `*name`: A constant string containing the exact name of the NT function as it appears in ntdll.dll (e.g., "RtlGetLastNtStatus")
+- `*address`: A pointer to a function pointer where the resolved address of the NT function will be stored after successful loading
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a data structure definition)

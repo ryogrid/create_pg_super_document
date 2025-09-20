@@ -23,9 +23,8 @@ The structure tracks comprehensive relation activity including scan operations, 
 This is a critical component of PostgreSQL's cost-based query optimizer, providing the statistical foundation for join order decisions, index selection, and other query planning optimizations.
 
 ## Parameters / Member Variables
-- : PgStatShared_Common structure containing magic number validation and LWLock for protecting the statistics data during concurrent access
-- : PgStat_StatTabEntry structure containing comprehensive relation statistics including scan counts, tuple operations, buffer metrics, maintenance history, and tuple lifecycle data
-
+- `header`: PgStatShared_Common structure containing magic number validation and LWLock for protecting the statistics data during concurrent access
+- `stats`: PgStat_StatTabEntry structure containing comprehensive relation statistics including scan counts, tuple operations, buffer metrics, maintenance history, and tuple lifecycle data
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common

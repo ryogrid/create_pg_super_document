@@ -17,7 +17,7 @@ This function implements the greater-than-or-equal-to comparison operator (>=) b
 The function is part of PostgreSQL's type system infrastructure, specifically handling cross-type comparisons between name and text types. This enables SQL queries to directly compare name columns (typically used for system catalog identifiers) with text values using the greater-than-or-equal-to operator.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro - PostgreSQL's standard function argument mechanism that provides access to function arguments and context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,19 +29,18 @@ typedef struct FuncCall
 FuncCall is a comprehensive parse tree node that represents function and aggregate invocations in SQL statements. It supports a wide range of SQL function call syntax including regular function calls, aggregate functions with ORDER BY clauses, window functions with OVER clauses, DISTINCT aggregates, star aggregates (COUNT(*)), FILTER clauses, and WITHIN GROUP constructs. The node captures all the syntactic elements that can appear in function calls, making it suitable for representing everything from simple scalar functions to complex analytical functions.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a FuncCall node
-- : List containing the qualified function name (schema.function_name)
-- : List of expressions representing the function arguments
-- : List of SortBy nodes for ORDER BY clauses in aggregates
-- : Node representing a FILTER clause expression (for filtered aggregates)
-- : Pointer to WindowDef structure for OVER clauses (window functions)
-- : Boolean indicating ORDER BY appeared in WITHIN GROUP syntax
-- : Boolean indicating the argument was '*' (as in COUNT(*))
-- : Boolean indicating arguments were prefixed with DISTINCT
-- : Boolean indicating the last argument was marked VARIADIC
-- : CoercionForm enum controlling how the function call is displayed
-- : ParseLoc storing the token's position in the source SQL
-
+- `type`: NodeTag identifying this as a FuncCall node
+- `*funcname`: List containing the qualified function name (schema.function_name)
+- `*args`: List of expressions representing the function arguments
+- `*agg_order`: List of SortBy nodes for ORDER BY clauses in aggregates
+- `*agg_filter`: Node representing a FILTER clause expression (for filtered aggregates)
+- `*over`: Pointer to WindowDef structure for OVER clauses (window functions)
+- `agg_within_group`: Boolean indicating ORDER BY appeared in WITHIN GROUP syntax
+- `agg_star`: Boolean indicating the argument was '*' (as in COUNT(*))
+- `agg_distinct`: Boolean indicating arguments were prefixed with DISTINCT
+- `func_variadic`: Boolean indicating the last argument was marked VARIADIC
+- `funcformat`: CoercionForm enum controlling how the function call is displayed
+- `location`: ParseLoc storing the token's position in the source SQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WindowDef](../W/WindowDef.md)

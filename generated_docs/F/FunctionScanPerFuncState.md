@@ -25,13 +25,12 @@ FunctionScanPerFuncState is a per-function state structure used within PostgreSQ
 The structure maintains both the execution state of the function expression and the storage mechanism for its results. It supports functions that return multiple rows by using a tuple store to cache results, and tracks metadata such as the expected column count and total row count when available.
 
 ## Parameters / Member Variables
-- : Pointer to SetExprState containing the state of the expression being evaluated, managing the function's execution context
-- : TupleDesc describing the function's result type structure, defining the schema of returned tuples
-- : Integer representing the expected number of result columns from the function
-- : Pointer to Tuplestorestate that holds the complete function result set for set-returning functions
-- : 64-bit integer tracking the number of rows in the result set, or -1 if the count is not known
-- : Pointer to TupleTableSlot for holding individual function result tuples, may be NULL
-
+- `*setexpr`: Pointer to SetExprState containing the state of the expression being evaluated, managing the function's execution context
+- `tupdesc`: TupleDesc describing the function's result type structure, defining the schema of returned tuples
+- `colcount`: Integer representing the expected number of result columns from the function
+- `*tstore`: Pointer to Tuplestorestate that holds the complete function result set for set-returning functions
+- `rowcount`: 64-bit integer tracking the number of rows in the result set, or -1 if the count is not known
+- `*func_slot`: Pointer to TupleTableSlot for holding individual function result tuples, may be NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SetExprState](../S/SetExprState.md)

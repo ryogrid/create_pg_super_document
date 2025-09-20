@@ -19,7 +19,7 @@ In the context of shared memory message queues, messages are delivered immediate
 The function consistently returns false (0) to indicate that no send operations are ever pending in the shared memory message queue implementation.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

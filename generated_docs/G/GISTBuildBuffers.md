@@ -58,23 +58,22 @@ typedef struct GISTBuildBuffers
 GISTBuildBuffers implements a sophisticated buffering system for efficient GiST index construction. This structure manages memory-resident buffers and temporary file storage to handle index builds that exceed available memory. It uses a multi-level buffering strategy where certain tree levels have associated buffers, allowing tuples to be collected and batch-processed for better I/O efficiency. The system includes free block management, buffer scheduling, and dynamic memory allocation to optimize performance during large index builds.
 
 ## Parameters / Member Variables
-- : MemoryContext for persistent storage of buffers and metadata
-- : BufFile pointer to temporary file for storing buffer overflow data
-- : Long integer tracking current size of the temporary file
-- : Pointer to resizable array of free block numbers
-- : Integer count of currently free blocks in the array
-- : Integer representing current allocated length of freeBlocks array
-- : HTAB hash table for quick buffer lookups by block number
-- : List of buffers scheduled for emptying
-- : Integer parameter determining which tree levels have buffers
-- : Integer parameter setting the size of each buffer
-- : Array of List pointers organizing buffers by tree level for final emptying
-- : Integer length of the buffersOnLevels array
-- : Array of GISTNodeBuffer pointers for buffers currently loaded in memory
-- : Integer count of entries in loadedBuffers
-- : Integer allocated size of loadedBuffers array
-- : Integer representing the level of the current root node (height of index tree - 1)
-
+- `context`: MemoryContext for persistent storage of buffers and metadata
+- `*pfile`: BufFile pointer to temporary file for storing buffer overflow data
+- `nFileBlocks`: Long integer tracking current size of the temporary file
+- `*freeBlocks`: Pointer to resizable array of free block numbers
+- `nFreeBlocks`: Integer count of currently free blocks in the array
+- `freeBlocksLen`: Integer representing current allocated length of freeBlocks array
+- `*nodeBuffersTab`: HTAB hash table for quick buffer lookups by block number
+- `*bufferEmptyingQueue`: List of buffers scheduled for emptying
+- `levelStep`: Integer parameter determining which tree levels have buffers
+- `pagesPerBuffer`: Integer parameter setting the size of each buffer
+- `**buffersOnLevels`: Array of List pointers organizing buffers by tree level for final emptying
+- `buffersOnLevelsLen`: Integer length of the buffersOnLevels array
+- `**loadedBuffers`: Array of GISTNodeBuffer pointers for buffers currently loaded in memory
+- `loadedBuffersCount`: Integer count of entries in loadedBuffers
+- `loadedBuffersLen`: Integer allocated size of loadedBuffers array
+- `rootlevel`: Integer representing the level of the current root node (height of index tree - 1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufFile

@@ -30,17 +30,16 @@ typedef struct regexp_matches_ctx
 This structure serves as a context container for set-returning functions that process regular expression matches. It maintains all necessary state information between function calls, including the original string, match locations, and workspace buffers. The structure is designed to handle multiple matches efficiently by pre-computing all match positions and then returning them one by one in subsequent function calls. It also handles character encoding conversions and provides workspace for constructing result arrays.
 
 ## Parameters / Member Variables
-- : Pointer to the original input string in PostgreSQL's TEXT format
-- : Total number of locations where the regular expression pattern matched in the string
-- : Number of capturing subpatterns (parenthesized groups) in the regular expression
-- : Array storing start and end+1 character indexes for each match and subpattern (size: nmatches * npatterns * 2)
-- : Index of the next match to be processed and returned (0-based)
-- : Workspace array for constructing result tuples, with npatterns elements
-- : Boolean array indicating null values in result tuples, with npatterns elements  
-- : Wide-character (pg_wchar) version of the original string for proper Unicode handling
-- : Buffer used for character encoding conversions when needed
-- : Size of the conversion buffer in bytes
-
+- `*orig_str`: Pointer to the original input string in PostgreSQL's TEXT format
+- `nmatches`: Total number of locations where the regular expression pattern matched in the string
+- `npatterns`: Number of capturing subpatterns (parenthesized groups) in the regular expression
+- `*match_locs`: Array storing start and end+1 character indexes for each match and subpattern (size: nmatches * npatterns * 2)
+- `next_match`: Index of the next match to be processed and returned (0-based)
+- `*elems`: Workspace array for constructing result tuples, with npatterns elements
+- `*nulls`: Boolean array indicating null values in result tuples, with npatterns elements
+- `*wide_str`: Wide-character (pg_wchar) version of the original string for proper Unicode handling
+- `*conv_buf`: Buffer used for character encoding conversions when needed
+- `conv_bufsiz`: Size of the conversion buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [text](../t/text.md) (PostgreSQL TEXT type)

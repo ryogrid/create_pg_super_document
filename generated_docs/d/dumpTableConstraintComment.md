@@ -29,10 +29,6 @@ Key aspects:
 ## Parameters / Member Variables
 - : Archive pointer containing dump options and output context
 - : ConstraintInfo structure containing:
-  - Constraint name and metadata
-  - Associated table information (contable)
-  - Dump flags indicating whether to dump comments
-  - Separation flag indicating dump method (inline vs separate)
 
 ## Dependencies
 - Functions called/Symbols referenced:

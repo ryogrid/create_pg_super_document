@@ -17,7 +17,7 @@ This is a signal handler function designed to be called when a timeout occurs fo
 The function is lightweight and signal-safe, performing minimal work within the signal handler context and deferring the actual statistics update work to be processed later in a safe context.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,11 +25,10 @@ Table sampling allows queries to work with a subset of table data, which is usef
 The tsmhandler field references a tablesample method handler function (like SYSTEM or BERNOULLI sampling methods), while the args list contains expressions that parameterize the sampling behavior (such as sample percentage). The repeatable expression, when provided, ensures that multiple executions of the same query with the same REPEATABLE value produce identical sampling results.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a TableSampleClause node
-- : OID of the tablesample method handler function (e.g., SYSTEM, BERNOULLI)
-- : List of expressions providing arguments to the sampling method (e.g., sample percentage)
-- : Optional REPEATABLE expression for deterministic sampling; NULL if not specified
-
+- `type`: NodeTag identifying this as a TableSampleClause node
+- `tsmhandler`: OID of the tablesample method handler function (e.g., SYSTEM, BERNOULLI)
+- `*args`: List of expressions providing arguments to the sampling method (e.g., sample percentage)
+- `*repeatable`: Optional REPEATABLE expression for deterministic sampling; NULL if not specified
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

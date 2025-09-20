@@ -22,12 +22,11 @@ typedef struct PLySavedArgs
 PLySavedArgs implements a linked-list structure that preserves function arguments and context information when PL/Python functions are called recursively or when dealing with set-returning functions. This structure ensures that each function call level maintains its own argument context, preventing argument corruption during nested executions. The structure stores both positional arguments (args) and named arguments (namedargs), along with trigger-specific data (td) when applicable.
 
 ## Parameters / Member Variables
-- : Pointer to the next PLySavedArgs structure in the linked list, enabling stacking of multiple argument contexts
-- : Python object containing the "args" element from the globals dictionary, representing positional arguments
-- : Python object containing the "TD" (trigger data) element from globals dictionary, used only for trigger functions
-- : Integer specifying the length of the namedargs array, indicating how many named arguments are stored
-- : Flexible array member containing Python objects representing named function arguments
-
+- `*next`: Pointer to the next PLySavedArgs structure in the linked list, enabling stacking of multiple argument contexts
+- `*args`: Python object containing the "args" element from the globals dictionary, representing positional arguments
+- `*td`: Python object containing the "TD" (trigger data) element from globals dictionary, used only for trigger functions
+- `nargs`: Integer specifying the length of the namedargs array, indicating how many named arguments are stored
+- `*namedargs[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing Python objects representing named function arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array implementation)

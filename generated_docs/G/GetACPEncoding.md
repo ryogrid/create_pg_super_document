@@ -17,7 +17,6 @@ This function serves as a bridge between Windows system encoding and PostgreSQL'
 The function uses lazy initialization with caching - it only queries the system once and stores the result for subsequent calls. This is efficient since the ANSI Code Page remains constant for all processes in a given Windows system.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: PostgreSQL encoding ID corresponding to the Windows ACP
 
 ## Dependencies

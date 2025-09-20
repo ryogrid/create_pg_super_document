@@ -15,7 +15,7 @@ void HandleParallelApplyMessages(void)
 HandleParallelApplyMessages serves as the main message dispatcher for parallel apply workers in PostgreSQL logical replication. It iterates through the pool of parallel apply workers, checking each workers error message queue for pending messages. The function operates within interrupt-safe boundaries and uses a dedicated memory context to prevent memory leaks. For each worker, it attempts to receive messages from the shared memory queue non-blockingly. Successfully received messages are wrapped in StringInfo and passed to HandleParallelApplyMessage for individual processing. The function handles three possible outcomes from message reception: successful reception, no messages available, or connection loss to the worker.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

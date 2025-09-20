@@ -24,14 +24,13 @@ typedef struct BrinValues
 BrinValues is a fundamental data structure in PostgreSQL's BRIN (Block Range Index) implementation. Each BRIN index tuple contains one BrinValues struct for each indexed column. This structure accumulates summary information about values within a page range, enabling efficient range-based queries. The structure supports various BRIN operator classes (minmax, inclusion, bloom) by storing opclass-specific summary data in the bv_values array. The size and interpretation of this array depends on the specific operator class being used.
 
 ## Parameters / Member Variables
-- : The attribute number of the indexed column this BrinValues represents
-- : Boolean flag indicating whether any NULL values exist in the page range
-- : Boolean flag indicating whether all values in the page range are NULL
-- : Pointer to an array of Datum values containing the accumulated summary data (size determined by opclass)
-- : Expanded form of accumulated values, used for in-memory operations
-- : Memory context used for managing the lifetime of associated data
-- : Callback function pointer for serializing the values to disk format
-
+- `bv_attno`: The attribute number of the indexed column this BrinValues represents
+- `bv_hasnulls`: Boolean flag indicating whether any NULL values exist in the page range
+- `bv_allnulls`: Boolean flag indicating whether all values in the page range are NULL
+- `*bv_values`: Pointer to an array of Datum values containing the accumulated summary data (size determined by opclass)
+- `bv_mem_value`: Expanded form of accumulated values, used for in-memory operations
+- `bv_context`: Memory context used for managing the lifetime of associated data
+- `bv_serialize`: Callback function pointer for serializing the values to disk format
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (data type)

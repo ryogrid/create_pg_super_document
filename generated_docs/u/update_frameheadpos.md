@@ -28,11 +28,6 @@ The function uses tuple stores to buffer partition data and maintains frame head
 
 ## Parameters / Member Variables
 - : WindowAggState pointer containing all window function execution state including:
-  - Frame options and boundaries
-  - Current position tracking
-  - Tuple store for partition buffering
-  - Frame head position cache and validation flags
-  - Memory contexts and tuple slots
 
 ## Dependencies
 - Functions called/Symbols referenced:

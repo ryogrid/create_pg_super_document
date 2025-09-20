@@ -19,8 +19,6 @@ This function is part of PostgreSQL's type system infrastructure and is called a
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro
-  - Contains binary format data to be converted to regtype
-  - Includes additional context like format information and buffer details
 
 ## Dependencies
 - Functions called/Symbols referenced:

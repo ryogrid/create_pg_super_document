@@ -19,9 +19,6 @@ The function takes three arguments: start timestamp, end timestamp, and step int
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Start timestamp with timezone (TimestampTz)
-  - Finish timestamp with timezone (TimestampTz)
-  - Step interval (Interval)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,7 +16,6 @@ The `add_one_float8` function is a PostgreSQL C function that takes a single dou
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL macro that provides access to function arguments and context information
-  - The function extracts the first argument as a double-precision float using `PG_GETARG_FLOAT8(0)`
 
 ## Dependencies
 - Functions called/Symbols referenced:

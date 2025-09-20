@@ -25,7 +25,6 @@ Title case conversion capitalizes the first letter of each word while keeping su
 - : Maximum capacity of the destination buffer in UChar units
 - : Source Unicode string to be converted to title case  
 - : Length of the source string in UChar units
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

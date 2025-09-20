@@ -38,7 +38,6 @@ The structure contains function pointers for hash operations, memory management 
 
 ## Parameters / Member Variables
 - : Pointer to HASHHDR structure containing shared control information
-- 0					frametailpos
 5					glob-
 =					global_symbols.db
 FuzzyAttrMatchState_documentation.md	import_symbol_reference.py

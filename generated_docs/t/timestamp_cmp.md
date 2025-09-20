@@ -13,7 +13,6 @@ Datum timestamp_cmp(PG_FUNCTION_ARGS)
 This function implements the comparison function for PostgreSQL timestamp values, returning an integer that indicates the relative ordering of two timestamps. It extracts two timestamp arguments from the function call arguments using PostgreSQL function argument macros, then delegates the actual comparison logic to timestamp_cmp_internal and returns the comparison result as a 32-bit integer. This function serves as the basis for all timestamp comparison operations and is used by PostgreSQL's comparison operators and sorting algorithms.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS
 - Argument 0: First timestamp value to compare
 - Argument 1: Second timestamp value to compare
 

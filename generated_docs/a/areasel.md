@@ -20,7 +20,7 @@ The function returns a hardcoded selectivity value of 0.005 (0.5%), which is int
 This is part of a broader challenge with GiST (Generalized Search Tree) indexes used for geometric data, where multiple subtrees often need to be searched to guarantee complete results, making cost estimation particularly difficult.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function argument macro  which provides access to function call context and arguments, though this specific function doesn't examine any arguments
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

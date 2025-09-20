@@ -23,11 +23,10 @@ MemoryContextCounters is a statistics aggregation structure used throughout Post
 The counters track both allocated and free memory at the block and chunk level, allowing for detailed analysis of memory usage patterns. This information is crucial for performance monitoring, debugging memory issues, and understanding allocation behavior in PostgreSQL.
 
 ## Parameters / Member Variables
-- : Total number of malloc blocks allocated by the memory context
-- : Total number of free chunks available for reuse within allocated blocks  
-- : Total bytes requested from the underlying malloc implementation
-- : The amount of unused space within the total allocated space
-
+- `nblocks`: Total number of malloc blocks allocated by the memory context
+- `freechunks`: Total number of free chunks available for reuse within allocated blocks
+- `totalspace`: Total bytes requested from the underlying malloc implementation
+- `freespace`: The amount of unused space within the total allocated space
 ## Dependencies
 - Functions called/Symbols referenced:
   - Size (PostgreSQL's size type)

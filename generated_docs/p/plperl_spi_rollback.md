@@ -17,7 +17,7 @@ This function provides a PL/Perl interface to PostgreSQL's SPI_rollback() functi
 The function enables explicit transaction control from PL/Perl code, complementing plperl_spi_commit to provide complete transaction management capabilities. This is particularly useful in procedural code that needs to implement complex error handling logic or conditional transaction control based on business rules.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

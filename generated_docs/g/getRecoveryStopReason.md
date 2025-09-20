@@ -17,7 +17,7 @@ The `getRecoveryStopReason` function generates descriptive text that explains th
 The function examines the global recovery target settings and recovery stop information to construct an appropriate message that describes whether recovery stopped before or after a specific transaction, at a particular timestamp, at a specific LSN position, at a named restore point, or upon reaching consistency. This information is essential for database administration, auditing, and troubleshooting recovery operations.
 
 ## Parameters / Member Variables
-- None (void parameter list - function accesses global recovery state variables)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

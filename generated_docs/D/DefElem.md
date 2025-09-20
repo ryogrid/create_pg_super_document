@@ -24,13 +24,12 @@ typedef struct DefElem
 DefElem is one of the most widely used structures in PostgreSQL's parser, serving as a generic container for option-value pairs in DDL statements. It represents named parameters, configuration options, and attributes that can be specified in various SQL commands like CREATE, ALTER, and other data definition statements. The structure supports namespace qualification, various data types for values, and different actions (SET/ADD/DROP) making it extremely versatile for representing database object options and configurations.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this node type
-- : Namespace qualifier for the option name (NULL for unqualified names)
-- : The name of the option or parameter being defined
-- : The value associated with the option (typically Integer, Float, String, or TypeName nodes)
-- : Specifies the action to perform (unspecified, SET, ADD, or DROP)
-- : Source location in the original SQL text (-1 if unknown)
-
+- `type`: NodeTag identifier for this node type
+- `*defnamespace`: Namespace qualifier for the option name (NULL for unqualified names)
+- `*defname`: The name of the option or parameter being defined
+- `*arg`: The value associated with the option (typically Integer, Float, String, or TypeName nodes)
+- `defaction`: Specifies the action to perform (unspecified, SET, ADD, or DROP)
+- `location`: Source location in the original SQL text (-1 if unknown)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DefElemAction](DefElemAction.md) (enum for specifying the action type)

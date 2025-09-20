@@ -18,7 +18,7 @@ This function serves as a transaction state management utility that tracks wheth
 The function performs a safety check using  to verify that a transaction ID exists before marking it as logged. This prevents erroneous state changes for transactions that haven't yet been assigned an ID.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,9 +22,8 @@ This structure is PostgreSQL's custom implementation of pthread_mutex_t specific
 The implementation is only active on WIN32 platforms - on other platforms, the standard system pthread.h header is included instead. This design allows PostgreSQL's ECPG to maintain cross-platform compatibility while leveraging native Win32 threading primitives for optimal performance on Windows systems.
 
 ## Parameters / Member Variables
-- : A LONG value tracking the mutex initialization state (0: not initialized, 1: initialization complete, 2: initialization in progress)
-- : The actual Windows CRITICAL_SECTION object that provides the mutex functionality
-
+- `initstate`: A LONG value tracking the mutex initialization state (0: not initialized, 1: initialization complete, 2: initialization in progress)
+- `csection`: The actual Windows CRITICAL_SECTION object that provides the mutex functionality
 ## Dependencies
 - Functions called/Symbols referenced:
   - LONG (Windows type)

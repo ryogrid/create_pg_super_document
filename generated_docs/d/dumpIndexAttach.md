@@ -25,9 +25,6 @@ Key aspects:
 ## Parameters / Member Variables
 - : Archive pointer containing dump options and output context
 - : IndexAttachInfo structure containing:
-  - Parent partitioned index information
-  - Partition index information
-  - Attachment metadata and dump object details
 
 ## Dependencies
 - Functions called/Symbols referenced:

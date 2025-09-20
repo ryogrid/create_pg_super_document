@@ -18,7 +18,7 @@ This function ensures compatibility between a user-specified character encoding 
 The validation includes several special cases: SQL_ASCII is considered compatible with any locale, unknown locale encodings (-1) are accepted, and on Windows systems, UTF8 encoding is allowed with any locale due to platform-specific character handling behaviors.
 
 ## Parameters / Member Variables
-- LANG=C.UTF-8
+
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

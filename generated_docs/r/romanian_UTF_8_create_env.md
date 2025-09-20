@@ -20,7 +20,6 @@ This function serves as a factory method that creates a properly configured Snow
 The function provides a clean interface for external code to obtain a Romanian stemmer environment without needing to know the specific configuration parameters required for Romanian morphological processing.
 
 ## Parameters / Member Variables
-- None (void parameter list)
 - Returns: Pointer to initialized SN_env structure configured for Romanian UTF-8 stemming
 
 ## Dependencies

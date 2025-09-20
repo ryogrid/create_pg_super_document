@@ -20,8 +20,7 @@ Each dependency is formatted as a quoted string showing the attributes involved 
 The output format follows the pattern: {"attr1, attr2 => attr3": degree, "attr4 => attr5": degree, ...}
 
 ## Parameters / Member Variables
-- Takes standard PG_FUNCTION_ARGS (single bytea argument containing serialized dependency data)
-- Returns a C string representation of the dependencies
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,7 +18,7 @@ This function serves as a constructor for the RestoreOptions structure, which co
 The function ensures consistent initialization of restore options across different entry points in the pg_dump/pg_restore utilities. By using pg_malloc0, most boolean flags and numeric fields are automatically initialized to false/0, while only specific fields that need different default values are explicitly set.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

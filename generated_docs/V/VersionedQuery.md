@@ -23,9 +23,8 @@ When psql needs to perform tab completion, it traverses through the VersionedQue
 The array is terminated with an entry having min_server_version = 0, which can contain either a fallback query that works with all older supported server versions, or NULL to indicate that no completion should be attempted for very old servers.
 
 ## Parameters / Member Variables
-- : Integer representing the minimum PostgreSQL server version (in numeric format, e.g., 100000 for version 10.0) required for the associated query to work correctly
-- : Const char pointer to the SQL query string to be executed for tab completion, or NULL to indicate no completion should be performed
-
+- `min_server_version`: Integer representing the minimum PostgreSQL server version (in numeric format, e.g., 100000 for version 10.0) required for the associated query to work correctly
+- `*query`: Const char pointer to the SQL query string to be executed for tab completion, or NULL to indicate no completion should be performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)

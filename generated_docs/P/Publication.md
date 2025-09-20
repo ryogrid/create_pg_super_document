@@ -26,12 +26,11 @@ This structure serves as the in-memory representation of publication objects and
 The Publication structure is fundamental to PostgreSQL's logical replication architecture, acting as the authoritative source of publication configuration that drives replication decisions and table inclusion logic.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the publication in the system catalog
-- : String name of the publication as specified by the user
-- : Boolean flag indicating whether the publication includes all tables in the database
-- : Boolean flag controlling whether partitioned tables are published via their root table or individual partitions
-- : PublicationActions structure specifying which DML operations (INSERT, UPDATE, DELETE, TRUNCATE) are published
-
+- `oid`: Object identifier (OID) of the publication in the system catalog
+- `*name`: String name of the publication as specified by the user
+- `alltables`: Boolean flag indicating whether the publication includes all tables in the database
+- `pubviaroot`: Boolean flag controlling whether partitioned tables are published via their root table or individual partitions
+- `pubactions`: PublicationActions structure specifying which DML operations (INSERT, UPDATE, DELETE, TRUNCATE) are published
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PublicationActions](PublicationActions.md) (embedded structure at line 106)

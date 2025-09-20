@@ -23,7 +23,7 @@ The function works by:
 This approach allows the system to defer setting the "real" default value until after the configuration files have been processed and the execution environment is fully established.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

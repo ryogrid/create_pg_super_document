@@ -15,8 +15,7 @@ This function acts as a compatibility stub for older versions of gin_tsquery_con
 Following the same pattern as other compatibility functions in the file, this function validates that the required number of arguments (eight) are present and then delegates execution to the actual gin_tsquery_consistent implementation. The function includes error handling to catch the unlikely scenario where fewer than eight arguments are provided.
 
 ## Parameters / Member Variables
-- Standard PostgreSQL function arguments via PG_FUNCTION_ARGS macro
-- Inherits the same parameters as gin_tsquery_consistent when delegation occurs
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

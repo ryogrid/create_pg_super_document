@@ -22,10 +22,9 @@ TablespaceListCell is a fundamental data structure in pg_basebackup that represe
 The structure implements a simple singly-linked list pattern where each node contains the mapping information for one tablespace and a pointer to the next node in the list. This design allows for dynamic allocation and management of tablespace mappings without requiring a fixed-size array.
 
 ## Parameters / Member Variables
-- : Pointer to the next TablespaceListCell in the linked list, or NULL if this is the last node
-- : Original tablespace directory path on the source server (maximum MAXPGPATH characters)
-- : Target tablespace directory path on the destination system (maximum MAXPGPATH characters)
-
+- `*next`: Pointer to the next TablespaceListCell in the linked list, or NULL if this is the last node
+- `old_dir[MAXPGPATH]`: Original tablespace directory path on the source server (maximum MAXPGPATH characters)
+- `new_dir[MAXPGPATH]`: Target tablespace directory path on the destination system (maximum MAXPGPATH characters)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Self-referential through next pointer)

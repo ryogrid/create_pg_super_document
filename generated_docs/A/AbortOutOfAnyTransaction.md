@@ -30,7 +30,7 @@ The function operates through a comprehensive state machine that processes each 
 This function is essential for process shutdown, error recovery, and situations where transaction state may be corrupted or uncertain.
 
 ## Parameters / Member Variables
-- No parameters - operates on all current transaction state
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -13,7 +13,7 @@ extern struct SN_env * lithuanian_UTF_8_create_env(void)
 This function serves as the constructor for Lithuanian stemming operations by creating a new Snowball environment structure. It acts as a wrapper around the generic SN_create_env function, providing Lithuanian-specific initialization parameters. The function allocates memory for the environment structure and configures it with the appropriate settings for processing Lithuanian text: 0 integer variables and 1 string variable. This environment structure will be used to maintain state during stemming operations, including cursor positions, region boundaries, and temporary storage for morphological transformations.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

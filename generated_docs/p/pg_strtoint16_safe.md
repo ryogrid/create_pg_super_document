@@ -20,10 +20,6 @@ Error handling is performed through PostgreSQL's `ereturn()` mechanism, which al
 
 ## Parameters / Member Variables
 - `s`: A null-terminated string containing the number to convert, supporting:
-  - Leading/trailing whitespace
-  - Optional '+' or '-' sign
-  - Base prefixes (0x/0X for hex, 0o/0O for octal, 0b/0B for binary)
-  - Underscore separators between digits
 - `escontext`: Error context node for handling conversion errors; if NULL, errors are thrown via `ereport()`
 
 ## Dependencies

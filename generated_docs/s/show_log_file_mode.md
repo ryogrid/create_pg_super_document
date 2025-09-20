@@ -19,9 +19,7 @@ Since file permissions are conventionally displayed in octal format (e.g., 0600,
 The function follows the same pattern as other permission display hooks in PostgreSQL, using a static buffer to store the formatted result.
 
 ## Parameters / Member Variables
-- No parameters (void function)
-- Uses global variable `Log_file_mode` which contains the numeric permission value for log files
-- Uses static buffer `buf[12]` to store the formatted octal string
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

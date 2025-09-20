@@ -18,7 +18,7 @@ The mq_flush_if_writable function is part of the PqCommMqMethods structure that 
 The function serves as a stub implementation that always returns 0 (success) because shared memory message queues handle message delivery immediately and do not require conditional flushing based on writability status. This is in contrast to socket-based communication where data might be buffered and require flushing when the socket becomes writable.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

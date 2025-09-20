@@ -17,7 +17,7 @@ This function iterates through all parallel apply workers in the ParallelApplyWo
 The function ensures that no error message queue connections remain active when shutting down the logical replication infrastructure, which is crucial for proper resource cleanup and avoiding potential communication issues during shutdown sequences.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

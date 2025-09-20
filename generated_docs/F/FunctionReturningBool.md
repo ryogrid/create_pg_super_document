@@ -15,7 +15,7 @@ bool FunctionReturningBool(void)
 FunctionReturningBool serves a specific purpose in PostgreSQL's LLVM JIT compilation system to handle cross-architecture and cross-compiler compatibility for boolean types. The function addresses a particular issue where Clang represents stdbool.h style booleans differently when they are returned by functions (as i1 integers) versus when they are stored (as i8 integers). By providing this concrete template function, the JIT system can determine the correct width and representation of returned boolean values, ensuring compatibility with both stdbool-using and non-stdbool architectures. The function itself simply returns false and serves purely as a type template for the LLVM type system analysis.
 
 ## Parameters / Member Variables
-- Takes no parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

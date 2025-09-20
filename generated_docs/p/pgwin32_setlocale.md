@@ -23,7 +23,6 @@ The function applies input mapping using  before calling the real setlocale(), t
 
 ## Parameters / Member Variables
 - : The locale category to set (LC_ALL, LC_COLLATE, LC_CTYPE, etc.)
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

@@ -20,8 +20,6 @@ RT_UNLOCK is part of PostgreSQL's generic radix tree implementation for shared m
 This macro is only available when RT_SHMEM is defined, indicating the radix tree is configured for shared memory operations. RT_UNLOCK releases both exclusive and shared locks, allowing other processes to acquire locks on the radix tree. Proper lock release is critical to prevent deadlocks and ensure system performance in multi-process environments.
 
 ## Parameters / Member Variables
-- Uses RT_MAKE_NAME macro to construct the actual function name
-- The generated function takes a pointer to RT_RADIX_TREE and returns void
 - **tree**: Pointer to the radix tree structure to unlock
 
 ## Dependencies

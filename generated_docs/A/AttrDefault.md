@@ -21,9 +21,8 @@ AttrDefault is a structure that stores information about default values for tabl
 This structure is primarily used during table creation, constraint management, and when evaluating default values for INSERT operations. The serialized expression format allows for complex default expressions to be stored and later reconstructed for evaluation.
 
 ## Parameters / Member Variables
-- : AttrNumber identifying which column this default applies to (1-based indexing)
-- : String containing the nodeToString representation of the default value expression
-
+- `adnum`: AttrNumber identifying which column this default applies to (1-based indexing)
+- `*adbin`: String containing the nodeToString representation of the default value expression
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (type)

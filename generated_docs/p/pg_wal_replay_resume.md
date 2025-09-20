@@ -21,8 +21,7 @@ This SQL-callable function resumes WAL (Write-Ahead Log) replay that has been pr
 Unlike pg_wal_replay_pause(), this function does not need to wake up the recovery process since the recovery process will naturally continue once the pause flag is cleared. This function is the complementary operation to pg_wal_replay_pause() and is essential for resuming normal recovery operations after maintenance or debugging activities.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS convention but takes no arguments)  
-- Returns void
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

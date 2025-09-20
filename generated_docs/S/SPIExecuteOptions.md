@@ -26,14 +26,13 @@ SPIExecuteOptions serves as a comprehensive configuration structure for SPI stat
 The structure is designed to accommodate both simple and complex execution scenarios, from basic read-only queries to sophisticated operations requiring custom result handling and non-atomic execution modes. It centralizes execution configuration to avoid function signature proliferation.
 
 ## Parameters / Member Variables
-- : ParamListInfo structure containing parameter values to bind to the prepared statement during execution
-- : Boolean flag indicating whether the statement should be executed in read-only mode, preventing modifications
-- : Boolean flag allowing execution outside of atomic contexts (useful for certain procedural language scenarios)
-- : Boolean flag indicating that the statement must return tuple data (used for validation and optimization)
-- : Maximum number of tuples to return or process (0 means no limit)
-- : Custom DestReceiver for directing query results to alternative destinations instead of the default SPI tuple table
-- : ResourceOwner for managing resource cleanup and ownership tracking during execution
-
+- `params`: ParamListInfo structure containing parameter values to bind to the prepared statement during execution
+- `read_only`: Boolean flag indicating whether the statement should be executed in read-only mode, preventing modifications
+- `allow_nonatomic`: Boolean flag allowing execution outside of atomic contexts (useful for certain procedural language scenarios)
+- `must_return_tuples`: Boolean flag indicating that the statement must return tuple data (used for validation and optimization)
+- `tcount`: Maximum number of tuples to return or process (0 means no limit)
+- `*dest`: Custom DestReceiver for directing query results to alternative destinations instead of the default SPI tuple table
+- `owner`: ResourceOwner for managing resource cleanup and ownership tracking during execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamListInfo](../P/ParamListInfo.md)

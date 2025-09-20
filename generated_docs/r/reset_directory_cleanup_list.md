@@ -15,7 +15,7 @@ static void reset_directory_cleanup_list(void)
 This function iterates through the cleanup_dir_list linked list and frees all cb_cleanup_dir structures, effectively clearing the list of directories scheduled for removal. It is designed to be called when the backup operation has completed successfully, preventing the cleanup mechanism from removing output directories that should be preserved. The function ensures proper memory management by freeing each node in the linked list, though this is primarily for tidiness since it's typically called before program exit.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

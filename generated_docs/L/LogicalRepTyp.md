@@ -22,10 +22,9 @@ This structure provides essential type mapping information for logical replicati
 The structure captures the remote type's identity and naming information, which can be used to map between remote and local type representations. This is crucial for ensuring data integrity and proper type conversion during the replication process.
 
 ## Parameters / Member Variables
-- : Oid value representing the unique identifier of the data type on the remote (publisher) side
-- : String containing the schema (namespace) name where the remote type is defined
-- : String containing the name of the remote data type
-
+- `remoteid`: Oid value representing the unique identifier of the data type on the remote (publisher) side
+- `*nspname`: String containing the schema (namespace) name where the remote type is defined
+- `*typname`: String containing the name of the remote data type
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

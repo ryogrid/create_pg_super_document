@@ -18,7 +18,6 @@ This function implements the input conversion for the TIMESTAMP data type (witho
 The parsing process involves multiple stages: first tokenizing the input string using ParseDateTime, then interpreting the tokens with DecodeDateTime, and finally converting the parsed components into PostgreSQL's internal timestamp representation. The function also applies type modifier constraints (precision) and performs range validation.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's fmgr calling convention (PG_FUNCTION_ARGS)
 -  (arg 0): Input string to be parsed as a timestamp
 -  (arg 1): Type element OID (unused in current implementation)
 -  (arg 2): Type modifier specifying precision constraints

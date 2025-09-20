@@ -16,7 +16,7 @@ test_slru_page_writeall(PG_FUNCTION_ARGS)
 This function provides a simple testing interface for performing bulk write operations on an SLRU cache. It calls  with the flush parameter set to true, which causes all dirty pages in the SLRU cache to be written to disk and flushed to ensure durability. This is particularly useful in testing scenarios where you need to ensure all pending writes have been persisted before proceeding with subsequent operations or verification steps.
 
 ## Parameters / Member Variables
-- No function parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

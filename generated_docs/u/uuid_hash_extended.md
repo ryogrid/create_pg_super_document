@@ -17,7 +17,6 @@ This function provides extended hash support for the UUID data type by computing
 The function leverages PostgreSQL's `hash_any_extended` function to compute the seeded hash, ensuring that the same UUID will produce different hash values when combined with different seeds. This capability is essential for certain advanced database operations and distributed query processing scenarios.
 
 ## Parameters / Member Variables  
-- Function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Expects two arguments:
   1. The UUID value to hash
   2. A 64-bit integer seed value

@@ -17,7 +17,7 @@ This function computes the shared memory space required for the checkpointer's c
 The function uses a heuristic approach to size the requests array - it's set equal to NBuffers (the number of shared buffers) but capped at MAX_CHECKPOINT_REQUESTS to prevent excessive memory allocation. This ensures the ring buffer can handle a reasonable number of concurrent checkpoint requests without consuming too much shared memory.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

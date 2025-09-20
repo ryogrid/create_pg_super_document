@@ -17,11 +17,7 @@ This function serves as the strict transition function for the jsonb_object_agg_
 The "strict" variant means that NULL values in either keys or values will cause the entire aggregate to return NULL, following PostgreSQL's strict function semantics. This provides more stringent behavior compared to the non-strict variant.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface (PG_FUNCTION_ARGS)
 - Parameters are handled internally by the worker function:
-  - Aggregate state (first call vs. subsequent calls)
-  - Key value (text or other type convertible to text)
-  - Value to be aggregated into the JSONB object
 
 ## Dependencies
 - Functions called/Symbols referenced:

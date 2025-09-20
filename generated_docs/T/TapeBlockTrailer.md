@@ -23,9 +23,8 @@ The TapeBlockTrailer structure implements a doubly-linked list mechanism for org
 The structure uses a clever encoding scheme where the 'next' field serves dual purposes: for intermediate blocks, it points to the next block; for the last block, it stores the number of valid bytes in the block as a negative value, allowing easy identification of the tape's end.
 
 ## Parameters / Member Variables
-- : Points to the previous block on this tape. Set to -1 for the first block in the tape, indicating no predecessor.
-- : For non-terminal blocks, points to the next block on this tape. For the last block, stores the number of valid bytes on the block as a negative value (< 0), serving as an end-of-tape marker.
-
+- `prev`: Points to the previous block on this tape. Set to -1 for the first block in the tape, indicating no predecessor.
+- `next`: For non-terminal blocks, points to the next block on this tape. For the last block, stores the number of valid bytes on the block as a negative value (< 0), serving as an end-of-tape marker.
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):

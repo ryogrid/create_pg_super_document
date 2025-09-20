@@ -18,12 +18,6 @@ The function uses PostgreSQL's radix tree-based conversion mechanism with a diff
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: PostgreSQL function argument structure containing:
-  - Source encoding ID (INTEGER) - should be PG_UTF8
-  - Destination encoding ID (INTEGER) - should be PG_JOHAB
-  - Source string (CSTRING) - null-terminated UTF-8 encoded string
-  - Destination string (CSTRING) - buffer for JOHAB output
-  - Source string length (INTEGER) - length of source data in bytes
-  - noError flag (BOOL) - if true, do not throw error on conversion failure
 
 ## Dependencies
 - Functions called/Symbols referenced:

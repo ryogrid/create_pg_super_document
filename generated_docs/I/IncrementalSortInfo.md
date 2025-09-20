@@ -21,9 +21,8 @@ This structure serves as a container for collecting and storing performance inst
 The structure is primarily used for EXPLAIN ANALYZE output to provide detailed statistics about how the incremental sort operation performed, including memory usage, disk usage, and the number of groups processed in each phase.
 
 ## Parameters / Member Variables
-- : Performance metrics for the full sort phase, including group count, memory/disk space usage, and sort methods used
-- : Performance metrics for the prefix sort phase, including group count, memory/disk space usage, and sort methods used
-
+- `fullsortGroupInfo`: Performance metrics for the full sort phase, including group count, memory/disk space usage, and sort methods used
+- `prefixsortGroupInfo`: Performance metrics for the prefix sort phase, including group count, memory/disk space usage, and sort methods used
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IncrementalSortGroupInfo](IncrementalSortGroupInfo.md) (struct type for both member variables)

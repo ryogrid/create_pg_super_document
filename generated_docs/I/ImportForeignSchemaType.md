@@ -27,9 +27,7 @@ The enum provides three distinct import strategies: unrestricted import of all a
 
 ## Parameters / Member Variables
 - : Import all relations from the foreign schema without any filtering. This corresponds to the basic "IMPORT FOREIGN SCHEMA schema_name" syntax without LIMIT TO or EXCEPT clauses.
-
 - : Import only the specifically listed tables from the foreign schema. This corresponds to "IMPORT FOREIGN SCHEMA schema_name LIMIT TO (table1, table2, ...)" syntax, providing a whitelist approach to table selection.
-
 - : Import all tables from the foreign schema except for the specifically listed ones. This corresponds to "IMPORT FOREIGN SCHEMA schema_name EXCEPT (table1, table2, ...)" syntax, providing a blacklist approach to table selection.
 
 ## Dependencies

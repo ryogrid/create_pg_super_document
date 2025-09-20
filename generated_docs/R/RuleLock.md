@@ -21,9 +21,8 @@ RuleLock represents a collection of all rewrite rules associated with a specific
 Each relation that has associated rewrite rules will have a corresponding RuleLock structure that contains pointers to all the RewriteRule structures for that relation. This provides an efficient way to access and manage all rules that might apply during query rewriting for a particular table or view.
 
 ## Parameters / Member Variables
-- : The number of rewrite rules contained in this RuleLock structure
-- : An array of pointers to RewriteRule structures, each representing an individual rewrite rule for the relation
-
+- `numLocks`: The number of rewrite rules contained in this RuleLock structure
+- `**rules`: An array of pointers to RewriteRule structures, each representing an individual rewrite rule for the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RewriteRule](RewriteRule.md)

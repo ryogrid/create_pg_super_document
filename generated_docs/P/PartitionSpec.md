@@ -23,11 +23,10 @@ PartitionSpec serves as the intermediate representation during SQL parsing phase
 The structure encapsulates all the necessary information needed to define how a table should be partitioned, including the partitioning method (range, list, or hash) and the specific columns or expressions that form the partition key.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for the PostgreSQL node system, enabling type identification and node traversal
-- : The partitioning strategy (PARTITION_STRATEGY_LIST, PARTITION_STRATEGY_RANGE, or PARTITION_STRATEGY_HASH)
-- : A list of PartitionElem structures representing the partition key columns or expressions
-- : Parse location in the original SQL text for error reporting purposes, or -1 if location is unknown
-
+- `type`: Standard NodeTag for the PostgreSQL node system, enabling type identification and node traversal
+- `strategy`: The partitioning strategy (PARTITION_STRATEGY_LIST, PARTITION_STRATEGY_RANGE, or PARTITION_STRATEGY_HASH)
+- `*partParams`: A list of PartitionElem structures representing the partition key columns or expressions
+- `location`: Parse location in the original SQL text for error reporting purposes, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - PartitionStrategy

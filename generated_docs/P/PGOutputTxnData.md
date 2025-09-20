@@ -20,8 +20,7 @@ PGOutputTxnData implements a bandwidth optimization in logical replication by tr
 This optimization is specifically disabled for prepared transactions to avoid protocol inconsistencies that could occur if the WALSender restarts between PREPARE and COMMIT PREPARED phases. It is also disabled for streamed transactions since they can contain prepared transactions. The design prioritizes correctness over optimization in complex transaction scenarios.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether a BEGIN message has been sent for the current transaction. Initially false, set to true when the first change is processed and a BEGIN message is transmitted.
-
+- `sent_begin_txn`: Boolean flag indicating whether a BEGIN message has been sent for the current transaction. Initially false, set to true when the first change is processed and a BEGIN message is transmitted.
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):

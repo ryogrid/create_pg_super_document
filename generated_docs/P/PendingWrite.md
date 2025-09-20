@@ -24,10 +24,9 @@ When writes are queued using , they are stored as PendingWrite entries until eit
 The struct plays a crucial role in WAL (Write-Ahead Logging) optimization by allowing multiple pages to be logged together in a single WAL record, reducing the overhead of individual write operations.
 
 ## Parameters / Member Variables
-- : A BulkWriteBuffer (typedef for PGIOAlignedBlock*) that contains the actual page data to be written to disk
-- : The BlockNumber (block number) indicating the target location where this page should be written within the relation fork
-- : A boolean flag indicating whether the page uses standard PostgreSQL page layout (true) or a custom/non-standard layout (false)
-
+- `buf`: A BulkWriteBuffer (typedef for PGIOAlignedBlock*) that contains the actual page data to be written to disk
+- `blkno`: The BlockNumber (block number) indicating the target location where this page should be written within the relation fork
+- `page_std`: A boolean flag indicating whether the page uses standard PostgreSQL page layout (true) or a custom/non-standard layout (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BulkWriteBuffer (typedef for the buffer type)

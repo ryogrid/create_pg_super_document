@@ -24,10 +24,9 @@ The function includes an optimization for LATERAL joins - it only checks RTEs th
 Like its counterpart function, it includes an early optimization check for the existence of any PlaceHolderVars in the query before proceeding with the search.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing query planning state and parse tree
-- : The specific jointree node/fragment to search within  
-- : The relation variable number (RTE index) to search for dependencies on
-
+- `varno`: PlannerInfo structure containing query planning state and parse tree
+- `sublevels_up`: The specific jointree node/fragment to search within
+- `subrelids`: The relation variable number (RTE index) to search for dependencies on
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_dependent_phvs_context (context structure for walker)

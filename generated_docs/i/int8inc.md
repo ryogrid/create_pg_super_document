@@ -18,7 +18,6 @@ The function implements overflow detection using pg_add_s64_overflow to ensure t
 
 ## Parameters / Member Variables
 - Function follows PostgreSQL's PG_FUNCTION_ARGS convention:
-  - Single int64 argument extracted via PG_GETARG_INT64(0) or PG_GETARG_POINTER(0) depending on context
 
 ## Dependencies
 - Functions called/Symbols referenced:

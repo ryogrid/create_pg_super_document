@@ -19,7 +19,6 @@ If a latch event is detected during polling, it resets the latch and retries the
 The function is primarily used by the interrupt processing system to detect lost connections during long-running operations, allowing PostgreSQL to abort processing when the client is no longer available.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: `true` if the connection is still active, `false` if the connection has been closed
 
 ## Dependencies

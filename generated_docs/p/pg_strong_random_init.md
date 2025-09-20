@@ -24,7 +24,7 @@ The pg_strong_random_init function initializes the cryptographically secure rand
 This function must be called once per process before any calls to pg_strong_random. It's designed to run early in postmaster and backend startup, so it cannot rely on backend infrastructure like elog() or palloc().
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

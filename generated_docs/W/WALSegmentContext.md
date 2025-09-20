@@ -19,9 +19,8 @@ typedef struct WALSegmentContext
 WALSegmentContext is a configuration structure that encapsulates the essential parameters required for WAL segment file operations. It provides the filesystem context (directory path) and size information necessary for locating and reading WAL segments. This structure serves as a configuration container that can be passed to various WAL reading functions to specify where segments are located and their expected size, enabling flexible WAL reading across different PostgreSQL installations and configurations.
 
 ## Parameters / Member Variables
-- : Directory path (up to MAXPGPATH characters) where WAL segment files are located, typically pointing to the pg_wal directory
-- : Size of WAL segments in bytes, which can vary between PostgreSQL installations and is needed for proper segment boundary calculations
-
+- `ws_dir[MAXPGPATH]`: Directory path (up to MAXPGPATH characters) where WAL segment files are located, typically pointing to the pg_wal directory
+- `ws_segsize`: Size of WAL segments in bytes, which can vary between PostgreSQL installations and is needed for proper segment boundary calculations
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXPGPATH (constant defining maximum path length)

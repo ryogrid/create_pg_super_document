@@ -20,7 +20,7 @@ The authenticated user ID is distinct from both the session user ID (which can b
 The function includes an assertion to ensure that the AuthenticatedUserId has been properly initialized with a valid OID before being accessed.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

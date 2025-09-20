@@ -23,11 +23,10 @@ AnlIndexData serves as a container for index-specific information during ANALYZE
 The structure is primarily used within the analyze.c module to coordinate the collection of index statistics, ensuring that the ANALYZE command can properly evaluate index usage patterns and data distribution for query planning optimization.
 
 ## Parameters / Member Variables
-- : Pointer to IndexInfo structure containing the result from BuildIndexInfo, which holds metadata about the index structure and properties
-- : Double precision value representing the fraction of table rows that are covered by this index (important for partial indexes)
-- : Array of pointers to VacAttrStats structures, one for each index attribute that needs statistical analysis
-- : Integer count of the number of attributes in the index that require analysis
-
+- `*indexInfo`: Pointer to IndexInfo structure containing the result from BuildIndexInfo, which holds metadata about the index structure and properties
+- `tupleFract`: Double precision value representing the fraction of table rows that are covered by this index (important for partial indexes)
+- `**vacattrstats`: Array of pointers to VacAttrStats structures, one for each index attribute that needs statistical analysis
+- `attr_cnt`: Integer count of the number of attributes in the index that require analysis
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexInfo

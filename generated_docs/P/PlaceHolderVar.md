@@ -37,13 +37,12 @@ PlaceHolderVar represents an expression that must be evaluated at a specific lev
 The structure is designed with specific comparison semantics - two PlaceHolderVars with the same ID and levelsup are considered equal even if their contained expressions differ, which can happen during plan construction when nested PHVs are processed or when initplan sublinks get replaced.
 
 ## Parameters / Member Variables
-- : Base expression node structure
-- : The actual expression being represented by this placeholder (ignored in equality comparisons)
-- : Set of relation IDs where this placeholder is syntactically valid (ignored in equality comparisons)
-- : Set of outer join RT indexes that can cause this PHV's value to become NULL
-- : Unique identifier for this PHV within the current planner run
-- : Nesting level indicator, > 0 if PHV belongs to an outer query level
-
+- `xpr`: Base expression node structure
+- `pg_node_attr(equal_ignore)`: The actual expression being represented by this placeholder (ignored in equality comparisons)
+- `pg_node_attr(equal_ignore)`: Set of relation IDs where this placeholder is syntactically valid (ignored in equality comparisons)
+- `phnullingrels`: Set of outer join RT indexes that can cause this PHV's value to become NULL
+- `phid`: Unique identifier for this PHV within the current planner run
+- `phlevelsup`: Nesting level indicator, > 0 if PHV belongs to an outer query level
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Expr](../E/Expr.md) (base expression type)

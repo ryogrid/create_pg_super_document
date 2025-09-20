@@ -22,8 +22,7 @@ The `unistr` function implements PostgreSQL's Unicode string processing function
 The function properly handles UTF-16 surrogate pairs for characters beyond the Basic Multilingual Plane (BMP), validates Unicode code points, and converts the results to the server's character encoding. It also handles escaped backslashes (`\\\\`) by converting them to single backslashes.
 
 ## Parameters / Member Variables
-- Function accepts a single text argument via `PG_GETARG_TEXT_PP(0)`
-- Returns a text value via `PG_RETURN_TEXT_P(result)`
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

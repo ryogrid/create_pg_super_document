@@ -20,10 +20,9 @@ typedef struct unicodeStyleRowFormat
 This structure holds the Unicode characters used for formatting table rows in PostgreSQL's frontend utilities. It provides the necessary characters for drawing horizontal lines and vertical connectors that attach to the right and left sides of table cells. The structure is specifically designed to support Unicode/UTF-8 table formatting, allowing for proper rendering of table borders and separators in terminal output.
 
 ## Parameters / Member Variables
-- : A pointer to the Unicode character string used for drawing horizontal lines in table rows
-- : An array of two character string pointers for vertical lines that connect to the right side, supporting different line styles or states
-- : An array of two character string pointers for vertical lines that connect to the left side, supporting different line styles or states
-
+- `*horizontal`: A pointer to the Unicode character string used for drawing horizontal lines in table rows
+- `*vertical_and_right[2]`: An array of two character string pointers for vertical lines that connect to the right side, supporting different line styles or states
+- `*vertical_and_left[2]`: An array of two character string pointers for vertical lines that connect to the left side, supporting different line styles or states
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure definition)

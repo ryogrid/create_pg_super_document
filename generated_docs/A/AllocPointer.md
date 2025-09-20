@@ -15,7 +15,6 @@ typedef void *AllocPointer;
 AllocPointer is a simple typedef that wraps a void pointer to represent aligned memory pointers within the allocation set system. The typedef provides semantic clarity by indicating that the pointer is specifically used for memory allocation purposes and is guaranteed to be properly aligned. This abstraction helps distinguish allocation-related pointers from general-purpose void pointers in the codebase, making the memory management code more self-documenting and type-safe.
 
 ## Parameters / Member Variables
-- This is a typedef for void*, so it has no member variables
 - Represents: A generic pointer to allocated memory that is properly aligned
 
 ## Dependencies

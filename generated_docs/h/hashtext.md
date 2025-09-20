@@ -18,7 +18,6 @@ The hashtext function generates hash values for text data types in PostgreSQL, w
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument structure containing:
   -  (arg 0): The text value to be hashed (text*)
-  - Implicit collation from PG_GET_COLLATION()
 
 ## Dependencies
 - Functions called/Symbols referenced:

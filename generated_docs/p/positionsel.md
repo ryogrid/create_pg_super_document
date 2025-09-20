@@ -19,7 +19,7 @@ According to the source comments, this function estimates "How likely is a box t
 The higher selectivity value for positional operators reflects the intuition that positional relationships (being to the left, right, above, or below) are generally more common than complex geometric relationships like overlaps, especially when considering the typical distribution of geometric data in spatial applications.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function argument macro `PG_FUNCTION_ARGS` which provides access to function call context and arguments, though this specific function doesn't examine any arguments
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

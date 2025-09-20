@@ -28,12 +28,11 @@ typedef struct DictSnowball
 The  structure represents an active instance of a Snowball stemmer dictionary in PostgreSQL's text search system. It encapsulates all the state needed to perform stemming operations, including the Snowball environment, stop word filtering, character encoding management, and memory context isolation. The structure is designed to handle the complexities of text processing across different character encodings while maintaining memory efficiency through proper context management.
 
 ## Parameters / Member Variables
-- : Pointer to the Snowball environment () that maintains the stemmer's internal state
-- : Stop word list () containing words that should be filtered out during processing
-- : Boolean flag indicating whether character encoding conversion is needed before and after stemming operations
-- : Function pointer to the specific stemming algorithm for this dictionary instance
-- : Memory context () used to isolate memory allocations made by the Snowball stemmer
-
+- `*z`: Pointer to the Snowball environment () that maintains the stemmer's internal state
+- `stoplist`: Stop word list () containing words that should be filtered out during processing
+- `needrecode`: Boolean flag indicating whether character encoding conversion is needed before and after stemming operations
+- `*z)`: Function pointer to the specific stemming algorithm for this dictionary instance
+- `dictCtx`: Memory context () used to isolate memory allocations made by the Snowball stemmer
 ## Dependencies
 - Functions called/Symbols referenced:
   - StopList (structure for managing stop words)

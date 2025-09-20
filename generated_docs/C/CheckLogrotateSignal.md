@@ -15,7 +15,7 @@ struct stat stat_buf;
 The  function provides a mechanism for detecting external requests for log file rotation by checking for the existence of a specific signal file (). This function is typically called by the postmaster process after receiving a SIGUSR1 signal to determine if the signal was sent to request log rotation. The function uses the standard  system call to check for file existence, returning  if the signal file exists and  otherwise. This approach allows external scripts and administrators to trigger log rotation by creating the signal file.
 
 ## Parameters / Member Variables
-- This function takes no parameters and returns a boolean value
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

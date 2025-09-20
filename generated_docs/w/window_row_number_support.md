@@ -21,8 +21,7 @@ This function serves as a prosupport (procedural support) function for the ROW_N
 The function uses PostgreSQL's support request infrastructure to communicate these optimizations to the query planner.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro for PostgreSQL function parameter handling
-- Receives a `Node *` pointer representing the support request type
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

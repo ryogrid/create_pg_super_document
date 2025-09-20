@@ -23,11 +23,10 @@ The  structure is a fundamental data type used in PostgreSQL's function manager 
 When a function is called with polymorphic arguments, the system must determine what actual types the pseudo-types represent based on the provided arguments. The  structure acts as a cache or registry to hold these resolved type mappings, ensuring consistency across all polymorphic parameters in a function call.
 
 ## Parameters / Member Variables
-- : OID of the resolved type for the  pseudo-type, representing any single data type
-- : OID of the resolved type for the  pseudo-type, representing any array type
-- : OID of the resolved type for the  pseudo-type, representing any range type
-- : OID of the resolved type for the  pseudo-type, representing any multirange type
-
+- `anyelement_type`: OID of the resolved type for the  pseudo-type, representing any single data type
+- `anyarray_type`: OID of the resolved type for the  pseudo-type, representing any array type
+- `anyrange_type`: OID of the resolved type for the  pseudo-type, representing any range type
+- `anymultirange_type`: OID of the resolved type for the  pseudo-type, representing any multirange type
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This is a data structure with no direct function calls)

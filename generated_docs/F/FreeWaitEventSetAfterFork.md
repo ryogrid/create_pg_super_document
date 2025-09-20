@@ -22,7 +22,7 @@ This function is specifically designed to handle the cleanup of WaitEventSet res
 This function is essential for proper resource management in PostgreSQL's process model, ensuring that child processes don't hold onto file descriptors or other resources that should remain exclusive to the parent process.
 
 ## Parameters / Member Variables
-- BASH=/bin/bash
+
 BASHOPTS=checkwinsize:cmdhist:complete_fullquote:expand_aliases:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:login_shell:progcomp:promptvars:sourcepath
 BASH_ALIASES=()
 BASH_ARGC=([0]="0")

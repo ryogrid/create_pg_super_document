@@ -28,12 +28,11 @@ PagetableEntry serves as the core data structure for PostgreSQL's TIDBitmap syst
 The same hashtable entry cannot simultaneously serve both exact and lossy purposes for overlapping page ranges, ensuring consistency in the bitmap representation.
 
 ## Parameters / Member Variables
-- : Page number that serves as the hashtable key; for exact storage, this is the specific page number; for lossy storage, this is the first page number of the chunk
-- : Hash entry status used by the hashtable implementation for managing entry lifecycle
-- : Boolean flag indicating storage mode - true for lossy chunk storage, false for exact page storage
-- : Boolean flag used only for exact pages, indicating whether tuples are candidate matches that require full index qualification condition checking
-- : Bitmap array sized to accommodate either page-level or chunk-level storage requirements, using the maximum of WORDS_PER_PAGE and WORDS_PER_CHUNK
-
+- `blockno`: Page number that serves as the hashtable key; for exact storage, this is the specific page number; for lossy storage, this is the first page number of the chunk
+- `status`: Hash entry status used by the hashtable implementation for managing entry lifecycle
+- `ischunk`: Boolean flag indicating storage mode - true for lossy chunk storage, false for exact page storage
+- `recheck`: Boolean flag used only for exact pages, indicating whether tuples are candidate matches that require full index qualification condition checking
+- `words[Max(WORDS_PER_PAGE, WORDS_PER_CHUNK)]`: Bitmap array sized to accommodate either page-level or chunk-level storage requirements, using the maximum of WORDS_PER_PAGE and WORDS_PER_CHUNK
 ## Dependencies
 - Functions called/Symbols referenced:
   - WORDS_PER_PAGE

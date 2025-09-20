@@ -84,16 +84,15 @@ The structure provides fine-grained control over tuple retention by distinguishi
 The differentiation between raw and non-raw horizons allows the system to handle replication requirements separately from local visibility requirements, which is essential for streaming replication and logical replication scenarios.
 
 ## Parameters / Member Variables
-- : The most recent transaction ID that was completed when ComputeXidHorizons() acquired ProcArrayLock, providing a reference point for the computation
-- : The oldest transaction ID that any replication slot still needs for data visibility
-- : The oldest catalog transaction ID that any replication slot still needs for DDL change visibility
-- : The oldest XID that any backend (including VACUUM) might still consider running, primarily used for pg_subtrans truncation decisions
-- : The oldest XID for which deleted tuples must be retained in shared catalog tables, including replication slot effects
-- : Similar to shared_oldest_nonremovable but excluding replication slot catalog_xmin effects, used for hot_standby_feedback
-- : The oldest XID for which deleted tuples must be retained in database-specific catalog tables
-- : The oldest XID for which deleted tuples must be retained in regular user-defined tables
-- : The oldest XID for which deleted tuples must be retained in the current session's temporary tables
-
+- `latest_completed`: The most recent transaction ID that was completed when ComputeXidHorizons() acquired ProcArrayLock, providing a reference point for the computation
+- `slot_xmin`: The oldest transaction ID that any replication slot still needs for data visibility
+- `slot_catalog_xmin`: The oldest catalog transaction ID that any replication slot still needs for DDL change visibility
+- `oldest_considered_running`: The oldest XID that any backend (including VACUUM) might still consider running, primarily used for pg_subtrans truncation decisions
+- `shared_oldest_nonremovable`: The oldest XID for which deleted tuples must be retained in shared catalog tables, including replication slot effects
+- `shared_oldest_nonremovable_raw`: Similar to shared_oldest_nonremovable but excluding replication slot catalog_xmin effects, used for hot_standby_feedback
+- `catalog_oldest_nonremovable`: The oldest XID for which deleted tuples must be retained in database-specific catalog tables
+- `data_oldest_nonremovable`: The oldest XID for which deleted tuples must be retained in regular user-defined tables
+- `temp_oldest_nonremovable`: The oldest XID for which deleted tuples must be retained in the current session's temporary tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId

@@ -27,15 +27,14 @@ IndexVacuumInfo serves as a parameter structure for index access method vacuum o
 A key aspect of this structure is the handling of tuple count estimates. The num_heap_tuples field is accurate only when estimated_count is false. When estimated_count is true, the value represents an estimate (typically from pg_class.reltuples) and may even be -1. During ambulkdelete operations, this will always be an estimate.
 
 ## Parameters / Member Variables
-- : The index relation being vacuumed
-- : The heap relation that the index belongs to  
-- : Boolean flag indicating this is an ANALYZE operation without actual vacuuming
-- : Boolean flag to enable progress reporting via the progress.h mechanism
-- : Boolean flag indicating whether num_heap_tuples is an estimate or accurate count
-- : The ereport level to use for progress messages (e.g., DEBUG1, LOG, etc.)
-- : The number of tuples remaining in the heap (may be estimated)
-- : Buffer access strategy to use for reading pages during vacuum operations
-
+- `index`: The index relation being vacuumed
+- `heaprel`: The heap relation that the index belongs to
+- `analyze_only`: Boolean flag indicating this is an ANALYZE operation without actual vacuuming
+- `report_progress`: Boolean flag to enable progress reporting via the progress.h mechanism
+- `estimated_count`: Boolean flag indicating whether num_heap_tuples is an estimate or accurate count
+- `message_level`: The ereport level to use for progress messages (e.g., DEBUG1, LOG, etc.)
+- `num_heap_tuples`: The number of tuples remaining in the heap (may be estimated)
+- `strategy`: Buffer access strategy to use for reading pages during vacuum operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (for memory management strategy)

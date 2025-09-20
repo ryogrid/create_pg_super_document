@@ -21,9 +21,6 @@ The conversion is a simple cast operation since both types have the same underly
 
 ## Parameters / Member Variables
 - : The GinTernaryValue to convert to Datum. This can be one of the predefined constants:
-  -  (0) - item is not present / does not match
-  -  (1) - item is present / matches  
-  -  (2) - unknown if item is present / matches
 
 ## Dependencies
 - Functions called/Symbols referenced:

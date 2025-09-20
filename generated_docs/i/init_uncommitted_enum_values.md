@@ -20,7 +20,7 @@ The function sets up a hash table with OID keys and values, where each entry rep
 The hash table is allocated in TopTransactionContext to ensure proper transaction lifecycle management and automatic cleanup when the transaction completes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

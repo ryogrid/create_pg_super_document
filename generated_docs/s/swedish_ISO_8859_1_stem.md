@@ -31,7 +31,6 @@ Each stage uses test-and-restore cursor positioning to ensure the original word 
   - : Length of the word being processed
   - : Left boundary marker for the current operation
   - : Array storing region boundaries (R2, R1, RV)
-  - Word buffer and other stemming state information
 
 ## Dependencies
 - Functions called/Symbols referenced:

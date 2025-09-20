@@ -15,8 +15,7 @@ Datum brin_bloom_summary_recv(PG_FUNCTION_ARGS)
 This function serves as the binary input routine for the brin_bloom_summary data type, which is used internally by PostgreSQL to represent bloom filter summaries in BRIN (Block Range Index) bloom indexes. Like its text input counterpart (brin_bloom_summary_in), this function immediately raises an error to prevent users from directly creating values of this type through binary input. This design choice ensures that brin_bloom_summary values can only be created and manipulated through the proper BRIN bloom index access method functions, maintaining data integrity and preventing misuse.
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Expected to receive binary input data (which it rejects)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

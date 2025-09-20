@@ -15,7 +15,7 @@ void PgArchWakeup(void)
 This function provides a mechanism to wake up the sleeping archiver process when new WAL files are available for archiving. It retrieves the archiver's process number from shared memory and sets the corresponding process latch. The function is designed to be safe even without acquiring ProcArrayLock, as setting the wrong process latch or no latch at all will not cause system failure - the archiver will be relaunched and resume normal operation. This approach prioritizes performance over strict synchronization since archiver wake-up is not critical for system correctness.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,7 +16,6 @@ bttextsortsupport(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL function that implements sort support for text data types in B-tree indexes. It acts as a wrapper that delegates to the more generic  function with appropriate parameters for text data. The function switches to the sort support's memory context before setting up the sorting infrastructure, ensuring proper memory management during sort operations. This function is part of PostgreSQL's optimization system for sorting operations on text columns.
 
 ## Parameters / Member Variables
-- The function follows PostgreSQL's standard function interface using 
 - : SortSupport structure obtained from the first argument, containing sort configuration and context
 - : Collation identifier extracted from the sort support structure
 - : Previous memory context saved for restoration after setup

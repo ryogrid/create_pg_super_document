@@ -21,9 +21,8 @@ typedef struct RecoveryLockEntry
 The recovery system uses this structure to maintain consistency during standby recovery by tracking which locks were held by transactions in the primary database. This information is essential for ensuring that the standby server can properly handle conflicts and maintain data consistency during recovery operations.
 
 ## Parameters / Member Variables
-- : An  structure containing the hash key composed of transaction ID (xid), database OID (dbOid), and relation OID (relOid) that uniquely identifies the exclusive lock
-- : A pointer to the next  in the chain, used to link all lock entries belonging to the same transaction together
-
+- `key`: An  structure containing the hash key composed of transaction ID (xid), database OID (dbOid), and relation OID (relOid) that uniquely identifies the exclusive lock
+- `*next`: A pointer to the next  in the chain, used to link all lock entries belonging to the same transaction together
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (used as key field type)

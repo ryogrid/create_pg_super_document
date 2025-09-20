@@ -27,8 +27,7 @@ Key characteristics:
 The implementation uses a forward-scanning approach: when the rank changes or for the first row, it scans ahead to count all rows that are peers to the current row, updating the context rank to include the count of all peer rows.
 
 ## Parameters / Member Variables
-- This function follows the PostgreSQL function calling convention (PG_FUNCTION_ARGS)
-- Accesses the WindowObject through PG_WINDOW_OBJECT() macro
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

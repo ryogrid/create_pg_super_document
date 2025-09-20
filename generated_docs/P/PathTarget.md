@@ -39,13 +39,12 @@ The structure contains bare expressions without TargetEntry nodes (though these 
 The structure also tracks cost information for evaluating expressions, estimated tuple width, and whether any expressions contain volatile functions, which affects optimization decisions.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : List of expressions to be computed (bare expressions without TargetEntry nodes)
-- : Array of sort/group reference numbers corresponding to exprs, or 0 for non-referenced expressions
-- : QualCost structure containing the cost of evaluating the expressions
-- : Estimated average width of result tuples in bytes
-- : VolatileFunctionStatus indicating if expressions contain volatile functions
-
+- `type`: NodeTag identifier for the structure type
+- `*exprs`: List of expressions to be computed (bare expressions without TargetEntry nodes)
+- `pg_node_attr(array_size(exprs))`: Array of sort/group reference numbers corresponding to exprs, or 0 for non-referenced expressions
+- `cost`: QualCost structure containing the cost of evaluating the expressions
+- `width`: Estimated average width of result tuples in bytes
+- `has_volatile_expr`: VolatileFunctionStatus indicating if expressions contain volatile functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)

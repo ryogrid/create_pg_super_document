@@ -16,7 +16,7 @@ vacuum_delay_point(void)
 This function serves as a central control point for vacuum operations, providing both interrupt handling and cost-based delay mechanisms. It should be called in each major loop of VACUUM processing, typically once per page processed. The function implements a sophisticated delay system that can work in both standalone and parallel vacuum scenarios. For parallel vacuum operations, it coordinates with shared cost balances, while for regular vacuum it uses local cost tracking. The function also handles configuration reloading for autovacuum workers and ensures postmaster death detection during extended delays.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

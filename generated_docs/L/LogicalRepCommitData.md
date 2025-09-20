@@ -22,10 +22,9 @@ This structure encapsulates the critical information needed to complete a transa
 The commit_lsn represents the exact point where the transaction was committed, while end_lsn marks the end of the transaction's WAL records. This distinction is important for proper WAL processing and ensures that all transaction data has been fully processed. The commit timestamp provides temporal information that can be used for ordering, conflict resolution, and debugging purposes.
 
 ## Parameters / Member Variables
-- : XLogRecPtr representing the LSN where this transaction was committed in the WAL
-- : XLogRecPtr representing the LSN marking the end of this transaction's WAL records
-- : TimestampTz indicating the timestamp when the transaction was committed
-
+- `commit_lsn`: XLogRecPtr representing the LSN where this transaction was committed in the WAL
+- `end_lsn`: XLogRecPtr representing the LSN marking the end of this transaction's WAL records
+- `committime`: TimestampTz indicating the timestamp when the transaction was committed
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (PostgreSQL log sequence number type)

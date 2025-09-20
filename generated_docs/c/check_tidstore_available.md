@@ -18,7 +18,7 @@ This function performs a simple but critical validation check to ensure that the
 The function checks if the global tidstore pointer is NULL and immediately throws a PostgreSQL error if it hasn't been initialized. This provides clear, immediate feedback when test functions are called in the wrong order or when the tidstore creation step has been skipped.
 
 ## Parameters / Member Variables
-- This function takes no parameters (void)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

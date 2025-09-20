@@ -20,7 +20,7 @@ The function begins by calculating the required shared memory size and semaphore
 The function then sets up the shared memory allocation framework and calls CreateOrAttachShmemStructs() to initialize all PostgreSQL subsystem structures. On EXEC_BACKEND platforms, it allocates the backend tracking array. Finally, it initializes dynamic shared memory facilities and provides a hook for extensions to perform their shared memory initialization.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

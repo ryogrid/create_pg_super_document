@@ -45,13 +45,12 @@ typedef struct ParallelApplyWorkerInfo
 ParallelApplyWorkerInfo serves as the primary management interface for parallel apply workers from the leader worker's perspective. It encapsulates all the communication channels, memory management, and state tracking needed to coordinate with a parallel worker process. The structure manages shared memory queues for bidirectional communication, tracks worker availability, and handles fallback mechanisms when shared memory communication becomes inefficient due to timeouts or capacity issues.
 
 ## Parameters / Member Variables
-- : Handle to the shared memory queue for sending transaction changes from leader to parallel worker
-- : Handle to the shared memory queue for receiving error messages from parallel worker to leader
-- : Dynamic shared memory segment associated with this parallel worker
-- : Flag indicating whether to fall back to file-based serialization due to shared memory timeouts
-- : Boolean flag tracking whether this worker slot is currently processing a transaction
-- : Pointer to the shared memory structure containing coordination data with the parallel worker
-
+- `*mq_handle`: Handle to the shared memory queue for sending transaction changes from leader to parallel worker
+- `*error_mq_handle`: Handle to the shared memory queue for receiving error messages from parallel worker to leader
+- `*dsm_seg`: Dynamic shared memory segment associated with this parallel worker
+- `serialize_changes`: Flag indicating whether to fall back to file-based serialization due to shared memory timeouts
+- `in_use`: Boolean flag tracking whether this worker slot is currently processing a transaction
+- `*shared`: Pointer to the shared memory structure containing coordination data with the parallel worker
 ## Dependencies
 - Functions called/Symbols referenced:
   - [shm_mq_handle](../s/shm_mq_handle.md)

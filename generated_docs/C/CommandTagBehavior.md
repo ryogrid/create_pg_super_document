@@ -25,12 +25,11 @@ CommandTagBehavior serves as a lookup table entry that stores the characteristic
 The structure is populated through the PG_CMDTAG macro expansion from the cmdtaglist.h file, ensuring consistency between the CommandTag enumeration and the corresponding behavior definitions. This design allows PostgreSQL to efficiently look up command properties without needing separate switch statements or conditional logic scattered throughout the codebase.
 
 ## Parameters / Member Variables
-- : String containing the human-readable command tag name (e.g., "SELECT", "INSERT", "UPDATE")
-- : Pre-calculated length of the name string for performance optimization
-- : Boolean flag indicating whether this command can trigger event triggers
-- : Boolean flag indicating whether this command can perform table rewrites
-- : Boolean flag determining if the number of affected rows should be included in the command completion string
-
+- `*name`: String containing the human-readable command tag name (e.g., "SELECT", "INSERT", "UPDATE")
+- `namelen`: Pre-calculated length of the name string for performance optimization
+- `event_trigger_ok`: Boolean flag indicating whether this command can trigger event triggers
+- `table_rewrite_ok`: Boolean flag indicating whether this command can perform table rewrites
+- `display_rowcount`: Boolean flag determining if the number of affected rows should be included in the command completion string
 ## Dependencies
 - Functions called/Symbols referenced: 
   - None (this is a data structure definition)

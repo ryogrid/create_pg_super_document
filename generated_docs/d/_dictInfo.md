@@ -21,11 +21,10 @@ typedef struct _dictInfo
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search dictionaries, which are key components of PostgreSQL's full-text search system. Text search dictionaries are used to process tokens during text search operations, performing tasks like stemming, synonym replacement, and stop word filtering.
 
 ## Parameters / Member Variables
-- : Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
-- : Name of the role (user) that owns this dictionary
-- : OID of the dictionary template that this dictionary is based on
-- : Initialization options string passed to the dictionary template during creation
-
+- `dobj`: Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
+- `*rolname`: Name of the role (user) that owns this dictionary
+- `dicttemplate`: OID of the dictionary template that this dictionary is based on
+- `*dictinitoption`: Initialization options string passed to the dictionary template during creation
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

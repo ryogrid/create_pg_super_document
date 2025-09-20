@@ -18,7 +18,7 @@ This function serves as the default signal handler for SIGTERM in background wor
 The function follows PostgreSQL's standard pattern for signal handlers by first blocking all signals to prevent race conditions, then reporting the termination reason before exiting.
 
 ## Parameters / Member Variables
-- Uses  macro which expands to the standard signal handler parameters (typically )
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

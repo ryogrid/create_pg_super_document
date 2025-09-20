@@ -51,21 +51,20 @@ typedef struct AggTransInfo
 AggTransInfo is a critical optimization structure in PostgreSQL's aggregate processing system. It enables multiple aggregate functions to share the same transition state when they have identical inputs and transition functions, reducing computational overhead and memory usage. Each unique combination of inputs and transition function gets assigned a single AggTransInfo, and all aggregates sharing these characteristics reference the same 'aggtransno' value. The structure contains comprehensive metadata about the transition state, including serialization/deserialization functions for parallel aggregation, combine functions for partial aggregation, and space consumption estimates for memory management.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an AggTransInfo node
-- : List of input arguments for this transition state
-- : Filter expression applied to the aggregate inputs, or NULL if no filter
-- : OID of the state transition function that processes each input row
-- : OID of the serialization function for parallel aggregation, or InvalidOid if not used
-- : OID of the deserialization function for parallel aggregation, or InvalidOid if not used
-- : OID of the combine function for merging partial states, or InvalidOid if not used
-- : OID of the datatype used for the transition state value
-- : Type modifier for the transition state datatype
-- : Length of the transition state datatype (-1 for variable length)
-- : Boolean indicating if the transition state is passed by value or by reference
-- : Estimated space consumption in bytes for this transition state
-- : Initial value for the transition state from pg_aggregate catalog entry
-- : Boolean indicating if the initial value is NULL
-
+- `type`: NodeTag identifying this as an AggTransInfo node
+- `*args`: List of input arguments for this transition state
+- `*aggfilter`: Filter expression applied to the aggregate inputs, or NULL if no filter
+- `transfn_oid`: OID of the state transition function that processes each input row
+- `serialfn_oid`: OID of the serialization function for parallel aggregation, or InvalidOid if not used
+- `deserialfn_oid`: OID of the deserialization function for parallel aggregation, or InvalidOid if not used
+- `combinefn_oid`: OID of the combine function for merging partial states, or InvalidOid if not used
+- `aggtranstype`: OID of the datatype used for the transition state value
+- `aggtranstypmod`: Type modifier for the transition state datatype
+- `transtypeLen`: Length of the transition state datatype (-1 for variable length)
+- `transtypeByVal`: Boolean indicating if the transition state is passed by value or by reference
+- `aggtransspace`: Estimated space consumption in bytes for this transition state
+- `pg_node_attr(read_write_ignore)`: Initial value for the transition state from pg_aggregate catalog entry
+- `initValueIsNull`: Boolean indicating if the initial value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - [initValue](../i/initValue.md)

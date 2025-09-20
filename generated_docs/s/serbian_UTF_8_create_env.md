@@ -20,7 +20,6 @@ This function serves as a factory method for creating Serbian stemming environme
 The function returns a properly initialized SN_env structure that contains all necessary state information for performing Serbian stemming operations, including cursor positions, region boundaries, and buffer management.
 
 ## Parameters / Member Variables
-- No input parameters (void)
 - Returns: Pointer to newly created SN_env structure configured for Serbian stemming
 
 ## Dependencies

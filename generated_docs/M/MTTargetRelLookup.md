@@ -21,9 +21,8 @@ This structure serves as a hash table entry for optimizing target relation looku
 The structure is designed specifically for hash table usage - the relationOid field must be first as it serves as the hash key. The hash table is populated during ModifyTable initialization and used during execution to quickly locate the appropriate ResultRelInfo for a given table OID.
 
 ## Parameters / Member Variables
-- : The OID of the target relation, serving as the hash key for fast lookups
-- : The corresponding index in the ModifyTableState's resultRelInfo[] array where the relation's ResultRelInfo is stored
-
+- `relationOid`: The OID of the target relation, serving as the hash key for fast lookups
+- `relationIndex`: The corresponding index in the ModifyTableState's resultRelInfo[] array where the relation's ResultRelInfo is stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)

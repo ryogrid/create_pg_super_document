@@ -27,8 +27,6 @@ The function handles both individual processes and lock groups. For lock groups 
 
 ## Parameters / Member Variables
 - : The process ID of the backend whose blocking status should be analyzed
-
-**Return value**:  - A structure containing:
 - : Array of BlockedProcData objects describing each blocked process
 - : Array of LockInstanceData objects for locks involved in blocking
 - : Array of PIDs representing processes ahead in wait queues

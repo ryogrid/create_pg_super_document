@@ -22,10 +22,9 @@ This structure encapsulates the essential information needed to begin processing
 The final_lsn field is particularly important as it represents the LSN where the transaction was committed on the publisher, enabling proper ordering and conflict detection. The commit timestamp helps with temporal ordering and debugging, while the transaction ID provides a unique identifier for the transaction.
 
 ## Parameters / Member Variables
-- : XLogRecPtr representing the LSN (Log Sequence Number) where this transaction was committed on the publisher side
-- : TimestampTz indicating the timestamp when the transaction was committed on the publisher
-- : TransactionId providing the unique identifier for this transaction
-
+- `final_lsn`: XLogRecPtr representing the LSN (Log Sequence Number) where this transaction was committed on the publisher side
+- `committime`: TimestampTz indicating the timestamp when the transaction was committed on the publisher
+- `xid`: TransactionId providing the unique identifier for this transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (PostgreSQL log sequence number type)

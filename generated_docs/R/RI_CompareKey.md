@@ -19,9 +19,8 @@ typedef struct RI_CompareKey
 RI_CompareKey provides a composite key mechanism for caching equality comparison information in referential integrity operations. The structure combines an equality operator OID with a data type OID to uniquely identify how two values of a specific type should be compared for equality. This caching mechanism optimizes foreign key constraint checking by avoiding repeated lookups of appropriate comparison operators for the same data types.
 
 ## Parameters / Member Variables
-- : OID of the equality operator function that should be used for comparing values of the specified type
-- : OID of the data type for which this equality operator is applicable
-
+- `eq_opr`: OID of the equality operator function that should be used for comparing values of the specified type
+- `typeid`: OID of the data type for which this equality operator is applicable
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

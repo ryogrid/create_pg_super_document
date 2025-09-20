@@ -15,7 +15,6 @@ Datum hashfloat8(PG_FUNCTION_ARGS)
 The `hashfloat8` function computes hash values for double-precision floating-point numbers (float8) with careful handling of IEEE floating-point special cases. The function first checks for zero values (including negative zero) and returns a consistent hash value of 0 to ensure that mathematically equivalent values hash identically. For NaN values, which can have different bit patterns but should be considered equal, the function normalizes them to a standard float8 NaN representation using `get_float8_nan()`. The final hash computation uses the generic `hash_any` function on the 8-byte representation of the normalized value.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's function argument macros (`PG_FUNCTION_ARGS`)
 - `key`: The input float8 value obtained via `PG_GETARG_FLOAT8(0)`
 
 ## Dependencies

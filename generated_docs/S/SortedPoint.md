@@ -21,9 +21,8 @@ The SortedPoint structure is used within the SP-GiST (Space-Partitioned Generali
 The structure is specifically designed to support the k-d tree's alternating splitting strategy, where points are sorted by x-coordinate on even levels and y-coordinate on odd levels of the tree. The comparison functions  and  operate on SortedPoint structures to enable this dimensional alternation.
 
 ## Parameters / Member Variables
-- : Pointer to the geometric Point structure containing x and y coordinates
-- : Integer index representing the original position of this point in the input array
-
+- `*p`: Pointer to the geometric Point structure containing x and y coordinates
+- `i`: Integer index representing the original position of this point in the input array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Point](../P/Point.md) (geometric point type from utils/geo_decls.h)

@@ -67,24 +67,23 @@ This structure serves as the YY_EXTRA data that a flex scanner allows to be pass
 The structure manages various aspects of SQL tokenization including buffer management, keyword recognition, string literal processing, comment handling, and Unicode escape sequences. It also maintains scanner settings that can be initialized from GUC variables and modified by callers to control scanner behavior.
 
 ## Parameters / Member Variables
-- : The string buffer that the scanner is physically scanning, used for computing token offsets
-- : Length of the scan buffer
-- : Pointer to the keyword list used for token recognition
-- : Associated grammar token codes for keywords
-- : Scanner setting for backslash quote handling (from GUC variables)
-- : Setting to control escape string warnings
-- : Setting for standard conforming string behavior
-- : Expandable buffer for accumulating literal values during multi-rule parsing
-- : Current actual length of the literal string
-- : Current allocated size of the literal buffer
-- : Start condition before encountering end quote
-- : Nesting depth in slash-star comments
-- : Current dollar-quote start string (e.g., $foo$)
-- : One-element stack for PUSH_YYLLOC() macro operations
-- : First part of UTF16 surrogate pair for Unicode escapes
-- : State variable for literal-lexing warnings
-- : State variable tracking non-ASCII characters in literals
-
+- `*scanbuf`: The string buffer that the scanner is physically scanning, used for computing token offsets
+- `scanbuflen`: Length of the scan buffer
+- `*keywordlist`: Pointer to the keyword list used for token recognition
+- `*keyword_tokens`: Associated grammar token codes for keywords
+- `backslash_quote`: Scanner setting for backslash quote handling (from GUC variables)
+- `escape_string_warning`: Setting to control escape string warnings
+- `standard_conforming_strings`: Setting for standard conforming string behavior
+- `*literalbuf`: Expandable buffer for accumulating literal values during multi-rule parsing
+- `literallen`: Current actual length of the literal string
+- `literalalloc`: Current allocated size of the literal buffer
+- `state_before_str_stop`: Start condition before encountering end quote
+- `xcdepth`: Nesting depth in slash-star comments
+- `*dolqstart`: Current dollar-quote start string (e.g., $foo$)
+- `save_yylloc`: One-element stack for PUSH_YYLLOC() macro operations
+- `utf16_first_part`: First part of UTF16 surrogate pair for Unicode escapes
+- `warn_on_first_escape`: State variable for literal-lexing warnings
+- `saw_non_ascii`: State variable tracking non-ASCII characters in literals
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanKeywordList

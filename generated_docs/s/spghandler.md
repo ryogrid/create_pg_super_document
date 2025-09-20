@@ -18,7 +18,7 @@ The spghandler function creates and configures an IndexAmRoutine structure that 
 The function is called by PostgreSQL's access method infrastructure to obtain the SP-GiST access method's interface. It configures the access method to support features like null searches, storage of different data types, include columns, and parallel vacuum operations, while disabling features like ordering, backward scans, and unique constraints.
 
 ## Parameters / Member Variables
-- This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

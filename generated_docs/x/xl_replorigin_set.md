@@ -22,10 +22,9 @@ The  structure is used in PostgreSQL's Write-Ahead Logging (WAL) system to recor
 The structure represents a WAL record of type  and contains the essential information needed to track the progress of logical replication from a specific origin node.
 
 ## Parameters / Member Variables
-- : The LSN (Log Sequence Number) on the remote/origin server that corresponds to this progress point
-- : The unique identifier of the replication origin node (of type RepOriginId, which is uint16)
-- : Boolean flag indicating whether to allow backward movement of the replication progress (normally progress only moves forward)
-
+- `remote_lsn`: The LSN (Log Sequence Number) on the remote/origin server that corresponds to this progress point
+- `node_id`: The unique identifier of the replication origin node (of type RepOriginId, which is uint16)
+- `force`: Boolean flag indicating whether to allow backward movement of the replication progress (normally progress only moves forward)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RepOriginId (type definition)

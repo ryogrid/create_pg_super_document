@@ -21,11 +21,10 @@ typedef struct ReorderBufferTupleCidEnt
 This structure serves as a complete hash table entry that maps tuple locations to their command ID information in PostgreSQL's logical replication system. It combines the ReorderBufferTupleCidKey (which identifies the tuple location) with the actual command ID values that determine when the tuple was created (cmin) and when it was last modified or deleted (cmax). The combocid field is included for debugging purposes and helps track combination command IDs in complex transaction scenarios. This mapping is essential for logical decoding to determine tuple visibility and maintain transactional consistency.
 
 ## Parameters / Member Variables
-- : ReorderBufferTupleCidKey structure containing the relation file locator and tuple ID that uniquely identifies the tuple location
-- : CommandId indicating when the tuple was created within its transaction
-- : CommandId indicating when the tuple was last modified or marked for deletion within its transaction
-- : CommandId used for debugging purposes to track combination command IDs in complex transaction scenarios
-
+- `key`: ReorderBufferTupleCidKey structure containing the relation file locator and tuple ID that uniquely identifies the tuple location
+- `cmin`: CommandId indicating when the tuple was created within its transaction
+- `cmax`: CommandId indicating when the tuple was last modified or marked for deletion within its transaction
+- `combocid`: CommandId used for debugging purposes to track combination command IDs in complex transaction scenarios
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ReorderBufferTupleCidKey](ReorderBufferTupleCidKey.md) (tuple location key structure)

@@ -15,7 +15,6 @@ Creates and initializes a new symbol structure with default capacity for the Sno
 The  function allocates memory for a new symbol structure and initializes it with a default capacity. It's part of PostgreSQL's Snowball stemming library utilities, used for text processing and stemming operations. The function allocates memory for both the header information and the symbol data, then properly initializes the symbol's capacity and size fields.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - Pointer to newly created symbol structure, or NULL if memory allocation fails
 
 ## Dependencies

@@ -18,8 +18,6 @@ The function is essential for socket operations that need to behave differently 
 
 ## Parameters / Member Variables
 - `s`: The Windows socket (SOCKET type) to check
-
-**Return Value:**
 - `1`: If the socket is a datagram socket (SOCK_DGRAM) or if getsockopt() fails
 - `0`: If the socket is not a datagram socket
 

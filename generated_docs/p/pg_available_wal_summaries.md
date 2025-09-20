@@ -16,11 +16,7 @@ pg_available_wal_summaries(PG_FUNCTION_ARGS)
 This function provides a view of all WAL summary files currently available in the PostgreSQL data directory's pg_wal/summaries subdirectory. It returns a result set with three columns containing timeline ID, start LSN, and end LSN for each WAL summary file. The function uses the GetWalSummaries() function to retrieve the list of available summary files and formats the results as a materialized set-returning function that can be used in SQL queries.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns a set of tuples with 3 attributes (NUM_WS_ATTS = 3):
-  - Timeline ID (int64)  
-  - Start LSN (LSN/XLogRecPtr)
-  - End LSN (LSN/XLogRecPtr)
 
 ## Dependencies
 - Functions called/Symbols referenced:

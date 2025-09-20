@@ -22,8 +22,7 @@ This SQL-callable function provides a way to pause WAL (Write-Ahead Log) replay 
 This functionality is crucial for maintenance operations, debugging recovery issues, or creating consistent points for backup operations on standby servers. The pause remains in effect until explicitly resumed via pg_wal_replay_resume().
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS convention but takes no arguments)
-- Returns void
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

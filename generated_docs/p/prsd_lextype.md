@@ -28,7 +28,6 @@ The function performs these operations:
 This function is typically called by PostgreSQL's text search system when users query for parser information using functions like  or when examining parser capabilities.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns: Pointer to array of LexDescr structures
 
 ## Dependencies

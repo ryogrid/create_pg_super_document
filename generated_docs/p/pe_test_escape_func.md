@@ -45,13 +45,12 @@ typedef struct pe_test_escape_func
 The  structure encapsulates metadata and function pointer for different PostgreSQL escape functions that need to be tested. It serves as a standardized interface that allows the test framework to understand the capabilities and limitations of each escape function, enabling appropriate test case selection and validation. The structure includes capability flags that inform the test framework about what types of input the escape function can handle and what behavior to expect.
 
 ## Parameters / Member Variables
-- : Human-readable name identifier for the escape function
-- : Flag indicating whether the escape method can report errors and should be tested for error handling with invalid inputs
-- : Flag indicating the escape method only handles validly encoded input; tests are skipped unless --force-unsupported is used
-- : Flag indicating the escape method only handles encodings where no byte in multi-byte characters are valid ASCII
-- : Flag indicating whether the escape function accepts a length parameter for input
-- : Function pointer to the actual escape function being tested, with standardized signature taking connection, target buffer, input string, input length, and error buffer
-
+- `*name`: Human-readable name identifier for the escape function
+- `reports_errors`: Flag indicating whether the escape method can report errors and should be tested for error handling with invalid inputs
+- `supports_only_valid`: Flag indicating the escape method only handles validly encoded input; tests are skipped unless --force-unsupported is used
+- `supports_only_ascii_overlap`: Flag indicating the escape method only handles encodings where no byte in multi-byte characters are valid ASCII
+- `supports_input_length`: Flag indicating whether the escape function accepts a length parameter for input
+- `escape_err)`: Function pointer to the actual escape function being tested, with standardized signature taking connection, target buffer, input string, input length, and error buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references from this structure)

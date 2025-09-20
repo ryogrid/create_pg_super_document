@@ -15,7 +15,6 @@ static TimestampTz GetStandbyLimitTime(void)
 This static function calculates the maximum time the standby server should wait before taking action against conflicting transactions. It considers the time when WAL data was last received and adds the appropriate delay based on whether the data came from streaming replication or archive recovery. The function returns a timestamp representing the cutoff time, or zero (past time) if configured to wait indefinitely.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: TimestampTz - cutoff time for canceling conflicting transactions, or 0 to wait forever
 
 ## Dependencies

@@ -15,7 +15,6 @@ Datum float8up(PG_FUNCTION_ARGS)
 This function implements the unary plus operation for PostgreSQL's float8 (double-precision floating-point) data type. It extracts a float8 value from the function arguments and returns it unchanged, effectively implementing the identity operation. The unary plus operator in SQL and most programming languages simply returns the operand without modification, and this function provides that behavior for PostgreSQL's double-precision numbers.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's `PG_FUNCTION_ARGS` macro to access arguments
 - `arg`: The input float8 value obtained via `PG_GETARG_FLOAT8(0)` from the first function argument
 
 ## Dependencies

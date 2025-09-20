@@ -21,7 +21,7 @@ This function serves as a language-specific wrapper around the generic Snowball 
 The function abstracts the specific configuration requirements for Russian stemming, providing a clean interface for creating the necessary processing context.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

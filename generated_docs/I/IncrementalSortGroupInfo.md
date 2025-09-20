@@ -23,13 +23,12 @@ typedef struct IncrementalSortGroupInfo
 IncrementalSortGroupInfo serves as a comprehensive instrumentation structure for tracking the performance characteristics of incremental sort operations. Incremental sorting optimizes multi-key sorts when the input data is already partially sorted on a prefix of the sort keys. This structure collects detailed metrics about resource usage (both memory and disk), tracks the number of groups processed, and records which sorting methods were employed. The data is essential for query optimization, performance analysis, and explaining query execution plans to users.
 
 ## Parameters / Member Variables
-- : Total number of groups processed during the incremental sort operation
-- : Maximum disk space usage in bytes across all groups
-- : Cumulative disk space usage in bytes for all groups
-- : Maximum memory usage in bytes across all groups
-- : Cumulative memory usage in bytes for all groups
-- : Bitmask indicating which TuplesortMethod algorithms were used during sorting
-
+- `groupCount`: Total number of groups processed during the incremental sort operation
+- `maxDiskSpaceUsed`: Maximum disk space usage in bytes across all groups
+- `totalDiskSpaceUsed`: Cumulative disk space usage in bytes for all groups
+- `maxMemorySpaceUsed`: Maximum memory usage in bytes across all groups
+- `totalMemorySpaceUsed`: Cumulative memory usage in bytes for all groups
+- `sortMethods`: Bitmask indicating which TuplesortMethod algorithms were used during sorting
 ## Dependencies
 - Functions called/Symbols referenced:
   - bits32

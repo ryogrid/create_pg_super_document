@@ -27,10 +27,6 @@ The ginxlogUpdateMeta structure is used as part of WAL logging when updating the
 ## Parameters / Member Variables
 - `locator`: File locator identifying the relation being modified
 - `metadata`: Complete GinMetaPageData structure containing:
-  - Pending list head/tail pointers
-  - Free space tracking information
-  - Statistics for the planner
-  - Version information
 - `prevTail`: Previous tail block number before the update
 - `newRightlink`: New right link value for linking pages
 - `ntuples`: Number of tuples being processed; if > 0, metadata.tail was updated with that many tuples; if <= 0, a new sublist was inserted

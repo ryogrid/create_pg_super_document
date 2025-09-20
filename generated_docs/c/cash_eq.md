@@ -18,7 +18,6 @@ The  function performs equality comparison between two cash values in PostgreSQL
 The function performs a simple numerical comparison since cash values are internally represented as 64-bit integers, making the comparison both efficient and straightforward.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Input 1: First cash value retrieved via 
 - Input 2: Second cash value retrieved via 
 - Output: Boolean result indicating equality

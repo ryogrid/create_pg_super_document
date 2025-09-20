@@ -22,12 +22,11 @@ typedef struct bbstreamer_tar_parser
 The  structure is designed to parse TAR archive streams in pg_basebackup. It extends the base  structure to provide TAR-specific parsing functionality. This parser transforms a stream of unknown chunks into properly categorized chunks (header, content, trailer) following TAR format conventions. It maintains state information to track the current parsing context and progress through TAR archive members.
 
 ## Parameters / Member Variables
-- : Base bbstreamer structure containing common streamer functionality (operations, next streamer, buffer)
-- : Indicates the expected type of the next chunk to be processed (header, content, trailer, or archive trailer)
-- : Contains metadata about the current archive member being processed (pathname, size, mode, ownership, etc.)
-- : Tracks how many bytes of the current file's content have been processed
-- : Number of padding bytes expected after the current file to align to TAR block boundaries
-
+- `base`: Base bbstreamer structure containing common streamer functionality (operations, next streamer, buffer)
+- `next_context`: Indicates the expected type of the next chunk to be processed (header, content, trailer, or archive trailer)
+- `member`: Contains metadata about the current archive member being processed (pathname, size, mode, ownership, etc.)
+- `file_bytes_sent`: Tracks how many bytes of the current file's content have been processed
+- `pad_bytes_expected`: Number of padding bytes expected after the current file to align to TAR block boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base structure)

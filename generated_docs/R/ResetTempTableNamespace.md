@@ -23,7 +23,7 @@ The function:
 This function is typically used in scenarios where a complete reset of temporary objects is desired, such as when processing DISCARD TEMP or DISCARD ALL commands.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

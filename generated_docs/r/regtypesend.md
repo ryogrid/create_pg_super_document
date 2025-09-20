@@ -20,7 +20,6 @@ This function is part of PostgreSQL's type system infrastructure and is called a
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro
   - First argument (index 0): regtype value to be converted to binary format
-  - Contains additional context for the binary conversion operation
 
 ## Dependencies
 - Functions called/Symbols referenced:

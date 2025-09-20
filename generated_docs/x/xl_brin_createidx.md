@@ -21,9 +21,8 @@ The  structure is used in PostgreSQL's WAL system to record the creation of a BR
 The structure stores two critical pieces of information: the pages-per-range parameter that determines the granularity of the BRIN index, and the version information for compatibility purposes. During WAL replay, this information is used along with backup block 0 (the metapage) to properly reconstruct the BRIN index state.
 
 ## Parameters / Member Variables
-- : Specifies the number of table pages that each BRIN index entry summarizes. This determines the granularity of the index - larger values mean each index entry covers more pages but with potentially less precise selectivity
-- : The version number of the BRIN index format, used for compatibility and upgrade purposes
-
+- `pagesPerRange`: Specifies the number of table pages that each BRIN index entry summarizes. This determines the granularity of the index - larger values mean each index entry covers more pages but with potentially less precise selectivity
+- `version`: The version number of the BRIN index format, used for compatibility and upgrade purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)

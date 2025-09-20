@@ -17,14 +17,7 @@ TupleDesc is a simple but fundamental typedef that creates a pointer type to Tup
 The typedef serves as an abstraction layer that hides the pointer nature of tuple descriptor handling from most code, making the API cleaner and more intuitive. Functions that work with tuple descriptors typically accept TupleDesc parameters and can assume they're working with valid tuple descriptor data.
 
 ## Parameters / Member Variables
-- This is a typedef, not a structure, so it has no member variables
 - Points to TupleDescData structure containing:
-  - natts (number of attributes)
-  - tdtypeid (composite type ID)
-  - tdtypmod (type modifier)
-  - tdrefcount (reference count)
-  - constr (constraints)
-  - attrs (attribute array)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,13 +25,12 @@ The  structure represents PostgreSQL extensions within the pg_dump framework. Ex
 Unlike tables or functions, extensions have special handling requirements in pg_dump because they can contain multiple related objects and may have configuration tables with user data that needs to be preserved across dump/restore cycles. The structure tracks both the extension's metadata and information about any configuration tables that contain user data.
 
 ## Parameters / Member Variables
-- : Base  structure containing core metadata, identification, dependencies, and component control
-- : String containing the name of the schema that contains the extension's objects
-- : Boolean flag indicating whether this extension can be moved between different schemas
-- : String containing the version of the extension as stored in the database
-- : String containing information about configuration tables that belong to this extension
-- : String containing condition information for extension configuration tables
-
+- `dobj`: Base  structure containing core metadata, identification, dependencies, and component control
+- `*namespace`: String containing the name of the schema that contains the extension's objects
+- `relocatable`: Boolean flag indicating whether this extension can be moved between different schemas
+- `*extversion`: String containing the version of the extension as stored in the database
+- `*extconfig`: String containing information about configuration tables that belong to this extension
+- `*extcondition`: String containing condition information for extension configuration tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

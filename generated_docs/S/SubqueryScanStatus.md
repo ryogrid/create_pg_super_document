@@ -22,10 +22,9 @@ SubqueryScanStatus is used to cache the result of analyzing whether a SubquerySc
 A SubqueryScan is considered trivial when it doesn't add any meaningful processing layer and can be safely removed from the plan tree, allowing the executor to directly access the subplan's results.
 
 ## Parameters / Member Variables
-- : Initial state indicating the trivial status has not yet been determined during planning
-- : The SubqueryScan node is trivial and can be eliminated from the plan tree
-- : The SubqueryScan node performs meaningful work and cannot be eliminated
-
+- `scan`: Initial state indicating the trivial status has not yet been determined during planning
+- `*subplan`: The SubqueryScan node is trivial and can be eliminated from the plan tree
+- `scanstatus`: The SubqueryScan node performs meaningful work and cannot be eliminated
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)
 - Used by:

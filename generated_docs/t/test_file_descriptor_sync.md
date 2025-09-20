@@ -27,7 +27,7 @@ The function performs two contrasting tests:
 By comparing the performance of these two approaches, the test reveals whether the operating system and filesystem can efficiently handle fsync operations on file descriptors that didn't perform the original write operations. Similar performance indicates that fsync can effectively sync data written on different descriptors, which is crucial for multi-process database systems.
 
 ## Parameters / Member Variables
-- (No parameters - void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

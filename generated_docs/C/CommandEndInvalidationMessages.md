@@ -22,7 +22,7 @@ For logical replication (when wal_level=logical), the function also logs the inv
 The function includes safeguards to handle calls outside transactions, which can occur during bootstrap operations or when ABORT is issued outside a transaction context.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

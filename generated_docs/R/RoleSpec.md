@@ -21,11 +21,10 @@ typedef struct RoleSpec
 RoleSpec is a parse tree node that represents role specifications in SQL statements. It provides a flexible way to reference database roles, supporting different methods of role identification including explicit role names, current user references, session user references, and public role references. This abstraction allows PostgreSQL to handle various role reference patterns uniformly across different SQL contexts such as GRANT statements, role creation, ownership changes, and access control operations.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RoleSpec node
-- : RoleSpecType enum indicating how the role is specified (e.g., explicit name, current user, session user, public)
-- : Character pointer containing the role name, populated only when roletype is ROLESPEC_CSTRING
-- : ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
-
+- `type`: NodeTag identifying this as a RoleSpec node
+- `roletype`: RoleSpecType enum indicating how the role is specified (e.g., explicit name, current user, session user, public)
+- `*rolename`: Character pointer containing the role name, populated only when roletype is ROLESPEC_CSTRING
+- `location`: ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RoleSpecType](RoleSpecType.md)

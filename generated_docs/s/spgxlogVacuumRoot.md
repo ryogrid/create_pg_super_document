@@ -24,10 +24,9 @@ typedef struct spgxlogVacuumRoot
 This structure represents a WAL record for vacuuming SP-GiST root pages that simultaneously serve as leaf pages. This scenario occurs in small indexes where the entire index fits on a single page - the root page contains both the index structure and the actual data tuples. Unlike regular leaf page vacuuming, root page vacuuming has simpler requirements since there are no parent pages to maintain consistency with and no complex chaining operations. The operation primarily involves removing dead tuples from the root/leaf page.
 
 ## Parameters / Member Variables
-- : Number of tuples that need to be deleted from the root page during the vacuum operation
-- : SP-GiST state information containing transaction ID and build flag for the source page
-- : Flexible array member containing the offset numbers of tuples to be deleted from the root page
-
+- `nDelete`: Number of tuples that need to be deleted from the root page during the vacuum operation
+- `stateSrc`: SP-GiST state information containing transaction ID and build flag for the source page
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the offset numbers of tuples to be deleted from the root page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgxlogState](spgxlogState.md)

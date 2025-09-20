@@ -26,11 +26,10 @@ The structure supports five distinct usage patterns: pointing to tuples in disk 
 The design enables efficient tuple handling throughout PostgreSQL's execution pipeline, from storage layer access to executor operations, providing a consistent interface while accommodating different memory layouts and storage optimizations.
 
 ## Parameters / Member Variables
-- : Length in bytes of the tuple data pointed to by t_data, always valid except when t_data is NULL
-- : ItemPointerData containing the tuple's disk location (TID), valid for disk tuples or copies of disk tuples  
-- : Object identifier of the table this tuple originates from, valid for disk tuples and their copies
-- : Pointer to HeapTupleHeader containing the actual tuple header and data, can point to various memory layouts
-
+- `t_len`: Length in bytes of the tuple data pointed to by t_data, always valid except when t_data is NULL
+- `t_self`: ItemPointerData containing the tuple's disk location (TID), valid for disk tuples or copies of disk tuples
+- `t_tableOid`: Object identifier of the table this tuple originates from, valid for disk tuples and their copies
+- `t_data`: Pointer to HeapTupleHeader containing the actual tuple header and data, can point to various memory layouts
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerData](../I/ItemPointerData.md)

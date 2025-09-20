@@ -26,7 +26,7 @@ Key initialization includes:
 The strategy_procinfos in the opaque structure is noted to be lazily initialized (set to InvalidOid by palloc0), meaning the actual operator procedures will be looked up when first needed.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

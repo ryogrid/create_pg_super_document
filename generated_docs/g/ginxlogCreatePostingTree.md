@@ -19,8 +19,7 @@ typedef struct ginxlogCreatePostingTree
 The ginxlogCreatePostingTree structure is used as part of WAL logging when creating a new posting tree in GIN (Generalized Inverted Index) indexes. This structure stores metadata about the compressed posting list that will be written to the WAL record. The actual compressed posting list data follows immediately after this structure in the WAL record. This mechanism ensures that posting tree creation operations can be properly replayed during recovery scenarios.
 
 ## Parameters / Member Variables
-- : Size in bytes of the compressed posting list that follows this structure in the WAL record
-
+- `size`: Size in bytes of the compressed posting list that follows this structure in the WAL record
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references from this structure)

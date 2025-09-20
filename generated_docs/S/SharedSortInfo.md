@@ -19,9 +19,8 @@ typedef struct SharedSortInfo
 SharedSortInfo serves as a shared memory structure for coordinating and collecting instrumentation data from multiple worker processes during parallel sort operations. It maintains an array of TuplesortInstrumentation structures, with one entry per worker process, allowing the system to aggregate performance statistics and monitoring data across all parallel workers involved in a sort operation. The structure uses a flexible array member to accommodate varying numbers of workers dynamically.
 
 ## Parameters / Member Variables
-- : Number of worker processes participating in the parallel sort operation
-- : Flexible array of TuplesortInstrumentation structures, one per worker, containing detailed instrumentation data for each worker's sort operation
-
+- `num_workers`: Number of worker processes participating in the parallel sort operation
+- `sinstrument[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of TuplesortInstrumentation structures, one per worker, containing detailed instrumentation data for each worker's sort operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

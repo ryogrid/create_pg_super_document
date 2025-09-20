@@ -15,8 +15,7 @@ This function exists solely for backward compatibility purposes. Prior to Postgr
 The function performs a simple validation to ensure at least three arguments are provided (which should always be the case in normal operation) and then delegates to the actual gin_extract_tsvector implementation. The function includes a safety check that throws an error if fewer than three arguments are provided, though this should not happen under normal circumstances.
 
 ## Parameters / Member Variables
-- Standard PostgreSQL function arguments via PG_FUNCTION_ARGS macro
-- Inherits the same parameters as gin_extract_tsvector when delegation occurs
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

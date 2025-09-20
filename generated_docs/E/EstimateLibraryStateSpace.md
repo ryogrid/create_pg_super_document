@@ -16,7 +16,7 @@ EstimateLibraryStateSpace(void)
 This function estimates the total size required to serialize the current state of all dynamically loaded libraries. It iterates through the global file_list that contains all loaded dynamic libraries and calculates the space needed to store each library's filename plus null terminator. The function is used in the context of parallel query execution where worker processes need to load the same set of libraries as the leader process.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

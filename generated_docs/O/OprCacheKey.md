@@ -23,11 +23,10 @@ OprCacheKey is used as the lookup key in PostgreSQL's operator caching mechanism
 The structure is designed to be used with PostgreSQL's hash table implementation, where the entire structure serves as a composite key for fast operator lookup.
 
 ## Parameters / Member Variables
-- : Character array storing the operator name (limited to NAMEDATALEN characters)
-- : OID of the left argument type, or 0 for prefix operators (unary operators with right operand only)
-- : OID of the right argument type
-- : Array of namespace OIDs representing the current search path for operator resolution
-
+- `oprname[NAMEDATALEN]`: Character array storing the operator name (limited to NAMEDATALEN characters)
+- `left_arg`: OID of the left argument type, or 0 for prefix operators (unary operators with right operand only)
+- `right_arg`: OID of the right argument type
+- `search_path[MAX_CACHED_PATH_LEN]`: Array of namespace OIDs representing the current search path for operator resolution
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN

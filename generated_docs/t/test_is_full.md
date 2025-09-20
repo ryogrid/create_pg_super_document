@@ -18,9 +18,7 @@ This function provides a basic test for the TidStoreMemoryUsage functionality by
 The function serves as a validation tool to ensure that TidStoreMemoryUsage returns meaningful values that change as the store accumulates data, which is essential for memory management in real-world PostgreSQL deployments.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Uses global  for TidStore operations
-- References global  for baseline memory comparison
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,9 +19,8 @@ typedef struct SerializedClientConnectionInfo
 This function looks up a user name from the PostgreSQL system catalog using the provided role OID. It searches the pg_authid system catalog to find the role entry and extracts the role name. The function provides flexible error handling: when noerr is true, it returns NULL for nonexistent roles; when noerr is false, it raises an ERROR for invalid role OIDs. The function uses PostgreSQL's system cache mechanism for efficient lookups and returns a palloc'd copy of the role name that the caller must free.
 
 ## Parameters / Member Variables
-- : The Oid of the role/user to look up
-- : Boolean flag controlling error behavior - if true, returns NULL for nonexistent roles; if false, raises an error
-
+- `authn_id_len`: The Oid of the role/user to look up
+- `auth_method`: Boolean flag controlling error behavior - if true, returns NULL for nonexistent roles; if false, raises an error
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)

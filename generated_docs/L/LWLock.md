@@ -26,12 +26,11 @@ LWLock is PostgreSQL's lightweight locking mechanism designed for high-performan
 The lock state is managed through atomic operations on the state field, which tracks both the number of shared lockers and whether an exclusive lock is held. When processes cannot immediately acquire a lock, they are queued in the waiters list as PGPROC entries.
 
 ## Parameters / Member Variables
-- : Identifies the lock tranche (group) for statistics and debugging purposes
-- : Atomic variable storing lock state including shared lock count and exclusive lock flag
-- : Queue of processes (PGPROC) waiting to acquire this lock
-- : (Debug only) Atomic counter of waiting processes for debugging
-- : (Debug only) Pointer to the last process that held an exclusive lock
-
+- `tranche`: Identifies the lock tranche (group) for statistics and debugging purposes
+- `state`: Atomic variable storing lock state including shared lock count and exclusive lock flag
+- `waiters`: Queue of processes (PGPROC) waiting to acquire this lock
+- `nwaiters`: (Debug only) Atomic counter of waiting processes for debugging
+- `*owner`: (Debug only) Pointer to the last process that held an exclusive lock
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic operations)

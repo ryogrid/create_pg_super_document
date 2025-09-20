@@ -30,11 +30,10 @@ The record works with three backup blocks:
 The structure stores the essential metadata needed to properly set up both bucket pages and maintain the hash index's structural integrity during recovery.
 
 ## Parameters / Member Variables
-- : The bucket number for the newly created bucket that results from the split operation
-- : Flag indicating the status/properties of the old bucket page (specific flag meanings depend on implementation context)
-- : Flag indicating the status/properties of the new bucket page being allocated
-- : General operation flags that control various aspects of the split allocation process
-
+- `new_bucket`: The bucket number for the newly created bucket that results from the split operation
+- `old_bucket_flag`: Flag indicating the status/properties of the old bucket page (specific flag meanings depend on implementation context)
+- `new_bucket_flag`: Flag indicating the status/properties of the new bucket page being allocated
+- `flags`: General operation flags that control various aspects of the split allocation process
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint32 (type)

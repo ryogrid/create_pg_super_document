@@ -17,7 +17,6 @@ The hashcharextended function provides an extended version of the hashchar funct
 The function extracts both a character argument and a 64-bit integer seed from the function call context, then delegates the actual hashing to hash_uint32_extended after casting the character to a 32-bit integer.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments through PostgreSQL's function call interface
 - First argument: 'char' value accessed via PG_GETARG_CHAR(0)
 - Second argument: int64 seed value accessed via PG_GETARG_INT64(1)
 

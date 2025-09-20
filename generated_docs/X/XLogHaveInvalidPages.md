@@ -15,7 +15,7 @@ bool XLogHaveInvalidPages(void)
 The `XLogHaveInvalidPages` function provides a simple boolean check to determine if the invalid page tracking system currently contains any unresolved invalid page references. It examines the global `invalid_page_tab` hash table and returns true if the table exists and contains one or more entries. This function is crucial for determining the state of recovery operations and ensuring that all invalid page references have been resolved before declaring recovery complete or transitioning to normal operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

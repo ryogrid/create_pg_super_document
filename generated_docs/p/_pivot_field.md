@@ -42,10 +42,9 @@ The _pivot_field structure is a core component of psql's crosstabview functional
 The structure is designed to handle NULL values gracefully by using NULL pointers for the name and sort_value fields. The ranking system initially reflects the order of first appearance in the result set, but can be updated when custom sorting is applied.
 
 ## Parameters / Member Variables
-- : Pointer from PQgetvalue() representing the distinct value for this header entry; NULL represents SQL NULL values
-- : When alternative column sorting is requested, holds the PQgetvalue() result for the corresponding sort column; retains the first occurrence when name appears multiple times; NULL for SQL NULL values
-- : Zero-based ranking of this value, initially set to the relative position of first appearance in the result set, updated during final sorting pass when sort column is specified
-
+- `*name`: Pointer from PQgetvalue() representing the distinct value for this header entry; NULL represents SQL NULL values
+- `*sort_value`: When alternative column sorting is requested, holds the PQgetvalue() result for the corresponding sort column; retains the first occurrence when name appears multiple times; NULL for SQL NULL values
+- `rank`: Zero-based ranking of this value, initially set to the relative position of first appearance in the result set, updated during final sorting pass when sort column is specified
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None directly - this is a data structure definition)

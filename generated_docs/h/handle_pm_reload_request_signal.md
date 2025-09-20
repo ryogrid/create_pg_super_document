@@ -21,7 +21,7 @@ The handler follows PostgreSQL's standard pattern for signal handling:
 This design ensures that the actual configuration reload processing happens in the main event loop context rather than within the signal handler, which is safer and allows for proper error handling and logging. The signal handler itself only performs async-signal-safe operations.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which expands to standard signal handler parameters (typically int sig)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

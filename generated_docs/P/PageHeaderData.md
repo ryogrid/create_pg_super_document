@@ -30,16 +30,15 @@ PageHeaderData serves as the common header structure for all PostgreSQL pages, p
 The structure supports PostgreSQL's fundamental storage architecture by maintaining information about the page's modification history (LSN), integrity verification (checksum), space utilization (lower/upper bounds), and tuple organization (line pointer array). The design accommodates both heap pages and index pages through the flexible special space mechanism.
 
 ## Parameters / Member Variables
-- : Log Sequence Number identifying the WAL record for the last modification to this page; used by buffer manager to enforce "write xlog before data" rule
-- : Page checksum for data integrity verification; zero is a valid checksum value, and the field may be unset if checksums are disabled
-- : Bit flags for various page states and properties (specific flag definitions found elsewhere in the codebase)
-- : Byte offset from page start to the beginning of free space area; marks the end of the line pointer array
-- : Byte offset from page start to the end of free space area; marks the beginning of actual tuple data (growing backwards)
-- : Byte offset from page start to the beginning of special space area; used for index-specific data structures
-- : Combined field storing page size (in multiples of 256 bytes) and page layout version number in a single uint16
-- : Transaction ID of the oldest potentially prunable tuple on the page; used as a hint for HOT (Heap-Only Tuples) pruning optimization
-- : Flexible array of line pointers (ItemIdData) that reference individual tuples or items on the page
-
+- `pd_lsn`: Log Sequence Number identifying the WAL record for the last modification to this page; used by buffer manager to enforce "write xlog before data" rule
+- `pd_checksum`: Page checksum for data integrity verification; zero is a valid checksum value, and the field may be unset if checksums are disabled
+- `pd_flags`: Bit flags for various page states and properties (specific flag definitions found elsewhere in the codebase)
+- `pd_lower`: Byte offset from page start to the beginning of free space area; marks the end of the line pointer array
+- `pd_upper`: Byte offset from page start to the end of free space area; marks the beginning of actual tuple data (growing backwards)
+- `pd_special`: Byte offset from page start to the beginning of special space area; used for index-specific data structures
+- `pd_pagesize_version`: Combined field storing page size (in multiples of 256 bytes) and page layout version number in a single uint16
+- `pd_prune_xid`: Transaction ID of the oldest potentially prunable tuple on the page; used as a hint for HOT (Heap-Only Tuples) pruning optimization
+- `pd_linp[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of line pointers (ItemIdData) that reference individual tuples or items on the page
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageXLogRecPtr

@@ -28,16 +28,15 @@ This structure represents a linked list of function or operator candidates disco
 The structure is primarily used by  to return a list of potential function matches that need further type resolution. It handles complex scenarios like function overloading, namespace precedence, variadic argument expansion, and default parameter insertion.
 
 ## Parameters / Member Variables
-- : Pointer to the next candidate in the linked list
-- : Internal field tracking the position in the namespace search path for conflict resolution
-- : The Object Identifier of the function or operator in the system catalog
-- : The nominal number of arguments (either  or length of )
-- : The actual number of argument types returned in the  array
-- : Number of arguments that become part of a variadic array (0 if not variadic)
-- : Number of arguments with default values that were inserted
-- : Array of positional indexes for named parameter calls (NULL for positional calls)
-- : Flexible array member containing the Oid types of all arguments
-
+- `*next`: Pointer to the next candidate in the linked list
+- `pathpos`: Internal field tracking the position in the namespace search path for conflict resolution
+- `oid`: The Object Identifier of the function or operator in the system catalog
+- `nominalnargs`: The nominal number of arguments (either  or length of )
+- `nargs`: The actual number of argument types returned in the  array
+- `nvargs`: Number of arguments that become part of a variadic array (0 if not variadic)
+- `ndargs`: Number of arguments with default values that were inserted
+- `*argnumbers`: Array of positional indexes for named parameter calls (NULL for positional calls)
+- `args[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the Oid types of all arguments
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array member)

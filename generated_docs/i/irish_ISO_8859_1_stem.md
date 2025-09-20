@@ -31,9 +31,6 @@ The function processes text from right to left (standard Snowball approach) and 
 
 ## Parameters / Member Variables
 - `z`: Pointer to the SN_env (Snowball environment) structure containing:
-  - Text buffer with the word to be stemmed
-  - Cursor positions (c, lb, l) for tracking processing position
-  - Regional boundaries (I[0], I[1], I[2]) set by r_mark_regions
 
 ## Dependencies
 - Functions called/Symbols referenced:

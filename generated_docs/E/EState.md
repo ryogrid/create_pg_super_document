@@ -122,47 +122,46 @@ typedef struct EState
 EState serves as the comprehensive execution context for PostgreSQL queries, maintaining all runtime state needed during query execution. It bridges the gap between planning and execution by holding references to planned statements, managing runtime parameters, tracking tuple processing statistics, and coordinating resource management. The structure is designed to support complex execution scenarios including parallel execution, JIT compilation, triggers, and partitioning.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure
-- : Current scan direction (forward/backward)
-- : Snapshot for visibility checks during execution
-- : Snapshot for referential integrity crosschecks
-- : List of range table entries from the query
-- : Size of range table arrays
-- : Array of opened Relation pointers indexed by range table
-- : Array of row locking information per range table entry
-- : List of permission information for range table entries
-- : Reference to the top-level planned statement
-- : Original SQL source text
-- : Filter for removing junk attributes from result tuples
-- : Command ID for marking inserted/deleted tuples
-- : Array of target relation information for DML operations
-- : List of opened result relations
-- : Directory for partition descriptor lookups
-- : Result relations created by tuple routing
-- : Relations used only for trigger execution
-- : External parameter values
-- : Internal executor parameter values
-- : Query environment for accessing named result sets
-- : Memory context for per-query allocations
-- : List of all TupleTableSlots used in execution
-- : Number of tuples processed in current ExecutorRun call
-- : Total tuples processed across all ExecutorRun calls
-- : Execution flags passed to ExecutorStart
-- : Instrumentation flags for performance monitoring
-- : Flag indicating ExecutorFinish has completed
-- : List of expression evaluation contexts
-- : List of plan states for subplans
-- : List of auxiliary ModifyTable states
-- : Expression context for per-tuple operations
-- : Active EPQ (EvalPlanQual) state for concurrent updates
-- : Flag enabling parallel worker usage
-- : Dynamic shared area for parallel execution coordination
-- : JIT compilation control flags
-- : JIT compilation context
-- : Combined instrumentation from parallel workers
-- : Relations with pending batch inserts
-- : ModifyTable states for batch inserts
-
+- `type`: NodeTag identifier for the structure
+- `es_direction`: Current scan direction (forward/backward)
+- `es_snapshot`: Snapshot for visibility checks during execution
+- `es_crosscheck_snapshot`: Snapshot for referential integrity crosschecks
+- `*es_range_table`: List of range table entries from the query
+- `es_range_table_size`: Size of range table arrays
+- `*es_relations`: Array of opened Relation pointers indexed by range table
+- `**es_rowmarks`: Array of row locking information per range table entry
+- `*es_rteperminfos`: List of permission information for range table entries
+- `*es_plannedstmt`: Reference to the top-level planned statement
+- `*es_sourceText`: Original SQL source text
+- `*es_junkFilter`: Filter for removing junk attributes from result tuples
+- `es_output_cid`: Command ID for marking inserted/deleted tuples
+- `**es_result_relations`: Array of target relation information for DML operations
+- `*es_opened_result_relations`: List of opened result relations
+- `es_partition_directory`: Directory for partition descriptor lookups
+- `*es_tuple_routing_result_relations`: Result relations created by tuple routing
+- `*es_trig_target_relations`: Relations used only for trigger execution
+- `es_param_list_info`: External parameter values
+- `*es_param_exec_vals`: Internal executor parameter values
+- `*es_queryEnv`: Query environment for accessing named result sets
+- `es_query_cxt`: Memory context for per-query allocations
+- `*es_tupleTable`: List of all TupleTableSlots used in execution
+- `es_processed`: Number of tuples processed in current ExecutorRun call
+- `es_total_processed`: Total tuples processed across all ExecutorRun calls
+- `es_top_eflags`: Execution flags passed to ExecutorStart
+- `es_instrument`: Instrumentation flags for performance monitoring
+- `es_finished`: Flag indicating ExecutorFinish has completed
+- `*es_exprcontexts`: List of expression evaluation contexts
+- `*es_subplanstates`: List of plan states for subplans
+- `*es_auxmodifytables`: List of auxiliary ModifyTable states
+- `*es_per_tuple_exprcontext`: Expression context for per-tuple operations
+- `*es_epq_active`: Active EPQ (EvalPlanQual) state for concurrent updates
+- `es_use_parallel_mode`: Flag enabling parallel worker usage
+- `*es_query_dsa`: Dynamic shared area for parallel execution coordination
+- `es_jit_flags`: JIT compilation control flags
+- `*es_jit`: JIT compilation context
+- `*es_jit_worker_instr`: Combined instrumentation from parallel workers
+- `*es_insert_pending_result_relations`: Relations with pending batch inserts
+- `*es_insert_pending_modifytables`: ModifyTable states for batch inserts
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirection (enum type)

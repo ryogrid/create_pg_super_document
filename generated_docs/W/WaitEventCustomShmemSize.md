@@ -22,7 +22,7 @@ This function calculates the total shared memory space needed for the wait event
 The function uses proper memory alignment (MAXALIGN) and safe size addition (add_size) to prevent overflow when calculating the total memory requirements.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

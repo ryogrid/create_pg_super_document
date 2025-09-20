@@ -19,7 +19,7 @@ When called on a server that has started normally (without going through recover
 The function internally calls GetLatestXTime() to retrieve the timestamp of the latest replayed transaction, and returns it as a PostgreSQL TIMESTAMPTZ value.
 
 ## Parameters / Member Variables
-- This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

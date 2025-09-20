@@ -28,10 +28,9 @@ Key constraints and behaviors:
 - The relNumber corresponds to pg_class.relfilenode, not pg_class.oid, enabling physical file reassignment
 
 ## Parameters / Member Variables
-- : Tablespace identifier corresponding to pg_tablespace.oid where the relation is stored
-- : Database identifier corresponding to pg_database.oid; zero for shared relations accessible to all databases
-- : Relation file number corresponding to pg_class.relfilenode, uniquely identifying the relation within its database and tablespace
-
+- `spcOid`: Tablespace identifier corresponding to pg_tablespace.oid where the relation is stored
+- `dbOid`: Database identifier corresponding to pg_database.oid; zero for shared relations accessible to all databases
+- `relNumber`: Relation file number corresponding to pg_class.relfilenode, uniquely identifying the relation within its database and tablespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileNumber](RelFileNumber.md) (typedef for Oid)

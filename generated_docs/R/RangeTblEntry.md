@@ -230,40 +230,39 @@ RangeTblEntry is a polymorphic structure that represents different kinds of rang
 The structure supports various types of data sources including regular relations (tables/views), subqueries, joins, functions, VALUES clauses, Common Table Expressions (CTEs), Ephemeral Named Relations (ENRs), and table functions. Each type uses different subsets of the available fields.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RangeTblEntry node
-- : User-written alias clause for the range table entry
-- : Expanded reference names (effective column names after alias resolution)
-- : Specifies the kind of RTE (relation, subquery, join, function, etc.)
-- : OID of the relation (for relation RTEs)
-- : Whether inheritance should be considered for relation references
-- : Kind of relation from pg_class.relkind
-- : Lock level required on the relation (LOCKMODE stored as int)
-- : 1-based index into RTEPermissionInfo list, 0 if no permission check needed
-- : Sampling information for table sampling clauses
-- : The sub-query for subquery RTEs
-- : Whether this is from a security_barrier view
-- : Type of join for join RTEs
-- : Number of merged columns in JOIN USING
-- : List of alias variable expansions for join columns
-- : Physical column numbers from left join input
-- : Physical column numbers from right join input
-- : Alias clause attached directly to JOIN/USING
-- : List of RangeTblFunction nodes for function RTEs
-- : Whether function is called WITH ORDINALITY
-- : TableFunc node for table function RTEs
-- : List of expression lists for VALUES RTEs
-- : Name of the WITH list item for CTE RTEs
-- : Number of query levels up for CTE references
-- : Whether this is a recursive self-reference in CTE
-- : OID list of column type OIDs
-- : List of column type modifiers
-- : OID list of column collation OIDs
-- : Name of ephemeral named relation
-- : Estimated or actual tuple count for ENRs
-- : Whether LATERAL was specified
-- : Whether this RTE appears in the FROM clause
-- : Security barrier qualifiers to apply
-
+- `type`: NodeTag identifying this as a RangeTblEntry node
+- `pg_node_attr(query_jumble_ignore)`: User-written alias clause for the range table entry
+- `pg_node_attr(query_jumble_ignore)`: Expanded reference names (effective column names after alias resolution)
+- `rtekind`: Specifies the kind of RTE (relation, subquery, join, function, etc.)
+- `relid`: OID of the relation (for relation RTEs)
+- `inh`: Whether inheritance should be considered for relation references
+- `pg_node_attr(query_jumble_ignore)`: Kind of relation from pg_class.relkind
+- `pg_node_attr(query_jumble_ignore)`: Lock level required on the relation (LOCKMODE stored as int)
+- `pg_node_attr(query_jumble_ignore)`: 1-based index into RTEPermissionInfo list, 0 if no permission check needed
+- `*tablesample`: Sampling information for table sampling clauses
+- `*subquery`: The sub-query for subquery RTEs
+- `pg_node_attr(query_jumble_ignore)`: Whether this is from a security_barrier view
+- `jointype`: Type of join for join RTEs
+- `pg_node_attr(query_jumble_ignore)`: Number of merged columns in JOIN USING
+- `pg_node_attr(query_jumble_ignore)`: List of alias variable expansions for join columns
+- `pg_node_attr(query_jumble_ignore)`: Physical column numbers from left join input
+- `pg_node_attr(query_jumble_ignore)`: Physical column numbers from right join input
+- `pg_node_attr(query_jumble_ignore)`: Alias clause attached directly to JOIN/USING
+- `*functions`: List of RangeTblFunction nodes for function RTEs
+- `funcordinality`: Whether function is called WITH ORDINALITY
+- `*tablefunc`: TableFunc node for table function RTEs
+- `*values_lists`: List of expression lists for VALUES RTEs
+- `*ctename`: Name of the WITH list item for CTE RTEs
+- `ctelevelsup`: Number of query levels up for CTE references
+- `pg_node_attr(query_jumble_ignore)`: Whether this is a recursive self-reference in CTE
+- `pg_node_attr(query_jumble_ignore)`: OID list of column type OIDs
+- `pg_node_attr(query_jumble_ignore)`: List of column type modifiers
+- `pg_node_attr(query_jumble_ignore)`: OID list of column collation OIDs
+- `*enrname`: Name of ephemeral named relation
+- `pg_node_attr(query_jumble_ignore)`: Estimated or actual tuple count for ENRs
+- `pg_node_attr(query_jumble_ignore)`: Whether LATERAL was specified
+- `pg_node_attr(query_jumble_ignore)`: Whether this RTE appears in the FROM clause
+- `pg_node_attr(query_jumble_ignore)`: Security barrier qualifiers to apply
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Alias](../A/Alias.md)

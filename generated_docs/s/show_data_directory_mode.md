@@ -19,9 +19,7 @@ Since file permissions are conventionally displayed in octal format (e.g., 0700,
 The function uses a static buffer to store the formatted string, which is safe in this context since the GUC system handles the lifetime of the returned string appropriately.
 
 ## Parameters / Member Variables
-- No parameters (void function)
-- Uses global variable `data_directory_mode` which contains the numeric permission value
-- Uses static buffer `buf[12]` to store the formatted octal string
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

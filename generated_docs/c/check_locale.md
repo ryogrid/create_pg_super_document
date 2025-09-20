@@ -17,7 +17,6 @@ This function validates locale names by attempting to set the specified locale u
 
 ## Parameters / Member Variables
 - : The locale category to validate against (LC_COLLATE, LC_CTYPE, LC_MESSAGES, etc.)
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

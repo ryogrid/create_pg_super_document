@@ -16,7 +16,6 @@ brin_summarize_new_values(PG_FUNCTION_ARGS)
 This function serves as a wrapper that calls  with a special argument to process all block ranges in the index. It is designed to be called from SQL to update index summaries for ranges that have been modified since the last summarization. The function uses  (which is ) to indicate that all ranges should be processed, not just a specific range.
 
 ## Parameters / Member Variables
-- The function uses PostgreSQL's standard function argument mechanism ()
 - : The first argument (accessed via ) representing the BRIN index relation to be summarized
 
 ## Dependencies

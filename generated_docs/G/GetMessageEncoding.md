@@ -20,7 +20,6 @@ This function returns the encoding ID that gettext() uses for localized messages
 The function simply returns the encoding field from the global MessageEncoding variable, which points to an entry in the pg_enc2name_tbl table. MessageEncoding is initialized to PG_SQL_ASCII and updated when the message encoding is explicitly set.
 
 ## Parameters / Member Variables
-- No parameters
 - Returns: int representing the encoding ID for messages
 
 ## Dependencies

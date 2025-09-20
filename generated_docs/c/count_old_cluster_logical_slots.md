@@ -16,7 +16,7 @@ count_old_cluster_logical_slots(void)
 This utility function provides a simple count of all logical replication slots present in the old cluster by iterating through all databases and summing their slot counts. It serves as a convenience function for other parts of pg_upgrade that need to determine whether logical slots exist before performing slot-related operations. The function leverages the slot information previously collected by get_old_cluster_logical_slot_infos() and stored in each database's slot_arr structure. For PostgreSQL 16 and earlier clusters, this function always returns 0 since logical slot information is not collected for those versions due to reliability concerns with slot state persistence.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

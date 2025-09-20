@@ -16,9 +16,6 @@ This function performs the inverse operation of PGTYPESdate_julmdy by converting
 
 ## Parameters / Member Variables
 - `mdy`: Integer array containing date components where:
-  - mdy[0] = month (1-12)
-  - mdy[1] = day (1-31)
-  - mdy[2] = year
 - `jdate`: Pointer to date variable where the calculated Julian date will be stored
 
 ## Dependencies

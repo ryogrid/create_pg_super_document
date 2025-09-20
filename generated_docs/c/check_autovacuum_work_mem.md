@@ -28,8 +28,6 @@ The 64kB minimum is consistent with the minimum value enforced for maintenance_w
 - : Pointer to extra data (unused in this function, can be NULL)
 - : The source of the configuration change (e.g., configuration file, SQL command, etc.)
 
-**Return value**: Always returns true, indicating the value is acceptable (after any necessary adjustments)
-
 ## Dependencies
 - Functions called/Symbols referenced:
   - GucSource (enumeration type for configuration sources)

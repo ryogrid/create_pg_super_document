@@ -18,7 +18,6 @@ The function name suggests it's used for operations that involve two float8 para
 
 ## Parameters / Member Variables
 - Function follows PostgreSQL's PG_FUNCTION_ARGS convention:
-  - Arguments are passed through directly to int8inc without modification or type checking
 
 ## Dependencies
 - Functions called/Symbols referenced:

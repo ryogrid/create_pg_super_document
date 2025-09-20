@@ -30,14 +30,13 @@ The structure uses a flexible array member for arguments, requiring careful memo
 Called functions are expected to set the  field and potentially modify  or fields within the structure it points to, but should not modify other fields. The argument arrays should be treated as read-only since callers may reuse the same arguments for multiple calls.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing function lookup information, metadata, and handler details
-- : Node pointer providing contextual information about the function call environment
-- : Node pointer for passing or returning additional information about the function result
-- : OID specifying the collation that the function should use for string operations
-- : Boolean flag that the called function must set to true if the result is NULL
-- : Short integer indicating the number of arguments actually passed to the function
-- : Flexible array of NullableDatum structures containing the actual function arguments with their null status
-
+- `*flinfo`: Pointer to FmgrInfo structure containing function lookup information, metadata, and handler details
+- `context`: Node pointer providing contextual information about the function call environment
+- `resultinfo`: Node pointer for passing or returning additional information about the function result
+- `fncollation`: OID specifying the collation that the function should use for string operations
+- `isnull`: Boolean flag that the called function must set to true if the result is NULL
+- `nargs`: Short integer indicating the number of arguments actually passed to the function
+- `args[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of NullableDatum structures containing the actual function arguments with their null status
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmNodePtr](../f/fmNodePtr.md)

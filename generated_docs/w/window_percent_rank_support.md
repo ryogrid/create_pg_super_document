@@ -21,7 +21,6 @@ The `window_percent_rank_support` function is a support function that helps Post
 The function uses the same optimization strategy as other ranking window functions, allowing the executor to avoid expensive peer row comparisons since the frame boundaries don't affect the percent_rank calculation.
 
 ## Parameters / Member Variables
-- Takes a support request node as input through PG_FUNCTION_ARGS
 - `rawreq`: Node pointer containing the specific support request type
 
 ## Dependencies

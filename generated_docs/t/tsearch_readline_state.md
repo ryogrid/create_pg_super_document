@@ -26,13 +26,12 @@ The  structure provides a complete state management system for reading text sear
 The structure supports reading files that are expected to be in UTF-8 format and automatically converts them to the database encoding as needed. It maintains both the original UTF-8 data and the converted database-encoded version for different processing needs, while providing detailed error context including filename and line numbers for debugging purposes.
 
 ## Parameters / Member Variables
-- : FILE pointer to the currently open configuration file being read
-- : Pointer to the filename string for error reporting (must remain valid throughout the reading session)  
-- : Current line number being processed (starts at 0, incremented with each read)
-- : StringInfoData buffer containing the current input line in UTF-8 encoding
-- : Pointer to the current input line in the database's encoding (may be NULL, equal to buf.data, or a separate palloc'd string)
-- : ErrorContextCallback structure for providing detailed error context in case of failures
-
+- `*fp`: FILE pointer to the currently open configuration file being read
+- `*filename`: Pointer to the filename string for error reporting (must remain valid throughout the reading session)
+- `lineno`: Current line number being processed (starts at 0, incremented with each read)
+- `buf`: StringInfoData buffer containing the current input line in UTF-8 encoding
+- `*curline`: Pointer to the current input line in the database's encoding (may be NULL, equal to buf.data, or a separate palloc'd string)
+- `cb`: ErrorContextCallback structure for providing detailed error context in case of failures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StringInfoData](../S/StringInfoData.md) (from lib/stringinfo.h)

@@ -23,11 +23,10 @@ The  structure implements a linked list that stores information about indexes th
 This two-phase approach (declare first, build later) is necessary because indexes themselves have catalog entries that need to be included in the indexes on catalog tables. The structure allows the bootstrap process to collect all index declarations and then build them in the correct order once the system catalogs are ready.
 
 ## Parameters / Member Variables
-- : OID of the heap table that the index is built on
-- : OID of the index relation itself
-- : Pointer to IndexInfo structure containing detailed index metadata (columns, expressions, predicates, etc.)
-- : Pointer to the next IndexList node in the linked list
-
+- `il_heap`: OID of the heap table that the index is built on
+- `il_ind`: OID of the index relation itself
+- `*il_info`: Pointer to IndexInfo structure containing detailed index metadata (columns, expressions, predicates, etc.)
+- `*il_next`: Pointer to the next IndexList node in the linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexInfo (structure for index metadata)

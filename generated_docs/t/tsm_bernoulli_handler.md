@@ -15,7 +15,6 @@ Datum tsm_bernoulli_handler(PG_FUNCTION_ARGS)
 The `tsm_bernoulli_handler` function serves as the entry point for the BERNOULLI tablesample method. It creates and initializes a TsmRoutine structure that defines the behavior of the Bernoulli sampling algorithm. The function sets up all the necessary callback functions and parameters needed for PostgreSQL's tablesample infrastructure to perform Bernoulli sampling on table data. The Bernoulli method samples each tuple independently with a given probability, providing a statistically sound way to obtain random samples from large tables.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns: Datum containing pointer to initialized TsmRoutine structure
 
 ## Dependencies

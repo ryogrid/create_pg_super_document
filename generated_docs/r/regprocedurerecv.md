@@ -17,7 +17,6 @@ This function serves as the binary receive function for PostgreSQL's regprocedur
 The function is part of PostgreSQL's type system infrastructure and is automatically invoked when regprocedure data is received in binary format, typically during client-server communication using the binary protocol.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Input: Binary data in PostgreSQL's external format (accessed via fcinfo)
 - Returns: regprocedure value (internally represented as an OID)
 

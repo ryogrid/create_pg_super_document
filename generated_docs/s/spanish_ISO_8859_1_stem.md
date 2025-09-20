@@ -29,10 +29,6 @@ The algorithm follows a backward processing approach, working from the end of th
 
 ## Parameters / Member Variables
 - : Pointer to SN_env structure containing:
-  - The word to be stemmed
-  - Working cursors and boundaries
-  - Region markers (RV, R1, R2)
-  - Temporary state variables
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,7 +24,7 @@ This function accepts subtransactions in both TBLOCK_SUBINPROGRESS and TBLOCK_SU
 Like other internal subtransaction functions, it does not require CommitTransactionCommand/StartTransactionCommand cycling and is designed for use by procedural languages and internal systems. The function includes comprehensive state validation and will generate FATAL errors for unexpected transaction states.
 
 ## Parameters / Member Variables
-- No parameters - always operates on the current innermost subtransaction
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

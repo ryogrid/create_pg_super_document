@@ -19,9 +19,8 @@ typedef struct finalize_primnode_context
 The  structure serves as a parameter context for the  function during the final phase of query plan preparation. This structure is used in PostgreSQL's query planner to identify and collect all PARAM_EXEC parameter IDs that appear in expression trees throughout the plan. The context maintains a running set of parameter IDs that represent cross-plan-node parameter dependencies, which is crucial for proper plan execution and parameter passing. This information is used to populate the  and  fields of plan nodes, enabling the executor to properly handle parameter-dependent operations like subqueries and joins.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing the current planner state and global query planning context
-- : A Bitmapset accumulating the IDs of all non-local PARAM_EXEC parameters found during the tree traversal, representing parameter dependencies that cross plan node boundaries
-
+- `*root`: PlannerInfo pointer containing the current planner state and global query planning context
+- `*paramids`: A Bitmapset accumulating the IDs of all non-local PARAM_EXEC parameters found during the tree traversal, representing parameter dependencies that cross plan node boundaries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannerInfo](../P/PlannerInfo.md) (structure)

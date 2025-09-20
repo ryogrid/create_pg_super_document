@@ -28,17 +28,16 @@ typedef struct _PQprintOpt
 The  structure is a configuration container for controlling the output formatting of PostgreSQL query results through libpq. It supports multiple output formats including standard text, aligned columns, HTML tables, and expanded (vertical) display modes. The structure allows fine-grained control over field separators, HTML table attributes, captions, and custom field names. This struct is typically used with PostgreSQL client applications that need to format query results for display or export purposes.
 
 ## Parameters / Member Variables
-- : Controls whether to print column headings and row count information
-- : Enables field alignment for tabular output formatting
-- : Uses the legacy "brain dead" format for backward compatibility
-- : Enables HTML table output format
-- : Switches to expanded (vertical) table display mode
-- : Automatically uses a pager for output when needed
-- : String used as field separator between columns
-- : HTML attributes to insert into the <table> tag
-- : HTML caption text for table output
-- : Array of custom field names to replace default column names
-
+- `header`: Controls whether to print column headings and row count information
+- `align`: Enables field alignment for tabular output formatting
+- `standard`: Uses the legacy "brain dead" format for backward compatibility
+- `html3`: Enables HTML table output format
+- `expanded`: Switches to expanded (vertical) table display mode
+- `pager`: Automatically uses a pager for output when needed
+- `*fieldSep`: String used as field separator between columns
+- `*tableOpt`: HTML attributes to insert into the <table> tag
+- `*caption`: HTML caption text for table output
+- `**fieldName`: Array of custom field names to replace default column names
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqbool (boolean type used for flags)

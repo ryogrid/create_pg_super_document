@@ -19,9 +19,8 @@ typedef struct ShutdownInformation
 ShutdownInformation is a simple structure designed to pass essential state information to the shutdown callback function archive_close_connection(). This structure is used as part of pg_dump's cleanup mechanism to ensure proper shutdown of database connections and worker processes during both normal termination and error conditions. The structure is registered with the on_exit_nicely handler to guarantee clean resource management.
 
 ## Parameters / Member Variables
-- : Pointer to ParallelState structure containing information about parallel processing state. NULL if not running in parallel mode.
-- : Pointer to Archive structure representing the database connection that needs to be closed during shutdown.
-
+- `*pstate`: Pointer to ParallelState structure containing information about parallel processing state. NULL if not running in parallel mode.
+- `*AHX`: Pointer to Archive structure representing the database connection that needs to be closed during shutdown.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelState](../P/ParallelState.md) (parallel processing state)

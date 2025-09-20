@@ -17,9 +17,6 @@ This function takes a Julian date value and converts it to the conventional mont
 ## Parameters / Member Variables
 - `jd`: Julian date value to be converted
 - `mdy`: Integer array to store the converted date components where:
-  - mdy[0] = month (1-12)
-  - mdy[1] = day (1-31)  
-  - mdy[2] = year
 
 ## Dependencies
 - Functions called/Symbols referenced:

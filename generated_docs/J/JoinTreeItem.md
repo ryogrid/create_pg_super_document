@@ -38,18 +38,17 @@ JoinTreeItem serves as a temporary data structure that facilitates the multi-pas
 The structure is populated in two main phases: first during deconstruct_recurse (which builds the tree structure and computes relid sets), and then during deconstruct_distribute (which handles qualification distribution). The items are organized in a list following depth-first traversal order, allowing for systematic processing of the entire join tree.
 
 ## Parameters / Member Variables
-- : Pointer to the actual jointree node being processed
-- : Associated join domain containing ON/WHERE clause information
-- : Pointer to the parent JoinTreeItem in the tree hierarchy (NULL for root)
-- : Set of base and outer join relation IDs syntactically included in this node
-- : Set of relation IDs from inner joins at or below this node
-- : For join nodes, the set of relation IDs on the left side
-- : For join nodes, the set of relation IDs on the right side
-- : For outer joins, the set of relation IDs from the non-nullable side
-- : SpecialJoinInfo structure for outer joins (filled during distribution phase)
-- : List of outer join qualifications awaiting distribution
-- : List of qualifications postponed due to lateral references
-
+- `*jtnode`: Pointer to the actual jointree node being processed
+- `*jdomain`: Associated join domain containing ON/WHERE clause information
+- `*jti_parent`: Pointer to the parent JoinTreeItem in the tree hierarchy (NULL for root)
+- `qualscope`: Set of base and outer join relation IDs syntactically included in this node
+- `inner_join_rels`: Set of relation IDs from inner joins at or below this node
+- `left_rels`: For join nodes, the set of relation IDs on the left side
+- `right_rels`: For join nodes, the set of relation IDs on the right side
+- `nonnullable_rels`: For outer joins, the set of relation IDs from the non-nullable side
+- `*sjinfo`: SpecialJoinInfo structure for outer joins (filled during distribution phase)
+- `*oj_joinclauses`: List of outer join qualifications awaiting distribution
+- `*lateral_clauses`: List of qualifications postponed due to lateral references
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinDomain

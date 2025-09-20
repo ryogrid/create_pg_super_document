@@ -15,7 +15,7 @@ Datum pg_backend_pid(PG_FUNCTION_ARGS)
 This function is a simple PostgreSQL system function that returns the process ID of the current backend process. It serves as a SQL-callable wrapper around the global variable MyProcPid, which contains the operating system process ID of the current PostgreSQL backend. This function is useful for monitoring, debugging, and administrative purposes where users need to identify which backend process is executing their query.
 
 ## Parameters / Member Variables
-- No parameters required (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

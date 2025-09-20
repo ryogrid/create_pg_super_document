@@ -22,8 +22,7 @@ This structure serves as a bridge between PostgreSQL's TOAST system and the expa
 The simplicity of this structure - containing only a single pointer - reflects its role as a lightweight reference mechanism. The actual functionality and data management are handled by the ExpandedObjectHeader and its associated methods, while varatt_expanded provides the necessary interface for integration with PostgreSQL's broader TOAST infrastructure.
 
 ## Parameters / Member Variables
-- : A direct pointer to an ExpandedObjectHeader structure that contains the actual expanded object data and associated metadata
-
+- `*eohptr`: A direct pointer to an ExpandedObjectHeader structure that contains the actual expanded object data and associated metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)

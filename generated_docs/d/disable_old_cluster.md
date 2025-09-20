@@ -26,7 +26,7 @@ This safety measure is particularly important when using "link" mode during upgr
 The function ensures that administrators cannot accidentally start the old cluster, while still providing a recovery path by simply removing the  suffix if needed.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

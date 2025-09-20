@@ -15,7 +15,6 @@ Datum i4toi2(PG_FUNCTION_ARGS)
 The i4toi2 function is a PostgreSQL type conversion function that narrows a 32-bit signed integer (int4/integer) to a 16-bit signed integer (int2/smallint). This is a potentially unsafe narrowing conversion that can result in data loss if the input value exceeds the range of a 16-bit integer. The function includes overflow checking to ensure the input value falls within the valid range for smallint (SHRT_MIN to SHRT_MAX), and raises an error if the value is out of range. This safety mechanism prevents silent data corruption during type conversions.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
 - Input: 32-bit signed integer retrieved via PG_GETARG_INT32(0)
 - Output: Datum containing the converted 16-bit integer
 

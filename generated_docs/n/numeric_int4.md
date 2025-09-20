@@ -18,7 +18,6 @@ This is the function that gets called when performing explicit casts from Numeri
 
 ## Parameters / Member Variables
 - Function uses `PG_FUNCTION_ARGS` macro which provides access to:
-  - The Numeric value to be converted (accessed via `PG_GETARG_NUMERIC(0)`)
 
 ## Dependencies
 - Functions called/Symbols referenced:

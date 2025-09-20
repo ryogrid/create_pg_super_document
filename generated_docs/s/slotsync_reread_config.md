@@ -27,7 +27,7 @@ The function distinguishes between two types of configuration changes:
 - **Restart scenario**: When connection parameters (, ) or  change, the worker exits to allow the postmaster to restart it with new settings
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

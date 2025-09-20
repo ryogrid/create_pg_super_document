@@ -29,13 +29,12 @@ Two main implementations exist:
 - Message queue communication () for parallel worker processes
 
 ## Parameters / Member Variables
-- : Function to reset the communication state and prepare for new operations
-- : Function to flush any buffered output data to the underlying transport
-- : Function to flush output data only if the transport is ready for writing
-- : Function that returns true if there are pending messages to be sent
-- : Function to send a message with specified type, content, and length (blocking)
-- : Function to send a message without blocking (queues for later transmission)
-
+- `(void)`: Function to reset the communication state and prepare for new operations
+- `(void)`: Function to flush any buffered output data to the underlying transport
+- `(void)`: Function to flush output data only if the transport is ready for writing
+- `(void)`: Function that returns true if there are pending messages to be sent
+- `len)`: Function to send a message with specified type, content, and length (blocking)
+- `len)`: Function to send a message without blocking (queues for later transmission)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [socket_comm_reset](../s/socket_comm_reset.md)

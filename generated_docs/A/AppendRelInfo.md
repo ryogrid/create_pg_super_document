@@ -76,16 +76,15 @@ The structure handles two main scenarios: table inheritance (where parent and ch
 These structures are stored in the PlannerInfo's append_rel_list and indexed by append_rel_array for efficient lookup during planning.
 
 ## Parameters / Member Variables
-- : Node tag for identification
-- : Range table index of the append parent relation
-- : Range table index of the append child relation
-- : OID of parent's composite row type (InvalidOid for UNION ALL)
-- : OID of child's composite row type (InvalidOid for UNION ALL)
-- : List of expressions/Vars mapping parent columns to child columns
-- : Length of the parent_colnos array
-- : Array mapping child column numbers back to parent column numbers
-- : OID of parent table (InvalidOid for UNION ALL, used for error messages)
-
+- `type`: Node tag for identification
+- `parent_relid`: Range table index of the append parent relation
+- `child_relid`: Range table index of the append child relation
+- `parent_reltype`: OID of parent's composite row type (InvalidOid for UNION ALL)
+- `child_reltype`: OID of child's composite row type (InvalidOid for UNION ALL)
+- `*translated_vars`: List of expressions/Vars mapping parent columns to child columns
+- `num_child_cols`: Length of the parent_colnos array
+- `pg_node_attr(array_size(num_child_cols))`: Array mapping child column numbers back to parent column numbers
+- `parent_reloid`: OID of parent table (InvalidOid for UNION ALL, used for error messages)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node identification)

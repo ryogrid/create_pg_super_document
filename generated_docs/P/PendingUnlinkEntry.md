@@ -25,10 +25,9 @@ The structure works in conjunction with the checkpoint process to ensure data in
 The structure is used within the sync.c module as part of the broader synchronization framework that manages both fsync operations (PendingFsyncEntry) and unlink operations (PendingUnlinkEntry) in a coordinated manner.
 
 ## Parameters / Member Variables
-- : A FileTag structure that uniquely identifies the file to be deleted, including handler information, fork number, relation file locator, and segment number
-- : A cycle counter (CycleCtr) that records the checkpoint cycle number when the deletion request was made, used to determine when it's safe to perform the actual deletion
-- : A boolean flag indicating whether the deletion request has been canceled and should not be executed
-
+- `*path)`: A FileTag structure that uniquely identifies the file to be deleted, including handler information, fork number, relation file locator, and segment number
+- `*path)`: A cycle counter (CycleCtr) that records the checkpoint cycle number when the deletion request was made, used to determine when it's safe to perform the actual deletion
+- `*candidate)`: A boolean flag indicating whether the deletion request has been canceled and should not be executed
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileTag (structure for file identification)

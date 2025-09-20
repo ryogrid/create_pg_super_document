@@ -26,14 +26,13 @@ TupleConstr serves as the central container for all constraint information assoc
 The structure is designed to efficiently store constraint arrays with corresponding count fields, enabling fast access to constraint information during data validation, insertion, and update operations. It also includes flags to quickly determine if certain types of constraints are present without iterating through arrays.
 
 ## Parameters / Member Variables
-- : Array of AttrDefault structures containing column default value constraints
-- : Array of ConstrCheck structures containing CHECK constraints
-- : Pointer to AttrMissing structure for handling missing attribute values (NULL if none)
-- : Number of elements in the defval array
-- : Number of elements in the check array
-- : Boolean flag indicating presence of NOT NULL constraints
-- : Boolean flag indicating presence of stored generated columns
-
+- `*defval`: Array of AttrDefault structures containing column default value constraints
+- `*check`: Array of ConstrCheck structures containing CHECK constraints
+- `*missing`: Pointer to AttrMissing structure for handling missing attribute values (NULL if none)
+- `num_defval`: Number of elements in the defval array
+- `num_check`: Number of elements in the check array
+- `has_not_null`: Boolean flag indicating presence of NOT NULL constraints
+- `has_generated_stored`: Boolean flag indicating presence of stored generated columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AttrDefault](../A/AttrDefault.md)

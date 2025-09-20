@@ -24,8 +24,6 @@ The hash algorithm provides good distribution properties for arrays up to 2^27 e
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Array to hash (accessed via )
-  - Function call context and collation information
 
 ## Dependencies
 - Functions called/Symbols referenced:

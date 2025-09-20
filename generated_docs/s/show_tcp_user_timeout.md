@@ -17,7 +17,6 @@ This function serves as a GUC (Grand Unified Configuration) show hook for the `t
 The function uses a static buffer to store the formatted string representation of the timeout value, which is returned to the GUC system for display purposes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: String representation of the current tcp_user_timeout value in milliseconds
 
 ## Dependencies

@@ -21,7 +21,7 @@ The current implementation is PostgreSQL-specific and leverages the database's e
 The function is designed to be called at strategic points during regex compilation where deep recursion is possible, such as during parse tree processing or NFA construction. It provides a clean way to fail gracefully rather than experiencing hard stack overflow crashes.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

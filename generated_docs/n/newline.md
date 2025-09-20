@@ -17,7 +17,7 @@ The `newline` function is a minimal wrapper function that encapsulates the creat
 The function simply returns the result of `CHR('\n')`, which converts the literal newline character into the appropriate character type used by the regex engine.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

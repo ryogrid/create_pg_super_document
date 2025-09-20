@@ -26,13 +26,12 @@ The relopt_gen structure serves as the generic base for all relation option defi
 The structure is designed with the name field first specifically to serve as a list termination marker when processing arrays of relation options. The kinds field uses bitmasks to specify which types of database objects (heap tables, indexes, etc.) can use this particular option.
 
 ## Parameters / Member Variables
-- : The name of the relation option as it appears in SQL statements; must be the first field as it's used as a null-termination marker for option arrays
-- : A human-readable description of what this option does
-- : A bitmask of relopt_kind values indicating which database object types (heap, toast, btree, etc.) can use this option
-- : The lock level required on the relation when this option is modified
-- : The length of the name string for optimization purposes
-- : The data type of this option (RELOPT_TYPE_BOOL, RELOPT_TYPE_INT, RELOPT_TYPE_REAL, RELOPT_TYPE_ENUM, or RELOPT_TYPE_STRING)
-
+- `*name`: The name of the relation option as it appears in SQL statements; must be the first field as it's used as a null-termination marker for option arrays
+- `*desc`: A human-readable description of what this option does
+- `kinds`: A bitmask of relopt_kind values indicating which database object types (heap, toast, btree, etc.) can use this option
+- `lockmode`: The lock level required on the relation when this option is modified
+- `namelen`: The length of the name string for optimization purposes
+- `type`: The data type of this option (RELOPT_TYPE_BOOL, RELOPT_TYPE_INT, RELOPT_TYPE_REAL, RELOPT_TYPE_ENUM, or RELOPT_TYPE_STRING)
 ## Dependencies
 - Functions called/Symbols referenced:
   - bits32

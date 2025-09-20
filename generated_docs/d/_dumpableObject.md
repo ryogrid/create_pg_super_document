@@ -32,20 +32,19 @@ The  structure is the fundamental base structure used by pg_dump to represent an
 The structure manages three key aspects: object identification through catalog IDs and names, dependency relationships between objects to ensure proper dump ordering, and component-based dumping that allows selective extraction of different aspects of objects (definitions, ACLs, comments, etc.).
 
 ## Parameters / Member Variables
-- : Identifies the specific type of database object (table, function, type, etc.) using the DumpableObjectType enumeration
-- : Catalog identifier for objects stored in system catalogs; set to zero for non-cataloged objects
-- : Unique identifier assigned by AssignDumpId() function for internal tracking during the dump process
-- : Object name string that should never be NULL, used for identification and output generation
-- : Pointer to the containing namespace (_namespaceInfo), or NULL for objects not in a specific namespace
-- : Bitmask specifying which components of this object should be dumped (definition, ACL, etc.)
-- : Bitmask for components of objects contained within this object that should be dumped
-- : Bitmask indicating which components are available for dumping from this object
-- : Boolean flag indicating whether this object is a member of a PostgreSQL extension
-- : Boolean flag indicating whether this object has dependencies on any extension
-- : Array of DumpId values representing objects this object depends on for proper ordering
-- : Count of valid dependencies currently stored in the dependencies array
-- : Allocated size of the dependencies array for memory management
-
+- `objType`: Identifies the specific type of database object (table, function, type, etc.) using the DumpableObjectType enumeration
+- `catId`: Catalog identifier for objects stored in system catalogs; set to zero for non-cataloged objects
+- `dumpId`: Unique identifier assigned by AssignDumpId() function for internal tracking during the dump process
+- `*name`: Object name string that should never be NULL, used for identification and output generation
+- `*namespace`: Pointer to the containing namespace (_namespaceInfo), or NULL for objects not in a specific namespace
+- `dump`: Bitmask specifying which components of this object should be dumped (definition, ACL, etc.)
+- `dump_contains`: Bitmask for components of objects contained within this object that should be dumped
+- `components`: Bitmask indicating which components are available for dumping from this object
+- `ext_member`: Boolean flag indicating whether this object is a member of a PostgreSQL extension
+- `depends_on_ext`: Boolean flag indicating whether this object has dependencies on any extension
+- `*dependencies`: Array of DumpId values representing objects this object depends on for proper ordering
+- `nDeps`: Count of valid dependencies currently stored in the dependencies array
+- `allocDeps`: Allocated size of the dependencies array for memory management
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObjectType

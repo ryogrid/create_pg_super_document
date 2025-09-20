@@ -18,7 +18,6 @@ The float4send function is part of PostgreSQL's binary I/O system for the float4
 The function uses PostgreSQL's StringInfoData buffer system along with the pq_begintypsend/pq_sendfloat4/pq_endtypsend sequence to create a properly formatted binary message containing the float4 value.
 
 ## Parameters / Member Variables
-- Function accepts PostgreSQL function arguments via PG_FUNCTION_ARGS macro
 - : The float4 value extracted from the first function argument using PG_GETARG_FLOAT4(0)
 - : Local StringInfoData buffer used for building the binary output
 

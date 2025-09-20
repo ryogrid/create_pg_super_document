@@ -23,11 +23,10 @@ ExpandedRecordFieldInfo serves as a container for essential metadata about a fie
 The structure is part of PostgreSQL's expanded object system, which provides an optimized representation for composite types that allows efficient field access and modification without repeated tuple construction/deconstruction. When a field is found during lookup, this structure provides all necessary metadata to subsequently fetch, validate, or modify the field's value.
 
 ## Parameters / Member Variables
-- : The attribute number of the field within the record's tuple descriptor. This corresponds to the field's position and is used as an index for field access operations
-- : The OID of the field's data type from the pg_type system catalog, identifying what kind of data this field contains
-- : The type modifier providing additional type-specific information (e.g., precision for numeric types, length for varchar)
-- : The OID of the collation rule to be used for this field if it contains collatable data (text types), or InvalidOid if not applicable
-
+- `fnumber`: The attribute number of the field within the record's tuple descriptor. This corresponds to the field's position and is used as an index for field access operations
+- `ftypeid`: The OID of the field's data type from the pg_type system catalog, identifying what kind of data this field contains
+- `ftypmod`: The type modifier providing additional type-specific information (e.g., precision for numeric types, length for varchar)
+- `fcollation`: The OID of the collation rule to be used for this field if it contains collatable data (text types), or InvalidOid if not applicable
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (from PostgreSQL type system)

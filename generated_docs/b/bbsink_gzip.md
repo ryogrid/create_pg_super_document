@@ -30,11 +30,10 @@ The  structure is a specialized backup sink that implements gzip compression for
 The structure maintains compression state through the  member and tracks the compression level and output buffer status. It integrates with PostgreSQL's backup sink chain architecture, allowing compression to be inserted as a processing layer in the backup data flow.
 
 ## Parameters / Member Variables
-- : The base  structure containing common sink functionality and operations
-- : Integer specifying the gzip compression level (1-9 or Z_DEFAULT_COMPRESSION)
-- : The zlib compression stream state structure used for actual compression operations
-- : Size tracking the number of bytes that have been staged in the output buffer
-
+- `base`: The base  structure containing common sink functionality and operations
+- `compresslevel`: Integer specifying the gzip compression level (1-9 or Z_DEFAULT_COMPRESSION)
+- `zstream`: The zlib compression stream state structure used for actual compression operations
+- `bytes_written`: Size tracking the number of bytes that have been staged in the output buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (base structure)

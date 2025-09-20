@@ -19,7 +19,7 @@ The function sets two critical flags: InterruptPending (which is part of Postgre
 Finally, it calls SetLatch() to wake up any process that might be waiting on the latch, ensuring timely processing of the pending parallel apply messages.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

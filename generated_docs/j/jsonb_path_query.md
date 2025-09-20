@@ -19,10 +19,6 @@ The function serves as the entry point for the `jsonb_path_query` SQL function a
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
-  - JSONB document to query
-  - JSONPath expression as text
-  - Optional variables for path evaluation
-  - Silent mode flag for error handling
 
 ## Dependencies
 - Functions called/Symbols referenced:

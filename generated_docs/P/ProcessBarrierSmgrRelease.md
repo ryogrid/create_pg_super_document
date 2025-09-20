@@ -17,7 +17,7 @@ The function delegates the actual work to smgrreleaseall(), which closes all ope
 The function always returns true, indicating successful completion of the barrier operation, which is important for the barrier coordination protocol.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

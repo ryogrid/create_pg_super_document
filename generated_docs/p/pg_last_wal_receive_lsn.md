@@ -17,7 +17,7 @@ This function reports the last WAL (Write-Ahead Log) receive location in the sam
 Unlike the previous WAL control functions, this function does not check for recovery status, as it is specifically designed to work in replication contexts where WAL is being received from a primary server. If no WAL has been received (recptr is 0), the function returns NULL.
 
 ## Parameters / Member Variables
-- This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,7 +17,7 @@ This function implements the timeout detection mechanism for WAL sender processe
 The function includes sophisticated timing logic to handle edge cases where server-side stalls might cause keepalive messages to be sent later than expected. When a timeout is detected, the process terminates with a communication error without sending an error message to the standby, as timeout typically indicates a communication problem.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,11 +24,10 @@ The varatt_external structure is a fundamental component of PostgreSQL's TOAST (
 The data referenced by this pointer is compressed if and only if the external size stored in va_extinfo is less than va_rawsize - VARHDRSZ. This structure is designed to be stored unaligned within actual tuples and must not contain any padding to ensure consistency when using memcmp for equality comparisons.
 
 ## Parameters / Member Variables
-- : The original size of the data including the header, representing the full size of the uncompressed data
-- : Contains both the external saved size (without header) and compression method information
-- : A unique identifier for the value within the TOAST table, used to locate the specific data
-- : The relation ID of the TOAST table that contains the out-of-line data
-
+- `va_rawsize`: The original size of the data including the header, representing the full size of the uncompressed data
+- `va_extinfo`: Contains both the external saved size (without header) and compression method information
+- `va_valueid`: A unique identifier for the value within the TOAST table, used to locate the specific data
+- `va_toastrelid`: The relation ID of the TOAST table that contains the out-of-line data
 ## Dependencies
 - Functions called/Symbols referenced:
   - int32 (PostgreSQL type)

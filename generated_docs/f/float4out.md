@@ -18,7 +18,6 @@ The float4out function is a PostgreSQL built-in function that handles the conver
 The function allocates a 32-byte buffer for the output string, which is sufficient for representing any float4 value including special cases like infinity and NaN.
 
 ## Parameters / Member Variables
-- Function accepts PostgreSQL function arguments via PG_FUNCTION_ARGS macro
 - : The float4 value extracted from the first function argument using PG_GETARG_FLOAT4(0)
 
 ## Dependencies

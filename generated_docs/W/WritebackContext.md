@@ -29,10 +29,9 @@ The context maintains an array of pending writeback requests up to a maximum lim
 This batching approach helps reduce the overhead of individual flush operations by grouping related I/O requests together, which can significantly improve overall system performance especially under heavy write workloads.
 
 ## Parameters / Member Variables
-- : Pointer to the maximum number of writeback requests that can be coalesced/batched together
-- : Current number of pending writeback requests waiting in the context
-- : Array of PendingWriteback structures containing the actual pending flush requests (size limited by WRITEBACK_MAX_PENDING_FLUSHES = 256)
-
+- `*max_pending`: Pointer to the maximum number of writeback requests that can be coalesced/batched together
+- `nr_pending`: Current number of pending writeback requests waiting in the context
+- `pending_writebacks[WRITEBACK_MAX_PENDING_FLUSHES]`: Array of PendingWriteback structures containing the actual pending flush requests (size limited by WRITEBACK_MAX_PENDING_FLUSHES = 256)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PendingWriteback](../P/PendingWriteback.md) (for individual writeback requests)

@@ -17,8 +17,6 @@ This function parses string representations of monetary values and converts them
 The function accumulates the absolute value in negative form to handle the full range of signed integers more safely, then applies the correct sign at the end. It supports formats like: $123.45, 123,456.78, (123.45) for negative, +123.45, -123.45, etc.
 
 ## Parameters / Member Variables
-- Function takes a C-string input through PostgreSQL's function argument system (PG_GETARG_CSTRING)
-- Uses error context for soft error handling when available
 - Internal variables:
   - `result`: Final Cash value to return
   - `value`: Accumulated value during parsing (built in negative)

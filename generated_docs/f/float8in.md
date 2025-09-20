@@ -18,7 +18,6 @@ The float8in function is PostgreSQL's standard input function for the float8 (do
 The function extracts the input string from the function arguments and passes it to float8in_internal with appropriate parameters including the type name "double precision" for error reporting and the function's error context for proper error handling integration.
 
 ## Parameters / Member Variables
-- Function accepts PostgreSQL function arguments via PG_FUNCTION_ARGS macro
 - : Input string containing the double-precision number to be parsed, extracted using PG_GETARG_CSTRING(0)
 
 ## Dependencies

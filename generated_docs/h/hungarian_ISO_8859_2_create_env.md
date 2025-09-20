@@ -21,7 +21,7 @@ The function calls SN_create_env(0, 1), indicating it creates an environment wit
 This configuration is optimized for the Hungarian stemming algorithm's memory requirements.
 
 ## Parameters / Member Variables
-- No parameters - this function takes void as input
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

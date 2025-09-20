@@ -16,7 +16,6 @@ make_temp_sockdir(void)
 This function creates a temporary directory specifically for storing Unix-domain socket files during pg_regress operations. The directory is created with restrictive permissions (mode 0700) to prevent other OS users from accessing the socket and potentially exploiting trust authentication. The function uses a template-based approach with mkdtemp() for secure directory creation, sets up cleanup handlers for both normal and signal-based termination, and prepares socket file paths for later use. The directory is placed under TMPDIR (or /tmp) rather than the current working directory to avoid path length constraints and ensure writability.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - pointer to the created temporary directory path
 
 ## Dependencies

@@ -15,7 +15,7 @@ bool CheckDateTokenTables(void)
 This function serves as the primary entry point for validating PostgreSQL's date/time system integrity during postmaster startup. It performs comprehensive checks including validation of critical epoch date constants (Unix epoch and PostgreSQL epoch) and verification of the two main token lookup tables used for date/time parsing. The function ensures that all date/time subsystem components are properly configured before the database accepts connections, preventing potential runtime failures in date/time operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

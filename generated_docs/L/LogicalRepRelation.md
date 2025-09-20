@@ -29,16 +29,15 @@ This structure serves as a comprehensive metadata container for relations partic
 The structure is particularly important for handling schema differences between publisher and subscriber, as it provides the remote table's structure which may differ from the local table. The replica identity and key column information are crucial for properly identifying and updating the correct rows during replication operations.
 
 ## Parameters / Member Variables
-- : Unique identifier for the relation on the remote (publisher) side, of type LogicalRepRelId
-- : String containing the schema (namespace) name of the remote relation
-- : String containing the name of the remote relation
-- : Integer specifying the number of columns in the remote relation
-- : Array of strings containing the names of all columns in the remote relation
-- : Array of Oid values representing the data types of each column
-- : Character indicating the replica identity setting for the relation
-- : Character indicating the kind of relation (table, view, etc.) on the remote side
-- : Bitmapset indicating which columns are part of the key used for identifying rows
-
+- `remoteid`: Unique identifier for the relation on the remote (publisher) side, of type LogicalRepRelId
+- `*nspname`: String containing the schema (namespace) name of the remote relation
+- `*relname`: String containing the name of the remote relation
+- `natts`: Integer specifying the number of columns in the remote relation
+- `**attnames`: Array of strings containing the names of all columns in the remote relation
+- `*atttyps`: Array of Oid values representing the data types of each column
+- `replident`: Character indicating the replica identity setting for the relation
+- `relkind`: Character indicating the kind of relation (table, view, etc.) on the remote side
+- `*attkeys`: Bitmapset indicating which columns are part of the key used for identifying rows
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalRepRelId

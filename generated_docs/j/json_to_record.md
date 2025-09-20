@@ -25,9 +25,6 @@ This function is the JSON equivalent of , handling text-based JSON input instead
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function call information structure containing:
-  - JSON input argument
-  - Function context and metadata
-  - Output type information
 
 ## Dependencies
 - Functions called/Symbols referenced:

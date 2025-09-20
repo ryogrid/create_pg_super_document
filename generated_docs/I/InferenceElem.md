@@ -23,11 +23,10 @@ InferenceElem represents individual elements within a unique index inference spe
 The structure is similar to IndexElem used in utility commands, but InferenceElem is specifically designed for runtime index inference rather than index definition. During query planning, PostgreSQL examines these elements to find a unique index whose definition matches the specified inference elements, enabling proper conflict detection and handling.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : Expression to infer from (e.g., a column reference or expression), or NULL for simple column references
-- : OID of the collation to match, or InvalidOid if no specific collation is required
-- : OID of the operator class to match, or InvalidOid if no specific operator class is required
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `*expr`: Expression to infer from (e.g., a column reference or expression), or NULL for simple column references
+- `infercollid`: OID of the collation to match, or InvalidOid if no specific collation is required
+- `inferopclass`: OID of the operator class to match, or InvalidOid if no specific operator class is required
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

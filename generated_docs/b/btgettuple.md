@@ -19,7 +19,6 @@ A key optimization handled by this function is "tuple killing" - marking tuples 
 
 ## Parameters / Member Variables
 - : IndexScanDesc containing the scan state and parameters
-- 0
 COPYRIGHT
 ENTRY_POINTS.md
 GENERATION_PLAN.md

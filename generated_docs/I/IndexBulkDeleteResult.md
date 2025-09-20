@@ -28,14 +28,13 @@ Index access methods can extend this structure by returning a larger struct wher
 The structure distinguishes between different types of page statistics: pages_newly_deleted tracks pages deleted by the current vacuum operation, while pages_deleted and pages_free refer to free space within the index file generally.
 
 ## Parameters / Member Variables
-- : The total number of pages remaining in the index after vacuum operations
-- : Boolean flag indicating whether num_index_tuples is an accurate count or an estimate
-- : The number of tuples remaining in the index (may be estimated based on num_heap_tuples)
-- : The number of tuples that were removed during the current vacuum operation
-- : The number of pages that were marked as deleted by the current vacuum operation
-- : The total number of pages marked as deleted (including those deleted by previous operations)
-- : The number of pages that are available for reuse
-
+- `num_pages`: The total number of pages remaining in the index after vacuum operations
+- `estimated_count`: Boolean flag indicating whether num_index_tuples is an accurate count or an estimate
+- `num_index_tuples`: The number of tuples remaining in the index (may be estimated based on num_heap_tuples)
+- `tuples_removed`: The number of tuples that were removed during the current vacuum operation
+- `pages_newly_deleted`: The number of pages that were marked as deleted by the current vacuum operation
+- `pages_deleted`: The total number of pages marked as deleted (including those deleted by previous operations)
+- `pages_free`: The number of pages that are available for reuse
 ## Dependencies
 - Functions called/Symbols referenced: None (simple data structure)
 - Called from (representative examples):

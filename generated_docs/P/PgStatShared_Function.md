@@ -23,9 +23,8 @@ The structure tracks essential function performance data including call frequenc
 Function statistics are particularly important in applications that rely heavily on stored procedures, user-defined functions, or complex database logic, providing insights into which functions consume the most execution time and are called most frequently.
 
 ## Parameters / Member Variables
-- : PgStatShared_Common structure containing magic number validation and LWLock for protecting the statistics data during concurrent access
-- : PgStat_StatFuncEntry structure containing function execution metrics including call count and timing information (total and self execution time)
-
+- `header`: PgStatShared_Common structure containing magic number validation and LWLock for protecting the statistics data during concurrent access
+- `stats`: PgStat_StatFuncEntry structure containing function execution metrics including call count and timing information (total and self execution time)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common

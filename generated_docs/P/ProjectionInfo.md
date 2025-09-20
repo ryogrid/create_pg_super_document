@@ -24,10 +24,9 @@ ProjectionInfo contains all the information needed to perform projections in Pos
 The target tuple slot is kept in . The  function evaluates the target list, forms a tuple, and stores it in the given slot. The result will be a "virtual" tuple unless  is called to convert it to a physical tuple. The slot must have a tuple descriptor that matches the output of the target list.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : ExprState containing the instructions to evaluate the projection expressions
-- : Expression context in which to evaluate the projection expressions
-
+- `type`: NodeTag identifier for the structure type
+- `pi_state`: ExprState containing the instructions to evaluate the projection expressions
+- `*pi_exprContext`: Expression context in which to evaluate the projection expressions
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

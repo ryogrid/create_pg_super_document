@@ -15,7 +15,7 @@ Size ApplyLauncherShmemSize(void)
 This function calculates the total shared memory size required for the logical replication launcher infrastructure. It determines the space needed for both the fixed context structure (LogicalRepCtxStruct) and the dynamic array of LogicalRepWorker structures. The calculation uses proper memory alignment (MAXALIGN) and safe arithmetic functions (add_size, mul_size) to prevent integer overflow when computing memory requirements. The size calculation is based on the max_logical_replication_workers configuration parameter.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

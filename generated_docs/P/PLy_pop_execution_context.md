@@ -13,7 +13,7 @@ static void PLy_pop_execution_context(void)
 PLy_pop_execution_context pops the top execution context from the global PL/Python execution context stack and performs complete cleanup. The function first validates that a context exists on the stack, then removes it from the linked list structure, deletes any associated scratch memory context if it was allocated, and finally frees the context structure itself. This ensures proper memory management and prevents resource leaks during PL/Python procedure execution.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

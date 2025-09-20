@@ -24,7 +24,7 @@ This function evaluates whether the current walsender process is eligible to be 
 The function uses case-insensitive comparison for standby names and supports exact name matching or wildcard inclusion.
 
 ## Parameters / Member Variables
-- No input parameters (accesses global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

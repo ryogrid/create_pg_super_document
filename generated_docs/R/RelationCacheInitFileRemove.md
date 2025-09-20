@@ -23,7 +23,7 @@ The function operates by:
 This approach ensures that the first backend to connect to each database will rebuild the relation cache initialization files from scratch, guaranteeing consistency with the current database state.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,16 +29,12 @@ The structure manages both the constraint list itself and the memory context in 
 The design follows a reference-counting pattern where multiple parts of the system can hold references to the same constraint set, and the constraints are automatically cleaned up when the last reference is released through the callback mechanism.
 
 ## Parameters / Member Variables
-### Public Interface Fields
-- : List of DomainConstraintState nodes representing the actual constraint expressions that need to be evaluated
-- : Memory context that holds the DomainConstraintRef structure itself, used for proper memory management
-- : Pointer to the TypeCacheEntry for the domain type, providing access to cached type information
-- : Boolean flag indicating whether the caller requires executable expression state for constraint checking
-
-### Private Management Fields
-- : Pointer to the current DomainConstraintCache containing the constraint definitions, or NULL if no constraints exist
-- : Memory context callback structure used to automatically release reference counts when the context is destroyed
-
+- `*constraints`: List of DomainConstraintState nodes representing the actual constraint expressions that need to be evaluated
+- `refctx`: Memory context that holds the DomainConstraintRef structure itself, used for proper memory management
+- `*tcache`: Pointer to the TypeCacheEntry for the domain type, providing access to cached type information
+- `need_exprstate`: Boolean flag indicating whether the caller requires executable expression state for constraint checking
+- `*dcc`: Pointer to the current DomainConstraintCache containing the constraint definitions, or NULL if no constraints exist
+- `callback`: Memory context callback structure used to automatically release reference counts when the context is destroyed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainConstraintCache](DomainConstraintCache.md)

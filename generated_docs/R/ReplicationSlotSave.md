@@ -18,7 +18,7 @@ This function provides a simple interface to persist the current replication slo
 This is a critical function for ensuring replication slot durability - without periodic saves, slot state changes (like advancing restart_lsn or confirmed_flush_lsn) would be lost on crash, potentially causing data inconsistency or requiring replication to restart from much earlier positions.
 
 ## Parameters / Member Variables
-- No parameters (operates on the global MyReplicationSlot variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

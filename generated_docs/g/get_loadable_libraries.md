@@ -15,7 +15,7 @@ void get_loadable_libraries(void)
 This function systematically collects library names from all databases in the old PostgreSQL cluster to ensure they can be verified in the new installation during upgrade. It performs two main collection tasks: first, it queries each database for libraries containing non-built-in C functions by examining pg_proc entries where prolang matches ClanguageId and probin is not NULL. Second, it includes logical replication output plugin names from active replication slots. The collected library information is stored in the global os_info.libraries array along with associated database numbers for later verification by check_loadable_libraries().
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

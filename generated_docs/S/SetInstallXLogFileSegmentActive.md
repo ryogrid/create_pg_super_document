@@ -18,7 +18,7 @@ This function activates the WAL file segment installation mechanism by setting t
 WAL file recycling and preallocation help improve performance by reusing existing WAL files instead of creating new ones, and by preparing WAL files in advance to reduce latency during WAL operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

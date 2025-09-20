@@ -15,7 +15,7 @@ static void SendCopyDone(void)
 This function sends a CopyDone message as part of the PostgreSQL frontend/backend protocol to indicate that all data has been sent and the COPY operation is complete. It is used specifically in base backup operations to signal the end of data streaming. The function simply sends an empty message with the PqMsg_CopyDone message type.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

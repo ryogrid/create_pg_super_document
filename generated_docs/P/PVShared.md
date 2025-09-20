@@ -79,19 +79,18 @@ typedef struct PVShared
 PVShared serves as the central coordination structure for parallel vacuum operations in PostgreSQL. It contains shared state that all parallel workers need to coordinate their activities, including resource management, progress tracking, and dead tuple information sharing. The structure is designed to be allocated in Dynamic Shared Memory (DSM) so that all worker processes can access and modify the shared state safely using atomic operations where necessary.
 
 ## Parameters / Member Variables
-- : Target table OID that is being vacuumed (not modified during parallel vacuum)
-- : Log level for messages about parallel workers launched during VACUUM VERBOSE (not modified during parallel vacuum)
-- : Total number of input heap tuples (either old live tuples for index vacuum or new live tuples for index cleanup)
-- : True if reltuples is an estimated value (reltuples could be -1 indicating unknown)
-- : Memory limit per worker to ensure parallel operation doesn't exceed single-process vacuum memory usage
-- : Number of buffers each worker's Buffer Access Strategy ring should contain
-- : Shared vacuum cost balance using atomic operations, accumulates balance from all parallel workers
-- : Number of active parallel workers, used for computing minimum threshold for cost-based delay
-- : Atomic counter for vacuuming and cleanup coordination
-- : DSA handle where the TidStore for dead items lives
-- : DSA pointer to the shared TidStore containing dead tuple identifiers
-- : Statistics about the shared dead items collection
-
+- `relid`: Target table OID that is being vacuumed (not modified during parallel vacuum)
+- `elevel`: Log level for messages about parallel workers launched during VACUUM VERBOSE (not modified during parallel vacuum)
+- `reltuples`: Total number of input heap tuples (either old live tuples for index vacuum or new live tuples for index cleanup)
+- `estimated_count`: True if reltuples is an estimated value (reltuples could be -1 indicating unknown)
+- `maintenance_work_mem_worker`: Memory limit per worker to ensure parallel operation doesn't exceed single-process vacuum memory usage
+- `ring_nbuffers`: Number of buffers each worker's Buffer Access Strategy ring should contain
+- `cost_balance`: Shared vacuum cost balance using atomic operations, accumulates balance from all parallel workers
+- `active_nworkers`: Number of active parallel workers, used for computing minimum threshold for cost-based delay
+- `idx`: Atomic counter for vacuuming and cleanup coordination
+- `dead_items_dsa_handle`: DSA handle where the TidStore for dead items lives
+- `dead_items_handle`: DSA pointer to the shared TidStore containing dead tuple identifiers
+- `dead_items_info`: Statistics about the shared dead items collection
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md)

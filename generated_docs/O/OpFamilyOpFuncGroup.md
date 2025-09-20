@@ -25,11 +25,10 @@ The structure uses bitmasks to efficiently track which operators and functions a
 With uint64 fields, the structure can handle operator and function numbers up to 63, which provides ample capacity for current and future PostgreSQL access method requirements.
 
 ## Parameters / Member Variables
-- : OID of the left operand data type (corresponds to amoplefttype/amproclefttype in catalog tables)
-- : OID of the right operand data type (corresponds to amoprighttype/amprocrighttype in catalog tables)
-- : Bitmask where bit K is set if operator strategy K exists for this lefttype/righttype combination
-- : Bitmask where bit K is set if support function K exists for this lefttype/righttype combination
-
+- `lefttype`: OID of the left operand data type (corresponds to amoplefttype/amproclefttype in catalog tables)
+- `righttype`: OID of the right operand data type (corresponds to amoprighttype/amprocrighttype in catalog tables)
+- `operatorset`: Bitmask where bit K is set if operator strategy K exists for this lefttype/righttype combination
+- `functionset`: Bitmask where bit K is set if support function K exists for this lefttype/righttype combination
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

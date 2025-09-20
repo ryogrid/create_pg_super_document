@@ -34,24 +34,23 @@ typedef struct SubOpts
 The SubOpts structure serves as a comprehensive container for subscription configuration options in PostgreSQL's logical replication framework. It maintains both a bitmap () to track which options were explicitly provided by the user and the actual values for each configurable parameter. This design allows the system to distinguish between explicitly set options and those using default values, which is crucial for proper subscription management and ALTER SUBSCRIPTION operations.
 
 ## Parameters / Member Variables
-- : Bitmap tracking which subscription options were explicitly specified by the user
-- : Name of the replication slot to be used for the subscription
-- : Synchronous commit setting for the subscription
-- : Whether to connect to the publisher immediately upon creation
-- : Whether the subscription is enabled and should start replicating
-- : Whether to create a new replication slot on the publisher
-- : Whether to copy existing data from the publisher tables
-- : Whether to refresh the subscription's publication list
-- : Whether to use binary format for data transfer
-- : Streaming mode configuration for large transactions
-- : Whether to enable two-phase commit for the subscription
-- : Whether to disable the subscription on replication errors
-- : Whether password authentication is required
-- : Whether to run the subscription as the table owner
-- : Whether the subscription supports failover scenarios
-- : Origin specification for the subscription
-- : Log Sequence Number for subscription positioning
-
+- `specified_opts`: Bitmap tracking which subscription options were explicitly specified by the user
+- `*slot_name`: Name of the replication slot to be used for the subscription
+- `*synchronous_commit`: Synchronous commit setting for the subscription
+- `connect`: Whether to connect to the publisher immediately upon creation
+- `enabled`: Whether the subscription is enabled and should start replicating
+- `create_slot`: Whether to create a new replication slot on the publisher
+- `copy_data`: Whether to copy existing data from the publisher tables
+- `refresh`: Whether to refresh the subscription's publication list
+- `binary`: Whether to use binary format for data transfer
+- `streaming`: Streaming mode configuration for large transactions
+- `twophase`: Whether to enable two-phase commit for the subscription
+- `disableonerr`: Whether to disable the subscription on replication errors
+- `passwordrequired`: Whether password authentication is required
+- `runasowner`: Whether to run the subscription as the table owner
+- `failover`: Whether the subscription supports failover scenarios
+- `*origin`: Origin specification for the subscription
+- `lsn`: Log Sequence Number for subscription positioning
 ## Dependencies
 - Functions called/Symbols referenced:
   - bits32

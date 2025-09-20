@@ -74,20 +74,19 @@ BTShared serves as the central coordination structure for parallel B-tree index 
 The structure includes a condition variable for synchronizing worker completion and a spinlock mutex to protect access to mutable state. Workers report their progress through the mutable fields, which the leader aggregates to maintain overall build statistics.
 
 ## Parameters / Member Variables
-- : OID of the heap relation being indexed
-- : OID of the index relation being built
-- : Whether the index enforces uniqueness constraints
-- : Whether NULL values are considered distinct in unique indexes
-- : Whether this is a concurrent index build
-- : Number of tuplesort states for scanning
-- : Condition variable used to monitor worker progress completion
-- : Spinlock protecting all mutable fields below
-- : Number of worker processes that have finished
-- : Total number of input heap tuples processed
-- : Whether RECENTLY_DEAD tuples were encountered during build
-- : Total number of tuples that made it into the index
-- : Whether any worker detected a broken HOT chain during build
-
+- `heaprelid`: OID of the heap relation being indexed
+- `indexrelid`: OID of the index relation being built
+- `isunique`: Whether the index enforces uniqueness constraints
+- `nulls_not_distinct`: Whether NULL values are considered distinct in unique indexes
+- `isconcurrent`: Whether this is a concurrent index build
+- `scantuplesortstates`: Number of tuplesort states for scanning
+- `workersdonecv`: Condition variable used to monitor worker progress completion
+- `mutex`: Spinlock protecting all mutable fields below
+- `nparticipantsdone`: Number of worker processes that have finished
+- `reltuples`: Total number of input heap tuples processed
+- `havedead`: Whether RECENTLY_DEAD tuples were encountered during build
+- `indtuples`: Total number of tuples that made it into the index
+- `brokenhotchain`: Whether any worker detected a broken HOT chain during build
 ## Dependencies
 - Functions called/Symbols referenced:
   - ConditionVariable

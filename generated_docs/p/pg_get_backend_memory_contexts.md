@@ -18,7 +18,6 @@ This function implements the backend logic for the  system view. It traverses th
 The function initializes a materialized SRF and delegates the actual memory context traversal to , which recursively walks through the memory context tree and populates the result set with context statistics.
 
 ## Parameters / Member Variables
-- This function takes standard PostgreSQL function arguments via  macro
 - Returns memory context data with columns: name, ident, parent, level, total_bytes, total_nblocks, free_bytes, free_chunks, used_bytes
 
 ## Dependencies

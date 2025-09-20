@@ -17,7 +17,7 @@ This function retrieves the full transaction ID of the current transaction, whet
 The function works with the CurrentTransactionState to check if the transaction has a valid full transaction ID, and if not, it assigns one before returning it. This is different from the "IfAny" variants that don't force assignment.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

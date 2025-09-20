@@ -21,9 +21,8 @@ PLyExceptionEntry serves as a mapping structure in PL/Python's exception handlin
 The structure is designed to work with PostgreSQL's hash table implementation, where the sqlstate field serves as the hash key. When PostgreSQL encounters an error with a specific SQL state, PL/Python can quickly locate the appropriate Python exception object to raise, providing a seamless bridge between PostgreSQL's error system and Python's exception handling mechanism.
 
 ## Parameters / Member Variables
-- : An integer representation of the PostgreSQL SQL state code that serves as the hash key for the entry. Must be the first field to work correctly with PostgreSQL's hash table implementation
-- : A PyObject pointer to the corresponding Python exception object that should be raised when the associated SQL state occurs
-
+- `sqlstate`: An integer representation of the PostgreSQL SQL state code that serves as the hash key for the entry. Must be the first field to work correctly with PostgreSQL's hash table implementation
+- `*exc`: A PyObject pointer to the corresponding Python exception object that should be raised when the associated SQL state occurs
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject (Python C API type)

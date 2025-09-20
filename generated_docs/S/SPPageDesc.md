@@ -28,12 +28,11 @@ This structure can represent different levels of specificity:
 - A specific node within an inner tuple (when node is also valid)
 
 ## Parameters / Member Variables
-- : Block number identifying the physical page, or InvalidBlockNumber if not applicable
-- : Buffer number for the page in the buffer pool, or InvalidBuffer if not buffered
-- : Direct pointer to the page buffer in memory, or NULL if not available
-- : Offset number identifying a specific tuple within the page, or InvalidOffsetNumber if not targeting a specific tuple
-- : Node number within an inner tuple for fine-grained positioning, or -1 if not applicable
-
+- `blkno`: Block number identifying the physical page, or InvalidBlockNumber if not applicable
+- `buffer`: Buffer number for the page in the buffer pool, or InvalidBuffer if not buffered
+- `page`: Direct pointer to the page buffer in memory, or NULL if not available
+- `offnum`: Offset number identifying a specific tuple within the page, or InvalidOffsetNumber if not targeting a specific tuple
+- `node`: Node number within an inner tuple for fine-grained positioning, or -1 if not applicable
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure definition)

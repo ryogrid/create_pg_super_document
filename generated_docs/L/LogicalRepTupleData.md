@@ -25,10 +25,9 @@ This structure is the fundamental data container for tuples transmitted through 
 The colvalues array contains the actual data for each column in StringInfo format, allowing for efficient string manipulation and storage. The colstatus array provides crucial metadata indicating whether each column is null, unchanged, contains text data, or contains binary data. This design enables efficient handling of partial updates and various data types during replication.
 
 ## Parameters / Member Variables
-- : Array of StringInfoData structures, one per column; stores the actual column data in string format, some entries may be unused for columns that are not being replicated
-- : Array of character markers indicating the status of each column (null/unchanged/text/binary format)
-- : Integer specifying the length of both the colvalues and colstatus arrays, representing the total number of columns
-
+- `*colvalues`: Array of StringInfoData structures, one per column; stores the actual column data in string format, some entries may be unused for columns that are not being replicated
+- `*colstatus`: Array of character markers indicating the status of each column (null/unchanged/text/binary format)
+- `ncols`: Integer specifying the length of both the colvalues and colstatus arrays, representing the total number of columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StringInfoData](../S/StringInfoData.md) (data structure)

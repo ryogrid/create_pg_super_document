@@ -21,9 +21,8 @@ This structure is designed to work in conjunction with FormData_pg_attribute to 
 The structure serves as a bridge between the catalog system's constraints and the need for DDL code to access all attribute information. By combining FormData_pg_attribute (often accessed via tuple descriptors) with FormExtraData_pg_attribute, DDL operations can work with complete attribute metadata.
 
 ## Parameters / Member Variables
-- : A NullableDatum containing the statistics target for the attribute, which controls the level of detail collected by ANALYZE
-- : A NullableDatum containing attribute-specific options stored as a text array
-
+- `attstattarget`: A NullableDatum containing the statistics target for the attribute, which controls the level of detail collected by ANALYZE
+- `attoptions`: A NullableDatum containing attribute-specific options stored as a text array
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NullableDatum](../N/NullableDatum.md)

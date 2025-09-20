@@ -17,7 +17,7 @@ This cleanup strategy represents a compromise in resource management: transient 
 The function is part of PostgreSQL's "AtEOXact" (At End Of Transaction) callback system, ensuring proper cleanup regardless of transaction outcome.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

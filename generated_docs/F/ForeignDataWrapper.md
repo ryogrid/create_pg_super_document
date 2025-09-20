@@ -23,13 +23,12 @@ typedef struct ForeignDataWrapper
 The ForeignDataWrapper structure encapsulates all the metadata needed to define a foreign data wrapper in PostgreSQL. It serves as the foundational component of the FDW system, storing essential information about the wrapper including its identity, ownership, associated handler and validator functions, and configuration options. This structure is used throughout the PostgreSQL codebase when working with foreign data sources, enabling the system to properly route operations to the appropriate external data handlers.
 
 ## Parameters / Member Variables
-- : The unique object identifier (OID) for this foreign data wrapper
-- : The OID of the user who owns this FDW
-- : The string name of the foreign data wrapper
-- : The OID of the handler function that implements the FDW interface, or 0 if none
-- : The OID of the validator function for checking FDW options, or 0 if none
-- : A list of DefElem structures containing FDW-specific options
-
+- `fdwid`: The unique object identifier (OID) for this foreign data wrapper
+- `owner`: The OID of the user who owns this FDW
+- `*fdwname`: The string name of the foreign data wrapper
+- `fdwhandler`: The OID of the handler function that implements the FDW interface, or 0 if none
+- `fdwvalidator`: The OID of the validator function for checking FDW options, or 0 if none
+- `*options`: A list of DefElem structures containing FDW-specific options
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)

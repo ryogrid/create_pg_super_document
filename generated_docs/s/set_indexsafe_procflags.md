@@ -25,7 +25,7 @@ The "safe" designation applies only to indexes that:
 The function acquires the ProcArrayLock in exclusive mode to safely update both the local process status flags and the shared global process status array, ensuring that concurrent processes see a consistent view of the process state.
 
 ## Parameters / Member Variables
-- No parameters (operates on global process state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

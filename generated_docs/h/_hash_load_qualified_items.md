@@ -24,7 +24,6 @@ The function implements different loading strategies based on scan direction:
 - : IndexScanDesc containing the scan context and state information
 - : The hash index page from which to load qualified tuples
 - : Starting offset number on the page for loading tuples
-- 0
 1
 5
 6

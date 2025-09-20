@@ -17,8 +17,7 @@ This function implements the SQL ROW_NUMBER() window function, which returns a u
 The function is straightforward: it gets the current position within the partition (0-based) and returns that position plus 1 to make it 1-based numbering. It also sets the mark position for proper window function processing.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro for PostgreSQL function parameter handling
-- Accesses the WindowObject through `PG_WINDOW_OBJECT()` macro
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

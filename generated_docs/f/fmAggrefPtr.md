@@ -15,7 +15,7 @@ typedef struct Aggref *fmAggrefPtr;
 fmAggrefPtr is a forward declaration typedef defined in fmgr.h that creates a pointer type to the Aggref structure without requiring the full definition from primnodes.h. The Aggref structure represents aggregate function references in PostgreSQL's parse tree, containing information about aggregate function calls, their arguments, and execution context. By using this typedef, the function manager can reference aggregate nodes without exposing the complete Aggref implementation details, maintaining clean separation of concerns and reducing header dependencies.
 
 ## Parameters / Member Variables
-- This is a simple typedef with no parameters or member variables
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

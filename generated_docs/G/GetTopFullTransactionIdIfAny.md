@@ -19,7 +19,7 @@ This function provides a safe way to retrieve the top-level transaction's full t
 The function simply returns the current value of XactTopFullTransactionId without any validation or assignment logic.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

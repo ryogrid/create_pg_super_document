@@ -24,10 +24,9 @@ CLOG is PostgreSQL's transaction status log that tracks the commit status of tra
 The structure is used in conjunction with the  WAL record type (0x10) and is processed by the CLOG resource manager during WAL replay operations.
 
 ## Parameters / Member Variables
-- : The page number up to which the CLOG should be truncated. All CLOG pages before this page number will be removed.
-- : The oldest transaction ID that still needs to be tracked in the CLOG after truncation. This represents the oldest transaction that hasn't been fully processed by vacuum.
-- : The database OID associated with the oldest transaction. This helps track which database contains the oldest transaction that still needs CLOG entries.
-
+- `pageno`: The page number up to which the CLOG should be truncated. All CLOG pages before this page number will be removed.
+- `oldestXact`: The oldest transaction ID that still needs to be tracked in the CLOG after truncation. This represents the oldest transaction that hasn't been fully processed by vacuum.
+- `oldestXactDb`: The database OID associated with the oldest transaction. This helps track which database contains the oldest transaction that still needs CLOG entries.
 ## Dependencies
 - Functions that use this structure:
   - : Creates WAL records containing this structure for CLOG truncation operations

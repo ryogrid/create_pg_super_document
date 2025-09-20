@@ -18,8 +18,6 @@ The function manually converts each byte of the UUID data to hexadecimal charact
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to:
-  - The input UUID (retrieved via `PG_GETARG_UUID_P(0)`)
-  - Function call context information
 
 ## Dependencies
 - Functions called/Symbols referenced:

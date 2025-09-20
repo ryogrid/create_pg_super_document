@@ -23,11 +23,10 @@ typedef struct A_Const
 A_Const is a fundamental parse tree node that encapsulates constant values found in SQL statements. It serves as a container for various types of literal values including integers, floats, strings, booleans, and NULL values. The structure is designed to preserve both the value and its location in the original SQL text for error reporting and debugging purposes. The node includes custom attributes for copying, equality checking, and query jumbling operations.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an A_Const node
-- : Union containing the actual constant value (ValUnion type)
-- : Boolean flag indicating whether this represents a SQL NULL constant
-- : ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
-
+- `type`: NodeTag identifying this as an A_Const node
+- `val`: Union containing the actual constant value (ValUnion type)
+- `isnull`: Boolean flag indicating whether this represents a SQL NULL constant
+- `location`: ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ValUnion

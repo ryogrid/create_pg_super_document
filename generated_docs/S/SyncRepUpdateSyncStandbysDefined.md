@@ -25,7 +25,7 @@ This function is called by the checkpointer process to maintain the shared sync_
 The function is designed to be safe for concurrent access, as only the checkpointer process updates the status flag.
 
 ## Parameters / Member Variables
-- No input parameters (operates on global shared memory state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,7 +18,6 @@ This is a thin wrapper function that provides the SQL interface for the int4 to 
 
 ## Parameters / Member Variables
 - Function uses `PG_FUNCTION_ARGS` macro which provides access to:
-  - The int4 value to be converted (accessed via `PG_GETARG_INT32(0)`)
 
 ## Dependencies
 - Functions called/Symbols referenced:

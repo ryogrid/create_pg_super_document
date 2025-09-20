@@ -13,7 +13,7 @@ static int pq_recvbuf(void)
 pq_recvbuf is a low-level function responsible for filling the PostgreSQL receive buffer (PqRecvBuffer) with data from the client connection. The function first compacts any unread data in the buffer by moving it to the beginning, then uses secure_read to fetch new data from the socket. It operates in blocking mode and will continuously attempt to read data until successful or an error occurs. The function handles interrupts (EINTR) gracefully by retrying the read operation.
 
 ## Parameters / Member Variables
-- No parameters (operates on global variables)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

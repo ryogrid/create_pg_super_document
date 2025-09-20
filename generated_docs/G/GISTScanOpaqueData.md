@@ -42,22 +42,21 @@ GISTScanOpaqueData serves as the comprehensive state holder for GiST index scan 
 The design accommodates both distance-ordered searches (using ORDER BY clauses) and regular searches, with different optimization strategies for each. For non-ordered searches, the pageData array acts as a local buffer to collect all returnable items from a page before processing, improving efficiency by reducing queue operations. The structure also includes facilities for tracking killed items and managing memory contexts for different aspects of the scan operation.
 
 ## Parameters / Member Variables
-- : Pointer to GISTSTATE containing all index-specific information and cached support functions
-- : Array of Oid values representing the datatypes of ORDER BY expressions in ordered searches
-- : Pairing heap managing the queue of unvisited GISTSearchItem entries
-- : Memory context that holds the search queue and related data structures
-- : Boolean flag indicating whether the search qualifiers can ever be satisfied (false means early termination)
-- : Boolean flag tracking whether this is the first call to gistgettuple for initialization purposes
-- : Pre-allocated workspace array for storing distance calculation results from gistindex_keytest
-- : Array of offset numbers for items that have been marked as killed/dead
-- : Current count of items stored in the killedItems array
-- : Block number of the page currently being processed
-- : LSN (Log Sequence Number) position in the WAL stream when the current page was read
-- : Fixed-size array storing returnable heap items for non-ordered searches
-- : Number of valid entries currently stored in the pageData array
-- : Index of the next item to return from the pageData array
-- : Memory context holding fetched tuples specifically for index-only scan operations
-
+- `*giststate`: Pointer to GISTSTATE containing all index-specific information and cached support functions
+- `*orderByTypes`: Array of Oid values representing the datatypes of ORDER BY expressions in ordered searches
+- `*queue`: Pairing heap managing the queue of unvisited GISTSearchItem entries
+- `queueCxt`: Memory context that holds the search queue and related data structures
+- `qual_ok`: Boolean flag indicating whether the search qualifiers can ever be satisfied (false means early termination)
+- `firstCall`: Boolean flag tracking whether this is the first call to gistgettuple for initialization purposes
+- `*distances`: Pre-allocated workspace array for storing distance calculation results from gistindex_keytest
+- `*killedItems`: Array of offset numbers for items that have been marked as killed/dead
+- `numKilled`: Current count of items stored in the killedItems array
+- `curBlkno`: Block number of the page currently being processed
+- `curPageLSN`: LSN (Log Sequence Number) position in the WAL stream when the current page was read
+- `pageData[BLCKSZ  sizeof(IndexTupleData)]`: Fixed-size array storing returnable heap items for non-ordered searches
+- `nPageData`: Number of valid entries currently stored in the pageData array
+- `curPageData`: Index of the next item to return from the pageData array
+- `pageDataCxt`: Memory context holding fetched tuples specifically for index-only scan operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GISTSTATE](GISTSTATE.md)

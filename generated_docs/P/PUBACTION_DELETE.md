@@ -41,7 +41,6 @@ PUBACTION_DELETE is the third and final member of the RowFilterPubAction enum, d
 The enum is part of PostgreSQL's logical replication infrastructure, where it helps categorize and process different types of database modification operations. Only three publication actions are used for row filtering (insert, update, delete), making this a complete enumeration of the supported DML operations that can be filtered in logical replication.
 
 ## Parameters / Member Variables
-- This is an enum constant with no parameters or member variables
 - Enum value: 2 (third member of RowFilterPubAction enum)
 
 ## Dependencies

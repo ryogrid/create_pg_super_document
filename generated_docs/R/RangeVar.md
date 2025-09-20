@@ -43,15 +43,14 @@ In FROM clauses, RangeVar provides the foundation for relation references with o
 The structure supports temporary table indicators through the relpersistence field and maintains parse location information for error reporting and debugging purposes.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL's node system type identification
-- : Database name (catalog) for cross-database references, or NULL for current database
-- : Schema name for qualified references, or NULL for search path resolution
-- : The actual relation/sequence name (required field)
-- : Boolean flag controlling inheritance expansion and recursive operations on child tables
-- : Character indicating relation persistence (TEMP, UNLOGGED, PERMANENT - see RELPERSISTENCE_* constants)
-- : Pointer to Alias struct for table and column aliasing, or NULL if no alias
-- : Parse location in the original query string for error reporting, or -1 if unknown
-
+- `type`: Standard NodeTag for PostgreSQL's node system type identification
+- `*catalogname`: Database name (catalog) for cross-database references, or NULL for current database
+- `*schemaname`: Schema name for qualified references, or NULL for search path resolution
+- `*relname`: The actual relation/sequence name (required field)
+- `inh`: Boolean flag controlling inheritance expansion and recursive operations on child tables
+- `relpersistence`: Character indicating relation persistence (TEMP, UNLOGGED, PERMANENT - see RELPERSISTENCE_* constants)
+- `*alias`: Pointer to Alias struct for table and column aliasing, or NULL if no alias
+- `location`: Parse location in the original query string for error reporting, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)

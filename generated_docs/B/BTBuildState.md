@@ -38,15 +38,14 @@ BTBuildState serves as the primary working state container for B-tree index cons
 In parallel builds, only the leader process has the btleader field populated, while worker processes maintain their own spool and spool2 instances. The structure tracks various build characteristics like uniqueness constraints and dead tuple handling requirements.
 
 ## Parameters / Member Variables
-- : Whether the index being built enforces uniqueness constraints
-- : Whether NULL values are considered distinct in unique indexes
-- : Whether RECENTLY_DEAD tuples have been encountered during the build
-- : Relation pointer to the heap table being indexed
-- : Primary BTSpool instance for tuple sorting and processing
-- : Secondary BTSpool instance used only for unique indexes to handle dead tuples separately and avoid uniqueness check conflicts
-- : Total count of tuples that have been successfully added to the index
-- : Pointer to BTLeader structure, only present in the leader process during parallel index builds (NULL in workers and serial builds)
-
+- `isunique`: Whether the index being built enforces uniqueness constraints
+- `nulls_not_distinct`: Whether NULL values are considered distinct in unique indexes
+- `havedead`: Whether RECENTLY_DEAD tuples have been encountered during the build
+- `heap`: Relation pointer to the heap table being indexed
+- `*spool`: Primary BTSpool instance for tuple sorting and processing
+- `*spool2`: Secondary BTSpool instance used only for unique indexes to handle dead tuples separately and avoid uniqueness check conflicts
+- `indtuples`: Total count of tuples that have been successfully added to the index
+- `*btleader`: Pointer to BTLeader structure, only present in the leader process during parallel index builds (NULL in workers and serial builds)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BTSpool](BTSpool.md)

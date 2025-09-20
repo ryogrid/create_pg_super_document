@@ -31,7 +31,7 @@ typedef struct SetOpState
 SetOpState maintains the execution state for SetOp nodes, which implement SQL set operations (UNION, INTERSECT, EXCEPT). The structure supports two execution strategies: sorted mode for pre-sorted input and hashed mode for unsorted input. It handles duplicate detection and counting, which is essential for implementing set operation semantics correctly. The state tracks progress through the operation and maintains the necessary data structures for both execution modes.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 14145 ?        00:00:00 bash
 14172 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node information

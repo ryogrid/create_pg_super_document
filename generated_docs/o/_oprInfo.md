@@ -23,13 +23,12 @@ typedef struct _oprInfo
 The _oprInfo structure is used by pg_dump to manage operator information during database dumping operations. It extends the base DumpableObject structure with operator-specific metadata including the operator's owner, kind (binary, unary left, unary right), operand types, and the implementing function. This structure captures the essential information needed to recreate operators in the target database, including their signatures and implementation details.
 
 ## Parameters / Member Variables
-- : Base dumpable object structure containing common dump metadata including operator name and namespace
-- : Name of the role (user) who owns the operator
-- : Character indicating the operator kind ('b' for binary, 'l' for left unary, 'r' for right unary)
-- : OID of the left operand type (InvalidOid for right unary operators)
-- : OID of the right operand type (InvalidOid for left unary operators)
-- : OID of the function that implements this operator
-
+- `dobj`: Base dumpable object structure containing common dump metadata including operator name and namespace
+- `*rolname`: Name of the role (user) who owns the operator
+- `oprkind`: Character indicating the operator kind ('b' for binary, 'l' for left unary, 'r' for right unary)
+- `oprleft`: OID of the left operand type (InvalidOid for right unary operators)
+- `oprright`: OID of the right operand type (InvalidOid for left unary operators)
+- `oprcode`: OID of the function that implements this operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

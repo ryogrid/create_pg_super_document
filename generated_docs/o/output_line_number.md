@@ -15,7 +15,7 @@ void output_line_number(void)
 This function generates and outputs a C preprocessor line number directive to the base output stream. It calls `hashline_number()` to create the formatted line directive string and writes it to `base_yyout`. The function is essential for maintaining source code line number correspondence between the original ECPG input and the generated C code, which is crucial for debugging and error reporting.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

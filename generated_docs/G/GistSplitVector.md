@@ -29,13 +29,12 @@ typedef struct GistSplitVector
 GistSplitVector serves as the working state container for complex page splitting operations in GiST indexes. It extends the basic GIST_SPLITVEC interface by providing additional bookkeeping for multi-column indexes. The structure manages the union keys (bounding boxes) for both sides of the split and tracks tuples that could be placed on either side without penalty, enabling optimization of the split quality. This structure is particularly important for composite indexes where multiple attributes contribute to the index key.
 
 ## Parameters / Member Variables
-- : GIST_SPLITVEC structure passed to and from user-defined PickSplit methods
-- : Array of Datum values representing the union of subkeys for the left split page, sized by INDEX_MAX_KEYS
-- : Array of boolean flags indicating which subkeys in spl_lattr are null
-- : Array of Datum values representing the union of subkeys for the right split page, sized by INDEX_MAX_KEYS
-- : Array of boolean flags indicating which subkeys in spl_rattr are null
-- : Pointer to boolean array flagging tuples that could be placed on either side of the split with zero penalty
-
+- `splitVector`: GIST_SPLITVEC structure passed to and from user-defined PickSplit methods
+- `spl_lattr[INDEX_MAX_KEYS]`: Array of Datum values representing the union of subkeys for the left split page, sized by INDEX_MAX_KEYS
+- `spl_lisnull[INDEX_MAX_KEYS]`: Array of boolean flags indicating which subkeys in spl_lattr are null
+- `spl_rattr[INDEX_MAX_KEYS]`: Array of Datum values representing the union of subkeys for the right split page, sized by INDEX_MAX_KEYS
+- `spl_risnull[INDEX_MAX_KEYS]`: Array of boolean flags indicating which subkeys in spl_rattr are null
+- `*spl_dontcare`: Pointer to boolean array flagging tuples that could be placed on either side of the split with zero penalty
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GIST_SPLITVEC](GIST_SPLITVEC.md)

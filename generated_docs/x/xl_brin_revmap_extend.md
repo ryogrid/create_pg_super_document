@@ -24,8 +24,7 @@ The  structure is used to log the extension of a BRIN index's revmap (reverse ma
 This WAL record works with two backup blocks: backup block 0 contains the metapage (which tracks the overall structure of the BRIN index), and backup block 1 contains the new revmap page being added. The operation updates the metapage to reflect the new revmap page and initializes the new page for use.
 
 ## Parameters / Member Variables
-- : The block number of the new revmap page being added (note: the code comments indicate this field is redundant since the block number is also stored as part of backup block 1)
-
+- `targetBlk`: The block number of the new revmap page being added (note: the code comments indicate this field is redundant since the block number is also stored as part of backup block 1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)

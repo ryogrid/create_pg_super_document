@@ -17,7 +17,7 @@ This function serves as a lightweight signal handler specifically designed to ha
 This design pattern allows PostgreSQL processes to handle configuration reload signals safely without performing complex operations directly within the signal handler context, which could lead to race conditions or other signal safety issues.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which typically expands to signal handler parameters (signal number, etc.)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

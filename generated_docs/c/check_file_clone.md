@@ -24,7 +24,7 @@ The function creates a test scenario by attempting to clone the  file from the o
 The function uses the same platform-specific implementations as  (macOS copyfile with COPYFILE_CLONE_FORCE, Linux FICLONE ioctl) and fails gracefully if cloning is not supported on the platform.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

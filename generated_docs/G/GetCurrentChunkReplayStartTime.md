@@ -15,7 +15,7 @@ TimestampTz GetCurrentChunkReplayStartTime(void)
 This function fetches the timestamp that marks the start time of the current chunk of WAL records being replayed during recovery. The function provides thread-safe access to the currentChunkStartTime field stored in the shared XLogRecoveryCtl structure by using spinlock protection. While the comment mentions "latest processed commit/abort record" and "XLogReceiptTime", this appears to be a documentation error - the function actually returns the currentChunkStartTime, which tracks chunk boundaries rather than individual transaction timestamps.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,7 +18,7 @@ This is a static utility function defined in the ECPG (Embedded C for PostgreSQL
 The function accesses the  (SQL Communication Area) structure which is a standard part of ECPG that contains status information about the last SQL statement executed, including error codes and error messages.
 
 ## Parameters / Member Variables
-- This function takes no parameters (void)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

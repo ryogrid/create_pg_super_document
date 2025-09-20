@@ -24,7 +24,6 @@ The function follows the PostgreSQL FunctionCall message format:
 ## Parameters / Member Variables
 - : Output file stream where the formatted trace information will be written
 - : Pointer to the raw binary message data containing the FunctionCall information
-- 
   ╭──────────────────────────────────────────────────────────────────────────╮
   │                                                                          │
   │  ℹ Choose the default behavior for 'cursor'                              │

@@ -13,7 +13,7 @@ int pq_getbyte(void)
 pq_getbyte is the primary function for reading individual bytes from a PostgreSQL client connection. It operates on the global receive buffer and automatically calls pq_recvbuf() to refill the buffer when no data is available. The function advances the buffer pointer after reading each byte, ensuring sequential access to the incoming data stream. This function is essential for protocol message parsing where byte-by-byte reading is required.
 
 ## Parameters / Member Variables
-- No parameters (operates on global variables)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,9 +21,8 @@ This structure serves as a shared memory container for collecting incremental so
 The structure uses a flexible array member to store a variable number of IncrementalSortInfo structures, one for each worker that participated in the parallel incremental sort operation. This design allows for efficient sharing of instrumentation data across process boundaries in PostgreSQL's shared memory architecture.
 
 ## Parameters / Member Variables
-- : The number of parallel workers that participated in the incremental sort operation
-- : A flexible array of IncrementalSortInfo structures, one for each worker, containing their individual performance metrics
-
+- `num_workers`: The number of parallel workers that participated in the incremental sort operation
+- `sinfo[FLEXIBLE_ARRAY_MEMBER]`: A flexible array of IncrementalSortInfo structures, one for each worker, containing their individual performance metrics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [IncrementalSortInfo](../I/IncrementalSortInfo.md) (struct type for the array member)

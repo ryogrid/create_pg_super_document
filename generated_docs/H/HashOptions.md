@@ -21,9 +21,8 @@ HashOptions is a structure used to store reloptions (relation options) specific 
 The primary purpose is to control the fill factor, which determines how full each hash index page should be before a new page is allocated. A lower fill factor leaves more space for future insertions, potentially reducing page splits but using more disk space. A higher fill factor uses space more efficiently but may result in more page splits during insertions.
 
 ## Parameters / Member Variables
-- : PostgreSQL's standard variable-length data header used for memory management and serialization (should not be manipulated directly)
-- : The target fill factor for hash index pages, specified as a percentage (valid range: 0-100, default: 75)
-
+- `varlena_header_`: PostgreSQL's standard variable-length data header used for memory management and serialization (should not be manipulated directly)
+- `fillfactor`: The target fill factor for hash index pages, specified as a percentage (valid range: 0-100, default: 75)
 ## Dependencies
 - Functions called/Symbols referenced:
   - No direct function calls (structure definition only)

@@ -20,7 +20,7 @@ The ObjectAddresses structure is designed to grow dynamically as objects are add
 This is a fundamental utility function used extensively throughout the catalog system whenever collections of database objects need to be tracked, particularly during dependency analysis, object creation, and deletion operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

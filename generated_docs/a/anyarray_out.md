@@ -17,7 +17,6 @@ The `anyarray_out` function serves as the output conversion function for Postgre
 ## Parameters / Member Variables
 - The function follows PostgreSQL's standard function calling convention using `PG_FUNCTION_ARGS`, which provides access to:
   - Input parameter: An anyarray value that represents an array of any element type
-  - The function passes the entire `fcinfo` (function call information) to `array_out`
 
 ## Dependencies
 - Functions called/Symbols referenced:

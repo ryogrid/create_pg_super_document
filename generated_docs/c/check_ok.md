@@ -22,7 +22,7 @@ If either error condition is detected, the function prints an appropriate error 
 This function is commonly called after major initialization steps to provide user feedback and ensure proper error handling throughout the database initialization process.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

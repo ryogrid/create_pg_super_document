@@ -16,7 +16,7 @@ getMaxDumpId(void)
 This function provides read-only access to the current maximum DumpId value by returning the global lastDumpId counter. It serves as a query function that allows other parts of the pg_dump system to determine the total number of dump objects that have been assigned identifiers. This information is particularly useful for algorithms that need to allocate arrays or perform operations based on the total number of dumpable objects, such as dependency sorting and loop detection algorithms.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

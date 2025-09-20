@@ -27,10 +27,6 @@ The function ensures that extended statistics objects are properly recreated dur
 ## Parameters / Member Variables
 - : Archive pointer containing dump options and output context
 - : StatsExtInfo structure containing:
-  - Statistics object metadata and identifiers
-  - Custom statistics target value (if any)
-  - Owner and namespace information
-  - Dump flags for controlling what components to include
 
 ## Dependencies
 - Functions called/Symbols referenced:

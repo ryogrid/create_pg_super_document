@@ -23,7 +23,6 @@ The octal escape format for high-bit characters matches the traditional "escape"
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Character value to be converted to string representation
 
 ## Dependencies
 - Functions called/Symbols referenced:

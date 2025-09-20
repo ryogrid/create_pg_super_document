@@ -15,7 +15,6 @@ Datum lseg_send(PG_FUNCTION_ARGS)
 The `lseg_send` function is a PostgreSQL binary output function that serializes a line segment into PostgreSQL's binary wire protocol format. It extracts the LSEG parameter from function arguments and writes the four coordinate values (x1, y1, x2, y2) as float8 values to a binary buffer. The function follows PostgreSQL's standard binary serialization pattern: initializing a buffer, writing data sequentially, and returning the completed byte array. This enables efficient network transmission of geometric data types in binary format, which is more compact and faster to process than text format.
 
 ## Parameters / Member Variables
-- Function uses `PG_FUNCTION_ARGS` macro for parameter access
 - Parameter 0: LSEG pointer - the line segment to be converted to binary format
 
 ## Dependencies

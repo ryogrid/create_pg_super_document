@@ -19,7 +19,7 @@ The memory context created here serves as a working area for memory allocations 
 This initialization function is part of the WAL resource manager interface and is called automatically by the WAL recovery system when GiST operations need to be replayed.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

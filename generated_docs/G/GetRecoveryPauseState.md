@@ -20,7 +20,7 @@ The recovery pause state can have different values representing various stages o
 This function serves as the primary interface for checking the pause state from various parts of the system, including SQL functions and internal recovery logic.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

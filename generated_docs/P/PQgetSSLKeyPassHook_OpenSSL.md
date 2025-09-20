@@ -18,7 +18,7 @@ PQgetSSLKeyPassHook_OpenSSL retrieves the currently installed callback function 
 The returned function pointer, when called, should fill the provided buffer with the passphrase for the SSL private key file and return the length of the passphrase. This mechanism allows applications to provide custom passphrase input methods (such as prompting the user, reading from a secure store, etc.) instead of relying on OpenSSL's default passphrase callback.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Return Value
 - Returns a function pointer of type 

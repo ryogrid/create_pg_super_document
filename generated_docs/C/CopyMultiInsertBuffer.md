@@ -26,12 +26,11 @@ CopyMultiInsertBuffer serves as a buffering mechanism for COPY FROM operations i
 The structure is designed to work with both regular tables (using BulkInsertState for optimization) and foreign tables. It tracks the line numbers from the original copy stream to provide accurate error reporting and maintains a count of currently buffered tuples.
 
 ## Parameters / Member Variables
-- : Array of TupleTableSlot pointers that store the actual tuple data waiting to be inserted
-- : Pointer to ResultRelInfo structure containing metadata about the target relation
-- : BulkInsertState for optimizing insertions into regular tables; set to NULL for foreign tables
-- : Counter tracking the number of slots currently containing valid tuples
-- : Array storing the line numbers from the copy stream corresponding to each buffered tuple for error reporting
-
+- `*slots[MAX_BUFFERED_TUPLES]`: Array of TupleTableSlot pointers that store the actual tuple data waiting to be inserted
+- `*resultRelInfo`: Pointer to ResultRelInfo structure containing metadata about the target relation
+- `bistate`: BulkInsertState for optimizing insertions into regular tables; set to NULL for foreign tables
+- `nused`: Counter tracking the number of slots currently containing valid tuples
+- `linenos[MAX_BUFFERED_TUPLES]`: Array storing the line numbers from the copy stream corresponding to each buffered tuple for error reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_BUFFERED_TUPLES

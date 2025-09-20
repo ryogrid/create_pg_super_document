@@ -22,12 +22,11 @@ typedef struct spgConfigOut
 spgConfigOut is an output structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is filled by the opclass config method to specify how the index should be configured for a particular data type. This structure defines the data types used for different parts of the index structure and capabilities of the opclass.
 
 ## Parameters / Member Variables
-- : OID of the data type used for inner-tuple prefixes. Inner tuples can store prefix information to optimize searches
-- : OID of the data type used for inner-tuple node labels. These labels identify branches in the tree structure
-- : OID of the data type used for leaf-tuple values. This is typically the same as the indexed data type but can differ
-- : Boolean indicating whether the opclass can reconstruct the original indexed data from the index. This affects index-only scan capabilities
-- : Boolean indicating whether the opclass can handle values longer than one page. This determines storage and retrieval strategies
-
+- `prefixType`: OID of the data type used for inner-tuple prefixes. Inner tuples can store prefix information to optimize searches
+- `labelType`: OID of the data type used for inner-tuple node labels. These labels identify branches in the tree structure
+- `leafType`: OID of the data type used for leaf-tuple values. This is typically the same as the indexed data type but can differ
+- `canReturnData`: Boolean indicating whether the opclass can reconstruct the original indexed data from the index. This affects index-only scan capabilities
+- `longValuesOK`: Boolean indicating whether the opclass can handle values longer than one page. This determines storage and retrieval strategies
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

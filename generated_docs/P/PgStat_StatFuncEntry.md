@@ -21,10 +21,9 @@ typedef struct PgStat_StatFuncEntry
 PgStat_StatFuncEntry maintains execution statistics for individual user-defined functions in PostgreSQL's statistics system. This structure is essential for function performance monitoring and profiling, allowing database administrators and developers to identify performance bottlenecks in custom functions. The statistics differentiate between total execution time (including time spent in called functions) and self time (excluding time spent in called functions), providing detailed insight into function performance characteristics.
 
 ## Parameters / Member Variables
-- : Number of times the function has been called since statistics were last reset
-- : Total execution time for all calls to this function, including time spent in functions called by this function (measured in microseconds)
-- : Total execution time for all calls to this function, excluding time spent in functions called by this function (measured in microseconds)
-
+- `numcalls`: Number of times the function has been called since statistics were last reset
+- `total_time`: Total execution time for all calls to this function, including time spent in functions called by this function (measured in microseconds)
+- `self_time`: Total execution time for all calls to this function, excluding time spent in functions called by this function (measured in microseconds)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (statistics counter type)

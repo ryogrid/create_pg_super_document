@@ -25,15 +25,14 @@ typedef struct _funcInfo
 The _funcInfo structure is used by pg_dump to manage function information during database dumping operations. It extends the base DumpableObject and DumpableAcl structures with function-specific metadata including the function's programming language, argument types, return type, and owner information. The structure also includes a flag to indicate whether the function definition should be postponed to the post-data section of the dump, which is necessary for functions that depend on other objects that haven't been created yet.
 
 ## Parameters / Member Variables
-- : Base dumpable object structure containing common dump metadata including function name and namespace
-- : Access control list information for the function's permissions
-- : Name of the role (user) who owns the function
-- : OID of the programming language used to implement the function (e.g., SQL, PL/pgSQL, C)
-- : Number of arguments the function accepts
-- : Array of OIDs representing the types of the function's arguments
-- : OID of the function's return type
-- : Boolean flag indicating whether the function definition must be deferred to the post-data section
-
+- `dobj`: Base dumpable object structure containing common dump metadata including function name and namespace
+- `dacl`: Access control list information for the function's permissions
+- `*rolname`: Name of the role (user) who owns the function
+- `lang`: OID of the programming language used to implement the function (e.g., SQL, PL/pgSQL, C)
+- `nargs`: Number of arguments the function accepts
+- `*argtypes`: Array of OIDs representing the types of the function's arguments
+- `prorettype`: OID of the function's return type
+- `postponed_def`: Boolean flag indicating whether the function definition must be deferred to the post-data section
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

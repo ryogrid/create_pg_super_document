@@ -23,13 +23,12 @@ typedef struct HashAggSpill
 HashAggSpill is a core data structure used in PostgreSQL's hash aggregation spilling mechanism. When the hash table for aggregation becomes too large to fit in memory, PostgreSQL spills data to temporary storage partitioned across multiple logical tapes. This structure manages the partitioning scheme by using high bits of hash values for partition selection. During recursive processing, previously used bits are ignored to enable multi-level partitioning. The structure tracks both the physical storage (tapes) and metadata (tuple counts, cardinality estimates) needed to efficiently process spilled data.
 
 ## Parameters / Member Variables
-- : Number of partitions used for spilling data
-- : Array of pointers to LogicalTape structures representing spill partition tapes
-- : Array tracking the number of tuples stored in each partition
-- : Bitmask used to extract partition bits from hash values
-- : Number of bits to shift after masking to get the final partition index
-- : HyperLogLog state for estimating cardinality of spilled contents
-
+- `npartitions`: Number of partitions used for spilling data
+- `**partitions`: Array of pointers to LogicalTape structures representing spill partition tapes
+- `*ntuples`: Array tracking the number of tuples stored in each partition
+- `mask`: Bitmask used to extract partition bits from hash values
+- `shift`: Number of bits to shift after masking to get the final partition index
+- `*hll_card`: HyperLogLog state for estimating cardinality of spilled contents
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalTape](../L/LogicalTape.md)

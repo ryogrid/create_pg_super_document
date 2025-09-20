@@ -17,7 +17,6 @@ This function serves as the output function for PostgreSQL's regprocedure data t
 The function is part of PostgreSQL's type system infrastructure and is automatically called whenever a regprocedure value needs to be converted to text for display or output purposes.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Input: procedure OID (retrieved via PG_GETARG_OID(0))
 - Returns: C-string representation of the procedure
 

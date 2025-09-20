@@ -15,7 +15,7 @@ static void print_rmgr_list(void)
 The print_rmgr_list function iterates through all built-in PostgreSQL resource managers and prints their names to standard output. Resource managers are components responsible for handling different types of WAL (Write-Ahead Log) records. This function is typically used in pg_waldump to provide users with a list of available resource manager names, which can be useful for filtering WAL records by specific resource manager types. The function uses the GetRmgrDesc() function to retrieve the resource manager descriptor for each ID and then prints the rm_name field.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

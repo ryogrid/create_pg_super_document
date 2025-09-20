@@ -22,8 +22,7 @@ The operation involves 2 backup blocks:
 - Backup Blk 1: meta page
 
 ## Parameters / Member Variables
-- : The size of the bitmap in the bitmap page, indicating how many overflow pages this bitmap page can track
-
+- `bmsize`: The size of the bitmap in the bitmap page, indicating how many overflow pages this bitmap page can track
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)

@@ -21,9 +21,8 @@ ScalarMCVItem is an internal data structure used by PostgreSQL's ANALYZE command
 The structure is used during the statistical analysis phase where PostgreSQL sorts sample values, identifies duplicates, and determines which values appear most frequently. This information is crucial for the query optimizer to make informed decisions about join strategies, index usage, and row count estimates.
 
 ## Parameters / Member Variables
-- : The number of times this particular value appears in the analyzed sample (i.e., the frequency count of duplicates)
-- : An index into the values[] array pointing to the first occurrence of this value in the sorted sample data
-
+- `ssup`: The number of times this particular value appears in the analyzed sample (i.e., the frequency count of duplicates)
+- `*tupnoLink`: An index into the values[] array pointing to the first occurrence of this value in the sorted sample data
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used within compute_scalar_stats function for MCV analysis

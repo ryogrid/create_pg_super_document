@@ -21,9 +21,8 @@ This structure serves as the core context for PostgreSQL's dynamic shared memory
 The structure is used internally by the DSM registry implementation to maintain persistent access to the shared memory structures that store the mapping between named segments and their corresponding DSM handles.
 
 ## Parameters / Member Variables
-- : Handle to the dynamic shared area (DSA) that provides the underlying memory allocation infrastructure for the registry
-- : Handle to the distributed shared hash table that stores the actual DSMRegistryEntry structures keyed by segment names
-
+- `dsah`: Handle to the dynamic shared area (DSA) that provides the underlying memory allocation infrastructure for the registry
+- `dshh`: Handle to the distributed shared hash table that stores the actual DSMRegistryEntry structures keyed by segment names
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_handle

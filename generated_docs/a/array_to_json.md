@@ -19,7 +19,6 @@ The function extracts the array datum from the function arguments, creates a Str
 
 ## Parameters / Member Variables
 - Takes one argument through  macro:
-  - Array datum (any PostgreSQL array type)
 
 ## Dependencies
 - Functions called/Symbols referenced:

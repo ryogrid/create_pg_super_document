@@ -19,8 +19,6 @@ The function extracts both the composite datum and the boolean flag from the fun
 
 ## Parameters / Member Variables
 - Takes two arguments through  macro:
-  - Composite datum (any PostgreSQL record/row type)
-  - Boolean flag indicating whether to use pretty-printing with line feeds
 
 ## Dependencies
 - Functions called/Symbols referenced:

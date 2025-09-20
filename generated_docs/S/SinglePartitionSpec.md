@@ -20,8 +20,7 @@ SinglePartitionSpec is essentially a deprecated structure that has been reduced 
 This represents a common pattern in PostgreSQL development where functionality may be removed but the underlying data structures are preserved as stubs to prevent breaking changes in systems that have already compiled against the previous interface.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for the PostgreSQL node system, the only remaining field in this stub structure
-
+- `type`: Standard NodeTag for the PostgreSQL node system, the only remaining field in this stub structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited)

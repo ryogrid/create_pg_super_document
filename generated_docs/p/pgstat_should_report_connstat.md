@@ -13,7 +13,7 @@ static bool pgstat_should_report_connstat(void)
 This function serves as a filter to determine which types of backend processes should contribute to session statistics reporting. It ensures that only normal backend processes (user connections) are included in session timing statistics, while excluding parallel workers and walsender processes. Parallel workers are excluded because they run in parallel and don't contribute meaningful session times, even though they consume CPU time. Walsender processes are excluded because they have different session characteristics (such as being always "active") that would skew the session statistics if included.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

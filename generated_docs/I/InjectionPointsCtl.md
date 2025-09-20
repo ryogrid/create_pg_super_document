@@ -21,9 +21,8 @@ InjectionPointsCtl serves as the central management structure for PostgreSQL's i
 The structure is designed to be accessed from multiple processes in a PostgreSQL cluster, residing in shared memory. The max_inuse field provides a performance optimization by tracking the highest index currently in use plus one, allowing operations to limit their scanning to only the active portion of the array.
 
 ## Parameters / Member Variables
-- : Atomic 32-bit counter representing the highest index currently in use plus one. Used as an optimization to avoid scanning the entire entries array when most slots are unused.
-- : Fixed-size array of InjectionPointEntry structures, with a maximum capacity of 128 injection points (MAX_INJECTION_POINTS).
-
+- `max_inuse`: Atomic 32-bit counter representing the highest index currently in use plus one. Used as an optimization to avoid scanning the entire entries array when most slots are unused.
+- `entries[MAX_INJECTION_POINTS]`: Fixed-size array of InjectionPointEntry structures, with a maximum capacity of 128 injection points (MAX_INJECTION_POINTS).
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md)

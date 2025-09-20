@@ -15,7 +15,6 @@ Datum char_text(PG_FUNCTION_ARGS)
 This function converts a PostgreSQL "char" value to a text data type following specific conversion rules similar to charout(). It handles three main cases: (1) If the character has the high bit set (values >= 128), it converts the character to an octal escape sequence in the format \nnn. (2) If the character is not null ('\0'), it creates a single-character text value. (3) If the character is null, it creates an empty text string. The function dynamically allocates memory for the result text and sets the appropriate variable-length header information.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro to access function arguments
 - `arg1`: The input "char" value retrieved using PG_GETARG_CHAR(0)
 - `result`: Pointer to the allocated text structure to hold the converted result
 

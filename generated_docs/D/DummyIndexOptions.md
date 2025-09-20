@@ -24,14 +24,13 @@ typedef struct DummyIndexOptions
 DummyIndexOptions is a structure used in PostgreSQL's dummy index access method test module to demonstrate how custom index access methods can define and handle reloptions (relation options). This struct serves as a template showing how different data types (integer, real, boolean, enum, and string) can be incorporated as configurable options for an index access method. The structure follows PostgreSQL's varlena format with a header, making it suitable for storage and retrieval within the relation options system.
 
 ## Parameters / Member Variables
-- : Standard varlena header required for PostgreSQL's variable-length data structures (should not be modified directly)
-- : Integer option parameter with default value 10, range -10 to 100
-- : Real (double) option parameter with default value 3.1415, range -10 to 100  
-- : Boolean option parameter with default value true
-- : Enumeration option parameter of type DummyAmEnum with default DUMMY_AM_ENUM_ONE (values "one" or "two")
-- : Offset for string option with non-NULL default value "DefaultValue"
-- : Offset for string option with NULL default value
-
+- `vl_len_`: Standard varlena header required for PostgreSQL's variable-length data structures (should not be modified directly)
+- `option_int`: Integer option parameter with default value 10, range -10 to 100
+- `option_real`: Real (double) option parameter with default value 3.1415, range -10 to 100
+- `option_bool`: Boolean option parameter with default value true
+- `option_enum`: Enumeration option parameter of type DummyAmEnum with default DUMMY_AM_ENUM_ONE (values "one" or "two")
+- `option_string_val_offset`: Offset for string option with non-NULL default value "DefaultValue"
+- `option_string_null_offset`: Offset for string option with NULL default value
 ## Dependencies
 - Functions called/Symbols referenced:
   - DummyAmEnum

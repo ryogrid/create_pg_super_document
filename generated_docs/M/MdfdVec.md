@@ -23,9 +23,8 @@ PostgreSQL splits large relation files into multiple 1GB segments to work around
 The structure is designed for efficient segment file management, allowing the storage manager to quickly locate and operate on specific segments of a relation. It's used throughout the md.c storage manager implementation for operations like reading, writing, extending, and truncating relation files.
 
 ## Parameters / Member Variables
-- : Virtual file descriptor number from PostgreSQL's fd.c pool system, which manages actual OS file descriptors efficiently
-- : Zero-based segment number within the relation file, used to identify which 1GB segment this descriptor represents
-
+- `mdfd_vfd`: Virtual file descriptor number from PostgreSQL's fd.c pool system, which manages actual OS file descriptors efficiently
+- `mdfd_segno`: Zero-based segment number within the relation file, used to identify which 1GB segment this descriptor represents
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (type from src/include/storage/fd.h)

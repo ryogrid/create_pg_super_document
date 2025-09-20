@@ -17,7 +17,7 @@ This function initializes resource management for auxiliary processes in Postgre
 The function includes safety assertions to ensure it's only called when no resource owners are currently active, preventing resource management conflicts. The cleanup callback is registered to run after critical shutdown operations like ShutdownXLOG.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,6 @@ Datum i2toi4(PG_FUNCTION_ARGS)
 The i2toi4 function is a PostgreSQL type conversion function that promotes a 16-bit signed integer (int2/smallint) to a 32-bit signed integer (int4/integer). This is a widening conversion that preserves the original value without any data loss. The function is part of PostgreSQL's type conversion system and enables automatic or explicit casting between these integer types. Since this is a safe conversion (no overflow possible), the implementation is straightforward with simple type casting.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
 - Input: 16-bit signed integer retrieved via PG_GETARG_INT16(0)
 - Output: Datum containing the converted 32-bit integer
 

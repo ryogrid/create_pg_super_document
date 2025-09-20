@@ -21,9 +21,8 @@ DistanceValue is a lightweight data structure used within PostgreSQL's BRIN (Blo
 The structure is defined in the BRIN minmax_multi implementation and serves as a building block for algorithms that need to make distance-based decisions about range management, such as reducing the number of ranges while maintaining index effectiveness.
 
 ## Parameters / Member Variables
-- : Integer identifier that references a specific range within an array of extended ranges
-- : Double-precision floating-point number representing the calculated distance metric between two ranges
-
+- `index`: Integer identifier that references a specific range within an array of extended ranges
+- `value`: Double-precision floating-point number representing the calculated distance metric between two ranges
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a simple data structure)
 - Called from (representative examples):

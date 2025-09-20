@@ -27,7 +27,7 @@ The compiler uses this information to:
 - Avoid false warnings about uninitialized variables
 
 ## Parameters / Member Variables
-- No parameters (macro with empty parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

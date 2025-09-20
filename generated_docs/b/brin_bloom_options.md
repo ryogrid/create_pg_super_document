@@ -15,8 +15,7 @@ Datum brin_bloom_options(PG_FUNCTION_ARGS)
 This function is a PostgreSQL reloption handler that defines and initializes the configurable parameters for BRIN Bloom indexes. It sets up two key parameters that control the bloom filter behavior: the expected number of distinct values per page range and the desired false positive rate. The function uses PostgreSQL's local reloption framework to register these parameters with their default values, valid ranges, and storage offsets within the BloomOptions structure.
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Operates on `local_relopts *relopts` from the argument list
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,9 +21,8 @@ TSVectorBuildState serves as a stateful container for building tsvector data fro
 The structure is designed to work with callback-based JSON processing, where individual JSON elements are parsed one at a time and their lexemes are accumulated in the ParsedText structure. Between elements, artificial positional breaks are inserted to prevent phrase searches from incorrectly matching words across JSON element boundaries.
 
 ## Parameters / Member Variables
-- : Pointer to a ParsedText structure that accumulates parsed words and maintains parsing state including word array, counts, and current position
-- : Object identifier (Oid) of the text search configuration used for parsing and lexeme extraction
-
+- `*prs`: Pointer to a ParsedText structure that accumulates parsed words and maintains parsing state including word array, counts, and current position
+- `cfgId`: Object identifier (Oid) of the text search configuration used for parsing and lexeme extraction
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParsedText (structure containing word parsing state)

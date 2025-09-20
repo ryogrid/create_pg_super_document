@@ -25,15 +25,14 @@ typedef struct EachState
 EachState serves as a context structure for PostgreSQL's JSON each functionality. It encapsulates all the necessary state information required to process JSON data and convert it into a tabular format with key-value pairs. The structure coordinates JSON lexical parsing, tuple storage, memory management, and result normalization during the decomposition process.
 
 ## Parameters / Member Variables
-- : Pointer to JsonLexContext for JSON lexical analysis and parsing
-- : Tuplestorestate for storing the resulting key-value tuples
-- : TupleDesc describing the structure of returned tuples
-- : MemoryContext for temporary memory allocation during processing
-- : Pointer to the start of the current result string
-- : Boolean flag indicating whether results should be normalized
-- : Boolean flag indicating if the next value to process is a scalar
-- : Pointer to the normalized scalar value string
-
+- `*lex`: Pointer to JsonLexContext for JSON lexical analysis and parsing
+- `*tuple_store`: Tuplestorestate for storing the resulting key-value tuples
+- `ret_tdesc`: TupleDesc describing the structure of returned tuples
+- `tmp_cxt`: MemoryContext for temporary memory allocation during processing
+- `*result_start`: Pointer to the start of the current result string
+- `normalize_results`: Boolean flag indicating whether results should be normalized
+- `next_scalar`: Boolean flag indicating if the next value to process is a scalar
+- `*normalized_scalar`: Pointer to the normalized scalar value string
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonLexContext](../J/JsonLexContext.md)

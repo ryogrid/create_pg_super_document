@@ -19,7 +19,7 @@ This function serves as a language-specific wrapper for the Snowball stemming li
 This is part of PostgreSQL's full-text search functionality, specifically the Snowball stemmer integration that provides multilingual text normalization capabilities.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,11 +24,10 @@ The  structure serves as a validation context for row filter expressions in Post
 The struct is used during row filter expression tree walking to maintain state about which columns are valid for filtering and to handle the complexities of partition inheritance where parent and child tables may have different column orderings.
 
 ## Parameters / Member Variables
-- : A bitmapset containing the attribute numbers of columns that are part of the relation's replica identity index, used to validate that filter columns are replication-safe
-- : Boolean flag indicating whether the validation is being performed on a parent relation's row filter that will be applied to partition changes (affects column number translation)
-- : Object identifier of the actual relation being validated (typically a partition when pubviaroot is true)  
-- : Object identifier of the parent relation whose row filter is being validated (used for column name/number mapping in partition scenarios)
-
+- `*bms_replident`: A bitmapset containing the attribute numbers of columns that are part of the relation's replica identity index, used to validate that filter columns are replication-safe
+- `pubviaroot`: Boolean flag indicating whether the validation is being performed on a parent relation's row filter that will be applied to partition changes (affects column number translation)
+- `relid`: Object identifier of the actual relation being validated (typically a partition when pubviaroot is true)
+- `parentid`: Object identifier of the parent relation whose row filter is being validated (used for column name/number mapping in partition scenarios)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Bitmapset](../B/Bitmapset.md) (bitmap operations)

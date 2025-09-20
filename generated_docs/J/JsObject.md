@@ -27,10 +27,9 @@ For JSON text objects, it maintains a hash table (HTAB) that maps field names to
 This abstraction allows PostgreSQL's object manipulation functions to work uniformly with both JSON formats, enabling efficient field access, iteration, and modification operations.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this contains a JSON text object (true) or JSONB binary object (false)
-- : Hash table pointer used for JSON text objects, mapping field names to values for fast lookup
-- : Pointer to JsonbContainer structure for binary JSONB objects, providing direct container access
-
+- `is_json`: Boolean flag indicating whether this contains a JSON text object (true) or JSONB binary object (false)
+- `*json_hash`: Hash table pointer used for JSON text objects, mapping field names to values for fast lookup
+- `*jsonb_cont`: Pointer to JsonbContainer structure for binary JSONB objects, providing direct container access
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (PostgreSQL hash table structure)

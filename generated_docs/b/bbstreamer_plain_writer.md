@@ -23,11 +23,10 @@ The  is a concrete implementation of the bbstreamer interface specifically desig
 The structure is part of PostgreSQL's base backup streaming architecture, where different bbstreamer implementations can be chained together to process backup data through various transformations (compression, encryption, etc.) before final output.
 
 ## Parameters / Member Variables
-- : The base bbstreamer structure containing common streaming functionality and operation callbacks
-- : String containing the file path used for error reporting and file opening when no FILE* is provided
-- : FILE pointer to the output file where backup data will be written
-- : Boolean flag indicating whether this streamer is responsible for closing the file when done (true when the streamer opened the file itself)
-
+- `base`: The base bbstreamer structure containing common streaming functionality and operation callbacks
+- `*pathname`: String containing the file path used for error reporting and file opening when no FILE* is provided
+- `*file`: FILE pointer to the output file where backup data will be written
+- `should_close_file`: Boolean flag indicating whether this streamer is responsible for closing the file when done (true when the streamer opened the file itself)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base structure)

@@ -22,12 +22,11 @@ typedef struct _transformInfo
 The  structure captures the definition of transforms, which are special functions that define how a data type should be converted when passing between SQL and a procedural language. Transforms enable custom data types to work seamlessly with procedural languages by providing explicit conversion routines in both directions (SQL to language and language to SQL).
 
 ## Parameters / Member Variables
-- : Base  containing common metadata for dump operations
-- : OID of the data type that this transform applies to
-- : OID of the procedural language that this transform applies to
-- : OID of the function used to convert from SQL representation to the procedural language representation
-- : OID of the function used to convert from the procedural language representation back to SQL representation
-
+- `dobj`: Base  containing common metadata for dump operations
+- `trftype`: OID of the data type that this transform applies to
+- `trflang`: OID of the procedural language that this transform applies to
+- `trffromsql`: OID of the function used to convert from SQL representation to the procedural language representation
+- `trftosql`: OID of the function used to convert from the procedural language representation back to SQL representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

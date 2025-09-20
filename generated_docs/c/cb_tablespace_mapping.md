@@ -22,10 +22,9 @@ The  structure is used by pg_combinebackup to handle tablespace directory remapp
 The structure forms a singly-linked list where each node represents a single tablespace mapping from an old directory path to a new directory path. This is essential for scenarios where the combined backup needs to be restored to a system with different tablespace locations than the original.
 
 ## Parameters / Member Variables
-- : Original tablespace directory path from the backup (maximum MAXPGPATH characters)
-- : Target directory path where the tablespace should be relocated (maximum MAXPGPATH characters)
-- : Pointer to the next tablespace mapping in the linked list
-
+- `old_dir[MAXPGPATH]`: Original tablespace directory path from the backup (maximum MAXPGPATH characters)
+- `new_dir[MAXPGPATH]`: Target directory path where the tablespace should be relocated (maximum MAXPGPATH characters)
+- `*next`: Pointer to the next tablespace mapping in the linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXPGPATH (constant for maximum path length)

@@ -19,8 +19,6 @@ For set-returning functions, it supports two modes: explicit calls to `return_ne
 ## Parameters / Member Variables
 - Uses PostgreSQL's `PG_FUNCTION_ARGS` macro which provides access to:
   - `fcinfo`: FunctionCallInfo containing function arguments and metadata
-  - Function arguments accessible via `PG_GETARG_*` macros
-  - Return value management via `PG_RETURN_*` macros
 
 ## Dependencies
 - Functions called/Symbols referenced:

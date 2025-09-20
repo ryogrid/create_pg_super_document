@@ -13,7 +13,6 @@ Datum void_send(PG_FUNCTION_ARGS)
 The void_send function is responsible for serializing void values to binary format in PostgreSQL's binary protocol. The function creates an empty string buffer using PostgreSQL's string buffer infrastructure, then returns it as a bytea (binary array) type. This ensures that void values are consistently represented as empty binary data during client-server communication using the binary protocol.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function argument macro PG_FUNCTION_ARGS which provides access to function call context
 - buf: StringInfoData buffer used to construct the binary output
 
 ## Dependencies

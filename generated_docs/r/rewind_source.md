@@ -72,14 +72,13 @@ The rewind_source struct serves as a polymorphic interface in the pg_rewind util
 The interface supports both immediate and deferred execution models through queuing mechanisms, which is particularly important for optimizing network operations when working with remote servers. All implementations must provide complete functionality for file operations, WAL access, and proper resource cleanup.
 
 ## Parameters / Member Variables
-- : Function pointer to traverse all files in the source data directory, calling a callback on each file
-- : Function pointer to fetch a complete file into a malloc'd buffer with size information
-- : Function pointer to queue a request for fetching part of a file (offset and length specified)
-- : Function pointer to queue a request for replacing a whole local file from source
-- : Function pointer to execute all queued fetch requests
-- : Function pointer to get the current WAL insert position from the source system
-- : Function pointer to free the rewind_source object and associated resources
-
+- `callback)`: Function pointer to traverse all files in the source data directory, calling a callback on each file
+- `*filesize)`: Function pointer to fetch a complete file into a malloc'd buffer with size information
+- `len)`: Function pointer to queue a request for fetching part of a file (offset and length specified)
+- `len)`: Function pointer to queue a request for replacing a whole local file from source
+- `*)`: Function pointer to execute all queued fetch requests
+- `*)`: Function pointer to get the current WAL insert position from the source system
+- `*)`: Function pointer to free the rewind_source object and associated resources
 ## Dependencies
 - Functions called/Symbols referenced:
   - process_file_callback_t (callback type for file traversal)

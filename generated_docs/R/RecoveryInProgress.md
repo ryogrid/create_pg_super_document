@@ -24,7 +24,6 @@ The function implements an optimization to minimize shared memory access:
 The function is widely used throughout PostgreSQL to conditionally enable/disable functionality based on recovery status. Many operations are restricted or behave differently during recovery (e.g., certain WAL operations, transaction handling, backup operations).
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - true if recovery is in progress, false if recovery is complete
 
 ## Dependencies

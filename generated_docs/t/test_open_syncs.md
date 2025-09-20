@@ -22,7 +22,7 @@ The function tests five different write size configurations:
 Each test maintains the same total data written (16kB) but varies the number and size of individual write operations. This design allows for direct comparison of the overhead associated with different write sizes when using synchronous I/O.
 
 ## Parameters / Member Variables
-- (No parameters - void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

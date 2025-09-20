@@ -15,7 +15,7 @@ void PLy_init_plpy(void)
 This function performs comprehensive initialization of the PL/Python environment by setting up all the necessary Python types and making the plpy module available in the Python interpreter's main namespace. It initializes various PL/Python-specific types (plans, results, subtransactions, cursors), creates the plpy module, and imports it into the main Python namespace so it can be accessed by PL/Python functions. The function ensures that PL/Python functions can access PostgreSQL functionality through the plpy interface.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

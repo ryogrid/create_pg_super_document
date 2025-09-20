@@ -20,7 +20,7 @@ The function operates independently of ongoing restartpoint operations and is de
 This mechanism allows PostgreSQL to transition from recovery mode to normal operation more efficiently than waiting for a complete checkpoint, while still maintaining the necessary recovery guarantees.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

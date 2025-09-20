@@ -24,8 +24,7 @@ The function is polymorphic - it can accept any data type as its argument and wi
 The returned OID can be used with other system functions or joined with pg_type to get human-readable type names and additional type metadata.
 
 ## Parameters / Member Variables
-- Accepts any single argument of any data type (polymorphic)
-- The function uses the PostgreSQL function call infrastructure to examine the argument's type rather than its value
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

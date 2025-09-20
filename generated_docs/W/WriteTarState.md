@@ -21,9 +21,8 @@ WriteTarState is a streamlined state management structure used in pg_basebackup 
 The structure serves as a state holder for TAR-specific backup operations, maintaining the essential information needed to process TAR streams during base backup. It represents a focused approach to stream processing where only the core streaming functionality and tablespace identification are required.
 
 ## Parameters / Member Variables
-- : Identifier for the tablespace being processed, used to track which tablespace the current TAR stream represents
-- : bbstreamer instance responsible for handling the TAR stream processing and data flow
-
+- `tablespacenum`: Identifier for the tablespace being processed, used to track which tablespace the current TAR stream represents
+- `*streamer`: bbstreamer instance responsible for handling the TAR stream processing and data flow
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](../b/bbstreamer.md) (stream processing component)

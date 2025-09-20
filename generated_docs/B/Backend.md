@@ -26,14 +26,13 @@ The Backend struct is a core data structure in PostgreSQL's postmaster process t
 The struct is essential for PostgreSQL's multi-process architecture, allowing the postmaster to coordinate with backends for operations like query cancellation, shutdown procedures, and resource management.
 
 ## Parameters / Member Variables
-- : Process ID of the backend process, used for system-level process management and signaling
-- : Random key used for secure query cancellation requests to prevent unauthorized cancellation
-- : Index into the PMChildSlot array for this backend, or -1 if not assigned
-- : Type of backend process (regular backend, autovacuum worker, etc.)
-- : Flag indicating if this backend will send an error message and terminate immediately
-- : Flag indicating if this backend should receive background worker start/stop notifications
-- : Doubly-linked list node for inclusion in the global BackendList
-
+- `pid`: Process ID of the backend process, used for system-level process management and signaling
+- `cancel_key`: Random key used for secure query cancellation requests to prevent unauthorized cancellation
+- `child_slot`: Index into the PMChildSlot array for this backend, or -1 if not assigned
+- `bkend_type`: Type of backend process (regular backend, autovacuum worker, etc.)
+- `dead_end`: Flag indicating if this backend will send an error message and terminate immediately
+- `bgworker_notify`: Flag indicating if this backend should receive background worker start/stop notifications
+- `elem`: Doubly-linked list node for inclusion in the global BackendList
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_head](../d/dlist_head.md) (for BackendList management)

@@ -19,9 +19,8 @@ typedef struct _convInfo
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about character encoding conversions during database backup operations. Character encoding conversions in PostgreSQL enable automatic translation between different character sets and encodings when data is transferred between databases with different encoding schemes. This structure extends the base  to include conversion-specific information, enabling pg_dump to properly serialize and restore character encoding conversion definitions along with their ownership information.
 
 ## Parameters / Member Variables
-- : Base  structure containing common metadata for dumpable database objects (object ID, name, namespace, dump flags, etc.)
-- : Pointer to constant string containing the name of the role (user) who owns this character encoding conversion
-
+- `dobj`: Base  structure containing common metadata for dumpable database objects (object ID, name, namespace, dump flags, etc.)
+- `*rolname`: Pointer to constant string containing the name of the role (user) who owns this character encoding conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

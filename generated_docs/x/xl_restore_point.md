@@ -21,9 +21,8 @@ xl_restore_point is a WAL record structure used to log user-created restore poin
 The restore point includes both a timestamp indicating when it was created and a user-defined name that can be referenced during recovery operations. This allows database administrators to create meaningful recovery targets at specific points in time, making it easier to recover to a known good state.
 
 ## Parameters / Member Variables
-- : Timestamp (with timezone) indicating when the restore point was created
-- : User-defined name for the restore point, limited to MAXFNAMELEN (64) characters
-
+- `rp_time`: Timestamp (with timezone) indicating when the restore point was created
+- `rp_name[MAXFNAMELEN]`: User-defined name for the restore point, limited to MAXFNAMELEN (64) characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXFNAMELEN (maximum filename length constant, value 64)

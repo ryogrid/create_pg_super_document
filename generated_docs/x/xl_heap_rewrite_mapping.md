@@ -25,13 +25,12 @@ The xl_heap_rewrite_mapping structure is used in PostgreSQL's logical replicatio
 This structure is logged as part of the WAL stream specifically for logical replication consumers, allowing them to track how tuples have been relocated during the rewrite process. It's essential for maintaining the logical replication stream's integrity when physical table restructuring occurs.
 
 ## Parameters / Member Variables
-- : Transaction ID that might need to see the row - identifies which transaction's changes this mapping applies to
-- : Database OID where the relation resides, or InvalidOid for shared relations (system catalogs)
-- : Object ID of the relation being rewritten
-- : Current offset indicating how much mapping data has been written so far
-- : Number of tuple mappings currently stored in memory for this rewrite operation
-- : LSN (Log Sequence Number) at the beginning of the rewrite operation for tracking purposes
-
+- `mapped_xid`: Transaction ID that might need to see the row - identifies which transaction's changes this mapping applies to
+- `mapped_db`: Database OID where the relation resides, or InvalidOid for shared relations (system catalogs)
+- `mapped_rel`: Object ID of the relation being rewritten
+- `offset`: Current offset indicating how much mapping data has been written so far
+- `num_mappings`: Number of tuple mappings currently stored in memory for this rewrite operation
+- `start_lsn`: LSN (Log Sequence Number) at the beginning of the rewrite operation for tracking purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (type)

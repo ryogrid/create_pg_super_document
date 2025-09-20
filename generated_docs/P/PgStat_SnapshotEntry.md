@@ -22,10 +22,9 @@ PgStat_SnapshotEntry serves as an entry in the hash table for statistics snapsho
 The structure is defined in src/backend/utils/activity/pgstat.c at lines 132-137 and is used as part of PostgreSQL's internal statistics infrastructure to maintain snapshots of statistical information that can be efficiently retrieved and managed.
 
 ## Parameters / Member Variables
-- : PgStat_HashKey structure containing the statistics entry kind, database ID, and object ID used to uniquely identify the statistics entry
-- : Character field required by PostgreSQL's simplehash implementation for internal hash table management
-- : Generic void pointer that points to the actual statistics data associated with this entry
-
+- `key`: PgStat_HashKey structure containing the statistics entry kind, database ID, and object ID used to uniquely identify the statistics entry
+- `status`: Character field required by PostgreSQL's simplehash implementation for internal hash table management
+- `*data`: Generic void pointer that points to the actual statistics data associated with this entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_HashKey

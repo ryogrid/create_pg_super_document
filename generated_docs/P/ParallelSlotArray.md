@@ -25,13 +25,12 @@ ParallelSlotArray serves as a container and management structure for multiple Pa
 This structure is commonly used in utilities like pg_amcheck, reindexdb, and vacuumdb to enable parallel processing capabilities, allowing multiple database connections to work concurrently on different tasks.
 
 ## Parameters / Member Variables
-- : Number of parallel slots allocated in the slots array
-- : Connection parameters structure containing database connection information
-- : Name of the program using this parallel slot array (for identification/logging purposes)
-- : Boolean flag indicating whether to echo commands or SQL statements
-- : Initialization command to execute when setting up new worker connections
-- : Flexible array of ParallelSlot structures representing individual worker slots
-
+- `numslots`: Number of parallel slots allocated in the slots array
+- `*cparams`: Connection parameters structure containing database connection information
+- `*progname`: Name of the program using this parallel slot array (for identification/logging purposes)
+- `echo`: Boolean flag indicating whether to echo commands or SQL statements
+- `*initcmd`: Initialization command to execute when setting up new worker connections
+- `slots[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of ParallelSlot structures representing individual worker slots
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ConnParams](../C/ConnParams.md)

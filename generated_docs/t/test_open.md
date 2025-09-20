@@ -15,7 +15,7 @@ static void test_open(void)
 This function performs a preliminary test to ensure that the target filename can be successfully opened, written to, and synchronized before running the actual fsync performance tests. It creates the test file with appropriate permissions, writes a full WAL segment size worth of data to pre-allocate space, and performs an initial fsync to ensure any dirty buffers are flushed. This setup helps ensure that subsequent sync tests measure actual sync performance rather than being skewed by initial file creation or buffer flushing overhead.
 
 ## Parameters / Member Variables
-- None (operates on global variables)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

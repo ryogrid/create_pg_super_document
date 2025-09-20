@@ -20,7 +20,7 @@ The function implements error handling that distinguishes between "directory not
 All file operations after calling this function will use paths relative to the new working directory, making it a critical setup function for the timezone compilation process.
 
 ## Parameters / Member Variables
-- 0
+
 1
 5
 6

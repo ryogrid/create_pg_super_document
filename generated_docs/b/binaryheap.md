@@ -25,13 +25,12 @@ The binaryheap structure implements a complete binary tree stored as an array, w
 The structure uses a flexible array member for the nodes, allowing for variable-capacity heaps allocated in a single memory block. The heap maintains both its current size and total capacity, along with a debugging flag to track heap property validity after unordered operations.
 
 ## Parameters / Member Variables
-- : Current number of nodes stored in the heap
-- : Total capacity of nodes that can be stored in the allocated space
-- : Boolean flag used for debugging to track whether the heap property is maintained (set to false after unordered operations)
-- : Function pointer to the comparison function that defines the heap ordering property
-- : User-provided argument passed to the comparison function for additional context
-- : Flexible array member containing the actual heap nodes, with type determined by compilation context (Datum for backend, void* for frontend)
-
+- `bh_size`: Current number of nodes stored in the heap
+- `bh_space`: Total capacity of nodes that can be stored in the allocated space
+- `bh_has_heap_property`: Boolean flag used for debugging to track whether the heap property is maintained (set to false after unordered operations)
+- `bh_compare`: Function pointer to the comparison function that defines the heap ordering property
+- `*bh_arg`: User-provided argument passed to the comparison function for additional context
+- `bh_nodes[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the actual heap nodes, with type determined by compilation context (Datum for backend, void* for frontend)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

@@ -15,7 +15,6 @@ extern struct SN_env * arabic_UTF_8_create_env(void)
 This is a language-specific constructor function that creates a new Snowball environment (SN_env) structure tailored for Arabic text processing. The function serves as a wrapper around the generic `SN_create_env` function, passing Arabic-specific configuration parameters. It allocates and initializes all necessary data structures including string buffers, integer arrays for state management, and working memory required for the Arabic stemming algorithm. The function is part of the public API for the Arabic Snowball stemmer and would typically be called at the beginning of a text processing session.
 
 ## Parameters / Member Variables
-- No input parameters (void function)
 - Returns: Pointer to a newly allocated and initialized `struct SN_env` configured for Arabic processing, or NULL on allocation failure
 
 ## Dependencies

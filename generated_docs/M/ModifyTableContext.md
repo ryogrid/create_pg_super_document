@@ -41,13 +41,12 @@ This structure serves as a context container that bundles together all the essen
 The context structure encapsulates the main execution states, tuple slots for data access, and specialized fields for handling concurrent modifications and cross-partition operations. It acts as a communication medium between the main ModifyTable execution logic and its various helper functions, allowing them to share state information and return results effectively.
 
 ## Parameters / Member Variables
-- : Pointer to the ModifyTableState containing the primary execution state for the ModifyTable operation
-- : Pointer to EPQState used for EvalPlanQual rechecks when handling concurrent tuple modifications
-- : Pointer to the executor state containing query execution context and metadata
-- : TupleTableSlot containing the tuple from ModifyTable's subplan, used to access junk columns that won't be stored
-- : TM_FailureData structure containing information about concurrent changes made to a tuple being updated or deleted
-- : TupleTableSlot for holding the tuple projected by INSERT's RETURNING clause during cross-partition UPDATE operations
-
+- `*mtstate`: Pointer to the ModifyTableState containing the primary execution state for the ModifyTable operation
+- `*epqstate`: Pointer to EPQState used for EvalPlanQual rechecks when handling concurrent tuple modifications
+- `*estate`: Pointer to the executor state containing query execution context and metadata
+- `*planSlot`: TupleTableSlot containing the tuple from ModifyTable's subplan, used to access junk columns that won't be stored
+- `tmfd`: TM_FailureData structure containing information about concurrent changes made to a tuple being updated or deleted
+- `*cpUpdateReturningSlot`: TupleTableSlot for holding the tuple projected by INSERT's RETURNING clause during cross-partition UPDATE operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ModifyTableState](ModifyTableState.md)

@@ -15,7 +15,7 @@ Datum pg_stat_get_checkpointer_num_requested(PG_FUNCTION_ARGS)
 This function retrieves the count of checkpoint requests that have been made to the checkpointer background process. This includes both automatic checkpoints triggered by PostgreSQL's checkpoint scheduling and manual checkpoint requests initiated by administrative commands like CHECKPOINT. The counter accumulates since the last database cluster startup and provides insight into checkpoint activity levels.
 
 ## Parameters / Member Variables
-- No parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

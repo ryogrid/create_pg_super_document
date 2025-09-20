@@ -21,8 +21,6 @@ The function simply delegates all calls to the current gtsquery_consistent funct
 
 ## Parameters / Member Variables
 - Uses PostgreSQL's PG_FUNCTION_ARGS macro for function arguments:
-  - Arguments are passed through unchanged to gtsquery_consistent
-  - The specific arguments match the old signature conventions expected by pre-9.6 tsearch2
 
 ## Dependencies
 - Functions called/Symbols referenced:

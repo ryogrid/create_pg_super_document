@@ -32,16 +32,15 @@ The structure provides comprehensive control over table creation aspects includi
 The viewQuery field is specifically used for CREATE MATERIALIZED VIEW to store the parsed but not rewritten SELECT query, and is excluded from query jumbling since CreateTableAsStmt already references its own Query.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL's node system type identification
-- : RangeVar pointer specifying the target relation name and optional schema
-- : List of String nodes specifying custom column names, or NIL to use query column names
-- : String specifying the table access method (e.g., 'heap', custom access methods)
-- : List of DefElem nodes from WITH clause specifying table creation options
-- : OnCommitAction enum controlling transaction commit behavior (PRESERVE_ROWS, DELETE_ROWS, DROP)
-- : String specifying tablespace for table placement, or NULL for default
-- : Node pointer to materialized view's SELECT query (excluded from query jumbling)
-- : Boolean flag indicating WITH NO DATA clause (true = don't populate data)
-
+- `type`: Standard NodeTag for PostgreSQL's node system type identification
+- `*rel`: RangeVar pointer specifying the target relation name and optional schema
+- `*colNames`: List of String nodes specifying custom column names, or NIL to use query column names
+- `*accessMethod`: String specifying the table access method (e.g., 'heap', custom access methods)
+- `*options`: List of DefElem nodes from WITH clause specifying table creation options
+- `onCommit`: OnCommitAction enum controlling transaction commit behavior (PRESERVE_ROWS, DELETE_ROWS, DROP)
+- `*tableSpaceName`: String specifying tablespace for table placement, or NULL for default
+- `pg_node_attr(query_jumble_ignore)`: Node pointer to materialized view's SELECT query (excluded from query jumbling)
+- `skipData`: Boolean flag indicating WITH NO DATA clause (true = don't populate data)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)

@@ -24,14 +24,13 @@ typedef struct ParallelBitmapHeapState
 ParallelBitmapHeapState manages the coordination of parallel bitmap heap scan operations where multiple worker processes collaborate to scan heap pages identified by a shared TID bitmap. The structure maintains shared iterators for both current scanning and prefetch operations, ensuring that worker processes don't duplicate work while maximizing I/O efficiency through coordinated prefetching. It uses dynamic shared area (DSA) pointers to reference shared bitmap iterators, mutual exclusion mechanisms to coordinate access, and condition variables for worker synchronization.
 
 ## Parameters / Member Variables
-- : DSA pointer to the shared TID bitmap iterator for scanning current pages
-- : DSA pointer to the shared TID bitmap iterator for prefetching ahead of current page
-- : Spinlock for mutual exclusion when accessing prefetching variables and shared state
-- : Number of pages the prefetch iterator is ahead of the current iterator
-- : Current target prefetch distance for optimal I/O performance
-- : SharedBitmapState indicating the current state of the TID bitmap (e.g., building, ready, done)
-- : Condition variable for coordinating worker processes during state transitions
-
+- `tbmiterator`: DSA pointer to the shared TID bitmap iterator for scanning current pages
+- `prefetch_iterator`: DSA pointer to the shared TID bitmap iterator for prefetching ahead of current page
+- `mutex`: Spinlock for mutual exclusion when accessing prefetching variables and shared state
+- `prefetch_pages`: Number of pages the prefetch iterator is ahead of the current iterator
+- `prefetch_target`: Current target prefetch distance for optimal I/O performance
+- `state`: SharedBitmapState indicating the current state of the TID bitmap (e.g., building, ready, done)
+- `cv`: Condition variable for coordinating worker processes during state transitions
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer

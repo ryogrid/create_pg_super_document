@@ -16,9 +16,8 @@ int2and(PG_FUNCTION_ARGS)
 The  function implements the bitwise AND operation for PostgreSQL's  data type (16-bit signed integers). It takes two  arguments from the function call context, performs a bitwise AND operation using the C  operator, and returns the result as a  value. This function is typically invoked through PostgreSQL's SQL operator  when used with  operands.
 
 ## Parameters / Member Variables
-- Uses  macro to access function arguments from PostgreSQL's function call context
 - : First 16-bit signed integer operand retrieved via 
-- : Second 16-bit signed integer operand retrieved via 
+- : Second 16-bit signed integer operand retrieved via
 
 ## Dependencies
 - Functions called/Symbols referenced:

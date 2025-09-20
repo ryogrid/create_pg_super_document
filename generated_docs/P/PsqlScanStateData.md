@@ -65,28 +65,27 @@ PsqlScanStateData is the comprehensive state container for PostgreSQL's lexical 
 The structure is organized into several logical groups: flex integration state, buffer management for variable expansion, encoding handling for international character sets, persistent parsing state for complex SQL constructs, and callback mechanisms for extensibility. This design allows psql to handle complex scenarios like nested variable expansions, dollar-quoted strings, and proper parsing of stored procedure definitions with BEGIN/END blocks.
 
 ## Parameters / Member Variables
-- : yyscan_t holding flex's internal state for this particular scanner instance
-- : PQExpBuffer for accumulating the current output being constructed
-- : StackElem pointer to the top of the variable expansion buffer stack
-- : YY_BUFFER_STATE for the outer-level input buffer (not variable expansion buffers)
-- : Pointer to the start of the outer-level input buffer string
-- : Current input line being processed at the outer level
-- : Integer identifier for the character encoding currently in use
-- : Boolean indicating whether the current encoding is "safe" (all bytes >= 0x80)
-- : Boolean indicating whether string literals follow standard SQL rules
-- : Actual string data that flex is scanning from the current buffer
-- : Original unmodified data for the current buffer (before FF substitutions)
-- : Integer representing yylex's starting and finishing state for persistence
-- : State condition before encountering an end quote
-- : Current nesting depth within parentheses
-- : Current nesting depth within /* */ style comments
-- : String holding the current dollar-quote delimiter (e.g., "foo" for $foo$)
-- : Number of identifiers seen since the start of the current statement
-- : Array storing the first few identifiers to detect BEGIN/END patterns
-- : Current nesting depth of BEGIN/END block pairs
-- : Pointer to callback functions for variable resolution and other extensions
-- : Void pointer passed through to callback functions for context
-
+- `scanner`: yyscan_t holding flex's internal state for this particular scanner instance
+- `output_buf`: PQExpBuffer for accumulating the current output being constructed
+- `*buffer_stack`: StackElem pointer to the top of the variable expansion buffer stack
+- `scanbufhandle`: YY_BUFFER_STATE for the outer-level input buffer (not variable expansion buffers)
+- `*scanbuf`: Pointer to the start of the outer-level input buffer string
+- `*scanline`: Current input line being processed at the outer level
+- `encoding`: Integer identifier for the character encoding currently in use
+- `safe_encoding`: Boolean indicating whether the current encoding is "safe" (all bytes >= 0x80)
+- `std_strings`: Boolean indicating whether string literals follow standard SQL rules
+- `*curline`: Actual string data that flex is scanning from the current buffer
+- `*refline`: Original unmodified data for the current buffer (before FF substitutions)
+- `start_state`: Integer representing yylex's starting and finishing state for persistence
+- `state_before_str_stop`: State condition before encountering an end quote
+- `paren_depth`: Current nesting depth within parentheses
+- `xcdepth`: Current nesting depth within /* */ style comments
+- `*dolqstart`: String holding the current dollar-quote delimiter (e.g., "foo" for $foo$)
+- `identifier_count`: Number of identifiers seen since the start of the current statement
+- `identifiers[4]`: Array storing the first few identifiers to detect BEGIN/END patterns
+- `begin_depth`: Current nesting depth of BEGIN/END block pairs
+- `*callbacks`: Pointer to callback functions for variable resolution and other extensions
+- `*cb_passthrough`: Void pointer passed through to callback functions for context
 ## Dependencies
 - Functions called/Symbols referenced:
   - yyscan_t (flex scanner type)

@@ -19,7 +19,7 @@ This function is particularly important for ensuring that critical files such as
 The forced directory scan bypasses any caching or optimization that the archiver might normally use, ensuring that newly created `.ready` files are immediately visible to the archival process.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

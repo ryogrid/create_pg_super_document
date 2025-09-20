@@ -16,7 +16,7 @@ pg_disable_aslr(void)
 This function provides a platform-specific mechanism to disable Address Space Layout Randomization (ASLR) for PostgreSQL processes. It is primarily intended for developers testing EXEC_BACKEND code paths on Unix systems, which are normally only used on Windows. ASLR randomization can prevent backend processes from attaching to shared memory at the fixed address chosen by the postmaster, causing connection failures. The function uses conditional compilation to select the appropriate system call based on platform capabilities, supporting both Linux's personality() system call and BSD's procctl() interface.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

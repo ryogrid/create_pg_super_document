@@ -15,7 +15,6 @@ int errcode_for_socket_access(void)
 This function automatically sets the SQLSTATE error code for the current error based on the saved errno value from a failed socket operation. Unlike its file access counterpart, this function has a simpler mapping scheme focused primarily on connection-related failures. It maps socket-specific error conditions to PostgreSQL-specific SQL state codes, providing standardized error reporting for network operations within the database system.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Return value: Always returns 0 (return value is not meaningful)
 
 ## Dependencies

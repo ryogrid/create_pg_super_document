@@ -46,30 +46,29 @@ The node processes rows from its outer plan and applies the specified operation 
 For MERGE operations, it maintains action lists and join conditions for each target table. For INSERT operations with ON CONFLICT clauses, it manages conflict detection and resolution. The node also integrates with PostgreSQL's concurrency control through EvalPlanQual (EPQ) mechanisms.
 
 ## Parameters / Member Variables
-- : Base Plan structure with common execution plan fields
-- : Type of modification operation (INSERT, UPDATE, DELETE, MERGE)
-- : Whether this operation sets the command completion tag
-- : Range table index of the relation shown in EXPLAIN output
-- : Range table index of root relation for partitioned/inherited tables (0 if not applicable)
-- : True if any partitioning key columns are being updated
-- : List of range table indexes for all target relations
-- : Per-target-table lists of column numbers being updated
-- : Per-target-table WITH CHECK OPTION constraint lists
-- : Per-target-table RETURNING clause target lists
-- : Per-target-table private data for foreign data wrapper operations
-- : Bitmap indicating which plans use FDW direct modification
-- : Row locking information (for non-locking row marks)
-- : Parameter ID for EvalPlanQual re-evaluation during concurrent updates
-- : Action to take on INSERT conflicts (IGNORE or UPDATE)
-- : List of index OIDs used for ON CONFLICT conflict detection
-- : Target list for ON CONFLICT DO UPDATE operations
-- : Column numbers targeted by ON CONFLICT DO UPDATE
-- : WHERE clause for ON CONFLICT DO UPDATE operations
-- : Range table index of the EXCLUDED pseudo-relation for ON CONFLICT
-- : Target list of the EXCLUDED pseudo-relation
-- : Per-target-table action specifications for MERGE operations
-- : Per-target-table join conditions for MERGE operations
-
+- `plan`: Base Plan structure with common execution plan fields
+- `operation`: Type of modification operation (INSERT, UPDATE, DELETE, MERGE)
+- `canSetTag`: Whether this operation sets the command completion tag
+- `nominalRelation`: Range table index of the relation shown in EXPLAIN output
+- `rootRelation`: Range table index of root relation for partitioned/inherited tables (0 if not applicable)
+- `partColsUpdated`: True if any partitioning key columns are being updated
+- `*resultRelations`: List of range table indexes for all target relations
+- `*updateColnosLists`: Per-target-table lists of column numbers being updated
+- `*withCheckOptionLists`: Per-target-table WITH CHECK OPTION constraint lists
+- `*returningLists`: Per-target-table RETURNING clause target lists
+- `*fdwPrivLists`: Per-target-table private data for foreign data wrapper operations
+- `*fdwDirectModifyPlans`: Bitmap indicating which plans use FDW direct modification
+- `*rowMarks`: Row locking information (for non-locking row marks)
+- `epqParam`: Parameter ID for EvalPlanQual re-evaluation during concurrent updates
+- `onConflictAction`: Action to take on INSERT conflicts (IGNORE or UPDATE)
+- `*arbiterIndexes`: List of index OIDs used for ON CONFLICT conflict detection
+- `*onConflictSet`: Target list for ON CONFLICT DO UPDATE operations
+- `*onConflictCols`: Column numbers targeted by ON CONFLICT DO UPDATE
+- `*onConflictWhere`: WHERE clause for ON CONFLICT DO UPDATE operations
+- `exclRelRTI`: Range table index of the EXCLUDED pseudo-relation for ON CONFLICT
+- `*exclRelTlist`: Target list of the EXCLUDED pseudo-relation
+- `*mergeActionLists`: Per-target-table action specifications for MERGE operations
+- `*mergeJoinConditions`: Per-target-table join conditions for MERGE operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

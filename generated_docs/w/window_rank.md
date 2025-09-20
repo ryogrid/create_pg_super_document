@@ -19,8 +19,7 @@ For example, if three rows tie for rank 2, they all get rank 2, and the next row
 The function uses the `rank_up()` utility function to determine when the rank should increase by comparing the current row with the previous row. If the rows are not peers (different ORDER BY values), the rank is updated to the current row position + 1. The rank context is stored in partition-local memory to maintain state across function calls within the same partition.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro for PostgreSQL function parameter handling
-- Accesses the WindowObject through `PG_WINDOW_OBJECT()` macro
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

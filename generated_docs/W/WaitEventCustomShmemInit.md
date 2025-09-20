@@ -22,7 +22,7 @@ This function performs the initialization of shared memory data structures requi
 The function handles both first-time initialization (when structures don't exist) and attachment to existing structures in shared memory. For new installations, it initializes the counter with WAIT_EVENT_CUSTOM_INITIAL_ID and sets up the spinlock.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

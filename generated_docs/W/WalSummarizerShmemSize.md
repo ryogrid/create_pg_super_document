@@ -16,7 +16,7 @@ WalSummarizerShmemSize(void)
 This function calculates and returns the shared memory space needed for WAL summarizer functionality. It simply returns the size of the WalSummarizerData structure, which contains all the shared state information needed for coordinating WAL summarization activities across PostgreSQL processes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

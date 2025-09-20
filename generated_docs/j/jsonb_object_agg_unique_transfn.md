@@ -18,11 +18,7 @@ This function serves as the transition function for the jsonb_object_agg_unique 
 The function is part of PostgreSQL's JSONB aggregate functionality, which allows users to build JSONB objects from rows of data while ensuring that duplicate keys are handled according to the unique constraint policy.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface (PG_FUNCTION_ARGS)
 - Parameters are handled internally by the worker function:
-  - Aggregate state (first call vs. subsequent calls)
-  - Key value (text or other type convertible to text)
-  - Value to be aggregated into the JSONB object
 
 ## Dependencies
 - Functions called/Symbols referenced:

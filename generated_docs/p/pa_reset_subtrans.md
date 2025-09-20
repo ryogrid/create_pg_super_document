@@ -18,7 +18,7 @@ This function provides a simple mechanism to reset the subtransaction tracking l
 The function is typically called during error recovery scenarios or when cleaning up after stream processing operations to ensure that no stale subtransaction state persists between operations.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

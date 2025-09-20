@@ -18,7 +18,6 @@ This function operates on the current buffer (rs_cbuf) of an active heap scan an
 
 ## Parameters / Member Variables
 - : HeapScanDesc - The heap scan descriptor containing the current scan state
-- Pfdebug					extract_symbol_references.py
 README.md				filter_frequent_symbol_from_csv.py
 __pycache__				global_symbols.db
 area					import_symbol_reference.py

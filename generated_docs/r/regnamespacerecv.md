@@ -18,7 +18,7 @@ The  function is a binary input function for the regnamespace data type in Postg
 The function implementation is straightforward - it delegates all functionality to , indicating that regnamespace values are internally handled identically to OID values in their binary representation.
 
 ## Parameters / Member Variables
-- Uses  macro - standard PostgreSQL function calling convention that provides access to function arguments and context through the  parameter
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

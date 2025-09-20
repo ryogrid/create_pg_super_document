@@ -18,8 +18,6 @@ The key difference from percent_rank is that cume_dist includes equal values in 
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing the aggregate state and hypothetical row values
-  - The first argument (PG_GETARG_POINTER(0)) contains the OSAPerGroupState with sorted data
-  - Subsequent arguments contain the hypothetical row values for which to calculate cumulative distribution
 
 ## Dependencies
 - Functions called/Symbols referenced:

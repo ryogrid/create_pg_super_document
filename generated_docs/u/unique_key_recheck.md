@@ -31,7 +31,6 @@ The function performs several key operations:
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
   - `fcinfo->context`: TriggerData structure with trigger-specific information
-  - Trigger data includes the relation, trigger definition, and tuple slots
 
 ## Dependencies
 - Functions called/Symbols referenced:

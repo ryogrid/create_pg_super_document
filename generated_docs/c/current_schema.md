@@ -17,7 +17,7 @@ This function implements the SQL standard CURRENT_SCHEMA function. It retrieves 
 If the search path is empty (NIL), the function returns NULL. If the first schema in the search path has been recently deleted, it also returns NULL. Otherwise, it converts the schema OID to its name and returns it as a SQL datum.
 
 ## Parameters / Member Variables
-- This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL's standard function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

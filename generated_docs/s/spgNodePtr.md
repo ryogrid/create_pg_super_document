@@ -24,10 +24,9 @@ The struct serves as an intermediary representation that combines the original d
 This is part of PostgreSQL's SP-GiST access method implementation specifically tailored for text data types, enabling efficient prefix-based searching and range queries on string data.
 
 ## Parameters / Member Variables
-- : The original Datum value (text string) being processed in the picksplit operation
-- : The index of this tuple in the original input array, used to maintain correspondence between sorted values and their original positions
-- : The distinguishing character (as int16) that appears immediately after the common prefix; used as the sort key and becomes the node label (-1 for strings that are entirely within the common prefix)
-
+- `d`: The original Datum value (text string) being processed in the picksplit operation
+- `i`: The index of this tuple in the original input array, used to maintain correspondence between sorted values and their original positions
+- `c`: The distinguishing character (as int16) that appears immediately after the common prefix; used as the sort key and becomes the node label (-1 for strings that are entirely within the common prefix)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)

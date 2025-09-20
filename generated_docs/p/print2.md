@@ -15,7 +15,7 @@ static void print2(void)
 The print2 function is a simple error handling routine specifically designed for ECPG (Embedded SQL in C) testing. It outputs a fixed error message "Found another error\n" to stderr and then calls sqlprint() to display additional SQL diagnostic information. This function serves as a standardized way to report secondary or additional errors encountered during ECPG test execution.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

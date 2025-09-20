@@ -19,9 +19,8 @@ typedef struct rewrite_event
 The  structure is a simple data structure designed to prevent infinite recursion during the query rewriting process in PostgreSQL's rule system. It maintains a record of which relations are currently being processed and what type of command triggered the rule, allowing the rewriter to detect when it encounters the same relation-event combination again and avoid endless loops.
 
 ## Parameters / Member Variables
-- : The Object ID (OID) of the relation (table/view) that has rules being processed
-- : The type of command (INSERT, UPDATE, DELETE, SELECT) that triggered the rule firing
-
+- `relation`: The Object ID (OID) of the relation (table/view) that has rules being processed
+- `event`: The type of command (INSERT, UPDATE, DELETE, SELECT) that triggered the rule firing
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType (enumeration for command types)

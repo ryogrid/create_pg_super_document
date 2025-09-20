@@ -25,8 +25,6 @@ The finalizer ensures good hash distribution by applying bit manipulation operat
 ## Parameters / Member Variables
 - `hs`: Pointer to the fasthash_state structure containing the accumulated hash value
 - `tweak`: An optional modification parameter, typically:
-  - The input length for NUL-terminated strings when length isn't known ahead of time
-  - Zero when length is known or no tweaking is needed
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,7 +18,7 @@ CheckPointSUBTRANS is responsible for ensuring that all modified SUBTRANS pages 
 The function uses SimpleLruWriteAll to write all dirty pages in the SUBTRANS buffer pool to disk. The operation is instrumented with PostgreSQL tracing points to allow monitoring of checkpoint performance.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,9 +19,7 @@ The enum is specifically designed to work with the LsnReadQueue system, which ma
 
 ## Parameters / Member Variables
 - : Indicates that no I/O operation should be started for the current block reference. This occurs when the block is already in the buffer pool, when prefetching is disabled for certain conditions (e.g., full page writes, init pages, new relations), or when various optimization heuristics determine that prefetching would not be beneficial.
-
 - : Indicates that an I/O operation should be initiated for the next block reference. This happens when the block is not in the buffer pool and the system determines that prefetching would be beneficial. The kernel is asked to start reading the block to make future read operations faster.
-
 - : Indicates that the operation should be retried later because more WAL data is not yet available. This is used in non-blocking scenarios when the prefetcher has caught up to the current end of available WAL data or when readahead is temporarily disabled until replay passes a certain point.
 
 ## Dependencies

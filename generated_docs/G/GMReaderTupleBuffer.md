@@ -25,11 +25,10 @@ The buffer implements a simple array-based queue system where tuples are stored 
 The struct is specifically designed for worker processes only - it is not used for the leader process, which doesn't keep pending tuples and uses the  flag as its completion indicator.
 
 ## Parameters / Member Variables
-- : Array of MinimalTuple pointers with a fixed length of MAX_TUPLE_STORE (10), storing the buffered tuples from a worker
-- : Integer count of tuples currently stored in the buffer
-- : Index pointing to the next tuple to be extracted from the buffer during processing
-- : Boolean flag indicating whether the associated worker is known to have no more tuples to provide
-
+- `*tuple`: Array of MinimalTuple pointers with a fixed length of MAX_TUPLE_STORE (10), storing the buffered tuples from a worker
+- `nTuples`: Integer count of tuples currently stored in the buffer
+- `readCounter`: Index pointing to the next tuple to be extracted from the buffer during processing
+- `done`: Boolean flag indicating whether the associated worker is known to have no more tuples to provide
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple (tuple storage type)

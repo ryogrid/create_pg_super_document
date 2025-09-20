@@ -17,7 +17,6 @@ The function provides comprehensive diagnostic output when in debug or show-sett
 This function acts as a central coordinator for file path management, ensuring that all subsequent initialization steps have access to the necessary template and data files.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Sets global file path variables:
   - `bki_file`: Bootstrap catalog interface file
   - `hba_file`: Host-based authentication configuration template

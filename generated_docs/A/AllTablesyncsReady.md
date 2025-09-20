@@ -19,7 +19,7 @@ The function performs several key operations: it fetches up-to-date synchronizat
 This function is specifically designed to be called from within apply or tablesync workers where MySubscription has already been initialized, and should not be called from other contexts.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,9 +23,6 @@ The function includes comprehensive error handling for invalid names, non-existe
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing:
-  - Input string (role name, numeric OID, or "-")
-  - Error context for soft error handling
-  - Return value storage
 
 ## Dependencies
 - Functions called/Symbols referenced:

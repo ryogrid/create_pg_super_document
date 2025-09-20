@@ -25,7 +25,6 @@ SysLogger_Start implements the initialization and startup sequence for PostgreSQ
 The function handles platform differences between Unix/Linux and Windows, using different APIs for pipe creation and file descriptor management.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: Process ID of the launched syslogger process, or 0 on failure
 
 ## Dependencies

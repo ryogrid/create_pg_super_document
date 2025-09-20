@@ -20,8 +20,7 @@ The function essentially treats the MCV list as raw binary data and outputs it i
 The comments indicate this is a temporary solution, with plans for a more meaningful output format similar to  that would provide human-readable statistics information.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function call interface via  macro
-- Operates on the pg_mcv_list value passed through the function call context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

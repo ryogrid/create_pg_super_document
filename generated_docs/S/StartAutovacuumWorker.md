@@ -20,7 +20,7 @@ If conditions are favorable, it generates a random cancel key for the worker pro
 The function includes comprehensive error handling - if process creation fails, it cleans up allocated resources and notifies the autovacuum launcher about the failure. This notification mechanism helps prevent rapid retry loops between the launcher and postmaster.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

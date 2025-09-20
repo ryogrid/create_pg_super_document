@@ -18,7 +18,7 @@ This function provides a convenient way to switch to the execution memory contex
 This is part of PostgreSQL's memory management system where different operations use different memory contexts to control object lifetimes and automatic cleanup.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -37,9 +37,8 @@ This struct addresses two key aspects of object alteration context:
 Extensions can use this information to implement appropriate security policies, skip unnecessary permission checks for internal operations, or apply different logging strategies based on the alteration context.
 
 ## Parameters / Member Variables
-- : OID used for catalogs that require two IDs to identify a specific tuple (pg_inherits, pg_db_role_setting, pg_user_mapping). Should be set to InvalidOid for other catalogs.
-- : Boolean flag indicating whether the alteration is internal to PostgreSQL operations (true) rather than explicitly requested by the user (false). Permissions-checking hooks may skip checks for internal operations.
-
+- `ereport_on_violation`: OID used for catalogs that require two IDs to identify a specific tuple (pg_inherits, pg_db_role_setting, pg_user_mapping). Should be set to InvalidOid for other catalogs.
+- `result`: Boolean flag indicating whether the alteration is internal to PostgreSQL operations (true) rather than explicitly requested by the user (false). Permissions-checking hooks may skip checks for internal operations.
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidOid (for auxiliary_id initialization)

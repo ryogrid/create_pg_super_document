@@ -45,9 +45,8 @@ The structure acts as a key-value container where configuration parameter names 
 The ConfigData structure is typically used in arrays, with functions like  populating multiple ConfigData entries to represent all available configuration information. The pg_config utility uses this data to respond to command-line queries about PostgreSQL's installation and build configuration.
 
 ## Parameters / Member Variables
-- : A string containing the configuration parameter name (e.g., "BINDIR", "VERSION", "CC", "CONFIGURE")
-- : A string containing the corresponding configuration value (e.g., actual directory paths, compiler flags, or version information)
-
+- `*name`: A string containing the configuration parameter name (e.g., "BINDIR", "VERSION", "CC", "CONFIGURE")
+- `*setting`: A string containing the corresponding configuration value (e.g., actual directory paths, compiler flags, or version information)
 ## Dependencies
 - Functions called/Symbols referenced: None (simple struct definition)
 - Called from (representative examples):

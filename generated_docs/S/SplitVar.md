@@ -23,11 +23,10 @@ SplitVar represents a collection of word stems that result from splitting compou
 The structure is primarily used during the word normalization process where compound words are broken down into their component stems, and various morphological variants are generated and stored for dictionary lookup and matching.
 
 ## Parameters / Member Variables
-- : Current number of stems stored in the stem array
-- : Allocated capacity of the stem array (can be larger than nstem for efficiency)
-- : Dynamic array of pointers to null-terminated stem strings
-- : Pointer to the next SplitVar structure in a linked list chain
-
+- `nstem`: Current number of stems stored in the stem array
+- `lenstem`: Allocated capacity of the stem array (can be larger than nstem for efficiency)
+- `**stem`: Dynamic array of pointers to null-terminated stem strings
+- `*next`: Pointer to the next SplitVar structure in a linked list chain
 ## Dependencies
 - Functions called/Symbols referenced:
   - Self-reference in next pointer field

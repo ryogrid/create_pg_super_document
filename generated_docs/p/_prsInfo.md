@@ -23,13 +23,12 @@ typedef struct _prsInfo
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search parsers, which are components of PostgreSQL's full-text search system. The structure contains OIDs (Object Identifiers) for various function components that make up a text search parser.
 
 ## Parameters / Member Variables
-- : Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
-- : OID of the parser's start function, which initializes parsing
-- : OID of the parser's token function, which extracts the next token from input
-- : OID of the parser's end function, which performs cleanup after parsing
-- : OID of the parser's headline function, which generates search result headlines
-- : OID of the parser's lexical type function, which returns information about token types
-
+- `dobj`: Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
+- `prsstart`: OID of the parser's start function, which initializes parsing
+- `prstoken`: OID of the parser's token function, which extracts the next token from input
+- `prsend`: OID of the parser's end function, which performs cleanup after parsing
+- `prsheadline`: OID of the parser's headline function, which generates search result headlines
+- `prslextype`: OID of the parser's lexical type function, which returns information about token types
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

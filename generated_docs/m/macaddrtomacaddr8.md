@@ -21,7 +21,6 @@ The conversion follows this mapping:
 This is a PostgreSQL SQL function that can be called from SQL queries to convert macaddr values to macaddr8 format.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's function call convention with `PG_FUNCTION_ARGS`
 - Input parameter accessed via `PG_GETARG_MACADDR_P(0)`: The 6-byte MAC address to convert
 
 ## Dependencies

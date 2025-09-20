@@ -24,9 +24,8 @@ There are three possible scenarios represented by this structure:
 3. **No action**: The block wasn't cached and no I/O was initiated (both fields indicate no action)
 
 ## Parameters / Member Variables
-- : A Buffer handle that is valid if the requested block was found in the buffer cache. However, since it's not pinned, the caller must recheck its validity before use
-- : A boolean flag indicating whether asynchronous I/O was initiated for the requested block due to a cache miss
-
+- `recent_buffer`: A Buffer handle that is valid if the requested block was found in the buffer cache. However, since it's not pinned, the caller must recheck its validity before use
+- `initiated_io`: A boolean flag indicating whether asynchronous I/O was initiated for the requested block due to a cache miss
 ## Dependencies
 - Functions called/Symbols referenced:
   - Buffer (type)

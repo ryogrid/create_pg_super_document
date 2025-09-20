@@ -22,12 +22,11 @@ typedef struct JsonbAggState
 JsonbAggState serves as the aggregation state structure for JSONB aggregate functions like jsonb_agg() and jsonb_object_agg(). It encapsulates the result construction state along with type categorization and output function information needed for proper conversion of input values to JSON representation. This structure is particularly important for object aggregation where both keys and values need type-specific handling during the aggregation process.
 
 ## Parameters / Member Variables
-- : Pointer to JsonbInState that maintains the construction state and holds the aggregated result
-- : JsonTypeCategory enum value indicating the JSON type category for keys (used in object aggregation)
-- : OID of the output function used to convert key values to their string representation
-- : JsonTypeCategory enum value indicating the JSON type category for values
-- : OID of the output function used to convert values to their appropriate JSON representation
-
+- `*res`: Pointer to JsonbInState that maintains the construction state and holds the aggregated result
+- `key_category`: JsonTypeCategory enum value indicating the JSON type category for keys (used in object aggregation)
+- `key_output_func`: OID of the output function used to convert key values to their string representation
+- `val_category`: JsonTypeCategory enum value indicating the JSON type category for values
+- `val_output_func`: OID of the output function used to convert values to their appropriate JSON representation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonbInState](JsonbInState.md)

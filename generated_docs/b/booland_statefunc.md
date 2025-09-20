@@ -15,7 +15,6 @@ Datum booland_statefunc(PG_FUNCTION_ARGS)
 This function serves as the state transition function for PostgreSQL's Boolean AND aggregate functions, specifically for the SQL standard EVERY aggregate and the PostgreSQL-specific bool_and aggregate. It takes two Boolean arguments and returns their logical AND result. During aggregate computation, this function is called repeatedly to accumulate the AND operation across all input values. The function is designed for plain aggregate mode only, not moving-aggregate mode.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments
 - Argument 0: Current aggregate state (Boolean value)
 - Argument 1: Next input value to aggregate (Boolean value)
 

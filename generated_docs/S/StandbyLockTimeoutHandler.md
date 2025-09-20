@@ -13,7 +13,7 @@ void StandbyLockTimeoutHandler(void)
 This function serves as a timeout handler specifically for standby lock operations in PostgreSQL's hot standby mode. When called, it sets the global flag got_standby_lock_timeout to true, indicating that a standby lock timeout has occurred. This is a simple signal handler that performs minimal work to avoid potential issues in signal handling contexts. The function is triggered when STANDBY_LOCK_TIMEOUT is exceeded during lock conflict resolution between the standby server and recovery operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

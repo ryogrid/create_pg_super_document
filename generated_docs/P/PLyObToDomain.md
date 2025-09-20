@@ -21,9 +21,8 @@ PLyObToDomain is a specialized structure within the PL/Python type conversion sy
 The structure serves as a bridge between Python objects and PostgreSQL's domain type system, ensuring that converted values not only match the underlying base type but also satisfy any domain-specific constraints that may have been defined.
 
 ## Parameters / Member Variables
-- : Pointer to PLyObToDatum structure containing conversion information for the domain's underlying base type
-- : Generic pointer to cached information used by domain_check() function for constraint validation
-
+- `*base`: Pointer to PLyObToDatum structure containing conversion information for the domain's underlying base type
+- `*domain_info`: Generic pointer to cached information used by domain_check() function for constraint validation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyObToDatum](PLyObToDatum.md) (base type conversion structure)

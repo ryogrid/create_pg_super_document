@@ -19,7 +19,7 @@ The commitTable function is a utility function in the ECPG test suite that perfo
 The function includes error handling through sqlca.sqlcode checks, calling sqlprint() if any errors occur during the commit operations. This ensures that transaction failures are properly reported during test execution.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

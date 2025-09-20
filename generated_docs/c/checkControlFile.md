@@ -26,7 +26,7 @@ checkControlFile implements a fundamental sanity check during postmaster startup
 This check serves as an early gate to prevent the postmaster from attempting to start with an invalid or non-existent data directory, providing clear diagnostic information to help users identify configuration problems.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

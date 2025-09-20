@@ -15,7 +15,6 @@ This function is responsible for determining and setting up the PostgreSQL data 
 The function includes comprehensive error handling and user guidance when no data directory can be determined. It also handles platform-specific considerations, particularly Windows path quoting issues, by ensuring the PGDATA environment variable is properly set for child processes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Uses global variables:
   - `pg_data`: Stores the canonical data directory path
   - `pgdata_native`: Stores the original (non-canonicalized) data directory path

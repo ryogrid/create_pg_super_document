@@ -16,7 +16,7 @@ showVersion(void)
 This function provides a simple, standardized way to display the psql version information. It outputs the program name along with the PostgreSQL version using the PG_VERSION macro. The output format is specifically designed to match GNU standards for version display, making it consistent with other GNU utilities and expected by automated tools that parse version information.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

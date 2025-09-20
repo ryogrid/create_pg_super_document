@@ -20,7 +20,7 @@ The function performs a two-phase snapshot building process: first, it iterates 
 The snapshot includes only statistics relevant to the current database context, respecting access permissions and database boundaries as defined by each statistics kind's configuration.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

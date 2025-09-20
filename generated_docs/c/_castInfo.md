@@ -23,13 +23,12 @@ typedef struct _castInfo
 The  structure encapsulates all information necessary to define a type cast in PostgreSQL. It identifies the source and target types, the conversion function (if any), the context in which the cast can be applied, and the method used for the conversion. This structure enables pg_dump to preserve user-defined casts during database backup and restoration operations.
 
 ## Parameters / Member Variables
-- : Base  containing common metadata for dump operations
-- : OID of the source data type for the cast
-- : OID of the target data type for the cast
-- : OID of the function used to perform the cast (may be InvalidOid for binary-compatible casts)
-- : Character indicating the context where the cast can be applied ('e' for explicit, 'a' for assignment, 'i' for implicit)
-- : Character indicating the casting method ('f' for function, 'i' for inout, 'b' for binary compatible)
-
+- `dobj`: Base  containing common metadata for dump operations
+- `castsource`: OID of the source data type for the cast
+- `casttarget`: OID of the target data type for the cast
+- `castfunc`: OID of the function used to perform the cast (may be InvalidOid for binary-compatible casts)
+- `castcontext`: Character indicating the context where the cast can be applied ('e' for explicit, 'a' for assignment, 'i' for implicit)
+- `castmethod`: Character indicating the casting method ('f' for function, 'i' for inout, 'b' for binary compatible)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

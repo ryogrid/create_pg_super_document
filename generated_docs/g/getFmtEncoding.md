@@ -19,7 +19,6 @@ The function implements defensive programming practices with different behavior 
 This dual behavior ensures robust error detection during development while maintaining stability in production environments where an unset encoding should not cause application failures.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: Integer encoding value (PostgreSQL encoding constant)
 
 ## Dependencies

@@ -24,9 +24,6 @@ This function follows a simpler structure compared to other steps, with mandator
 
 ## Parameters / Member Variables
 - `z`: Pointer to SN_env structure containing the stemming environment, including:
-  - String buffer and cursor positions (c, ket, bra, l, lb)  
-  - Integer array I[0] for state tracking
-  - String processing context
 
 ## Dependencies
 - Functions called/Symbols referenced:

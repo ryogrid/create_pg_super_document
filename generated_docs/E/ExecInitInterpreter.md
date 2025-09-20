@@ -15,7 +15,7 @@ static void ExecInitInterpreter(void)
 This function performs crucial one-time setup for the expression evaluation interpreter when compiled with computed goto support (EEO_USE_COMPUTED_GOTO). It initializes the dispatch table by calling ExecInterpExpr with NULL parameters to obtain jump target addresses, then builds a reverse lookup table that maps these addresses back to their corresponding ExprEvalOp opcodes. The reverse lookup table is sorted using qsort with dispatch_compare_ptr as the comparator to enable efficient binary search operations later.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

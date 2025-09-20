@@ -17,7 +17,7 @@ This is a minimal signal handler that serves as part of PostgreSQL's checkpointe
 The handler is designed to be signal-safe and performs only the minimal necessary action - waking up the main loop by setting the latch. All the actual checkpoint logic and flag checking happens in the main checkpointer loop after it wakes up.
 
 ## Parameters / Member Variables
-- Uses `SIGNAL_ARGS` macro which typically expands to signal number parameter
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

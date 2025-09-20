@@ -28,12 +28,11 @@ PredIterInfoData implements a generic iterator pattern for traversing various ex
 The structure uses function pointers to provide node-type-specific behavior while maintaining a common iteration interface. This allows the predicate testing algorithms to uniformly process different expression structures without needing to know their internal representation. The iteration state is maintained in the state and state_list fields, which are interpreted differently depending on the node type being processed.
 
 ## Parameters / Member Variables
-- : Generic pointer to node-type-specific iteration state (e.g., current ListCell position for Lists)
-- : Pointer to the List being iterated over (used by List and BoolExpr iterators)
-- : Function pointer to initialize the iteration for a specific clause type
-- : Function pointer that returns the next component node in the iteration sequence
-- : Function pointer to release any resources allocated during iteration
-
+- `*state`: Generic pointer to node-type-specific iteration state (e.g., current ListCell position for Lists)
+- `*state_list`: Pointer to the List being iterated over (used by List and BoolExpr iterators)
+- `info)`: Function pointer to initialize the iteration for a specific clause type
+- `info)`: Function pointer that returns the next component node in the iteration sequence
+- `info)`: Function pointer to release any resources allocated during iteration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PredIterInfo](PredIterInfo.md) (typedef for pointer to this structure)

@@ -16,7 +16,7 @@ ConnectionUp(void)
 ConnectionUp provides a simple way to verify the status of the current PostgreSQL database connection in psql. It acts as a wrapper around the libpq PQstatus() function, checking if the connection stored in the global pset.db variable is still valid. The function returns true if the connection is in any state other than CONNECTION_BAD, indicating that the connection is up and potentially usable for database operations. This function is commonly used throughout psql to validate connection state before attempting database operations or to provide appropriate error handling when the connection has been lost.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

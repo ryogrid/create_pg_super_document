@@ -25,7 +25,6 @@ The function demonstrates how support functions can provide the query planner wi
 
 ## Parameters / Member Variables
 - : A Node pointer passed as the first argument, representing the support request from the query planner
-- The function returns a modified Node pointer containing the requested estimates
 
 ## Dependencies
 - Functions called/Symbols referenced:

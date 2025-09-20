@@ -25,7 +25,6 @@ The function supports multiple input formats including:
 The function handles parsing errors gracefully and provides appropriate error context for debugging.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's function argument system ()
   - Argument 0: Input string () obtained via 
   - Error context: Obtained from  for error reporting
 

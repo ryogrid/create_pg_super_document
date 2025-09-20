@@ -15,7 +15,7 @@ Datum pg_stat_get_checkpointer_restartpoints_requested(PG_FUNCTION_ARGS)
 This function retrieves the count of requested restartpoints that have been performed by the checkpointer process. On PostgreSQL standby servers, restartpoints fulfill a similar role to checkpoints on primary servers. Requested restartpoints are those initiated due to explicit requests, such as administrative commands or when WAL volume thresholds are reached, as opposed to those triggered automatically by timeout intervals.
 
 ## Parameters / Member Variables
-- No parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

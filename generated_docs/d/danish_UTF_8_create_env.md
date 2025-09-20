@@ -17,7 +17,6 @@ This function serves as a constructor for the Danish stemming environment. It cr
 The parameters passed to SN_create_env (1, 2) indicate the specific memory and buffer configuration requirements for Danish stemming operations, including the number of string buffers and integer arrays needed by the Danish stemming algorithm.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: Pointer to newly allocated and initialized SN_env structure configured for Danish stemming
 
 ## Dependencies

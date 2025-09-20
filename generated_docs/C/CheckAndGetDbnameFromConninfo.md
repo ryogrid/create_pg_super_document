@@ -18,7 +18,7 @@ This function is a validation helper used in PostgreSQL's logical replication sl
 The function calls  to parse the connection string and extract the database name. If no database name is found in the connection info, it raises an error with a clear message indicating that the  parameter must be specified in  for slot synchronization to work properly.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

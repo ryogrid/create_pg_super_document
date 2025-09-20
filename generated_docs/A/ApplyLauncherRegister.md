@@ -15,7 +15,7 @@ void ApplyLauncherRegister(void)
 This function sets up and registers a background worker process for the logical replication launcher. It configures the background worker with specific properties including shared memory access, database connection capabilities, and sets it to start after recovery is finished. The function includes safety checks to prevent registration during binary upgrades or when logical replication is disabled (max_logical_replication_workers == 0). The registered worker will execute the ApplyLauncherMain function and will automatically restart every 5 seconds if it crashes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

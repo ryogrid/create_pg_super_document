@@ -46,10 +46,6 @@ The function performs several major initialization tasks:
 
 ## Parameters / Member Variables
 - : WindowAgg plan node containing planner specifications including:
-  - Window function list and frame options
-  - Partition and ordering column specifications  
-  - Frame boundary offset expressions
-  - Run condition expressions for optimization
 - : Executor state providing global execution context
 - : Execution flags (BACKWARD and MARK not supported for WindowAgg)
 

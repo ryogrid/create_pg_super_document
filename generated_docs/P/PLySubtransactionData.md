@@ -23,9 +23,8 @@ This structure is essential for maintaining PostgreSQL's resource management inv
 The data is stored in a global list (explicit_subtransactions) and is managed automatically by the subtransaction infrastructure.
 
 ## Parameters / Member Variables
-- : The MemoryContext that was active before entering the subtransaction, used for restoration upon exit
-- : The ResourceOwner that was active before entering the subtransaction, used for proper resource cleanup and restoration
-
+- `oldcontext`: The MemoryContext that was active before entering the subtransaction, used for restoration upon exit
+- `oldowner`: The ResourceOwner that was active before entering the subtransaction, used for proper resource cleanup and restoration
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management system)

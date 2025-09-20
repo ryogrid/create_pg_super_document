@@ -22,7 +22,7 @@ The function creates a top-level resource owner with no parent (NULL parent) and
 This ensures proper resource tracking and cleanup when the transaction ends, either through commit or abort.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

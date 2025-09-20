@@ -36,14 +36,13 @@ ScanKeyData is a versatile structure that serves multiple purposes in PostgreSQL
 When used in arrays, multiple ScanKeys are implicitly ANDed together. The structure is designed to work with both heap scans and index scans, though some features (like search arrays and null searches) are index-specific.
 
 ## Parameters / Member Variables
-- : Control flags indicating the type of scan key operation (SK_SEARCHARRAY, SK_SEARCHNULL, SK_SEARCHNOTNULL, SK_ORDER_BY, SK_ROW_HEADER, SK_ROW_MEMBER, SK_ROW_END, etc.)
-- : The column number in the table or index that this scan key applies to
-- : Strategy number identifying the operator for index scans (not used for heap scans)
-- : Strategy subtype for the operator (not used for heap scans)
-- : Collation OID to use for collation-sensitive operators
-- : Function manager info structure containing lookup information for the comparison function
-- : The constant value to compare against (or array of values for SK_SEARCHARRAY operations)
-
+- `sk_flags`: Control flags indicating the type of scan key operation (SK_SEARCHARRAY, SK_SEARCHNULL, SK_SEARCHNOTNULL, SK_ORDER_BY, SK_ROW_HEADER, SK_ROW_MEMBER, SK_ROW_END, etc.)
+- `sk_attno`: The column number in the table or index that this scan key applies to
+- `sk_strategy`: Strategy number identifying the operator for index scans (not used for heap scans)
+- `sk_subtype`: Strategy subtype for the operator (not used for heap scans)
+- `sk_collation`: Collation OID to use for collation-sensitive operators
+- `sk_func`: Function manager info structure containing lookup information for the comparison function
+- `sk_argument`: The constant value to compare against (or array of values for SK_SEARCHARRAY operations)
 ## Dependencies
 - Functions called/Symbols referenced:
   - StrategyNumber (typedef for operator strategy)

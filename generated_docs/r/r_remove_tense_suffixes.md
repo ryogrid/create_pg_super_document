@@ -25,8 +25,6 @@ This iterative approach is necessary because Tamil words can have multiple layer
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure () containing:
-  - Word buffer and position cursors
-  - Working variable  used as a continuation flag for the loop
 
 ## Dependencies
 - Functions called/Symbols referenced:

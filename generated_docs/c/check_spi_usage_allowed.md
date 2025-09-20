@@ -20,7 +20,7 @@ This function performs critical safety checks before allowing SPI operations in 
 The function uses Perl's croak() function to immediately terminate execution if SPI usage is not allowed, preventing potential crashes or undefined behavior.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

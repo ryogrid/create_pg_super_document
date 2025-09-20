@@ -23,13 +23,12 @@ typedef struct WithCheckOption
 WCOKind classifies different types of WITH CHECK OPTION constraints in PostgreSQL. These constraints ensure that newly inserted or updated tuples satisfy certain conditions. The enumeration distinguishes between view-level checks and various Row Level Security (RLS) policy checks that apply in different contexts such as INSERT, UPDATE, MERGE, and conflict resolution scenarios.
 
 ## Parameters / Member Variables
-- : WITH CHECK OPTION constraint on an auto-updatable view
-- : Row Level Security INSERT WITH CHECK policy constraint
-- : Row Level Security UPDATE WITH CHECK policy constraint  
-- : Row Level Security constraint for ON CONFLICT DO UPDATE operations
-- : Row Level Security constraint for MERGE UPDATE operations
-- : Row Level Security constraint for MERGE DELETE operations
-
+- `type`: WITH CHECK OPTION constraint on an auto-updatable view
+- `kind`: Row Level Security INSERT WITH CHECK policy constraint
+- `*relname`: Row Level Security UPDATE WITH CHECK policy constraint
+- `*polname`: Row Level Security constraint for ON CONFLICT DO UPDATE operations
+- `*qual`: Row Level Security constraint for MERGE UPDATE operations
+- `cascaded`: Row Level Security constraint for MERGE DELETE operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)

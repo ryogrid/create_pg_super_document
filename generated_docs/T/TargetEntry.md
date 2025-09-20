@@ -43,15 +43,14 @@ The structure supports complex query processing through several key mechanisms:
 - Column naming for frontend communication via resname
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : The expression to be evaluated for this target entry
-- : Result attribute number - ordinal position in SELECT, destination column in INSERT/UPDATE
-- : Column name for output, critical for top-level SELECT, may be NULL in internal nodes
-- : Non-zero identifier linking this entry to ORDER BY/GROUP BY/DISTINCT clauses
-- : OID of the source table if this is a simple column reference, zero otherwise
-- : Column number in the source table if this is a simple column reference, zero otherwise
-- : True for working columns (sort keys, etc.) that should be removed from final output
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `*expr`: The expression to be evaluated for this target entry
+- `resno`: Result attribute number - ordinal position in SELECT, destination column in INSERT/UPDATE
+- `pg_node_attr(query_jumble_ignore)`: Column name for output, critical for top-level SELECT, may be NULL in internal nodes
+- `ressortgroupref`: Non-zero identifier linking this entry to ORDER BY/GROUP BY/DISTINCT clauses
+- `pg_node_attr(query_jumble_ignore)`: OID of the source table if this is a simple column reference, zero otherwise
+- `pg_node_attr(query_jumble_ignore)`: Column number in the source table if this is a simple column reference, zero otherwise
+- `pg_node_attr(query_jumble_ignore)`: True for working columns (sort keys, etc.) that should be removed from final output
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (for column numbering)

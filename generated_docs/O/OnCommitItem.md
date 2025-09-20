@@ -29,11 +29,10 @@ typedef struct OnCommitItem
 The OnCommitItem structure is used to maintain a list of ON COMMIT actions that need to be executed at the end of a transaction. This is primarily used for temporary tables that have been created with specific ON COMMIT behavior (such as DELETE ROWS, DROP, or PRESERVE ROWS). The structure tracks both the action to be performed and the subtransaction context in which the item was created or marked for deletion, enabling proper cleanup in case of subtransaction rollback.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the relation this ON COMMIT action applies to
-- : The specific action to perform at transaction end (of type OnCommitAction)
-- : The subtransaction ID that created this entry; zero if created in a prior transaction
-- : The subtransaction ID that marked this entry for deletion; zero if no deletion is pending
-
+- `relid`: The object identifier (OID) of the relation this ON COMMIT action applies to
+- `oncommit`: The specific action to perform at transaction end (of type OnCommitAction)
+- `creating_subid`: The subtransaction ID that created this entry; zero if created in a prior transaction
+- `deleting_subid`: The subtransaction ID that marked this entry for deletion; zero if no deletion is pending
 ## Dependencies
 - Functions called/Symbols referenced:
   - OnCommitAction (enum type)

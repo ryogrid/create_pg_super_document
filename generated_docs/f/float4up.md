@@ -15,8 +15,6 @@ Datum float4up(PG_FUNCTION_ARGS)
 The `float4up` function is a PostgreSQL built-in function that returns the same value as the input float4 (single-precision floating-point) argument. It implements the unary plus operation, which is essentially a no-op that returns the input value unchanged. This function is part of the float4 base operations in PostgreSQL's arithmetic system and exists for completeness and consistency with other unary operators.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
-- Retrieves the first argument as a float4 using `PG_GETARG_FLOAT4(0)`
 - `arg`: local float4 variable to store the input value
 
 ## Dependencies

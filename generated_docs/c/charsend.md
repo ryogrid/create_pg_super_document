@@ -24,7 +24,6 @@ This creates a binary representation that can be efficiently transmitted over th
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Character value to be converted to binary format
 
 ## Dependencies
 - Functions called/Symbols referenced:

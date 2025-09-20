@@ -30,16 +30,15 @@ The structure separates tracking of exact matches (when multiple tables have col
 The maximum acceptable fuzzy distance is controlled by MAX_FUZZY_DISTANCE (defined as 3), and matches are rejected if more than half the characters differ from the target name to avoid ridiculous suggestions.
 
 ## Parameters / Member Variables
-- : Current best fuzzy-match distance if rfirst isn't NULL, otherwise maximum acceptable distance plus 1
-- : RangeTblEntry pointer to the relation containing the closest non-exact match, or NULL if none found
-- : Column index (AttrNumber) within rfirst for the closest non-exact match
-- : RangeTblEntry pointer to another relation with a non-exact match at exactly the same distance as rfirst
-- : Column index (AttrNumber) within rsecond for the second non-exact match
-- : RangeTblEntry pointer to the first relation containing an exact match, or NULL if none
-- : Column index (AttrNumber) within rexact1 for the first exact match
-- : RangeTblEntry pointer to a second relation containing an exact match, or NULL if none
-- : Column index (AttrNumber) within rexact2 for the second exact match
-
+- `distance`: Current best fuzzy-match distance if rfirst isn't NULL, otherwise maximum acceptable distance plus 1
+- `*rfirst`: RangeTblEntry pointer to the relation containing the closest non-exact match, or NULL if none found
+- `first`: Column index (AttrNumber) within rfirst for the closest non-exact match
+- `*rsecond`: RangeTblEntry pointer to another relation with a non-exact match at exactly the same distance as rfirst
+- `second`: Column index (AttrNumber) within rsecond for the second non-exact match
+- `*rexact1`: RangeTblEntry pointer to the first relation containing an exact match, or NULL if none
+- `exact1`: Column index (AttrNumber) within rexact1 for the first exact match
+- `*rexact2`: RangeTblEntry pointer to a second relation containing an exact match, or NULL if none
+- `exact2`: Column index (AttrNumber) within rexact2 for the second exact match
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (type from catalog/pg_attribute.h)

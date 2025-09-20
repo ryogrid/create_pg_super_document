@@ -20,9 +20,8 @@ typedef struct gistxlogPageDelete
 This structure is used to log GiST index page deletion operations in the write-ahead log. Page deletion occurs when a GiST page becomes empty and can be removed from the index structure. The structure contains the transaction ID of the last transaction that could see the page during a scan (for MVCC purposes) and the offset of the downlink that references the deleted page in its parent.
 
 ## Parameters / Member Variables
-- : Full transaction ID of the last transaction that could potentially see this page during an index scan, used for proper MVCC visibility handling
-- : Offset number in the parent page where the downlink (pointer) to this deleted page is located
-
+- `deleteXid`: Full transaction ID of the last transaction that could potentially see this page during an index scan, used for proper MVCC visibility handling
+- `downlinkOffset`: Offset number in the parent page where the downlink (pointer) to this deleted page is located
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId

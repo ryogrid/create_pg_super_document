@@ -17,7 +17,6 @@ This function performs a catalog scan on the pg_authid system table to determine
 The function uses PostgreSQL's table access methods to safely scan the system catalog and properly handles locking and cleanup of resources.
 
 ## Parameters / Member Variables
-- None (void function)
 - Returns:  - true if at least one role exists, false otherwise
 
 ## Dependencies

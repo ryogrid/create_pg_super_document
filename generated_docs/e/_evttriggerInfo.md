@@ -26,14 +26,13 @@ The  structure is used by pg_dump to manage PostgreSQL event triggers, which are
 Event triggers operate at the database level and can intercept and respond to schema changes and other global database events, making them useful for auditing, security, and automated database management tasks.
 
 ## Parameters / Member Variables
-- : Base DumpableObject structure containing common dump object metadata (object type DO_EVENT_TRIGGER, catalog ID, dump ID, name, namespace)
-- : Name of the event trigger (duplicated from dobj.name for convenience)
-- : Event that triggers the function (e.g., 'ddl_command_start', 'ddl_command_end', 'table_rewrite', 'sql_drop')
-- : Name of the role (user) that owns the event trigger
-- : Tag filter string that specifies which command tags can fire the trigger (NULL if no filter)
-- : Name of the function that is executed when the event trigger fires
-- : Event trigger enabled status character ('O' for origin, 'D' for disabled, 'R' for replica, 'A' for always)
-
+- `dobj`: Base DumpableObject structure containing common dump object metadata (object type DO_EVENT_TRIGGER, catalog ID, dump ID, name, namespace)
+- `*evtname`: Name of the event trigger (duplicated from dobj.name for convenience)
+- `*evtevent`: Event that triggers the function (e.g., 'ddl_command_start', 'ddl_command_end', 'table_rewrite', 'sql_drop')
+- `*evtowner`: Name of the role (user) that owns the event trigger
+- `*evttags`: Tag filter string that specifies which command tags can fire the trigger (NULL if no filter)
+- `*evtfname`: Name of the function that is executed when the event trigger fires
+- `evtenabled`: Event trigger enabled status character ('O' for origin, 'D' for disabled, 'R' for replica, 'A' for always)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

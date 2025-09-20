@@ -20,7 +20,7 @@ This function performs the initialization of the PostgreSQL BSD indent tool's co
 The function uses the parameter configuration structure where each entry contains the parameter name, type, default value, and a pointer to the actual variable. This table-driven approach ensures consistent initialization and makes it easy to add new parameters.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,7 +16,7 @@ AtAbort_Notify(void)
 This function is called during transaction abort processing to clean up notification-related state that was established during the aborted transaction. It handles a specific edge case where a backend has registered as a listener (via LISTEN command) but the transaction is rolled back after PreCommit_Notify has been called, leaving the backend registered in the queue but without corresponding entries in the local listenChannels list. The function ensures proper cleanup by deregistering such orphaned listeners and clearing all pending notification actions and outbound notifications that would have been executed upon successful transaction commit.
 
 ## Parameters / Member Variables
-- No parameters
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

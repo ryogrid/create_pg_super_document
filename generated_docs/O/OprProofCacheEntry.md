@@ -28,14 +28,13 @@ OprProofCacheEntry represents a complete cache entry in the B-tree operator proo
 The entry tracks two types of logical relationships: same-subexpressions proofs (where the operands are identical) and test operator proofs (where constants need to be compared using auxiliary operators). For each operator pair, the system can determine both implication relationships (when one operator logically implies another) and refutation relationships (when one operator logically contradicts another). The cache lazily computes these relationships as needed and marks which results have been determined.
 
 ## Parameters / Member Variables
-- : OprProofCacheKey containing the predicate and clause operator OIDs that identify this cache entry
-- : Boolean flag indicating whether the implication relationship has been computed and cached
-- : Boolean flag indicating whether the refutation relationship has been computed and cached
-- : Result for same-subexpressions implication test (e.g., 'X > Y' implies 'X ≥ Y')
-- : Result for same-subexpressions refutation test (e.g., 'X = Y' refutes 'X ≠ Y')
-- : OID of the operator used for constant comparison in implication proofs, or InvalidOid if none
-- : OID of the operator used for constant comparison in refutation proofs, or InvalidOid if none
-
+- `key`: OprProofCacheKey containing the predicate and clause operator OIDs that identify this cache entry
+- `have_implic`: Boolean flag indicating whether the implication relationship has been computed and cached
+- `have_refute`: Boolean flag indicating whether the refutation relationship has been computed and cached
+- `same_subexprs_implies`: Result for same-subexpressions implication test (e.g., 'X > Y' implies 'X ≥ Y')
+- `same_subexprs_refutes`: Result for same-subexpressions refutation test (e.g., 'X = Y' refutes 'X ≠ Y')
+- `implic_test_op`: OID of the operator used for constant comparison in implication proofs, or InvalidOid if none
+- `refute_test_op`: OID of the operator used for constant comparison in refutation proofs, or InvalidOid if none
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OprProofCacheKey](OprProofCacheKey.md) (the hash key structure)

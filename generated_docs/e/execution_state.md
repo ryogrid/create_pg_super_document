@@ -25,13 +25,12 @@ The execution_state structure is a fundamental component of PostgreSQL's SQL fun
 Each execution_state node represents one parsed and planned SQL statement from the function body. The structure supports both eager and lazy evaluation modes, allowing PostgreSQL to optimize function execution based on the specific requirements of each statement and the overall function context.
 
 ## Parameters / Member Variables
-- : Pointer to the next execution_state in the linked list, allowing chaining of multiple SQL statements within a function
-- : Current execution status of the statement, tracked using ExecStatus enumeration values
-- : Boolean flag indicating whether this particular query produces the function's final result value
-- : Boolean flag controlling evaluation strategy - when true, the statement fetches one row at a time rather than materializing all results
-- : Pointer to the PlannedStmt containing the optimized execution plan for this SQL statement
-- : Pointer to QueryDesc structure containing runtime execution context; remains null unless the statement status is RUN
-
+- `*next`: Pointer to the next execution_state in the linked list, allowing chaining of multiple SQL statements within a function
+- `status`: Current execution status of the statement, tracked using ExecStatus enumeration values
+- `setsResult`: Boolean flag indicating whether this particular query produces the function's final result value
+- `lazyEval`: Boolean flag controlling evaluation strategy - when true, the statement fetches one row at a time rather than materializing all results
+- `*stmt`: Pointer to the PlannedStmt containing the optimized execution plan for this SQL statement
+- `*qd`: Pointer to QueryDesc structure containing runtime execution context; remains null unless the statement status is RUN
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExecStatus](../E/ExecStatus.md)

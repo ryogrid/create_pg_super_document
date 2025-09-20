@@ -15,7 +15,7 @@ void basebackup_progress_done(void)
 This function marks the completion of a PostgreSQL base backup operation by calling pgstat_progress_end_command() to end the progress tracking for the backup command. It serves as the final cleanup step in the backup progress reporting system, indicating to the PostgreSQL statistics system that the backup operation is no longer active. This allows monitoring tools and the system to recognize that the backup has completed and clears any associated progress tracking state.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

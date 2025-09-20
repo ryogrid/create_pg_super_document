@@ -17,7 +17,7 @@ This function provides a thread-safe mechanism to query the last WAL segment tha
 The function is designed with the understanding that the returned value may become stale immediately after the call returns, as concurrent operations may remove additional WAL segments. Callers must account for this inherent race condition and handle situations where the information may be outdated by the time they act on it.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

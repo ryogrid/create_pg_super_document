@@ -24,14 +24,13 @@ typedef struct plperl_array_info
 The  structure contains all the metadata and data required for bidirectional conversion between PostgreSQL arrays and Perl array references. This structure is crucial for the data type mapping functionality in PL/Perl, handling complex scenarios including multi-dimensional arrays, null values, and different element types including row types. It encapsulates both the array data and the function information needed to properly transform elements between PostgreSQL and Perl representations.
 
 ## Parameters / Member Variables
-- : Number of dimensions in the array (supports multi-dimensional arrays)
-- : Boolean flag indicating whether the array elements are row types (composite types) requiring special handling
-- : Array of Datum values representing the actual array elements in PostgreSQL's internal format
-- : Array of boolean flags indicating which elements are NULL values
-- : Array of integers specifying the number of elements in each dimension
-- : Function manager info structure for the primary conversion function between PostgreSQL and Perl formats
-- : Function manager info structure for additional transformation procedures when needed
-
+- `ndims`: Number of dimensions in the array (supports multi-dimensional arrays)
+- `elem_is_rowtype`: Boolean flag indicating whether the array elements are row types (composite types) requiring special handling
+- `*elements`: Array of Datum values representing the actual array elements in PostgreSQL's internal format
+- `*nulls`: Array of boolean flags indicating which elements are NULL values
+- `*nelems`: Array of integers specifying the number of elements in each dimension
+- `proc`: Function manager info structure for the primary conversion function between PostgreSQL and Perl formats
+- `transform_proc`: Function manager info structure for additional transformation procedures when needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references in the structure definition)

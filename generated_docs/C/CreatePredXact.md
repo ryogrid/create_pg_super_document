@@ -26,7 +26,7 @@ The function operates on two shared memory doubly-linked lists:
 This design provides O(1) allocation and deallocation performance while maintaining a fixed-size pool of transaction structures in shared memory.
 
 ## Parameters / Member Variables
-- No parameters (operates on global shared memory structures)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

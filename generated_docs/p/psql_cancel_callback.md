@@ -16,7 +16,7 @@ psql_cancel_callback(void)
 psql_cancel_callback serves as the signal handler callback for interruption requests in psql. When a cancellation signal is received (such as SIGINT from Ctrl+C), this function determines the appropriate response based on the current state of the application. If psql is currently waiting for input and interrupts are enabled, it performs a non-local jump using siglongjmp() to immediately exit the input waiting state. Otherwise, it sets a global cancel flag that can be checked by long-running operations to allow for graceful termination. The function includes platform-specific behavior, with the longjmp mechanism only available on non-Windows platforms.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

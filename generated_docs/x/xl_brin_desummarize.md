@@ -28,10 +28,9 @@ During de-summarization, two backup blocks are registered:
 - Backup block 1: regular index page (containing the actual index tuple to be deleted)
 
 ## Parameters / Member Variables
-- : The number of heap pages covered by each BRIN range summary - this configuration parameter is needed to locate the correct revmap entry
-- : The heap block number whose range summary is being removed - used to identify which revmap entry should be invalidated
-- : The offset number of the index tuple to delete from the regular index page - specifies the exact location of the tuple being removed
-
+- `pagesPerRange`: The number of heap pages covered by each BRIN range summary - this configuration parameter is needed to locate the correct revmap entry
+- `heapBlk`: The heap block number whose range summary is being removed - used to identify which revmap entry should be invalidated
+- `regOffset`: The offset number of the index tuple to delete from the regular index page - specifies the exact location of the tuple being removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)

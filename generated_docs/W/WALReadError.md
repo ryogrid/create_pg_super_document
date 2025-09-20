@@ -24,12 +24,11 @@ WALReadError serves as a comprehensive error reporting structure for WAL reading
 The structure is primarily populated by low-level WAL reading functions like pg_pread() and is used by higher-level error handling routines to provide detailed diagnostic information when WAL operations fail.
 
 ## Parameters / Member Variables
-- : The errno value set by the last pg_pread() call, indicating the specific system-level error that occurred
-- : The file offset position where the read operation was attempted
-- : The number of bytes that were requested to be read from the WAL segment
-- : The actual number of bytes successfully read by the last read() operation (may be less than requested)
-- : Complete information about the WAL segment that was being read when the error occurred
-
+- `wre_errno`: The errno value set by the last pg_pread() call, indicating the specific system-level error that occurred
+- `wre_off`: The file offset position where the read operation was attempted
+- `wre_req`: The number of bytes that were requested to be read from the WAL segment
+- `wre_read`: The actual number of bytes successfully read by the last read() operation (may be less than requested)
+- `wre_seg`: Complete information about the WAL segment that was being read when the error occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [WALOpenSegment](WALOpenSegment.md) (for segment information storage)

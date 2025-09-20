@@ -23,11 +23,10 @@ The  structure is used by pg_dump to manage extended statistics objects (multiva
 When pg_dump encounters extended statistics objects in the database, it creates StatsExtInfo structures to track them and generates the appropriate CREATE STATISTICS statements during the dump process.
 
 ## Parameters / Member Variables
-- : Base DumpableObject structure containing common dump object metadata (object type DO_STATSEXT, catalog ID, dump ID, name, namespace)
-- : Name of the role (user) that owns the extended statistics object
-- : Pointer to the TableInfo structure representing the table that the statistics are defined on
-- : Statistics target value for the extended statistics (-1 if not set, otherwise a positive integer controlling the level of statistics detail)
-
+- `dobj`: Base DumpableObject structure containing common dump object metadata (object type DO_STATSEXT, catalog ID, dump ID, name, namespace)
+- `*rolname`: Name of the role (user) that owns the extended statistics object
+- `*stattable`: Pointer to the TableInfo structure representing the table that the statistics are defined on
+- `stattarget`: Statistics target value for the extended statistics (-1 if not set, otherwise a positive integer controlling the level of statistics detail)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

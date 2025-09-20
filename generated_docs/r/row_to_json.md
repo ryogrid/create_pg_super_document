@@ -19,7 +19,6 @@ The function extracts the composite datum from the function arguments, creates a
 
 ## Parameters / Member Variables
 - Takes one argument through  macro:
-  - Composite datum (any PostgreSQL record/row type)
 
 ## Dependencies
 - Functions called/Symbols referenced:

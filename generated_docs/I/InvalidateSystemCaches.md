@@ -24,7 +24,7 @@ The function is a simple wrapper that calls InvalidateSystemCachesExtended(false
 This comprehensive invalidation ensures that no stale cache entries remain when the system cannot determine exactly which caches need to be invalidated due to lost messages.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

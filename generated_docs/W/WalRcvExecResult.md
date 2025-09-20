@@ -24,12 +24,11 @@ WalRcvExecResult is a composite data structure designed to hold comprehensive in
 The structure is primarily used in PostgreSQL's logical replication and subscription management systems, where the WAL receiver needs to execute queries on remote nodes and return both the execution status and any resulting data to the caller. This allows for robust error handling and data processing in distributed PostgreSQL environments.
 
 ## Parameters / Member Variables
-- : A WalRcvExecStatus enum value indicating the outcome of query execution (success with different result types, or error)
-- : An integer representing the SQL state code when an error occurs during query execution
-- : A character pointer to an error message string providing detailed error information when execution fails
-- : A pointer to a Tuplestorestate structure containing the result tuples when the query returns data
-- : A TupleDesc structure describing the format and metadata of the returned tuples
-
+- `status`: A WalRcvExecStatus enum value indicating the outcome of query execution (success with different result types, or error)
+- `sqlstate`: An integer representing the SQL state code when an error occurs during query execution
+- `*err`: A character pointer to an error message string providing detailed error information when execution fails
+- `*tuplestore`: A pointer to a Tuplestorestate structure containing the result tuples when the query returns data
+- `tupledesc`: A TupleDesc structure describing the format and metadata of the returned tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - WalRcvExecStatus

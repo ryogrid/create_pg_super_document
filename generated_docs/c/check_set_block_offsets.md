@@ -18,9 +18,7 @@ This function performs thorough validation of TidStore functionality by implemen
 The verification process includes: (1) checking that all inserted TIDs are present using TidStoreIsMember, (2) performing exhaustive lookups across all possible offsets for each block to build a lookup array, (3) iterating through the TidStore to collect all stored TIDs, and (4) comparing all three datasets after sorting to ensure consistency.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Operates on global  structure containing verification arrays
-- Uses global  for TidStore operations
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

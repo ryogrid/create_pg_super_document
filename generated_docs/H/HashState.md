@@ -38,7 +38,7 @@ typedef struct HashState
 HashState represents the runtime state for Hash executor nodes in PostgreSQL. It extends PlanState to provide hash-specific functionality and maintains the hash table used during hash join operations. The structure supports both single-process and parallel hash joins, with special handling for shared memory coordination in parallel scenarios. It tracks hash statistics for performance monitoring and optimization purposes.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 12693 ?        00:00:00 bash
 12720 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node information

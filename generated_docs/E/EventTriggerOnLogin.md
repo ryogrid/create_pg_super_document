@@ -25,7 +25,7 @@ Key architectural features:
 The function balances performance optimization (avoiding unnecessary work on subsequent connections) with correctness (properly handling concurrent modifications).
 
 ## Parameters / Member Variables
-- No parameters (operates on the current database session context)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

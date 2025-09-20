@@ -16,7 +16,6 @@ struct pg_tm tt,
 The  function is a PostgreSQL SQL-callable function that extracts specific date/time components from timestamp values. It serves as the backend implementation for the  SQL function when operating on timestamp (without time zone) values. The function acts as a simple wrapper that calls the shared implementation  with the  parameter set to , indicating that results should be returned as floating-point numbers rather than numeric types.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention ()
 - Arguments are accessed through the  structure:
   - Argument 0: Text field name (e.g., 'year', 'month', 'day', 'hour', etc.)
   - Argument 1: Timestamp value to extract from

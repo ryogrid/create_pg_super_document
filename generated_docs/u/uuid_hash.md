@@ -17,7 +17,6 @@ This function provides hash index support for the UUID data type by computing a 
 The function uses PostgreSQL's general-purpose `hash_any` function to compute a hash over all 16 bytes of the UUID data, ensuring good distribution properties across the hash space. This allows UUIDs to be effectively used in hash-based data structures and algorithms throughout the PostgreSQL system.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Expects one argument: the UUID value to hash
 
 ## Dependencies

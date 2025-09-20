@@ -18,7 +18,7 @@ This function reports the current WAL (Write-Ahead Log) insert location in the s
 The function ensures that it cannot be executed during recovery mode, as WAL control functions are not available when the database is in recovery state. It returns the current insert position as an LSN (Log Sequence Number) value.
 
 ## Parameters / Member Variables
-- This function takes no parameters (uses  macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

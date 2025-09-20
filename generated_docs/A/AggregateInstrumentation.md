@@ -24,10 +24,9 @@ Hash aggregation is a common strategy for implementing GROUP BY operations where
 This structure is particularly useful in parallel execution contexts where multiple workers may be performing hash aggregation simultaneously, and their individual performance metrics need to be collected and potentially aggregated for comprehensive analysis.
 
 ## Parameters / Member Variables
-- : The peak memory usage of the hash table during execution, measured in bytes (Size type)
-- : The amount of disk space used for spilling hash table data when memory is exhausted, measured in kilobytes
-- : The total number of batches used throughout the entire execution when the hash table needed to be partitioned due to memory constraints
-
+- `hash_mem_peak`: The peak memory usage of the hash table during execution, measured in bytes (Size type)
+- `hash_disk_used`: The amount of disk space used for spilling hash table data when memory is exhausted, measured in kilobytes
+- `hash_batches_used`: The total number of batches used throughout the entire execution when the hash table needed to be partitioned due to memory constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references - uses basic data types)

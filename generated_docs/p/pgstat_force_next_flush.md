@@ -18,7 +18,7 @@ This function sets a global flag (pgStatForceNextFlush) that will cause the next
 When the flag is set, pgstat_report_stat() will ignore its normal timing constraints (PGSTAT_MIN_INTERVAL) and perform an immediate, blocking flush of all pending statistics categories. The flag is automatically cleared after being consumed by pgstat_report_stat().
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

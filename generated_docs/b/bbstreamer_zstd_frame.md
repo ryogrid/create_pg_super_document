@@ -26,11 +26,10 @@ This structure is part of PostgreSQL's modular streaming architecture where tar 
 The structure is conditionally compiled only when USE_ZSTD is defined, ensuring it's only available when ZSTD library support is enabled during PostgreSQL compilation.
 
 ## Parameters / Member Variables
-- : The base bbstreamer structure containing standard operations, next streamer pointer, and buffer management
-- : ZSTD compression context pointer used for compressing data streams
-- : ZSTD decompression context pointer used for decompressing data streams  
-- : ZSTD output buffer structure managing the output data during compression/decompression operations
-
+- `base`: The base bbstreamer structure containing standard operations, next streamer pointer, and buffer management
+- `*cctx`: ZSTD compression context pointer used for compressing data streams
+- `*dctx`: ZSTD decompression context pointer used for decompressing data streams
+- `zstd_outBuf`: ZSTD output buffer structure managing the output data during compression/decompression operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base structure)

@@ -28,7 +28,6 @@ The reason code returned is an integer that corresponds to specific table rewrit
 - Other structural modifications requiring physical data reorganization
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro)  
 - Returns: Integer reason code indicating why the table rewrite was triggered
 
 ## Dependencies

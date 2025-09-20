@@ -17,7 +17,7 @@ This function determines the date ordering convention used by a specific locale 
 The function is used during PostgreSQL database initialization to configure appropriate date formatting based on the system locale. It employs a safe locale switching mechanism that saves and restores the original LC_TIME locale setting to avoid side effects.
 
 ## Parameters / Member Variables
-- LANG=C.UTF-8
+
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

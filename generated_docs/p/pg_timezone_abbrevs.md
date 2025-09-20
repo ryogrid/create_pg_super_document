@@ -27,7 +27,6 @@ For dynamic timezones, the function performs real-time resolution using the curr
 The function uses PostgreSQL's Set-Returning Function (SRF) framework to iterate through all entries in the active timezone abbreviation table, maintaining state between calls through the function context.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for SRF framework)
 - Returns: Set of records with (text abbrev, interval utc_offset, boolean is_dst)
 
 ## Dependencies

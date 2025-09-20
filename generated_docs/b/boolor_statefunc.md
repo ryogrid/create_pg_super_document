@@ -15,7 +15,6 @@ Datum boolor_statefunc(PG_FUNCTION_ARGS)
 This function serves as the state transition function for PostgreSQL's Boolean OR aggregate function, specifically for the bool_or aggregate that corresponds to the SQL standard ANY/SOME aggregate. It takes two Boolean arguments and returns their logical OR result. During aggregate computation, this function is called repeatedly to accumulate the OR operation across all input values. The function is designed for plain aggregate mode only, not moving-aggregate mode. The aggregate is named bool_or rather than ANY/SOME due to parsing conflicts with those keywords.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments
 - Argument 0: Current aggregate state (Boolean value)
 - Argument 1: Next input value to aggregate (Boolean value)
 

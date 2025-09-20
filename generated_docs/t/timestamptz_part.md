@@ -17,7 +17,6 @@ The `timestamptz_part` function is a PostgreSQL SQL-callable function that extra
 Unlike its timestamp counterpart, this function handles timezone-aware timestamps and can extract timezone-specific fields such as timezone offset in hours, minutes, or seconds.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention (`PG_FUNCTION_ARGS`)
 - Arguments are accessed through the `fcinfo` structure:
   - Argument 0: Text field name (e.g., 'year', 'month', 'day', 'timezone', 'timezone_hour', etc.)
   - Argument 1: TimestampTz value to extract from

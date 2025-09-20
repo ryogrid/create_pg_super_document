@@ -22,12 +22,11 @@ typedef struct DimensionInfo
 DimensionInfo serves as a metadata container that tracks important information needed for proper serialization and deserialization of dimension data in extended statistics. This structure is primarily used in the MCV (Most Common Values) statistics implementation to maintain type information and size calculations for efficient storage and retrieval of statistical data. The structure ensures that data can be properly reconstructed with correct alignment and type handling during deserialization operations.
 
 ## Parameters / Member Variables
-- : The number of deduplicated values in this dimension
-- : The total number of bytes required for the serialized representation
-- : The size of the deserialized data including proper memory alignment
-- : The type length from pg_type.typlen, indicating the storage size of the data type
-- : Boolean flag from pg_type.typbyval, indicating whether the type is passed by value or reference
-
+- `nvalues`: The number of deduplicated values in this dimension
+- `nbytes`: The total number of bytes required for the serialized representation
+- `nbytes_aligned`: The size of the deserialized data including proper memory alignment
+- `typlen`: The type length from pg_type.typlen, indicating the storage size of the data type
+- `typbyval`: Boolean flag from pg_type.typbyval, indicating whether the type is passed by value or reference
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references from this struct)

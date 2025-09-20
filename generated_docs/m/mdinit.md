@@ -13,7 +13,7 @@ void mdinit(void)
 This initialization function creates a dedicated memory context called "MdSmgr" for the magnetic disk storage manager. The memory context is created as a child of TopMemoryContext using the AllocSet algorithm with default sizing parameters. This context will be used to manage all dynamic memory allocations related to magnetic disk operations, providing proper memory isolation and cleanup capabilities for the storage manager.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

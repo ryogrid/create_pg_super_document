@@ -16,7 +16,6 @@ interval_gt(PG_FUNCTION_ARGS)
 The `interval_gt` function is a PostgreSQL function that implements the greater-than operator (>) for interval data types. It extracts two interval arguments from the function call arguments using PostgreSQL's argument handling macros, then uses `interval_cmp_internal()` to perform the actual comparison. The function returns a boolean result indicating whether the first interval is greater than (longer than) the second interval.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's `PG_FUNCTION_ARGS` macro system to receive arguments
 - Argument 0: First interval for comparison (left operand)
 - Argument 1: Second interval for comparison (right operand)
 

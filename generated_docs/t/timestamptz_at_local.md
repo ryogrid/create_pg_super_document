@@ -21,7 +21,6 @@ Like its counterpart timestamp_at_local, this wrapper exists to support the gram
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Input timestamp with timezone (TimestampTz)
 
 ## Dependencies
 - Functions called/Symbols referenced:

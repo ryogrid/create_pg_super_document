@@ -21,11 +21,10 @@ typedef struct BTVacInfo
 This structure serves as the central coordination mechanism for B-tree vacuum operations in shared memory. It maintains a global cycle counter for assigning unique identifiers to vacuum operations, tracks the number of currently active vacuums, and contains an array of BTOneVacInfo entries that store details about each active vacuum. The structure is protected by BtreeVacuumLock and is used to prevent multiple concurrent vacuum operations on the same index while enabling coordination between vacuum processes and other B-tree operations that might be affected by ongoing maintenance.
 
 ## Parameters / Member Variables
-- : BTCycleId value representing the most recently assigned cycle ID, incremented for each new vacuum operation to ensure uniqueness
-- : Integer count of currently active vacuum operations tracked in the vacuums array
-- : Integer representing the allocated capacity of the vacuums array, typically set to MaxBackends to accommodate the maximum possible concurrent vacuum operations
-- : Flexible array member containing BTOneVacInfo structures, each tracking an active vacuum operation with its index identifier and cycle ID
-
+- `cycle_ctr`: BTCycleId value representing the most recently assigned cycle ID, incremented for each new vacuum operation to ensure uniqueness
+- `num_vacuums`: Integer count of currently active vacuum operations tracked in the vacuums array
+- `max_vacuums`: Integer representing the allocated capacity of the vacuums array, typically set to MaxBackends to accommodate the maximum possible concurrent vacuum operations
+- `vacuums[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing BTOneVacInfo structures, each tracking an active vacuum operation with its index identifier and cycle ID
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTCycleId (type)

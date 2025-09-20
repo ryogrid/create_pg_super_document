@@ -23,7 +23,7 @@ The function is designed to be atomic - once called, all subsequent timezone abb
 The caller bears responsibility for ensuring the table's memory remains valid for the lifetime of its use, typically through GUC memory management.
 
 ## Parameters / Member Variables
-- .if !\n(.g .ab GNU tbl requires GNU troff.
+
 .if !dTS .ds TS
 .if !dTE .ds TE
 .lf 1 -: Pointer to the TimeZoneAbbrevTable to install as the active timezone abbreviation table

@@ -24,14 +24,13 @@ typedef struct plperl_query_desc
 The  structure serves as a cache for prepared SQL plans within PL/Perl functions. This structure is essential for the Server Programming Interface (SPI) functionality in PL/Perl, allowing for efficient reuse of prepared statements. The structure maintains all necessary metadata about a prepared query, including its execution plan, parameter information, and memory context management details.
 
 ## Parameters / Member Variables
-- : Fixed-size character array storing the query name identifier (up to 23 characters plus null terminator)
-- : Memory context that holds this structure and associated data, ensuring proper memory management
-- : Pointer to the SPI plan structure containing the compiled query execution plan
-- : Number of arguments/parameters that the prepared query expects
-- : Array of OID values representing the data types of each query parameter
-- : Array of function manager info structures for input functions used to convert parameter values
-- : Array of OID values for type-specific I/O parameters used during argument conversion
-
+- `qname[24]`: Fixed-size character array storing the query name identifier (up to 23 characters plus null terminator)
+- `plan_cxt`: Memory context that holds this structure and associated data, ensuring proper memory management
+- `plan`: Pointer to the SPI plan structure containing the compiled query execution plan
+- `nargs`: Number of arguments/parameters that the prepared query expects
+- `*argtypes`: Array of OID values representing the data types of each query parameter
+- `*arginfuncs`: Array of function manager info structures for input functions used to convert parameter values
+- `*argtypioparams`: Array of OID values for type-specific I/O parameters used during argument conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SPIPlanPtr](../S/SPIPlanPtr.md) (SPI plan pointer type)

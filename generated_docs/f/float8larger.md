@@ -15,7 +15,6 @@ Datum float8larger(PG_FUNCTION_ARGS)
 This function implements a comparison operation that returns the larger of two PostgreSQL float8 (double-precision floating-point) values. It extracts two float8 values from the function arguments, compares them using the `float8_gt` function, and returns the larger value. This function is typically used to implement SQL's `GREATEST` function or similar maximum-finding operations for double-precision numbers.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's `PG_FUNCTION_ARGS` macro to access arguments
 - `arg1`: The first input float8 value obtained via `PG_GETARG_FLOAT8(0)`
 - `arg2`: The second input float8 value obtained via `PG_GETARG_FLOAT8(1)`
 - `result`: Local variable storing the larger of the two input values

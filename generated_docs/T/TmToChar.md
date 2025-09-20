@@ -20,10 +20,9 @@ typedef struct TmToChar
 The TmToChar structure is a composite data type used by PostgreSQL's formatting system to represent complete datetime information for conversion to character strings. It builds upon the fmt_tm structure by adding fractional seconds precision and timezone name information. This structure serves as the primary container for datetime data during formatting operations, providing all the temporal components needed to generate formatted datetime strings. The structure is designed to handle both simple timestamps and complex timezone-aware datetime values with sub-second precision.
 
 ## Parameters / Member Variables
-- : A fmt_tm structure containing the basic datetime components (year, month, day, hour, minute, second, etc.)
-- : Fractional seconds component of type fsec_t, providing sub-second precision
-- : A constant character pointer to the timezone name string for timezone-aware timestamps
-
+- `tm`: A fmt_tm structure containing the basic datetime components (year, month, day, hour, minute, second, etc.)
+- `fsec`: Fractional seconds component of type fsec_t, providing sub-second precision
+- `*tzn`: A constant character pointer to the timezone name string for timezone-aware timestamps
 ## Dependencies
 - Functions called/Symbols referenced:
   - [fmt_tm](../f/fmt_tm.md) (embedded structure)

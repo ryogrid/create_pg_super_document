@@ -24,14 +24,13 @@ typedef struct PartitionDispatchData
 PartitionDispatchData represents the routing information needed for a single partitioned table within PostgreSQL's partition hierarchy. Each instance contains the table's relation descriptor, partition key information, execution state for partition key expressions, and mapping structures for tuple conversion. The structure includes a flexible array member 'indexes' that provides efficient lookup into the parent PartitionTupleRouting's arrays, coordinating access to both leaf partitions and nested partitioned tables.
 
 ## Parameters / Member Variables
-- : Relation descriptor of the partitioned table
-- : PartitionKey information defining how the table is partitioned
-- : List of ExprState objects containing execution state for expressions in the partition key
-- : PartitionDesc containing the partition descriptor information for the table
-- : Standalone TupleTableSlot initialized with this table's tuple descriptor, or NULL if no tuple conversion is required
-- : TupleConversionMap to convert from parent's rowtype to this table's rowtype during partition key extraction, NULL if no conversion needed
-- : Flexible array with partdesc->nparts elements mapping partition indexes to ResultRelInfo (for leaf partitions) or PartitionDispatch (for sub-partitioned tables) in the encapsulating PartitionTupleRouting arrays, -1 indicates unallocated partitions
-
+- `reldesc`: Relation descriptor of the partitioned table
+- `key`: PartitionKey information defining how the table is partitioned
+- `*keystate`: List of ExprState objects containing execution state for expressions in the partition key
+- `partdesc`: PartitionDesc containing the partition descriptor information for the table
+- `*tupslot`: Standalone TupleTableSlot initialized with this table's tuple descriptor, or NULL if no tuple conversion is required
+- `*tupmap`: TupleConversionMap to convert from parent's rowtype to this table's rowtype during partition key extraction, NULL if no conversion needed
+- `indexes[FLEXIBLE_ARRAY_MEMBER]`: Flexible array with partdesc->nparts elements mapping partition indexes to ResultRelInfo (for leaf partitions) or PartitionDispatch (for sub-partitioned tables) in the encapsulating PartitionTupleRouting arrays, -1 indicates unallocated partitions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionKey](PartitionKey.md)

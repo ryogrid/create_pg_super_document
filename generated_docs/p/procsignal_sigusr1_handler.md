@@ -20,7 +20,7 @@ The function implements a comprehensive signal multiplexing system that allows P
 The handler processes signals in a specific order and ensures that each signal type is handled appropriately. After processing all signal types, it sets the process's latch to wake up any code waiting for events.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which expands to the standard signal handler signature (typically int sig)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

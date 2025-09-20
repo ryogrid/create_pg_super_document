@@ -17,7 +17,6 @@ btrim is a PostgreSQL built-in function that performs bidirectional trimming of 
 
 ## Parameters / Member Variables
 -  (text): The input text string to be trimmed
-- BASH=/bin/bash
 BASHOPTS=checkwinsize:cmdhist:complete_fullquote:expand_aliases:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:login_shell:progcomp:promptvars:sourcepath
 BASH_ALIASES=()
 BASH_ARGC=([0]="0")

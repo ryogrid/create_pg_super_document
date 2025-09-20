@@ -17,7 +17,7 @@ This function creates a completely empty PathTarget structure using makeNode(Pat
 The function intentionally encapsulates the simple makeNode() call to provide a stable API that doesn't expose the internal implementation details to callers. This allows the implementation to change if needed without affecting calling code.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

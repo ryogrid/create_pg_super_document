@@ -17,7 +17,7 @@ The  function initializes the pthread key infrastructure required for thread-loc
 This function is designed to be called exactly once using  to ensure thread-safe initialization of the key system. The created key allows each thread to maintain its own private instance of a SQLCA structure, ensuring thread safety in multi-threaded database applications.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

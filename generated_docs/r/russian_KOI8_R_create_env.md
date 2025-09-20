@@ -15,7 +15,7 @@ This function serves as a factory method for creating Snowball environment struc
 The function calls SN_create_env with parameters (0, 2), indicating no string array allocation but space for 2 integer variables, which are used by the Russian stemming algorithm to track morphological regions within words.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

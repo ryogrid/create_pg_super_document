@@ -19,7 +19,7 @@ The function explicitly sets four key signals (SIGHUP, SIGINT, SIGTERM, SIGQUIT)
 This simplified signal handling serves both functional and documentation purposes, making it clear that bootstrap processes intentionally use minimal signal handling compared to regular PostgreSQL backends.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

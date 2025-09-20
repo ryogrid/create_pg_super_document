@@ -23,8 +23,7 @@ Key characteristics:
 - Uses partition-local memory for rank state management
 
 ## Parameters / Member Variables
-- This function follows the PostgreSQL function calling convention (PG_FUNCTION_ARGS)
-- Accesses the WindowObject through PG_WINDOW_OBJECT() macro
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

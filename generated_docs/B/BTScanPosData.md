@@ -65,7 +65,6 @@ This structure encapsulates all the state information required to track a scan p
 - : BlockNumber of the page's right link when it was scanned
 - : Boolean flag indicating if there may be matching entries to the left
 - : Boolean flag indicating if there may be matching entries to the right
-- 0
 1
 3.2
 5

@@ -28,12 +28,11 @@ SetToDefault is a specialized expression node that serves as a placeholder for D
 The structure inherits from Expr, making it compatible with PostgreSQL's expression tree framework, but it requires special handling since it cannot be directly executed. The node stores type information (typeId, typeMod, collation) that will be needed when the actual default value is substituted.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : OID of the data type for the value that will replace this placeholder
-- : Type modifier for the substituted value (ignored in query jumbling)
-- : Collation OID for the substituted value (ignored in query jumbling)
-- : Parse location in the original query text, or -1 if location is unknown
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `typeId`: OID of the data type for the value that will replace this placeholder
+- `pg_node_attr(query_jumble_ignore)`: Type modifier for the substituted value (ignored in query jumbling)
+- `pg_node_attr(query_jumble_ignore)`: Collation OID for the substituted value (ignored in query jumbling)
+- `location`: Parse location in the original query text, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc (for location tracking)

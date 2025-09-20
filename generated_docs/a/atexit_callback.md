@@ -16,7 +16,7 @@ atexit_callback(void)
 atexit_callback implements a safety mechanism for handling improper process termination in PostgreSQL. It is registered with the system's atexit() facility and automatically invoked when a process exits through direct calls to exit() rather than the proper proc_exit() pathway. The function calls proc_exit_prepare() with an exit code of -1 (since the real exit code is not available at this point) to ensure that essential cleanup operations are still performed. This design provides a fallback cleanup mechanism for add-on code or other components that might not follow PostgreSQL's preferred termination protocol.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

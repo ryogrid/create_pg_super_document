@@ -27,13 +27,12 @@ The structure maintains information about both lower and upper bounds for a give
 The structure is organized as a linked list, where each node represents a different variable that has potential range conditions. For each variable, the structure tracks whether lower and/or upper bounds have been found, along with their respective selectivity values.
 
 ## Parameters / Member Variables
-- : Pointer to the next RangeQueryClause in the linked list, enabling multiple variables to be tracked simultaneously
-- : Node representing the common variable referenced by the range clauses (e.g., a column reference)
-- : Boolean flag indicating whether a lower-bound clause (var > something) has been identified for this variable
-- : Boolean flag indicating whether an upper-bound clause (var < something) has been identified for this variable  
-- : Selectivity estimate for the lower-bound clause, representing the fraction of rows expected to satisfy the condition
-- : Selectivity estimate for the upper-bound clause, representing the fraction of rows expected to satisfy the condition
-
+- `*next`: Pointer to the next RangeQueryClause in the linked list, enabling multiple variables to be tracked simultaneously
+- `*var`: Node representing the common variable referenced by the range clauses (e.g., a column reference)
+- `have_lobound`: Boolean flag indicating whether a lower-bound clause (var > something) has been identified for this variable
+- `have_hibound`: Boolean flag indicating whether an upper-bound clause (var < something) has been identified for this variable
+- `lobound`: Selectivity estimate for the lower-bound clause, representing the fraction of rows expected to satisfy the condition
+- `hibound`: Selectivity estimate for the upper-bound clause, representing the fraction of rows expected to satisfy the condition
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Node](../N/Node.md) (PostgreSQL's base node type)

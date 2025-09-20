@@ -18,8 +18,7 @@ typedef struct PLyScalarToOb
 PLyScalarToOb is a simple struct used within the PLyDatumToOb union to handle conversion of scalar PostgreSQL data types to Python objects. It stores the function manager information needed to call the PostgreSQL type's output function, which converts the internal representation to a string that can then be processed into a Python object.
 
 ## Parameters / Member Variables
-- : FmgrInfo struct containing cached lookup information for the PostgreSQL type's output function
-
+- `typfunc`: FmgrInfo struct containing cached lookup information for the PostgreSQL type's output function
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)

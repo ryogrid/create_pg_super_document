@@ -19,8 +19,7 @@ typedef struct _aggInfo
 The _aggInfo structure is a specialized extension of the _funcInfo structure designed specifically for aggregate functions in PostgreSQL's pg_dump utility. Currently, it serves as a simple wrapper around FuncInfo, indicating that aggregate functions are treated as a special category of functions but don't require additional metadata beyond what regular functions need. The comment suggests that this structure is designed to be extensible, allowing for aggregate-specific fields to be added in the future if needed.
 
 ## Parameters / Member Variables
-- : A complete FuncInfo structure containing all the standard function metadata including dumpable object information, access control, owner, language, arguments, return type, and postponement flags
-
+- `aggfn`: A complete FuncInfo structure containing all the standard function metadata including dumpable object information, access control, owner, language, arguments, return type, and postponement flags
 ## Dependencies
 - Functions called/Symbols referenced:
   - FuncInfo (which includes DumpableObject, DumpableAcl, and other function metadata)

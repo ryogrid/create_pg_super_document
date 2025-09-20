@@ -20,7 +20,7 @@ Table synchronization workers are responsible for performing initial synchroniza
 The function internally calls the  macro, which checks both that the worker is in use and that its type is .
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -40,21 +40,20 @@ TParser serves as the central data structure for PostgreSQL's text search word p
 The structure maintains multiple representations of the input text (multibyte, wide character, and PostgreSQL's internal wide character format) to optimize processing for different character encoding scenarios. It uses a state stack (via TParserPosition) to enable complex parsing scenarios with backtracking capabilities.
 
 ## Parameters / Member Variables
-- : Pointer to the input text in multibyte character encoding
-- : Length of the multibyte input string
-- : Wide character representation of the input string (wchar_t format)
-- : PostgreSQL's internal wide character representation for C-locale processing
-- : Boolean flag indicating whether wide character processing is being used
-- : Maximum length of a character in the current encoding
-- : Pointer to the current parser position/state stack (TParserPosition)
-- : Boolean flag indicating whether certain characters should be ignored
-- : Boolean flag used for URL/hostname parsing logic
-- : Current character being processed (single-byte representation)
-- : Output buffer containing the current token being generated
-- : Length of the current output token in bytes
-- : Length of the current output token in characters
-- : Token type identifier for the current token
-
+- `*str`: Pointer to the input text in multibyte character encoding
+- `lenstr`: Length of the multibyte input string
+- `*wstr`: Wide character representation of the input string (wchar_t format)
+- `*pgwstr`: PostgreSQL's internal wide character representation for C-locale processing
+- `usewide`: Boolean flag indicating whether wide character processing is being used
+- `charmaxlen`: Maximum length of a character in the current encoding
+- `*state`: Pointer to the current parser position/state stack (TParserPosition)
+- `ignore`: Boolean flag indicating whether certain characters should be ignored
+- `wanthost`: Boolean flag used for URL/hostname parsing logic
+- `c`: Current character being processed (single-byte representation)
+- `*token`: Output buffer containing the current token being generated
+- `lenbytetoken`: Length of the current output token in bytes
+- `lenchartoken`: Length of the current output token in characters
+- `type`: Token type identifier for the current token
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParserPosition](TParserPosition.md)

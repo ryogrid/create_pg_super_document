@@ -17,7 +17,7 @@ This function is part of PostgreSQL's test_slru module for testing complete SLRU
 This is a comprehensive cleanup function that removes all SLRU data, typically used for testing scenarios where a clean slate is needed.
 
 ## Parameters / Member Variables
-- No parameters (PG_FUNCTION_ARGS is used but no arguments are extracted)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

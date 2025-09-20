@@ -18,7 +18,7 @@ This function serves as a runtime verification mechanism to ensure the statistic
 The assertion will cause the program to abort in debug builds if the statistics subsystem is not in the expected state, helping developers identify issues early in the development cycle. In release builds with assertions disabled, this function effectively becomes a no-op.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

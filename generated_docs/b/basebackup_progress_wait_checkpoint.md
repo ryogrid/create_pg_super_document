@@ -13,7 +13,7 @@ void basebackup_progress_wait_checkpoint(void)
 This function is a simple progress reporting utility that updates the base backup phase to indicate that the system is currently waiting for the start-of-backup checkpoint operation to complete. In PostgreSQL's base backup process, a checkpoint must be performed at the beginning to ensure data consistency. This function communicates this waiting state to the progress reporting system, allowing users and monitoring tools to understand that the backup is in the checkpoint waiting phase rather than actively transferring data.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

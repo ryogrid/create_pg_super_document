@@ -24,12 +24,11 @@ BTWriteState serves as the central coordination structure for the index writing 
 The structure provides a generic insertion scankey that can be reused throughout the writing process for efficiency, avoiding repeated scankey construction. It also maintains a count of allocated pages to track storage resource usage during index construction.
 
 ## Parameters / Member Variables
-- : Relation pointer to the source heap table being indexed
-- : Relation pointer to the target B-tree index being constructed
-- : Pointer to BulkWriteState managing efficient bulk write operations
-- : BTScanInsert structure providing a generic insertion scankey that can be reused for tuple insertions
-- : BlockNumber tracking the total number of pages that have been allocated for the index
-
+- `heap`: Relation pointer to the source heap table being indexed
+- `index`: Relation pointer to the target B-tree index being constructed
+- `*bulkstate`: Pointer to BulkWriteState managing efficient bulk write operations
+- `inskey`: BTScanInsert structure providing a generic insertion scankey that can be reused for tuple insertions
+- `btws_pages_alloced`: BlockNumber tracking the total number of pages that have been allocated for the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BulkWriteState](BulkWriteState.md)

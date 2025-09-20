@@ -26,16 +26,15 @@ typedef struct autovac_table
 The  structure serves as a comprehensive descriptor for tables that have passed the autovacuum recheck phase and are ready for actual vacuum or analyze operations. Unlike the earlier  structure used for initial table discovery, this structure contains fully resolved vacuum parameters, cost settings, and complete naming information needed to execute the autovacuum operation. It represents the final form of table information after all configuration options, thresholds, and policies have been evaluated and applied.
 
 ## Parameters / Member Variables
-- : OID of the relation (table) to be vacuumed or analyzed
-- : Complete VacuumParams structure containing all vacuum operation parameters
-- : Storage parameter for vacuum cost delay, controlling the pacing of vacuum operations
-- : Storage parameter for vacuum cost limit, controlling resource usage during vacuum
-- : Boolean flag indicating whether vacuum cost balancing should be applied
-- : Boolean flag indicating whether this is a shared relation (like system catalogs)
-- : Name of the relation as a string
-- : Name of the schema/namespace containing this relation
-- : Name of the database containing this relation
-
+- `at_relid`: OID of the relation (table) to be vacuumed or analyzed
+- `at_params`: Complete VacuumParams structure containing all vacuum operation parameters
+- `at_storage_param_vac_cost_delay`: Storage parameter for vacuum cost delay, controlling the pacing of vacuum operations
+- `at_storage_param_vac_cost_limit`: Storage parameter for vacuum cost limit, controlling resource usage during vacuum
+- `at_dobalance`: Boolean flag indicating whether vacuum cost balancing should be applied
+- `at_sharedrel`: Boolean flag indicating whether this is a shared relation (like system catalogs)
+- `*at_relname`: Name of the relation as a string
+- `*at_nspname`: Name of the schema/namespace containing this relation
+- `*at_datname`: Name of the database containing this relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - VacuumParams (vacuum operation parameters structure)

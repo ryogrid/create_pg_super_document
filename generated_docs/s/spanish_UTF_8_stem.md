@@ -29,9 +29,6 @@ The function works backwards from the end of the word (right-to-left processing)
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure containing:
-  - The word being processed
-  - Current cursor positions (c, l, lb)
-  - Region boundaries and other stemming state
 
 ## Dependencies
 - Functions called/Symbols referenced:

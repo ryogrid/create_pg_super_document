@@ -17,7 +17,6 @@ The pg_ndistinct_recv function serves as the binary input routine for the pg_ndi
 
 ## Parameters / Member Variables
 - Input parameter (via PG_FUNCTION_ARGS):
-  - Binary input data (not processed due to error)
 
 ## Dependencies
 - Functions called/Symbols referenced:

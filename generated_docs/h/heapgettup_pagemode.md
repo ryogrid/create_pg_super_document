@@ -20,7 +20,6 @@ This function provides the same API as heapgettup but operates in page-at-a-time
 
 ## Parameters / Member Variables
 - : HeapScanDesc - The heap scan descriptor containing scan state and visible tuple information
-- Pfdebug					extract_symbol_references.py
 README.md				filter_frequent_symbol_from_csv.py
 __pycache__				global_symbols.db
 area					import_symbol_reference.py

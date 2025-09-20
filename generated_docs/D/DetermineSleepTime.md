@@ -23,7 +23,7 @@ DetermineSleepTime is a critical function in the postmaster's event loop that de
 The function ensures that background workers are serviced promptly while maintaining efficient resource usage during normal operations. During shutdown, it provides a countdown mechanism for graceful termination before forceful process killing.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

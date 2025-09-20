@@ -19,7 +19,6 @@ The interface follows a three-phase lifecycle: content processing (called repeat
 ## Parameters / Member Variables
 - : Function pointer for processing data chunks; called repeatedly with archive data, member metadata, and context information about the data type (header, contents, trailer, etc.)
 - : Function pointer for end-of-stream processing; called once when all data has been processed to perform cleanup operations like closing files or flushing buffers
--                total        used        free      shared  buff/cache   available
 Mem:        32819380     7700764    19738404        3072     5380212    24736432
 Swap:        8388608           0     8388608: Function pointer for resource deallocation; called to release memory and other resources allocated by the bbstreamer implementation
 

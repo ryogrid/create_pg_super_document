@@ -13,7 +13,7 @@ extern struct SN_env * turkish_UTF_8_create_env(void)
 This function serves as a language-specific wrapper around the generic SN_create_env function, providing the proper initialization parameters for Turkish stemming operations. It creates a Snowball environment with no integer variables (0) and one string variable (1), which matches the requirements of the Turkish stemming algorithm. The returned environment structure contains all necessary working memory, cursors, and state variables needed for Turkish text processing.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

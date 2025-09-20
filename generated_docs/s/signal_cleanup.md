@@ -16,7 +16,7 @@ signal_cleanup(SIGNAL_ARGS)
 The signal_cleanup function serves as a signal handler for pg_test_fsync utility. When invoked due to a signal (typically SIGINT or SIGTERM), it performs essential cleanup operations before terminating the process. The function ensures that any temporary files created during testing are properly removed and that stdout output is properly terminated with a newline. After cleanup, it exits the process with status code 1.
 
 ## Parameters / Member Variables
-- Uses  macro which provides standard signal handler parameters (signal number, signal info, context)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

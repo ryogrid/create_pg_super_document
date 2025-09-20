@@ -19,7 +19,6 @@ The function extracts the OID of the statistics object from its argument, delega
 As a PostgreSQL function following the PG_FUNCTION_ARGS convention, it can be called directly from SQL queries to retrieve human-readable CREATE STATISTICS statements for existing statistics objects, which is useful for documentation, backup scripts, or understanding database schema.
 
 ## Parameters / Member Variables
-- Function takes PG_FUNCTION_ARGS (standard PostgreSQL function argument structure)
 - `statextid`: OID of the extended statistics object (extracted via PG_GETARG_OID(0))
 
 ## Dependencies

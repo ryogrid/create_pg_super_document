@@ -23,7 +23,6 @@ The function delegates all the actual comparison work to , including dimension c
 - Function receives two array arguments via  macro:
   - : First array to compare (argument 0, passed through to array_eq)
   - : Second array to compare (argument 1, passed through to array_eq)
-- Uses the same collation and function call context as array_eq
 
 ## Dependencies
 - Functions called/Symbols referenced:

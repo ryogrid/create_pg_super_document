@@ -24,7 +24,7 @@ The created environment contains all necessary data structures for text processi
 - Cursor positions for text manipulation
 
 ## Parameters / Member Variables
-- None - this function takes no parameters
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

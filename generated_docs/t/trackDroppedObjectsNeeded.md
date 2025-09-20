@@ -21,7 +21,7 @@ The function examines three types of events:
 - DDL Command End events (EVT_DDLCommandEnd): Triggered at the end of DDL commands
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

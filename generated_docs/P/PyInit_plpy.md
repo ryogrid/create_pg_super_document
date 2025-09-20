@@ -16,7 +16,7 @@ PyInit_plpy(void)
 This function serves as the entry point for initializing the plpy Python module when it is imported. It follows Python's C extension module initialization protocol by creating a new Python module object using the PLy_module definition and adding PostgreSQL-specific exceptions to it. The function is marked with PyMODINIT_FUNC to ensure proper linkage and visibility, especially on Windows platforms where it enables DLL export functionality.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

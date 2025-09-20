@@ -17,9 +17,7 @@ The `to_oct32` function is a PostgreSQL SQL-callable function that takes a 32-bi
 This function serves as a wrapper around the internal `convert_to_base` utility function, specifically configured for base-8 conversion. Octal representation uses digits 0-7 and is commonly used in system programming and Unix file permissions, making this function useful for applications that need to display or process octal values.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using `PG_FUNCTION_ARGS`
 - Expects one argument: a 32-bit integer value accessed via `PG_GETARG_INT32(0)`
-- The input is cast to `uint32` to ensure unsigned interpretation before conversion to `uint64`
 
 ## Dependencies
 - Functions called/Symbols referenced:

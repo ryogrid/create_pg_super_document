@@ -23,8 +23,7 @@ This structure is used to log simple insertions into B-tree pages during Write-A
 For INSERT_POST operations (posting list splits), additional data follows the structure including the split offset and the new tuple data. The WAL record format includes backup blocks for the original page and potentially for child left sibling (INSERT_UPPER/INSERT_META) and metadata (INSERT_META only).
 
 ## Parameters / Member Variables
-- : The offset number on the page where the new tuple should be inserted
-
+- `offnum`: The offset number on the page where the new tuple should be inserted
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type)

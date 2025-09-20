@@ -20,7 +20,7 @@ The system user is initialized once per session by InitializeSystemUser() during
 The returned string remains constant throughout the session and is stored in long-lived memory (TopMemoryContext) to ensure it persists for the entire connection lifetime.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

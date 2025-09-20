@@ -27,7 +27,7 @@ The database selection algorithm prioritizes databases based on urgency:
 The function also implements throttling by skipping databases that were recently processed (within autovacuum_naptime seconds) according to the internal DatabaseList tracking.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

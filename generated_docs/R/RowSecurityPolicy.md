@@ -26,14 +26,13 @@ RowSecurityPolicy is a core data structure in PostgreSQL's Row Level Security (R
 The policy can be either permissive (allowing access to rows that match the condition) or restrictive (denying access to rows that match the condition). The structure supports different expressions for read operations (qual) and write operations (with_check_qual), allowing fine-grained control over data access and modification.
 
 ## Parameters / Member Variables
-- : String containing the user-defined name of the row security policy
-- : Character indicating the SQL command type this policy applies to (SELECT, INSERT, UPDATE, DELETE, or ALL)
-- : Array of role OIDs that this policy applies to; if NULL, applies to all roles
-- : Boolean flag indicating policy type - true for permissive policies (grant access), false for restrictive policies (deny access)
-- : Expression tree used to filter which rows are visible/accessible for read operations
-- : Expression tree used to validate rows for write operations (INSERT/UPDATE)
-- : Boolean optimization flag indicating whether either qual or with_check_qual contains subqueries
-
+- `*policy_name`: String containing the user-defined name of the row security policy
+- `polcmd`: Character indicating the SQL command type this policy applies to (SELECT, INSERT, UPDATE, DELETE, or ALL)
+- `*roles`: Array of role OIDs that this policy applies to; if NULL, applies to all roles
+- `permissive`: Boolean flag indicating policy type - true for permissive policies (grant access), false for restrictive policies (deny access)
+- `*qual`: Expression tree used to filter which rows are visible/accessible for read operations
+- `*with_check_qual`: Expression tree used to validate rows for write operations (INSERT/UPDATE)
+- `hassublinks`: Boolean optimization flag indicating whether either qual or with_check_qual contains subqueries
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayType](../A/ArrayType.md) (for roles array)

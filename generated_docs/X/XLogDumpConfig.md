@@ -44,31 +44,25 @@ This structure allows users to customize their WAL analysis experience, from sim
 
 ## Parameters / Member Variables
 
-### Display Options:
-- : Suppresses verbose output, showing only essential information
-- : Controls whether to display detailed backup block information
-- : Maximum number of records to display before stopping
-- : Counter tracking how many records have been displayed
-- : Enables continuous monitoring mode, similar to 'tail -f'
-- : Enables display of statistical summary information
-- : Shows statistics for each individual record type
-
-### Filter Options:
-- : Array of boolean flags for each resource manager type
-- : Master flag indicating if resource manager filtering is active
-- : Transaction ID to filter by when enabled
-- : Flag indicating if transaction ID filtering is active
-- : RelFileLocator specifying which relation to filter by
-- : Flag for extended filtering options
-- : Flag indicating if relation filtering is active
-- : Specific block number within a relation to filter by
-- : Flag indicating if block-level filtering is active
-- : Fork number (main, FSM, VM) for relation filtering
-- : Flag to filter by full page writes
-
-### Save Options:
-- : Directory path where full page images should be saved
-
+- `quiet`: Suppresses verbose output, showing only essential information
+- `bkp_details`: Controls whether to display detailed backup block information
+- `stop_after_records`: Maximum number of records to display before stopping
+- `already_displayed_records`: Counter tracking how many records have been displayed
+- `follow`: Enables continuous monitoring mode, similar to 'tail -f'
+- `stats`: Enables display of statistical summary information
+- `stats_per_record`: Shows statistics for each individual record type
+- `filter_by_rmgr[RM_MAX_ID + 1]`: Array of boolean flags for each resource manager type
+- `filter_by_rmgr_enabled`: Master flag indicating if resource manager filtering is active
+- `filter_by_xid`: Transaction ID to filter by when enabled
+- `filter_by_xid_enabled`: Flag indicating if transaction ID filtering is active
+- `filter_by_relation`: RelFileLocator specifying which relation to filter by
+- `filter_by_extended`: Flag for extended filtering options
+- `filter_by_relation_enabled`: Flag indicating if relation filtering is active
+- `filter_by_relation_block`: Specific block number within a relation to filter by
+- `filter_by_relation_block_enabled`: Flag indicating if block-level filtering is active
+- `filter_by_relation_forknum`: Fork number (main, FSM, VM) for relation filtering
+- `filter_by_fpw`: Flag to filter by full page writes
+- `*save_fullpage_path`: Directory path where full page images should be saved
 ## Dependencies
 - Functions called/Symbols referenced:
   - RM_MAX_ID (maximum resource manager ID constant)

@@ -25,7 +25,6 @@ The function includes robust memory management with graceful handling of out-of-
 - : Pointer to config_generic structure containing the configuration parameter to report
   - record->name: The parameter name
   - record->last_reported: Previously reported value for duplicate detection
-  - Other configuration metadata and current value
 
 ## Dependencies
 - Functions called/Symbols referenced:

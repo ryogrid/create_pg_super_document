@@ -22,10 +22,9 @@ SerialControlData serves as the control block for PostgreSQL's serializable snap
 The structure is part of the predicate locking mechanism that implements Serializable Snapshot Isolation (SSI), which prevents serialization anomalies by tracking read-write conflicts between concurrent transactions.
 
 ## Parameters / Member Variables
-- : The newest initialized page in the SLRU buffer, representing the most recently allocated page for storing serializable transaction data
-- : The newest (highest) valid transaction ID stored in the SLRU, used to determine the upper bound of tracked transactions
-- : The oldest transaction ID that might still be of interest for conflict detection, representing the lower bound of the tracking window
-
+- `headPage`: The newest initialized page in the SLRU buffer, representing the most recently allocated page for storing serializable transaction data
+- `headXid`: The newest (highest) valid transaction ID stored in the SLRU, used to determine the upper bound of tracked transactions
+- `tailXid`: The oldest transaction ID that might still be of interest for conflict detection, representing the lower bound of the tracking window
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a data structure)
 - Called from (representative examples):

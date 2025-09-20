@@ -18,8 +18,7 @@ The  function serves as a PostgreSQL function wrapper that converts a timestampt
 The function is a thin wrapper around the core conversion function , following PostgreSQL's standard pattern for SQL-callable functions that use the PG_FUNCTION_ARGS interface.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PostgreSQL's standard function argument interface)
-- Implicit parameter:  (TimestampTz) - the input timestamp with timezone value retrieved via 
+- Implicit parameter:  (TimestampTz) - the input timestamp with timezone value retrieved via
 
 ## Dependencies
 - Functions called/Symbols referenced:

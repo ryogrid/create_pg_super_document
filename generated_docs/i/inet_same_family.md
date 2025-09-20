@@ -16,7 +16,6 @@ inet_same_family(PG_FUNCTION_ARGS)
 This function compares two inet addresses to determine if they belong to the same address family. It is used internally to validate that network operations can be performed between two addresses, ensuring they are compatible (both IPv4 or both IPv6). The function extracts the IP family information from each address and performs a simple equality comparison.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function argument mechanism 
 - First argument: inet address (accessed via )
 - Second argument: inet address (accessed via )
 

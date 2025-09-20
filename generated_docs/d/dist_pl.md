@@ -16,8 +16,7 @@ dist_pl(PG_FUNCTION_ARGS)
 This PostgreSQL function computes the shortest distance between a point and an infinite line in 2D space. The function leverages the internal line_closept_point() function, which calculates the closest point on the line to the given point and returns the distance. This is a fundamental geometric operation used in spatial queries and geometric calculations within PostgreSQL's geometric data type system.
 
 ## Parameters / Member Variables
-- Takes a Point and a LINE as input through PostgreSQL's function argument mechanism
-- Returns a float8 (double precision) value representing the minimum distance
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

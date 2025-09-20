@@ -16,7 +16,7 @@ smgrreleaseall(void)
 The  function performs a comprehensive release of resources for all SMgrRelation objects currently managed by the storage manager. It iterates through the entire SMgrRelationHash hash table and calls  on each relation found. Unlike , this function preserves all SMgrRelation objects in the hash table and linked lists, only releasing their associated resources such as file descriptors and cached data. This function is particularly useful for freeing up system resources without losing the metadata about relations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

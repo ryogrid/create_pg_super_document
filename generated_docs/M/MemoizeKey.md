@@ -21,9 +21,8 @@ MemoizeKey is a crucial component of PostgreSQL's memoization cache that serves 
 When the cache reaches capacity limits, the LRU mechanism uses the lru_node to identify and remove the least recently accessed entries. This design allows the memoization system to maintain optimal cache performance by keeping frequently accessed results while discarding older, less relevant entries.
 
 ## Parameters / Member Variables
-- : A MinimalTuple containing the parameter values that serve as the unique identifier for cache lookups
-- : A doubly-linked list node (dlist_node) used to maintain the LRU ordering of cache entries
-
+- `params`: A MinimalTuple containing the parameter values that serve as the unique identifier for cache lookups
+- `lru_node`: A doubly-linked list node (dlist_node) used to maintain the LRU ordering of cache entries
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple

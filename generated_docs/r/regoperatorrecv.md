@@ -19,7 +19,6 @@ This function is part of PostgreSQL's type system infrastructure, specifically h
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro that provides access to function arguments
-  - Contains the binary data to be converted to regoperator format
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ Datum text_concat(PG_FUNCTION_ARGS)
 This function serves as the PostgreSQL SQL function entry point for the concat() operation. It acts as a thin wrapper around concat_internal, specifically configured to concatenate arguments without any separator (empty string). The function processes all arguments starting from index 0, ignores NULL values, and returns the concatenated result as a text datum. If the internal concatenation results in NULL, the function properly returns a SQL NULL value.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard PG_FUNCTION_ARGS macro to access function call information and arguments
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

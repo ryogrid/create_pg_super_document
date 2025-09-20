@@ -18,7 +18,7 @@ ForceSyncCommit provides a mechanism for critical database operations to ensure 
 The function is designed for use with commands that require guaranteed durability, such as database creation, database dropping, and tablespace operations. It's important to note that two-phase commit does not persist and restore this variable, but since all callers are expected to use , this limitation has no practical consequences.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

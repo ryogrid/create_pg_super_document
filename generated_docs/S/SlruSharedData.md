@@ -75,20 +75,19 @@ SlruSharedData serves as the central control structure for SLRU buffer pools in 
 The LRU (Least Recently Used) replacement policy is implemented using bank-specific counters that track page access patterns. The structure also supports WAL (Write-Ahead Logging) integration through LSN tracking for certain SLRU types like transaction status (pg_xact).
 
 ## Parameters / Member Variables
-- : int - Total number of buffer slots managed by this SLRU instance
-- : char** - Array of pointers to actual page data buffers
-- : SlruPageStatus* - Array tracking the status of each buffer slot (EMPTY, READ_IN_PROGRESS, VALID, WRITE_IN_PROGRESS)
-- : bool* - Array indicating whether each page has been modified and needs writing
-- : int64* - Array storing the logical page number for each buffer slot
-- : int* - Array of LRU counters for each page, used in replacement decisions
-- : LWLockPadded* - Array of locks protecting I/O operations on individual buffer slots
-- : LWLockPadded* - Array of locks protecting in-memory access to buffer slots within each bank
-- : int* - Array of current LRU counters per bank for efficient victim page selection
-- : XLogRecPtr* - Optional array of WAL LSNs for groups of entries (used by pg_xact)
-- : int - Number of LSN groups tracked per page when group_lsn is used
-- : pg_atomic_uint64 - Atomic counter tracking the current end of the log to avoid swapping out active pages
-- : int - Index used for statistics collection and reporting
-
+- `num_slots`: int - Total number of buffer slots managed by this SLRU instance
+- `**page_buffer`: char** - Array of pointers to actual page data buffers
+- `*page_status`: SlruPageStatus* - Array tracking the status of each buffer slot (EMPTY, READ_IN_PROGRESS, VALID, WRITE_IN_PROGRESS)
+- `*page_dirty`: bool* - Array indicating whether each page has been modified and needs writing
+- `*page_number`: int64* - Array storing the logical page number for each buffer slot
+- `*page_lru_count`: int* - Array of LRU counters for each page, used in replacement decisions
+- `*buffer_locks`: LWLockPadded* - Array of locks protecting I/O operations on individual buffer slots
+- `*bank_locks`: LWLockPadded* - Array of locks protecting in-memory access to buffer slots within each bank
+- `*bank_cur_lru_count`: int* - Array of current LRU counters per bank for efficient victim page selection
+- `*group_lsn`: XLogRecPtr* - Optional array of WAL LSNs for groups of entries (used by pg_xact)
+- `lsn_groups_per_page`: int - Number of LSN groups tracked per page when group_lsn is used
+- `latest_page_number`: pg_atomic_uint64 - Atomic counter tracking the current end of the log to avoid swapping out active pages
+- `slru_stats_idx`: int - Index used for statistics collection and reporting
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlruPageStatus (enumeration for page states)

@@ -15,7 +15,7 @@ void checkDataDir(void)
 checkDataDir performs comprehensive validation of the PostgreSQL data directory to ensure it meets security and operational requirements. The function verifies directory existence, ownership, permissions, and proper PostgreSQL version compatibility. It also configures file creation modes based on the data directory's permissions. This function is a critical security component that prevents unauthorized access and ensures proper multi-user isolation. The validation includes platform-specific checks, with Windows having relaxed permission requirements due to different file system security models.
 
 ## Parameters / Member Variables
-- None (operates on the global DataDir variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,6 @@ TimestampTz feGetCurrentTimestamp(void)
 This function provides a frontend implementation of timestamp retrieval since client utilities are not linked with backend code that contains GetCurrentTimestamp(). It uses the system's gettimeofday() function to get the current time and converts it from Unix epoch format to PostgreSQL's internal timestamp format. The conversion involves adjusting for the difference between Unix epoch (1970-01-01) and PostgreSQL epoch (2000-01-01), then converting from seconds to microseconds precision.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: TimestampTz representing current timestamp in PostgreSQL format
 
 ## Dependencies

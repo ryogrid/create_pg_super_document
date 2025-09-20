@@ -16,8 +16,7 @@ text_format_nv(PG_FUNCTION_ARGS)
 This function serves as a simple wrapper around the text_format function. Its primary purpose is to satisfy PostgreSQL's opr_sanity system checks, which verify that all built-in functions sharing the same implementing C function take the same number of arguments. The wrapper provides a non-variadic interface to the variadic text_format function, allowing it to be used in contexts where a fixed number of arguments is expected.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention with  macro
-- No explicit parameters; inherits argument handling from text_format through fcinfo
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

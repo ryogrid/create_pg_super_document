@@ -16,7 +16,6 @@ pg_control_system(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL SQL-callable function that reads the control file and returns essential system-level information as a row type. It acquires the ControlFileLock in shared mode to safely read the control file, validates the CRC checksum, and extracts four key system identifiers. The function is part of PostgreSQL's administrative interface that allows SQL queries to access control file metadata without requiring direct file system access.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns a composite tuple containing:
   - : Version number of the control file format
   - : System catalog version number  

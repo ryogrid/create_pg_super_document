@@ -21,7 +21,7 @@ The function performs a safety check to ensure that:
 If both conditions are met, it sets the `pendingWalRcvRestart` flag to true and logs an informational message. This flag is later checked by other parts of the recovery system to perform the actual restart operation.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

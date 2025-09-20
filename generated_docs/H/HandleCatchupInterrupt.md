@@ -19,7 +19,7 @@ Instead, it follows a two-step approach: it sets the catchupInterruptPending fla
 The function includes a prominent comment warning that it's called by a signal handler, emphasizing the need for signal-safe operations only.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

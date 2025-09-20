@@ -20,7 +20,7 @@ The function works by setting a signal flag in the shared memory structure  to .
 After calling this function, the postmaster is expected to send a  signal to the autovacuum launcher to ensure it checks the signal flags promptly and handles the failure condition.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

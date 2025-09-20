@@ -27,11 +27,10 @@ The parallel worker counting mechanism uses two separate counters:
 The active parallel worker count is calculated as (registered - terminated), allowing enforcement of max_parallel_workers GUC setting. The counters are designed to handle overflow safely since only the difference matters for the calculation.
 
 ## Parameters / Member Variables
-- : Total number of available background worker slots in the array
-- : Counter of registered parallel workers, modified by backends under BackgroundWorkerLock protection
-- : Counter of terminated parallel workers, modified only by postmaster without locks
-- : Flexible array of BackgroundWorkerSlot structures containing the actual worker slot data
-
+- `total_slots`: Total number of available background worker slots in the array
+- `parallel_register_count`: Counter of registered parallel workers, modified by backends under BackgroundWorkerLock protection
+- `parallel_terminate_count`: Counter of terminated parallel workers, modified only by postmaster without locks
+- `slot[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of BackgroundWorkerSlot structures containing the actual worker slot data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BackgroundWorkerSlot](BackgroundWorkerSlot.md)

@@ -15,7 +15,6 @@ bool PgArchCanRestart(void)
 This function implements a safety valve mechanism to prevent continuous respawn attempts of the archiver process. It maintains a static timestamp of the last archiver start time and compares it against the current time. The function returns true only if enough time (defined by PGARCH_RESTART_INTERVAL) has passed since the last startup attempt. This prevents rapid restart cycles that could occur if the archiver process is failing immediately upon launch, allowing the system to stabilize before attempting another restart.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Static variable last_pgarch_start_time: Tracks the timestamp of the last archiver start attempt
 
 ## Dependencies

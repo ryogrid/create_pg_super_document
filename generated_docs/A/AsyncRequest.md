@@ -24,13 +24,12 @@ typedef struct AsyncRequest
 AsyncRequest encapsulates the state necessary for asynchronous communication between executor nodes, primarily used in parallel query execution scenarios like Append nodes with foreign tables. It enables non-blocking tuple retrieval by allowing requestor nodes to issue requests and later check for completion, facilitating better resource utilization during I/O-bound operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PlanState node that is requesting tuples
-- : Pointer to the PlanState node that will provide the tuples  
-- : Integer scratch space available for the requestor's use
-- : Boolean flag indicating whether a callback notification is needed
-- : Boolean flag indicating whether the request has been completed and the result is valid
-- : Pointer to TupleTableSlot containing the result tuple, or NULL/empty slot if no more tuples are available
-
+- `*requestor`: Pointer to the PlanState node that is requesting tuples
+- `*requestee`: Pointer to the PlanState node that will provide the tuples
+- `request_index`: Integer scratch space available for the requestor's use
+- `callback_pending`: Boolean flag indicating whether a callback notification is needed
+- `request_complete`: Boolean flag indicating whether the request has been completed and the result is valid
+- `*result`: Pointer to TupleTableSlot containing the result tuple, or NULL/empty slot if no more tuples are available
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlanState](../P/PlanState.md) (struct type)

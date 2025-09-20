@@ -25,13 +25,12 @@ typedef struct spgPickSplitOut
 The spgPickSplitOut structure is used as an output parameter in SP-GiST index pick split operations. When an inner node becomes full and needs to be split, the pick split function populates this structure to specify how the existing leaf tuples should be redistributed among the new child nodes. This structure provides complete information about the new inner tuple configuration, including whether it should have a prefix, how many child nodes it should have, what labels those nodes should get, and how existing leaf tuples should be mapped to the new nodes.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the new inner tuple should have a prefix value
-- : The prefix value to be stored in the new inner tuple (only valid if hasPrefix is true)
-- : The number of child nodes that the new inner tuple should have
-- : Array of Datum values representing labels for each child node (can be NULL if nodes don't need labels)
-- : Array mapping each existing leaf tuple to a child node index (indices correspond to positions in nodeLabels array)
-- : Array of Datum values to be stored in the new leaf tuples after redistribution
-
+- `hasPrefix`: Boolean flag indicating whether the new inner tuple should have a prefix value
+- `prefixDatum`: The prefix value to be stored in the new inner tuple (only valid if hasPrefix is true)
+- `nNodes`: The number of child nodes that the new inner tuple should have
+- `*nodeLabels`: Array of Datum values representing labels for each child node (can be NULL if nodes don't need labels)
+- `*mapTuplesToNodes`: Array mapping each existing leaf tuple to a child node index (indices correspond to positions in nodeLabels array)
+- `*leafTupleDatums`: Array of Datum values to be stored in the new leaf tuples after redistribution
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)

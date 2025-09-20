@@ -22,8 +22,7 @@ This mechanism is particularly useful for temporary data or data that needs to b
 Like other TOAST pointer structures, varatt_indirect is stored unaligned within containing tuples, requiring careful handling when accessing its fields.
 
 ## Parameters / Member Variables
-- : A direct pointer to an in-memory varlena structure containing the actual data
-
+- `*pointer`: A direct pointer to an in-memory varlena structure containing the actual data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [varlena](varlena.md) (PostgreSQL variable-length data structure)

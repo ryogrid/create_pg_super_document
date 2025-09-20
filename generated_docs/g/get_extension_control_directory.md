@@ -15,7 +15,7 @@ This static function constructs and returns the full filesystem path to the dire
 The function allocates memory for the result string using PostgreSQL's memory management system (palloc) and formats the path using snprintf to ensure buffer safety. This path is used throughout the extension management system when searching for or accessing extension control files.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

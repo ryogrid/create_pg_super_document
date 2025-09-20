@@ -19,7 +19,6 @@ The algorithm performs a simplified tree descent without maintaining a search st
 
 ## Parameters / Member Variables
 - : IndexScanDesc - The index scan descriptor containing scan configuration and state
-- 0
 1
 3.2
 5

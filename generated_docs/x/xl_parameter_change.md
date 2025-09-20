@@ -27,15 +27,14 @@ xl_parameter_change is a WAL record structure used to log changes in critical Po
 This structure is written to the WAL when parameter changes are detected, using the XLOG_PARAMETER_CHANGE record type (0x60). The logged information allows standby servers to adjust their behavior according to the new parameter values, preventing issues that could arise from parameter mismatches between primary and standby servers.
 
 ## Parameters / Member Variables
-- : Maximum number of concurrent connections allowed
-- : Maximum number of background worker processes
-- : Maximum number of WAL sender processes for replication
-- : Maximum number of prepared transactions that can exist simultaneously
-- : Maximum number of locks that can be held by a single transaction
-- : Level of WAL logging (minimal, replica, logical)
-- : Whether to log hint bits changes in WAL
-- : Whether to track commit timestamps for transactions
-
+- `MaxConnections`: Maximum number of concurrent connections allowed
+- `max_worker_processes`: Maximum number of background worker processes
+- `max_wal_senders`: Maximum number of WAL sender processes for replication
+- `max_prepared_xacts`: Maximum number of prepared transactions that can exist simultaneously
+- `max_locks_per_xact`: Maximum number of locks that can be held by a single transaction
+- `wal_level`: Level of WAL logging (minimal, replica, logical)
+- `wal_log_hints`: Whether to log hint bits changes in WAL
+- `track_commit_timestamp`: Whether to track commit timestamps for transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references - primitive types only)

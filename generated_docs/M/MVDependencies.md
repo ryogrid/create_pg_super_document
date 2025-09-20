@@ -25,11 +25,10 @@ This structure is crucial for query optimization as it helps the planner underst
 The structure uses a flexible array of pointers to MVDependency structures, allowing efficient storage and access to variable numbers of dependency relationships.
 
 ## Parameters / Member Variables
-- : Magic constant marker (STATS_DEPS_MAGIC = 0xB4549A2C) used for structure validation and serialization integrity
-- : Type identifier for the dependency statistic, currently supports STATS_DEPS_TYPE_BASIC (1)
-- : Number of MVDependency structures stored in the deps array
-- : Flexible array of pointers to MVDependency structures, each representing a specific functional dependency
-
+- `magic`: Magic constant marker (STATS_DEPS_MAGIC = 0xB4549A2C) used for structure validation and serialization integrity
+- `type`: Type identifier for the dependency statistic, currently supports STATS_DEPS_TYPE_BASIC (1)
+- `ndeps`: Number of MVDependency structures stored in the deps array
+- `*deps[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of pointers to MVDependency structures, each representing a specific functional dependency
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array)

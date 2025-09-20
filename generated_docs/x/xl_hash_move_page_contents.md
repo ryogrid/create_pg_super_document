@@ -30,9 +30,8 @@ The record works with three backup blocks that capture the complete state of the
 The structure tracks both the number of tuples moved and whether the destination page is the same as the primary bucket page, which affects how the operation is replayed during recovery.
 
 ## Parameters / Member Variables
-- : The number of tuples being moved from the source page to the destination page during the squeeze operation
-- : Boolean flag indicating whether the destination page (where tuples are moved to) is the same as the primary bucket page; this affects WAL replay logic and space management decisions
-
+- `ntups`: The number of tuples being moved from the source page to the destination page during the squeeze operation
+- `is_prim_bucket_same_wrt`: Boolean flag indicating whether the destination page (where tuples are moved to) is the same as the primary bucket page; this affects WAL replay logic and space management decisions
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)

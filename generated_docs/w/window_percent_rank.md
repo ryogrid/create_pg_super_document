@@ -28,8 +28,7 @@ Key characteristics:
 The function leverages the same ranking infrastructure as other ranking functions, using `rank_up()` to determine when the rank should change and maintaining state through the `rank_context` structure.
 
 ## Parameters / Member Variables
-- This function follows the PostgreSQL function calling convention (PG_FUNCTION_ARGS)
-- Accesses the WindowObject through PG_WINDOW_OBJECT() macro
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

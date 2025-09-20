@@ -23,9 +23,8 @@ This structure is part of PostgreSQL's commit timestamp feature, which allows tr
 The size constraint (8+2 bytes) is mentioned in the source comments as being important for file naming in the SLRU system, where enlarging this struct could affect the maximum possible file name length in SlruScanDirectory operations.
 
 ## Parameters / Member Variables
-- : A TimestampTz value representing the exact timestamp when the transaction was committed, stored with timezone information
-- : A RepOriginId identifying the replication origin node from which this transaction originated, used in logical replication scenarios
-
+- `time`: A TimestampTz value representing the exact timestamp when the transaction was committed, stored with timezone information
+- `nodeid`: A RepOriginId identifying the replication origin node from which this transaction originated, used in logical replication scenarios
 ## Dependencies
 - Functions called/Symbols referenced:
   - RepOriginId (type)

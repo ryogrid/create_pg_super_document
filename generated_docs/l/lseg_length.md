@@ -15,7 +15,7 @@ Datum lseg_length(PG_FUNCTION_ARGS)
 The `lseg_length` function is a PostgreSQL built-in function that calculates the length of a line segment. It extracts the line segment from the function arguments using the PostgreSQL function interface, then computes the Euclidean distance between the segment's two endpoints using the `point_dt` function. The result is returned as a PostgreSQL float8 (double precision) value. This function implements the SQL function that can be called from SQL queries to get the length of a line segment.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's PG_FUNCTION_ARGS convention, where the line segment is retrieved as the first argument using PG_GETARG_LSEG_P(0)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

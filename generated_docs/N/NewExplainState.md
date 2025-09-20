@@ -16,7 +16,7 @@ NewExplainState(void)
 NewExplainState is a constructor function that allocates and initializes an ExplainState structure. It uses palloc0 to zero-initialize all fields, then sets the default values for EXPLAIN options. By default, only the costs option is enabled (set to true), while other options like analyze, verbose, buffers, etc., remain false. The function also initializes the output string buffer using makeStringInfo(), which creates a dynamically expandable StringInfo structure for accumulating the explain output.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

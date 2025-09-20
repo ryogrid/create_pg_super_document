@@ -15,7 +15,7 @@ Datum pg_stat_get_checkpointer_buffers_written(PG_FUNCTION_ARGS)
 This SQL-callable function provides access to the checkpointer's buffer write statistics. It retrieves the cumulative count of disk buffers that have been written by the checkpointer process since the PostgreSQL server was started. The checkpointer is responsible for periodically writing dirty buffers from the shared buffer pool to permanent storage, and this statistic tracks how many such write operations have occurred. This metric is useful for monitoring checkpointer activity and I/O patterns.
 
 ## Parameters / Member Variables
-- No input parameters (uses PostgreSQL's standard PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

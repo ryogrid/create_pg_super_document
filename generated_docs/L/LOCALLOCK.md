@@ -32,17 +32,16 @@ LOCALLOCK is the cornerstone of PostgreSQL's local lock management system. Each 
 The structure maintains both local state (reference counts, resource owner information) and pointers to shared memory structures (LOCK and PROCLOCK objects). For fast-path locks, the shared memory pointers may be NULL since these locks bypass the shared lock table. The dynamic array of LOCALLOCKOWNER entries allows tracking lock ownership across multiple resource owners, supporting PostgreSQL's nested transaction model.
 
 ## Parameters / Member Variables
-- : LOCALLOCKTAG that uniquely identifies this lock entry, combining object identifier and lock mode
-- : Cached hash value from the LOCKTAG for efficient hash table operations
-- : Pointer to the shared LOCK object, or NULL for fast-path locks
-- : Pointer to the shared PROCLOCK object, or NULL for fast-path locks
-- : Total reference count indicating how many times this lock has been acquired
-- : Number of active entries in the lockOwners array
-- : Allocated capacity of the lockOwners array
-- : Dynamic array of LOCALLOCKOWNER structures tracking ownership per resource owner
-- : Boolean indicating if this lock contributes to the FastPathStrongRelationLocks count
-- : Boolean indicating whether all relevant shared invalidation messages have been processed
-
+- `tag`: LOCALLOCKTAG that uniquely identifies this lock entry, combining object identifier and lock mode
+- `hashcode`: Cached hash value from the LOCKTAG for efficient hash table operations
+- `*lock`: Pointer to the shared LOCK object, or NULL for fast-path locks
+- `*proclock`: Pointer to the shared PROCLOCK object, or NULL for fast-path locks
+- `nLocks`: Total reference count indicating how many times this lock has been acquired
+- `numLockOwners`: Number of active entries in the lockOwners array
+- `maxLockOwners`: Allocated capacity of the lockOwners array
+- `*lockOwners`: Dynamic array of LOCALLOCKOWNER structures tracking ownership per resource owner
+- `holdsStrongLockCount`: Boolean indicating if this lock contributes to the FastPathStrongRelationLocks count
+- `lockCleared`: Boolean indicating whether all relevant shared invalidation messages have been processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LOCALLOCKTAG](LOCALLOCKTAG.md)

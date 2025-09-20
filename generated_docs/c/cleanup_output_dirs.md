@@ -27,7 +27,7 @@ The  function performs cleanup operations when pg_upgrade exits, managing the re
 The double-removal approach addresses Windows-specific timing issues where files may still be in the process of being unlinked.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

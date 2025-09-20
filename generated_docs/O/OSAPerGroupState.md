@@ -29,12 +29,11 @@ OSAPerGroupState represents the per-group portion of PostgreSQL's ordered-set ag
 This structure serves as the internal-type transition state datum that is returned to nodeAgg.c. It manages the sorting process for each group, tracking the number of rows accumulated and the current state of the sort operation. The structure works in conjunction with OSAPerQueryState to provide efficient processing of ordered-set aggregates like percentile_cont, percentile_disc, mode, and hypothetical-set functions.
 
 ## Parameters / Member Variables
-- : Pointer to the associated OSAPerQueryState containing shared query-level information
-- : Memory context containing per-group data for this specific group
-- : Tuplesort object used for accumulating and sorting data rows for this group
-- : Count of normal (non-hypothetical) rows that have been inserted into the sort state
-- : Boolean flag indicating whether tuplesort_performsort() has been called to finalize the sort
-
+- `*qstate`: Pointer to the associated OSAPerQueryState containing shared query-level information
+- `gcontext`: Memory context containing per-group data for this specific group
+- `*sortstate`: Tuplesort object used for accumulating and sorting data rows for this group
+- `number_of_rows`: Count of normal (non-hypothetical) rows that have been inserted into the sort state
+- `sort_done`: Boolean flag indicating whether tuplesort_performsort() has been called to finalize the sort
 ## Dependencies
 - Functions called/Symbols referenced:
   - [OSAPerQueryState](OSAPerQueryState.md)

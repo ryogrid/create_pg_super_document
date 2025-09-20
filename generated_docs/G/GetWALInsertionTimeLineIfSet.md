@@ -17,7 +17,7 @@ The function uses spinlock protection to safely read the InsertTimeLineID from t
 The documentation notes recommend using GetWALInsertionTimeLine() instead wherever possible, since it is cheaper due to not requiring spinlock acquisition when recovery is known to be complete.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

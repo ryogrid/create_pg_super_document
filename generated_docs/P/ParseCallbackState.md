@@ -24,10 +24,9 @@ The structure works by registering itself with PostgreSQL's error context stack 
 The callback is designed to be non-intrusive and only adds location information for relevant errors (excluding query cancellation errors). It integrates with PostgreSQL's ereport() error reporting system to enhance error messages with precise source code positions.
 
 ## Parameters / Member Variables
-- : Pointer to the current ParseState containing parsing context and information
-- : Character position in the source query where the error occurred
-- : ErrorContextCallback structure for integration with PostgreSQL's error handling system
-
+- `*pstate`: Pointer to the current ParseState containing parsing context and information
+- `location`: Character position in the source query where the error occurred
+- `errcallback`: ErrorContextCallback structure for integration with PostgreSQL's error handling system
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParseState](ParseState.md) (from parser subsystem)

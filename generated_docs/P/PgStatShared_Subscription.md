@@ -21,9 +21,8 @@ This structure is used to store subscription-related statistics in PostgreSQL's 
 The structure follows the standard pattern for shared statistics objects in PostgreSQL, where each statistics object has a common header containing synchronization primitives and magic numbers for validation, followed by the actual statistical data specific to the object type.
 
 ## Parameters / Member Variables
-- : Common header structure (PgStatShared_Common) containing magic number for validation and an LWLock for protecting access to the statistics data
-- : Subscription-specific statistics (PgStat_StatSubEntry) containing apply error count, sync error count, and statistical reset timestamp
-
+- `header`: Common header structure (PgStatShared_Common) containing magic number for validation and an LWLock for protecting access to the statistics data
+- `stats`: Subscription-specific statistics (PgStat_StatSubEntry) containing apply error count, sync error count, and statistical reset timestamp
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common

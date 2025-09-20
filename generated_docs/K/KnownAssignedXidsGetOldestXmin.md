@@ -24,7 +24,7 @@ This function efficiently finds the oldest transaction ID in the KnownAssignedXi
 This function is essential for determining transaction visibility horizons and managing cleanup operations in PostgreSQL's Hot Standby implementation.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

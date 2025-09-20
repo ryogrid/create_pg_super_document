@@ -40,10 +40,6 @@ The function ensures proper cursor management throughout all phases and provides
 
 ## Parameters / Member Variables
 - : Pointer to SN_env structure containing the complete stemming environment including:
-  - Word buffer and cursor positions
-  - Region boundary markers (R1, R2)
-  - Character lookup tables and pattern arrays
-  - Working memory for intermediate operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

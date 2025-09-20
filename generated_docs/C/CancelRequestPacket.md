@@ -23,10 +23,9 @@ The CancelRequestPacket structure defines the format for cancel request messages
 All fields are stored in network byte order (big-endian) to ensure proper communication across different architectures. The packet uses a specific message type code and requires both the backend process ID and a secret authentication code that was provided during the initial connection establishment.
 
 ## Parameters / Member Variables
-- : A message type identifier that marks this packet as a cancellation request
-- : The process ID of the backend server process handling the client's connection
-- : A secret authentication token used to verify that the cancel request is legitimate and comes from the authorized client
-
+- `cancelRequestCode`: A message type identifier that marks this packet as a cancellation request
+- `backendPID`: The process ID of the backend server process handling the client's connection
+- `cancelAuthCode`: A secret authentication token used to verify that the cancel request is legitimate and comes from the authorized client
 ## Dependencies
 - Functions called/Symbols referenced:
   - MsgType

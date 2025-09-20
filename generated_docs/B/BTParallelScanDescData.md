@@ -31,12 +31,11 @@ This structure serves as the shared state manager for parallel B-tree index scan
 The structure uses a state machine approach (via btps_pageStatus) to coordinate workers, ensuring that only one process advances the scan at a time while others wait or work on their assigned pages. The flexible array member btps_arrElems supports complex scan scenarios involving array keys where multiple primitive scans may need to be scheduled.
 
 ## Parameters / Member Variables
-- : BlockNumber indicating the latest page that has been scanned or the next page to be scanned by worker processes
-- : BTPS_State enum value indicating the current state of the parallel scan (NOT_INITIALIZED, NEED_PRIMSCAN, ADVANCING, IDLE, or DONE)
-- : Spinlock (slock_t) that protects access to the scan state variables and the btps_arrElems array
-- : ConditionVariable used to synchronize worker processes during parallel scan operations
-- : Flexible array member containing BTArrayKeyInfo.cur_elem offsets for scan keys, used when scheduling additional primitive index scans
-
+- `btps_scanPage`: BlockNumber indicating the latest page that has been scanned or the next page to be scanned by worker processes
+- `btps_pageStatus`: BTPS_State enum value indicating the current state of the parallel scan (NOT_INITIALIZED, NEED_PRIMSCAN, ADVANCING, IDLE, or DONE)
+- `btps_mutex`: Spinlock (slock_t) that protects access to the scan state variables and the btps_arrElems array
+- `btps_cv`: ConditionVariable used to synchronize worker processes during parallel scan operations
+- `btps_arrElems[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing BTArrayKeyInfo.cur_elem offsets for scan keys, used when scheduling additional primitive index scans
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPS_State (enum for parallel scan states)

@@ -15,7 +15,7 @@ static void advice(void)
 The advice function is a minimal helper that provides guidance to users when they encounter command-line usage errors or need assistance. It outputs a standardized message using the program name stored in the global progname variable, directing users to consult the help system for comprehensive usage information. This function is typically called when invalid arguments are provided or when the program cannot proceed due to user input issues.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

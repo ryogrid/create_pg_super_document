@@ -18,8 +18,7 @@ The hashchar function provides a hash implementation for single character ('char
 This function is also utilized by catcache operations without any direct connection to hash indexes, making it a versatile component in PostgreSQL's hashing infrastructure.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments through PostgreSQL's function call interface
-- The function expects a single 'char' argument accessed via PG_GETARG_CHAR(0)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

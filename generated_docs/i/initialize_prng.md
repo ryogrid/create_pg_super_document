@@ -21,7 +21,7 @@ This internal function ensures the global PRNG state is properly initialized bef
 The function uses the  global flag to ensure initialization occurs only once per process. The fallback seed combines temporal unpredictability (timestamp) with process uniqueness (PID) by XORing the timestamp with the PID shifted left by 32 bits.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

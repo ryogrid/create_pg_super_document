@@ -45,19 +45,18 @@ The structure manages the complex process of identifying groups of duplicate tup
 The deduplication process involves examining tuples on a page, identifying ranges of duplicates, and creating new posting list tuples that combine multiple identical key values with different heap TIDs into a single, more compact tuple.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the page is still being deduplicated
-- : Counter for the number of max-sized tuples encountered so far
-- : Size limit for the final posting list tuple
-- : IndexTuple used as the base to form the new posting list
-- : Page offset number of the base tuple
-- : Size of the base tuple without its original posting list
-- : Array of heap TIDs that will comprise the pending posting list
-- : Number of heap TIDs currently in the htids array
-- : Number of existing tuples/line pointers being consolidated
-- : Physical tuple size including line pointer overhead
-- : Current number of intervals in the intervals array
-- : Array of BTDedupInterval structures representing groups of consecutive items
-
+- `deduplicate`: Boolean flag indicating whether the page is still being deduplicated
+- `nmaxitems`: Counter for the number of max-sized tuples encountered so far
+- `maxpostingsize`: Size limit for the final posting list tuple
+- `base`: IndexTuple used as the base to form the new posting list
+- `baseoff`: Page offset number of the base tuple
+- `basetupsize`: Size of the base tuple without its original posting list
+- `htids`: Array of heap TIDs that will comprise the pending posting list
+- `nhtids`: Number of heap TIDs currently in the htids array
+- `nitems`: Number of existing tuples/line pointers being consolidated
+- `phystupsize`: Physical tuple size including line pointer overhead
+- `nintervals`: Current number of intervals in the intervals array
+- `intervals[MaxIndexTuplesPerPage]`: Array of BTDedupInterval structures representing groups of consecutive items
 ## Dependencies
 - Functions called/Symbols referenced:
   - MaxIndexTuplesPerPage (constant)

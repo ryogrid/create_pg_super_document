@@ -30,7 +30,7 @@ The function includes a safety assertion to prevent double initialization and op
 The initialization is crucial for enabling all subsequent statistics operations in the backend, including database activity tracking, performance monitoring, and resource usage statistics.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

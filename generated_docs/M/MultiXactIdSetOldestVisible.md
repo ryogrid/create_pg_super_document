@@ -21,7 +21,7 @@ The algorithm ensures correctness through exclusive locking - by holding MultiXa
 The function handles MultiXactId wraparound by ensuring the computed value is at least FirstMultiXactId.
 
 ## Parameters / Member Variables
-- No parameters (operates on global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

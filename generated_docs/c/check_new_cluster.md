@@ -20,7 +20,7 @@ This function performs comprehensive validation of the target (new) PostgreSQL c
 Additionally, it performs standard checks such as verifying the installation user permissions, checking for prepared transactions that would block the upgrade, validating tablespace directory configurations, and ensuring proper setup of logical replication slots and subscriptions in the new cluster.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

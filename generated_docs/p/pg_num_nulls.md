@@ -20,8 +20,7 @@ When called, it examines all provided arguments (whether passed individually or 
 This function is commonly used in SQL queries where conditional logic based on null counts is needed, data validation scenarios, or statistical analysis of missing values.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface 
-- Accepts a variable number of arguments of any type through PostgreSQL's variadic function mechanism
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

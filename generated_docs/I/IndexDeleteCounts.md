@@ -22,10 +22,9 @@ The IndexDeleteCounts structure is used internally by the heap access method's i
 The struct helps the deletion process make informed decisions about which blocks are worth visiting by tracking both the total number of TIDs in a group and how many of those are considered "promising" (likely to be deletable based on various heuristics).
 
 ## Parameters / Member Variables
-- : The number of TIDs in this group that are considered "promising" candidates for deletion based on preliminary analysis
-- : The total number of TIDs (tuple identifiers) grouped together for this heap block
-- : The offset/index to the first deltid (deletion TID) in this group within the larger deltids array
-
+- `npromisingtids`: The number of TIDs in this group that are considered "promising" candidates for deletion based on preliminary analysis
+- `ntids`: The total number of TIDs (tuple identifiers) grouped together for this heap block
+- `ifirsttid`: The offset/index to the first deltid (deletion TID) in this group within the larger deltids array
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This is a data structure definition with no direct function calls)

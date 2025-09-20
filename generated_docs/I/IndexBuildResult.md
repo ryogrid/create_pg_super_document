@@ -21,9 +21,8 @@ IndexBuildResult serves as a return structure for index access method build func
 The structure uses double precision floating-point numbers to accommodate potentially very large tuple counts that might exceed the range of integer types in large databases.
 
 ## Parameters / Member Variables
-- : The total number of tuples that were examined in the parent/source table during the index build process
-- : The actual number of tuples that were successfully inserted into the index structure
-
+- `heap_tuples`: The total number of tuples that were examined in the parent/source table during the index build process
+- `index_tuples`: The actual number of tuples that were successfully inserted into the index structure
 ## Dependencies
 - Functions called/Symbols referenced: None (simple data structure)
 - Called from (representative examples):

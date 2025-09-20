@@ -23,9 +23,8 @@ The structure tracks comprehensive database activity including transaction stati
 This structure is part of PostgreSQL's extensible statistics framework that allows for different types of statistics objects to be managed uniformly while maintaining type-specific data.
 
 ## Parameters / Member Variables
-- : PgStatShared_Common structure containing magic number validation and LWLock for protecting the statistics data during concurrent access
-- : PgStat_StatDBEntry structure containing comprehensive database statistics including transaction counts, block I/O metrics, tuple operation counters, conflict statistics, session data, and timing information
-
+- `header`: PgStatShared_Common structure containing magic number validation and LWLock for protecting the statistics data during concurrent access
+- `stats`: PgStat_StatDBEntry structure containing comprehensive database statistics including transaction counts, block I/O metrics, tuple operation counters, conflict statistics, session data, and timing information
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common

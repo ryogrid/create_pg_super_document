@@ -18,7 +18,7 @@ This internal function initializes the snapshot infrastructure required for stat
 The function handles forced snapshot clearing, checks fetch consistency settings, and creates the snapshot memory context using a small allocation set strategy optimized for statistics data structures. It establishes the hash table that will store the actual statistics entries during snapshot operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

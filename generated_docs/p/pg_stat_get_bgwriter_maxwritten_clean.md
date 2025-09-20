@@ -15,7 +15,7 @@ Datum pg_stat_get_bgwriter_maxwritten_clean(PG_FUNCTION_ARGS)
 This SQL-callable function provides access to the background writer's throttling statistics. It retrieves the cumulative count of times that the background writer had to stop its cleaning scan operations early because it reached the maximum number of buffers allowed to be written in a single cleaning round. This mechanism prevents the background writer from consuming too much I/O bandwidth and interfering with normal database operations. The bgwriter_lru_maxpages configuration parameter controls this limit. A high value for this statistic may indicate that the background writer is being overly constrained and might benefit from tuning.
 
 ## Parameters / Member Variables
-- No input parameters (uses PostgreSQL's standard PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

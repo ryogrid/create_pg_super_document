@@ -22,12 +22,11 @@ typedef struct _PublicationRelInfo
 This structure is part of PostgreSQL's pg_dump utility and is used to maintain the relationship between publications and the tables they contain. It stores metadata about how a specific table is included in a publication, including any row filters and column lists that may be applied. This information is essential for accurately recreating publication configurations during database dumps and restores.
 
 ## Parameters / Member Variables
-- : Base DumpableObject structure containing common metadata for dump objects
-- : Pointer to the PublicationInfo structure representing the publication this table belongs to
-- : Pointer to the TableInfo structure representing the table that is part of the publication
-- : String containing the WHERE clause (row filter) applied to this table in the publication, or NULL if no filter
-- : String containing the column list for this table in the publication, or NULL if all columns are included
-
+- `dobj`: Base DumpableObject structure containing common metadata for dump objects
+- `*publication`: Pointer to the PublicationInfo structure representing the publication this table belongs to
+- `*pubtable`: Pointer to the TableInfo structure representing the table that is part of the publication
+- `*pubrelqual`: String containing the WHERE clause (row filter) applied to this table in the publication, or NULL if no filter
+- `*pubrattrs`: String containing the column list for this table in the publication, or NULL if all columns are included
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

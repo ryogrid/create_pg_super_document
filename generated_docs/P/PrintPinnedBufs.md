@@ -18,7 +18,7 @@ This function provides a focused diagnostic view of the shared buffer pool by ex
 The function outputs detailed information for each pinned buffer including the buffer index, free list linkage, relation file path (using permanent path format), block number, flags, shared reference count, and private reference count. Like PrintBufferDescs, this function uses elog(LOG, ...) to write information to the PostgreSQL server log and omits buffer header locking for diagnostic convenience.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

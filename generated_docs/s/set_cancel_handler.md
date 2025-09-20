@@ -22,7 +22,7 @@ set_cancel_handler is a Windows-specific initialization function that sets up th
 This function is called early in the pg_dump process to ensure that interrupt handling is available throughout the operation. The critical section initialized here is later used by consoleHandler to prevent race conditions when multiple threads access shared data during shutdown.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

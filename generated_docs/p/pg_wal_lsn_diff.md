@@ -24,8 +24,6 @@ Internally, the function delegates the actual computation to the pg_lsn_mi funct
 
 ## Parameters / Member Variables
 - Takes two parameters via PG_FUNCTION_ARGS:
-  - First LSN position (typically the later/higher position)
-  - Second LSN position (typically the earlier/lower position)
 
 ## Dependencies
 - Functions called/Symbols referenced:

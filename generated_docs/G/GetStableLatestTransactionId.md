@@ -24,7 +24,6 @@ The function works by:
 This design ensures that functions like age(xid) get consistent results even if called multiple times within a transaction, regardless of whether the transaction gets assigned an XID during its execution.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Static variables used for caching:
   - `lxid`: Cached local transaction ID for comparison
   - `stablexid`: Cached stable transaction ID to return

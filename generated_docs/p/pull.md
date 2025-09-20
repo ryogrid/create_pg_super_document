@@ -125,8 +125,6 @@ The function preserves existing states and arcs (except the target constraint) t
 - : The constraint arc to be pulled backward  
 - : Pointer to linked list of intermediate states (chained via tmp fields)
 
-**Return Value**: Returns 1 if successful, 0 if no action was taken (e.g., at start state)
-
 ## Dependencies
 - Functions called/Symbols referenced:
   - : Creates new NFA states

@@ -18,7 +18,7 @@ This function implements the less-than-or-equal-to comparison operator (<=) betw
 The function is part of PostgreSQL's type system infrastructure, specifically handling cross-type comparisons between name and text types. This enables SQL queries to directly compare name columns (typically used for system catalog identifiers) with text values.
 
 ## Parameters / Member Variables
-- Uses  macro - PostgreSQL's standard function argument mechanism that provides access to function arguments and context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

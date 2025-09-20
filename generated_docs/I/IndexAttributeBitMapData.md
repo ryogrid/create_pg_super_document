@@ -26,10 +26,8 @@ This design philosophy balances space efficiency with simplicity - the bitmap si
 ## Parameters / Member Variables
 - : Array of bits8 (unsigned char) elements forming the null bitmap
   - Size:  bytes (currently 4 bytes for 32 maximum keys)
-  - Each bit represents one index attribute's null status
   - Bit value 1: corresponding attribute is null
   - Bit value 0: corresponding attribute has a value
-  - Bits are typically accessed using bit manipulation macros and functions
 
 ## Dependencies
 - Functions called/Symbols referenced:

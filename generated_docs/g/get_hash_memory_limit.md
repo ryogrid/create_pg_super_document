@@ -26,7 +26,7 @@ The function is designed to be used by:
 This centralized approach ensures consistent memory limit calculations across all hash operations in PostgreSQL.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

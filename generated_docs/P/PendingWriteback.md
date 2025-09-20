@@ -23,8 +23,7 @@ The structure is intentionally simple and extensible, with a comment indicating 
 This structure works in conjunction with  to manage and coordinate writeback operations efficiently, allowing PostgreSQL to optimize I/O patterns and reduce the overhead of individual flush requests.
 
 ## Parameters / Member Variables
-- : BufferTag that identifies the specific buffer/disk block that needs to be written back to storage
-
+- `tag`: BufferTag that identifies the specific buffer/disk block that needs to be written back to storage
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferTag (for buffer identification)

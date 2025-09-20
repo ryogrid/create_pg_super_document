@@ -18,7 +18,6 @@ The function exists as a separate entry to maintain proper pg_proc catalog organ
 
 ## Parameters / Member Variables
 - Function follows PostgreSQL's PG_FUNCTION_ARGS convention:
-  - Arguments are passed through directly to int8inc without modification
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -37,16 +37,15 @@ The control structure is designed to work in both local memory and shared memory
 The structure maintains critical tree state including the current maximum key value, total number of keys stored, and the starting shift level which adapts to the key distribution for optimal tree height. This metadata enables the adaptive behavior that makes the radix tree efficient across different key patterns.
 
 ## Parameters / Member Variables
-- : (RT_SHMEM only) DSA handle for shared memory allocation management
-- : (RT_SHMEM only) Magic number (0x54A48167) for structure validation
-- : (RT_SHMEM only) Lightweight lock for concurrent access control
-- : Pointer to the root node of the radix tree
-- : Maximum key value that can be stored with current tree height
-- : Total number of key-value pairs currently stored in the tree
-- : Starting bit shift level, adapts to key distribution for optimal tree height
-- : (RT_DEBUG only) Array tracking count of nodes for each size class
-- : (RT_DEBUG only) Total count of leaf nodes for debugging/statistics
-
+- `handle`: (RT_SHMEM only) DSA handle for shared memory allocation management
+- `magic`: (RT_SHMEM only) Magic number (0x54A48167) for structure validation
+- `lock`: (RT_SHMEM only) Lightweight lock for concurrent access control
+- `root`: Pointer to the root node of the radix tree
+- `max_val`: Maximum key value that can be stored with current tree height
+- `num_keys`: Total number of key-value pairs currently stored in the tree
+- `start_shift`: Starting bit shift level, adapts to key distribution for optimal tree height
+- `num_nodes[RT_NUM_SIZE_CLASSES]`: (RT_DEBUG only) Array tracking count of nodes for each size class
+- `num_leaves`: (RT_DEBUG only) Total count of leaf nodes for debugging/statistics
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME

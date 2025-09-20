@@ -20,10 +20,9 @@ typedef struct BTSortArrayContext
 This structure serves as a context parameter for sorting and deduplicating array elements in B-tree index operations. It encapsulates the sorting procedure, collation information, and sort direction, allowing the comparison function to access these parameters during qsort operations. The context is passed to qsort_arg and qunique_arg functions to enable proper element comparison according to the index column's opfamily semantics.
 
 ## Parameters / Member Variables
-- : Pointer to FmgrInfo structure containing the ORDER procedure function information for comparing elements according to the index column's opfamily
-- : OID of the collation to use during element comparison, derived from the scan key's sk_collation
-- : Boolean flag indicating whether to sort in descending order (true) or ascending order (false)
-
+- `*sortproc`: Pointer to FmgrInfo structure containing the ORDER procedure function information for comparing elements according to the index column's opfamily
+- `collation`: OID of the collation to use during element comparison, derived from the scan key's sk_collation
+- `reverse`: Boolean flag indicating whether to sort in descending order (true) or ascending order (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FmgrInfo](../F/FmgrInfo.md) (struct type)

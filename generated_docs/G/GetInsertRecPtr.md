@@ -15,7 +15,7 @@ GetInsertRecPtr provides the current insert position in the WAL stream, though i
 The function operates by acquiring the info_lck spinlock to safely read the LogwrtRqst.Write field from the shared XLogCtl structure, then releases the lock and returns the position. This approach provides sufficient accuracy for monitoring and checkpoint scheduling without the overhead of more precise position tracking.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

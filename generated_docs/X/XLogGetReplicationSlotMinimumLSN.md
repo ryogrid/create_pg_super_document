@@ -15,7 +15,6 @@ static XLogRecPtr XLogGetReplicationSlotMinimumLSN(void)
 XLogGetReplicationSlotMinimumLSN is a getter function that provides thread-safe access to the shared minimum replication slot LSN. This value represents the earliest WAL position that any replication slot still requires, making it a critical input for WAL cleanup decisions, checkpoint operations, and WAL availability assessments. The function ensures consistent reads of this shared state through proper spinlock protection.
 
 ## Parameters / Member Variables
-- None (void function - no parameters)
 - Returns: XLogRecPtr representing the minimum LSN required by replication slots
 
 ## Dependencies

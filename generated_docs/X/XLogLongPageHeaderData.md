@@ -23,11 +23,10 @@ XLogLongPageHeaderData extends the standard XLogPageHeaderData with additional f
 The structure serves as a safeguard mechanism to prevent XLOG files from being incorrectly used across different database clusters or configurations, as the system identifier and block size information must match the current system's configuration.
 
 ## Parameters / Member Variables
-- : Standard XLOG page header containing magic value, info flags, timeline ID, page address, and remaining length information
-- : System identifier copied from pg_control file, used to ensure the XLOG file belongs to the correct database cluster
-- : Cross-check value for XLOG segment size to validate file compatibility
-- : Cross-check value for XLOG block size to ensure proper alignment and compatibility
-
+- `std`: Standard XLOG page header containing magic value, info flags, timeline ID, page address, and remaining length information
+- `xlp_sysid`: System identifier copied from pg_control file, used to ensure the XLOG file belongs to the correct database cluster
+- `xlp_seg_size`: Cross-check value for XLOG segment size to validate file compatibility
+- `xlp_xlog_blcksz`: Cross-check value for XLOG block size to ensure proper alignment and compatibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogPageHeaderData (embedded as  member)

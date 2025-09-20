@@ -21,9 +21,8 @@ TwoPhaseLockRecord is a simple data structure used in PostgreSQL's two-phase com
 The structure is designed to be compact and contains only the essential information needed to recreate a lock: the lock tag that identifies what is being locked, and the lock mode that specifies the type of lock being held.
 
 ## Parameters / Member Variables
-- : A LOCKTAG structure that uniquely identifies the object being locked, containing fields for database object identification and lock method
-- : An integer value representing the type of lock being held (e.g., AccessShareLock, RowExclusiveLock, etc.)
-
+- `locktag`: A LOCKTAG structure that uniquely identifies the object being locked, containing fields for database object identification and lock method
+- `lockmode`: An integer value representing the type of lock being held (e.g., AccessShareLock, RowExclusiveLock, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG

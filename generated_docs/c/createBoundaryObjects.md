@@ -20,7 +20,7 @@ This function allocates and initializes two special DumpableObject instances tha
 Each boundary object is assigned a unique dump ID and given a descriptive name for identification purposes. These objects don't correspond to actual database objects but serve as organizational markers in the dump dependency graph.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

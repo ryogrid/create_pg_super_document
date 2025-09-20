@@ -25,11 +25,10 @@ Each MCVItem stores both the actual frequency of occurrence and a calculated bas
 This information is crucial for improving selectivity estimates when multiple columns are involved in query predicates, especially when those columns are correlated.
 
 ## Parameters / Member Variables
-- : The actual observed frequency (0.0-1.0) of this specific combination of values in the dataset
-- : The theoretical frequency if the columns were statistically independent, used for correlation analysis
-- : Array of boolean flags indicating which attributes in this combination are NULL values
-- : Array of Datum values representing the actual values for each attribute in this combination
-
+- `frequency`: The actual observed frequency (0.0-1.0) of this specific combination of values in the dataset
+- `base_frequency`: The theoretical frequency if the columns were statistically independent, used for correlation analysis
+- `*isnull`: Array of boolean flags indicating which attributes in this combination are NULL values
+- `*values`: Array of Datum values representing the actual values for each attribute in this combination
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL's generic data type)

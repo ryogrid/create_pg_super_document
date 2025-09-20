@@ -16,7 +16,6 @@ compute_parallel_delay(void)
 This function implements a sophisticated cost-based delay mechanism specifically designed for parallel vacuum operations. The core principle is to allow each worker to sleep proportionally to the amount of work (I/O operations) it has performed. The function maintains both shared and local cost balances to track work distribution across workers. It uses atomic operations to safely update shared state and calculates delay time based on the worker's local cost balance relative to the overall system limits. A worker is only put to sleep if it has performed more than 50% of its fair share of work and the overall shared cost balance exceeds the system-wide vacuum cost limit.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - delay time in milliseconds
 
 ## Dependencies

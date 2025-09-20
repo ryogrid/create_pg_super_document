@@ -15,7 +15,7 @@ void check_pghost_envvar(void)
 This function performs a security check to ensure that pg_upgrade operations only connect to local PostgreSQL servers. It examines the PGHOST and PGHOSTADDR environment variables to verify they contain local server addresses. The function uses libpq's PQconndefaults() to get the list of valid connection parameters and their associated environment variables, then checks if any PGHOST or PGHOSTADDR values point to remote servers. This prevents accidental connections to remote databases during upgrade operations.
 
 ## Parameters / Member Variables
-- This function takes no parameters (void)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

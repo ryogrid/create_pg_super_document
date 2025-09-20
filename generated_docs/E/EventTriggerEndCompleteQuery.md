@@ -23,7 +23,7 @@ This function serves as the mandatory cleanup counterpart to EventTriggerBeginCo
 The function is designed to be safe for use in error handling contexts (PG_CATCH blocks) and avoids operations that might fail or allocate additional memory.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

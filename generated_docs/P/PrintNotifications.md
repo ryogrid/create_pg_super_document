@@ -26,7 +26,7 @@ PrintNotifications handles the processing and display of asynchronous notificati
 The function ensures all notifications are processed and displayed immediately, providing real-time feedback for applications using PostgreSQL's asynchronous messaging features.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -27,13 +27,12 @@ The structure includes metadata about the dimensions being tracked, data types f
 This information enables the query planner to make accurate selectivity estimates for multi-column predicates, especially when columns exhibit correlation patterns that would be missed by independent column statistics.
 
 ## Parameters / Member Variables
-- : Magic constant marker (STATS_MCV_MAGIC = 0xE1A651C2) used for structure validation and serialization integrity
-- : Type identifier for the MCV list, currently supports STATS_MCV_TYPE_BASIC (1)
-- : Number of MCVItem entries stored in the items array (limited by STATS_MCVLIST_MAX_ITEMS)
-- : Number of columns/attributes represented in this MCV list (limited by STATS_MAX_DIMENSIONS = 8)
-- : Array of PostgreSQL type OIDs for each dimension, used for proper value interpretation and serialization
-- : Flexible array of MCVItem structures containing the actual most-common value combinations and their frequencies
-
+- `magic`: Magic constant marker (STATS_MCV_MAGIC = 0xE1A651C2) used for structure validation and serialization integrity
+- `type`: Type identifier for the MCV list, currently supports STATS_MCV_TYPE_BASIC (1)
+- `nitems`: Number of MCVItem entries stored in the items array (limited by STATS_MCVLIST_MAX_ITEMS)
+- `ndimensions`: Number of columns/attributes represented in this MCV list (limited by STATS_MAX_DIMENSIONS = 8)
+- `types[STATS_MAX_DIMENSIONS]`: Array of PostgreSQL type OIDs for each dimension, used for proper value interpretation and serialization
+- `items[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of MCVItem structures containing the actual most-common value combinations and their frequencies
 ## Dependencies
 - Functions called/Symbols referenced:
   - STATS_MAX_DIMENSIONS (maximum dimension limit constant)

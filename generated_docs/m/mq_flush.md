@@ -17,7 +17,7 @@ This function serves as the flush method implementation for the PqCommMqMethods 
 The function is part of the PQcommMethods interface that allows PostgreSQL to abstract different communication mechanisms behind a common interface. It returns 0 to indicate successful completion, maintaining consistency with other flush method implementations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

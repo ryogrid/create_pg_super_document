@@ -21,7 +21,6 @@ This SQL-callable function provides detailed information about the current state
 The function first validates that the database is in recovery mode, then uses GetRecoveryPauseState() to determine the exact pause state and maps it to the appropriate human-readable string. This detailed state information is particularly useful for monitoring and debugging recovery operations.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS convention but takes no arguments)
 - Returns text: One of "not paused", "pause requested", or "paused"
 
 ## Dependencies

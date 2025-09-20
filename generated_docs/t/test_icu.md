@@ -18,7 +18,7 @@ This function performs a comprehensive validation of PostgreSQL's Unicode case c
 The function tracks statistics including successful tests and skipped mismatches (where PostgreSQL considers a codepoint assigned but ICU considers it unassigned, typically due to Unicode version differences), providing summary information upon completion.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

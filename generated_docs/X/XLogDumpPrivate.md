@@ -23,11 +23,10 @@ XLogDumpPrivate serves as a context structure that maintains the state of a WAL 
 The structure is designed to be passed to callback functions during WAL record processing, allowing them to access and modify the dump session state as needed.
 
 ## Parameters / Member Variables
-- : The timeline ID being processed during the WAL dump operation
-- : The starting WAL position (XLogRecPtr) from which to begin dumping records
-- : The ending WAL position (XLogRecPtr) at which to stop dumping records
-- : Boolean flag indicating whether the end position has been reached during processing
-
+- `timeline`: The timeline ID being processed during the WAL dump operation
+- `startptr`: The starting WAL position (XLogRecPtr) from which to begin dumping records
+- `endptr`: The ending WAL position (XLogRecPtr) at which to stop dumping records
+- `endptr_reached`: Boolean flag indicating whether the end position has been reached during processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimeLineID (PostgreSQL timeline identifier type)

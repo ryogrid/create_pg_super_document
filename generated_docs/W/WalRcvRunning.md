@@ -16,7 +16,7 @@ WalRcvRunning(void)
 This function checks the current state of the WAL receiver by examining the shared walRcvState variable. It handles the special case where the WAL receiver is in WALRCV_STARTING state for too long, indicating a startup failure. In such cases, it automatically transitions the state to WALRCV_STOPPED and broadcasts a condition variable to notify waiting processes. The function provides a reliable way to determine if WAL receiver operations are active or available.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -37,7 +37,6 @@ ServerLoop is the heart of the PostgreSQL postmaster, implementing the main even
 The loop uses DetermineSleepTime() to calculate optimal wait durations, balancing responsiveness with system efficiency.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Local variables:
   - : Timestamp for periodic lock file validation
   - : Timestamp for socket file maintenance

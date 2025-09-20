@@ -22,7 +22,7 @@ The function works in tandem with disable_sigpipe_trap() to provide safe pipe op
 This approach is designed for psql's current architecture where nested pipe operations are not complex enough to require a full save/restore state mechanism.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

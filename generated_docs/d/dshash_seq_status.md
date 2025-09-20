@@ -24,14 +24,13 @@ typedef struct dshash_seq_status
 The dshash_seq_status structure encapsulates all state information needed to perform sequential scanning through a dynamic shared hash table. While the implementation details are exposed to allow users to know the storage size requirements, this structure should be treated as opaque by callers and only manipulated through the provided dshash sequential scan API functions. The structure tracks the current scanning position at multiple levels: partition, bucket, and individual item level, along with maintaining references to the hash table being scanned and the locking mode being used.
 
 ## Parameters / Member Variables
-- : Pointer to the dshash_table being sequentially scanned
-- : Current bucket number being scanned within the hash table
-- : Total number of buckets in the dynamic shared hash table
-- : Pointer to the dshash_table_item currently being examined
-- : DSA pointer to the next item in the scan sequence
-- : Current partition number being scanned (for partitioned tables)
-- : Boolean flag indicating whether exclusive locking mode is being used
-
+- `*hash_table`: Pointer to the dshash_table being sequentially scanned
+- `curbucket`: Current bucket number being scanned within the hash table
+- `nbuckets`: Total number of buckets in the dynamic shared hash table
+- `*curitem`: Pointer to the dshash_table_item currently being examined
+- `pnextitem`: DSA pointer to the next item in the scan sequence
+- `curpartition`: Current partition number being scanned (for partitioned tables)
+- `exclusive`: Boolean flag indicating whether exclusive locking mode is being used
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dshash_table](dshash_table.md)

@@ -20,10 +20,9 @@ typedef struct BloomOptions
 BloomOptions serves as the storage type for BRIN's reloptions (relation options) specific to bloom filter indexes. This structure encapsulates the two key parameters that control bloom filter behavior: the expected number of distinct values per range and the target false positive rate. These parameters are critical for optimizing bloom filter size and performance characteristics. The structure follows PostgreSQL's varlena format, making it suitable for storage as relation options.
 
 ## Parameters / Member Variables
-- : Standard varlena header required for PostgreSQL's variable-length data types (should not be manipulated directly)
-- : Controls the expected number of distinct values within each BRIN range, used to calculate optimal bloom filter size
-- : Target false positive rate for the bloom filter, balancing between filter size and accuracy
-
+- `vl_len_`: Standard varlena header required for PostgreSQL's variable-length data types (should not be manipulated directly)
+- `nDistinctPerRange`: Controls the expected number of distinct values within each BRIN range, used to calculate optimal bloom filter size
+- `falsePositiveRate`: Target false positive rate for the bloom filter, balancing between filter size and accuracy
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):

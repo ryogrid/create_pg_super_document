@@ -26,11 +26,10 @@ PartitionRangeDatum is used in range partitioning to represent individual bound 
 Range partitions use these datums to define inclusive lower bounds and exclusive upper bounds. The unbounded values allow for open-ended ranges at the beginning and end of the partition range spectrum, while specific values define precise partition boundaries based on the partition key values.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for the PostgreSQL node system
-- : Enumerated type indicating whether this datum represents MINVALUE, MAXVALUE, or a specific bounded value
-- : Pointer to a Const node containing the actual value when kind is PARTITION_RANGE_DATUM_VALUE, otherwise NULL for unbounded values
-- : Parse location in the original SQL text for error reporting, or -1 if unknown
-
+- `type`: Standard NodeTag for the PostgreSQL node system
+- `kind`: Enumerated type indicating whether this datum represents MINVALUE, MAXVALUE, or a specific bounded value
+- `*value`: Pointer to a Const node containing the actual value when kind is PARTITION_RANGE_DATUM_VALUE, otherwise NULL for unbounded values
+- `location`: Parse location in the original SQL text for error reporting, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PartitionRangeDatumKind](PartitionRangeDatumKind.md)

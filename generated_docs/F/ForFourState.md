@@ -22,12 +22,11 @@ typedef struct ForFourState
 ForFourState is a utility structure designed to support parallel iteration over four PostgreSQL List structures. It maintains references to four lists and tracks the current position (index) across all lists simultaneously. This structure is primarily used internally by the  macro to enable convenient iteration over multiple lists where corresponding elements at the same index are processed together. The structure ensures that all four lists are traversed in lockstep, maintaining synchronization across the iteration.
 
 ## Parameters / Member Variables
-- : Pointer to the first list being iterated
-- : Pointer to the second list being iterated  
-- : Pointer to the third list being iterated
-- : Pointer to the fourth list being iterated
-- : Current common index position across all four lists
-
+- `*l1`: Pointer to the first list being iterated
+- `*l2`: Pointer to the second list being iterated
+- `*l3`: Pointer to the third list being iterated
+- `*l4`: Pointer to the fourth list being iterated
+- `i`: Current common index position across all four lists
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list structure)

@@ -16,7 +16,7 @@ spg_xlog_cleanup(void)
  is a cleanup function that properly deallocates the SP-GiST temporary memory context created by . This function is called during recovery shutdown or when SP-GiST WAL replay operations are complete. It ensures that the memory context () is properly deleted to prevent memory leaks, and sets the global  pointer to NULL to prevent any accidental access after cleanup. This is a critical part of the SP-GiST recovery infrastructure's resource management.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

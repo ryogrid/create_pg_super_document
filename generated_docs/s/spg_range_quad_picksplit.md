@@ -13,7 +13,6 @@ Datum spg_range_quad_picksplit(PG_FUNCTION_ARGS)
 This function implements the node splitting logic for SP-GiST quadtree indexing of range types. When a node becomes full, it analyzes all ranges in the node to construct a "centroid" range based on median values of the lower and upper bounds. It then distributes the ranges into quadrant-based child nodes according to their spatial relationship with the centroid. The function handles special cases including all-empty ranges and root-level splitting, creating appropriate node structures for efficient quadtree navigation.
 
 ## Parameters / Member Variables
-- Function uses PG_FUNCTION_ARGS macro for PostgreSQL function argument handling
 - in: spgPickSplitIn structure containing ranges to split and node information
 - out: spgPickSplitOut structure populated with splitting results
 - nonEmptyCount: Count of non-empty ranges in the input set

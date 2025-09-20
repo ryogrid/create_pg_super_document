@@ -21,9 +21,8 @@ Despite its name suggesting a connection to WAL (Write-Ahead Logging) records, g
 This lightweight structure acts as a descriptor that precedes a sequence of index tuples in memory, allowing the GiST split logic to efficiently process and organize multiple pages worth of tuple data. Its primary role is to provide the necessary context for interpreting the tuple data that follows in the data stream.
 
 ## Parameters / Member Variables
-- : BlockNumber identifying the specific page that this header describes
-- : Integer count specifying the number of index tuples that follow this header in the data stream
-
+- `blkno`: BlockNumber identifying the specific page that this header describes
+- `num`: Integer count specifying the number of index tuples that follow this header in the data stream
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber

@@ -20,7 +20,6 @@ RT_FREE_RECURSE is part of PostgreSQL's generic radix tree implementation. This 
 This is an internal helper function (note the static modifier) that performs a depth-first traversal of the radix tree, freeing child nodes recursively before freeing parent nodes. It handles different node types (RT_NODE_KIND_4, RT_NODE_KIND_16, RT_NODE_KIND_48, RT_NODE_KIND_256) and properly manages memory allocated in the DSA area for shared memory trees. The function includes stack depth checking to prevent stack overflow during deep recursions.
 
 ## Parameters / Member Variables
-- Uses RT_MAKE_NAME macro to construct the actual function name
 - **tree**: Pointer to the radix tree structure containing the nodes to free
 - **ptr**: Allocated pointer to the current node being processed
 - **shift**: Current bit shift level in the radix tree traversal

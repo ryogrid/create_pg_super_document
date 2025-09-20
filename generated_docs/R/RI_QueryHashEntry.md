@@ -19,9 +19,8 @@ typedef struct RI_QueryHashEntry
 RI_QueryHashEntry represents an entry in the referential integrity query plan cache hash table. Each entry associates a specific query key (identifying a constraint and operation type) with its corresponding prepared SPI plan. This structure enables PostgreSQL to cache and reuse SQL execution plans for foreign key constraint operations, significantly improving performance by avoiding the overhead of repeatedly parsing and planning the same types of queries.
 
 ## Parameters / Member Variables
-- : RI_QueryKey structure that uniquely identifies the constraint and query type for this cached plan
-- : SPIPlanPtr pointing to the prepared SPI plan that can be executed for this specific referential integrity operation
-
+- `key`: RI_QueryKey structure that uniquely identifies the constraint and query type for this cached plan
+- `plan`: SPIPlanPtr pointing to the prepared SPI plan that can be executed for this specific referential integrity operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RI_QueryKey](RI_QueryKey.md)

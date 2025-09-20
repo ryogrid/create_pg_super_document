@@ -16,7 +16,6 @@ boolrecv(PG_FUNCTION_ARGS)
 The `boolrecv` function serves as the binary input conversion function for PostgreSQL's boolean data type. It is used by the PostgreSQL protocol and binary data exchange mechanisms to convert boolean values from their external binary representation to internal boolean values. The function reads exactly one byte from the input buffer using PostgreSQL's message parsing system. Any non-zero byte value is interpreted as true, while a zero byte represents false. This follows a common binary boolean convention where any non-zero value indicates truth.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function call context  
 - Input parameter accessed via `PG_GETARG_POINTER(0)`: StringInfo buffer containing the binary data to parse
 
 ## Dependencies

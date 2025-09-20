@@ -72,23 +72,22 @@ The Plan structure is designed so that all specific plan node types (like SeqSca
 The structure includes cost estimates that guide the planner's decisions, parallel execution metadata, and parameter tracking for efficient plan re-execution. The tree structure is maintained through lefttree and righttree pointers, with additional initPlan nodes for uncorrelated subqueries.
 
 ## Parameters / Member Variables
-- : Node tag identifying the specific plan node type
-- : Estimated cost before returning the first tuple
-- : Estimated total cost if all tuples are fetched
-- : Planner's estimate of the number of rows this node will produce
-- : Average width in bytes of rows produced by this node
-- : True if this node can take advantage of parallel execution
-- : True if this node is safe to execute in parallel with other nodes
-- : True if this node supports asynchronous execution
-- : Unique identifier for this node within the plan tree
-- : List of expressions to be computed and returned by this node
-- : List of qualification conditions (WHERE clauses) applied at this node
-- : Left child plan node (primary input for most node types)
-- : Right child plan node (used by join nodes, etc.)
-- : List of uncorrelated subquery plans that must execute first
-- : Set of external PARAM_EXEC parameter IDs affecting this node
-- : Set of all PARAM_EXEC parameter IDs affecting this node (external + local)
-
+- `type`: Node tag identifying the specific plan node type
+- `startup_cost`: Estimated cost before returning the first tuple
+- `total_cost`: Estimated total cost if all tuples are fetched
+- `plan_rows`: Planner's estimate of the number of rows this node will produce
+- `plan_width`: Average width in bytes of rows produced by this node
+- `parallel_aware`: True if this node can take advantage of parallel execution
+- `parallel_safe`: True if this node is safe to execute in parallel with other nodes
+- `async_capable`: True if this node supports asynchronous execution
+- `plan_node_id`: Unique identifier for this node within the plan tree
+- `*targetlist`: List of expressions to be computed and returned by this node
+- `*qual`: List of qualification conditions (WHERE clauses) applied at this node
+- `*lefttree`: Left child plan node (primary input for most node types)
+- `*righttree`: Right child plan node (used by join nodes, etc.)
+- `*initPlan`: List of uncorrelated subquery plans that must execute first
+- `*extParam`: Set of external PARAM_EXEC parameter IDs affecting this node
+- `*allParam`: Set of all PARAM_EXEC parameter IDs affecting this node (external + local)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cost

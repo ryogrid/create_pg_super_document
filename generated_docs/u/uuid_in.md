@@ -18,8 +18,6 @@ The function allocates memory for a new UUID structure and delegates the actual 
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function call information including:
-  - The input string (retrieved via `PG_GETARG_CSTRING(0)`)
-  - Function call context information via `fcinfo`
 
 ## Dependencies
 - Functions called/Symbols referenced:

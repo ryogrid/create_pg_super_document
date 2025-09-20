@@ -44,14 +44,13 @@ BrinLeader serves as the control structure for the leader process in parallel BR
 The structure includes pointers to shared memory segments for coordination, performance tracking (WAL and buffer usage), and snapshot management for MVCC consistency when required.
 
 ## Parameters / Member Variables
-- : Pointer to the parallel execution context managing the parallel build
-- : Total number of participant processes including successfully launched workers plus the leader if it participates as a worker
-- : Convenience pointer to the shared state structure for the entire build process
-- : Pointer to shared tuplesort-managed state passed to each process
-- : MVCC snapshot used by the scan when MVCC snapshot is required
-- : Pointer to WAL usage statistics for performance tracking
-- : Pointer to buffer usage statistics for performance monitoring
-
+- `*pcxt`: Pointer to the parallel execution context managing the parallel build
+- `nparticipanttuplesorts`: Total number of participant processes including successfully launched workers plus the leader if it participates as a worker
+- `*brinshared`: Convenience pointer to the shared state structure for the entire build process
+- `*sharedsort`: Pointer to shared tuplesort-managed state passed to each process
+- `snapshot`: MVCC snapshot used by the scan when MVCC snapshot is required
+- `*walusage`: Pointer to WAL usage statistics for performance tracking
+- `*bufferusage`: Pointer to buffer usage statistics for performance monitoring
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParallelContext](../P/ParallelContext.md)

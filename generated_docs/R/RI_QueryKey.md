@@ -19,9 +19,8 @@ typedef struct RI_QueryKey
 RI_QueryKey provides a composite key mechanism for the query plan cache used in referential integrity operations. Each key uniquely identifies a specific type of query plan for a particular foreign key constraint. The structure combines the constraint identifier with a query type code to ensure that different types of operations on the same constraint (such as CASCADE DELETE vs RESTRICT operations) can be cached separately and retrieved efficiently.
 
 ## Parameters / Member Variables
-- : OID of the pg_constraint entry that this query plan is associated with
-- : Query type identifier that specifies the kind of referential integrity operation (see RI_PLAN_XXX constants)
-
+- `constr_id`: OID of the pg_constraint entry that this query plan is associated with
+- `constr_queryno`: Query type identifier that specifies the kind of referential integrity operation (see RI_PLAN_XXX constants)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

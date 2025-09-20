@@ -18,7 +18,7 @@ ResetCancelConn is a thread-safe function that cleans up the global cancelConn v
 Like SetCancelConn, this function uses critical sections on Windows platforms to ensure thread safety. It follows the same careful sequence of first nullifying the global pointer before freeing the cancel object to prevent race conditions with signal handlers that might attempt to access the cancel connection.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

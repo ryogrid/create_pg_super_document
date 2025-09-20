@@ -48,19 +48,18 @@ This structure manages the complete lifecycle of a global transaction in Postgre
 The structure maintains critical WAL logging information through start and end LSNs to ensure proper recovery and commit ordering.
 
 ## Parameters / Member Variables
-- : Pointer to next GlobalTransaction in the free list for memory management
-- : ID of the associated dummy PGPROC entry used for process management
-- : Timestamp when the transaction was prepared
-- : WAL log sequence number where the prepare record starts (needed for reading state data during commit)
-- : WAL log sequence number where the prepare record ends (needed for waiting before commit)
-- : The transaction ID of this global transaction
-- : Object ID of the user who executed this transaction
-- : Process number of the backend currently working on this transaction (prevents concurrent operations)
-- : Boolean flag indicating if the PGPROC entry is properly registered in the process array
-- : Boolean flag indicating if the prepare state file has been written to disk
-- : Boolean flag indicating if this entry was created during WAL replay/recovery
-- : Character array storing the Global Identifier assigned to this prepared transaction
-
+- `next`: Pointer to next GlobalTransaction in the free list for memory management
+- `pgprocno`: ID of the associated dummy PGPROC entry used for process management
+- `prepared_at`: Timestamp when the transaction was prepared
+- `prepare_start_lsn`: WAL log sequence number where the prepare record starts (needed for reading state data during commit)
+- `prepare_end_lsn`: WAL log sequence number where the prepare record ends (needed for waiting before commit)
+- `xid`: The transaction ID of this global transaction
+- `owner`: Object ID of the user who executed this transaction
+- `locking_backend`: Process number of the backend currently working on this transaction (prevents concurrent operations)
+- `valid`: Boolean flag indicating if the PGPROC entry is properly registered in the process array
+- `ondisk`: Boolean flag indicating if the prepare state file has been written to disk
+- `inredo`: Boolean flag indicating if this entry was created during WAL replay/recovery
+- `gid[GIDSIZE]`: Character array storing the Global Identifier assigned to this prepared transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - GlobalTransaction (typedef pointer)

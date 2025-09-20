@@ -25,7 +25,7 @@ The function processes several types of interrupts and system events:
 The function includes sophisticated logic for handling archive library changes, which requires a complete archiver process restart due to the inability to dynamically unload shared libraries in PostgreSQL.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

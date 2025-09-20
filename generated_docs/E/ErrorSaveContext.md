@@ -25,11 +25,10 @@ The context is initialized by a caller with all fields set to zero/NULL except f
 When an error occurs, the error_occurred flag is set to true. If details_wanted was set to true by the caller, the error_data field is populated with detailed error information stored in the callee's memory context. The SOFT_ERROR_OCCURRED macro provides a convenient way to check if a soft error was reported.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : Boolean flag set to true when a soft error is detected
-- : Boolean flag indicating whether the caller wants detailed error information beyond just knowing an error occurred
-- : Pointer to ErrorData structure containing detailed error information (only populated if details_wanted is true)
-
+- `type`: NodeTag identifier for the structure type
+- `error_occurred`: Boolean flag set to true when a soft error is detected
+- `details_wanted`: Boolean flag indicating whether the caller wants detailed error information beyond just knowing an error occurred
+- `*error_data`: Pointer to ErrorData structure containing detailed error information (only populated if details_wanted is true)
 ## Dependencies
 - Functions called/Symbols referenced:
   - ErrorData

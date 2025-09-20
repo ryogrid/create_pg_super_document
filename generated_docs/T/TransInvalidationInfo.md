@@ -35,12 +35,11 @@ The structure separates invalidation messages into two categories: those generat
 When a subtransaction commits, its invalidation messages are appended to the parent transaction's groups. When a subtransaction aborts, its messages are simply discarded. This mechanism ensures that cache invalidations are properly propagated or rolled back according to transaction semantics.
 
 ## Parameters / Member Variables
-- : Back link to the parent transaction's TransInvalidationInfo structure, forming a stack for nested transactions
-- : Integer indicating the subtransaction nesting depth, used to match against GetCurrentTransactionNestLevel()
-- : InvalidationMsgsGroup containing events emitted by the current command that haven't been reflected to caches yet
-- : InvalidationMsgsGroup containing events from previous commands of this transaction that have been reflected to local caches
-- : Boolean flag indicating whether the relation cache initialization file must be invalidated
-
+- `*parent`: Back link to the parent transaction's TransInvalidationInfo structure, forming a stack for nested transactions
+- `my_level`: Integer indicating the subtransaction nesting depth, used to match against GetCurrentTransactionNestLevel()
+- `CurrentCmdInvalidMsgs`: InvalidationMsgsGroup containing events emitted by the current command that haven't been reflected to caches yet
+- `PriorCmdInvalidMsgs`: InvalidationMsgsGroup containing events from previous commands of this transaction that have been reflected to local caches
+- `RelcacheInitFileInval`: Boolean flag indicating whether the relation cache initialization file must be invalidated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TransInvalidationInfo](TransInvalidationInfo.md) (self-reference for parent pointer)

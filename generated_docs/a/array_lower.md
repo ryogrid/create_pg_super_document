@@ -16,8 +16,6 @@ The `array_lower` function retrieves the lower bound (starting index) of a speci
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
-  - Array argument accessed via `PG_GETARG_ANY_ARRAY_P(0)` - the input array to examine
-  - Dimension number accessed via `PG_GETARG_INT32(1)` - the dimension to query (1-based)
 
 ## Dependencies
 - Functions called/Symbols referenced:

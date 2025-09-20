@@ -20,10 +20,9 @@ typedef struct _cfgInfo
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search configurations, which are high-level objects that coordinate the use of parsers and dictionaries in PostgreSQL's full-text search system. Text search configurations define how documents are processed for indexing and searching.
 
 ## Parameters / Member Variables
-- : Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
-- : Name of the role (user) that owns this text search configuration
-- : OID of the text search parser associated with this configuration
-
+- `dobj`: Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
+- `*rolname`: Name of the role (user) that owns this text search configuration
+- `cfgparser`: OID of the text search parser associated with this configuration
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

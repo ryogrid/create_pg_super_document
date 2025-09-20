@@ -24,11 +24,10 @@ typedef struct gistxlogDelete
 This structure is used to log GiST index tuple deletion operations in the write-ahead log. It contains all the information necessary to replay the deletion during crash recovery or streaming replication. The structure includes a snapshot conflict horizon for handling recovery conflicts, the number of tuples to delete, a flag for catalog relations, and a flexible array of offset numbers identifying which tuples to delete from the target page.
 
 ## Parameters / Member Variables
-- : Transaction ID used to determine snapshot conflicts during recovery, ensuring proper MVCC visibility semantics
-- : Number of index tuples being deleted in this operation
-- : Boolean flag indicating if this is a catalog relation, used for handling recovery conflicts during logical decoding on standby servers
-- : Flexible array containing the offset numbers of tuples to be deleted from the leaf page
-
+- `snapshotConflictHorizon`: Transaction ID used to determine snapshot conflicts during recovery, ensuring proper MVCC visibility semantics
+- `ntodelete`: Number of index tuples being deleted in this operation
+- `isCatalogRel`: Boolean flag indicating if this is a catalog relation, used for handling recovery conflicts during logical decoding on standby servers
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: Flexible array containing the offset numbers of tuples to be deleted from the leaf page
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

@@ -21,11 +21,10 @@ typedef struct LockingClause
 LockingClause captures the FOR UPDATE and FOR SHARE locking specifications found in SELECT statements. It represents the parsed form of row-level locking directives that control concurrent access to query results. The structure can specify particular relations to lock or apply to all relations in the query. It supports different locking strengths (UPDATE vs SHARE, with KEY variants) and wait policies (blocking, NOWAIT, or SKIP LOCKED) to handle lock conflicts.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this node type
-- : List of RangeVar nodes specifying relations to lock (NIL means all relations in query)
-- : The type of lock to acquire (FOR UPDATE, FOR NO KEY UPDATE, FOR SHARE, or FOR KEY SHARE)
-- : How to handle lock conflicts (block, NOWAIT, or SKIP LOCKED)
-
+- `type`: NodeTag identifier for this node type
+- `*lockedRels`: List of RangeVar nodes specifying relations to lock (NIL means all relations in query)
+- `strength`: The type of lock to acquire (FOR UPDATE, FOR NO KEY UPDATE, FOR SHARE, or FOR KEY SHARE)
+- `waitPolicy`: How to handle lock conflicts (block, NOWAIT, or SKIP LOCKED)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockClauseStrength (enum defining lock strength types)

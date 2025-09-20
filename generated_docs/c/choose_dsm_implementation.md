@@ -16,7 +16,7 @@ choose_dsm_implementation(void)
 The  function performs runtime detection to select the optimal dynamic shared memory (DSM) implementation for PostgreSQL on the current platform. It prioritizes POSIX shared memory () because it typically offers higher default allocation limits compared to System V shared memory. However, since the mere presence of  doesn't guarantee successful operation, the function performs an empirical test by attempting to create and immediately destroy a test shared memory segment, similar to what the postmaster process will do during normal operation. If the POSIX implementation is unavailable or fails (excluding name collision retries), it falls back to System V shared memory on Unix-like systems or Windows-specific implementation on Windows. The function specifically avoids Solaris's  implementation due to known issues with sleeping and spurious failures under contention.
 
 ## Parameters / Member Variables
-- None (void function returning a const char pointer to the implementation name)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

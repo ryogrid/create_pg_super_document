@@ -20,7 +20,7 @@ The function uses Windows Security Identifier (SID) APIs to create SIDs for thes
 This function is particularly important for PostgreSQL's Windows port as it helps determine appropriate security contexts and access levels during initialization.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,7 +17,7 @@ This function reports the current WAL (Write-Ahead Log) flush location in the sa
 The function is primarily intended for debugging purposes and provides insight into the current state of WAL record flushing. Like other WAL control functions, it cannot be executed during recovery mode.
 
 ## Parameters / Member Variables
-- This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ static void descriptor_key_init(void)
 The `descriptor_key_init` function initializes a pthread-specific key (`descriptor_key`) that enables thread-local storage for PostgreSQL descriptor objects. This function uses `pthread_key_create` to create a unique key that can be used to associate descriptor data with individual threads. The function also registers the `descriptor_destructor` as the cleanup function that will be automatically called when a thread exits, ensuring proper cleanup of thread-local descriptor resources.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,7 +22,6 @@ The compression process operates by iterating through the valid range of the arr
 ## Parameters / Member Variables
 - : KAXCompressReason value indicating why compression is being considered (affects heuristic decisions)
 - : Boolean indicating whether caller already holds ProcArrayLock in exclusive mode
-- No return value (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:

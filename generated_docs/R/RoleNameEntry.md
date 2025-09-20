@@ -22,10 +22,9 @@ RoleNameEntry serves as the data structure for elements stored in a simple hash 
 The hash table using this structure helps ensure that role membership grants are dumped in the correct order - a role must be dumped as a grantor before it can grant membership to other roles. This prevents dependency issues in the generated SQL dump.
 
 ## Parameters / Member Variables
-- : Hash table status field used internally by the simplehash framework for managing entry state
-- : Cached hash value for the role name, computed using hash_string() function for efficient lookups
-- : Pointer to the role name string that serves as the key for hash table operations
-
+- `status`: Hash table status field used internally by the simplehash framework for managing entry state
+- `hashval`: Cached hash value for the role name, computed using hash_string() function for efficient lookups
+- `*rolename`: Pointer to the role name string that serves as the key for hash table operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [hash_string](../h/hash_string.md) (via SH_HASH_KEY macro)

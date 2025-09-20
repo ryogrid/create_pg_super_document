@@ -19,7 +19,6 @@ The function reads three consecutive float8 values from the input buffer: the x 
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function arguments, containing:
-  - StringInfo buffer with binary data (accessed via PG_GETARG_POINTER(0))
 
 ## Dependencies
 - Functions called/Symbols referenced:

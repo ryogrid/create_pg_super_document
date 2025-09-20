@@ -29,17 +29,16 @@ typedef struct XLogPrefetchStats
 The XLogPrefetchStats structure serves as a comprehensive metrics collection system for PostgreSQL's WAL prefetching mechanism. It maintains both cumulative atomic counters for lifetime statistics and dynamic instant values for current system state. The structure is allocated in shared memory to allow multiple processes to update and read statistics concurrently. The atomic counters ensure thread-safe updates across different backend processes involved in WAL replay and recovery. These statistics are exposed to users through the pg_stat_recovery_prefetch system view for monitoring prefetch effectiveness.
 
 ## Parameters / Member Variables
-- : pg_atomic_uint64 timestamp of when statistics were last reset/initialized
-- : pg_atomic_uint64 counter of total prefetch operations initiated
-- : pg_atomic_uint64 counter of blocks that were already present in cache when prefetch was attempted
-- : pg_atomic_uint64 counter of zero-initialized (newly created) blocks that were skipped
-- : pg_atomic_uint64 counter of new or missing blocks that were filtered out to avoid errors
-- : pg_atomic_uint64 counter of Full Page Writes (FPW) that were skipped during prefetch
-- : pg_atomic_uint64 counter of repeated block accesses that were skipped to avoid redundant I/O
-- : int representing current number of WAL bytes the prefetcher is ahead of replay
-- : int representing current number of block references ahead of replay position  
-- : int representing current number of I/O operations in progress
-
+- `reset_time`: pg_atomic_uint64 timestamp of when statistics were last reset/initialized
+- `prefetch`: pg_atomic_uint64 counter of total prefetch operations initiated
+- `hit`: pg_atomic_uint64 counter of blocks that were already present in cache when prefetch was attempted
+- `skip_init`: pg_atomic_uint64 counter of zero-initialized (newly created) blocks that were skipped
+- `skip_new`: pg_atomic_uint64 counter of new or missing blocks that were filtered out to avoid errors
+- `skip_fpw`: pg_atomic_uint64 counter of Full Page Writes (FPW) that were skipped during prefetch
+- `skip_rep`: pg_atomic_uint64 counter of repeated block accesses that were skipped to avoid redundant I/O
+- `wal_distance`: int representing current number of WAL bytes the prefetcher is ahead of replay
+- `block_distance`: int representing current number of block references ahead of replay position
+- `io_depth`: int representing current number of I/O operations in progress
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (atomic 64-bit unsigned integer type for thread-safe counters)

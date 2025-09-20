@@ -17,7 +17,7 @@ This function serves as the show hook for the archive_command GUC parameter, pro
 The function checks the current archiving status using XLogArchivingActive() and returns either the actual command string or the disabled indicator. This provides better user experience when viewing configuration settings, as it clearly indicates when the archive command is configured but not operational.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

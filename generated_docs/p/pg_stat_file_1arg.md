@@ -16,7 +16,6 @@ This function serves as a wrapper around the main  function, providing a single-
 
 ## Parameters / Member Variables
 - Inherits parameters from : filename_t (text parameter containing the path to the file to be examined)
-- The  parameter is not available in this single-argument version, defaulting to false
 
 ## Dependencies
 - Functions called/Symbols referenced:

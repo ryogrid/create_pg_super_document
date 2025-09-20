@@ -21,9 +21,6 @@ The function properly manages memory by freeing any detoasted copies of the inpu
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - First array (accessed via )
-  - Second array (accessed via )
-  - Function call context and collation information
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,13 +23,12 @@ typedef struct _fdwInfo
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about foreign data wrappers (FDWs), which are PostgreSQL extensions that allow access to data stored in external data sources. FDWs enable PostgreSQL to query and manipulate data from remote databases, files, web services, and other external systems as if they were local tables.
 
 ## Parameters / Member Variables
-- : Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
-- :  structure containing access control list (permission) information for this FDW
-- : Name of the role (user) that owns this foreign data wrapper
-- : Name of the handler function that implements the FDW's core functionality
-- : Name of the validator function that validates options passed to the FDW
-- : String containing FDW-specific options and their values
-
+- `dobj`: Base  structure containing common dump metadata (name, namespace, dependencies, etc.)
+- `dacl`:  structure containing access control list (permission) information for this FDW
+- `*rolname`: Name of the role (user) that owns this foreign data wrapper
+- `*fdwhandler`: Name of the handler function that implements the FDW's core functionality
+- `*fdwvalidator`: Name of the validator function that validates options passed to the FDW
+- `*fdwoptions`: String containing FDW-specific options and their values
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

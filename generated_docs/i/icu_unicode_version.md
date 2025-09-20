@@ -20,7 +20,7 @@ This function is a PostgreSQL SQL function that provides information about the U
 This conditional compilation approach allows the function to exist in all PostgreSQL builds while providing meaningful information only when ICU support is actually available. This is particularly useful for applications and administrators who need to verify Unicode compatibility between PostgreSQL and ICU.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro (standard PostgreSQL function signature for SQL-callable functions)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

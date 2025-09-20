@@ -18,7 +18,7 @@ This function serves as a show hook for the unix_socket_permissions GUC paramete
 The function uses a static buffer to store the formatted string, which is safe because GUC show hooks are called in controlled contexts where the returned string is immediately used or copied.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

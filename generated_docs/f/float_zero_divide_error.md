@@ -18,7 +18,7 @@ This function provides centralized error reporting for division by zero conditio
 Division by zero is a fundamental mathematical error that occurs when a number is divided by zero, resulting in an undefined or infinite result. This centralized approach ensures consistent error reporting across PostgreSQL's floating-point division operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

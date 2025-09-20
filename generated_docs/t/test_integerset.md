@@ -18,7 +18,7 @@ The  function serves as the main test orchestrator for the IntegerSet module in 
 The function is designed to be called from SQL as a PostgreSQL function, returning void upon completion. It ensures thorough validation of the IntegerSet implementation across different scenarios including edge cases like maximum uint64 values and various data distribution patterns.
 
 ## Parameters / Member Variables
-- Takes standard PostgreSQL function arguments via  macro (no specific parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ static void error_commit_ts_disabled(void)
 This internal helper function generates a consistent error message when code attempts to access commit timestamp data but the track_commit_timestamp configuration parameter is not enabled. The function provides different error hints depending on whether the server is in recovery mode or not, offering appropriate guidance to users on how to resolve the issue.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

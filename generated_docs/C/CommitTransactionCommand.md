@@ -19,7 +19,7 @@ The function implements a simple iterative approach, repeatedly calling CommitTr
 This wrapper pattern is essential for handling PostgreSQL's hierarchical transaction model, where transactions can contain multiple levels of subtransactions that must be committed in the proper order and manner.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

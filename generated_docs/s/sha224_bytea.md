@@ -17,7 +17,6 @@ This function implements PostgreSQLs SHA224() SQL function for bytea input. It s
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: PostgreSQL function calling convention macro that provides access to function arguments
 - `result`: The computed SHA-224 hash as a bytea value, obtained from cryptohash_internal
-- Input bytea value is obtained via PG_GETARG_BYTEA_PP(0) and passed directly to cryptohash_internal
 
 ## Dependencies
 - Functions called/Symbols referenced:

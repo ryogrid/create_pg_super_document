@@ -68,16 +68,15 @@ The structure uses careful cache line alignment to optimize performance in multi
 Key responsibilities include tracking the current insertion position, managing full-page write settings, coordinating with backup operations, and providing the locking infrastructure for concurrent WAL insertions.
 
 ## Parameters / Member Variables
-- : Spinlock that protects the CurrBytePos and PrevBytePos fields during concurrent access
-- : The end position of currently reserved WAL space, where the next record will be inserted
-- : The start position of the previously inserted (reserved) record, used for prev-link chaining
-- : Cache line padding to ensure optimal memory layout and prevent false sharing
-- : Current redo point for insertions, determining the oldest WAL record still needed
-- : Authoritative setting for whether to write full-page images to WAL
-- : Counter tracking the number of concurrent backup operations
-- : The latest checkpoint redo location used as starting point for online backup
-- : Array of WAL insertion locks for coordinating concurrent insertions
-
+- `insertpos_lck`: Spinlock that protects the CurrBytePos and PrevBytePos fields during concurrent access
+- `CurrBytePos`: The end position of currently reserved WAL space, where the next record will be inserted
+- `PrevBytePos`: The start position of the previously inserted (reserved) record, used for prev-link chaining
+- `pad[PG_CACHE_LINE_SIZE]`: Cache line padding to ensure optimal memory layout and prevent false sharing
+- `RedoRecPtr`: Current redo point for insertions, determining the oldest WAL record still needed
+- `fullPageWrites`: Authoritative setting for whether to write full-page images to WAL
+- `runningBackups`: Counter tracking the number of concurrent backup operations
+- `lastBackupStart`: The latest checkpoint redo location used as starting point for online backup
+- `*WALInsertLocks`: Array of WAL insertion locks for coordinating concurrent insertions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md) (spinlock type)

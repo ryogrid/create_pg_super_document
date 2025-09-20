@@ -23,11 +23,10 @@ The ClosestMatchState structure implements a stateful approach to finding the cl
 The structure maintains state during a search process where multiple candidate strings are evaluated against a source string. It tracks the best match found so far (lowest Levenshtein distance) within specified constraints. The algorithm enforces several practical limits: the maximum allowed distance must not exceed half the length of the source string, and the total string length must not exceed MAX_LEVENSHTEIN_STRLEN to avoid performance issues.
 
 ## Parameters / Member Variables
-- : Pointer to the source string that needs to be matched against candidates
-- : Minimum Levenshtein distance found so far (-1 indicates no valid match has been found yet)
-- : Maximum Levenshtein distance allowed for a candidate to be considered a valid match
-- : Pointer to the best matching candidate string found so far (NULL if no suitable match exists)
-
+- `*source`: Pointer to the source string that needs to be matched against candidates
+- `min_d`: Minimum Levenshtein distance found so far (-1 indicates no valid match has been found yet)
+- `max_d`: Maximum Levenshtein distance allowed for a candidate to be considered a valid match
+- `*match`: Pointer to the best matching candidate string found so far (NULL if no suitable match exists)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This is a data structure with no direct function calls)

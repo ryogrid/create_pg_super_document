@@ -17,7 +17,7 @@ The function performs repeated write operations of XLOG_BLCKSZ bytes (typically 
 This baseline measurement is essential for calculating the relative overhead of synchronization methods. For example, if non-sync writes achieve 1000 ops/sec and fsync writes achieve 100 ops/sec, the synchronization overhead is 10x.
 
 ## Parameters / Member Variables
-- (No parameters - void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

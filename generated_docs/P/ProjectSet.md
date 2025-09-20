@@ -22,8 +22,7 @@ Unlike regular projection operations that maintain a 1:1 relationship between in
 The node relies on the common Plan structure for basic plan information, with the actual set-returning function logic handled by the executor through specialized expression evaluation mechanisms.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common fields including targetlist (which contains the set-returning function expressions), costs, and tree structure
-
+- `plan`: Base Plan structure containing common fields including targetlist (which contains the set-returning function expressions), costs, and tree structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](Plan.md) (base structure)

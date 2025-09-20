@@ -19,7 +19,7 @@ The function includes an assertion that verifies IsSubxactTopXidLogPending() ret
 This is a critical component of PostgreSQL's logical decoding infrastructure, as it ensures the top-level XID is logged exactly once per subtransaction when required for logical replication.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

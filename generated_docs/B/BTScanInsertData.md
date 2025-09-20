@@ -29,15 +29,14 @@ The structure incorporates several optimization flags and metadata about the ind
 The scankeys array serves as a flexible array member that contains scan key entries for all attributes that are compared before the heap TID tiebreaker. This design allows for efficient stack allocation while supporting the full range of possible index attributes.
 
 ## Parameters / Member Variables
-- : Indicates if all keys in the index are physically unique because heap TID is used as a tiebreaker attribute, and if index may have truncated key attributes in pivot tuples
-- : Set to indicate that deduplication is safe for the index (property of the index relation)
-- : Indicates if any of the keys had NULL value when scankey was built from index tuple
-- : Used for controlling search positioning (see _bt_first comments)
-- : Flag indicating whether this is a backward index scan
-- : Heap TID used as a final tiebreaker attribute; set to NULL when scan doesn't need to find a position for a specific physical tuple
-- : Size of the scankeys array
-- : Array of scan key entries for attributes compared before scantid (user-visible attributes)
-
+- `heapkeyspace`: Indicates if all keys in the index are physically unique because heap TID is used as a tiebreaker attribute, and if index may have truncated key attributes in pivot tuples
+- `allequalimage`: Set to indicate that deduplication is safe for the index (property of the index relation)
+- `anynullkeys`: Indicates if any of the keys had NULL value when scankey was built from index tuple
+- `nextkey`: Used for controlling search positioning (see _bt_first comments)
+- `backward`: Flag indicating whether this is a backward index scan
+- `scantid`: Heap TID used as a final tiebreaker attribute; set to NULL when scan doesn't need to find a position for a specific physical tuple
+- `keysz`: Size of the scankeys array
+- `scankeys[INDEX_MAX_KEYS]`: Array of scan key entries for attributes compared before scantid (user-visible attributes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant)

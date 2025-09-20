@@ -18,8 +18,7 @@ typedef struct acquireLocksOnSubLinks_context
 The  structure serves as a context container that carries state information during the traversal of query trees to acquire necessary locks on sublinks. It specifically maintains the  parameter from the  function, which indicates whether the locks are being acquired for actual query execution or just for planning purposes. This distinction is important because different types of locks may be required depending on the intended use of the query.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether locks are being acquired for query execution (true) or planning (false), passed down from AcquireRewriteLocks function
-
+- `for_execute`: Boolean flag indicating whether locks are being acquired for query execution (true) or planning (false), passed down from AcquireRewriteLocks function
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None directly referenced)

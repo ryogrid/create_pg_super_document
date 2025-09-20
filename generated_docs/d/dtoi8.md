@@ -15,7 +15,6 @@ Datum dtoi8(PG_FUNCTION_ARGS)
 This function performs a type conversion from PostgreSQL's double-precision floating-point type (float8) to 64-bit integer (int8). It first removes any fractional part using rint() to handle edge cases where values just outside the valid range might round into the acceptable range. The function then performs comprehensive range checking to ensure the resulting value fits within the int64 range, throwing an error if the input is NaN, infinite, or outside the valid integer range.
 
 ## Parameters / Member Variables
-- The function uses PostgreSQL's `PG_FUNCTION_ARGS` macro to access arguments
 - Argument 0: A float8 (double-precision floating-point) value to be converted
 
 ## Dependencies

@@ -16,7 +16,6 @@ The `array_dims` function examines a PostgreSQL array and returns a text string 
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
-  - Array argument accessed via `PG_GETARG_ANY_ARRAY_P(0)` - the input array to examine
 
 ## Dependencies
 - Functions called/Symbols referenced:

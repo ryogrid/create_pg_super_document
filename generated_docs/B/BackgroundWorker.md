@@ -27,17 +27,16 @@ typedef struct BackgroundWorker
 The BackgroundWorker structure serves as a comprehensive configuration template for background worker processes in PostgreSQL. It encapsulates all the necessary information required by the postmaster to spawn, monitor, and manage background worker processes. This structure is used both for static workers (registered during shared_preload_libraries) and dynamic workers (registered at runtime). The postmaster uses this information to determine when to start the worker, how to restart it upon failure, and which function to execute as the worker's main entry point.
 
 ## Parameters / Member Variables
-- : Human-readable name for the background worker, used for identification in logs and process lists
-- : Classification type of the worker, used for grouping and management purposes
-- : Bitfield controlling worker behavior and capabilities (e.g., database access permissions)
-- : Specifies when during PostgreSQL startup the worker should be launched
-- : Interval in seconds for automatic restart after termination, or BGW_NEVER_RESTART to disable
-- : Path to the shared library containing the worker's entry point function
-- : Name of the function within the library that serves as the worker's main entry point
-- : Datum argument passed to the worker's main function for initialization
-- : Additional configuration data or parameters specific to the worker implementation
-- : Process ID to notify with SIGUSR1 signal when the worker starts or stops
-
+- `bgw_name[BGW_MAXLEN]`: Human-readable name for the background worker, used for identification in logs and process lists
+- `bgw_type[BGW_MAXLEN]`: Classification type of the worker, used for grouping and management purposes
+- `bgw_flags`: Bitfield controlling worker behavior and capabilities (e.g., database access permissions)
+- `bgw_start_time`: Specifies when during PostgreSQL startup the worker should be launched
+- `bgw_restart_time`: Interval in seconds for automatic restart after termination, or BGW_NEVER_RESTART to disable
+- `bgw_library_name[MAXPGPATH]`: Path to the shared library containing the worker's entry point function
+- `bgw_function_name[BGW_MAXLEN]`: Name of the function within the library that serves as the worker's main entry point
+- `bgw_main_arg`: Datum argument passed to the worker's main function for initialization
+- `bgw_extra[BGW_EXTRALEN]`: Additional configuration data or parameters specific to the worker implementation
+- `bgw_notify_pid`: Process ID to notify with SIGUSR1 signal when the worker starts or stops
 ## Dependencies
 - Functions called/Symbols referenced:
   - BGW_MAXLEN

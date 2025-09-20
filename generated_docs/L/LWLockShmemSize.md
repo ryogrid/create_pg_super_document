@@ -18,7 +18,7 @@ This function computes the exact amount of shared memory needed to allocate the 
 The calculation uses safe arithmetic functions (mul_size, add_size) to prevent integer overflow when computing large memory requirements. The function considers memory alignment requirements by adding extra padding space.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

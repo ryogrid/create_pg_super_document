@@ -19,9 +19,8 @@ typedef struct SharedJitInstrumentation
 SharedJitInstrumentation serves as a coordination structure for collecting JIT compilation performance metrics from parallel worker processes in PostgreSQL's parallel execution framework. It uses Dynamic Shared Memory to allow multiple worker processes to report their JIT instrumentation data to a central location, which can then be aggregated and reported by the leader process. The structure employs a flexible array member to accommodate a variable number of worker processes.
 
 ## Parameters / Member Variables
-- : The total number of parallel worker processes that will contribute JIT instrumentation data
-- : A flexible array containing JitInstrumentation structures, one for each worker process
-
+- `num_workers`: The total number of parallel worker processes that will contribute JIT instrumentation data
+- `jit_instr[FLEXIBLE_ARRAY_MEMBER]`: A flexible array containing JitInstrumentation structures, one for each worker process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JitInstrumentation](../J/JitInstrumentation.md) (embedded structure for each worker)

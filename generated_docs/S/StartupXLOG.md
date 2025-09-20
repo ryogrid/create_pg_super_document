@@ -29,7 +29,7 @@ StartupXLOG is a comprehensive function responsible for orchestrating the entire
 The function handles various database states (DB_SHUTDOWNED, DB_IN_CRASH_RECOVERY, DB_IN_ARCHIVE_RECOVERY, etc.) and performs appropriate recovery actions for each scenario. It also manages Hot Standby initialization, prepared transaction recovery, and ensures proper synchronization of shared memory structures.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

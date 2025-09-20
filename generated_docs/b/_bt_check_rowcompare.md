@@ -21,7 +21,6 @@ This function handles row-comparison operations for composite B-tree index keys,
 - : Index tuple being tested against the row condition
 - : Number of attributes in the tuple
 - : Tuple descriptor defining attribute types and properties
-- 0
 1
 3.2
 5

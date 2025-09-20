@@ -25,11 +25,10 @@ The structure supports two operational modes:
 2. **Read-only mode**:  points to an external buffer managed by the caller, with  set to 0 to indicate read-only status
 
 ## Parameters / Member Variables
-- : Pointer to the current string buffer containing the actual string data
-- : Current length of the string content (excluding null terminator in normal mode)
-- : Allocated size of the buffer in bytes; set to 0 for read-only strings to indicate special handling
-- : Position indicator initialized to zero, used by scanning routines but not modified by core stringinfo functions
-
+- `*data`: Pointer to the current string buffer containing the actual string data
+- `len`: Current length of the string content (excluding null terminator in normal mode)
+- `maxlen`: Allocated size of the buffer in bytes; set to 0 for read-only strings to indicate special handling
+- `cursor`: Position indicator initialized to zero, used by scanning routines but not modified by core stringinfo functions
 ## Dependencies
 - Functions called/Symbols referenced: (None directly)
 - Called from (representative examples):

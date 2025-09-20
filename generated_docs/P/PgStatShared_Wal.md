@@ -24,9 +24,8 @@ This structure provides centralized access to WAL performance metrics including 
 The structure uses an LWLock to ensure thread-safe access in PostgreSQL's multi-process architecture, protecting the statistics from concurrent modifications during collection and reporting.
 
 ## Parameters / Member Variables
-- : LWLock that protects concurrent access to the stats structure, ensuring data consistency during statistics updates and reads
-- : PgStat_WalStats structure containing detailed WAL performance metrics including record counts, buffer statistics, I/O operations, and timing data
-
+- `lock`: LWLock that protects concurrent access to the stats structure, ensuring data consistency during statistics updates and reads
+- `stats`: PgStat_WalStats structure containing detailed WAL performance metrics including record counts, buffer statistics, I/O operations, and timing data
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLock](../L/LWLock.md)

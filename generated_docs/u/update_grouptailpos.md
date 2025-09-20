@@ -25,11 +25,6 @@ The function implements an optimized approach:
 
 ## Parameters / Member Variables
 - : WindowAggState pointer containing window function execution state including:
-  - Current row position and peer group context
-  - Tuple store for partition data buffering
-  - Group tail position tracking and validation flags
-  - Memory contexts and temporary tuple slots
-  - ORDER BY column specifications for peer comparison
 
 ## Dependencies
 - Functions called/Symbols referenced:

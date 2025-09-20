@@ -28,14 +28,13 @@ typedef struct _PQconninfoOption
 The  structure defines the metadata for a single PostgreSQL connection parameter. It is used by functions like  and  to provide information about available connection options. Each instance describes one connection parameter including its keyword name, fallback mechanisms (environment variables and compiled defaults), current value, and display characteristics for GUI applications. The structure supports a hierarchical fallback system where values can come from explicit settings, environment variables, or compiled-in defaults.
 
 ## Parameters / Member Variables
-- : The parameter name used in connection strings (e.g., "host", "port", "dbname")
-- : Name of environment variable to check for default value (e.g., "PGHOST", "PGPORT")
-- : Built-in default value compiled into libpq
-- : Current effective value of the parameter, NULL if not set
-- : Human-readable label for use in connection dialogs
-- : Display type indicator: "" for normal text, "*" for password fields, "D" for debug options
-- : Suggested field width in characters for GUI display
-
+- `*keyword`: The parameter name used in connection strings (e.g., "host", "port", "dbname")
+- `*envvar`: Name of environment variable to check for default value (e.g., "PGHOST", "PGPORT")
+- `*compiled`: Built-in default value compiled into libpq
+- `*val`: Current effective value of the parameter, NULL if not set
+- `*label`: Human-readable label for use in connection dialogs
+- `*dispchar`: Display type indicator: "" for normal text, "*" for password fields, "D" for debug options
+- `dispsize`: Suggested field width in characters for GUI display
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Uses standard C types only)

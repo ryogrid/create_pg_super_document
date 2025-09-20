@@ -20,7 +20,7 @@ The function includes important race condition handling - it doesn't clear the W
 If the receiver starts successfully, the function clears the WalReceiverRequested flag. If startup fails, the flag remains set so the system will retry later during subsequent ServerLoop iterations or signal processing.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,7 +20,7 @@ The cleanup process is carefully designed to avoid resource leaks across exec() 
 Resource tracking is handled through the ResourceOwner system, which allows automatic cleanup when transactions abort or when the session ends. The function removes the WaitEventSet from its owner's tracking before proceeding with platform-specific cleanup.
 
 ## Parameters / Member Variables
-- BASH=/bin/bash
+
 BASHOPTS=checkwinsize:cmdhist:complete_fullquote:expand_aliases:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:login_shell:progcomp:promptvars:sourcepath
 BASH_ALIASES=()
 BASH_ARGC=([0]="0")

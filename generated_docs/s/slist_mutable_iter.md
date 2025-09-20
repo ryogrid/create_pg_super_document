@@ -24,10 +24,9 @@ The key capability of this iterator is enabling safe removal of the current node
 The iterator is specifically designed for use with  and has strict limitations on the types of modifications allowed. Only deletion of the current node is supported; insertion or deletion of adjacent nodes would cause undefined behavior and should be avoided.
 
 ## Parameters / Member Variables
-- : Pointer to the current slist_node being examined during iteration
-- : Pointer to the next node that will be visited in the iteration sequence; cached to maintain iteration state during deletions
-- : Pointer to the previous node in the list; required to properly relink the list when the current node is deleted
-
+- `*cur`: Pointer to the current slist_node being examined during iteration
+- `*next`: Pointer to the next node that will be visited in the iteration sequence; cached to maintain iteration state during deletions
+- `*prev`: Pointer to the previous node in the list; required to properly relink the list when the current node is deleted
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_node](slist_node.md) (used for all three pointer members)

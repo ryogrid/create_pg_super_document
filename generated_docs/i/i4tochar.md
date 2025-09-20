@@ -15,7 +15,6 @@ Datum i4tochar(PG_FUNCTION_ARGS)
 This function performs a safe conversion from a 32-bit signed integer to PostgreSQL's "char" data type. It includes bounds checking to ensure the input value falls within the valid range for a signed 8-bit character (SCHAR_MIN to SCHAR_MAX). If the input value is outside this range, the function raises an error with the code ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE and the message "char" out of range. When the value is within range, it casts the integer to an int8 and returns it as a char.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro to access function arguments
 - `arg1`: The input 32-bit signed integer retrieved using PG_GETARG_INT32(0)
 
 ## Dependencies

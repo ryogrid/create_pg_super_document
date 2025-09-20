@@ -36,14 +36,13 @@ The xl_btree_unlink_page structure represents the second and final phase of B-tr
 The deletion process updates sibling links to bypass the target page, marks the target page as deleted with a safe transaction ID for later reclamation, and may update the fast root if the right sibling becomes the only remaining page at its level. When deleting internal pages, the structure includes information to recreate the associated half-dead leaf page with correct parent links.
 
 ## Parameters / Member Variables
-- : Block number of the target page's left sibling (P_NONE if none)
-- : Block number of the target page's right sibling 
-- : Level of the target page being deleted (0 for leaf pages)
-- : Full transaction ID marking when the deleted page can be safely recycled
-- : Left sibling of the associated leaf page (used only for internal page deletion)
-- : Right sibling of the associated leaf page (used only for internal page deletion)
-- : Next child page down in the subtree (used only for internal page deletion, InvalidBlockNumber if not applicable)
-
+- `leftsib`: Block number of the target page's left sibling (P_NONE if none)
+- `rightsib`: Block number of the target page's right sibling
+- `level`: Level of the target page being deleted (0 for leaf pages)
+- `safexid`: Full transaction ID marking when the deleted page can be safely recycled
+- `leafleftsib`: Left sibling of the associated leaf page (used only for internal page deletion)
+- `leafrightsib`: Right sibling of the associated leaf page (used only for internal page deletion)
+- `leaftopparent`: Next child page down in the subtree (used only for internal page deletion, InvalidBlockNumber if not applicable)
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId (transaction ID type)

@@ -17,7 +17,7 @@ InvalidateCatalogSnapshotConditionally implements an optimization for long-lived
 If other snapshots are active or registered, the catalog snapshot is likely not the oldest and therefore not blocking xmin advancement, so it's preserved for efficiency.
 
 ## Parameters / Member Variables
-- None (operates on global snapshot state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

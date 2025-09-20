@@ -15,7 +15,6 @@ Datum date_ge(PG_FUNCTION_ARGS)
 This function provides the SQL ">=" operator for DATE data types in PostgreSQL. It extracts two DateADT values from the function arguments and performs a simple integer comparison, since DateADT is internally represented as an integer offset from the PostgreSQL epoch (January 1, 2000). The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS and returns a boolean result using PG_RETURN_BOOL.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function argument mechanism (PG_FUNCTION_ARGS)
 - Argument 0: First DateADT value to compare
 - Argument 1: Second DateADT value to compare
 

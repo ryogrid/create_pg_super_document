@@ -21,7 +21,7 @@ The function supports the same two synchronization methods as :
 Unlike , this function doesn't handle symbolic links specially - it processes directories recursively but doesn't follow symlinks by default.
 
 ## Parameters / Member Variables
-- 0
+
 1
 5
 6

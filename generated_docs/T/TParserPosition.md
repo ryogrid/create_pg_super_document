@@ -27,15 +27,14 @@ TParserPosition is a crucial data structure in PostgreSQL's text search parser t
 The structure tracks both byte and character positions separately to handle multibyte character encodings correctly. It also maintains information about the current token being built and the parser's finite state machine state.
 
 ## Parameters / Member Variables
-- : Current position in the input text measured in bytes
-- : Current position in the input text measured in characters (important for multibyte encodings)
-- : Length of the current character being processed (can be > 1 for multibyte characters)
-- : Length of the token currently being constructed, measured in bytes
-- : Length of the token currently being constructed, measured in characters
-- : Current state of the parser's finite state machine (TParserState enum value)
-- : Pointer to the previous position in the stack, enabling backtracking functionality
-- : Pointer to the action item that caused this position to be pushed onto the stack
-
+- `posbyte`: Current position in the input text measured in bytes
+- `poschar`: Current position in the input text measured in characters (important for multibyte encodings)
+- `charlen`: Length of the current character being processed (can be > 1 for multibyte characters)
+- `lenbytetoken`: Length of the token currently being constructed, measured in bytes
+- `lenchartoken`: Length of the token currently being constructed, measured in characters
+- `state`: Current state of the parser's finite state machine (TParserState enum value)
+- `*prev`: Pointer to the previous position in the stack, enabling backtracking functionality
+- `*pushedAtAction`: Pointer to the action item that caused this position to be pushed onto the stack
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TParserState](TParserState.md)

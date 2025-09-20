@@ -18,7 +18,6 @@ This function advances the block number for heap scanning based on the current b
 ## Parameters / Member Variables
 - : HeapScanDesc - The heap scan descriptor containing scan state and configuration
 - : BlockNumber - The current block number being processed
-- Pfdebug					extract_symbol_references.py
 README.md				filter_frequent_symbol_from_csv.py
 __pycache__				global_symbols.db
 area					import_symbol_reference.py

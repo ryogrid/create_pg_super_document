@@ -24,7 +24,7 @@ The function implements a simple but important pattern:
 This centralization is important because many different subsystems need to ensure the cache context exists before they can operate, and having a single authoritative way to create it prevents inconsistencies and reduces code duplication.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

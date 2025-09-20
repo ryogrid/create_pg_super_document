@@ -16,7 +16,6 @@ The aclitemout function is a PostgreSQL output function that converts an interna
 
 ## Parameters / Member Variables
 - Input via PG_FUNCTION_ARGS:
-  - AclItem pointer containing the ACL item to convert
 
 ## Dependencies
 - Functions called/Symbols referenced:

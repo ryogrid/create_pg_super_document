@@ -15,7 +15,7 @@ static void WalSndLastCycleHandler(SIGNAL_ARGS)
 This function serves as a signal handler for SIGUSR2 that initiates the final phase of WAL sender shutdown. When invoked, it sets the got_SIGUSR2 flag to true and wakes up the main WAL sender loop by setting its latch. This signal is expected to be sent when the WAL sender has already transitioned to WALSNDSTATE_STOPPING state. The function triggers the WAL sender to perform one final transmission cycle to ensure all remaining WAL data is sent before the process terminates.
 
 ## Parameters / Member Variables
-- Standard signal handler parameters via SIGNAL_ARGS macro (typically signal number and signal info)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,13 +23,12 @@ typedef struct dshash_parameters
 The dshash_parameters structure encapsulates all the configuration information required to create or attach to a dynamic shared hash table. This structure defines the memory layout, callback functions for key operations, and locking behavior. The compare, hash, and copy functions must be supplied even when attaching to an existing hash table because function pointers cannot be safely shared between backends. The user data pointer supplied to create and attach functions will be passed to these callback functions. When attaching to an existing hash table, the tranche_id member does not need to be initialized.
 
 ## Parameters / Member Variables
-- : Size in bytes of the key portion of each hash table entry (initial bytes)
-- : Total size in bytes of each complete hash table entry
-- : Function pointer for comparing two keys (signature: int (*)(const void *a, const void *b, size_t size, void *arg))
-- : Function pointer for computing hash values from keys (signature: dshash_hash (*)(const void *v, size_t size, void *arg))
-- : Function pointer for copying keys (signature: void (*)(void *dest, const void *src, size_t size, void *arg))
-- : Integer identifier for the lock tranche to use for hash table locking
-
+- `key_size`: Size in bytes of the key portion of each hash table entry (initial bytes)
+- `entry_size`: Total size in bytes of each complete hash table entry
+- `compare_function`: Function pointer for comparing two keys (signature: int (*)(const void *a, const void *b, size_t size, void *arg))
+- `hash_function`: Function pointer for computing hash values from keys (signature: dshash_hash (*)(const void *v, size_t size, void *arg))
+- `copy_function`: Function pointer for copying keys (signature: void (*)(void *dest, const void *src, size_t size, void *arg))
+- `tranche_id`: Integer identifier for the lock tranche to use for hash table locking
 ## Dependencies
 - Functions called/Symbols referenced:
   - dshash_compare_function (function type)

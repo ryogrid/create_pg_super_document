@@ -23,7 +23,7 @@ This function establishes the necessary execution environment for processing ind
 The function is designed to be idempotent within a transaction - if called multiple times within the same transaction, it reuses the existing transaction state while ensuring proper context setup.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

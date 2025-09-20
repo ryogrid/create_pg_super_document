@@ -17,7 +17,7 @@ This function provides a simple check to determine whether there are any spooled
 This function is typically used in scenarios where the system needs to decide whether to wait for more messages or proceed with processing existing spooled data.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

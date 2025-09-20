@@ -18,7 +18,6 @@ The  function is a simple wrapper that directly calls  with the same function ca
 Despite being a separate function, it provides identical functionality to  by passing through all arguments unchanged. This design pattern allows PostgreSQL's catalog system to distinguish between different function overloads while maintaining a single implementation.
 
 ## Parameters / Member Variables
-- All parameters are passed through to  via 
 - Supports the same parameter set as the extended version: source text, pattern, replacement, optional start position, and optional flags
 
 ## Dependencies

@@ -15,7 +15,7 @@ static int64 consume_xids_shortcut(void)
 This internal function implements a performance optimization for bulk XID consumption by attempting to skip large numbers of transaction IDs at once. It operates by acquiring the XidGenLock, reading the current nextXid value, and using the XidSkip function to determine how many XIDs can be safely skipped. If a skip is possible (when not near SLRU page boundaries or wraparound limits), it directly advances the TransamVariables->nextXid counter. This avoids the overhead of calling GetNewTransactionId repeatedly when consuming large numbers of XIDs for testing purposes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

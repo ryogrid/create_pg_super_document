@@ -19,9 +19,8 @@ typedef struct ParallelWorkerContext
 ParallelWorkerContext is a simple but essential structure used within parallel worker processes to maintain access to the shared memory infrastructure. Unlike ParallelContext which is used by the leader process to manage multiple workers, ParallelWorkerContext provides each individual worker process with the minimal set of handles needed to access shared data structures. This structure serves as the worker's window into the shared execution environment, allowing workers to locate and access shared query plans, tuple queues, hash tables, and other parallel execution state.
 
 ## Parameters / Member Variables
-- : Pointer to the dynamic shared memory segment that contains all shared parallel execution data
-- : Pointer to the table of contents for the shared memory segment, used to locate specific data structures within the segment
-
+- `*seg`: Pointer to the dynamic shared memory segment that contains all shared parallel execution data
+- `*toc`: Pointer to the table of contents for the shared memory segment, used to locate specific data structures within the segment
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_segment

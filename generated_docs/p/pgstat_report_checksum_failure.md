@@ -18,7 +18,7 @@ This function serves as a convenience wrapper that reports exactly one checksum 
 The function operates by updating shared statistics directly, which is acceptable because checksum failures are expected to be rare events that won't cause performance issues from frequent shared memory updates.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

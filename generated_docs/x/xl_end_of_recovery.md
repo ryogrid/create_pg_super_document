@@ -25,11 +25,10 @@ The structure captures critical information about the timeline transition that o
 The record is written with the XLOG_END_OF_RECOVERY record type (0x90) and helps coordinate the end of recovery across different components of the PostgreSQL system.
 
 ## Parameters / Member Variables
-- : Timestamp (with timezone) indicating when recovery completed
-- : The new timeline ID that will be used after recovery completes
-- : The timeline ID that was being recovered from before the fork
-- : The WAL logging level that will be in effect after recovery
-
+- `end_time`: Timestamp (with timezone) indicating when recovery completed
+- `ThisTimeLineID`: The new timeline ID that will be used after recovery completes
+- `PrevTimeLineID`: The timeline ID that was being recovered from before the fork
+- `wal_level`: The WAL logging level that will be in effect after recovery
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimestampTz (timestamp with timezone type)

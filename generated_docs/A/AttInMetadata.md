@@ -30,11 +30,10 @@ AttInMetadata is a support structure designed to ease the creation of composite 
 The structure contains a complete TupleDesc along with pre-computed arrays of input functions, I/O parameters, and type modifiers for each attribute. This design avoids redundant CPU cycles that would be spent looking up this information on each function call, significantly improving performance for functions that create many tuples.
 
 ## Parameters / Member Variables
-- : Complete TupleDesc describing the structure of tuples to be created
-- : Array of FmgrInfo structures containing pre-looked-up input functions for each attribute type
-- : Array of OIDs representing I/O parameter types for each attribute 
-- : Array of int32 values containing type modifiers for each attribute (e.g., precision for numeric types)
-
+- `tupdesc`: Complete TupleDesc describing the structure of tuples to be created
+- `*attinfuncs`: Array of FmgrInfo structures containing pre-looked-up input functions for each attribute type
+- `*attioparams`: Array of OIDs representing I/O parameter types for each attribute
+- `*atttypmods`: Array of int32 values containing type modifiers for each attribute (e.g., precision for numeric types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleDesc](../T/TupleDesc.md) (struct type)

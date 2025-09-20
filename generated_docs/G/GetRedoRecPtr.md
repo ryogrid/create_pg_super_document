@@ -16,7 +16,6 @@ GetRedoRecPtr(void)
 GetRedoRecPtr retrieves the current Redo record pointer from PostgreSQL's shared memory control structure (XLogCtl). The Redo pointer indicates the earliest WAL record that might need to be replayed during recovery. The function uses spinlock protection for thread-safe access to shared memory. As a performance optimization and consistency measure, it also updates the local process copy (RedoRecPtr) to ensure it's at least as recent as the shared value. The function deliberately uses a potentially stale copy from XLogCtl rather than acquiring WAL insertion locks, as the value could change immediately after lock release anyway.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: XLogRecPtr (the current Redo record pointer)
 
 ## Dependencies

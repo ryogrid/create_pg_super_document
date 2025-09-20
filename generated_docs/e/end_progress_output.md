@@ -21,7 +21,7 @@ The  function is responsible for properly terminating progress output in the pg_
 The function ensures that progress indicators are cleanly terminated and that subsequent status messages are properly aligned, maintaining a consistent and readable output format throughout the pg_upgrade process.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

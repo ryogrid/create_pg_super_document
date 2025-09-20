@@ -23,9 +23,8 @@ The  structure extends the basic  structure to handle BRIN tuple updates that sp
 This WAL record manages three backup blocks: backup block 0 contains the new page with the new BrinTuple data, backup block 1 contains the revmap page (for mapping heap blocks to index tuples), and backup block 2 contains the old page where the original tuple resided. The structure inherits all the insertion-related information from  while adding the necessary information to handle the removal of the old tuple.
 
 ## Parameters / Member Variables
-- : The offset number of the old tuple on the old page that is being replaced
-- : An embedded  structure containing all the information needed for inserting the new tuple (heapBlk, pagesPerRange, and offnum for the new tuple location)
-
+- `oldOffnum`: The offset number of the old tuple on the old page that is being replaced
+- `insert`: An embedded  structure containing all the information needed for inserting the new tuple (heapBlk, pagesPerRange, and offnum for the new tuple location)
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type)

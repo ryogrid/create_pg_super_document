@@ -15,7 +15,7 @@ void InitRecoveryTransactionEnvironment(void)
 This function sets up the infrastructure needed for the Startup process to track and manage locks held by transactions on the primary server during recovery. It creates two hash tables: one for tracking individual locks (RecoveryLockHash) and another for tracking locks by transaction ID (RecoveryLockXidHash). The function also initializes shared invalidation management as a send-only process and creates a virtual transaction entry for the Startup process, allowing it to participate in the lock management system without being a full transaction.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

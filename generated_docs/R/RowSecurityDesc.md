@@ -21,9 +21,8 @@ RowSecurityDesc serves as the top-level container for all row-level security inf
 This structure is typically stored in the relation cache (RelationData) and is built when row security policies are first needed for a relation. The memory context ensures that all policy-related allocations can be efficiently managed and freed together when the relation cache entry is invalidated or rebuilt.
 
 ## Parameters / Member Variables
-- : Memory context specifically allocated for row security data structures, ensuring proper memory lifecycle management for all policy-related allocations
-- : Linked list containing RowSecurityPolicy structures that define the actual security rules for the relation
-
+- `rscxt`: Memory context specifically allocated for row security data structures, ensuring proper memory lifecycle management for all policy-related allocations
+- `*policies`: Linked list containing RowSecurityPolicy structures that define the actual security rules for the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContext](../M/MemoryContext.md) (for memory management)

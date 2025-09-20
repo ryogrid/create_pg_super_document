@@ -18,7 +18,7 @@ This function provides a convenient way to switch to the procedure memory contex
 The procedure memory context typically has a longer lifetime than the execution memory context and is used for objects that need to persist across multiple SPI operations within the same procedure call.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

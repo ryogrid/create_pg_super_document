@@ -23,9 +23,8 @@ This design provides O(1) access to the list size without requiring a traversal 
 The dclist implementation shares the same iteration semantics and safety properties as the underlying dlist, including support for both read-only iteration with  and safe modification during iteration with .
 
 ## Parameters / Member Variables
-- : A  structure that manages the actual doubly-linked list implementation
-- : A 32-bit unsigned integer automatically maintained to reflect the current number of items in the list
-
+- `dlist`: A  structure that manages the actual doubly-linked list implementation
+- `count`: A 32-bit unsigned integer automatically maintained to reflect the current number of items in the list
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (embedded as the core list management structure)

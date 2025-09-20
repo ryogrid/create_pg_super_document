@@ -25,10 +25,9 @@ This structure is part of the outbound notify state management system that ensur
 The structure is designed for memory efficiency, storing the channel name and payload data consecutively in the flexible array member , with both strings being null-terminated for compatibility with C string functions.
 
 ## Parameters / Member Variables
-- : Length of the channel name string (not including null terminator)
-- : Length of the payload string (not including null terminator) 
-- : Flexible array member containing the null-terminated channel name followed immediately by the null-terminated payload string
-
+- `channel_len`: Length of the channel name string (not including null terminator)
+- `payload_len`: Length of the payload string (not including null terminator)
+- `data[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the null-terminated channel name followed immediately by the null-terminated payload string
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array member declaration)

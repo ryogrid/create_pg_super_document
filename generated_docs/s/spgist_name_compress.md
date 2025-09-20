@@ -18,8 +18,6 @@ The conversion is necessary because SP-GiST operations work with text datums int
 
 ## Parameters / Member Variables
 - `inName`: Input parameter of type `Name` (PostgreSQL name data type)
-  - Retrieved using `PG_GETARG_NAME(0)`
-  - Contains the name string to be converted
 - `inStr`: Character pointer extracted from the name using `NameStr` macro
 
 ## Dependencies

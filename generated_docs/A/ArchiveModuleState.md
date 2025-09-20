@@ -25,8 +25,7 @@ ArchiveModuleState serves as a container for archive module private data, enabli
 The structure is designed to be opaque to the PostgreSQL core system while providing archive modules with a flexible mechanism to store any data they need to maintain their operational state.
 
 ## Parameters / Member Variables
-- : A void pointer that can be used by archive modules to store arbitrary module-specific data. This pointer is passed to all archive module callbacks, allowing modules to maintain state across different operations such as startup, file archiving, configuration checking, and shutdown.
-
+- `*private_data`: A void pointer that can be used by archive modules to store arbitrary module-specific data. This pointer is passed to all archive module callbacks, allowing modules to maintain state across different operations such as startup, file archiving, configuration checking, and shutdown.
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (simple data structure)

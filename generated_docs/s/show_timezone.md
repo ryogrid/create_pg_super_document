@@ -20,7 +20,7 @@ The function always attempts to return the canonical timezone name (such as "Ame
 This function is called by the GUC system when users query the current timezone setting through commands like  or by accessing the  configuration parameter.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

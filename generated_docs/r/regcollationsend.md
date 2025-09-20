@@ -24,7 +24,6 @@ The binary format produced is compatible with the OID binary format, ensuring ef
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - regcollation value to be converted to binary format (accessed through fcinfo)
 
 ## Dependencies
 - Functions called/Symbols referenced:

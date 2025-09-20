@@ -40,30 +40,29 @@ typedef struct TransactionStateData
 TransactionStateData serves as the comprehensive state container for PostgreSQL's transaction management system. It tracks both low-level transaction states and high-level block states, manages nested subtransactions through a parent-child relationship, and maintains context for parallel execution modes. The structure supports PostgreSQL's sophisticated transaction nesting capabilities, including savepoints, and ensures proper resource management across transaction boundaries.
 
 ## Parameters / Member Variables
-- : The complete transaction identifier for this transaction
-- : Identifier for subtransaction within the main transaction
-- : Optional savepoint name for named savepoints
-- : Numeric level indicating savepoint nesting depth
-- : Low-level transaction state (TransState enum)
-- : High-level transaction block state (TBlockState enum)
-- : Depth of transaction nesting
-- : GUC (Grand Unified Configuration) context nesting level
-- : Memory context specific to this transaction's lifetime
-- : Resource owner managing query-level resources
-- : Array of committed child transaction IDs, maintained in XID order
-- : Current number of child transaction IDs in the array
-- : Allocated capacity of the childXids array
-- : Previous user ID before transaction started
-- : Previous security restriction context
-- : Read-only state when transaction began
-- : Flag indicating if transaction started during recovery
-- : Whether transaction ID has been written to WAL
-- : Counter for Enter/ExitParallelMode calls
-- : Whether any parent transaction is executing in parallel mode
-- : Flag to automatically start new transaction block after current one
-- : For subtransactions, whether top-level XID is logged
-- : Back-reference to parent transaction state for nested transactions
-
+- `fullTransactionId`: The complete transaction identifier for this transaction
+- `subTransactionId`: Identifier for subtransaction within the main transaction
+- `*name`: Optional savepoint name for named savepoints
+- `savepointLevel`: Numeric level indicating savepoint nesting depth
+- `state`: Low-level transaction state (TransState enum)
+- `blockState`: High-level transaction block state (TBlockState enum)
+- `nestingLevel`: Depth of transaction nesting
+- `gucNestLevel`: GUC (Grand Unified Configuration) context nesting level
+- `curTransactionContext`: Memory context specific to this transaction's lifetime
+- `curTransactionOwner`: Resource owner managing query-level resources
+- `*childXids`: Array of committed child transaction IDs, maintained in XID order
+- `nChildXids`: Current number of child transaction IDs in the array
+- `maxChildXids`: Allocated capacity of the childXids array
+- `prevUser`: Previous user ID before transaction started
+- `prevSecContext`: Previous security restriction context
+- `prevXactReadOnly`: Read-only state when transaction began
+- `startedInRecovery`: Flag indicating if transaction started during recovery
+- `didLogXid`: Whether transaction ID has been written to WAL
+- `parallelModeLevel`: Counter for Enter/ExitParallelMode calls
+- `parallelChildXact`: Whether any parent transaction is executing in parallel mode
+- `chain`: Flag to automatically start new transaction block after current one
+- `topXidLogged`: For subtransactions, whether top-level XID is logged
+- `*parent`: Back-reference to parent transaction state for nested transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId

@@ -20,10 +20,9 @@ typedef struct
 The substitute_actual_parameters_context structure provides the necessary context information for the parameter substitution process in PostgreSQL's query optimization. This structure is used when transforming expression trees by replacing Param nodes with their corresponding actual parameter values. The context tracks both the available arguments and maintains usage statistics for each parameter, which is essential for optimization decisions and parameter validation during the substitution process.
 
 ## Parameters / Member Variables
-- : Integer specifying the total number of arguments available for substitution
-- : List containing the actual parameter values/expressions to substitute for Param nodes
-- : Integer array tracking the usage count of each parameter (indexed by parameter ID minus 1)
-
+- `nargs`: Integer specifying the total number of arguments available for substitution
+- `*args`: List containing the actual parameter values/expressions to substitute for Param nodes
+- `sublevels_up`: Integer array tracking the usage count of each parameter (indexed by parameter ID minus 1)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL list structure)

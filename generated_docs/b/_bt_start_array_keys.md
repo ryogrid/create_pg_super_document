@@ -21,7 +21,6 @@ Additionally, the function resets the scanBehind flag to false, indicating that 
 
 ## Parameters / Member Variables
 - : IndexScanDesc containing the index scan descriptor with array key information
-- 0
 5
 =
 ENTRY_POINTS.md

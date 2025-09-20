@@ -16,7 +16,6 @@ boolgt(PG_FUNCTION_ARGS)
 This function provides the implementation for the Boolean greater-than operator in PostgreSQL's type system. It follows PostgreSQL's Boolean ordering where false < true, so the function returns true only when the first argument is true and the second argument is false. The function is part of PostgreSQL's internal function framework and uses the standard PostgreSQL function calling conventions.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments
 - Argument 0: First Boolean value to compare
 - Argument 1: Second Boolean value to compare
 

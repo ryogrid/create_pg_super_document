@@ -15,7 +15,7 @@ void ShutdownRecoveryTransactionEnvironment(void)
 This function performs cleanup of the recovery transaction tracking environment established by InitRecoveryTransactionEnvironment. It safely shuts down all recovery-time transaction tracking by marking in-progress transactions as finished, releasing all locks held by tracked transactions, destroying the lock hash tables, and cleaning up the virtual transaction. The function is designed to be safe for redundant calls during process exit, as it checks if the environment has already been shut down.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

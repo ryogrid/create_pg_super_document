@@ -15,7 +15,7 @@ Where  expands to , making the actual definition:
 The  struct serves as a vtable (virtual function table) for regex operations, allowing different implementations of core regex functionality to be plugged in at runtime. Each  object contains a  pointer that references one of these function tables. This design provides flexibility for different regex backends or specialized implementations while maintaining a consistent interface. The structure currently defines two essential operations: memory cleanup and stack depth checking for preventing infinite recursion.
 
 ## Parameters / Member Variables
--                total        used        free      shared  buff/cache   available
+
 Mem:        32819380     5371292    23832320        3060     3615768    27065900
 Swap:        8388608           0     8388608: Function pointer for deallocating regex resources
   - Takes a  parameter pointing to the regex object to be freed

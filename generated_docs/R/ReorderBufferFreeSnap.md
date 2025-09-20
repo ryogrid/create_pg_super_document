@@ -21,7 +21,6 @@ The function provides a unified interface for snapshot cleanup regardless of how
 
 ## Parameters / Member Variables
 - : ReorderBuffer pointer - the reorder buffer context (currently unused in the implementation)
-- The snap command lets you install, configure, refresh and remove snaps.
 Snaps are packages that work across many different Linux distributions,
 enabling secure delivery and operation of the latest apps and utilities.
 

@@ -26,7 +26,7 @@ The function iterates through the sys_fk_relationships array and returns detaile
 This information is crucial for understanding the logical structure of the system catalogs and is used by tools that need to navigate catalog relationships, such as pg_dump, system administration utilities, and query planners.
 
 ## Parameters / Member Variables
-- No input parameters (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

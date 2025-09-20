@@ -17,7 +17,7 @@ AtStart_Cache is part of the transaction startup sequence in PostgreSQL. This fu
 This function is critical for maintaining cache coherency across different backends and ensuring that each transaction starts with a consistent view of cached system information.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

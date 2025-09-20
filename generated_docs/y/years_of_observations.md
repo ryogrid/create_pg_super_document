@@ -24,7 +24,7 @@ The value is calculated as `YEARSPERREPEAT + 2`, where:
 This constant helps handle scenarios where timezone rules have complex patterns that extend beyond what can be expressed in a simple POSIX timezone string, ensuring that enough historical data is captured to make accurate future predictions.
 
 ## Parameters / Member Variables
-- This is an enumerated constant, not a function, so it has no parameters
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

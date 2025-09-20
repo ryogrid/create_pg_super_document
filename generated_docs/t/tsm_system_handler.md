@@ -16,7 +16,7 @@ tsm_system_handler(PG_FUNCTION_ARGS)
 The tsm_system_handler function is the entry point handler for PostgreSQL's SYSTEM table sampling method. It creates a TsmRoutine structure and populates it with the appropriate function pointers and configuration settings specific to the SYSTEM sampling algorithm. The SYSTEM method performs block-level sampling by randomly selecting blocks from the table and then scanning all tuples within those selected blocks. This function sets up the sampling infrastructure by defining which functions handle different phases of the sampling process and configuring the method's repeatability characteristics.
 
 ## Parameters / Member Variables
-- This function uses PG_FUNCTION_ARGS macro (no explicit parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

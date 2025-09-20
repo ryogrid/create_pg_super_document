@@ -17,7 +17,6 @@ The function automatically detects appropriate character encodings based on the 
 Key responsibilities include setting up all locale categories (LC_COLLATE, LC_CTYPE, LC_MESSAGES, LC_MONETARY, LC_NUMERIC, LC_TIME), determining the appropriate database encoding, validating locale-encoding compatibility, and handling special requirements for different collation providers.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Uses global variables for locale and encoding configuration:
   - `locale_provider`: The collation provider (LIBC, ICU, or BUILTIN)
   - `lc_*`: Various locale category settings

@@ -15,7 +15,7 @@ GetLockMethodLocalHash provides external access to the backend's private local l
 The function simply returns a pointer to the LockMethodLocalHash, which contains LOCALLOCK entries representing all locks that the current backend has acquired or is interested in. This allows external code to iterate through or examine the backend's lock state without directly accessing the internal global variable.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

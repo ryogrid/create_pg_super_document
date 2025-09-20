@@ -21,9 +21,8 @@ typedef struct RecoveryLockXidEntry
 This design provides a two-level organization: the hash table provides O(1) access to a transaction's lock information, while the linked list allows iteration through all locks owned by that transaction. This is particularly useful during recovery operations when locks need to be released or when checking for lock conflicts.
 
 ## Parameters / Member Variables
-- : A  that serves as the hash key for the  table. The comment indicates it must be the first field, likely for hash table implementation requirements
-- : A pointer to the first  in the chain of all exclusive locks owned by this transaction
-
+- `xid`: A  that serves as the hash key for the  table. The comment indicates it must be the first field, likely for hash table implementation requirements
+- `*head`: A pointer to the first  in the chain of all exclusive locks owned by this transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (used as target type for head pointer)

@@ -48,8 +48,6 @@ The structure uses magic number verification (SNAPBUILD_MAGIC = 0x51A1E001) and 
 - : Size of variable-length data portion, excluding the fixed-size header
 - : Complete embedded SnapBuild structure containing all snapshot state
 - : Following the structure, variable-length arrays containing:
-  - committed.xcnt TransactionIds from the committed transactions array
-  - catchange.xcnt TransactionIds from the catalog changes array
 
 ## Dependencies
 - Functions called/Symbols referenced:

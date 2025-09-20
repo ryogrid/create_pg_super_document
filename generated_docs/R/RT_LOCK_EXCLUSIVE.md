@@ -20,8 +20,6 @@ RT_LOCK_EXCLUSIVE is part of PostgreSQL's generic radix tree implementation for 
 This macro is only available when RT_SHMEM is defined, indicating the radix tree is configured for shared memory operations. An exclusive lock prevents other processes from reading or writing to the radix tree simultaneously, ensuring data consistency during modification operations. This is essential for concurrent access control in multi-process environments.
 
 ## Parameters / Member Variables
-- Uses RT_MAKE_NAME macro to construct the actual function name
-- The generated function takes a pointer to RT_RADIX_TREE and returns void
 - **tree**: Pointer to the radix tree structure to lock exclusively
 
 ## Dependencies

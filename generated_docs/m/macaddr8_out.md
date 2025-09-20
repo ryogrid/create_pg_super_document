@@ -17,7 +17,6 @@ This function is the output formatter for the macaddr8 PostgreSQL data type. It 
 The function uses `snprintf` with the "%02x" format specifier to ensure each byte is displayed as exactly two lowercase hexadecimal digits, padding with leading zeros when necessary. Unlike the input function which accepts various formats, the output function always uses a consistent, standardized format.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function calling convention via `PG_FUNCTION_ARGS`
 - `addr`: Input macaddr8 structure containing the 8-byte MAC address (accessed via `PG_GETARG_MACADDR8_P(0)`)
 
 ## Dependencies

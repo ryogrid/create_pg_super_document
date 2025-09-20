@@ -19,7 +19,7 @@ The function iterates through all entries in the current readline history using 
 The operation is performed directly on the history data structure, modifying the original strings in place. The function handles the platform variation where HIST_ENTRY.line may be declared as const char * by casting to char *.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

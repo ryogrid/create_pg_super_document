@@ -18,7 +18,7 @@ The reset function serves as a utility function in the ECPG test framework that 
 The function is typically called at the beginning of each test case within the execute_test function to ensure that the result arrays start from a known clean state.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

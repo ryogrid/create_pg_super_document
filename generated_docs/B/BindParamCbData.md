@@ -22,10 +22,9 @@ typedef struct BindParamCbData
 The structure is used within the  function where it's initialized once and then updated for each parameter as they are processed sequentially. This approach allows for efficient error reporting without the overhead of maintaining separate error context for each parameter.
 
 ## Parameters / Member Variables
-- : The name of the portal being bound, used to identify which prepared statement is involved in the error
-- : Zero-based parameter number currently being processed, or -1 when not processing any specific parameter
-- : Textual representation of the parameter value being processed, used for including the actual value in error messages when available
-
+- `*portalName`: The name of the portal being bound, used to identify which prepared statement is involved in the error
+- `paramno`: Zero-based parameter number currently being processed, or -1 when not processing any specific parameter
+- `*paramval`: Textual representation of the parameter value being processed, used for including the actual value in error messages when available
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a pure data structure)
 - Called from (representative examples):

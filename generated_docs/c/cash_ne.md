@@ -18,7 +18,6 @@ The  function performs inequality comparison between two cash values in PostgreS
 The function performs a simple numerical inequality comparison since cash values are internally represented as 64-bit integers, making the comparison both efficient and straightforward.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Input 1: First cash value retrieved via 
 - Input 2: Second cash value retrieved via 
 - Output: Boolean result indicating inequality

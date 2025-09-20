@@ -19,7 +19,6 @@ For primary scans involving array keys, both directions are initially enabled to
 
 ## Parameters / Member Variables
 - : BTScanOpaque - The B-tree scan opaque structure containing scan state
-- 0
 1
 3.2
 5

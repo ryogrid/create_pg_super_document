@@ -22,7 +22,6 @@ The `_readBitmapset` function is responsible for deserializing Bitmapset objects
 The function uses PostgreSQL's standard tokenization mechanism (`pg_strtok`) and follows the node system's conventions for structure parsing. It's designed to work in contexts where a Bitmapset is specifically expected, as opposed to the more general `nodeRead()` function.
 
 ## Parameters / Member Variables
-- No parameters (uses global tokenization state via `READ_TEMP_LOCALS()`)
 - Returns: `Bitmapset *` - pointer to the reconstructed Bitmapset, or NULL if no members were found
 
 ## Dependencies

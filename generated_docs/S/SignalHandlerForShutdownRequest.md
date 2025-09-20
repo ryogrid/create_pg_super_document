@@ -17,7 +17,7 @@ This function serves as a signal handler for requesting graceful shutdown of Pos
 Unlike SignalHandlerForCrashExit, this handler is designed for clean, graceful shutdowns where the process has time to complete current operations and perform necessary cleanup before terminating. Different PostgreSQL background processes may use this handler with different signals based on their specific requirements.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which typically expands to signal handler parameters (signal number, etc.)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,11 +23,10 @@ ConstrCheck is a structure that stores information about CHECK constraints on da
 The structure stores the constraint name, a serialized representation of the constraint expression, and metadata about the constraint's validity and inheritance behavior. The constraint expression is stored in a nodeToString format, allowing complex boolean expressions to be preserved and later evaluated.
 
 ## Parameters / Member Variables
-- : String containing the name of the CHECK constraint
-- : String containing the nodeToString representation of the constraint expression
-- : Boolean indicating whether the constraint is currently valid/enabled
-- : Boolean indicating whether this constraint should not be inherited by child tables
-
+- `*ccname`: String containing the name of the CHECK constraint
+- `*ccbin`: String containing the nodeToString representation of the constraint expression
+- `ccvalid`: Boolean indicating whether the constraint is currently valid/enabled
+- `ccnoinherit`: Boolean indicating whether this constraint should not be inherited by child tables
 ## Dependencies
 - Functions called/Symbols referenced:
   - (primitive types only)

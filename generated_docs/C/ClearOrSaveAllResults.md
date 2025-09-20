@@ -16,7 +16,7 @@ ClearOrSaveAllResults(void)
 ClearOrSaveAllResults is a static utility function that exhaustively processes all pending query results from the PostgreSQL connection. It uses a loop to repeatedly call PQgetResult() until no more results are available (indicated by a NULL return), applying ClearOrSaveResult() to each obtained result. This ensures that all results in the connection's result queue are properly handled - error results are preserved for potential \errverbose display while successful results are immediately freed. This function is essential for maintaining connection state consistency and preventing result queue overflow, particularly in scenarios involving multiple result sets or when cleaning up after query execution errors.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

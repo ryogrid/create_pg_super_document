@@ -20,7 +20,7 @@ The function follows a carefully orchestrated initialization sequence that respe
 The initialization order is critical - for example, LWLocks must be initialized first as they're required by InitShmemIndex, and the shared memory index must be established before other subsystems can allocate their shared memory regions.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

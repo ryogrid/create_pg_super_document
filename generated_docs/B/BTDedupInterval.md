@@ -21,9 +21,8 @@ BTDedupInterval serves as a compact representation of a range of tuples that are
 This structure is fundamental to PostgreSQL's B-tree deduplication feature, which helps reduce index bloat by combining multiple tuples with identical key values into a single posting list tuple. The interval-based approach allows for efficient batch processing of duplicate tuples during deduplication passes.
 
 ## Parameters / Member Variables
-- : The starting OffsetNumber (base offset) of the interval of tuples to be deduplicated
-- : The number of consecutive items in the interval that can be deduplicated together
-
+- `baseoff`: The starting OffsetNumber (base offset) of the interval of tuples to be deduplicated
+- `nitems`: The number of consecutive items in the interval that can be deduplicated together
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type)

@@ -22,7 +22,7 @@ The function calls ReceiveSharedInvalidMessages with two callback functions:
 When the shared invalidation queue overflows (indicating that some invalidation messages were lost), the system performs a comprehensive cache flush to ensure consistency. The function also includes optional debug code that can force cache flushes for testing purposes when DISCARD_CACHES_ENABLED is defined.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

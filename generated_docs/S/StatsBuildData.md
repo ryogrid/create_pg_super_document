@@ -23,13 +23,12 @@ typedef struct StatsBuildData
 StatsBuildData serves as a central data container that provides a unified representation of the raw data used for building various types of extended statistics in PostgreSQL. This structure aggregates all necessary information including the actual data values, NULL indicators, attribute information, and statistical metadata into a single, convenient interface. It enables different statistical algorithms (MCV, dependencies, n-distinct) to work with a consistent data format, promoting code reuse and maintainability. The structure organizes data in a column-wise format where each attribute's values and null indicators are stored in separate arrays, facilitating efficient processing of multi-column statistics.
 
 ## Parameters / Member Variables
-- : The total number of rows (tuples) in the dataset being analyzed
-- : The number of attributes (columns) included in the statistics
-- : Pointer to an array of AttrNumber values identifying the specific columns being analyzed
-- : Pointer to an array of VacAttrStats pointers, containing per-attribute statistical information and metadata
-- : Pointer to a two-dimensional array where values[i][j] contains the j-th row's value for the i-th attribute
-- : Pointer to a two-dimensional boolean array where nulls[i][j] indicates if the j-th row's value for the i-th attribute is NULL
-
+- `numrows`: The total number of rows (tuples) in the dataset being analyzed
+- `nattnums`: The number of attributes (columns) included in the statistics
+- `*attnums`: Pointer to an array of AttrNumber values identifying the specific columns being analyzed
+- `**stats`: Pointer to an array of VacAttrStats pointers, containing per-attribute statistical information and metadata
+- `**values`: Pointer to a two-dimensional array where values[i][j] contains the j-th row's value for the i-th attribute
+- `**nulls`: Pointer to a two-dimensional boolean array where nulls[i][j] indicates if the j-th row's value for the i-th attribute is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - VacAttrStats (referenced for per-attribute statistics metadata)

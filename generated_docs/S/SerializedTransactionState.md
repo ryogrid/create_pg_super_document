@@ -24,14 +24,13 @@ typedef struct SerializedTransactionState
 SerializedTransactionState provides a serialized representation of transaction state that can be efficiently transmitted to parallel worker processes via shared memory. This structure contains only the essential transaction information needed for parallel workers to operate correctly within the transaction context, including isolation level, transaction IDs, and command state. The flexible array member allows for variable-length storage of parallel transaction IDs without requiring separate memory allocation.
 
 ## Parameters / Member Variables
-- : Transaction isolation level (READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, or SERIALIZABLE)
-- : Whether the transaction is deferrable (relevant for SERIALIZABLE isolation)
-- : Full transaction ID of the top-level transaction
-- : Full transaction ID of the current transaction (may be subtransaction)
-- : Current command identifier within the transaction
-- : Number of transaction IDs in the parallel current XIDs array
-- : Variable-length array of transaction IDs for parallel execution context
-
+- `xactIsoLevel`: Transaction isolation level (READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, or SERIALIZABLE)
+- `xactDeferrable`: Whether the transaction is deferrable (relevant for SERIALIZABLE isolation)
+- `topFullTransactionId`: Full transaction ID of the top-level transaction
+- `currentFullTransactionId`: Full transaction ID of the current transaction (may be subtransaction)
+- `currentCommandId`: Current command identifier within the transaction
+- `nParallelCurrentXids`: Number of transaction IDs in the parallel current XIDs array
+- `parallelCurrentXids[FLEXIBLE_ARRAY_MEMBER]`: Variable-length array of transaction IDs for parallel execution context
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId

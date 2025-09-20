@@ -20,7 +20,7 @@ The function sets a force_reply flag in the shared WalRcvData structure and then
 This mechanism enables responsive synchronous replication by ensuring that apply notifications are sent promptly when significant WAL records are processed, rather than waiting for the next scheduled status interval.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

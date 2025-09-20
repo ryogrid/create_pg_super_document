@@ -38,13 +38,12 @@ The SPELL structure represents a single word entry in an ISpell dictionary. It u
 The structure uses a flexible array member for the  field, allowing it to store words of varying lengths without wasting memory. This design is part of PostgreSQL's text search system that provides spell checking and word normalization capabilities compatible with ISpell/Hunspell dictionaries.
 
 ## Parameters / Member Variables
-- : Union containing either flag string or processed data
-  - : String containing affix flags (used during import)
-  - : Structure used after sorting containing:
-    - : Numeric reference to an entry in the AffixData field
-    - : Length of the word in characters
-- : Flexible array member storing the actual word characters
-
+- `*flag`: Union containing either flag string or processed data
+- `replen:14`: String containing affix flags (used during import)
+- `*find`: Structure used after sorting containing:
+- `*repl`: Numeric reference to an entry in the AffixData field
+- `*pregex`: Length of the word in characters
+- `regis`: Flexible array member storing the actual word characters
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro)

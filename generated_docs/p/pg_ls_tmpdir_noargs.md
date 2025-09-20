@@ -15,7 +15,7 @@ Datum pg_ls_tmpdir_noargs(PG_FUNCTION_ARGS)
 This function serves as a wrapper around the generic pg_ls_tmpdir function, specifically designed to list temporary files in the default tablespace's pgsql_tmp directory. It provides a convenient no-argument interface for SQL users who want to examine temporary files in the standard location without needing to specify a tablespace OID. The function automatically uses DEFAULTTABLESPACE_OID as the tablespace parameter.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

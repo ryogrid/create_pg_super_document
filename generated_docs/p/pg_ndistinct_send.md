@@ -17,7 +17,6 @@ The pg_ndistinct_send function serves as the binary output routine for the pg_nd
 
 ## Parameters / Member Variables
 - Input parameter (via PG_FUNCTION_ARGS):
-  - pg_ndistinct value to be sent in binary format
 
 ## Dependencies
 - Functions called/Symbols referenced:

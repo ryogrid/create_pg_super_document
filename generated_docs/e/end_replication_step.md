@@ -20,7 +20,7 @@ This function performs the necessary cleanup operations to finalize a single rep
 The function is designed as a lightweight cleanup mechanism that maintains transaction boundaries - it does not commit or abort the transaction, allowing multiple replication steps to be batched within a single transaction for efficiency.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

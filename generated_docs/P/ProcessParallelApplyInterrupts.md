@@ -18,7 +18,7 @@ This function serves as the interrupt processing mechanism for parallel apply wo
 When a shutdown is requested, the function logs an informational message indicating the parallel apply worker has finished and performs a clean exit. For configuration reload requests, it processes the updated configuration file to apply any runtime parameter changes.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

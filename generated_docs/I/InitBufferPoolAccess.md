@@ -13,7 +13,7 @@ void InitBufferPoolAccess(void)
 This function is called during backend startup (whether standalone or under the postmaster) to set up the backend's access to the already-existing shared buffer pool. It initializes the private reference counting mechanism used to track buffer pins held by this specific backend process. The function creates a hash table for tracking private reference counts that exceed what can be stored in the static PrivateRefCountArray, and registers the AtProcExit_Buffers function to be called during backend shutdown to ensure proper cleanup.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

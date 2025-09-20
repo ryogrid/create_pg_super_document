@@ -16,7 +16,7 @@ range_search(const pg_unicode_range *tbl, size_t size, pg_wchar code)
 This function implements an efficient binary search algorithm to check whether a Unicode code point falls within any of the ranges specified in a sorted table of Unicode ranges. Each range is defined by a first and last code point, and the function determines if the input code point lies within any of these inclusive ranges. The binary search provides O(log n) time complexity, making it suitable for checking large Unicode property tables. The function includes validation to ensure the code point is within the valid Unicode range (up to U+10FFFF).
 
 ## Parameters / Member Variables
-- .if !\n(.g .ab GNU tbl requires GNU troff.
+
 .if !dTS .ds TS
 .if !dTE .ds TE
 .lf 1 -: Pointer to an array of pg_unicode_range structures containing sorted Unicode ranges

@@ -18,7 +18,7 @@ The cleanup function serves as a simple cleanup routine specifically designed fo
 The function is part of the bootstrap subsystem which is responsible for initializing the PostgreSQL database system during the initial database creation process.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

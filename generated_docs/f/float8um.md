@@ -15,7 +15,6 @@ Datum float8um(PG_FUNCTION_ARGS)
 This function implements the unary minus (negation) operation for PostgreSQL's float8 (double-precision floating-point) data type. It extracts a float8 value from the function arguments, applies the unary minus operator to negate the value, and returns the negated result as a PostgreSQL Datum. The function is part of PostgreSQL's base operations for float8 arithmetic and handles the SQL unary minus operator for double-precision numbers.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's `PG_FUNCTION_ARGS` macro to access arguments
 - `arg1`: The input float8 value obtained via `PG_GETARG_FLOAT8(0)` from the first function argument
 - `result`: Local variable storing the negated value before return
 

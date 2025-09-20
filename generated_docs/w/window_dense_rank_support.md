@@ -21,7 +21,6 @@ The `window_dense_rank_support` function is a support function that helps Postgr
 The function uses the PostgreSQL support function framework to communicate optimization opportunities back to the query planner, potentially improving query performance.
 
 ## Parameters / Member Variables
-- Takes a support request node as input through PG_FUNCTION_ARGS
 - `rawreq`: Node pointer containing the specific support request type
 
 ## Dependencies

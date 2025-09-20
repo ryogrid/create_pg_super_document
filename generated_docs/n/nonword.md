@@ -25,7 +25,6 @@ The function works by:
 
 ## Parameters / Member Variables
 - : Pointer to vars structure containing regex compilation context and state
-- 0
 1
 5
 6

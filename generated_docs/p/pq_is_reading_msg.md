@@ -20,7 +20,7 @@ The primary purpose is to enable early detection of protocol synchronization los
 The function simply returns the current value of the  global flag, providing a non-intrusive way to check the communication state without affecting ongoing operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -16,7 +16,7 @@ WalRcvShmemInit(void)
 This function is responsible for setting up the shared memory area used by the WAL receiver subsystem. It allocates a shared memory segment of the size determined by WalRcvShmemSize() and initializes the WalRcvData structure if this is the first process to access it. The initialization includes setting up synchronization primitives like condition variables and spin locks, as well as initializing atomic variables and setting the initial WAL receiver state to WALRCV_STOPPED.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

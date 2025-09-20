@@ -23,7 +23,6 @@ The function configures several key parameters:
 This configuration enables efficient spatial queries on box data types using quadtree-based space partitioning, which recursively subdivides 2D space into quadrants.
 
 ## Parameters / Member Variables  
-- Uses `PG_FUNCTION_ARGS` macro to access PostgreSQL function call context
 - `cfg`: A pointer to spgConfigOut structure (obtained from second argument) that holds the configuration parameters to be set
 
 ## Dependencies

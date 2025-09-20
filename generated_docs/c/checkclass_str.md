@@ -29,7 +29,6 @@ The implementation efficiently filters positions by weight when weight restricti
 - **entry**: WordEntry being evaluated for matching
 - **val**: Query operand specifying match criteria including weight restrictions
 - **data**: Optional structure for collecting position information (NULL if not needed)
-  - When provided, function populates position data for phrase matching
 
 ## Dependencies
 - Functions called/Symbols referenced:

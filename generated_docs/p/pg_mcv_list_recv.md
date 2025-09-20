@@ -20,8 +20,7 @@ This design choice reinforces the principle that pg_mcv_list values should only 
 The function follows the same pattern as  but handles the binary input path of PostgreSQL's type system.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function call interface via  macro
-- No actual parameters are processed since the function rejects all input
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

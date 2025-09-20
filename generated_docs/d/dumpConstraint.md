@@ -42,12 +42,6 @@ The function also handles special cases like binary upgrades, foreign tables, pa
 ## Parameters / Member Variables
 - : Archive pointer containing dump options and output context
 - : ConstraintInfo structure containing:
-  - Constraint type and name
-  - Associated table or domain information
-  - Constraint definition from catalog
-  - Index information (for PK/UNIQUE constraints)
-  - Deferrability and inheritance settings
-  - Dump flags for component control
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,9 +23,8 @@ This structure serves as a temporary holder for information about deleted pages 
 The structure is used internally by the B-tree vacuum process and is exported to nbtpage.c for use by page deletion related functions. It represents an intermediate state between page deletion and final recycling.
 
 ## Parameters / Member Variables
-- : Block number of the page that was deleted by the current VACUUM operation
-- : The full transaction ID from the deleted page's BTDeletedPageData.safexid field, used to determine when the page can be safely recycled
-
+- `target`: Block number of the page that was deleted by the current VACUUM operation
+- `safexid`: The full transaction ID from the deleted page's BTDeletedPageData.safexid field, used to determine when the page can be safely recycled
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId (transaction identifier type)

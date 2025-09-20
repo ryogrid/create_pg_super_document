@@ -26,7 +26,7 @@ This information is crucial for:
 The function is specifically exported for use by snapmgr.c, demonstrating the modular design of PostgreSQL's snapshot system where different components need to coordinate on memory allocation boundaries.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -45,12 +45,11 @@ Key optimization features include:
 - Using a dedicated BULKWRITE buffer access strategy to optimize cache behavior
 
 ## Parameters / Member Variables
-- : BufferAccessStrategy object configured for BULKWRITE operations, managing buffer cache behavior during bulk inserts
-- : Buffer identifier for the page currently being used as the insertion target; InvalidBuffer when no page is pinned
-- : BlockNumber indicating the start of the range of pages that were free during the last table extension
-- : BlockNumber indicating the end of the range of pages that were free during the last table extension
-- : Counter tracking the total number of pages this bulk insert operation has extended the relation by, used for adaptive extension strategies
-
+- `strategy`: BufferAccessStrategy object configured for BULKWRITE operations, managing buffer cache behavior during bulk inserts
+- `current_buf`: Buffer identifier for the page currently being used as the insertion target; InvalidBuffer when no page is pinned
+- `next_free`: BlockNumber indicating the start of the range of pages that were free during the last table extension
+- `last_free`: BlockNumber indicating the end of the range of pages that were free during the last table extension
+- `already_extended_by`: Counter tracking the total number of pages this bulk insert operation has extended the relation by, used for adaptive extension strategies
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BufferAccessStrategy](BufferAccessStrategy.md) (from src/include/storage/buf.h)

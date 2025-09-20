@@ -16,7 +16,6 @@ pg_prepared_xact(PG_FUNCTION_ARGS)
 pg_prepared_xact is a Set-Returning Function (SRF) that implements the pg_prepared_xacts system view. It retrieves information about all prepared transactions and formats it into a structured result set with 5 columns: transaction ID, global ID (GID), preparation timestamp, owner ID, and database ID. The function uses PostgreSQL's SRF framework to return multiple rows, with each row representing one prepared transaction. It calls GetPreparedTransactionList to obtain transaction data and filters out invalid transactions before returning results.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns: Datum containing tuple data for each prepared transaction row
 - Internal Working_State structure contains:
   - : Number of prepared transactions

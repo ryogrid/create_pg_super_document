@@ -13,8 +13,7 @@ Datum test_dsa_basic(PG_FUNCTION_ARGS)
 This function serves as a comprehensive test for the DSA subsystem in PostgreSQL. It creates a DSA area, performs 100 allocations of 1000 bytes each, writes formatted strings to each allocation, verifies the data integrity by reading and comparing the stored values, and finally cleans up all allocated memory and detaches from the DSA area. The function is designed to validate the correctness of DSA's basic memory management operations and ensure data consistency across allocations.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Returns Datum (void through PG_RETURN_VOID())
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

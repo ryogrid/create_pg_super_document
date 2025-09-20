@@ -17,9 +17,6 @@ This function implements the PostgreSQL function interface for constructing mult
 
 ## Parameters / Member Variables
 - Function uses PostgreSQL's PG_FUNCTION_ARGS macro which provides access to:
-  - Function call info through fcinfo
-  - Arguments through PG_GETARG_* macros
-  - Null checks through PG_ARGISNULL macro
 
 ## Dependencies
 - Functions called/Symbols referenced:

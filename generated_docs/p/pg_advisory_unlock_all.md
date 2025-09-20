@@ -15,7 +15,7 @@ Datum pg_advisory_unlock_all(PG_FUNCTION_ARGS)
 This function provides a convenient way to release all session-scoped advisory locks held by the current session in a single operation. It is equivalent to calling the individual unlock functions for every advisory lock currently held by the session. This is particularly useful for cleanup operations or when a session needs to release all its locks without knowing exactly which locks it holds. The function operates only on session-scoped advisory locks and does not affect transaction-scoped locks or regular table locks.
 
 ## Parameters / Member Variables
-- None (function takes no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

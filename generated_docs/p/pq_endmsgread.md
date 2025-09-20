@@ -22,7 +22,7 @@ The function performs a simple but critical operation:
 This function is automatically called by , but must be explicitly called when using lower-level reading functions like  directly.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

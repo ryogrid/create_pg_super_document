@@ -24,7 +24,7 @@ The function delegates to SN_create_env which handles the actual memory allocati
 - Error handling with proper cleanup on allocation failure
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

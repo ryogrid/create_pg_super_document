@@ -30,7 +30,6 @@ This design allows PostgreSQL to transform string segments or non-null-terminate
 - : Source string to transform (not required to be null-terminated)
 - : Length of the source string in bytes
 - : Size of the destination buffer
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

@@ -19,8 +19,6 @@ The function extracts both the array datum and the boolean flag from the functio
 
 ## Parameters / Member Variables
 - Takes two arguments through  macro:
-  - Array datum (any PostgreSQL array type)
-  - Boolean flag indicating whether to use pretty-printing with line feeds
 
 ## Dependencies
 - Functions called/Symbols referenced:

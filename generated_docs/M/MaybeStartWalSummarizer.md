@@ -18,7 +18,7 @@ MaybeStartWalSummarizer implements conditional startup logic for the WAL summari
 Unlike WAL receivers which can start during various recovery states, WAL summarizers only start during normal database operations since they need the database to be fully functional to create meaningful summaries. The function is designed to be called repeatedly and handles its own state checking.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

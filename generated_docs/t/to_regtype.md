@@ -25,7 +25,6 @@ This function is particularly useful in SQL contexts where conditional type chec
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Type name as TEXT input to be converted to regtype
 
 ## Dependencies
 - Functions called/Symbols referenced:

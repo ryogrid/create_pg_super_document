@@ -39,16 +39,15 @@ The structure is designed to handle various parameter scenarios:
 The flexible array member design allows for efficient memory allocation while supporting variable numbers of parameters.
 
 ## Parameters / Member Variables
-- : Function pointer for dynamic parameter retrieval when parameters are not pre-populated
-- : Context argument passed to the paramFetch hook function
-- : Function pointer for parameter compilation optimization during expression evaluation
-- : Context argument passed to the paramCompile hook function
-- : Function pointer for customizing parser behavior with parameter context
-- : Context argument passed to the parserSetup hook function
-- : String representation of all parameters for error reporting and debugging
-- : Total number of parameters that this structure can represent
-- : Flexible array containing actual parameter data as ParamExternData structures
-
+- `paramFetch`: Function pointer for dynamic parameter retrieval when parameters are not pre-populated
+- `*paramFetchArg`: Context argument passed to the paramFetch hook function
+- `paramCompile`: Function pointer for parameter compilation optimization during expression evaluation
+- `*paramCompileArg`: Context argument passed to the paramCompile hook function
+- `parserSetup`: Function pointer for customizing parser behavior with parameter context
+- `*parserSetupArg`: Context argument passed to the parserSetup hook function
+- `*paramValuesStr`: String representation of all parameters for error reporting and debugging
+- `numParams`: Total number of parameters that this structure can represent
+- `params[FLEXIBLE_ARRAY_MEMBER]`: Flexible array containing actual parameter data as ParamExternData structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParamExternData

@@ -25,11 +25,10 @@ The structure addresses challenges in sorting multidimensional data where good l
 Each level state maintains a fixed-size array of pages (defined by GIST_SORTED_BUILD_PAGE_NUM = 4) that serves as a buffer before flushing completed pages to disk. The hierarchical nature is maintained through parent pointers, allowing the build process to work its way up the tree levels as needed.
 
 ## Parameters / Member Variables
-- : Index of the currently active page within the pages array (0 to GIST_SORTED_BUILD_PAGE_NUM-1)
-- : Block number of the last page that was flushed from this level to disk
-- : Pointer to the parent level state in the hierarchy; NULL for the root level
-- : Fixed-size array of 4 pages that serves as an in-memory buffer for this level
-
+- `current_page`: Index of the currently active page within the pages array (0 to GIST_SORTED_BUILD_PAGE_NUM-1)
+- `last_blkno`: Block number of the last page that was flushed from this level to disk
+- `*parent`: Pointer to the parent level state in the hierarchy; NULL for the root level
+- `pages[GIST_SORTED_BUILD_PAGE_NUM]`: Fixed-size array of 4 pages that serves as an in-memory buffer for this level
 ## Dependencies
 - Functions called/Symbols referenced:
   - GIST_SORTED_BUILD_PAGE_NUM (constant defining buffer size)

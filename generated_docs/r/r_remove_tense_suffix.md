@@ -27,9 +27,6 @@ The function uses complex branching logic to handle the diverse morphological va
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure () containing:
-  - Word buffer and position cursors
-  - Working variable  used as a modification flag for the calling function
-  - Pattern matching arrays and string constants
 
 ## Dependencies
 - Functions called/Symbols referenced:

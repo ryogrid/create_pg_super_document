@@ -18,8 +18,7 @@ The function returns true only when:
 - The collation is deterministic
 
 ## Parameters / Member Variables
-- Uses PG_GET_COLLATION() to retrieve the collation OID from the function call context
-- The commented parameter opcintype (operator class input type OID) is available but not used in this implementation
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

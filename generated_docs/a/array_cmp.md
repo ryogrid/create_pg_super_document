@@ -19,8 +19,6 @@ The function handles NULL values by treating two NULLs as equal and considering 
 
 ## Parameters / Member Variables
 - : Function call information structure containing:
-  - Array arguments (accessed via  and )
-  - Collation information (accessed via )
 
 ## Dependencies
 - Functions called/Symbols referenced:

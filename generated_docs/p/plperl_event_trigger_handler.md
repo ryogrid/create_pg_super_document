@@ -18,7 +18,6 @@ This function serves as the main entry point for executing PL/Perl event trigger
 ## Parameters / Member Variables
 - This function uses the standard PostgreSQL function calling convention  which provides access to:
   - : Function call information including function OID and arguments
-  - Various macros for accessing function parameters and return values
 
 ## Dependencies
 - Functions called/Symbols referenced:

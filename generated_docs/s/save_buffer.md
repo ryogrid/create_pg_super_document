@@ -23,9 +23,8 @@ The syslogger uses these buffers to reassemble fragmented log messages before wr
 The buffer management system uses a hash-table-like approach with  (256) lists to distribute buffers based on process ID. Each buffer is associated with a specific source process via its PID, and inactive buffers (with ) are kept in the lists for reuse rather than being deallocated.
 
 ## Parameters / Member Variables
-- : The process ID of the source process that generated the log data. When set to 0, indicates an inactive/unused buffer that can be reused for new messages.
-- : A StringInfoData structure that accumulates the actual log message content as it arrives in chunks from the source process.
-
+- `pid`: The process ID of the source process that generated the log data. When set to 0, indicates an inactive/unused buffer that can be reused for new messages.
+- `data`: A StringInfoData structure that accumulates the actual log message content as it arrives in chunks from the source process.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [StringInfoData](../S/StringInfoData.md) (for data member)

@@ -35,18 +35,17 @@ PGOutputData serves as the main context structure for PostgreSQL's pgoutput logi
 The structure is designed to be passed between various pgoutput functions to maintain consistent state throughout the replication session. It supports advanced features like streaming transactions, binary protocol, two-phase commit, and message replication.
 
 ## Parameters / Member Variables
-- : Private memory context used for transient allocations during replication processing
-- : Private memory context specifically used for caching data that persists across multiple operations
-- : Boolean flag indicating whether currently streaming a chunk of a large transaction
-- : Version of the logical replication protocol being used by the client
-- : List of publication names that the client has subscribed to
-- : List of actual Publication objects corresponding to the publication names
-- : Boolean flag indicating whether to use binary format for data transmission
-- : Character flag controlling streaming transaction behavior
-- : Boolean flag indicating whether to replicate logical decoding messages
-- : Boolean flag indicating whether two-phase commit transactions should be supported
-- : Boolean flag controlling whether changes without origin should be published
-
+- `context`: Private memory context used for transient allocations during replication processing
+- `cachectx`: Private memory context specifically used for caching data that persists across multiple operations
+- `in_streaming`: Boolean flag indicating whether currently streaming a chunk of a large transaction
+- `protocol_version`: Version of the logical replication protocol being used by the client
+- `*publication_names`: List of publication names that the client has subscribed to
+- `*publications`: List of actual Publication objects corresponding to the publication names
+- `binary`: Boolean flag indicating whether to use binary format for data transmission
+- `streaming`: Character flag controlling streaming transaction behavior
+- `messages`: Boolean flag indicating whether to replicate logical decoding messages
+- `two_phase`: Boolean flag indicating whether two-phase commit transactions should be supported
+- `publish_no_origin`: Boolean flag controlling whether changes without origin should be published
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContext](../M/MemoryContext.md) (for memory management)

@@ -53,10 +53,8 @@ The function updates the statistical accumulators as follows:
 The algorithm includes comprehensive error handling for overflow conditions and special values (NaN, infinity), ensuring robust behavior across all input ranges.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
 - `transarray`: ArrayType containing current 3-element statistical state [N, Sx, Sxx]
 - `newval`: New float8 value to accumulate into the statistical state
-- Internal variables for current statistical values and computation temporaries
 
 ## Dependencies
 - Functions called/Symbols referenced:

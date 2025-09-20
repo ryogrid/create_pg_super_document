@@ -28,17 +28,16 @@ typedef struct NumericAggState
 NumericAggState serves as the transition datatype for PostgreSQL's numeric aggregate functions. It maintains comprehensive state information needed to compute various statistical and mathematical aggregates over numeric values. The structure handles both basic aggregates (sum, count) and more complex statistical functions (variance, standard deviation) by optionally calculating sum of squares. It also properly handles special numeric values like NaN and infinity, maintaining separate counts for these cases that don't interfere with normal calculations.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether to calculate sum of squares (needed for variance/stddev)
-- : Memory context where the aggregate calculation is performed
-- : Count of processed numeric values (excludes NaN and infinity values)
-- : Accumulated sum of all processed numeric values
-- : Accumulated sum of squares of processed values (when calcSumX2 is true)
-- : Maximum decimal scale encountered among processed values
-- : Number of values that had the maximum scale
-- : Count of NaN (Not a Number) values encountered
-- : Count of positive infinity values encountered
-- : Count of negative infinity values encountered
-
+- `calcSumX2`: Boolean flag indicating whether to calculate sum of squares (needed for variance/stddev)
+- `agg_context`: Memory context where the aggregate calculation is performed
+- `N`: Count of processed numeric values (excludes NaN and infinity values)
+- `sumX`: Accumulated sum of all processed numeric values
+- `sumX2`: Accumulated sum of squares of processed values (when calcSumX2 is true)
+- `maxScale`: Maximum decimal scale encountered among processed values
+- `maxScaleCount`: Number of values that had the maximum scale
+- `NaNcount`: Count of NaN (Not a Number) values encountered
+- `pInfcount`: Count of positive infinity values encountered
+- `nInfcount`: Count of negative infinity values encountered
 ## Dependencies
 - Functions called/Symbols referenced:
   - [NumericSumAccum](NumericSumAccum.md) (for sumX and sumX2 members)

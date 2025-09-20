@@ -28,9 +28,8 @@ The record works with up to five backup blocks that capture the complete state n
 This structure stores metadata about the bitmap management aspects of the operation, which are crucial for properly maintaining the hash index's space management during WAL replay.
 
 ## Parameters / Member Variables
-- : The size of the bitmap in pages, indicating how many pages the current bitmap can track
-- : Boolean flag indicating whether an existing bitmap page was found and used, or if a new bitmap page needed to be allocated
-
+- `bmsize`: The size of the bitmap in pages, indicating how many pages the current bitmap can track
+- `bmpage_found`: Boolean flag indicating whether an existing bitmap page was found and used, or if a new bitmap page needed to be allocated
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)

@@ -15,7 +15,7 @@ static void WALInsertLockAcquire(void)
 WALInsertLockAcquire implements a smart lock acquisition strategy for WAL insertion that balances performance and fairness. It first attempts to acquire the same lock used in the previous insertion to maintain cache affinity and avoid unnecessary cache line bouncing between processes when there's low contention. For new backends, it selects a lock semi-randomly based on the process number to ensure even distribution across available locks. If the preferred lock cannot be acquired immediately, the function implements adaptive behavior by trying the next lock in sequence for subsequent attempts, which helps distribute load evenly across all available insertion locks.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

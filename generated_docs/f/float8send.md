@@ -18,8 +18,7 @@ This function serves as the PostgreSQL system interface for sending float8 value
 The function creates a StringInfo buffer, writes the float8 value in network byte order format, and returns the resulting binary data as a bytea value. This enables efficient transmission of floating-point values without the overhead and precision loss of text conversion.
 
 ## Parameters / Member Variables
-- Uses  macro which provides access to function arguments through the PostgreSQL function call interface
-- Extracts one float8 argument using 
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

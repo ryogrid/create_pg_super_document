@@ -19,7 +19,7 @@ Like its non-join counterpart, this function handles selectivity estimation for 
 The consistent selectivity value between join and non-join scenarios reflects the assumption that positional relationships maintain similar statistical properties whether applied as filters on a single table or as join conditions between tables.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function argument macro `PG_FUNCTION_ARGS` which provides access to function call context and arguments, though this specific function doesn't examine any arguments
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

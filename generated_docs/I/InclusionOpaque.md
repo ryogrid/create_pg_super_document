@@ -23,11 +23,10 @@ The InclusionOpaque structure serves as a cache for operator class information s
 The structure is part of the BRIN (Block Range Index) inclusion operator class implementation, which supports containment and overlap operations on geometric and other data types that have inclusion relationships.
 
 ## Parameters / Member Variables
-- : Array of FmgrInfo structures containing cached information for additional support procedures (up to INCLUSION_MAX_PROCNUMS=4)
-- : Boolean array indicating which extra support procedures are missing from the operator class
-- : OID of the cached subtype for polymorphic operator classes
-- : Array of FmgrInfo structures for strategy operators (up to RTMaxStrategyNumber entries)
-
+- `extra_procinfos[INCLUSION_MAX_PROCNUMS]`: Array of FmgrInfo structures containing cached information for additional support procedures (up to INCLUSION_MAX_PROCNUMS=4)
+- `extra_proc_missing[INCLUSION_MAX_PROCNUMS]`: Boolean array indicating which extra support procedures are missing from the operator class
+- `cached_subtype`: OID of the cached subtype for polymorphic operator classes
+- `strategy_procinfos[RTMaxStrategyNumber]`: Array of FmgrInfo structures for strategy operators (up to RTMaxStrategyNumber entries)
 ## Dependencies
 - Functions called/Symbols referenced:
   - INCLUSION_MAX_PROCNUMS (constant: 4)

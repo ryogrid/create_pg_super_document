@@ -25,11 +25,10 @@ The hash table is built once when first evaluating an expression like 'scalar = 
 The structure serves as the private_data context passed to hash table operations, allowing hash and comparison functions to access the necessary PostgreSQL function call infrastructure.
 
 ## Parameters / Member Variables
-- : Pointer to the underlying simplehash.h hash table (saophash_hash) that stores the array elements
-- : Back-reference to the ExprEvalStep that owns this hash table, providing access to the original expression context
-- : Function manager info for the hash function used to compute hash values for array elements
-- : Pre-initialized function call data structure used when calling the hash function, includes argument slots and metadata
-
+- `*hashtab`: Pointer to the underlying simplehash.h hash table (saophash_hash) that stores the array elements
+- `*op`: Back-reference to the ExprEvalStep that owns this hash table, providing access to the original expression context
+- `hash_finfo`: Function manager info for the hash function used to compute hash values for array elements
+- `hash_fcinfo_data`: Pre-initialized function call data structure used when calling the hash function, includes argument slots and metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - saophash_hash (the underlying hash table type from simplehash.h)

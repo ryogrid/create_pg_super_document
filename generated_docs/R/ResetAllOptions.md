@@ -32,7 +32,7 @@ This function systematically resets all configuration parameters that are eligib
 The function maintains transaction integrity by preserving old values on a stack, allowing for proper rollback behavior.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

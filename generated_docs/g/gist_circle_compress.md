@@ -23,7 +23,6 @@ For leaf entries containing actual circle data, the function calculates the boun
 For non-leaf entries that already contain compressed data (bounding boxes), the function returns the entry unchanged. This compression enables the GiST index to perform spatial operations efficiently using simple box comparisons while maintaining access to original circle data when needed.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's PG_FUNCTION_ARGS macro to access function arguments
 - `entry`: The GISTENTRY pointer containing either a circle (for leaf nodes) or a bounding box (for internal nodes)
 
 ## Dependencies

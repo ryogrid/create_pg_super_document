@@ -18,7 +18,7 @@ This function serves as a memory size estimation utility for SharedRecordTypmodR
 The function returns the exact size needed for a SharedRecordTypmodRegistry, which contains hash table handles for record type lookup and typmod assignment, along with an atomic counter for generating new typmod numbers.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

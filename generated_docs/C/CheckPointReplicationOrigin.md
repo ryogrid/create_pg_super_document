@@ -29,7 +29,7 @@ This function creates a persistent checkpoint of all active replication origin s
 **Concurrency Control**: Uses shared locks to prevent concurrent creation/deletion of origins during checkpointing while allowing multiple readers.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

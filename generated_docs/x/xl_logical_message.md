@@ -25,12 +25,11 @@ The  structure is designed to store application-defined logical messages in Post
 The structure uses a flexible array member to store both the prefix (a null-terminated string identifier) and the actual message payload in a single contiguous memory block. During logical decoding, these messages are processed by the  function and can be filtered by database ID and replication origin.
 
 ## Parameters / Member Variables
-- : The database OID from which the message was emitted, used for filtering messages during logical decoding
-- : Boolean flag indicating whether the message is part of a transaction (true) or should be processed immediately (false)
-- : The length of the null-terminated prefix string, including the null terminator
-- : The size in bytes of the actual message payload data
-- : A flexible array member containing the concatenated prefix string and message payload data
-
+- `dbId`: The database OID from which the message was emitted, used for filtering messages during logical decoding
+- `transactional`: Boolean flag indicating whether the message is part of a transaction (true) or should be processed immediately (false)
+- `prefix_size`: The length of the null-terminated prefix string, including the null terminator
+- `message_size`: The size in bytes of the actual message payload data
+- `message[FLEXIBLE_ARRAY_MEMBER]`: A flexible array member containing the concatenated prefix string and message payload data
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array member declaration)

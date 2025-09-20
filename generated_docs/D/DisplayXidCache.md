@@ -17,7 +17,7 @@ This is a static debugging function that outputs detailed statistics about the X
 The function prints a single line with multiple metrics separated by commas, showing counts for different cache hit scenarios and performance characteristics. This information is valuable for understanding transaction processing patterns and optimizing the cache behavior.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

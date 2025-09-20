@@ -33,15 +33,14 @@ The structure supports special handling for child relations in inheritance hiera
 The em_datatype field handles binary-compatible operator families where the expression's datatype might differ from the operator family's expected type, which is crucial for operations like anyarray_ops.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL node identification
-- : The actual expression represented by this equivalence member
-- : Set of relation IDs that appear in the expression, used for join planning
-- : True if the expression is a pseudoconstant (doesn't vary within query execution)
-- : True if this is a derived version for an appendrel child relation
-- : The nominal datatype used by the operator family (may differ from em_expr's type)
-- : The join domain containing the source equality clause that created this member
-- : Link to the corresponding parent EquivalenceMember when em_is_child is true
-
+- `type`: Standard NodeTag for PostgreSQL node identification
+- `*em_expr`: The actual expression represented by this equivalence member
+- `em_relids`: Set of relation IDs that appear in the expression, used for join planning
+- `em_is_const`: True if the expression is a pseudoconstant (doesn't vary within query execution)
+- `em_is_child`: True if this is a derived version for an appendrel child relation
+- `em_datatype`: The nominal datatype used by the operator family (may differ from em_expr's type)
+- `*em_jdomain`: The join domain containing the source equality clause that created this member
+- `pg_node_attr(read_write_ignore)`: Link to the corresponding parent EquivalenceMember when em_is_child is true
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinDomain (for join domain tracking)

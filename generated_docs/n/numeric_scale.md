@@ -16,8 +16,7 @@ numeric_scale(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL built-in function that extracts the scale (number of digits after the decimal point) from a numeric value. The function handles special numeric values (such as NaN or infinity) by returning NULL. For regular numeric values, it returns the scale as stored in the numeric data structure.
 
 ## Parameters / Member Variables
-- The function uses the standard PostgreSQL function calling convention 
-- Input: A single numeric value accessed via 
+- Input: A single numeric value accessed via
 
 ## Dependencies
 - Functions called/Symbols referenced:

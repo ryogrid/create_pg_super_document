@@ -15,7 +15,6 @@ Datum boolle(PG_FUNCTION_ARGS)
 This function provides the implementation for the Boolean less-than-or-equal-to operator in PostgreSQL's type system. It follows PostgreSQL's Boolean ordering where false < true, so the function returns true when the first argument is less than or equal to the second argument. This means it returns true in three cases: when both arguments are false, when both arguments are true, or when the first argument is false and the second is true.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments
 - Argument 0: First Boolean value to compare
 - Argument 1: Second Boolean value to compare
 

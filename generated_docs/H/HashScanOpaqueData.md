@@ -49,15 +49,14 @@ HashScanOpaqueData serves as the comprehensive state management structure for ha
 The structure maintains buffers for both normal bucket access and split bucket scenarios, ensuring that scans remain consistent even when concurrent split operations are occurring. The killed items tracking mechanism supports PostgreSQL's MVCC system by allowing efficient cleanup of dead tuples during scan operations.
 
 ## Parameters / Member Variables
-- : Hash value of the scan key being searched for
-- : Buffer reference for the primary bucket page
-- : Buffer reference for the primary bucket page of a bucket currently being split (used during split operations)
-- : Boolean indicating whether the scan starts on a bucket being populated due to a split operation
-- : Boolean indicating whether the scan is processing a bucket currently being split (only relevant when hashso_buc_populated is true)
-- : Array of indexes into currPos.items pointing to killed (dead) items, or NULL if unused
-- : Count of currently stored killed items
-- : HashScanPosData structure containing current scan position and matched items
-
+- `hashso_sk_hash`: Hash value of the scan key being searched for
+- `hashso_bucket_buf`: Buffer reference for the primary bucket page
+- `hashso_split_bucket_buf`: Buffer reference for the primary bucket page of a bucket currently being split (used during split operations)
+- `hashso_buc_populated`: Boolean indicating whether the scan starts on a bucket being populated due to a split operation
+- `hashso_buc_split`: Boolean indicating whether the scan is processing a bucket currently being split (only relevant when hashso_buc_populated is true)
+- `*killedItems`: Array of indexes into currPos.items pointing to killed (dead) items, or NULL if unused
+- `numKilled`: Count of currently stored killed items
+- `currPos`: HashScanPosData structure containing current scan position and matched items
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HashScanPosData](HashScanPosData.md)

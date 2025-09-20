@@ -27,9 +27,8 @@ The structure is designed to support PostgreSQL's segmented file architecture wh
 The magnetic disk storage manager maintains arrays of these structures in the SMgrRelation to track open file descriptors for each fork of a relation.
 
 ## Parameters / Member Variables
-- : Virtual file descriptor number from fd.c's file descriptor pool, used to reference the actual open file
-- : Zero-based segment number identifying which segment of the relation this descriptor represents
-
+- `mdfd_vfd`: Virtual file descriptor number from fd.c's file descriptor pool, used to reference the actual open file
+- `mdfd_segno`: Zero-based segment number identifying which segment of the relation this descriptor represents
 ## Dependencies
 - Functions called/Symbols referenced:
   - File (typedef from fd.c)

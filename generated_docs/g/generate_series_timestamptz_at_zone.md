@@ -19,10 +19,6 @@ The function takes four arguments: start timestamp, end timestamp, step interval
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Start timestamp with timezone (TimestampTz)
-  - Finish timestamp with timezone (TimestampTz) 
-  - Step interval (Interval)
-  - Timezone specification (text) - timezone name or abbreviation
 
 ## Dependencies
 - Functions called/Symbols referenced:

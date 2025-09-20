@@ -22,10 +22,9 @@ CreateDBRelInfo is a struct used during database creation operations to track in
 The structure encapsulates the essential information needed to identify and handle a relation during the database creation process, including its physical storage location, logical identifier, and persistence characteristics.
 
 ## Parameters / Member Variables
-- : A RelFileLocator that provides the physical relation identifier, specifying where the relation's files are stored in the filesystem
-- : The relation's Object Identifier (OID), which uniquely identifies the relation within the database catalog
-- : A boolean flag indicating whether the relation is permanent (persistent across database restarts) or unlogged (data is not written to WAL and is lost on crash)
-
+- `rlocator`: A RelFileLocator that provides the physical relation identifier, specifying where the relation's files are stored in the filesystem
+- `reloid`: The relation's Object Identifier (OID), which uniquely identifies the relation within the database catalog
+- `permanent`: A boolean flag indicating whether the relation is permanent (persistent across database restarts) or unlogged (data is not written to WAL and is lost on crash)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (referenced as member type)

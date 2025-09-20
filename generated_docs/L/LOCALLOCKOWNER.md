@@ -27,9 +27,8 @@ LOCALLOCKOWNER is a critical component of PostgreSQL's resource management syste
 The structure supports PostgreSQL's nested transaction model by allowing locks to be associated with different resource owners. When a subtransaction aborts, only locks held by that specific resource owner are released, while parent transaction locks remain intact. The reference counting mechanism (nLocks) handles cases where the same lock is acquired multiple times by the same owner.
 
 ## Parameters / Member Variables
-- : Pointer to the ResourceOwnerData structure that owns this lock; NULL indicates the lock is held at session level rather than transaction level
-- : Reference count indicating how many times this lock has been acquired by the specified owner
-
+- `*owner`: Pointer to the ResourceOwnerData structure that owns this lock; NULL indicates the lock is held at session level rather than transaction level
+- `nLocks`: Reference count indicating how many times this lock has been acquired by the specified owner
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerData

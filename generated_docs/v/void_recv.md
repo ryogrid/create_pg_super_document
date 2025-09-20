@@ -16,7 +16,7 @@ void_recv(PG_FUNCTION_ARGS)
 The void_recv function is responsible for deserializing binary input for the void pseudo-type in PostgreSQL. The function serves as a binary input handler that consumes no bytes from the input stream and returns a void datum. The implementation includes a comment noting that any attempt to send non-empty data will result in an "invalid message format" error, ensuring that only empty strings are accepted as valid input for void types during binary protocol operations.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function argument macro  which provides access to function call context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

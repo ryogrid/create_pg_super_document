@@ -24,8 +24,7 @@ The structure is marked with pg_node_attr(abstract), indicating it is an abstrac
 Since Expr contains only the NodeTag field, it is primarily a formality for documentation and type system consistency, but it provides an important organizational structure for the complex expression hierarchy in PostgreSQL.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL's node system type identification, inherited by all expression node types
-
+- `type`: Standard NodeTag for PostgreSQL's node system type identification, inherited by all expression node types
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system type identification)

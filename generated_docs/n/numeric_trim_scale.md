@@ -16,7 +16,6 @@ numeric_trim_scale(PG_FUNCTION_ARGS)
 The `numeric_trim_scale` function is a PostgreSQL built-in function that creates a new numeric value with trailing zeros removed from the fractional part. It calculates the minimum scale needed to represent the value accurately and returns a new numeric with that reduced scale. For special values (NaN, infinity), it returns a duplicate of the original value. This function is useful for normalizing numeric values and reducing storage overhead.
 
 ## Parameters / Member Variables
-- The function uses the standard PostgreSQL function calling convention `PG_FUNCTION_ARGS`
 - Input: A single numeric value accessed via `PG_GETARG_NUMERIC(0)`
 
 ## Dependencies

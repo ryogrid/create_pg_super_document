@@ -19,7 +19,7 @@ The function implements an iterative approach, repeatedly calling AbortCurrentTr
 This wrapper is essential for PostgreSQL's robust error handling and recovery mechanisms, ensuring that failed transactions are properly cleaned up regardless of their complexity or nesting level.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

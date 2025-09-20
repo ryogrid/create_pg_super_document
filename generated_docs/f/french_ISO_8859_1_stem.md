@@ -34,9 +34,6 @@ The function uses a sophisticated backtracking mechanism to try different suffix
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure containing:
-  - Input text and processing cursors
-  - Morphological region boundaries (R1, R2, RV)
-  - String manipulation state
 
 ## Dependencies
 - Functions called/Symbols referenced:

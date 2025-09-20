@@ -20,9 +20,8 @@ typedef struct MultiSortSupportData
 MultiSortSupportData is designed to handle sorting operations across multiple dimensions in PostgreSQL's extended statistics framework. This structure is essential for building and processing multi-column statistics, particularly MCV (Most Common Values) lists that span multiple attributes. The structure uses a flexible array member to accommodate varying numbers of dimensions, making it adaptable to different statistical scenarios. Each dimension gets its own SortSupportData entry to handle type-specific sorting logic.
 
 ## Parameters / Member Variables
-- : The number of dimensions (columns) that this multi-sort structure handles
-- : A flexible array of SortSupportData structures, one for each dimension, containing the sort support functions and metadata for that dimension's data type
-
+- `ndims`: The number of dimensions (columns) that this multi-sort structure handles
+- `ssup[FLEXIBLE_ARRAY_MEMBER]`: A flexible array of SortSupportData structures, one for each dimension, containing the sort support functions and metadata for that dimension's data type
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupportData (embedded structure for each dimension)

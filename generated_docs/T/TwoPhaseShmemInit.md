@@ -17,7 +17,7 @@ When running as the postmaster (not a child process), it performs full initializ
 The function initializes the TwoPhaseState global variable, which serves as the entry point to all two-phase commit shared memory structures, and sets up the linked list management for efficient allocation and deallocation of transaction slots.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

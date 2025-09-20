@@ -19,7 +19,6 @@ This function provides a variant of bytea substring extraction that only require
 - : Standard PostgreSQL function argument macro that provides access to function arguments
   - Argument 0: Source bytea value (as Datum)
   - Argument 1: Starting position (1-based integer)
-  - No length parameter (automatically extracts to end)
 
 ## Dependencies
 - Functions called/Symbols referenced:

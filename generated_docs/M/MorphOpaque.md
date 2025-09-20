@@ -28,9 +28,8 @@ MorphOpaque serves as a container for configuration data that needs to be passed
 When a single tsquery morph is parsed into multiple words that reside in adjacent positions, they need to be connected using a specific operator. This structure ensures that the correct operator (typically OP_PHRASE) is used to maintain the semantic relationship between the parsed words, requiring that word positions in the complex morph exactly match those in the tsvector.
 
 ## Parameters / Member Variables
-- : Object identifier (Oid) of the text search configuration to be used for morphological parsing
-- : Integer representing the operator used to connect multiple words from a single morph when they are in adjacent positions (usually OP_PHRASE)
-
+- `cfg_id`: Object identifier (Oid) of the text search configuration to be used for morphological parsing
+- `qoperator`: Integer representing the operator used to connect multiple words from a single morph when they are in adjacent positions (usually OP_PHRASE)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

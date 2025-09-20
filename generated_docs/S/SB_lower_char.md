@@ -23,7 +23,6 @@ This function is part of PostgreSQL's strategy to handle case-insensitive matchi
 
 ## Parameters / Member Variables
 - : The unsigned character to convert to lowercase
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

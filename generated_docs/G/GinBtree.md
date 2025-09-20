@@ -15,8 +15,7 @@ typedef struct GinBtreeData *GinBtree;
 GinBtree represents a handle to a GIN B-tree operational context through a pointer to GinBtreeData. This design pattern allows for polymorphic behavior where different B-tree types (entry trees vs data/posting trees) can implement the same interface through function pointers stored in the GinBtreeData structure. The typedef provides a clean abstraction layer for B-tree operations while hiding the implementation details of the underlying data structure.
 
 ## Parameters / Member Variables
-- This is a pointer typedef, not a struct, so it has no direct members
-- Points to a GinBtreeData structure which contains the actual operational data and function pointers
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

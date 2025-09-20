@@ -23,7 +23,7 @@ This comprehensive reset ensures that if an error occurs in subsequent operation
 The function is marked as static inline for performance optimization, as it's frequently called during the logical replication process.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

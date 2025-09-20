@@ -42,28 +42,27 @@ This structure caches comprehensive information about compiled Perl procedures t
 The structure tracks both metadata (function name, type information, flags) and execution context (interpreter reference, compiled Perl code reference). It supports various function types including regular functions, set-returning functions, and functions that return arrays or tuples.
 
 ## Parameters / Member Variables
-- : User-visible name of the procedure
-- : Dedicated memory context for managing this procedure's memory allocations
-- : Reference counter tracking active usage (hash table + active call levels)
-- : Transaction ID from the procedure's pg_proc tuple for cache invalidation
-- : Item pointer data for the procedure's pg_proc tuple
-- : Perl CODE reference (SV*) pointing to the compiled Perl subroutine
-- : Pointer to the plperl_interp_desc containing the interpreter where this function was compiled
-- : Flag indicating if function is readonly (non-volatile)
-- : OID of the procedural language (plperl vs plperlu)
-- : List of transform types for the function
-- : Boolean indicating trusted (plperl) vs untrusted (plperlu) context
-- : Flag for functions returning composite types
-- : Flag for set-returning functions
-- : Flag for functions returning arrays
-- : OID of the function's return type
-- : Input function information for result type conversion
-- : Type-specific parameter for result conversion
-- : Number of function arguments
-- : Array of output functions for converting argument types
-- : Array of flags indicating which arguments are composite types
-- : Array of OIDs for array element types (InvalidOid for non-arrays)
-
+- `*proname`: User-visible name of the procedure
+- `fn_cxt`: Dedicated memory context for managing this procedure's memory allocations
+- `fn_refcount`: Reference counter tracking active usage (hash table + active call levels)
+- `fn_xmin`: Transaction ID from the procedure's pg_proc tuple for cache invalidation
+- `fn_tid`: Item pointer data for the procedure's pg_proc tuple
+- `*reference`: Perl CODE reference (SV*) pointing to the compiled Perl subroutine
+- `*interp`: Pointer to the plperl_interp_desc containing the interpreter where this function was compiled
+- `fn_readonly`: Flag indicating if function is readonly (non-volatile)
+- `lang_oid`: OID of the procedural language (plperl vs plperlu)
+- `*trftypes`: List of transform types for the function
+- `lanpltrusted`: Boolean indicating trusted (plperl) vs untrusted (plperlu) context
+- `fn_retistuple`: Flag for functions returning composite types
+- `fn_retisset`: Flag for set-returning functions
+- `fn_retisarray`: Flag for functions returning arrays
+- `result_oid`: OID of the function's return type
+- `result_in_func`: Input function information for result type conversion
+- `result_typioparam`: Type-specific parameter for result conversion
+- `nargs`: Number of function arguments
+- `*arg_out_func`: Array of output functions for converting argument types
+- `*arg_is_rowtype`: Array of flags indicating which arguments are composite types
+- `*arg_arraytype`: Array of OIDs for array element types (InvalidOid for non-arrays)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [plperl_interp_desc](plperl_interp_desc.md) (interpreter reference)

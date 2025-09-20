@@ -18,8 +18,7 @@ This function serves as the required input routine for the pg_mcv_list PostgreSQ
 The function immediately raises an error indicating that the pg_mcv_list type cannot accept values through normal SQL input mechanisms. This design choice enforces that MCV lists can only be created and manipulated through internal PostgreSQL statistics collection processes.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function call interface via  macro
-- No actual parameters are processed since the function rejects all input
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

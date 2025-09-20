@@ -25,7 +25,6 @@ This ensures that PostgreSQL always has a valid locale setting for each category
 ## Parameters / Member Variables
 - : A string name of the locale category (used for error reporting)
 - : The integer constant representing the locale category (e.g., LC_COLLATE, LC_CTYPE)
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

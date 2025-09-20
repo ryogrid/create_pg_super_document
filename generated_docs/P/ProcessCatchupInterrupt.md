@@ -23,7 +23,7 @@ The function operates in a loop checking the catchupInterruptPending flag. When 
 The function includes extensive comments explaining why the transaction wrapper is necessary for proper error cleanup, even though it might seem like overkill for simple invalidation processing.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

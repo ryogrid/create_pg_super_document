@@ -24,7 +24,7 @@ The function sets various boolean flags that describe GIN's capabilities:
 - Supports parallel vacuum operations
 
 ## Parameters / Member Variables
-- No input parameters (uses  macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,7 +21,6 @@ Only forward scan direction is supported, as SPGiST indexes are designed for pro
 
 ## Parameters / Member Variables
 - : Index scan descriptor containing scan parameters and state
-- 0
 5
 6
 =

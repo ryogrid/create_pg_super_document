@@ -19,7 +19,7 @@ The function is a thin wrapper around json_object_agg_transfn_worker that implem
 This represents the standard SQL json_object_agg function that accumulates key-value pairs into a JSON object without any special handling for duplicates or nulls. It follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS and returns a Datum.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard PG_FUNCTION_ARGS macro which expands to FunctionCallInfo fcinfo
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

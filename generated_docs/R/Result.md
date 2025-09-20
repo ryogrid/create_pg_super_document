@@ -23,9 +23,8 @@ The resconstantqual field contains qualification conditions that need to be eval
 Result nodes are commonly used in various optimization scenarios, including gating plans (where a condition determines whether to execute a subplan), implementing LIMIT clauses, and handling constant expressions in SELECT lists.
 
 ## Parameters / Member Variables
-- : Base Plan structure containing common fields like costs, targetlist, and tree structure
-- : Optional one-time qualification test that doesn't depend on outer plan variables
-
+- `plan`: Base Plan structure containing common fields like costs, targetlist, and tree structure
+- `*resconstantqual`: Optional one-time qualification test that doesn't depend on outer plan variables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Plan](../P/Plan.md) (base structure)

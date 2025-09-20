@@ -23,10 +23,6 @@ The function operates in several main phases:
 
 ## Parameters / Member Variables
 - `z`: Pointer to the Snowball environment structure (`struct SN_env *`) containing:
-  - The input word to be stemmed
-  - Working pointers and boundaries for string manipulation
-  - State flags I[0], I[1], I[2] controlling processing paths
-  - Buffer management for the stemming operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

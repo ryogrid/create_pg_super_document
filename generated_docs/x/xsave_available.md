@@ -22,7 +22,7 @@ The implementation uses platform-specific CPUID intrinsics:
 - Compile-time error if neither is available
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

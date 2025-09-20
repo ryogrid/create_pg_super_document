@@ -23,11 +23,10 @@ CurrentOfExpr represents the CURRENT OF clause in SQL UPDATE and DELETE statemen
 The referenced cursor can be specified in two ways: as a hardwired string name (cursor_name) or as a reference to a run-time parameter of type REFCURSOR (cursor_param). The latter approach is primarily used for convenience in plpgsql stored procedures where cursor names might be determined dynamically.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : Range table index of the target relation being constrained
-- : Name of the referenced cursor as a string, or NULL if using parameter reference
-- : Parameter number for a REFCURSOR parameter, or 0 if using cursor_name
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `cvarno`: Range table index of the target relation being constrained
+- `*cursor_name`: Name of the referenced cursor as a string, or NULL if using parameter reference
+- `cursor_param`: Parameter number for a REFCURSOR parameter, or 0 if using cursor_name
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

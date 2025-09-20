@@ -15,9 +15,7 @@ Datum json_agg_transfn(PG_FUNCTION_ARGS)
 This function acts as a simple wrapper around json_agg_transfn_worker, providing the standard behavior for the json_agg aggregate function. It ensures that null input values are included in the resulting JSON array as JSON null values, maintaining the complete set of input data. The function is registered as the transition function for the json_agg aggregate in PostgreSQL's system catalogs.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
-- Passes through all arguments to the worker function
-- Sets absent_on_null to false for standard null-preserving behavior
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

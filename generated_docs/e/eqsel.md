@@ -18,8 +18,7 @@ The eqsel function serves as the primary entry point for selectivity estimation 
 The function also supports operators that are not strict equality but have comparable selectivity behavior, such as "~=" (geometric approximate-match operators). This flexibility makes it a versatile tool for the query planner's cost estimation process.
 
 ## Parameters / Member Variables
-- Uses standard PostgreSQL function calling convention (PG_FUNCTION_ARGS)
-- Parameters are accessed through the fcinfo structure containing operator arguments and context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

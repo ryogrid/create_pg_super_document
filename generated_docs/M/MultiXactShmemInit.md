@@ -15,7 +15,7 @@ void MultiXactShmemInit(void)
 MultiXactShmemInit is responsible for setting up all shared memory components needed for multixact functionality. It initializes two separate SLRU structures: one for multixact offsets and another for multixact members. The function also establishes the shared multixact state structure and sets up per-backend tracking arrays. During postmaster startup, it zeros out the shared state and initializes condition variables, while in backend processes it verifies the shared structures already exist.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

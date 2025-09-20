@@ -21,11 +21,10 @@ typedef struct avl_dbase
 The  structure serves as a database tracking entry in the autovacuum launcher's internal data structures. It maintains essential information needed to schedule and prioritize autovacuum operations across multiple databases. The structure is designed to be used in hash tables (with  as the key) and doubly-linked lists (via ) for efficient database management and scheduling algorithms.
 
 ## Parameters / Member Variables
-- : Database OID that serves as the hash key for this entry (must be the first field for hash table operations)
-- : Timestamp indicating when the next autovacuum worker should be scheduled for this database
-- : Numeric score used for prioritizing databases when determining which should receive autovacuum attention first
-- : Doubly-linked list node for organizing databases in scheduling queues
-
+- `adl_datid`: Database OID that serves as the hash key for this entry (must be the first field for hash table operations)
+- `adl_next_worker`: Timestamp indicating when the next autovacuum worker should be scheduled for this database
+- `adl_score`: Numeric score used for prioritizing databases when determining which should receive autovacuum attention first
+- `adl_node`: Doubly-linked list node for organizing databases in scheduling queues
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md) (for linked list operations)

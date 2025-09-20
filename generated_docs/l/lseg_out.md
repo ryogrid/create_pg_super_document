@@ -16,7 +16,6 @@ lseg_out(PG_FUNCTION_ARGS)
 The  function is a PostgreSQL output function that converts an internal line segment representation to a human-readable string format. It extracts the LSEG parameter from the function arguments and uses the  function to format it as an open path with 2 points, representing the start and end points of the line segment. The resulting string follows PostgreSQL's standard format for line segments: .
 
 ## Parameters / Member Variables
-- Function uses  macro for parameter access
 - Parameter 0: LSEG pointer - the line segment to be converted to string format
 
 ## Dependencies

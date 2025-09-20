@@ -23,7 +23,6 @@ This function creates a new replication slot based on the command parameters. Fo
   - `kind`: Type of slot (REPLICATION_KIND_PHYSICAL or REPLICATION_KIND_LOGICAL)
   - `plugin`: Output plugin name (for logical slots only)
   - `temporary`: Whether the slot should be temporary (RS_TEMPORARY) or persistent
-  - Additional options for WAL reservation, snapshot actions, two-phase support, and failover
 
 ## Dependencies
 - Functions called/Symbols referenced:

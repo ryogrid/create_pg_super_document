@@ -76,20 +76,19 @@ typedef struct EPQState
 EPQState implements EvalPlanQual (EPQ) rechecking, a critical mechanism in PostgreSQL's Multi-Version Concurrency Control (MVCC) system. When a transaction attempts to update or delete a tuple that has been concurrently modified by another transaction, EPQ creates a separate execution environment to recheck the candidate tuple against the original query conditions. This ensures that the query's WHERE clause and join conditions are still satisfied after concurrent modifications, maintaining transaction isolation without unnecessary blocking.
 
 ## Parameters / Member Variables
-- : Pointer to the main query's execution state, providing shared resources like range tables
-- : Parameter ID used to force re-evaluation of scan nodes during EPQ execution
-- : List of range table indexes for relations that may need EPQ rechecking
-- : Tuple table structure managing the relsubs_slot array
-- : Array of slots containing EPQ test tuples, indexed by scanrelid - 1
-- : Plan tree that needs to be rechecked during EPQ execution
-- : List of ExecAuxRowMarks for non-locking row marking operations
-- : Original output tuple being rechecked, set before EPQ evaluation begins
-- : Separate EState for EPQ execution, sharing resources with parentestate
-- : Array of row marks that can be fetched on-demand, indexed by scanrelid - 1
-- : Array of flags indicating whether EPQ tuple has been fetched for each relation
-- : Array of flags indicating relations with no EPQ tuple during current test
-- : Execution state tree for the plan being rechecked, separate from main query
-
+- `*parentestate`: Pointer to the main query's execution state, providing shared resources like range tables
+- `epqParam`: Parameter ID used to force re-evaluation of scan nodes during EPQ execution
+- `*resultRelations`: List of range table indexes for relations that may need EPQ rechecking
+- `*tuple_table`: Tuple table structure managing the relsubs_slot array
+- `**relsubs_slot`: Array of slots containing EPQ test tuples, indexed by scanrelid - 1
+- `*plan`: Plan tree that needs to be rechecked during EPQ execution
+- `*arowMarks`: List of ExecAuxRowMarks for non-locking row marking operations
+- `*origslot`: Original output tuple being rechecked, set before EPQ evaluation begins
+- `*recheckestate`: Separate EState for EPQ execution, sharing resources with parentestate
+- `**relsubs_rowmark`: Array of row marks that can be fetched on-demand, indexed by scanrelid - 1
+- `*relsubs_done`: Array of flags indicating whether EPQ tuple has been fetched for each relation
+- `*relsubs_blocked`: Array of flags indicating relations with no EPQ tuple during current test
+- `*recheckplanstate`: Execution state tree for the plan being rechecked, separate from main query
 ## Dependencies
 - Functions called/Symbols referenced:
   - [EState](EState.md)

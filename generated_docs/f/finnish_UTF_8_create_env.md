@@ -19,7 +19,7 @@ The function initializes the environment with specific parameters:
 This environment structure will contain all necessary state information for Finnish stemming operations, including word buffers, cursor positions, region markers (R1, R2, RV), and algorithm-specific flags.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

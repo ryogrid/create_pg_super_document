@@ -16,9 +16,8 @@ nameeq(PG_FUNCTION_ARGS)
  is a PostgreSQL built-in function that performs equality comparison between two Name data type values. It extracts two Name arguments from the function call context, compares them using the  function with the current collation setting, and returns a boolean result indicating whether the names are equal. This function is typically used in SQL WHERE clauses and JOIN conditions when comparing name-type columns.
 
 ## Parameters / Member Variables
-- Uses  macro to access function arguments
 - : First Name argument extracted using 
-- : Second Name argument extracted using 
+- : Second Name argument extracted using
 
 ## Dependencies
 - Functions called/Symbols referenced:

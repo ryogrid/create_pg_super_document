@@ -21,11 +21,10 @@ typedef struct ArrayType
 ArrayType serves as the header structure for PostgreSQL array values. It follows the varlena convention where the first int32 contains the total object size in bytes. The structure is designed to handle multi-dimensional arrays with optional null bitmaps. When dataoffset is 0, there is no null bitmap and array data follows immediately after the header. When dataoffset is non-zero, it indicates the byte offset from the start of the ArrayType structure to where the actual array data begins, with a null bitmap stored in between.
 
 ## Parameters / Member Variables
-- : The varlena header containing the total object size in bytes (must be accessed via VARSIZE() and SET_VARSIZE() macros)
-- : The number of dimensions in the array
-- : Byte offset to the actual array data, or 0 if there is no null bitmap
-- : The OID of the element type stored in this array
-
+- `vl_len_`: The varlena header containing the total object size in bytes (must be accessed via VARSIZE() and SET_VARSIZE() macros)
+- `ndim`: The number of dimensions in the array
+- `dataoffset`: Byte offset to the actual array data, or 0 if there is no null bitmap
+- `elemtype`: The OID of the element type stored in this array
 ## Dependencies
 - Functions called/Symbols referenced:
   - Uses varlena conventions (VARSIZE, SET_VARSIZE macros)

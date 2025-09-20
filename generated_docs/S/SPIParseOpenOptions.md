@@ -22,10 +22,9 @@ SPIParseOpenOptions serves as a configuration structure specifically designed fo
 The structure follows PostgreSQL's pattern of using dedicated option structures for complex operations, providing a clean interface that can be extended without breaking backward compatibility.
 
 ## Parameters / Member Variables
-- : ParamListInfo structure containing parameter values to bind to the SQL statement during parsing and cursor creation
-- : Integer bitmask specifying cursor-specific options that control cursor behavior (scrollability, holdability, etc.)
-- : Boolean flag enforcing read-only access, preventing the cursor from executing modification statements
-
+- `params`: ParamListInfo structure containing parameter values to bind to the SQL statement during parsing and cursor creation
+- `cursorOptions`: Integer bitmask specifying cursor-specific options that control cursor behavior (scrollability, holdability, etc.)
+- `read_only`: Boolean flag enforcing read-only access, preventing the cursor from executing modification statements
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ParamListInfo](../P/ParamListInfo.md)

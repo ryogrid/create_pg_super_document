@@ -23,11 +23,10 @@ MVNDistinct is the core data structure for storing multivariate n-distinct stati
 The structure is designed to be serializable and includes magic number validation for data integrity verification. It supports the BASIC type of n-distinct statistics and can handle up to STATS_MAX_DIMENSIONS (8) attributes in combinations.
 
 ## Parameters / Member Variables
-- : Magic constant marker (STATS_NDISTINCT_MAGIC = 0xA352BFA4) used for structure validation and identification
-- : Type identifier for the n-distinct statistic, currently supports STATS_NDISTINCT_TYPE_BASIC (1)
-- : Number of MVNDistinctItem entries stored in the items array
-- : Flexible array of MVNDistinctItem structures, each containing n-distinct information for a specific column combination
-
+- `magic`: Magic constant marker (STATS_NDISTINCT_MAGIC = 0xA352BFA4) used for structure validation and identification
+- `type`: Type identifier for the n-distinct statistic, currently supports STATS_NDISTINCT_TYPE_BASIC (1)
+- `nitems`: Number of MVNDistinctItem entries stored in the items array
+- `items[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of MVNDistinctItem structures, each containing n-distinct information for a specific column combination
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array)

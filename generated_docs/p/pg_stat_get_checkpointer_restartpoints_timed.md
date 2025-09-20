@@ -15,7 +15,7 @@ Datum pg_stat_get_checkpointer_restartpoints_timed(PG_FUNCTION_ARGS)
 This function retrieves the count of timed restartpoints that have been performed by the checkpointer process. In PostgreSQL standby servers, restartpoints serve a similar purpose to checkpoints on primary servers - they ensure data consistency and provide recovery points. Timed restartpoints are those initiated automatically based on the checkpoint_timeout configuration parameter, as opposed to restartpoints requested due to WAL volume or explicit commands.
 
 ## Parameters / Member Variables
-- No parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

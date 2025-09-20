@@ -18,12 +18,6 @@ The function follows PostgreSQL's standard conversion function interface, accept
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: PostgreSQL function argument structure containing:
-  - Source encoding ID (INTEGER) - should be PG_JOHAB
-  - Destination encoding ID (INTEGER) - should be PG_UTF8  
-  - Source string (CSTRING) - null-terminated JOHAB-encoded string
-  - Destination string (CSTRING) - buffer for UTF-8 output
-  - Source string length (INTEGER) - length of source data in bytes
-  - noError flag (BOOL) - if true, do not throw error on conversion failure
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,6 @@ Datum int8_numeric(PG_FUNCTION_ARGS)
 This function is a PostgreSQL SQL-callable function that converts an int8 (64-bit signed integer, also known as bigint in SQL) to the numeric data type. It follows PostgreSQL's function calling convention by taking PG_FUNCTION_ARGS as its parameter and returning a Datum. The function extracts the int64 value from the function arguments, converts it to numeric format using the internal conversion function, and returns the result as a numeric Datum.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function argument mechanism (PG_FUNCTION_ARGS)
 - Extracts: 64-bit signed integer value from argument 0
 
 ## Dependencies

@@ -25,12 +25,11 @@ typedef struct spgxlogVacuumRedirect
 This structure represents a WAL record for cleaning up redirect and placeholder tuples in SP-GiST indexes. Redirect tuples are created when a tuple is moved from one location to another (typically during page splits or reorganization), pointing from the old location to the new location. Over time, these redirect tuples can be safely converted to placeholder tuples, and eventually, placeholder tuples can be removed entirely. This vacuum operation handles the transition of redirect tuples to placeholders and the removal of old placeholder tuples, which is essential for maintaining index efficiency and preventing excessive space usage.
 
 ## Parameters / Member Variables
-- : Number of redirect tuples that should be converted to placeholder tuples during this operation
-- : Offset number of the first placeholder tuple that should be removed entirely
-- : Transaction ID representing the newest transaction ID of removed redirect tuples, used for handling recovery conflicts
-- : Boolean flag indicating whether this is a catalog relation, important for handling recovery conflicts during logical decoding on standby servers
-- : Flexible array member containing the offset numbers of redirect tuples that should be converted to placeholders
-
+- `nToPlaceholder`: Number of redirect tuples that should be converted to placeholder tuples during this operation
+- `firstPlaceholder`: Offset number of the first placeholder tuple that should be removed entirely
+- `snapshotConflictHorizon`: Transaction ID representing the newest transaction ID of removed redirect tuples, used for handling recovery conflicts
+- `isCatalogRel`: Boolean flag indicating whether this is a catalog relation, important for handling recovery conflicts during logical decoding on standby servers
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the offset numbers of redirect tuples that should be converted to placeholders
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

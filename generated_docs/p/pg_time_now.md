@@ -16,7 +16,7 @@ pg_time_now(void)
 pg_time_now is a utility function in pgbench that provides a convenient way to obtain the current time with microsecond precision. It acts as a wrapper around PostgreSQL's instrumentation time functions, converting the result to a standardized microsecond timestamp format. This function is essential for pgbench's timing measurements, allowing accurate benchmarking of database operations by providing high-precision timestamps for performance analysis.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

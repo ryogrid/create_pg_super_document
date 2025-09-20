@@ -15,7 +15,7 @@ GetWALInsertionTimeLine returns the current timeline ID for systems that are act
 The function includes an assertion to ensure it is only called on systems that have completed recovery (SharedRecoveryState must be RECOVERY_STATE_DONE). Since the timeline value cannot change while the system is actively writing WAL (not in recovery), no locking is required to access this value, making the function very lightweight.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

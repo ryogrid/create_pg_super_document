@@ -22,10 +22,9 @@ The  structure is part of pg_combinebackup's error handling mechanism. It mainta
 The structure forms a singly-linked list where each node represents a directory that requires cleanup. The cleanup behavior is controlled by the  flag, which determines whether only the directory contents should be removed or if the top-level directory itself should also be removed.
 
 ## Parameters / Member Variables
-- : Path to the directory that needs cleanup
-- : Boolean flag indicating whether to remove the top directory itself (true) or just its contents (false)
-- : Pointer to the next cleanup directory in the linked list
-
+- `*target_path`: Path to the directory that needs cleanup
+- `rmtopdir`: Boolean flag indicating whether to remove the top directory itself (true) or just its contents (false)
+- `*next`: Pointer to the next cleanup directory in the linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - (Self-referential structure member)

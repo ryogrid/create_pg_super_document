@@ -27,13 +27,12 @@ The structure uses a flexible array member to store ColumnCompareData entries fo
 The dual-type design (record1_type and record2_type) enables PostgreSQL to handle heterogeneous record comparisons, such as when comparing records from different tables or composite types that may be structurally compatible but have different type OIDs.
 
 ## Parameters / Member Variables
-- : The number of columns allocated in the columns array
-- : The OID of the first record's type
-- : Type modifier for the first record type
-- : The OID of the second record's type  
-- : Type modifier for the second record type
-- : Flexible array of ColumnCompareData structures, one for each column to be compared
-
+- `ncolumns`: The number of columns allocated in the columns array
+- `record1_type`: The OID of the first record's type
+- `record1_typmod`: Type modifier for the first record type
+- `record2_type`: The OID of the second record's type
+- `record2_typmod`: Type modifier for the second record type
+- `columns[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of ColumnCompareData structures, one for each column to be compared
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ColumnCompareData](../C/ColumnCompareData.md)

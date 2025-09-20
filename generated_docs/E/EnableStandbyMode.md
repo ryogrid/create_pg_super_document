@@ -15,7 +15,7 @@ static void EnableStandbyMode(void)
 EnableStandbyMode is a static function that configures PostgreSQL to operate in standby mode. When called, it sets the global StandbyMode variable to true, indicating that the server is running as a standby replica. The function also disables startup progress timeout reporting to prevent unnecessary log bloat, since standby servers are continuously in recovery mode unless promoted to primary. This optimization reduces server log verbosity by avoiding redundant progress reports that would otherwise occur during normal standby operation.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

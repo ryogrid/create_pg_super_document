@@ -15,7 +15,7 @@ Datum pg_stat_get_bgwriter_buf_written_clean(PG_FUNCTION_ARGS)
 This SQL-callable function provides access to the background writer's buffer cleaning statistics. It retrieves the cumulative count of buffers that have been written to disk by the background writer process specifically during its cleaning scan operations. The background writer periodically scans the shared buffer pool to write out dirty buffers before they are needed by other processes, helping to reduce the I/O burden during checkpoints and user queries. This statistic specifically tracks buffers written during these proactive cleaning operations, as opposed to buffers written due to buffer replacement pressure.
 
 ## Parameters / Member Variables
-- No input parameters (uses PostgreSQL's standard PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

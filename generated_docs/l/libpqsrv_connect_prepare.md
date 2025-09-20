@@ -17,7 +17,7 @@ libpqsrv_connect_prepare is a critical preparation step in the libpqsrv connecti
 The reservation process also triggers closure of Virtual File Descriptors (VFDs) if necessary to make room for the new connection. If file descriptor acquisition fails, the function throws a detailed error with platform-specific hints for resolution, distinguishing between Unix/Linux systems (where ulimit settings matter) and Windows systems (where only PostgreSQL's configuration applies).
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -26,13 +26,12 @@ PartClauseInfo is a crucial data structure in PostgreSQL's partition pruning mec
 The structure serves as an intermediate representation that bridges the gap between the original SQL WHERE clause conditions and the partition pruning algorithms. It standardizes how partition-related conditions are represented internally, making it easier for the pruning logic to work with different types of operators and expressions.
 
 ## Parameters / Member Variables
-- : The zero-based index of the partition key column (0 to partnatts - 1) that this clause references
-- : The OID of the operator used to compare the partition key to the expression (e.g., =, <, >, <=, >=)
-- : A boolean flag indicating whether the original operator in the clause was the not-equal operator (<>)
-- : Pointer to the expression tree representing the value or expression that the partition key is being compared against
-- : The OID of the comparison function used to compare the expression to the partition key values
-- : The btree strategy number that identifies the type of comparison operation being performed
-
+- `keyno`: The zero-based index of the partition key column (0 to partnatts - 1) that this clause references
+- `opno`: The OID of the operator used to compare the partition key to the expression (e.g., =, <, >, <=, >=)
+- `op_is_ne`: A boolean flag indicating whether the original operator in the clause was the not-equal operator (<>)
+- `*expr`: Pointer to the expression tree representing the value or expression that the partition key is being compared against
+- `cmpfn`: The OID of the comparison function used to compare the expression to the partition key values
+- `op_strategy`: The btree strategy number that identifies the type of comparison operation being performed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Expr](../E/Expr.md) (expression tree structure)

@@ -29,13 +29,12 @@ This structure inherits from the base  structure, which provides the standard st
 The structure supports both compression and decompression modes, utilizing the LZ4F (LZ4 Frame) API which provides a higher-level interface compared to the block-level LZ4 API. This choice enables better integration with streaming operations and provides features like checksums and block independence.
 
 ## Parameters / Member Variables
-- : The inherited bbstreamer structure containing the operation function pointers, next streamer in the chain, and a buffer for data accumulation
-- : LZ4 frame compression context used when the streamer operates in compression mode
-- : LZ4 frame decompression context used when the streamer operates in decompression mode  
-- : LZ4 frame preferences structure containing compression settings like block size and compression level
-- : Counter tracking the total number of bytes written during the streaming operation
-- : Boolean flag indicating whether the LZ4 frame header has been written to the output stream
-
+- `base`: The inherited bbstreamer structure containing the operation function pointers, next streamer in the chain, and a buffer for data accumulation
+- `cctx`: LZ4 frame compression context used when the streamer operates in compression mode
+- `dctx`: LZ4 frame decompression context used when the streamer operates in decompression mode
+- `prefs`: LZ4 frame preferences structure containing compression settings like block size and compression level
+- `bytes_written`: Counter tracking the total number of bytes written during the streaming operation
+- `header_written`: Boolean flag indicating whether the LZ4 frame header has been written to the output stream
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base structure)

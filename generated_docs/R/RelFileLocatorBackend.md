@@ -32,9 +32,8 @@ The structure includes utility macros for comparison and testing:
 - RelFileLocatorBackendIsTemp() for testing if a relation is backend-local
 
 ## Parameters / Member Variables
-- : Embedded RelFileLocator struct containing tablespace (spcOid), database (dbOid), and relation number (relNumber)
-- : Process number of the owning backend; INVALID_PROC_NUMBER for regular relations, specific ProcNumber for backend-local relations
-
+- `locator`: Embedded RelFileLocator struct containing tablespace (spcOid), database (dbOid), and relation number (relNumber)
+- `backend`: Process number of the owning backend; INVALID_PROC_NUMBER for regular relations, specific ProcNumber for backend-local relations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](RelFileLocator.md) (embedded struct)

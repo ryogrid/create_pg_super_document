@@ -29,7 +29,6 @@ This function is critical for PostgreSQL's support of ICU collations, enabling c
 - : Source string in database encoding
 - : Length of source string (-1 indicates null-terminated)
 - : Size of destination buffer
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

@@ -25,7 +25,7 @@ The function handles file removal errors gracefully:
 After file operations, the function calls  to reset all statistics counters and timestamps to current values, ensuring the statistics system starts with a clean slate.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -47,34 +47,33 @@ typedef struct SubPlanState
 SubPlanState manages the execution state for subquery expressions such as EXISTS, IN, NOT IN, ANY, and ALL clauses. It coordinates between the outer query and subquery execution, providing optimization through hash table caching when the subquery is expected to be executed multiple times with different parameter values. The structure supports both scalar subqueries that return single values and array subqueries that return multiple rows as arrays.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this node type
-- : Pointer to the SubPlan expression plan node containing the subquery definition
-- : State tree for executing the subselect plan
-- : Parent plan node's state tree for accessing outer query context
-- : Expression state for combining subplan results with outer expressions (e.g., equality tests)
-- : List of expression states for arguments passed to the subplan
-- : Cache of the most recently fetched tuple from the subplan
-- : Cache of the most recent array result from ARRAY() subplans
-- : Tuple descriptor for subselect output after projection
-- : Projection info for transforming left-hand side expressions
-- : Projection info for transforming subselect output
-- : Hash table storing non-null subselect result rows for fast lookup
-- : Separate hash table for rows containing null values
-- : Flag indicating whether hashtable contains any rows
-- : Flag indicating whether hashnulls contains any rows
-- : Memory context for hash table storage
-- : Temporary memory context for hash table operations
-- : Expression context for evaluating inner tuple expressions
-- : Number of columns involved in hash table operations
-- : Array of column indices used as hash keys
-- : Array of OIDs for equality functions used in table comparisons
-- : Array of collation OIDs for hash and comparison operations
-- : Array of hash function managers for table data types
-- : Array of equality function managers for table data types
-- : Array of hash function managers for left-hand side data types
-- : Array of equality function managers for LHS vs. table comparisons
-- : Expression state for equality comparisons between LHS and table
-
+- `type`: NodeTag identifier for this node type
+- `*subplan`: Pointer to the SubPlan expression plan node containing the subquery definition
+- `*planstate`: State tree for executing the subselect plan
+- `*parent`: Parent plan node's state tree for accessing outer query context
+- `*testexpr`: Expression state for combining subplan results with outer expressions (e.g., equality tests)
+- `*args`: List of expression states for arguments passed to the subplan
+- `curTuple`: Cache of the most recently fetched tuple from the subplan
+- `curArray`: Cache of the most recent array result from ARRAY() subplans
+- `descRight`: Tuple descriptor for subselect output after projection
+- `*projLeft`: Projection info for transforming left-hand side expressions
+- `*projRight`: Projection info for transforming subselect output
+- `hashtable`: Hash table storing non-null subselect result rows for fast lookup
+- `hashnulls`: Separate hash table for rows containing null values
+- `havehashrows`: Flag indicating whether hashtable contains any rows
+- `havenullrows`: Flag indicating whether hashnulls contains any rows
+- `hashtablecxt`: Memory context for hash table storage
+- `hashtempcxt`: Temporary memory context for hash table operations
+- `*innerecontext`: Expression context for evaluating inner tuple expressions
+- `numCols`: Number of columns involved in hash table operations
+- `*keyColIdx`: Array of column indices used as hash keys
+- `*tab_eq_funcoids`: Array of OIDs for equality functions used in table comparisons
+- `*tab_collations`: Array of collation OIDs for hash and comparison operations
+- `*tab_hash_funcs`: Array of hash function managers for table data types
+- `*tab_eq_funcs`: Array of equality function managers for table data types
+- `*lhs_hash_funcs`: Array of hash function managers for left-hand side data types
+- `*cur_eq_funcs`: Array of equality function managers for LHS vs. table comparisons
+- `*cur_eq_comp`: Expression state for equality comparisons between LHS and table
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubPlan

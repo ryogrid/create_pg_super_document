@@ -22,10 +22,9 @@ The DoState structure serves as a container for state information passed to JSON
 This structure is allocated when the '-s' flag is passed to the test program, enabling semantic processing mode. It is passed as the void *state parameter to all semantic action functions defined in the JsonSemAction structure.
 
 ## Parameters / Member Variables
-- : Pointer to the JsonLexContext used for JSON lexical analysis and parsing
-- : Boolean flag indicating whether the current element is the first in its container (object or array), used for proper comma placement in formatted output
-- : StringInfo buffer used for temporary string processing, particularly for escaping JSON strings during output formatting
-
+- `*lex`: Pointer to the JsonLexContext used for JSON lexical analysis and parsing
+- `elem_is_first`: Boolean flag indicating whether the current element is the first in its container (object or array), used for proper comma placement in formatted output
+- `buf`: StringInfo buffer used for temporary string processing, particularly for escaping JSON strings during output formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JsonLexContext](../J/JsonLexContext.md)

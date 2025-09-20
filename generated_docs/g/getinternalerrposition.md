@@ -17,7 +17,7 @@ The `getinternalerrposition` function is the companion to `geterrposition`, spec
 The function accesses the current error data context and returns the internal position stored there. If no internal position has been set, it returns 0. The function operates without incrementing the recursion depth counter since it's a simple accessor function.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -43,15 +43,14 @@ The structure includes caching mechanisms for search bounds within the current b
 This structure is primarily used internally by nbtinsert.c but is also utilized by _bt_binsrch_insert for efficient insertion operations.
 
 ## Parameters / Member Variables
-- : The IndexTuple being inserted into the B-tree
-- : Size of the itup item, which should be MAXALIGN()'d for proper alignment
-- : BTScanInsert structure containing the insertion scankey for the tuple
-- : Buffer containing the leaf page where the tuple will likely be inserted
-- : Flag indicating whether the cached bounds are valid for the current buffer
-- : Lower bound offset number within the current buffer (used for uniqueness checking)
-- : Upper bound offset number within the current buffer (used for uniqueness checking)
-- : Position within an existing posting list if _bt_binsrch_insert found the location inside one; -1 indicates overlap with LP_DEAD tuple
-
+- `itup`: The IndexTuple being inserted into the B-tree
+- `itemsz`: Size of the itup item, which should be MAXALIGN()'d for proper alignment
+- `itup_key`: BTScanInsert structure containing the insertion scankey for the tuple
+- `buf`: Buffer containing the leaf page where the tuple will likely be inserted
+- `bounds_valid`: Flag indicating whether the cached bounds are valid for the current buffer
+- `low`: Lower bound offset number within the current buffer (used for uniqueness checking)
+- `stricthigh`: Upper bound offset number within the current buffer (used for uniqueness checking)
+- `postingoff`: Position within an existing posting list if _bt_binsrch_insert found the location inside one; -1 indicates overlap with LP_DEAD tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanInsert (type)

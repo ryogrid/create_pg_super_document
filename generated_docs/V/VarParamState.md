@@ -21,9 +21,8 @@ VarParamState is used in PostgreSQL's parser to handle parameter references in q
 The structure supports parameter type resolution where initially unknown parameter types (marked as UNKNOWNOID) can be determined and updated as the parser encounters more context. A zero array entry indicates that a parameter number hasn't been encountered yet, while UNKNOWNOID indicates the parameter has been used but its type is still being determined.
 
 ## Parameters / Member Variables
-- : A pointer to a pointer to an array of Oid values. This double indirection allows the array to be reallocated and expanded as needed during parsing.
-- : A pointer to an integer that tracks the current number of parameters in the paramTypes array. The pointed-to value can be updated as parameters are added.
-
+- `**paramTypes`: A pointer to a pointer to an array of Oid values. This double indirection allows the array to be reallocated and expanded as needed during parsing.
+- `*numParams`: A pointer to an integer that tracks the current number of parameters in the paramTypes array. The pointed-to value can be updated as parameters are added.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

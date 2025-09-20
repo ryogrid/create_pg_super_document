@@ -16,7 +16,7 @@ conditional_stack_create(void)
 This function allocates and initializes a new conditional stack structure used by PostgreSQL frontend utilities (psql and pgbench) to handle nested \if...\endif conditional statements. The function creates a ConditionalStackData structure on the heap and initializes it with an empty stack (head pointer set to NULL). The conditional stack is essential for tracking the state of nested conditionals, allowing the interpreter to determine whether to execute code and evaluate conditions based on the current nesting level and branch states.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

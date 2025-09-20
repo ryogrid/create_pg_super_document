@@ -22,10 +22,9 @@ The  structure is used in SPGiST (Space-Partitioned Generalized Search Tree) vac
 The structure implements a simple linked list where new items are always appended at the end to ensure that scans of the list don't miss items added during the scan process.
 
 ## Parameters / Member Variables
-- : ItemPointerData containing the tuple identifier of the redirection target that needs to be visited
-- : Boolean flag indicating whether this particular TID has been processed/dealt with during the vacuum operation
-- : Pointer to the next spgVacPendingItem in the linked list, forming a singly-linked list structure
-
+- `tid`: ItemPointerData containing the tuple identifier of the redirection target that needs to be visited
+- `done`: Boolean flag indicating whether this particular TID has been processed/dealt with during the vacuum operation
+- `*next`: Pointer to the next spgVacPendingItem in the linked list, forming a singly-linked list structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerData](../I/ItemPointerData.md) (for storing tuple identifiers)

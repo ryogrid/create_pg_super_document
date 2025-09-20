@@ -15,7 +15,7 @@ void ResetCatalogCaches(void)
 ResetCatalogCaches is a public function that provides a simple interface for resetting all catalog caches. It is typically called in response to shared cache invalidation events that require all caches to be cleared. The function is implemented as a thin wrapper around ResetCatalogCachesExt, passing false for the debug_discard parameter to indicate this is a normal (non-debug) cache reset operation.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

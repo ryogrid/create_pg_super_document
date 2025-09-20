@@ -19,7 +19,7 @@ The function ensures proper memory management by creating the tuplestore in the 
 The tuplestore is stored in the global afterTriggers structure, indexed by the current query depth, allowing for nested trigger executions to maintain separate tuple stores.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

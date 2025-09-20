@@ -26,10 +26,9 @@ The structure serves as a container for various safety flags that indicate wheth
 The safety information is collected during the analysis phase and later consulted by  to make final decisions about individual qualifiers.
 
 ## Parameters / Member Variables
-- : A bitmask array where each element corresponds to a column in the subquery's target list. Each bitmask indicates specific reasons why that column is unsafe for qual pushdown (or 0 if the column is safe)
-- : A boolean flag indicating that volatile qualifiers should not be pushed down into this subquery due to semantic constraints (e.g., DISTINCT, window functions, or set-returning functions)
-- : A boolean flag indicating that leaky qualifiers should not be pushed down into this subquery for security reasons
-
+- `*unsafeFlags`: A bitmask array where each element corresponds to a column in the subquery's target list. Each bitmask indicates specific reasons why that column is unsafe for qual pushdown (or 0 if the column is safe)
+- `unsafeVolatile`: A boolean flag indicating that volatile qualifiers should not be pushed down into this subquery due to semantic constraints (e.g., DISTINCT, window functions, or set-returning functions)
+- `unsafeLeaky`: A boolean flag indicating that leaky qualifiers should not be pushed down into this subquery for security reasons
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This is a data structure with no direct function calls)

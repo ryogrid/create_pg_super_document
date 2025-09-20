@@ -25,14 +25,13 @@ typedef struct SplitPageLayout
 SplitPageLayout serves as a container for all data needed during GiST index page split operations. When a page becomes full and needs to be split, this structure holds the reorganized data, including the new page layout, tuples to be placed, and metadata required for WAL (Write-Ahead Logging) operations. The structure forms a linked list through the 'next' pointer, allowing multiple split pages to be processed together during complex split scenarios.
 
 ## Parameters / Member Variables
-- : gistxlogPage structure containing WAL logging information for the page
-- : Pointer to an array of IndexTupleData representing the tuples to be placed on this page
-- : Integer count of tuples in the list array
-- : IndexTuple representing the union key (bounding box) for this page
-- : Page pointer to the actual page being operated on
-- : Buffer reference for writing the page after all operations are complete
-- : Pointer to the next SplitPageLayout in a linked list for handling multiple split pages
-
+- `block`: gistxlogPage structure containing WAL logging information for the page
+- `*list`: Pointer to an array of IndexTupleData representing the tuples to be placed on this page
+- `lenlist`: Integer count of tuples in the list array
+- `itup`: IndexTuple representing the union key (bounding box) for this page
+- `page`: Page pointer to the actual page being operated on
+- `buffer`: Buffer reference for writing the page after all operations are complete
+- `*next`: Pointer to the next SplitPageLayout in a linked list for handling multiple split pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - [gistxlogPage](../g/gistxlogPage.md)

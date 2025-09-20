@@ -118,11 +118,9 @@ The interface supports both client-first and server-first SASL mechanisms and ha
 ## Parameters / Member Variables
 - : Function pointer that retrieves the list of SASL mechanism names supported by this implementation
   - Input:  (client Port),  (StringInfo buffer to populate with mechanism names)
-  - Each mechanism name is null-terminated in the buffer
 - : Function pointer that initializes mechanism-specific state for a connection
   - Input:  (client Port),  (mechanism name in use),  (stored secret for the role, or NULL)
   - Returns: Opaque state pointer passed to other callbacks
-  - Must handle NULL shadow_pass securely to avoid username disclosure
 - : Function pointer that handles the SASL challenge-response exchange
   - Input:  (opaque mechanism state),  (client response data),  (response length)
   - Output:  (server challenge/outcome),  (challenge length),  (optional log message)

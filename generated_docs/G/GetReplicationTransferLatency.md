@@ -16,7 +16,7 @@ GetReplicationTransferLatency(void)
 This function measures the network latency by calculating the time difference between when a message was sent from the primary server (lastMsgSendTime) and when it was received by the standby server (lastMsgReceiptTime). The measurement includes actual network transmission time plus any clock differences and timezone variations between the servers. This metric is essential for monitoring replication performance and diagnosing network-related issues in streaming replication setups.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

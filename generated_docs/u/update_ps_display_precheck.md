@@ -22,7 +22,7 @@ This internal function performs prerequisite checks before attempting to update 
 The function serves as a common validation point used by multiple ps_display functions to avoid redundant checks and ensure consistent behavior across the process status display subsystem.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

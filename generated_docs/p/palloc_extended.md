@@ -23,7 +23,6 @@ The function integrates with Valgrind memory debugging tools and handles allocat
 - `size`: The size in bytes of memory to allocate
 - `flags`: Control flags for allocation behavior, including:
   - `MCXT_ALLOC_ZERO`: Initialize allocated memory to zero
-  - Other flags for controlling failure handling behavior
 
 ## Dependencies
 - Functions called/Symbols referenced:

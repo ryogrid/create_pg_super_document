@@ -123,34 +123,33 @@ The structure is carefully designed with different locking strategies for differ
 Key responsibilities include tracking WAL insertion progress, managing the WAL buffer cache, coordinating write and flush operations, maintaining timeline information for point-in-time recovery, and providing the infrastructure for crash recovery and online backup operations.
 
 ## Parameters / Member Variables
-- : XLogCtlInsert structure managing WAL insertion operations and locking
-- : Write and flush request tracking (protected by info_lck)
-- : Recent copy of the current redo point for insertions
-- : Transaction ID from the latest checkpoint
-- : LSN of the most recent asynchronous commit or abort
-- : Oldest LSN still needed by any replication slot
-- : Most recently removed or recycled WAL segment number
-- : Fake LSN counter for unlogged relations (atomic)
-- : Timestamp of last WAL segment switch
-- : LSN at last WAL segment switch
-- : Last byte position + 1 inserted to buffers (atomic)
-- : Last byte position + 1 written to disk (atomic)
-- : Last byte position + 1 flushed to disk (atomic)
-- : Latest initialized page position in WAL buffer cache
-- : Buffer array for unwritten WAL pages
-- : Array of block end positions for WAL buffers (atomic)
-- : Highest allocated WAL buffer index
-- : Timeline ID for current WAL insertion and flushing
-- : Previous timeline ID before fork
-- : Current recovery state (crash/archive recovery)
-- : Controls WAL segment installation rights
-- : Indicates if WAL writer is in low-power mode
-- : Start position of last checkpoint record
-- : End position + 1 of last checkpoint record
-- : Copy of the latest checkpoint record
-- : Start of last full-page-write disable record
-- : Spinlock protecting shared variables
-
+- `Insert`: XLogCtlInsert structure managing WAL insertion operations and locking
+- `LogwrtRqst`: Write and flush request tracking (protected by info_lck)
+- `RedoRecPtr`: Recent copy of the current redo point for insertions
+- `ckptFullXid`: Transaction ID from the latest checkpoint
+- `asyncXactLSN`: LSN of the most recent asynchronous commit or abort
+- `replicationSlotMinLSN`: Oldest LSN still needed by any replication slot
+- `lastRemovedSegNo`: Most recently removed or recycled WAL segment number
+- `unloggedLSN`: Fake LSN counter for unlogged relations (atomic)
+- `lastSegSwitchTime`: Timestamp of last WAL segment switch
+- `lastSegSwitchLSN`: LSN at last WAL segment switch
+- `logInsertResult`: Last byte position + 1 inserted to buffers (atomic)
+- `logWriteResult`: Last byte position + 1 written to disk (atomic)
+- `logFlushResult`: Last byte position + 1 flushed to disk (atomic)
+- `InitializedUpTo`: Latest initialized page position in WAL buffer cache
+- `*pages`: Buffer array for unwritten WAL pages
+- `*xlblocks`: Array of block end positions for WAL buffers (atomic)
+- `XLogCacheBlck`: Highest allocated WAL buffer index
+- `InsertTimeLineID`: Timeline ID for current WAL insertion and flushing
+- `PrevTimeLineID`: Previous timeline ID before fork
+- `SharedRecoveryState`: Current recovery state (crash/archive recovery)
+- `InstallXLogFileSegmentActive`: Controls WAL segment installation rights
+- `WalWriterSleeping`: Indicates if WAL writer is in low-power mode
+- `lastCheckPointRecPtr`: Start position of last checkpoint record
+- `lastCheckPointEndPtr`: End position + 1 of last checkpoint record
+- `lastCheckPoint`: Copy of the latest checkpoint record
+- `lastFpwDisableRecPtr`: Start of last full-page-write disable record
+- `info_lck`: Spinlock protecting shared variables
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogCtlInsert](XLogCtlInsert.md) (WAL insertion control structure)

@@ -26,8 +26,7 @@ When processed by the walsender, this command triggers the IdentifySystem() func
 This information is essential for replication clients to verify they are connecting to the correct source system and to determine the starting point for replication.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a T_IdentifySystemCmd node type
-
+- `type`: NodeTag identifying this as a T_IdentifySystemCmd node type
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (from nodes/nodes.h)

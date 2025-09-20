@@ -17,7 +17,6 @@ This function serves as the final function for all JSONB object aggregation oper
 The function includes safety checks to ensure it's called within a proper aggregate context and handles null input by returning null, which occurs when no input values were provided to the aggregate.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface (PG_FUNCTION_ARGS)
 - Input parameter:
   - arg: JsonbAggState pointer containing the accumulated aggregate state
 - Local variables:

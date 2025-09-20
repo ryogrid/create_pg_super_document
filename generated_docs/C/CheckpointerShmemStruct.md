@@ -35,18 +35,17 @@ CheckpointerShmemStruct serves as the central coordination point between Postgre
 The structure uses condition variables and counters to coordinate checkpoint operations, allowing backends to wait for checkpoints to complete and enabling the checkpointer to signal progress. The flexible array member holds pending sync requests that accumulate between checkpoints and are processed to ensure data durability.
 
 ## Parameters / Member Variables
-- : Process ID of the checkpointer background worker (0 if not running)
-- : Spinlock that protects all checkpoint-related fields from concurrent access
-- : Counter that advances each time a checkpoint operation begins
-- : Counter that advances each time a checkpoint operation completes successfully
-- : Counter that advances each time a checkpoint operation fails
-- : Flags controlling checkpoint behavior (defined in xlog.h)
-- : Condition variable signaled when ckpt_started counter advances
-- : Condition variable signaled when ckpt_done counter advances
-- : Current number of pending sync requests in the requests array
-- : Maximum capacity of the requests array (allocated size)
-- : Flexible array of CheckpointerRequest structures containing pending sync operations
-
+- `checkpointer_pid`: Process ID of the checkpointer background worker (0 if not running)
+- `ckpt_lck`: Spinlock that protects all checkpoint-related fields from concurrent access
+- `ckpt_started`: Counter that advances each time a checkpoint operation begins
+- `ckpt_done`: Counter that advances each time a checkpoint operation completes successfully
+- `ckpt_failed`: Counter that advances each time a checkpoint operation fails
+- `ckpt_flags`: Flags controlling checkpoint behavior (defined in xlog.h)
+- `start_cv`: Condition variable signaled when ckpt_started counter advances
+- `done_cv`: Condition variable signaled when ckpt_done counter advances
+- `num_requests`: Current number of pending sync requests in the requests array
+- `max_requests`: Maximum capacity of the requests array (allocated size)
+- `requests[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of CheckpointerRequest structures containing pending sync operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t

@@ -15,7 +15,6 @@ Datum namelt(PG_FUNCTION_ARGS)
 `namelt` is a PostgreSQL built-in function that performs less-than comparison between two Name data type values. It extracts two Name arguments from the function call context, compares them using the `namecmp` function with the current collation setting, and returns a boolean result indicating whether the first name is lexicographically less than the second. This function implements the less-than operator (<) for Name types and is used in SQL ORDER BY clauses, range queries, and sorting operations.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
 - `arg1`: First Name argument extracted using `PG_GETARG_NAME(0)`
 - `arg2`: Second Name argument extracted using `PG_GETARG_NAME(1)`
 

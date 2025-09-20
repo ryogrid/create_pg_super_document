@@ -24,7 +24,6 @@ The function follows PostgreSQL's standard node reading protocol:
 This function supports PostgreSQL's comprehensive type system by preserving all necessary type information required for proper value interpretation and manipulation during query execution.
 
 ## Parameters / Member Variables
-- No parameters (uses standard node reading context via `READ_LOCALS(Const)`)
 - Returns: `Const *` - pointer to the deserialized Const node
 
 ## Dependencies

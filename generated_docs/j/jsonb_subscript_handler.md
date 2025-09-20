@@ -17,7 +17,6 @@ This function serves as the entry point for JSONB subscripting operations in Pos
 The function is designed to be called by PostgreSQL's type system when subscript operations are performed on JSONB values. It provides a centralized configuration point for all JSONB subscripting behavior.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro for PostgreSQL function argument handling (no explicit parameters)
 - Returns a `SubscriptRoutines` structure containing:
   - `transform`: Pointer to `jsonb_subscript_transform` function for parse-time transformations  
   - `exec_setup`: Pointer to `jsonb_exec_setup` function for execution state setup

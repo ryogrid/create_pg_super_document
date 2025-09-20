@@ -15,7 +15,7 @@ void HandleLogMemoryContextInterrupt(void)
 This function serves as a signal handler for memory context logging requests. It follows PostgreSQL's pattern of keeping signal handlers minimal and safe by only setting flags and deferring the actual work. When called, it sets global flags to indicate that an interrupt is pending and that memory context logging is specifically requested. The actual logging work is performed later by ProcessLogMemoryContextInterrupt() when it's safe to do so.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

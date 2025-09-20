@@ -26,12 +26,11 @@ The HyperLogLog algorithm works by maintaining a set of registers that track the
 The structure is designed to work with hash values that are processed through the  function, and cardinality estimates are computed via . The implementation is based on Hideaki Ohno's C++ version and is optimized for PostgreSQL's memory management and data processing patterns.
 
 ## Parameters / Member Variables
-- : The register width in bits (referred to as "k" in HyperLogLog literature), determining the number of registers as 2^registerWidth. Must be between 4 and 16 inclusive.
-- : The total number of registers in the estimator, calculated as 2^registerWidth. This determines the precision and memory usage of the estimator.
-- : A bias correction factor calculated as alpha × m², where m is the number of registers. This corrects systematic multiplicative bias in the raw estimator.
-- : Pointer to the array storing hash register values. Each register stores the maximum number of leading zeros observed for hash values mapped to that register.
-- : The allocated size of the hashesArr in bytes, calculated as sizeof(uint8) × nRegisters + 1.
-
+- `registerWidth`: The register width in bits (referred to as "k" in HyperLogLog literature), determining the number of registers as 2^registerWidth. Must be between 4 and 16 inclusive.
+- `nRegisters`: The total number of registers in the estimator, calculated as 2^registerWidth. This determines the precision and memory usage of the estimator.
+- `alphaMM`: A bias correction factor calculated as alpha × m², where m is the number of registers. This corrects systematic multiplicative bias in the raw estimator.
+- `*hashesArr`: Pointer to the array storing hash register values. Each register stores the maximum number of leading zeros observed for hash values mapped to that register.
+- `arrSize`: The allocated size of the hashesArr in bytes, calculated as sizeof(uint8) × nRegisters + 1.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Size (PostgreSQL type)

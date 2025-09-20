@@ -42,12 +42,11 @@ This sink is responsible for formatting backup data into COPY protocol messages 
 The sink also tracks progress reporting by maintaining timestamps and byte counts, allowing for periodic progress updates during long-running backup operations.
 
 ## Parameters / Member Variables
-- : The inherited  structure containing common sink functionality (callback operations, buffer management, state tracking, and chaining to next sink)
-- : Boolean flag indicating whether archives should be sent to the client or redirected to another destination
-- : Protocol message buffer used to construct CopyData messages; the first character is set to 'd' for data messages, with actual content starting at the second position
-- : Timestamp of the last progress report sent to track reporting intervals
-- : Number of bytes processed at the time of the last progress check, used for calculating progress rates
-
+- `base`: The inherited  structure containing common sink functionality (callback operations, buffer management, state tracking, and chaining to next sink)
+- `send_to_client`: Boolean flag indicating whether archives should be sent to the client or redirected to another destination
+- `*msgbuffer`: Protocol message buffer used to construct CopyData messages; the first character is set to 'd' for data messages, with actual content starting at the second position
+- `last_progress_report_time`: Timestamp of the last progress report sent to track reporting intervals
+- `bytes_done_at_last_time_check`: Number of bytes processed at the time of the last progress check, used for calculating progress rates
 ## Dependencies
 - Functions called/Symbols referenced:
   - bbsink (base structure)

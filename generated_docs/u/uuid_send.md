@@ -18,8 +18,6 @@ The function creates a message buffer, writes the UUID's raw 16-byte binary data
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro providing access to:
-  - Input UUID (retrieved via `PG_GETARG_UUID_P(0)`)
-  - Function call context information
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,8 +18,6 @@ The function follows PostgreSQL's standard function calling convention using `PG
 
 ## Parameters / Member Variables
 - Function uses `PG_FUNCTION_ARGS` macro to access arguments:
-  - First multirange argument accessed via `PG_GETARG_MULTIRANGE_P(0)`
-  - Second multirange argument accessed via `PG_GETARG_MULTIRANGE_P(1)`
 
 ## Dependencies
 - Functions called/Symbols referenced:

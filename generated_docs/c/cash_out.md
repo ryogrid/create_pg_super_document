@@ -17,7 +17,6 @@ This function takes a Cash value as input and produces a formatted string repres
 The formatting follows POSIX locale conventions for monetary display, supporting various international currency formats. It handles both positive and negative values with different formatting rules for each, and can produce formats like $123.45, -$123.45, ($123.45), 123.45$, etc., depending on locale settings.
 
 ## Parameters / Member Variables
-- Takes a Cash value through PostgreSQL's function argument system (PG_GETARG_CASH)
 - Internal variables:
   - `value`: The Cash value being converted
   - `result`: Final formatted string to return

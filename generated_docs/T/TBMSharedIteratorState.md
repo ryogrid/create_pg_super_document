@@ -32,18 +32,17 @@ The structure maintains both static metadata about the bitmap (nentries, npages,
 This design is essential for parallel bitmap heap scans where multiple worker processes need to divide the work of scanning heap pages identified by bitmap index operations.
 
 ## Parameters / Member Variables
-- : Total number of entries in the shared pagetable, providing size information for iteration planning
-- : Maximum entry limit used to meet memory constraints, inherited from the original TIDBitmap
-- : Count of exact page entries available for iteration, helping balance work distribution among parallel workers
-- : Count of lossy chunk entries available for iteration, used in work distribution calculations
-- : DSA pointer to the head of shared pagetable data, providing access to the underlying PagetableEntry structures
-- : DSA pointer to the shared array of exact page entries, sorted for efficient traversal
-- : DSA pointer to the shared array of lossy chunk entries, sorted for efficient traversal
-- : LWLock protecting the iteration state variables below, ensuring atomic updates in multi-process access
-- : Shared index into the exact pages array, coordinating which exact page the next worker should process
-- : Shared index into the lossy chunks array, coordinating which chunk the next worker should process
-- : Shared bit position within the current lossy chunk, coordinating sub-chunk processing among workers
-
+- `nentries`: Total number of entries in the shared pagetable, providing size information for iteration planning
+- `maxentries`: Maximum entry limit used to meet memory constraints, inherited from the original TIDBitmap
+- `npages`: Count of exact page entries available for iteration, helping balance work distribution among parallel workers
+- `nchunks`: Count of lossy chunk entries available for iteration, used in work distribution calculations
+- `pagetable`: DSA pointer to the head of shared pagetable data, providing access to the underlying PagetableEntry structures
+- `spages`: DSA pointer to the shared array of exact page entries, sorted for efficient traversal
+- `schunks`: DSA pointer to the shared array of lossy chunk entries, sorted for efficient traversal
+- `lock`: LWLock protecting the iteration state variables below, ensuring atomic updates in multi-process access
+- `spageptr`: Shared index into the exact pages array, coordinating which exact page the next worker should process
+- `schunkptr`: Shared index into the lossy chunks array, coordinating which chunk the next worker should process
+- `schunkbit`: Shared bit position within the current lossy chunk, coordinating sub-chunk processing among workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer

@@ -26,9 +26,8 @@ The structure uses a three-dimensional array organization to categorize IO stati
 This design allows PostgreSQL to maintain detailed IO statistics that can be queried through system views like pg_stat_io. The pending nature of this structure enables efficient local accumulation before expensive shared memory updates.
 
 ## Parameters / Member Variables
-- : Three-dimensional array of PgStat_Counter values tracking the number of IO operations for each combination of [IOObject][IOContext][IOOp]
-- : Three-dimensional array of instr_time values tracking the accumulated time spent on IO operations for each combination of [IOObject][IOContext][IOOp]
-
+- `counts[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES]`: Three-dimensional array of PgStat_Counter values tracking the number of IO operations for each combination of [IOObject][IOContext][IOOp]
+- `pending_times[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES]`: Three-dimensional array of instr_time values tracking the accumulated time spent on IO operations for each combination of [IOObject][IOContext][IOOp]
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter

@@ -16,7 +16,7 @@ PLy_initialize(void)
 This function handles the initialization of the PL/Python environment within a PostgreSQL session. It performs critical safety checks to ensure only one Python major version is loaded per session, then proceeds with initializing the Python interpreter, importing required modules, and setting up PL/Python-specific infrastructure. The function uses a static boolean flag to ensure initialization occurs only once per session, making it safe to call multiple times.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

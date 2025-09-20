@@ -17,7 +17,7 @@ This function serves as the comm_reset method implementation for the PqCommMqMet
 The function is part of the PQcommMethods interface that allows PostgreSQL to abstract different communication mechanisms (sockets, shared memory queues, etc.) behind a common interface. Each communication method must provide implementations for all required methods, even if some are no-ops.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

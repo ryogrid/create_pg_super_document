@@ -27,7 +27,7 @@ This function initializes the shared memory infrastructure for tracking replicat
 The function gracefully handles the case where max_replication_slots is 0 by returning early without any initialization.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

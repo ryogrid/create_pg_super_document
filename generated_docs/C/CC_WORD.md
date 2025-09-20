@@ -15,7 +15,6 @@ typedef short color;
 CC_WORD is a member of the char_classes enumeration defined in the PostgreSQL regex engine. It represents the word character class, which typically includes alphabetic characters (both uppercase and lowercase), digits (0-9), and the underscore character (_). This constant is used internally by the regex engine to handle the \w escape sequence in regular expressions, which matches any word character. The corresponding negative class \W (non-word characters) also references this constant but with inverted logic.
 
 ## Parameters / Member Variables
-- This is an enumeration constant, so it has no parameters or member variables
 - Value position: Last element in the char_classes enumeration (value 13, since enumeration starts at 0)
 
 ## Dependencies

@@ -15,7 +15,6 @@ Datum lseg_recv(PG_FUNCTION_ARGS)
 The `lseg_recv` function is a PostgreSQL binary input function that deserializes a line segment from PostgreSQL's binary wire protocol format. It reads four consecutive float8 values from the input buffer representing the x,y coordinates of two points that define the line segment. The function allocates memory for a new LSEG structure and populates it with the coordinate data received from the client. This function is part of PostgreSQL's binary I/O system, enabling efficient transmission of geometric data types over network connections.
 
 ## Parameters / Member Variables
-- Function uses `PG_FUNCTION_ARGS` macro for parameter access
 - Parameter 0: StringInfo buffer - contains the binary-encoded line segment data from the client
 
 ## Dependencies

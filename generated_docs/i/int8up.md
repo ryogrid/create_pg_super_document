@@ -16,7 +16,7 @@ int8up(PG_FUNCTION_ARGS)
 This function performs unary plus operation on a 64-bit signed integer argument. The unary plus operator is essentially a no-operation for numeric types, as it returns the value unchanged. The function extracts the input argument using PostgreSQL's function argument macros and immediately returns the same value. This function exists for completeness of the arithmetic operator set for the bigint data type and follows the standard PostgreSQL function calling convention.
 
 ## Parameters / Member Variables
-- The function uses PostgreSQL's standard function argument mechanism where arguments are accessed via PG_GETARG_INT64(0) macro to retrieve the first (and only) int64 argument
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

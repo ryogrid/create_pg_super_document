@@ -15,7 +15,7 @@ static void stream_close_file(void)
 This function provides a simple interface to close the currently active streaming file in PostgreSQL logical replication. It ensures the file descriptor is valid before closing and properly resets the global stream_fd variable to NULL after closure. The function uses an assertion to verify that a file is actually open before attempting to close it, helping to catch programming errors during development.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,8 +15,7 @@ Datum text_to_table_null(PG_FUNCTION_ARGS)
 The text_to_table_null function is a separate entry point that delegates directly to text_to_table. Similar to text_to_array_null, it exists primarily to provide a distinct function signature for cases where null string handling is explicitly required in text-to-table operations. The function serves as a compatibility layer to prevent regression test complaints about different argument sets for the same internal functionality, specifically for set-returning function variants.
 
 ## Parameters / Member Variables
-- Takes PostgreSQL function arguments via PG_FUNCTION_ARGS macro (typically text input string, delimiter, and null string parameter)
-- Returns a Datum (actual results are managed through the tuple store infrastructure)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

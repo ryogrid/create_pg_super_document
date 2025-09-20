@@ -32,15 +32,14 @@ The structure is designed to find the maximum number of edges such that no node 
 The algorithm uses the Hopcroft-Karp approach which alternates between breadth-first search to find augmenting paths and depth-first search to find vertex-disjoint augmenting paths, achieving O(E√V) time complexity.
 
 ## Parameters / Member Variables
-- : Size of the U node set (nodes numbered 1 to u_size)
-- : Size of the V node set (nodes numbered 1 to v_size)
-- : 2D array where adjacency[u] = [k, v1, v2, v3, ..., vk], with k being the count of adjacent V nodes
-- : Output field containing the number of edges in the computed maximum matching
-- : Output array mapping each U node to its matched V node (0 if unmatched)
-- : Output array mapping each V node to its matched U node (0 if unmatched)
-- : Private array storing distance values for U nodes during breadth-first search
-- : Private array used as queue storage during breadth-first search phases
-
+- `u_size`: Size of the U node set (nodes numbered 1 to u_size)
+- `v_size`: Size of the V node set (nodes numbered 1 to v_size)
+- `**adjacency`: 2D array where adjacency[u] = [k, v1, v2, v3, ..., vk], with k being the count of adjacent V nodes
+- `matching`: Output field containing the number of edges in the computed maximum matching
+- `*pair_uv`: Output array mapping each U node to its matched V node (0 if unmatched)
+- `*pair_vu`: Output array mapping each V node to its matched U node (0 if unmatched)
+- `*distance`: Private array storing distance values for U nodes during breadth-first search
+- `*queue`: Private array used as queue storage during breadth-first search phases
 ## Dependencies
 - Functions called/Symbols referenced:
   - HK_INFINITY (constant used in algorithm)

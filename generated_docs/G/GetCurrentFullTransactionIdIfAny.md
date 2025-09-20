@@ -19,7 +19,7 @@ This function provides a safe way to retrieve the current sub-transaction's full
 The function simply returns the fullTransactionId field from the CurrentTransactionState without any validation or assignment logic, making it safe for conditional operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

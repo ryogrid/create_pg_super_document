@@ -15,7 +15,6 @@ Datum hashfloat4extended(PG_FUNCTION_ARGS)
 The `hashfloat4extended` function is the extended version of `hashfloat4` that supports seeded hashing. It follows the same approach as `hashfloat4` for handling IEEE floating-point special cases but incorporates a 64-bit seed value. For zero values (including negative zero), it returns the seed directly. For non-zero values, it widens the float4 to float8 for cross-type compatibility, normalizes NaN values to a standard representation, and then uses `hash_any_extended` with the seed parameter to compute the final hash value.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's function argument macros (`PG_FUNCTION_ARGS`)
 - `key`: The input float4 value obtained via `PG_GETARG_FLOAT4(0)`
 - `seed`: The 64-bit seed value obtained via `PG_GETARG_INT64(1)`
 - `key8`: The widened float8 representation used for consistent hashing

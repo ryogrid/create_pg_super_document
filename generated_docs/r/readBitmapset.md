@@ -17,7 +17,6 @@ The `readBitmapset` function serves as a public interface to the internal `_read
 The function exists primarily for backward compatibility and to maintain a stable API for extensions that may still rely on explicit Bitmapset reading capabilities. It simply delegates all work to the internal `_readBitmapset` function, providing no additional processing or validation.
 
 ## Parameters / Member Variables
-- No parameters (inherits tokenization state from global context)
 - Returns: `Bitmapset *` - pointer to the deserialized Bitmapset structure
 
 ## Dependencies

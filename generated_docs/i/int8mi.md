@@ -17,8 +17,6 @@ This function performs subtraction of two 64-bit signed integer arguments (arg1 
 
 ## Parameters / Member Variables
 - The function uses PostgreSQL's standard function argument mechanism where:
-  - First argument (minuend) accessed via PG_GETARG_INT64(0) 
-  - Second argument (subtrahend) accessed via PG_GETARG_INT64(1)
 
 ## Dependencies
 - Functions called/Symbols referenced:

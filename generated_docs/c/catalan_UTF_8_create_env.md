@@ -20,7 +20,7 @@ This function serves as the standard initialization entry point for the Catalan 
 The function abstracts the complexity of environment setup and provides a simple interface for client code to obtain a ready-to-use stemming environment.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

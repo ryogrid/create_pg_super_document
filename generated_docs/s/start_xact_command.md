@@ -18,7 +18,7 @@ This function ensures that a transaction is started before executing SQL command
 The function is designed to be called repeatedly without overhead - it won't reset an already started timeout unless explicitly disabled, making it efficient for parse/bind/execute sequences in the extended query protocol.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

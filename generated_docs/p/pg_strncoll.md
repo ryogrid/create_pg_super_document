@@ -29,7 +29,6 @@ Input strings must be encoded in the database encoding. The caller is responsibl
 - : Length of the first string in bytes
 - : Second string to compare (database encoded)  
 - : Length of the second string in bytes
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

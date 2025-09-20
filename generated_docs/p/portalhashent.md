@@ -21,9 +21,8 @@ The  structure (aliased as ) serves as the entry type for PostgreSQL's global po
 The structure is specifically designed for use with PostgreSQL's hash table implementation () and supports the portal lifecycle management including creation, lookup, and deletion operations through dedicated macros (, , ).
 
 ## Parameters / Member Variables
-- : A character array of size  (64 bytes) that stores the portal's name as a null-terminated string, used as the hash key for portal lookup operations
-- : A pointer to the  structure that represents the actual portal object containing execution state and query information
-
+- `portalname[MAX_PORTALNAME_LEN]`: A character array of size  (64 bytes) that stores the portal's name as a null-terminated string, used as the hash key for portal lookup operations
+- `portal`: A pointer to the  structure that represents the actual portal object containing execution state and query information
 ## Dependencies
 - Symbols referenced:
   -  (defined as  = 64)

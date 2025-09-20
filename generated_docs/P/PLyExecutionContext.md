@@ -22,10 +22,9 @@ PLyExecutionContext implements a stack-based execution model for PL/Python funct
 The structure serves as a crucial component in the PL/Python language handler, providing isolation between different execution levels and maintaining the necessary state information for each active Python procedure call. It supports the PostgreSQL memory context system by providing a dedicated scratch context for temporary allocations during type conversions and other operations.
 
 ## Parameters / Member Variables
-- : Pointer to the PLyProcedure structure representing the currently executing Python procedure, containing compiled code, metadata, and cached information
-- : A PostgreSQL MemoryContext used for temporary allocations during the execution of the current procedure, particularly for type input/output operations
-- : Pointer to the previous PLyExecutionContext in the stack, creating a linked list structure that represents the call stack of nested Python procedures
-
+- `*curr_proc`: Pointer to the PLyProcedure structure representing the currently executing Python procedure, containing compiled code, metadata, and cached information
+- `scratch_ctx`: A PostgreSQL MemoryContext used for temporary allocations during the execution of the current procedure, particularly for type input/output operations
+- `*next`: Pointer to the previous PLyExecutionContext in the stack, creating a linked list structure that represents the call stack of nested Python procedures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyProcedure](PLyProcedure.md) (procedure metadata structure)

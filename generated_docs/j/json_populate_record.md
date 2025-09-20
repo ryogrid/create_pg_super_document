@@ -25,10 +25,6 @@ Unlike , this function requires an existing record as a template and updates its
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function call information structure containing:
-  - Record argument (first parameter) - the template record to populate
-  - JSON input argument (second parameter) - the JSON object containing new field values
-  - Function context and metadata
-  - Output type information
 
 ## Dependencies
 - Functions called/Symbols referenced:

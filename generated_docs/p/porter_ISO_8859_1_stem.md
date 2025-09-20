@@ -25,12 +25,6 @@ The function uses cursor positioning to work backwards from the end of the word,
 
 ## Parameters / Member Variables
 - : Pointer to SN_env structure containing:
-  - The word being stemmed (p array)
-  - Current cursor position (c)
-  - Word boundaries (lb, l)
-  - Region boundaries stored in I[0] (R2) and I[1] (R1)
-  - Preprocessing flag in I[2]
-  - Working boundaries (bra, ket)
 
 ## Dependencies
 - Functions called/Symbols referenced:

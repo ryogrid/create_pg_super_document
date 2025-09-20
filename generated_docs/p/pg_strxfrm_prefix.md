@@ -24,7 +24,6 @@ The result is not null-terminated, and if the destination buffer is too small, o
 - : Output buffer to store the transformed byte sequence
 - : Input null-terminated string to be transformed
 - : Maximum number of bytes to store in the destination buffer
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

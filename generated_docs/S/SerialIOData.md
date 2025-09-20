@@ -20,8 +20,7 @@ SerialIOData is a helper structure specifically designed for the array_agg_seria
 The structure is allocated in the function's memory context and stored in fcinfo->flinfo->fn_extra for persistence across multiple calls to the same function instance. This caching mechanism significantly improves performance when serializing arrays with by-reference element types, as the type's send function information only needs to be looked up once.
 
 ## Parameters / Member Variables
-- : FmgrInfo structure containing the cached binary output function information for the array element type, obtained via getTypeBinaryOutputInfo() and initialized with fmgr_info_cxt()
-
+- `typsend`: FmgrInfo structure containing the cached binary output function information for the array element type, obtained via getTypeBinaryOutputInfo() and initialized with fmgr_info_cxt()
 ## Dependencies
 - Functions called/Symbols referenced:
   - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)

@@ -21,9 +21,8 @@ This structure serves as a lookup table entry for reverse mapping in PostgreSQL'
 The structure is primarily used in conjunction with bsearch() to quickly find the ExprEvalOp value corresponding to a given opcode address in the reverse_dispatch_table array.
 
 ## Parameters / Member Variables
-- : A void pointer containing the computed goto label address used as the opcode in direct-threaded mode
-- : The corresponding ExprEvalOp enumeration value that represents the actual operation type
-
+- `*opcode`: A void pointer containing the computed goto label address used as the opcode in direct-threaded mode
+- `op`: The corresponding ExprEvalOp enumeration value that represents the actual operation type
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ExprEvalOp](ExprEvalOp.md) (enumeration type for expression evaluation operations)

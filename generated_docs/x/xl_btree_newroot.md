@@ -21,9 +21,8 @@ The xl_btree_newroot structure represents the creation of a new root page in a B
 When creating the first root page (level 0), the new root is both a leaf and root page with no tuples. When splitting an existing root, the new root becomes a non-leaf page at level+1, containing two downlink tuples: one pointing to the old root (left child) with a minus-infinity key, and one pointing to the new right sibling with the high key from the old root. The metadata page is updated to reflect the new root location and level.
 
 ## Parameters / Member Variables
-- : Block number of the newly created root page (redundant with backup block 0, included for clarity)
-- : Level of the new root page in the tree (0 for leaf-only trees, >0 for internal nodes)
-
+- `rootblk`: Block number of the newly created root page (redundant with backup block 0, included for clarity)
+- `level`: Level of the new root page in the tree (0 for leaf-only trees, >0 for internal nodes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeOfBtreeNewroot (size calculation macro)  

@@ -37,9 +37,8 @@ ClientConnectionInfo is designed to hold essential client authentication informa
 The structure serves as a lightweight container for authentication state that can be serialized and transferred to parallel worker processes, ensuring they have access to the client's authenticated identity and the method used to establish that identity.
 
 ## Parameters / Member Variables
-- : The authenticated identity of the user as presented during the authentication cycle, before database role assignment. This represents the "SYSTEM-USERNAME" equivalent in pg_ident usermap terms. NULL if no actual authentication occurred (e.g., when using "trust" method).
-- : The HBA (Host-Based Authentication) method that determined the authn_id. Only meaningful when authn_id is not NULL.
-
+- `*authn_id`: The authenticated identity of the user as presented during the authentication cycle, before database role assignment. This represents the "SYSTEM-USERNAME" equivalent in pg_ident usermap terms. NULL if no actual authentication occurred (e.g., when using "trust" method).
+- `auth_method`: The HBA (Host-Based Authentication) method that determined the authn_id. Only meaningful when authn_id is not NULL.
 ## Dependencies
 - Functions called/Symbols referenced:
   - UserAuth (enum/type for authentication methods)

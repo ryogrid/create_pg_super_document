@@ -22,12 +22,11 @@ typedef struct
 DbInfo serves as the central repository for database-level information during PostgreSQL cluster upgrades. It consolidates database identity information (OID and name), storage configuration (default tablespace), and contains arrays of all user relations and logical replication slots associated with the database. This structure enables pg_upgrade to perform comprehensive database migration while preserving all associated objects and configurations.
 
 ## Parameters / Member Variables
-- : Object identifier of the database in the PostgreSQL system catalogs
-- : String containing the human-readable name of the database
-- : Fixed-size character array (MAXPGPATH length) storing the path to the database's default tablespace
-- : RelInfoArr structure containing information about all user-defined relations (tables, indexes, etc.) within the database
-- : LogicalSlotInfoArr structure containing information about all logical replication slots associated with the database
-
+- `*db_collate`: Object identifier of the database in the PostgreSQL system catalogs
+- `*db_ctype`: String containing the human-readable name of the database
+- `db_collprovider`: Fixed-size character array (MAXPGPATH length) storing the path to the database's default tablespace
+- `*db_locale`: RelInfoArr structure containing information about all user-defined relations (tables, indexes, etc.) within the database
+- `db_encoding`: LogicalSlotInfoArr structure containing information about all logical replication slots associated with the database
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid

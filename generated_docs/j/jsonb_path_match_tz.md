@@ -19,9 +19,6 @@ The function follows PostgreSQL's standard function calling convention and is sp
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument structure containing:
-  - JSONB value to evaluate
-  - JSONPath expression as text
-  - Optional variables for path evaluation
 
 ## Dependencies
 - Functions called/Symbols referenced:

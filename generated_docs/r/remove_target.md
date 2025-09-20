@@ -17,9 +17,6 @@ This function is a dispatcher that removes different types of target file system
 
 ## Parameters / Member Variables
 - : Pointer to a file_entry_t structure containing file metadata and action information
-  - Must have action set to FILE_ACTION_REMOVE
-  - Must have target_exists set to true
-  - target_type determines which removal function is called
 
 ## Dependencies
 - Functions called/Symbols referenced:

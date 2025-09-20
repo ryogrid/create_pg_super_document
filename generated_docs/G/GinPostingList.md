@@ -20,10 +20,9 @@ typedef struct
 GinPostingList is a core data structure used in GIN indexes to store compressed lists of item pointers (TIDs) that point to heap tuples. The structure employs a hybrid approach where the first item pointer is stored uncompressed for quick access, while subsequent item pointers are stored using variable-byte encoding to minimize space usage. This compression is crucial for GIN indexes as posting lists can become very large, especially for common values. The variable-byte encoding takes advantage of the fact that item pointers in a posting list are typically stored in sorted order, allowing for efficient delta encoding. The structure requires 2-byte alignment and includes helper macros for size calculation and navigation between segments.
 
 ## Parameters / Member Variables
-- : ItemPointerData containing the first item pointer in the posting list stored in uncompressed format for efficient access
-- : uint16 value indicating the number of bytes that follow in the compressed bytes array
-- : Flexible array member containing the variable-byte encoded representation of subsequent item pointers in the list
-
+- `first`: ItemPointerData containing the first item pointer in the posting list stored in uncompressed format for efficient access
+- `nbytes`: uint16 value indicating the number of bytes that follow in the compressed bytes array
+- `bytes[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the variable-byte encoded representation of subsequent item pointers in the list
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerData](../I/ItemPointerData.md) (for the first uncompressed item pointer)

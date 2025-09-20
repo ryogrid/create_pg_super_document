@@ -27,15 +27,14 @@ typedef struct spgChooseIn
 spgChooseIn is an input structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is passed to the opclass choose method during insertion operations to help the opclass decide which branch of the tree to follow or how to modify the tree structure. The structure contains both the data being inserted and information about the current inner tuple being examined.
 
 ## Parameters / Member Variables
-- : The original datum value that is being indexed. This is the value as provided by the user
-- : The current datum value that will be stored at the leaf level. This may differ from the original datum due to opclass-specific transformations
-- : The current depth level in the tree, starting from zero at the root level
-- : Boolean flag indicating whether the current inner tuple is marked as all-the-same, meaning all its subtrees contain equivalent values
-- : Boolean flag indicating whether the current inner tuple has an associated prefix value
-- : The prefix value associated with the current inner tuple, if hasPrefix is true
-- : The number of child nodes in the current inner tuple
-- : Array of label values for each child node, or NULL if the inner tuple doesn't use labels
-
+- `datum`: The original datum value that is being indexed. This is the value as provided by the user
+- `leafDatum`: The current datum value that will be stored at the leaf level. This may differ from the original datum due to opclass-specific transformations
+- `level`: The current depth level in the tree, starting from zero at the root level
+- `allTheSame`: Boolean flag indicating whether the current inner tuple is marked as all-the-same, meaning all its subtrees contain equivalent values
+- `hasPrefix`: Boolean flag indicating whether the current inner tuple has an associated prefix value
+- `prefixDatum`: The prefix value associated with the current inner tuple, if hasPrefix is true
+- `nNodes`: The number of child nodes in the current inner tuple
+- `*nodeLabels`: Array of label values for each child node, or NULL if the inner tuple doesn't use labels
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL generic data value type)

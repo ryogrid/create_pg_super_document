@@ -24,10 +24,9 @@ The buffer maintains both the current string length and the allocated buffer siz
 In error conditions (such as memory allocation failures), the buffer enters a "broken" state where data points to a statically allocated empty string and both len and maxlen are set to 0.
 
 ## Parameters / Member Variables
-- : Pointer to the current buffer for the string (allocated with malloc). Contains a null-terminated string with guaranteed '\0' at data[len]. In error conditions, points to a statically allocated empty string.
-- : Current string length in bytes. Always includes the terminating null character in calculations. Set to 0 in error conditions.
-- : Allocated size in bytes of the 'data' buffer, representing the maximum string size (including terminating '\0') that can be stored without reallocation. Must always be greater than len except in error conditions where it equals 0.
-
+- `*data`: Pointer to the current buffer for the string (allocated with malloc). Contains a null-terminated string with guaranteed '\0' at data[len]. In error conditions, points to a statically allocated empty string.
+- `len`: Current string length in bytes. Always includes the terminating null character in calculations. Set to 0 in error conditions.
+- `maxlen`: Allocated size in bytes of the 'data' buffer, representing the maximum string size (including terminating '\0') that can be stored without reallocation. Must always be greater than len except in error conditions where it equals 0.
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a plain data structure)

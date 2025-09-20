@@ -20,7 +20,7 @@ The worker starts only when multiple conditions are satisfied: no worker is curr
 The restart timing mechanism prevents rapid restart loops and allows for controlled periodic synchronization attempts, making the slot sync process resilient to temporary network issues or primary server unavailability.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

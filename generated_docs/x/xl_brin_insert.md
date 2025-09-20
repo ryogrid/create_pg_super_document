@@ -26,10 +26,9 @@ The  structure is used in PostgreSQL's WAL system to record the insertion of a n
 The structure works in conjunction with backup blocks: backup block 0 contains the main page with the new BrinTuple data, and backup block 1 contains the revmap (reverse mapping) page. The revmap is a critical component of BRIN indexes that maps heap block ranges to their corresponding index tuples.
 
 ## Parameters / Member Variables
-- : The heap block number that this BRIN tuple summarizes. This identifies which range of heap blocks the tuple provides summary information for
-- : The number of pages per range for this BRIN index, needed to properly update the revmap during replay
-- : The offset number within the main page where the new tuple should be inserted
-
+- `heapBlk`: The heap block number that this BRIN tuple summarizes. This identifies which range of heap blocks the tuple provides summary information for
+- `pagesPerRange`: The number of pages per range for this BRIN index, needed to properly update the revmap during replay
+- `offnum`: The offset number within the main page where the new tuple should be inserted
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)

@@ -24,10 +24,9 @@ This structure serves as a lookup table entry that provides essential informatio
 The size class system is a key innovation that decouples the concept of node type from size class, allowing for variable-capacity nodes within each type (particularly for the 16-slot and 48-slot variants which have low and high capacity versions).
 
 ## Parameters / Member Variables
-- : A string identifier for the size class, used for debugging and statistics display
-- : The maximum number of child slots this size class can accommodate
-- : The total number of bytes to allocate for a node of this size class
-
+- `*name`: A string identifier for the size class, used for debugging and statistics display
+- `fanout`: The maximum number of child slots this size class can accommodate
+- `allocsize`: The total number of bytes to allocate for a node of this size class
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME

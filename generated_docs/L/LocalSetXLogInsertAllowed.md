@@ -16,7 +16,6 @@ LocalSetXLogInsertAllowed(void)
 LocalSetXLogInsertAllowed is a static function that provides a mechanism to override the global recovery state check for WAL insertion in specific processes. It sets the LocalXLogInsertAllowed variable to 1 (true), which causes XLogInsertAllowed() to return true without checking the global recovery state. This function is essential for certain operations that need to insert WAL records even during recovery phases, such as checkpoint operations or startup processes. The function returns the previous value, allowing callers to restore the original state if needed.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: int (the previous value of LocalXLogInsertAllowed)
 
 ## Dependencies

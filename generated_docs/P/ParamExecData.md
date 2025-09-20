@@ -24,10 +24,9 @@ The structure supports lazy evaluation of InitPlans and sub-plans: when execPlan
 When execPlan is NULL, the value and isnull fields contain the actual parameter data that is assumed to be valid when accessed.
 
 ## Parameters / Member Variables
-- : Pointer to SubPlanState node for lazy evaluation (cast as void* for header independence); NULL if value is pre-computed
-- : The actual parameter value as a PostgreSQL Datum
-- : Boolean flag indicating whether the parameter value is SQL NULL
-
+- `*execPlan`: Pointer to SubPlanState node for lazy evaluation (cast as void* for header independence); NULL if value is pre-computed
+- `value`: The actual parameter value as a PostgreSQL Datum
+- `isnull`: Boolean flag indicating whether the parameter value is SQL NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)

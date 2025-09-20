@@ -22,8 +22,7 @@ The design allows for safe modification of the list during iteration, with impor
 Although the functionality could technically be achieved with a simple  pointer, PostgreSQL uses a separate iterator type for consistency with other list implementations and to provide a clear semantic distinction between node pointers and iteration state.
 
 ## Parameters / Member Variables
-- : Pointer to the current slist_node being examined during iteration; points to the node that represents the current position in the traversal
-
+- `*cur`: Pointer to the current slist_node being examined during iteration; points to the node that represents the current position in the traversal
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_node](slist_node.md) (as the type for the current position pointer)

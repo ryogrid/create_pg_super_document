@@ -24,11 +24,10 @@ typedef struct BTVacuumPostingData
 This structure manages the vacuum process for posting list tuples in B-tree indexes. When VACUUM determines that only some TIDs in a posting list tuple need to be deleted (rather than the entire tuple), this structure maintains the state needed for the operation. The convention is that the itup field contains the original posting list tuple on input and a palloc()'d final tuple used to overwrite the existing tuple on output.
 
 ## Parameters / Member Variables
-- : IndexTuple that will be or was updated during the vacuum operation
-- : OffsetNumber indicating the offset of the tuple being updated
-- : Number of TIDs that were deleted from the posting list
-- : Flexible array member containing the TIDs that are to be deleted
-
+- `itup`: IndexTuple that will be or was updated during the vacuum operation
+- `updatedoffset`: OffsetNumber indicating the offset of the tuple being updated
+- `ndeletedtids`: Number of TIDs that were deleted from the posting list
+- `deletetids[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the TIDs that are to be deleted
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

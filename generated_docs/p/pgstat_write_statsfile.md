@@ -26,7 +26,7 @@ The writing process includes:
 The function uses deferred error checking - individual write operations don't check for errors immediately, but  is called at the end to detect any write failures. This approach is more efficient for bulk write operations.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

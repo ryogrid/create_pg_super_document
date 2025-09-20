@@ -25,7 +25,6 @@ The function concludes by calling _bt_verify_keys_with_arraykeys to perform addi
 
 ## Parameters / Member Variables
 - : Index scan descriptor containing array key information and scan state
-- 0
 1
 5
 6

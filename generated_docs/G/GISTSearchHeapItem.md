@@ -26,12 +26,11 @@ GISTSearchHeapItem is a key component of the GiST search infrastructure that rep
 The structure contains essential information for tuple processing, including the physical pointer to the heap tuple, flags indicating whether recheck operations are needed, and support for index-only scans through reconstructed tuple data. The offset tracking capability enables marking tuples as dead when necessary.
 
 ## Parameters / Member Variables
-- : ItemPointerData containing the physical pointer (block number and offset) to the actual heap tuple
-- : Boolean flag indicating whether the search qualifiers must be rechecked against the actual heap tuple
-- : Boolean flag indicating whether distance calculations must be rechecked for ordered searches
-- : HeapTuple containing data reconstructed from the index, used specifically for index-only scan operations
-- : OffsetNumber tracking the offset within a page, used to mark the tuple as LP_DEAD when necessary
-
+- `heapPtr`: ItemPointerData containing the physical pointer (block number and offset) to the actual heap tuple
+- `recheck`: Boolean flag indicating whether the search qualifiers must be rechecked against the actual heap tuple
+- `recheckDistances`: Boolean flag indicating whether distance calculations must be rechecked for ordered searches
+- `recontup`: HeapTuple containing data reconstructed from the index, used specifically for index-only scan operations
+- `offnum`: OffsetNumber tracking the offset within a page, used to mark the tuple as LP_DEAD when necessary
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerData](../I/ItemPointerData.md)

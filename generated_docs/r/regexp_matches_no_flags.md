@@ -15,8 +15,7 @@ Datum regexp_matches_no_flags(PG_FUNCTION_ARGS)
 This function serves as a simple wrapper around the main regexp_matches function. Similar to regexp_match_no_flags, it exists primarily to keep the opr_sanity regression test from complaining about the function signature or implementation. The function directly delegates all processing to regexp_matches by passing through the function call information structure, providing the same set-returning functionality for finding all regex matches.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function call interface (PG_FUNCTION_ARGS)
-- No direct parameters - receives arguments through the fcinfo structure
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

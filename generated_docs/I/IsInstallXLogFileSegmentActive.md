@@ -18,7 +18,6 @@ This function provides a thread-safe way to check whether WAL file segment insta
 This function is typically used by other WAL management routines to determine whether they should attempt WAL file optimization operations or use alternative approaches.
 
 ## Parameters / Member Variables
-- None (void function)
 - Returns:  - true if WAL file segment installation is active, false otherwise
 
 ## Dependencies

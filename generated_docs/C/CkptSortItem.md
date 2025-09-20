@@ -26,12 +26,11 @@ The structure contains all the necessary information to identify both the logica
 Since this structure is allocated per buffer in shared memory, it is kept as small as possible to minimize memory overhead while providing the essential information needed for efficient checkpoint ordering.
 
 ## Parameters / Member Variables
-- : The OID of the tablespace containing the relation
-- : The file number of the relation within the database
-- : The fork number indicating which fork of the relation (main, FSM, VM, etc.)
-- : The block number within the fork
-- : The buffer ID that corresponds to this sort item for mapping back to the actual buffer
-
+- `tsId`: The OID of the tablespace containing the relation
+- `relNumber`: The file number of the relation within the database
+- `forkNum`: The fork number indicating which fork of the relation (main, FSM, VM, etc.)
+- `blockNum`: The block number within the fork
+- `buf_id`: The buffer ID that corresponds to this sort item for mapping back to the actual buffer
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (type for tablespace ID)

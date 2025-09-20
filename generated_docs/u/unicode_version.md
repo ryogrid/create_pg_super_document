@@ -19,7 +19,7 @@ The function specifically excludes the "update version" (third component) becaus
 The function uses the `PG_UNICODE_VERSION` compile-time constant to provide the version information, ensuring consistency across the PostgreSQL build.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro (standard PostgreSQL function signature for SQL-callable functions)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

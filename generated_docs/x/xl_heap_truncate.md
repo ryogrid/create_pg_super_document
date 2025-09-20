@@ -21,11 +21,10 @@ typedef struct xl_heap_truncate
 This structure records information needed to replay TRUNCATE operations during crash recovery or replication. It supports truncating multiple relations in a single operation and can handle both regular tables and sequences that need to be restarted. The flexible array member allows for variable numbers of relation OIDs to be stored in a single WAL record, making it efficient for bulk truncate operations.
 
 ## Parameters / Member Variables
-- : The database OID where the truncated relations reside (all relations must be in the same database)
-- : The total number of relation OIDs stored in the relids array
-- : Control flags that specify additional behavior for the truncate operation
-- : A flexible array containing the OIDs of all relations being truncated, followed by sequence OIDs that need restarting
-
+- `dbId`: The database OID where the truncated relations reside (all relations must be in the same database)
+- `nrelids`: The total number of relation OIDs stored in the relids array
+- `flags`: Control flags that specify additional behavior for the truncate operation
+- `relids[FLEXIBLE_ARRAY_MEMBER]`: A flexible array containing the OIDs of all relations being truncated, followed by sequence OIDs that need restarting
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure)

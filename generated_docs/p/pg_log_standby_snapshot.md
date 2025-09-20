@@ -24,7 +24,7 @@ The function performs several validation checks before executing:
 This function is particularly useful in replication scenarios where administrators need to ensure standby servers have consistent snapshot information for point-in-time recovery operations.
 
 ## Parameters / Member Variables
-- No parameters (uses  macro for SQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

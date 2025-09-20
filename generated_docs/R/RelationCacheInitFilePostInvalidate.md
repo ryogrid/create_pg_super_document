@@ -17,7 +17,7 @@ This function is the cleanup counterpart to RelationCacheInitFilePreInvalidate. 
 The function is called after invalidation message processing is complete to allow other processes to proceed with their own cache initialization file operations.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

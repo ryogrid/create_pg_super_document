@@ -44,17 +44,16 @@ SlabContext implements a slab allocator, which is a memory management technique 
 The slab allocator organizes memory into blocks, where each block contains multiple chunks of the specified size. Blocks are categorized into different lists based on how many free chunks they contain, allowing the allocator to quickly find blocks with available space.
 
 ## Parameters / Member Variables
-- : Standard MemoryContextData fields inherited from the base memory context interface
-- : The requested size of each chunk (before alignment and headers are added)
-- : The actual size of each chunk including chunk headers and alignment padding
-- : The total size allocated for each block containing multiple chunks
-- : The number of individual chunks that can fit within a single block
-- : Index into the blocklist array pointing to the list containing the fullest blocks with available space
-- : Debug array used during memory checking to track which chunks are free (only present when MEMORY_CONTEXT_CHECKING is enabled)
-- : Number of bits to right-shift the free chunk count to calculate the appropriate blocklist index
-- : List of completely empty blocks that can be reused before allocating new blocks
-- : Array of SLAB_BLOCKLIST_COUNT (3) lists organizing blocks by their free space availability
-
+- `header`: Standard MemoryContextData fields inherited from the base memory context interface
+- `chunkSize`: The requested size of each chunk (before alignment and headers are added)
+- `fullChunkSize`: The actual size of each chunk including chunk headers and alignment padding
+- `blockSize`: The total size allocated for each block containing multiple chunks
+- `chunksPerBlock`: The number of individual chunks that can fit within a single block
+- `curBlocklistIndex`: Index into the blocklist array pointing to the list containing the fullest blocks with available space
+- `*isChunkFree`: Debug array used during memory checking to track which chunks are free (only present when MEMORY_CONTEXT_CHECKING is enabled)
+- `blocklist_shift`: Number of bits to right-shift the free chunk count to calculate the appropriate blocklist index
+- `emptyblocks`: List of completely empty blocks that can be reused before allocating new blocks
+- `blocklist[SLAB_BLOCKLIST_COUNT]`: Array of SLAB_BLOCKLIST_COUNT (3) lists organizing blocks by their free space availability
 ## Dependencies
 - Functions called/Symbols referenced:
   - [MemoryContextData](../M/MemoryContextData.md)

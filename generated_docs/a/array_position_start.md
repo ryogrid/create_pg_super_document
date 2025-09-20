@@ -21,7 +21,6 @@ The function is part of PostgreSQL's array utility functions and provides a way 
 - : Function call information structure containing:
   - : The input array to search in
   - : The element to search for
-  - Optional third parameter for starting position (handled by array_position_common)
 
 ## Dependencies
 - Functions called/Symbols referenced:

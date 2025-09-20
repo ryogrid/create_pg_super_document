@@ -22,11 +22,10 @@ typedef struct printTextLineFormat
 The printTextLineFormat structure encapsulates the character set used for drawing table borders and separators in text-based table output. This structure allows for customization of table appearance by defining different character sets for horizontal rules and various types of vertical rule intersections. It's particularly useful for creating ASCII art-style tables with consistent formatting across different parts of the table structure.
 
 ## Parameters / Member Variables
-- : Horizontal line character used for drawing horizontal borders and separators
-- : Character used at the left edge where vertical and horizontal lines intersect
-- : Character used at internal column boundaries where vertical and horizontal lines intersect
-- : Character used at the right edge where vertical and horizontal lines intersect
-
+- `*hrule`: Horizontal line character used for drawing horizontal borders and separators
+- `*leftvrule`: Character used at the left edge where vertical and horizontal lines intersect
+- `*midvrule`: Character used at internal column boundaries where vertical and horizontal lines intersect
+- `*rightvrule`: Character used at the right edge where vertical and horizontal lines intersect
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)

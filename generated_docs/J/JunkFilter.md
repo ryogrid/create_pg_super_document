@@ -24,12 +24,11 @@ JunkFilter handles junk attributes, which are attributes in a tuple needed only 
 The junk filter removes junk attributes to form the real output tuple. It also provides routines to extract the values of junk attributes from the input tuple when needed for execution purposes.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the structure type
-- : The original target list including junk attributes  
-- : The tuple descriptor for the "clean" tuple with junk attributes removed
-- : A mapping between non-junk attribute numbers of the original tuple and attribute numbers of the clean tuple
-- : Tuple slot used to hold the cleaned tuple
-
+- `type`: NodeTag identifier for the structure type
+- `*jf_targetList`: The original target list including junk attributes
+- `jf_cleanTupType`: The tuple descriptor for the "clean" tuple with junk attributes removed
+- `*jf_cleanMap`: A mapping between non-junk attribute numbers of the original tuple and attribute numbers of the clean tuple
+- `*jf_resultSlot`: Tuple slot used to hold the cleaned tuple
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

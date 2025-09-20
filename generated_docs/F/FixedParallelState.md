@@ -42,25 +42,24 @@ FixedParallelState stores essential session and transaction state that parallel 
 The structure ensures that parallel workers operate with the same database context, user privileges, security settings, and transaction state as the leader process. It also provides mechanisms for tracking transaction log positions and maintaining proper isolation between parallel processes.
 
 ## Parameters / Member Variables
-- : OID of the database being accessed by the parallel operation
-- : OID of the user that was authenticated for this session
-- : OID of the session user (may differ from authenticated user due to SET SESSION AUTHORIZATION)
-- : OID of the user in the outer security context
-- : OID of the current effective user
-- : OID of the temporary schema namespace for this session
-- : OID of the temporary TOAST schema namespace
-- : Security context flags indicating special privileges or restrictions
-- : Whether the session user has superuser privileges
-- : Whether the current role has superuser privileges
-- : Pointer to the leader process's PGPROC structure
-- : Process ID of the parallel leader
-- : Process number of the parallel leader in the process array
-- : Transaction start timestamp
-- : Statement start timestamp
-- : Handle for serializable transaction state sharing
-- : Spinlock protecting the remaining fields from concurrent access
-- : Maximum XactLastRecEnd value across all worker processes
-
+- `database_id`: OID of the database being accessed by the parallel operation
+- `authenticated_user_id`: OID of the user that was authenticated for this session
+- `session_user_id`: OID of the session user (may differ from authenticated user due to SET SESSION AUTHORIZATION)
+- `outer_user_id`: OID of the user in the outer security context
+- `current_user_id`: OID of the current effective user
+- `temp_namespace_id`: OID of the temporary schema namespace for this session
+- `temp_toast_namespace_id`: OID of the temporary TOAST schema namespace
+- `sec_context`: Security context flags indicating special privileges or restrictions
+- `session_user_is_superuser`: Whether the session user has superuser privileges
+- `role_is_superuser`: Whether the current role has superuser privileges
+- `*parallel_leader_pgproc`: Pointer to the leader process's PGPROC structure
+- `parallel_leader_pid`: Process ID of the parallel leader
+- `parallel_leader_proc_number`: Process number of the parallel leader in the process array
+- `xact_ts`: Transaction start timestamp
+- `stmt_ts`: Statement start timestamp
+- `serializable_xact_handle`: Handle for serializable transaction state sharing
+- `mutex`: Spinlock protecting the remaining fields from concurrent access
+- `last_xlog_end`: Maximum XactLastRecEnd value across all worker processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PGPROC](../P/PGPROC.md) (process control block structure)

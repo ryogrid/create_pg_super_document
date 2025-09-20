@@ -19,7 +19,6 @@ This function serves as a language-specific wrapper around the generic Snowball 
 The function calls the underlying  function with specific parameters optimized for English morphological analysis. This abstraction allows the English stemmer to hide implementation details while ensuring proper environment setup.
 
 ## Parameters / Member Variables
-- No input parameters (void function)
 - Returns: Pointer to a newly allocated and initialized SN_env structure configured for English stemming
 
 ## Dependencies

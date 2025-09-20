@@ -70,20 +70,19 @@ RelationSyncEntry serves as a cache entry in the pgoutput logical replication pl
 The structure handles complex scenarios in logical replication including streamed transactions where commit order may differ from send order, transaction aborts that require schema resending, and partition inheritance where changes may be published using an ancestor's schema. It optimizes replication by avoiding redundant schema transmissions while ensuring correctness across different transaction scenarios.
 
 ## Parameters / Member Variables
-- : The OID of the relation this entry represents
-- : Overall validity flag indicating if this cache entry is valid for replication
-- : Boolean flag tracking whether the current schema has been sent to the subscriber
-- : List of transaction IDs for streamed transactions that have already received this schema
-- : Publication actions (insert/update/delete/truncate) configured for this relation
-- : Array of expression states for row filtering, one per publication action type
-- : Executor state context used for evaluating row filter expressions
-- : Tuple table slot for storing new tuple values during replication
-- : Tuple table slot for storing old tuple values during replication
-- : OID of the relation to publish as (may differ from relid for partitions using ancestor schema)
-- : Attribute mapping for converting tuples from partition schema to ancestor schema when needed
-- : Bitmap of columns included in the publication (NULL means all columns)
-- : Private memory context for storing additional state data for this entry
-
+- `relid`: The OID of the relation this entry represents
+- `replicate_valid`: Overall validity flag indicating if this cache entry is valid for replication
+- `schema_sent`: Boolean flag tracking whether the current schema has been sent to the subscriber
+- `*streamed_txns`: List of transaction IDs for streamed transactions that have already received this schema
+- `pubactions`: Publication actions (insert/update/delete/truncate) configured for this relation
+- `*exprstate[NUM_ROWFILTER_PUBACTIONS]`: Array of expression states for row filtering, one per publication action type
+- `*estate`: Executor state context used for evaluating row filter expressions
+- `*new_slot`: Tuple table slot for storing new tuple values during replication
+- `*old_slot`: Tuple table slot for storing old tuple values during replication
+- `publish_as_relid`: OID of the relation to publish as (may differ from relid for partitions using ancestor schema)
+- `*attrmap`: Attribute mapping for converting tuples from partition schema to ancestor schema when needed
+- `*columns`: Bitmap of columns included in the publication (NULL means all columns)
+- `entry_cxt`: Private memory context for storing additional state data for this entry
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PublicationActions](../P/PublicationActions.md)

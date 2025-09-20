@@ -35,11 +35,10 @@ typedef struct PVIndStats
 PVIndStats serves as a per-index tracking structure within PostgreSQL's parallel vacuum system. Each index being processed during a parallel vacuum operation has an associated PVIndStats structure that maintains the current processing status, determines whether parallel workers can safely process the index, and stores the results of vacuum operations. The structure coordinates between the leader process and worker processes to ensure proper index processing order and result collection.
 
 ## Parameters / Member Variables
-- : Current processing status of the index using PVIndVacStatus enum values (INITIAL, NEED_BULKDELETE, NEED_CLEANUP, COMPLETED)
-- : Boolean flag indicating whether both leader and workers can process this index (true) or only the leader can handle it (false)
-- : Boolean flag indicating whether the index statistics have been updated after processing
-- : IndexBulkDeleteResult structure containing the actual statistics and results from index vacuum or cleanup operations
-
+- `status`: Current processing status of the index using PVIndVacStatus enum values (INITIAL, NEED_BULKDELETE, NEED_CLEANUP, COMPLETED)
+- `parallel_workers_can_process`: Boolean flag indicating whether both leader and workers can process this index (true) or only the leader can handle it (false)
+- `istat_updated`: Boolean flag indicating whether the index statistics have been updated after processing
+- `istat`: IndexBulkDeleteResult structure containing the actual statistics and results from index vacuum or cleanup operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - PVIndVacStatus (enum for processing status)

@@ -21,7 +21,7 @@ The `spin_delay` function implements the x86 PAUSE instruction (via `rep; nop` a
 The implementation uses `rep; nop` which is equivalent to the PAUSE instruction but maintains backward compatibility with older IA32 processors that do not recognize PAUSE (they simply ignore the `rep` prefix for non-string operations).
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

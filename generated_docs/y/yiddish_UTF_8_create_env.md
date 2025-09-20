@@ -17,7 +17,7 @@ This function serves as a language-specific wrapper around the generic SN_create
 The function abstracts away the specific parameter requirements for Yiddish stemming, providing a clean interface for clients who need to create a stemming environment for this language.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies  
 - Functions called/Symbols referenced:

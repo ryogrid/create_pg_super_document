@@ -18,7 +18,7 @@ This function serves as a support function for SQL-callable pgstat* functions th
 The function is designed to provide a consistent view of SLRU statistics at a specific point in time, which is important for SQL functions that expose these statistics to users through system views or direct function calls.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

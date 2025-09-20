@@ -16,7 +16,6 @@ inet_in(PG_FUNCTION_ARGS)
 This function serves as the standard input conversion function for PostgreSQL's INET data type. It acts as a thin wrapper around the network_in function, specifically configured for INET semantics (as opposed to CIDR). The function extracts the input string from PostgreSQL's function call interface and delegates the actual parsing work to network_in with the is_cidr parameter set to false, allowing host bits to be set beyond the network mask.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function interface (PG_FUNCTION_ARGS)
   - Argument 0: C-string representation of the inet address
 
 ## Dependencies

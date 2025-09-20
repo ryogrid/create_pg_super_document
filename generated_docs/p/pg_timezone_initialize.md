@@ -17,7 +17,7 @@ This function serves as an early initialization step for PostgreSQL's timezone s
 The function sets both session_timezone and log_timezone to GMT using pg_tzset("GMT"). GMT is chosen because it can be interpreted without reference to the filesystem, which is important since PGSHAREDIR location may not yet be known, particularly in EXEC_BACKEND subprocess environments.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

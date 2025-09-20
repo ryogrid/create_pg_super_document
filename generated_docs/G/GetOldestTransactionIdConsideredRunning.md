@@ -23,7 +23,7 @@ The primary use cases include:
 The function simply computes all visibility horizons and returns the most conservative one (oldest_considered_running), which represents the absolute oldest transaction that any backend might still reference.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

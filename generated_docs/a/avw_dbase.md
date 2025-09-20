@@ -22,12 +22,11 @@ typedef struct avw_dbase
 The  structure represents database-specific information that autovacuum workers need to perform their operations effectively. Unlike  which is used by the launcher for scheduling, this structure contains detailed database state information including transaction IDs and statistics that are essential for making autovacuum decisions within a particular database context.
 
 ## Parameters / Member Variables
-- : Database OID identifying the specific database
-- : Human-readable name of the database (string pointer)
-- : Transaction ID freeze horizon for this database, used to determine when anti-wraparound vacuuming is needed
-- : Minimum MultiXact ID for this database, used for MultiXact wraparound prevention
-- : Pointer to the database's statistics entry containing performance and usage metrics
-
+- `adw_datid`: Database OID identifying the specific database
+- `*adw_name`: Human-readable name of the database (string pointer)
+- `adw_frozenxid`: Transaction ID freeze horizon for this database, used to determine when anti-wraparound vacuuming is needed
+- `adw_minmulti`: Minimum MultiXact ID for this database, used for MultiXact wraparound prevention
+- `*adw_entry`: Pointer to the database's statistics entry containing performance and usage metrics
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactId (transaction system type)

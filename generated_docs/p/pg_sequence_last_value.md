@@ -25,8 +25,7 @@ Key behavioral characteristics:
 The function opens and locks the target sequence, reads its current state from the sequence data tuple, and returns the last_value if the sequence has been called. This provides a safe way to inspect sequence state without advancing the sequence.
 
 ## Parameters / Member Variables
-- Function takes a single OID argument representing the sequence relation ID (accessed via PG_GETARG_OID(0))
-- Returns either the last generated value as Int64 or NULL
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

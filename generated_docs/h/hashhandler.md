@@ -17,8 +17,7 @@ The hashhandler function serves as the main entry point for hash index access me
 The function sets up all the operational parameters for hash indexes, including strategy numbers, support procedures, and various boolean flags that indicate what operations the hash access method supports or doesn't support. It also assigns all the callback functions that will be used for different hash index operations like building, inserting, scanning, and maintenance.
 
 ## Parameters / Member Variables
-- Takes no direct parameters (uses PG_FUNCTION_ARGS macro)
-- Returns a Datum containing a pointer to the configured IndexAmRoutine
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

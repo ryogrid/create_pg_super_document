@@ -19,8 +19,7 @@ Additionally, on systems with USE_AVX512_POPCNT_WITH_RUNTIME_CHECK enabled, it a
 The function uses a lazy initialization pattern - it's called only on the first invocation of popcount functions, after which subsequent calls bypass the detection overhead.
 
 ## Parameters / Member Variables
-- No parameters (void function)
-- No return value (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

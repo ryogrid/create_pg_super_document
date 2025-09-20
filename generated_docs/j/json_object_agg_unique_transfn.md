@@ -18,7 +18,6 @@ This function serves as the transition function for the json_object_agg_unique a
 The function delegates all the actual work to  with the parameters  and , meaning it will include NULL values in the output but will strictly enforce key uniqueness.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard  macro for function arguments
 - Argument 0: Internal aggregate state (JsonAggState pointer)
 - Argument 1: Key value (any type, converted to JSON string)
 - Argument 2: Value to associate with the key (any type, converted to JSON)

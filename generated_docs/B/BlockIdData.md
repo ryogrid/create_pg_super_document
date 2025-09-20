@@ -23,9 +23,8 @@ The structure splits a block number into two 16-bit components (bi_hi and bi_lo)
 The bi_hi and bi_lo fields together represent a single block number, with bi_hi containing the high-order bits and bi_lo containing the low-order bits of the block identifier.
 
 ## Parameters / Member Variables
-- : High-order 16 bits of the block number
-- : Low-order 16 bits of the block number
-
+- `bi_hi`: High-order 16 bits of the block number
+- `bi_lo`: Low-order 16 bits of the block number
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a basic data structure)

@@ -26,16 +26,15 @@ typedef struct WindowDef
 WindowDef nodes capture the complete specification of window definitions used in SQL window functions. They handle two main scenarios: entries in a WINDOW list where "name" defines a named window, and OVER clauses where "name" is used for "OVER window" syntax or "refname" for "OVER (window)" syntax. The latter case subtly differs by implying that the window frame clause can be overridden. The structure encompasses partitioning specifications (PARTITION BY), ordering specifications (ORDER BY), and frame boundary definitions (ROWS/RANGE clauses with optional offset expressions).
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a WindowDef node
-- : The window's own name when defining a named window in a WINDOW clause
-- : Referenced window name when using "OVER (window)" syntax, allowing inheritance with modifications
-- : List of expressions for PARTITION BY clause, determining how to group rows
-- : List of SortBy nodes for ORDER BY clause, specifying sort order within partitions
-- : Integer bitfield containing frame clause options (ROWS/RANGE, UNBOUNDED/CURRENT/PRECEDING/FOLLOWING, etc.)
-- : Expression defining the starting boundary offset for the window frame, if specified
-- : Expression defining the ending boundary offset for the window frame, if specified
-- : Parse location in the original query text, or -1 if unknown
-
+- `type`: Standard NodeTag identifying this as a WindowDef node
+- `*name`: The window's own name when defining a named window in a WINDOW clause
+- `*refname`: Referenced window name when using "OVER (window)" syntax, allowing inheritance with modifications
+- `*partitionClause`: List of expressions for PARTITION BY clause, determining how to group rows
+- `*orderClause`: List of SortBy nodes for ORDER BY clause, specifying sort order within partitions
+- `frameOptions`: Integer bitfield containing frame clause options (ROWS/RANGE, UNBOUNDED/CURRENT/PRECEDING/FOLLOWING, etc.)
+- `*startOffset`: Expression defining the starting boundary offset for the window frame, if specified
+- `*endOffset`: Expression defining the ending boundary offset for the window frame, if specified
+- `location`: Parse location in the original query text, or -1 if unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)

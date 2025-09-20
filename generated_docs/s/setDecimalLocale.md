@@ -19,7 +19,7 @@ The function implements several fallback mechanisms to ensure valid formatting s
 The function also ensures that the thousands separator and decimal point are different characters to avoid formatting ambiguity. This initialization is typically performed once during application startup to establish consistent numeric formatting throughout the program's execution.
 
 ## Parameters / Member Variables
-- None (void function that operates on global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

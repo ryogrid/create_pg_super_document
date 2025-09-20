@@ -24,7 +24,7 @@ The reduction rules handle various C language constructs including:
 Each reduction also manages indentation levels by setting ps.i_l_follow (indentation for the following line) based on the indentation level associated with the reduced construct.
 
 ## Parameters / Member Variables
-- No parameters (operates on global parser state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

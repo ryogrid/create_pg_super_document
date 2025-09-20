@@ -15,7 +15,7 @@ static struct descriptor *get_descriptors(void)
 The `get_descriptors` function provides access to the thread-local descriptor storage for the current thread. It uses pthread-specific data mechanisms to maintain separate descriptor lists for each thread. The function employs `pthread_once` to ensure that the descriptor key is initialized exactly once across all threads, then retrieves the thread-specific descriptor data using `pthread_getspecific`. This design allows multiple threads to work with descriptors independently without data corruption or interference.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

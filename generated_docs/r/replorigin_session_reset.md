@@ -25,7 +25,7 @@ This function tears down the current replication origin session by clearing the 
 The function ensures proper cleanup and allows other processes to acquire the same origin slot if needed.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

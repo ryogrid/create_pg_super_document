@@ -38,23 +38,22 @@ HashMetaPageData serves as the central control structure for hash indexes, conta
 The structure supports PostgreSQL's dynamic hash table implementation, which can grow and shrink as needed while maintaining efficient access patterns. The splitpoint mechanism allows for controlled growth of the hash table, while the bitmap arrays manage overflow page allocation efficiently.
 
 ## Parameters / Member Variables
-- : Magic number for hash table identification and validation
-- : Version identifier for the hash index format
-- : Current count of tuples stored in the entire hash table
-- : Target fill factor (average tuples per bucket) used for split decisions
-- : Size of index pages in bytes
-- : Size of bitmap arrays in bytes (must be a power of 2)
-- : Log base 2 of bitmap array size in bits (used for efficient bit operations)
-- : Identifier of the highest numbered bucket currently in use
-- : Bit mask used for modulo operations into the entire table
-- : Bit mask used for modulo operations into the lower half of the table
-- : Splitpoint from which overflow pages are being allocated
-- : Bit number of the lowest numbered free overflow page
-- : Total number of bitmap pages currently allocated
-- : Procedure identifier for the hash function from pg_proc system catalog
-- : Array tracking spare pages before each splitpoint
-- : Array of block numbers for overflow bitmap pages
-
+- `hashm_magic`: Magic number for hash table identification and validation
+- `hashm_version`: Version identifier for the hash index format
+- `hashm_ntuples`: Current count of tuples stored in the entire hash table
+- `hashm_ffactor`: Target fill factor (average tuples per bucket) used for split decisions
+- `hashm_bsize`: Size of index pages in bytes
+- `hashm_bmsize`: Size of bitmap arrays in bytes (must be a power of 2)
+- `hashm_bmshift`: Log base 2 of bitmap array size in bits (used for efficient bit operations)
+- `hashm_maxbucket`: Identifier of the highest numbered bucket currently in use
+- `hashm_highmask`: Bit mask used for modulo operations into the entire table
+- `hashm_lowmask`: Bit mask used for modulo operations into the lower half of the table
+- `hashm_ovflpoint`: Splitpoint from which overflow pages are being allocated
+- `hashm_firstfree`: Bit number of the lowest numbered free overflow page
+- `hashm_nmaps`: Total number of bitmap pages currently allocated
+- `hashm_procid`: Procedure identifier for the hash function from pg_proc system catalog
+- `hashm_spares[HASH_MAX_SPLITPOINTS]`: Array tracking spare pages before each splitpoint
+- `hashm_mapp[HASH_MAX_BITMAPS]`: Array of block numbers for overflow bitmap pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - RegProcedure

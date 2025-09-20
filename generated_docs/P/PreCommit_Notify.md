@@ -21,7 +21,6 @@ This function is called during transaction commit, before the transaction is act
 The function uses serialization through heavyweight locks to ensure notifications appear in commit order and prevent uncommitted entries from blocking deliverable notifications.
 
 ## Parameters / Member Variables
-- No input parameters
 - Returns: `void`
 
 ## Dependencies

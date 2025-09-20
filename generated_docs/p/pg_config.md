@@ -20,8 +20,7 @@ The function uses the materialized SRF (Set Returning Function) framework to ret
 The returned data includes various PostgreSQL build and installation parameters such as compile flags, library paths, version information, and other configuration details that were set during the PostgreSQL compilation and installation process.
 
 ## Parameters / Member Variables
-- This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for standard PostgreSQL function interface)
-- Uses fcinfo->resultinfo to access the ReturnSetInfo structure for SRF handling
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

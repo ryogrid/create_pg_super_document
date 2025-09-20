@@ -17,9 +17,7 @@ ECPG_COMPAT_ORACLE is a member of the COMPAT_MODE enumeration that enables Oracl
 The symbol is defined in the ecpglib_extern.h header file and is used throughout the ECPG system to conditionally enable Oracle-specific behavior patterns. It works in conjunction with the ORACLE_MODE macro which checks if the current compatibility mode is set to ECPG_COMPAT_ORACLE.
 
 ## Parameters / Member Variables
-- Part of  enumeration
-- Represents Oracle compatibility mode setting
-- Used as a flag to enable Oracle-specific SQL processing behavior
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

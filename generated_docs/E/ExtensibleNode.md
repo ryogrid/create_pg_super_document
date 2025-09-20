@@ -23,9 +23,8 @@ ExtensibleNode provides a framework for PostgreSQL extensions to create custom n
 The pg_node_attr annotation indicates that this node type uses custom implementations for copy, equality comparison, and read/write operations rather than the standard generated ones.
 
 ## Parameters / Member Variables
-- : Always set to T_ExtensibleNode to identify this as an extensible node
-- : A string identifier that uniquely identifies the specific type of extensible node and is used to look up the corresponding ExtensibleNodeMethods
-
+- `type`: Always set to T_ExtensibleNode to identify this as an extensible node
+- `*extnodename`: A string identifier that uniquely identifies the specific type of extensible node and is used to look up the corresponding ExtensibleNodeMethods
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (type system)

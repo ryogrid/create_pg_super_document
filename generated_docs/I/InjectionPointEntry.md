@@ -48,12 +48,11 @@ InjectionPointEntry represents a single injection point in PostgreSQL's injectio
 The key design feature is the lock-free access pattern: readers check the generation counter before and after reading other fields to ensure consistency. An even generation value indicates the slot is unused, while an odd value indicates it's in use. Writers must hold InjectionPointLock and follow a specific protocol when updating entries.
 
 ## Parameters / Member Variables
-- : Atomic 64-bit generation counter used for lock-free access protocol. Even values indicate unused slots, odd values indicate active entries.
-- : Name of the injection point (maximum 64 characters including null terminator)
-- : Name of the library containing the injection point callback (maximum 128 characters)
-- : Name of the callback function to be invoked (maximum 128 characters)
-- : Opaque data area for passing custom data to callbacks (maximum 1024 bytes)
-
+- `generation`: Atomic 64-bit generation counter used for lock-free access protocol. Even values indicate unused slots, odd values indicate active entries.
+- `name[INJ_NAME_MAXLEN]`: Name of the injection point (maximum 64 characters including null terminator)
+- `library[INJ_LIB_MAXLEN]`: Name of the library containing the injection point callback (maximum 128 characters)
+- `function[INJ_FUNC_MAXLEN]`: Name of the callback function to be invoked (maximum 128 characters)
+- `private_data[INJ_PRIVATE_MAXLEN]`: Opaque data area for passing custom data to callbacks (maximum 1024 bytes)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint64](../p/pg_atomic_uint64.md)

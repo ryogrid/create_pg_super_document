@@ -19,8 +19,7 @@ The function returns the complete query text as a PostgreSQL text type. If no qu
 This function is commonly used for logging, debugging, audit trails, and dynamic SQL generation where the current query context is needed.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface 
-- Takes no actual parameters (parameterless function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

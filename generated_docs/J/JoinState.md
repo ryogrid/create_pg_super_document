@@ -22,7 +22,7 @@ typedef struct JoinState
 JoinState serves as the base structure for all join execution state nodes in PostgreSQL's executor. It inherits from PlanState and adds join-specific state information. This structure provides the common foundation for nested loop joins, merge joins, hash joins, and other join algorithms. The structure maintains the join type, optimization flags, and join qualification expressions that are evaluated during join processing.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
  5459 ?        00:00:00 bash
  5492 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common execution state information

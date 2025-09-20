@@ -22,10 +22,9 @@ RangeIOData serves as a function-local cache (fn_extra) for range type I/O opera
 The structure is allocated in the function's memory context and stored in the FunctionCallInfo's fn_extra field. It is automatically created and populated by the get_range_io_data() function when needed, and reused across multiple calls to the same range I/O function as long as the range type remains the same.
 
 ## Parameters / Member Variables
-- : Pointer to the TypeCacheEntry for the range type, containing cached metadata about the range type including information about its element type
-- : FmgrInfo structure containing the function manager information for the element type's I/O function (input, output, receive, or send)
-- : OID parameter passed to the element type's I/O function, typically used for type-specific formatting or parsing parameters
-
+- `*typcache`: Pointer to the TypeCacheEntry for the range type, containing cached metadata about the range type including information about its element type
+- `typioproc`: FmgrInfo structure containing the function manager information for the element type's I/O function (input, output, receive, or send)
+- `typioparam`: OID parameter passed to the element type's I/O function, typically used for type-specific formatting or parsing parameters
 ## Dependencies
 - Types referenced:
   - [TypeCacheEntry](../T/TypeCacheEntry.md) (from type cache system)

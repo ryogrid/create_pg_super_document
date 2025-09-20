@@ -15,7 +15,7 @@ static List *database_get_xml_visible_tables(void)
 This function returns all tables, materialized views, and views in the current database that are accessible to the current user and located within user-accessible schemas. It combines table-level privileges (SELECT permission) with schema-level visibility constraints by incorporating the XML_VISIBLE_SCHEMAS filter. The function constructs a comprehensive SQL query that ensures both the table itself and its containing schema are accessible to the current user, making it suitable for database-wide XML mapping operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

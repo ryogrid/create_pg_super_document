@@ -16,7 +16,7 @@ struct pg_tm tt,
 SetEpochTimestamp is a utility function that creates and returns a Timestamp value corresponding to the PostgreSQL epoch. The PostgreSQL epoch is defined as January 1, 2000 00:00:00 UTC, which serves as the reference point for PostgreSQL's internal timestamp calculations. This function uses GetEpochTime() to obtain the epoch time in a broken-down time structure (pg_tm), then converts it to PostgreSQL's internal Timestamp representation using tm2timestamp().
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

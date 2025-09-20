@@ -29,8 +29,6 @@ The function is optimized for the specific case of AccessExclusiveLocks, which c
 
 ## Parameters / Member Variables
 - : Output parameter that receives the number of AccessExclusiveLocks found
-
-**Return value**:  - An array of xl_standby_lock structures, each containing:
 - : Transaction ID of the lock holder
 - : Database OID where the locked relation exists
 - : Relation OID of the locked object

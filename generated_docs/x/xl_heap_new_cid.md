@@ -33,13 +33,12 @@ The xl_heap_new_cid structure is used in PostgreSQL's Write-Ahead Logging system
 This structure logs the assignment of command IDs (cmin/cmax) to specific tuples, which is crucial for logical replication and recovery. The structure stores both the transaction context and the specific tuple location to enable proper replay during recovery or logical decoding.
 
 ## Parameters / Member Variables
-- : Top-level transaction ID to avoid merging CIDs from different transactions during recovery
-- : Command ID when the tuple was created/inserted within the transaction
-- : Command ID when the tuple was deleted/updated within the transaction  
-- : Combined command ID used for debugging purposes
-- : RelFileLocator identifying the specific relation file where the tuple resides
-- : ItemPointerData (TID) specifying the exact tuple location within the relation
-
+- `top_xid`: Top-level transaction ID to avoid merging CIDs from different transactions during recovery
+- `cmin`: Command ID when the tuple was created/inserted within the transaction
+- `cmax`: Command ID when the tuple was deleted/updated within the transaction
+- `combocid`: Combined command ID used for debugging purposes
+- `target_locator`: RelFileLocator identifying the specific relation file where the tuple resides
+- `target_tid`: ItemPointerData (TID) specifying the exact tuple location within the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (type)

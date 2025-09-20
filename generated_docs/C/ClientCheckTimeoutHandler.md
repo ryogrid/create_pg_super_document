@@ -17,7 +17,7 @@ This is a signal handler function that gets invoked when a timeout occurs for cl
 Like other timeout handlers, this function is designed to be lightweight and signal-safe, performing minimal work within the signal handler context and deferring the actual client connection checking to be processed later in a safe execution context.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

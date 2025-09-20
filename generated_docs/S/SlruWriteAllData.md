@@ -20,10 +20,9 @@ typedef struct SlruWriteAllData
 This structure is designed to optimize I/O operations during SimpleLruWriteAll() by consolidating write requests and keeping files open until the entire write operation is complete. Instead of opening and closing files repeatedly, this structure maintains a cache of up to MAX_WRITEALL_BUFFERS (16) open file descriptors along with their corresponding segment numbers. This approach reduces system call overhead and improves performance when writing multiple pages that may belong to the same physical files.
 
 ## Parameters / Member Variables
-- : The actual number of files currently open and tracked in this structure
-- : Array of file descriptors for the open files, with a maximum of 16 entries
-- : Array of corresponding log segment numbers for each open file descriptor
-
+- `num_files`: The actual number of files currently open and tracked in this structure
+- `fd[MAX_WRITEALL_BUFFERS]`: Array of file descriptors for the open files, with a maximum of 16 entries
+- `segno[MAX_WRITEALL_BUFFERS]`: Array of corresponding log segment numbers for each open file descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_WRITEALL_BUFFERS (constant defining maximum buffer size of 16)

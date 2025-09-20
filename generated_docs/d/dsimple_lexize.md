@@ -19,7 +19,6 @@ The  function is the core lexical analysis routine for PostgreSQL's simple dicti
 - : A DictSimple pointer containing the dictionary configuration (stoplist and accept flag)
 - : A char pointer to the input text to be processed
 - : An int32 specifying the length of the input text
-- Returns a Datum containing a pointer to a TSLexeme array (or NULL for unrecognized words)
 
 ## Dependencies
 - Functions called/Symbols referenced:

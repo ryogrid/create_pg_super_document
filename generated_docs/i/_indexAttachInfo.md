@@ -22,10 +22,9 @@ The  structure is used by pg_dump to manage the relationship between indexes on 
 The structure is created during the dependency analysis phase of pg_dump and is processed during the dump phase to output the necessary SQL commands for recreating the index attachment relationships.
 
 ## Parameters / Member Variables
-- : Base DumpableObject structure containing common dump object metadata (object type, catalog ID, dump ID, name, namespace)
-- : Pointer to the IndxInfo structure representing the index on the parent partitioned table
-- : Pointer to the IndxInfo structure representing the corresponding index on the partition table
-
+- `dobj`: Base DumpableObject structure containing common dump object metadata (object type, catalog ID, dump ID, name, namespace)
+- `*parentIdx`: Pointer to the IndxInfo structure representing the index on the parent partitioned table
+- `*partitionIdx`: Pointer to the IndxInfo structure representing the corresponding index on the partition table
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

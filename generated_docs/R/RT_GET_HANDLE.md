@@ -20,8 +20,7 @@ RT_GET_HANDLE is part of PostgreSQL's generic radix tree implementation for shar
 This macro is only available when RT_SHMEM is defined, indicating the radix tree is configured for shared memory operations. The generated function returns a handle that can be used to attach to the same radix tree structure from different processes or backends.
 
 ## Parameters / Member Variables
-- Uses RT_MAKE_NAME macro to construct the actual function name
-- The generated function takes a pointer to RT_RADIX_TREE and returns RT_HANDLE (which is typedef'd as dsa_pointer)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,7 +23,7 @@ The function allocates and initializes a DR_sqlfunction structure, which is a sp
 The created receiver is marked with DestSQLFunction destination type, identifying it within PostgreSQL's result destination framework.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

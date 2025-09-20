@@ -26,7 +26,6 @@ The algorithm also performs optimistic comparisons for elements immediately adja
 ## Parameters / Member Variables
 - : FmgrInfo pointer to the ordering procedure function for comparisons
 - : Boolean indicating if array advancement was triggered by this array's scan key
-- 0
 5
 =
 ENTRY_POINTS.md

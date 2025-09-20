@@ -21,9 +21,8 @@ The  structure is a core component of PostgreSQL's synchronized scan mechanism. 
 The synchronized scan optimization helps reduce I/O by allowing multiple sequential scans of the same table to coordinate their starting positions. When a new scan begins, it can check if another scan is already in progress on the same relation and start from that location instead of from the beginning.
 
 ## Parameters / Member Variables
-- : A RelFileLocator structure that uniquely identifies a relation (table) in the database system
-- : A BlockNumber representing the last-reported block position in the relation where scanning activity occurred
-
+- `relfilelocator`: A RelFileLocator structure that uniquely identifies a relation (table) in the database system
+- `location`: A BlockNumber representing the last-reported block position in the relation where scanning activity occurred
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (type)

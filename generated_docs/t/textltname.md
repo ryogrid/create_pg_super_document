@@ -17,7 +17,7 @@ This function implements the less-than comparison operator (<) between PostgreSQ
 The function is part of PostgreSQL's type system infrastructure, specifically handling cross-type comparisons between text and name types. This enables SQL queries to directly compare text columns with name values (typically used for system catalog identifiers) using the less-than operator. Note that this is the inverse direction compared to the previous name-to-text comparison functions.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro - PostgreSQL's standard function argument mechanism that provides access to function arguments and context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

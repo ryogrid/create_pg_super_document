@@ -25,14 +25,13 @@ typedef struct RangeFunction
 RangeFunction nodes handle function calls that serve as table sources in FROM clauses. This includes simple function calls like "SELECT * FROM generate_series(1,10)" and complex ROWS FROM() constructs that can combine multiple functions. The functions list contains two-element sublists: the first element is the untransformed function call tree, and the second is a possibly-empty list of ColumnDef nodes for any columndef list attached to that specific function. The structure supports LATERAL correlation, WITH ORDINALITY for row numbering, and top-level column definitions for functions returning RECORD types.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a RangeFunction node
-- : Boolean flag indicating whether the LATERAL keyword was specified, enabling correlation with preceding FROM clause items
-- : Boolean flag indicating whether WITH ORDINALITY was specified to add a row number column
-- : Boolean flag indicating whether this represents a ROWS FROM() construct versus a simple function call
-- : List containing per-function information as two-element sublists (function call tree + optional ColumnDef list)
-- : Optional Alias structure for table alias name and column aliases
-- : List of ColumnDef nodes describing the result structure for functions returning RECORD type
-
+- `type`: Standard NodeTag identifying this as a RangeFunction node
+- `lateral`: Boolean flag indicating whether the LATERAL keyword was specified, enabling correlation with preceding FROM clause items
+- `ordinality`: Boolean flag indicating whether WITH ORDINALITY was specified to add a row number column
+- `is_rowsfrom`: Boolean flag indicating whether this represents a ROWS FROM() construct versus a simple function call
+- `*functions`: List containing per-function information as two-element sublists (function call tree + optional ColumnDef list)
+- `*alias`: Optional Alias structure for table alias name and column aliases
+- `*coldeflist`: List of ColumnDef nodes describing the result structure for functions returning RECORD type
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)

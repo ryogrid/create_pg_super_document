@@ -18,7 +18,6 @@ This function is part of PostgreSQL's type input/output framework and is typical
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function arguments
-  - Contains binary input buffer and related metadata for conversion
 
 ## Dependencies
 - Functions called/Symbols referenced:

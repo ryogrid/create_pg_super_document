@@ -23,9 +23,8 @@ The struct is allocated as part of a BrinOpcInfo structure and is accessed throu
 The caching mechanism works by storing procedures for a specific subtype. When the subtype changes, all cached entries are invalidated and must be reloaded from the system catalogs.
 
 ## Parameters / Member Variables
-- : The OID of the data type subtype for which the strategy procedures are currently cached. Used to determine when cache invalidation is necessary.
-- : Array of FmgrInfo structures containing cached operator procedure information for each B-tree strategy number (1-5). BTMaxStrategyNumber is defined as 5, corresponding to the five standard comparison operators.
-
+- `cached_subtype`: The OID of the data type subtype for which the strategy procedures are currently cached. Used to determine when cache invalidation is necessary.
+- `strategy_procinfos[BTMaxStrategyNumber]`: Array of FmgrInfo structures containing cached operator procedure information for each B-tree strategy number (1-5). BTMaxStrategyNumber is defined as 5, corresponding to the five standard comparison operators.
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTMaxStrategyNumber (constant defining maximum strategy number as 5)

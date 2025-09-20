@@ -17,7 +17,7 @@ The `regnamespacesend` function is a binary output function for the regnamespace
 Like its counterpart `regnamespacerecv`, this function implementation delegates all functionality to `oidsend`, confirming that regnamespace values are internally handled identically to OID values in their binary representation.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro - standard PostgreSQL function calling convention that provides access to function arguments and context through the `fcinfo` parameter
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

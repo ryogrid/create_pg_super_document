@@ -23,7 +23,6 @@ The function enforces strict calling context validation to ensure it's used only
 Table rewrites occur during various DDL operations such as ALTER TABLE commands that require the table data to be physically reorganized, type changes that require data conversion, or adding columns with non-null defaults to large tables.
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro)
 - Returns: OID of the table being rewritten
 
 ## Dependencies

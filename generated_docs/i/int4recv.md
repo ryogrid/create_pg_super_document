@@ -15,7 +15,6 @@ Datum int4recv(PG_FUNCTION_ARGS)
 The int4recv function is a PostgreSQL type receive function that converts data from external binary format into the internal representation of a 32-bit signed integer. This function is part of PostgreSQL's binary I/O system and is used when receiving integer data in binary format from clients or during binary data transfers. It reads a 4-byte integer from a StringInfo buffer using the PostgreSQL message protocol functions.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro)
 - Input: StringInfo buffer containing binary data retrieved via PG_GETARG_POINTER(0)
 - Output: Datum containing the converted 32-bit integer
 

@@ -17,7 +17,7 @@ This function sets up per-walsender data structures by finding and reserving an 
 The slot reservation process is protected by spinlocks to prevent race conditions among multiple WAL sender processes. Once a slot is reserved, the process sets up lag tracking, position tracking, and state management fields.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

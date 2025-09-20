@@ -29,12 +29,11 @@ BTPageOpaqueData is a critical structure in PostgreSQL's B-tree implementation t
 The structure is essential for recovery when searches navigate to wrong pages due to concurrent operations, as detailed in the B-tree README documentation.
 
 ## Parameters / Member Variables
-- : Block number of the left sibling page, or P_NONE if this is the leftmost page at this level
-- : Block number of the right sibling page, or P_NONE if this is the rightmost page at this level  
-- : Tree level of this page, with 0 indicating leaf pages and higher values for internal pages
-- : Bit flags indicating page type and status (e.g., BTP_LEAF, BTP_ROOT, BTP_DELETED, etc.)
-- : Vacuum cycle identifier used to detect page splits during VACUUM operations
-
+- `btpo_prev`: Block number of the left sibling page, or P_NONE if this is the leftmost page at this level
+- `btpo_next`: Block number of the right sibling page, or P_NONE if this is the rightmost page at this level
+- `btpo_level`: Tree level of this page, with 0 indicating leaf pages and higher values for internal pages
+- `btpo_flags`: Bit flags indicating page type and status (e.g., BTP_LEAF, BTP_ROOT, BTP_DELETED, etc.)
+- `btpo_cycleid`: Vacuum cycle identifier used to detect page splits during VACUUM operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTCycleId (typedef for vacuum cycle tracking)

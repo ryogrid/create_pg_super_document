@@ -17,9 +17,6 @@ This function serves as a timezone-aware wrapper for JSONPath query execution. I
 
 ## Parameters / Member Variables
 - Uses PostgreSQL's function call info structure (PG_FUNCTION_ARGS) which contains:
-  - JSONB document to query
-  - JSONPath expression 
-  - Optional parameters for the path expression
 
 ## Dependencies
 - Functions called/Symbols referenced:

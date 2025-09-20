@@ -21,9 +21,8 @@ OutputPluginOptions serves as a configuration structure that logical replication
 The structure allows plugins to specify whether they want binary or textual output format and whether they are capable of handling rewritten transactions. This configuration affects how the logical decoding system processes and delivers change records to the plugin.
 
 ## Parameters / Member Variables
-- : Specifies the desired output format using OutputPluginOutputType enum (OUTPUT_PLUGIN_BINARY_OUTPUT or OUTPUT_PLUGIN_TEXTUAL_OUTPUT)
-- : Boolean flag indicating whether the plugin can handle rewritten transactions (transactions that have been modified by triggers or rules)
-
+- `output_type`: Specifies the desired output format using OutputPluginOutputType enum (OUTPUT_PLUGIN_BINARY_OUTPUT or OUTPUT_PLUGIN_TEXTUAL_OUTPUT)
+- `receive_rewrites`: Boolean flag indicating whether the plugin can handle rewritten transactions (transactions that have been modified by triggers or rules)
 ## Dependencies
 - Functions called/Symbols referenced:
   - OutputPluginOutputType

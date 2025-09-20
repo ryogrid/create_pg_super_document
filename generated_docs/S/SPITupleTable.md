@@ -29,17 +29,13 @@ SPITupleTable serves as the primary container for query results in PostgreSQL's 
 The structure supports efficient memory management through its dedicated memory context and tracks allocation information to enable dynamic resizing of the tuple array when needed. It also maintains transaction context information to ensure proper cleanup during subtransaction rollbacks.
 
 ## Parameters / Member Variables
-### Public Members
-- : TupleDesc containing the schema information for the tuples (column names, types, etc.)
-- : Array of HeapTuple pointers containing the actual tuple data
-- : Number of valid tuples currently stored in the vals array
-
-### Private Members
-- : Total allocated size of the vals array (may be larger than numvals for efficiency)
-- : Memory context in which the tuple table and its data are allocated
-- : Linked list node for internal SPI bookkeeping and cleanup tracking
-- : Subtransaction ID in which this tuple table was created, used for proper cleanup
-
+- `tupdesc`: TupleDesc containing the schema information for the tuples (column names, types, etc.)
+- `*vals`: Array of HeapTuple pointers containing the actual tuple data
+- `numvals`: Number of valid tuples currently stored in the vals array
+- `alloced`: Total allocated size of the vals array (may be larger than numvals for efficiency)
+- `tuptabcxt`: Memory context in which the tuple table and its data are allocated
+- `next`: Linked list node for internal SPI bookkeeping and cleanup tracking
+- `subid`: Subtransaction ID in which this tuple table was created, used for proper cleanup
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_node](../s/slist_node.md)

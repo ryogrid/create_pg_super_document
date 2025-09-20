@@ -19,9 +19,8 @@ typedef struct process_sublinks_context
 The  structure serves as a parameter context for the  function during the process of expanding SubLinks into SubPlans. This structure is central to PostgreSQL's subquery processing pipeline, where subqueries are transformed from their parsed representation (SubLink nodes) into executable subplans. The context tracks both the current planner state and whether the current expression node is at the top level of a WHERE/HAVING qualifier, which affects how NULL vs FALSE distinctions are handled in subquery evaluation.
 
 ## Parameters / Member Variables
-- : PlannerInfo pointer containing the current planner state, query context, and optimization information needed during subquery planning
-- : Boolean flag indicating whether the current expression is at the top level of a WHERE/HAVING qualifier, which determines whether sublinks need to distinguish between FALSE and UNKNOWN return values
-
+- `*root`: PlannerInfo pointer containing the current planner state, query context, and optimization information needed during subquery planning
+- `isTopQual`: Boolean flag indicating whether the current expression is at the top level of a WHERE/HAVING qualifier, which determines whether sublinks need to distinguish between FALSE and UNKNOWN return values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PlannerInfo](../P/PlannerInfo.md) (structure)

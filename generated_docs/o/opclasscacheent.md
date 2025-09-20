@@ -23,13 +23,12 @@ typedef struct opclasscacheent
 The  structure serves as a cache entry in the operator class cache () within PostgreSQL's relation cache system. This cache is specifically designed to store opclass-related information to avoid repeated lookups in the system catalogs. The structure caches essential metadata about operator classes, including their family membership, input types, and associated support procedures. An important limitation is that only default support procedures are cached - specifically those where . This design decision optimizes for the most common case while keeping the cache structure manageable. The cache improves performance for operations that need to access operator class information, such as index operations and operator resolution.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of the operator class, serving as the unique lookup key for hash table operations
-- : A boolean flag that indicates whether the cache entry has been successfully populated with valid data
-- : The maximum number of support procedures for this operator class, obtained from the corresponding access method (pg_am)
-- : The OID of the operator family to which this operator class belongs
-- : The OID of the data type that this operator class is declared to handle as input
-- : A pointer to an array of  values containing the OIDs of the support procedures associated with this operator class
-
+- `opclassoid`: The object identifier (OID) of the operator class, serving as the unique lookup key for hash table operations
+- `valid`: A boolean flag that indicates whether the cache entry has been successfully populated with valid data
+- `numSupport`: The maximum number of support procedures for this operator class, obtained from the corresponding access method (pg_am)
+- `opcfamily`: The OID of the operator family to which this operator class belongs
+- `opcintype`: The OID of the data type that this operator class is declared to handle as input
+- `*supportProcs`: A pointer to an array of  values containing the OIDs of the support procedures associated with this operator class
 ## Dependencies
 - Functions called/Symbols referenced:
   - StrategyNumber (type for numbering strategy procedures)

@@ -65,21 +65,20 @@ typedef struct LZ4State
 LZ4State serves as the central state management structure for LZ4 compression operations in pg_dump. It supports both streaming and direct compression APIs, maintaining all necessary context for compression/decompression operations including file handles, LZ4 library contexts, buffers, and operational flags. The structure is designed to handle lazy initialization, distinguish between compression and decompression modes, and manage data overflow scenarios efficiently.
 
 ## Parameters / Member Variables
-- : File pointer used by the Stream API to track the file stream being processed
-- : LZ4F_preferences_t structure containing LZ4 compression preferences and settings
-- : LZ4F_compressionContext_t context for LZ4 compression operations
-- : LZ4F_decompressionContext_t context for LZ4 decompression operations
-- : Boolean flag used by Stream API for lazy initialization tracking
-- : Boolean flag used by Stream API to distinguish between compression and decompression operations
-- : Boolean flag used by Compressor API to mark if compression headers need to be written after initialization
-- : Size of the main data buffer
-- : Main data buffer for storing compressed/uncompressed data
-- : Allocated length of the overflow buffer
-- : Current length of data in the overflow buffer
-- : Overflow buffer used by Stream API to store uncompressed data not yet consumed by the caller
-- : Length of compressed data currently stored in the buffer (used by both APIs)
-- : Error code tracking for both APIs to maintain error state
-
+- `*fp`: File pointer used by the Stream API to track the file stream being processed
+- `prefs`: LZ4F_preferences_t structure containing LZ4 compression preferences and settings
+- `ctx`: LZ4F_compressionContext_t context for LZ4 compression operations
+- `dtx`: LZ4F_decompressionContext_t context for LZ4 decompression operations
+- `inited`: Boolean flag used by Stream API for lazy initialization tracking
+- `compressing`: Boolean flag used by Stream API to distinguish between compression and decompression operations
+- `needs_header_flush`: Boolean flag used by Compressor API to mark if compression headers need to be written after initialization
+- `buflen`: Size of the main data buffer
+- `*buffer`: Main data buffer for storing compressed/uncompressed data
+- `overflowalloclen`: Allocated length of the overflow buffer
+- `overflowlen`: Current length of data in the overflow buffer
+- `*overflowbuf`: Overflow buffer used by Stream API to store uncompressed data not yet consumed by the caller
+- `compressedlen`: Length of compressed data currently stored in the buffer (used by both APIs)
+- `errcode`: Error code tracking for both APIs to maintain error state
 ## Dependencies
 - Functions called/Symbols referenced:
   - LZ4F_preferences_t

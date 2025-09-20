@@ -21,9 +21,8 @@ PTIterationArray serves as a shared data structure that facilitates concurrent i
 This structure is primarily used in the context of shared TID bitmap operations where multiple processes may need to iterate over the same set of page table entries concurrently. The atomic reference counting mechanism ensures thread-safe access and proper cleanup when all iterators have finished.
 
 ## Parameters / Member Variables
-- : An atomic 32-bit unsigned integer that tracks the number of iterators currently attached to this PTIterationArray. Uses PostgreSQL's atomic operations for thread-safe manipulation.
-- : A flexible array member containing integer indices that represent the order in which pagetable entries should be iterated. The actual size is determined at allocation time based on the number of entries.
-
+- `refcount`: An atomic 32-bit unsigned integer that tracks the number of iterators currently attached to this PTIterationArray. Uses PostgreSQL's atomic operations for thread-safe manipulation.
+- `index[FLEXIBLE_ARRAY_MEMBER]`: A flexible array member containing integer indices that represent the order in which pagetable entries should be iterated. The actual size is determined at allocation time based on the number of entries.
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic operations support)

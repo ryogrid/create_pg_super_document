@@ -21,9 +21,6 @@ This function is particularly important for hash partitioning and other operatio
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument macro containing:
-  - Array to hash (accessed via )
-  - Seed value for hash function (accessed via )
-  - Function call context and collation information
 
 ## Dependencies
 - Functions called/Symbols referenced:

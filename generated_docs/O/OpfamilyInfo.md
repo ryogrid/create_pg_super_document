@@ -20,10 +20,9 @@ typedef struct _collInfo
 OpfamilyInfo stores metadata about PostgreSQL operator families for the dump and restore process. Operator families are collections of related operator classes that can be used together with an access method. They provide a way to group semantically compatible operator classes, allowing for more flexible and efficient query optimization. This structure captures the operator family's association with its access method and ownership information, enabling pg_dump to properly recreate custom operator families during database restoration.
 
 ## Parameters / Member Variables
-- : DumpableObject containing basic dump metadata (OID, name, namespace, dependencies, etc.)
-- : OID of the access method that this operator family belongs to (references pg_am.oid)
-- : Name of the role/user who owns this operator family
-
+- `dobj`: DumpableObject containing basic dump metadata (OID, name, namespace, dependencies, etc.)
+- `*rolname`: OID of the access method that this operator family belongs to (references pg_am.oid)
+- `collencoding`: Name of the role/user who owns this operator family
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure for dump metadata)

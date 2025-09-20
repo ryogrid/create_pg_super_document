@@ -17,7 +17,6 @@ This function serves as the finalization function for PostgreSQL's json_object_a
 The function implements standard aggregate behavior by returning NULL when no rows were processed (state is NULL), and otherwise returns the completed JSON object string. It uses `catenate_stringinfo_string` to efficiently append the closing brace " }" to the accumulated JSON string.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard `PG_FUNCTION_ARGS` macro for function arguments
 - Argument 0: Internal aggregate state (JsonAggState pointer containing accumulated JSON string)
 
 ## Dependencies

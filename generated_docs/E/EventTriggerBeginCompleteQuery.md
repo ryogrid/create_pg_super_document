@@ -30,7 +30,7 @@ This function sets up the necessary state tracking infrastructure for event trig
 The function returns true if state was successfully created, false if no setup was needed.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

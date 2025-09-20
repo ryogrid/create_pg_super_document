@@ -21,7 +21,7 @@ Key characteristics:
 - Commonly used by vacuum operations, administrative functions, and monitoring tools
 
 ## Parameters / Member Variables
-- No parameters (reads global state)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

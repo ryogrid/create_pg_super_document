@@ -21,11 +21,10 @@ typedef struct LockRowsPath
 LockRowsPath is a specialized path node in PostgreSQL's query planner that represents the operation of acquiring row locks for SELECT FOR UPDATE/SHARE queries. It encapsulates the input data source path, the specific row locking requirements, and parameters needed for EvalPlanQual (EPQ) re-evaluation when concurrent updates occur. The path node includes cost calculations that account for the overhead of row locking operations and potential row refetches during concurrent access scenarios.
 
 ## Parameters / Member Variables
-- : Base Path structure containing common path information like cost estimates, row count, and pathkeys
-- : Pointer to the underlying path that provides the input data to be locked
-- : List of PlanRowMark structures specifying the locking requirements for different relations
-- : Parameter ID used for EvalPlanQual re-evaluation when concurrent tuple modifications are detected
-
+- `path`: Base Path structure containing common path information like cost estimates, row count, and pathkeys
+- `*subpath`: Pointer to the underlying path that provides the input data to be locked
+- `*rowMarks`: List of PlanRowMark structures specifying the locking requirements for different relations
+- `epqParam`: Parameter ID used for EvalPlanQual re-evaluation when concurrent tuple modifications are detected
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Path](../P/Path.md) (base structure)

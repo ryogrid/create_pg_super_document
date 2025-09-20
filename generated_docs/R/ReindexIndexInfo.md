@@ -23,11 +23,10 @@ The  structure is a local data structure used within the index reindexing subsys
 The structure captures essential metadata about an index including its OID, the table it belongs to, its access method, and a safety flag that indicates whether the index can be safely processed with certain optimizations or flags enabled.
 
 ## Parameters / Member Variables
-- : The OID (Object Identifier) of the index being reindexed
-- : The OID of the table that owns this index
-- : The OID of the access method (AM) used by this index
-- : A boolean flag used by  to determine if certain safety optimizations can be applied
-
+- `indexId`: The OID (Object Identifier) of the index being reindexed
+- `tableId`: The OID of the table that owns this index
+- `amId`: The OID of the access method (AM) used by this index
+- `safe`: A boolean flag used by  to determine if certain safety optimizations can be applied
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a plain data structure)

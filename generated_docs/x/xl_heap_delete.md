@@ -21,11 +21,10 @@ typedef struct xl_heap_delete
 This structure contains the essential information needed to record and replay heap tuple deletion operations in PostgreSQL's WAL system. When a tuple is deleted from a heap table, this record is written to the WAL to ensure the deletion can be replayed during crash recovery or streamed to replicas for replication. The structure captures the transaction ID that performed the deletion, the location of the deleted tuple, and metadata about the tuple's state.
 
 ## Parameters / Member Variables
-- : The transaction ID that deleted the tuple, stored in the tuple's xmax field
-- : The offset number (position) of the deleted tuple within its page
-- : Information mask bits that describe the tuple's state and properties
-- : Additional flags providing context about the deletion operation
-
+- `xmax`: The transaction ID that deleted the tuple, stored in the tuple's xmax field
+- `offnum`: The offset number (position) of the deleted tuple within its page
+- `infobits_set`: Information mask bits that describe the tuple's state and properties
+- `flags`: Additional flags providing context about the deletion operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure)

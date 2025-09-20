@@ -17,7 +17,6 @@ This function serves as the input function for PostgreSQL's regoper data type, r
 The function handles several important cases: numeric OID input for symmetry with output functions, the special value '0' for unknown operators, proper error handling for ambiguous or non-existent operators, and bootstrap mode restrictions where only numeric OIDs are accepted.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Input: C-string containing operator name or numeric OID (retrieved via PG_GETARG_CSTRING(0))
 - Returns: OID of the matched operator
 

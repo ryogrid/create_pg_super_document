@@ -32,11 +32,10 @@ The structure is allocated in a dynamic shared memory segment named "injection_p
 The primary use case is for testing scenarios where one process needs to wait at an injection point until another process signals that it should continue, enabling complex multi-process testing scenarios.
 
 ## Parameters / Member Variables
-- : A spinlock () that protects concurrent access to all other fields in the structure, ensuring thread-safe operations across multiple processes
-- : An array of  counters (size ) that increment each time  is called for a corresponding wait point, used to track wakeup events
-- : A two-dimensional character array storing the names of injection points associated with each wait counter slot, with each name limited to  (64) characters
-- : A condition variable () used for implementing the actual wait and wakeup mechanism between processes
-
+- `lock`: A spinlock () that protects concurrent access to all other fields in the structure, ensuring thread-safe operations across multiple processes
+- `wait_counts[INJ_MAX_WAIT]`: An array of  counters (size ) that increment each time  is called for a corresponding wait point, used to track wakeup events
+- `name[INJ_MAX_WAIT][INJ_NAME_MAXLEN]`: A two-dimensional character array storing the names of injection points associated with each wait counter slot, with each name limited to  (64) characters
+- `wait_point`: A condition variable () used for implementing the actual wait and wakeup mechanism between processes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md) (spinlock type)

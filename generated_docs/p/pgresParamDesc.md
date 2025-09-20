@@ -20,8 +20,7 @@ The  structure is used internally by libpq to store information about parameters
 This structure is typically used in arrays to describe all parameters of a prepared statement, with each element corresponding to one parameter in the statement's parameter list.
 
 ## Parameters / Member Variables
-- : The PostgreSQL Object Identifier (OID) representing the data type of this parameter
-
+- `typid`: The PostgreSQL Object Identifier (OID) representing the data type of this parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL Object Identifier type)

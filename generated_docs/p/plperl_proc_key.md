@@ -29,10 +29,9 @@ The structure enables PostgreSQL to maintain separate compiled versions of the s
 The design carefully avoids struct padding by declaring is_trigger as an Oid rather than a bool, ensuring consistent memory layout and hash performance.
 
 ## Parameters / Member Variables
-- : OID of the PostgreSQL function from pg_proc catalog table, uniquely identifying the function definition
-- : Flag indicating whether this is a trigger function (declared as Oid to avoid padding, but functionally boolean)
-- : OID of the user calling the function (set to 0 for plperlu functions, actual user OID for plperl functions for security isolation)
-
+- `proc_id`: OID of the PostgreSQL function from pg_proc catalog table, uniquely identifying the function definition
+- `is_trigger`: Flag indicating whether this is a trigger function (declared as Oid to avoid padding, but functionally boolean)
+- `user_id`: OID of the user calling the function (set to 0 for plperlu functions, actual user OID for plperl functions for security isolation)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

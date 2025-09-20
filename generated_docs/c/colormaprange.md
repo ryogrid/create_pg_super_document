@@ -27,10 +27,9 @@ The colormapranges must be:
 - Ordered by increasing character values
 
 ## Parameters / Member Variables
-- : The minimum character code in this range (inclusive)
-- : The maximum character code in this range (inclusive) 
-- : The row index in the hicolormap array (must be >= 1, with row 0 reserved for characters not in any specific range)
-
+- `cmin`: The minimum character code in this range (inclusive)
+- `cmax`: The maximum character code in this range (inclusive)
+- `rownum`: The row index in the hicolormap array (must be >= 1, with row 0 reserved for characters not in any specific range)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [chr](chr.md) (character type)

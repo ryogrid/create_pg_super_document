@@ -20,7 +20,7 @@ Leader apply workers are responsible for coordinating the overall logical replic
 The function includes an assertion to ensure that the worker is currently in use before checking its type. It then compares the worker type against  to determine if this is the leader apply worker.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

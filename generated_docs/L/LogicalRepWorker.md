@@ -73,27 +73,26 @@ typedef struct LogicalRepWorker
 LogicalRepWorker is a shared memory structure that tracks the state and configuration of individual logical replication worker processes. It serves as the central control structure for managing both apply workers (which apply changes from the publisher) and table synchronization workers (which perform initial data synchronization for new tables). The structure supports parallel apply functionality where multiple workers can process changes concurrently, with leader-follower relationships tracked through the leader_pid field.
 
 ## Parameters / Member Variables
-- : The type of logical replication worker (apply, sync, parallel apply, etc.)
-- : Timestamp when this worker process was started
-- : Boolean flag indicating whether this worker slot is currently active
-- : Counter incremented each time the slot is reassigned to prevent stale references
-- : Pointer to the process array entry for this worker, NULL when not running
-- : Object ID of the target database the worker connects to
-- : Object ID of the user account used for replication connections
-- : Object ID of the subscription this worker serves
-- : Object ID of the relation being synchronized (for table sync workers)
-- : Current synchronization state of the relation
-- : LSN position associated with the relation state
-- : Spinlock protecting relation state information
-- : File set for managing streaming transaction data files
-- : Process ID of the leader worker for parallel apply workers
-- : Flag indicating if this worker supports parallel processing
-- : Last LSN position processed by this worker
-- : Timestamp of last message sent by this worker
-- : Timestamp of last message received by this worker
-- : LSN position of last reply sent to publisher
-- : Timestamp of last reply sent to publisher
-
+- `type`: The type of logical replication worker (apply, sync, parallel apply, etc.)
+- `launch_time`: Timestamp when this worker process was started
+- `in_use`: Boolean flag indicating whether this worker slot is currently active
+- `generation`: Counter incremented each time the slot is reassigned to prevent stale references
+- `*proc`: Pointer to the process array entry for this worker, NULL when not running
+- `dbid`: Object ID of the target database the worker connects to
+- `userid`: Object ID of the user account used for replication connections
+- `subid`: Object ID of the subscription this worker serves
+- `relid`: Object ID of the relation being synchronized (for table sync workers)
+- `relstate`: Current synchronization state of the relation
+- `relstate_lsn`: LSN position associated with the relation state
+- `relmutex`: Spinlock protecting relation state information
+- `*stream_fileset`: File set for managing streaming transaction data files
+- `leader_pid`: Process ID of the leader worker for parallel apply workers
+- `parallel_apply`: Flag indicating if this worker supports parallel processing
+- `last_lsn`: Last LSN position processed by this worker
+- `last_send_time`: Timestamp of last message sent by this worker
+- `last_recv_time`: Timestamp of last message received by this worker
+- `reply_lsn`: LSN position of last reply sent to publisher
+- `reply_time`: Timestamp of last reply sent to publisher
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LogicalRepWorkerType](LogicalRepWorkerType.md)

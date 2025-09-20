@@ -24,7 +24,7 @@ Key characteristics of this function:
 This function is commonly used by monitoring tools, backup scripts, and replication systems to track WAL generation progress and coordinate external archiving processes.
 
 ## Parameters / Member Variables
-- No parameters (uses  macro for SQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,7 +20,7 @@ Parallel apply workers are spawned by the leader apply worker to improve perform
 The function includes an assertion to ensure that the worker is currently in use before delegating to the  macro, which checks both the worker's usage status and that its type is .
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

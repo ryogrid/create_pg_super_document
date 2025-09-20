@@ -15,7 +15,7 @@ void TouchSocketLockFiles(void)
 This function iterates through all registered lock files and updates their timestamps using the utime() system call. The primary purpose is to prevent overzealous temporary directory cleanup daemons from removing socket lock files due to perceived inactivity. This is particularly important for Unix domain sockets that are often placed in /tmp directories. The function specifically skips the data directory lock file (DIRECTORY_LOCK_FILE) as it's considered sufficiently protected. Any errors during the timestamp update are silently ignored to avoid disrupting normal operations.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

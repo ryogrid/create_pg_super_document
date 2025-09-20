@@ -15,7 +15,7 @@ Datum pg_ls_archive_statusdir(PG_FUNCTION_ARGS)
 This function provides access to the contents of PostgreSQL's WAL archive status directory, which contains status files that track the archiving state of Write-Ahead Log (WAL) files. The archive status directory is located within the WAL directory (pg_wal/archive_status) and contains files with extensions like .ready, .done, and .backup that indicate whether WAL files are ready for archiving, have been archived, or are backup-related. This function is essential for monitoring the WAL archiving process and diagnosing archiving issues.
 
 ## Parameters / Member Variables
-- No explicit parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

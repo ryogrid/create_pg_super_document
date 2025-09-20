@@ -26,7 +26,6 @@ The buffering approach groups tuples by their target locations in the index tree
 - : Pointer to GISTBuildState structure containing:
   - : GiST build buffers structure with buffer management data
   - : The level of the root in the index tree
-  - Various other build state information passed to helper functions
 - : The index tuple to be inserted into the appropriate buffer
 
 ## Dependencies

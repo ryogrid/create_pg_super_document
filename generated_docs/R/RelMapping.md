@@ -21,9 +21,8 @@ RelMapping represents a single mapping entry in the relation mapper system. It e
 The structure is straightforward, containing only the essential information needed to map logical catalog identifiers to their physical storage locations. This mapping is crucial for system catalogs that require stable, predictable file locations regardless of database operations that might otherwise cause relation file numbers to change.
 
 ## Parameters / Member Variables
-- : The object identifier (OID) of a system catalog relation that requires mapping
-- : The corresponding relation file number that identifies the physical file on disk where this catalog's data is stored
-
+- `mapoid`: The object identifier (OID) of a system catalog relation that requires mapping
+- `mapfilenumber`: The corresponding relation file number that identifies the physical file on disk where this catalog's data is stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileNumber](RelFileNumber.md) (data type)

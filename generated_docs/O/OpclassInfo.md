@@ -20,10 +20,9 @@ typedef struct _opfamilyInfo
 OpclassInfo stores metadata about PostgreSQL operator classes for the dump and restore process. Operator classes define sets of operators and support functions that an access method can use for a particular data type. This structure captures the operator class's association with its access method and ownership information, enabling pg_dump to properly recreate custom operator classes during database restoration with their correct relationships and permissions.
 
 ## Parameters / Member Variables
-- : DumpableObject containing basic dump metadata (OID, name, namespace, dependencies, etc.)
-- : OID of the access method that this operator class belongs to (references pg_am.oid)
-- : Name of the role/user who owns this operator class
-
+- `dobj`: DumpableObject containing basic dump metadata (OID, name, namespace, dependencies, etc.)
+- `opfmethod`: OID of the access method that this operator class belongs to (references pg_am.oid)
+- `*rolname`: Name of the role/user who owns this operator class
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure for dump metadata)

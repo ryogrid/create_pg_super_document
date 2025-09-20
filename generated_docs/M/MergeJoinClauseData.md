@@ -43,14 +43,13 @@ MergeJoinClauseData represents the runtime state for a single merge join clause 
 The structure is created and initialized by MJExamineQuals() during merge join node initialization, with one MergeJoinClauseData instance created for each mergejoinable condition provided by the planner.
 
 ## Parameters / Member Variables
-- : Pre-compiled expression state for evaluating the left-hand (outer relation) side of the join condition
-- : Pre-compiled expression state for evaluating the right-hand (inner relation) side of the join condition  
-- : Cached result value from the most recent evaluation of lexpr
-- : Cached result value from the most recent evaluation of rexpr
-- : NULL indicator flag for ldatum
-- : NULL indicator flag for rdatum
-- : Sort support data containing comparison functions, collation info, sort direction, and null handling rules for efficiently comparing ldatum and rdatum
-
+- `*lexpr`: Pre-compiled expression state for evaluating the left-hand (outer relation) side of the join condition
+- `*rexpr`: Pre-compiled expression state for evaluating the right-hand (inner relation) side of the join condition
+- `ldatum`: Cached result value from the most recent evaluation of lexpr
+- `rdatum`: Cached result value from the most recent evaluation of rexpr
+- `lisnull`: NULL indicator flag for ldatum
+- `risnull`: NULL indicator flag for rdatum
+- `ssup`: Sort support data containing comparison functions, collation info, sort direction, and null handling rules for efficiently comparing ldatum and rdatum
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupportData

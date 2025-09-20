@@ -19,7 +19,6 @@ The function uses a static buffer to store the modified locale name, avoiding dy
 
 ## Parameters / Member Variables
 - : Pointer to an array of  structures that define the mapping rules
-- LANG=C.UTF-8
 LANGUAGE=
 LC_CTYPE="C.UTF-8"
 LC_NUMERIC="C.UTF-8"

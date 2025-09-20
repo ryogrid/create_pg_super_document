@@ -23,7 +23,6 @@ The function operates in two phases:
 2. Subsequent calls: Returns each match result until all matches are exhausted
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function call interface (PG_FUNCTION_ARGS)
 - PG_GETARG_TEXT_PP(1): The regular expression pattern
 - PG_GETARG_TEXT_PP_IF_EXISTS(2): Optional flags string for regex options
 - PG_GETARG_TEXT_P_COPY(0): The input text to search (copied to multi-call context)

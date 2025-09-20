@@ -18,8 +18,7 @@ typedef struct spgConfigIn
 spgConfigIn is a simple input structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is passed to the opclass config method to provide information about the data type that will be indexed. The config method uses this information to determine appropriate configuration parameters for the index, which are returned in the corresponding spgConfigOut structure.
 
 ## Parameters / Member Variables
-- : OID of the data type to be indexed. This identifies the PostgreSQL data type for which the SP-GiST index is being configured.
-
+- `attType`: OID of the data type to be indexed. This identifies the PostgreSQL data type for which the SP-GiST index is being configured.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

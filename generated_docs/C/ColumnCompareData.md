@@ -22,8 +22,7 @@ This design leverages PostgreSQL's type cache system, which maintains cached typ
 The structure serves as a specialized interface for record comparison functions, providing a consistent way to access cached type information specifically in the context of column-by-column record comparisons.
 
 ## Parameters / Member Variables
-- : Pointer to a TypeCacheEntry structure containing comprehensive type metadata including comparison functions, hash functions, type OID, and other type-specific information needed for comparison operations
-
+- `*typentry`: Pointer to a TypeCacheEntry structure containing comprehensive type metadata including comparison functions, hash functions, type OID, and other type-specific information needed for comparison operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeCacheEntry](../T/TypeCacheEntry.md)

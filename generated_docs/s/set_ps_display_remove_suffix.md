@@ -24,7 +24,7 @@ This function removes a previously added suffix from the process title, effectiv
 This function is typically called when a PostgreSQL process finishes a temporary activity that required showing additional status information, such as completing a wait operation or finishing a maintenance task.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,11 +21,10 @@ typedef struct PREDICATELOCKTARGETTAG
 PREDICATELOCKTARGETTAG is a versatile identification structure used to uniquely identify database objects that can be targets of predicate locks in PostgreSQL's serializable snapshot isolation implementation. The structure consists of four generic 32-bit fields that can represent different combinations of database identifiers depending on the granularity of the lock target. For example, these fields might represent database OID, relation OID, block number, and tuple offset for tuple-level locks, or just database OID and relation OID for relation-level locks. The flexible design allows the same structure to identify locks at different granularities (relation, page, or tuple level). The structure is carefully designed to work with hash functions, though there are important considerations about field alignment and initialization to ensure proper hashing behavior.
 
 ## Parameters / Member Variables
-- : A 32-bit ID field, typically used for database OID or other high-level identifier
-- : A 32-bit ID field, typically used for relation OID or tablespace identifier
-- : A 32-bit ID field, typically used for block number or additional relation identifier
-- : A 32-bit ID field, typically used for tuple offset or other fine-grained identifier
-
+- `locktag_field1`: A 32-bit ID field, typically used for database OID or other high-level identifier
+- `locktag_field2`: A 32-bit ID field, typically used for relation OID or tablespace identifier
+- `locktag_field3`: A 32-bit ID field, typically used for block number or additional relation identifier
+- `locktag_field4`: A 32-bit ID field, typically used for tuple offset or other fine-grained identifier
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint32 (base integer type)

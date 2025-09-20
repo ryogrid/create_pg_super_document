@@ -16,7 +16,7 @@ Async_UnlistenAll(void)
 Async_UnlistenAll handles the UNLISTEN * command which removes all notification channel subscriptions for the current session. It also serves as a cleanup function called during backend exit to ensure proper resource cleanup. The function provides a wrapper around queue_listen with the LISTEN_UNLISTEN_ALL action. Like Async_Unlisten, it includes an optimization to avoid unnecessary work when the session could not possibly be listening to any channels. The actual unlisten operation is deferred until transaction commit to maintain transactional semantics.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

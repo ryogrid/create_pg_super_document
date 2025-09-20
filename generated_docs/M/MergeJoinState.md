@@ -35,25 +35,24 @@ typedef struct MergeJoinState
 MergeJoinState extends JoinState to provide comprehensive state management for merge join execution. Merge joins are efficient for joining two relations that are already sorted on the join keys, using a parallel scan algorithm similar to merging sorted arrays. The state maintains join clauses for multi-column joins, tracks the current position in the merge algorithm state machine, manages tuple slots for current and marked positions, and handles optimization flags for performance improvements.
 
 ## Parameters / Member Variables
-- : Base JoinState structure containing common join execution state
-- : Number of join clauses (for multi-column joins)
-- : Array of MergeJoinClause structures, one for each join condition
-- : Current state of the merge join state machine (tracks algorithm progress)
-- : Optimization flag - true if Mark and Restore operations can be skipped
-- : True to issue extra Mark operations on inner scan for optimization
-- : True if there is a constant-false join qualification (optimization)
-- : True if unjoined outer tuples should be emitted (for left/full outer joins)
-- : True if unjoined inner tuples should be emitted (for right/full outer joins)
-- : True if a join match has been found for the current outer tuple
-- : True if a join match has been found for the current inner tuple
-- : Tuple slot for the current outer relation tuple
-- : Tuple slot for the current inner relation tuple
-- : Tuple slot for the marked position (used for backtracking)
-- : Pre-prepared null tuple for right outer joins
-- : Pre-prepared null tuple for left outer joins
-- : Expression context for computing outer tuple join values
-- : Expression context for computing inner tuple join values
-
+- `js`: Base JoinState structure containing common join execution state
+- `mj_NumClauses`: Number of join clauses (for multi-column joins)
+- `mj_Clauses`: Array of MergeJoinClause structures, one for each join condition
+- `mj_JoinState`: Current state of the merge join state machine (tracks algorithm progress)
+- `mj_SkipMarkRestore`: Optimization flag - true if Mark and Restore operations can be skipped
+- `mj_ExtraMarks`: True to issue extra Mark operations on inner scan for optimization
+- `mj_ConstFalseJoin`: True if there is a constant-false join qualification (optimization)
+- `mj_FillOuter`: True if unjoined outer tuples should be emitted (for left/full outer joins)
+- `mj_FillInner`: True if unjoined inner tuples should be emitted (for right/full outer joins)
+- `mj_MatchedOuter`: True if a join match has been found for the current outer tuple
+- `mj_MatchedInner`: True if a join match has been found for the current inner tuple
+- `*mj_OuterTupleSlot`: Tuple slot for the current outer relation tuple
+- `*mj_InnerTupleSlot`: Tuple slot for the current inner relation tuple
+- `*mj_MarkedTupleSlot`: Tuple slot for the marked position (used for backtracking)
+- `*mj_NullOuterTupleSlot`: Pre-prepared null tuple for right outer joins
+- `*mj_NullInnerTupleSlot`: Pre-prepared null tuple for left outer joins
+- `*mj_OuterEContext`: Expression context for computing outer tuple join values
+- `*mj_InnerEContext`: Expression context for computing inner tuple join values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [JoinState](../J/JoinState.md) (inherited base structure)

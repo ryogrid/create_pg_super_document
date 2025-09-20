@@ -15,8 +15,7 @@ Datum brin_bloom_summary_out(PG_FUNCTION_ARGS)
 This function serves as the output routine for the brin_bloom_summary data type, converting the internal binary bloom filter representation into a readable text format. It deserializes the bloom filter data and extracts key metrics including the number of hash functions, total bits in the bitmap, and the number of bits currently set. The output format provides essential debugging and monitoring information about the bloom filter's state, formatted as a structured string with labeled fields.
 
 ## Parameters / Member Variables
-- No direct parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Operates on a brin_bloom_summary datum from the argument list
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ Size PgArchShmemSize(void)
 This function computes the total shared memory size needed by the PostgreSQL archiver subsystem. It specifically calculates the memory required for the PgArchData structure, which contains the shared state information for the archiver process. The function is part of PostgreSQL's shared memory initialization infrastructure and is called during server startup to determine memory allocation requirements.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

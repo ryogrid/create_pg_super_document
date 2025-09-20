@@ -48,20 +48,19 @@ typedef struct file_entry_t
 The file_entry_t structure is a comprehensive representation of file information used by PostgreSQL's pg_rewind utility. It stores detailed information about files present in both the source and target PostgreSQL clusters, enabling the rewind process to make informed decisions about what actions to take for each file. The structure maintains separate status information for both target and source systems, tracks which pages need to be overwritten for relation files, and stores the final action to be performed on each file.
 
 ## Parameters / Member Variables
-- : Hash table status field used when the entry is stored in a hash table
-- : File path relative to the PostgreSQL data directory
-- : Boolean flag indicating whether this is a relation data file (table/index data)
-- : Whether the file exists in the target cluster
-- : Type of the file in the target cluster (regular file, directory, symlink, etc.)
-- : Size of the file in the target cluster (for regular files)
-- : Target path for symbolic links in the target cluster
-- : Bitmap of pages that were modified in the target and need replacement
-- : Whether the file exists in the source cluster
-- : Type of the file in the source cluster
-- : Size of the file in the source cluster (for regular files)
-- : Target path for symbolic links in the source cluster
-- : The determined action to perform on this file during the rewind process
-
+- `status`: Hash table status field used when the entry is stored in a hash table
+- `*path`: File path relative to the PostgreSQL data directory
+- `isrelfile`: Boolean flag indicating whether this is a relation data file (table/index data)
+- `target_exists`: Whether the file exists in the target cluster
+- `target_type`: Type of the file in the target cluster (regular file, directory, symlink, etc.)
+- `target_size`: Size of the file in the target cluster (for regular files)
+- `*target_link_target`: Target path for symbolic links in the target cluster
+- `target_pages_to_overwrite`: Bitmap of pages that were modified in the target and need replacement
+- `source_exists`: Whether the file exists in the source cluster
+- `source_type`: Type of the file in the source cluster
+- `source_size`: Size of the file in the source cluster (for regular files)
+- `*source_link_target`: Target path for symbolic links in the source cluster
+- `action`: The determined action to perform on this file during the rewind process
 ## Dependencies
 - Functions called/Symbols referenced:
   - file_type_t (enum for file types)

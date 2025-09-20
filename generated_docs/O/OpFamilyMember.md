@@ -30,16 +30,15 @@ The structure supports PostgreSQL's dependency management system by distinguishi
 The amadjustmembers functions receive lists of these structures and can modify their "ref" fields to adjust dependency behavior based on access method requirements.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this member represents a support function (true) or an operator (false)
-- : OID of the operator or support function being referenced
-- : Strategy number for operators or support function number for functions
-- : OID of the left operand data type for the operator/function
-- : OID of the right operand data type for the operator/function
-- : OID of the sort operator family for ordering operators, or 0 if not applicable
-- : Boolean determining dependency strength - true for hard (NORMAL/INTERNAL), false for soft (AUTO)
-- : Boolean indicating whether the dependency is on an opfamily (true) or opclass (false)
-- : OID of the operator class or operator family that this member belongs to
-
+- `is_func`: Boolean flag indicating whether this member represents a support function (true) or an operator (false)
+- `object`: OID of the operator or support function being referenced
+- `number`: Strategy number for operators or support function number for functions
+- `lefttype`: OID of the left operand data type for the operator/function
+- `righttype`: OID of the right operand data type for the operator/function
+- `sortfamily`: OID of the sort operator family for ordering operators, or 0 if not applicable
+- `ref_is_hard`: Boolean determining dependency strength - true for hard (NORMAL/INTERNAL), false for soft (AUTO)
+- `ref_is_family`: Boolean indicating whether the dependency is on an opfamily (true) or opclass (false)
+- `refobjid`: OID of the operator class or operator family that this member belongs to
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a data structure definition)

@@ -15,7 +15,7 @@ bool in_error_recursion_trouble(void)
 This function provides a centralized mechanism to detect when the PostgreSQL error handling system is at risk of infinite recursion. It monitors the static `recursion_depth` variable that tracks how many levels deep the error handling system has recursed. When this depth exceeds 2, the function returns true, indicating that fallback error handling measures should be taken to prevent system instability. This is critical for preventing stack overflow crashes when error handling code itself triggers additional errors. The threshold of 2 allows for one level of normal error recovery while still catching dangerous recursive scenarios early.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

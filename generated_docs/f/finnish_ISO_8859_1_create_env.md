@@ -25,7 +25,7 @@ This function serves as a factory method for creating Snowball stemming environm
 The function delegates to the generic SN_create_env function with the appropriate parameters for Finnish language requirements. This ensures proper memory allocation and initialization of all internal structures needed for the stemming process.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

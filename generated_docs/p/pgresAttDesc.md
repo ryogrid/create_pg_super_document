@@ -24,14 +24,13 @@ typedef struct pgresAttDesc
 The  structure contains comprehensive metadata about a column in a PostgreSQL query result set. It serves as a descriptor that provides both logical information (column name, source table/column) and physical characteristics (data type, size, format). This structure is fundamental to libpq's result handling, allowing client applications to understand the structure and data types of query results. The format field distinguishes between text and binary data representation, while the type information enables proper data interpretation and conversion.
 
 ## Parameters / Member Variables
-- : The name of the column as it appears in the result set
-- : OID of the source table if the column originates from a specific table, 0 if unknown
-- : Attribute number of the column in the source table, 0 if unknown or not applicable
-- : Format code indicating data representation (0 for text, 1 for binary)
-- : PostgreSQL type OID that identifies the data type of the column
-- : Size of the data type in bytes (-1 for variable-length types, -2 for null-terminated strings)
-- : Type-specific modifier providing additional type information (e.g., precision for numeric types)
-
+- `*name`: The name of the column as it appears in the result set
+- `tableid`: OID of the source table if the column originates from a specific table, 0 if unknown
+- `columnid`: Attribute number of the column in the source table, 0 if unknown or not applicable
+- `format`: Format code indicating data representation (0 for text, 1 for binary)
+- `typid`: PostgreSQL type OID that identifies the data type of the column
+- `typlen`: Size of the data type in bytes (-1 for variable-length types, -2 for null-terminated strings)
+- `atttypmod`: Type-specific modifier providing additional type information (e.g., precision for numeric types)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

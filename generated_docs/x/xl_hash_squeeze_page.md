@@ -35,12 +35,11 @@ The operation involves up to 6 backup blocks:
 - Backup Blk 5: meta page
 
 ## Parameters / Member Variables
-- : Block number of the page that was previous to the freed overflow page in the bucket chain
-- : Block number of the page that was next to the freed overflow page in the bucket chain
-- : Number of tuples that were moved from the freed overflow page
-- : Boolean flag indicating whether the page receiving the moved tuples is the same as the primary bucket page
-- : Boolean flag indicating whether the page receiving the moved tuples is the page that was previous to the freed overflow page
-
+- `prevblkno`: Block number of the page that was previous to the freed overflow page in the bucket chain
+- `nextblkno`: Block number of the page that was next to the freed overflow page in the bucket chain
+- `ntups`: Number of tuples that were moved from the freed overflow page
+- `is_prim_bucket_same_wrt`: Boolean flag indicating whether the page receiving the moved tuples is the same as the primary bucket page
+- `is_prev_bucket_same_wrt`: Boolean flag indicating whether the page receiving the moved tuples is the page that was previous to the freed overflow page
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)

@@ -23,7 +23,6 @@ Two network addresses are considered equal when network_cmp_internal() returns 0
 For cidr types, subnet bits are always zero, so equality depends primarily on the network portion and netmask size. For inet types, the complete address including subnet bits must match. This function is typically registered in PostgreSQL's system catalogs as the implementation for the '=' operator between inet/cidr types, enabling SQL queries to perform direct equality comparisons like `inet_col1 = inet_col2`.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - `PG_GETARG_INET_PP(0)`: First inet/cidr argument (left operand of =)
 - `PG_GETARG_INET_PP(1)`: Second inet/cidr argument (right operand of =)
 

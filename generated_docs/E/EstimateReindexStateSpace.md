@@ -19,7 +19,7 @@ The function computes the total size by adding:
 - The size needed for the array of pending reindexed index OIDs
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -17,9 +17,7 @@ The `to_hex32` function is a PostgreSQL SQL-callable function that takes a 32-bi
 This function serves as a wrapper around the internal `convert_to_base` utility function, specifically configured for base-16 conversion. Hexadecimal representation uses digits 0-9 and letters a-f (lowercase), providing the most compact readable representation of binary data. This makes it particularly useful for displaying memory addresses, bit patterns, and other low-level data representations.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using `PG_FUNCTION_ARGS`
 - Expects one argument: a 32-bit integer value accessed via `PG_GETARG_INT32(0)`
-- The input is cast to `uint32` to ensure unsigned interpretation before conversion to `uint64`
 
 ## Dependencies
 - Functions called/Symbols referenced:

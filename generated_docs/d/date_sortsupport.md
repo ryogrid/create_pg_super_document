@@ -15,7 +15,6 @@ Datum date_sortsupport(PG_FUNCTION_ARGS)
 This function implements PostgreSQL's sort support interface for DATE data types, enabling optimized sorting performance. It receives a SortSupport structure and configures it to use the specialized ssup_datum_int32_cmp comparator function. Since DateADT values are internally represented as 32-bit integers (days since 2000-01-01), this optimization allows the sort infrastructure to bypass the overhead of the standard function call mechanism and use direct integer comparisons for much faster sorting operations during ORDER BY clauses, index creation, and other sorting-intensive operations.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function argument mechanism (PG_FUNCTION_ARGS)
 - Argument 0: SortSupport pointer structure to be configured
 
 ## Dependencies

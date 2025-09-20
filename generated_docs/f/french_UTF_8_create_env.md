@@ -19,7 +19,7 @@ The french_UTF_8_create_env function is a factory function that creates a new Sn
 This function serves as the initialization point for French UTF-8 stemming sessions, providing the necessary data structures and memory allocation required by the stemming algorithm. The returned environment structure contains all the working memory, cursor positions, boundary markers, and state variables needed for the french_UTF_8_stem function to operate.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

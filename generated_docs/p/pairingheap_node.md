@@ -24,10 +24,9 @@ The node structure supports the pairing heap's characteristic operations: mergin
 The node is designed to be embedded within larger application-specific structures rather than used standalone, following PostgreSQL's pattern of intrusive data structures for memory efficiency.
 
 ## Parameters / Member Variables
-- : Points to the node's first child in the heap tree structure, or NULL if the node has no children
-- : Points to the next sibling node in the doubly-linked list of children, or NULL if this is the last child
-- : Points to either the previous sibling node (if this node is not the first child) or to the parent node (if this node is the first child of its parent)
-
+- `*first_child`: Points to the node's first child in the heap tree structure, or NULL if the node has no children
+- `*next_sibling`: Points to the next sibling node in the doubly-linked list of children, or NULL if this is the last child
+- `*prev_or_parent`: Points to either the previous sibling node (if this node is not the first child) or to the parent node (if this node is the first child of its parent)
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)
 - Called from (representative examples):

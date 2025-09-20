@@ -47,19 +47,18 @@ typedef struct GinState
 GinState serves as the central working structure for GIN index operations, encapsulating all necessary information about the index being processed. It handles both single-column and multi-column indexes, maintaining tuple descriptors and operator class support functions. For multi-column indexes, it manages the complexity of storing different data types by maintaining separate tuple descriptors for each column. The structure also tracks which optional support functions are available for each column.
 
 ## Parameters / Member Variables
-- : Relation structure representing the GIN index being operated on
-- : Boolean flag indicating whether this is a single-column index
-- : Original tuple descriptor showing key types for each index column
-- : Array of tuple descriptors for actual leaf tuple rowtypes
-- : Compare function for each index column
-- : Value extraction function for each column
-- : Query extraction function for each column
-- : Consistency check function for each column
-- : Ternary consistency function for each column
-- : Optional partial comparison function for each column
-- : Array indicating which columns support partial matching
-- : Collation information for each column's support functions
-
+- `index`: Relation structure representing the GIN index being operated on
+- `oneCol`: Boolean flag indicating whether this is a single-column index
+- `origTupdesc`: Original tuple descriptor showing key types for each index column
+- `tupdesc[INDEX_MAX_KEYS]`: Array of tuple descriptors for actual leaf tuple rowtypes
+- `compareFn[INDEX_MAX_KEYS]`: Compare function for each index column
+- `extractValueFn[INDEX_MAX_KEYS]`: Value extraction function for each column
+- `extractQueryFn[INDEX_MAX_KEYS]`: Query extraction function for each column
+- `consistentFn[INDEX_MAX_KEYS]`: Consistency check function for each column
+- `triConsistentFn[INDEX_MAX_KEYS]`: Ternary consistency function for each column
+- `comparePartialFn[INDEX_MAX_KEYS]`: Optional partial comparison function for each column
+- `canPartialMatch[INDEX_MAX_KEYS]`: Array indicating which columns support partial matching
+- `supportCollation[INDEX_MAX_KEYS]`: Collation information for each column's support functions
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant)

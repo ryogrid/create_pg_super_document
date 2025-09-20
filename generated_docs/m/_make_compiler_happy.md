@@ -17,7 +17,7 @@ This function serves as a workaround for compiler warnings that occur when stati
 The function itself is never meant to be called during normal program execution - it exists solely to satisfy compiler requirements. This is a common pattern in C codebases where function tables or conditional compilation might leave some functions unused in certain build configurations.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

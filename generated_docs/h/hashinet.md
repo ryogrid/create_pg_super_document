@@ -16,8 +16,7 @@ structure */
 This function serves as a support function for hash indexes on inet and cidr data types in PostgreSQL. It computes a hash value for network addresses by extracting the binary representation of the inet/cidr value and applying PostgreSQL's general-purpose hash_any function. The function assumes there are no padding bytes in the inet data structure when calculating the hash.
 
 ## Parameters / Member Variables
-- Uses  macro to access the single inet/cidr argument passed to the function
-- The argument is retrieved using  which gets the first parameter as an inet pointer
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

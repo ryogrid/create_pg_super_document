@@ -16,7 +16,7 @@ pgstat_fetch_stat_numbackends(void)
 This is a support function for PostgreSQL's SQL-callable pgstat* functions that returns the total count of sessions currently known in the localBackendStatusTable. The returned value represents the maximum valid 1-based index that can be passed to pgstat_get_local_beentry_by_index(). The function ensures the local status table is current by calling pgstat_read_current_status() before returning the count.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

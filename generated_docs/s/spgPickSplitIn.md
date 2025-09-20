@@ -20,10 +20,9 @@ typedef struct spgPickSplitIn
 spgPickSplitIn is an input structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is passed to the opclass picksplit method when a leaf page becomes too full and needs to be split. The method uses this information to decide how to partition the leaf tuples into groups and potentially create new inner tuple structure to organize them efficiently.
 
 ## Parameters / Member Variables
-- : The number of leaf tuples that need to be organized in the split operation
-- : Array of datum values from the leaf tuples, with length equal to nTuples
-- : The current depth level in the tree where the split is occurring, starting from zero at the root level
-
+- `nTuples`: The number of leaf tuples that need to be organized in the split operation
+- `*datums`: Array of datum values from the leaf tuples, with length equal to nTuples
+- `level`: The current depth level in the tree where the split is occurring, starting from zero at the root level
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL generic data value type)

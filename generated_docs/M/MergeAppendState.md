@@ -27,7 +27,7 @@ typedef struct MergeAppendState
 MergeAppendState maintains the execution state for a MergeAppend plan node, which combines sorted output from multiple child plans while preserving the sort order. It uses a binary heap to efficiently determine which subplan produces the next tuple in the merged result. The structure supports runtime partition pruning to eliminate unnecessary subplans during execution.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 12636 ?        00:00:00 bash
 12687 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node fields

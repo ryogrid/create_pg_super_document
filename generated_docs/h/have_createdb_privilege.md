@@ -17,7 +17,7 @@ This function determines whether the currently connected user has the necessary 
 The function performs a system catalog lookup to retrieve the user's role information and examines the  boolean field to make the privilege determination.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

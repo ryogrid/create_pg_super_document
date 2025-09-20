@@ -21,9 +21,8 @@ WriteManifestState is a minimal state management structure used in pg_basebackup
 The structure is designed to be simple and focused, dealing exclusively with manifest file operations without the complexity of stream processing or compression that is present in other state structures. It represents the essential state needed to write backup manifest data to disk during base backup operations.
 
 ## Parameters / Member Variables
-- : File path for the manifest file being written (maximum MAXPGPATH characters)
-- : FILE handle for the open manifest file, used for writing manifest data
-
+- `filename[MAXPGPATH]`: File path for the manifest file being written (maximum MAXPGPATH characters)
+- `*file`: FILE handle for the open manifest file, used for writing manifest data
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references - uses standard C FILE operations)

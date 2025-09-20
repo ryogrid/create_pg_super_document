@@ -23,10 +23,9 @@ The operation involves 1 backup block:
 - Backup Blk 0: meta page
 
 ## Parameters / Member Variables
-- : Initial estimate of the number of tuples expected in the hash index, stored as a double precision floating-point value
-- : The OID of the hash function procedure to be used for this hash index, stored as a RegProcedure type
-- : The fill factor for the hash index, indicating how full each bucket page should be before splitting occurs
-
+- `num_tuples`: Initial estimate of the number of tuples expected in the hash index, stored as a double precision floating-point value
+- `procid`: The OID of the hash function procedure to be used for this hash index, stored as a RegProcedure type
+- `ffactor`: The fill factor for the hash index, indicating how full each bucket page should be before splitting occurs
 ## Dependencies
 - Functions called/Symbols referenced:
   - RegProcedure (type for storing procedure OIDs)

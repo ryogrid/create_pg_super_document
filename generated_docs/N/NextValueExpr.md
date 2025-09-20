@@ -22,10 +22,9 @@ NextValueExpr provides the same functionality as calling the nextval() function 
 Unlike regular nextval() function calls, NextValueExpr nodes are created and managed automatically by the system when identity columns need values. The lack of permission checking reflects the fact that if a user has INSERT permission on a table with identity columns, they implicitly have the right to advance the associated sequences.
 
 ## Parameters / Member Variables
-- : Base expression node structure (inherited from Expr)
-- : OID of the sequence from which to get the next value
-- : OID of the data type that the sequence produces
-
+- `xpr`: Base expression node structure (inherited from Expr)
+- `seqid`: OID of the sequence from which to get the next value
+- `typeId`: OID of the data type that the sequence produces
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct symbol references)

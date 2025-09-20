@@ -19,7 +19,7 @@ This distinction is important because PostgreSQL supports the concept of session
 The function returns NULL if there's no active database connection.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

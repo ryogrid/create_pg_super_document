@@ -20,10 +20,6 @@ Unlike its safe counterpart, this function will throw an `ereport()` on invalid 
 
 ## Parameters / Member Variables
 - `s`: A null-terminated string containing the number to be converted, which may include:
-  - Optional leading/trailing whitespace
-  - Optional sign character ('+' or '-')
-  - Base prefixes (0x/0X for hex, 0o/0O for octal, 0b/0B for binary)
-  - Digits optionally separated by underscores for readability
 
 ## Dependencies
 - Functions called/Symbols referenced:

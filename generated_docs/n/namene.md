@@ -15,7 +15,6 @@ Datum namene(PG_FUNCTION_ARGS)
 `namene` is a PostgreSQL built-in function that performs inequality comparison between two Name data type values. It extracts two Name arguments from the function call context, compares them using the `namecmp` function with the current collation setting, and returns a boolean result indicating whether the names are not equal. This function implements the not-equal operator (!=) for Name types and is typically used in SQL WHERE clauses and JOIN conditions.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
 - `arg1`: First Name argument extracted using `PG_GETARG_NAME(0)`
 - `arg2`: Second Name argument extracted using `PG_GETARG_NAME(1)`
 

@@ -25,8 +25,7 @@ The function performs several validation steps:
 The function enforces naming conventions to prevent conflicts with system-reserved names and includes debugging support for regression testing when built with appropriate compiler flags.
 
 ## Parameters / Member Variables
-- Takes a single text argument (via PG_FUNCTION_ARGS) representing the replication origin name
-- Returns a Datum containing the assigned RepOriginId (OID)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

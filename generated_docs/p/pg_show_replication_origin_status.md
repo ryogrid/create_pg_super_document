@@ -18,7 +18,7 @@ pg_show_replication_origin_status(PG_FUNCTION_ARGS)
 The function acquires shared locks to safely read replication state but does not prevent concurrent modifications, so slightly out-of-date values are possible. It only displays replication origins that are currently in use (not InvalidRepOriginId).
 
 ## Parameters / Member Variables
-- No input parameters (uses  macro for PostgreSQL function interface)
+
 
 ## Return Columns
 The function returns a table with 4 columns (REPLICATION_ORIGIN_PROGRESS_COLS):

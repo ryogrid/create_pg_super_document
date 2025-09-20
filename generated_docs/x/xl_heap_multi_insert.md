@@ -20,10 +20,9 @@ typedef struct xl_heap_multi_insert
 This structure is used to record bulk insertion operations where multiple tuples are inserted into a heap table simultaneously. It provides an efficient WAL representation for operations like COPY, INSERT with multiple VALUES clauses, or other bulk loading scenarios. The structure uses a flexible array member to store the offset positions of all inserted tuples, while the actual tuple data and headers are stored separately in the WAL record's data blocks. This design optimizes both WAL space usage and recovery performance for bulk operations.
 
 ## Parameters / Member Variables
-- : Control flags indicating special conditions such as whether the page was reinitialized (XLOG_HEAP_INIT_PAGE)
-- : The number of tuples being inserted in this multi-insert operation
-- : A flexible array containing the offset numbers where each tuple was inserted within the page (omitted if the entire page is reinitialized)
-
+- `flags`: Control flags indicating special conditions such as whether the page was reinitialized (XLOG_HEAP_INIT_PAGE)
+- `ntuples`: The number of tuples being inserted in this multi-insert operation
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: A flexible array containing the offset numbers where each tuple was inserted within the page (omitted if the entire page is reinitialized)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure)

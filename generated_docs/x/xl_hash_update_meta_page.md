@@ -21,8 +21,7 @@ The operation involves 1 backup block:
 - Backup Blk 0: meta page
 
 ## Parameters / Member Variables
-- : The updated number of tuples in the hash index, stored as a double precision floating-point value for statistical purposes
-
+- `ntuples`: The updated number of tuples in the hash index, stored as a double precision floating-point value for statistical purposes
 ## Dependencies
 - Functions called/Symbols referenced:
   - double (type)

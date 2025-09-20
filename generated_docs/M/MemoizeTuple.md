@@ -22,9 +22,8 @@ MemoizeTuple is a fundamental component of PostgreSQL's memoization (caching) me
 The structure is lightweight and uses MinimalTuple format for space efficiency, which is a compact representation of tuples that excludes certain metadata present in full HeapTuples.
 
 ## Parameters / Member Variables
-- : A MinimalTuple containing the actual cached tuple data in a space-efficient format
-- : Pointer to the next MemoizeTuple in the linked list, or NULL if this is the last tuple for the current parameter set
-
+- `mintuple`: A MinimalTuple containing the actual cached tuple data in a space-efficient format
+- `*next`: Pointer to the next MemoizeTuple in the linked list, or NULL if this is the last tuple for the current parameter set
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple

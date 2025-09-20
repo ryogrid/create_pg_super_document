@@ -15,7 +15,7 @@ Datum pg_stat_get_checkpointer_restartpoints_performed(PG_FUNCTION_ARGS)
 This function retrieves the total count of restartpoints that have been successfully performed by the checkpointer process since cluster startup. On PostgreSQL standby servers, restartpoints serve the same fundamental purpose as checkpoints on primary servers - they ensure data consistency and provide recovery points by flushing dirty pages to disk. This metric represents the aggregate of all completed restartpoints regardless of whether they were triggered by timeout, explicit requests, or WAL volume thresholds.
 
 ## Parameters / Member Variables
-- No parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

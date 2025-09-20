@@ -28,8 +28,7 @@ Key capabilities include:
 - Platform-independent API through standardized macros
 
 ## Parameters / Member Variables
-- : A 64-bit integer storing time values in platform-specific units. On Unix systems, this represents nanoseconds since an epoch. On Windows, this represents high-resolution performance counter ticks.
-
+- `ticks`: A 64-bit integer storing time values in platform-specific units. On Unix systems, this represents nanoseconds since an epoch. On Windows, this represents high-resolution performance counter ticks.
 ## Dependencies
 - Functions called/Symbols referenced:
   -  (PostgreSQL's 64-bit integer type)

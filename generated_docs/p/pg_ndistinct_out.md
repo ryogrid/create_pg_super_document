@@ -19,7 +19,6 @@ The output format is a JSON-like structure where each entry shows the attribute 
 
 ## Parameters / Member Variables
 - Input parameter (via PG_FUNCTION_ARGS):
-  - Serialized bytea data containing MVNDistinct statistics
 
 ## Dependencies
 - Functions called/Symbols referenced:

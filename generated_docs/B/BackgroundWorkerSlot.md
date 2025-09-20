@@ -28,12 +28,11 @@ The key design principle is the handoff protocol controlled by the 'in_use' flag
 This protocol ensures that the postmaster never crashes due to shared memory corruption, as it never takes locks that could become wedged. The structure supports dynamic background worker registration and termination while maintaining system stability.
 
 ## Parameters / Member Variables
-- : Control flag for the handoff protocol; when false, backends control the slot; when true, postmaster controls it
-- : Signal flag that backends can set even when slot is in use, telling postmaster not to restart the worker
-- : Process ID of the background worker (InvalidPid if not started, 0 if dead)  
-- : Counter incremented each time the slot is recycled, used to detect stale references
-- : The actual BackgroundWorker configuration containing all worker-specific settings
-
+- `in_use`: Control flag for the handoff protocol; when false, backends control the slot; when true, postmaster controls it
+- `terminate`: Signal flag that backends can set even when slot is in use, telling postmaster not to restart the worker
+- `pid`: Process ID of the background worker (InvalidPid if not started, 0 if dead)
+- `generation`: Counter incremented each time the slot is recycled, used to detect stale references
+- `worker`: The actual BackgroundWorker configuration containing all worker-specific settings
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t

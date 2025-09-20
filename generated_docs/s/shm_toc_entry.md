@@ -21,9 +21,8 @@ The shm_toc_entry structure is a fundamental building block of PostgreSQL's shar
 The structure uses relative offsets rather than absolute pointers to ensure portability across different process address spaces. The key is typically a well-known or discoverable integer that uniquely identifies a particular data structure or resource within the shared memory segment.
 
 ## Parameters / Member Variables
-- : A 64-bit arbitrary identifier used as a unique key for looking up data structures within the shared memory segment
-- : The byte offset from the start of the TOC structure to the actual data, stored as a Size type to ensure proper alignment and portability
-
+- `key`: A 64-bit arbitrary identifier used as a unique key for looking up data structures within the shared memory segment
+- `offset`: The byte offset from the start of the TOC structure to the actual data, stored as a Size type to ensure proper alignment and portability
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a data structure)

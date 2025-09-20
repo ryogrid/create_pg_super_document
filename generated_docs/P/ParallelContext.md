@@ -32,22 +32,21 @@ typedef struct ParallelContext
 ParallelContext is the central management structure for PostgreSQL's parallel execution framework. It encapsulates all necessary information to create, coordinate, and manage parallel worker processes. This includes worker process configuration, shared memory management, error handling, and lifecycle tracking. The structure serves as the main coordination point between the leader process and its parallel workers, maintaining state information about worker processes and providing the infrastructure for inter-process communication through shared memory segments and message queues.
 
 ## Parameters / Member Variables
-- : Double-linked list node for maintaining ParallelContext instances in a list
-- : SubTransaction ID associated with this parallel context
-- : Maximum number of worker processes that can be launched
-- : Actual number of worker processes to be launched (may be less than nworkers)
-- : Number of worker processes that have actually been launched
-- : Name of the dynamic library containing the worker function
-- : Name of the entry point function for worker processes
-- : Stack of error context callbacks for error handling
-- : Estimator for calculating shared memory table of contents size
-- : Pointer to the dynamic shared memory segment used by parallel workers
-- : Private memory area for the parallel context
-- : Table of contents for the shared memory segment
-- : Array of ParallelWorkerInfo structures, one for each worker
-- : Number of workers known to have attached successfully
-- : Boolean array tracking which workers have attached
-
+- `node`: Double-linked list node for maintaining ParallelContext instances in a list
+- `subid`: SubTransaction ID associated with this parallel context
+- `nworkers`: Maximum number of worker processes that can be launched
+- `nworkers_to_launch`: Actual number of worker processes to be launched (may be less than nworkers)
+- `nworkers_launched`: Number of worker processes that have actually been launched
+- `*library_name`: Name of the dynamic library containing the worker function
+- `*function_name`: Name of the entry point function for worker processes
+- `*error_context_stack`: Stack of error context callbacks for error handling
+- `estimator`: Estimator for calculating shared memory table of contents size
+- `*seg`: Pointer to the dynamic shared memory segment used by parallel workers
+- `*private_memory`: Private memory area for the parallel context
+- `*toc`: Table of contents for the shared memory segment
+- `*worker`: Array of ParallelWorkerInfo structures, one for each worker
+- `nknown_attached_workers`: Number of workers known to have attached successfully
+- `*known_attached_workers`: Boolean array tracking which workers have attached
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md)

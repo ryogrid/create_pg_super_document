@@ -22,10 +22,9 @@ BufferManagerRelation serves as a flexible container for relation identification
 The structure enables the same buffer management functions to be used in both contexts through the BMR_REL() and BMR_SMGR() convenience macros, providing a clean abstraction that simplifies the buffer management API while supporting the different operational requirements of normal database operation versus recovery scenarios.
 
 ## Parameters / Member Variables
-- : A Relation pointer used during normal database operation when full relation metadata is available
-- : A pointer to SMgrRelationData structure containing storage manager information, used primarily during recovery or when only basic storage information is needed
-- : A character indicating the relation's persistence level (permanent, temporary, unlogged), required when working with storage manager directly
-
+- `rel`: A Relation pointer used during normal database operation when full relation metadata is available
+- `*smgr`: A pointer to SMgrRelationData structure containing storage manager information, used primarily during recovery or when only basic storage information is needed
+- `relpersistence`: A character indicating the relation's persistence level (permanent, temporary, unlogged), required when working with storage manager directly
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelationData (structure)

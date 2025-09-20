@@ -18,9 +18,8 @@ The  function is a PostgreSQL built-in function that implements the not-equal co
 The function properly handles IEEE 754 floating-point special cases, particularly NaN (Not-a-Number) values. According to IEEE standards, any comparison involving NaN should behave specially - two NaN values are considered not equal to each other, and NaN is not equal to any regular number.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's  calling convention
 - : First float4 operand extracted via 
-- : Second float4 operand extracted via 
+- : Second float4 operand extracted via
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,7 +21,7 @@ The validation rules enforced are:
 4. Cannot vacuum all tables in schemas while also excluding schemas
 
 ## Parameters / Member Variables
-- No parameters (accesses global `objfilter` variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,9 +21,8 @@ XLogwrtResult represents the completion status of Write-Ahead Log (WAL) operatio
 This structure works in tandem with XLogwrtRqst to implement PostgreSQL's WAL durability mechanism. While XLogwrtRqst indicates what needs to be done, XLogwrtResult tracks what has been completed. The positions are maintained using atomic access in shared memory variables logWriteResult and logFlushResult, with each backend maintaining private copies in LogwrtResult that are updated when convenient.
 
 ## Parameters / Member Variables
-- : XLogRecPtr indicating the last byte position + 1 that has been successfully written to disk
-- : XLogRecPtr indicating the last byte position + 1 that has been successfully fsynced for durability
-
+- `Write`: XLogRecPtr indicating the last byte position + 1 that has been successfully written to disk
+- `Flush`: XLogRecPtr indicating the last byte position + 1 that has been successfully fsynced for durability
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (data type for WAL record pointers)

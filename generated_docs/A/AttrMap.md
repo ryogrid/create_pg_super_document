@@ -27,9 +27,8 @@ The mapping works by storing an array of attribute numbers where each position i
 The structure is designed to handle the full attribute space of the output relation, including accounting for any dropped attributes by setting their corresponding mapping entries to 0.
 
 ## Parameters / Member Variables
-- : Array of AttrNumber values that maps each attribute position in the output relation to the corresponding attribute number in the input relation. Elements are set to 0 for dropped or non-existent attributes.
-- : The number of attributes in the 'output' relation, including any dropped attributes. This determines the size of the attnums array.
-
+- `*attnums`: Array of AttrNumber values that maps each attribute position in the output relation to the corresponding attribute number in the input relation. Elements are set to 0 for dropped or non-existent attributes.
+- `maplen`: The number of attributes in the 'output' relation, including any dropped attributes. This determines the size of the attnums array.
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (attribute number type)

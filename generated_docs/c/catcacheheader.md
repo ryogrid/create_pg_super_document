@@ -19,9 +19,8 @@ typedef struct catcacheheader
 The catcacheheader struct acts as the central management structure for PostgreSQL's entire catalog cache system. It maintains a singly-linked list of all active catalog caches and tracks global statistics such as the total number of cached tuples across all caches. This structure provides a single point of control for operations that need to affect all catalog caches, such as cache invalidation, statistics reporting, and system-wide cache management.
 
 ## Parameters / Member Variables
-- : Head of a singly-linked list containing all active CatCache structures in the system
-- : Total number of tuples currently cached across all catalog caches
-
+- `ch_caches`: Head of a singly-linked list containing all active CatCache structures in the system
+- `ch_ntup`: Total number of tuples currently cached across all catalog caches
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_head](../s/slist_head.md) (singly-linked list head structure)

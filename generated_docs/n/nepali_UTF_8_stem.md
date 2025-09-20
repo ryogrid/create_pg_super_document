@@ -26,10 +26,6 @@ The function uses cursor position management with save/restore operations (m1, m
 
 ## Parameters / Member Variables
 - `z`: Pointer to the SN_env structure containing:
-  - The input string to be stemmed
-  - Cursor positions (c, l, lb) for string navigation
-  - Boundary markers (bra, ket) for pattern matching
-  - Internal state for the stemming process
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -63,17 +63,16 @@ typedef struct catctup
 The catctup struct represents a single cached catalog tuple within PostgreSQL's catalog cache system. It serves as a wrapper around HeapTupleData with additional cache management metadata. The structure supports both positive entries (containing actual tuple data) and negative entries (indicating that no tuple exists for the given keys). Each cached tuple is organized into hash buckets for efficient lookup and maintains LRU ordering within buckets. The structure includes reference counting for safe memory management and supports membership in CatCList objects for partial key searches.
 
 ## Parameters / Member Variables
-- : Magic number (0x57261502) used to identify valid CatCTup entries for debugging
-- : Precomputed hash value of the tuple's key values for efficient bucket placement
-- : Array of key values used for cache lookups, supporting up to CATCACHE_MAXKEYS
-- : Doubly-linked list node for organizing tuples within hash buckets in LRU order
-- : Reference count tracking active usage to prevent premature deletion
-- : Flag indicating the tuple is logically deleted but still referenced
-- : Flag indicating this is a negative cache entry (no matching tuple exists)
-- : HeapTupleData structure containing the actual tuple data and metadata
-- : Pointer to containing CatCList if this tuple is part of a list search result
-- : Back-reference to the owning CatCache structure
-
+- `ct_magic`: Magic number (0x57261502) used to identify valid CatCTup entries for debugging
+- `hash_value`: Precomputed hash value of the tuple's key values for efficient bucket placement
+- `keys[CATCACHE_MAXKEYS]`: Array of key values used for cache lookups, supporting up to CATCACHE_MAXKEYS
+- `cache_elem`: Doubly-linked list node for organizing tuples within hash buckets in LRU order
+- `refcount`: Reference count tracking active usage to prevent premature deletion
+- `dead`: Flag indicating the tuple is logically deleted but still referenced
+- `negative`: Flag indicating this is a negative cache entry (no matching tuple exists)
+- `tuple`: HeapTupleData structure containing the actual tuple data and metadata
+- `*c_list`: Pointer to containing CatCList if this tuple is part of a list search result
+- `*my_cache`: Back-reference to the owning CatCache structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - CATCACHE_MAXKEYS (maximum number of cache keys)

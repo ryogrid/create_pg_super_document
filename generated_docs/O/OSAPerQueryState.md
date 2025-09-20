@@ -58,33 +58,28 @@ OSAPerQueryState is part of PostgreSQL's generic support for ordered-set aggrega
 The structure is set up during the first call of the transition function and lives in the executor's per-query memory context. It supports both tuple-based and datum-based accumulation modes, with different sets of fields being used depending on the accumulation strategy.
 
 ## Parameters / Member Variables
-- : Representative Aggref node for this aggregate function
-- : Memory context containing this struct and other per-query data
-- : Expression evaluation context for the aggregate
-- : Flag indicating if multiple final-function calls are expected within one group
-
-**Tuple accumulation fields:**
-- : Tuple descriptor for tuples inserted into the sort state
-- : Reusable tuple slot for inserting/extracting tuples
-- : Number of sort columns
-- : Array of attribute numbers for sort columns
-- : Array of sort operator OIDs for each column
-- : Array of equality operator OIDs for each column
-- : Array of collation OIDs for each column
-- : Array of null-ordering flags for each column
-- : Compiled expression for tuple equality comparison (created on demand)
-
-**Datum accumulation fields:**
-- : Data type OID of datums being sorted
-- : Type length for the datum type
-- : Whether the type is passed by value
-- : Alignment requirement for the type
-- : Sort operator OID for datum comparison
-- : Equality operator OID for datum comparison
-- : Collation OID for datum comparison
-- : Null-ordering flag for datum sorting
-- : Function manager info for equality function (created on demand)
-
+- `*aggref`: Representative Aggref node for this aggregate function
+- `qcontext`: Memory context containing this struct and other per-query data
+- `*econtext`: Expression evaluation context for the aggregate
+- `rescan_needed`: Flag indicating if multiple final-function calls are expected within one group
+- `tupdesc`: Tuple descriptor for tuples inserted into the sort state
+- `*tupslot`: Reusable tuple slot for inserting/extracting tuples
+- `numSortCols`: Number of sort columns
+- `*sortColIdx`: Array of attribute numbers for sort columns
+- `*sortOperators`: Array of sort operator OIDs for each column
+- `*eqOperators`: Array of equality operator OIDs for each column
+- `*sortCollations`: Array of collation OIDs for each column
+- `*sortNullsFirsts`: Array of null-ordering flags for each column
+- `*compareTuple`: Compiled expression for tuple equality comparison (created on demand)
+- `sortColType`: Data type OID of datums being sorted
+- `typLen`: Type length for the datum type
+- `typByVal`: Whether the type is passed by value
+- `typAlign`: Alignment requirement for the type
+- `sortOperator`: Sort operator OID for datum comparison
+- `eqOperator`: Equality operator OID for datum comparison
+- `sortCollation`: Collation OID for datum comparison
+- `sortNullsFirst`: Null-ordering flag for datum sorting
+- `equalfn`: Function manager info for equality function (created on demand)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Aggref

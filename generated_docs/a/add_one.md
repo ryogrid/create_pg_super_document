@@ -17,7 +17,6 @@ The  function is a PostgreSQL C function that takes a single 32-bit integer para
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL macro that provides access to function arguments and context information
-  - The function extracts the first argument as a 32-bit integer using 
 
 ## Dependencies
 - Functions called/Symbols referenced:

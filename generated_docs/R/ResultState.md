@@ -21,7 +21,7 @@ typedef struct ResultState
 ResultState maintains the execution state for Result nodes, which are used in PostgreSQL's executor to handle plans that either produce constant result tuples or apply qualification conditions. Result nodes are typically used for queries that don't require table access, such as SELECT with constant expressions, or for applying WHERE clauses that can be evaluated independently of table data. The structure tracks whether execution is complete and manages any constant qualification expressions that need to be evaluated.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 13664 ?        00:00:00 bash
 13691 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common execution state fields like the node tag and plan information

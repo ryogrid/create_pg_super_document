@@ -22,7 +22,7 @@ Thread safety in libpq means that:
 However, it's important to note that individual PGconn objects are not inherently thread-safe - each connection should still be used by only one thread at a time, or access must be synchronized by the application.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

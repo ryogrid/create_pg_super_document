@@ -21,7 +21,7 @@ This function serves as the comprehensive gate-keeper for enabling AVX-512 optim
 This layered approach ensures that not only does the CPU have the necessary instruction support, but that the operating system is properly configured to handle the extended register state that AVX-512 requires. This prevents crashes or corruption that could occur if AVX-512 instructions were used without proper OS support.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

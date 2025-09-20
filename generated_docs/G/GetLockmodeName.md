@@ -23,8 +23,6 @@ PostgreSQL supports different lock methods (though DEFAULT_LOCKMETHOD is most co
 - : The lock method identifier (typically DEFAULT_LOCKMETHOD)
 - : The lock mode number to get the name for
 
-**Return value**:  - A string containing the lock mode name (e.g., "AccessShareLock", "RowExclusiveLock", "AccessExclusiveLock")
-
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Macro to determine array length

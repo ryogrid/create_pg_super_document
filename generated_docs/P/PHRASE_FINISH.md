@@ -28,8 +28,7 @@ The state machine progression is:
 4. PHRASE_FINISH: Parsing completed successfully
 
 ## Parameters / Member Variables
-- Part of a local enumeration within the parse_phrase_operator function
-- Used as a state indicator in the parsing state machine
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

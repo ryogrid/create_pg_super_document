@@ -16,8 +16,6 @@ This function serves as the primary input conversion routine for tsvector data t
 
 ## Parameters / Member Variables
 - Function follows PostgreSQL's V1 calling convention, receiving arguments through PG_FUNCTION_ARGS macro:
-  - Input string (accessed via PG_GETARG_CSTRING(0))
-  - Error context for soft error handling
 
 ## Dependencies
 - Functions called/Symbols referenced:

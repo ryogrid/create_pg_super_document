@@ -18,8 +18,7 @@ typedef struct PLyArrayToOb
 PLyArrayToOb handles the conversion of PostgreSQL arrays to Python lists. It uses a recursive approach where it stores a pointer to the conversion information for the array's element type, allowing for nested arrays and complex element types. The conversion process iterates through the PostgreSQL array structure and applies the element conversion function to each item.
 
 ## Parameters / Member Variables
-- : Pointer to PLyDatumToOb conversion information for the array's element type, enabling recursive conversion of nested structures
-
+- `*elm`: Pointer to PLyDatumToOb conversion information for the array's element type, enabling recursive conversion of nested structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - [PLyDatumToOb](PLyDatumToOb.md) (for element type conversion)

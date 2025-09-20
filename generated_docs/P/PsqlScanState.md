@@ -17,7 +17,6 @@ PsqlScanState is a pointer type that provides an abstract interface to the inter
 The actual implementation details are hidden behind this abstract type, providing a clean interface that separates the public API from the internal implementation details of the scanner.
 
 ## Parameters / Member Variables
-- This is a typedef to a pointer, so it has no direct member variables
 - Points to PsqlScanStateData structure which contains:
   - `scanner`: Flex's state for this PsqlScanState
   - `output_buf`: Current output buffer

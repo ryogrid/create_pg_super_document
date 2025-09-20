@@ -22,11 +22,10 @@ typedef struct gistxlogPageReuse
 This structure is used to log GiST index page reuse operations in the write-ahead log. Page reuse occurs when a previously deleted page is recycled for new data. This information is particularly important for hot standby servers to properly handle recovery conflicts, ensuring that transactions with older snapshots don't access reused pages that might contain different data than what they expect to see.
 
 ## Parameters / Member Variables
-- : RelFileLocator identifying the specific relation file where the page reuse is occurring
-- : Block number of the page being reused within the relation
-- : Full transaction ID representing the conflict horizon for snapshot conflicts during recovery
-- : Boolean flag indicating if this is a catalog relation, used for handling recovery conflicts during logical decoding on standby servers
-
+- `locator`: RelFileLocator identifying the specific relation file where the page reuse is occurring
+- `block`: Block number of the page being reused within the relation
+- `snapshotConflictHorizon`: Full transaction ID representing the conflict horizon for snapshot conflicts during recovery
+- `isCatalogRel`: Boolean flag indicating if this is a catalog relation, used for handling recovery conflicts during logical decoding on standby servers
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionId

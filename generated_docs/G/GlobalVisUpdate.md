@@ -18,7 +18,7 @@ This function serves as a simple wrapper that triggers a complete update of glob
 The function is used when the system determines that the current visibility boundaries may be stale and need refreshing based on current transaction activity.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

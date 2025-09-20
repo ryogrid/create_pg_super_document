@@ -25,9 +25,8 @@ The operation involves up to 2 backup blocks:
 - Backup Blk 1: page from which tuples are deleted
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this operation clears the LH_PAGE_HAS_DEAD_TUPLES flag on the page
-- : Boolean flag indicating whether the deletion operation is being performed on the primary bucket page
-
+- `clear_dead_marking`: Boolean flag indicating whether this operation clears the LH_PAGE_HAS_DEAD_TUPLES flag on the page
+- `is_primary_bucket_page`: Boolean flag indicating whether the deletion operation is being performed on the primary bucket page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bool](../b/bool.md) (type)

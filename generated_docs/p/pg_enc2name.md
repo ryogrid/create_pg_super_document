@@ -28,7 +28,6 @@ This structure is essential for PostgreSQL's internationalization support, enabl
 ## Parameters / Member Variables
 - : A constant string pointer containing the official name of the character encoding (e.g., "UTF8", "LATIN1", "EUC_JP")
 - : The PostgreSQL internal encoding identifier of type , which serves as an index into the encoding tables
-- 
 Usage: cpi code_page_file [-c] [-L] [-l] [-a|nnn]
  -c: input file is a single codepage
  -L: print header info (you don't want to see this)

@@ -23,7 +23,6 @@ This function provides a centralized mechanism for generating consistent timesta
 The function uses a specific format: "YYYY-MM-DD HH:MM:SS.mmm TZ" where mmm represents milliseconds.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: char* pointing to static buffer containing formatted timestamp string
 
 ## Dependencies

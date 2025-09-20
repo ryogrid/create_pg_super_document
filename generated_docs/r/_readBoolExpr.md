@@ -24,7 +24,6 @@ The function employs a "do-it-yourself enum representation" approach, manually p
 The function provides comprehensive error handling for unrecognized boolean operations, ensuring robust parsing of expression trees during node deserialization.
 
 ## Parameters / Member Variables
-- No parameters (uses standard node reading context via `READ_LOCALS(BoolExpr)`)
 - Returns: `BoolExpr *` - pointer to the deserialized BoolExpr node with populated `boolop`, `args`, and `location` fields
 
 ## Dependencies

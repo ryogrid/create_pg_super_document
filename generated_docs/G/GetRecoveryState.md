@@ -16,7 +16,7 @@ GetRecoveryState(void)
 GetRecoveryState is a thread-safe function that retrieves the current recovery state from PostgreSQL's shared memory control structure (XLogCtl). The function uses spinlock protection to ensure atomic access to the SharedRecoveryState field, guaranteeing consistency with the control file contents. This state information is crucial for determining whether the database is in recovery mode, what phase of recovery it's in, or if it has completed recovery and is in normal operation.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

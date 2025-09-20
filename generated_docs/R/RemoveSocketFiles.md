@@ -18,7 +18,7 @@ This function is responsible for cleaning up socket files when the PostgreSQL po
 The function is designed to be called during shutdown sequences and deliberately ignores any errors that occur during file removal, as the process is about to exit anyway. After attempting to remove all socket files, it sets the global sock_paths list to NIL, though the comment notes that storage reclamation isn't necessary since the process is exiting.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

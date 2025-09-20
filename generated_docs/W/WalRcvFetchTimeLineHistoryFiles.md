@@ -25,7 +25,6 @@ The function includes safety checks to ensure protocol compliance - if the prima
 
 ## Parameters / Member Variables
 - : The starting timeline ID in the range to check and fetch
-- 
 wtmp begins Sun Aug 20 19:22:10 2023: The ending timeline ID in the range to check and fetch (inclusive)
 
 ## Dependencies

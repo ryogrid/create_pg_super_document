@@ -71,31 +71,30 @@ PlannedStmt is the top-level node that wraps the execution plan tree produced by
 The structure includes execution metadata such as whether the statement returns data, requires parallel execution, needs JIT compilation, or depends on role-specific privileges. It also maintains dependency information for cache invalidation and parameter type information for prepared statements.
 
 ## Parameters / Member Variables
-- : Node tag identifying this as a PlannedStmt node
-- : Type of SQL command (SELECT, INSERT, UPDATE, DELETE, MERGE, or UTILITY)
-- : Unique identifier for the query, copied from the original Query node
-- : True if this is a data-modifying statement with a RETURNING clause
-- : True if the query contains data-modifying statements within WITH clauses
-- : True if this statement should set the command completion tag
-- : True if the plan needs to be regenerated when TransactionXmin changes
-- : True if the plan is specific to the current user role
-- : True if parallel execution mode is required
-- : Bitmask indicating which forms of JIT compilation should be applied
-- : Root node of the execution plan tree
-- : Range table containing all relations referenced in the query
-- : Permission information for relations that require access checks
-- : List of range table indexes for target relations in DML operations
-- : Information about inheritance and partitioning relationships
-- : Plan trees for SubPlan expressions (subqueries, EXISTS, etc.)
-- : Indexes of subplans that require rewind capability
-- : List of row locking information for SELECT FOR UPDATE/SHARE
-- : OIDs of all relations the plan depends on (for cache invalidation)
-- : Additional dependency items for cache invalidation
-- : Type information for PARAM_EXEC parameters
-- : The actual utility statement node (for utility commands)
-- : Starting character position of the statement in the source string
-- : Length of the statement in bytes
-
+- `type`: Node tag identifying this as a PlannedStmt node
+- `commandType`: Type of SQL command (SELECT, INSERT, UPDATE, DELETE, MERGE, or UTILITY)
+- `queryId`: Unique identifier for the query, copied from the original Query node
+- `hasReturning`: True if this is a data-modifying statement with a RETURNING clause
+- `hasModifyingCTE`: True if the query contains data-modifying statements within WITH clauses
+- `canSetTag`: True if this statement should set the command completion tag
+- `transientPlan`: True if the plan needs to be regenerated when TransactionXmin changes
+- `dependsOnRole`: True if the plan is specific to the current user role
+- `parallelModeNeeded`: True if parallel execution mode is required
+- `jitFlags`: Bitmask indicating which forms of JIT compilation should be applied
+- `*planTree`: Root node of the execution plan tree
+- `*rtable`: Range table containing all relations referenced in the query
+- `*permInfos`: Permission information for relations that require access checks
+- `*resultRelations`: List of range table indexes for target relations in DML operations
+- `*appendRelations`: Information about inheritance and partitioning relationships
+- `*subplans`: Plan trees for SubPlan expressions (subqueries, EXISTS, etc.)
+- `*rewindPlanIDs`: Indexes of subplans that require rewind capability
+- `*rowMarks`: List of row locking information for SELECT FOR UPDATE/SHARE
+- `*relationOids`: OIDs of all relations the plan depends on (for cache invalidation)
+- `*invalItems`: Additional dependency items for cache invalidation
+- `*paramExecTypes`: Type information for PARAM_EXEC parameters
+- `*utilityStmt`: The actual utility statement node (for utility commands)
+- `stmt_location`: Starting character position of the statement in the source string
+- `stmt_len`: Length of the statement in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType

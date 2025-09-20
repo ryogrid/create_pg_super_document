@@ -16,7 +16,7 @@ _mdfd_open_flags(void)
 This internal utility function determines the correct combination of file open flags to use when opening magnetic disk files. It always includes the basic read-write and binary mode flags, and conditionally adds direct I/O flags based on the global io_direct_flags configuration setting. The function ensures consistent flag usage across all magnetic disk file operations while supporting direct I/O optimization when enabled.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

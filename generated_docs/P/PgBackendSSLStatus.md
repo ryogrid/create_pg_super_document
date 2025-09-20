@@ -34,13 +34,12 @@ The structure is designed to work in conjunction with the main PgBackendStatus s
 All character arrays in this structure must be null-terminated, ensuring safe string operations when accessing the SSL information.
 
 ## Parameters / Member Variables
-- : The key length in bits used for the SSL connection encryption
-- : The SSL/TLS protocol version being used (e.g., "TLSv1.2", "TLSv1.3")  
-- : The name of the cipher suite being used for encryption
-- : The Distinguished Name (DN) from the client's SSL certificate
-- : The serial number from the client's SSL certificate (max 20 octets per RFC 5280)
-- : The Distinguished Name (DN) of the Certificate Authority that issued the client certificate
-
+- `ssl_bits`: The key length in bits used for the SSL connection encryption
+- `ssl_version[NAMEDATALEN]`: The SSL/TLS protocol version being used (e.g., "TLSv1.2", "TLSv1.3")
+- `ssl_cipher[NAMEDATALEN]`: The name of the cipher suite being used for encryption
+- `ssl_client_dn[NAMEDATALEN]`: The Distinguished Name (DN) from the client's SSL certificate
+- `ssl_client_serial[NAMEDATALEN]`: The serial number from the client's SSL certificate (max 20 octets per RFC 5280)
+- `ssl_issuer_dn[NAMEDATALEN]`: The Distinguished Name (DN) of the Certificate Authority that issued the client certificate
 ## Dependencies
 - Constants referenced:
   - NAMEDATALEN (used for sizing all string fields)

@@ -15,7 +15,7 @@ static void readRecoverySignalFile(void)
 readRecoverySignalFile is a static function that scans for PostgreSQL recovery signal files and configures the server's recovery behavior based on their presence. The function checks for the deprecated recovery.conf file (and fails if found), removes any leftover recovery.done files, and then looks for the current recovery signal files: standby.signal and recovery.signal. The standby signal file takes precedence and enables both standby mode and archive recovery, while the recovery signal file enables only archive recovery. The function also performs file synchronization on detected signal files to ensure persistence and validates that standby mode is not requested in single-user server environments.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

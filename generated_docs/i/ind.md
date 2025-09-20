@@ -21,9 +21,8 @@ typedef  struct ind {
 The  struct is used in ECPG test files as an indicator structure that accompanies host variables to detect NULL values in database operations. This is a common pattern in embedded SQL where indicator variables are used to handle NULL values returned from or passed to SQL operations. Each member corresponds to a specific field and indicates whether that field contains a NULL value.
 
 ## Parameters / Member Variables
-- : Short integer indicator for the name field, used to detect NULL values
-- : Short integer indicator for the phone field, used to detect NULL values
-
+- `name_ind`: Short integer indicator for the name field, used to detect NULL values
+- `phone_ind`: Short integer indicator for the phone field, used to detect NULL values
 ## Dependencies
 - Functions called/Symbols referenced: None (basic struct definition)
 - Called from (representative examples):

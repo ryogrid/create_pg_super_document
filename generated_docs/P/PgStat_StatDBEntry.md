@@ -49,38 +49,37 @@ typedef struct PgStat_StatDBEntry
 PgStat_StatDBEntry serves as the central repository for database-level statistics in PostgreSQL's statistics system. It provides comprehensive metrics covering transactional activity, buffer pool efficiency, tuple-level operations, conflict resolution, session management, and I/O performance. This structure is crucial for database monitoring, performance tuning, and understanding database workload characteristics. The statistics are maintained per database and are used by various system functions, monitoring tools, and the autovacuum system for decision-making.
 
 ## Parameters / Member Variables
-- : Number of transactions committed in this database
-- : Number of transactions rolled back in this database
-- : Total number of disk blocks fetched for this database
-- : Number of buffer hits (blocks found in shared buffer cache)
-- : Number of tuples returned by queries in this database
-- : Number of tuples fetched by queries in this database
-- : Number of tuples inserted in this database
-- : Number of tuples updated in this database
-- : Number of tuples deleted in this database
-- : Time of last autovacuum run on any table in this database
-- : Number of queries canceled due to tablespace conflicts
-- : Number of queries canceled due to lock conflicts
-- : Number of queries canceled due to snapshot conflicts
-- : Number of queries canceled due to logical slot conflicts
-- : Number of queries canceled due to buffer pin conflicts
-- : Number of queries canceled due to startup deadlocks
-- : Number of temporary files created by queries in this database
-- : Total size of temporary files created (in bytes)
-- : Number of deadlocks detected in this database
-- : Number of block checksum failures detected
-- : Time of the last checksum failure
-- : Time spent reading data file blocks (in microseconds)
-- : Time spent writing data file blocks (in microseconds)
-- : Number of sessions connected to this database
-- : Total time spent in sessions (in milliseconds)
-- : Time spent executing queries (in milliseconds)
-- : Time spent idle in transactions (in milliseconds)
-- : Number of sessions terminated due to inactivity
-- : Number of sessions terminated due to fatal errors
-- : Number of sessions terminated by administrator
-- : Timestamp when statistics were last reset
-
+- `xact_commit`: Number of transactions committed in this database
+- `xact_rollback`: Number of transactions rolled back in this database
+- `blocks_fetched`: Total number of disk blocks fetched for this database
+- `blocks_hit`: Number of buffer hits (blocks found in shared buffer cache)
+- `tuples_returned`: Number of tuples returned by queries in this database
+- `tuples_fetched`: Number of tuples fetched by queries in this database
+- `tuples_inserted`: Number of tuples inserted in this database
+- `tuples_updated`: Number of tuples updated in this database
+- `tuples_deleted`: Number of tuples deleted in this database
+- `last_autovac_time`: Time of last autovacuum run on any table in this database
+- `conflict_tablespace`: Number of queries canceled due to tablespace conflicts
+- `conflict_lock`: Number of queries canceled due to lock conflicts
+- `conflict_snapshot`: Number of queries canceled due to snapshot conflicts
+- `conflict_logicalslot`: Number of queries canceled due to logical slot conflicts
+- `conflict_bufferpin`: Number of queries canceled due to buffer pin conflicts
+- `conflict_startup_deadlock`: Number of queries canceled due to startup deadlocks
+- `temp_files`: Number of temporary files created by queries in this database
+- `temp_bytes`: Total size of temporary files created (in bytes)
+- `deadlocks`: Number of deadlocks detected in this database
+- `checksum_failures`: Number of block checksum failures detected
+- `last_checksum_failure`: Time of the last checksum failure
+- `blk_read_time`: Time spent reading data file blocks (in microseconds)
+- `blk_write_time`: Time spent writing data file blocks (in microseconds)
+- `sessions`: Number of sessions connected to this database
+- `session_time`: Total time spent in sessions (in milliseconds)
+- `active_time`: Time spent executing queries (in milliseconds)
+- `idle_in_transaction_time`: Time spent idle in transactions (in milliseconds)
+- `sessions_abandoned`: Number of sessions terminated due to inactivity
+- `sessions_fatal`: Number of sessions terminated due to fatal errors
+- `sessions_killed`: Number of sessions terminated by administrator
+- `stat_reset_timestamp`: Timestamp when statistics were last reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (statistics counter type)

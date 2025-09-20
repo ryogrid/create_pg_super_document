@@ -15,7 +15,6 @@ Datum i8tof(PG_FUNCTION_ARGS)
 This function performs a type conversion from PostgreSQL's internal 64-bit integer type (int8) to single-precision floating-point (float4). It extracts the int64 argument using PostgreSQL's function argument framework, performs an implicit C type conversion from int64 to float, and returns the result as a PostgreSQL float4 value. The conversion leverages C's built-in type promotion rules.
 
 ## Parameters / Member Variables
-- The function uses PostgreSQL's `PG_FUNCTION_ARGS` macro to access arguments
 - Argument 0: An int8 (64-bit integer) value to be converted
 
 ## Dependencies

@@ -15,8 +15,7 @@ typedef struct HeapScanDescData *HeapScanDesc;
 HeapScanDesc is the primary interface type used for heap table scanning operations in PostgreSQL. It provides an opaque handle to the underlying HeapScanDescData structure, allowing functions to pass around scan descriptors without exposing the internal implementation details. This typedef enables a clean API separation between the scan interface and its implementation, supporting various scan types including sequential scans, parallel scans, bitmap scans, TID range scans, and streaming reads.
 
 ## Parameters / Member Variables
-- This is a typedef that points to HeapScanDescData structure
-- All actual state and member variables are contained in the referenced HeapScanDescData structure
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

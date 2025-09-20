@@ -17,8 +17,7 @@ The hashint4 function provides a hash implementation for the int4 (32-bit signed
 This function is part of PostgreSQL's comprehensive collection of datatype-specific hash functions and may also be utilized by catcache operations without direct connection to hash indexes.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro which provides access to function arguments through PostgreSQL's function call interface
-- The function expects a single int4 (32-bit integer) argument accessed via PG_GETARG_INT32(0)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

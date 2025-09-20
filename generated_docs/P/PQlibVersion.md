@@ -18,7 +18,7 @@ PQlibVersion is a simple utility function that returns the version number of the
 The version number is encoded as an integer where the format typically follows PostgreSQL's version numbering scheme (e.g., version 17.6 would be represented as an appropriate integer encoding).
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

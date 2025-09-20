@@ -24,12 +24,11 @@ The  structure (typedef'd as ) serves as a complete identifier for any disk bloc
 The structure is designed to be used as a hash key, which requires careful handling of any potential padding bytes to ensure consistent hashing behavior across the system.
 
 ## Parameters / Member Variables
-- : The OID of the tablespace containing the relation
-- : The OID of the database containing the relation  
-- : The file number of the relation within the database
-- : The fork number indicating which fork of the relation (main, FSM, VM, etc.)
-- : The block number relative to the beginning of the relation
-
+- `spcOid`: The OID of the tablespace containing the relation
+- `dbOid`: The OID of the database containing the relation
+- `relNumber`: The file number of the relation within the database
+- `forkNum`: The fork number indicating which fork of the relation (main, FSM, VM, etc.)
+- `blockNum`: The block number relative to the beginning of the relation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileNumber](../R/RelFileNumber.md) (type)

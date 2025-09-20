@@ -23,10 +23,6 @@ The function supports timezone-aware datetime operations when the `tz` parameter
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information containing:
-  - JSONB document to query (argument 0)
-  - JSONPath expression (argument 1) 
-  - Variables for path evaluation (argument 2)
-  - Silent mode flag (argument 3)
 - `tz`: Boolean flag indicating whether to enable timezone-aware datetime operations
 
 ## Dependencies

@@ -24,8 +24,7 @@ During WAL replay, this record works in conjunction with two backup blocks:
 The simplicity of this structure reflects PostgreSQL's efficient WAL design - most of the insertion details are preserved in the backup blocks, while this record only needs to store the specific offset where the tuple was inserted.
 
 ## Parameters / Member Variables
-- : The offset number on the page where the tuple was inserted, used during WAL replay to determine the exact location of the inserted item
-
+- `offnum`: The offset number on the page where the tuple was inserted, used during WAL replay to determine the exact location of the inserted item
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type)

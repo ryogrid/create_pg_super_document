@@ -24,11 +24,10 @@ The  structure is a specialized sub-structure that must immediately follow the  
 The structure stores both the current ACL state and default ACLs, which is crucial for generating accurate GRANT/REVOKE statements during dump output. It also handles initial privileges from the  system catalog, which tracks the original permissions state of extension objects, allowing proper restoration of security settings during database migration or backup restoration.
 
 ## Parameters / Member Variables
-- : String representation of the object's current Access Control List, containing all granted permissions
-- : Default ACL string appropriate for this object type and owner, used as baseline for permission comparisons
-- : Character indicating the entry type from pg_init_privs catalog ('i' for initial, 'e' for extension, or 0 if no entry exists)
-- : Initial ACL string from pg_init_privs catalog entry, or NULL if no initial privileges are recorded
-
+- `*acl`: String representation of the object's current Access Control List, containing all granted permissions
+- `*acldefault`: Default ACL string appropriate for this object type and owner, used as baseline for permission comparisons
+- `privtype`: Character indicating the entry type from pg_init_privs catalog ('i' for initial, 'e' for extension, or 0 if no entry exists)
+- `*initprivs`: Initial ACL string from pg_init_privs catalog entry, or NULL if no initial privileges are recorded
 ## Dependencies
 - Functions called/Symbols referenced:
   - Used in conjunction with DumpableObject base structure

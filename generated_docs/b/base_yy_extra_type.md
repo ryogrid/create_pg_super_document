@@ -36,15 +36,14 @@ typedef struct base_yy_extra_type
 The  structure serves as an extended version of the flex scanner's YY_EXTRA data, specifically designed for PostgreSQL's base parser functionality. It builds upon the  by adding lookahead capabilities and grammar-specific state management. This structure enables the parser to implement one-token lookahead, which is essential for resolving certain parsing ambiguities in SQL syntax. The structure maintains both the core scanning functionality and additional state needed for advanced parsing operations, including storing the final parse tree result.
 
 ## Parameters / Member Variables
-- : Embedded core scanner extra data containing fundamental scanning state
-- : Boolean flag indicating whether lookahead token information is currently valid
-- : Stores the token code for the one-token lookahead
-- : Contains the semantic value (yylval) associated with the lookahead token
-- : Location information (yylloc) for the lookahead token
-- : Pointer to the end position of the current token in the input buffer
-- : Character that needs to be restored at the lookahead_end position
-- : List pointer where the final parsing result (parse tree) is stored
-
+- `core_yy_extra`: Embedded core scanner extra data containing fundamental scanning state
+- `have_lookahead`: Boolean flag indicating whether lookahead token information is currently valid
+- `lookahead_token`: Stores the token code for the one-token lookahead
+- `lookahead_yylval`: Contains the semantic value (yylval) associated with the lookahead token
+- `lookahead_yylloc`: Location information (yylloc) for the lookahead token
+- `*lookahead_end`: Pointer to the end position of the current token in the input buffer
+- `lookahead_hold_char`: Character that needs to be restored at the lookahead_end position
+- `*parsetree`: List pointer where the final parsing result (parse tree) is stored
 ## Dependencies
 - Functions called/Symbols referenced:
   - [core_yy_extra_type](../c/core_yy_extra_type.md)

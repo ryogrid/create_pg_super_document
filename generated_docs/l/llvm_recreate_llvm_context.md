@@ -21,7 +21,7 @@ The function implements a heuristic-based approach using a reuse counter (LLVMJI
 The function follows a careful sequence: reset inline caches → dispose old context → create new context → reset counter → rebuild type information.
 
 ## Parameters / Member Variables
-- None (operates on global state variables)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

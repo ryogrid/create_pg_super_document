@@ -20,7 +20,7 @@ The function is a simple wrapper around PostgreSQL's transaction management syst
 The returned value includes timezone information, making it suitable for applications that need timezone-aware timestamp operations.
 
 ## Parameters / Member Variables
-- No parameters (follows PG_FUNCTION_ARGS convention for zero-argument SQL functions)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

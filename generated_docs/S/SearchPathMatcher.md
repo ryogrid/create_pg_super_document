@@ -23,11 +23,10 @@ This structure captures a snapshot of PostgreSQL's schema search path configurat
 The generation counter provides a fast-path optimization: when the search path hasn't changed, equality can be determined by simply comparing generation numbers rather than walking through the entire schema list. This is particularly important for performance since search path validation is checked frequently in query planning and execution.
 
 ## Parameters / Member Variables
-- : List of explicitly named schema OIDs in the search path (excludes implicit pg_catalog and temp schemas)
-- : Boolean flag indicating whether pg_catalog should be implicitly prepended to the search path
-- : Boolean flag indicating whether the temporary schema should be implicitly prepended to the search path
-- : Generation counter that matches the active path's generation when this matcher was last validated
-
+- `*schemas`: List of explicitly named schema OIDs in the search path (excludes implicit pg_catalog and temp schemas)
+- `addCatalog`: Boolean flag indicating whether pg_catalog should be implicitly prepended to the search path
+- `addTemp`: Boolean flag indicating whether the temporary schema should be implicitly prepended to the search path
+- `generation`: Generation counter that matches the active path's generation when this matcher was last validated
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL's generic list structure)

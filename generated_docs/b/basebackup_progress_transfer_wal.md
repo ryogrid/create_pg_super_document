@@ -15,7 +15,7 @@ void basebackup_progress_transfer_wal(void)
 This function is a progress reporting utility used during PostgreSQL base backup operations to indicate that the backup process has entered the "transfer WAL" phase. It updates the PostgreSQL statistics progress tracking system by setting the phase parameter to PROGRESS_BASEBACKUP_PHASE_TRANSFER_WAL. This phase occurs when the system is actively transferring Write-Ahead Log (WAL) files into the final backup archive, which is typically one of the final steps in the base backup process before completion.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

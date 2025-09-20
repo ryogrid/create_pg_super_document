@@ -18,8 +18,7 @@ The function is the binary input counterpart to pg_dependencies_in, designed to 
 This restriction ensures that pg_dependencies values can only be created through PostgreSQL's internal statistics collection mechanisms during ANALYZE operations, not through external input via either text or binary protocols. The design prevents users from manually creating or modifying dependency statistics, which could lead to incorrect query optimization decisions.
 
 ## Parameters / Member Variables
-- Uses PG_FUNCTION_ARGS macro (standard PostgreSQL function calling convention for binary input)
-- No specific parameters as binary input is not actually processed
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

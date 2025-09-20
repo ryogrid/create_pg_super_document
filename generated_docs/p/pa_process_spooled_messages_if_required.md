@@ -22,7 +22,7 @@ This function manages the complex workflow of processing spooled messages in par
 The function implements careful synchronization to avoid race conditions between the leader apply worker (which serializes changes) and parallel apply workers (which process them). The stream locking mechanism ensures proper ordering and prevents deadlocks.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,6 @@ int errbacktrace(void)
 This function adds a call stack backtrace to the current error context, intended primarily for temporary debugging use during development. It captures the current execution stack and associates it with the error being reported, allowing developers to trace the exact call path that led to an error condition. The function operates within PostgreSQL's error reporting framework, properly managing memory contexts and recursion depth while delegating the actual backtrace capture to the set_backtrace function.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Return value: Always returns 0 (return value is not meaningful)
 
 ## Dependencies

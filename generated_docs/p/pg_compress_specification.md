@@ -25,13 +25,12 @@ The pg_compress_specification structure serves as a comprehensive configuration 
 This structure is widely used across PostgreSQL's backup and restore subsystem, including pg_dump, pg_basebackup, and various streaming backup components. It provides a unified interface for compression configuration that can be serialized to disk and used consistently across different PostgreSQL utilities.
 
 ## Parameters / Member Variables
-- : The compression algorithm to use (from pg_compress_algorithm enum)
-- : Bitfield of PG_COMPRESSION_OPTION constants controlling specific features
-- : Compression level setting (algorithm-specific meaning)
-- : Number of worker threads to use for parallel compression
-- : Boolean flag enabling long-distance matching optimization
-- : Error message string if specification parsing failed, NULL otherwise
-
+- `algorithm`: The compression algorithm to use (from pg_compress_algorithm enum)
+- `options`: Bitfield of PG_COMPRESSION_OPTION constants controlling specific features
+- `level`: Compression level setting (algorithm-specific meaning)
+- `workers`: Number of worker threads to use for parallel compression
+- `long_distance`: Boolean flag enabling long-distance matching optimization
+- `*parse_error`: Error message string if specification parsing failed, NULL otherwise
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_compress_algorithm](pg_compress_algorithm.md)

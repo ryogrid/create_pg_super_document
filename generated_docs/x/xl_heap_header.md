@@ -20,10 +20,9 @@ typedef struct xl_heap_header
 This structure represents a compressed version of the heap tuple header that gets stored in WAL records for insert and update operations. Rather than storing the complete HeapTupleHeaderData structure, PostgreSQL optimizes WAL space by only storing the fields that cannot be reconstructed from other information available during WAL replay. The three fields stored are critical for properly reconstructing the tuple's structure and visibility information during recovery.
 
 ## Parameters / Member Variables
-- : Secondary information mask containing attribute count and HOT (Heap-Only Tuple) update flags
-- : Primary information mask containing visibility, null bitmap, and storage format flags
-- : Tuple header offset, indicating where the actual tuple data begins after the header and null bitmap
-
+- `t_infomask2`: Secondary information mask containing attribute count and HOT (Heap-Only Tuple) update flags
+- `t_infomask`: Primary information mask containing visibility, null bitmap, and storage format flags
+- `t_hoff`: Tuple header offset, indicating where the actual tuple data begins after the header and null bitmap
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a data structure)

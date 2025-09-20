@@ -30,13 +30,12 @@ The structure is carefully designed to maintain performance while providing thre
 The same structure is used for both shared and local buffers, though some fields and locking mechanisms are not used for local buffers to reduce overhead.
 
 ## Parameters / Member Variables
-- : BufferTag that uniquely identifies which disk block this buffer contains
-- : The buffer's index number starting from 0, never changes after initialization
-- : Atomic variable containing combined flags, reference count, and usage count for the buffer
-- : Process ID of backend waiting for all pins on this buffer to be released
-- : Link pointer for the freelist chain when buffer is unused
-- : LWLock used to control access to the actual buffer contents (not the header)
-
+- `tag`: BufferTag that uniquely identifies which disk block this buffer contains
+- `buf_id`: The buffer's index number starting from 0, never changes after initialization
+- `state`: Atomic variable containing combined flags, reference count, and usage count for the buffer
+- `wait_backend_pgprocno`: Process ID of backend waiting for all pins on this buffer to be released
+- `freeNext`: Link pointer for the freelist chain when buffer is unused
+- `content_lock`: LWLock used to control access to the actual buffer contents (not the header)
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferTag (for buffer identification)

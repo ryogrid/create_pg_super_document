@@ -24,7 +24,7 @@ The function performs a series of checks to ensure all conditions are met for re
 Only when all these conditions are satisfied does the function return true, indicating that the top-level XID should be included in the next WAL record.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

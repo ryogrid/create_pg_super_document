@@ -20,7 +20,6 @@ This function is a core subroutine of B-tree index scanning that evaluates wheth
 
 ## Parameters / Member Variables
 - : Index scan descriptor containing scan state and keys
-- 0
 1
 3.2
 5

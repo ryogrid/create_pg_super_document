@@ -21,9 +21,8 @@ ArrayMapState serves as a workspace for the array_map() function, which transfor
 The structure contains two ArrayMetaState members that cache different type information: one for the input array's element type and another for the return array's element type. This separation allows array_map() to handle transformations where the input and output element types differ.
 
 ## Parameters / Member Variables
-- : ArrayMetaState structure that caches metadata about the input array's element type, including type length, alignment, and whether values are passed by value
-- : ArrayMetaState structure that caches metadata about the output array's element type, used for constructing the result array with proper type characteristics
-
+- `inp_extra`: ArrayMetaState structure that caches metadata about the input array's element type, including type length, alignment, and whether values are passed by value
+- `ret_extra`: ArrayMetaState structure that caches metadata about the output array's element type, used for constructing the result array with proper type characteristics
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ArrayMetaState](ArrayMetaState.md)

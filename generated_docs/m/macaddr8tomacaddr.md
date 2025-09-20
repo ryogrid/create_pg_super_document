@@ -24,7 +24,6 @@ The conversion follows this mapping:
 - Result: aa:bb:cc:dd:ee:ff
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's function call convention with `PG_FUNCTION_ARGS`
 - Input parameter accessed via `PG_GETARG_MACADDR8_P(0)`: The 8-byte MAC address to convert
 
 ## Dependencies

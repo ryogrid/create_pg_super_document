@@ -19,7 +19,7 @@ The function performs a thorough deletion from the doubly-linked list queue, whi
 This function is typically called during error conditions, process termination, or user-requested cancellations when it's no longer appropriate or possible to continue waiting for replication confirmation.
 
 ## Parameters / Member Variables
-- None (operates on the current process MyProc)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

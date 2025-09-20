@@ -30,7 +30,7 @@ typedef struct LimitState
 LimitState manages the execution state for Limit nodes, which implement SQL LIMIT and OFFSET functionality. The structure supports dynamic limit and offset values through expression evaluation, tracks the current position in the result set, and implements a state machine to handle various scenarios including EOF conditions and WITH TIES semantics. The state machine ensures correct behavior during rescans and handles edge cases like empty result sets and window boundaries.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 17516 ?        00:00:00 bash
 17543 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node information

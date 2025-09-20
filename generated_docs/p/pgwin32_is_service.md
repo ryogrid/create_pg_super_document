@@ -26,7 +26,7 @@ The function uses static caching () to ensure the determination is made only onc
 Error handling is limited to direct stderr writes using  rather than PostgreSQL's standard error reporting mechanisms, as this function is called early in the startup process before those systems are available.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

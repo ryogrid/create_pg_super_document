@@ -21,11 +21,10 @@ typedef struct CollateClause
 CollateClause is a parse tree node that represents collation specifications in SQL statements. Collation determines how text values are compared and sorted, including rules for case sensitivity, accent sensitivity, and locale-specific ordering. This node encapsulates an expression along with the specified collation name, which can be schema-qualified. It's commonly used in column definitions, domain definitions, and expressions where specific text comparison behavior is required.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a CollateClause node
-- : Pointer to the Node representing the input expression to which collation is applied
-- : List containing the possibly schema-qualified collation name (e.g., "en_US.utf8" or "schema.collation_name")
-- : ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
-
+- `type`: NodeTag identifying this as a CollateClause node
+- `*arg`: Pointer to the Node representing the input expression to which collation is applied
+- `*collname`: List containing the possibly schema-qualified collation name (e.g., "en_US.utf8" or "schema.collation_name")
+- `location`: ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc

@@ -39,15 +39,14 @@ The structure stores the function expression tree and optional column definition
 During query planning, the funcparams bitmapset is populated to track PARAM_EXEC parameters that affect the function, enabling proper parameter handling during execution.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a RangeTblFunction node
-- : Expression tree representing the function call
-- : Number of columns this function contributes to the RTE
-- : List of column names from explicit column definition list
-- : List of OIDs representing column types from definition list
-- : List of type modifiers for columns from definition list
-- : List of OIDs representing column collations from definition list
-- : Bitmapset of PARAM_EXEC parameter IDs affecting this function (set during planning)
-
+- `type`: NodeTag identifying this as a RangeTblFunction node
+- `*funcexpr`: Expression tree representing the function call
+- `pg_node_attr(query_jumble_ignore)`: Number of columns this function contributes to the RTE
+- `pg_node_attr(query_jumble_ignore)`: List of column names from explicit column definition list
+- `pg_node_attr(query_jumble_ignore)`: List of OIDs representing column types from definition list
+- `pg_node_attr(query_jumble_ignore)`: List of type modifiers for columns from definition list
+- `pg_node_attr(query_jumble_ignore)`: List of OIDs representing column collations from definition list
+- `pg_node_attr(query_jumble_ignore)`: Bitmapset of PARAM_EXEC parameter IDs affecting this function (set during planning)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

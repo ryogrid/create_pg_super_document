@@ -22,10 +22,9 @@ generate_subscripts_fctx serves as the function context structure for PostgreSQL
 The generate_subscripts function uses this structure to provide a convenient way to generate all valid subscript values for a particular array dimension, which is useful for array manipulation queries and procedural code that needs to iterate through array indices.
 
 ## Parameters / Member Variables
-- : The starting subscript value (lower bound) for the specified array dimension
-- : The ending subscript value (upper bound) for the specified array dimension  
-- : Boolean flag indicating iteration direction - false for ascending order (lower to upper), true for descending order (upper to lower)
-
+- `lower`: The starting subscript value (lower bound) for the specified array dimension
+- `upper`: The ending subscript value (upper bound) for the specified array dimension
+- `reverse`: Boolean flag indicating iteration direction - false for ascending order (lower to upper), true for descending order (upper to lower)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This structure contains only primitive types and references no other symbols directly)

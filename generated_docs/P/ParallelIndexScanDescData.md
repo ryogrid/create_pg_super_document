@@ -23,11 +23,10 @@ This structure serves as the foundation for parallel index scanning in PostgreSQ
 The structure is designed to be extensible - different index access methods (B-tree, hash, GiST, etc.) can append their own specific parallel scan state after the base structure using the ps_offset field to locate their data within the shared memory segment.
 
 ## Parameters / Member Variables
-- : Object identifier (OID) of the heap relation being scanned
-- : Object identifier (OID) of the index relation being used for the scan
-- : Byte offset within the structure where access method-specific parallel scan data begins
-- : Flexible array member containing serialized snapshot data that defines transaction visibility for all participating workers
-
+- `ps_relid`: Object identifier (OID) of the heap relation being scanned
+- `ps_indexid`: Object identifier (OID) of the index relation being used for the scan
+- `ps_offset`: Byte offset within the structure where access method-specific parallel scan data begins
+- `ps_snapshot_data[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing serialized snapshot data that defines transaction visibility for all participating workers
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

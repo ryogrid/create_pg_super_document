@@ -23,9 +23,8 @@ When the GIN index's pending list grows too large, a cleanup operation (shift li
 The structure includes a complete copy of the GinMetaPageData to ensure the metadata state can be properly restored, including updated head/tail pointers and statistics about the pending list.
 
 ## Parameters / Member Variables
-- : Complete copy of the GIN index metadata page data (GinMetaPageData) after the deletion operation, including updated head/tail pointers, pending page counts, and statistics
-- : Number of pages that were deleted from the pending list during this operation
-
+- `metadata`: Complete copy of the GIN index metadata page data (GinMetaPageData) after the deletion operation, including updated head/tail pointers, pending page counts, and statistics
+- `ndeleted`: Number of pages that were deleted from the pending list during this operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinMetaPageData](../G/GinMetaPageData.md) (src/include/access/ginblock.h:55)

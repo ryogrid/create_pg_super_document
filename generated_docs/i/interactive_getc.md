@@ -18,7 +18,7 @@ The `interactive_getc` function is a specialized character input function design
 The function performs interrupt checking before reading input and processes client read interrupts after obtaining the character. This ensures that the interactive backend remains responsive to system signals and can be terminated gracefully. The function is specifically designed for standalone backend processes where traditional client-server interrupt handling may not be available.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

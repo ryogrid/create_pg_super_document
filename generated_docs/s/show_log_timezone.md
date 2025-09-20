@@ -18,7 +18,7 @@ The  function serves as the display hook for PostgreSQL's  configuration paramet
 The function always returns the canonical name of the timezone zone rather than any alias that might have been used when setting it. If the timezone name cannot be determined, it returns "unknown" as a fallback.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

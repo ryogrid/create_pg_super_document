@@ -15,9 +15,7 @@ Datum text_to_table(PG_FUNCTION_ARGS)
 The text_to_table function is a PostgreSQL set-returning function (SRF) that splits a text string into individual rows of a table using a specified delimiter. Unlike text_to_array which returns an array, this function returns each split element as a separate row. It initializes a materialized SRF using InitMaterializedSRF and configures the output state to use a tuple store and tuple descriptor for row-based output. The actual splitting is delegated to the split_text function.
 
 ## Parameters / Member Variables
-- Takes PostgreSQL function arguments via PG_FUNCTION_ARGS macro (typically text input string and delimiter)
-- Uses ReturnSetInfo to manage set-returning function metadata
-- Returns Datum 0 (the actual results are stored in the tuple store)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

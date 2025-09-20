@@ -22,7 +22,7 @@ This function serves as a test suite coordinator for Unicode case conversion fun
 The function delegates the actual testing to , which performs comprehensive validation of the  function across different string termination scenarios. Upon successful completion of all tests, it prints a success message.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,10 +22,9 @@ The  is a specialized bbstreamer implementation that provides gzip compression f
 The structure works in conjunction with the bbstreamer framework, implementing the standard content/finalize/free operations through function pointers in the  operations table. When data is fed to this streamer, it compresses the data using gzip and writes it to the specified file or file descriptor.
 
 ## Parameters / Member Variables
-- : The base bbstreamer structure containing common streamer functionality and operation function pointers
-- : String containing the file path, used primarily for error reporting and file operations when no file handle is provided
-- : The zlib gzFile handle used for gzip compression and file writing operations
-
+- `base`: The base bbstreamer structure containing common streamer functionality and operation function pointers
+- `*pathname`: String containing the file path, used primarily for error reporting and file operations when no file handle is provided
+- `gzfile`: The zlib gzFile handle used for gzip compression and file writing operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - [bbstreamer](bbstreamer.md) (base structure)

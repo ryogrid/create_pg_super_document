@@ -25,13 +25,12 @@ SlabBlock is the fundamental unit of memory organization within the slab allocat
 The block uses a freelist data structure to link together freed chunks, enabling constant-time allocation of previously used memory. Unused chunks are tracked with a simple pointer advancement mechanism. The block is linked into the appropriate category list within the SlabContext based on its current free space availability.
 
 ## Parameters / Member Variables
-- : Pointer back to the owning SlabContext that manages this block
-- : Total count of available chunks, including both freed chunks and unused chunks (nfree = number of freed chunks + nunused)
-- : Count of chunks that have never been allocated and are available for first-time use
-- : Pointer to the first chunk in the freelist of previously allocated but now freed chunks; freed chunks form a linked list using their own memory to store next pointers
-- : Pointer to the next chunk that has never been allocated; this advances linearly through the block as chunks are first allocated
-- : Doubly-linked list node used to chain this block into one of the SlabContext's blocklist arrays based on free space availability
-
+- `*slab`: Pointer back to the owning SlabContext that manages this block
+- `nfree`: Total count of available chunks, including both freed chunks and unused chunks (nfree = number of freed chunks + nunused)
+- `nunused`: Count of chunks that have never been allocated and are available for first-time use
+- `*freehead`: Pointer to the first chunk in the freelist of previously allocated but now freed chunks; freed chunks form a linked list using their own memory to store next pointers
+- `*unused`: Pointer to the next chunk that has never been allocated; this advances linearly through the block as chunks are first allocated
+- `node`: Doubly-linked list node used to chain this block into one of the SlabContext's blocklist arrays based on free space availability
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SlabContext](SlabContext.md)

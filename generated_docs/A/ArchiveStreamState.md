@@ -26,14 +26,13 @@ ArchiveStreamState is a comprehensive state management structure used in pg_base
 The structure manages the complex pipeline of data processing that occurs during backup operations, including the coordination of multiple streaming components, compression settings, and manifest file generation. It serves as a central state holder that allows the backup process to maintain consistency across different phases of archive stream processing.
 
 ## Parameters / Member Variables
-- : Identifier for the tablespace being processed, used to track which tablespace the current stream represents
-- : Pointer to compression specification structure that defines the compression method and parameters to be applied
-- : Primary bbstreamer instance responsible for handling the main data stream processing
-- : Secondary bbstreamer used specifically for injecting manifest information into the stream
-- : PQExpBuffer used for buffering manifest data during processing
-- : File path for the manifest file (maximum MAXPGPATH characters)
-- : File handle for the open manifest file being written to
-
+- `tablespacenum`: Identifier for the tablespace being processed, used to track which tablespace the current stream represents
+- `*compress`: Pointer to compression specification structure that defines the compression method and parameters to be applied
+- `*streamer`: Primary bbstreamer instance responsible for handling the main data stream processing
+- `*manifest_inject_streamer`: Secondary bbstreamer used specifically for injecting manifest information into the stream
+- `manifest_buffer`: PQExpBuffer used for buffering manifest data during processing
+- `manifest_filename[MAXPGPATH]`: File path for the manifest file (maximum MAXPGPATH characters)
+- `*manifest_file`: File handle for the open manifest file being written to
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_compress_specification](../p/pg_compress_specification.md) (compression configuration)

@@ -25,15 +25,14 @@ typedef struct PgStat_SLRUStats
 PgStat_SLRUStats maintains performance statistics for PostgreSQL's SLRU (Simple Least Recently Used) buffer cache system. SLRU caches are used throughout PostgreSQL for various purposes including commit logs (CLOG), subtransaction logs (SUBTRANS), multixact members and offsets, and other internal data structures. This structure tracks various block-level operations and cache behavior, providing insights into the efficiency and activity of these critical internal cache systems.
 
 ## Parameters / Member Variables
-- : Number of blocks that were zeroed (newly initialized) in the SLRU cache
-- : Number of cache hits when accessing blocks in the SLRU cache
-- : Number of blocks that were read from disk into the SLRU cache
-- : Number of blocks that were written from the SLRU cache to disk
-- : Number of times a block was found to already exist during operations
-- : Number of flush operations performed on the SLRU cache
-- : Number of truncate operations performed on the SLRU cache
-- : Timestamp indicating when the statistics for this SLRU cache were last reset
-
+- `blocks_zeroed`: Number of blocks that were zeroed (newly initialized) in the SLRU cache
+- `blocks_hit`: Number of cache hits when accessing blocks in the SLRU cache
+- `blocks_read`: Number of blocks that were read from disk into the SLRU cache
+- `blocks_written`: Number of blocks that were written from the SLRU cache to disk
+- `blocks_exists`: Number of times a block was found to already exist during operations
+- `flush`: Number of flush operations performed on the SLRU cache
+- `truncate`: Number of truncate operations performed on the SLRU cache
+- `stat_reset_timestamp`: Timestamp indicating when the statistics for this SLRU cache were last reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (statistics counter type)

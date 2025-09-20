@@ -30,9 +30,8 @@ This structure is critical for PostgreSQL's storage efficiency as it appears in 
 The ItemPointerData structure enables PostgreSQL's heap storage model where data pages contain line pointer arrays that reference the actual tuple data, allowing for efficient tuple updates and space management.
 
 ## Parameters / Member Variables
-- : A BlockIdData structure that identifies the specific disk block containing the target item
-- : An OffsetNumber (uint16) representing a 1-based index into the line pointer array within the specified block
-
+- `ip_blkid`: A BlockIdData structure that identifies the specific disk block containing the target item
+- `ip_posid`: An OffsetNumber (uint16) representing a 1-based index into the line pointer array within the specified block
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BlockIdData](../B/BlockIdData.md) (block identifier structure)

@@ -18,7 +18,6 @@ This function returns the current WAL write position by refreshing and reading t
 The function calls RefreshXLogWriteResult() to ensure the returned value reflects the most current write position, as the write position is updated by the WAL writer background process.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: XLogRecPtr representing the current WAL write position
 
 ## Dependencies

@@ -20,8 +20,7 @@ SharedRecordTableEntry serves as the shared version of RecordCacheEntry in Postg
 The primary purpose of this structure is to support the shared record typmod registry, which allows multiple PostgreSQL backends to share record type metadata efficiently without duplicating information in each backend's local memory.
 
 ## Parameters / Member Variables
-- : A SharedRecordTableKey structure that can hold either a local TupleDesc or a pointer to a shared TupleDesc, along with a flag indicating which type it contains
-
+- `key`: A SharedRecordTableKey structure that can hold either a local TupleDesc or a pointer to a shared TupleDesc, along with a flag indicating which type it contains
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SharedRecordTableKey](SharedRecordTableKey.md)

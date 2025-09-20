@@ -19,7 +19,7 @@ The function implements the same safety philosophy as `process_startup_packet_di
 The timeout mechanism protects the server from clients that send incomplete startup packets, are extremely slow to respond, or are attempting to consume server resources through slow connection attacks. By enforcing a timeout, PostgreSQL ensures that backend processes don't remain indefinitely waiting for startup packets.
 
 ## Parameters / Member Variables
-- None (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

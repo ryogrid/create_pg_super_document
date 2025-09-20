@@ -21,11 +21,10 @@ typedef struct QueueBackendStatus
 The QueueBackendStatus structure maintains the state of a backend process that is participating in PostgreSQL's asynchronous notification system. It tracks which backend process is listening (identified by PID and database), maintains a linked list of listeners through the nextListener field, and critically tracks how far through the notification queue this particular backend has read. This allows the system to manage multiple listeners efficiently, ensuring that notifications are not discarded until all interested backends have processed them.
 
 ## Parameters / Member Variables
-- : Process ID of the listening backend, or InvalidPid if the slot is unused
-- : Database OID that the backend is connected to, or InvalidOid if invalid
-- : Process number of the next listener in a linked list structure, or INVALID_PROC_NUMBER if this is the last listener
-- : QueuePosition indicating how far through the notification queue this backend has read
-
+- `pid`: Process ID of the listening backend, or InvalidPid if the slot is unused
+- `dboid`: Database OID that the backend is connected to, or InvalidOid if invalid
+- `nextListener`: Process number of the next listener in a linked list structure, or INVALID_PROC_NUMBER if this is the last listener
+- `pos`: QueuePosition indicating how far through the notification queue this backend has read
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcNumber

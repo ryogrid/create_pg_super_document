@@ -20,8 +20,7 @@ The function calculates the result by subtracting the null count from the total 
 This function is useful in SQL queries for data completeness analysis, validation logic, and statistical operations where the count of valid (non-null) values is needed.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function call interface 
-- Accepts a variable number of arguments of any type through PostgreSQL's variadic function mechanism
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

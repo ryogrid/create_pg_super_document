@@ -26,16 +26,15 @@ typedef struct PgStat_StatReplSlotEntry
 PgStat_StatReplSlotEntry maintains comprehensive statistics for logical replication slots, which are essential components of PostgreSQL's logical replication system. This structure tracks both spill operations (when transaction data is written to disk due to memory constraints) and stream operations (when data is streamed directly to consumers), along with overall transaction statistics. These metrics are crucial for monitoring replication slot performance, identifying bottlenecks, and understanding the behavior of logical decoding processes.
 
 ## Parameters / Member Variables
-- : Number of transactions that were spilled to disk during logical decoding
-- : Total number of spill operations performed for this replication slot
-- : Total number of bytes spilled to disk during logical decoding
-- : Number of transactions that were streamed directly without spilling
-- : Total number of streaming operations performed for this replication slot
-- : Total number of bytes streamed directly during logical decoding
-- : Total number of transactions processed by this replication slot
-- : Total number of bytes processed by this replication slot
-- : Timestamp indicating when the statistics for this replication slot were last reset
-
+- `spill_txns`: Number of transactions that were spilled to disk during logical decoding
+- `spill_count`: Total number of spill operations performed for this replication slot
+- `spill_bytes`: Total number of bytes spilled to disk during logical decoding
+- `stream_txns`: Number of transactions that were streamed directly without spilling
+- `stream_count`: Total number of streaming operations performed for this replication slot
+- `stream_bytes`: Total number of bytes streamed directly during logical decoding
+- `total_txns`: Total number of transactions processed by this replication slot
+- `total_bytes`: Total number of bytes processed by this replication slot
+- `stat_reset_timestamp`: Timestamp indicating when the statistics for this replication slot were last reset
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (statistics counter type)

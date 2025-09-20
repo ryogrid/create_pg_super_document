@@ -20,7 +20,7 @@ The function first checks if there's an active database connection, returning  i
 This information is important for psql's string processing and command parsing, as it affects how escape sequences should be interpreted in user input and SQL commands.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

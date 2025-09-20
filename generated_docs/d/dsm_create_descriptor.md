@@ -24,7 +24,7 @@ This internal helper function allocates and initializes a new `dsm_segment` stru
 The caller is responsible for setting the `handle` field after creation, as this function only creates the descriptor structure without establishing the actual shared memory mapping.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

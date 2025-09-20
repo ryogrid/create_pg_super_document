@@ -18,7 +18,6 @@ This function is part of PostgreSQL's type input/output framework and is automat
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function argument macro that provides access to function arguments
-  - Contains the regoper value to be converted to binary format
 
 ## Dependencies
 - Functions called/Symbols referenced:

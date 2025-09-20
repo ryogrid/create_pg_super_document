@@ -40,22 +40,21 @@ GISTSTATE serves as the central state holder for GiST index operations, encapsul
 The structure stores cached FmgrInfo structures for all nine standard GiST support functions across all index columns, eliminating the need for repeated function lookups during index operations. It also maintains multiple tuple descriptors to handle different contexts: leaf pages, non-leaf pages, and index-only scans.
 
 ## Parameters / Member Variables
-- : Memory context for scan-lifespan data that persists throughout the index operation
-- : Short-term memory context for calling functions, typically reset after each tuple
-- : Tuple descriptor for the complete index tuples stored in leaf pages
-- : Truncated tuple descriptor optimized for non-leaf internal pages
-- : Tuple descriptor for tuples returned during index-only scan operations
-- : Cached function info for consistency check functions per column
-- : Cached function info for union operation functions per column
-- : Cached function info for compression functions per column
-- : Cached function info for decompression functions per column
-- : Cached function info for penalty calculation functions per column
-- : Cached function info for page split decision functions per column
-- : Cached function info for equality test functions per column
-- : Cached function info for distance calculation functions per column
-- : Cached function info for fetch operation functions per column
-- : Collation information to pass to support functions per column
-
+- `scanCxt`: Memory context for scan-lifespan data that persists throughout the index operation
+- `tempCxt`: Short-term memory context for calling functions, typically reset after each tuple
+- `leafTupdesc`: Tuple descriptor for the complete index tuples stored in leaf pages
+- `nonLeafTupdesc`: Truncated tuple descriptor optimized for non-leaf internal pages
+- `fetchTupdesc`: Tuple descriptor for tuples returned during index-only scan operations
+- `consistentFn[INDEX_MAX_KEYS]`: Cached function info for consistency check functions per column
+- `unionFn[INDEX_MAX_KEYS]`: Cached function info for union operation functions per column
+- `compressFn[INDEX_MAX_KEYS]`: Cached function info for compression functions per column
+- `decompressFn[INDEX_MAX_KEYS]`: Cached function info for decompression functions per column
+- `penaltyFn[INDEX_MAX_KEYS]`: Cached function info for penalty calculation functions per column
+- `picksplitFn[INDEX_MAX_KEYS]`: Cached function info for page split decision functions per column
+- `equalFn[INDEX_MAX_KEYS]`: Cached function info for equality test functions per column
+- `distanceFn[INDEX_MAX_KEYS]`: Cached function info for distance calculation functions per column
+- `fetchFn[INDEX_MAX_KEYS]`: Cached function info for fetch operation functions per column
+- `supportCollation[INDEX_MAX_KEYS]`: Collation information to pass to support functions per column
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS

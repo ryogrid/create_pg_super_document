@@ -19,9 +19,8 @@ typedef struct JsonTablePlanRowSource
 JsonTablePlanRowSource is a fundamental data structure used in PostgreSQL's JSON_TABLE functionality. It acts as an intermediate container that holds the evaluated result from a jsonpath expression. This structure bridges the gap between jsonpath evaluation and the computation of individual JSON_TABLE column values. The structure is designed to encapsulate both the actual data value and its nullability status, which is crucial for proper SQL NULL handling in JSON operations.
 
 ## Parameters / Member Variables
-- : A Datum containing the evaluated result from jsonpath execution
-- : A boolean flag indicating whether the value is NULL
-
+- `value`: A Datum containing the evaluated result from jsonpath execution
+- `isnull`: A boolean flag indicating whether the value is NULL
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls from this structure definition)

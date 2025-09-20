@@ -13,7 +13,7 @@ static void CheckForBufferLeaks(void)
 This static function serves as a debugging cross-check to ensure that no buffer pins remain held by the current backend process. Since PostgreSQL 8.0, buffer pins should be automatically released by the ResourceOwner mechanism, making this function primarily a development and debugging tool. The function examines both the static PrivateRefCountArray and the overflow hash table (PrivateRefCountHash) to detect any remaining buffer references. When leaks are found, it logs warnings with detailed information about the leaked buffers and triggers an assertion failure in debug builds.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

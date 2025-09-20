@@ -15,7 +15,6 @@ Datum text_concat_ws(PG_FUNCTION_ARGS)
 This function implements PostgreSQL's concat_ws() SQL function (concatenate with separator). The first argument serves as the separator string, and all subsequent arguments are concatenated using this separator. The function converts the first argument from text to a C string, then delegates the actual concatenation work to concat_internal starting from argument index 1. If the separator argument is NULL, the function immediately returns NULL. Other NULL arguments in the value list are ignored during concatenation.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard PG_FUNCTION_ARGS macro to access function call information and arguments
 - First argument (index 0): separator string
 - Remaining arguments (index 1+): values to concatenate
 

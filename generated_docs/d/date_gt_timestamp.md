@@ -16,7 +16,6 @@ date_gt_timestamp(PG_FUNCTION_ARGS)
 This function implements the greater-than comparison operator (>) between a DATE type and a TIMESTAMP type in PostgreSQL. It extracts a DateADT value and a Timestamp value from the function arguments, then delegates the actual comparison logic to the internal helper function date_cmp_timestamp_internal(). The function returns true if the date value is greater than the timestamp value, false otherwise.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's function call convention using PG_FUNCTION_ARGS
 - Argument 0: DateADT value (the date to compare)
 - Argument 1: Timestamp value (the timestamp to compare against)
 

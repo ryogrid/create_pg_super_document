@@ -24,29 +24,15 @@ def extract_struct_members(code: str) -> list or None:
         
         if line.endswith(';'):
             declaration = line[:-1].strip()
-            
-            # --- NEW, MORE ROBUST PARSING LOGIC ---
-            
-            # Find the start of an array specifier, if any
             array_bracket_pos = declaration.find('[')
             
             full_member_name = ""
             if array_bracket_pos != -1:
-                # Case: This is an array declaration, e.g., "unsigned statesarea[...]"
-                
-                # Part before the array bracket, e.g., "unsigned statesarea"
                 before_array = declaration[:array_bracket_pos].strip()
-                
-                # The rest of the string is the array part, e.g., "[FEWSTATES * 2 + WORK]"
                 array_part = declaration[array_bracket_pos:]
-                
-                # The base name is the last word before the array part
                 base_name = before_array.split()[-1]
-                
                 full_member_name = base_name + array_part
             else:
-                # Case: This is a simple variable or pointer, e.g., "int member" or "Type *ptr"
-                # The last whitespace-separated word is the name.
                 parts = declaration.split()
                 if parts:
                     full_member_name = parts[-1]
@@ -71,8 +57,10 @@ def main():
     files_changed = 0
     files_skipped = 0
     
-    definition_pattern = re.compile(r"## Definition\s*\n+```c\n(struct[\s\S]*?)\n```", flags=re.DOTALL)
-    params_pattern = re.compile(r"(^## Parameters / Member Variables\s*\n)((?:^\s*-.*\n)+)", flags=re.MULTILINE)
+    # CORRECTED: General regex to capture ANY C code block under ## Definition.
+    definition_pattern = re.compile(r"## Definition\s*\n+```c\n([\s\S]*?)\n```", flags=re.DOTALL)
+    params_header_pattern = re.compile(r"^## Parameters / Member Variables\s*$", flags=re.MULTILINE)
+    next_header_pattern = re.compile(r"^## \w+", flags=re.MULTILINE)
 
     for md_path in ROOT_DIR.rglob("*.md"):
         files_scanned += 1
@@ -80,20 +68,40 @@ def main():
             content = md_path.read_text(encoding='utf-8')
             
             def_match = definition_pattern.search(content)
-            params_match = params_pattern.search(content)
+            params_header_match = params_header_pattern.search(content)
 
-            if not def_match or not params_match:
+            if not def_match or not params_header_match:
                 continue
 
             definition_code = def_match.group(1)
-            params_block = params_match.group(2)
+
+            # CORRECTED: Check if the captured block is a struct definition.
+            if 'struct' not in definition_code:
+                continue
+
+            # --- Robust method to extract parameter lines ---
+            params_section_start = params_header_match.end()
+            next_header_match = next_header_pattern.search(content, pos=params_section_start)
+            
+            params_block_original = ""
+            if next_header_match:
+                params_section_end = next_header_match.start()
+                params_block_original = content[params_section_start:params_section_end]
+            else:
+                params_section_end = len(content)
+                params_block_original = content[params_section_start:]
+
+            param_lines = [
+                line.strip() for line in params_block_original.strip().splitlines()
+                if line.strip().startswith('-')
+            ]
             
             members = extract_struct_members(definition_code)
-            param_lines = [line.strip() for line in params_block.strip().splitlines()]
-
+            
             if not members:
                 continue
 
+            # VALIDATION 1: Member count must match description line count
             if len(members) != len(param_lines):
                 print(f"  - Skipping '{md_path.name}': Mismatch! Found {len(members)} members but {len(param_lines)} descriptions.")
                 files_skipped += 1
@@ -102,18 +110,17 @@ def main():
             is_valid_for_update = True
             for line in param_lines:
                 if ':' not in line:
-                    print(f"  - Skipping '{md_path.name}': Line is missing a colon: '{line}'")
                     is_valid_for_update = False
                     break
                 
                 left_part = line.split(':', 1)[0]
                 validation_str = left_part.lstrip('-').strip()
                 if validation_str:
-                    print(f"  - Skipping '{md_path.name}': Unexpected content found before colon: '{validation_str}'")
                     is_valid_for_update = False
                     break
             
             if not is_valid_for_update:
+                print(f"  - Skipping '{md_path.name}': A parameter line was already annotated or had invalid format.")
                 files_skipped += 1
                 continue
 
@@ -127,11 +134,17 @@ def main():
                 new_line = f"- `{cleaned_member_name}`:{right_part}"
                 updated_param_lines.append(new_line)
 
-            new_params_block = "\n".join(updated_param_lines) + "\n"
-            updated_content = content.replace(params_block, new_params_block, 1)
+            new_params_block = "\n" + "\n".join(updated_param_lines) + "\n"
+            
+            before_section = content[:params_section_start]
+            after_section = content[params_section_end:]
+            updated_content = before_section + new_params_block + after_section
 
-            md_path.write_text(updated_content, encoding='utf-8')
-            files_changed += 1
+            if updated_content != content:
+                md_path.write_text(updated_content, encoding='utf-8')
+                files_changed += 1
+            else:
+                files_skipped += 1
 
         except Exception as e:
             print(f"An error occurred while processing '{md_path}': {e}")

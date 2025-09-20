@@ -27,10 +27,9 @@ This structure serves as an output parameter container for UPDATE-specific opera
 The structure is typically initialized by the calling function (like ExecUpdate()) and then populated by the update execution functions to provide feedback about the operation's results. This design allows the update execution logic to be decomposed into smaller, focused functions while maintaining the ability to communicate complex state information back to the coordinator.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the update operation resulted in a cross-partition update (tuple moved from one partition to another)
-- : Enum value specifying which indexes require updating as a result of the UPDATE operation
-- : The lock mode that should be acquired on the latest tuple version before performing EvalPlanQual processing during concurrent update handling
-
+- `crossPartUpdate`: Boolean flag indicating whether the update operation resulted in a cross-partition update (tuple moved from one partition to another)
+- `updateIndexes`: Enum value specifying which indexes require updating as a result of the UPDATE operation
+- `lockmode`: The lock mode that should be acquired on the latest tuple version before performing EvalPlanQual processing during concurrent update handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - TU_UpdateIndexes (enum for index update requirements)

@@ -17,7 +17,6 @@ The  function is a PostgreSQL built-in function that examines an array and retur
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function argument structure containing:
-  - Array argument accessed via  - the input array to examine
 
 ## Dependencies
 - Functions called/Symbols referenced:

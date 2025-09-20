@@ -21,7 +21,7 @@ The function creates a Snowball environment with:
 This configuration is tailored to the requirements of the Spanish stemming algorithm, providing the necessary working space for the various stemming operations without excess overhead.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

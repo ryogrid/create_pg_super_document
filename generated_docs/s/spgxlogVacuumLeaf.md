@@ -35,13 +35,12 @@ typedef struct spgxlogVacuumLeaf
 This structure represents a WAL record for SP-GiST leaf page vacuum operations. During vacuum, the system needs to clean up dead tuples, compact the page, and maintain proper chaining relationships between tuples. The vacuum process involves multiple operations: marking tuples as dead, creating placeholders for maintaining tuple chain integrity, moving tuples to eliminate fragmentation, and updating the chain links that connect related tuples. This struct captures all these operations so they can be replayed during WAL recovery.
 
 ## Parameters / Member Variables
-- : Number of tuples that should be marked as DEAD during the vacuum operation
-- : Number of tuples that should be converted to PLACEHOLDER status to maintain chain integrity
-- : Number of tuples that need to be physically moved to compact the page
-- : Number of tuples that require chain link updates (nextOffset modifications)
-- : SP-GiST state information containing transaction ID and build flag for the source page
-- : Flexible array member containing variable-length data with six arrays: dead tuple numbers, placeholder tuple numbers, source locations for moves, destination locations for moves, tuple numbers needing chain updates, and new chain link values
-
+- `nDead`: Number of tuples that should be marked as DEAD during the vacuum operation
+- `nPlaceholder`: Number of tuples that should be converted to PLACEHOLDER status to maintain chain integrity
+- `nMove`: Number of tuples that need to be physically moved to compact the page
+- `nChain`: Number of tuples that require chain link updates (nextOffset modifications)
+- `stateSrc`: SP-GiST state information containing transaction ID and build flag for the source page
+- `offsets[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing variable-length data with six arrays: dead tuple numbers, placeholder tuple numbers, source locations for moves, destination locations for moves, tuple numbers needing chain updates, and new chain link values
 ## Dependencies
 - Functions called/Symbols referenced:
   - [spgxlogState](spgxlogState.md)

@@ -18,8 +18,6 @@ The implementation differs significantly from the simpler percent_rank and cume_
 
 ## Parameters / Member Variables
 - `fcinfo`: Function call information structure containing the aggregate state and hypothetical row values
-  - First argument contains the OSAPerGroupState with the dataset to be ranked
-  - Subsequent arguments contain the hypothetical row values for ranking
 - Local variables:
   - `rank`: Running count of position, starts at 1
   - `duplicate_count`: Number of duplicate values encountered before the hypothetical row

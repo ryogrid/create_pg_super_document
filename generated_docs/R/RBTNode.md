@@ -21,11 +21,10 @@ typedef struct RBTNode
 RBTNode serves as the base structure for all nodes in PostgreSQL's red-black tree implementation. It follows a composition pattern where applications define larger structs with RBTNode as the first field, allowing the tree operations to work with the RBTNode portion while applications access their specific data through pointer casting. The structure maintains the essential red-black tree properties: node color for balancing and three pointers for tree navigation. This design provides type safety while allowing flexibility for different data types to be stored in the tree.
 
 ## Parameters / Member Variables
-- : A character field storing the node's color (red or black) used by red-black tree balancing algorithms
-- : Pointer to the left child node, or RBTNIL sentinel value if no left child exists
-- : Pointer to the right child node, or RBTNIL sentinel value if no right child exists  
-- : Pointer to the parent node, or NULL if this is the root node (note: uses NULL, not RBTNIL)
-
+- `color`: A character field storing the node's color (red or black) used by red-black tree balancing algorithms
+- `*left`: Pointer to the left child node, or RBTNIL sentinel value if no left child exists
+- `*right`: Pointer to the right child node, or RBTNIL sentinel value if no right child exists
+- `*parent`: Pointer to the parent node, or NULL if this is the root node (note: uses NULL, not RBTNIL)
 ## Dependencies
 - Functions called/Symbols referenced:
   - color (member access)

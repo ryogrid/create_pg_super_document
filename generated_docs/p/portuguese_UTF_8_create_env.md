@@ -15,7 +15,7 @@ extern struct SN_env * portuguese_UTF_8_create_env(void)
 This function serves as a factory method for creating Portuguese stemming environments. It calls the generic SN_create_env function with parameters specifically tailored for Portuguese language processing. The function creates a Snowball environment with 0 string variables and 3 integer variables, which matches the requirements of the Portuguese stemming algorithm for tracking cursor positions and region boundaries.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

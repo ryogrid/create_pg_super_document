@@ -19,9 +19,8 @@ typedef struct fireRIRonSubLink_context
 The  structure provides essential context information when processing RIR (Row-level Insert/Update/Delete) rules on sublinks within query rewriting. It tracks the list of currently active RIR rules to prevent infinite recursion and maintains information about whether row-level security policies are involved in the current rewrite operation. This context is crucial for ensuring proper rule processing while avoiding infinite loops and correctly handling security constraints.
 
 ## Parameters / Member Variables
-- : A list of currently active RIR rules, used to detect and prevent recursive rule firing
-- : Boolean flag indicating whether row-level security policies are active in the current context
-
+- `*activeRIRs`: A list of currently active RIR rules, used to detect and prevent recursive rule firing
+- `hasRowSecurity`: Boolean flag indicating whether row-level security policies are active in the current context
 ## Dependencies
 - Functions called/Symbols referenced:
   - [List](../L/List.md) (PostgreSQL's list data structure)

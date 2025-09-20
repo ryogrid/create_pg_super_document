@@ -15,7 +15,7 @@ static void prepare_buf(void)
 This function prepares a test buffer by filling it with random data and setting up proper alignment for filesystem sync tests. It fills the full_buf array with random bytes using PostgreSQL's pseudo-random number generator, then creates an aligned pointer (buf) that points to a properly aligned location within full_buf. The alignment is set to XLOG_BLCKSZ (WAL block size) which is critical for accurate testing of PostgreSQL's write-ahead logging performance characteristics.
 
 ## Parameters / Member Variables
-- None (operates on global variables)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

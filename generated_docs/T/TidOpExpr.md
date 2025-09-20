@@ -22,10 +22,9 @@ TidOpExpr is a specialized data structure used in PostgreSQL's TID range scan ex
 The structure works in conjunction with the TidExprType enumeration (TIDEXPR_UPPER_BOUND, TIDEXPR_LOWER_BOUND) to specify whether the expression represents an upper or lower boundary of a scan range. This allows the executor to efficiently scan only the relevant portions of a table based on physical row locations.
 
 ## Parameters / Member Variables
-- : A TidExprType value (TIDEXPR_UPPER_BOUND or TIDEXPR_LOWER_BOUND) indicating whether this expression represents an upper or lower range boundary
-- : An ExprState pointer containing the compiled expression state for evaluating a subexpression that yields TID values
-- : A boolean flag indicating whether the range boundary is inclusive (<=, >=) or exclusive (<, >)
-
+- `exprtype`: A TidExprType value (TIDEXPR_UPPER_BOUND or TIDEXPR_LOWER_BOUND) indicating whether this expression represents an upper or lower range boundary
+- `*exprstate`: An ExprState pointer containing the compiled expression state for evaluating a subexpression that yields TID values
+- `inclusive`: A boolean flag indicating whether the range boundary is inclusive (<=, >=) or exclusive (<, >)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidExprType (enum with TIDEXPR_UPPER_BOUND, TIDEXPR_LOWER_BOUND values)

@@ -24,13 +24,12 @@ typedef struct GinBtreeStack
 GinBtreeStack implements a linked stack data structure that tracks the traversal path through a GIN B-tree during search and modification operations. Each stack entry represents a level in the tree hierarchy, maintaining both the physical location (block number, buffer) and logical position (offset, item pointer) within that level. The stack enables efficient navigation and backtracking during tree operations, particularly important for split operations and parent updates.
 
 ## Parameters / Member Variables
-- : Block number of the page at this stack level
-- : Buffer containing the page data for this level
-- : Offset number indicating position within the page
-- : Item pointer data for precise tuple location
-- : Predicted number of pages at the current tree level (used for optimization)
-- : Pointer to parent stack entry, forming the linked stack structure
-
+- `blkno`: Block number of the page at this stack level
+- `buffer`: Buffer containing the page data for this level
+- `off`: Offset number indicating position within the page
+- `iptr`: Item pointer data for precise tuple location
+- `predictNumber`: Predicted number of pages at the current tree level (used for optimization)
+- `*parent`: Pointer to parent stack entry, forming the linked stack structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [GinBtreeStack](GinBtreeStack.md) (self-reference for parent pointer)

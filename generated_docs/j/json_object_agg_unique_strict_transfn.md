@@ -17,7 +17,6 @@ This function serves as the transition function for the json_object_agg_unique_s
 The function delegates all the actual work to `json_object_agg_transfn_worker` with the parameters `absent_on_null=true` and `unique_keys=true`, meaning it will skip NULL values in the output and strictly enforce key uniqueness.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard `PG_FUNCTION_ARGS` macro for function arguments
 - Argument 0: Internal aggregate state (JsonAggState pointer)
 - Argument 1: Key value (any type, converted to JSON string)
 - Argument 2: Value to associate with the key (any type, converted to JSON)

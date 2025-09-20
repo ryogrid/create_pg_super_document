@@ -21,11 +21,10 @@ typedef struct TypeCast
 TypeCast is a parse tree node that represents explicit type casting operations in SQL statements (e.g., CAST(expression AS type) or expression::type). It encapsulates both the source expression that needs to be converted and the target type specification. This node is created during parsing when the parser encounters type casting syntax and is later transformed during the analysis phase into appropriate coercion functions or operations.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a TypeCast node
-- : Pointer to the Node representing the expression being cast
-- : Pointer to TypeName specifying the target data type for the cast
-- : ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
-
+- `type`: NodeTag identifying this as a TypeCast node
+- `*arg`: Pointer to the Node representing the expression being cast
+- `*typeName`: Pointer to TypeName specifying the target data type for the cast
+- `location`: ParseLoc storing the token's position in the source SQL, or -1 if location is unknown
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TypeName](TypeName.md)

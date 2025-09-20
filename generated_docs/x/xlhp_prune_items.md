@@ -21,9 +21,8 @@ The  struct is a specialized data structure used within PostgreSQL's Write-Ahead
 The structure uses a flexible array member to efficiently store a variable number of  values. In the case of the  variant, the data array contains twice the number of  as indicated by , representing redirect mappings from old to new item locations.
 
 ## Parameters / Member Variables
-- : The number of target items being processed (redirected, marked as dead, or unused)
-- : A flexible array of  values representing the item identifiers being processed
-
+- `ntargets`: The number of target items being processed (redirected, marked as dead, or unused)
+- `data[FLEXIBLE_ARRAY_MEMBER]`: A flexible array of  values representing the item identifiers being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

@@ -22,12 +22,11 @@ typedef struct DomainConstraintState
 DomainConstraintState manages the runtime validation of domain constraints when values are coerced to domain types. PostgreSQL domains allow users to create custom data types with additional constraints beyond the base type. This structure holds the execution state needed to evaluate these constraints efficiently during query execution. It supports two types of constraints: NOT NULL constraints that prevent null values, and CHECK constraints that evaluate boolean expressions against the domain value.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for this node type
-- : Type of domain constraint (DOM_CONSTRAINT_NOTNULL or DOM_CONSTRAINT_CHECK)
-- : Human-readable name of the constraint, used in error messages when constraint violations occur
-- : For CHECK constraints, the boolean expression that must evaluate to true for valid values
-- : Compiled execution state for the check_expr, or NULL for NOT NULL constraints
-
+- `type`: NodeTag identifier for this node type
+- `constrainttype`: Type of domain constraint (DOM_CONSTRAINT_NOTNULL or DOM_CONSTRAINT_CHECK)
+- `*name`: Human-readable name of the constraint, used in error messages when constraint violations occur
+- `*check_expr`: For CHECK constraints, the boolean expression that must evaluate to true for valid values
+- `*check_exprstate`: Compiled execution state for the check_expr, or NULL for NOT NULL constraints
 ## Dependencies
 - Functions called/Symbols referenced:
   - [DomainConstraintType](DomainConstraintType.md)

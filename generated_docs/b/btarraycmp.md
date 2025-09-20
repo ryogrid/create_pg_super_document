@@ -21,9 +21,6 @@ This function is specifically designed for B-tree index support operations where
   - First argument: Array to compare (left operand)
   - Second argument: Array to compare against (right operand)
 - Returns: int32 datum with comparison result:
-  - -1 if first array < second array
-  - 0 if first array = second array  
-  - 1 if first array > second array
 
 ## Dependencies
 - Functions called/Symbols referenced:

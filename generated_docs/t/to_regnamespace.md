@@ -21,7 +21,6 @@ This pattern is commonly used in PostgreSQL for "safe" conversion functions that
 
 ## Parameters / Member Variables
 - The function uses PostgreSQL's standard function call interface (PG_FUNCTION_ARGS) which provides:
-  - Input text argument containing the namespace name
   - : Converted C string from the input text
   - : Output Datum containing the OID or NULL
   - : Error save context for safe error handling

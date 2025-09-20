@@ -19,9 +19,8 @@ typedef struct contain_placeholder_references_context
 This structure serves as a context parameter for the tree walker function  when searching for PlaceHolderVar references to a specific relation. It's used in the process of determining whether changing the nullability status of a relation might affect what a PlaceHolderVar computes. The structure maintains state during recursive traversal of expression trees and query trees to track the target relation ID and the current nesting level of subqueries.
 
 ## Parameters / Member Variables
-- : The relation ID (typically an outer join relation ID) to search for within PlaceHolderVar expressions
-- : Counter tracking the current nesting level when recursing into subqueries; used to match against PlaceHolderVar's phlevelsup field
-
+- `relid`: The relation ID (typically an outer join relation ID) to search for within PlaceHolderVar expressions
+- `sublevels_up`: Counter tracking the current nesting level when recursing into subqueries; used to match against PlaceHolderVar's phlevelsup field
 ## Dependencies
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)

@@ -27,12 +27,11 @@ The df_files struct (typedef'd as DynamicFileList) serves as the fundamental dat
 This structure is critical for PostgreSQL's extension system, allowing the database to load C functions from shared libraries while maintaining proper resource management and avoiding duplicate loads of the same library file.
 
 ## Parameters / Member Variables
-- : Pointer to the next DynamicFileList node in the linked list, forming a singly-linked list of all loaded libraries
-- : Device identifier (st_dev) from stat() call, used in conjunction with inode for unique file identification
-- : Inode number from stat() call for unique file identification (not used on Windows platforms)
-- : Void pointer containing the dlopen() handle returned by the dynamic linker, used for subsequent dlsym() calls
-- : Flexible array member containing the full pathname of the loaded library file
-
+- `*next`: Pointer to the next DynamicFileList node in the linked list, forming a singly-linked list of all loaded libraries
+- `device`: Device identifier (st_dev) from stat() call, used in conjunction with inode for unique file identification
+- `inode`: Inode number from stat() call for unique file identification (not used on Windows platforms)
+- `*handle`: Void pointer containing the dlopen() handle returned by the dynamic linker, used for subsequent dlsym() calls
+- `filename[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the full pathname of the loaded library file
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)

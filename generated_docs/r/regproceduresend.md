@@ -17,7 +17,6 @@ This function serves as the binary send function for PostgreSQL's regprocedure d
 The function is part of PostgreSQL's type system infrastructure and is automatically invoked when regprocedure data needs to be sent in binary format, typically during client-server communication using the binary protocol.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Input: regprocedure value (accessed via fcinfo)
 - Returns: Binary representation in PostgreSQL's external format
 

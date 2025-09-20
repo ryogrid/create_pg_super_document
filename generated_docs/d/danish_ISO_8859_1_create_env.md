@@ -17,7 +17,7 @@ This function serves as a wrapper around the generic SN_create_env function, pro
 The function initializes the environment with parameters specific to Danish language processing requirements, setting up the appropriate string length limits and integer variable counts needed by the Danish stemming algorithm.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

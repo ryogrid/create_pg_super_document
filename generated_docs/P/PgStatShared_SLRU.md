@@ -22,9 +22,8 @@ PgStatShared_SLRU is a shared memory structure that maintains statistics for all
 The structure is designed for concurrent access in a multi-process environment, using an LWLock to protect the statistics array from race conditions during updates and reads. Each SLRU type has its own dedicated statistics entry in the array, indexed by predefined SLRU identifiers.
 
 ## Parameters / Member Variables
-- : LWLock that protects concurrent access to the stats array, ensuring data consistency during statistics updates and reads
-- : Array of PgStat_SLRUStats structures, one for each SLRU type (commit_timestamp, multixact_member, multixact_offset, notify, serializable, subtransaction, transaction, and other)
-
+- `lock`: LWLock that protects concurrent access to the stats array, ensuring data consistency during statistics updates and reads
+- `stats[SLRU_NUM_ELEMENTS]`: Array of PgStat_SLRUStats structures, one for each SLRU type (commit_timestamp, multixact_member, multixact_offset, notify, serializable, subtransaction, transaction, and other)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [LWLock](../L/LWLock.md)

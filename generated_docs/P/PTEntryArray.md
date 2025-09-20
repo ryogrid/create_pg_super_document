@@ -21,9 +21,8 @@ PTEntryArray serves as a shared container for PagetableEntry objects in PostgreS
 This design enables efficient memory sharing in parallel query execution where multiple worker processes need access to the same bitmap data. The atomic reference count ensures proper lifecycle management, preventing premature deallocation while iterators are still using the data.
 
 ## Parameters / Member Variables
-- : Atomic reference counter tracking the number of iterators currently attached to this array, ensuring safe concurrent access and proper memory management
-- : Flexible array member containing the actual PagetableEntry objects, sized dynamically based on the number of entries needed
-
+- `refcount`: Atomic reference counter tracking the number of iterators currently attached to this array, ensuring safe concurrent access and proper memory management
+- `ptentry[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the actual PagetableEntry objects, sized dynamically based on the number of entries needed
 ## Dependencies
 - Functions called/Symbols referenced:
   - [pg_atomic_uint32](../p/pg_atomic_uint32.md)

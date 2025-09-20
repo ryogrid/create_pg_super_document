@@ -19,7 +19,6 @@ The iterator is designed to work with the open-addressing hash table implementat
 The iterator structure provides a safe way to traverse hash table contents without exposing the underlying bucket array structure to client code. This abstraction allows the hash table implementation to change its internal organization without affecting iteration code.
 
 ## Parameters / Member Variables
-- No direct parameters (macro definition)
 - When instantiated, the resulting SH_ITERATOR structure contains:
   - `cur`: Current element position in the hash table
   - `end`: End boundary for iteration

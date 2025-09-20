@@ -28,12 +28,6 @@ The function follows PostgreSQL's dump architecture by creating both creation an
 ## Parameters / Member Variables
 - : Archive pointer containing dump options and output context
 - : IndxInfo structure containing index metadata including:
-  - Index definition SQL
-  - Clustering status
-  - Statistics column information  
-  - Replica identity settings
-  - Constraint association
-  - Parent index relationship (for partitioning)
 
 ## Dependencies
 - Functions called/Symbols referenced:

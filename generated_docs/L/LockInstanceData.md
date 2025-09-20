@@ -28,15 +28,14 @@ LockInstanceData is a data transfer structure designed to communicate lock state
 The structure captures a snapshot of a particular process's involvement with a specific lock, including what types of locks it holds, what it might be waiting for, timing information, and process identification details. This information is essential for lock monitoring, deadlock analysis, and performance troubleshooting.
 
 ## Parameters / Member Variables
-- : LOCKTAG identifying the specific object being locked (table, tuple, transaction, etc.)
-- : Bitmask indicating which lock modes this process currently holds on the object
-- : The lock mode this process is waiting to acquire, or invalid if not waiting
-- : Virtual transaction ID of the process holding or requesting the lock
-- : Timestamp when the process started waiting for the lock (if applicable)
-- : Process ID of the backend process involved with this lock
-- : Process ID of the parallel group leader, or same as pid if not in a parallel group
-- : Boolean indicating whether this lock was acquired via the fast-path mechanism
-
+- `locktag`: LOCKTAG identifying the specific object being locked (table, tuple, transaction, etc.)
+- `holdMask`: Bitmask indicating which lock modes this process currently holds on the object
+- `waitLockMode`: The lock mode this process is waiting to acquire, or invalid if not waiting
+- `vxid`: Virtual transaction ID of the process holding or requesting the lock
+- `waitStart`: Timestamp when the process started waiting for the lock (if applicable)
+- `pid`: Process ID of the backend process involved with this lock
+- `leaderPid`: Process ID of the parallel group leader, or same as pid if not in a parallel group
+- `fastpath`: Boolean indicating whether this lock was acquired via the fast-path mechanism
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG

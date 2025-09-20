@@ -19,9 +19,8 @@ typedef struct ParallelWorkerInfo
 ParallelWorkerInfo is a simple data structure used in PostgreSQL's parallel processing framework to track information about individual worker processes. It serves as a container for essential handles needed to manage and communicate with background worker processes that are part of a parallel operation. This structure is typically used within the broader parallel execution context to maintain references to worker processes and their communication channels.
 
 ## Parameters / Member Variables
-- : A pointer to the BackgroundWorkerHandle that represents the actual background worker process
-- : A pointer to the shared memory message queue handle used for receiving error messages from the worker process
-
+- `*bgwhandle`: A pointer to the BackgroundWorkerHandle that represents the actual background worker process
+- `*error_mqh`: A pointer to the shared memory message queue handle used for receiving error messages from the worker process
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md)

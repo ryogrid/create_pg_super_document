@@ -20,7 +20,7 @@ The  function is a simple static utility function located in the ECPG (Embedded 
 This function is part of the ECPG compatibility layer for Oracle, specifically used in test scenarios to handle and report truncation events that may occur when processing character arrays or string data that exceeds expected column widths.
 
 ## Parameters / Member Variables
-- None (void function with no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

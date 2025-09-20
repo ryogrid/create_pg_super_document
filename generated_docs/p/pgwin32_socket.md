@@ -22,8 +22,6 @@ The function includes proper error handling, translating Windows socket errors t
 - `af`: Address family (e.g., AF_INET for IPv4, AF_INET6 for IPv6)
 - `type`: Socket type (e.g., SOCK_STREAM for TCP, SOCK_DGRAM for UDP)  
 - `protocol`: Protocol specification (usually 0 for default protocol)
-
-**Return Value:**
 - `SOCKET`: Valid socket handle on success
 - `INVALID_SOCKET`: On failure (errno is set via TranslateSocketError)
 

@@ -19,8 +19,6 @@ The function handles the special case where there are no regular rows by returni
 
 ## Parameters / Member Variables
 - : Function call information structure containing the aggregate state and hypothetical row values
-  - The first argument (PG_GETARG_POINTER(0)) contains the OSAPerGroupState with sorted data
-  - Subsequent arguments contain the hypothetical row values to be ranked
 
 ## Dependencies
 - Functions called/Symbols referenced:

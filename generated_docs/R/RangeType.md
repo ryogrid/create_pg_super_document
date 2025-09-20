@@ -24,9 +24,8 @@ The structure stores the essential metadata (type OID) followed by variable-leng
 Range types support various operations like overlap detection, containment checks, union, intersection, and adjacency testing, making them useful for temporal data, numeric ranges, and other continuous data domains.
 
 ## Parameters / Member Variables
-- : Standard varlena header containing the total object size in bytes (use VARSIZE()/SET_VARSIZE() macros)
-- : Object identifier (OID) of the specific range type (e.g., int4range, tsrange, etc.)
-
+- `vl_len_`: Standard varlena header containing the total object size in bytes (use VARSIZE()/SET_VARSIZE() macros)
+- `rangetypid`: Object identifier (OID) of the specific range type (e.g., int4range, tsrange, etc.)
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARSIZE macro (for varlena size access)

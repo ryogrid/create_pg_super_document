@@ -19,9 +19,8 @@ typedef struct PgStat_IO
 PgStat_IO serves as the top-level container for I/O statistics in PostgreSQL's statistics collection system. It maintains an array of I/O statistics structures (PgStat_BktypeIO) indexed by backend type, allowing the system to track I/O operations separately for different types of PostgreSQL backends (regular backends, background writer, checkpointer, etc.). The structure also tracks when the statistics were last reset, enabling proper interpretation of cumulative statistics.
 
 ## Parameters / Member Variables
-- : Timestamp indicating when the I/O statistics were last reset, used for calculating statistics since last reset
-- : Array of PgStat_BktypeIO structures containing detailed I/O statistics for each backend type, indexed by BackendType enumeration values
-
+- `stat_reset_timestamp`: Timestamp indicating when the I/O statistics were last reset, used for calculating statistics since last reset
+- `stats[BACKEND_NUM_TYPES]`: Array of PgStat_BktypeIO structures containing detailed I/O statistics for each backend type, indexed by BackendType enumeration values
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimestampTz (timestamp data type)

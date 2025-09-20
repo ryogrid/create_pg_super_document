@@ -26,9 +26,6 @@ The function uses multiple arrays (a_18, a_19, a_20, a_21) for pattern matching 
 
 ## Parameters / Member Variables
 - : Pointer to the Snowball environment structure () containing:
-  - Word buffer and position cursors
-  - Working integer variables (, ) used as processing flags
-  - Pattern matching state and boundaries
 
 ## Dependencies
 - Functions called/Symbols referenced:

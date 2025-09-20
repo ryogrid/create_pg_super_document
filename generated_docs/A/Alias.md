@@ -22,10 +22,9 @@ The Alias struct is a fundamental node type in PostgreSQL's parser that represen
 The aliasname field stores the primary alias for the relation and is never schema-qualified. The colnames field is an optional list of String nodes that provides column-level aliases. In Range Table Entries (RTEs), there may be entries in colnames corresponding to dropped columns, which are typically represented as empty strings.
 
 ## Parameters / Member Variables
-- : Standard NodeTag for PostgreSQL's node system type identification
-- : The primary alias name for the relation (never schema-qualified)
-- : Optional list of String nodes representing column aliases; may contain empty strings for dropped columns
-
+- `type`: Standard NodeTag for PostgreSQL's node system type identification
+- `*aliasname`: The primary alias name for the relation (never schema-qualified)
+- `*colnames`: Optional list of String nodes representing column aliases; may contain empty strings for dropped columns
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)

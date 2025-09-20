@@ -16,10 +16,6 @@ This function serves as the timezone-aware version of JSONPath array query opera
 
 ## Parameters / Member Variables
 - Uses PostgreSQL's function call info structure (PG_FUNCTION_ARGS) which contains:
-  - JSONB document to query
-  - JSONPath expression to execute
-  - JSONB variables for the path expression  
-  - Boolean flag for silent mode operation
 
 ## Dependencies
 - Functions called/Symbols referenced:

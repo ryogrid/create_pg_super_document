@@ -17,7 +17,6 @@ This function serves as a wrapper around the generic Snowball environment creati
 The function is part of the public interface for the Indonesian Snowball stemmer, allowing external code to create a properly configured environment for processing Indonesian text.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns: Pointer to a newly created and configured SN_env structure for Indonesian stemming
 
 ## Dependencies

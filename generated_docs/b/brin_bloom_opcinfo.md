@@ -18,7 +18,7 @@ This function serves as the opcinfo support function for BRIN bloom operator cla
 The function uses PostgreSQL's MAXALIGN macro to ensure proper memory alignment for the allocated structures, which is critical for performance and correctness on various architectures.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's PG_FUNCTION_ARGS convention (no explicit parameters, uses PostgreSQL's function call protocol)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

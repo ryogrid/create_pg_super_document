@@ -15,7 +15,6 @@ Datum int2shl(PG_FUNCTION_ARGS)
 The `int2shl` function implements the bitwise left shift operation for PostgreSQL's `smallint` data type (16-bit signed integers). It takes a `smallint` value and a shift count (as an `int32`), performs a left shift operation using the C `<<` operator, and returns the result as a `smallint` value. This function is typically invoked through PostgreSQL's SQL operator `<<` when used with `smallint` operands. The left shift operation effectively multiplies the value by 2^n where n is the shift count.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments from PostgreSQL's function call context
 - `arg1`: The 16-bit signed integer value to be shifted, retrieved via `PG_GETARG_INT16(0)`
 - `arg2`: The number of bit positions to shift left (32-bit signed integer), retrieved via `PG_GETARG_INT32(1)`
 

@@ -19,7 +19,7 @@ The function is a thin wrapper around json_object_agg_transfn_worker that implem
 This represents the "strict" variant of the SQL json_object_agg function that filters out key-value pairs where the value is NULL, resulting in a JSON object that only contains entries with non-null values. This follows SQL standard behavior for "ABSENT ON NULL" semantics.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard PG_FUNCTION_ARGS macro which expands to FunctionCallInfo fcinfo
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

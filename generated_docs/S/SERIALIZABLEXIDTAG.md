@@ -18,8 +18,7 @@ typedef struct SERIALIZABLEXIDTAG
 SERIALIZABLEXIDTAG is a simple tag structure used as a key in hash tables that track serializable transactions in PostgreSQL's serializable snapshot isolation implementation. The structure contains only a transaction ID (xid) and is designed to identify a serializable transaction or any of its subtransactions. This tag structure is typically used in hash table lookups to quickly find or store information about specific serializable transactions. The serializable isolation level requires tracking relationships between transactions to detect and prevent serialization anomalies, and this tag structure provides an efficient way to index transaction-specific data structures.
 
 ## Parameters / Member Variables
-- : A TransactionId (uint32) that uniquely identifies a serializable transaction or one of its subtransactions
-
+- `xid`: A TransactionId (uint32) that uniquely identifies a serializable transaction or one of its subtransactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionId (typedef for uint32 from src/include/c.h)

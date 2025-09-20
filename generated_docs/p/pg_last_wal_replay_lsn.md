@@ -17,7 +17,7 @@ This function reports the last WAL (Write-Ahead Log) replay location in the same
 The replay location indicates the progress of WAL record replay during recovery processes, whether from archive recovery, streaming replication, or other recovery scenarios. This information is crucial for understanding the consistency point that read-only queries can see during recovery. If no WAL has been replayed (recptr is 0), the function returns NULL.
 
 ## Parameters / Member Variables
-- This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL function interface)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

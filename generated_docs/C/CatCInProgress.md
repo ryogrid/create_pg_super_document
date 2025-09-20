@@ -26,12 +26,11 @@ To handle this scenario, PostgreSQL maintains a stack of "create-in-progress" en
 The structure forms a linked list (stack) where new entries are added to the front, allowing for efficient tracking of multiple concurrent cache entry creations.
 
 ## Parameters / Member Variables
-- : Pointer to the CatCache that the entry being created belongs to
-- : Hash value of the entry being created; this field is ignored for list entries
-- : Boolean flag indicating whether this represents a list entry (CatCList) or a single entry (CatCTup)
-- : Boolean flag set to true when cache invalidation determines this entry should be considered invalid
-- : Pointer to the next CatCInProgress entry in the stack, forming a linked list
-
+- `*cache`: Pointer to the CatCache that the entry being created belongs to
+- `hash_value`: Hash value of the entry being created; this field is ignored for list entries
+- `list`: Boolean flag indicating whether this represents a list entry (CatCList) or a single entry (CatCTup)
+- `dead`: Boolean flag set to true when cache invalidation determines this entry should be considered invalid
+- `*next`: Pointer to the next CatCInProgress entry in the stack, forming a linked list
 ## Dependencies
 - Functions called/Symbols referenced:
   - CatCache (referenced as member type)

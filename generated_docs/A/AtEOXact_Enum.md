@@ -19,7 +19,7 @@ The function relies on PostgreSQL's memory context system for actual memory clea
 This cleanup ensures that the next transaction starts with a clean slate regarding enum tracking, preventing any interference between transactions.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

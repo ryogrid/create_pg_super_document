@@ -23,7 +23,7 @@ This function serves as a factory method for creating German stemmer instances. 
 The resulting environment contains all necessary state information for processing German words, including cursor positions, region boundaries, and algorithm-specific variables.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

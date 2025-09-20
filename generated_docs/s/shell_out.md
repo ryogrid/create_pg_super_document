@@ -13,7 +13,7 @@ Datum shell_out(PG_FUNCTION_ARGS)
 The shell_out function is designed to handle output operations on PostgreSQL shell types - these are type definitions that exist in pg_type but are not yet fully defined or implemented. The function acts as a safety mechanism that should theoretically never be reached during normal operation. When called, it immediately raises an error with ERRCODE_FEATURE_NOT_SUPPORTED, indicating that shell type values cannot be displayed. This prevents undefined behavior when code attempts I/O operations on incomplete type definitions without properly checking pg_type.typisdefined.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function argument macro PG_FUNCTION_ARGS which provides access to function call context
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -18,7 +18,7 @@ This function serves as the input routine for the brin_minmax_multi_summary data
 The function immediately raises an error with ERRCODE_FEATURE_NOT_SUPPORTED, preventing users from directly creating values of this type through SQL input. This is a common pattern in PostgreSQL for internal-only data types that should not be directly manipulated by users.
 
 ## Parameters / Member Variables
-- No meaningful parameters (uses standard PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

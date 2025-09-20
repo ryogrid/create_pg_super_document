@@ -18,7 +18,7 @@ The  function is designed specifically for use within error callback subroutines
 The function is intended only for internal use within error handling contexts, as the concept of error position is not meaningful outside of the error reporting subsystem. It operates without incrementing the recursion depth counter since it's a simple accessor function.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

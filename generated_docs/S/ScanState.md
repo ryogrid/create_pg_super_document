@@ -21,7 +21,7 @@ typedef struct ScanState
 ScanState serves as the foundational structure for all scan executor nodes in PostgreSQL. It extends PlanState to provide common functionality for scanning relations or processing tuples from subplans. This structure is used both for physical table scans and for nodes that process output from underlying plan nodes, making it a versatile base for many executor node types.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 16034 ?        00:00:00 bash
 16061 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node fields

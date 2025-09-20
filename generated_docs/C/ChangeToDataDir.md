@@ -15,7 +15,7 @@ void ChangeToDataDir(void)
 ChangeToDataDir performs a critical initialization step by changing the process's current working directory to the PostgreSQL data directory. This operation enables most of the PostgreSQL codebase to use relative paths when accessing files within the data directory hierarchy, simplifying file path management and improving code readability. The function is designed to be called after the data directory has been properly set and validated, and it provides fatal error handling if the directory change fails, since PostgreSQL cannot operate correctly without being positioned in the data directory.
 
 ## Parameters / Member Variables
-- None (operates on the global DataDir variable)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

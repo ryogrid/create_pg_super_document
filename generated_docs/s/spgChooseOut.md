@@ -48,17 +48,11 @@ spgChooseOut is an output structure used in the SP-GiST (Space-Partitioned Gener
 ## Parameters / Member Variables
 - : Enum value indicating which action to take (spgMatchNode, spgAddNode, or spgSplitTuple)
 - : Union containing action-specific data:
-  
-  **For spgMatchNode (descend into existing node):**
   - : Index of the child node to descend into (0-based)
   - : Amount to increment the current level by when descending
   - : New datum value to be stored at the leaf level
-  
-  **For spgAddNode (add new node to current tuple):**
   - : Label value for the new child node
   - : Position where the new node should be inserted (0-based index)
-  
-  **For spgSplitTuple (split current tuple into two levels):**
   - : Whether new upper-level tuple should have a prefix
   - : Prefix value for new upper-level tuple (if applicable)
   - : Number of child nodes in new upper-level tuple

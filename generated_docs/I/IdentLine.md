@@ -22,11 +22,10 @@ typedef struct IdentLine
 IdentLine represents a parsed identity mapping rule from PostgreSQL's user identity mapping configuration file (pg_ident.conf). This structure defines how system user identities (such as operating system usernames or external authentication system identities) are mapped to PostgreSQL database user names. Each line specifies a mapping name, a pattern for the system username, and the corresponding PostgreSQL username. The AuthToken pointers allow for both literal usernames and regular expression patterns, providing flexible user mapping capabilities for authentication methods like ident and peer.
 
 ## Parameters / Member Variables
-- : Line number within the pg_ident.conf file for error reporting and debugging
-- : Name identifier for this user mapping rule, referenced by HBA lines that use ident or peer authentication
-- : AuthToken containing the system username pattern (can be literal or regex)
-- : AuthToken containing the PostgreSQL username pattern (can be literal or regex)
-
+- `linenumber`: Line number within the pg_ident.conf file for error reporting and debugging
+- `*usermap`: Name identifier for this user mapping rule, referenced by HBA lines that use ident or peer authentication
+- `*system_user`: AuthToken containing the system username pattern (can be literal or regex)
+- `*pg_user`: AuthToken containing the PostgreSQL username pattern (can be literal or regex)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [AuthToken](../A/AuthToken.md) (for system_user and pg_user patterns)

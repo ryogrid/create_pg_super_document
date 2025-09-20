@@ -26,13 +26,12 @@ The  structure is used by pg_dump to manage PostgreSQL rules, which are stored i
 Special handling is required for view rules (ON SELECT rules) which need to be dumped before the view definition itself, while other rules are dumped after their associated table.
 
 ## Parameters / Member Variables
-- : Base DumpableObject structure containing common dump object metadata (object type DO_RULE, catalog ID, dump ID, name, namespace)
-- : Pointer to the TableInfo structure representing the table or view that the rule is defined on
-- : Event type character ('1' for SELECT, '2' for UPDATE, '3' for INSERT, '4' for DELETE)
-- : Boolean indicating whether this is an INSTEAD rule (replaces the original query rather than supplementing it)
-- : Rule enabled status character ('O' for origin, 'D' for disabled, 'R' for replica, 'A' for always)
-- : Boolean indicating whether the rule must be dumped as a separate item (always true for non-ON SELECT rules)
-
+- `dobj`: Base DumpableObject structure containing common dump object metadata (object type DO_RULE, catalog ID, dump ID, name, namespace)
+- `*ruletable`: Pointer to the TableInfo structure representing the table or view that the rule is defined on
+- `ev_type`: Event type character ('1' for SELECT, '2' for UPDATE, '3' for INSERT, '4' for DELETE)
+- `is_instead`: Boolean indicating whether this is an INSTEAD rule (replaces the original query rather than supplementing it)
+- `ev_enabled`: Rule enabled status character ('O' for origin, 'D' for disabled, 'R' for replica, 'A' for always)
+- `separate`: Boolean indicating whether the rule must be dumped as a separate item (always true for non-ON SELECT rules)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

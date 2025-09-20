@@ -16,7 +16,7 @@ show_in_hot_standby(void)
 This function serves as a show hook for the PostgreSQL GUC (Grand Unified Configuration) system to display the current hot standby status. Unlike many GUC variables that simply return their stored values, this function dynamically queries the actual recovery state from shared memory to provide real-time status information. This ensures that the displayed value reflects the current state even if examined during query execution (intra-query). The function returns "on" if the server is currently in recovery mode (hot standby), and "off" otherwise.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

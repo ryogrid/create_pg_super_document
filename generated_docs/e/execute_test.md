@@ -18,7 +18,7 @@ The execute_test function implements a comprehensive test suite for ECPG's DECLA
 Each test case follows a similar pattern: reset the environment, prepare SQL statements, execute queries using cursors or direct execution, fetch results, clean up resources, and print results. The function also demonstrates advanced ECPG features like descriptor usage for dynamic SQL statement analysis and result fetching.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

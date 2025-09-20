@@ -15,7 +15,7 @@ struct sa { int member; };
 The  function is a minimal test function that serves as part of the ECPG test suite. It prints a debug message to stdout and returns a fixed integer value. This function is primarily used to verify that function calls work correctly in the ECPG preprocessor and runtime environment.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

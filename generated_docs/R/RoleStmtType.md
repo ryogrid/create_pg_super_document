@@ -24,9 +24,7 @@ The distinction is particularly important for CREATE statements because USER and
 
 ## Parameters / Member Variables
 - : Indicates the statement used CREATE ROLE syntax. This is the modern, preferred syntax for creating database roles with explicit privilege specifications.
-
 - : Indicates the statement used CREATE USER syntax. This is legacy syntax that creates a role with LOGIN privilege by default, maintaining backward compatibility with older PostgreSQL versions.
-
 - : Indicates the statement used CREATE GROUP syntax. This is legacy syntax that creates a role without LOGIN privilege by default, representing the old concept of user groups.
 
 ## Dependencies

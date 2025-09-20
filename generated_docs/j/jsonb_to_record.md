@@ -23,9 +23,6 @@ The function operates by:
 
 ## Parameters / Member Variables
 - : Standard PostgreSQL function call information structure containing:
-  - JSONB input argument
-  - Function context and metadata
-  - Output type information
 
 ## Dependencies
 - Functions called/Symbols referenced:

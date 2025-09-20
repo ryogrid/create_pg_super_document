@@ -48,23 +48,22 @@ BrinBuildState serves as the comprehensive state container for BRIN index constr
 The running state during construction is kept in a BrinMemTuple (bs_dtuple), which accumulates information for the current range being processed. The structure also maintains essential metadata like pages per range, current position tracking, and access to the reverse map and index descriptor.
 
 ## Parameters / Member Variables
-- : The index relation being built
-- : Number of tuples processed in the current index build
-- : Total number of tuples in the relation being indexed  
-- : Buffer currently being used for insertions
-- : Number of heap pages covered by each BRIN range
-- : Block number where the current range starts
-- : Maximum range start block number for the index
-- : Pointer to BRIN reverse map access structure
-- : Pointer to BRIN index descriptor containing opclass information
-- : In-memory tuple being built for the current range
-- : Template for empty BRIN tuples
-- : Size of the empty tuple template
-- : Memory context for build operations
-- : Parallel build leader state (only present in leader process during parallel builds)
-- : Worker process identifier for parallel builds
-- : Tuplesort state used by workers and leader for parallel coordination
-
+- `bs_irel`: The index relation being built
+- `bs_numtuples`: Number of tuples processed in the current index build
+- `bs_reltuples`: Total number of tuples in the relation being indexed
+- `bs_currentInsertBuf`: Buffer currently being used for insertions
+- `bs_pagesPerRange`: Number of heap pages covered by each BRIN range
+- `bs_currRangeStart`: Block number where the current range starts
+- `bs_maxRangeStart`: Maximum range start block number for the index
+- `*bs_rmAccess`: Pointer to BRIN reverse map access structure
+- `*bs_bdesc`: Pointer to BRIN index descriptor containing opclass information
+- `*bs_dtuple`: In-memory tuple being built for the current range
+- `*bs_emptyTuple`: Template for empty BRIN tuples
+- `bs_emptyTupleLen`: Size of the empty tuple template
+- `bs_context`: Memory context for build operations
+- `*bs_leader`: Parallel build leader state (only present in leader process during parallel builds)
+- `bs_worker_id`: Worker process identifier for parallel builds
+- `*bs_sortstate`: Tuplesort state used by workers and leader for parallel coordination
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinRevmap](BrinRevmap.md)

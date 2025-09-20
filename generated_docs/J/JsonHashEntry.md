@@ -20,10 +20,9 @@ typedef struct JsonHashEntry
 JsonHashEntry serves as the fundamental data structure for storing JSON object fields within PostgreSQL's hash table implementation. Each entry represents a single key-value pair from a JSON object, where the field name serves as the hash key and the associated value and type information are stored alongside it. The structure is designed to be compatible with PostgreSQL's hash table system (HTAB) requirements.
 
 ## Parameters / Member Variables
-- : Fixed-size character array storing the JSON field name as the hash key (must be the first field for hash table compatibility)
-- : Pointer to the string representation of the JSON field's value
-- : JsonTokenType indicating the type of the JSON value (string, number, boolean, null, object, array)
-
+- `fname[NAMEDATALEN]`: Fixed-size character array storing the JSON field name as the hash key (must be the first field for hash table compatibility)
+- `*val`: Pointer to the string representation of the JSON field's value
+- `type`: JsonTokenType indicating the type of the JSON value (string, number, boolean, null, object, array)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN

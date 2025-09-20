@@ -27,12 +27,11 @@ typedef struct gistxlogPageSplit
 This structure is used to log GiST index page split operations in the write-ahead log. Page splits occur when a GiST page becomes full and needs to be divided into multiple pages. The structure contains metadata about the original page state before the split, the number of resulting pages, and control flags. The actual page data follows this header structure as gistxlogPage structures and arrays of IndexTupleData for each split page.
 
 ## Parameters / Member Variables
-- : Block number of the right link of the original page before the split occurred
-- : GiST NSN (Node Sequence Number) of the original page before the split, used for concurrency control
-- : Boolean flag indicating whether the original split page was a leaf page
-- : Number of pages created in this split operation
-- : Boolean flag indicating whether to set F_FOLLOW_RIGHT flags on the split pages
-
+- `origrlink`: Block number of the right link of the original page before the split occurred
+- `orignsn`: GiST NSN (Node Sequence Number) of the original page before the split, used for concurrency control
+- `origleaf`: Boolean flag indicating whether the original split page was a leaf page
+- `npage`: Number of pages created in this split operation
+- `markfollowright`: Boolean flag indicating whether to set F_FOLLOW_RIGHT flags on the split pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - GistNSN

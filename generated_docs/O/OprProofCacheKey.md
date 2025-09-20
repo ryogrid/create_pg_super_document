@@ -21,9 +21,8 @@ OprProofCacheKey is used as the lookup key in a hash table that caches the resul
 The cache stores both implication and refutation results for each operator pair. For example, it might cache that the '>' operator implies the '≥' operator when applied to the same operands, or that the '=' operator refutes the '≠' operator. This information is crucial for query optimization, particularly in determining when WHERE clause conditions can be simplified or when indexes can be used effectively.
 
 ## Parameters / Member Variables
-- : OID of the predicate operator (the operator being tested for logical relationships)
-- : OID of the clause operator (the operator that might imply or refute the predicate operator)
-
+- `pred_op`: OID of the predicate operator (the operator being tested for logical relationships)
+- `clause_op`: OID of the clause operator (the operator that might imply or refute the predicate operator)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)

@@ -20,7 +20,7 @@ typedef struct BitmapAndState
 BitmapAndState manages the execution of bitmap AND operations in PostgreSQL's bitmap index scan optimization. It combines multiple bitmap indexes by performing logical AND operations, resulting in a bitmap that represents the intersection of all input bitmaps. This is used to efficiently filter rows when multiple index conditions need to be satisfied simultaneously.
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 14209 ?        00:00:00 bash
 14236 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node fields

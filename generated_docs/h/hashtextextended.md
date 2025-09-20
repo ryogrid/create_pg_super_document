@@ -18,7 +18,6 @@ The hashtextextended function is the extended variant of hashtext that accepts a
 - : Standard PostgreSQL function argument structure containing:
   -  (arg 0): The text value to be hashed (text*)
   -  (arg 1): 64-bit seed value for hash computation (int64)
-  - Implicit collation from PG_GET_COLLATION()
 
 ## Dependencies
 - Functions called/Symbols referenced:

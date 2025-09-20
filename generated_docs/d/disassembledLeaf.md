@@ -50,14 +50,13 @@ The  structure is a key component of PostgreSQL's GIN index leaf page management
 The structure supports both legacy (pre-9.4) and current page formats, and includes provisions for Write-Ahead Logging (WAL) data generation when page modifications need to be logged for crash recovery purposes.
 
 ## Parameters / Member Variables
-- : A doubly-linked list head containing leafSegmentInfo structures that represent the individual segments of the disassembled page
-- : Pointer to the last segment that should remain on the left page during a page split operation
-- : Total size in bytes of all segments that will be placed on the left page after a split
-- : Total size in bytes of all segments that will be placed on the right page after a split
-- : Boolean flag indicating whether the original page was stored in the pre-9.4 format on disk
-- : Buffer containing WAL (Write-Ahead Log) data representing the reconstructed leaf page
-- : Length of the WAL data buffer in bytes
-
+- `node`: A doubly-linked list head containing leafSegmentInfo structures that represent the individual segments of the disassembled page
+- `action`: Pointer to the last segment that should remain on the left page during a page split operation
+- `*modifieditems`: Total size in bytes of all segments that will be placed on the left page after a split
+- `nmodifieditems`: Total size in bytes of all segments that will be placed on the right page after a split
+- `*seg`: Boolean flag indicating whether the original page was stored in the pre-9.4 format on disk
+- `items`: Buffer containing WAL (Write-Ahead Log) data representing the reconstructed leaf page
+- `nitems`: Length of the WAL data buffer in bytes
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](dlist_node.md)

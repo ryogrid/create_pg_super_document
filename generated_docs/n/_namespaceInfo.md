@@ -24,12 +24,11 @@ The  structure represents PostgreSQL schemas (also known as namespaces) in the p
 This structure tracks not only the basic object information but also whether the schema needs to be explicitly created or if only ownership changes are required. This distinction is important because some schemas (like 'public') may already exist in the target database and only need ownership adjustments, while others need full creation statements.
 
 ## Parameters / Member Variables
-- : Base  structure containing core metadata, identification, dependencies, and component control
-- :  structure containing ACL information for schema permissions and access control
-- : Boolean flag indicating whether to generate a CREATE SCHEMA statement (true) or just set the owner (false)
-- : Object identifier (OID) of the schema owner from the source database
-- : String containing the name of the role that owns this schema
-
+- `dobj`: Base  structure containing core metadata, identification, dependencies, and component control
+- `dacl`:  structure containing ACL information for schema permissions and access control
+- `create`: Boolean flag indicating whether to generate a CREATE SCHEMA statement (true) or just set the owner (false)
+- `nspowner`: Object identifier (OID) of the schema owner from the source database
+- `*rolname`: String containing the name of the role that owns this schema
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

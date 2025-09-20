@@ -20,7 +20,6 @@ The function ensures that the scan has valid data to return before releasing loc
 ## Parameters / Member Variables
 - : IndexScanDesc - The index scan descriptor containing scan state and configuration
 - : BlockNumber - The block number of the page to read
-- 0
 1
 3.2
 5

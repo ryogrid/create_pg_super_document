@@ -20,7 +20,6 @@ This function uses CPU identification (CPUID) instruction to determine if the pr
 The function uses platform-specific CPUID access methods - either  (GCC) or  (MSVC) - and will fail to compile if neither is available.
 
 ## Parameters / Member Variables
-- No parameters (void function)
 - Returns:  - true if POPCNT instruction is supported, false otherwise
 
 ## Dependencies  

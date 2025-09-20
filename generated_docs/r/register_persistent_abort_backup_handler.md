@@ -18,7 +18,7 @@ This function sets up a persistent cleanup mechanism for backup operations by re
 The function uses a static boolean flag to ensure the handler is only registered once per backend process, preventing duplicate handler registrations that could lead to multiple cleanup attempts.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

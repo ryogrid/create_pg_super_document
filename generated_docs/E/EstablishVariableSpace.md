@@ -15,7 +15,7 @@ static void EstablishVariableSpace(void)
 This function is the central initialization point for psql's configuration variable system. It creates the variable space using CreateVariableSpace() and then systematically registers all psql configuration variables with their corresponding substitute and validation hooks. Each variable is configured with appropriate hook functions that handle default value substitution and value validation/assignment. This comprehensive setup enables psql's flexible configuration system that allows users to customize behavior through various settings.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

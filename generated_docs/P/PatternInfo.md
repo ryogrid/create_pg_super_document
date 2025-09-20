@@ -28,14 +28,13 @@ typedef struct PatternInfo
 The PatternInfo structure is a core component of pg_amcheck's pattern matching system. It stores both the original command-line pattern and its parsed components as regular expressions for different database object levels. The structure supports hierarchical pattern matching where a single pattern can be decomposed into database, schema, and relation components. Additionally, it includes boolean flags to restrict matching to specific object types (heap tables or btree indexes) and tracks whether the pattern successfully matched any objects during processing.
 
 ## Parameters / Member Variables
-- : The original, unmodified pattern string as provided on the command line
-- : Regular expression for matching database names, NULL if not applicable
-- : Regular expression for matching schema names, NULL if not applicable  
-- : Regular expression for matching relation names, NULL if not applicable
-- : Boolean flag indicating the pattern should only match heap tables
-- : Boolean flag indicating the pattern should only match btree indexes
-- : Boolean flag tracking whether this pattern matched any database objects
-
+- `*pattern`: The original, unmodified pattern string as provided on the command line
+- `*db_regex`: Regular expression for matching database names, NULL if not applicable
+- `*nsp_regex`: Regular expression for matching schema names, NULL if not applicable
+- `*rel_regex`: Regular expression for matching relation names, NULL if not applicable
+- `heap_only`: Boolean flag indicating the pattern should only match heap tables
+- `btree_only`: Boolean flag indicating the pattern should only match btree indexes
+- `matched`: Boolean flag tracking whether this pattern matched any database objects
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct function calls from struct definition)

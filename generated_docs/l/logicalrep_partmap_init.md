@@ -17,7 +17,7 @@ This function initializes the logical replication partition map cache infrastruc
 The hash table is configured to use partition OIDs as keys and stores LogicalRepPartMapEntry structures. The function uses PostgreSQL's standard hash table implementation with blob keys and a specific memory context for efficient memory management.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

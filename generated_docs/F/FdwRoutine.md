@@ -94,53 +94,52 @@ FdwRoutine serves as the primary interface between PostgreSQL's core execution e
 The structure is organized into several functional groups: basic scanning operations (required), modification operations, locking support, explain functionality, analysis support, schema import, truncation, parallelism, path reparameterization, and asynchronous execution capabilities. Most functions beyond the basic scanning operations are optional and can be set to NULL if not supported by the FDW.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL NodeTag for type identification
-- : Required function to estimate the size of a foreign relation for planning
-- : Required function to create access paths for scanning a foreign relation
-- : Required function to create a ForeignScan plan node
-- : Required function to initialize scanning of a foreign relation
-- : Required function to fetch the next tuple from a foreign relation
-- : Required function to restart scanning from the beginning
-- : Required function to clean up after scanning
-- : Optional function for remote join planning
-- : Optional function for remote upper-relation planning
-- : Optional function to add resjunk columns needed for UPDATE/DELETE
-- : Optional function to plan foreign table modifications
-- : Optional function to initialize foreign table modifications
-- : Optional function to execute foreign table inserts
-- : Optional function to execute batch inserts
-- : Optional function to determine optimal batch size
-- : Optional function to execute foreign table updates
-- : Optional function to execute foreign table deletes
-- : Optional function to clean up after modifications
-- : Optional function to initialize foreign table inserts
-- : Optional function to clean up after inserts
-- : Optional function to check if a foreign relation is updatable
-- : Optional function to plan direct foreign table modifications
-- : Optional function to initialize direct modifications
-- : Optional function to execute direct modifications
-- : Optional function to clean up after direct modifications
-- : Optional function to determine row locking strategy
-- : Optional function to refetch a row for locking
-- : Optional function to recheck visibility after locking
-- : Optional function to provide EXPLAIN output for scans
-- : Optional function to provide EXPLAIN output for modifications
-- : Optional function to provide EXPLAIN output for direct modifications
-- : Optional function to support ANALYZE on foreign tables
-- : Optional function to support IMPORT FOREIGN SCHEMA
-- : Optional function to support TRUNCATE on foreign tables
-- : Optional function to check if scanning is parallel-safe
-- : Optional function to estimate dynamic shared memory for parallel scans
-- : Optional function to initialize DSM for parallel scans
-- : Optional function to reinitialize DSM for parallel scans
-- : Optional function to initialize worker processes
-- : Optional function to shut down parallel scanning
-- : Optional function for path reparameterization
-- : Optional function to check asynchronous execution capability
-- : Optional function to request asynchronous execution
-- : Optional function to configure waiting for async operations
-- : Optional function to handle async operation notifications
-
+- `type`: Standard PostgreSQL NodeTag for type identification
+- `GetForeignRelSize`: Required function to estimate the size of a foreign relation for planning
+- `GetForeignPaths`: Required function to create access paths for scanning a foreign relation
+- `GetForeignPlan`: Required function to create a ForeignScan plan node
+- `BeginForeignScan`: Required function to initialize scanning of a foreign relation
+- `IterateForeignScan`: Required function to fetch the next tuple from a foreign relation
+- `ReScanForeignScan`: Required function to restart scanning from the beginning
+- `EndForeignScan`: Required function to clean up after scanning
+- `GetForeignJoinPaths`: Optional function for remote join planning
+- `GetForeignUpperPaths`: Optional function for remote upper-relation planning
+- `AddForeignUpdateTargets`: Optional function to add resjunk columns needed for UPDATE/DELETE
+- `PlanForeignModify`: Optional function to plan foreign table modifications
+- `BeginForeignModify`: Optional function to initialize foreign table modifications
+- `ExecForeignInsert`: Optional function to execute foreign table inserts
+- `ExecForeignBatchInsert`: Optional function to execute batch inserts
+- `GetForeignModifyBatchSize`: Optional function to determine optimal batch size
+- `ExecForeignUpdate`: Optional function to execute foreign table updates
+- `ExecForeignDelete`: Optional function to execute foreign table deletes
+- `EndForeignModify`: Optional function to clean up after modifications
+- `BeginForeignInsert`: Optional function to initialize foreign table inserts
+- `EndForeignInsert`: Optional function to clean up after inserts
+- `IsForeignRelUpdatable`: Optional function to check if a foreign relation is updatable
+- `PlanDirectModify`: Optional function to plan direct foreign table modifications
+- `BeginDirectModify`: Optional function to initialize direct modifications
+- `IterateDirectModify`: Optional function to execute direct modifications
+- `EndDirectModify`: Optional function to clean up after direct modifications
+- `GetForeignRowMarkType`: Optional function to determine row locking strategy
+- `RefetchForeignRow`: Optional function to refetch a row for locking
+- `RecheckForeignScan`: Optional function to recheck visibility after locking
+- `ExplainForeignScan`: Optional function to provide EXPLAIN output for scans
+- `ExplainForeignModify`: Optional function to provide EXPLAIN output for modifications
+- `ExplainDirectModify`: Optional function to provide EXPLAIN output for direct modifications
+- `AnalyzeForeignTable`: Optional function to support ANALYZE on foreign tables
+- `ImportForeignSchema`: Optional function to support IMPORT FOREIGN SCHEMA
+- `ExecForeignTruncate`: Optional function to support TRUNCATE on foreign tables
+- `IsForeignScanParallelSafe`: Optional function to check if scanning is parallel-safe
+- `EstimateDSMForeignScan`: Optional function to estimate dynamic shared memory for parallel scans
+- `InitializeDSMForeignScan`: Optional function to initialize DSM for parallel scans
+- `ReInitializeDSMForeignScan`: Optional function to reinitialize DSM for parallel scans
+- `InitializeWorkerForeignScan`: Optional function to initialize worker processes
+- `ShutdownForeignScan`: Optional function to shut down parallel scanning
+- `ReparameterizeForeignPathByChild`: Optional function for path reparameterization
+- `IsForeignPathAsyncCapable`: Optional function to check asynchronous execution capability
+- `ForeignAsyncRequest`: Optional function to request asynchronous execution
+- `ForeignAsyncConfigureWait`: Optional function to configure waiting for async operations
+- `ForeignAsyncNotify`: Optional function to handle async operation notifications
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ImportForeignSchema](../I/ImportForeignSchema.md)

@@ -21,9 +21,8 @@ SharedTypmodTableEntry serves as an entry in the SharedRecordTypmodRegistry's ty
 The structure supports PostgreSQL's shared memory optimization strategy by maintaining references to shared TupleDesc structures rather than duplicating the data across multiple backends. This approach significantly reduces memory usage and improves performance when multiple database processes need access to the same record type information.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer representing the type modifier identifier used as the lookup key
-- : A dsa_pointer that references a TupleDesc structure stored in shared memory, enabling cross-backend access to the tuple descriptor
-
+- `typmod`: A 32-bit unsigned integer representing the type modifier identifier used as the lookup key
+- `shared_tupdesc`: A dsa_pointer that references a TupleDesc structure stored in shared memory, enabling cross-backend access to the tuple descriptor
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer

@@ -20,7 +20,7 @@ The function should only be called during server startup by either the startup p
 The restoration process includes reading various types of statistics such as archiver stats, bgwriter stats, checkpointer stats, IO stats, SLRU stats, WAL stats, and hash table entries for database objects.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

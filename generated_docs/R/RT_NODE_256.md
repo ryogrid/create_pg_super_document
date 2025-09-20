@@ -31,10 +31,9 @@ The actual structure definition for the 256-slot node contains:
 This node type is used when a node needs to store more than 48 child pointers, representing the final growth stage in the adaptive radix tree hierarchy. Unlike smaller node types that use indirection or compressed representations, the 256-slot node provides direct indexing where each possible byte value (0-255) maps directly to an array index.
 
 ## Parameters / Member Variables
-- : RT_NODE structure containing common node metadata (kind, count, fanout)
-- : Bitmap array tracking which of the 256 slots in the children array are occupied
-- : Array of 256 child pointers, directly indexed by byte values (0-255)
-
+- `base`: RT_NODE structure containing common node metadata (kind, count, fanout)
+- `isset[RT_BM_IDX(RT_FANOUT_256)]`: Bitmap array tracking which of the 256 slots in the children array are occupied
+- `children[RT_FANOUT_256]`: Array of 256 child pointers, directly indexed by byte values (0-255)
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME

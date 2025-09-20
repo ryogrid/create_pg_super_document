@@ -22,10 +22,9 @@ BrinOpaque serves as the opaque data structure passed between scan initializatio
 The structure follows PostgreSQL's index access method convention where scan-specific state is stored in an opaque structure that gets attached to the IndexScanDesc and passed between scan operations.
 
 ## Parameters / Member Variables
-- : Number of heap pages covered by each BRIN range in this index
-- : Pointer to the BRIN reverse map access structure used for mapping ranges to heap blocks
-- : Pointer to the BRIN index descriptor containing operator class definitions and index metadata
-
+- `bo_pagesPerRange`: Number of heap pages covered by each BRIN range in this index
+- `*bo_rmAccess`: Pointer to the BRIN reverse map access structure used for mapping ranges to heap blocks
+- `*bo_bdesc`: Pointer to the BRIN index descriptor containing operator class definitions and index metadata
 ## Dependencies
 - Functions called/Symbols referenced:
   - [BrinRevmap](BrinRevmap.md)

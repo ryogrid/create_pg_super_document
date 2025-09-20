@@ -19,9 +19,8 @@ typedef struct SimpleOidListCell
 SimpleOidListCell represents a single node in a singly-linked list specifically designed to hold Oid values. This structure is part of PostgreSQL's frontend utility framework and provides an efficient way to create and manipulate lists of object identifiers. The structure follows a standard linked list node pattern with a pointer to the next cell and a data field containing the Oid value. This design allows for dynamic list construction and traversal while maintaining minimal memory overhead.
 
 ## Parameters / Member Variables
-- : Pointer to the next SimpleOidListCell in the linked list, or NULL if this is the last cell
-- : The Oid value stored in this cell, representing a PostgreSQL object identifier
-
+- `*next`: Pointer to the next SimpleOidListCell in the linked list, or NULL if this is the last cell
+- `val`: The Oid value stored in this cell, representing a PostgreSQL object identifier
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SimpleOidListCell](SimpleOidListCell.md) (self-reference for next pointer)

@@ -28,7 +28,7 @@ This function is the core expansion engine for SQL GROUPING SETS, ROLLUP, and CU
 The function uses bit manipulation for efficient CUBE expansion and implements proper SQL standard semantics for each grouping set type.
 
 ## Parameters / Member Variables
-- GPL Ghostscript 9.55.0 (2021-09-27)
+
 Copyright (C) 2021 Artifex Software, Inc.  All rights reserved.
 This software is supplied under the GNU AGPLv3 and comes with NO WARRANTY:
 see the file COPYING for details.

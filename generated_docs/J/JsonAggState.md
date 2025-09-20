@@ -23,13 +23,12 @@ typedef struct JsonAggState
 JsonAggState serves as the accumulator state for PostgreSQL's JSON aggregation functions. It maintains a string buffer that builds up the JSON output incrementally as the aggregation progresses. The structure stores type categorization information and output function OIDs for both keys and values, enabling proper conversion of different PostgreSQL data types to their JSON representations. Additionally, it includes a unique checking mechanism to handle duplicate key detection in json_object_agg operations.
 
 ## Parameters / Member Variables
-- : StringInfo buffer that accumulates the JSON output string as aggregation progresses
-- : JsonTypeCategory enum value categorizing the data type of keys (used in json_object_agg)
-- : OID of the output function used to convert key values to their string representation
-- : JsonTypeCategory enum value categorizing the data type of values being aggregated
-- : OID of the output function used to convert values to their string representation
-- : JsonUniqueBuilderState structure for tracking and detecting duplicate keys in object aggregation
-
+- `str`: StringInfo buffer that accumulates the JSON output string as aggregation progresses
+- `key_category`: JsonTypeCategory enum value categorizing the data type of keys (used in json_object_agg)
+- `key_output_func`: OID of the output function used to convert key values to their string representation
+- `val_category`: JsonTypeCategory enum value categorizing the data type of values being aggregated
+- `val_output_func`: OID of the output function used to convert values to their string representation
+- `unique_check`: JsonUniqueBuilderState structure for tracking and detecting duplicate keys in object aggregation
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonTypeCategory

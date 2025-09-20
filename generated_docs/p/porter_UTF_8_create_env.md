@@ -25,7 +25,7 @@ The created environment contains all the necessary data structures and buffers r
 This function is typically called once at the beginning of a stemming session to set up the processing environment.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

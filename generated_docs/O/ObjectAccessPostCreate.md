@@ -26,8 +26,7 @@ This distinction is crucial for security and logging extensions because internal
 The struct is passed to object access hook functions to provide context about the nature and origin of the object creation event.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether the object creation is internal to PostgreSQL operations (true) or initiated by user operations (false). Examples of internal creation include toast tables and indexes created due to type changes.
-
+- `dropflags`: Boolean flag indicating whether the object creation is internal to PostgreSQL operations (true) or initiated by user operations (false). Examples of internal creation include toast tables and indexes created due to type changes.
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a data structure)
 - Called from (representative examples):

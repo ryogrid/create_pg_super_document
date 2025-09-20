@@ -47,7 +47,6 @@ The function handles various edge cases where _bt_checkkeys might not be reached
 
 ## Parameters / Member Variables
 - : Index scan descriptor containing the scan state and array key information
-- 0
 1
 5
 6

@@ -32,19 +32,18 @@ typedef struct DecodedXLogRecord
 DecodedXLogRecord is the fundamental structure representing a fully parsed WAL record in PostgreSQL. It transforms the binary WAL format into an accessible structure that separates metadata, transaction context, main data payload, and backup block information. The structure uses a flexible design where the main_data and block data are stored in contiguous memory after the structure itself, with pointers providing access to these variable-length sections. This design enables efficient memory usage and simplifies record management while providing structured access to all components of a WAL record for replay, logical replication, and analysis purposes.
 
 ## Parameters / Member Variables
-- : Total size in bytes of the entire decoded record including all variable-length data, used for memory management
-- : Boolean flag indicating whether this record exceeds the regular decode buffer size and was allocated separately
-- : Linked list pointer for chaining decoded records in the decode queue, enabling efficient sequential processing
-- : WAL Log Sequence Number indicating the exact position where this record starts in the WAL stream
-- : LSN position where the next WAL record begins, derived from current record's position plus its length
-- : Complete XLogRecord header containing record type, length, transaction ID, and other core metadata
-- : Replication origin identifier for tracking records in multi-master replication scenarios
-- : Transaction ID of the top-level transaction, important for logical replication and transaction tracking
-- : Pointer to the primary data payload of the WAL record, containing operation-specific information
-- : Length in bytes of the main data portion, essential for proper data interpretation
-- : Highest block identifier used in this record's backup blocks (-1 if no blocks), indicating data page modifications
-- : Flexible array of DecodedBkpBlock structures containing full-page images and delta information for modified data pages
-
+- `size`: Total size in bytes of the entire decoded record including all variable-length data, used for memory management
+- `oversized`: Boolean flag indicating whether this record exceeds the regular decode buffer size and was allocated separately
+- `*next`: Linked list pointer for chaining decoded records in the decode queue, enabling efficient sequential processing
+- `lsn`: WAL Log Sequence Number indicating the exact position where this record starts in the WAL stream
+- `next_lsn`: LSN position where the next WAL record begins, derived from current record's position plus its length
+- `header`: Complete XLogRecord header containing record type, length, transaction ID, and other core metadata
+- `record_origin`: Replication origin identifier for tracking records in multi-master replication scenarios
+- `toplevel_xid`: Transaction ID of the top-level transaction, important for logical replication and transaction tracking
+- `*main_data`: Pointer to the primary data payload of the WAL record, containing operation-specific information
+- `main_data_len`: Length in bytes of the main data portion, essential for proper data interpretation
+- `max_block_id`: Highest block identifier used in this record's backup blocks (-1 if no blocks), indicating data page modifications
+- `blocks[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of DecodedBkpBlock structures containing full-page images and delta information for modified data pages
 ## Dependencies
 - Functions called/Symbols referenced:
   - [XLogRecord](../X/XLogRecord.md) (WAL record header structure)

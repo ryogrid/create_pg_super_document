@@ -21,11 +21,10 @@ typedef struct RangeSubselect
 RangeSubselect nodes are created when a subquery is used as a table source in a FROM clause. This allows complex queries to use the results of other SELECT statements as if they were tables. The structure supports the LATERAL keyword, which enables the subquery to reference columns from preceding tables in the FROM clause, creating correlated subqueries. The subquery is stored in its untransformed state and will be processed during query analysis. Optional aliasing allows the subquery results to be referenced with a table name and/or specific column names.
 
 ## Parameters / Member Variables
-- : Standard NodeTag identifying this as a RangeSubselect node
-- : Boolean flag indicating whether the LATERAL keyword was specified, enabling correlation with preceding FROM clause items
-- : Pointer to the untransformed sub-SELECT statement that will provide the table data
-- : Optional Alias structure containing the table alias name and any column aliases for the subquery results
-
+- `type`: Standard NodeTag identifying this as a RangeSubselect node
+- `lateral`: Boolean flag indicating whether the LATERAL keyword was specified, enabling correlation with preceding FROM clause items
+- `*subquery`: Pointer to the untransformed sub-SELECT statement that will provide the table data
+- `*alias`: Optional Alias structure containing the table alias name and any column aliases for the subquery results
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)

@@ -23,9 +23,8 @@ The structure is specifically designed for hash table operations, with the join_
 The hash table using JoinHashEntry is built on-demand when the planner needs to perform frequent lookups of existing join relations, particularly during the dynamic programming approach to join ordering optimization.
 
 ## Parameters / Member Variables
-- : A Relids (Bitmapset*) representing the set of base relation identifiers that participate in this join. This field serves as the hash key and must be positioned first in the structure for hash table operations.
-- : A pointer to the RelOptInfo structure that contains detailed information about the join relation, including cost estimates, access paths, and other optimization data.
-
+- `join_relids`: A Relids (Bitmapset*) representing the set of base relation identifiers that participate in this join. This field serves as the hash key and must be positioned first in the structure for hash table operations.
+- `*join_rel`: A pointer to the RelOptInfo structure that contains detailed information about the join relation, including cost estimates, access paths, and other optimization data.
 ## Dependencies
 - Functions called/Symbols referenced:
   - Relids (typedef for Bitmapset*)

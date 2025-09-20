@@ -16,7 +16,6 @@ interval_eq(PG_FUNCTION_ARGS)
 The `interval_eq` function is a PostgreSQL function that implements the equality operator (=) for interval data types. It extracts two interval arguments from the function call arguments using PostgreSQL's argument handling macros, then uses `interval_cmp_internal()` to perform the actual comparison. The function returns a boolean result indicating whether the two intervals are equal (represent exactly the same time span).
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's `PG_FUNCTION_ARGS` macro system to receive arguments
 - Argument 0: First interval for comparison
 - Argument 1: Second interval for comparison
 

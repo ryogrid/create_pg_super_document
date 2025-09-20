@@ -15,7 +15,7 @@ void pg_xml_init_library(void)
 This function initializes the libxml2 library for use within PostgreSQL and performs essential compatibility checks. It uses a static flag to ensure initialization occurs only once per session. The function verifies that the char and xmlChar types have compatible sizes, which is crucial for proper XML processing. When USE_LIBXMLCONTEXT is defined, it sets up custom memory allocation routines for libxml2 to integrate with PostgreSQL's memory management. Finally, it performs library compatibility verification using libxml2's built-in version checking mechanism.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

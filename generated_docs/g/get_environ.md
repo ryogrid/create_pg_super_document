@@ -19,7 +19,6 @@ The  function is a test utility that provides access to the process environment 
 - : External global variable containing null-terminated array of environment variable strings
 - : Counter for the total number of environment variables
 - : The constructed PostgreSQL ArrayType containing all environment variables
-- SHELL=/bin/bash
 COREPACK_ENABLE_AUTO_PIN=0
 NVM_INC=/home/ryo/.nvm/versions/node/v22.18.0/include/node
 WSL2_GUI_APPS_ENABLED=1

@@ -15,9 +15,6 @@ Datum float4smaller(PG_FUNCTION_ARGS)
 The `float4smaller` function is a PostgreSQL built-in function that compares two float4 (single-precision floating-point) arguments and returns the smaller one. It uses the `float4_lt` function to perform the comparison and returns the appropriate value. This function is part of the float4 base operations in PostgreSQL's arithmetic system and is typically used to implement the SQL LEAST function for float4 values.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
-- Retrieves the first argument as a float4 using `PG_GETARG_FLOAT4(0)`
-- Retrieves the second argument as a float4 using `PG_GETARG_FLOAT4(1)`
 - `arg1`: first float4 input value
 - `arg2`: second float4 input value
 - `result`: local float4 variable to store the smaller value

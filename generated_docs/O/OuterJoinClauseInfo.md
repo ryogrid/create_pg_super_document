@@ -26,10 +26,9 @@ This delayed processing is necessary because outer join ON clauses have special 
 The structure serves as a bridge between the restrictinfo representation of the clause and the broader join information needed for optimization decisions.
 
 ## Parameters / Member Variables
-- : Node tag for structure identification
-- : Pointer to RestrictInfo containing the mergejoinable outer join ON clause
-- : Pointer to the associated SpecialJoinInfo structure for the outer join
-
+- `type`: Node tag for structure identification
+- `*rinfo`: Pointer to RestrictInfo containing the mergejoinable outer join ON clause
+- `*sjinfo`: Pointer to the associated SpecialJoinInfo structure for the outer join
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node identification)

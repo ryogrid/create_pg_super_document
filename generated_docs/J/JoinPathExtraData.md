@@ -23,13 +23,12 @@ typedef struct JoinPathExtraData
 JoinPathExtraData serves as a container for essential information needed during join path creation and evaluation. This structure centralizes join-related metadata that multiple functions need access to, avoiding the need to pass numerous individual parameters. It supports various join algorithms (nested loop, merge join, hash join) and special join types (semi, anti joins) by providing context about restrictions, merge conditions, uniqueness properties, and parameterization options.
 
 ## Parameters / Member Variables
-- : List of RestrictInfo nodes representing all restriction clauses that apply to this specific join operation
-- : List of RestrictInfo nodes for available mergejoin clauses that can be used for merge join algorithms
-- : Boolean flag indicating whether each outer tuple provably matches no more than one inner tuple (important for optimization decisions)
-- : Pointer to SpecialJoinInfo containing extra information about special joins used for selectivity estimation
-- : SemiAntiJoinFactors structure containing selectivity factors, only valid for SEMI/ANTI joins and inner_unique joins
-- : Relids representing relations that are acceptable targets for parameterization of result paths
-
+- `*restrictlist`: List of RestrictInfo nodes representing all restriction clauses that apply to this specific join operation
+- `*mergeclause_list`: List of RestrictInfo nodes for available mergejoin clauses that can be used for merge join algorithms
+- `inner_unique`: Boolean flag indicating whether each outer tuple provably matches no more than one inner tuple (important for optimization decisions)
+- `*sjinfo`: Pointer to SpecialJoinInfo containing extra information about special joins used for selectivity estimation
+- `semifactors`: SemiAntiJoinFactors structure containing selectivity factors, only valid for SEMI/ANTI joins and inner_unique joins
+- `param_source_rels`: Relids representing relations that are acceptable targets for parameterization of result paths
 ## Dependencies
 - Functions called/Symbols referenced:
   - [SpecialJoinInfo](../S/SpecialJoinInfo.md)

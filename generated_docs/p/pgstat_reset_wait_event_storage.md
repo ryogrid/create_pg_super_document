@@ -15,7 +15,7 @@ void pgstat_reset_wait_event_storage(void)
 This function resets the wait event reporting storage location by setting the global my_wait_event_info pointer back to the address of local_my_wait_event_info. This is typically called during backend shutdown to prevent the wait event reporting mechanism from trying to access shared memory locations that may become invalid. It effectively switches from shared memory storage back to local process storage for wait event information.
 
 ## Parameters / Member Variables
-- None (takes no parameters)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

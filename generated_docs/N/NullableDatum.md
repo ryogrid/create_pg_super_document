@@ -26,9 +26,8 @@ The structure is particularly useful in scenarios where PostgreSQL needs to hand
 The design includes predefined field number constants (FIELDNO_NULLABLE_DATUM_DATUM and FIELDNO_NULLABLE_DATUM_ISNULL) that can be used for structured access to the fields, which is common in PostgreSQL's codebase for maintaining consistency and enabling potential optimizations.
 
 ## Parameters / Member Variables
-- : A Datum containing either a pass-by-value data type or a pointer to a pass-by-reference data type
-- : A boolean flag indicating whether the value is NULL (true) or contains valid data (false)
-
+- `value`: A Datum containing either a pass-by-value data type or a pointer to a pass-by-reference data type
+- `isnull`: A boolean flag indicating whether the value is NULL (true) or contains valid data (false)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (base type for the value field)

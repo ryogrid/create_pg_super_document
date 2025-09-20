@@ -15,7 +15,7 @@ void sync_target_dir(void)
 This function performs a complete synchronization of the target data directory to ensure all file modifications made during the pg_rewind process are safely written to disk. It uses PostgreSQL's optimized sync_pgdata function which employs a two-pass approach when fsync is specified - first initiating writeback, then performing the actual sync. This strategy often reduces overall I/O overhead significantly. The function is designed to be called once at the end of the rewind operation for performance reasons, as the kernel likely has already flushed most dirty buffers by that point.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

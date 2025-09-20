@@ -28,8 +28,7 @@ struct stat						/* This should match struct __stat64 */
 This preprocessor macro is defined in PostgreSQL's Windows port header file to ensure compatibility with Microsoft's native file system stat functionality on Windows platforms. By redefining the standard POSIX  function name to , PostgreSQL can utilize Windows-specific file system operations while maintaining source code compatibility with POSIX systems. This redefinition is crucial for proper file system interaction on Windows, ensuring that file metadata operations work correctly across different operating systems.
 
 ## Parameters / Member Variables
-- This is a macro definition, not a function or structure, so it has no parameters or members
-- The macro simply redirects calls from  to 
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

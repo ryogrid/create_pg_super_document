@@ -20,10 +20,9 @@ typedef struct BTScanKeyPreproc
 This structure serves as a temporary preprocessing container in _bt_preprocess_keys() to organize scan keys by strategy type during the key optimization phase. It maintains mappings between the transformed scan key, its original index position, and its associated array index (for array scan keys). The structure is used in an array indexed by strategy numbers to help eliminate redundant keys, detect contradictory conditions, and determine which keys are required for continued scanning.
 
 ## Parameters / Member Variables
-- : Pointer to the ScanKey structure containing the actual scan key data, operator strategy, and value information
-- : Integer index indicating the original position of this scan key in the input scan->keyData[] array before preprocessing
-- : Integer index tracking the position in array scan keys when SK_SEARCHARRAY flags are present, used for array key processing
-
+- `skey`: Pointer to the ScanKey structure containing the actual scan key data, operator strategy, and value information
+- `ikey`: Integer index indicating the original position of this scan key in the input scan->keyData[] array before preprocessing
+- `arrayidx`: Integer index tracking the position in array scan keys when SK_SEARCHARRAY flags are present, used for array key processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanKey (struct type)

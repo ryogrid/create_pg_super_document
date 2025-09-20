@@ -21,9 +21,8 @@ XLogwrtRqst represents write and flush requests for the WAL system. It indicates
 The structure is used in conjunction with XLogwrtResult to track both what needs to be done (requests) and what has already been completed (results). The request bookkeeping uses a shared XLogCtl->LogwrtRqst variable protected by info_lck spinlock.
 
 ## Parameters / Member Variables
-- : XLogRecPtr indicating the last byte position + 1 that needs to be written to disk
-- : XLogRecPtr indicating the last byte position + 1 that needs to be fsynced for durability
-
+- `Write`: XLogRecPtr indicating the last byte position + 1 that needs to be written to disk
+- `Flush`: XLogRecPtr indicating the last byte position + 1 that needs to be fsynced for durability
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtr (data type for WAL record pointers)

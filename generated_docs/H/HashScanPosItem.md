@@ -21,9 +21,8 @@ HashScanPosItem represents a single match found during a hash index scan operati
 The structure supports PostgreSQL's MVCC (Multi-Version Concurrency Control) system by maintaining precise location information that allows the system to efficiently locate and process index entries during various scan operations.
 
 ## Parameters / Member Variables
-- : Transaction identifier (TID) pointing to the corresponding tuple in the heap table
-- : The offset number indicating the specific location of the index item within its page
-
+- `heapTid`: Transaction identifier (TID) pointing to the corresponding tuple in the heap table
+- `indexOffset`: The offset number indicating the specific location of the index item within its page
 ## Dependencies
 - Functions called/Symbols referenced:
   - [ItemPointerData](../I/ItemPointerData.md)

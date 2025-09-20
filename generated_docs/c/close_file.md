@@ -19,7 +19,6 @@ The function first checks if there were any I/O errors on the stream using , the
 
 ## Parameters / Member Variables
 - : FILE pointer to the stream to be closed
-- 0
 1
 5
 6

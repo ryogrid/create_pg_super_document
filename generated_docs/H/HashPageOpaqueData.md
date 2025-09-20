@@ -24,12 +24,11 @@ HashPageOpaqueData defines the structure of the opaque area in hash index pages.
 The design allows for efficient traversal of bucket chains while also providing mechanisms to detect stale cached metapage information without requiring locks on the metapage itself.
 
 ## Parameters / Member Variables
-- : In overflow pages, stores the block number of the previous page in the bucket chain. In bucket pages, stores the hashm_maxbucket value from the last bucket split or creation time (used for metapage staleness detection)
-- : Block number of the next page in the bucket chain, or InvalidBlockNumber if this is the last page
-- : The bucket number that this page belongs to
-- : Page type code combined with flag bits for page classification
-- : Identifier used for hash index validation and identification
-
+- `hasho_prevblkno`: In overflow pages, stores the block number of the previous page in the bucket chain. In bucket pages, stores the hashm_maxbucket value from the last bucket split or creation time (used for metapage staleness detection)
+- `hasho_nextblkno`: Block number of the next page in the bucket chain, or InvalidBlockNumber if this is the last page
+- `hasho_bucket`: The bucket number that this page belongs to
+- `hasho_flag`: Page type code combined with flag bits for page classification
+- `hasho_page_id`: Identifier used for hash index validation and identification
 ## Dependencies
 - Functions called/Symbols referenced:
   - Bucket

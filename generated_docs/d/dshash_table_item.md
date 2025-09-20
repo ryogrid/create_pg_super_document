@@ -24,7 +24,6 @@ The dshash_table_item struct serves as a wrapper around user-defined data entrie
 ## Parameters / Member Variables
 - : A dsa_pointer that points to the next item in the same hash bucket, implementing collision resolution through chaining
 - hash: hash table empty: A cached dshash_hash value containing the precomputed hash of the key, used to avoid recalculating the hash during table operations
-- User data follows immediately after this struct in memory (accessed via ENTRY_FROM_ITEM macro)
 
 ## Dependencies
 - Functions called/Symbols referenced:

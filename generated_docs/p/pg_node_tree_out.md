@@ -13,7 +13,6 @@ Datum pg_node_tree_out(PG_FUNCTION_ARGS)
 The pg_node_tree_out function serves as the output function for PostgreSQL's pg_node_tree pseudo-type. This pseudo-type is used internally to represent parsed SQL statement trees and other node structures within the PostgreSQL system. The function simply delegates to the textout function, treating the node tree data as text for output purposes. This allows node trees to be displayed as readable text when needed for debugging, logging, or other administrative purposes.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's standard function argument macro PG_FUNCTION_ARGS which provides access to function call context
 - fcinfo: Function call information structure passed to the textout function
 
 ## Dependencies

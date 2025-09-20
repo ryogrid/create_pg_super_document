@@ -28,7 +28,7 @@ typedef struct RecursiveUnionState
 RecursiveUnionState manages the execution of recursive UNION operations, which are used to implement recursive CTEs. It maintains working tables for the iterative computation process, where each iteration processes the results from the previous iteration. The structure supports both UNION ALL (which allows duplicates) and UNION (which eliminates duplicates using hash tables).
 
 ## Parameters / Member Variables
--   PID TTY          TIME CMD
+
 13357 ?        00:00:00 bash
 13405 ?        00:00:00 ps
 21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node fields

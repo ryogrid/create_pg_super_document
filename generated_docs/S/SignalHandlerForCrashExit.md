@@ -17,7 +17,7 @@ This function implements a "crash exit" signal handler that performs an immediat
 The handler uses _exit(2) instead of the standard exit(0) to signal to the postmaster that this was an abnormal termination requiring a system reset cycle. This behavior is crucial for maintaining database consistency and triggering appropriate recovery mechanisms when processes exit unexpectedly.
 
 ## Parameters / Member Variables
-- Uses SIGNAL_ARGS macro which typically expands to signal handler parameters (signal number, etc.)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,7 @@ void ApplyLauncherShmemInit(void)
 This function sets up the shared memory infrastructure for the logical replication launcher. It uses the PostgreSQL shared memory management system to either find an existing "Logical Replication Launcher Data" segment or create a new one using the size calculated by ApplyLauncherShmemSize(). When creating new shared memory (when 'found' is false), it initializes the LogicalRepCtx structure, sets up invalid handles for DSA and DSHASH, and initializes all worker slots with proper spin locks. Each worker slot gets its memory zeroed and its relation mutex (relmutex) spin lock initialized.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,7 +19,7 @@ This function serves as a factory function for creating a Snowball stemmer envir
 The function is part of PostgreSQL's full-text search infrastructure, specifically the Snowball stemmer library integration that provides language-specific word stemming capabilities for improved search relevance.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

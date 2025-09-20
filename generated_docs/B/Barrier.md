@@ -29,14 +29,13 @@ The barrier operates using a phase-based approach where all participants must re
 Static barriers behave similarly to POSIX's pthread_barrier_t, while dynamic barriers behave similarly to Java's java.util.concurrent.Phaser. The barrier ensures that when BarrierArriveAndWait() is called, the calling process will block until all other attached participants have also arrived at the barrier.
 
 ## Parameters / Member Variables
-- : A spinlock that protects the barrier's internal state from concurrent access by multiple processes
-- : A counter that tracks the current phase number of the barrier, incremented each time all participants arrive
-- : The total number of processes currently attached to this barrier
-- : The count of participants that have arrived at the current synchronization point but are still waiting
-- : The highest phase number for which a participant has been elected to perform serial work
-- : A boolean flag used for assertions to distinguish between static and dynamic barrier usage patterns
-- : Used to efficiently wake up waiting processes when all participants have arrived
-
+- `mutex`: A spinlock that protects the barrier's internal state from concurrent access by multiple processes
+- `phase`: A counter that tracks the current phase number of the barrier, incremented each time all participants arrive
+- `participants`: The total number of processes currently attached to this barrier
+- `arrived`: The count of participants that have arrived at the current synchronization point but are still waiting
+- `elected`: The highest phase number for which a participant has been elected to perform serial work
+- `static_party`: A boolean flag used for assertions to distinguish between static and dynamic barrier usage patterns
+- `condition_variable`: Used to efficiently wake up waiting processes when all participants have arrived
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md) (spinlock type for thread-safe access)

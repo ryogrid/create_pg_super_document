@@ -20,7 +20,7 @@ This function is called during InitPostgres to properly initialize the search pa
 **Normal Mode**: In regular operation, it registers syscache invalidation callbacks for various system catalogs that can affect search path resolution, including namespaces, roles, role memberships, and databases. It then marks the search path as invalid to force recomputation on first use.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

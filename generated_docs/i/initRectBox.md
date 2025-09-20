@@ -20,7 +20,7 @@ The RectBox structure contains two RangeBox components (range_box_x and range_bo
 This initialization is essential for the SP-GiST geometric indexing algorithm, which starts with the entire space and then applies progressive spatial constraints as it traverses the index tree structure.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

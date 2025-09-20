@@ -15,7 +15,6 @@ Datum date_cmp(PG_FUNCTION_ARGS)
 This function provides a three-way comparison for DATE data types in PostgreSQL, typically used for sorting and indexing operations. It extracts two DateADT values from the function arguments and compares them using simple integer arithmetic, since DateADT is internally represented as an integer offset from the PostgreSQL epoch (January 1, 2000). The function returns -1 if the first date is earlier, 1 if the first date is later, and 0 if both dates are equal. This follows the standard C library qsort comparison function convention.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function argument mechanism (PG_FUNCTION_ARGS)
 - Argument 0: First DateADT value to compare
 - Argument 1: Second DateADT value to compare
 

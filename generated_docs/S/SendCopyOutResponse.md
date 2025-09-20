@@ -16,7 +16,7 @@ SendCopyOutResponse(void)
 This function constructs and sends a CopyOutResponse message as part of the PostgreSQL frontend/backend protocol. It is specifically used in the context of base backup operations to inform the client that the server is ready to send data in COPY format. The function creates a message buffer, sets the overall format to 0 (text format), indicates 0 attributes (natts), and sends the complete message to the client.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

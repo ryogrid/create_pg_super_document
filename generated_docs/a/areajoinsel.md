@@ -19,7 +19,7 @@ Like its non-join counterpart, this function returns a hardcoded selectivity val
 This function is specifically designed for join scenarios where geometric area-based operators (such as overlap) are used in join conditions between two tables containing geometric data.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function argument macro `PG_FUNCTION_ARGS` which provides access to function call context and arguments, though this specific function doesn't examine any arguments
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

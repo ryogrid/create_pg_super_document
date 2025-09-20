@@ -19,9 +19,8 @@ typedef struct pg_re_flags
 The pg_re_flags structure is used throughout PostgreSQL's regular expression system to standardize the passing of compilation and execution options. It serves as a parameter container that combines Spencer's regex compilation flags with PostgreSQL-specific behavioral flags. This structure ensures consistent handling of regex options across all regex-related functions in the backend.
 
 ## Parameters / Member Variables
-- : Integer containing compile flags that are passed directly to Spencer's regex code, controlling pattern compilation behavior such as case sensitivity, extended syntax, etc.
-- : Boolean flag indicating whether the regular expression operation should be performed globally (i.e., for each occurrence in the string rather than just the first match)
-
+- `cflags`: Integer containing compile flags that are passed directly to Spencer's regex code, controlling pattern compilation behavior such as case sensitivity, extended syntax, etc.
+- `glob`: Boolean flag indicating whether the regular expression operation should be performed globally (i.e., for each occurrence in the string rather than just the first match)
 ## Dependencies
 - Functions called/Symbols referenced:
   - (This is a simple struct definition with no direct function calls)

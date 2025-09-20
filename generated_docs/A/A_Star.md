@@ -18,8 +18,7 @@ typedef struct A_Star
 A_Star is a simple node structure that represents the asterisk ('*') symbol in PostgreSQL's parse tree. It serves as a placeholder for "all columns" in SELECT statements or "all fields" when accessing compound data types. This node can appear in various contexts within the parser tree, specifically within ColumnRef.fields, A_Indirection.indirection, and ResTarget.indirection lists. The structure is minimal, containing only the standard NodeTag to identify its type within PostgreSQL's node system.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as an A_Star node in PostgreSQL's node hierarchy
-
+- `type`: NodeTag identifying this as an A_Star node in PostgreSQL's node hierarchy
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)

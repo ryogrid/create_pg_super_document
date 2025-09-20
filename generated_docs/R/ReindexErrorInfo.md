@@ -22,10 +22,9 @@ The  structure is specifically designed to provide contextual information for er
 This structure enables more informative error messages by preserving the name, namespace, and kind of the relation being reindexed, allowing users to quickly identify the source of reindexing failures in complex partitioned table hierarchies.
 
 ## Parameters / Member Variables
-- : The name of the relation (table or index) being reindexed
-- : The namespace (schema) name of the relation
-- : The kind of relation (RELKIND_PARTITIONED_TABLE or RELKIND_PARTITIONED_INDEX)
-
+- `*relname`: The name of the relation (table or index) being reindexed
+- `*relnamespace`: The namespace (schema) name of the relation
+- `relkind`: The kind of relation (RELKIND_PARTITIONED_TABLE or RELKIND_PARTITIONED_INDEX)
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a plain data structure)

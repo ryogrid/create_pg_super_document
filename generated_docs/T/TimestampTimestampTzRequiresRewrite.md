@@ -18,7 +18,7 @@ This function checks if the current TimeZone GUC setting would cause timestamp_t
 The function follows PostgreSQL's convention of assuming GUC changes occur no more often than STABLE functions change, so the returned answer remains valid for that duration.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

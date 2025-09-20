@@ -19,7 +19,7 @@ The function performs a sequential scan of the PublicationRelationId catalog tab
 This function is typically used in replication contexts where the system needs to determine which publications apply to all tables, allowing for efficient bulk operations and determining publication membership without needing to check individual table-publication mappings.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

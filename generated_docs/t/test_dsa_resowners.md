@@ -13,8 +13,7 @@ Datum test_dsa_resowners(PG_FUNCTION_ARGS)
 This function tests the interaction between PostgreSQL's resource ownership system and DSA memory management. It creates a DSA area in the parent resource owner context, then switches to a child resource owner to perform 10,000 memory allocations within the DSA. The function tests both allocation and partial deallocation (freeing 500 out of 10,000 blocks), then triggers resource owner cleanup to verify that remaining DSA allocations are properly tracked and cleaned up automatically when the child resource owner is released. This ensures that DSA integrates correctly with PostgreSQL's resource management framework to prevent memory leaks.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
-- Returns Datum (void through PG_RETURN_VOID())
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

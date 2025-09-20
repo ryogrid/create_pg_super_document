@@ -15,7 +15,7 @@ Datum array_subscript_handler(PG_FUNCTION_ARGS)
 This function serves as the entry point for PostgreSQL's array subscripting framework for standard varlena arrays. It returns a pointer to a static SubscriptRoutines structure that defines the complete set of operations available for array subscripting, including transformation and execution setup functions. The handler is specifically designed for "true" array types that have proper array headers as understood by varlena array routines and are properly referenced by their element type's pg_type.typarray field. The returned structure specifies behavioral characteristics such as fetch strictness, leakproof properties, and error handling behavior.
 
 ## Parameters / Member Variables
-- Standard PostgreSQL function arguments (PG_FUNCTION_ARGS macro)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

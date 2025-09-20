@@ -23,7 +23,6 @@ The comparison follows the standard inet/cidr sorting rules:
 This function is typically registered in PostgreSQL's system catalogs as the implementation for the '<' operator between inet/cidr types, enabling SQL queries to perform direct comparisons like `inet_col1 < inet_col2`.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - `PG_GETARG_INET_PP(0)`: First inet/cidr argument (left operand of <)
 - `PG_GETARG_INET_PP(1)`: Second inet/cidr argument (right operand of <)
 

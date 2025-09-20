@@ -24,7 +24,6 @@ The `derfc` function is a PostgreSQL SQL-callable function that wraps the standa
 Similar to its counterpart `derf`, this function includes overflow checking for robust error handling, though the complementary error function typically doesn't overflow for normal input ranges.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
 - `arg1`: The float8 input value for which to compute the complementary error function
 
 ## Dependencies

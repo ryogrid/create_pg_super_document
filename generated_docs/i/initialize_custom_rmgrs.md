@@ -15,7 +15,7 @@ static void initialize_custom_rmgrs(void)
 The `initialize_custom_rmgrs` function sets up resource manager descriptors for custom resource managers in pg_waldump. Since custom resource manager modules are not loaded in pg_waldump, this function generates generic descriptors with numeric names in the format "custom###" (where ### is the 3-digit resource manager ID). Each descriptor is assigned default description and identification functions that provide minimal information about custom resource manager records.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

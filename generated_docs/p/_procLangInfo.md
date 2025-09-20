@@ -24,14 +24,13 @@ typedef struct _procLangInfo
 The  structure captures all essential information about procedural languages registered in PostgreSQL. This includes security settings (trusted/untrusted status), associated handler functions, and ownership information. The structure is used by pg_dump to preserve procedural language definitions during database backup and restoration operations.
 
 ## Parameters / Member Variables
-- : Base  containing common metadata for dump operations
-- :  structure for handling access control list information
-- : Boolean indicating whether the language is trusted (can be used by non-superusers)
-- : OID of the call handler function for the procedural language
-- : OID of the inline handler function (for anonymous code blocks)
-- : OID of the validator function used to check language syntax
-- : Name of the user who owns the procedural language
-
+- `dobj`: Base  containing common metadata for dump operations
+- `dacl`:  structure for handling access control list information
+- `lanpltrusted`: Boolean indicating whether the language is trusted (can be used by non-superusers)
+- `lanplcallfoid`: OID of the call handler function for the procedural language
+- `laninline`: OID of the inline handler function (for anonymous code blocks)
+- `lanvalidator`: OID of the validator function used to check language syntax
+- `*lanowner`: Name of the user who owns the procedural language
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject

@@ -15,7 +15,7 @@ typedef struct PortalData *Portal;
 Portal is a fundamental abstraction in PostgreSQL's query execution system that serves as a handle for managing the execution of SQL statements. It is essentially a pointer to a PortalData structure, which contains all the necessary information and state for executing queries. Portals provide a unified interface for handling different types of queries including simple queries, prepared statements, and cursors. The portal system manages the complete lifecycle of query execution from preparation through completion, including resource management, transaction handling, and result set management.
 
 ## Parameters / Member Variables
-- N/A (This is a typedef for a pointer to PortalData)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

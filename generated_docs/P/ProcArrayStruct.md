@@ -46,17 +46,16 @@ ProcArrayStruct serves as the central repository for tracking all active backend
 The structure manages two primary areas of concern: active process tracking through the pgprocnos array, and known assigned transaction IDs through a circular buffer mechanism. It also maintains replication slot information to prevent premature cleanup of data that might still be needed by logical replication.
 
 ## Parameters / Member Variables
-- : Current number of active backend processes registered in the procarray
-- : Maximum number of processes that can be accommodated (allocated array size)
-- : Allocated size of the known assigned XIDs circular buffer
-- : Current number of valid entries in the known assigned XIDs array
-- : Array index pointing to the oldest valid known assigned XID entry
-- : Array index pointing to the position after the newest entry (insertion point)
-- : Highest subtransaction ID that was removed due to array overflow, used to track potential missing subxids
-- : Oldest transaction ID that any replication slot still needs for data visibility
-- : Oldest catalog transaction ID needed by any replication slot for DDL changes
-- : Flexible array member containing indexes into the global allProcs array, referencing active PGPROC entries
-
+- `numProcs`: Current number of active backend processes registered in the procarray
+- `maxProcs`: Maximum number of processes that can be accommodated (allocated array size)
+- `maxKnownAssignedXids`: Allocated size of the known assigned XIDs circular buffer
+- `numKnownAssignedXids`: Current number of valid entries in the known assigned XIDs array
+- `tailKnownAssignedXids`: Array index pointing to the oldest valid known assigned XID entry
+- `headKnownAssignedXids`: Array index pointing to the position after the newest entry (insertion point)
+- `lastOverflowedXid`: Highest subtransaction ID that was removed due to array overflow, used to track potential missing subxids
+- `replication_slot_xmin`: Oldest transaction ID that any replication slot still needs for data visibility
+- `replication_slot_catalog_xmin`: Oldest catalog transaction ID needed by any replication slot for DDL changes
+- `pgprocnos[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing indexes into the global allProcs array, referencing active PGPROC entries
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

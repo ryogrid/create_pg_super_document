@@ -28,13 +28,12 @@ The structure supports reference counting for cache management, allowing tuple d
 The structure is designed to efficiently handle cases where constraints can be omitted, making it suitable for temporary result sets that don't require full constraint validation.
 
 ## Parameters / Member Variables
-- : Number of user attributes in the tuple (excludes system attributes)
-- : OID identifying the composite type (RECORDOID for anonymous types)
-- : Type modifier for the tuple type (-1 for named rowtypes, >= 0 for typcache lookup)
-- : Reference count for cache management (-1 for non-counted descriptors)
-- : Pointer to TupleConstr containing constraint information (NULL if none)
-- : Flexible array of FormData_pg_attribute structures describing each attribute
-
+- `natts`: Number of user attributes in the tuple (excludes system attributes)
+- `tdtypeid`: OID identifying the composite type (RECORDOID for anonymous types)
+- `tdtypmod`: Type modifier for the tuple type (-1 for named rowtypes, >= 0 for typcache lookup)
+- `tdrefcount`: Reference count for cache management (-1 for non-counted descriptors)
+- `*constr`: Pointer to TupleConstr containing constraint information (NULL if none)
+- `attrs[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of FormData_pg_attribute structures describing each attribute
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TupleConstr](TupleConstr.md)

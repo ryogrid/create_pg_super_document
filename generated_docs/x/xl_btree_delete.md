@@ -32,11 +32,10 @@ The xl_btree_delete structure is a WAL record format used to log B-tree leaf pag
 Unlike vacuum operations, this record type is used during regular index maintenance and preserves vacuum cycle IDs. The payload contains variable-length data including arrays of offset numbers for both deleted and updated items, followed by metadata for the updated tuples.
 
 ## Parameters / Member Variables
-- : Transaction ID used for recovery conflict resolution on standby servers
-- : Number of index tuples to be completely deleted from the page
-- : Number of posting list tuples to be partially updated (some TIDs removed)
-- : Boolean flag indicating if this is a catalog relation, used for logical decoding conflict handling
-
+- `snapshotConflictHorizon`: Transaction ID used for recovery conflict resolution on standby servers
+- `ndeleted`: Number of index tuples to be completely deleted from the page
+- `nupdated`: Number of posting list tuples to be partially updated (some TIDs removed)
+- `isCatalogRel`: Boolean flag indicating if this is a catalog relation, used for logical decoding conflict handling
 ## Dependencies
 - Functions called/Symbols referenced:
   - [xl_btree_update](xl_btree_update.md) (embedded in payload)

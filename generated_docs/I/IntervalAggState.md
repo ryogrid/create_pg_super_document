@@ -26,11 +26,10 @@ The structure efficiently handles both finite and infinite interval values durin
 The structure is designed to support incremental aggregation operations, allowing for efficient accumulation, combination of partial results (for parallel aggregation), and final result computation. It also supports inverse operations for moving window aggregates.
 
 ## Parameters / Member Variables
-- : Count of finite (non-infinite) interval values that have been processed and included in the sum
-- : Accumulated sum of all finite interval values processed so far  
-- : Count of positive infinity interval values encountered (not included in N)
-- : Count of negative infinity interval values encountered (not included in N)
-
+- `N`: Count of finite (non-infinite) interval values that have been processed and included in the sum
+- `sumX`: Accumulated sum of all finite interval values processed so far
+- `pInfcount`: Count of positive infinity interval values encountered (not included in N)
+- `nInfcount`: Count of negative infinity interval values encountered (not included in N)
 ## Dependencies
 - Functions called/Symbols referenced:
   - Interval (PostgreSQL's interval data type)

@@ -22,7 +22,6 @@ This function serves as a SQL-callable interface for validating operator classes
 The function ensures that operator classes are properly structured and contain all necessary operators and support functions required by their associated index access method. This is crucial for maintaining index functionality and preventing runtime errors.
 
 ## Parameters / Member Variables
-- Function takes PG_FUNCTION_ARGS (standard PostgreSQL function interface)
 - : The OID of the operator class to validate (extracted from args[0])
 
 ## Dependencies

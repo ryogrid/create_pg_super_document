@@ -20,7 +20,7 @@ The function sets up a hash table with OID keys and values, where each entry rep
 This tracking mechanism is crucial for operations like ALTER TYPE ADD VALUE, which have different behavior depending on whether the enum type was created in the current transaction or a previous one.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

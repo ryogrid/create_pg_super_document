@@ -25,11 +25,10 @@ During table rewrite operations (such as VACUUM FULL, CLUSTER, or ALTER TABLE op
 This mapping data is typically written to temporary files during the rewrite operation and later used by logical replication components to translate old tuple references to their new locations.
 
 ## Parameters / Member Variables
-- : RelFileLocator identifying the original relation file before rewrite
-- : RelFileLocator identifying the new relation file after rewrite  
-- : ItemPointerData pointing to the original tuple location (block number and item number)
-- : ItemPointerData pointing to the new tuple location after rewrite
-
+- `old_locator`: RelFileLocator identifying the original relation file before rewrite
+- `new_locator`: RelFileLocator identifying the new relation file after rewrite
+- `old_tid`: ItemPointerData pointing to the original tuple location (block number and item number)
+- `new_tid`: ItemPointerData pointing to the new tuple location after rewrite
 ## Dependencies
 - Functions called/Symbols referenced:
   - [RelFileLocator](../R/RelFileLocator.md) (relation file identification)

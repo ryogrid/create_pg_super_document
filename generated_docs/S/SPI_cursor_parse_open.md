@@ -32,7 +32,6 @@ This design pattern follows modern PostgreSQL practices of using option structur
   - `cursorOptions`: Integer bitmask of cursor options (scrollable, holdable, etc.)
   - `params`: ParamListInfo for query parameters (can be NULL)
   - `read_only`: Boolean indicating if cursor should be read-only
-  - Additional parser setup information if needed
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,8 +15,7 @@ Datum text_to_array_null(PG_FUNCTION_ARGS)
 The text_to_array_null function is a separate entry point that delegates directly to text_to_array. It exists primarily to provide a distinct function signature for cases where null string handling is explicitly required in text array operations. The function serves as a compatibility layer to prevent regression test complaints about different argument sets for the same internal functionality.
 
 ## Parameters / Member Variables
-- Takes PostgreSQL function arguments via PG_FUNCTION_ARGS macro (typically text input string, delimiter, and null string parameter)
-- Returns a Datum representing the resulting text array
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,7 +23,6 @@ This function serves as a factory method for creating Snowball stemming environm
 The returned environment must be properly cleaned up using the corresponding close function to prevent memory leaks.
 
 ## Parameters / Member Variables
-- None (void function)
 - Returns: Pointer to newly created SN_env structure, or NULL on allocation failure
 
 ## Dependencies

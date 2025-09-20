@@ -35,12 +35,6 @@ The function handles complex scenarios including:
 
 ## Parameters / Member Variables
 - : PlanState pointer that must be castable to WindowAggState, containing:
-  - Window function specifications and frame options
-  - Tuple store for partition buffering
-  - Current position and peer group tracking
-  - Frame boundary positions and validation flags
-  - Expression contexts for evaluation
-  - Status flags for execution mode management
 
 ## Dependencies
 - Functions called/Symbols referenced:

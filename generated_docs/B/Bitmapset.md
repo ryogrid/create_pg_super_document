@@ -26,10 +26,9 @@ The implementation uses either 32-bit or 64-bit words depending on the platform'
 By convention, an empty set is always represented by a NULL pointer rather than an allocated Bitmapset structure, which provides memory efficiency for the common case of empty sets.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a Bitmapset node type
-- : Number of bitmap words in the words array, determining the capacity of the set
-- : Flexible array member containing the actual bitmap data, with each word storing multiple bits representing set membership
-
+- `type`: NodeTag identifying this as a Bitmapset node type
+- `nwords`: Number of bitmap words in the words array, determining the capacity of the set
+- `words[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the actual bitmap data, with each word storing multiple bits representing set membership
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER

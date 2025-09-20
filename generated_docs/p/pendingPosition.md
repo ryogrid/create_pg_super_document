@@ -24,12 +24,11 @@ The  structure is an internal data structure used by PostgreSQL's GIN access met
 This structure is primarily used during GIN index scans when processing entries from the pending list - a temporary storage area for index entries that haven't yet been merged into the main GIN index structure. The pending list allows for faster insertions by deferring the more expensive merge operations.
 
 ## Parameters / Member Variables
-- : Buffer containing the current page being scanned from the pending list
-- : The first offset number within the current page range being processed
-- : The last offset number within the current page range being processed  
-- : ItemPointerData structure containing the current heap tuple identifier (TID)
-- : Pointer to a boolean array indicating which scan keys have matches for the current item
-
+- `pendingBuffer`: Buffer containing the current page being scanned from the pending list
+- `firstOffset`: The first offset number within the current page range being processed
+- `lastOffset`: The last offset number within the current page range being processed
+- `item`: ItemPointerData structure containing the current heap tuple identifier (TID)
+- `*hasMatchKey`: Pointer to a boolean array indicating which scan keys have matches for the current item
 ## Dependencies
 - Functions called/Symbols referenced:
   - Buffer (buffer management type)

@@ -16,7 +16,6 @@ pg_control_init(PG_FUNCTION_ARGS)
 The  function extracts and returns fundamental configuration parameters that were set when the PostgreSQL cluster was initialized. These parameters represent compile-time constants and initialization-time settings that define the basic structural characteristics of the database cluster. The function provides essential information about data layout, block sizes, limits, and other architectural parameters that cannot be changed after cluster initialization. This information is crucial for compatibility checking, performance analysis, and understanding cluster characteristics.
 
 ## Parameters / Member Variables
-- No input parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL function interface)
 - Returns a composite tuple containing 11 fields:
   - : Maximum alignment required for data types
   - : Database block size in bytes

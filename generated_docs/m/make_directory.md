@@ -18,7 +18,7 @@ The  function creates a new directory using the POSIX  system call with comprehe
 This function is part of the PostgreSQL regression testing infrastructure and is used to ensure that necessary directories exist before attempting to write test files or results.
 
 ## Parameters / Member Variables
-- 0
+
 1
 3.2
 5

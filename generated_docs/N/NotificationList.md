@@ -25,11 +25,10 @@ The structure serves dual purposes: maintaining the ordered list of notification
 The linked structure through the  field creates a stack-like organization where each subtransaction level can access its parent's notification state, enabling proper transaction semantics for the notification system.
 
 ## Parameters / Member Variables
-- : The current transaction nesting depth, used to track subtransaction hierarchy
-- : A PostgreSQL List containing Notification structures in the order they were issued
-- : Hash table (HTAB) for efficient duplicate detection, created only when notification count exceeds threshold; NULL for small lists
-- : Pointer to the parent transaction level's NotificationList, forming a linked hierarchy for nested transactions
-
+- `nestingLevel`: The current transaction nesting depth, used to track subtransaction hierarchy
+- `*events`: A PostgreSQL List containing Notification structures in the order they were issued
+- `*hashtab`: Hash table (HTAB) for efficient duplicate detection, created only when notification count exceeds threshold; NULL for small lists
+- `*upper`: Pointer to the parent transaction level's NotificationList, forming a linked hierarchy for nested transactions
 ## Dependencies
 - Functions called/Symbols referenced:
   - [HTAB](../H/HTAB.md) (PostgreSQL hash table type)

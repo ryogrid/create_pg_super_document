@@ -25,7 +25,7 @@ This operation is typically performed during recovery initialization or when tra
 The reset operation does not actually clear the array contents but rather resets the metadata that tracks valid entries, effectively making the array appear empty to all accessor functions.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

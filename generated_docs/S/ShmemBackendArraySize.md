@@ -19,7 +19,7 @@ The function is specifically used in EXEC_BACKEND builds (primarily Windows) whe
 The calculation uses mul_size() for safe multiplication that prevents integer overflow, which is important for memory allocation calculations that could be security-sensitive.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

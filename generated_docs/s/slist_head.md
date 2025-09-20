@@ -22,8 +22,7 @@ The structure contains a single  member called  which acts as a sentinel node. T
 The singly linked design is optimized for scenarios where forward-only traversal is sufficient and memory overhead needs to be minimized, making it ideal for many internal PostgreSQL data structures.
 
 ## Parameters / Member Variables
-- : A sentinel slist_node that serves as the starting point for the linked list; its  pointer points to the first actual node in the list, or NULL if the list is empty
-
+- `head`: A sentinel slist_node that serves as the starting point for the linked list; its  pointer points to the first actual node in the list, or NULL if the list is empty
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slist_node](slist_node.md) (embedded as the head sentinel)

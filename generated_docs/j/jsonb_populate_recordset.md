@@ -23,9 +23,6 @@ The function acts as a thin wrapper around populate_recordset_worker, providing 
 
 ## Parameters / Member Variables
 - `PG_FUNCTION_ARGS`: Standard PostgreSQL function call information structure containing:
-  - The target record type definition
-  - The JSONB array input to be processed
-  - Additional function call metadata
 
 ## Dependencies
 - Functions called/Symbols referenced:

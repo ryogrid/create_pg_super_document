@@ -22,8 +22,7 @@ The structure contains a single volatile character field that can atomically tra
 PostgreSQL's atomic flag implementation is architecture-aware, with platform-specific optimizations available for x86, ARM, and other architectures, while falling back to generic implementations using higher-level atomic operations or even spinlocks when native atomic support is unavailable.
 
 ## Parameters / Member Variables
-- : A volatile character field that stores the flag state (0 for unset, non-zero for set). The volatile qualifier ensures the compiler doesn't optimize away memory accesses to this field.
-
+- `value`: A volatile character field that stores the flag state (0 for unset, non-zero for set). The volatile qualifier ensures the compiler doesn't optimize away memory accesses to this field.
 ## Dependencies
 - Functions called/Symbols referenced:
   - None (this is a data structure definition)

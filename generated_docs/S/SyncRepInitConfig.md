@@ -19,7 +19,7 @@ The function queries the current standby priority using SyncRepGetStandbyPriorit
 When a priority change is detected, the function logs a debug message indicating the new synchronous standby priority for the connected application. This helps with monitoring and debugging synchronous replication configuration changes.
 
 ## Parameters / Member Variables
-- None (operates on the current WAL sender MyWalSnd)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

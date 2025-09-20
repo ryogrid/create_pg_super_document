@@ -17,7 +17,7 @@ This function provides a PL/Perl interface to PostgreSQL's SPI_commit() function
 The function is designed to integrate seamlessly with Perl's exception handling mechanism by converting PostgreSQL errors into Perl exceptions (croak). This ensures that commit failures are properly propagated up the call stack and can be handled using standard Perl error handling techniques.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -15,7 +15,6 @@ Datum int2xor(PG_FUNCTION_ARGS)
 The `int2xor` function implements the bitwise XOR operation for PostgreSQL's `smallint` data type (16-bit signed integers). It takes two `smallint` arguments from the function call context, performs a bitwise XOR operation using the C `^` operator, and returns the result as a `smallint` value. This function is typically invoked through PostgreSQL's SQL operator `#` when used with `smallint` operands.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments from PostgreSQL's function call context
 - `arg1`: First 16-bit signed integer operand retrieved via `PG_GETARG_INT16(0)`
 - `arg2`: Second 16-bit signed integer operand retrieved via `PG_GETARG_INT16(1)`
 

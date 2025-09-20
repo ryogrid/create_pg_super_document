@@ -38,26 +38,20 @@ ArrayIteratorData is the internal working structure used by PostgreSQL's array i
 The structure is divided into three logical sections: basic array metadata established during initialization, slice-specific configuration for partial array operations, and dynamic position tracking that updates during iteration. This design enables both simple element-by-element iteration and more complex slicing operations while maintaining optimal performance characteristics.
 
 ## Parameters / Member Variables
-**Basic Array Information:**
-- : Pointer to the ArrayType being iterated through
-- : Bitmap indicating which array elements are NULL, if any exist
-- : Total count of elements in the array
-- : Length of the array's element type (-1 for variable-length types)
-- : Boolean indicating if the element type is passed by value
-- : Alignment requirement for the element type
-
-**Slice Configuration:**
-- : Number of dimensions for slicing operation (0 indicates no slicing)
-- : Number of elements per slice when slicing is active
-- : Array of slice dimensions
-- : Array of lower bounds for each slice dimension
-- : Workspace array for storing slice element values
-- : Workspace array for storing slice element null flags
-
-**Current Position State:**
-- : Pointer to current position within the array's data
-- : Zero-based index of current element being processed
-
+- `*arr`: Pointer to the ArrayType being iterated through
+- `*nullbitmap`: Bitmap indicating which array elements are NULL, if any exist
+- `nitems`: Total count of elements in the array
+- `typlen`: Length of the array's element type (-1 for variable-length types)
+- `typbyval`: Boolean indicating if the element type is passed by value
+- `typalign`: Alignment requirement for the element type
+- `slice_ndim`: Number of dimensions for slicing operation (0 indicates no slicing)
+- `slice_len`: Number of elements per slice when slicing is active
+- `*slice_dims`: Array of slice dimensions
+- `*slice_lbound`: Array of lower bounds for each slice dimension
+- `*slice_values`: Workspace array for storing slice element values
+- `*slice_nulls`: Workspace array for storing slice element null flags
+- `*data_ptr`: Pointer to current position within the array's data
+- `current_item`: Zero-based index of current element being processed
 ## Dependencies
 - Functions called/Symbols referenced:
   - bits8 (for null bitmap handling)

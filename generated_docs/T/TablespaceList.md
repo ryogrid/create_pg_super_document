@@ -21,9 +21,8 @@ TablespaceList is a list management structure in pg_basebackup that provides an 
 This structure works in conjunction with TablespaceListCell to provide a complete tablespace mapping system. The head pointer allows for easy traversal of all tablespace mappings, while the tail pointer enables efficient append operations when new tablespace mappings are added during command-line parsing or configuration.
 
 ## Parameters / Member Variables
-- : Pointer to the first TablespaceListCell in the linked list, or NULL if the list is empty
-- : Pointer to the last TablespaceListCell in the linked list, or NULL if the list is empty
-
+- `*head`: Pointer to the first TablespaceListCell in the linked list, or NULL if the list is empty
+- `*tail`: Pointer to the last TablespaceListCell in the linked list, or NULL if the list is empty
 ## Dependencies
 - Functions called/Symbols referenced:
   - [TablespaceListCell](TablespaceListCell.md) (referenced by both head and tail pointers)

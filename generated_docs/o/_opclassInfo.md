@@ -20,10 +20,9 @@ typedef struct _opclassInfo
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about operator classes during database backup operations. Operator classes in PostgreSQL define sets of operators and support functions for specific data types that can be used with particular index access methods. This structure extends the base  to include operator class-specific information, enabling pg_dump to properly serialize and restore operator class definitions along with their associated access methods and ownership information.
 
 ## Parameters / Member Variables
-- : Base  structure containing common metadata for dumpable database objects (object ID, name, namespace, dump flags, etc.)
-- : OID (Object Identifier) of the access method this operator class is associated with (e.g., btree, hash, gist, gin, etc.)
-- : Pointer to constant string containing the name of the role (user) who owns this operator class
-
+- `dobj`: Base  structure containing common metadata for dumpable database objects (object ID, name, namespace, dump flags, etc.)
+- `opcmethod`: OID (Object Identifier) of the access method this operator class is associated with (e.g., btree, hash, gist, gin, etc.)
+- `*rolname`: Pointer to constant string containing the name of the role (user) who owns this operator class
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)

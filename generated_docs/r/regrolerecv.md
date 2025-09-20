@@ -19,9 +19,6 @@ The function follows PostgreSQL's standard function calling convention using the
 
 ## Parameters / Member Variables
 - The function uses PostgreSQL's standard function call interface (PG_FUNCTION_ARGS) which provides access to:
-  - Function call context information
-  - Input arguments in binary format
-  - Memory context for result allocation
 
 ## Dependencies
 - Functions called/Symbols referenced:

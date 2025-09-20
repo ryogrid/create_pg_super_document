@@ -17,7 +17,6 @@ This function implements the SQL function json_typeof(json) -> text, which analy
 
 ## Parameters / Member Variables
 - Takes one argument through PG_FUNCTION_ARGS macro: a JSON text value
-- Returns a Datum containing the type name as text
 
 ## Dependencies
 - Functions called/Symbols referenced:

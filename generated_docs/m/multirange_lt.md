@@ -26,7 +26,6 @@ This operator enables multirange types to be used in SQL queries with less-than 
 - Uses  macro to access function arguments:
   - Argument 0:  - the first multirange for comparison
   - Argument 1:  - the second multirange for comparison
-- The arguments are passed directly to  without extraction
 
 ## Dependencies
 - Functions called/Symbols referenced:

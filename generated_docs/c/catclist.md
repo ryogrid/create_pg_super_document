@@ -37,18 +37,17 @@ typedef struct catclist
 The catclist struct describes the result of a partial search in PostgreSQL's catalog cache system, where only the first K key columns of an N-key cache are used for lookup. It maintains a list of cache entries (CatCTup structures) that satisfy the partial key criteria. Unlike individual cache entries, CatCLists are not organized into hash buckets but are kept in a simple per-cache list. The structure supports reference counting for safe memory management and includes flags for tracking dead entries and whether member tuples are in index order.
 
 ## Parameters / Member Variables
-- : Magic number (0x52765103) used to identify valid CatCList entries for debugging
-- : Precomputed hash value of the partial key values used for the search
-- : Doubly-linked list node for organizing CatCLists within the owning cache
-- : Array of partial key values used for the search, with only first nkeys elements valid
-- : Reference count tracking active usage to prevent premature deletion
-- : Flag indicating the list is logically deleted but still referenced
-- : Flag indicating whether member tuples appear in index order for optimization
-- : Number of key values specified in the partial search (less than cache's total keys)
-- : Number of CatCTup entries contained in the members array
-- : Back-reference to the owning CatCache structure
-- : Flexible array of pointers to CatCTup entries that match the partial key
-
+- `cl_magic`: Magic number (0x52765103) used to identify valid CatCList entries for debugging
+- `hash_value`: Precomputed hash value of the partial key values used for the search
+- `cache_elem`: Doubly-linked list node for organizing CatCLists within the owning cache
+- `keys[CATCACHE_MAXKEYS]`: Array of partial key values used for the search, with only first nkeys elements valid
+- `refcount`: Reference count tracking active usage to prevent premature deletion
+- `dead`: Flag indicating the list is logically deleted but still referenced
+- `ordered`: Flag indicating whether member tuples appear in index order for optimization
+- `nkeys`: Number of key values specified in the partial search (less than cache's total keys)
+- `n_members`: Number of CatCTup entries contained in the members array
+- `*my_cache`: Back-reference to the owning CatCache structure
+- `*members[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of pointers to CatCTup entries that match the partial key
 ## Dependencies
 - Functions called/Symbols referenced:
   - [dlist_node](../d/dlist_node.md) (doubly-linked list node structure)

@@ -60,16 +60,15 @@ typedef struct ParallelApplyWorkerShared
 ParallelApplyWorkerShared serves as the primary communication mechanism between leader and parallel apply workers in PostgreSQL's parallel logical replication system. It maintains transaction state information, coordinates commit ordering through the xact_state field, and manages file-based serialization of transaction data when memory limits are exceeded. The structure ensures proper synchronization and ordering of parallel transaction processing while allowing for efficient data sharing between worker processes.
 
 ## Parameters / Member Variables
-- : Spinlock for protecting concurrent access to shared data
-- : Transaction ID of the current transaction being processed
-- : State flag ensuring proper commit ordering between parallel workers
-- : Generation counter from the associated LogicalRepWorker slot
-- : Slot number of the corresponding LogicalRepWorker
-- : Atomic counter tracking pending streaming blocks in the queue
-- : LSN position of the last committed transaction end
-- : State information for partial file serialization mode
-- : File set used for serializing transaction data when in partial serialize mode
-
+- `mutex`: Spinlock for protecting concurrent access to shared data
+- `xid`: Transaction ID of the current transaction being processed
+- `xact_state`: State flag ensuring proper commit ordering between parallel workers
+- `logicalrep_worker_generation`: Generation counter from the associated LogicalRepWorker slot
+- `logicalrep_worker_slot_no`: Slot number of the corresponding LogicalRepWorker
+- `pending_stream_count`: Atomic counter tracking pending streaming blocks in the queue
+- `last_commit_end`: LSN position of the last committed transaction end
+- `fileset_state`: State information for partial file serialization mode
+- `fileset`: File set used for serializing transaction data when in partial serialize mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - [slock_t](../s/slock_t.md)

@@ -19,7 +19,6 @@ For leaf entries containing actual polygon data, the function extracts the pre-c
 This compression allows the GiST index to perform spatial operations efficiently using simple box comparisons while still maintaining the ability to access the original polygon data when needed.
 
 ## Parameters / Member Variables
-- Uses PostgreSQL's PG_FUNCTION_ARGS macro to access function arguments
 - `entry`: The GISTENTRY pointer containing either a polygon (for leaf nodes) or a bounding box (for internal nodes)
 
 ## Dependencies

@@ -27,13 +27,12 @@ The structure supports different kinds of check options through the WCOKind enum
 The qual field contains the constraint expression that must evaluate to true for the operation to succeed. During execution, if the constraint is violated, the operation fails with an appropriate error message. This mechanism is crucial for maintaining data integrity in complex view hierarchies and enforcing security policies.
 
 ## Parameters / Member Variables
-- : NodeTag identifying this as a WithCheckOption node
-- : Type of WITH CHECK OPTION (view-based or RLS policy-based)
-- : Name of the relation that specified this WITH CHECK OPTION
-- : Name of the RLS policy being checked (NULL for view-based WCOs)
-- : Node containing the constraint qualification expression to evaluate
-- : Whether this is a cascaded WITH CHECK OPTION for views (applies to view hierarchy)
-
+- `type`: NodeTag identifying this as a WithCheckOption node
+- `kind`: Type of WITH CHECK OPTION (view-based or RLS policy-based)
+- `*relname`: Name of the relation that specified this WITH CHECK OPTION
+- `*polname`: Name of the RLS policy being checked (NULL for view-based WCOs)
+- `*qual`: Node containing the constraint qualification expression to evaluate
+- `cascaded`: Whether this is a cascaded WITH CHECK OPTION for views (applies to view hierarchy)
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag

@@ -15,8 +15,6 @@ Datum float4um(PG_FUNCTION_ARGS)
 The `float4um` function is a PostgreSQL built-in function that returns the negation of a float4 (single-precision floating-point) argument. It performs the unary minus operation by applying the C language negation operator (-) to the input value. This function is part of the float4 base operations in PostgreSQL's arithmetic system.
 
 ## Parameters / Member Variables
-- Uses `PG_FUNCTION_ARGS` macro to access function arguments
-- Retrieves the first argument as a float4 using `PG_GETARG_FLOAT4(0)`
 - `result`: local float4 variable to store the negated value
 
 ## Dependencies

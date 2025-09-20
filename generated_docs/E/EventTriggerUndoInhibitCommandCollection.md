@@ -17,7 +17,7 @@ This function reverses the effect of EventTriggerInhibitCommandCollection by set
 The function includes the same safety check as its counterpart, returning early if `currentEventTriggerState` is NULL to ensure it only operates when event triggers are active.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

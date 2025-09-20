@@ -15,7 +15,7 @@ void PgArchShmemInit(void)
 This function is responsible for setting up the shared memory segment for the PostgreSQL archiver process. It allocates a shared memory structure named "Archiver Data" and initializes it on first access. The function uses PostgreSQL's shared memory infrastructure to create or attach to the archiver's shared state, which includes process information and control flags. During initialization, it sets up atomic variables for thread-safe communication with the archiver process.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

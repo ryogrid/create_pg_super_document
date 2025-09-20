@@ -18,7 +18,7 @@ This function iterates through all registered named LWLock tranche requests and 
 The function accesses global arrays that store the tranche registration information, summing up the num_lwlocks field from each registered tranche request.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

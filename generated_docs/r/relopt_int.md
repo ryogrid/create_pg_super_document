@@ -23,11 +23,10 @@ The relopt_int structure represents an integer relation option definition in Pos
 This structure is used to define integer options that can be set on database objects. The min and max fields provide automatic range validation, ensuring that user-provided values fall within acceptable bounds. Examples might include options like "fillfactor" (with range 10-100) or "autovacuum_analyze_threshold" (with minimum 0).
 
 ## Parameters / Member Variables
-- : The base relopt_gen structure containing common option metadata (name, description, kinds, lockmode, namelen, type)
-- : The default integer value to use when this option is not explicitly specified by the user
-- : The minimum acceptable value for this integer option (inclusive)
-- : The maximum acceptable value for this integer option (inclusive)
-
+- `gen`: The base relopt_gen structure containing common option metadata (name, description, kinds, lockmode, namelen, type)
+- `default_val`: The default integer value to use when this option is not explicitly specified by the user
+- `min`: The minimum acceptable value for this integer option (inclusive)
+- `max`: The maximum acceptable value for this integer option (inclusive)
 ## Dependencies
 - Functions called/Symbols referenced:
   - [relopt_gen](relopt_gen.md)

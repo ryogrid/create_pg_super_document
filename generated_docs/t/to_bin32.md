@@ -18,9 +18,7 @@ The  function is a PostgreSQL SQL-callable function that takes a 32-bit signed i
 The function serves as a wrapper around the internal  utility function, specifically configured for base-2 conversion. It's part of PostgreSQL's set of number-to-string conversion functions that allow users to represent numeric values in different bases through SQL.
 
 ## Parameters / Member Variables
-- Function follows PostgreSQL's standard function calling convention using 
 - Expects one argument: a 32-bit integer value accessed via 
-- The input is cast to  to ensure unsigned interpretation before conversion to 
 
 ## Dependencies
 - Functions called/Symbols referenced:

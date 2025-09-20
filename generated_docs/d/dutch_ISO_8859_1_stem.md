@@ -44,7 +44,6 @@ The function ensures proper cursor management throughout all phases and provides
   - : Current cursor position (saved and restored between phases)
   - : Left boundary for processing operations
   - : Length of the word being stemmed
-  - All internal state needed for morphological analysis and character operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

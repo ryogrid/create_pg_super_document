@@ -20,7 +20,6 @@ This function is the input parser for the macaddr8 PostgreSQL data type. It acce
 The function performs strict validation ensuring all separators are consistent throughout the address and that each byte is represented by exactly two hexadecimal digits. When a 6-byte MAC address is provided, it's converted to the 8-byte format by splitting the OUI and device identifier and inserting the standard FF-FE bytes in between.
 
 ## Parameters / Member Variables
-- Uses the standard PostgreSQL function calling convention via `PG_FUNCTION_ARGS`
 - `str`: Input string containing the MAC address to parse (accessed via `PG_GETARG_CSTRING(0)`)
 - `escontext`: Error context for soft error handling
 

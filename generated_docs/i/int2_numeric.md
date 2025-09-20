@@ -15,7 +15,6 @@ Datum int2_numeric(PG_FUNCTION_ARGS)
 This function is a PostgreSQL SQL-callable function that converts an int2 (16-bit signed integer, also known as smallint in SQL) to the numeric data type. It follows PostgreSQL's function calling convention by taking PG_FUNCTION_ARGS as its parameter and returning a Datum. The function extracts the int16 value from the function arguments, converts it to int64 (which is always safe since int16 fits entirely within int64 range), then uses the internal int64_to_numeric conversion function to create the final numeric result.
 
 ## Parameters / Member Variables
-- Function uses PostgreSQL's standard function argument mechanism (PG_FUNCTION_ARGS)
 - Extracts: 16-bit signed integer value from argument 0
 
 ## Dependencies

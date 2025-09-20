@@ -75,20 +75,19 @@ This structure serves as the central control hub for WAL recovery operations in 
 The structure is critical for crash recovery, archive recovery, and streaming replication scenarios, maintaining essential state information that allows the system to properly coordinate recovery operations, handle standby queries, and manage recovery pausing and resumption.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether hot standby queries are currently allowed to run (protected by info_lck)
-- : Boolean flag indicating if a standby promotion has been triggered (protected by info_lck)
-- : Latch used to wake up the startup process to continue WAL replay when waiting for WAL arrival or promotion requests
-- : Start position of the last record successfully replayed
-- : End+1 position of the last record successfully replayed
-- : Timeline ID of the last successfully replayed record
-- : End+1 position of the record currently being replayed, or equal to lastReplayedEndRecPtr when not actively replaying
-- : Timeline ID for the record currently being replayed
-- : Timestamp of the last COMMIT/ABORT record replayed or being replayed
-- : Timestamp when the current chunk of WAL data started being replayed (relevant for replication/archive recovery)
-- : Current state of recovery pause functionality
-- : Condition variable for coordinating recovery pause/resume operations
-- : Spinlock that protects the shared variables in this structure
-
+- `SharedHotStandbyActive`: Boolean flag indicating whether hot standby queries are currently allowed to run (protected by info_lck)
+- `SharedPromoteIsTriggered`: Boolean flag indicating if a standby promotion has been triggered (protected by info_lck)
+- `recoveryWakeupLatch`: Latch used to wake up the startup process to continue WAL replay when waiting for WAL arrival or promotion requests
+- `lastReplayedReadRecPtr`: Start position of the last record successfully replayed
+- `lastReplayedEndRecPtr`: End+1 position of the last record successfully replayed
+- `lastReplayedTLI`: Timeline ID of the last successfully replayed record
+- `replayEndRecPtr`: End+1 position of the record currently being replayed, or equal to lastReplayedEndRecPtr when not actively replaying
+- `replayEndTLI`: Timeline ID for the record currently being replayed
+- `recoveryLastXTime`: Timestamp of the last COMMIT/ABORT record replayed or being replayed
+- `currentChunkStartTime`: Timestamp when the current chunk of WAL data started being replayed (relevant for replication/archive recovery)
+- `recoveryPauseState`: Current state of recovery pause functionality
+- `recoveryNotPausedCV`: Condition variable for coordinating recovery pause/resume operations
+- `info_lck`: Spinlock that protects the shared variables in this structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - [Latch](../L/Latch.md)

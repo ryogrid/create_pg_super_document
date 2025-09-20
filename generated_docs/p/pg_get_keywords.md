@@ -29,7 +29,7 @@ The function categorizes keywords into four types:
 The function also indicates whether each keyword can be used as a "bare label" (without AS keyword) in certain SQL contexts.
 
 ## Parameters / Member Variables
-- No input parameters (void parameter list)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

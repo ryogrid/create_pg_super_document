@@ -18,7 +18,7 @@ This function creates a custom BIO method structure that integrates PostgreSQL's
 The custom BIO method replaces the default socket read and write operations with PostgreSQL's my_sock_read and my_sock_write functions, while inheriting other standard socket BIO operations from the default socket BIO. This allows PostgreSQL to maintain control over socket I/O operations while leveraging OpenSSL's SSL/TLS functionality.
 
 ## Parameters / Member Variables
-- No parameters (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -31,19 +31,18 @@ typedef struct printTextFormat
 The printTextFormat structure represents a complete formatting theme for text-based table output in PostgreSQL frontend utilities. It encompasses not only basic line drawing characters but also sophisticated handling of text wrapping, line continuation, and different table sections (headers vs data). The structure allows for fine-grained control over table appearance, supporting various visual styles from simple ASCII to elaborate Unicode box-drawing formats.
 
 ## Parameters / Member Variables
-- : Display name for this formatting style, used for identification purposes
-- : Array of printTextLineFormat structures indexed by printTextRule enum values for different table regions
-- : Vertical line character used when continuing content after a newline
-- : Vertical line character used for wrapped data lines
-- : Vertical line character used for blank data cells
-- : Left-side marker character used after newlines in header sections
-- : Right-side marker character used for newlines in header sections
-- : Left-side marker character used after newlines in data sections
-- : Right-side marker character used for newlines in data sections
-- : Left-side marker character used after wrapped data
-- : Right-side marker character used for wrapped data
-- : Boolean flag controlling whether to use right-hand border for wrap marks when border=0
-
+- `*name`: Display name for this formatting style, used for identification purposes
+- `lrule[4]`: Array of printTextLineFormat structures indexed by printTextRule enum values for different table regions
+- `*midvrule_nl`: Vertical line character used when continuing content after a newline
+- `*midvrule_wrap`: Vertical line character used for wrapped data lines
+- `*midvrule_blank`: Vertical line character used for blank data cells
+- `*header_nl_left`: Left-side marker character used after newlines in header sections
+- `*header_nl_right`: Right-side marker character used for newlines in header sections
+- `*nl_left`: Left-side marker character used after newlines in data sections
+- `*nl_right`: Right-side marker character used for newlines in data sections
+- `*wrap_left`: Left-side marker character used after wrapped data
+- `*wrap_right`: Right-side marker character used for wrapped data
+- `wrap_right_border`: Boolean flag controlling whether to use right-hand border for wrap marks when border=0
 ## Dependencies
 - Functions called/Symbols referenced:
   - [printTextLineFormat](printTextLineFormat.md) (embedded structure)

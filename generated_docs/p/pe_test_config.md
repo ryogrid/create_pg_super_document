@@ -24,13 +24,12 @@ typedef struct pe_test_config
 The  structure serves as the central configuration and state management object for the test_escape module. It encapsulates both test execution parameters (verbosity level, connection information) and runtime state (test counts, failure tracking). This structure is passed to various test functions to maintain consistent configuration and accumulate test results across different test scenarios.
 
 ## Parameters / Member Variables
-- : Controls the level of output detail during test execution
-- : Boolean flag to force execution of tests that might not be supported in current environment
-- : Connection string used to establish database connection for tests
-- : Active PostgreSQL connection handle used throughout test execution
-- : Running count of total tests executed
-- : Running count of tests that have failed
-
+- `verbosity`: Controls the level of output detail during test execution
+- `force_unsupported`: Boolean flag to force execution of tests that might not be supported in current environment
+- `*conninfo`: Connection string used to establish database connection for tests
+- `*conn`: Active PostgreSQL connection handle used throughout test execution
+- `test_count`: Running count of total tests executed
+- `failure_count`: Running count of tests that have failed
 ## Dependencies
 - Functions called/Symbols referenced:
   - (No direct references from this structure)

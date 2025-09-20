@@ -21,7 +21,7 @@ AtStart_Memory handles the critical task of establishing the memory management i
 The function ensures proper memory isolation for transaction operations and provides a fail-safe mechanism for transaction cleanup through the dedicated abort context.
 
 ## Parameters / Member Variables
-- None (void function)
+
 
 ## Dependencies
 - Functions called/Symbols referenced:

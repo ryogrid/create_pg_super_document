@@ -20,10 +20,9 @@ typedef struct AuthToken
 AuthToken serves as the fundamental building block for parsing PostgreSQL authentication configuration files. Each token extracted from pg_hba.conf or pg_ident.conf is represented by this structure, which not only stores the string value but also preserves important parsing context such as whether the original token was quoted in the configuration file. The structure also supports regular expression functionality - when a token string begins with a slash, it may contain a regular expression pattern that gets compiled and stored in the regex field for pattern matching operations.
 
 ## Parameters / Member Variables
-- : The actual string content of the token as extracted from the configuration file
-- : Boolean flag indicating whether the original token was enclosed in quotes in the configuration file
-- : Pointer to compiled regular expression structure when the token contains a regex pattern (typically when string begins with '/')
-
+- `*string`: The actual string content of the token as extracted from the configuration file
+- `quoted`: Boolean flag indicating whether the original token was enclosed in quotes in the configuration file
+- `*regex`: Pointer to compiled regular expression structure when the token contains a regex pattern (typically when string begins with '/')
 ## Dependencies
 - Functions called/Symbols referenced:
   - regex_t (POSIX regex type)
