@@ -435,3 +435,8 @@ For detailed usage and options, see the description above.
 
 ## Good Points to Read Code Tree of PostgreSQL
 - [ENTRY_POINTS.md](ENTRY_POINTS.md) : Entry points (functions) of PostgreSQL's each processes are listed
+- [CODE_TREE.md](CODE_TREE.md) : Overview of PostgreSQL's code tree structure (AI generated)
+
+## Other Resoruces to Understand PostgreSQL Code Tree (Not my works)
+- [The Internals of PostgreSQL by Hironobu Suzuki @ InterDB](https://www.interdb.jp/pg/)
+- [What information is available to learn PostgreSQL internals? - wiki.postgresql.org](https://wiki.postgresql.org/wiki/Developer_FAQ#What_information_is_available_to_learn_PostgreSQL_internals?)
