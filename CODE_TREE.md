@@ -31,66 +31,66 @@ Updated: 2025-09-16
 | src |  |  |  |  | Top-level source tree for PostgreSQL server, client tools, common libraries, headers, and build scripts. |
 |  | backend |  |  |  | Core database server backend (postmaster, executor, storage, catalog, etc.). Builds the `postgres` server. |
 |  |  | access |  |  | Access methods and lower-level storage APIs; MVCC visibility and tuple access layers. |
-|  |  |  | brin |  | Block Range Index access method and support code. |
+|  |  |  | [brin](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/README) |  | Block Range Index access method and support code. |
 |  |  |  | common |  | Tuple/rel utilities shared by access methods. |
-|  |  |  | gin |  | Generalized Inverted Index implementation. |
-|  |  |  | gist |  | Generalized Search Tree access method. |
-|  |  |  | hash |  | Hash index access method. |
-|  |  |  | heap |  | Heap storage (table AM), HOT/pruning/visibility. |
+|  |  |  | [gin](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/README) |  | Generalized Inverted Index implementation. |
+|  |  |  | [gist](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/README) |  | Generalized Search Tree access method. |
+|  |  |  | [hash](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/README) |  | Hash index access method. |
+|  |  |  | [heap](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/README.HOT) |  | Heap storage (table AM), HOT/pruning/visibility. |
 |  |  |  | index |  | Index AM glue and generic index APIs. |
-|  |  |  | nbtree |  | B-Tree access method implementation. |
-|  |  |  | rmgrdesc |  | Resource manager (WAL) record describers. |
+|  |  |  | [nbtree](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/README) |  | B-Tree access method implementation. |
+|  |  |  | [rmgrdesc](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/README) |  | Resource manager (WAL) record describers. |
 |  |  |  | sequence |  | SEQUENCE relation operations. |
-|  |  |  | spgist |  | Space-partitioned GiST access method. |
+|  |  |  | [spgist](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/README) |  | Space-partitioned GiST access method. |
 |  |  |  | table |  | Table access method layer. |
 |  |  |  | tablesample |  | TABLESAMPLE methods (e.g., bernoulli, system). |
-|  |  |  | transam |  | Transaction/logging subsystems (xlog, clog, multixact, …). |
+|  |  |  | [transam](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/README) |  | Transaction/logging subsystems (xlog, clog, multixact, …). |
 |  |  | archive |  |  | Server-side WAL archiving integration points. |
 |  |  | backup |  |  | Base backup server code (including compression/manifest/walsummary). |
 |  |  | bootstrap |  |  | Bootstrap code for initial catalog creation. |
 |  |  | catalog |  |  | System catalogs and helpers (DDL, dependencies, namespace). |
 |  |  | commands |  |  | SQL command implementations (ALTER, CREATE, COPY, VACUUM, …). |
-|  |  | executor |  |  | Query executor (plan node runners, tuple machinery). |
+|  |  | [executor](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/README) |  |  | Query executor (plan node runners, tuple machinery). |
 |  |  | foreign |  |  | Foreign Data Wrapper core and callbacks. |
-|  |  | jit |  |  | JIT integration for expressions/queries. |
+|  |  | [jit](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/README) |  |  | JIT integration for expressions/queries. |
 |  |  |  | llvm |  | LLVM-based JIT backend. |
-|  |  | lib |  |  | Server-only support libraries (containers, algos, etc.). |
-|  |  | libpq |  |  | Backend-side libpq protocol support. |
+|  |  | [lib](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/README) |  |  | Server-only support libraries (containers, algos, etc.). |
+|  |  | [libpq](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/README.SSL) |  |  | Backend-side libpq protocol support. |
 |  |  | main |  |  | Backend entry point and main loop. |
-|  |  | nodes |  |  | Parse/plan/exec tree nodes and support. |
-|  |  | optimizer |  |  | Planner/optimizer (paths, plans, GEQO, prep, utils). |
+|  |  | [nodes](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/README) |  |  | Parse/plan/exec tree nodes and support. |
+|  |  | [optimizer](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/README) |  |  | Planner/optimizer (paths, plans, GEQO, prep, utils). |
 |  |  |  | geqo |  | Genetic query optimizer components. |
 |  |  |  | path |  | Path finding and join path construction. |
-|  |  |  | plan |  | Plan creation from paths. |
+|  |  |  | [plan](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/README) |  | Plan creation from paths. |
 |  |  |  | prep |  | Planner preprocessing (subqueries, equivalence classes). |
 |  |  |  | util |  | Optimizer utilities and costing helpers. |
-|  |  | parser |  |  | SQL grammar, parser, and lexer. |
+|  |  | [parser](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/README) |  |  | SQL grammar, parser, and lexer. |
 |  |  | partitioning |  |  | Declarative partitioning analysis and pruning. |
 |  |  | po |  |  | Backend translations. |
 |  |  | port |  |  | Backend portability (SysV/Win32 shmem/semaphores, atomics). |
 |  |  |  | tas |  | Test-and-set primitives (platform-specific). |
 |  |  |  | win32 |  | Windows-specific backend port code. |
 |  |  | postmaster |  |  | Postmaster and process control (bgworkers, archiver, writer). |
-|  |  | regex |  |  | Regular expression engine (Henry Spencer). |
-|  |  | replication |  |  | Streaming/logical replication, senders/receivers. |
+|  |  | [regex](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/README) |  |  | Regular expression engine (Henry Spencer). |
+|  |  | [replication](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/README) |  |  | Streaming/logical replication, senders/receivers. |
 |  |  |  | libpqwalreceiver |  | WAL receiver library using libpq. |
 |  |  |  | logical |  | Logical replication (apply worker, reorder buffer, snapshot build). |
 |  |  |  | pgoutput |  | Output plugin for logical replication. |
 |  |  | rewrite |  |  | Query rewrite system and RLS support. |
-|  |  | snowball |  |  | Snowball-based stemming for full-text search. |
+|  |  | [snowball](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/README) |  |  | Snowball-based stemming for full-text search. |
 |  |  |  | libstemmer |  | Embedded Snowball libstemmer sources. |
 |  |  |  | stopwords |  | Stopword lists for TSearch. |
-|  |  | statistics |  |  | Extended statistics and MCV lists. |
+|  |  | [statistics](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/README) |  |  | Extended statistics and MCV lists. |
 |  |  | storage |  |  | Storage managers, buffers, WAL I/O, IPC, locks. |
 |  |  |  | aio |  | Asynchronous I/O helpers. |
-|  |  |  | buffer |  | Shared/local buffer manager. |
+|  |  |  | [buffer](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/README) |  | Shared/local buffer manager. |
 |  |  |  | file |  | File descriptors, temporary files, copydir. |
-|  |  |  | freespace |  | Free space map (FSM). |
+|  |  |  | [freespace](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/freespace/README) |  | Free space map (FSM). |
 |  |  |  | ipc |  | Inter-process communication (shmem, DSM, latches, sinval). |
 |  |  |  | large_object |  | Large object storage API. |
-|  |  |  | lmgr |  | Lock manager (locks, LWLocks, deadlock, predicates). |
-|  |  |  | page |  | Page layout, checksums, item pointers. |
-|  |  |  | smgr |  | Storage manager abstraction (md, etc.). |
+|  |  |  | [lmgr](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/README) |  | Lock manager (locks, LWLocks, deadlock, predicates). |
+|  |  |  | [page](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/README) |  | Page layout, checksums, item pointers. |
+|  |  |  | [smgr](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/README) |  | Storage manager abstraction (md, etc.). |
 |  |  |  | sync |  | File sync scheduling. |
 |  |  | tcop |  |  | Statement processing and protocol messaging. |
 |  |  | tsearch |  |  | Full-text search core (dicts, parsers, ts*). |
@@ -100,21 +100,21 @@ Updated: 2025-09-16
 |  |  |  | adt |  | Built-in data type functions. |
 |  |  |  | cache |  | System cache and relcache. |
 |  |  |  | error |  | Error reporting and SQLSTATE mappings. |
-|  |  |  | fmgr |  | Function manager (fmgr) glue. |
+|  |  |  | [fmgr](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/README) |  | Function manager (fmgr) glue. |
 |  |  |  | hash |  | Hashing utilities. |
 |  |  |  | init |  | Backend initialization. |
-|  |  |  | mb |  | Multi-byte encodings support. |
+|  |  |  | [mb](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/README) |  | Multi-byte encodings support. |
 |  |  |  |  | Unicode | Unicode mapping data and tables. |
 |  |  |  |  | conversion_procs | Encoding conversion procedures. |
-|  |  |  | misc |  | Miscellaneous helpers. |
-|  |  |  | mmgr |  | Memory context manager. |
-|  |  |  | resowner |  | Resource owner tracking. |
+|  |  |  | [misc](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/README) |  | Miscellaneous helpers. |
+|  |  |  | [mmgr](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/README) |  | Memory context manager. |
+|  |  |  | [resowner](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/README) |  | Resource owner tracking. |
 |  |  |  | sort |  | External sort/tuplesort. |
 |  |  |  | time |  | Time/date utilities. |
 |  | bin |  |  |  | Client and maintenance utilities; each subdir builds one program unless noted. |
 |  |  | initdb |  |  | Initializes a new data directory (cluster). |
 |  |  |  | po |  | Translations for initdb. |
-|  |  | pg_amcheck |  |  | Integrity checks for access methods and relations. |
+|  |  | [pg_amcheck](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/README) |  |  | Integrity checks for access methods and relations. |
 |  |  |  | po |  | Translations for pg_amcheck. |
 |  |  | pg_archivecleanup |  |  | Cleans up old WAL files from an archive. |
 |  |  |  | po |  | Translations for pg_archivecleanup. |
@@ -149,13 +149,13 @@ Updated: 2025-09-16
 |  |  | pg_walsummary |  |  | Generate summaries of WAL activity. |
 |  |  |  | po |  | Translations for pg_walsummary. |
 |  |  | pgbench |  |  | Benchmarking/load generator. |
-|  |  | pgevent |  |  | Windows event log support library. |
+|  |  | [pgevent](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgevent/README) |  |  | Windows event log support library. |
 |  |  | psql |  |  | Interactive SQL shell. |
 |  |  |  | po |  | Translations for psql. |
 |  |  | scripts |  |  | Client helper scripts (createdb, vacuumdb, etc.). |
 |  |  |  | po |  | Translations for client scripts. |
 |  | common |  |  |  | Shared C code used by both client and server (string, compression, crypto, file utils). |
-|  |  | unicode |  |  | Unicode tables and normalization/case handling data. |
+|  |  | [unicode](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/README) |  |  | Unicode tables and normalization/case handling data. |
 |  | fe_utils |  |  |  | Frontend utilities shared across client programs (connection, printing, options). |
 |  | include |  |  |  | Public and internal C headers. Mirrors many subtrees. |
 |  |  | access |  |  | Access method headers. |
@@ -191,19 +191,19 @@ Updated: 2025-09-16
 |  |  | tsearch |  |  | Full-text search headers. |
 |  |  | utils |  |  | Backend utility headers. |
 |  | interfaces |  |  |  | Client APIs and language bindings. |
-|  |  | ecpg |  |  | Embedded C preprocessor and libraries. |
+|  |  | [ecpg](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/README.dynSQL) |  |  | Embedded C preprocessor and libraries. |
 |  |  |  | compatlib |  | Compatibility support library. |
 |  |  |  | ecpglib |  | ECPG runtime client library. |
 |  |  |  | include |  | ECPG headers. |
 |  |  |  | pgtypeslib |  | ECPG type library. |
 |  |  |  | preproc |  | ECPG preprocessor. |
 |  |  |  | test |  | Tests for ECPG. |
-|  |  | libpq |  |  | C client library (libpq). |
+|  |  | [libpq](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/README) |  |  | C client library (libpq). |
 |  |  |  | po |  | libpq translations. |
 |  |  |  | test |  | libpq client tests. |
 |  | makefiles |  |  |  | Makefile fragments used throughout the build. |
 |  | pl |  |  |  | Procedural languages and glue code. |
-|  |  | plperl |  |  | PL/Perl language handler. |
+|  |  | [plperl](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/README) |  |  | PL/Perl language handler. |
 |  |  |  | expected |  | Expected outputs for tests. |
 |  |  |  | po |  | Translations for PL/Perl. |
 |  |  |  | sql |  | SQL test scripts. |
@@ -217,7 +217,7 @@ Updated: 2025-09-16
 |  |  |  | expected |  | Expected outputs for tests. |
 |  |  |  | po |  | Translations for PL/Tcl. |
 |  |  |  | sql |  | SQL test scripts. |
-|  | port |  |  |  | Portability shims and platform-specific support code (frontend). |
+|  | [port](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/README) |  |  |  | Portability shims and platform-specific support code (frontend). |
 |  | template |  |  |  | Build templates and skeleton files (per-OS toolchains). |
 |  |  | cygwin |  |  | Cygwin-specific template files. |
 |  |  | darwin |  |  | macOS-specific template files. |
@@ -227,33 +227,33 @@ Updated: 2025-09-16
 |  |  | openbsd |  |  | OpenBSD-specific template files. |
 |  |  | solaris |  |  | Solaris-specific template files. |
 |  |  | win32 |  |  | Windows-specific template files. |
-|  | test |  |  |  | Test suites and harnesses (TAP/regression/ISOLATION, etc.). |
-|  |  | authentication |  |  | Auth-related integration tests. |
+|  | [test](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/README) |  |  |  | Test suites and harnesses (TAP/regression/ISOLATION, etc.). |
+|  |  | [authentication](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/authentication/README) |  |  | Auth-related integration tests. |
 |  |  | examples |  |  | Example extension/tests. |
-|  |  | icu |  |  | ICU-related tests. |
-|  |  | isolation |  |  | Serializable/locking/isolation tests. |
-|  |  | kerberos |  |  | Kerberos integration tests. |
-|  |  | ldap |  |  | LDAP integration tests. |
-|  |  | locale |  |  | Locale/collation tests. |
-|  |  | mb |  |  | Multi-byte/encoding tests. |
-|  |  | modules |  |  | Tests for contrib-like modules. |
-|  |  | perl |  |  | Perl-related tests. |
-|  |  | recovery |  |  | Crash/replication/recovery tests. |
-|  |  | regress |  |  | Core SQL regression tests. |
-|  |  | ssl |  |  | SSL/TLS tests. |
-|  |  | subscription |  |  | Logical replication subscription tests. |
-|  | timezone |  |  |  | Time zone data and conversion code. |
+|  |  | [icu](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/icu/README) |  |  | ICU-related tests. |
+|  |  | [isolation](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/isolation/README) |  |  | Serializable/locking/isolation tests. |
+|  |  | [kerberos](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/kerberos/README) |  |  | Kerberos integration tests. |
+|  |  | [ldap](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/ldap/README) |  |  | LDAP integration tests. |
+|  |  | [locale](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/locale/README) |  |  | Locale/collation tests. |
+|  |  | [mb](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/mb/README) |  |  | Multi-byte/encoding tests. |
+|  |  | [modules](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/README) |  |  | Tests for contrib-like modules. |
+|  |  | [perl](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/perl/README) |  |  | Perl-related tests. |
+|  |  | [recovery](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/recovery/README) |  |  | Crash/replication/recovery tests. |
+|  |  | [regress](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/README) |  |  | Core SQL regression tests. |
+|  |  | [ssl](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/ssl/README) |  |  | SSL/TLS tests. |
+|  |  | [subscription](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/subscription/README) |  |  | Logical replication subscription tests. |
+|  | [timezone](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/README) |  |  |  | Time zone data and conversion code. |
 |  |  | data |  |  | Time zone source data. |
-|  |  | tznames |  |  | Time zone name tables. |
+|  |  | [tznames](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/tznames/README) |  |  | Time zone name tables. |
 |  | tools |  |  |  | Developer tools, scripts, and generators used during build/dev. |
-|  |  | ci |  |  | CI scripts and helpers. |
+|  |  | [ci](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/ci/README) |  |  | CI scripts and helpers. |
 |  |  | editors |  |  | Editor integration/configuration helpers. |
-|  |  | ifaddrs |  |  | Ifaddrs compatibility sources. |
+|  |  | [ifaddrs](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/ifaddrs/README) |  |  | Ifaddrs compatibility sources. |
 |  |  | perlcheck |  |  | Perl lint/check scripts. |
-|  |  | pg_bsd_indent |  |  | BSD indent tool and rules. |
-|  |  | pginclude |  |  | Include/header checking scripts. |
-|  |  | pgindent |  |  | Code formatter configuration and scripts. |
-|  | tutorial |  |  |  | Example programs and tutorial code. |
+|  |  | [pg_bsd_indent](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/README) |  |  | BSD indent tool and rules. |
+|  |  | [pginclude](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pginclude/README) |  |  | Include/header checking scripts. |
+|  |  | [pgindent](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pgindent/README) |  |  | Code formatter configuration and scripts. |
+|  | [tutorial](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/README) |  |  |  | Example programs and tutorial code. |
 
 ### Level-6 drill-down: backend/storage/ipc
 
