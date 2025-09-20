@@ -23,7 +23,8 @@ The structure is designed to be opaque to platform-independent code - only the p
 The typedef  is defined as a pointer to this structure (), providing the public interface that the rest of PostgreSQL uses for semaphore operations.
 
 ## Parameters / Member Variables
-- : A SemTPadded union that contains the actual POSIX semaphore () padded to cache line size to prevent false sharing between semaphores in shared memory arrays.
+- `semId`: Semaphore set identifier for System V semaphores
+- `semNum`: Semaphore number within the semaphore set
 
 ## Dependencies
 - Types referenced:

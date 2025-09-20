@@ -27,8 +27,8 @@ typedef struct NumericAggState
 ## Detailed Description
 This function performs type conversion from PostgreSQL's arbitrary precision numeric type to a pg_lsn (XLogRecPtr) value. The pg_lsn type represents a position in the PostgreSQL write-ahead log and must be a valid unsigned 64-bit integer. The function first checks for special numeric values (NaN, infinity) and explicitly rejects them with appropriate error messages since they cannot be meaningfully converted to log positions. For regular numeric values, it converts the numeric to variable format and then attempts to convert to an unsigned 64-bit integer, ensuring the value fits within the valid range for pg_lsn values.
 
-## Parameters / Member Variables
-- Input parameter accessed via : The numeric value to be converted to pg_lsn
+## Parameters
+- Input parameter accessed via `PG_GETARG_NUMERIC(0)`: The numeric value to be converted to pg_lsn
 
 ## Dependencies
 - Functions called/Symbols referenced:

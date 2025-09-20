@@ -31,10 +31,10 @@ Key operations performed:
 
 The function uses a comprehensive transaction-safe approach with proper cleanup via PG_TRY/PG_FINALLY blocks to handle connection failures gracefully.
 
-## Parameters / Member Variables
-- : Parse state context for error reporting and SQL parsing information
-- : CreateSubscriptionStmt containing subscription name, connection info, publications, and options
-- : Boolean indicating if command is executed at top transaction level (affects transaction block restrictions)
+## Parameters
+- `pstate`: Parse state context for error reporting and SQL parsing information
+- `stmt`: CreateSubscriptionStmt containing subscription name, connection info, publications, and options
+- `isTopLevel`: Boolean indicating if command is executed at top transaction level (affects transaction block restrictions)
 
 ## Dependencies
 - Functions called/Symbols referenced:

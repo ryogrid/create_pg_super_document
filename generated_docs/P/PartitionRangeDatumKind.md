@@ -24,9 +24,9 @@ typedef struct PartitionRangeDatum
 PartitionRangeDatumKind defines the three types of boundary values that can appear in range partition definitions. It is essential for PostgreSQL's range partitioning functionality, allowing partitions to be bounded by explicit values or by infinite bounds (MINVALUE/MAXVALUE). The enum uses specific integer values (-1, 0, 1) that facilitate comparison operations during partition pruning and tuple routing. This classification system enables PostgreSQL to handle both finite partition boundaries and unbounded partitions that capture all values below or above a certain threshold.
 
 ## Parameters / Member Variables
-- : Represents MINVALUE, a boundary less than any possible value (-1)
-- : Represents a specific bounded value provided in the partition definition (0)
-- : Represents MAXVALUE, a boundary greater than any possible value (1)
+- `PARTITION_RANGE_DATUM_MINVALUE`: Represents MINVALUE, a boundary less than any possible value (-1)
+- `PARTITION_RANGE_DATUM_VALUE`: Represents a specific bounded value provided in the partition definition (0)
+- `PARTITION_RANGE_DATUM_MAXVALUE`: Represents MAXVALUE, a boundary greater than any possible value (1)
 
 ## Dependencies
 - Functions called/Symbols referenced:

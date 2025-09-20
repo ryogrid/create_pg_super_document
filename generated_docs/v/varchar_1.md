@@ -17,8 +17,8 @@ The  struct is a fundamental data structure in PostgreSQL's ECPG (Embedded SQL i
 This structure is extensively used throughout ECPG test cases to demonstrate how the preprocessor handles variable-length strings in embedded SQL contexts. The struct serves as a building block for more complex data structures and shows how ECPG manages string data that needs to interface with SQL operations.
 
 ## Parameters / Member Variables
-- : An integer representing the current length of the string stored in the array
-- : A character array buffer of size BUFFERSIZ to hold the actual string data
+- `len`: An integer representing the current length of the string stored in the array
+- `arr`: A character array buffer of size BUFFERSIZ to hold the actual string data
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,14 +29,14 @@ The relopt_value structure represents a parsed and validated relation option val
 The union design allows for efficient storage of different value types while maintaining type safety through the relopt_gen's type field. The isset flag indicates whether this option was explicitly set by the user or should use its default value.
 
 ## Parameters / Member Variables
-- : Pointer to the relopt_gen structure that defines this option's metadata (name, type, constraints, etc.)
-- : Boolean flag indicating whether this option was explicitly provided by the user (true) or should use its default value (false)
-- : Union containing the actual option value in the appropriate type:
-  - : Boolean value for RELOPT_TYPE_BOOL options
-  - : Integer value for RELOPT_TYPE_INT options  
-  - : Floating-point value for RELOPT_TYPE_REAL options
-  - : Integer representing the enum choice for RELOPT_TYPE_ENUM options
-  - : Null-terminated string for RELOPT_TYPE_STRING options (memory allocated separately)
+- `gen`: Pointer to the relopt_gen structure that defines this option's metadata (name, type, constraints, etc.)
+- `isset`: Boolean flag indicating whether this option was explicitly provided by the user (true) or should use its default value (false)
+- `values`: Union containing the actual option value in the appropriate type:
+  - `bool_val`: Boolean value for RELOPT_TYPE_BOOL options
+  - `int_val`: Integer value for RELOPT_TYPE_INT options  
+  - `real_val`: Floating-point value for RELOPT_TYPE_REAL options
+  - `enum_val`: Integer representing the enum choice for RELOPT_TYPE_ENUM options
+  - `string_val`: Null-terminated string for RELOPT_TYPE_STRING options (memory allocated separately)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -24,9 +24,9 @@ The function extracts TSQuery signatures from the GiST entry parameters, uses th
 
 ## Parameters / Member Variables
 - Uses PostgreSQL's PG_FUNCTION_ARGS macro for function arguments:
-  - Argument 0: GISTENTRY pointer containing the original TSQuery signature
-  - Argument 1: GISTENTRY pointer containing the new TSQuery signature to be inserted
-  - Argument 2: Pointer to float where the calculated penalty will be stored
+  - Argument 0 (`origentry`): GISTENTRY pointer containing the original TSQuery signature
+  - Argument 1 (`newentry`): GISTENTRY pointer containing the new TSQuery signature to be inserted
+  - Argument 2 (`penalty`): Pointer to float where the calculated penalty will be stored
 
 ## Dependencies
 - Functions called/Symbols referenced:

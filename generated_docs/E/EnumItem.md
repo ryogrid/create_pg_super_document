@@ -25,8 +25,8 @@ Each EnumItem represents one possible value of an enum type, storing both its un
 EnumItem structures are typically stored in arrays within TypeCacheEnumData and are maintained in OID-sorted order to enable efficient binary search operations for enum value lookups and comparisons.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) that uniquely identifies this specific enum value in the database system
-- : A floating-point value that defines the logical ordering position of this enum value, allowing for custom enum ordering that differs from OID creation order
+- `enum_oid`: The Object Identifier (OID) that uniquely identifies this specific enum value in the database system
+- `sort_order`: A floating-point value that defines the logical ordering position of this enum value, allowing for custom enum ordering that differs from OID creation order
 
 ## Dependencies
 - Functions called/Symbols referenced:

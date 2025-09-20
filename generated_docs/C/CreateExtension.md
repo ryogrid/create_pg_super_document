@@ -50,9 +50,9 @@ struct the statement option list */
 ## Detailed Description
 This function serves as the primary interface for the CREATE EXTENSION SQL command. It validates the extension name, checks for duplicates (with support for IF NOT EXISTS), parses statement options (schema, new_version, cascade), and prevents nested extension creation. The function handles all the user-facing aspects of the command including option validation, duplicate detection, and proper error reporting before calling CreateExtensionInternal() to perform the actual installation work. It maintains global state to prevent concurrent extension creation operations.
 
-## Parameters / Member Variables
-- : Parser state for error reporting and context
-- : Parsed CREATE EXTENSION statement containing extension name, options, and flags
+## Parameters
+- `pstate`: Parser state for error reporting and context
+- `stmt`: Parsed CREATE EXTENSION statement containing extension name, options, and flags
 
 ## Dependencies
 - Functions called/Symbols referenced:

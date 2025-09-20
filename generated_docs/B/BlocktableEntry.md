@@ -48,10 +48,10 @@ typedef struct BlocktableEntry
 BlocktableEntry serves as the core data structure for storing tuple identifiers within a single block in PostgreSQL's TidStore implementation. It is designed with a dual storage strategy: for sparse distributions of offsets, it uses a compact array () to store individual offset numbers directly, while for denser distributions, it employs a bitmap representation using the  array. The structure is optimized for memory efficiency and includes careful consideration for endianness and alignment requirements. The design is similar to PagetableEntry in tidbitmap.c, sharing architectural patterns for efficient TID storage.
 
 ## Parameters / Member Variables
-- : Control flags that indicate the storage mode and other metadata about the entry
-- : Number of bitmap words used in the  array when using bitmap storage mode
-- : Array for storing individual offset numbers directly in sparse cases
-- : Variable-length array of bitmap words for dense offset storage
+- `flags`: Control flags that indicate the storage mode and other metadata about the entry
+- `nwords`: Number of bitmap words used in the words array when using bitmap storage mode
+- `full_offsets`: Array for storing individual offset numbers directly in sparse cases
+- `words`: Variable-length array of bitmap words for dense offset storage
 
 ## Dependencies
 - Functions called/Symbols referenced:

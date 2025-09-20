@@ -47,9 +47,9 @@ struct and the target
 ## Detailed Description
 The  function is responsible for processing explicit type cast operations in SQL expressions (e.g.,  or ). It performs type conversion by first determining the target type and then applying the appropriate coercion mechanisms. The function includes special handling for array expressions, where it can pass down type information to improve type inference. When the target type is an array and the source is an ARRAY[] construct, it invokes  directly to ensure correct type handling. For domain types over arrays, it works with the base array type first and then casts to the domain. The function validates that the conversion is possible and reports appropriate errors if the cast cannot be performed.
 
-## Parameters / Member Variables
-- : ParseState pointer containing the current parsing context and state information
-- : TypeCast pointer containing the cast expression with the source argument and target type information
+## Parameters
+- `pstate`: ParseState pointer containing the current parsing context and state information
+- `tc`: TypeCast pointer containing the cast expression with the source argument and target type information
 
 ## Dependencies
 - Functions called/Symbols referenced:

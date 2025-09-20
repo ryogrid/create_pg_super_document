@@ -18,7 +18,7 @@ typedef struct
 ## Detailed Description
 This function combines two range tables by appending the source range table entries to the destination range table. It also handles the associated permission information (RTEPermissionInfos) by merging the source permission list into the destination and updating the perminfoindex values in the source RTEs to correctly point to their new positions in the combined permission list. The function operates destructively on the destination lists, so callers should pass modifiable copies if the original lists need to be preserved.
 
-## Parameters / Member Variables
+## Parameters
 - `dst_rtable`: Pointer to destination range table list (modified in-place)
 - `dst_perminfos`: Pointer to destination permission information list (modified in-place)
 - `src_rtable`: Source range table list to be merged

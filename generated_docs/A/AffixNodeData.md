@@ -22,10 +22,10 @@ AffixNodeData serves as the data component of nodes in a prefix tree (Trie) stru
 The structure uses bit fields to pack the character value and affix count into a single 32-bit integer, optimizing memory usage. The  field stores an 8-bit character value, while  stores the count of affixes in a 24-bit field, allowing for up to 16 million affixes per node (though practical limits are much lower).
 
 ## Parameters / Member Variables
-- : 8-bit character value representing the character at this node in the trie
-- : 24-bit count indicating the number of affixes stored at this node
-- : Pointer to an array of AFFIX pointers containing the actual affix data
-- : Pointer to child AffixNode, enabling tree traversal
+- `val`: 8-bit character value representing the character at this node in the trie
+- `naff`: 24-bit count indicating the number of affixes stored at this node
+- `aff`: Pointer to an array of AFFIX pointers containing the actual affix data
+- `node`: Pointer to child AffixNode, enabling tree traversal
 
 ## Dependencies
 - Functions called/Symbols referenced:

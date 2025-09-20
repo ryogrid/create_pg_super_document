@@ -118,7 +118,7 @@ static void ECPGdump_a_simple(FILE *o, const char *name, enum ECPGttype type,
 The  function serves as a type-to-string converter within the ECPG preprocessor's type system. It takes an enumerated type value from the ECPGttype enumeration and returns the corresponding string literal that represents that type in generated code. This function is essential for code generation, allowing the preprocessor to output the appropriate type identifiers when generating C code for embedded SQL operations. The function covers all standard C data types supported by ECPG, as well as special PostgreSQL-specific types like varchar, bytea, decimal, numeric, interval, and various date/time types.
 
 ## Parameters / Member Variables
-- : An enumeration value of type ECPGttype representing the data type to be converted to string
+- `type`: An enumeration value of type ECPGttype representing the data type to be converted to string
 
 ## Dependencies
 - Functions called/Symbols referenced:

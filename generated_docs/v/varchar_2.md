@@ -17,8 +17,8 @@ struct varchar_2  { int len; char arr[ BUFFERSIZ ]; }  name ;
 This particular instance uses  (defined as 8) to set the maximum character array size, making it suitable for small string testing scenarios in the ECPG test suite.
 
 ## Parameters / Member Variables
-- : Integer field that stores the actual length of the string data stored in the  field
-- : Character array with size determined by  constant, used to store the actual string data
+- `len`: Integer field that stores the actual length of the string data stored in the `arr` field
+- `arr`: Character array with size determined by BUFFERSIZ constant, used to store the actual string data
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -31,7 +31,8 @@ The test creates a sequence of values with carefully calculated distances:
 
 The function ensures that the IntegerSet can handle extreme value ranges and that the internal encoding properly manages large gaps between stored integers.
 
-## Parameters / Member Variables
+## Parameters
+- None (void function)
 
 
 ## Dependencies  

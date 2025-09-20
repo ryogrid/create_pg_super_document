@@ -19,9 +19,9 @@ typedef struct SortedPoint
 This static function compares a given coordinate value against either the X or Y coordinate of a test point, returning an integer indicating their relative position. It serves as a fundamental building block for k-d tree spatial partitioning logic, enabling the tree to determine which side of a splitting plane a point falls on. The function supports both X and Y coordinate comparisons through the  parameter, making it suitable for alternating between dimensions in k-d tree traversal.
 
 ## Parameters / Member Variables
-- : The coordinate value to compare (double precision floating-point)
-- : Boolean flag indicating whether to compare against X coordinate (true) or Y coordinate (false) of the test point
-- : Pointer to the test Point structure containing x and y coordinates
+- `coord`: The coordinate value to compare (double precision floating-point)
+- `isX`: Boolean flag indicating whether to compare against X coordinate (true) or Y coordinate (false) of the test point
+- `tst`: Pointer to the test Point structure containing x and y coordinates
 
 ## Dependencies
 - Functions called/Symbols referenced:

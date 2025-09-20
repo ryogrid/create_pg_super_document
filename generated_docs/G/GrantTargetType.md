@@ -31,9 +31,9 @@ This enumeration specifies the scope of GRANT and REVOKE operations in PostgreSQ
 The three target types correspond to different SQL syntax patterns: granting privileges on specific objects (e.g., GRANT SELECT ON table1 TO user1), granting privileges on all objects of a type within schemas (e.g., GRANT SELECT ON ALL TABLES IN SCHEMA public TO user1), and setting default privileges for future objects (e.g., ALTER DEFAULT PRIVILEGES GRANT SELECT ON TABLES TO user1).
 
 ## Parameters / Member Variables
-- : Grants or revokes privileges on specifically named database objects. This is used when the GRANT/REVOKE statement explicitly lists the objects to be affected (tables, functions, sequences, etc.).
-- : Grants or revokes privileges on all objects of a specified type within one or more schemas. This corresponds to the "GRANT ... ON ALL ... IN SCHEMA" syntax.
-- : Used for ALTER DEFAULT PRIVILEGES statements, which set the privileges that will be automatically granted on objects created in the future by specified roles within specified schemas.
+- `ACL_TARGET_OBJECT`: Grants or revokes privileges on specifically named database objects. This is used when the GRANT/REVOKE statement explicitly lists the objects to be affected (tables, functions, sequences, etc.).
+- `ACL_TARGET_ALL_IN_SCHEMA`: Grants or revokes privileges on all objects of a specified type within one or more schemas. This corresponds to the "GRANT ... ON ALL ... IN SCHEMA" syntax.
+- `ACL_TARGET_DEFAULTS`: Used for ALTER DEFAULT PRIVILEGES statements, which set the privileges that will be automatically granted on objects created in the future by specified roles within specified schemas.
 
 ## Dependencies
 - Functions called/Symbols referenced: None (this is an enum definition)

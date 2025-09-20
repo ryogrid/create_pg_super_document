@@ -22,9 +22,9 @@ typedef struct
 LockTableRecurse implements the inheritance-aware locking mechanism for LOCK TABLE commands. When a table with child tables is locked, this function ensures all children in the inheritance tree receive the same lock mode. The function uses find_all_inheritors to discover the complete inheritance hierarchy, then iterates through each child table to acquire the requested lock. It handles both blocking and non-blocking (NOWAIT) lock modes, with appropriate error handling for concurrent table drops and lock conflicts. The function assumes permission checking has already been performed on the parent table, which is sufficient for child table access.
 
 ## Parameters / Member Variables
-- : OID of the parent relation whose inheritance tree should be locked
-- : The lock mode to apply to all tables in the inheritance hierarchy
-- : Boolean flag indicating whether to use conditional (non-blocking) lock acquisition
+- `relid`: OID of the parent relation whose inheritance tree should be locked
+- `lockmode`: The lock mode to apply to all tables in the inheritance hierarchy
+- `nowait`: Boolean flag indicating whether to use conditional (non-blocking) lock acquisition
 
 ## Dependencies
 - Functions called/Symbols referenced:

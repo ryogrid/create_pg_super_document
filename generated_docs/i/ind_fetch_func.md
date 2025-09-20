@@ -18,10 +18,10 @@ typedef struct
 ## Detailed Description
 The  function is a specialized fetch function used during index analysis operations. It provides an efficient way to access expression values for statistical analysis without the overhead of constructing complete index tuples. The function operates on pre-computed arrays of Datum values and null indicators that are stored in the  structure. This approach optimizes memory usage and performance during the ANALYZE operation on index expressions.
 
-## Parameters / Member Variables
-- : A pointer to VacAttrStatsP structure containing the expression values and null indicators arrays
-- : The row number (index) to fetch data from in the arrays
-- : Output parameter that will be set to indicate whether the fetched value is NULL
+## Parameters
+- `stats`: A pointer to VacAttrStatsP structure containing the expression values and null indicators arrays
+- `rownum`: The row number (index) to fetch data from in the arrays
+- `isNull`: Output parameter that will be set to indicate whether the fetched value is NULL
 
 ## Dependencies
 - Functions called/Symbols referenced:

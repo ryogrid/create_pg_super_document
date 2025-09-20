@@ -18,10 +18,10 @@ typedef struct SubRemoveRels
 ## Detailed Description
 This function performs a comprehensive refresh operation on a logical replication subscription. It connects to the publisher, fetches the current list of published tables, compares it with the local subscription's table list, and synchronizes the differences. New tables are added to the subscription with appropriate initial state (INIT or READY depending on copy_data), while tables no longer published are removed along with their associated replication slots and origins. The function ensures data consistency by using appropriate locking mechanisms and handles cleanup of replication infrastructure gracefully.
 
-## Parameters / Member Variables
-- : Pointer to the Subscription structure containing subscription details including connection info, publications, and configuration
-- : Boolean flag indicating whether initial table synchronization should copy existing data (INIT state) or start from current position (READY state)  
-- : List of publication names to validate before performing the refresh operation
+## Parameters
+- `sub`: Pointer to the Subscription structure containing subscription details including connection info, publications, and configuration
+- `copy_data`: Boolean flag indicating whether initial table synchronization should copy existing data (INIT state) or start from current position (READY state)  
+- `publications`: List of publication names to validate before performing the refresh operation
 
 ## Dependencies
 - Functions called/Symbols referenced:

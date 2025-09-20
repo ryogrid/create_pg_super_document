@@ -33,9 +33,9 @@ The function works by:
 This is particularly important for UPDATE operations where modifying a base column requires updating dependent generated columns, and for determining which columns need to be included in result sets.
 
 ## Parameters / Member Variables
-- : PlannerInfo structure containing planning context and information
-- : Range table index identifying the relation to analyze
-- : Bitmapset of column numbers (offset by FirstLowInvalidHeapAttributeNumber) to check dependencies against
+- `root`: PlannerInfo structure containing planning context and information
+- `rti`: Range table index identifying the relation to analyze
+- `target_cols`: Bitmapset of column numbers (offset by FirstLowInvalidHeapAttributeNumber) to check dependencies against
 
 ## Dependencies
 - Functions called/Symbols referenced:

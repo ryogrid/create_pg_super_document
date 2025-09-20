@@ -19,7 +19,8 @@ typedef struct _inhInfo
 The  structure is a lightweight temporary data structure used internally by pg_dump to manage table inheritance relationships. Unlike other pg_dump structures, it does not inherit from  because it represents transient state rather than a database object that needs to be dumped. This structure is used to track which tables are child tables in inheritance hierarchies during the dump process.
 
 ## Parameters / Member Variables
-- : OID of a child table that inherits from one or more parent tables
+- `inhrelid`: OID of a child table that inherits from one or more parent tables
+- `inhparent`: OID of its parent table
 
 ## Dependencies
 - Functions called/Symbols referenced:

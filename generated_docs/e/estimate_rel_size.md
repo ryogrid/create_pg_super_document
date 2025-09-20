@@ -36,12 +36,12 @@ The index estimation process involves:
 
 When statistical data is unavailable (e.g., never vacuumed), the function estimates tuple width from attribute datatypes assuming fully packed pages.
 
-## Parameters / Member Variables
-- : Open Relation structure for the relation to estimate
-- : Optional pointer to attribute width cache array to populate during estimation
-- : Output parameter for estimated number of pages in the relation
-- : Output parameter for estimated number of tuples in the relation  
-- : Output parameter for fraction of all-visible pages (0.0 to 1.0)
+## Parameters
+- `rel`: Open Relation structure for the relation to estimate
+- `attr_widths`: Optional pointer to attribute width cache array to populate during estimation
+- `pages`: Output parameter for estimated number of pages in the relation
+- `tuples`: Output parameter for estimated number of tuples in the relation  
+- `allvisfrac`: Output parameter for fraction of all-visible pages (0.0 to 1.0)
 
 ## Dependencies
 - Functions called/Symbols referenced:

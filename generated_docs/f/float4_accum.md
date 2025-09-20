@@ -49,9 +49,9 @@ The function converts the input float4 value to float8 precision for internal ca
 
 The function optimizes memory usage when called in an aggregate context by modifying the transition array in-place rather than creating new arrays for each accumulation step.
 
-## Parameters / Member Variables
--  (ArrayType*): Input transition state array containing [N, Sx, Sxx] where N is count, Sx is sum, and Sxx is sum of squared deviations
--  (float4): New float4 value to incorporate into the running statistics, converted to float8 for calculations
+## Parameters
+- `transarray` (ArrayType*): Input transition state array containing [N, Sx, Sxx] where N is count, Sx is sum, and Sxx is sum of squared deviations
+- `newval` (float4): New float4 value to incorporate into the running statistics, converted to float8 for calculations
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -129,9 +129,9 @@ The function includes special handling for empty pages (creates a single new seg
 Returns true if any new items were actually added (not all duplicates), false if all items were duplicates.
 
 ## Parameters / Member Variables
-- : The disassembledLeaf structure to modify
-- : Array of new ItemPointer items to add
-- : Number of new items in the newItems array
+- `leaf`: The disassembledLeaf structure to modify
+- `newItems`: Array of new ItemPointer items to add
+- `nNewItems`: Number of new items in the newItems array
 
 ## Dependencies
 - Functions called/Symbols referenced:

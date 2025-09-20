@@ -36,21 +36,21 @@ struct cnfa
 The  struct is the core data structure representing a compiled NFA in PostgreSQL's regex engine. It stores the complete state machine representation of a regular expression pattern after compilation. The structure includes state information, transition arcs between states, color mappings for character classes, and various optimization flags. This compiled form enables efficient pattern matching during regex execution by providing a direct representation of the automaton's transitions and states.
 
 ## Parameters / Member Variables
-- : Total number of states in the NFA
-- : Number of distinct colors used for character classification (maximum color value + 1)
-- : Bitmask containing behavioral flags:
-  - : Indicates the NFA uses lookaround constraints (lookahead/lookbehind)
-  - : Indicates the NFA matches all strings within a specific length range
-  - : Indicates presence of CANTMATCH arcs (used in NFA but not in compiled CNFA)
-- : State number for the initial setup state
-- : State number for the final teardown state
-- : Colors assigned to Beginning-Of-String (BOS) and Beginning-Of-Line (BOL) anchors
-- : Colors assigned to End-Of-String (EOS) and End-Of-Line (EOL) anchors
-- : Byte array containing per-state flags (e.g., CNFA_NOPROGRESS for no-progress states)
-- : Array of pointers to outgoing arc lists for each state
-- : Memory area containing all transition arcs in a single allocation
-- : Minimum character count to match (used only for MATCHALL NFAs, -1 otherwise)
-- : Maximum character count to match or DUPINF for unlimited (used only for MATCHALL NFAs, -1 otherwise)
+- `nstates`: Total number of states in the NFA
+- `ncolors`: Number of distinct colors used for character classification (maximum color value + 1)
+- `flags`: Bitmask containing behavioral flags:
+  - `HASLACONS`: Indicates the NFA uses lookaround constraints (lookahead/lookbehind)
+  - `MATCHALL`: Indicates the NFA matches all strings within a specific length range
+  - `HASCANTMATCH`: Indicates presence of CANTMATCH arcs (used in NFA but not in compiled CNFA)
+- `pre`: State number for the initial setup state
+- `post`: State number for the final teardown state
+- `bos[2]`: Colors assigned to Beginning-Of-String (BOS) and Beginning-Of-Line (BOL) anchors
+- `eos[2]`: Colors assigned to End-Of-String (EOS) and End-Of-Line (EOL) anchors
+- `stflags`: Byte array containing per-state flags (e.g., CNFA_NOPROGRESS for no-progress states)
+- `states`: Array of pointers to outgoing arc lists for each state
+- `arcs`: Memory area containing all transition arcs in a single allocation
+- `minmatchall`: Minimum character count to match (used only for MATCHALL NFAs, -1 otherwise)
+- `maxmatchall`: Maximum character count to match or DUPINF for unlimited (used only for MATCHALL NFAs, -1 otherwise)
 
 ## Dependencies
 - Functions called/Symbols referenced:

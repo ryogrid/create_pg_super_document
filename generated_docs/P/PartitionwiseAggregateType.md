@@ -32,9 +32,9 @@ The NONE option disables partitionwise aggregation entirely, falling back to tra
 The choice between these methods depends on factors such as the type of aggregate functions used, data distribution across partitions, available memory, and parallelization opportunities.
 
 ## Parameters / Member Variables
-- : Partitionwise aggregation is not used; traditional aggregation methods are employed
-- : Aggregate each partition separately and append the results (complete aggregation per partition)
-- : Partially aggregate each partition separately, append results, then finalize aggregation (two-phase approach)
+- `PARTITIONWISE_AGGREGATE_NONE`: Partitionwise aggregation is not used; traditional aggregation methods are employed
+- `PARTITIONWISE_AGGREGATE_FULL`: Aggregate each partition separately and append the results (complete aggregation per partition)
+- `PARTITIONWISE_AGGREGATE_PARTIAL`: Partially aggregate each partition separately, append results, then finalize aggregation (two-phase approach)
 
 ## Dependencies
 - Functions called/Symbols referenced:

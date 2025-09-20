@@ -59,8 +59,8 @@ struct colormap *cm)
 ## Detailed Description
 The  function is responsible for expanding the hicolormap array horizontally. It creates a new set of columns by copying the existing columns to the right, essentially doubling the width of the 2D color mapping array. The function performs in-place reallocation and works backwards through the rows to avoid overwriting data during the duplication process. After copying, it updates the reference counts for all colors to maintain proper bookkeeping.
 
-## Parameters / Member Variables
-- : Pointer to the colormap structure containing the hicolormap array and related metadata
+## Parameters
+- `cm`: Pointer to the colormap structure containing the hicolormap array and related metadata
 
 ## Dependencies
 - Functions called/Symbols referenced:

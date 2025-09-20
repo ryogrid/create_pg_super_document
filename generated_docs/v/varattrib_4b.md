@@ -27,13 +27,13 @@ This union allows PostgreSQL to efficiently handle both compressed and uncompres
 ## Parameters / Member Variables
 
 ### va_4byte struct (Normal varlena format):
-- : 4-byte header containing length information and format flags
-- : Flexible array member containing the actual data payload
+- `va_header`: 4-byte header containing length information and format flags
+- `va_data`: Flexible array member containing the actual data payload
 
 ### va_compressed struct (Compressed-in-line format):
-- : 4-byte header containing length information and compression flags
-- : 4-byte field storing original data size (excluding header) and compression method identifier
-- : Flexible array member containing the compressed data payload
+- `va_header`: 4-byte header containing length information and compression flags
+- `va_rawsize`: 4-byte field storing original data size (excluding header) and compression method identifier
+- `va_data`: Flexible array member containing the compressed data payload
 
 ## Dependencies
 - Functions called/Symbols referenced:

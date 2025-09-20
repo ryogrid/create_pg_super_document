@@ -30,11 +30,11 @@ typedef struct AlterTSConfigurationStmt
 This enumeration defines the different types of modifications that can be made to PostgreSQL text search configurations through the ALTER TEXT SEARCH CONFIGURATION statement. Text search configurations define how documents are processed for full-text search by specifying which dictionaries to use for different types of tokens. Each enum value represents a specific type of mapping manipulation within a text search configuration.
 
 ## Parameters / Member Variables
-- : Add a new token type to dictionary mapping
-- : Modify the dictionary mapping for a specific token type
-- : Replace one dictionary with another in all mappings
-- : Replace a dictionary for a specific token type
-- : Remove a token type mapping from the configuration
+- `ALTER_TSCONFIG_ADD_MAPPING`: Add a new token type to dictionary mapping
+- `ALTER_TSCONFIG_ALTER_MAPPING_FOR_TOKEN`: Modify the dictionary mapping for a specific token type
+- `ALTER_TSCONFIG_REPLACE_DICT`: Replace one dictionary with another in all mappings
+- `ALTER_TSCONFIG_REPLACE_DICT_FOR_TOKEN`: Replace a dictionary for a specific token type
+- `ALTER_TSCONFIG_DROP_MAPPING`: Remove a token type mapping from the configuration
 
 ## Dependencies
 - Functions called/Symbols referenced:

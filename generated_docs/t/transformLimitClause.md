@@ -78,12 +78,12 @@ checkExprIsVarFree(ParseState *pstate, Node *n, const char *constructName)
 ## Detailed Description
 This function is responsible for processing LIMIT and OFFSET clauses in SQL SELECT statements and related constructs. It performs several critical transformations and validations: first, it calls transformExpr to convert the raw clause into a proper expression tree, then coerces the result to INT8 (bigint) type as required by PostgreSQL's LIMIT implementation since version 8.2. The function also enforces that LIMIT expressions cannot reference variables from the current query level by calling checkExprIsVarFree. Additionally, it includes special validation for FETCH FIRST ... WITH TIES constructs to prevent NULL values, which would cause issues in query rule generation.
 
-## Parameters / Member Variables
-- : The current parsing state containing context information for the transformation
-- : The raw parse tree node representing the LIMIT/OFFSET expression to be transformed  
-- : An enumeration value specifying the expression context (EXPR_KIND_LIMIT, etc.)
-- : A descriptive string used in error messages to identify the SQL construct
-- : An enumeration specifying the type of limit option (WITH TIES, etc.)
+## Parameters
+- `pstate`: The current parsing state containing context information for the transformation
+- `clause`: The raw parse tree node representing the LIMIT/OFFSET expression to be transformed  
+- `exprKind`: An enumeration value specifying the expression context (EXPR_KIND_LIMIT, etc.)
+- `constructName`: A descriptive string used in error messages to identify the SQL construct
+- `limitOption`: An enumeration specifying the type of limit option (WITH TIES, etc.)
 
 ## Dependencies
 - Functions called/Symbols referenced:

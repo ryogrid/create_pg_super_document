@@ -15,9 +15,9 @@ struct varchar_3  { int len; char arr[ 50 ]; }  name ;
 The  struct represents PostgreSQL's varchar data type implementation in C for embedded SQL applications. This structure provides a way to handle variable-length character strings efficiently by storing both the actual string length and the character data. The struct is used as a nested type within the customer3 structure to represent customer name fields with proper length tracking.
 
 ## Parameters / Member Variables
-- : Integer field that stores the actual length of the string data in the array
-- : Character array with a fixed maximum capacity of 50 characters for storing the string data
-- : Instance variable of type varchar_3 used within the customer3 structure
+- `len`: Integer field that stores the actual length of the string data in the array
+- `arr`: Character array with a fixed maximum capacity of 50 characters for storing the string data
+- `name`: Instance variable of type varchar_3 used within the customer3 structure
 
 ## Dependencies
 - Functions called/Symbols referenced: None (basic struct definition with primitive types)

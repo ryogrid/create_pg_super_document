@@ -24,12 +24,12 @@ This enumeration distinguishes between different syntactic forms of PostgreSQL's
 The enum covers various ways of setting configuration variables: assigning specific values, resetting to defaults, copying from session variables, handling complex multi-parameter transactions, and resetting individual or all variables. This classification is essential for the parser and command execution system to handle the diverse syntax variations of variable manipulation commands.
 
 ## Parameters / Member Variables
-- : Standard variable assignment using the "SET variable = value" syntax. This is the most common form of setting configuration parameters to specific values.
-- : Setting a variable to its default value using "SET variable TO DEFAULT" syntax. While semantically equivalent to RESET, it's distinguished for command tag purposes.
-- : Setting a variable using the current session's value with "SET variable FROM CURRENT" syntax. This allows copying the current session value to the local transaction scope.
-- : Special case for complex SET TRANSACTION statements that can set multiple transaction characteristics in a single command (e.g., isolation level, read-only mode, deferrable mode).
-- : Resetting a single variable to its default value using "RESET variable" syntax. Functionally equivalent to VAR_SET_DEFAULT but uses different SQL syntax.
-- : Resetting all configuration parameters to their default values using "RESET ALL" syntax. This is a bulk operation affecting all settable parameters.
+- `VAR_SET_VALUE`: Standard variable assignment using the "SET variable = value" syntax. This is the most common form of setting configuration parameters to specific values.
+- `VAR_SET_DEFAULT`: Setting a variable to its default value using "SET variable TO DEFAULT" syntax. While semantically equivalent to RESET, it's distinguished for command tag purposes.
+- `VAR_SET_CURRENT`: Setting a variable using the current session's value with "SET variable FROM CURRENT" syntax. This allows copying the current session value to the local transaction scope.
+- `VAR_SET_MULTI`: Special case for complex SET TRANSACTION statements that can set multiple transaction characteristics in a single command (e.g., isolation level, read-only mode, deferrable mode).
+- `VAR_RESET`: Resetting a single variable to its default value using "RESET variable" syntax. Functionally equivalent to VAR_SET_DEFAULT but uses different SQL syntax.
+- `VAR_RESET_ALL`: Resetting all configuration parameters to their default values using "RESET ALL" syntax. This is a bulk operation affecting all settable parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced: None (this is an enum definition)

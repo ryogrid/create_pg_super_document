@@ -36,9 +36,10 @@ struct the "options" part of the statement */
 ## Detailed Description
 This function implements the ALTER DEFAULT PRIVILEGES SQL command, which allows users to set default access control lists (ACLs) that will be applied to future objects created by specified roles in specified schemas. The function parses the statement's options to extract target schemas and roles, validates privilege specifications for different object types (tables, sequences, functions, procedures, types, schemas), converts role specifications to OIDs, and validates that the current user has sufficient privileges to modify default privileges for the target roles. It uses the InternalDefaultACL structure to represent the parsed statement internally and delegates the actual work to SetDefaultACLsInSchemas for each target role.
 
-## Parameters / Member Variables
-- : Parse state context containing parsing information and error handling context
-- : The parsed ALTER DEFAULT PRIVILEGES statement containing action details, target schemas, roles, and privilege specifications
+## Parameters
+
+- `pstate`: Parse state context containing parsing information and error handling context
+- `stmt`: The parsed ALTER DEFAULT PRIVILEGES statement containing action details, target schemas, roles, and privilege specifications
 
 ## Dependencies
 - Functions called/Symbols referenced:

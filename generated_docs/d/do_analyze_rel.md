@@ -91,15 +91,16 @@ This function orchestrates the complete analysis process for a relation, includi
 
 Key phases include: determining which columns to analyze, opening and examining indexes for analyzable expressions, calculating required sample size, acquiring sample rows, computing column and index statistics, updating pg_statistic and pg_class catalogs, building extended statistics, and performing cleanup operations.
 
-## Parameters / Member Variables
-- : The relation being analyzed
-- : Vacuum parameters containing analysis options and configuration
-- : List of specific columns to analyze (NIL for all columns)
-- : Function pointer for acquiring sample rows
-- : Number of pages in the relation
-- : Boolean indicating inherited/recursive analysis mode
-- : Boolean indicating if running within an outer transaction
-- : Error level for logging messages
+## Parameters
+
+- `onerel`: The relation being analyzed
+- `params`: Vacuum parameters containing analysis options and configuration
+- `va_cols`: List of specific columns to analyze (NIL for all columns)
+- `acquirefunc`: Function pointer for acquiring sample rows
+- `relpages`: Number of pages in the relation
+- `inh`: Boolean indicating inherited/recursive analysis mode
+- `in_outer_xact`: Boolean indicating if running within an outer transaction
+- `elevel`: Error level for logging messages
 
 ## Dependencies
 - Functions called/Symbols referenced:

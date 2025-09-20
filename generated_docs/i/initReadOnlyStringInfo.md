@@ -39,10 +39,10 @@ This function provides a lightweight initialization mechanism for StringInfoData
 
 The initialized StringInfo is marked as read-only by setting maxlen to 0, which prevents any modification operations. The caller retains full responsibility for the lifecycle of the underlying buffer, including ensuring it remains valid for the entire duration the StringInfo is in use.
 
-## Parameters / Member Variables
-- : Pointer to the StringInfoData structure to be initialized
-- : Pointer to the existing string buffer; does not need to be palloc'd and may omit null termination
-- : Length of the string data in the buffer
+## Parameters
+- `str`: Pointer to the StringInfoData structure to be initialized
+- `data`: Pointer to the existing string buffer; does not need to be palloc'd and may omit null termination
+- `len`: Length of the string data in the buffer
 
 ## Dependencies
 - Functions called/Symbols referenced: (None)

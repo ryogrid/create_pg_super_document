@@ -26,8 +26,8 @@ This function serves as a bridge between string-based function names and Postgre
 
 The function leverages the  function to perform the actual lookup in the internal function table, then extracts the function OID from the resulting FmgrBuiltin structure if found.
 
-## Parameters / Member Variables
-- : const char pointer to the null-terminated string containing the function name to look up
+## Parameters
+- `funcname`: const char pointer to the null-terminated string containing the function name to look up
 
 ## Dependencies
 - Functions called/Symbols referenced:

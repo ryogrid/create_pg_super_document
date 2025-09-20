@@ -19,9 +19,9 @@ typedef struct
 This enumeration is used within PostgreSQL's asynchronous notification system to distinguish between different types of operations that can be performed on notification channels. It serves as a type discriminator for pending listen/unlisten operations that are queued during a transaction and executed at commit time. The enum is part of the infrastructure that ensures transactional semantics for LISTEN and UNLISTEN commands.
 
 ## Parameters / Member Variables
-- : Indicates a LISTEN operation to start listening on a specific channel
-- : Indicates an UNLISTEN operation to stop listening on a specific channel  
-- : Indicates an UNLISTEN * operation to stop listening on all channels
+- `LISTEN_LISTEN`: Indicates a LISTEN operation to start listening on a specific channel
+- `LISTEN_UNLISTEN`: Indicates an UNLISTEN operation to stop listening on a specific channel  
+- `LISTEN_UNLISTEN_ALL`: Indicates an UNLISTEN * operation to stop listening on all channels
 
 ## Dependencies
 - Functions called/Symbols referenced:

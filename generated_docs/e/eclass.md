@@ -57,10 +57,10 @@ The function currently provides a minimal implementation with the following beha
 
 This minimal implementation reflects that PostgreSQL does not currently implement full collating element equivalence classes, instead treating most characters as equivalent only to themselves.
 
-## Parameters / Member Variables
-- : Context structure containing regex compilation state and configuration flags
-- : The collating element (character) that represents the equivalence class to be generated  
-- : Flag indicating whether to include case variants (non-zero for case-independent matching)
+## Parameters
+- `v`: Context structure containing regex compilation state and configuration flags
+- `c`: The collating element (character) that represents the equivalence class to be generated  
+- `cases`: Flag indicating whether to include case variants (non-zero for case-independent matching)
 
 ## Dependencies
 - Functions called/Symbols referenced:

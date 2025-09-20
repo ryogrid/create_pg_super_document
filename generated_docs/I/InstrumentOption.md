@@ -40,11 +40,11 @@ typedef struct Instrumentation
 InstrumentOption provides a set of bitwise flags that control which types of performance metrics and statistics are collected during PostgreSQL query execution. These flags are combined using bitwise OR operations to create a bitmask that specifies the desired instrumentation level. The enum is designed to allow fine-grained control over what execution statistics are gathered, enabling users to balance performance monitoring needs with execution overhead.
 
 ## Parameters / Member Variables
-- : Enables timing instrumentation and row count collection for execution nodes
-- : Enables buffer usage statistics collection (I/O operations, cache hits/misses)  
-- : Enables row count statistics collection independently of timing
-- : Enables Write-Ahead Log usage statistics collection
-- : Special value (PG_INT32_MAX) that enables all available instrumentation options
+- `INSTRUMENT_TIMER`: Enables timing instrumentation and row count collection for execution nodes
+- `INSTRUMENT_BUFFERS`: Enables buffer usage statistics collection (I/O operations, cache hits/misses)  
+- `INSTRUMENT_ROWS`: Enables row count statistics collection independently of timing
+- `INSTRUMENT_WAL`: Enables Write-Ahead Log usage statistics collection
+- `INSTRUMENT_ALL`: Special value (PG_INT32_MAX) that enables all available instrumentation options
 
 ## Dependencies
 - Functions called/Symbols referenced:

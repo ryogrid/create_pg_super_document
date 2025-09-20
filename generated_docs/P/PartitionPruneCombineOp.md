@@ -23,8 +23,8 @@ PartitionPruneCombineOp defines the logical operations used to combine partition
 UNION operations correspond to OR clauses - if any argument step indicates a partition should be scanned, it will be included. INTERSECT operations correspond to AND clauses - only partitions indicated by all argument steps will be included in the final result.
 
 ## Parameters / Member Variables
-- : Combines partition sets using union (logical OR), including partitions that match any of the input conditions
-- : Combines partition sets using intersection (logical AND), including only partitions that match all input conditions
+- `PARTPRUNE_COMBINE_UNION`: Combines partition sets using union (logical OR), including partitions that match any of the input conditions
+- `PARTPRUNE_COMBINE_INTERSECT`: Combines partition sets using intersection (logical AND), including only partitions that match all input conditions
 
 ## Dependencies
 - Functions called/Symbols referenced: None (enum definition)

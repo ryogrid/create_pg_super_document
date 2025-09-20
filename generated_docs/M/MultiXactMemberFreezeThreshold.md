@@ -21,7 +21,7 @@ The function works by calculating what fraction of member space is being used be
 
 The algorithm helps prevent scenarios where tables with many-member multixacts could exhaust member space while still staying within normal multixact count limits.
 
-## Parameters / Member Variables
+## Parameters
 No parameters - the function reads current system state internally.
 
 ## Dependencies

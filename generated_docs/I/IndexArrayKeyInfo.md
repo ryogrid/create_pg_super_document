@@ -65,12 +65,12 @@ The structure maintains both the array evaluation state and the current position
 The structure handles NULL values appropriately through the elem_nulls array, ensuring proper SQL semantics for NULL handling in array operations.
 
 ## Parameters / Member Variables
-- : Pointer to the ScanKeyData structure that will receive each array element value during iteration
-- : Expression state for evaluating the array expression to obtain the complete array value
-- : Index of the next array element to be processed during scan iteration
-- : Total number of elements in the currently evaluated array value
-- : Array containing the Datum values extracted from the evaluated array expression
-- : Array of boolean flags indicating which elements in elem_values are NULL
+- `scan_key`: Pointer to the ScanKeyData structure that will receive each array element value during iteration
+- `array_expr`: Expression state for evaluating the array expression to obtain the complete array value
+- `next_elem`: Index of the next array element to be processed during scan iteration
+- `num_elems`: Total number of elements in the currently evaluated array value
+- `elem_values`: Array containing the Datum values extracted from the evaluated array expression
+- `elem_nulls`: Array of boolean flags indicating which elements in elem_values are NULL
 
 ## Dependencies
 - Functions called/Symbols referenced:

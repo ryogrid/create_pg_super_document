@@ -22,10 +22,10 @@ typedef struct PublicationObjSpec
 This enumeration defines the different types of objects that can be specified when creating or altering a PostgreSQL publication for logical replication. Publications are used to define a set of tables whose data changes will be replicated to subscribers. The enum provides flexibility in specifying individual tables, all tables in a schema, or using continuation semantics for complex publication definitions.
 
 ## Parameters / Member Variables
-- : Specifies a single table to be included in the publication
-- : Includes all tables within a specified schema
-- : Includes all tables in the current schema (first element of search_path)
-- : Used for parsing continuation of previous object type specifications
+- `PUBLICATIONOBJ_TABLE`: Specifies a single table to be included in the publication
+- `PUBLICATIONOBJ_TABLES_IN_SCHEMA`: Includes all tables within a specified schema
+- `PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA`: Includes all tables in the current schema (first element of search_path)
+- `PUBLICATIONOBJ_CONTINUATION`: Used for parsing continuation of previous object type specifications
 
 ## Dependencies
 - Functions called/Symbols referenced:

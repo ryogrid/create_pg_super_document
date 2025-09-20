@@ -23,14 +23,14 @@ typedef struct
 LogOpts centralizes all logging and output configuration for the pg_upgrade process. It manages both the behavioral aspects of logging (verbosity levels, log retention) and the organizational structure of output files through a hierarchy of directories. The structure enables pg_upgrade to provide comprehensive logging while maintaining organized output for debugging and audit purposes.
 
 ## Parameters / Member Variables
-- : FILE pointer for internal logging operations, used for detailed diagnostic output
-- : Boolean flag controlling verbosity level; when true, enables detailed progress and diagnostic messages
-- : Boolean flag determining whether log files should be preserved after successful completion
-- : Root directory path (typically "pg_upgrade_output.d") containing all upgrade-related output
-- : Base output directory path with timestamp, providing unique storage for each upgrade run
-- : Directory path specifically designated for database dump files during the upgrade process
-- : Directory path for storing various log files generated during upgrade operations
-- : Boolean indicator of whether stdout is connected to a terminal (tty), affecting output formatting
+- `internal`: FILE pointer for internal logging operations, used for detailed diagnostic output
+- `verbose`: Boolean flag controlling verbosity level; when true, enables detailed progress and diagnostic messages
+- `retain`: Boolean flag determining whether log files should be preserved after successful completion
+- `rootdir`: Root directory path (typically "pg_upgrade_output.d") containing all upgrade-related output
+- `basedir`: Base output directory path with timestamp, providing unique storage for each upgrade run
+- `dumpdir`: Directory path specifically designated for database dump files during the upgrade process
+- `logdir`: Directory path for storing various log files generated during upgrade operations
+- `isatty`: Boolean indicator of whether stdout is connected to a terminal (tty), affecting output formatting
 
 ## Dependencies
 - Functions called/Symbols referenced:

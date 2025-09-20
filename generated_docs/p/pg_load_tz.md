@@ -25,8 +25,8 @@ The function handles timezone loading through multiple mechanisms:
 
 The function performs basic validation on the timezone name length but does not verify that the loaded timezone is acceptable for use - that responsibility lies with the caller.
 
-## Parameters / Member Variables
-- : The timezone name to load (e.g., "America/New_York", "GMT", or a POSIX timezone string like "EST5EDT")
+## Parameters
+- `tzname`: The timezone name to load (e.g., "America/New_York", "GMT", or a POSIX timezone string like "EST5EDT")
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -36,10 +36,10 @@ typedef struct IncrementalSortState
 IncrementalSortExecutionStatus manages the execution state machine of PostgreSQL's incremental sort algorithm. Incremental sort is an optimization that leverages existing sort order in input data - when data is already sorted by a prefix of the required sort keys, it can sort smaller groups incrementally rather than performing a full sort. The enum tracks whether the executor is currently loading data into sort states or reading sorted results, and whether it's operating on the full sort or just the prefix sort portion.
 
 ## Parameters / Member Variables
-- : Loading phase for full sort - collecting tuples that need complete sorting across all sort keys
-- : Loading phase for prefix sort - collecting tuples within a group that shares the same prefix key values
-- : Reading phase for full sort - returning sorted tuples from the complete sort operation
-- : Reading phase for prefix sort - returning sorted tuples from within a prefix group
+- `INCSORT_LOADFULLSORT`: Loading phase for full sort - collecting tuples that need complete sorting across all sort keys
+- `INCSORT_LOADPREFIXSORT`: Loading phase for prefix sort - collecting tuples within a group that shares the same prefix key values
+- `INCSORT_READFULLSORT`: Reading phase for full sort - returning sorted tuples from the complete sort operation
+- `INCSORT_READPREFIXSORT`: Reading phase for prefix sort - returning sorted tuples from within a prefix group
 
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a simple enumeration)

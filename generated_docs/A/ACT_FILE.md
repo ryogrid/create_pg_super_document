@@ -22,7 +22,7 @@ ACT_FILE is one of the action types defined in psql's startup module that specif
 The ACT_FILE action is typically triggered by the  command-line option, which tells psql to read and execute commands from a file rather than from standard input or interactive mode. It can also be automatically assigned when psql is running in non-interactive mode without any explicit actions specified.
 
 ## Parameters / Member Variables
-- **ACT_FILE**: Enumeration constant indicating file execution action (no additional parameters in the enum itself)
+- `ACT_FILE`: Enumeration constant indicating file execution action (no additional parameters in the enum itself)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -135,12 +135,12 @@ struct Node *escontext)
 ## Detailed Description
 This function creates a properly serialized RangeType object from bound specifications. It performs comprehensive validation including checking that lower bounds are not greater than upper bounds, handling infinite and inclusive boundary flags, and ensuring proper canonicalization. The function constructs the internal binary representation by calculating the required storage size, handling TOAST decompression for variable-length data types, and writing the bounds and flags in the correct format. It's primarily intended for use by canonicalization functions and internal range operations.
 
-## Parameters / Member Variables
-- : Type cache entry containing metadata about the range type and its element type
-- : Lower bound specification with value, inclusivity, and infinity flags
-- : Upper bound specification with value, inclusivity, and infinity flags  
-- : Boolean flag indicating if the range should be empty
-- : Error context for soft error handling
+## Parameters
+- `typcache`: Type cache entry containing metadata about the range type and its element type
+- `lower`: Lower bound specification with value, inclusivity, and infinity flags
+- `upper`: Upper bound specification with value, inclusivity, and infinity flags  
+- `empty`: Boolean flag indicating if the range should be empty
+- `escontext`: Error context for soft error handling
 
 ## Dependencies
 - Functions called/Symbols referenced:

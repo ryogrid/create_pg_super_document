@@ -27,8 +27,8 @@ This function is the binary receive function for the TSVector data type, respons
 
 The function performs extensive validation during deserialization, checking lexeme lengths against MAXSTRLEN, total data size against MAXSTRPOS, and position counts against MAXNUMPOS. It dynamically allocates and reallocates memory as needed to accommodate the incoming data, ensuring proper alignment for position data structures. The function also maintains lexeme ordering by detecting when sorting is needed and applying qsort with compareentry function when necessary. Position data is validated to ensure positions are in ascending order within each lexeme.
 
-## Parameters / Member Variables
-- : Standard PostgreSQL function argument macro containing the binary data buffer (StringInfo)
+## Parameters
+- `fcinfo`: Standard PostgreSQL function argument macro containing the binary data buffer (StringInfo)
 
 ## Dependencies
 - Functions called/Symbols referenced:

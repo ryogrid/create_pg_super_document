@@ -21,15 +21,15 @@ ConsiderSplitContext serves as a context structure for the  function, which is p
 The structure tracks both general information about all entries being split (total count and overall bounding box) and specific details about the currently selected split candidate (bounds, ratios, overlap metrics, and dimensional information). This allows the splitting algorithm to efficiently evaluate multiple split options and select the one that minimizes overlap and provides balanced distribution of entries.
 
 ## Parameters / Member Variables
-- : Total number of entries that need to be split across the two resulting pages
-- : The minimum bounding rectangle (MBR) that encompasses all entries being split
-- : Boolean flag indicating whether this is the first split being considered (no previous split selected)
-- : Upper bound of the interval for entries that would go to the left page in the current split candidate
-- : Lower bound of the interval for entries that would go to the right page in the current split candidate  
-- : Distribution ratio metric for the current split candidate
-- : Overlap metric measuring how much the left and right intervals overlap in the current split
-- : The dimensional axis (0 for x-axis, 1 for y-axis) along which the current split is being considered
-- : The width of the overall MBR when projected onto the selected dimensional axis
+- `entriesCount`: Total number of entries that need to be split across the two resulting pages
+- `boundingBox`: The minimum bounding rectangle (MBR) that encompasses all entries being split
+- `first`: Boolean flag indicating whether this is the first split being considered (no previous split selected)
+- `leftUpper`: Upper bound of the interval for entries that would go to the left page in the current split candidate
+- `rightLower`: Lower bound of the interval for entries that would go to the right page in the current split candidate  
+- `ratio`: Distribution ratio metric for the current split candidate
+- `overlap`: Overlap metric measuring how much the left and right intervals overlap in the current split
+- `dim`: The dimensional axis (0 for x-axis, 1 for y-axis) along which the current split is being considered
+- `range`: The width of the overall MBR when projected onto the selected dimensional axis
 
 ## Dependencies
 - Functions called/Symbols referenced:

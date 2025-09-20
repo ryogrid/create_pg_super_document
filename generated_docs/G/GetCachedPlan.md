@@ -48,10 +48,10 @@ GetCachedPlan serves as the primary entry point for PostgreSQL's plan cache syst
 The function implements a sophisticated adaptive strategy that can dynamically switch between generic and custom plans even after initially choosing generic planning. If a newly constructed generic plan proves inferior to the average custom plan cost, the function abandons the generic plan and creates a custom plan instead. This prevents poor-performing generic plans from being executed while maintaining the benefits of plan reuse when appropriate.
 
 ## Parameters / Member Variables
-- : The CachedPlanSource containing the prepared statement and metadata
-- : Parameter values for custom plan generation (NULL for parameter-less queries)
-- : ResourceOwner for tracking plan references (NULL if not needed, only works with saved plans)
-- : Query environment providing additional execution context
+- `plansource`: The CachedPlanSource containing the prepared statement and metadata
+- `paramLI`: Parameter values for custom plan generation (NULL for parameter-less queries)
+- `owner`: ResourceOwner for tracking plan references (NULL if not needed, only works with saved plans)
+- `queryEnv`: Query environment providing additional execution context
 
 ## Dependencies
 - Functions called/Symbols referenced:

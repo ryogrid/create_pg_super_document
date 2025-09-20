@@ -45,10 +45,10 @@ Key behaviors:
 
 The function is designed to handle complex scenarios including outer joins where multiple clauses might match the same pathkey, and it prioritizes finding any valid merge plan over optimizing clause ordering.
 
-## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and context information
-- : A pathkeys list showing the ordering of an outer-rel path
-- : List of mergejoinable restriction clauses for the join relation, marked with outer_is_left to show which side is associated with the outer path
+## Parameters
+- `root`: PlannerInfo structure containing planner state and context information
+- `outer_pathkeys`: A pathkeys list showing the ordering of an outer-rel path
+- `restrictinfos`: List of mergejoinable restriction clauses for the join relation, marked with outer_is_left to show which side is associated with the outer path
 
 ## Dependencies
 - Functions called/Symbols referenced:

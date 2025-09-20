@@ -22,10 +22,10 @@ typedef struct
 The generate_series_timestamp_fctx structure is used as a function context (fctx) to preserve state between successive calls to the generate_series_timestamp function. This is essential for PostgreSQL's set-returning function mechanism, which generates a series of timestamp values incrementally across multiple function invocations. The structure stores the current position in the series, the end condition, the step interval, and the direction of iteration.
 
 ## Parameters / Member Variables
-- : The current timestamp value in the series generation process
-- : The final timestamp value that marks the end of the series
-- : The interval by which to increment/decrement between consecutive timestamp values in the series
-- : An integer indicating the direction of iteration (positive for forward, negative for backward)
+- `current`: The current timestamp value in the series generation process
+- `finish`: The final timestamp value that marks the end of the series
+- `step`: The interval by which to increment/decrement between consecutive timestamp values in the series
+- `step_sign`: An integer indicating the direction of iteration (positive for forward, negative for backward)
 
 ## Dependencies
 - Functions called/Symbols referenced:

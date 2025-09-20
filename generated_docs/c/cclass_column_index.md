@@ -68,9 +68,10 @@ This function enables the regex engine to efficiently map characters to colors b
 
 The function is only called for characters above MAX_SIMPLE_CHR, as simpler characters are handled through direct lookup mechanisms.
 
-## Parameters / Member Variables
-- : Pointer to the colormap structure containing class bit assignments and colormap configuration
-- : The character for which to compute the column index (must be > MAX_SIMPLE_CHR)
+## Parameters
+
+- `cm`: Pointer to the colormap structure containing class bit assignments and colormap configuration
+- `c`: The character for which to compute the column index (must be > MAX_SIMPLE_CHR)
 
 ## Dependencies
 - Functions called/Symbols referenced:

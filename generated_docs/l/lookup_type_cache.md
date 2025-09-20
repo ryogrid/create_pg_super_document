@@ -114,9 +114,9 @@ On first access to a type, the function creates a new cache entry by consulting 
 
 The function implements sophisticated lazy loading - it only computes expensive type information when specifically requested and marks what has been loaded to avoid redundant work. It also handles cache invalidation scenarios where cached data becomes stale due to system catalog changes.
 
-## Parameters / Member Variables
-- : The OID of the datatype to look up in the cache
-- : Bitmask specifying which type information should be populated (e.g., TYPECACHE_EQ_OPR, TYPECACHE_CMP_PROC, TYPECACHE_TUPDESC)
+## Parameters
+- `type_id`: The OID of the datatype to look up in the cache
+- `flags`: Bitmask specifying which type information should be populated (e.g., TYPECACHE_EQ_OPR, TYPECACHE_CMP_PROC, TYPECACHE_TUPDESC)
 
 ## Dependencies
 - Functions called/Symbols referenced:

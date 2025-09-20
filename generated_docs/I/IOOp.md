@@ -19,14 +19,14 @@ typedef struct PgStat_BktypeIO
 IOOp categorizes the fundamental I/O operations that PostgreSQL performs during database operations. This enumeration is essential for detailed performance monitoring, allowing the database to track and analyze different types of I/O activities separately. Each operation type has distinct performance characteristics and resource implications, making this granular tracking valuable for identifying bottlenecks and optimizing database performance.
 
 ## Parameters / Member Variables
-- : Operations where buffers are evicted from the buffer pool to make room for new data
-- : Operations that extend database files by adding new pages or blocks
-- : File system synchronization operations that ensure data is written to persistent storage
-- : Operations where requested data is found in the buffer cache (cache hits)
-- : Physical read operations that fetch data from storage devices into memory
-- : Operations where existing buffers are reused without requiring new allocation
-- : Physical write operations that store data from memory to storage devices
-- : Background operations that write dirty buffers back to storage
+- `IOOP_EVICT`: Operations where buffers are evicted from the buffer pool to make room for new data
+- `IOOP_EXTEND`: Operations that extend database files by adding new pages or blocks
+- `IOOP_FSYNC`: File system synchronization operations that ensure data is written to persistent storage
+- `IOOP_HIT`: Operations where requested data is found in the buffer cache (cache hits)
+- `IOOP_READ`: Physical read operations that fetch data from storage devices into memory
+- `IOOP_REUSE`: Operations where existing buffers are reused without requiring new allocation
+- `IOOP_WRITE`: Physical write operations that store data from memory to storage devices
+- `IOOP_WRITEBACK`: Background operations that write dirty buffers back to storage
 
 ## Dependencies
 - Functions called/Symbols referenced:

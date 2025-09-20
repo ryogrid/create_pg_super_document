@@ -31,11 +31,13 @@ JsValue serves as a polymorphic wrapper that can hold either JSON text data or b
 For JSON text representation, it stores the raw string data along with its length and token type information. For JSONB representation, it holds a pointer to a JsonbValue structure that contains the binary representation.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating whether this contains JSON text (true) or JSONB binary data (false)
-- : Pointer to the JSON string data when holding text representation
-- : Length of the JSON string, or -1 if the string is null-terminated
-- : The JsonTokenType indicating the JSON value type (object, array, string, number, etc.)
-- : Pointer to JsonbValue structure when holding binary JSONB representation
+- `is_json`: Boolean flag indicating whether this contains JSON text (true) or JSONB binary data (false)
+- `val`: Union containing either JSON text or JSONB binary data
+  - `json`: Struct for JSON text representation
+    - `str`: Pointer to the JSON string data when holding text representation
+    - `len`: Length of the JSON string, or -1 if the string is null-terminated
+    - `type`: The JsonTokenType indicating the JSON value type (object, array, string, number, etc.)
+  - `jsonb`: Pointer to JsonbValue structure when holding binary JSONB representation
 
 ## Dependencies
 - Functions called/Symbols referenced:

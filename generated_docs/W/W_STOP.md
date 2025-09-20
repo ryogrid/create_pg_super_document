@@ -21,6 +21,7 @@ W_STOP is one of the enumeration values in the WHEN_TYPE enum used by the ECPG p
 
 ## Parameters / Member Variables
 
+W_STOP is an enumeration constant, not a struct, so it has no member variables. It represents a stop action value in the WHEN_TYPE enum.
 
 ## Dependencies
 - Functions called/Symbols referenced:

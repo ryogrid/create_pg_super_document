@@ -19,9 +19,8 @@ typedef struct
 The pull_varnos_context structure serves as a walker context for the pull_varnos_walker function, which traverses expression trees to identify all relation IDs referenced by Var nodes. This is a critical part of PostgreSQL's query optimization process, where the planner needs to understand which relations are being accessed by a particular expression or subquery. The context accumulates relation IDs while maintaining awareness of the current subquery level being processed.
 
 ## Parameters / Member Variables
-- : A Bitmapset containing the collected relation IDs found during the tree walk
-- : Pointer to the PlannerInfo structure containing planner state and context information
-- : Integer tracking the current subquery nesting level being processed (0 for current level)
+- `varattnos`: A Bitmapset containing the collected attribute numbers found during the tree walk
+- `varno`: Index of the relation whose attribute numbers are being collected
 
 ## Dependencies
 - Functions called/Symbols referenced:

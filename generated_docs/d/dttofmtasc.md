@@ -24,7 +24,8 @@ The `dttofmtasc` function is a compatibility wrapper that provides Informix-styl
 
 The function simply delegates to `PGTYPEStimestamp_fmt_asc`, which handles the actual formatting logic including timezone processing, date calculations, and format string parsing.
 
-## Parameters / Member Variables
+## Parameters
+
 - `ts`: Pointer to the timestamp structure to be formatted
 - `output`: Buffer where the formatted ASCII string will be stored
 - `str_len`: Maximum length of the output buffer to prevent overflow

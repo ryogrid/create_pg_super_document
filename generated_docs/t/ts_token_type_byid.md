@@ -25,7 +25,8 @@ The function follows PostgreSQL's standard SRF pattern:
 
 This function is typically called from SQL queries to inspect the token types supported by a particular text search parser, which is useful for understanding how the parser categorizes different types of text elements.
 
-## Parameters / Member Variables
+## Parameters
+- `parser_oid`: OID of the text search parser whose token types should be returned
 
 
 ## Dependencies

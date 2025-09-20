@@ -27,7 +27,8 @@ The function workflow:
 
 This function provides a more user-friendly interface compared to  since users typically know parser names rather than internal OIDs.
 
-## Parameters / Member Variables
+## Parameters
+- `parser_name`: Text name of the text search parser to retrieve token types for
 
 
 ## Dependencies

@@ -32,11 +32,11 @@ struct TidStore
 TidStore is PostgreSQL's primary mechanism for storing collections of tuple identifiers efficiently. It uses a radix tree data structure as its underlying storage mechanism, which provides excellent performance characteristics for sparse TID sets. The structure is designed to work in both local memory (single-backend) and shared memory (multi-backend) scenarios. In local mode, it uses a standard memory context, while in shared mode, it leverages PostgreSQL's Dynamic Shared Area (DSA) infrastructure to enable cross-process access. This dual-mode design makes TidStore suitable for various use cases, from single-process operations like vacuum to parallel operations that require TID sharing between multiple worker processes.
 
 ## Parameters / Member Variables
-- : The MemoryContext where the TidStore structure itself is allocated
-- : The MemoryContext used by the underlying radix tree for its internal allocations
-- : Pointer to local radix tree when operating in single-backend mode
-- : Pointer to shared radix tree when operating in multi-backend shared memory mode
-- : DSA (Dynamic Shared Area) used for managing shared memory allocations when in shared mode
+- `context`: The MemoryContext where the TidStore structure itself is allocated
+- `rt_context`: The MemoryContext used by the underlying radix tree for its internal allocations
+- `tree.local`: Pointer to local radix tree when operating in single-backend mode
+- `tree.shared`: Pointer to shared radix tree when operating in multi-backend shared memory mode
+- `area`: DSA (Dynamic Shared Area) used for managing shared memory allocations when in shared mode
 
 ## Dependencies
 - Functions called/Symbols referenced:

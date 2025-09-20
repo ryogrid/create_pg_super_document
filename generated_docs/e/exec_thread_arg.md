@@ -24,9 +24,9 @@ The  structure is used specifically in the  utility to facilitate parallel comma
 On Windows systems, when parallel jobs are enabled (user_opts.jobs > 1), this structure is allocated and populated with command execution parameters, then passed to Windows threads via the  function. The structure lifetime is managed carefully to avoid cross-thread memory issues - arguments are allocated during the entire process lifetime and freed only in the same thread that allocated them.
 
 ## Parameters / Member Variables
-- : Path to the primary log file where command output and messages should be written
-- : Path to an optional secondary log file for additional logging output
-- : The actual command string to be executed by the thread
+- `log_file`: Path to the primary log file where command output and messages should be written
+- `opt_log_file`: Path to an optional secondary log file for additional logging output
+- `cmd`: The actual command string to be executed by the thread
 
 ## Dependencies
 - Functions called/Symbols referenced:

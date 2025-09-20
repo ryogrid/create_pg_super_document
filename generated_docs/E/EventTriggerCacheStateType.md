@@ -26,9 +26,9 @@ The cache operates as a state machine with three distinct phases:
 This state management is crucial for maintaining data consistency, especially during concurrent access patterns and cache invalidation scenarios.
 
 ## Parameters / Member Variables
-- : Indicates the cache is invalid and needs to be rebuilt from scratch
-- : Marks that a cache rebuild operation is currently in progress, preventing concurrent rebuilds
-- : Signifies the cache is fully constructed and ready for lookup operations
+- `ETCS_NEEDS_REBUILD`: Indicates the cache is invalid and needs to be rebuilt from scratch
+- `ETCS_REBUILD_STARTED`: Marks that a cache rebuild operation is currently in progress, preventing concurrent rebuilds
+- `ETCS_VALID`: Signifies the cache is fully constructed and ready for lookup operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

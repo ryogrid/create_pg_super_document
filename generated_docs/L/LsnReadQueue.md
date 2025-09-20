@@ -30,17 +30,17 @@ typedef struct LsnReadQueue
 The LsnReadQueue serves as a circular buffer for managing LSN (Log Sequence Number) read operations in the PostgreSQL WAL prefetcher. It acts as an intermediate IO control mechanism, designed with intentional indirection through function pointers to allow for future extension to more general IO control mechanisms. The structure maintains counters for tracking inflight and completed operations while using a flexible array member to store queue entries containing LSN positions and IO status flags.
 
 ## Parameters / Member Variables
-- : Function pointer of type LsnReadQueueNextFun that determines which block to prefetch next
-- : Private data pointer passed to callback functions for context
-- : Maximum number of concurrent inflight IO operations allowed  
-- : Current number of inflight IO operations
-- : Number of completed IO operations
-- : Head position in the circular queue
-- : Tail position in the circular queue  
-- : Total size of the circular queue buffer
-- : Flexible array member containing queue entries with:
-  - : Boolean flag indicating whether IO should be performed for this entry
-  - : XLogRecPtr containing the Log Sequence Number for this queue entry
+- `next`: Function pointer of type LsnReadQueueNextFun that determines which block to prefetch next
+- `lrq_private`: Private data pointer passed to callback functions for context
+- `max_inflight`: Maximum number of concurrent inflight IO operations allowed  
+- `inflight`: Current number of inflight IO operations
+- `completed`: Number of completed IO operations
+- `head`: Head position in the circular queue
+- `tail`: Tail position in the circular queue  
+- `size`: Total size of the circular queue buffer
+- `queue`: Flexible array member containing queue entries with:
+  - `io`: Boolean flag indicating whether IO should be performed for this entry
+  - `lsn`: XLogRecPtr containing the Log Sequence Number for this queue entry
 
 ## Dependencies
 - Functions called/Symbols referenced:

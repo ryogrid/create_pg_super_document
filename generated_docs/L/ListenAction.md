@@ -20,8 +20,8 @@ typedef struct ActionList
 ListenAction is a flexible-sized structure used to queue LISTEN, UNLISTEN, and UNLISTEN ALL operations during transaction execution. Each instance represents a single pending operation that will be processed when the transaction commits. The structure uses a flexible array member for the channel name to efficiently store channel names of varying lengths without requiring separate memory allocations. This design is part of PostgreSQL's mechanism to ensure that LISTEN/NOTIFY operations have proper transactional semantics.
 
 ## Parameters / Member Variables
-- : A ListenActionKind value indicating the type of operation (LISTEN, UNLISTEN, or UNLISTEN_ALL)
-- : A flexible array member containing the null-terminated channel name string
+- `action`: A ListenActionKind value indicating the type of operation (LISTEN, UNLISTEN, or UNLISTEN_ALL)
+- `channel`: A flexible array member containing the null-terminated channel name string
 
 ## Dependencies
 - Functions called/Symbols referenced:

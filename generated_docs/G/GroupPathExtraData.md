@@ -25,14 +25,14 @@ The structure is divided into two categories of data: constant data that remains
 The structure is particularly important for foreign data wrappers and partitioned table processing, where different execution strategies may be employed based on the capabilities of remote servers or the distribution of data across partitions.
 
 ## Parameters / Member Variables
-- : Bit flags indicating what kinds of grouping operations are possible
-- : True if the partial and final aggregation costs have been initialized
-- : Cost estimates for partial aggregation operations
-- : Cost estimates for finalization of aggregation operations
-- : True if the target list can be safely executed in parallel
-- : List of HAVING clause qualifiers to be applied after aggregation
-- : List of columns/expressions to be projected in the result
-- : Type of partitionwise aggregation being performed (see PartitionwiseAggregateType)
+- `flags`: Bit flags indicating what kinds of grouping operations are possible
+- `partial_costs_set`: True if the partial and final aggregation costs have been initialized
+- `agg_partial_costs`: Cost estimates for partial aggregation operations
+- `agg_final_costs`: Cost estimates for finalization of aggregation operations
+- `target_parallel_safe`: True if the target list can be safely executed in parallel
+- `havingQual`: List of HAVING clause qualifiers to be applied after aggregation
+- `targetList`: List of columns/expressions to be projected in the result
+- `patype`: Type of partitionwise aggregation being performed (see PartitionwiseAggregateType)
 
 ## Dependencies
 - Functions called/Symbols referenced:

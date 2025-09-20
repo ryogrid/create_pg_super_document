@@ -172,56 +172,56 @@ The structure serves multiple critical roles:
 Some fields are mirrored in dense arrays within ProcGlobal for performance optimization, allowing tight loops to access frequently-used data without cache misses from the full PGPROC structure.
 
 ## Parameters / Member Variables
-- : List linkage for when process is in various wait queues (MUST be first field)
-- : Pointer to the global list that owns this PGPROC
-- : Process semaphore for blocking/waking operations
-- : Current wait status of the process
-- : Generic latch for process signaling
-- : Current top-level transaction ID (mirrored in dense arrays)
-- : Minimum running XID for vacuum coordination
-- : Backend process ID (0 for prepared transactions)
-- : Offset into ProcGlobal dense arrays
-- : Virtual transaction ID components (procNumber + lxid)
-- : OID of database this backend is connected to
-- : OID of role/user for this backend
-- : OID of temporary schema for this backend
-- : Flag indicating background worker vs regular backend
-- : Hot standby conflict signal flag
-- : LWLock wait state information
-- : Mode of LWLock being waited for
-- : Position in LWLock wait queue
-- : Position in condition variable wait queue
-- : Lock object currently being waited for
-- : Per-holder information for awaited lock
-- : Type of lock mode being requested
-- : Bitmask of lock types already held
-- : Timestamp when lock wait began
-- : Checkpoint delay flags (DELAY_CHKPT_*)
-- : Process status flags (mirrored in dense arrays)
-- : LSN being waited for in synchronous replication
-- : Synchronous replication wait state
-- : Linkage in synchronous replication queue
-- : Per-partition lists of locks held by this process
-- : Status of subtransaction cache
-- : Cache of subtransaction XIDs (XidCache structure)
-- : Flag for group XID clearing participation
-- : Next member in group XID clearing chain
-- : Transaction ID for group processing
-- : Current wait event information for monitoring
-- : Flag for group clog update participation
-- : Next member in clog group update chain
-- : Transaction ID for clog group update
-- : Transaction status for clog group update
-- : Clog page for group update
-- : WAL LSN for group commit record
-- : LWLock protecting fast-path lock state
-- : Bitmask of fast-path lock modes held
-- : Relation OIDs for fast-path lock slots
-- : Flag indicating fast-path virtual XID lock held
-- : Local transaction ID for fast-path VXID lock
-- : Pointer to lock group leader (if member)
-- : List of lock group members (if leader)
-- : Linkage as member of a lock group
+- `links`: List linkage for when process is in various wait queues (MUST be first field)
+- `procgloballist`: Pointer to the global list that owns this PGPROC
+- `sem`: Process semaphore for blocking/waking operations
+- `waitStatus`: Current wait status of the process
+- `procLatch`: Generic latch for process signaling
+- `xid`: Current top-level transaction ID (mirrored in dense arrays)
+- `xmin`: Minimum running XID for vacuum coordination
+- `pid`: Backend process ID (0 for prepared transactions)
+- `pgxactoff`: Offset into ProcGlobal dense arrays
+- `vxid`: Virtual transaction ID components (procNumber + lxid)
+- `databaseId`: OID of database this backend is connected to
+- `roleId`: OID of role/user for this backend
+- `tempNamespaceId`: OID of temporary schema for this backend
+- `isBackgroundWorker`: Flag indicating background worker vs regular backend
+- `recoveryConflictPending`: Hot standby conflict signal flag
+- `lwWaiting`: LWLock wait state information
+- `lwWaitMode`: Mode of LWLock being waited for
+- `lwWaitLink`: Position in LWLock wait queue
+- `cvWaitLink`: Position in condition variable wait queue
+- `waitLock`: Lock object currently being waited for
+- `waitProcLock`: Per-holder information for awaited lock
+- `waitLockMode`: Type of lock mode being requested
+- `heldLocks`: Bitmask of lock types already held
+- `waitStart`: Timestamp when lock wait began
+- `delayChkptFlags`: Checkpoint delay flags (DELAY_CHKPT_*)
+- `statusFlags`: Process status flags (mirrored in dense arrays)
+- `waitLSN`: LSN being waited for in synchronous replication
+- `syncRepState`: Synchronous replication wait state
+- `syncRepLinks`: Linkage in synchronous replication queue
+- `myProcLocks`: Per-partition lists of locks held by this process
+- `subxidStatus`: Status of subtransaction cache
+- `subxids`: Cache of subtransaction XIDs (XidCache structure)
+- `procArrayGroupMember`: Flag for group XID clearing participation
+- `procArrayGroupNext`: Next member in group XID clearing chain
+- `procArrayGroupMemberXid`: Transaction ID for group processing
+- `wait_event_info`: Current wait event information for monitoring
+- `clogGroupMember`: Flag for group clog update participation
+- `clogGroupNext`: Next member in clog group update chain
+- `clogGroupMemberXid`: Transaction ID for clog group update
+- `clogGroupMemberXidStatus`: Transaction status for clog group update
+- `clogGroupMemberPage`: Clog page for group update
+- `clogGroupMemberLsn`: WAL LSN for group commit record
+- `fpInfoLock`: LWLock protecting fast-path lock state
+- `fpLockBits`: Bitmask of fast-path lock modes held
+- `fpRelId`: Relation OIDs for fast-path lock slots
+- `fpVXIDLock`: Flag indicating fast-path virtual XID lock held
+- `fpLocalTransactionId`: Local transaction ID for fast-path VXID lock
+- `lockGroupLeader`: Pointer to lock group leader (if member)
+- `lockGroupMembers`: List of lock group members (if leader)
+- `lockGroupLink`: Linkage as member of a lock group
 
 ## Dependencies
 - Functions called/Symbols referenced:

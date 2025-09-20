@@ -28,7 +28,7 @@ The function first extracts the appropriate identity information from the certif
 
 The function also handles error reporting for different certificate validation scenarios, providing specific error messages when `clientcert=verify-full` is configured.
 
-## Parameters / Member Variables
+## Parameters
 - `port`: Pointer to the Port structure containing SSL connection information and HBA configuration, including certificate data (`peer_dn`, `peer_cn`) and authentication settings
 
 ## Dependencies

@@ -1,7 +1,7 @@
 # TransactionStmtKind
 
 ## Location
-[src/include/nodes/parsenodes.h:3665-3666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3665-L3666)
+[src/include/nodes/parsenodes.h:3652-3664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3652-L3664)
 
 ## Overview
 TransactionStmtKind is an enumeration type that defines the different kinds of transaction-related SQL statements in PostgreSQL, including transaction control, savepoint operations, and prepared transaction commands.
@@ -9,19 +9,19 @@ TransactionStmtKind is an enumeration type that defines the different kinds of t
 ## Definition
 
 ```c
-typedef struct TransactionStmt
+typedef enum TransactionStmtKind
 {
-	NodeTag		type;
-	TransactionStmtKind kind;	/* see above */
-	List	   *options;		/* for BEGIN/START commands */
-	/* for savepoint commands */
-	char	   *savepoint_name pg_node_attr(query_jumble_ignore);
-	/* for two-phase-commit related commands */
-	char	   *gid pg_node_attr(query_jumble_ignore);
-	bool		chain;			/* AND CHAIN option */
-	/* token location, or -1 if unknown */
-	ParseLoc	location pg_node_attr(query_jumble_location);
-} TransactionStmt;
+	TRANS_STMT_BEGIN,
+	TRANS_STMT_START,			/* semantically identical to BEGIN */
+	TRANS_STMT_COMMIT,
+	TRANS_STMT_ROLLBACK,
+	TRANS_STMT_SAVEPOINT,
+	TRANS_STMT_RELEASE,
+	TRANS_STMT_ROLLBACK_TO,
+	TRANS_STMT_PREPARE,
+	TRANS_STMT_COMMIT_PREPARED,
+	TRANS_STMT_ROLLBACK_PREPARED,
+} TransactionStmtKind;
 ```
 ## Detailed Description
 TransactionStmtKind categorizes the various transaction control statements supported by PostgreSQL. It covers three main areas of transaction management:
@@ -35,16 +35,16 @@ TransactionStmtKind categorizes the various transaction control statements suppo
 This enumeration is used primarily in the TransactionStmt parse node structure to distinguish between different transaction statement types during parsing and execution.
 
 ## Parameters / Member Variables
-- : Begin a new transaction block
-- : Start a new transaction block (identical to BEGIN)
-- : Commit the current transaction
-- : Rollback the current transaction
-- : Create a savepoint within the transaction
-- : Release a savepoint (commit its effects)
-- : Rollback to a specific savepoint
-- : Prepare a transaction for two-phase commit
-- : Commit a previously prepared transaction
-- : Rollback a previously prepared transaction
+- `TRANS_STMT_BEGIN`: Begin a new transaction block
+- `TRANS_STMT_START`: Start a new transaction block (identical to BEGIN)
+- `TRANS_STMT_COMMIT`: Commit the current transaction
+- `TRANS_STMT_ROLLBACK`: Rollback the current transaction
+- `TRANS_STMT_SAVEPOINT`: Create a savepoint within the transaction
+- `TRANS_STMT_RELEASE`: Release a savepoint (commit its effects)
+- `TRANS_STMT_ROLLBACK_TO`: Rollback to a specific savepoint
+- `TRANS_STMT_PREPARE`: Prepare a transaction for two-phase commit
+- `TRANS_STMT_COMMIT_PREPARED`: Commit a previously prepared transaction
+- `TRANS_STMT_ROLLBACK_PREPARED`: Rollback a previously prepared transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:

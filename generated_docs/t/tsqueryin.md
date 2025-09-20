@@ -26,9 +26,11 @@ The function uses  as its callback, which ensures that operands are added to the
 The function follows PostgreSQL's standard I/O function conventions, taking arguments through the  macro and returning a  through .
 
 ## Parameters / Member Variables
-- Function uses  calling convention:
-  - : Input string containing the tsquery representation
-  - : Error context for soft error handling
+- `curpol`: Pointer to the current QueryItem in the parsed query structure
+- `buf`: Character buffer containing the input string being parsed
+- `cur`: Current position pointer within the input buffer during parsing
+- `op`: Pointer to the current operator being processed
+- `buflen`: Length of the input buffer in characters
 
 ## Dependencies
 - Functions called/Symbols referenced:

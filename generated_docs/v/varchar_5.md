@@ -22,8 +22,8 @@ The struct follows the standard ECPG varchar pattern where:
 This structure appears in test code that validates ECPG's ability to correctly handle arrays of varchar structures when interfacing with SQL queries.
 
 ## Parameters / Member Variables
-- : Integer field that stores the actual length of the string data
-- : Character array with a fixed capacity of 50 characters to store the string content
+- `len`: Integer field that stores the actual length of the string data
+- `arr`: Character array with a fixed capacity of 50 characters to store the string content
 
 ## Dependencies
 - Functions called/Symbols referenced:

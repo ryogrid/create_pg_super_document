@@ -93,10 +93,11 @@ The function implements several layers of strictness detection:
 
 The allow_false parameter provides flexibility for top-level boolean contexts where proving "not TRUE" is sufficient instead of proving strict NULL propagation.
 
-## Parameters / Member Variables
-- : The expression to analyze for strictness behavior
-- : The subexpression that might be NULL, causing strictness
-- : Whether proving FALSE result (not just NULL) is acceptable for top-level boolean expressions
+## Parameters
+
+- `clause`: The expression to analyze for strictness behavior
+- `subexpr`: The subexpression that might be NULL, causing strictness
+- `allow_false`: Whether proving FALSE result (not just NULL) is acceptable for top-level boolean expressions
 
 ## Dependencies
 - Functions called/Symbols referenced:

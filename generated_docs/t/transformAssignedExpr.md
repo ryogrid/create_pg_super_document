@@ -94,14 +94,14 @@ For indirection cases, the function distinguishes between INSERT and UPDATE oper
 - INSERT with indirection: creates a NULL constant as the base value since there's no existing column value
 - UPDATE with indirection: creates a Var node representing the current column value
 
-## Parameters / Member Variables
-- : Parse state containing context for the current query parsing
-- : Expression to be transformed for assignment (already processed by transformExpr)
-- : ParseExprKind indicating the type of statement context (INSERT vs UPDATE)
-- : Name of the target column being assigned to
-- : Attribute number of the target column in the relation
-- : List of subscripts or field names for complex assignments (may be NULL)
-- : Error cursor position for the target column (-1 if not applicable)
+## Parameters
+- `pstate`: Parse state containing context for the current query parsing
+- `expr`: Expression to be transformed for assignment (already processed by transformExpr)
+- `exprKind`: ParseExprKind indicating the type of statement context (INSERT vs UPDATE)
+- `colname`: Name of the target column being assigned to
+- `attrno`: Attribute number of the target column in the relation
+- `indirection`: List of subscripts or field names for complex assignments (may be NULL)
+- `location`: Error cursor position for the target column (-1 if not applicable)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,9 +25,9 @@ The function handles two primary considerations:
 
 The implementation uses a stable insertion sort rather than qsort() to preserve the original order when costs are identical, which maintains predictable behavior. The function works optimally with RestrictInfo nodes since they cache cost information, but can also handle bare clause nodes (though without security considerations in that case).
 
-## Parameters / Member Variables
-- : PlannerInfo structure containing planner state and cost parameters
-- : List of qualification clauses to be ordered (can be RestrictInfos or bare clauses)
+## Parameters
+- `root`: PlannerInfo structure containing planner state and cost parameters
+- `clauses`: List of qualification clauses to be ordered (can be RestrictInfos or bare clauses)
 
 ### Internal QualItem Structure:
 - : The qualification clause (Node pointer)

@@ -29,11 +29,11 @@ table_beginscan is a high-level interface function that starts a table scan oper
 
 The function delegates the actual scan initialization to the table's access method handler through the rd_tableam->scan_begin function pointer, making it compatible with different storage engines (heap, columnar, etc.).
 
-## Parameters / Member Variables
-- : The relation (table) to be scanned
-- : Snapshot for visibility checking of tuples during the scan
-- : Number of scan keys for filtering (0 means no filtering)
-- : Array of ScanKeyData structures defining the filter conditions
+## Parameters
+- `rel`: The relation (table) to be scanned
+- `snapshot`: Snapshot for visibility checking of tuples during the scan
+- `nkeys`: Number of scan keys for filtering (0 means no filtering)
+- `key`: Array of ScanKeyData structures defining the filter conditions
 
 ## Dependencies
 - Functions called/Symbols referenced:

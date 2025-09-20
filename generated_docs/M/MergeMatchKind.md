@@ -33,9 +33,9 @@ The enum values correspond to the SQL standard MERGE statement syntax:
 This enumeration is central to the MERGE statement's conditional logic, allowing different actions (INSERT, UPDATE, DELETE, DO NOTHING) to be applied based on the match status of each row.
 
 ## Parameters / Member Variables
-- : Indicates a row exists in both source and target tables based on the merge join condition
-- : Indicates a row exists in the target table but has no matching row in the source table
-- : Indicates a row exists in the source table but has no matching row in the target table
+- `MERGE_WHEN_MATCHED`: Indicates a row exists in both source and target tables based on the merge join condition
+- `MERGE_WHEN_NOT_MATCHED_BY_SOURCE`: Indicates a row exists in the target table but has no matching row in the source table
+- `MERGE_WHEN_NOT_MATCHED_BY_TARGET`: Indicates a row exists in the source table but has no matching row in the target table
 
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a basic enum type)

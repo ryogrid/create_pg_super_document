@@ -28,8 +28,8 @@ struct separator sep, FILE *fout)
 ## Detailed Description
 The  function transforms a numeric string to conform to locale-specific formatting rules. It first validates that the input string contains only numeric characters (digits, signs, decimal point, and scientific notation). The function then allocates a new string with sufficient space for locale formatting, processes the sign character, inserts thousands separators at appropriate positions in the integral part, replaces the decimal point with the locale-specific decimal point, and copies any remaining fractional digits or exponent notation. The function requires that  has been called previously to initialize the locale-specific formatting variables.
 
-## Parameters / Member Variables
-- : A null-terminated string representing a numeric value to be formatted with locale-specific rules
+## Parameters
+- `my_str`: A null-terminated string representing a numeric value to be formatted with locale-specific rules
 
 ## Dependencies
 - Functions called/Symbols referenced:

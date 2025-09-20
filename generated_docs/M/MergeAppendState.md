@@ -27,19 +27,16 @@ typedef struct MergeAppendState
 MergeAppendState maintains the execution state for a MergeAppend plan node, which combines sorted output from multiple child plans while preserving the sort order. It uses a binary heap to efficiently determine which subplan produces the next tuple in the merged result. The structure supports runtime partition pruning to eliminate unnecessary subplans during execution.
 
 ## Parameters / Member Variables
-
-12636 ?        00:00:00 bash
-12687 ?        00:00:00 ps
-21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node fields
-- : Array of PlanState pointers for each input subplan
-- : Number of subplans in the mergeplans array
-- : Number of sort key columns used for merging
-- : SortSupport array containing sort key information for efficient comparison
-- : Array of TupleTableSlot pointers, one for each subplan's current output tuple
-- : Binary heap structure used to efficiently find the next tuple in sort order
-- : Boolean flag indicating whether all subplans have been started and their first tuples fetched
-- : Partition pruning state for runtime elimination of unnecessary partitions, or NULL if not applicable
-- : Bitmapset indicating which subplans are valid for runtime pruning
+- `ps`: Base PlanState structure containing common executor node fields
+- `mergeplans`: Array of PlanState pointers for each input subplan
+- `ms_nplans`: Number of subplans in the mergeplans array
+- `ms_nkeys`: Number of sort key columns used for merging
+- `ms_sortkeys`: SortSupport array containing sort key information for efficient comparison
+- `ms_slots`: Array of TupleTableSlot pointers, one for each subplan's current output tuple
+- `ms_heap`: Binary heap structure used to efficiently find the next tuple in sort order
+- `ms_initialized`: Boolean flag indicating whether all subplans have been started and their first tuples fetched
+- `ms_prune_state`: Partition pruning state for runtime elimination of unnecessary partitions, or NULL if not applicable
+- `ms_valid_subplans`: Bitmapset indicating which subplans are valid for runtime pruning
 
 ## Dependencies
 - Functions called/Symbols referenced:

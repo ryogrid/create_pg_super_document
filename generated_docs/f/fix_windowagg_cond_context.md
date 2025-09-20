@@ -23,9 +23,9 @@ WindowAgg nodes use run conditions to optimize window function execution by skip
 This context is used by specialized expression mutator functions that handle the specific requirements of WindowAgg run condition expressions, ensuring that variable references are correctly mapped to the subplan's output.
 
 ## Parameters / Member Variables
-- : Pointer to the PlannerInfo structure containing global planner state and context
-- : Indexed target list for the subplan providing input to the WindowAgg node
-- : New variable number to assign to variables in the WindowAgg context
+- `root`: Pointer to the PlannerInfo structure containing global planner state and context
+- `subplan_itlist`: Indexed target list for the subplan providing input to the WindowAgg node
+- `newvarno`: New variable number to assign to variables in the WindowAgg context
 
 ## Dependencies
 - Functions called/Symbols referenced:

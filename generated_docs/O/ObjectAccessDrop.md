@@ -36,7 +36,7 @@ The primary purpose is to inform extensions about the deletion context through f
 This information enables security and logging extensions to make informed decisions about how to handle different types of deletion operations, potentially applying different policies or logging levels based on the deletion context.
 
 ## Parameters / Member Variables
-- : Integer flags that inform extensions about the context of the deletion operation. These flags correspond to PERFORM_DELETION_* constants in dependency.h, providing details about whether the deletion is cascaded, restricted, or has other special characteristics.
+- `dropflags`: Integer flags that inform extensions about the context of the deletion operation. These flags correspond to PERFORM_DELETION_* constants in dependency.h, providing details about whether the deletion is cascaded, restricted, or has other special characteristics.
 
 ## Dependencies
 - Functions called/Symbols referenced: 

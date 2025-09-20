@@ -1,7 +1,7 @@
 # TAR_MEMBER
 
 ## Location
-[src/bin/pg_dump/pg_backup_tar.c:76-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L76-L88)
+[src/bin/pg_dump/pg_backup_tar.c:66-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L66-L76)
 
 ## Overview
 TAR_MEMBER is a structure that represents a member (file) within a tar archive used by PostgreSQL's pg_dump utility for backup operations.
@@ -11,29 +11,28 @@ TAR_MEMBER is a structure that represents a member (file) within a tar archive u
 ```c
 typedef struct
 {
-	int			hasSeek;
-	pgoff_t		filePos;
-	TAR_MEMBER *loToc;
+	FILE	   *nFH;
 	FILE	   *tarFH;
-	pgoff_t		tarFHpos;
-	pgoff_t		tarNextMember;
-	TAR_MEMBER *FH;
-	int			isSpecialScript;
-	TAR_MEMBER *scriptTH;
-} lclContext;
+	FILE	   *tmpFH;
+	char	   *targetFile;
+	char		mode;
+	pgoff_t		pos;
+	pgoff_t		fileLen;
+	ArchiveHandle *AH;
+} TAR_MEMBER;
 ```
 ## Detailed Description
 TAR_MEMBER is a core data structure in PostgreSQL's tar archive format implementation for pg_dump. It encapsulates all the necessary information and file handles needed to manage individual files within a tar archive during backup and restore operations. The structure maintains multiple file handles to support different operational modes and tracks the position and length of data within the archive.
 
 ## Parameters / Member Variables
-- : File handle for the named file (actual content file)
-- : File handle for the tar archive file
-- : Temporary file handle used during operations
-- : Path to the target file being processed
-- : Access mode character ('r' for read, 'w' for write, etc.)
-- : Current position within the file (of type pgoff_t for large file support)
-- : Total length of the file (of type pgoff_t for large file support)
-- : Pointer to the ArchiveHandle structure that owns this tar member
+- `nFH`: File handle for the named file (actual content file)
+- `tarFH`: File handle for the tar archive file
+- `tmpFH`: Temporary file handle used during operations
+- `targetFile`: Path to the target file being processed
+- `mode`: Access mode character ('r' for read, 'w' for write, etc.)
+- `pos`: Current position within the file (of type pgoff_t for large file support)
+- `fileLen`: Total length of the file (of type pgoff_t for large file support)
+- `AH`: Pointer to the ArchiveHandle structure that owns this tar member
 
 ## Dependencies
 - Functions called/Symbols referenced:

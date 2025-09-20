@@ -18,8 +18,7 @@ typedef struct ginxlogVacuumDataLeafPage
 The ginxlogVacuumDataLeafPage structure is used as part of WAL logging when vacuum operations are performed on GIN (Generalized Inverted Index) data leaf pages. This structure is a wrapper around ginxlogRecompressDataLeaf and is used specifically for vacuum operations that recompress the data in leaf pages. The vacuum process may remove dead tuples and reorganize the posting lists on data pages, and this WAL record ensures these operations can be properly replayed during recovery.
 
 ## Parameters / Member Variables
-- `data`: A ginxlogRecompressDataLeaf structure containing:
-  - `nactions`: Number of recompression actions to perform
+- `data`: A ginxlogRecompressDataLeaf structure containing the recompression information and number of actions to perform
 
 ## Dependencies
 - Functions called/Symbols referenced:

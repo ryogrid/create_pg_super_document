@@ -31,14 +31,14 @@ struct PLyDatumToOb
 PLyDatumToOb is a core data structure in PostgreSQL's PLpython extension that encapsulates all information needed to convert PostgreSQL Datum values into their corresponding Python object representations. It serves as a conversion context that contains both the conversion function and all necessary metadata about the PostgreSQL data type being converted. The structure supports various PostgreSQL types including scalars, arrays, tuples, and types with custom transforms through a discriminated union approach.
 
 ## Parameters / Member Variables
-- : Function pointer to the appropriate conversion function that performs the actual Datum-to-Python-object conversion
-- : PostgreSQL type OID identifying the source data type
-- : Type modifier providing additional type information (e.g., precision, scale for numeric types)
-- : Boolean indicating whether the type is passed by value or by reference
-- : Length of the type in bytes (-1 for variable-length types)
-- : Alignment requirement for the type ('c'=char, 's'=short, 'i'=int, 'd'=double)
-- : Memory context where this conversion structure is allocated
-- : Union containing type-specific conversion data (scalar, array, tuple, or transform)
+- `func`: Function pointer to the appropriate conversion function that performs the actual Datum-to-Python-object conversion
+- `typoid`: PostgreSQL type OID identifying the source data type
+- `typmod`: Type modifier providing additional type information (e.g., precision, scale for numeric types)
+- `typbyval`: Boolean indicating whether the type is passed by value or by reference
+- `typlen`: Length of the type in bytes (-1 for variable-length types)
+- `typalign`: Alignment requirement for the type ('c'=char, 's'=short, 'i'=int, 'd'=double)
+- `mcxt`: Memory context where this conversion structure is allocated
+- `u`: Union containing type-specific conversion data (scalar, array, tuple, or transform)
 
 ## Dependencies
 - Functions called/Symbols referenced:

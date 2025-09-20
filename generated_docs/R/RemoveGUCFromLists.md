@@ -39,8 +39,8 @@ This function performs cleanup operations on a GUC variable by removing it from 
 
 The function is designed to be called in uncommon operations like variable deletion or reset, so performance is not critical. It ensures that all references to the GUC variable are properly cleaned up from the various tracking lists.
 
-## Parameters / Member Variables
-- : Pointer to the config_generic structure representing the GUC variable to be removed from lists
+## Parameters
+- `gconf`: Pointer to the config_generic structure representing the GUC variable to be removed from lists
 
 ## Dependencies
 - Functions called/Symbols referenced:

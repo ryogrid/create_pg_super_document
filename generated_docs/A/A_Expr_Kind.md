@@ -25,20 +25,20 @@ typedef struct A_Expr
 A_Expr_Kind categorizes different types of expressions in PostgreSQL's abstract syntax tree. It provides a comprehensive classification system for infix, prefix, and postfix expressions that can appear in SQL queries. Each kind corresponds to specific SQL syntax patterns and has constraints on the operator names that can be used. The enum is used by the parser to differentiate between various expression types during query analysis and transformation.
 
 ## Parameters / Member Variables
-- : Standard binary or unary operators (e.g., +, -, *, /)
-- : Scalar comparison with ANY array operator (e.g., value = ANY(array))
-- : Scalar comparison with ALL array operator (e.g., value > ALL(array))
-- : IS DISTINCT FROM comparison, requires "=" as operator name
-- : IS NOT DISTINCT FROM comparison, requires "=" as operator name
-- : NULLIF function expression, requires "=" as operator name
-- : IN or NOT IN membership tests, requires "=" or "<>" as operator name
-- : LIKE or NOT LIKE pattern matching, requires "~~" or "!~~" as operator name
-- : ILIKE or NOT ILIKE case-insensitive pattern matching, requires "~~*" or "!~~*"
-- : SIMILAR TO or NOT SIMILAR TO regex matching, requires "~" or "!~"
-- : BETWEEN range comparison
-- : NOT BETWEEN range comparison
-- : BETWEEN SYMMETRIC range comparison
-- : NOT BETWEEN SYMMETRIC range comparison
+- `AEXPR_OP`: Standard binary or unary operators (e.g., +, -, *, /)
+- `AEXPR_OP_ANY`: Scalar comparison with ANY array operator (e.g., value = ANY(array))
+- `AEXPR_OP_ALL`: Scalar comparison with ALL array operator (e.g., value > ALL(array))
+- `AEXPR_DISTINCT`: IS DISTINCT FROM comparison, requires "=" as operator name
+- `AEXPR_NOT_DISTINCT`: IS NOT DISTINCT FROM comparison, requires "=" as operator name
+- `AEXPR_NULLIF`: NULLIF function expression, requires "=" as operator name
+- `AEXPR_IN`: IN or NOT IN membership tests, requires "=" or "<>" as operator name
+- `AEXPR_LIKE`: LIKE or NOT LIKE pattern matching, requires "~~" or "!~~" as operator name
+- `AEXPR_ILIKE`: ILIKE or NOT ILIKE case-insensitive pattern matching, requires "~~*" or "!~~*"
+- `AEXPR_SIMILAR`: SIMILAR TO or NOT SIMILAR TO regex matching, requires "~" or "!~"
+- `AEXPR_BETWEEN`: BETWEEN range comparison
+- `AEXPR_NOT_BETWEEN`: NOT BETWEEN range comparison
+- `AEXPR_BETWEEN_SYM`: BETWEEN SYMMETRIC range comparison
+- `AEXPR_NOT_BETWEEN_SYM`: NOT BETWEEN SYMMETRIC range comparison
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,14 +23,14 @@ typedef struct AlterSubscriptionStmt
 This enumeration defines the different types of modifications that can be made to PostgreSQL logical replication subscriptions through the ALTER SUBSCRIPTION statement. Subscriptions represent the subscriber side of logical replication, connecting to publications on remote PostgreSQL instances. Each enum value represents a specific aspect of the subscription that can be modified, from connection parameters to publication lists and operational settings.
 
 ## Parameters / Member Variables
-- : Modify subscription options (e.g., synchronous_commit, binary, streaming)
-- : Change the connection string to the publisher
-- : Replace the entire list of publications that this subscription follows
-- : Add new publications to the existing subscription list
-- : Remove specific publications from the subscription
-- : Refresh the subscription (re-synchronize table list from publications)
-- : Enable or disable the subscription
-- : Skip to a specific LSN (Log Sequence Number) for error recovery
+- `ALTER_SUBSCRIPTION_OPTIONS`: Modify subscription options (e.g., synchronous_commit, binary, streaming)
+- `ALTER_SUBSCRIPTION_CONNECTION`: Change the connection string to the publisher
+- `ALTER_SUBSCRIPTION_SET_PUBLICATION`: Replace the entire list of publications that this subscription follows
+- `ALTER_SUBSCRIPTION_ADD_PUBLICATION`: Add new publications to the existing subscription list
+- `ALTER_SUBSCRIPTION_DROP_PUBLICATION`: Remove specific publications from the subscription
+- `ALTER_SUBSCRIPTION_REFRESH`: Refresh the subscription (re-synchronize table list from publications)
+- `ALTER_SUBSCRIPTION_ENABLED`: Enable or disable the subscription
+- `ALTER_SUBSCRIPTION_SKIP`: Skip to a specific LSN (Log Sequence Number) for error recovery
 
 ## Dependencies
 - Functions called/Symbols referenced:

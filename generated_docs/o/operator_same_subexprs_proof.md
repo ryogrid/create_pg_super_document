@@ -20,10 +20,10 @@ This function handles the case where we have identical subexpressions in both th
 
 The function assumes immutability of the pred_op and relies on the fact that commutators and negators of immutable operators are also immutable.
 
-## Parameters / Member Variables
-- : OID of the predicate operator to be proven/refuted
-- : OID of the clause operator assumed to be true
-- : When false, attempts to prove predicate true; when true, attempts to prove predicate false
+## Parameters
+- `pred_op`: OID of the predicate operator to be proven/refuted
+- `clause_op`: OID of the clause operator assumed to be true
+- `refute_it`: When false, attempts to prove predicate true; when true, attempts to prove predicate false
 
 ## Dependencies
 - Functions called/Symbols referenced:

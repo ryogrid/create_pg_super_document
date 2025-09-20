@@ -82,8 +82,8 @@ The structure handles complex hostname resolution logic, tracking whether revers
 - `guc_options`: List of GUC parameter name/value pairs from startup packet
 - `application_name`: Application name from startup packet (for logging only)
 - `hba`: HBA line that matches this connection during authentication
-- `default_keepalives_*`: Default TCP keepalive parameter values
-- `keepalives_*`: Current TCP keepalive parameter values
+- `default_keepalives_idle`, `default_keepalives_interval`, `default_keepalives_count`, `default_tcp_user_timeout`: Default TCP keepalive parameter values
+- `keepalives_idle`, `keepalives_interval`, `keepalives_count`: Current TCP keepalive parameter values
 - `tcp_user_timeout`: TCP user timeout setting
 - `gss`: GSSAPI authentication and encryption context
 - `ssl_in_use`: Boolean indicating SSL/TLS is active

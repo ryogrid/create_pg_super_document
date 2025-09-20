@@ -21,10 +21,10 @@ struct customer4 {
 The  struct represents another variant of a customer record structure designed for ECPG testing. It demonstrates the use of variable-length character fields (varchar_4) within embedded SQL applications. The structure is identical to customer3 in terms of member types but uses varchar_4 for the name field and is instantiated as a single object (custs4) rather than an array. This provides test coverage for different instantiation patterns.
 
 ## Parameters / Member Variables
-- : A nested varchar_4 structure containing length information and character array for storing customer names
-  - : Integer representing the actual length of the string
-  - : Character array with maximum capacity of 50 characters
-- : Integer field for storing customer phone numbers
+- `name`: A nested varchar_4 structure containing length information and character array for storing customer names
+  - `name.len`: Integer representing the actual length of the string
+  - `name.arr`: Character array with maximum capacity of 50 characters
+- `phone`: Integer field for storing customer phone numbers
 
 ## Dependencies
 - Functions called/Symbols referenced:

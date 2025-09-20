@@ -28,9 +28,9 @@ The context provides essential information needed to properly transform expressi
 This structure is typically passed to expression mutator and walker functions that traverse and modify expression trees during the plan finalization process.
 
 ## Parameters / Member Variables
-- : Pointer to the PlannerInfo structure containing global planner state and information
-- : Range table offset adjustment, used when processing subqueries or views that need RT index translation
-- : Estimated number of executions for this scan, used for cost calculations and optimization decisions
+- `root`: Pointer to the PlannerInfo structure containing global planner state and information
+- `rtoffset`: Range table offset adjustment, used when processing subqueries or views that need RT index translation
+- `num_exec`: Estimated number of executions for this scan, used for cost calculations and optimization decisions
 
 ## Dependencies
 - Functions called/Symbols referenced:

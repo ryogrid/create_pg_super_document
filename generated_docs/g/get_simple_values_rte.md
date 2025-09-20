@@ -52,8 +52,8 @@ This function analyzes a query to determine if it has the simple form "SELECT ..
 The function is designed to work even when the query contains OLD or NEW rule RTEs, focusing only on finding a single VALUES RTE in the FROM clause. If multiple VALUES RTEs exist or if column names don't match expected values, the function returns NULL to indicate the query is not in the simple form.
 
 ## Parameters / Member Variables
-- : The Query structure to analyze for simple VALUES pattern
-- : Optional tuple descriptor that may provide column name constraints
+- `query`: The Query structure to analyze for simple VALUES pattern
+- `resultDesc`: Optional tuple descriptor that may provide column name constraints
 
 ## Dependencies
 - Functions called/Symbols referenced:

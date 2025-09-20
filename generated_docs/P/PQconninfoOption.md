@@ -29,13 +29,13 @@ PQconninfoOption is a fundamental data structure in PostgreSQL's libpq interface
 The structure serves multiple purposes: it provides a standardized way to represent connection options, supports internationalization through labels, enables secure handling of sensitive data through display characteristics, and maintains fallback mechanisms through environment variables and compiled defaults.
 
 ## Parameters / Member Variables
-- : The canonical name of the connection parameter (e.g., "host", "port", "dbname")
-- : Name of the environment variable that can provide a fallback value for this parameter (e.g., "PGHOST" for host)
-- : The default value compiled into libpq for this parameter, used when no other value is provided
-- : The current value of the parameter, or NULL if no value has been set
-- : Human-readable label for this parameter, used in connection dialogs and user interfaces
-- : Display characteristic control string - "" for normal display, "*" for password fields (hidden), "D" for debug options (hidden by default)
-- : Suggested field width in characters for displaying this parameter in dialog boxes
+- `keyword`: The canonical name of the connection parameter (e.g., "host", "port", "dbname")
+- `envvar`: Name of the environment variable that can provide a fallback value for this parameter (e.g., "PGHOST" for host)
+- `compiled`: The default value compiled into libpq for this parameter, used when no other value is provided
+- `val`: The current value of the parameter, or NULL if no value has been set
+- `label`: Human-readable label for this parameter, used in connection dialogs and user interfaces
+- `dispchar`: Display characteristic control string - "" for normal display, "*" for password fields (hidden), "D" for debug options (hidden by default)
+- `dispsize`: Suggested field width in characters for displaying this parameter in dialog boxes
 
 ## Dependencies
 - Functions called/Symbols referenced:

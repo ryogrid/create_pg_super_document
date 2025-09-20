@@ -27,13 +27,13 @@ During the expression fixing phase, join expressions need access to variables fr
 The structure is used by expression mutator functions that traverse join condition expressions and other join-related expressions, updating variable references to point to the correct target list entries from the outer and inner relations.
 
 ## Parameters / Member Variables
-- : Pointer to the PlannerInfo structure containing global planner state
-- : Indexed target list for the outer (left) relation in the join
-- : Indexed target list for the inner (right) relation in the join
-- : Index of the relation whose variables are acceptable in this context
-- : Range table offset adjustment for nested query contexts
-- : Nulling relations matching mode for handling outer join semantics
-- : Estimated number of executions for cost-based decisions
+- `root`: Pointer to the PlannerInfo structure containing global planner state
+- `outer_itlist`: Indexed target list for the outer (left) relation in the join
+- `inner_itlist`: Indexed target list for the inner (right) relation in the join
+- `acceptable_rel`: Index of the relation whose variables are acceptable in this context
+- `rtoffset`: Range table offset adjustment for nested query contexts
+- `nrm_match`: Nulling relations matching mode for handling outer join semantics
+- `num_exec`: Estimated number of executions for cost-based decisions
 
 ## Dependencies
 - Functions called/Symbols referenced:

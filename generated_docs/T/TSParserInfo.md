@@ -1,7 +1,7 @@
 # TSParserInfo
 
 ## Location
-[src/bin/pg_dump/pg_dump.h:541-542](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L541-L542)
+[src/bin/pg_dump/pg_dump.h:533-541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L533-L541)
 
 ## Overview
 TSParserInfo is a structure used in pg_dump to represent a PostgreSQL text search parser, storing metadata needed to dump and restore text search parsers.
@@ -9,24 +9,26 @@ TSParserInfo is a structure used in pg_dump to represent a PostgreSQL text searc
 ## Definition
 
 ```c
-typedef struct _dictInfo
+typedef struct _prsInfo
 {
 	DumpableObject dobj;
-	const char *rolname;
-	Oid			dicttemplate;
-	char	   *dictinitoption;
-} TSDictInfo;
+	Oid			prsstart;
+	Oid			prstoken;
+	Oid			prsend;
+	Oid			prsheadline;
+	Oid			prslextype;
+} TSParserInfo;
 ```
 ## Detailed Description
 TSParserInfo is part of pg_dump's internal representation of PostgreSQL database objects that need to be dumped and restored. It specifically handles text search parsers, which are components of PostgreSQL's full-text search system. The structure stores the OIDs of the five functions that make up a text search parser: start, token, end, headline, and lextype functions. This information is retrieved from the pg_ts_parser system catalog and used to generate CREATE TEXT SEARCH PARSER statements during database dumps.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing common metadata (name, namespace, dump ID, object type)
-- : OID of the parser's start function that initializes parsing
-- : OID of the parser's token function that extracts the next token
-- : OID of the parser's end function that finalizes parsing
-- : OID of the parser's headline function for creating search result headlines
-- : OID of the parser's lextype function that returns token type information
+- `dobj`: Base DumpableObject containing common metadata (name, namespace, dump ID, object type)
+- `prsstart`: OID of the parser's start function that initializes parsing
+- `prstoken`: OID of the parser's token function that extracts the next token
+- `prsend`: OID of the parser's end function that finalizes parsing
+- `prsheadline`: OID of the parser's headline function for creating search result headlines
+- `prslextype`: OID of the parser's lextype function that returns token type information
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,8 +20,9 @@ typedef struct _tableAttachInfo
 The  structure is a specialized data structure used by pg_dump to manage partition attachment information during the dump and restore process. It maintains the relationship between a partition table and its parent partitioned table, ensuring that partition hierarchies are properly reconstructed during database restoration.
 
 ## Parameters / Member Variables
-- : Base dumpable object information containing metadata such as object ID, name, namespace, and dump ordering information
-- : Pointer to the TableInfo structure representing the parent partitioned table to which this partition should be attached
+- `dobj`: Base dumpable object information containing metadata such as object ID, name, namespace, and dump ordering information
+- `parentTbl`: Pointer to the TableInfo structure representing the parent partitioned table to which this partition should be attached
+- `partitionTbl`: Pointer to the TableInfo structure representing the partition table being attached
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -21,14 +21,8 @@ typedef struct JitContext
 JitContext serves as the primary coordination structure for PostgreSQL's JIT compilation system. It maintains configuration flags that determine what types of JIT operations should be performed, and includes an embedded JitInstrumentation structure to track performance metrics for the JIT operations. This context is typically associated with query execution state and is used throughout the query lifecycle to guide JIT compilation decisions and collect performance data.
 
 ## Parameters / Member Variables
-- : Bitfield containing PGJIT_* flags that control JIT behavior:
-  - PGJIT_NONE (0): No JIT operations
-  - PGJIT_PERFORM (1 << 0): Enable basic JIT compilation
-  - PGJIT_OPT3 (1 << 1): Enable level 3 optimizations
-  - PGJIT_INLINE (1 << 2): Enable function inlining
-  - PGJIT_EXPR (1 << 3): Enable expression compilation
-  - PGJIT_DEFORM (1 << 4): Enable tuple deforming compilation
-- : Embedded JitInstrumentation structure for tracking performance metrics
+- `flags`: Integer bitfield containing PGJIT_* flags that control JIT compilation behavior (see PGJIT_* constants above in the header file)
+- `instr`: Embedded JitInstrumentation structure that tracks JIT compilation performance metrics and statistics
 
 ## Dependencies
 - Functions called/Symbols referenced:

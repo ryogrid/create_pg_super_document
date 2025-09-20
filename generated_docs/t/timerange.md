@@ -24,11 +24,11 @@ The  structure is used in PostgreSQL's timezone compiler (zic.c) to define and m
 The structure supports range-based operations on timezone data, allowing the compiler to focus on specific time periods and optimize the output by including only relevant timezone transitions and leap second information for the specified range.
 
 ## Parameters / Member Variables
-- : Integer specifying the default timezone type to use for this time range
-- : Starting index (as ptrdiff_t) in the timezone data arrays for this range
-- : Number of time transition entries (as ptrdiff_t) included in this range
-- : Starting index for leap second data within this time range
-- : Number of leap second entries included in this time range
+- `defaulttype`: Integer specifying the default timezone type to use for this time range
+- `base`: Starting index (as ptrdiff_t) in the timezone data arrays for this range
+- `count`: Number of time transition entries (as ptrdiff_t) included in this range
+- `leapbase`: Starting index for leap second data within this time range
+- `leapcount`: Number of leap second entries included in this time range
 
 ## Dependencies
 - Functions called/Symbols referenced:

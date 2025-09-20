@@ -24,10 +24,10 @@ The  structure is part of PostgreSQL's injection point testing framework. It pro
 The structure supports different types of conditions through the  field, and currently includes support for process ID-based restrictions through the  field. This enables testing scenarios where injection points should only be active in specific processes.
 
 ## Parameters / Member Variables
-- : Specifies the type of condition to evaluate, using  enum values:
-  - : The injection point always runs (no restrictions)
-  - : The injection point only runs if the current process ID matches the specified PID
-- : The process ID that must match the current process () for the injection point to be allowed to execute (only used when  is )
+- `type`: Specifies the type of condition to evaluate, using InjectionPointConditionType enum values:
+  - `INJECTION_POINT_CONDITION_NONE`: The injection point always runs (no restrictions)
+  - `INJECTION_POINT_CONDITION_PID`: The injection point only runs if the current process ID matches the specified PID
+- `pid`: The process ID that must match the current process (getpid()) for the injection point to be allowed to execute (only used when type is `INJECTION_POINT_CONDITION_PID`)
 
 ## Dependencies
 - Functions called/Symbols referenced:

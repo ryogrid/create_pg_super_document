@@ -24,11 +24,11 @@ PLyCursorObject is the core data structure that enables PL/Python functions to w
 The structure maintains state information about the cursor including its portal name, conversion functions for result data, closure status, and its own memory context for proper resource management. When a cursor is created through PL/Python's cursor() function, it creates a PLyCursorObject instance that manages the underlying PostgreSQL portal and handles data type conversions between PostgreSQL and Python.
 
 ## Parameters / Member Variables
-- : Standard Python object header that makes this structure a proper Python object
-- : Name of the underlying PostgreSQL portal that implements the cursor functionality  
-- : PLyDatumToOb structure containing conversion functions and metadata for transforming PostgreSQL Datum values to Python objects
-- : Boolean flag indicating whether the cursor has been explicitly closed
-- : Dedicated memory context for this cursor object, ensuring proper memory management and cleanup
+- `PyObject_HEAD`: Standard Python object header that makes this structure a proper Python object
+- `portalname`: Name of the underlying PostgreSQL portal that implements the cursor functionality  
+- `result`: PLyDatumToOb structure containing conversion functions and metadata for transforming PostgreSQL Datum values to Python objects
+- `closed`: Boolean flag indicating whether the cursor has been explicitly closed
+- `mcxt`: Dedicated memory context for this cursor object, ensuring proper memory management and cleanup
 
 ## Dependencies
 - Functions called/Symbols referenced:

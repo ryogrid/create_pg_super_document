@@ -24,11 +24,11 @@ This structure is particularly important during the set_plan_refs phase of query
 The structure includes flags to indicate the presence of different types of expressions (PlaceHolderVars, non-variable expressions) and maintains an array of  structures that provide quick access to plain Var entries.
 
 ## Parameters / Member Variables
-- : The underlying target list that this structure indexes
-- : Count of plain Var entries in the target list, determines size of vars array
-- : Boolean flag indicating whether the target list contains PlaceHolderVar entries
-- : Boolean flag indicating whether the target list contains non-variable expressions
-- : Flexible array member containing  structures for quick Var lookups
+- `tlist`: The underlying target list that this structure indexes
+- `num_vars`: Count of plain Var entries in the target list, determines size of vars array
+- `has_ph_vars`: Boolean flag indicating whether the target list contains PlaceHolderVar entries
+- `has_non_vars`: Boolean flag indicating whether the target list contains non-variable expressions
+- `vars`: Flexible array member containing tlist_vinfo structures for quick Var lookups
 
 ## Dependencies
 - Functions called/Symbols referenced:

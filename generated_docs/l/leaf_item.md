@@ -1,7 +1,7 @@
 # leaf_item
 
 ## Location
-[src/backend/lib/integerset.c:165-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L165-L166)
+[src/backend/lib/integerset.c:161-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L161-L165)
 
 ## Overview
 The leaf_item structure is a fundamental storage unit in PostgreSQL's IntegerSet implementation that holds a cluster of compressed 64-bit integers in leaf nodes of the B-tree data structure.
@@ -9,16 +9,11 @@ The leaf_item structure is a fundamental storage unit in PostgreSQL's IntegerSet
 ## Definition
 
 ```c
-struct intset_leaf_node
+typedef struct
 {
-	/* common header, must match intset_node */
-	uint16		level;			/* 0 on leafs */
-	uint16		num_items;
-
-	intset_leaf_node *next;		/* right sibling, if any */
-
-	leaf_item	items[MAX_LEAF_ITEMS];
-};
+	uint64		first;			/* first integer in this item */
+	uint64		codeword;		/* simple8b encoded differences from 'first' */
+} leaf_item;
 ```
 ## Detailed Description
 The leaf_item structure serves as a basic storage element in the leaf nodes of PostgreSQL's IntegerSet B-tree. Each leaf_item can store between 1 and 241 integers using a hybrid storage approach: the first integer is stored directly in plain format, while up to 240 additional integers are stored as differences from the first integer, compressed using the Simple-8b encoding algorithm.
@@ -28,8 +23,8 @@ This design enables efficient storage of clustered integers while maintaining th
 The structure is part of PostgreSQL's memory-efficient integer set implementation that can achieve as low as 0.1 bytes per integer in optimal cases (consecutive integers) and provides a worst-case usage of about 8 bytes per integer when values are more than 2^32 apart.
 
 ## Parameters / Member Variables
-- : The first (base) integer stored in this leaf item, stored in uncompressed 64-bit format. This value serves as the base for calculating differences for the Simple-8b encoded values.
-- : A 64-bit Simple-8b encoded value containing up to 240 additional integers stored as differences from the 'first' value. The encoding packs multiple small difference values into a single 64-bit word.
+- `first`: The first (base) integer stored in this leaf item, stored in uncompressed 64-bit format. This value serves as the base for calculating differences for the Simple-8b encoded values.
+- `codeword`: A 64-bit Simple-8b encoded value containing up to 240 additional integers stored as differences from the 'first' value. The encoding packs multiple small difference values into a single 64-bit word.
 
 ## Dependencies
 - Functions called/Symbols referenced:

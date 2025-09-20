@@ -19,7 +19,7 @@ struct tsearch_config_match
 The  function validates a server encoding name and returns its corresponding integer ID. It first checks if the encoding name is non-null and non-empty, then uses  to validate the encoding and retrieve its ID. If the encoding name is invalid, null, or empty, the function calls  to terminate the program with an error message. This function is critical for ensuring that only valid encodings are used during database initialization.
 
 ## Parameters / Member Variables
-- : A string containing the name of the encoding to validate and convert to ID (can be NULL)
+- `encoding_name`: A string containing the name of the encoding to validate and convert to ID (can be NULL)
 
 ## Dependencies
 - Functions called/Symbols referenced:

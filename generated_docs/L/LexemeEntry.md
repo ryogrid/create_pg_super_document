@@ -22,8 +22,8 @@ LexemeEntry serves as a container for parsed tokens in PostgreSQL's text search 
 The structure is designed for temporary storage during parsing operations and is typically allocated in arrays that can be dynamically resized as more tokens are discovered. The lexeme field points to a null-terminated string copy of the token text, which is separately allocated and managed.
 
 ## Parameters / Member Variables
-- : An integer representing the token type classification as determined by the text parser
-- : A pointer to a null-terminated string containing the actual token text
+- `type`: An integer representing the token type classification as determined by the text parser
+- `lexeme`: A pointer to a null-terminated string containing the actual token text
 
 ## Dependencies
 - Functions called/Symbols referenced:

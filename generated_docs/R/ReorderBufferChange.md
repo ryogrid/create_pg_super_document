@@ -103,31 +103,31 @@ typedef struct ReorderBufferChange
 ReorderBufferChange is the fundamental data structure used in PostgreSQL's logical replication system to represent any type of change that occurs within a transaction. It uses a union to efficiently store different types of change data depending on the operation type. The structure supports tuple-level changes (INSERT, UPDATE, DELETE), DDL operations like TRUNCATE, logical replication messages, and internal operations for snapshot and command ID management. Each change is linked to its parent transaction and maintains ordering information through LSN values.
 
 ## Parameters / Member Variables
-- : Log Sequence Number indicating the WAL position where this change was recorded
-- : Type of change (INSERT, UPDATE, DELETE, TRUNCATE, SNAPSHOT, etc.) defined by ReorderBufferChangeType
-- : Pointer to the ReorderBufferTXN that contains this change
-- : Replication origin identifier for tracking change source
-- : File locator for the relation being modified (for tuple operations)
-- : Flag indicating whether TOAST chunks should be cleared after processing
-- : Previous version of the tuple (valid for UPDATE and DELETE)
-- : New version of the tuple (valid for INSERT and UPDATE)
-- : Number of relations being truncated
-- : Whether truncation should cascade to dependent objects
-- : Whether sequences should be restarted after truncation
-- : Array of relation OIDs to truncate
-- : Prefix string for logical replication messages
-- : Size of the message content
-- : Message content for logical replication
-- : New snapshot for internal snapshot changes
-- : Command ID for internal command tracking
-- : Relation locator for tuple CID mapping
-- : Item pointer for tuple identification
-- : Minimum command ID for tuple visibility
-- : Maximum command ID for tuple visibility
-- : Combined command ID for complex visibility rules
-- : Number of invalidation messages
-- : Array of cache invalidation messages
-- : Doubly-linked list node for organizing changes within transactions
+- `lsn`: Log Sequence Number indicating the WAL position where this change was recorded
+- `action`: Type of change (INSERT, UPDATE, DELETE, TRUNCATE, SNAPSHOT, etc.) defined by ReorderBufferChangeType
+- `txn`: Pointer to the ReorderBufferTXN that contains this change
+- `origin_id`: Replication origin identifier for tracking change source
+- `data.tp.rlocator`: File locator for the relation being modified (for tuple operations)
+- `data.tp.clear_toast_afterwards`: Flag indicating whether TOAST chunks should be cleared after processing
+- `data.tp.oldtuple`: Previous version of the tuple (valid for UPDATE and DELETE)
+- `data.tp.newtuple`: New version of the tuple (valid for INSERT and UPDATE)
+- `data.truncate.nrelids`: Number of relations being truncated
+- `data.truncate.cascade`: Whether truncation should cascade to dependent objects
+- `data.truncate.restart_seqs`: Whether sequences should be restarted after truncation
+- `data.truncate.relids`: Array of relation OIDs to truncate
+- `data.msg.prefix`: Prefix string for logical replication messages
+- `data.msg.message_size`: Size of the message content
+- `data.msg.message`: Message content for logical replication
+- `data.snapshot`: New snapshot for internal snapshot changes
+- `data.command_id`: Command ID for internal command tracking
+- `data.tuplecid.locator`: Relation locator for tuple CID mapping
+- `data.tuplecid.tid`: Item pointer for tuple identification
+- `data.tuplecid.cmin`: Minimum command ID for tuple visibility
+- `data.tuplecid.cmax`: Maximum command ID for tuple visibility
+- `data.tuplecid.combocid`: Combined command ID for complex visibility rules
+- `data.inval.ninvalidations`: Number of invalidation messages
+- `data.inval.invalidations`: Array of cache invalidation messages
+- `node`: Doubly-linked list node for organizing changes within transactions
 
 ## Dependencies
 - Functions called/Symbols referenced:

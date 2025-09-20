@@ -37,9 +37,10 @@ structed into outer/inner expressions, so they can be computed
 ## Detailed Description
 This function creates a HashJoin execution plan node from a HashPath. Hash joins are efficient when one relation (typically the smaller inner relation) can fit in a hash table built in memory, which is then probed by the outer relation to find matches. The function creates both a Hash node for building the hash table and a HashJoin node for the actual join operation. It handles hash key extraction from join clauses, sets up skew optimization for single-column joins when statistics are available, and manages batching for large datasets that don't fit in memory. The function also handles parallel execution by setting up shared hash table sizing information.
 
-## Parameters / Member Variables
-- : PlannerInfo structure containing global planning context and state information
-- : HashPath representing the chosen hash join access path with batching and hash clause information
+## Parameters
+
+- `root`: PlannerInfo structure containing global planning context and state information
+- `best_path`: HashPath representing the chosen hash join access path with batching and hash clause information
 
 ## Dependencies
 - Functions called/Symbols referenced:

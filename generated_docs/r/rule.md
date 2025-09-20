@@ -43,11 +43,25 @@ The  structure is a core component of PostgreSQL's timezone handling system, spe
 The structure supports different types of rules (indicated by r_type) and provides flexible ways to specify transition dates, whether by absolute day, week-based calculations, or other patterns. The timing information is stored as a 32-bit integer representing the time of day when the transition occurs.
 
 ## Parameters / Member Variables
-- : Enum value that specifies the type of transition rule (e.g., absolute date, last Sunday of month, etc.)
-- : Day component of the rule specification, interpretation depends on r_type
-- : Week component for week-based rules, used when r_type indicates week-based transitions
-- : Month number (1-12) when the timezone transition occurs
-- : Time of day (in seconds from midnight) when the transition takes effect
+- `r_filename`: Source filename where this rule was defined
+- `r_linenum`: Line number in source file where this rule was defined
+- `r_name`: Name of the timezone rule
+- `r_loyear`: Starting year for this rule (e.g., 1986)
+- `r_hiyear`: Ending year for this rule (e.g., 1986)
+- `r_lowasnum`: Whether r_loyear was specified as a number
+- `r_hiwasnum`: Whether r_hiyear was specified as a number
+- `r_month`: Month (0-11) when the timezone transition occurs
+- `r_dycode`: Day code specifying how the transition day is determined
+- `r_dayofmonth`: Day of month for the transition
+- `r_wday`: Day of week for the transition
+- `r_tod`: Time of day (in seconds from midnight) when the transition takes effect
+- `r_todisstd`: Whether r_tod is in standard time
+- `r_todisut`: Whether r_tod is in universal time
+- `r_isdst`: Whether this rule represents daylight saving time
+- `r_save`: Offset from standard time in seconds
+- `r_abbrvar`: Variable part of timezone abbreviation
+- `r_todo`: Flag indicating if this rule needs processing
+- `r_temp`: Temporary storage used during processing
 
 ## Dependencies
 - Functions called/Symbols referenced:

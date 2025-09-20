@@ -9,14 +9,14 @@ varchar_6 is a struct type definition used in PostgreSQL's ECPG (Embedded C for 
 ## Definition
 
 ```c
-struct varchar_4  { int len; char arr[ 50 ]; }  vc1 ;
+struct varchar_6  { int len; char arr[ 255 ]; }  vc3 ;
 ```
 ## Detailed Description
 varchar_6 is a C struct type that implements a variable-length string data structure used in ECPG test scenarios. This struct follows the typical PostgreSQL varchar pattern where the actual string length is stored separately from the character data. It is defined as part of a test case in the ECPG precompiler test suite, specifically for testing variable declarations and SQL data type handling. The struct is used to create static variable vc3 in the test code.
 
 ## Parameters / Member Variables
-- : Integer field that stores the actual length of the string data
-- : Character array that holds the string data, with a maximum capacity of 255 characters
+- `len`: Integer field that stores the actual length of the string data
+- `arr`: Character array that holds the string data, with a maximum capacity of 255 characters
 
 ## Dependencies
 - Functions called/Symbols referenced:

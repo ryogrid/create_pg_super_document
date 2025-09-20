@@ -31,10 +31,10 @@ The function implements a comprehensive switch statement covering over 60 differ
 
 This walker is particularly important during CTE analysis and other early-stage query processing where the system needs to examine raw parse tree structures before they undergo semantic transformation.
 
-## Parameters / Member Variables
-- : The root node of the raw parse tree to traverse
-- : Callback function that defines the walking behavior for each visited node
-- : Opaque context pointer passed through to the walker callback
+## Parameters
+- `node`: The root node of the raw parse tree to traverse
+- `walker`: Callback function that defines the walking behavior for each visited node
+- `context`: Opaque context pointer passed through to the walker callback
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -100,11 +100,11 @@ The function can create either a HeapTuple or MinimalTuple as output (exactly on
 
 The expansion process involves calculating the required memory size, allocating and initializing the target tuple structure, copying existing attribute data, and filling in missing attributes with appropriate values or NULLs.
 
-## Parameters / Member Variables
-- : Pointer to HeapTuple pointer for output (NULL if creating MinimalTuple)
-- : Pointer to MinimalTuple pointer for output (NULL if creating HeapTuple)
-- : The source HeapTuple with fewer attributes that needs expansion
-- : Tuple descriptor defining the target schema with more attributes
+## Parameters
+- `targetHeapTuple`: Pointer to HeapTuple pointer for output (NULL if creating MinimalTuple)
+- `targetMinimalTuple`: Pointer to MinimalTuple pointer for output (NULL if creating HeapTuple)
+- `sourceTuple`: The source HeapTuple with fewer attributes that needs expansion
+- `tupleDesc`: Tuple descriptor defining the target schema with more attributes
 
 ## Dependencies
 - Functions called/Symbols referenced:

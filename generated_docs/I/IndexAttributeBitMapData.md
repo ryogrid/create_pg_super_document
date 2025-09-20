@@ -24,8 +24,8 @@ The bitmap is sized to accommodate the maximum number of index keys supported by
 This design philosophy balances space efficiency with simplicity - the bitmap size is fixed regardless of the actual number of attributes in a specific index, avoiding the need to store attribute count information and maintaining MAXALIGN constraints for optimal memory access patterns.
 
 ## Parameters / Member Variables
-- : Array of bits8 (unsigned char) elements forming the null bitmap
-  - Size:  bytes (currently 4 bytes for 32 maximum keys)
+- `bits`: Array of bits8 (unsigned char) elements forming the null bitmap
+  - Size: `(INDEX_MAX_KEYS + 8 - 1) / 8` bytes (currently 4 bytes for 32 maximum keys)
   - Bit value 1: corresponding attribute is null
   - Bit value 0: corresponding attribute has a value
 

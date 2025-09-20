@@ -9,11 +9,13 @@ DiscardMode is an enumeration type that defines the different types of cached in
 ## Definition
 
 ```c
-typedef struct DiscardStmt
+typedef enum DiscardMode
 {
-	NodeTag		type;
-	DiscardMode target;
-} DiscardStmt;
+	DISCARD_ALL,
+	DISCARD_PLANS,
+	DISCARD_SEQUENCES,
+	DISCARD_TEMP,
+} DiscardMode;
 ```
 ## Detailed Description
 DiscardMode specifies what type of session state should be cleared by the DISCARD statement. The DISCARD statement is used to free up session-local resources and reset various session states to help with connection pooling and session cleanup:
@@ -29,10 +31,10 @@ DiscardMode specifies what type of session state should be cleared by the DISCAR
 This functionality is particularly useful for connection pooling scenarios where database connections are reused across different application sessions and need to be reset to a clean state.
 
 ## Parameters / Member Variables
-- : Discard all session state (comprehensive cleanup)
-- : Discard cached query plans and prepared statements
-- : Discard cached sequence values
-- : Discard temporary tables and objects
+- `DISCARD_ALL`: Discard all session state (comprehensive cleanup)
+- `DISCARD_PLANS`: Discard cached query plans and prepared statements
+- `DISCARD_SEQUENCES`: Discard cached sequence values
+- `DISCARD_TEMP`: Discard temporary tables and objects
 
 ## Dependencies
 - Functions called/Symbols referenced:

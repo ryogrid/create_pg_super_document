@@ -56,8 +56,8 @@ The function processes arguments in three phases:
 3. **Collation Propagation**: If needed, a RelabelType node is inserted to force the unified collation on the sort column
 
 ## Parameters / Member Variables  
-- : Pointer to the Aggref node representing the hypothetical-set aggregate function call
-- : Local collation context for accumulating collation state from qualifying argument pairs
+- `aggref`: Pointer to the Aggref node representing the hypothetical-set aggregate function call
+- `loccontext`: Local collation context for accumulating collation state from qualifying argument pairs
 
 ## Dependencies
 - Functions called/Symbols referenced:

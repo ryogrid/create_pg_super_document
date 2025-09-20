@@ -27,9 +27,9 @@ typedef struct BackgroundWorker
 The BgWorkerStartTime enumeration provides precise control over when background workers are started during the PostgreSQL startup sequence. This timing control is crucial for ensuring that workers are launched at appropriate moments when required subsystems are available and the database is in the correct state. Different worker types have different requirements - some need basic postmaster functionality, others require a consistent database state, and some need full recovery completion before they can operate safely.
 
 ## Parameters / Member Variables
-- : Worker starts immediately when the postmaster process begins, before database recovery
-- : Worker starts when the database reaches a consistent state during recovery
-- : Worker starts only after database recovery is completely finished
+- `BgWorkerStart_PostmasterStart`: Worker starts immediately when the postmaster process begins, before database recovery
+- `BgWorkerStart_ConsistentState`: Worker starts when the database reaches a consistent state during recovery
+- `BgWorkerStart_RecoveryFinished`: Worker starts only after database recovery is completely finished
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -28,10 +28,10 @@ The function performs several key operations for each relation:
 
 The function supports both concurrent and standard reindexing modes, automatically choosing the appropriate reindex function based on relation type (index vs. table) and reindexing options.
 
-## Parameters / Member Variables
-- : ReindexStmt structure containing the original REINDEX statement information
-- : List of relation OIDs to be reindexed
-- : ReindexParams structure containing reindexing options and parameters
+## Parameters
+- `stmt`: ReindexStmt structure containing the original REINDEX statement information
+- `relids`: List of relation OIDs to be reindexed
+- `params`: ReindexParams structure containing reindexing options and parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:

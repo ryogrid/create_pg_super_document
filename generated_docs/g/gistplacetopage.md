@@ -74,19 +74,19 @@ This function is the central workhorse for placing tuples onto GiST pages. It ha
 6. **Memory Management**: Operates within critical sections to ensure atomicity and handles both buffered and unbuffered operation modes.
 
 ## Parameters / Member Variables
-- : The GiST index relation being operated on
-- : Amount of free space that must be preserved on the page
-- : GiST state containing operator class information
-- : The target buffer/page for insertion
-- : Array of index tuples to be inserted
-- : Number of tuples in the itup array
-- : Offset of old tuple to replace (InvalidOffsetNumber if none)
-- : Returns block number where first new tuple was placed
-- : Buffer of left child page (for downlink operations)
-- : Returns information about split pages for caller to handle
-- : Whether to mark left child with follow-right flag during splits
-- : The heap relation (for predicate locking)
-- : Whether this is part of initial index build
+- `r`: The GiST index relation being operated on
+- `freespace`: Amount of free space that must be preserved on the page
+- `giststate`: GiST state containing operator class information
+- `buffer`: The target buffer/page for insertion
+- `itup`: Array of index tuples to be inserted
+- `ntup`: Number of tuples in the itup array
+- `oldoffnum`: Offset of old tuple to replace (InvalidOffsetNumber if none)
+- `newblkno`: Returns block number where first new tuple was placed
+- `leftchildbuf`: Buffer of left child page (for downlink operations)
+- `splitinfo`: Returns information about split pages for caller to handle
+- `markfollowright`: Whether to mark left child with follow-right flag during splits
+- `heapRel`: The heap relation (for predicate locking)
+- `is_build`: Whether this is part of initial index build
 
 ## Dependencies
 - Functions called/Symbols referenced:

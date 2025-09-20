@@ -24,11 +24,11 @@ typedef struct PLyResultObject
 PLyResultObject is a Python C extension object that encapsulates the results of SQL query execution within PL/Python functions. It extends the standard Python object model (PyObject_HEAD) to provide a Python-accessible interface to PostgreSQL query results. This structure is used to return query results from plpy.execute() and related functions to Python code, allowing Python functions to access row data, metadata, and execution status information. The object supports both sequence and mapping protocols, enabling Python-style access to query results through indexing and iteration.
 
 ## Parameters / Member Variables
-- : Standard Python object header containing reference count and type information
-- : Python integer object representing the number of rows returned by the query (-1 for utility commands)
-- : Python list object containing the actual row data as dictionaries, or empty list if no data returned
-- : Python object representing the query execution status (SPI_OK_*, SPI_ERR_* constants)
-- : PostgreSQL tuple descriptor containing metadata about the result columns (types, names, etc.)
+- `PyObject_HEAD`: Standard Python object header containing reference count and type information
+- `nrows`: Python integer object representing the number of rows returned by the query (-1 for utility commands)
+- `rows`: Python list object containing the actual row data as dictionaries, or empty list if no data returned
+- `status`: Python object representing the query execution status (SPI_OK_*, SPI_ERR_* constants)
+- `tupdesc`: PostgreSQL tuple descriptor containing metadata about the result columns (types, names, etc.)
 
 ## Dependencies
 - Functions called/Symbols referenced:

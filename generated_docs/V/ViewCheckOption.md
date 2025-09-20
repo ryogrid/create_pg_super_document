@@ -32,9 +32,9 @@ ViewCheckOption specifies the constraint checking behavior for views that suppor
 This feature is essential for maintaining data integrity when views are used as interfaces for data modification operations.
 
 ## Parameters / Member Variables
-- : No constraint checking on view modifications
-- : Check only this view's WHERE conditions
-- : Check this view's and all underlying views' conditions
+- `NO_CHECK_OPTION`: No constraint checking on view modifications
+- `LOCAL_CHECK_OPTION`: Check only this view's WHERE conditions
+- `CASCADED_CHECK_OPTION`: Check this view's and all underlying views' conditions
 
 ## Dependencies
 - Functions called/Symbols referenced:

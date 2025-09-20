@@ -23,11 +23,11 @@ The structure uses atomic operations and volatile declarations to ensure thread-
 The barrier mechanism ensures that critical system-wide operations (like file closure requests) are acknowledged by all processes before being considered complete, providing synchronization guarantees across the entire PostgreSQL cluster.
 
 ## Parameters / Member Variables
-- : The process ID of the PostgreSQL process that owns this slot, declared volatile for atomic access
-- : Array of volatile atomic flags, one for each signal reason (catchup interrupt, notify interrupt, parallel message, etc.), allowing concurrent signaling of different reasons
-- : Atomic 64-bit counter tracking the current barrier generation number for this process, used to confirm receipt of barrier signals
-- : Atomic 32-bit bitmask indicating which barrier types this process should check for, with each bit representing a different barrier type
-- : Condition variable used for efficient waiting on barrier completion, avoiding busy polling
+- `pss_pid`: The process ID of the PostgreSQL process that owns this slot, declared volatile for atomic access
+- `pss_signalFlags`: Array of volatile atomic flags, one for each signal reason (catchup interrupt, notify interrupt, parallel message, etc.), allowing concurrent signaling of different reasons
+- `pss_barrierGeneration`: Atomic 64-bit counter tracking the current barrier generation number for this process, used to confirm receipt of barrier signals
+- `pss_barrierCheckMask`: Atomic 32-bit bitmask indicating which barrier types this process should check for, with each bit representing a different barrier type
+- `pss_barrierCV`: Condition variable used for efficient waiting on barrier completion, avoiding busy polling
 
 ## Dependencies
 - Functions called/Symbols referenced:

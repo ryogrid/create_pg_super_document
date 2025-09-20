@@ -20,10 +20,10 @@ This function is a specialized version of IncrementVarSublevelsUp that operates 
 
 The function uses the range_table_walker infrastructure to traverse the range table structure and applies the IncrementVarSublevelsUp_walker function to modify qualifying Var nodes. The QTW_EXAMINE_RTES_BEFORE flag ensures that range table entries are examined before descending into their substructures.
 
-## Parameters / Member Variables
-- : The range table (List of RangeTblEntry nodes) to process
-- : The amount to increment varlevelsup fields by
-- : Only increment varlevelsup if it's >= this threshold value
+## Parameters
+- `rtable`: The range table (List of RangeTblEntry nodes) to process
+- `delta_sublevels_up`: The amount to increment varlevelsup fields by
+- `min_sublevels_up`: Only increment varlevelsup if it's >= this threshold value
 
 ## Dependencies
 - Functions called/Symbols referenced:

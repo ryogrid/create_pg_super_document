@@ -26,9 +26,9 @@ The choice between methods depends on various factors including the size of the 
 UNIQUE_PATH_NOOP represents an optimization where the input is already guaranteed to be unique (e.g., due to primary key constraints or previous operations), eliminating the need for any duplicate removal processing.
 
 ## Parameters / Member Variables
-- : Input data is already unique, no duplicate elimination needed
-- : Use hash-based deduplication (typically faster for unsorted data)
-- : Use sort-based deduplication (efficient when data is already partially sorted)
+- `UNIQUE_PATH_NOOP`: Input data is already unique, no duplicate elimination needed
+- `UNIQUE_PATH_HASH`: Use hash-based deduplication (typically faster for unsorted data)
+- `UNIQUE_PATH_SORT`: Use sort-based deduplication (efficient when data is already partially sorted)
 
 ## Dependencies
 - Functions called/Symbols referenced:

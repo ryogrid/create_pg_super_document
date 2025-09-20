@@ -20,11 +20,12 @@ This static utility function converts a series of bytes from binary format to do
 
 The function ensures proper null-termination of the output string and tracks the buffer size to prevent overflow.
 
-## Parameters / Member Variables
-- : Pointer to the byte array to convert
-- : Number of bytes to process from the source
-- : Output buffer to store the formatted string
-- : Size of the destination buffer
+## Parameters
+
+- `src`: Pointer to the byte array to convert
+- `srclength`: Number of bytes to process from the source
+- `dst`: Output buffer to store the formatted string
+- `dstsize`: Size of the destination buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:

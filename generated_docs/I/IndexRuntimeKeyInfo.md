@@ -27,9 +27,9 @@ This structure bridges the gap between PostgreSQL's expression evaluation system
 Runtime keys are essential for supporting parameterized queries, subplan results, and other dynamic conditions in index scans where the comparison values are not known until execution time.
 
 ## Parameters / Member Variables
-- : Pointer to the ScanKeyData structure that will receive the computed value for the index scan
-- : Expression state for evaluating the runtime expression to obtain the comparison value
-- : Boolean flag indicating whether the expression result is a toastable datatype, affecting storage handling
+- `scan_key`: Pointer to the ScanKeyData structure that will receive the computed value for the index scan
+- `key_expr`: Expression state for evaluating the runtime expression to obtain the comparison value
+- `key_toastable`: Boolean flag indicating whether the expression result is a toastable datatype, affecting storage handling
 
 ## Dependencies
 - Functions called/Symbols referenced:

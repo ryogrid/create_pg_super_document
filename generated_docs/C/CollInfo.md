@@ -19,9 +19,9 @@ typedef struct _convInfo
 CollInfo is a structure used by pg_dump to encapsulate information about collation objects stored in the pg_collation system catalog. It extends the base DumpableObject structure to include collation-specific metadata required for dumping and restoring collations. The structure is populated by the getCollations() function during the schema discovery phase and later used by dumpCollation() to generate the appropriate CREATE COLLATION statements.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing common dump metadata (object ID, name, namespace, dependencies, etc.)
-- : Owner role name of the collation object, retrieved from pg_collation.collowner
-- : Encoding associated with the collation, retrieved from pg_collation.collencoding
+- `dobj`: Base DumpableObject containing common dump metadata (object ID, name, namespace, dependencies, etc.)
+- `rolname`: Owner role name of the collation object, retrieved from pg_collation.collowner
+- `collencoding`: Encoding associated with the collation, retrieved from pg_collation.collencoding
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -52,7 +52,7 @@ The combination algorithm preserves the mathematical properties required for acc
 - Sx = Sx1 + Sx2  
 - Sxx = Sxx1 + Sxx2 + N1 * N2 * (Sx1/N1 - Sx2/N2)^2 / N
 
-## Parameters / Member Variables
+## Parameters
 - `transarray1`: First ArrayType containing 3-element float8 array [N1, Sx1, Sxx1]
 - `transarray2`: Second ArrayType containing 3-element float8 array [N2, Sx2, Sxx2]
 

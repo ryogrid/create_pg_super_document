@@ -19,11 +19,8 @@ typedef struct UniqueState
 UniqueState maintains the execution state for Unique nodes, which are positioned "on top of" sort nodes to discard duplicate tuples returned from the sort phase. The node operates by comparing the current tuple from the subplan with the previously fetched tuple (stored in its result slot). If the two tuples are identical in all interesting fields, the node fetches another tuple from the sort and continues the comparison process until a unique tuple is found or no more tuples are available.
 
 ## Parameters / Member Variables
-
- 8105 ?        00:00:00 bash
- 8135 ?        00:00:00 ps
-21784 ?        00:00:00 dbus-daemon: PlanState structure containing common executor node state information, with NodeTag as its first field
-- : ExprState pointer containing the tuple equality qualification used to determine if two tuples are identical in the relevant fields
+- `ps`: PlanState structure containing common executor node state information, with NodeTag as its first field
+- `eqfunction`: ExprState pointer containing the tuple equality qualification used to determine if two tuples are identical in the relevant fields
 
 ## Dependencies
 - Functions called/Symbols referenced:

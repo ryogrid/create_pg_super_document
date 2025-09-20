@@ -64,8 +64,8 @@ structure, if any */
 ## Detailed Description
 This function performs a complete deep copy of a tuple descriptor, including all associated constraint information. Unlike a simple copy, it duplicates all constraint structures (default values, check constraints, missing values) and their associated data. The function first creates a template tuple descriptor with the same number of attributes, then flat-copies the attribute array, and finally deep-copies all constraint-related data structures to ensure complete independence between the original and copied descriptors.
 
-## Parameters / Member Variables
-- : The source TupleDesc to copy from, including all its constraints and metadata
+## Parameters
+- `tupdesc`: The source TupleDesc to copy from, including all its constraints and metadata
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,43 +22,43 @@ BackendParameters is the central structure used in PostgreSQL's process forking 
 The structure is populated by save_backend_variables() in the parent process and then passed to the child process, where restore_backend_variables() reconstructs the backend's environment. This mechanism is crucial for both fork-based process creation on Unix and the more complex process creation on Windows where full state must be explicitly transferred.
 
 ## Parameters / Member Variables
-- : PostgreSQL data directory path
-- : Unique key for query cancellation requests
-- : Slot number in the postmaster's child process array
-- : Shared memory segment identifier (platform-specific)
-- : Windows-specific shared memory protection region
-- : Address of the shared memory segment
-- : Pointer to shared memory lock structure
-- : Array of backend information in shared memory
-- : Injection points for testing (optional)
-- : Semaphore array for spinlock implementation (when needed)
-- : Number of named lightweight lock tranche requests
-- : Array of named lightweight lock tranches
-- : Main lightweight lock array
-- : Lock for process structure modifications
-- : Global process header information
-- : Array of auxiliary process structures
-- : Array of prepared transaction process structures
-- : Postmaster signal communication state
-- : Process ID of the postmaster
-- : PostgreSQL server start time
-- : Last configuration reload time
-- : System logger first file timestamp
-- : Flag indicating if log redirection is complete
-- : Flag for binary upgrade mode
-- : Flag for query ID tracking
-- : Maximum safe file descriptors
-- : Maximum number of backend processes
-- : Windows postmaster process handle
-- : Initial signal communication pipe
-- : System logging pipe handles/descriptors
-- : File descriptors for postmaster aliveness detection
-- : Path to PostgreSQL executable
-- : Path to PostgreSQL library directory
-- : Client socket information
-- : Inheritable socket for the client connection
-- : Length of additional startup data
-- : Flexible array member for process-specific startup data
+- `DataDir`: PostgreSQL data directory path
+- `MyCancelKey`: Unique key for query cancellation requests
+- `MyPMChildSlot`: Slot number in the postmaster's child process array
+- `UsedShmemSegID`: Shared memory segment identifier (platform-specific)
+- `UsedShmemSegAddr`: Windows-specific shared memory protection region
+- `ShmemLoc`: Address of the shared memory segment
+- `ShmemLock`: Pointer to shared memory lock structure
+- `ShmemBackendArray`: Array of backend information in shared memory
+- `InjectionPointAttached`: Injection points for testing (optional)
+- `SpinlockSemaArray`: Semaphore array for spinlock implementation (when needed)
+- `NamedLWLockTrancheRequests`: Number of named lightweight lock tranche requests
+- `NamedLWLockTrancheArray`: Array of named lightweight lock tranches
+- `MainLWLockArray`: Main lightweight lock array
+- `ProcStructLock`: Lock for process structure modifications
+- `ProcGlobal`: Global process header information
+- `AuxiliaryProcs`: Array of auxiliary process structures
+- `PreparedXacts`: Array of prepared transaction process structures
+- `PMSignalState`: Postmaster signal communication state
+- `PostmasterPid`: Process ID of the postmaster
+- `PgStartTime`: PostgreSQL server start time
+- `PgReloadTime`: Last configuration reload time
+- `first_syslogger_file_time`: System logger first file timestamp
+- `redirection_done`: Flag indicating if log redirection is complete
+- `IsBinaryUpgrade`: Flag for binary upgrade mode
+- `query_id_enabled`: Flag for query ID tracking
+- `max_safe_fds`: Maximum safe file descriptors
+- `MaxBackends`: Maximum number of backend processes
+- `PostmasterHandle`: Windows postmaster process handle
+- `postmaster_alive_fds`: Initial signal communication pipe
+- `syslogPipe`: System logging pipe handles/descriptors
+- `postmaster_alive_fds`: File descriptors for postmaster aliveness detection
+- `my_exec_path`: Path to PostgreSQL executable
+- `pkglib_path`: Path to PostgreSQL library directory
+- `MyProcPort`: Client socket information
+- `childsock`: Inheritable socket for the client connection
+- `startup_data_len`: Length of additional startup data
+- `startup_data`: Flexible array member for process-specific startup data
 
 ## Dependencies
 - Functions called/Symbols referenced:

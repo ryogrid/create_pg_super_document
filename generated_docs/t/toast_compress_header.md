@@ -24,8 +24,8 @@ The structure is designed with a compact layout where the  field efficiently pac
 The header is prefixed by a standard varlena header () that follows PostgreSQL's variable-length data storage conventions, allowing the compressed data to be treated as a regular varlena object within the system.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL varlena header containing length information and flags. This field should not be accessed directly by application code.
-- : A packed 32-bit field containing:
+- `vl_len_`: Standard PostgreSQL varlena header containing length information and flags. This field should not be accessed directly by application code.
+- `tcinfo`: A packed 32-bit field containing:
   - Lower 30 bits: Original (uncompressed) size of the data (masked by VARLENA_EXTSIZE_MASK)
   - Upper 2 bits: Compression method identifier (TOAST_PGLZ_COMPRESSION_ID or TOAST_LZ4_COMPRESSION_ID)
 

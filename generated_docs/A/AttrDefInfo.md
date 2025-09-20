@@ -20,11 +20,11 @@ typedef struct _tableDataInfo
 AttrDefInfo encapsulates information about column default value expressions stored in the pg_attrdef system catalog. Each instance represents a DEFAULT clause for a specific table column that needs to be included in database dumps. The structure contains the decompiled DEFAULT expression and metadata about how it should be dumped - either inline within the CREATE TABLE statement or as a separate ALTER TABLE ... ALTER COLUMN ... SET DEFAULT statement. This separation is necessary for cases where the default expression has dependencies that must be resolved after the table is created, such as references to user-defined functions or types.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing common dump metadata (object ID, dependencies, etc.); note that dobj.name contains the table name, not column name
-- : Pointer to the TableInfo structure representing the table that contains this column
-- : Column number (1-based) within the table for which this default applies
-- : Decompiled DEFAULT expression as a string, obtained from pg_get_expr()
-- : Boolean flag indicating whether the default must be dumped as a separate ALTER TABLE statement rather than inline in CREATE TABLE
+- `dobj`: Base DumpableObject containing common dump metadata (object ID, dependencies, etc.); note that dobj.name contains the table name, not column name
+- `adtable`: Pointer to the TableInfo structure representing the table that contains this column
+- `adnum`: Column number (1-based) within the table for which this default applies
+- `adef_expr`: Decompiled DEFAULT expression as a string, obtained from pg_get_expr()
+- `separate`: Boolean flag indicating whether the default must be dumped as a separate ALTER TABLE statement rather than inline in CREATE TABLE
 
 ## Dependencies
 - Functions called/Symbols referenced:

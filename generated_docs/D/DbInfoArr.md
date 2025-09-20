@@ -9,42 +9,18 @@ DbInfoArr is a container structure that holds an array of database information e
 ## Definition
 
 ```c
-structure is used to hold pg_control information.
- * Rather than using the backend's control structure we use our own
- * structure to avoid pg_control version issues between releases.
- */
 typedef struct
 {
-	uint32		ctrl_ver;
-	uint32		cat_ver;
-	char		nextxlogfile[25];
-	uint32		chkpnt_nxtxid;
-	uint32		chkpnt_nxtepoch;
-	uint32		chkpnt_nxtoid;
-	uint32		chkpnt_nxtmulti;
-	uint32		chkpnt_nxtmxoff;
-	uint32		chkpnt_oldstMulti;
-	uint32		chkpnt_oldstxid;
-	uint32		align;
-	uint32		blocksz;
-	uint32		largesz;
-	uint32		walsz;
-	uint32		walseg;
-	uint32		ident;
-	uint32		index;
-	uint32		toast;
-	uint32		large_object;
-	bool		date_is_int;
-	bool		float8_pass_by_value;
-	uint32		data_checksum_version;
-} ControlData;
+	DbInfo	   *dbs;			/* array of db infos */
+	int			ndbs;			/* number of db infos */
+} DbInfoArr;
 ```
 ## Detailed Description
 DbInfoArr serves as the top-level container for managing database information during PostgreSQL cluster upgrades. It provides a structured way to handle multiple databases within a cluster, enabling pg_upgrade to process all databases systematically. This structure is fundamental to the upgrade architecture as it represents the complete database inventory of both source and target clusters.
 
 ## Parameters / Member Variables
-- : Pointer to an array of DbInfo structures, each containing comprehensive information about an individual database
-- : Integer count representing the total number of databases in the array
+- `dbs`: Pointer to an array of DbInfo structures, each containing comprehensive information about an individual database
+- `ndbs`: Integer count representing the total number of databases in the array
 
 ## Dependencies
 - Functions called/Symbols referenced:

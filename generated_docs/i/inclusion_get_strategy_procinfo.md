@@ -59,11 +59,11 @@ The function enforces strict type matching between the opclass data type and col
 
 The caching mechanism invalidates all stored procedures when the sub-type changes, ensuring consistency while maximizing performance for repeated access patterns with the same sub-type.
 
-## Parameters / Member Variables
-- : BRIN descriptor containing index metadata and opclass information
-- : Attribute number (1-based) identifying the specific column in the index
-- : OID of the sub-type to be used as the right-hand side of the operator
-- : Strategy number (1 to RTMaxStrategyNumber) identifying the specific operator within the opclass
+## Parameters
+- `bdesc`: BRIN descriptor containing index metadata and opclass information
+- `attno`: Attribute number (1-based) identifying the specific column in the index
+- `subtype`: OID of the sub-type to be used as the right-hand side of the operator
+- `strategynum`: Strategy number (1 to RTMaxStrategyNumber) identifying the specific operator within the opclass
 
 ## Dependencies
 - Functions called/Symbols referenced:

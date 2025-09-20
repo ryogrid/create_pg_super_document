@@ -30,21 +30,18 @@ typedef struct LimitState
 LimitState manages the execution state for Limit nodes, which implement SQL LIMIT and OFFSET functionality. The structure supports dynamic limit and offset values through expression evaluation, tracks the current position in the result set, and implements a state machine to handle various scenarios including EOF conditions and WITH TIES semantics. The state machine ensures correct behavior during rescans and handles edge cases like empty result sets and window boundaries.
 
 ## Parameters / Member Variables
-
-17516 ?        00:00:00 bash
-17543 ?        00:00:00 ps
-21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node information
-- : Expression state for the OFFSET parameter (NULL if no OFFSET)
-- : Expression state for the COUNT parameter (NULL if no LIMIT)
-- : Enumeration specifying the type of limit (WITH TIES, etc.)
-- : Current evaluated OFFSET value
-- : Current evaluated COUNT value
-- : Boolean flag to ignore the count when true
-- : State machine condition tracking current execution phase
-- : 1-based index of the last tuple returned to track progress
-- : Tuple slot containing the last tuple obtained from the subplan
-- : Expression state for tuple equality comparison (used with WITH TIES)
-- : Tuple slot used for evaluating ties in WITH TIES mode
+- `ps`: Base PlanState structure containing common executor node information
+- `limitOffset`: Expression state for the OFFSET parameter (NULL if no OFFSET)
+- `limitCount`: Expression state for the COUNT parameter (NULL if no LIMIT)
+- `limitOption`: Enumeration specifying the type of limit (WITH TIES, etc.)
+- `offset`: Current evaluated OFFSET value
+- `count`: Current evaluated COUNT value
+- `noCount`: Boolean flag to ignore the count when true
+- `lstate`: State machine condition tracking current execution phase
+- `position`: 1-based index of the last tuple returned to track progress
+- `subSlot`: Tuple slot containing the last tuple obtained from the subplan
+- `eqfunction`: Expression state for tuple equality comparison (used with WITH TIES)
+- `last_slot`: Tuple slot used for evaluating ties in WITH TIES mode
 
 ## Dependencies
 - Functions called/Symbols referenced:

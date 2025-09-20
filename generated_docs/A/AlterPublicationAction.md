@@ -31,9 +31,9 @@ typedef struct AlterPublicationStmt
 This enumeration defines the different types of actions that can be performed when altering a PostgreSQL publication using the ALTER PUBLICATION statement. Publications are used in logical replication to define which tables should be replicated to subscribers. The enum provides three fundamental operations: adding objects to an existing publication, removing objects from a publication, and completely replacing the publication's object list.
 
 ## Parameters / Member Variables
-- : Add new tables or objects to the existing publication without removing existing ones
-- : Remove specific tables or objects from the publication
-- : Replace the entire list of objects in the publication with a new list
+- `AP_AddObjects`: Add new tables or objects to the existing publication without removing existing ones
+- `AP_DropObjects`: Remove specific tables or objects from the publication
+- `AP_SetObjects`: Replace the entire list of objects in the publication with a new list
 
 ## Dependencies
 - Functions called/Symbols referenced:

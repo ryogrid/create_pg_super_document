@@ -43,12 +43,12 @@ ExtensionInfo extends DumpableObject to represent PostgreSQL extensions during t
 The structure is populated by the getExtensions() function, which queries the pg_extension system catalog joined with pg_namespace to retrieve all installed extensions. The information is used to generate CREATE EXTENSION statements during dump output and to track extension membership of other database objects.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing metadata like catalog ID, dump ID, name, and dump components
-- : String name of the schema (namespace) containing the extension's objects, obtained from pg_namespace.nspname
-- : Boolean flag indicating whether the extension can be moved to a different schema after installation (from pg_extension.extrelocatable)
-- : String version of the installed extension (from pg_extension.extversion)
-- : String containing information about configuration tables associated with the extension (from pg_extension.extconfig)
-- : String containing conditions for configuration tables (from pg_extension.extcondition)
+- `dobj`: Base DumpableObject containing metadata like catalog ID, dump ID, name, and dump components
+- `namespace`: String name of the schema (namespace) containing the extension's objects, obtained from pg_namespace.nspname
+- `relocatable`: Boolean flag indicating whether the extension can be moved to a different schema after installation (from pg_extension.extrelocatable)
+- `extversion`: String version of the installed extension (from pg_extension.extversion)
+- `extconfig`: String containing information about configuration tables associated with the extension (from pg_extension.extconfig)
+- `extcondition`: String containing conditions for configuration tables (from pg_extension.extcondition)
 
 ## Dependencies
 - Functions called/Symbols referenced:

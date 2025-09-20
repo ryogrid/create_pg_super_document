@@ -20,8 +20,9 @@ typedef struct _tableDataInfo
 The  structure is a specialized container used by pg_dump to represent table data as a distinct dumpable object separate from the table's schema definition. This separation allows pg_dump to handle table schema and table data independently, enabling flexible dump ordering and selective data dumping. The structure maintains a link to the corresponding table's metadata while treating the data itself as a separate entity in the dump process.
 
 ## Parameters / Member Variables
-- : Base dumpable object information containing metadata such as object ID, name, namespace, and dump ordering information for the table data
-- : Pointer to the TableInfo structure representing the table whose data this object represents, establishing the connection between the data object and its corresponding table schema
+- `dobj`: Base dumpable object information containing metadata such as object ID, name, namespace, and dump ordering information for the table data
+- `tdtable`: Pointer to the TableInfo structure representing the table whose data this object represents, establishing the connection between the data object and its corresponding table schema
+- `filtercond`: WHERE condition to limit rows dumped (NULL if no filtering applied)
 
 ## Dependencies
 - Functions called/Symbols referenced:

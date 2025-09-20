@@ -22,11 +22,9 @@ The  struct is a core component of ECPG's descriptor management system, designed
 Each descriptor maintains a reference to a PGresult object (the actual query result from libpq), a count of items, and a linked list of descriptor_item structures that provide detailed metadata about each column or parameter. The descriptor system allows ECPG applications to introspect and manipulate SQL results dynamically.
 
 ## Parameters / Member Variables
-- : String identifier for the descriptor, used for lookup and management operations
-- : Pointer to the PGresult structure containing the actual query results from libpq
-- : Pointer to the next descriptor in the linked list, enabling multiple named descriptors
-- : Number of items (columns/parameters) contained in this descriptor
-- : Pointer to the first descriptor_item in a linked list containing detailed metadata for each column
+- `name`: String identifier for the descriptor, used for lookup and management operations
+- `connection`: Connection string identifier associated with this descriptor
+- `next`: Pointer to the next descriptor in the linked list, enabling multiple named descriptors
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,9 +19,9 @@ struct
 PQcancel implements the original PostgreSQL query cancellation mechanism. It establishes a temporary TCP connection to the PostgreSQL server and sends a cancel request packet containing the backend process ID and authentication key. The function is designed to be signal-safe, making it suitable for use in signal handlers (e.g., SIGINT). It uses only reentrant system calls and avoids malloc/free operations. The function sets up keepalive options on the socket to prevent indefinite blocking, sends the cancellation request, and waits for the server to close the connection as confirmation of receipt.
 
 ## Parameters / Member Variables
-- : Pointer to PGcancel structure containing connection details, backend PID, and authentication key
-- : Buffer to store error messages on failure (recommended size 256 bytes)
-- : Size of the error buffer
+- `cancel`: Pointer to PGcancel structure containing connection details, backend PID, and authentication key
+- `errbuf`: Buffer to store error messages on failure (recommended size 256 bytes)
+- `errbufsize`: Size of the error buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:

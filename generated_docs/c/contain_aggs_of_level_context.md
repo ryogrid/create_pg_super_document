@@ -21,7 +21,7 @@ This structure serves as a context parameter for the tree walker functions that 
 The context is used in conjunction with  function to determine whether an expression contains aggregate function calls at a specified query level. This is crucial for query rewriting operations where it's necessary to distinguish between aggregates belonging to the current query level versus those in subqueries or outer queries.
 
 ## Parameters / Member Variables
-- : The target query level depth to search for aggregates; represents how many levels up from the current context to look for matching aggregates
+- `agg_location`: The target query level depth to search for aggregates; represents how many levels up from the current context to look for matching aggregates
 
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)

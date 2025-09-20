@@ -29,9 +29,10 @@ TBempl is a structure definition found in the ECPG preprocessor test files, spec
 The structure is defined within an ECPG declare section (between  and  directives), which indicates it's intended for use in embedded SQL operations where the structure fields can be used as host variables in SQL statements.
 
 ## Parameters / Member Variables
-- : Employee identification number of type mmInteger (typedef'd as long)
-- : Employee name as a character array of 21 elements, using mmChar type (typedef'd as char)
-- : Access level or permissions field of type access (typedef'd as short)
+- `idnum`: Employee identification number (long type)
+- `name`: Employee name as a character array of 21 elements
+- `accs`: Access level or permissions field (short type)
+- `byte`: Additional byte data as a character array of 20 elements
 
 ## Dependencies
 - Functions called/Symbols referenced:

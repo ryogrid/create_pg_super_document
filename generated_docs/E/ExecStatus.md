@@ -28,9 +28,9 @@ The enum values represent the three primary phases of function execution:
 - **F_EXEC_DONE**: Completed execution state
 
 ## Parameters / Member Variables
-- : Indicates the execution state is initialized but not yet running
-- : Indicates the execution state is actively running a query
-- : Indicates the execution state has completed processing
+- `F_EXEC_START`: Indicates the execution state is initialized but not yet running
+- `F_EXEC_RUN`: Indicates the execution state is actively running a query
+- `F_EXEC_DONE`: Indicates the execution state has completed processing
 
 ## Dependencies
 - Functions called/Symbols referenced:

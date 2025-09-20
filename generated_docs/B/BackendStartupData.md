@@ -20,13 +20,13 @@ BackendStartupData serves as a communication mechanism between the postmaster an
 The structure is designed to be simple and compact, containing only the essential information needed for the backend to make connection acceptance decisions. This design reflects PostgreSQL's architecture where the postmaster makes high-level decisions about system state and resource availability, which are then communicated to individual backend processes.
 
 ## Parameters / Member Variables
-- : A CAC_state enum value that indicates whether the backend should accept new connections. Possible values include:
-  - CAC_OK: Normal operation, connections can be accepted
-  - CAC_STARTUP: System is starting up, reject connections
-  - CAC_SHUTDOWN: System is shutting down, reject connections  
-  - CAC_RECOVERY: System is in recovery mode, reject connections
-  - CAC_NOTCONSISTENT: Database is not in a consistent state, reject connections
-  - CAC_TOOMANY: Too many connections already active, reject connections
+- `canAcceptConnections`: A CAC_state enum value that indicates whether the backend should accept new connections. Possible values include:
+  - `CAC_OK`: Normal operation, connections can be accepted
+  - `CAC_STARTUP`: System is starting up, reject connections
+  - `CAC_SHUTDOWN`: System is shutting down, reject connections  
+  - `CAC_RECOVERY`: System is in recovery mode, reject connections
+  - `CAC_NOTCONSISTENT`: Database is not in a consistent state, reject connections
+  - `CAC_TOOMANY`: Too many connections already active, reject connections
 
 ## Dependencies
 - Functions called/Symbols referenced:

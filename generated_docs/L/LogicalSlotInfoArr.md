@@ -28,8 +28,8 @@ typedef struct
 LogicalSlotInfoArr serves as a collection wrapper for logical replication slot metadata during PostgreSQL cluster upgrades. It provides a structured way to manage multiple LogicalSlotInfo entries, enabling pg_upgrade to preserve logical replication configuration across cluster versions. This structure is essential for maintaining logical replication continuity during major version upgrades.
 
 ## Parameters / Member Variables
-- : Integer count of the total number of logical slot information entries in the array
-- : Pointer to an array of LogicalSlotInfo structures containing detailed information about each logical replication slot
+- `nslots`: Integer count of the total number of logical slot information entries in the array
+- `slots`: Pointer to an array of LogicalSlotInfo structures containing detailed information about each logical replication slot
 
 ## Dependencies
 - Functions called/Symbols referenced:

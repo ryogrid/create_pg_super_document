@@ -94,54 +94,55 @@ The  structure serves as the global configuration repository for psql, PostgreSQ
 The structure is divided into several logical groups: database connection management, output formatting and redirection, query execution options, user interface behavior, command history and prompting, error handling, and variable storage. Many of the boolean and enumerated fields at the end of the structure are automatically updated by assignment hooks when corresponding shell variables are modified.
 
 ## Parameters / Member Variables
-- : Active PostgreSQL database connection handle
-- : Current client character encoding setting
-- : File stream for query result output (stdout by default)
-- : Flag indicating if queryFout was opened via popen()
-- : File stream used for \copy command operations
-- : Most recently encountered error result for reference
-- : Current print formatting options (alignment, borders, etc.)
-- : Temporary filename for \g command output redirection  
-- : Saved print options when using \g command
-- : Variable name prefix for \gset command
-- : One-time flag to describe query results instead of executing
-- : One-time flag to execute query results as SQL commands
-- : One-time flag to use extended query protocol with parameters
-- : Number of bind parameters for extended query protocol
-- : Array of parameter values for extended query protocol
-- : One-time flag to format results as crosstab
-- : Arguments array for \crosstabview command
-- : Flag indicating non-interactive terminal usage
-- : Controls password prompting behavior (trivalue enum)
-- : File handle of current command input source
-- : Flag indicating if current command source is interactive
-- : Backend PostgreSQL server version number
-- : Program name (typically "psql")
-- : Path to currently processed input file, if any
-- : Current line number for error reporting
-- : Line number within current SQL statement
-- : Flag to enable query execution timing display
-- : Handle for session logging file
-- : Repository for user-defined shell variables
-- : Stashed unusable connection for potential reconnection
-- : Automatic transaction commit behavior
-- : Stop execution on SQL errors
-- : Suppress informational messages
-- : Single-line input mode flag
-- : Step through commands one at a time
-- : Hide compression information in \d+ commands
-- : Hide table access method information
-- : Number of rows to fetch at once
-- : Maximum command history size
-- : Number of EOF characters to ignore
-- : Command echoing mode setting
-- : Hidden command echoing mode
-- : Rollback behavior on errors
-- : Case sensitivity for tab completion
-- : Command history control settings
-- , , : Command prompt strings
-- : Error message verbosity level
-- : Display all result sets from multi-statement queries
+- `db`: Active PostgreSQL database connection handle
+- `encoding`: Current client character encoding setting
+- `queryFout`: File stream for query result output (stdout by default)
+- `queryFoutPipe`: Flag indicating if queryFout was opened via popen()
+- `copyStream`: File stream used for \copy command operations
+- `last_error_result`: Most recently encountered error result for reference
+- `popt`: Current print formatting options (alignment, borders, etc.)
+- `gfname`: Temporary filename for \g command output redirection  
+- `gsavepopt`: Saved print options when using \g command
+- `gset_prefix`: Variable name prefix for \gset command
+- `gdesc_flag`: One-time flag to describe query results instead of executing
+- `gexec_flag`: One-time flag to execute query results as SQL commands
+- `bind_flag`: One-time flag to use extended query protocol with parameters
+- `bind_nparams`: Number of bind parameters for extended query protocol
+- `bind_params`: Array of parameter values for extended query protocol
+- `crosstab_flag`: One-time flag to format results as crosstab
+- `ctv_args`: Arguments array for \crosstabview command
+- `notty`: Flag indicating non-interactive terminal usage
+- `getPassword`: Controls password prompting behavior (trivalue enum)
+- `cur_cmd_source`: File handle of current command input source
+- `cur_cmd_interactive`: Flag indicating if current command source is interactive
+- `sversion`: Backend PostgreSQL server version number
+- `progname`: Program name (typically "psql")
+- `inputfile`: Path to currently processed input file, if any
+- `lineno`: Current line number for error reporting
+- `stmt_lineno`: Line number within current SQL statement
+- `timing`: Flag to enable query execution timing display
+- `logfile`: Handle for session logging file
+- `vars`: Repository for user-defined shell variables
+- `dead_conn`: Stashed unusable connection for potential reconnection
+- `autocommit`: Automatic transaction commit behavior
+- `on_error_stop`: Stop execution on SQL errors
+- `quiet`: Suppress informational messages
+- `singleline`: Single-line input mode flag
+- `singlestep`: Step through commands one at a time
+- `hide_compression`: Hide compression information in \d+ commands
+- `hide_tableam`: Hide table access method information
+- `fetch_count`: Number of rows to fetch at once
+- `histsize`: Maximum command history size
+- `ignoreeof`: Number of EOF characters to ignore
+- `echo`: Command echoing mode setting
+- `echo_hidden`: Hidden command echoing mode
+- `on_error_rollback`: Rollback behavior on errors
+- `comp_case`: Case sensitivity for tab completion
+- `histcontrol`: Command history control settings
+- `prompt1`, `prompt2`, `prompt3`: Command prompt strings
+- `verbosity`: Error message verbosity level
+- `show_all_results`: Display all result sets from multi-statement queries
+- `show_context`: Error context display level
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,9 +25,9 @@ When a partitioned table has an index, PostgreSQL automatically creates correspo
 This structure is critical for maintaining the integrity of partitioned index hierarchies during dump and restore operations, ensuring that query planner optimizations and constraint enforcement work correctly across the partition hierarchy.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing common metadata like catalog ID, dump ID, name, namespace, and dependencies
-- : Pointer to the IndxInfo structure representing the index on the partitioned (parent) table
-- : Pointer to the IndxInfo structure representing the corresponding index on the individual partition
+- `dobj`: Base DumpableObject containing common metadata like catalog ID, dump ID, name, namespace, and dependencies
+- `parentIdx`: Pointer to the IndxInfo structure representing the index on the partitioned (parent) table
+- `partitionIdx`: Pointer to the IndxInfo structure representing the corresponding index on the individual partition
 
 ## Dependencies
 - Functions called/Symbols referenced:

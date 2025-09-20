@@ -22,9 +22,9 @@ PLySubtransactionObject is a Python extension type that provides a Python interf
 The object follows Python's context manager protocol, allowing it to be used with Python's 'with' statement for automatic resource management. When a subtransaction is started, it creates a new transaction context that can be independently committed or rolled back without affecting the parent transaction.
 
 ## Parameters / Member Variables
-- : Standard Python object header containing reference count and type information
-- : Boolean flag indicating whether the subtransaction has been initiated via enter() method
-- : Boolean flag indicating whether the subtransaction has been terminated via exit() method
+- `PyObject_HEAD`: Standard Python object header containing reference count and type information
+- `started`: Boolean flag indicating whether the subtransaction has been initiated via enter() method
+- `exited`: Boolean flag indicating whether the subtransaction has been terminated via exit() method
 
 ## Dependencies
 - Functions called/Symbols referenced:

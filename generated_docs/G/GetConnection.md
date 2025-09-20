@@ -24,7 +24,7 @@ struct a umask
 The GetConnection function creates a PostgreSQL database connection with specialized handling for replication connections used by pg_basebackup utilities. It merges connection parameters from connection strings and individual options, handles password prompts when needed, and performs security validations including setting a secure search path and verifying integer_datetimes compatibility. The function automatically retries connection attempts when password authentication is required and performs essential security checks before returning a valid connection.
 
 ## Parameters / Member Variables
-- No parameters (uses global variables: , , , , , , , )
+- No parameters (uses global variables: `connstr`, `pghost`, `pgport`, `username`, `promptPassword`, `progname`, `replication_slot`, etc.)
 
 ## Dependencies
 - Functions called/Symbols referenced:

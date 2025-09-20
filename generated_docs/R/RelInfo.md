@@ -19,15 +19,15 @@ typedef struct
 RelInfo is a fundamental data structure in pg_upgrade that encapsulates all essential metadata for a database relation during the upgrade process. It serves as a bridge between the old and new PostgreSQL clusters, ensuring that relation mappings are correctly maintained. The structure is designed to be portable across different PostgreSQL versions, which is why it avoids using NAMEDATALEN directly.
 
 ## Parameters / Member Variables
-- : Namespace (schema) name containing the relation
-- : The actual name of the relation (table, index, etc.)
-- : Object identifier of the relation in the PostgreSQL system catalogs
-- : Physical file number used to store the relation data
-- : For indexes, contains the OID of the parent table; 0 for non-indexes
-- : For TOAST tables, contains the OID of the base table; 0 for non-TOAST tables
-- : Path to the tablespace where the relation is stored; empty string for cluster default
-- : Boolean flag indicating whether the nspname memory should be freed
-- : Boolean flag indicating whether the tablespace memory should be freed
+- `nspname`: Namespace (schema) name containing the relation
+- `relname`: The actual name of the relation (table, index, etc.)
+- `reloid`: Object identifier of the relation in the PostgreSQL system catalogs
+- `relfile`: Physical file number used to store the relation data
+- `indtable`: For indexes, contains the OID of the parent table; 0 for non-indexes
+- `toastheap`: For TOAST tables, contains the OID of the base table; 0 for non-TOAST tables
+- `tablespace`: Path to the tablespace where the relation is stored; empty string for cluster default
+- `nsp_alloc`: Boolean flag indicating whether the nspname memory should be freed
+- `tblsp_alloc`: Boolean flag indicating whether the tablespace memory should be freed
 
 ## Dependencies
 - Functions called/Symbols referenced:

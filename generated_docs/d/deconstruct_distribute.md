@@ -174,9 +174,10 @@ This function represents phase 2 of the join tree deconstruction process, respon
 
 The function ensures that qualification clauses are distributed to the correct RelOptInfo nodes while respecting outer join semantics and lateral reference constraints.
 
-## Parameters / Member Variables
-- : The PlannerInfo structure containing global planning state and target lists
-- : The JoinTreeItem containing node information and collected qualification clauses
+## Parameters
+
+- `root`: The PlannerInfo structure containing global planning state and target lists
+- `jtitem`: The JoinTreeItem containing node information and collected qualification clauses
 
 ## Dependencies
 - Functions called/Symbols referenced:

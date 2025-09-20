@@ -36,8 +36,8 @@ The enumeration supports:
 These operations are commonly used in SQL for finding the maximum or minimum value across multiple columns or expressions in a single row, which is different from aggregate functions like MAX() and MIN() that operate across multiple rows.
 
 ## Parameters / Member Variables
-- : Specifies GREATEST operation (returns maximum value among arguments)
-- : Specifies LEAST operation (returns minimum value among arguments)
+- `IS_GREATEST`: Specifies GREATEST operation (returns maximum value among arguments)
+- `IS_LEAST`: Specifies LEAST operation (returns minimum value among arguments)
 
 ## Dependencies
 - Functions called/Symbols referenced:

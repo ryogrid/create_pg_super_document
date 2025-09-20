@@ -34,9 +34,9 @@ This function wraps the standard accept() system call to establish a new client 
 
 The function is designed to be used in a blocking context where the postmaster process has already determined that the server socket is ready to accept a new connection. If accept() fails, the function includes a brief delay (0.1 seconds) to prevent excessive CPU usage when the system is under resource pressure (such as when kernel file table slots are exhausted).
 
-## Parameters / Member Variables
-- : The server socket file descriptor that is ready to accept connections
-- : Pointer to ClientSocket structure to be filled with the new connection's information (file descriptor and remote address)
+## Parameters
+- `server_fd`: The server socket file descriptor that is ready to accept connections
+- `client_sock`: Pointer to ClientSocket structure to be filled with the new connection's information (file descriptor and remote address)
 
 ## Dependencies
 - Functions called/Symbols referenced:

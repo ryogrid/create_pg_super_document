@@ -24,10 +24,10 @@ The  function performs a shallow copy of an FmgrInfo structure from source to de
 
 The function handles the inherent complexity of copying function manager information by taking a conservative approach: it copies all the basic function metadata but deliberately zeros out the  field. This is because  may contain language-specific subsidiary information that cannot be reliably duplicated across memory contexts. By resetting this field, the function ensures that any language-dependent state will be recomputed when needed in the new context.
 
-## Parameters / Member Variables
-- : FmgrInfo pointer to the destination structure where the copy will be stored
-- : FmgrInfo pointer to the source structure to be copied
-- : MemoryContext where the destination FmgrInfo will reside
+## Parameters
+- `dstinfo`: FmgrInfo pointer to the destination structure where the copy will be stored
+- `srcinfo`: FmgrInfo pointer to the source structure to be copied
+- `destcxt`: MemoryContext where the destination FmgrInfo will reside
 
 ## Dependencies
 - Functions called/Symbols referenced:

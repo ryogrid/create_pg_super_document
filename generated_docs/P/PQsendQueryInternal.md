@@ -28,9 +28,9 @@ PQsendQueryInternal handles the internal mechanics of sending a SQL query string
 The function ensures proper pipeline mode handling by rejecting queries when pipeline mode is active (since simple queries are not allowed in pipeline mode). It allocates a command queue entry to track the query, constructs and sends the Query message, and manages error conditions by properly cleaning up allocated resources.
 
 ## Parameters / Member Variables
-- : PostgreSQL connection handle that represents the database connection
-- : SQL query string to be executed on the server
-- : Boolean flag indicating whether this is a new query (affects connection state validation)
+- `conn`: PostgreSQL connection handle that represents the database connection
+- `query`: SQL query string to be executed on the server
+- `newQuery`: Boolean flag indicating whether this is a new query (affects connection state validation)
 
 ## Dependencies
 - Functions called/Symbols referenced:

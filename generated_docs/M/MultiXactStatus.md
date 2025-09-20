@@ -21,12 +21,12 @@ MultiXactStatus represents the different lock modes that can be held by transact
 The enum values are carefully ordered and designed to work with PostgreSQL's lock conflict detection and resolution mechanisms. The ISUPDATE_from_mxstatus macro uses the fact that update operations have status values greater than MultiXactStatusForUpdate to distinguish between lock-only and update operations.
 
 ## Parameters / Member Variables
--  (0x00): FOR KEY SHARE lock mode - allows concurrent key shares and updates to non-key columns
--  (0x01): FOR SHARE lock mode - allows concurrent shares but prevents updates
--  (0x02): FOR NO KEY UPDATE lock mode - prevents updates but allows key shares
--  (0x03): FOR UPDATE lock mode - exclusive lock preventing all concurrent access
--  (0x04): Actual update operation that doesn't modify key columns
--  (0x05): Actual update operation that may modify key columns, or delete operation
+- `MultiXactStatusForKeyShare` (0x00): FOR KEY SHARE lock mode - allows concurrent key shares and updates to non-key columns
+- `MultiXactStatusForShare` (0x01): FOR SHARE lock mode - allows concurrent shares but prevents updates
+- `MultiXactStatusForNoKeyUpdate` (0x02): FOR NO KEY UPDATE lock mode - prevents updates but allows key shares
+- `MultiXactStatusForUpdate` (0x03): FOR UPDATE lock mode - exclusive lock preventing all concurrent access
+- `MultiXactStatusNoKeyUpdate` (0x04): Actual update operation that doesn't modify key columns
+- `MultiXactStatusUpdate` (0x05): Actual update operation that may modify key columns, or delete operation
 
 ## Dependencies
 - Functions called/Symbols referenced:

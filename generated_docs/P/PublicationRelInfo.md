@@ -24,11 +24,9 @@ The structure extends the base DumpableObject to provide standard dump/restore f
 This structure is essential for pg_dump to accurately recreate publication configurations, ensuring that complex replication setups with row filters and column-level publication can be properly backed up and restored.
 
 ## Parameters / Member Variables
-- : DumpableObject base structure providing standard dump/restore functionality and object metadata
-- : Pointer to PublicationInfo structure representing the publication that includes this table
-- : Pointer to TableInfo structure representing the table being published
-- : String containing the row filter (WHERE clause) applied to this table in the publication, or NULL if no filter
-- : String containing the column list specification for this table in the publication, or NULL if all columns are published
+- `relation`: Relation structure representing the table being published
+- `whereClause`: Node containing the row filter (WHERE clause) applied to this table in the publication, or NULL if no filter
+- `columns`: List of column names to be published for this table, or NULL if all columns are published
 
 ## Dependencies
 - Functions called/Symbols referenced:

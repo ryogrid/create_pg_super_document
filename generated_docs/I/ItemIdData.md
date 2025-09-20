@@ -22,9 +22,9 @@ ItemIdData serves as a line pointer that provides a level of indirection for acc
 The line pointer system allows PostgreSQL to efficiently manage variable-length tuples on pages and supports advanced features like HOT (Heap-Only Tuples) optimization through redirect pointers. When a line pointer is "in use" but has no associated storage (lp_len == 0), it follows the convention that lp_len is always 0 regardless of the lp_flags state.
 
 ## Parameters / Member Variables
-- : 15-bit field containing the offset to the tuple from the start of the page (0-32767 bytes)
-- : 2-bit field indicating the state of the line pointer (LP_UNUSED=0, LP_NORMAL=1, LP_REDIRECT=2, LP_DEAD=3)
-- : 15-bit field containing the byte length of the tuple (0-32767 bytes)
+- `lp_off`: 15-bit field containing the offset to the tuple from the start of the page (0-32767 bytes)
+- `lp_flags`: 2-bit field indicating the state of the line pointer (LP_UNUSED=0, LP_NORMAL=1, LP_REDIRECT=2, LP_DEAD=3)
+- `lp_len`: 15-bit field containing the byte length of the tuple (0-32767 bytes)
 
 ## Dependencies
 - Functions called/Symbols referenced:

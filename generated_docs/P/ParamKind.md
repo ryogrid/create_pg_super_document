@@ -35,10 +35,10 @@ ParamKind defines four distinct parameter types used throughout PostgreSQL's que
 - **PARAM_MULTIEXPR**: Similar to PARAM_SUBLINK but specifically for MULTIEXPR SubLinks. The paramid field encodes both the SubLink's subLinkId (high-order 16 bits) and the column number (low-order 16 bits). Also converted to PARAM_EXEC during planning.
 
 ## Parameters / Member Variables
-- : External parameter from outside the plan (numbered 1 to n)
-- : Internal executor parameter for sub-queries and joins (numbered from 0)
-- : SubLink output column parameter (converted to PARAM_EXEC during planning)
-- : MULTIEXPR SubLink parameter with encoded subLinkId and column (converted to PARAM_EXEC during planning)
+- `PARAM_EXTERN`: External parameter from outside the plan (numbered 1 to n)
+- `PARAM_EXEC`: Internal executor parameter for sub-queries and joins (numbered from 0)
+- `PARAM_SUBLINK`: SubLink output column parameter (converted to PARAM_EXEC during planning)
+- `PARAM_MULTIEXPR`: MULTIEXPR SubLink parameter with encoded subLinkId and column (converted to PARAM_EXEC during planning)
 
 ## Dependencies
 - Functions called/Symbols referenced:

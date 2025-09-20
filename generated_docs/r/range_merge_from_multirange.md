@@ -28,8 +28,8 @@ The resulting range may include values that were not present in the original mul
 
 This function is particularly useful for operations that need to work with the overall span of a multirange rather than its individual components.
 
-## Parameters / Member Variables
-- : Standard PostgreSQL function calling convention
+## Parameters
+- `fcinfo`: Standard PostgreSQL function calling convention
   - First argument (index 0): The multirange to be merged into a single range
 
 ## Dependencies

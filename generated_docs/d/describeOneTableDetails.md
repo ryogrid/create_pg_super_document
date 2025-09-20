@@ -43,11 +43,12 @@ The function performs multiple operations:
 
 The function adapts its queries and output based on the PostgreSQL server version to ensure compatibility across different releases. It builds the output using the printTable infrastructure to create formatted tabular displays.
 
-## Parameters / Member Variables
-- : Schema name of the relation to describe
-- : Name of the relation to describe  
-- : Object identifier (OID) of the relation as a string
-- : Boolean flag for verbose mode (\d+ vs \d) - controls display of additional details like column comments, storage information, and statistics targets
+## Parameters
+
+- `schemaname`: Schema name of the relation to describe
+- `relationname`: Name of the relation to describe  
+- `oid`: Object identifier (OID) of the relation as a string
+- `verbose`: Boolean flag for verbose mode (\d+ vs \d) - controls display of additional details like column comments, storage information, and statistics targets
 
 ## Dependencies
 - Functions called/Symbols referenced:

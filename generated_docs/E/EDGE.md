@@ -22,11 +22,11 @@ The EDGE structure represents a directed edge in the wait-for graph used by Post
 The structure includes workspace fields (pred and link) that are used by the topological sorting algorithm to process the wait-for graph and determine if deadlocks exist and how they can be resolved.
 
 ## Parameters / Member Variables
-- : Pointer to the PGPROC that represents the leader of the waiting lock group
-- : Pointer to the PGPROC that represents the leader of the group being waited for
-- : Pointer to the LOCK object that is the subject of the wait relationship
-- : Integer workspace field used by the topological sort algorithm
-- : Integer workspace field used by the topological sort algorithm
+- `waiter`: Pointer to the PGPROC that represents the leader of the waiting lock group
+- `holder`: Pointer to the PGPROC that represents the leader of the group being waited for
+- `lock`: Pointer to the LOCK object that is the subject of the wait relationship
+- `pred`: Integer workspace field used by the topological sort algorithm
+- `link`: Integer workspace field used by the topological sort algorithm
 
 ## Dependencies
 - Functions called/Symbols referenced:

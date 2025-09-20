@@ -52,7 +52,7 @@ The function updates the statistical accumulators as follows:
 
 The algorithm includes comprehensive error handling for overflow conditions and special values (NaN, infinity), ensuring robust behavior across all input ranges.
 
-## Parameters / Member Variables
+## Parameters
 - `transarray`: ArrayType containing current 3-element statistical state [N, Sx, Sxx]
 - `newval`: New float8 value to accumulate into the statistical state
 

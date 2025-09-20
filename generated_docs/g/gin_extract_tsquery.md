@@ -28,14 +28,14 @@ This function is a critical component of PostgreSQL's GIN indexing system for te
 The function handles complex queries including negation, boolean operations, and prefix searches, ensuring the GIN index can efficiently locate relevant documents.
 
 ## Parameters / Member Variables
-- : Standard PostgreSQL function argument structure containing:
-  - First argument (index 0):  - Input text search query to extract from
-  - Second argument (index 1):  - Output pointer for number of extracted entries
-  - Third argument (index 2):  - Search strategy (unused, commented out)
-  - Fourth argument (index 3):  - Output array indicating partial match capability
-  - Fifth argument (index 4):  - Output array for additional per-entry data
-  - Sixth argument (index 5):  - Null flags (unused, commented out)
-  - Seventh argument (index 6):  - Output search mode (DEFAULT or ALL)
+- Uses PostgreSQL's PG_FUNCTION_ARGS macro for function arguments:
+  - Argument 0 (`query`): Input text search query to extract from
+  - Argument 1 (`nentries`): Output pointer for number of extracted entries
+  - Argument 2 (`strategy`): Search strategy (unused, commented out)
+  - Argument 3 (`partial_matches`): Output array indicating partial match capability
+  - Argument 4 (`extra_data`): Output array for additional per-entry data
+  - Argument 5 (`nullFlags`): Null flags (unused, commented out)
+  - Argument 6 (`searchMode`): Output search mode (DEFAULT or ALL)
 
 ## Dependencies
 - Functions called/Symbols referenced:

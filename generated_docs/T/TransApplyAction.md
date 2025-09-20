@@ -1,7 +1,7 @@
 # TransApplyAction
 
 ## Location
-[src/backend/replication/logical/worker.c:275-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L275-L335)
+[src/backend/replication/logical/worker.c:265-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L265-L275)
 
 ## Overview
 TransApplyAction is an enumeration that defines different actions for processing transaction changes in PostgreSQL's logical replication system, determining how changes are handled by leader workers, parallel workers, and during streaming transactions.
@@ -9,12 +9,17 @@ TransApplyAction is an enumeration that defines different actions for processing
 ## Definition
 
 ```c
-typedef struct SubXactInfo
+typedef enum
 {
-	TransactionId xid;			/* XID of the subxact */
-	int			fileno;			/* file number in the buffile */
-	off_t		offset;			/* offset in the file */
-} SubXactInfo;
+	/* The action for non-streaming transactions. */
+	TRANS_LEADER_APPLY,
+
+	/* Actions for streaming transactions. */
+	TRANS_LEADER_SERIALIZE,
+	TRANS_LEADER_SEND_TO_PARALLEL,
+	TRANS_LEADER_PARTIAL_SERIALIZE,
+	TRANS_PARALLEL_APPLY,
+} TransApplyAction;
 ```
 ## Detailed Description
 The TransApplyAction enum specifies how transaction changes should be processed in PostgreSQL's logical replication worker system. This enum is crucial for coordinating between leader apply workers, parallel apply workers, and table sync workers, especially when handling streaming transactions that may be too large to apply directly.
@@ -22,11 +27,11 @@ The TransApplyAction enum specifies how transaction changes should be processed 
 The enum supports both non-streaming and streaming transaction workflows, with different actions for serializing changes to temporary files, sending changes to parallel workers, or applying changes directly. The choice of action depends on factors such as transaction size, worker type, timeout conditions, and parallel processing capabilities.
 
 ## Parameters / Member Variables
-- : Used by leader apply workers or table sync workers to either directly apply transaction changes or read from temporary files (for streaming transactions) and then apply them
-- : Used by leader apply workers or table sync workers to write changes to temporary files, deferring application until the final commit arrives
-- : Used by leader apply workers when changes need to be sent to a parallel apply worker for processing
-- : Used by leader apply workers when some changes have been sent to parallel workers but remaining changes must be serialized to files due to timeout conditions during data transmission
-- : Used by parallel apply workers to directly apply transaction changes received from the leader worker
+- `TRANS_LEADER_APPLY`: Used by leader apply workers or table sync workers to either directly apply transaction changes or read from temporary files (for streaming transactions) and then apply them
+- `TRANS_LEADER_SERIALIZE`: Used by leader apply workers or table sync workers to write changes to temporary files, deferring application until the final commit arrives
+- `TRANS_LEADER_SEND_TO_PARALLEL`: Used by leader apply workers when changes need to be sent to a parallel apply worker for processing
+- `TRANS_LEADER_PARTIAL_SERIALIZE`: Used by leader apply workers when some changes have been sent to parallel workers but remaining changes must be serialized to files due to timeout conditions during data transmission
+- `TRANS_PARALLEL_APPLY`: Used by parallel apply workers to directly apply transaction changes received from the leader worker
 
 ## Dependencies
 - Functions called/Symbols referenced:

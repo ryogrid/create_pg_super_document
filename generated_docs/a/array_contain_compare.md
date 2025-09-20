@@ -33,13 +33,13 @@ When  is true, the function returns true only if all elements of array1 are foun
 The function handles NULL values by treating them as non-matchable - NULL elements cannot match anything, including other NULLs, which differs from the behavior in .
 
 ## Parameters / Member Variables
-- : First array to compare (source array for containment/overlap check)
-- : Second array to compare (target array to search within)
-- : Collation OID for element comparisons
-- : Boolean flag controlling comparison mode:
-  - : All elements of array1 must be in array2 (containment)
-  - : Any element of array1 must be in array2 (overlap)
-- : Pointer to cached type information for performance optimization
+- `array1`: First array to compare (source array for containment/overlap check)
+- `array2`: Second array to compare (target array to search within)
+- `collation`: Collation OID for element comparisons
+- `matchall`: Boolean flag controlling comparison mode:
+  - `true`: All elements of array1 must be in array2 (containment)
+  - `false`: Any element of array1 must be in array2 (overlap)
+- `typentry`: Pointer to cached type information for performance optimization
 
 ## Dependencies
 - Functions called/Symbols referenced:

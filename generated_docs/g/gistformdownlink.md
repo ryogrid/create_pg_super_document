@@ -39,11 +39,11 @@ struct that. So we just use the downlink of
 The union computation is essential for maintaining the GiST tree property that parent keys properly bound their children. When pages are split, new downlinks must be created for the resulting pages.
 
 ## Parameters / Member Variables
-- : The GiST index relation
-- : Buffer containing the page for which to create a downlink
-- : GiST-specific state information including operator classes
-- : Insertion stack used to locate parent information when needed for empty pages
-- : Boolean indicating whether this is called during index build
+- `r`: The GiST index relation
+- `buf`: Buffer containing the page for which to create a downlink
+- `giststate`: GiST-specific state information including operator classes
+- `stack`: Insertion stack used to locate parent information when needed for empty pages
+- `is_build`: Boolean indicating whether this is called during index build
 
 ## Dependencies
 - Functions called/Symbols referenced:

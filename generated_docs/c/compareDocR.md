@@ -21,9 +21,10 @@ typedef struct
 ## Detailed Description
 The  function is a qsort-compatible comparison function that establishes a total ordering for DocRepresentation structures used in PostgreSQL's text search ranking system. It implements a three-level sorting hierarchy: first by word position within the document, then by weight class when positions are equal, and finally by word entry when both position and weight are identical. This ordering is essential for efficiently processing document representations during cover distance calculations and other ranking algorithms.
 
-## Parameters / Member Variables
--  (const void*): Pointer to the first DocRepresentation structure to compare
--  (const void*): Pointer to the second DocRepresentation structure to compare
+## Parameters
+
+- `va` (const void*): Pointer to the first DocRepresentation structure to compare
+- `vb` (const void*): Pointer to the second DocRepresentation structure to compare
 
 ## Dependencies
 - Functions called/Symbols referenced:

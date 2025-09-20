@@ -30,10 +30,10 @@ The  function determines whether a join between two relations is required to sat
 
 The function implements a critical optimization heuristic by deferring clauseless bushy joins when possible. This prevents the optimizer from wasting effort on inefficient join combinations when join-order restrictions exist high in the join tree. The function returns false if either input relation can legally join with other relations using actual join clauses, effectively prioritizing joins with explicit conditions over purely structural joins.
 
-## Parameters / Member Variables
-- : The PlannerInfo structure containing global query planning context including join_info_list and placeholder_list
-- : First RelOptInfo to be considered for joining
-- : Second RelOptInfo to be considered for joining
+## Parameters
+- `root`: The PlannerInfo structure containing global query planning context including join_info_list and placeholder_list
+- `rel1`: First RelOptInfo to be considered for joining
+- `rel2`: Second RelOptInfo to be considered for joining
 
 ## Dependencies
 - Functions called/Symbols referenced:

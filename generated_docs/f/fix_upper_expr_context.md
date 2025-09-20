@@ -24,12 +24,12 @@ This structure contains an indexed target list from the subplan, along with vari
 The structure is used by expression mutator functions that traverse expressions in upper-level plan nodes, updating variable references to ensure they correctly reference the subplan's output.
 
 ## Parameters / Member Variables
-- : Pointer to the PlannerInfo structure containing global planner state
-- : Indexed target list for the subplan providing input to this upper-level node
-- : New variable number to assign to variables in this context
-- : Range table offset adjustment for nested query contexts
-- : Nulling relations matching mode for handling outer join semantics
-- : Estimated number of executions for cost-based optimization decisions
+- `root`: Pointer to the PlannerInfo structure containing global planner state
+- `subplan_itlist`: Indexed target list for the subplan providing input to this upper-level node
+- `newvarno`: New variable number to assign to variables in this context
+- `rtoffset`: Range table offset adjustment for nested query contexts
+- `nrm_match`: Nulling relations matching mode for handling outer join semantics
+- `num_exec`: Estimated number of executions for cost-based optimization decisions
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -39,18 +39,18 @@ The lock tag types cover various levels of granularity:
 - Special-purpose locks for specific operations
 
 ## Parameters / Member Variables
-- : Locks an entire relation (table, index, etc.)
-- : Controls the right to extend a relation by adding new pages
-- : Protects the pg_database.datfrozenxid field during updates
-- : Locks a single page within a relation
-- : Locks an individual tuple (row) for fine-grained concurrency
-- : Used for waiting on regular transaction completion
-- : Used for waiting on virtual transaction completion
-- : Manages speculative insertion tokens and XIDs
-- : Locks non-relation database objects (functions, types, etc.)
-- : Reserved for legacy contrib/userlock extension compatibility
-- : Provides user-defined advisory locks for application coordination
-- : Manages transactions being applied in logical replication
+- `LOCKTAG_RELATION`: Locks an entire relation (table, index, etc.)
+- `LOCKTAG_RELATION_EXTEND`: Controls the right to extend a relation by adding new pages
+- `LOCKTAG_DATABASE_FROZEN_IDS`: Protects the pg_database.datfrozenxid field during updates
+- `LOCKTAG_PAGE`: Locks a single page within a relation
+- `LOCKTAG_TUPLE`: Locks an individual tuple (row) for fine-grained concurrency
+- `LOCKTAG_TRANSACTION`: Used for waiting on regular transaction completion
+- `LOCKTAG_VIRTUALTRANSACTION`: Used for waiting on virtual transaction completion
+- `LOCKTAG_SPECULATIVE_TOKEN`: Manages speculative insertion tokens and XIDs
+- `LOCKTAG_OBJECT`: Locks non-relation database objects (functions, types, etc.)
+- `LOCKTAG_USERLOCK`: Reserved for legacy contrib/userlock extension compatibility
+- `LOCKTAG_ADVISORY`: Provides user-defined advisory locks for application coordination
+- `LOCKTAG_APPLY_TRANSACTION`: Manages transactions being applied in logical replication
 
 ## Dependencies
 - Functions called/Symbols referenced: None directly (enum definition)

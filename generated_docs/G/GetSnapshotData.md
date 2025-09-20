@@ -59,7 +59,7 @@ Key optimizations include:
 The function also updates global visibility bounds (GlobalVis*Rels) and backend-global variables (TransactionXmin, RecentXmin) to coordinate transaction management across the system.
 
 ## Parameters / Member Variables
-- : A pre-allocated Snapshot structure to populate with current transaction state information
+- `snapshot`: A pre-allocated Snapshot structure to populate with current transaction state information
 
 ## Dependencies
 - Functions called/Symbols referenced:

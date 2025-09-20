@@ -20,12 +20,12 @@ typedef struct _accessMethodInfo
 OprInfo stores comprehensive metadata about PostgreSQL operators for the dump and restore process. It contains information about the operator's kind (binary, unary left, unary right), the types of its operands, and the function that implements the operator. This structure allows pg_dump to properly reconstruct operator definitions during database restoration, ensuring that custom operators are correctly recreated with their original specifications.
 
 ## Parameters / Member Variables
-- : DumpableObject containing basic dump metadata (OID, name, namespace, etc.)
-- : Name of the role/user who owns this operator
-- : Character indicating operator kind - 'b' for binary, 'l' for left unary, 'r' for right unary
-- : OID of the left operand type (InvalidOid for right unary operators)
-- : OID of the right operand type (InvalidOid for left unary operators)
-- : OID of the function that implements this operator
+- `dobj`: DumpableObject containing basic dump metadata (OID, name, namespace, etc.)
+- `rolname`: Name of the role/user who owns this operator
+- `oprkind`: Character indicating operator kind - 'b' for binary, 'l' for left unary, 'r' for right unary
+- `oprleft`: OID of the left operand type (InvalidOid for right unary operators)
+- `oprright`: OID of the right operand type (InvalidOid for left unary operators)
+- `oprcode`: OID of the function that implements this operator
 
 ## Dependencies
 - Functions called/Symbols referenced:

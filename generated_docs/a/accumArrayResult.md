@@ -37,11 +37,11 @@ Key operations performed:
 The function ensures that pass-by-reference data is copied into the build context and detoasted if it's a varlena type, preventing issues where the source data might be modified later.
 
 ## Parameters / Member Variables
-- : Working state for array building (can be NULL on first call)
-- : The Datum value to append to the array
-- : Whether the new element is NULL
-- : OID of the element type (must be a valid array element type)
-- : Memory context for working state (used only when astate is NULL)
+- `astate`: Working state for array building (can be NULL on first call)
+- `dvalue`: The Datum value to append to the array
+- `disnull`: Whether the new element is NULL
+- `element_type`: OID of the element type (must be a valid array element type)
+- `rcontext`: Memory context for working state (used only when astate is NULL)
 
 ## Dependencies
 - Functions called/Symbols referenced:

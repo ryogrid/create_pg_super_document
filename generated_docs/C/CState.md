@@ -47,24 +47,24 @@ This structure is central to pgbench's multi-client architecture, where each cli
 The state machine approach allows pgbench to handle asynchronous operations efficiently, with the ConnectionStateEnum tracking the current phase of execution while maintaining all necessary context for resuming operations after database interactions.
 
 ## Parameters / Member Variables
-- : PostgreSQL database connection handle for this client
-- uid=1000(ryo) gid=1000(ryo) groups=1000(ryo),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),117(netdev),998(ollama),999(docker): Unique identifier number for this client instance
-- : Current state in the client's state machine execution flow
-- : Stack for tracking nested conditional blocks in scripts
-- : Random number generator state for PGBENCH_RANDOM_* functions
-- : Index into the sql_script array indicating which script this client is executing
-- : Current command number within the active script
-- : Count of synchronous commands currently in progress
-- : Client-specific variable storage container
-- : Microsecond timestamp when transaction was scheduled to start
-- : Microsecond timestamp when next command should begin
-- : Transaction start time for measuring schedule lag
-- : Statement start time for measuring individual statement latencies
-- : 2D boolean array tracking which commands are prepared for each script
-- : Error status of the current transaction (ESTATUS_NO_ERROR if successful)
-- : Random number generator state for transaction retry logic
-- : Number of retry attempts made for the current transaction
-- : Total transaction count for this client (includes skipped and failed transactions)
+- `con`: PostgreSQL database connection handle for this client
+- `id`: Unique identifier number for this client instance
+- `state`: Current state in the client's state machine execution flow
+- `cstack`: Stack for tracking nested conditional blocks in scripts
+- `cs_func_rs`: Random number generator state for PGBENCH_RANDOM_* functions
+- `use_file`: Index into the sql_script array indicating which script this client is executing
+- `command`: Current command number within the active script
+- `num_syncs`: Count of synchronous commands currently in progress
+- `variables`: Client-specific variable storage container
+- `txn_scheduled`: Microsecond timestamp when transaction was scheduled to start
+- `sleep_until`: Microsecond timestamp when next command should begin
+- `txn_begin`: Transaction start time for measuring schedule lag
+- `stmt_begin`: Statement start time for measuring individual statement latencies
+- `prepared`: 2D boolean array tracking which commands are prepared for each script
+- `estatus`: Error status of the current transaction (ESTATUS_NO_ERROR if successful)
+- `random_state`: Random number generator state for transaction retry logic
+- `tries`: Number of retry attempts made for the current transaction
+- `cnt`: Total transaction count for this client (includes skipped and failed transactions)
 
 ## Dependencies
 - Functions called/Symbols referenced:

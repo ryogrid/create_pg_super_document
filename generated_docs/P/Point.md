@@ -20,8 +20,8 @@ Point is the most basic geometric data type in PostgreSQL's geometric type syste
 The Point type is extensively used throughout PostgreSQL's geometric operations and indexing systems, particularly in GiST (Generalized Search Tree) and SP-GiST (Space-partitioned Generalized Search Tree) indexes for spatial queries.
 
 ## Parameters / Member Variables
-- : The x-coordinate of the point (double precision floating point)
-- : The y-coordinate of the point (double precision floating point)
+- `x`: The x-coordinate of the point (double precision floating point)
+- `y`: The y-coordinate of the point (double precision floating point)
 
 ## Dependencies
 - Functions called/Symbols referenced:

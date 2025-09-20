@@ -18,12 +18,12 @@ typedef struct
 PGEventId serves as the event type identifier in PostgreSQL's libpq event notification system. This enumeration is used to specify which type of event has occurred when an event callback function (PGEventProc) is invoked. The event system allows applications to register callback functions that get notified during various stages of connection and result object lifecycles, enabling custom resource management, logging, or cleanup operations.
 
 ## Parameters / Member Variables
-- : Event fired when an event processor is first registered with a connection
-- : Event fired when a connection is reset (e.g., via PQreset)
-- : Event fired when a connection is being destroyed
-- : Event fired when a new PGresult object is created
-- : Event fired when a PGresult object is copied
-- : Event fired when a PGresult object is being destroyed
+- `PGEVT_REGISTER`: Event fired when an event processor is first registered with a connection
+- `PGEVT_CONNRESET`: Event fired when a connection is reset (e.g., via PQreset)
+- `PGEVT_CONNDESTROY`: Event fired when a connection is being destroyed
+- `PGEVT_RESULTCREATE`: Event fired when a new PGresult object is created
+- `PGEVT_RESULTCOPY`: Event fired when a PGresult object is copied
+- `PGEVT_RESULTDESTROY`: Event fired when a PGresult object is being destroyed
 
 ## Dependencies
 - Functions called/Symbols referenced:

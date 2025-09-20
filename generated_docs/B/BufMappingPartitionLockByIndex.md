@@ -40,7 +40,7 @@ typedef struct BufferDesc
 This inline function provides efficient access to buffer mapping partition locks by index. It calculates the memory address of a specific LWLock within the MainLWLockArray by adding the provided index to the BUFFER_MAPPING_LWLOCK_OFFSET base offset. Buffer mapping partitions are used to reduce contention when multiple processes need to access the buffer mapping hash table simultaneously, with each partition having its own dedicated lock.
 
 ## Parameters / Member Variables
-- : A 32-bit unsigned integer specifying which buffer mapping partition lock to retrieve
+- `index`: A 32-bit unsigned integer specifying which buffer mapping partition lock to retrieve
 
 ## Dependencies
 - Functions called/Symbols referenced:

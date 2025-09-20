@@ -48,11 +48,11 @@ The function is nearly identical to  but operates on  structures instead of raw 
 
 This enables efficient navigation through B-tree leaf nodes to find the appropriate compressed sequence that might contain a target integer.
 
-## Parameters / Member Variables
-- : The uint64 value to search for
-- : Pointer to the sorted array of leaf_item structures to search in
-- : Number of leaf_item elements in the array
-- : Boolean flag controlling behavior when equal keys are found
+## Parameters
+- `item`: The uint64 value to search for
+- `arr`: Pointer to the sorted array of leaf_item structures to search in
+- `count`: Number of leaf_item elements in the array
+- `nextkey`: Boolean flag controlling behavior when equal keys are found
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -20,11 +20,11 @@ This static function handles IPv6-specific conversion from 16-byte binary format
 
 The implementation is portable across different architectures, avoiding assumptions about integer sizes and byte ordering that might not hold on all systems.
 
-## Parameters / Member Variables
-- : Pointer to the 16-byte IPv6 address in network byte order
-- : Number of network bits for CIDR notation (-1 for no prefix, 0-128)
-- : Output buffer to store the formatted string
-- : Size of the destination buffer
+## Parameters
+- `src`: Pointer to the 16-byte IPv6 address in network byte order
+- `bits`: Number of network bits for CIDR notation (-1 for no prefix, 0-128)
+- `dst`: Output buffer to store the formatted string
+- `size`: Size of the destination buffer
 
 ## Dependencies
 - Functions called/Symbols referenced:

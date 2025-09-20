@@ -31,10 +31,10 @@ The structure maintains both the current count (nvars) and maximum capacity (max
 This container is fundamental to pgbench's variable system, supporting script-based benchmarks that require variable storage and manipulation across multiple database operations.
 
 ## Parameters / Member Variables
-- : Pointer to dynamically allocated array of Variable structures containing the actual variable data
-- : Current number of variables stored in the array
-- : Maximum number of variables that can be stored without reallocating the vars array (must always be >= nvars)
-- : Boolean flag indicating whether the variables are sorted by name for optimized lookups
+- `vars`: Pointer to dynamically allocated array of Variable structures containing the actual variable data
+- `nvars`: Current number of variables stored in the array
+- `max_vars`: Maximum number of variables that can be stored without reallocating the vars array (must always be >= nvars)
+- `vars_sorted`: Boolean flag indicating whether the variables are sorted by name for optimized lookups
 
 ## Dependencies
 - Functions called/Symbols referenced:

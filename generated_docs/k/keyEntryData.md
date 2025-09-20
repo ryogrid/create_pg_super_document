@@ -11,10 +11,9 @@ A simple structure used for sorting key datums during GIN index key extraction o
 ```c
 typedef struct
 {
-	FmgrInfo   *cmpDatumFunc;
-	Oid			collation;
-	bool		haveDups;
-} cmpEntriesArg;
+	Datum		datum;
+	bool		isnull;
+} keyEntryData;
 ```
 ## Detailed Description
  is a utility structure used specifically within the  function in PostgreSQL's GIN (Generalized Inverted Index) access method. This structure serves as a temporary container for key data during the sorting and deduplication process. When multiple keys are extracted from an indexed value, they need to be sorted and duplicates removed for efficient storage. The  structure pairs each key datum with its null flag, allowing the sorting algorithm to handle both null and non-null values appropriately.
@@ -22,8 +21,8 @@ typedef struct
 The structure is designed to support the sorting operations required by GIN indexes, where keys must be ordered consistently and duplicates eliminated. It's used as an intermediate representation that can be passed to the  function along with a custom comparison function ().
 
 ## Parameters / Member Variables
-- : The actual key value data stored as a Datum (PostgreSQL's generic data type)
-- : Boolean flag indicating whether the datum represents a NULL value
+- `datum`: The actual key value data stored as a Datum (PostgreSQL's generic data type)
+- `isnull`: Boolean flag indicating whether the datum represents a NULL value
 
 ## Dependencies
 - Functions called/Symbols referenced:

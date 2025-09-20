@@ -31,9 +31,9 @@ The structure supports both circular and non-circular empty list representations
 - Non-circular empty list: both  and  are NULL
 
 ## Parameters / Member Variables
-- : A  structure that serves as the sentinel node for the list
-  - : Points to the first element of the list, to  for circular empty lists, or NULL for non-circular empty lists
-  - : Points to the last element of the list, to  for circular empty lists, or NULL for non-circular empty lists
+- `head`: A `dlist_node` structure that serves as the sentinel node for the list
+  - `head.next`: Points to the first element of the list, to `&head` for circular empty lists, or NULL for non-circular empty lists
+  - `head.prev`: Points to the last element of the list, to `&head` for circular empty lists, or NULL for non-circular empty lists
 
 ## Dependencies
 - Functions called/Symbols referenced:

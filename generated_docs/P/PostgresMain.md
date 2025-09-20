@@ -153,8 +153,8 @@ The function operates in several key phases:
 The function includes sophisticated timeout management for idle sessions and idle-in-transaction states, comprehensive error handling and reporting, and support for both simple and extended query protocols. It also handles special cases like WAL sender operations and replication commands.
 
 ## Parameters / Member Variables
-- : Name of the database to connect to for this backend session
-- : PostgreSQL username to be used for authentication and session context
+- `database_name`: Name of the database to connect to for this backend session
+- `username`: PostgreSQL username to be used for authentication and session context
 
 ## Dependencies
 - Functions called/Symbols referenced:

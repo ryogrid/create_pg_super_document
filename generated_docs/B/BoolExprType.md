@@ -30,9 +30,9 @@ The enumeration supports:
 For AND and OR operations, the arguments are provided as a List that can contain two or more elements. For NOT operations, the list must contain exactly one element to be negated.
 
 ## Parameters / Member Variables
-- : Represents logical AND operation (requires 2+ arguments)
-- : Represents logical OR operation (requires 2+ arguments)  
-- : Represents logical NOT operation (requires exactly 1 argument)
+- `AND_EXPR`: Represents logical AND operation (requires 2+ arguments)
+- `OR_EXPR`: Represents logical OR operation (requires 2+ arguments)  
+- `NOT_EXPR`: Represents logical NOT operation (requires exactly 1 argument)
 
 ## Dependencies
 - Functions called/Symbols referenced:

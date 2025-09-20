@@ -18,11 +18,11 @@ struct
 ## Detailed Description
 optional_setsockopt is an internal utility function in the libpq cancel mechanism that wraps the standard setsockopt() system call with additional logic to handle optional socket options. The function treats negative values as a signal to skip the socket option entirely, allowing callers to pass -1 or other negative values to indicate that a particular socket option should not be set. If a non-negative value is provided, it attempts to set the socket option and returns false if the operation fails.
 
-## Parameters / Member Variables
-- : File descriptor of the socket on which to set the option
-- : Protocol level identifier (e.g., SOL_SOCKET, IPPROTO_TCP)  
-- : Socket option identifier (e.g., SO_KEEPALIVE, TCP_NODELAY)
-- : The value to set for the socket option, or negative to skip setting
+## Parameters
+- `sock`: File descriptor of the socket on which to set the option
+- `level`: Protocol level identifier (e.g., SOL_SOCKET, IPPROTO_TCP)  
+- `optname`: Socket option identifier (e.g., SO_KEEPALIVE, TCP_NODELAY)
+- `value`: The value to set for the socket option, or negative to skip setting
 
 ## Dependencies
 - Functions called/Symbols referenced:

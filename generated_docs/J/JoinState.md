@@ -23,12 +23,10 @@ JoinState serves as the base structure for all join execution state nodes in Pos
 
 ## Parameters / Member Variables
 
- 5459 ?        00:00:00 bash
- 5492 ?        00:00:00 ps
-21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common execution state information
-- : The type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
-- : Boolean flag indicating whether to skip to the next outer tuple after finding one inner match (optimization for certain join types)
-- : Pointer to ExprState containing JOIN qualification expressions that are evaluated in addition to the base plan's qualification expressions
+- `ps`: Base PlanState structure containing common execution state information
+- `jointype`: The type of join operation (INNER, LEFT, RIGHT, FULL, etc.)
+- `single_match`: Boolean flag indicating whether to skip to the next outer tuple after finding one inner match (optimization for certain join types)
+- `joinqual`: Pointer to ExprState containing JOIN qualification expressions that are evaluated in addition to the base plan's qualification expressions
 
 ## Dependencies
 - Functions called/Symbols referenced:

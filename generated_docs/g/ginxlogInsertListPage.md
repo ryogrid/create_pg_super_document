@@ -24,8 +24,8 @@ When new tuples are inserted into a GIN index's pending list (fast insertion mec
 The structure is followed by the actual tuple data in the WAL record, allowing complete reconstruction of the insertion operation during recovery.
 
 ## Parameters / Member Variables
-- : Block number of the next page in the pending list chain, or InvalidBlockNumber if this is the tail page
-- : Number of tuples being inserted into the page
+- `rightlink`: Block number of the next page in the pending list chain, or InvalidBlockNumber if this is the tail page
+- `ntuples`: Number of tuples being inserted into the page
 - Note: The actual tuple data follows this structure in the WAL record but is not part of the struct definition
 
 ## Dependencies

@@ -26,8 +26,10 @@ CHKVAL serves as a context structure passed to callback functions during text se
 The structure enables binary search algorithms to efficiently locate matching terms within sorted arrays by maintaining pointers to the beginning and end of the search range. It acts as a bridge between the query execution framework and the specific comparison functions that need access to the underlying data arrays.
 
 ## Parameters / Member Variables
-- : Pointer to the beginning of the array being searched (array begin)
-- : Pointer to the end of the array being searched (array end)
+- `arrb`: Pointer to the beginning of the WordEntry array being searched (array begin)
+- `arre`: Pointer to the end of the WordEntry array being searched (array end)
+- `values`: Character data for the tsvector values
+- `operand`: The operand being searched for
 
 ## Dependencies
 - Functions called/Symbols referenced:

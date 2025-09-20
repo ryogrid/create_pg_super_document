@@ -59,31 +59,28 @@ JsonbValue serves as PostgreSQL's in-memory representation for JSONB data, contr
 The structure uses a discriminated union approach where the  field determines which member of the  union is active. This design enables efficient type-specific operations while maintaining a unified interface for all JSON value types.
 
 ## Parameters / Member Variables
-### Primary Members:
-- : An enum jbvType value that determines the JSON value type and influences sort order
-- : A union containing type-specific data structures
-
-### Union Members by Type:
-- : Numeric data for jbvNumeric type
-- : Boolean value for jbvBool type  
-- : String data structure containing:
-  - : Length of the string
-  - : Character pointer (not necessarily null-terminated)
-- : Array container structure containing:
-  - : Number of elements in the array
-  - : Pointer to array of JsonbValue elements
-  - : Flag indicating if this is a top-level "raw scalar" array
-- : Associative container structure containing:
-  - : Number of key-value pairs (1 pair = 2 elements)
-  - : Pointer to array of JsonbPair structures
-- : Binary format structure containing:
-  - : Length of the binary data
-  - : Pointer to JsonbContainer in on-disk format
-- : Date/time data structure containing:
-  - : Datum containing the date/time value
-  - : Type OID for the date/time type
-  - : Type modifier
-  - : Numeric time zone in seconds for TimestampTz data type
+- `type`: Enum jbvType value that determines which union member is active and influences sort order when comparing JSON values
+- `val`: Union containing type-specific data, accessed based on the type field
+- `val.numeric`: Numeric value (PostgreSQL Numeric type) used when type is jbvNumeric
+- `val.boolean`: Boolean value used when type is jbvBool
+- `val.string`: String primitive structure used when type is jbvString
+  - `val.string.len`: Length of the string in bytes
+  - `val.string.val`: Character pointer to string data (not necessarily null-terminated)
+- `val.array`: Array container structure used when type is jbvArray
+  - `val.array.nElems`: Number of elements in the array
+  - `val.array.elems`: Pointer to array of JsonbValue elements
+  - `val.array.rawScalar`: Boolean flag indicating if this is a top-level "raw scalar" array
+- `val.object`: Associative container structure used when type is jbvObject
+  - `val.object.nPairs`: Number of key-value pairs (note: 1 pair equals 2 elements)
+  - `val.object.pairs`: Pointer to array of JsonbPair structures
+- `val.binary`: Binary format structure used when type is jbvBinary
+  - `val.binary.len`: Length of the binary data in bytes
+  - `val.binary.data`: Pointer to JsonbContainer in on-disk format
+- `val.datetime`: Date/time structure used when type is jbvDatetime
+  - `val.datetime.value`: Datum containing the actual date/time value
+  - `val.datetime.typid`: Type OID identifying the specific date/time type
+  - `val.datetime.typmod`: Type modifier for the date/time type
+  - `val.datetime.tz`: Numeric time zone offset in seconds (used for TimestampTz data type)
 
 ## Dependencies
 - Types referenced:

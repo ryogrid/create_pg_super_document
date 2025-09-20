@@ -21,10 +21,8 @@ This structure serves as a communication mechanism between the high-level WAL re
 The structure is typically allocated and initialized in InitWalRecovery and passed to the XLogReader through its private_data field. This allows the XLogPageRead callback to access recovery-specific parameters without requiring them as direct function parameters.
 
 ## Parameters / Member Variables
-- : Error mode specifying how errors should be handled during page reading (e.g., ERROR, WARNING, LOG levels)
-- : Boolean flag indicating whether the current operation is fetching a checkpoint record, which may require special handling
-- : Boolean flag indicating whether random access to WAL pages is being performed, as opposed to sequential reading
-- : Timeline ID specifying which timeline should be used during replay operations
+- `restoreCommand`: String containing the restore command for retrieving WAL files
+- `tliIndex`: Index into the timeline array for timeline-specific operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

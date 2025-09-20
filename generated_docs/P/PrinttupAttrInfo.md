@@ -27,11 +27,11 @@ PrinttupAttrInfo is a fundamental data structure used in PostgreSQL's tuple prin
 The structure stores precomputed metadata for each column in a result set, including function OIDs for type conversion, format specifications, and cached function call information. This design enables efficient repeated formatting operations by avoiding redundant type system lookups during tuple output processing.
 
 ## Parameters / Member Variables
-- : OID of the type's text output function, used when formatting data as text
-- : OID of the type's binary output function, used when formatting data in binary protocol
-- : Boolean flag indicating whether the type is variable-length and potentially toastable
-- : Format code specifying how this column should be formatted (text vs binary)
-- : Precomputed function manager information for the selected output function, optimizing repeated calls
+- `typoutput`: OID of the type's text output function, used when formatting data as text
+- `typsend`: OID of the type's binary output function, used when formatting data in binary protocol
+- `typisvarlena`: Boolean flag indicating whether the type is variable-length and potentially toastable
+- `format`: Format code specifying how this column should be formatted (text vs binary)
+- `finfo`: Precomputed function manager information for the selected output function, optimizing repeated calls
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -32,9 +32,9 @@ The Variable structure is a core data type in pgbench that represents individual
 The structure is designed to handle lazy evaluation where the string form may be computed on demand, indicated by the possibility of svalue being NULL when not yet calculated. This dual representation allows efficient operations while maintaining compatibility with both string-based script operations and typed mathematical computations.
 
 ## Parameters / Member Variables
-- : Pointer to the variable's name as a null-terminated string
-- : String representation of the variable's value, may be NULL if not yet computed
-- : The actual typed value stored as a PgBenchValue union structure containing integer, double, or boolean values
+- `name`: Pointer to the variable's name as a null-terminated string
+- `svalue`: String representation of the variable's value, may be NULL if not yet computed
+- `value`: The actual typed value stored as a PgBenchValue union structure containing integer, double, or boolean values
 
 ## Dependencies
 - Functions called/Symbols referenced:

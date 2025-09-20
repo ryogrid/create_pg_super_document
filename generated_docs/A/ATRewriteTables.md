@@ -196,11 +196,11 @@ The function implements sophisticated logic to handle various scenarios: full ta
 
 The function operates in multiple distinct phases: first handling table rewrites and constraint validation, then processing foreign key constraints in a separate pass (since both sides of a foreign key relationship may have been rewritten), and finally executing any queued after-statements that were generated during the transformation phase.
 
-## Parameters / Member Variables
-- : Pointer to the original AlterTableStmt for event trigger reporting (NULL for internal operations)
-- : Double pointer to the work queue list containing all AlteredTableInfo entries to process
-- : Lock mode to acquire on relations during processing
-- : Pointer to AlterTableUtilityContext for maintaining operation context
+## Parameters
+- `parsetree`: Pointer to the original AlterTableStmt for event trigger reporting (NULL for internal operations)
+- `wqueue`: Double pointer to the work queue list containing all AlteredTableInfo entries to process
+- `lockmode`: Lock mode to acquire on relations during processing
+- `context`: Pointer to AlterTableUtilityContext for maintaining operation context
 
 ## Dependencies
 - Functions called/Symbols referenced:

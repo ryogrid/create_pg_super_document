@@ -26,12 +26,13 @@ This function calculates a hash value for a set of partition key values by itera
 
 The function ignores NULL values during hash computation, meaning tuples with NULL values in partition key columns will only be hashed based on their non-NULL partition key values. Each partition attribute is hashed using its specific hash function with a consistent seed value () to ensure deterministic results.
 
-## Parameters / Member Variables
-- : Number of partition key attributes to process
-- : Array of FmgrInfo structures containing the hash functions for each partition key attribute
-- : Array of collation OIDs for each partition key attribute (used for collation-sensitive hash functions)
-- : Array of Datum values representing the partition key values to hash
-- : Array of boolean flags indicating which partition key values are NULL
+## Parameters
+
+- `nkeys`: Number of partition key attributes to process
+- `partsupfunc`: Array of FmgrInfo structures containing the hash functions for each partition key attribute
+- `partcollation`: Array of collation OIDs for each partition key attribute (used for collation-sensitive hash functions)
+- `values`: Array of Datum values representing the partition key values to hash
+- `isnull`: Array of boolean flags indicating which partition key values are NULL
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -31,12 +31,12 @@ The enum is designed to capture key moments in object lifecycle management:
 - Table truncation attempts (OAT_TRUNCATE)
 
 ## Parameters / Member Variables
-- : Invoked after object creation, typically after inserting catalog records and dependencies
-- : Invoked before object deletion, typically in deleteOneObject()
-- : Invoked after object alteration but before command counter increment
-- : Invoked before object name lookup in a namespace (equivalent to schema usage permission)
-- : Invoked before function execution (equivalent to execute permission)
-- : Invoked before table truncation (equivalent to truncate permission)
+- `OAT_POST_CREATE`: Invoked after object creation, typically after inserting catalog records and dependencies
+- `OAT_DROP`: Invoked before object deletion, typically in deleteOneObject()
+- `OAT_POST_ALTER`: Invoked after object alteration but before command counter increment
+- `OAT_NAMESPACE_SEARCH`: Invoked before object name lookup in a namespace (equivalent to schema usage permission)
+- `OAT_FUNCTION_EXECUTE`: Invoked before function execution (equivalent to execute permission)
+- `OAT_TRUNCATE`: Invoked before table truncation (equivalent to truncate permission)
 
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a basic enum type)

@@ -21,11 +21,11 @@ typedef struct GroupingSet
 GroupingSetKind classifies the various types of grouping sets that can appear in SQL GROUP BY clauses with advanced aggregation features. This enumeration supports the SQL standard's grouping sets functionality, allowing for complex aggregation patterns like hierarchical rollups, multidimensional cubes, and arbitrary grouping combinations. The different kinds represent various stages of parse analysis transformation from raw syntax to the final optimized representation.
 
 ## Parameters / Member Variables
-- : Represents empty grouping sets (), typically used for grand totals
-- : Represents a list of expressions treated as an atomic grouping unit
-- : Represents ROLLUP operations for hierarchical aggregations
-- : Represents CUBE operations for multidimensional aggregations
-- : Represents explicit GROUPING SETS clauses containing other grouping set types
+- `GROUPING_SET_EMPTY`: Represents empty grouping sets (), typically used for grand totals
+- `GROUPING_SET_SIMPLE`: Represents a list of expressions treated as an atomic grouping unit
+- `GROUPING_SET_ROLLUP`: Represents ROLLUP operations for hierarchical aggregations
+- `GROUPING_SET_CUBE`: Represents CUBE operations for multidimensional aggregations
+- `GROUPING_SET_SETS`: Represents explicit GROUPING SETS clauses containing other grouping set types
 
 ## Dependencies
 - Functions called/Symbols referenced:

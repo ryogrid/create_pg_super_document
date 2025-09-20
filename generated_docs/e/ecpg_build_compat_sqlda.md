@@ -62,11 +62,11 @@ This function constructs a  structure that contains metadata about the columns i
 
 The function allocates a single memory block that contains the main SQLDA structure, an array of SQLVAR structures (one per column), and space for column names. It populates the metadata fields including SQL types, column names, type identifiers, and type lengths for each field in the result set.
 
-## Parameters / Member Variables
-- : Line number in the source code where this function is called (used for debugging and error reporting)
-- : PostgreSQL result set (PGresult*) containing the query results and metadata
-- : Row number for which space should be allocated (though this parameter appears to be used primarily for size calculation)
-- : Compatibility mode enumeration that determines how SQL types are mapped
+## Parameters
+- `line`: Line number in the source code where this function is called (used for debugging and error reporting)
+- `res`: PostgreSQL result set (PGresult*) containing the query results and metadata
+- `row`: Row number for which space should be allocated (though this parameter appears to be used primarily for size calculation)
+- `compat`: Compatibility mode enumeration that determines how SQL types are mapped
 
 ## Dependencies
 - Functions called/Symbols referenced:

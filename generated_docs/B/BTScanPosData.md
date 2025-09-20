@@ -59,12 +59,18 @@ typedef struct BTScanPosData
 This structure encapsulates all the state information required to track a scan position within a B-tree index. It manages buffer pins, tracks page relationships, maintains scan direction context, and holds arrays of matching items found on the current page. The structure supports both forward and backward scanning, with the items array filled accordingly. For index-only scans, it also manages tuple workspace offsets.
 
 ## Parameters / Member Variables
-- : Buffer that is pinned if valid, providing access to the current page
-- : XLogRecPtr position in the WAL stream when the page was read
-- : BlockNumber of the page referenced by the items array
-- : BlockNumber of the page's right link when it was scanned
-- : Boolean flag indicating if there may be matching entries to the left
-- : Boolean flag indicating if there may be matching entries to the right
+- `buf`: Buffer that is pinned if valid, providing access to the current page
+- `lsn`: XLogRecPtr position in the WAL stream when the page was read
+- `currPage`: BlockNumber of the page referenced by the items array
+- `nextPage`: BlockNumber of the page's right link when it was scanned
+- `moreLeft`: Boolean flag indicating if there may be matching entries to the left
+- `moreRight`: Boolean flag indicating if there may be matching entries to the right
+- `dir`: ScanDirection of the scan when _bt_readpage was called
+- `nextTupleOffset`: Integer tracking the first free location in tuple storage workspace for index-only scans
+- `firstItem`: Integer index of the first valid entry in items array
+- `lastItem`: Integer index of the last valid entry in items array
+- `itemIndex`: Integer cursor showing which entry was last returned to caller
+- `items`: Array of BTScanPosItem structures containing matching items (must be last member)
 1
 3.2
 5

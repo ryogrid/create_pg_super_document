@@ -32,11 +32,11 @@ The function is used in two main scenarios:
 This is a low-level function that assumes the caller has verified the operation is safe to perform.
 
 ## Parameters / Member Variables
-- : The lock method table containing lock configuration and mode information
-- : The PGPROC structure representing the process that holds the lock
-- : The LOCKTAG identifying the specific lock object to release
-- : The specific lock mode to release (e.g., AccessShareLock, ExclusiveLock)
-- : Whether to decrement the fast-path strong lock count (used for 2PC)
+- `lockmethodid`: The lock method table containing lock configuration and mode information
+- `proc`: The PGPROC structure representing the process that holds the lock
+- `locktag`: The LOCKTAG identifying the specific lock object to release
+- `lockmode`: The specific lock mode to release (e.g., AccessShareLock, ExclusiveLock)
+- `decrement_strong_lock_count`: Whether to decrement the fast-path strong lock count (used for 2PC)
 
 ## Dependencies
 - Functions called/Symbols referenced:

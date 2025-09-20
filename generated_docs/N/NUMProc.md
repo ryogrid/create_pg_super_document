@@ -42,27 +42,27 @@ typedef struct NUMProc
 The NUMProc structure is a sophisticated state machine used by PostgreSQL's numeric formatting system for bidirectional conversion between numbers and formatted strings. It maintains all the necessary context information during formatting operations, including parsing state, buffer management, locale-specific formatting characters, and position tracking. The structure supports both to_char (number-to-string) and to_number (string-to-number) operations, adapting its behavior based on the is_to_char flag. It handles complex formatting scenarios including locale-specific number formatting, decimal precision control, and currency symbol placement.
 
 ## Parameters / Member Variables
-- : Boolean flag indicating the direction of conversion (true for number-to-char, false for char-to-number)
-- : Pointer to NUMDesc structure containing the number format description
-- : Current sign character ('-' or '+')
-- : Flag indicating whether the sign has been written to output
-- : Count of digits written to output
-- : Flag indicating if currently inside the number portion
-- : Current position within the number
-- : Number of spaces to output before the first digit
-- : Flag for to_number operations indicating if decimal point was read
-- : For to_number operations, count of digits after decimal point
-- : For to_number operations, count of digits before decimal point
-- : String buffer containing the number
-- : Pointer to current position in the number string
-- : Input/output buffer for conversion operations
-- : Pointer to current position in the input/output buffer
-- : Pointer to last significant digit after decimal point
-- : Locale-specific negative sign string
-- : Locale-specific positive sign string
-- : Locale-specific decimal point character
-- : Locale-specific thousands separator
-- : Locale-specific currency symbol
+- `is_to_char`: Boolean flag indicating the direction of conversion (true for number-to-char, false for char-to-number)
+- `Num`: Pointer to NUMDesc structure containing the number format description
+- `sign`: Current sign character ('-' or '+')
+- `sign_wrote`: Flag indicating whether the sign has been written to output
+- `num_count`: Count of digits written to output
+- `num_in`: Flag indicating if currently inside the number portion
+- `num_curr`: Current position within the number
+- `out_pre_spaces`: Number of spaces to output before the first digit
+- `read_dec`: Flag for to_number operations indicating if decimal point was read
+- `read_post`: For to_number operations, count of digits after decimal point
+- `read_pre`: For to_number operations, count of digits before decimal point
+- `number`: String buffer containing the number
+- `number_p`: Pointer to current position in the number string
+- `inout`: Input/output buffer for conversion operations
+- `inout_p`: Pointer to current position in the input/output buffer
+- `last_relevant`: Pointer to last significant digit after decimal point
+- `L_negative_sign`: Locale-specific negative sign string
+- `L_positive_sign`: Locale-specific positive sign string
+- `decimal`: Locale-specific decimal point character
+- `L_thousands_sep`: Locale-specific thousands separator
+- `L_currency_symbol`: Locale-specific currency symbol
 
 ## Dependencies
 - Functions called/Symbols referenced:

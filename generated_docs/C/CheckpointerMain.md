@@ -99,9 +99,9 @@ The function runs in an infinite loop, sleeping between checkpoint operations an
 
 The process sets up signal handlers for configuration reloads, checkpoint requests, and shutdown signals. It uses a dedicated memory context for error recovery and implements comprehensive cleanup procedures when errors occur.
 
-## Parameters / Member Variables
-- : Startup data passed from the postmaster (expected to be NULL/empty)
-- : Length of startup data (expected to be 0)
+## Parameters
+- `startup_data`: Startup data passed from the postmaster (expected to be NULL/empty)
+- `startup_data_len`: Length of startup data (expected to be 0)
 
 ## Dependencies
 - Functions called/Symbols referenced:

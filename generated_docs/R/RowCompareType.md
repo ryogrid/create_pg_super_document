@@ -35,12 +35,12 @@ The system determines operator behavior by looking for operators in btree operat
 The enumeration values are specifically chosen to match btree strategy numbers for efficiency in operator lookup and execution. However, only the ordering operators (< <= > >=) generate actual RowCompareExpr nodes - equality and inequality comparisons are translated to simple AND/OR combinations of pairwise element comparisons.
 
 ## Parameters / Member Variables
--  (1): Less than comparison (<), matches BTLessStrategyNumber
--  (2): Less than or equal comparison (<=), matches BTLessEqualStrategyNumber  
--  (3): Equality comparison (=), matches BTEqualStrategyNumber
--  (4): Greater than or equal comparison (>=), matches BTGreaterEqualStrategyNumber
--  (5): Greater than comparison (>), matches BTGreaterStrategyNumber
--  (6): Not equal comparison (<>), no corresponding btree strategy
+- `ROWCOMPARE_LT` (1): Less than comparison (<), matches BTLessStrategyNumber
+- `ROWCOMPARE_LE` (2): Less than or equal comparison (<=), matches BTLessEqualStrategyNumber  
+- `ROWCOMPARE_EQ` (3): Equality comparison (=), matches BTEqualStrategyNumber
+- `ROWCOMPARE_GE` (4): Greater than or equal comparison (>=), matches BTGreaterEqualStrategyNumber
+- `ROWCOMPARE_GT` (5): Greater than comparison (>), matches BTGreaterStrategyNumber
+- `ROWCOMPARE_NE` (6): Not equal comparison (<>), no corresponding btree strategy
 
 ## Dependencies
 - Functions called/Symbols referenced:

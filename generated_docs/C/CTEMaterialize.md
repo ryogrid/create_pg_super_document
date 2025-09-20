@@ -22,9 +22,9 @@ typedef struct CTESearchClause
 CTEMaterialize defines the materialization strategy for Common Table Expressions (WITH clauses). Materialization determines whether PostgreSQL should compute and store the CTE results in memory before using them, or whether it should inline the CTE query directly into the main query. This choice significantly affects query performance and execution behavior. The enumeration provides explicit control over this optimization decision, overriding PostgreSQL's default heuristics.
 
 ## Parameters / Member Variables
-- : Uses PostgreSQL's default materialization heuristics (no explicit MATERIALIZED or NOT MATERIALIZED clause)
-- : Forces materialization of the CTE (MATERIALIZED clause specified)
-- : Prevents materialization, inlining the CTE instead (NOT MATERIALIZED clause specified)
+- `CTEMaterializeDefault`: Uses PostgreSQL's default materialization heuristics (no explicit MATERIALIZED or NOT MATERIALIZED clause)
+- `CTEMaterializeAlways`: Forces materialization of the CTE (MATERIALIZED clause specified)
+- `CTEMaterializeNever`: Prevents materialization, inlining the CTE instead (NOT MATERIALIZED clause specified)
 
 ## Dependencies
 - Functions called/Symbols referenced:

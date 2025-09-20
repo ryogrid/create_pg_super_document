@@ -30,11 +30,11 @@ GISTSearchItem serves as the fundamental unit in the GiST search queue system, p
 The key design feature is the union that allows the same structure to represent two different types of search targets: index pages (identified by blkno and tracked via parentlsn for split detection) and heap tuples (containing full heap item information). The flexible array member for distances enables support for multiple ORDER BY clauses in distance-ordered searches, making this structure central to PostgreSQL's nearest-neighbor search capabilities.
 
 ## Parameters / Member Variables
-- : Pairing heap node structure that enables this item to be stored and managed in the priority queue
-- : Block number of the index page being referenced, or InvalidBlockNumber if this represents a heap tuple
-- : When representing an index page, stores the parent page's LSN to detect concurrent splits during traversal
-- : When representing a heap tuple, contains the complete GISTSearchHeapItem with heap pointer and metadata
-- : Variable-length array containing distance values for each ORDER BY clause in ordered searches
+- `phNode`: Pairing heap node structure that enables this item to be stored and managed in the priority queue
+- `blkno`: Block number of the index page being referenced, or InvalidBlockNumber if this represents a heap tuple
+- `parentlsn`: When representing an index page, stores the parent page's LSN to detect concurrent splits during traversal
+- `heap`: When representing a heap tuple, contains the complete GISTSearchHeapItem with heap pointer and metadata
+- `distances`: Variable-length array containing distance values for each ORDER BY clause in ordered searches
 
 ## Dependencies
 - Functions called/Symbols referenced:

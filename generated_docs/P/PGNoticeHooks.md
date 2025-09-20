@@ -28,10 +28,10 @@ The structure supports two complementary notice handling mechanisms:
 - **Notice Processor**: Handles simple string-based notice messages for basic text output
 
 ## Parameters / Member Variables
-- : Function pointer of type PQnoticeReceiver that receives structured notice messages as PGresult objects. Signature: 
-- : Void pointer passed as the first argument to the notice receiver function, allowing client code to pass context data
-- : Function pointer of type PQnoticeProcessor that receives simple string-based notice messages. Signature:   
-- : Void pointer passed as the first argument to the notice processor function, allowing client code to pass context data
+- `noticeRec`: Function pointer of type PQnoticeReceiver that receives structured notice messages as PGresult objects
+- `noticeRecArg`: Void pointer passed as the first argument to the notice receiver function, allowing client code to pass context data
+- `noticeProc`: Function pointer of type PQnoticeProcessor that receives simple string-based notice messages
+- `noticeProcArg`: Void pointer passed as the first argument to the notice processor function, allowing client code to pass context data
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,11 +25,11 @@ NamespaceInfo extends DumpableObjectWithAcl to represent PostgreSQL schemas (nam
 The structure is populated by the getNamespaces() function, which queries the pg_namespace system catalog to retrieve all namespaces in the database. Special handling is provided for the 'public' schema, which has predetermined default ACLs to maintain compatibility across PostgreSQL versions and handle ownership changes properly.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing metadata like catalog ID, dump ID, name, namespace reference, dump components, and dependencies
-- : DumpableAcl structure with ACL string, default ACL, privilege type, and initial privileges from pg_init_privs
-- : Boolean flag indicating whether to emit CREATE SCHEMA statement (true) or just set the owner (false)
-- : OID of the schema owner from pg_namespace.nspowner
-- : String name of the owner role, resolved from the owner OID
+- `dobj`: Base DumpableObject containing metadata like catalog ID, dump ID, name, namespace reference, dump components, and dependencies
+- `dacl`: DumpableAcl structure with ACL string, default ACL, privilege type, and initial privileges from pg_init_privs
+- `create`: Boolean flag indicating whether to emit CREATE SCHEMA statement (true) or just set the owner (false)
+- `nspowner`: OID of the schema owner from pg_namespace.nspowner
+- `rolname`: String name of the owner role, resolved from the owner OID
 
 ## Dependencies
 - Functions called/Symbols referenced:

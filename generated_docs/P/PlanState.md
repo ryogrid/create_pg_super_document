@@ -107,29 +107,29 @@ typedef struct PlanState
 PlanState is the fundamental abstract base class for all execution state structures in PostgreSQL's executor. It provides the common framework that all plan node types inherit, containing essential execution infrastructure such as tuple processing functions, instrumentation for performance monitoring, expression evaluation contexts, and tree navigation pointers. This structure forms the backbone of PostgreSQL's execution engine, with specific node types like SeqScanState, NestLoopState, and HashJoinState all extending this base structure.
 
 ## Parameters / Member Variables
-- : NodeTag identifier for the specific PlanState subtype
-- : Pointer to the associated Plan node from the plan tree
-- : Global execution state (EState) shared across the entire query execution
-- : Function pointer to retrieve the next tuple from this node
-- : Actual processing function when ExecProcNode is a wrapper
-- : Runtime performance statistics collection for this node
-- : Per-worker performance statistics for parallel execution
-- : Per-worker JIT compilation statistics
-- : Expression state for boolean qualification conditions
-- : Left child node in the execution tree
-- : Right child node in the execution tree
-- : List of uncorrelated subplans executed during initialization
-- : List of correlated subplans referenced in expressions
-- : Set of parameter IDs that have changed, triggering rescans
-- : Descriptor for tuples returned by this node
-- : Slot for storing result tuples
-- : Expression evaluation context for this node
-- : Projection information for tuple transformation
-- : Flag indicating if node supports asynchronous execution
-- : Tuple descriptor for scan slots (optimization hint)
-- , , , : Slot operation types for different contexts
--  flags: Indicate whether corresponding slot types are guaranteed
--  flags: Indicate whether corresponding slot operation types are set
+- `type`: NodeTag identifier for the specific PlanState subtype
+- `plan`: Pointer to the associated Plan node from the plan tree
+- `state`: Global execution state (EState) shared across the entire query execution
+- `ExecProcNode`: Function pointer to retrieve the next tuple from this node
+- `ExecProcNodeReal`: Actual processing function when ExecProcNode is a wrapper
+- `instrument`: Runtime performance statistics collection for this node
+- `worker_instrument`: Per-worker performance statistics for parallel execution
+- `worker_jit_instrument`: Per-worker JIT compilation statistics
+- `qual`: Expression state for boolean qualification conditions
+- `lefttree`: Left child node in the execution tree
+- `righttree`: Right child node in the execution tree
+- `initPlan`: List of uncorrelated subplans executed during initialization
+- `subPlan`: List of correlated subplans referenced in expressions
+- `chgParam`: Set of parameter IDs that have changed, triggering rescans
+- `ps_ResultTupleDesc`: Descriptor for tuples returned by this node
+- `ps_ResultTupleSlot`: Slot for storing result tuples
+- `ps_ExprContext`: Expression evaluation context for this node
+- `ps_ProjInfo`: Projection information for tuple transformation
+- `async_capable`: Flag indicating if node supports asynchronous execution
+- `scandesc`: Tuple descriptor for scan slots (optimization hint)
+- `scanops`, `outerops`, `innerops`, `resultops`: Slot operation types for different contexts
+- `scanopsfixed`, `outeropsfixed`, `inneropsfixed`, `resultopsfixed`: Indicate whether corresponding slot types are guaranteed
+- `scanopsset`, `outeropsset`, `inneropsset`, `resultopsset`: Indicate whether corresponding slot operation types are set
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -25,10 +25,10 @@ The pg_compress_algorithm enum defines the compression algorithms that PostgreSQ
 The enum provides four compression options ranging from no compression to modern high-performance algorithms. Each algorithm offers different trade-offs between compression ratio, speed, and resource usage. The enum values are used throughout PostgreSQL's backup infrastructure to determine which compression method to apply for data archival, streaming backups, and dump operations.
 
 ## Parameters / Member Variables
-- : No compression applied - fastest but largest output
-- : GZIP compression - widely compatible, good compression ratio
-- : LZ4 compression - fast compression/decompression with decent ratio
-- : Zstandard compression - modern algorithm with excellent ratio and speed
+- `PG_COMPRESSION_NONE`: No compression applied - fastest but largest output
+- `PG_COMPRESSION_GZIP`: GZIP compression - widely compatible, good compression ratio
+- `PG_COMPRESSION_LZ4`: LZ4 compression - fast compression/decompression with decent ratio
+- `PG_COMPRESSION_ZSTD`: Zstandard compression - modern algorithm with excellent ratio and speed
 
 ## Dependencies
 - Functions called/Symbols referenced:

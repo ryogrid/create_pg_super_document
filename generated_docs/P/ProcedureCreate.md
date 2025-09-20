@@ -74,33 +74,33 @@ Key operations include:
 - Statistics initialization for the new function
 
 ## Parameters / Member Variables
-- : Name of the function/procedure to create
-- : OID of the namespace where the function will be created
-- : Whether to replace an existing function with the same signature
-- : Whether the function returns a set of values
-- : OID of the function's return type
-- : OID of the function owner
-- : OID of the implementation language (SQL, C, etc.)
-- : OID of the validator function for this language
-- : Source code of the function
-- : Binary/library path for compiled functions (NULL for SQL functions)
-- : Parsed SQL body for SQL language functions
-- : Function kind ('f'=function, 'p'=procedure, 'a'=aggregate, 'w'=window)
-- : Whether function runs with definer's privileges
-- : Whether function is guaranteed not to leak information
-- : Whether function returns NULL on any NULL input
-- : Volatility level ('i'=immutable, 's'=stable, 'v'=volatile)
-- : Parallel safety ('s'=safe, 'r'=restricted, 'u'=unsafe)
-- : Array of input parameter type OIDs
-- : Array including all parameter types (IN, OUT, INOUT, VARIADIC)
-- : Array of parameter modes (IN, OUT, INOUT, VARIADIC)
-- : Array of parameter names
-- : List of default value expressions for parameters
-- : Array of transform types for this function
-- : Configuration parameters for this function
-- : OID of support function for this function
-- : Estimated execution cost
-- : Estimated number of result rows (for set-returning functions)
+- `procedureName`: Name of the function/procedure to create
+- `procNamespace`: OID of the namespace where the function will be created
+- `replace`: Whether to replace an existing function with the same signature
+- `returnsSet`: Whether the function returns a set of values
+- `returnType`: OID of the function's return type
+- `proowner`: OID of the function owner
+- `languageObjectId`: OID of the implementation language (SQL, C, etc.)
+- `languageValidator`: OID of the validator function for this language
+- `prosrc`: Source code of the function
+- `probin`: Binary/library path for compiled functions (NULL for SQL functions)
+- `prosqlbody`: Parsed SQL body for SQL language functions
+- `prokind`: Function kind ('f'=function, 'p'=procedure, 'a'=aggregate, 'w'=window)
+- `security_definer`: Whether function runs with definer's privileges
+- `isLeakProof`: Whether function is guaranteed not to leak information
+- `isStrict`: Whether function returns NULL on any NULL input
+- `volatility`: Volatility level ('i'=immutable, 's'=stable, 'v'=volatile)
+- `parallel`: Parallel safety ('s'=safe, 'r'=restricted, 'u'=unsafe)
+- `parameterTypes`: Array of input parameter type OIDs
+- `allParameterTypes`: Array including all parameter types (IN, OUT, INOUT, VARIADIC)
+- `parameterModes`: Array of parameter modes (IN, OUT, INOUT, VARIADIC)
+- `parameterNames`: Array of parameter names
+- `parameterDefaults`: List of default value expressions for parameters
+- `trftypes`: Array of transform types for this function
+- `proconfig`: Configuration parameters for this function
+- `prosupport`: OID of support function for this function
+- `procost`: Estimated execution cost
+- `prorows`: Estimated number of result rows (for set-returning functions)
 
 ## Dependencies
 - Functions called/Symbols referenced:

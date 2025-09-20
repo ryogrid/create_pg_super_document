@@ -36,9 +36,9 @@ RelToCheck is a supporting data structure used in PostgreSQL's type system manag
 The structure serves as an optimization mechanism that groups multiple attributes of the same relation together, avoiding redundant relation opening and locking operations. It is particularly important during domain validation processes where PostgreSQL needs to verify that all existing data in tables using a domain type still conforms to modified domain constraints.
 
 ## Parameters / Member Variables
-- : An opened and locked Relation object representing the table that contains columns of the domain type being processed
-- : The count of attributes (columns) in this relation that are of the target domain type or derived from it
-- : A dynamically allocated array containing the attribute numbers (column numbers) that are of interest for the current domain operation
+- `rel`: An opened and locked Relation object representing the table that contains columns of the domain type being processed
+- `natts`: The count of attributes (columns) in this relation that are of the target domain type or derived from it
+- `atts`: A dynamically allocated array containing the attribute numbers (column numbers) that are of interest for the current domain operation
 
 ## Dependencies
 - Functions called/Symbols referenced:

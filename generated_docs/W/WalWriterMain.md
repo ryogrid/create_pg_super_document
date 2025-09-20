@@ -87,9 +87,10 @@ The WAL writer is a background process that periodically flushes Write-Ahead Log
 
 The process uses a hibernation mechanism to reduce CPU usage when there's little WAL activity - after several cycles without useful work, it extends its sleep time by HIBERNATE_FACTOR.
 
-## Parameters / Member Variables
-- : Startup data passed from the postmaster (unused, expected to be NULL)
-- : Length of startup data (expected to be 0)
+## Parameters
+
+- `startup_data`: Startup data passed from the postmaster (unused, expected to be NULL)
+- `startup_data_len`: Length of startup data (expected to be 0)
 
 ## Dependencies
 - Functions called/Symbols referenced:

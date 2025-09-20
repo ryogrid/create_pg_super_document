@@ -26,12 +26,12 @@ The structure captures essential metadata about rules including their event type
 Rules are closely associated with PostgreSQL's view system, where ON SELECT rules are automatically created for views and need special handling during dump and restore operations to maintain proper dependencies and avoid circular references.
 
 ## Parameters / Member Variables
-- : Base DumpableObject containing common metadata like catalog ID, dump ID, name, namespace, and dependencies
-- : Pointer to the TableInfo structure representing the table or view this rule is associated with
-- : Character indicating the event type that triggers this rule ('1'=SELECT, '2'=UPDATE, '3'=INSERT, '4'=DELETE)
-- : Boolean indicating whether this is an INSTEAD rule that replaces the triggering query rather than supplementing it
-- : Character indicating the rule's enabled status ('O'=origin, 'D'=disabled, 'R'=replica, 'A'=always)
-- : Boolean flag determining if the rule must be dumped as a separate CREATE RULE statement (always true for non-SELECT rules)
+- `dobj`: Base DumpableObject containing common metadata like catalog ID, dump ID, name, namespace, and dependencies
+- `ruletable`: Pointer to the TableInfo structure representing the table or view this rule is associated with
+- `ev_type`: Character indicating the event type that triggers this rule ('1'=SELECT, '2'=UPDATE, '3'=INSERT, '4'=DELETE)
+- `is_instead`: Boolean indicating whether this is an INSTEAD rule that replaces the triggering query rather than supplementing it
+- `ev_enabled`: Character indicating the rule's enabled status ('O'=origin, 'D'=disabled, 'R'=replica, 'A'=always)
+- `separate`: Boolean flag determining if the rule must be dumped as a separate CREATE RULE statement (always true for non-SELECT rules)
 
 ## Dependencies
 - Functions called/Symbols referenced:

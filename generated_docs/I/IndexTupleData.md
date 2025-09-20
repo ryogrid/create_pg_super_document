@@ -35,8 +35,8 @@ The structure is followed by additional data depending on the tuple's characteri
 The design philosophy emphasizes space efficiency while maintaining the necessary information for tuple interpretation. The t_info field uses bit packing to store multiple pieces of information in a single 16-bit value, including null presence indicators, variable-width attribute flags, access method-specific data, and the tuple size.
 
 ## Parameters / Member Variables
-- : ItemPointerData structure containing the tuple identifier (TID) that references the corresponding tuple in the heap table. This provides the link between the index entry and the actual data row.
-- : 16-bit unsigned integer containing packed information about the tuple:
+- `t_tid`: ItemPointerData structure containing the tuple identifier (TID) that references the corresponding tuple in the heap table. This provides the link between the index entry and the actual data row.
+- `t_info`: 16-bit unsigned integer containing packed information about the tuple:
   - Bit 15 (high): HasNulls flag indicating whether the tuple contains null values
   - Bit 14: HasVarWidth flag indicating whether the tuple has variable-width attributes
   - Bit 13: Access method-defined meaning (AM-specific usage)

@@ -37,17 +37,17 @@ This structure is the internal representation of connection information options 
 The structure serves as the foundation for connection parameter management, supporting fallback mechanisms through environment variables and compiled-in defaults, and providing metadata for GUI applications that want to create database connection dialogs.
 
 ## Parameters / Member Variables
-- : The name/keyword of the connection option (e.g., "host", "port", "dbname")
-- : Name of the environment variable to check for fallback value (e.g., "PGHOST", "PGPORT")
-- : Compiled-in default value used when no other value is available
-- : Current value of the option, or NULL if not set
-- : Human-readable label for the option, used in connection dialogs
-- : Display character indicator for GUI applications:
-  - : Normal input field
-  - : Password field (hide value)
-  - : Debug option (don't show by default)
-- : Suggested field size in characters for dialog display
-- : Offset into the PGconn structure where this option's value is stored, or -1 if not stored there
+- `keyword`: The name/keyword of the connection option (e.g., "host", "port", "dbname")
+- `envvar`: Name of the environment variable to check for fallback value (e.g., "PGHOST", "PGPORT")
+- `compiled`: Compiled-in default value used when no other value is available
+- `val`: Current value of the option, or NULL if not set
+- `label`: Human-readable label for the option, used in connection dialogs
+- `dispchar`: Display character indicator for GUI applications:
+  - `""`: Normal input field
+  - `"*"`: Password field (hide value)
+  - `"D"`: Debug option (don't show by default)
+- `dispsize`: Suggested field size in characters for dialog display
+- `connofs`: Offset into the PGconn structure where this option's value is stored, or -1 if not stored there
 
 ## Dependencies
 - Functions called/Symbols referenced:

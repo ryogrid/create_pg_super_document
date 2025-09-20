@@ -31,9 +31,9 @@ This function serves as the recursive workhorse for replace_rte_variables, imple
 
 The function carefully manages the SubLink tracking state, preserving and restoring context across recursive calls to maintain accurate hasSubLinks information.
 
-## Parameters / Member Variables
-- : The current node being processed in the expression tree
-- : Contains callback function, target RTE information, sublevel tracking, and SubLink state
+## Parameters
+- `node`: The current node being processed in the expression tree
+- `context`: Contains callback function, target RTE information, sublevel tracking, and SubLink state
 
 ## Dependencies
 - Functions called/Symbols referenced:

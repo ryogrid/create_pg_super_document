@@ -21,8 +21,8 @@ MultiXactMember is a fundamental data structure in PostgreSQL's multi-transactio
 The structure is used extensively throughout the heap access methods and multi-transaction management code to represent, manipulate, and track the various transactions that make up a multi-transaction ID.
 
 ## Parameters / Member Variables
-- : The transaction ID (TransactionId) of the participating transaction
-- : The lock mode/status (MultiXactStatus) that this transaction holds, which can be one of:
+- `xid`: The transaction ID (TransactionId) of the participating transaction
+- `status`: The lock mode/status (MultiXactStatus) that this transaction holds, which can be one of:
   - MultiXactStatusForKeyShare (0x00): FOR KEY SHARE lock
   - MultiXactStatusForShare (0x01): FOR SHARE lock  
   - MultiXactStatusForNoKeyUpdate (0x02): FOR NO KEY UPDATE lock

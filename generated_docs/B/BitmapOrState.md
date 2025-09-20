@@ -20,12 +20,9 @@ typedef struct BitmapOrState
 BitmapOrState manages the execution of bitmap OR operations in PostgreSQL's bitmap index scan optimization. It combines multiple bitmap indexes by performing logical OR operations, resulting in a bitmap that represents the union of all input bitmaps. This is used to efficiently identify rows when any of multiple index conditions need to be satisfied.
 
 ## Parameters / Member Variables
-
-15112 ?        00:00:00 bash
-15139 ?        00:00:00 ps
-21784 ?        00:00:00 dbus-daemon: Base PlanState structure containing common executor node fields
-- : Array of PlanState pointers for each input bitmap plan (typically BitmapIndexScan nodes)
-- : Number of input plans in the bitmapplans array
+- `ps`: Base PlanState structure containing common executor node fields
+- `bitmapplans`: Array of PlanState pointers for each input bitmap plan (typically BitmapIndexScan nodes)
+- `nplans`: Number of input plans in the bitmapplans array
 
 ## Dependencies
 - Functions called/Symbols referenced:
