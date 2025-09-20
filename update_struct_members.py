@@ -15,10 +15,13 @@ def extract_struct_members(code: str) -> list or None:
     
     struct_body = body_match.group(1)
     members = []
+    # Remove block comments to simplify parsing
     struct_body = re.sub(r'/\*[\s\S]*?\*/', '', struct_body)
     
     for line in struct_body.splitlines():
+        # Remove line comments
         line = line.split('//')[0].strip()
+        # Ignore empty lines or preprocessor directives
         if not line or line.startswith('#'):
             continue
         
@@ -45,7 +48,7 @@ def extract_struct_members(code: str) -> list or None:
 
 def main():
     """
-    Main function to scan files and update member variable names.
+    Main function to scan files and update member variable names with detailed skip reporting.
     """
     if not ROOT_DIR.is_dir():
         print(f"Error: Directory '{ROOT_DIR}' not found. Please run this script from the correct location.")
@@ -55,9 +58,12 @@ def main():
 
     files_scanned = 0
     files_changed = 0
-    files_skipped = 0
+    # Detailed skip counters
+    skipped_no_members = 0
+    skipped_mismatch = 0
+    skipped_annotated = 0
+    skipped_other_errors = 0
     
-    # CORRECTED: General regex to capture ANY C code block under ## Definition.
     definition_pattern = re.compile(r"## Definition\s*\n+```c\n([\s\S]*?)\n```", flags=re.DOTALL)
     params_header_pattern = re.compile(r"^## Parameters / Member Variables\s*$", flags=re.MULTILINE)
     next_header_pattern = re.compile(r"^## \w+", flags=re.MULTILINE)
@@ -75,11 +81,10 @@ def main():
 
             definition_code = def_match.group(1)
 
-            # CORRECTED: Check if the captured block is a struct definition.
             if 'struct' not in definition_code:
                 continue
 
-            # --- Robust method to extract parameter lines ---
+            # --- Parameter line extraction ---
             params_section_start = params_header_match.end()
             next_header_match = next_header_pattern.search(content, pos=params_section_start)
             
@@ -96,34 +101,41 @@ def main():
                 if line.strip().startswith('-')
             ]
             
-            members = extract_struct_members(definition_code)
-            
-            if not members:
-                continue
+            # --- Validation Stages ---
 
-            # VALIDATION 1: Member count must match description line count
+            # Case 1: No members found in the definition (e.g., typedef struct a b;)
+            members = extract_struct_members(definition_code)
+            if not members:
+                print(f"  - Skipping '{md_path.name}': No member variables found in the struct definition.")
+                skipped_no_members += 1
+                continue
+            
+            # Case 3 (Mismatch): Member count does not match parameter line count
             if len(members) != len(param_lines):
                 print(f"  - Skipping '{md_path.name}': Mismatch! Found {len(members)} members but {len(param_lines)} descriptions.")
-                files_skipped += 1
+                skipped_mismatch += 1
                 continue
-
-            is_valid_for_update = True
+            
+            # Case 2 (Already Annotated): Check if parameters are already filled in
+            is_already_annotated = False
             for line in param_lines:
                 if ':' not in line:
-                    is_valid_for_update = False
+                    is_already_annotated = True # Should not happen with current logic, but a good safeguard
                     break
                 
                 left_part = line.split(':', 1)[0]
                 validation_str = left_part.lstrip('-').strip()
                 if validation_str:
-                    is_valid_for_update = False
+                    is_already_annotated = True
                     break
             
-            if not is_valid_for_update:
-                print(f"  - Skipping '{md_path.name}': A parameter line was already annotated or had invalid format.")
-                files_skipped += 1
+            if is_already_annotated:
+                print(f"  - Skipping '{md_path.name}': Parameters appear to be already annotated or manually formatted.")
+                skipped_annotated += 1
                 continue
 
+            # --- Processing ---
+            
             print(f"  -> Processing '{md_path.name}': Found {len(members)} matching and valid descriptions.")
             
             updated_param_lines = []
@@ -143,17 +155,19 @@ def main():
             if updated_content != content:
                 md_path.write_text(updated_content, encoding='utf-8')
                 files_changed += 1
-            else:
-                files_skipped += 1
 
         except Exception as e:
             print(f"An error occurred while processing '{md_path}': {e}")
-            files_skipped += 1
+            skipped_other_errors += 1
 
     print("\n--- Member Name Update Complete ---")
     print(f"Total files scanned: {files_scanned}")
     print(f"Total files modified: {files_changed}")
-    print(f"Total files skipped (due to mismatch, invalid format, or errors): {files_skipped}")
+    print("\nBreakdown of skipped files:")
+    print(f"  - Skipped (no members found in definition): {skipped_no_members}")
+    print(f"  - Skipped (member/parameter count mismatch): {skipped_mismatch}")
+    print(f"  - Skipped (already annotated or manually formatted): {skipped_annotated}")
+    print(f"  - Skipped (other errors): {skipped_other_errors}")
 
 
 if __name__ == "__main__":
